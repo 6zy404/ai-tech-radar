@@ -1,0 +1,68 @@
+{
+  "updatedAt": "2026-05-30T19:32:58.339Z",
+  "channels": [
+    {
+      "id": "local-mock-webhook",
+      "name": "Local mock webhook",
+      "type": "webhook",
+      "enabled": true,
+      "endpointUrl": "mock://success",
+      "description": "Local validation channel. It simulates a successful webhook without calling an external service.",
+      "format": "json",
+      "createdAt": "2026-05-30T19:32:58.312Z",
+      "updatedAt": "2026-05-30T19:32:58.312Z"
+    },
+    {
+      "id": "delivery-channel-7792e65d-f6e5-4f75-8a8a-6041b8f6e3d4",
+      "name": "Validation disabled webhook",
+      "type": "webhook",
+      "enabled": false,
+      "endpointUrl": "mock://success",
+      "description": "Disabled channels must not send.",
+      "format": "text",
+      "createdAt": "2026-05-30T19:32:58.320Z",
+      "updatedAt": "2026-05-30T19:32:58.320Z"
+    },
+    {
+      "id": "delivery-channel-bba6d520-22dc-4fac-bfb3-f56ad1112e90",
+      "name": "Validation failed webhook",
+      "type": "webhook",
+      "enabled": true,
+      "endpointUrl": "mock://failed",
+      "description": "Simulates a failed webhook response.",
+      "format": "json",
+      "createdAt": "2026-05-30T19:32:58.317Z",
+      "updatedAt": "2026-05-30T19:32:58.317Z"
+    },
+    {
+      "id": "delivery-channel-70eaf2b1-3106-429b-8811-e641fe20cca6",
+      "name": "Validation success webhook",
+      "type": "webhook",
+      "enabled": true,
+      "endpointUrl": "mock://success",
+      "description": "Simulates a successful webhook response.",
+      "format": "json",
+      "lastDeliveredAt": "2026-05-30T19:32:58.339Z",
+      "lastDeliveryStatus": "success",
+      "lastDeliveryMessage": "Delivery succeeded.",
+      "createdAt": "2026-05-30T19:32:58.313Z",
+      "updatedAt": "2026-05-30T19:32:58.339Z"
+    }
+  ],
+  "runs": [
+    {
+      "id": "delivery-run-f5bb03b7-571e-4f55-bf69-8b8b62f50f9b",
+      "digestId": "digest-2026-05-23",
+      "digestDate": "2026-05-23",
+      "channelId": "delivery-channel-70eaf2b1-3106-429b-8811-e641fe20cca6",
+      "channelName": "Validation success webhook",
+      "channelType": "webhook",
+      "status": "success",
+      "startedAt": "2026-05-30T19:32:58.337Z",
+      "requestPayloadPreview": "{\n  \"type\": \"daily_digest\",\n  \"digestDate\": \"2026-05-23\",\n  \"title\": \"Delivery integration validation 2026-05-23\",\n  \"summary\": \"Editor-approved public summary for delivery validation.\",\n  \"digestUrl\": \"http://localhost:3000/digest/2026-05-23\",\n  \"highPriorityItems\": [\n    {\n      \"title\": \"模型上下文协议\",\n      \"summary\": \"一种正在形成的协议层，用来标准化 AI 工具在不同产品中请求上下文、工具和能力的方式。\",\n      \"url\": \"http://localhost:3000/technologies/model-context-protocol\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"AI Tooling Standards Brief\",\n      \"publishDate\": \"2026-04-10\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-workflow\"\n      ]\n    },\n    {\n      \"title\": \"浏览器自动化代理\",\n      \"summary\": \"浏览器驱动代理把规划、网页导航和真实任务执行连接起来，适合仍依赖网页流程的产品场景。\",\n      \"url\": \"http://localhost:3000/technologies/browser-automation-agents\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"Automation Product Brief\",\n      \"publishDate\": \"2026-04-09\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-multimodal\",\n        \"tag-workflow\"\n      ]\n    }\n  ],\n  \"watchItems\": [],\n  \"skillNames\": [\n    \"Tool Integration Patterns\",\n    \"Agent Workflow Design\",\n    \"AI Pilot Scoping\"\n  ],\n  \"knowledgeNames\": [\n    \"API Contracts and Interface Boundaries\",\n    \"Tool Use and Function Calling\",\n    \"Human-in-the-Loop Review\",\n    \"System Design Tradeoffs\"\n  ],\n  \"sourceNames\": [\n    \"AI Tooling Standards Brief\",\n    \"Automation Product Brief\"\n  ],\n  \"generatedAt\": \"2026-05-23T12:00:00.000Z\",\n  \"deliveredAt\": \"2026-05-30T1...",
+      "finishedAt": "2026-05-30T19:32:58.339Z",
+      "responseStatus": 200,
+      "responseBodyPreview": "Mock webhook accepted."
+    }
+  ]
+}

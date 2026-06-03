@@ -2,14 +2,33 @@ import { knowledgeItems } from "@/data/knowledge";
 import { linkRelations } from "@/data/relations";
 import { skillItems } from "@/data/skills";
 import { topicTags } from "@/data/tags";
+import {
+  getImportedCandidateById as getImportedCandidateFromWorkflow,
+  getImportedCandidates as getImportedCandidatesFromWorkflow,
+  getPublishedTechnologyWorkspaceRecords,
+  getTechnologyDraftById,
+  getTechnologyDrafts,
+  getTechnologyWorkspaceRecordById,
+  getTechnologyWorkspaceRecords
+} from "@/lib/candidate-workflow";
 import { homeFeaturedTechnologyIds, technologyItems } from "@/data/technologies";
+import { evaluateTechnologyPriority } from "@/lib/ranking";
+import {
+  getPersistenceDriver,
+  readSqliteKnowledgeItems,
+  readSqliteSeedTechnologies,
+  readSqliteSkillItems
+} from "@/lib/repositories/sqlite-store";
+import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
   ContentKind,
+  ImportedCandidate,
   KnowledgeItem,
   RelationListItem,
   RelationType,
   SkillItem,
   TechnologyItem,
+  TechnologyWorkspaceRecord,
   TopicTag
 } from "@/types/content";
 
@@ -20,15 +39,31 @@ const contentPathMap: Record<ContentKind, string> = {
 };
 
 export function getAllTechnologies(): TechnologyItem[] {
-  return technologyItems;
+  const seedTechnologies =
+    getPersistenceDriver() === "sqlite"
+      ? readSqliteSeedTechnologies()
+      : technologyItems;
+
+  return [
+    ...seedTechnologies
+      .filter((item) => item.status === "published")
+      .map(withTechnologyPriority),
+    ...getPublishedTechnologyWorkspaceRecords().map(toUserFacingTechnologyItem)
+  ].sort((left, right) => right.publishDate.localeCompare(left.publishDate));
+}
+
+export function getAllImportedCandidates(): ImportedCandidate[] {
+  return getImportedCandidatesFromWorkflow();
 }
 
 export function getAllSkills(): SkillItem[] {
-  return skillItems;
+  return getPersistenceDriver() === "sqlite" ? readSqliteSkillItems() : skillItems;
 }
 
 export function getAllKnowledge(): KnowledgeItem[] {
-  return knowledgeItems;
+  return getPersistenceDriver() === "sqlite"
+    ? readSqliteKnowledgeItems()
+    : knowledgeItems;
 }
 
 export function getAllTags(): TopicTag[] {
@@ -36,8 +71,21 @@ export function getAllTags(): TopicTag[] {
 }
 
 export function getTechnologyBySlug(slug: string): TechnologyItem | undefined {
-  return technologyItems.find((item) => item.slug === slug);
+  return getAllTechnologies().find((item) => item.slug === slug);
 }
+
+export function getImportedCandidateById(
+  id: string
+): ImportedCandidate | undefined {
+  return getImportedCandidateFromWorkflow(id);
+}
+
+export {
+  getTechnologyDraftById,
+  getTechnologyDrafts,
+  getTechnologyWorkspaceRecordById,
+  getTechnologyWorkspaceRecords
+};
 
 export function getSkillBySlug(slug: string): SkillItem | undefined {
   return skillItems.find((item) => item.slug === slug);
@@ -57,13 +105,67 @@ export function getTagsByIds(ids: string[]): TopicTag[] {
 
 export function getFeaturedTechnologies(): TechnologyItem[] {
   return homeFeaturedTechnologyIds
-    .map((id) => technologyItems.find((item) => item.id === id))
+    .map((id) => getAllTechnologies().find((item) => item.id === id))
     .filter((item): item is TechnologyItem => Boolean(item));
+}
+
+export function toUserFacingTechnologyItem(
+  item: TechnologyWorkspaceRecord
+): TechnologyItem {
+  return withTechnologyPriority({
+    id: item.id,
+    title: item.title,
+    slug: item.slug,
+    summary: item.summary,
+    content: item.content,
+    type: item.type,
+    publishDate: item.publishDate,
+    sourceName: item.sourceName,
+    sourceUrl: item.sourceUrl,
+    sourceLanguage: item.sourceLanguage,
+    translationStatus: item.translationStatus,
+    publisherName: item.publisherName,
+    publisherType: item.publisherType,
+    importanceLevel: item.importanceLevel,
+    status: item.status,
+    tags: [...item.tags],
+    relatedKnowledgeIds: [...item.relatedKnowledgeIds],
+    relatedSkillIds: [...item.relatedSkillIds],
+    sourceReferences: (item.sourceReferences ?? []).map((reference) => ({
+      sourceName: reference.sourceName,
+      sourceUrl: reference.sourceUrl,
+      publisherName: reference.publisherName,
+      publishDate: reference.publishDate
+    })),
+    whyItMatters: item.whyItMatters,
+    whoShouldCare: [...(item.whoShouldCare ?? [])],
+    technicalContext: item.technicalContext,
+    impactAreas: [...(item.impactAreas ?? [])],
+    learningPath: [...(item.learningPath ?? [])],
+    relatedKnowledgeExplanations: {
+      ...(item.relatedKnowledgeExplanations ?? {})
+    },
+    relatedSkillExplanations: {
+      ...(item.relatedSkillExplanations ?? {})
+    },
+    followUpQuestions: [...(item.followUpQuestions ?? [])],
+    readingDifficulty: item.readingDifficulty,
+    intelligenceStatus: item.intelligenceStatus
+  });
+}
+
+function withTechnologyPriority(item: TechnologyItem): TechnologyItem {
+  return {
+    ...item,
+    priority: evaluateTechnologyPriority(item)
+  };
 }
 
 function resolveTitle(kind: ContentKind, id: string): string | undefined {
   if (kind === "technology") {
-    return technologyItems.find((item) => item.id === id)?.title;
+    const technology = getAllTechnologies().find((item) => item.id === id);
+
+    return technology ? getPreferredTechnologyTitle(technology) : undefined;
   }
 
   if (kind === "skill") {
@@ -75,7 +177,7 @@ function resolveTitle(kind: ContentKind, id: string): string | undefined {
 
 function resolveSlug(kind: ContentKind, id: string): string | undefined {
   if (kind === "technology") {
-    return technologyItems.find((item) => item.id === id)?.slug;
+    return getAllTechnologies().find((item) => item.id === id)?.slug;
   }
 
   if (kind === "skill") {
@@ -100,7 +202,7 @@ export function buildRelationItems({
   targetType,
   targetIds,
   defaultRelationType = "related-to",
-  defaultNote = "Linked in the mock data model."
+  defaultNote = "Linked in the content relationship model."
 }: BuildRelationItemsOptions): RelationListItem[] {
   return targetIds
     .map((targetId) => {

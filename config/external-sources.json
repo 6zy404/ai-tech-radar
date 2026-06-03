@@ -1,0 +1,134 @@
+{
+  "updatedAt": "2026-05-30T17:11:45.703Z",
+  "sources": [
+    {
+      "id": "quality-good-source",
+      "name": "Quality Good Source",
+      "type": "rss",
+      "url": "https://example.com/quality-good.xml",
+      "enabled": true,
+      "description": "Quality validation source.",
+      "language": "en",
+      "publisherName": "Quality Publisher",
+      "publisherType": "media",
+      "defaultTags": [
+        "quality",
+        "validation"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastFetchedAt": "2026-05-30T17:11:45.665Z",
+      "lastImportStatus": "partial",
+      "lastImportMessage": "Live import failed; local fallback used. fetch failed",
+      "lastImportCount": 1,
+      "consecutiveFailureCount": 2,
+      "totalImportedCount": 5,
+      "lastSuccessfulImportAt": "2026-05-20T10:00:00.000Z",
+      "createdAt": "2026-05-01T00:00:00.000Z",
+      "updatedAt": "2026-05-30T17:11:45.665Z",
+      "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
+    },
+    {
+      "id": "quality-failing-source",
+      "name": "Quality Failing Source",
+      "type": "rss",
+      "url": "https://example.com/quality-failing.xml",
+      "enabled": true,
+      "description": "Quality validation source.",
+      "language": "en",
+      "publisherName": "Quality Publisher",
+      "publisherType": "media",
+      "defaultTags": [
+        "quality",
+        "validation"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastFetchedAt": "2026-05-30T17:11:35.449Z",
+      "lastImportStatus": "partial",
+      "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+      "lastImportCount": 1,
+      "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+      "consecutiveFailureCount": 4,
+      "totalImportedCount": 2,
+      "createdAt": "2026-05-01T00:00:00.000Z",
+      "updatedAt": "2026-05-30T17:11:35.449Z"
+    }
+  ],
+  "latestImportRun": {
+    "id": "import-run-2026-05-30t17-11-34-592z",
+    "startedAt": "2026-05-30T17:11:34.592Z",
+    "finishedAt": "2026-05-30T17:11:45.702Z",
+    "status": "partial",
+    "totalSources": 2,
+    "enabledSources": 2,
+    "skippedSources": 0,
+    "successfulSources": 0,
+    "failedSources": 0,
+    "partialSources": 2,
+    "totalCandidatesCreated": 0,
+    "totalCandidatesSkipped": 2,
+    "messages": [
+      "Quality Failing Source: Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+      "Quality Good Source: Live import failed; local fallback used. fetch failed"
+    ],
+    "sourceResults": [
+      {
+        "sourceId": "quality-failing-source",
+        "sourceName": "Quality Failing Source",
+        "status": "partial",
+        "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+        "candidateCount": 1,
+        "candidatesCreated": 0,
+        "candidatesSkipped": 1
+      },
+      {
+        "sourceId": "quality-good-source",
+        "sourceName": "Quality Good Source",
+        "status": "partial",
+        "message": "Live import failed; local fallback used. fetch failed",
+        "candidateCount": 1,
+        "candidatesCreated": 0,
+        "candidatesSkipped": 1
+      }
+    ]
+  },
+  "importRuns": [
+    {
+      "id": "import-run-2026-05-30t17-11-34-592z",
+      "startedAt": "2026-05-30T17:11:34.592Z",
+      "finishedAt": "2026-05-30T17:11:45.702Z",
+      "status": "partial",
+      "totalSources": 2,
+      "enabledSources": 2,
+      "skippedSources": 0,
+      "successfulSources": 0,
+      "failedSources": 0,
+      "partialSources": 2,
+      "totalCandidatesCreated": 0,
+      "totalCandidatesSkipped": 2,
+      "messages": [
+        "Quality Failing Source: Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+        "Quality Good Source: Live import failed; local fallback used. fetch failed"
+      ],
+      "sourceResults": [
+        {
+          "sourceId": "quality-failing-source",
+          "sourceName": "Quality Failing Source",
+          "status": "partial",
+          "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+          "candidateCount": 1,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 1
+        },
+        {
+          "sourceId": "quality-good-source",
+          "sourceName": "Quality Good Source",
+          "status": "partial",
+          "message": "Live import failed; local fallback used. fetch failed",
+          "candidateCount": 1,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 1
+        }
+      ]
+    }
+  ]
+}

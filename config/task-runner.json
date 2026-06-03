@@ -1,0 +1,53 @@
+{
+  "updatedAt": "2026-05-26T21:06:01.231Z",
+  "runs": [
+    {
+      "id": "task-runner-57d3f1c3-f88c-4ba8-a0b0-cc7f9978325c",
+      "mode": "run_once",
+      "startedAt": "2026-05-26T21:06:01.220Z",
+      "finishedAt": "2026-05-26T21:06:01.221Z",
+      "status": "success",
+      "dueScheduleCount": 0,
+      "skippedScheduleCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "partialCount": 0,
+      "deliveryLogsCreated": 0,
+      "messages": [
+        "No due schedules."
+      ]
+    },
+    {
+      "id": "task-runner-0e2a7e01-7f96-4fa2-bbab-5be968625e06",
+      "mode": "run_once",
+      "startedAt": "2026-05-26T20:56:42.470Z",
+      "finishedAt": "2026-05-26T20:56:42.472Z",
+      "status": "success",
+      "dueScheduleCount": 0,
+      "skippedScheduleCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "partialCount": 0,
+      "deliveryLogsCreated": 0,
+      "messages": [
+        "No due schedules."
+      ]
+    },
+    {
+      "id": "task-runner-97522cfb-e5a4-4d7c-84cf-50fc38cabc4f",
+      "mode": "run_once",
+      "startedAt": "2026-05-26T20:54:22.826Z",
+      "finishedAt": "2026-05-26T20:54:22.828Z",
+      "status": "success",
+      "dueScheduleCount": 0,
+      "skippedScheduleCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "partialCount": 0,
+      "deliveryLogsCreated": 0,
+      "messages": [
+        "No due schedules."
+      ]
+    }
+  ]
+}

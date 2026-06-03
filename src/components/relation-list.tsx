@@ -4,14 +4,27 @@ import type { RelationListItem } from "@/types/content";
 
 interface RelationListProps {
   title: string;
+  description?: string;
   emptyText: string;
   items: RelationListItem[];
+  className?: string;
+  formatRelationType?: (relationType: RelationListItem["relationType"]) => string;
 }
 
-export function RelationList({ title, emptyText, items }: RelationListProps) {
+export function RelationList({
+  title,
+  description,
+  emptyText,
+  items,
+  className = "",
+  formatRelationType
+}: RelationListProps) {
   return (
-    <section className="detail-section">
+    <section className={`detail-section ${className}`.trim()}>
       <h2>{title}</h2>
+      {description ? (
+        <p className="relation-list__description">{description}</p>
+      ) : null}
       {items.length === 0 ? (
         <p className="empty-state">{emptyText}</p>
       ) : (
@@ -24,7 +37,11 @@ export function RelationList({ title, emptyText, items }: RelationListProps) {
                 </h3>
                 <p>{item.note}</p>
               </div>
-              <span className="relation-pill">{item.relationType}</span>
+              <span className="relation-pill">
+                {formatRelationType
+                  ? formatRelationType(item.relationType)
+                  : item.relationType}
+              </span>
             </li>
           ))}
         </ul>

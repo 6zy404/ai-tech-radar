@@ -14,6 +14,12 @@ interface SearchFilterBarProps {
   onTagChange: (value: string) => void;
   typeOptions: FilterOption[];
   tagOptions: FilterOption[];
+  labels?: {
+    search?: string;
+    searchPlaceholder?: string;
+    type?: string;
+    tag?: string;
+  };
 }
 
 export function SearchFilterBar({
@@ -24,21 +30,30 @@ export function SearchFilterBar({
   tagValue,
   onTagChange,
   typeOptions,
-  tagOptions
+  tagOptions,
+  labels
 }: SearchFilterBarProps) {
+  const resolvedLabels = {
+    search: "Search",
+    searchPlaceholder: "Search title or summary",
+    type: "Type",
+    tag: "Tag",
+    ...labels
+  };
+
   return (
     <div className="search-filter-bar">
       <label className="field">
-        <span>Search</span>
+        <span>{resolvedLabels.search}</span>
         <input
           type="search"
           value={searchValue}
           onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="Search title or summary"
+          placeholder={resolvedLabels.searchPlaceholder}
         />
       </label>
       <label className="field">
-        <span>Type</span>
+        <span>{resolvedLabels.type}</span>
         <select
           value={typeValue}
           onChange={(event) => onTypeChange(event.target.value)}
@@ -51,7 +66,7 @@ export function SearchFilterBar({
         </select>
       </label>
       <label className="field">
-        <span>Tag</span>
+        <span>{resolvedLabels.tag}</span>
         <select value={tagValue} onChange={(event) => onTagChange(event.target.value)}>
           {tagOptions.map((option) => (
             <option key={option.value} value={option.value}>

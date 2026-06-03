@@ -1,10 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useDeferredValue, useState } from "react";
 
-import { ContentCard } from "@/components/content-card";
 import { SearchFilterBar } from "@/components/search-filter-bar";
-import { TagBadge } from "@/components/tag-badge";
+import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
+import { TechnologyListCard } from "@/components/technology-list-card";
+import {
+  getTechnologySearchText,
+  getTechnologySwitchLabel,
+  type TechnologyContentMode
+} from "@/lib/technology-localization";
 import type { TechnologyItem, TopicTag } from "@/types/content";
 
 interface TechnologyBrowserProps {
@@ -16,6 +22,7 @@ export function TechnologyBrowser({
   technologies,
   tags
 }: TechnologyBrowserProps) {
+  const [mode, setMode] = useState<TechnologyContentMode>("zh");
   const [searchText, setSearchText] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [tagFilter, setTagFilter] = useState("");
@@ -24,8 +31,7 @@ export function TechnologyBrowser({
   const filteredTechnologies = technologies.filter((item) => {
     const matchesSearch =
       deferredSearchText.length === 0 ||
-      item.title.toLowerCase().includes(deferredSearchText.toLowerCase()) ||
-      item.summary.toLowerCase().includes(deferredSearchText.toLowerCase());
+      getTechnologySearchText(item).includes(deferredSearchText.toLowerCase());
 
     const matchesType = typeFilter.length === 0 || item.type === typeFilter;
     const matchesTag = tagFilter.length === 0 || item.tags.includes(tagFilter);
@@ -34,7 +40,7 @@ export function TechnologyBrowser({
   });
 
   const typeOptions = [
-    { value: "", label: "All types" },
+    { value: "", label: "全部类型" },
     ...Array.from(new Set(technologies.map((item) => item.type))).map((type) => ({
       value: type,
       label: type
@@ -42,7 +48,7 @@ export function TechnologyBrowser({
   ];
 
   const tagOptions = [
-    { value: "", label: "All tags" },
+    { value: "", label: "全部标签" },
     ...tags.map((tag) => ({ value: tag.id, label: tag.name }))
   ];
 
@@ -57,38 +63,48 @@ export function TechnologyBrowser({
         onTagChange={setTagFilter}
         typeOptions={typeOptions}
         tagOptions={tagOptions}
+        labels={{
+          search: "搜索",
+          searchPlaceholder: "搜索标题、摘要或来源",
+          type: "类型",
+          tag: "标签"
+        }}
       />
 
-      <div className="section-heading">
-        <p>{filteredTechnologies.length} items</p>
+      <div className="technology-browser__toolbar user-list-toolbar">
+        <div>
+          <strong>{filteredTechnologies.length} 条技术信号</strong>
+          <p>按优先级、适合人群和学习路径快速判断先读哪一条。</p>
+        </div>
+        <TechnologyLanguageSwitch
+          mode={mode}
+          onChange={setMode}
+          label={getTechnologySwitchLabel("list")}
+          compact
+        />
       </div>
 
-      <div className="content-grid">
+      <div className="content-grid technology-grid">
         {filteredTechnologies.map((item) => (
-          <ContentCard
+          <TechnologyListCard
             key={item.id}
-            title={item.title}
-            summary={item.summary}
-            href={`/technologies/${item.slug}`}
-            meta={[item.type, item.importanceLevel, item.publishDate]}
-            badges={
-              <>
-                {item.tags
-                  .map((tagId) => tags.find((tag) => tag.id === tagId))
-                  .filter((tag): tag is TopicTag => Boolean(tag))
-                  .map((tag) => (
-                    <TagBadge key={tag.id} tag={tag} />
-                  ))}
-              </>
-            }
+            technology={item}
+            mode={mode}
+            tags={item.tags
+              .map((tagId) => tags.find((tag) => tag.id === tagId))
+              .filter((tag): tag is TopicTag => Boolean(tag))}
           />
         ))}
       </div>
 
       {filteredTechnologies.length === 0 ? (
-        <p className="empty-state">
-          No technology items matched the current search and filters.
-        </p>
+        <div className="empty-state empty-state--actionable">
+          <strong>没有匹配的已发布技术信号。</strong>
+          <p>清空搜索条件，或从最新每日技术简报开始阅读。</p>
+          <Link href="/digest/today" className="action-link">
+            阅读最新简报
+          </Link>
+        </div>
       ) : null}
     </>
   );

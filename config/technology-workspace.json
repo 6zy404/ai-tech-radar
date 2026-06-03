@@ -1,0 +1,57 @@
+{
+  "updatedAt": "2026-05-30T10:00:00.000Z",
+  "records": [
+    {
+      "id": "editorial-enrichment-draft",
+      "slug": "editorial-enrichment-validation",
+      "title": {
+        "original": "Editorial enrichment validation technology",
+        "zh": "Editorial enrichment validation technology"
+      },
+      "summary": {
+        "original": "A complete validation item used to verify editorial enrichment suggestions before publication.",
+        "zh": "A complete validation item used to verify editorial enrichment suggestions before publication."
+      },
+      "content": {
+        "original": "This validation content is long enough to pass publication checks while exercising deterministic editorial enrichment suggestions for content intelligence fields.",
+        "zh": "This validation content is long enough to pass publication checks while exercising deterministic editorial enrichment suggestions for content intelligence fields."
+      },
+      "type": "tool",
+      "publishDate": "2026-05-30",
+      "sourceName": "Editorial Enrichment Validation",
+      "sourceUrl": "https://example.com/editorial-enrichment-validation",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Validation Publisher",
+      "publisherType": "media",
+      "importanceLevel": "critical",
+      "status": "draft",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design"
+      ],
+      "sourceReferences": [],
+      "whyItMatters": "",
+      "whoShouldCare": [],
+      "technicalContext": "",
+      "impactAreas": [],
+      "learningPath": [],
+      "relatedKnowledgeExplanations": {},
+      "relatedSkillExplanations": {},
+      "followUpQuestions": [],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "createdAt": "2026-05-30T10:00:00.000Z",
+      "updatedAt": "2026-05-30T10:00:00.000Z",
+      "editorialNotes": [
+        "Validation record."
+      ]
+    }
+  ]
+}
