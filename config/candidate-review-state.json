@@ -1,0 +1,24 @@
+{
+  "updatedAt": "2026-05-31T12:03:15.678Z",
+  "items": {
+    "quality-converted": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-05-20T10:00:00.000Z",
+      "convertedTechnologyId": "quality-tech-draft"
+    },
+    "quality-rejected": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-05-20T10:00:00.000Z"
+    },
+    "candidate-source-quality-failing-source-2026-05-30": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-05-31T12:03:15.678Z",
+      "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
+    },
+    "candidate-source-quality-good-source-2026-05-30": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-05-31T12:03:15.678Z",
+      "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
+    }
+  }
+}

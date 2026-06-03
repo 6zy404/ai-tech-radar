@@ -1,54 +1,489 @@
 # Page Structure
 
-This prototype uses the Next.js App Router and keeps each page focused on static local rendering.
+The project is now organized into two explicit subsystems:
 
-## Routes
+- Internal Workspace
+- User-facing Product
+
+They can share components and visual language, but they do not share page responsibilities.
+
+The page template and visual rules are documented in `docs/design-system.md`.
+Workspace action hierarchy and button-copy rules are documented in
+`docs/workspace-actions.md`.
+
+## Page template families
+
+### Workspace List Page
+
+Used by:
+
+- `/workspace/candidates`
+- `/workspace/technologies`
+- `/workspace/sources`
+- `/workspace/duplicates`
+- `/workspace/digests`
+- `/workspace/delivery`
+- `/workspace/delivery/schedules`
+- `/workspace/operations`
+- `/workspace/operations/events`
+
+Purpose:
+
+- search and filter internal records
+- show operational status
+- expose workspace actions
+- support review, import, editing, and publishing workflows
+
+These pages use `WorkspacePageShell` and `WorkspaceListToolbar`.
+
+### Workspace Detail Page
+
+Used by:
+
+- `/workspace/candidates/[id]`
+- `/workspace/technologies/[id]`
+- `/workspace/sources/[id]`
+- `/workspace/duplicates/[id]`
+- `/workspace/digests/[date]`
+
+Purpose:
+
+- show object status and primary actions
+- keep source and workflow traceability visible
+- keep internal fields available without making them look like user-facing content
+- place raw payload or technical snapshots in lower-priority areas
+
+### User-facing List Page
+
+Used by:
 
 - `/`
-  - Home page with platform intro and four visible sections:
-    - Today First
-    - New Technology Feed
-    - Hot Skills
-    - Classic Knowledge
 - `/technologies`
-  - Technology list page with search input, type filter, and tag filter
-- `/technologies/[slug]`
-  - Technology detail page with summary, source info, publisher info, tags, related skills, and related knowledge
 - `/skills`
-  - Skill list page
-- `/skills/[slug]`
-  - Skill detail page
 - `/knowledge`
-  - Knowledge list page
+
+Purpose:
+
+- explain the public product entry point
+- help users quickly scan published technology items
+- help users choose a daily brief, technology signal, skill, or knowledge concept
+- prefer Chinese content when available
+- keep source, publish date, language availability, and tags visible
+- avoid internal fields and reviewer actions
+
+### User-facing Detail Page
+
+Used by:
+
+- `/technologies/[slug]`
+- `/digest/today`
+- `/digest/[date]`
+- `/skills/[slug]`
 - `/knowledge/[slug]`
-  - Knowledge detail page
 
-## Reusable components
+Purpose:
 
+- prioritize reading and understanding
+- show title, summary, content, source link, tags, and related knowledge / skills
+- support Chinese / original content switching
+- avoid raw payload, review status, source health, and duplicate workflow data
+- omit the generic page header so the article hero is the first meaningful content block
+
+## Internal Workspace routes
+
+- `/workspace`
+  - Internal Editorial Workspace Dashboard
+  - internal-only entry point for reviewers, editors, and maintainers
+  - explains the internal workflow from Sources -> Import -> Candidates -> Duplicates -> Drafts -> Publish -> Digests -> Delivery -> Schedules
+  - shows real local status counts for enabled sources, new candidates, open duplicate groups, drafts, published technologies, digest drafts, delivery channels, and delivery schedules
+  - provides a small set of true next actions: importing enabled sources, reviewing candidates, resolving duplicates, editing drafts, managing digests, and opening operations
+  - shows a compact operations summary for system health, attention-required count, failed deliveries, failed sources, and latest task-runner state
+  - shows recent import, technology workspace, digest, delivery, and scheduled delivery activity when local records exist
+  - uses a dark grouped workspace rail on desktop so internal modules are clearly separated from public product navigation
+- `/workspace/sources`
+  - internal source management list
+  - batch import entry for enabled sources
+  - latest batch import summary
+  - search
+  - source type filter
+  - enabled / disabled filter
+  - latest import status
+  - latest import count, failure count, and latest message
+  - source quality level, success rate, duplicate rate, and conversion rate
+  - enable / disable controls
+  - manual source import controls
+- `/workspace/sources/new`
+  - lightweight source creation form
+- `/workspace/sources/[id]`
+  - source configuration detail
+  - latest import status and message
+  - latest import count, latest error, consecutive failure count, total imported count
+  - source quality breakdown
+  - edit source fields
+  - enable / disable source
+  - run import for a single source
+  - recent imported candidates generated from this source
+- `/workspace/candidates`
+  - imported candidate review list
+  - search
+  - source type filter
+  - normalized type filter
+  - import status filter
+  - duplicate hints
+  - candidate quality flags for missing fields, duplicate risk, short content, and draft readiness
+  - rule-based priority badge for reviewer triage
+- `/workspace/duplicates`
+  - duplicate group review list
+  - open / resolved / ignored group overview
+  - entry point for selecting primary candidates
+  - internal-only duplicate reasons and group status
+- `/workspace/duplicates/[id]`
+  - candidate comparison for one duplicate group
+  - primary candidate selection
+  - resolve / ignore / reopen group actions
+  - prevents non-primary duplicate conversion into separate drafts
+  - keeps non-primary sources as additional references for the generated draft
+- `/workspace/candidates/[id]`
+  - imported candidate review detail
+  - overview header
+  - original summary / content
+  - source traceability
+  - duplicate comparison section
+  - priority level, reasons, warnings, and ranking source
+  - review actions
+  - raw payload snapshot at the bottom
+- `/workspace/technologies`
+  - internal technology workspace list
+  - draft / published / archived records generated from imported candidates
+  - priority badges for draft triage
+  - empty state links reviewers back to Candidates because workspace technology detail pages exist only after candidate conversion
+- `/workspace/technologies/[id]`
+  - internal technology workspace detail
+  - editorial notes
+  - source candidate traceability
+  - draft editing for content, source metadata, tags, related content, and Content Intelligence fields
+  - Editorial Enrichment suggestion panel for rule-based, mock LLM, or optional LLM-assisted generation, current-vs-suggested comparison, apply, reject, and regenerate
+  - ranking source, priority reasons, and priority warnings
+  - publish readiness checks
+  - publish / archive actions
+  - link to the user-facing page when the record is published
+  - applied / rejected / stale enrichment actions are recorded as internal WorkflowEvent entries
+- `/workspace/technologies/[id]/preview`
+  - user-facing technology detail preview for an unpublished workspace record
+  - reuses the user-facing detail renderer
+  - does not render internal-only fields such as raw payload, import status, normalized type, or duplicate group
+- `/workspace/digests`
+  - internal digest list
+  - generate today's digest
+  - status counts for draft / published / archived digests
+  - preview and edit entry points
+- `/workspace/digests/[date]`
+  - generated digest review and editing detail
+  - edit title, summary, editorial summary, and editorial notes
+  - selected immediate-attention and watch technologies
+  - manual add, exclude, pin, and move up / move down controls
+  - publish readiness checks for blocking errors and warnings
+  - delivery status, public feed URLs after publication, and share text preview
+  - manual delivery to enabled webhook or Feishu webhook channels after publication
+  - recent delivery logs for the digest
+  - ranking reasons for workspace reviewers
+  - related skill / knowledge counts and source count
+  - publish / archive controls
+- `/workspace/digests/[date]/preview`
+  - user-facing digest preview before publication
+  - does not make a draft digest publicly available
+- `/workspace/delivery`
+  - workspace-only delivery channel and delivery log console
+  - create and edit generic webhook and Feishu bot webhook delivery channels
+  - enable / disable channels
+  - inspect masked endpoint URLs, last delivery status, and latest message
+  - inspect delivery logs, HTTP response status, errors, and retry linkage
+  - retry failed delivery runs
+  - not shown in user-facing navigation
+- `/workspace/delivery/schedules`
+  - workspace-only local scheduled delivery console
+  - create and edit schedules for published digest delivery
+  - enable / disable schedules
+  - run one schedule manually
+  - run all due schedules
+  - shows local task runner commands: `npm run tasks:run-once` and `npm run tasks:watch`
+  - shows the latest `TaskRunnerRun` summary when the command-line runner has executed
+  - inspect next run time, last run status, skipped channel count, and linked delivery logs
+  - keeps schedule configuration, schedule run logs, task-runner logs, and command-line runner details out of user-facing pages
+- `/workspace/operations`
+  - workspace-only operations dashboard
+  - shows system health status, source health, latest import status, latest task-runner status, latest scheduled-delivery status, latest digest status, failed delivery count, and failed workflow event count
+  - lists attention-required items such as failed imports, failed deliveries, failed scheduled runs, open duplicate groups, candidate quality issues, and failed WorkflowEvent records
+  - shows recent workflow activity and quick links to failed-source, delivery, task-runner, duplicate, digest, and event views
+  - sanitizes endpoint-like and token-like values before display
+- `/workspace/operations/events`
+  - workspace-only WorkflowEvent browser
+  - filters by entity type, action, and actor type
+  - shows event metadata and before/after snapshots in truncated low-weight panels
+  - does not expose full endpoint URLs or token-like values
+
+Legacy routes:
+
+- `/candidates`
+- `/candidates/[id]`
+- `/technologies/drafts`
+- `/technologies/drafts/[id]`
+
+These now redirect to the matching workspace routes.
+
+Workspace deployment boundary:
+
+- `/workspace/*` should be protected before exposing the app outside local development.
+- `/api/workspace/*` and `/api/candidates/*` are internal mutation APIs and share the same protection boundary.
+- User-facing routes must not call workspace mutation APIs.
+- `WORKSPACE_ACCESS_ENABLED=true` turns on the minimal token guard.
+- `WorkspacePageShell` renders a compact internal-area warning so operators see the local JSON, endpoint, and task-runner constraints in context.
+
+## User-facing Product routes
+
+- `/`
+  - product home
+  - explains the public value proposition: what to read first, why it matters, and what background is needed
+  - provides three public entry cards for Daily Digest, Technology Signals, and Skills / Knowledge
+  - highlights the latest published Daily Digest as the primary start point
+  - highlights high-priority published technology signals
+  - links readers into Skills and Knowledge as understanding paths
+  - links to `/digest/today`, `/technologies`, `/skills`, and `/knowledge`
+  - does not show workspace actions, source health, delivery, audit, task-runner, or local JSON warnings
+- `/technologies`
+  - user-facing published technology list
+  - bilingual content preference for title and summary
+  - uses a compact signal-stream layout on desktop so users scan one curated item at a time instead of reading a workspace-style grid
+  - cards show signal type, signal strength, audience fit, Content Intelligence why-watch summary, reading difficulty, source, tags, and related context counts
+  - cards show productized priority labels such as immediate attention / worth tracking / good to know
+  - user-facing wording must not expose demo / mock semantics
+- `/technologies/[slug]`
+  - user-facing published technology detail
+  - bilingual content reading
+  - source name, publish date, and original link without making long URLs dominate the page
+  - productized priority label and short explanation
+  - Content Intelligence modules for why it matters, who should care, technical context, impact areas, reading difficulty, learning path, and follow-up questions
+  - tags
+  - related knowledge as background for understanding the signal, with per-item explanations when available
+  - related skills as a practical path for evaluating or acting on the signal, with per-item explanations when available
+- `/digest/today`
+  - user-facing daily digest entry point
+  - shows today's published digest when available
+  - otherwise shows the latest published digest, or a public empty state when no digest has been published yet
+- `/digest/[date]`
+  - user-facing published digest for a specific date
+  - shows immediate-attention technologies, worth-tracking technologies, Content Intelligence why-watch snippets, related skills, related knowledge, and source names
+  - links to public RSS and JSON feed surfaces without making feeds dominate the reading page
+  - does not show internal ranking scores, quality flags, candidate data, duplicate group data, manual digest controls, editorial notes, or workspace actions
+- `/feed.xml`
+  - public RSS feed generated from published daily digest records only
+  - excludes draft and archived digests
+  - links feed items to `/digest/[date]`
+- `/feed.json`
+  - public JSON feed generated from published daily digest records only
+  - includes digest date, title, summary, public URL, selected public items, skills, knowledge, and source names
+  - excludes internal workflow fields
+- `/skills`
+  - user-facing skill index
+  - presents skills as practical abilities for evaluating new AI technology signals
+  - shows skill type, heat, learning cost, related published technology examples, and public tags
+  - does not show internal quality, reviewer, delivery, or source data
+- `/skills/[slug]`
+  - user-facing skill detail
+  - explains what the skill helps readers do
+  - links to published technology signals where the skill is useful
+  - links to background knowledge that makes the skill easier to apply
+- `/knowledge`
+  - user-facing knowledge index
+  - presents durable concepts that help readers understand fast-moving AI signals
+  - shows category, difficulty, related skill count, related published technology examples, and public tags
+  - does not show internal quality, reviewer, delivery, or source data
+- `/knowledge/[slug]`
+  - user-facing knowledge detail
+  - explains why the concept is foundational
+  - links to published technology signals explained by the concept
+  - links to skills that use the concept
+
+## User-facing public view model
+
+Public pages should render safe view data only. Allowed fields include:
+
+- title, summary, and content
+- source name, source URL, publisher, and publish date
+- tags
+- user-friendly priority label and short public reason
+- Content Intelligence fields such as `whyItMatters`, `whoShouldCare`, `technicalContext`, `impactAreas`, `learningPath`, `relatedKnowledgeExplanations`, `relatedSkillExplanations`, and `followUpQuestions`
+- related public skills and knowledge
+- published digest title, summary, selected public technologies, related skills, related knowledge, source names, and public feed URLs
+
+Forbidden on public pages:
+
+- `rawPayload`
+- `importStatus`
+- `normalizedType`
+- `duplicateGroupId`
+- `qualityFlags`
+- audit or workflow event logs
+- delivery logs, delivery channel configuration, schedules, and endpoint URLs
+- LLM prompt metadata, suggestion status, reviewer notes, and workspace-only enrichment metadata
+- workspace access token or deployment warnings
+
+## Shared component patterns
+
+- `WorkspaceNav`
+  - workspace-only grouped navigation for Overview, Sources, Candidates, Duplicates, Drafts, Digests, Delivery, Schedules, and Operations
+  - desktop presentation is a dark left rail; narrow screens collapse it into a compact horizontal module navigation
+- `WorkspaceBreadcrumbs`
+  - workspace-only breadcrumb trail for detail, preview, and creation pages
+- `WorkspacePageShell`
+  - workspace-only page framing for review, import, source management, and publishing workflows; renders workspace navigation and breadcrumbs
+- `PageHeader`
+  - shared header primitive used by workspace and user-facing shells with variant-specific styling
+- `WorkspaceListToolbar`
+  - workspace-only list count and operational summary
+- `WorkspaceStatusBadge`
+  - workspace-only status treatment for internal technology records and operational state
+- `UserPageShell`
+  - user-facing page framing for published content
+- `UserArticleLayout`
+  - user-facing technology detail article layout
+- `MetadataRow`
+  - compact metadata row, used with different page-level styling
+- `TagList`
+  - safe public tag rendering helper
+- `SourceReference`
+  - user-facing original source reference section
 - `PageShell`
-  - Standard page heading and framing
+  - legacy shared page framing for non-refactored foundation pages
 - `TopNav`
-  - Shared site navigation
-- `ContentCard`
-  - Shared list card used across home, technology, skills, and knowledge pages
+  - shared global navigation for user-facing Home, Daily Digest, Technologies, Skills, Knowledge, and the secondary Workspace entry point
+- `DetailInfoCard`
+  - shared reference / metadata card
 - `TagBadge`
-  - Small visual label for topic tags
+  - shared tag presentation
 - `RelationList`
-  - Shared linked list for skills, knowledge, and technology relationships
-- `SearchFilterBar`
-  - Search and filter controls for the technology list
+  - shared related content section
+- `RelatedItemsSection`
+  - user-facing wrapper for related skills and knowledge inside the article layout
+- `DailyDigestContent`
+  - user-facing digest renderer shared by public digest pages and workspace preview
+- `DailyDigestWorkspaceCard`
+  - workspace-only digest list record
+- `DailyDigestWorkspaceDetail`
+  - workspace-only digest review, editing detail, delivery status, webhook send panel, logs, and share preview
+- `DailyDigestStatusActions`
+  - workspace-only digest publish / draft / archive controls
+- `DailyDigestEditForm`
+  - workspace-only digest title, summary, editorial summary, and editorial notes editor
+- `DailyDigestItemActions`
+  - workspace-only digest item include / exclude / pin / ordering controls
+- `DeliveryChannelForm`
+  - workspace-only generic webhook and Feishu bot webhook channel create/edit form
+- `DeliveryChannelActions`
+  - workspace-only delivery channel enable/disable controls
+- `DigestDeliveryActions`
+  - workspace-only digest send preview and manual send controls
+- `DeliveryRunActions`
+  - workspace-only failed delivery retry control
+- `ScheduledDeliveryForm`
+  - workspace-only schedule creation and editing form
+- `ScheduledDeliveryActions`
+  - workspace-only schedule enable/disable and manual run controls
+- `ImportedCandidateReviewActions`
+  - workspace-only action bar
+- `ExternalSourceBrowser`
+  - workspace-only source search, filter, health, and batch import UI
+- `ExternalSourceForm`
+  - workspace-only source create/edit form
+- `ExternalSourceActions`
+  - workspace-only enable/disable and import controls
+- `ExternalSourceBatchActions`
+  - workspace-only import-all-enabled control and latest run summary
+- `TechnologyLanguageSwitch`
+  - user-facing bilingual content switch
+- `TechnologyLanguageIndicators`
+  - user-facing translation availability indicators
 
 ## Data flow
 
-- Mock content lives in `src/data`.
-- Helper lookups live in `src/lib/content.ts`.
-- Pages import typed mock data through the helper layer instead of reaching into multiple data files directly.
-- Search and filter state is client-side only and limited to the technology list page.
+### Internal Workspace
 
-## Intentional limits
+1. live importer or local fallback
+2. source configuration and import state
+3. `ImportedCandidate`
+4. review state enrichment
+5. duplicate detection
+6. duplicate group review and primary candidate selection when needed
+7. conversion to `TechnologyWorkspaceRecord`
+8. Ranking v0 priority calculation
+9. workspace draft editing
+10. publish readiness evaluation
+11. preview through the user-facing renderer
+12. workspace publication status control
+13. digest generation from published technology records
+14. digest editorial adjustments, readiness checks, preview, and publication
+15. delivery feed generation from published digests
+16. optional manual webhook / Feishu webhook delivery from published digests
+17. optional local scheduled delivery from published digests
+18. operations health and WorkflowEvent inspection for maintainers
 
-- No server-side data fetching
-- No persistent state
-- No login or user-specific views
-- No ranking or recommendation logic
-- No ingestion pipelines or admin workflows
+### User-facing Product
+
+1. take only published technology content
+2. map workspace records into a safe `TechnologyItem` shape
+3. render technology list and detail pages
+4. render published daily digest pages
+5. render public RSS / JSON digest feeds from published digests
+6. keep bilingual fallback on title / summary / content
+
+## Field isolation
+
+The user-facing pages do not render:
+
+- `rawPayload`
+- `importStatus`
+- `normalizedType`
+- `duplicateGroupId`
+- duplicate group status and reason codes
+- source management fields
+- source quality metrics
+- candidate quality flags
+- priority reasons, warnings, ranking source, and raw priority score
+- draft / archived digest status, digest editorial notes, manual digest controls, and manual adjustment IDs
+- reviewer actions
+- delivery channel configuration, endpoint URLs, delivery logs, scheduled delivery configuration, scheduled run logs, task-runner logs, request payload previews, response body previews, and retry metadata
+- operations summaries, WorkflowEvent / AuditLog records, internal failure diagnostics, and task-runner internals
+- Editorial Enrichment suggestion records, source inputs, generation mode, provider/model/prompt metadata, token usage, generation errors, reviewer notes, and suggestion review status
+- workspace access tokens, workspace module navigation, or deployment-only environment values
+
+The workspace pages are allowed to render them, because those pages are for review and conversion rather than end-user reading.
+
+## UI refactor v0 page behavior
+
+The current page template split is:
+
+- `/`, `/technologies`, `/technologies/[slug]`, `/digest/today`,
+  `/digest/[date]`, `/skills`, and `/knowledge` are user-facing reading and
+  discovery pages.
+- `/workspace/*` pages are internal review, publishing, delivery, scheduling,
+  and operations tools.
+
+User-facing updates in this pass:
+
+- homepage hero and entry cards now explain the public product in readable
+  copy rather than internal validation wording
+- technology cards are intentionally lighter and focus on "what is this",
+  "why watch", source, priority, audience, tags, and language availability
+- daily digest pages use public digest titles and summaries, and hide validation
+  / mock wording when local validation records are used
+- skills are grouped by skill type
+- knowledge items are grouped by difficulty level
+
+Workspace updates in this pass:
+
+- workspace shells keep the dark internal navigation and compact page headers
+- the global workspace warning is shortened so it does not dominate every page
+- delivery channel creation and scheduled delivery creation are collapsed by
+  default, keeping lists, run state, and logs as the primary view
+- workspace pages keep operational status, audit, delivery, task-runner, and
+  endpoint configuration out of the user-facing product

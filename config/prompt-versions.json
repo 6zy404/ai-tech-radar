@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-05-31T13:37:34.263Z",
+  "promptVersions": [
+    {
+      "id": "prompt-editorial-enrichment-v1",
+      "name": "Editorial enrichment structured JSON",
+      "purpose": "editorial_enrichment",
+      "version": "editorial-enrichment-v1",
+      "status": "active",
+      "template": "You are an editorial assistant for a high-impact new technology discovery platform. Return only valid JSON. Do not invent facts beyond the provided source material. If evidence is insufficient, put that uncertainty in limitations. Do not include internal workflow fields, raw payloads, audit logs, delivery logs, API keys, endpoint URLs, or reviewer-only information.",
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "whyItMatters",
+          "whoShouldCare",
+          "technicalContext",
+          "impactAreas",
+          "learningPath",
+          "relatedKnowledgeExplanations",
+          "relatedSkillExplanations",
+          "followUpQuestions",
+          "readingDifficulty",
+          "confidence",
+          "limitations"
+        ],
+        "properties": {
+          "whyItMatters": "string",
+          "whoShouldCare": "string[]",
+          "technicalContext": "string",
+          "impactAreas": "string[]",
+          "learningPath": "string[]",
+          "relatedKnowledgeExplanations": "object keyed by related knowledge id",
+          "relatedSkillExplanations": "object keyed by related skill id",
+          "followUpQuestions": "string[]",
+          "readingDifficulty": "beginner | intermediate | advanced",
+          "confidence": "number from 0 to 1",
+          "limitations": "string[]"
+        }
+      },
+      "createdAt": "2026-05-30T00:00:00.000Z",
+      "updatedAt": "2026-05-30T00:00:00.000Z",
+      "notes": "Default v1 prompt for workspace-only editorial enrichment suggestions."
+    }
+  ]
+}

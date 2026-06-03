@@ -1,0 +1,148 @@
+# Security Boundary v0
+
+This document defines the current safety boundary between public product pages and internal operational surfaces.
+
+## Public Surfaces
+
+Public routes can be exposed:
+
+- `/`
+- `/technologies`
+- `/technologies/[slug]`
+- `/digest/today`
+- `/digest/[date]`
+- `/skills`
+- `/skills/[slug]`
+- `/knowledge`
+- `/knowledge/[slug]`
+- `/feed.xml`
+- `/feed.json`
+
+They must not render:
+
+- `rawPayload`
+- `importStatus`
+- `normalizedType`
+- `duplicateGroupId`
+- quality flags
+- workspace-only notes
+- delivery endpoint URLs
+- delivery logs
+- scheduled delivery configuration
+- task runner information
+- workflow event / audit log information
+- workspace access tokens
+- LLM provider configuration
+- `LLM_API_KEY`
+- editorial enrichment provider/model metadata
+- editorial enrichment prompt versions, token usage, validation warnings, or generation errors
+
+## Internal Surfaces
+
+Workspace routes and internal APIs are operational tools for reviewers and maintainers:
+
+- `/workspace/*`
+- `/api/workspace/*`
+- `/api/candidates/*`
+- legacy `/candidates/*`
+- legacy `/technologies/drafts/*`
+
+These routes may show source health, raw payloads, delivery logs, schedules, task runner summaries, workflow events, and workflow actions. They should be protected before deployment.
+
+User-facing pages must not import workspace action components or call internal
+mutation APIs. Workspace actions are allowed to mutate local JSON / SQLite state,
+trigger imports, publish records, send delivery payloads, and run schedules only
+behind the workspace boundary.
+
+## Minimal Access Protection
+
+`middleware.ts` protects workspace/internal paths when:
+
+```bash
+WORKSPACE_ACCESS_ENABLED=true
+```
+
+The token comes from:
+
+```bash
+WORKSPACE_ACCESS_TOKEN=...
+```
+
+The middleware accepts Bearer token, Basic auth password, or `x-workspace-access-token`. User-facing routes do not require this token.
+
+This is intentionally small. It is not a replacement for production login, per-user roles, audit trails, or session management.
+
+## Delivery Secrets
+
+Delivery channel endpoint URLs belong to the Internal Workspace only. The workspace list masks sensitive query parameters such as token, key, secret, signature, and auth. Delivery logs store payload previews and response previews, but not full endpoint URLs.
+
+The current local JSON store may still contain configured endpoint URLs for local operation. Do not put production webhook secrets in committed files. A production deployment should use a secret manager or encrypted credential storage.
+
+## Persistence Boundary
+
+Local JSON and local SQLite are implementation details for the current controlled prototype. They are not production secret stores.
+
+Internal workflow stores may contain raw payloads, source URLs, delivery channel endpoints, request/response previews, schedule metadata, task-runner audit messages, and workflow event before/after snapshots. These records must stay behind workspace access protection and must not be mapped directly into public pages or public feeds.
+
+When `PERSISTENCE_DRIVER=sqlite`, the same boundary applies to `config/ai-tech-radar.sqlite` or the configured `SQLITE_DATABASE_PATH`. The SQLite file may contain internal workflow data and delivery endpoint URLs, so it must not be served as a static asset or committed with production secrets.
+
+The safe public mapping is still explicit:
+
+- published workspace technology records are converted to safe `TechnologyItem` shape before public rendering
+- published digest feed data is derived from published digest and published technology fields only
+- delivery channels, delivery logs, schedules, task-runner records, and workflow events are workspace-only
+
+`npm run validate:persistence` provides a lightweight consistency and isolation check for local workflow data. `npm run validate:database` repeats the critical reference and public-field checks against both JSON and SQLite driver modes.
+
+## Task Runner Boundary
+
+Task runner commands and audit summaries are internal-only:
+
+- `npm run tasks:run-once`
+- `npm run tasks:watch`
+- `config/task-runner.json`
+
+Public digest and technology pages must not display runner configuration or logs.
+
+## Workflow Event Boundary
+
+Database-backed Workflow Hardening v1 adds `workflow-events.json` and SQLite `workflow_events` as an internal audit trail for critical state changes such as candidate conversion, draft publishing, digest publishing, delivery failures, scheduled runs, and task-runner executions.
+
+Workflow events are not a user-facing feature. They may include sanitized snapshots and diagnostic metadata, so they must only appear in workspace audit panels. Endpoint-like and token-like fields are sanitized before storage, but production deployments still need proper retention policy, access control, and secure secret storage.
+
+## LLM Provider Boundary
+
+LLM Provider Integration v0 is workspace-only and server-side.
+
+Environment variables:
+
+- `LLM_PROVIDER`: `mock` or `openai_compatible`
+- `LLM_API_KEY`: optional API key for the OpenAI-compatible provider
+- `LLM_BASE_URL`: optional OpenAI-compatible base URL
+- `LLM_MODEL`: optional model name
+- `LLM_TIMEOUT_MS`: optional request timeout
+
+Security rules:
+
+- API keys are read only from server-side workflow/API code.
+- Client components never receive `LLM_API_KEY`.
+- User-facing pages and feeds never render provider name, model name, prompt version, token usage, validation warnings, generation errors, or source inputs.
+- Missing `LLM_API_KEY` falls back to the local mock provider instead of failing builds or validation.
+- LLM output is parsed, sanitized, and rejected if it contains internal-only fields or invalid structure.
+- Workflow events store only provider/model/status metadata and sanitized errors, not request headers or API keys.
+
+The current local JSON and SQLite stores may contain workspace-only suggestion metadata. They are not production secret stores. Production deployments should keep provider credentials in environment-managed secret storage and should not commit local data files containing real provider or delivery credentials.
+
+## Remaining Production Gaps
+
+- real authentication and authorization
+- per-user audit history
+- database-backed locking and transactions
+- secure secret storage
+- provider credential rotation and secret vault integration
+- CSRF protections for authenticated browser mutation flows
+- deployment-level rate limiting and bot protection
+- production observability and alerting
+- database-backed referential integrity and transactions
+- production database migrations and encrypted credential storage
+- audit event retention, export, and compliance policy

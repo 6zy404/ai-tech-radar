@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 
-import { PageShell } from "@/components/page-shell";
 import { RelationList } from "@/components/relation-list";
-import { TagBadge } from "@/components/tag-badge";
+import { TagList } from "@/components/tag-list";
+import { UserPageShell } from "@/components/user-page-shell";
 import {
   buildRelationItems,
   getAllSkills,
@@ -27,55 +27,92 @@ export default async function SkillDetailPage({ params }: SkillDetailPageProps) 
   }
 
   const relatedTechnologies = buildRelationItems({
+    fromId: skill.id,
+    fromType: "skill",
     targetType: "technology",
     targetIds: skill.relatedTechnologyIds,
-    defaultNote: "Linked directly from the mock skill record to show where this skill is applied."
+    defaultNote: "This published signal is easier to assess with this skill."
   });
 
   const relatedKnowledge = buildRelationItems({
+    fromId: skill.id,
+    fromType: "skill",
     targetType: "knowledge",
     targetIds: skill.relatedKnowledgeIds,
-    defaultNote: "This knowledge item supports the skill in the mock dataset."
+    defaultNote: "This concept gives the background needed to use the skill well."
   });
 
   return (
-    <PageShell title={skill.title} description={skill.summary}>
-      <div className="detail-layout">
-        <div className="detail-main">
-          <section className="detail-panel">
-            <p className="eyebrow">{skill.skillType}</p>
+    <UserPageShell
+      title={skill.title}
+      description={skill.summary}
+      sectionLabel="Understanding Skill"
+      showHeader={false}
+    >
+      <div className="foundation-detail-layout">
+        <main className="foundation-detail-main">
+          <section className="foundation-detail-hero">
+            <p className="eyebrow user-eyebrow">{skill.skillType}</p>
             <h1>{skill.title}</h1>
+            <p>{skill.summary}</p>
+            <TagList tags={getTagsByIds(skill.tags)} />
+          </section>
+
+          <section className="user-article-section">
+            <h2>What this skill helps you do</h2>
             <p>{skill.content}</p>
-            <div className="tag-row">
-              {getTagsByIds(skill.tags).map((tag) => (
-                <TagBadge key={tag.id} tag={tag} />
-              ))}
-            </div>
           </section>
 
           <RelationList
-            title="Related Technologies"
-            emptyText="No related technologies were linked for this skill."
+            className="user-related-section"
+            title="Technology signals this skill helps evaluate"
+            description="Use these published signals as concrete examples for practicing the skill."
+            emptyText="No published technology signals are linked to this skill yet."
             items={relatedTechnologies}
           />
 
           <RelationList
-            title="Related Knowledge"
-            emptyText="No related knowledge was linked for this skill."
+            className="user-related-section"
+            title="Background knowledge to pair with this skill"
+            description="These concepts make the skill easier to apply when reading new AI technology signals."
+            emptyText="No background knowledge has been linked to this skill yet."
             items={relatedKnowledge}
           />
-        </div>
+        </main>
 
-        <aside className="detail-side">
-          <section className="detail-panel">
+        <aside className="foundation-detail-side">
+          <section className="user-reference-panel">
             <h2>Skill profile</h2>
-            <div className="detail-meta">
-              <span>Heat: {skill.heatLevel}</span>
-              <span>Learning cost: {skill.learningCost}</span>
-            </div>
+            <dl className="foundation-profile-list">
+              <div>
+                <dt>Current heat</dt>
+                <dd>{skill.heatLevel}</dd>
+              </div>
+              <div>
+                <dt>Learning cost</dt>
+                <dd>{skill.learningCost}</dd>
+              </div>
+              <div>
+                <dt>Technology links</dt>
+                <dd>{relatedTechnologies.length}</dd>
+              </div>
+              <div>
+                <dt>Knowledge links</dt>
+                <dd>{relatedKnowledge.length}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section className="user-reference-panel">
+            <h2>How to use this page</h2>
+            <p className="user-reference-panel__copy">
+              Start with the skill explanation, open one linked technology
+              signal, then use the background knowledge links to fill in the
+              concepts behind the signal.
+            </p>
           </section>
         </aside>
       </div>
-    </PageShell>
+    </UserPageShell>
   );
 }

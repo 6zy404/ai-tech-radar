@@ -1,0 +1,138 @@
+{
+  "syncedAt": "2026-05-30T17:11:45.664Z",
+  "sources": [
+    {
+      "id": "quality-failing-source",
+      "sourceType": "rss-feed",
+      "sourceName": "Quality Failing Source",
+      "sourceUrl": "https://example.com/quality-failing.xml",
+      "syncStatus": "fallback",
+      "itemCount": 1,
+      "fetchedAt": "2026-05-30T17:11:35.444Z",
+      "note": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml"
+    },
+    {
+      "id": "quality-good-source",
+      "sourceType": "rss-feed",
+      "sourceName": "Quality Good Source",
+      "sourceUrl": "https://example.com/quality-good.xml",
+      "syncStatus": "fallback",
+      "itemCount": 1,
+      "fetchedAt": "2026-05-30T17:11:45.663Z",
+      "note": "Live import failed; local fallback used. fetch failed"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-source-quality-failing-source-2026-05-30",
+      "sourceId": "quality-failing-source",
+      "sourceType": "rss-feed",
+      "sourceName": "Quality Failing Source",
+      "sourceUrl": "https://example.com/quality-failing.xml",
+      "originalTitle": "Quality Failing Source fallback import 2026-05-30",
+      "originalSummary": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+      "originalContent": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+      "originalLanguage": "en",
+      "publishDate": "2026-05-30",
+      "publisherName": "Quality Publisher",
+      "normalizedType": "tool",
+      "tags": [
+        "quality",
+        "validation",
+        "fallback"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "quality-failing-source",
+        "fallback": true,
+        "fallbackReason": "Request failed with 404 for https://example.com/quality-failing.xml",
+        "source": {
+          "id": "quality-failing-source",
+          "name": "Quality Failing Source",
+          "type": "rss",
+          "url": "https://example.com/quality-failing.xml",
+          "enabled": true,
+          "description": "Quality validation source.",
+          "language": "en",
+          "publisherName": "Quality Publisher",
+          "publisherType": "media",
+          "defaultTags": [
+            "quality",
+            "validation"
+          ],
+          "defaultNormalizedType": "tool",
+          "lastFetchedAt": "2026-05-23T22:56:21.992Z",
+          "lastImportStatus": "partial",
+          "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+          "lastImportCount": 1,
+          "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+          "consecutiveFailureCount": 3,
+          "totalImportedCount": 2,
+          "createdAt": "2026-05-01T00:00:00.000Z",
+          "updatedAt": "2026-05-23T22:56:21.992Z"
+        },
+        "importedAt": "2026-05-30T17:11:34.593Z",
+        "importRunId": "import-run-2026-05-30t17-11-34-592z"
+      },
+      "importedAt": "2026-05-30T17:11:34.593Z",
+      "importRunId": "import-run-2026-05-30t17-11-34-592z"
+    },
+    {
+      "id": "candidate-source-quality-good-source-2026-05-30",
+      "sourceId": "quality-good-source",
+      "sourceType": "rss-feed",
+      "sourceName": "Quality Good Source",
+      "sourceUrl": "https://example.com/quality-good.xml",
+      "originalTitle": "Quality Good Source fallback import 2026-05-30",
+      "originalSummary": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+      "originalContent": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+      "originalLanguage": "en",
+      "publishDate": "2026-05-30",
+      "publisherName": "Quality Publisher",
+      "normalizedType": "tool",
+      "tags": [
+        "quality",
+        "validation",
+        "fallback"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "quality-good-source",
+        "fallback": true,
+        "fallbackReason": "fetch failed",
+        "source": {
+          "id": "quality-good-source",
+          "name": "Quality Good Source",
+          "type": "rss",
+          "url": "https://example.com/quality-good.xml",
+          "enabled": true,
+          "description": "Quality validation source.",
+          "language": "en",
+          "publisherName": "Quality Publisher",
+          "publisherType": "media",
+          "defaultTags": [
+            "quality",
+            "validation"
+          ],
+          "defaultNormalizedType": "tool",
+          "lastFetchedAt": "2026-05-23T22:56:22.548Z",
+          "lastImportStatus": "partial",
+          "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-good.xml",
+          "lastImportCount": 1,
+          "consecutiveFailureCount": 1,
+          "totalImportedCount": 5,
+          "lastSuccessfulImportAt": "2026-05-20T10:00:00.000Z",
+          "createdAt": "2026-05-01T00:00:00.000Z",
+          "updatedAt": "2026-05-23T22:56:22.548Z",
+          "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-good.xml"
+        },
+        "importedAt": "2026-05-30T17:11:35.502Z",
+        "importRunId": "import-run-2026-05-30t17-11-34-592z"
+      },
+      "importedAt": "2026-05-30T17:11:35.502Z",
+      "importRunId": "import-run-2026-05-30t17-11-34-592z"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ export const skillItems: SkillItem[] = [
     summary:
       "Designing multi-step AI flows with clear boundaries between planning, tool use, and review.",
     content:
-      "This mock skill emphasizes decomposition, guardrails, and fallback design. It is relevant whenever teams move from single prompts to longer-running task flows.",
+      "This skill emphasizes decomposition, guardrails, and fallback design. It is relevant whenever teams move from single prompts to longer-running task flows.",
     skillType: "engineering",
     heatLevel: "hot",
     learningCost: "high",
@@ -23,7 +23,7 @@ export const skillItems: SkillItem[] = [
     summary:
       "Connecting AI systems to APIs, browsers, documents, and internal tooling in a maintainable way.",
     content:
-      "This demo skill covers interface contracts, error handling, and auditability. It sits between product ideas and production-ready execution.",
+      "This skill covers interface contracts, error handling, and auditability. It sits between product ideas and production-ready execution.",
     skillType: "engineering",
     heatLevel: "active",
     learningCost: "medium",
@@ -38,7 +38,7 @@ export const skillItems: SkillItem[] = [
     summary:
       "Improving chunking, indexing, reranking choices, and result formatting for grounded answers.",
     content:
-      "This mock skill exists because retrieval quality is often the hidden bottleneck behind weak AI outputs. It links new tooling with older information retrieval concepts.",
+      "This skill exists because retrieval quality is often the hidden bottleneck behind weak AI outputs. It links new tooling with older information retrieval concepts.",
     skillType: "analysis",
     heatLevel: "hot",
     learningCost: "high",
@@ -53,7 +53,7 @@ export const skillItems: SkillItem[] = [
     summary:
       "Defining what good output means before shipping and measuring it with small, repeatable checks.",
     content:
-      "This demo skill focuses on test design rather than leaderboard chasing. It is useful for teams deciding which new AI capabilities are worth deeper investment.",
+      "This skill focuses on test design rather than leaderboard chasing. It is useful for teams deciding which new AI capabilities are worth deeper investment.",
     skillType: "analysis",
     heatLevel: "active",
     learningCost: "medium",
@@ -68,7 +68,7 @@ export const skillItems: SkillItem[] = [
     summary:
       "Choosing use cases that are valuable enough to matter but narrow enough to learn from quickly.",
     content:
-      "This demo skill is intentionally product-focused. It helps teams avoid confusing visible novelty with worthwhile investment.",
+      "This skill is intentionally product-focused. It helps teams avoid confusing visible novelty with worthwhile investment.",
     skillType: "product",
     heatLevel: "active",
     learningCost: "low",
@@ -83,7 +83,7 @@ export const skillItems: SkillItem[] = [
     summary:
       "Using AI tools to turn screenshots, logs, and draft text into clearer engineering communication.",
     content:
-      "This demo skill is relevant because many visible AI gains come from faster alignment rather than full automation. It pairs especially well with multimodal tools.",
+      "This skill is relevant because many visible AI gains come from faster alignment rather than full automation. It pairs especially well with multimodal tools.",
     skillType: "communication",
     heatLevel: "emerging",
     learningCost: "low",

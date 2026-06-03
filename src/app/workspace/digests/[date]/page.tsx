@@ -1,0 +1,57 @@
+import { notFound } from "next/navigation";
+
+import { DailyDigestWorkspaceDetail } from "@/components/daily-digest-workspace-detail";
+import { WorkspacePageShell } from "@/components/workspace-page-shell";
+import { getAllTechnologies } from "@/lib/content";
+import {
+  getEnabledDeliveryChannels,
+  getDeliveryRunsForDigest
+} from "@/lib/delivery-workflow";
+import {
+  evaluateDailyDigestPublishReadiness,
+  getDailyDigestByDate,
+  getSelectedDigestTechnologyIds
+} from "@/lib/digest-workflow";
+import { getDailyDigestRenderData } from "@/lib/digest-view";
+import { getWorkflowEventsForEntity } from "@/lib/workflow-events";
+
+interface WorkspaceDigestDetailPageProps {
+  params: Promise<{ date: string }>;
+}
+
+export const dynamic = "force-dynamic";
+
+export default async function WorkspaceDigestDetailPage({
+  params
+}: WorkspaceDigestDetailPageProps) {
+  const { date } = await params;
+  const digest = getDailyDigestByDate(date);
+
+  if (!digest) {
+    notFound();
+  }
+
+  const selectedTechnologyIds = new Set(getSelectedDigestTechnologyIds(digest));
+  const availableTechnologies = getAllTechnologies().filter(
+    (technology) => !selectedTechnologyIds.has(technology.id)
+  );
+  const readiness = evaluateDailyDigestPublishReadiness(digest);
+
+  return (
+    <WorkspacePageShell
+      title="Daily Digest Detail"
+      description="Inspect the generated digest, review selected technologies and ranking reasons, then publish when ready."
+      sectionLabel="Digest Review"
+    >
+      <DailyDigestWorkspaceDetail
+        digest={digest}
+        readiness={readiness}
+        availableTechnologies={availableTechnologies}
+        deliveryChannels={getEnabledDeliveryChannels()}
+        deliveryRuns={getDeliveryRunsForDigest(digest.date)}
+        workflowEvents={getWorkflowEventsForEntity("daily_digest", digest.id)}
+        {...getDailyDigestRenderData(digest)}
+      />
+    </WorkspacePageShell>
+  );
+}

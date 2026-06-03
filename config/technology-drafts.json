@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-04-17T05:42:50.363Z",
+  "drafts": [
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-codex-for-almost-everything",
+      "slug": "draft-codex-almost-everything",
+      "title": {
+        "original": "Codex for (almost) everything",
+        "en": "Codex for (almost) everything"
+      },
+      "summary": {
+        "original": "The updated Codex app for macOS and Windows adds computer use, in-app browsing, image generation, memory, and plugins to accelerate developer workflows.",
+        "en": "The updated Codex app for macOS and Windows adds computer use, in-app browsing, image generation, memory, and plugins to accelerate developer workflows."
+      },
+      "content": {
+        "original": "The updated Codex app for macOS and Windows adds computer use, in-app browsing, image generation, memory, and plugins to accelerate developer workflows.",
+        "en": "The updated Codex app for macOS and Windows adds computer use, in-app browsing, image generation, memory, and plugins to accelerate developer workflows."
+      },
+      "type": "workflow",
+      "publishDate": "2026-04-16",
+      "sourceName": "OpenAI News RSS",
+      "sourceUrl": "https://openai.com/index/codex-for-almost-everything",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "watch",
+      "tags": [
+        "tag-multimodal",
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [],
+      "relatedSkillIds": [],
+      "draftSourceCandidateId": "candidate-rss-https-openai-com-index-codex-for-almost-everything",
+      "createdAt": "2026-04-17T05:42:50.363Z",
+      "updatedAt": "2026-04-17T05:42:50.363Z",
+      "draftNotes": [
+        "Generated from imported candidate candidate-rss-https-openai-com-index-codex-for-almost-everything.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ]
+    }
+  ]
+}

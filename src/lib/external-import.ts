@@ -1,0 +1,869 @@
+import { XMLParser } from "fast-xml-parser";
+
+import { normalizeCandidateId, normalizeCandidateTags } from "@/lib/importers";
+import type {
+  CandidateNormalizedType,
+  ExternalSource,
+  ExternalSourceType,
+  ImportedCandidate,
+  ImportedCandidateSnapshot,
+  ImportedCandidateSourceRecord,
+  ImportedSourceType,
+  SourceLanguage
+} from "@/types/content";
+
+interface BaseSourceConfig {
+  id: string;
+  sourceType: ImportedSourceType;
+  sourceName: string;
+  sourceUrl: string;
+  externalSourceType?: ExternalSourceType;
+  language?: SourceLanguage;
+  defaultTags?: string[];
+  defaultNormalizedType?: CandidateNormalizedType;
+  maxItems: number;
+}
+
+interface RssFeedSourceConfig extends BaseSourceConfig {
+  sourceType: "rss-feed";
+  publisherName: string;
+}
+
+interface GitHubReleaseSourceConfig extends BaseSourceConfig {
+  sourceType: "github-release";
+  repository: string;
+  publisherName: string;
+}
+
+interface OfficialBlogSourceConfig extends BaseSourceConfig {
+  sourceType: "official-blog";
+  baseUrl: string;
+  publisherName: string;
+}
+
+const xmlParser = new XMLParser({
+  attributeNamePrefix: "",
+  ignoreAttributes: false,
+  processEntities: false
+});
+
+const requestHeaders = {
+  "User-Agent": "ai-tech-radar-importer",
+  Accept: "application/json, application/xml, text/xml, text/html;q=0.9"
+};
+
+const rssFeedSources: RssFeedSourceConfig[] = [
+  {
+    id: "openai-news-rss",
+    sourceType: "rss-feed",
+    sourceName: "OpenAI News RSS",
+    sourceUrl: "https://openai.com/news/rss.xml",
+    publisherName: "OpenAI",
+    maxItems: 4
+  },
+  {
+    id: "mcp-github-releases-atom",
+    sourceType: "rss-feed",
+    sourceName: "GitHub Releases Atom - MCP TypeScript SDK",
+    sourceUrl: "https://github.com/modelcontextprotocol/typescript-sdk/releases.atom",
+    publisherName: "modelcontextprotocol",
+    maxItems: 4
+  }
+];
+
+const gitHubReleaseSources: GitHubReleaseSourceConfig[] = [
+  {
+    id: "mcp-github-releases-api",
+    sourceType: "github-release",
+    sourceName: "GitHub Releases API - MCP TypeScript SDK",
+    sourceUrl: "https://api.github.com/repos/modelcontextprotocol/typescript-sdk/releases",
+    repository: "modelcontextprotocol/typescript-sdk",
+    publisherName: "modelcontextprotocol",
+    maxItems: 4
+  }
+];
+
+const officialBlogSources: OfficialBlogSourceConfig[] = [
+  {
+    id: "anthropic-news-pages",
+    sourceType: "official-blog",
+    sourceName: "Anthropic News",
+    sourceUrl: "https://www.anthropic.com/news",
+    baseUrl: "https://www.anthropic.com",
+    publisherName: "Anthropic",
+    maxItems: 2
+  }
+];
+
+function ensureArray<T>(value: T | T[] | undefined): T[] {
+  if (Array.isArray(value)) {
+    return value;
+  }
+
+  return value === undefined ? [] : [value];
+}
+
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/鈥檚/g, "'s")
+    .replace(/鈥檙e/g, "'re")
+    .replace(/鈥檝e/g, "'ve")
+    .replace(/鈥檒l/g, "'ll")
+    .replace(/鈥檛/g, "'t")
+    .replace(/&#x27;|&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#x2F;/g, "/");
+}
+
+function stripHtml(value: string | undefined): string {
+  if (!value) {
+    return "";
+  }
+
+  return decodeHtmlEntities(
+    value
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
+}
+
+function getXmlText(value: unknown): string {
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+
+    if (typeof record["#text"] === "string") {
+      return record["#text"];
+    }
+  }
+
+  return "";
+}
+
+function trimToLength(value: string, maxLength: number): string {
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  return `${value.slice(0, maxLength - 1).trimEnd()}…`;
+}
+
+function toSourceLanguage(value: string | undefined): SourceLanguage {
+  if (!value) {
+    return "en";
+  }
+
+  return value.toLowerCase().includes("zh") ? "zh" : "en";
+}
+
+function toIsoDate(value: string | undefined): string {
+  if (!value) {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  const normalizedValue = value.trim();
+  const directDate = new Date(normalizedValue);
+
+  if (!Number.isNaN(directDate.valueOf())) {
+    return directDate.toISOString().slice(0, 10);
+  }
+
+  const monthDateMatch = normalizedValue.match(
+    /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}), (\d{4})\b/i
+  );
+
+  if (monthDateMatch) {
+    const parsedDate = new Date(
+      `${monthDateMatch[1]} ${monthDateMatch[2]}, ${monthDateMatch[3]}`
+    );
+
+    if (!Number.isNaN(parsedDate.valueOf())) {
+      return parsedDate.toISOString().slice(0, 10);
+    }
+  }
+
+  return normalizedValue.slice(0, 10);
+}
+
+function inferNormalizedType(value: string): CandidateNormalizedType {
+  const haystack = value.toLowerCase();
+
+  if (/(protocol|spec|sdk transport|mcp)/.test(haystack)) {
+    return "protocol";
+  }
+
+  if (/(model|opus|sonnet|gpt|llm|language model)/.test(haystack)) {
+    return "model";
+  }
+
+  if (/(workflow|agent|rollout|eval|orchestration|automation)/.test(haystack)) {
+    return "workflow";
+  }
+
+  if (/(platform|cloud|workspace|console|hub)/.test(haystack)) {
+    return "platform";
+  }
+
+  if (/(tool|sdk|api|release|copilot|plugin|cli)/.test(haystack)) {
+    return "tool";
+  }
+
+  return "unknown";
+}
+
+function inferTags(value: string, seededTags: string[] = []): string[] {
+  const haystack = value.toLowerCase();
+  const tags = [...seededTags];
+
+  if (/(agent|tool use|tooling|orchestration)/.test(haystack)) {
+    tags.push("agents");
+  }
+
+  if (/(workflow|operations|rollout|automation)/.test(haystack)) {
+    tags.push("workflow");
+  }
+
+  if (/(evaluation|eval|trace|observability|monitor)/.test(haystack)) {
+    tags.push("observability");
+  }
+
+  if (/(retrieval|search|grounding|rag)/.test(haystack)) {
+    tags.push("retrieval");
+  }
+
+  if (/(voice|image|vision|browser|multimodal)/.test(haystack)) {
+    tags.push("multimodal");
+  }
+
+  if (/(edge|local|on-device)/.test(haystack)) {
+    tags.push("on-device");
+  }
+
+  if (/(graph|knowledge)/.test(haystack)) {
+    tags.push("knowledge-graph");
+  }
+
+  return normalizeCandidateTags(tags);
+}
+
+function mapExternalSourceTypeToImportedSourceType(
+  sourceType: ExternalSourceType
+): ImportedSourceType {
+  if (sourceType === "github_release") {
+    return "github-release";
+  }
+
+  if (sourceType === "official_blog") {
+    return "official-blog";
+  }
+
+  return "rss-feed";
+}
+
+function inferGitHubRepository(sourceUrl: string, fallbackName: string): string {
+  try {
+    const parsedUrl = new URL(sourceUrl);
+    const parts = parsedUrl.pathname.split("/").filter(Boolean);
+    const repoIndex = parts[0] === "repos" ? 1 : 0;
+    const owner = parts[repoIndex];
+    const repo = parts[repoIndex + 1];
+
+    if (owner && repo) {
+      return `${owner}/${repo}`;
+    }
+  } catch {
+    return fallbackName;
+  }
+
+  return fallbackName;
+}
+
+function toGitHubReleaseApiUrl(sourceUrl: string): string {
+  try {
+    const parsedUrl = new URL(sourceUrl);
+
+    if (parsedUrl.hostname === "api.github.com") {
+      return sourceUrl;
+    }
+
+    if (parsedUrl.hostname === "github.com") {
+      const [owner, repo] = parsedUrl.pathname.split("/").filter(Boolean);
+
+      if (owner && repo) {
+        return `https://api.github.com/repos/${owner}/${repo}/releases`;
+      }
+    }
+  } catch {
+    return sourceUrl;
+  }
+
+  return sourceUrl;
+}
+
+function toConfigFromExternalSource(source: ExternalSource): BaseSourceConfig {
+  const sourceType = mapExternalSourceTypeToImportedSourceType(source.type);
+  const maxItems = source.maxItems ?? 4;
+
+  if (sourceType === "github-release") {
+    return {
+      id: source.id,
+      sourceType,
+      sourceName: source.name,
+      sourceUrl: toGitHubReleaseApiUrl(source.url),
+      repository: inferGitHubRepository(source.url, source.name),
+      publisherName: source.publisherName ?? source.name,
+      externalSourceType: source.type,
+      language: source.language,
+      defaultTags: source.defaultTags,
+      defaultNormalizedType: source.defaultNormalizedType,
+      maxItems
+    } as GitHubReleaseSourceConfig;
+  }
+
+  if (sourceType === "official-blog") {
+    const baseUrl = (() => {
+      try {
+        return new URL(source.url).origin;
+      } catch {
+        return source.url;
+      }
+    })();
+
+    return {
+      id: source.id,
+      sourceType,
+      sourceName: source.name,
+      sourceUrl: source.url,
+      baseUrl,
+      publisherName: source.publisherName ?? source.name,
+      externalSourceType: source.type,
+      language: source.language,
+      defaultTags: source.defaultTags,
+      defaultNormalizedType: source.defaultNormalizedType,
+      maxItems
+    } as OfficialBlogSourceConfig;
+  }
+
+  return {
+    id: source.id,
+    sourceType,
+    sourceName: source.name,
+    sourceUrl: source.url,
+    publisherName: source.publisherName ?? source.name,
+    externalSourceType: source.type,
+    language: source.language,
+    defaultTags: source.defaultTags,
+    defaultNormalizedType: source.defaultNormalizedType,
+    maxItems
+  } as RssFeedSourceConfig;
+}
+
+function applyExternalSourceDefaults(
+  candidate: ImportedCandidate,
+  config: BaseSourceConfig
+): ImportedCandidate {
+  return {
+    ...candidate,
+    sourceId: config.id,
+    originalLanguage: config.language ?? candidate.originalLanguage,
+    normalizedType:
+      config.defaultNormalizedType && config.defaultNormalizedType !== "unknown"
+        ? config.defaultNormalizedType
+        : candidate.normalizedType,
+    tags: normalizeCandidateTags([
+      ...(config.defaultTags ?? []),
+      ...candidate.tags
+    ]),
+    rawPayload: {
+      ...(candidate.rawPayload && typeof candidate.rawPayload === "object"
+        ? (candidate.rawPayload as Record<string, unknown>)
+        : {}),
+      sourceId: config.id,
+      externalSourceType: config.externalSourceType ?? config.sourceType
+    }
+  };
+}
+
+function getAtomEntryLink(entry: Record<string, unknown>): string {
+  const links = ensureArray(entry.link as Record<string, unknown> | undefined);
+  const preferredLink = links.find((item) => {
+    if (!item || typeof item !== "object") {
+      return false;
+    }
+
+    const record = item as Record<string, unknown>;
+    const rel = typeof record.rel === "string" ? record.rel : undefined;
+
+    return rel === undefined || rel === "alternate";
+  });
+
+  if (preferredLink && typeof preferredLink === "object") {
+    const record = preferredLink as Record<string, unknown>;
+
+    if (record.href) {
+      return String(record.href);
+    }
+  }
+
+  return "";
+}
+
+function getRssGuidOrLink(item: Record<string, unknown>, fallbackValue: string): string {
+  const guid = item.guid;
+
+  if (typeof guid === "string" && guid.trim().length > 0) {
+    return guid;
+  }
+
+  if (guid && typeof guid === "object") {
+    const record = guid as Record<string, unknown>;
+
+    if (typeof record["#text"] === "string" && record["#text"].trim().length > 0) {
+      return record["#text"];
+    }
+  }
+
+  return fallbackValue;
+}
+
+function buildSourceRecord(
+  config: BaseSourceConfig,
+  itemCount: number,
+  note?: string
+): ImportedCandidateSourceRecord {
+  return {
+    id: config.id,
+    sourceType: config.sourceType,
+    sourceName: config.sourceName,
+    sourceUrl: config.sourceUrl,
+    syncStatus: "live",
+    itemCount,
+    fetchedAt: new Date().toISOString(),
+    note
+  };
+}
+
+async function fetchText(url: string): Promise<string> {
+  const response = await fetch(url, {
+    headers: requestHeaders,
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed with ${response.status} for ${url}`);
+  }
+
+  return response.text();
+}
+
+async function fetchJson<T>(url: string): Promise<T> {
+  const response = await fetch(url, {
+    headers: requestHeaders,
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed with ${response.status} for ${url}`);
+  }
+
+  return response.json() as Promise<T>;
+}
+
+async function fetchRssFeedCandidates(
+  config: RssFeedSourceConfig
+): Promise<ImportedCandidate[]> {
+  const xml = await fetchText(config.sourceUrl);
+  const parsed = xmlParser.parse(xml);
+
+  if (parsed.rss?.channel?.item) {
+    const channel = parsed.rss.channel;
+    const items = ensureArray<Record<string, unknown>>(channel.item).slice(
+      0,
+      config.maxItems
+    );
+
+    return items.map((item) => {
+      const title = stripHtml(String(item.title ?? ""));
+      const summary = stripHtml(
+        getXmlText(item.description ?? item.summary ?? item["content:encoded"])
+      );
+      const content = stripHtml(
+        getXmlText(item["content:encoded"] ?? item.description ?? summary)
+      );
+      const categories = ensureArray(item.category)
+        .map((category) => stripHtml(String(category ?? "")))
+        .filter(Boolean);
+      const sourceUrl = String(item.link ?? item.guid ?? config.sourceUrl);
+      const candidateSeed = getRssGuidOrLink(
+        item,
+        sourceUrl || `${title}-${config.sourceName}`
+      );
+      const combinedText = [title, summary, content, config.sourceName].join(" ");
+
+      return {
+        id: `candidate-rss-${normalizeCandidateId(candidateSeed)}`,
+        sourceType: "rss-feed",
+        sourceName: config.sourceName,
+        sourceUrl,
+        originalTitle: title,
+        originalSummary: trimToLength(summary, 260),
+        originalContent: trimToLength(content || summary, 1600),
+        originalLanguage: toSourceLanguage(
+          String(item.language ?? channel.language ?? "en")
+        ),
+        publishDate: toIsoDate(String(item.pubDate ?? item.isoDate ?? "")),
+        publisherName: stripHtml(
+          String(item["dc:creator"] ?? item.author ?? config.publisherName)
+        ),
+        normalizedType: inferNormalizedType(combinedText),
+        tags: inferTags(combinedText, categories),
+        importStatus: "new",
+        relatedCandidateIds: [],
+        rawPayload: {
+          sourceId: config.id,
+          feedTitle: stripHtml(String(channel.title ?? config.sourceName)),
+          feedUrl: config.sourceUrl,
+          item
+        }
+      };
+    });
+  }
+
+  if (parsed.feed?.entry) {
+    const feed = parsed.feed;
+    const entries = ensureArray<Record<string, unknown>>(feed.entry).slice(
+      0,
+      config.maxItems
+    );
+
+    return entries.map((entry) => {
+      const sourceUrl = getAtomEntryLink(entry) || config.sourceUrl;
+      const content = stripHtml(
+        getXmlText(entry.content ?? entry.summary ?? entry.title)
+      );
+      const summary = stripHtml(getXmlText(entry.summary ?? content));
+      const title = stripHtml(String(entry.title ?? ""));
+      const categories = ensureArray(entry.category)
+        .map((category) => {
+          if (typeof category === "object" && category) {
+            const record = category as Record<string, unknown>;
+
+            return stripHtml(String(record.term ?? record.label ?? ""));
+          }
+
+          return stripHtml(String(category ?? ""));
+        })
+        .filter(Boolean);
+      const publisher = typeof entry.author === "object"
+        ? stripHtml(String((entry.author as Record<string, unknown>).name ?? ""))
+        : config.publisherName;
+      const combinedText = [title, summary, content, config.sourceName].join(" ");
+
+      return {
+        id: `candidate-rss-${normalizeCandidateId(sourceUrl || title)}`,
+        sourceType: "rss-feed",
+        sourceName: config.sourceName,
+        sourceUrl,
+        originalTitle: title,
+        originalSummary: trimToLength(summary, 260),
+        originalContent: trimToLength(content || summary, 1600),
+        originalLanguage: "en",
+        publishDate: toIsoDate(String(entry.updated ?? entry.published ?? "")),
+        publisherName: publisher || config.publisherName,
+        normalizedType: inferNormalizedType(combinedText),
+        tags: inferTags(combinedText, categories),
+        importStatus: "new",
+        relatedCandidateIds: [],
+        rawPayload: {
+          sourceId: config.id,
+          feedTitle: stripHtml(String(feed.title ?? config.sourceName)),
+          feedUrl: config.sourceUrl,
+          entry
+        }
+      };
+    });
+  }
+
+  throw new Error(`Unsupported feed format for ${config.sourceUrl}`);
+}
+
+interface GitHubReleaseApiRecord {
+  id: number;
+  html_url: string;
+  tag_name: string;
+  name: string;
+  body: string;
+  published_at: string;
+  prerelease: boolean;
+  draft: boolean;
+  author?: {
+    login?: string;
+  };
+}
+
+async function fetchGitHubReleaseCandidates(
+  config: GitHubReleaseSourceConfig
+): Promise<ImportedCandidate[]> {
+  const releases = await fetchJson<GitHubReleaseApiRecord[]>(config.sourceUrl);
+
+  return releases
+    .filter((release) => !release.draft)
+    .slice(0, config.maxItems)
+    .map((release) => {
+      const title = stripHtml(
+        `${config.repository} ${release.name || release.tag_name}`
+      );
+      const content = stripHtml(release.body ?? "");
+      const summary = trimToLength(content, 260);
+      const seededTags = [release.prerelease ? "pre-release" : "release", "github"];
+      const combinedText = [title, content, config.repository].join(" ");
+
+      return {
+        id: `candidate-github-${normalizeCandidateId(
+          `${config.repository}-${release.tag_name}`
+        )}`,
+        sourceType: "github-release",
+        sourceName: config.sourceName,
+        sourceUrl: release.html_url,
+        originalTitle: title,
+        originalSummary: summary,
+        originalContent: trimToLength(content || summary, 1800),
+        originalLanguage: "en",
+        publishDate: toIsoDate(release.published_at),
+        publisherName: release.author?.login || config.publisherName,
+        normalizedType: inferNormalizedType(combinedText),
+        tags: inferTags(combinedText, seededTags),
+        importStatus: "new",
+        relatedCandidateIds: [],
+        rawPayload: {
+          sourceId: config.id,
+          repository: config.repository,
+          release
+        }
+      };
+    });
+}
+
+interface ListingPreviewItem {
+  href: string;
+  date?: string;
+  excerpt?: string;
+}
+
+function extractAnthropicListingItems(
+  html: string,
+  maxItems: number
+): ListingPreviewItem[] {
+  const hrefs = [...html.matchAll(/href="(\/news\/[^"]+)"/g)].map((match) => match[1]);
+  const uniqueHrefs = [...new Set(hrefs)].slice(0, maxItems);
+
+  return uniqueHrefs.map((href) => {
+    const index = html.indexOf(`href="${href}"`);
+    const window = html.slice(index, index + 1400);
+
+    return {
+      href,
+      date: window.match(/<time[^>]*>(.*?)<\/time>/i)?.[1]
+        ?.replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim(),
+      excerpt: window.match(/<p[^>]*>(.*?)<\/p>/i)?.[1]
+        ?.replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+    };
+  });
+}
+
+function extractReadableParagraphs(html: string): string[] {
+  return [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((match) =>
+      decodeHtmlEntities(
+        match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+      )
+    )
+    .filter((paragraph) => {
+      if (paragraph.length < 60) {
+        return false;
+      }
+
+      return !/(Research Economic Futures|Try Claude|01 \/|Learn News)/i.test(
+        paragraph
+      );
+    });
+}
+
+async function fetchOfficialBlogCandidates(
+  config: OfficialBlogSourceConfig
+): Promise<ImportedCandidate[]> {
+  const listingHtml = await fetchText(config.sourceUrl);
+  const previews = extractAnthropicListingItems(listingHtml, config.maxItems);
+
+  const results: ImportedCandidate[] = [];
+
+  for (const preview of previews) {
+    const articleUrl = new URL(preview.href, config.baseUrl).toString();
+    const articleHtml = await fetchText(articleUrl);
+    const title =
+      decodeHtmlEntities(
+        articleHtml.match(/<meta property="og:title" content="([^"]+)"/i)?.[1] ?? ""
+      ) ||
+      stripHtml(articleHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "");
+    const paragraphs = extractReadableParagraphs(articleHtml);
+    const summary = trimToLength(
+      preview.excerpt || paragraphs[0] || "No summary extracted from the source page.",
+      260
+    );
+    const content = trimToLength(paragraphs.slice(0, 4).join("\n\n") || summary, 2200);
+    const dateMatch =
+      articleHtml.match(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}\b/)?.[0] ??
+      preview.date;
+    const combinedText = [title, summary, content, config.sourceName].join(" ");
+
+    results.push({
+      id: `candidate-blog-${normalizeCandidateId(preview.href)}`,
+      sourceType: "official-blog",
+      sourceName: config.sourceName,
+      sourceUrl: articleUrl,
+      originalTitle: title,
+      originalSummary: summary,
+      originalContent: content,
+      originalLanguage: "en",
+      publishDate: toIsoDate(dateMatch),
+      publisherName: config.publisherName,
+      normalizedType: inferNormalizedType(combinedText),
+      tags: inferTags(combinedText, ["official-blog"]),
+      importStatus: "new",
+      relatedCandidateIds: [],
+      rawPayload: {
+        sourceId: config.id,
+        listingUrl: config.sourceUrl,
+        listingPreview: preview,
+        extractedParagraphs: paragraphs.slice(0, 6)
+      }
+    });
+  }
+
+  return results;
+}
+
+export function getSupportedExternalSourceTypes(): ExternalSourceType[] {
+  return ["rss", "atom", "github_release", "official_blog"];
+}
+
+export function getExternalSourceSummaries(): Array<{
+  id: string;
+  sourceType: ImportedSourceType;
+  sourceName: string;
+  sourceUrl: string;
+}> {
+  return [...rssFeedSources, ...gitHubReleaseSources, ...officialBlogSources].map(
+    (source) => ({
+      id: source.id,
+      sourceType: source.sourceType,
+      sourceName: source.sourceName,
+      sourceUrl: source.sourceUrl
+    })
+  );
+}
+
+async function importCandidatesForConfig(
+  config: BaseSourceConfig
+): Promise<ImportedCandidate[]> {
+  const imported =
+    config.sourceType === "github-release"
+      ? await fetchGitHubReleaseCandidates(config as GitHubReleaseSourceConfig)
+      : config.sourceType === "official-blog"
+        ? await fetchOfficialBlogCandidates(config as OfficialBlogSourceConfig)
+        : await fetchRssFeedCandidates(config as RssFeedSourceConfig);
+
+  return imported.map((candidate) =>
+    applyExternalSourceDefaults(candidate, config)
+  );
+}
+
+export async function importCandidatesForExternalSource(
+  source: ExternalSource
+): Promise<ImportedCandidate[]> {
+  return importCandidatesForConfig(toConfigFromExternalSource(source));
+}
+
+export function buildImportedCandidateSourceRecord(
+  source: ExternalSource,
+  itemCount: number,
+  syncStatus: ImportedCandidateSourceRecord["syncStatus"],
+  note?: string
+): ImportedCandidateSourceRecord {
+  return {
+    id: source.id,
+    sourceType: mapExternalSourceTypeToImportedSourceType(source.type),
+    sourceName: source.name,
+    sourceUrl: source.url,
+    syncStatus,
+    itemCount,
+    fetchedAt: new Date().toISOString(),
+    note
+  };
+}
+
+export async function syncExternalImportedCandidates(
+  sources?: ExternalSource[]
+): Promise<ImportedCandidateSnapshot> {
+  const sourceRecords: ImportedCandidateSourceRecord[] = [];
+  const candidates: ImportedCandidate[] = [];
+
+  if (sources) {
+    for (const source of sources.filter((item) => item.enabled)) {
+      const imported = await importCandidatesForExternalSource(source);
+
+      sourceRecords.push(
+        buildImportedCandidateSourceRecord(source, imported.length, "live")
+      );
+      candidates.push(...imported);
+    }
+
+    return {
+      syncedAt: new Date().toISOString(),
+      sources: sourceRecords,
+      candidates: candidates.sort((left, right) =>
+        right.publishDate.localeCompare(left.publishDate)
+      )
+    };
+  }
+
+  for (const source of rssFeedSources) {
+    const imported = await importCandidatesForConfig(source);
+    sourceRecords.push(buildSourceRecord(source, imported.length));
+    candidates.push(...imported);
+  }
+
+  for (const source of gitHubReleaseSources) {
+    const imported = await importCandidatesForConfig(source);
+    sourceRecords.push(buildSourceRecord(source, imported.length));
+    candidates.push(...imported);
+  }
+
+  for (const source of officialBlogSources) {
+    const imported = await importCandidatesForConfig(source);
+    sourceRecords.push(buildSourceRecord(source, imported.length));
+    candidates.push(...imported);
+  }
+
+  return {
+    syncedAt: new Date().toISOString(),
+    sources: sourceRecords,
+    candidates: candidates.sort((left, right) =>
+      right.publishDate.localeCompare(left.publishDate)
+    )
+  };
+}
