@@ -64,7 +64,7 @@ export function DeliveryRunActions({ runId, status }: DeliveryRunActionsProps) {
         onClick={retry}
         disabled={isPending}
       >
-        Retry failed delivery
+        Retry delivery
       </button>
       {message ? <p className="candidate-review-actions__message">{message}</p> : null}
     </div>

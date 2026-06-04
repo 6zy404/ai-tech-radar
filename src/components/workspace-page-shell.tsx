@@ -9,6 +9,8 @@ interface WorkspacePageShellProps {
   description?: string;
   sectionLabel?: string;
   actions?: ReactNode;
+  className?: string;
+  securityNote?: ReactNode;
   children: ReactNode;
 }
 
@@ -17,10 +19,12 @@ export function WorkspacePageShell({
   description,
   sectionLabel = "Internal Editorial Workspace",
   actions,
+  className,
+  securityNote,
   children
 }: WorkspacePageShellProps) {
   return (
-    <div className="workspace-shell">
+    <div className={["workspace-shell", className].filter(Boolean).join(" ")}>
       <WorkspaceNav />
       <div className="workspace-shell__content">
         <WorkspaceBreadcrumbs />
@@ -32,9 +36,14 @@ export function WorkspacePageShell({
           actions={actions}
         />
         <aside className="workspace-security-note" aria-label="Workspace boundary note">
-          <strong>Internal workspace.</strong> Protect with{" "}
-          <code>WORKSPACE_ACCESS_TOKEN</code>. Delivery endpoints and local data
-          paths are sensitive; keep one task runner active per data directory.
+          {securityNote ?? (
+            <>
+              <strong>Internal workspace.</strong> Protect with{" "}
+              <code>WORKSPACE_ACCESS_TOKEN</code>. Delivery endpoints and local
+              data paths are sensitive; keep one task runner active per data
+              directory.
+            </>
+          )}
         </aside>
         {children}
       </div>
