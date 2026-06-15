@@ -54,3 +54,39 @@ At minimum:
 - update README
 - explain the data model
 - explain page structure
+
+## Project Context Recovery v0
+
+Long-term project context must live in repository documents, not in ChatGPT or
+Codex chat history. New sessions should start from:
+
+- `AGENTS.md`
+- `README.md`
+- `docs/project-spec.md`
+- `docs/architecture.md`
+- `docs/data-model.md`
+- `docs/page-structure.md`
+- `docs/design-system.md`
+- `docs/security-boundary.md`
+- `docs/workspace-actions.md`
+- `docs/progress.md`
+- `docs/decisions.md`
+- `docs/ui-migration-plan.md`
+- `docs/next-task.md`
+
+If a detail is not supported by current repository files, mark it as
+`Unknown / needs verification` instead of reconstructing it from old chat
+history.
+
+Default continuation rules:
+
+- UI work should default to visual-layer changes only unless explicitly scoped
+  otherwise.
+- Work on one page per task.
+- Keep Workspace and User-facing surfaces separate.
+- Workspace is the internal editing / operations workbench.
+- User-facing pages are the public reading and technology discovery product.
+- Do not run Playwright from Codex unless the user explicitly asks; Playwright
+  validation is run by the user locally.
+- Default Codex verification is `npm run typecheck` unless the task asks for a
+  different command.
