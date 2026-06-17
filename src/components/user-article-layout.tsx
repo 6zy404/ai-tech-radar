@@ -4,15 +4,21 @@ interface UserArticleLayoutProps {
   hero: ReactNode;
   children: ReactNode;
   aside?: ReactNode;
+  className?: string;
 }
 
 export function UserArticleLayout({
   hero,
   children,
-  aside
+  aside,
+  className
 }: UserArticleLayoutProps) {
+  const rootClassName = ["user-article-layout", className]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <article className="user-article-layout">
+    <article className={rootClassName}>
       <div className="user-article-layout__hero">{hero}</div>
       <div className="user-article-layout__body">
         <main className="user-article-layout__main">{children}</main>

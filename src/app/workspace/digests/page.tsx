@@ -47,7 +47,7 @@ export default function WorkspaceDigestsPage() {
         detail="Digest editorial workflow keeps manual edits separate from generated ranking sections. It is not push delivery, email, or personalization."
       />
 
-      <div className="content-grid candidate-grid">
+      <div className="workspace-compact-list digest-workspace-list">
         {digests.map((digest) => (
           <DailyDigestWorkspaceCard key={digest.id} digest={digest} />
         ))}

@@ -4,7 +4,6 @@ import { TechnologyDetailContent } from "@/components/technology-detail-content"
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   buildRelationItems,
-  getAllTechnologies,
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";

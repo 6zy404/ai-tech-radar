@@ -96,7 +96,11 @@ export function ExternalSourceActions({
       <div className="candidate-review-actions__buttons">
         <button
           type="button"
-          className="action-button action-button--accent"
+          className={
+            compact
+              ? "action-button action-button--subtle source-actions__import"
+              : "action-button action-button--accent source-actions__import"
+          }
           onClick={runImport}
           disabled={isPending || !enabled}
           title={
@@ -109,7 +113,14 @@ export function ExternalSourceActions({
         </button>
         <button
           type="button"
-          className="action-button action-button--subtle"
+          className={[
+            "action-button",
+            "action-button--subtle",
+            "source-actions__toggle",
+            enabled
+              ? "source-actions__toggle--risk"
+              : "source-actions__toggle--restore"
+          ].join(" ")}
           onClick={() => updateEnabled(!enabled)}
           disabled={isPending}
         >

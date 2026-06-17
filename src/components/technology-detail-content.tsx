@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 
-import { MetadataRow } from "@/components/metadata-row";
 import { RelatedItemsSection } from "@/components/related-items-section";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
-import { TechnologyLanguageIndicators } from "@/components/technology-language-indicators";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
 import {
@@ -27,19 +25,12 @@ import {
 } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
-  getImportanceLevelLabel,
   getLocalizedTechnologyText,
-  getPublisherTypeLabel,
-  getTechnologyAudienceLabel,
-  getTechnologyRelationNote,
   getRelationTypeLabel,
-  getTechnologySignalLabel,
   getTechnologyDefaultMode,
   getTechnologyDetailCopy,
-  getTechnologyTranslationCoverage,
-  getTechnologyTranslationMessage,
+  getTechnologyRelationNote,
   getTechnologyTypeLabel,
-  hasTechnologyChineseContent,
   hasTechnologyChineseContentForContext,
   type TechnologyContentMode
 } from "@/lib/technology-localization";
@@ -62,12 +53,7 @@ export function TechnologyDetailContent({
   relatedSkills,
   relatedKnowledge
 }: TechnologyDetailContentProps) {
-  const hasAnyChinese = hasTechnologyChineseContent(technology);
   const hasDetailChinese = hasTechnologyChineseContentForContext(
-    technology,
-    "detail"
-  );
-  const translationCoverage = getTechnologyTranslationCoverage(
     technology,
     "detail"
   );
@@ -88,28 +74,14 @@ export function TechnologyDetailContent({
     mode,
     technology.sourceLanguage
   );
-  const content = getLocalizedTechnologyText(
-    technology.content,
-    mode,
-    technology.sourceLanguage
-  );
-  const signalLabel = getTechnologySignalLabel(
-    technology.importanceLevel,
-    mode
-  );
-  const audienceLabel = getTechnologyAudienceLabel(technology.type, mode);
-  const translationMessage = getTechnologyTranslationMessage(
-    mode,
-    hasAnyChinese,
-    hasDetailChinese
-  );
+  const priorityLabel = getPriorityLevelLabel(ranking.priorityLevel, mode);
   const prioritySummary = getPriorityUserSummary(ranking, mode);
   const whyItMatters = getTechnologyWhyItMatters(technology, prioritySummary);
+  const technicalContext = technology.technicalContext?.trim();
   const audienceItems = getTechnologyAudience(technology);
   const impactAreas = getTechnologyImpactAreas(technology);
   const learningPath = getTechnologyLearningPath(technology);
   const followUpQuestions = getTechnologyFollowUpQuestions(technology);
-  const technicalContext = technology.technicalContext?.trim();
   const readingDifficultyLabel = getReadingDifficultyLabel(
     technology.readingDifficulty
   );
@@ -138,48 +110,44 @@ export function TechnologyDetailContent({
 
   return (
     <UserArticleLayout
+      className="technology-detail-reading"
       hero={
-        <section className="user-article-hero">
-          <div className="user-article-hero__copy">
-            <p className="eyebrow user-eyebrow">
-              {getTechnologyTypeLabel(technology.type, mode)}
-            </p>
+        <section className="user-article-hero technology-detail-hero">
+          <div className="user-article-hero__copy technology-detail-hero__copy">
+            <div className="technology-detail-hero__topline">
+              <p className="eyebrow user-eyebrow">
+                {getTechnologyTypeLabel(technology.type, mode)}
+              </p>
+              <TechnologyLanguageSwitch
+                mode={mode}
+                onChange={setRequestedMode}
+                chineseEnabled={hasDetailChinese}
+                label={copy.switchLabel}
+                compact
+              />
+            </div>
+
             <h1>{title}</h1>
             <p className="user-article-hero__summary">{summary}</p>
-            <div className="user-article-hero__signal">
-              <span>{copy.whyItMattersLabel}</span>
-              <strong>{signalLabel}</strong>
-              <p>{audienceLabel}</p>
-            </div>
-            <div className="user-article-hero__priority">
+
+            <div className="technology-detail-hero__meta">
+              <span>{technology.sourceName}</span>
+              <span>{technology.publishDate}</span>
               <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-                {getPriorityLevelLabel(ranking.priorityLevel, mode)}
+                {priorityLabel}
               </span>
-              <p>{prioritySummary}</p>
             </div>
-            <MetadataRow
-              className="metadata-row--article"
-              items={[
-                { label: copy.sourceNameLabel, value: technology.sourceName },
-                { label: copy.publishedLabel, value: technology.publishDate },
-                {
-                  label: copy.publisherTypeLabel,
-                  value: getPublisherTypeLabel(technology.publisherType, mode)
-                },
-                {
-                  label: copy.importanceLabel,
-                  value: getImportanceLevelLabel(technology.importanceLevel, mode)
-                }
-              ]}
+
+            <p className="technology-detail-hero__priority-copy">
+              {prioritySummary}
+            </p>
+
+            <TagList
+              tags={tags}
+              limit={4}
+              className="technology-detail-hero__tags"
             />
           </div>
-
-          <TechnologyLanguageSwitch
-            mode={mode}
-            onChange={setRequestedMode}
-            chineseEnabled={hasDetailChinese}
-            label={copy.switchLabel}
-          />
         </section>
       }
       aside={
@@ -194,105 +162,76 @@ export function TechnologyDetailContent({
           />
 
           <section className="user-reference-panel">
-            <h2>{copy.languageStateLabel}</h2>
-            <div className="tag-row">
-              <TechnologyLanguageIndicators
-                technology={technology}
-                mode={mode}
-                context="detail"
-              />
-            </div>
+            <p className="eyebrow user-eyebrow">Priority</p>
+            <h2>{priorityLabel}</h2>
+            <p className="user-reference-panel__copy">{prioritySummary}</p>
           </section>
 
-          <section className="user-reference-panel">
-            <h2>{mode === "zh" ? "关注优先级" : "Priority"}</h2>
-            <p className="user-reference-panel__copy">
-              {prioritySummary}
-            </p>
-          </section>
+          {readingDifficultyLabel ? (
+            <section className="user-reference-panel">
+              <p className="eyebrow user-eyebrow">Reading difficulty</p>
+              <h2>{readingDifficultyLabel}</h2>
+            </section>
+          ) : null}
 
           {tags.length > 0 ? (
             <section className="user-reference-panel">
-              <h2>{copy.tagsLabel}</h2>
-              <TagList tags={tags} />
+              <p className="eyebrow user-eyebrow">{copy.tagsLabel}</p>
+              <TagList tags={tags} limit={6} />
             </section>
           ) : null}
         </>
       }
     >
-      <p
-        className={`translation-note user-article-note${
-          translationCoverage === "none" || translationCoverage === "partial"
-            ? " translation-note--warning"
-            : ""
-        }`}
-      >
-        {translationMessage}
-      </p>
-
-      {whyItMatters ||
-      technicalContext ||
-      audienceItems.length > 0 ||
-      impactAreas.length > 0 ||
-      readingDifficultyLabel ? (
-        <section className="user-article-section content-intelligence-overview">
-          <h2>Understand this signal</h2>
-          <div className="content-intelligence-grid">
-            {whyItMatters ? (
-              <article className="content-intelligence-card">
-                <span>Why it matters</span>
-                <p>{whyItMatters}</p>
-              </article>
-            ) : null}
-
-            {technicalContext ? (
-              <article className="content-intelligence-card">
-                <span>Technical context</span>
-                <p>{technicalContext}</p>
-              </article>
-            ) : null}
-
-            {audienceItems.length > 0 ? (
-              <article className="content-intelligence-card">
-                <span>Who should care</span>
-                <div className="content-intelligence-pill-row">
-                  {audienceItems.map((item) => (
-                    <span key={item} className="content-intelligence-pill">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            ) : null}
-
-            {impactAreas.length > 0 || readingDifficultyLabel ? (
-              <article className="content-intelligence-card">
-                <span>Impact and difficulty</span>
-                {readingDifficultyLabel ? <p>{readingDifficultyLabel}</p> : null}
-                {impactAreas.length > 0 ? (
-                  <div className="content-intelligence-pill-row">
-                    {impactAreas.map((item) => (
-                      <span key={item} className="content-intelligence-pill">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-              </article>
-            ) : null}
-          </div>
+      {whyItMatters ? (
+        <section className="user-article-section technology-detail-section">
+          <p className="technology-detail-section__eyebrow">Why now</p>
+          <h2>Why it matters</h2>
+          <p className="technology-detail-section__lede">{whyItMatters}</p>
         </section>
       ) : null}
 
-      <section className="user-article-section user-article-section--lead">
-        <h2>{copy.detailHeading}</h2>
-        <p>{content}</p>
-      </section>
+      {technicalContext ? (
+        <section className="user-article-section technology-detail-section">
+          <p className="technology-detail-section__eyebrow">Context</p>
+          <h2>Technical context</h2>
+          <p className="technology-detail-section__lede">{technicalContext}</p>
+        </section>
+      ) : null}
+
+      {audienceItems.length > 0 || impactAreas.length > 0 ? (
+        <section className="user-article-section technology-detail-section">
+          <p className="technology-detail-section__eyebrow">Audience</p>
+          <h2>Who should care</h2>
+          {audienceItems.length > 0 ? (
+            <div className="technology-detail-chip-row">
+              {audienceItems.map((item) => (
+                <span key={item} className="technology-detail-chip">
+                  {item}
+                </span>
+              ))}
+            </div>
+          ) : null}
+          {impactAreas.length > 0 ? (
+            <div className="technology-detail-impact">
+              <span>Likely impact areas</span>
+              <div className="technology-detail-chip-row">
+                {impactAreas.map((item) => (
+                  <span key={item} className="technology-detail-chip">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
 
       {learningPath.length > 0 ? (
-        <section className="user-article-section content-intelligence-sequence">
+        <section className="user-article-section technology-detail-section">
+          <p className="technology-detail-section__eyebrow">Next steps</p>
           <h2>Learning path</h2>
-          <ol className="content-intelligence-list">
+          <ol className="technology-detail-learning-list">
             {learningPath.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -305,6 +244,7 @@ export function TechnologyDetailContent({
         description={copy.relatedSkillsDescription}
         emptyText={copy.relatedSkillsEmpty}
         items={localizedRelatedSkills}
+        linkLabel="View skill"
         formatRelationType={(relationType) =>
           getRelationTypeLabel(relationType, mode)
         }
@@ -315,21 +255,35 @@ export function TechnologyDetailContent({
         description={copy.relatedKnowledgeDescription}
         emptyText={copy.relatedKnowledgeEmpty}
         items={localizedRelatedKnowledge}
+        linkLabel="View concept"
         formatRelationType={(relationType) =>
           getRelationTypeLabel(relationType, mode)
         }
       />
 
       {followUpQuestions.length > 0 ? (
-        <section className="user-article-section content-intelligence-sequence">
+        <section className="user-article-section technology-detail-section">
+          <p className="technology-detail-section__eyebrow">
+            Continue thinking
+          </p>
           <h2>Follow-up questions</h2>
-          <ul className="content-intelligence-list">
+          <ul className="technology-detail-question-list">
             {followUpQuestions.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
       ) : null}
+
+      <SourceReference
+        title="Source reference"
+        sourceName={technology.sourceName}
+        sourceUrl={technology.sourceUrl}
+        publisherName={technology.publisherName}
+        publishDate={technology.publishDate}
+        linkLabel={copy.sourceLinkLabel}
+        showUrl
+      />
     </UserArticleLayout>
   );
 }

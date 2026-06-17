@@ -4,6 +4,10 @@ import { DailyDigestContent } from "@/components/daily-digest-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getPublishedDailyDigestByDate } from "@/lib/digest-workflow";
 import { getDailyDigestRenderData } from "@/lib/digest-view";
+import {
+  getPublicDigestSummary,
+  getPublicDigestTitle
+} from "@/lib/public-copy";
 
 interface DigestDatePageProps {
   params: Promise<{ date: string }>;
@@ -19,10 +23,13 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
     notFound();
   }
 
+  const publicTitle = getPublicDigestTitle(digest);
+  const publicSummary = getPublicDigestSummary(digest);
+
   return (
     <UserPageShell
-      title={digest.title}
-      description={digest.editorialSummary?.trim() || digest.summary}
+      title={publicTitle}
+      description={publicSummary}
       sectionLabel="Daily Digest"
       showHeader={false}
     >

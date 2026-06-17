@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { DailyDigestContent } from "@/components/daily-digest-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -21,7 +23,7 @@ export default function TodayDigestPage() {
 
   return (
     <UserPageShell
-      title="Daily Technology Digest"
+      title="AI Tech Digest"
       description="A reading-first brief of the technology signals worth checking today."
       sectionLabel="Daily Digest"
       showHeader={false}
@@ -34,14 +36,17 @@ export default function TodayDigestPage() {
           {...getDailyDigestRenderData(latestDigest)}
         />
       ) : (
-        <section className="daily-digest-hero">
+        <section className="daily-digest-empty">
           <div>
             <p className="eyebrow user-eyebrow">Daily Digest</p>
-            <h1>No published digest yet</h1>
+            <h1>No published digest for today.</h1>
             <p>
-              A daily brief will appear here after the first digest is published.
-              Check the technology list for published signals in the meantime.
+              A published daily brief will appear here after the first digest is
+              published. Browse the technology signal stream in the meantime.
             </p>
+            <Link className="action-link" href="/technologies">
+              Browse technology signals
+            </Link>
           </div>
         </section>
       )}

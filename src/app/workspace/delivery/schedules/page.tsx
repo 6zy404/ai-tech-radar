@@ -5,9 +5,7 @@ import {
   ScheduledDeliveryActions
 } from "@/components/scheduled-delivery-actions";
 import { ScheduledDeliveryForm } from "@/components/scheduled-delivery-form";
-import { MetadataRow } from "@/components/metadata-row";
 import { WorkflowEventList } from "@/components/workflow-event-list";
-import { WorkspaceListToolbar } from "@/components/workspace-list-toolbar";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
 import { getDeliveryChannelTypeLabel } from "@/lib/delivery-labels";
@@ -64,6 +62,7 @@ export default function WorkspaceDeliverySchedulesPage() {
   const latestTaskRunnerRun = getLatestTaskRunnerRun();
   const now = Date.now();
   const enabledCount = schedules.filter((schedule) => schedule.enabled).length;
+  const failedRunCount = runs.filter((run) => run.status === "failed").length;
   const recentScheduleEvents = getRecentWorkflowEvents({
     entityTypes: ["scheduled_delivery", "task_runner"],
     limit: 6
@@ -85,280 +84,327 @@ export default function WorkspaceDeliverySchedulesPage() {
 
   return (
     <WorkspacePageShell
+      className="workspace-delivery-console workspace-schedule-console"
       title="Scheduled Delivery"
-      description="Configure local schedules that send published Daily Digest records to enabled delivery channels. Schedules decide when to send; channels decide where to send."
+      description="Manage local schedules for sending published Daily Digest records to enabled delivery channels."
       sectionLabel="Delivery / Schedules"
+      actions={
+        <a className="action-button action-button--accent" href="#create-schedule">
+          Create schedule
+        </a>
+      }
+      securityNote={
+        <>
+          <strong>Internal workspace</strong> - schedules trigger delivery
+          channels; keep one task runner active per data directory.
+        </>
+      }
     >
-      <WorkspaceListToolbar
-        label={`${enabledCount}/${schedules.length} schedules enabled`}
-        detail={`${dueCount} due now, ${runs.length} scheduled run(s) recorded.`}
-      />
+      <section className="delivery-console-summary" aria-label="Schedule summary">
+        <article className="delivery-console-summary__card">
+          <span>Total schedules</span>
+          <strong>{schedules.length}</strong>
+          <p>{enabledCount} enabled</p>
+        </article>
+        <article className="delivery-console-summary__card">
+          <span>Due now</span>
+          <strong>{dueCount}</strong>
+          <p>{schedules.length - enabledCount} disabled</p>
+        </article>
+        <article className="delivery-console-summary__card">
+          <span>Last run</span>
+          <strong>{lastRun?.status ?? "never run"}</strong>
+          <p>{formatDateTime(lastRun?.finishedAt ?? lastRun?.startedAt)}</p>
+        </article>
+        <article className="delivery-console-summary__card">
+          <span>Failed runs</span>
+          <strong>{failedRunCount}</strong>
+          <p>{runs.length} scheduled run records</p>
+        </article>
+      </section>
 
-      <div className="delivery-workspace-layout">
-        <main className="delivery-workspace-layout__main">
-          <section className="detail-panel delivery-section">
-            <div className="section-heading">
-              <div>
-                <h2>Schedules</h2>
-                <p>
-                  Each schedule selects a published digest target and sends it
-                  to the configured channels at a local time. Disabled channels
-                  are skipped during runs.
-                </p>
-              </div>
-              <Link className="action-link" href="/workspace/delivery">
-                Manage channels
-              </Link>
+      <section
+        id="delivery-schedules"
+        className="detail-panel delivery-console-panel"
+      >
+        <div className="delivery-console-panel__header">
+          <div>
+            <p className="section-eyebrow">Delivery schedules</p>
+            <h2>Configured schedules</h2>
+            <p>
+              Schedules decide when to send. Channels decide where to send.
+              Disabled schedules and disabled channels are skipped.
+            </p>
+          </div>
+          <Link className="action-link" href="/workspace/delivery">
+            Manage channels
+          </Link>
+        </div>
+
+        <section
+          id="create-schedule"
+          className="delivery-create-panel schedule-create-panel"
+          aria-label="Create delivery schedule"
+        >
+          <div className="delivery-create-panel__summary">
+            <div>
+              <h3>Create schedule</h3>
+              <p>
+                Use one digest target, one local time, and one or more enabled
+                channels. The form is hidden until this section is opened.
+              </p>
             </div>
+            <a className="action-link" href="#delivery-schedules">
+              Close form
+            </a>
+          </div>
+          <div className="delivery-create-panel__body">
+            <ScheduledDeliveryForm channels={channels} />
+          </div>
+        </section>
 
-            <details className="workspace-drawer-lite">
-              <summary>Create schedule</summary>
-              <div className="workspace-drawer-lite__body">
-                <p>
-                  Keep schedules simple: one digest target, one local time, and
-                  one or more delivery channels.
-                </p>
-                <ScheduledDeliveryForm channels={channels} />
+        {schedules.length > 0 ? (
+          <div
+            className="delivery-table-scroll"
+            role="region"
+            aria-label="Scheduled deliveries table"
+          >
+            <div className="schedule-table schedule-table--console">
+              <div className="schedule-table__head">
+                <span>Name</span>
+                <span>Target</span>
+                <span>Time</span>
+                <span>Channels</span>
+                <span>State</span>
+                <span>Last run</span>
+                <span>Next run</span>
+                <span>Actions</span>
               </div>
-            </details>
+              {schedules.map((schedule) => {
+                const channelNames = schedule.channelIds.map((channelId) => {
+                  const channel = channelById.get(channelId);
 
-            {schedules.length > 0 ? (
-              <div className="delivery-channel-list">
-                {schedules.map((schedule) => {
-                  const channelLabels = schedule.channelIds.map((channelId) => {
+                  return channel ? channel.name : `${channelId} (missing)`;
+                });
+                const disabledChannelCount = schedule.channelIds.filter(
+                  (channelId) => {
                     const channel = channelById.get(channelId);
 
-                    return channel
-                      ? `${channel.name} (${getDeliveryChannelTypeLabel(
-                          channel.type
-                        )}, ${channel.enabled ? "enabled" : "disabled"})`
-                      : `${channelId} (missing)`;
-                  });
+                    return Boolean(channel && !channel.enabled);
+                  }
+                ).length;
+                const missingChannelCount = schedule.channelIds.filter(
+                  (channelId) => !channelById.has(channelId)
+                ).length;
+                const channelSummary = [
+                  `${schedule.channelIds.length} selected`,
+                  disabledChannelCount
+                    ? `${disabledChannelCount} disabled`
+                    : null,
+                  missingChannelCount ? `${missingChannelCount} missing` : null
+                ]
+                  .filter(Boolean)
+                  .join(", ");
 
-                  return (
-                    <article className="delivery-channel-card" key={schedule.id}>
-                      <div className="delivery-channel-card__header">
-                        <div>
-                          <h3>{schedule.name}</h3>
-                          <p>
-                            {getDigestTargetLabel(
-                              schedule.digestTarget,
-                              schedule.digestDate
-                            )}{" "}
-                            at {schedule.scheduleTime} {schedule.timezone}
-                          </p>
-                        </div>
-                        <WorkspaceStatusBadge
-                          label={schedule.enabled ? "enabled" : "disabled"}
-                          tone={schedule.enabled ? "success" : "neutral"}
-                        />
-                      </div>
-
-                      <MetadataRow
-                        items={[
-                          {
-                            label: "Digest target",
-                            value: getDigestTargetLabel(
-                              schedule.digestTarget,
-                              schedule.digestDate
-                            )
-                          },
-                          {
-                            label: "Next run",
-                            value: formatDateTime(schedule.nextRunAt)
-                          },
-                          {
-                            label: "Last run",
-                            value: formatDateTime(schedule.lastRunAt)
-                          },
-                          {
-                            label: "Last status",
-                            value: schedule.lastRunStatus
-                          }
-                        ]}
+                return (
+                  <article className="schedule-row" key={schedule.id}>
+                    <div className="schedule-row__identity">
+                      <strong>{schedule.name}</strong>
+                      <p>{schedule.lastRunMessage ?? "No run message yet."}</p>
+                    </div>
+                    <div className="schedule-cell" data-label="Target">
+                      <span>
+                        {getDigestTargetLabel(
+                          schedule.digestTarget,
+                          schedule.digestDate
+                        )}
+                      </span>
+                    </div>
+                    <div className="schedule-cell" data-label="Time">
+                      <span>{schedule.scheduleTime}</span>
+                      <small>{schedule.timezone}</small>
+                    </div>
+                    <div className="schedule-cell" data-label="Channels">
+                      <span>{channelSummary || "No channels"}</span>
+                      <small>
+                        {channelNames.length > 0
+                          ? `${channelNames.slice(0, 2).join(", ")}${
+                              channelNames.length > 2
+                                ? ` +${channelNames.length - 2}`
+                                : ""
+                            }`
+                          : "None selected"}
+                      </small>
+                    </div>
+                    <div className="schedule-cell" data-label="State">
+                      <WorkspaceStatusBadge
+                        label={schedule.enabled ? "enabled" : "disabled"}
+                        tone={schedule.enabled ? "success" : "neutral"}
                       />
-
-                      <dl className="digest-delivery-list">
-                        <div>
-                          <dt>Channels</dt>
-                          <dd>
-                            {channelLabels.length > 0
-                              ? channelLabels.join(", ")
-                              : "No channels selected."}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt>Last message</dt>
-                          <dd>
-                            {schedule.lastRunMessage ??
-                              "This schedule has not run yet."}
-                          </dd>
-                        </div>
-                      </dl>
-
+                    </div>
+                    <div className="schedule-cell" data-label="Last run">
+                      <WorkspaceStatusBadge
+                        label={schedule.lastRunStatus}
+                        tone={getRunStatusTone(schedule.lastRunStatus)}
+                      />
+                      <small>{formatDateTime(schedule.lastRunAt)}</small>
+                    </div>
+                    <div className="schedule-cell" data-label="Next run">
+                      <span>{formatDateTime(schedule.nextRunAt)}</span>
+                    </div>
+                    <div className="schedule-row__actions">
                       <ScheduledDeliveryActions
                         scheduleId={schedule.id}
                         enabled={schedule.enabled}
                       />
-
-                      <details className="delivery-channel-card__edit">
-                        <summary>Edit schedule</summary>
+                      <details className="schedule-row__edit">
+                        <summary>Edit</summary>
                         <ScheduledDeliveryForm
                           schedule={schedule}
                           channels={channels}
                         />
                       </details>
-                    </article>
-                  );
-                })}
-              </div>
-            ) : (
-              <p className="empty-state">
-                No schedules have been configured. Create one after adding at
-                least one delivery channel.
-              </p>
-            )}
-          </section>
-
-          <section className="detail-panel delivery-section">
-            <div className="section-heading">
-              <div>
-                <h2>Recent scheduled runs</h2>
-                <p>
-                  A scheduled run groups the per-channel DeliveryLog records for
-                  one schedule execution.
-                </p>
-              </div>
-            </div>
-
-            {runs.length > 0 ? (
-              <div className="delivery-log-list">
-                {runs.slice(0, 20).map((run) => (
-                  <article className="delivery-log-card" key={run.id}>
-                    <div className="delivery-log-card__header">
-                      <div>
-                        <strong>{run.scheduleName}</strong>
-                        <span>
-                          {run.digestDate ? `Digest ${run.digestDate}` : "No digest"} -{" "}
-                          {run.triggerType}
-                        </span>
-                      </div>
-                      <WorkspaceStatusBadge
-                        label={run.status}
-                        tone={getRunStatusTone(run.status)}
-                      />
                     </div>
-                    <MetadataRow
-                      items={[
-                        { label: "Started", value: formatDateTime(run.startedAt) },
-                        {
-                          label: "Finished",
-                          value: formatDateTime(run.finishedAt)
-                        },
-                        {
-                          label: "Channels",
-                          value: `${run.successfulChannels} success, ${run.failedChannels} failed, ${run.skippedChannels} skipped`
-                        },
-                        {
-                          label: "Delivery logs",
-                          value: run.deliveryLogIds.length.toString()
-                        }
-                      ]}
-                    />
-                    <p className="empty-state">{run.message}</p>
                   </article>
-                ))}
-              </div>
-            ) : (
-              <p className="empty-state">
-                No scheduled delivery runs have been recorded yet.
-              </p>
-            )}
-          </section>
-        </main>
-
-        <aside className="delivery-workspace-layout__aside">
-          <section className="detail-panel delivery-section">
-            <div className="section-heading">
-              <div>
-                <h2>Run due schedules now</h2>
-                <p>
-                  Executes every enabled schedule whose next run time is due.
-                  This is the local runner entry point for v0.
-                </p>
-              </div>
+                );
+              })}
             </div>
-            <RunDueSchedulesButton disabled={schedules.length === 0} />
-            {lastRun ? (
-              <p className="empty-state">
-                Latest run: {lastRun.status} - {formatDateTime(lastRun.finishedAt)}
-              </p>
-            ) : null}
-          </section>
-
-          <section className="detail-panel delivery-section">
-            <h2>Task runner</h2>
+          </div>
+        ) : (
+          <div className="schedule-empty-state">
+            <h3>No schedules yet</h3>
             <p>
-              Use the command line runner for local cron-style execution. It
-              uses the same duplicate protection as the workspace button.
+              Create a schedule after adding at least one delivery channel. A
+              schedule only sends published digests and skips disabled channels.
             </p>
-            <dl className="digest-delivery-list">
-              <div>
-                <dt>Run once</dt>
-                <dd>
-                  <code>npm run tasks:run-once</code>
-                </dd>
-              </div>
-              <div>
-                <dt>Watch mode</dt>
-                <dd>
-                  <code>npm run tasks:watch</code>
-                </dd>
-              </div>
-              <div>
-                <dt>Latest task runner result</dt>
-                <dd>
-                  {latestTaskRunnerRun
-                    ? `${latestTaskRunnerRun.status} - ${latestTaskRunnerRun.dueScheduleCount} due, ${latestTaskRunnerRun.deliveryLogsCreated} delivery logs - ${formatDateTime(
-                        latestTaskRunnerRun.finishedAt
-                      )}`
-                    : "No task runner execution has been recorded yet."}
-                </dd>
-              </div>
-            </dl>
-          </section>
+            <a className="action-link" href="#create-schedule">
+              Open create schedule form
+            </a>
+          </div>
+        )}
+      </section>
 
-          <section className="detail-panel delivery-section">
-            <h2>Current v0 rules</h2>
-            <dl className="digest-delivery-list">
-              <div>
-                <dt>Digest safety</dt>
-                <dd>Only published digests can be sent.</dd>
-              </div>
-              <div>
-                <dt>Duplicate protection</dt>
-                <dd>
-                  Scheduled runs skip the same schedule / digest / channel on
-                  the same local day. Manual runs are explicit force runs.
-                </dd>
-              </div>
-              <div>
-                <dt>Failure handling</dt>
-                <dd>
-                  One failed channel records a failed delivery log but does not
-                  stop other channels.
-                </dd>
-              </div>
-            </dl>
-          </section>
+      <section className="detail-panel delivery-console-panel schedule-runs-panel">
+        <div className="delivery-console-panel__header">
+          <div>
+            <p className="section-eyebrow">Scheduled runs</p>
+            <h2>Recent executions</h2>
+            <p>
+              Each run groups the per-channel DeliveryLog records for one
+              schedule execution.
+            </p>
+          </div>
+        </div>
 
+        {runs.length > 0 ? (
+          <div
+            className="delivery-table-scroll"
+            role="region"
+            aria-label="Scheduled delivery runs table"
+          >
+            <div className="schedule-run-table">
+              <div className="schedule-run-table__head">
+                <span>Time</span>
+                <span>Schedule</span>
+                <span>Digest</span>
+                <span>Status</span>
+                <span>Channels</span>
+                <span>Trigger</span>
+                <span>Message</span>
+              </div>
+              {runs.slice(0, 20).map((run) => (
+                <article className="schedule-run-row" key={run.id}>
+                  <span>{formatDateTime(run.finishedAt ?? run.startedAt)}</span>
+                  <strong>{run.scheduleName}</strong>
+                  <span>{run.digestDate ? `Digest ${run.digestDate}` : "No digest"}</span>
+                  <WorkspaceStatusBadge
+                    label={run.status}
+                    tone={getRunStatusTone(run.status)}
+                  />
+                  <span>
+                    {run.successfulChannels} success, {run.failedChannels} failed,{" "}
+                    {run.skippedChannels} skipped
+                  </span>
+                  <span>{run.triggerType}</span>
+                  <span className="delivery-log-message">{run.message}</span>
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="empty-state">
+            No scheduled delivery runs have been recorded yet.
+          </p>
+        )}
+      </section>
+
+      <section className="schedule-support-grid" aria-label="Schedule support">
+        <details className="schedule-support-panel">
+          <summary>Task runner and due runs</summary>
+          <p>
+            The CLI runner uses the same duplicate protection as this workspace
+            page.
+          </p>
+          <RunDueSchedulesButton disabled={dueCount === 0} />
+          <dl className="digest-delivery-list">
+            <div>
+              <dt>Run once</dt>
+              <dd>
+                <code>npm run tasks:run-once</code>
+              </dd>
+            </div>
+            <div>
+              <dt>Watch mode</dt>
+              <dd>
+                <code>npm run tasks:watch</code>
+              </dd>
+            </div>
+            <div>
+              <dt>Latest task runner result</dt>
+              <dd>
+                {latestTaskRunnerRun
+                  ? `${latestTaskRunnerRun.status} - ${latestTaskRunnerRun.dueScheduleCount} due, ${latestTaskRunnerRun.deliveryLogsCreated} delivery logs - ${formatDateTime(
+                      latestTaskRunnerRun.finishedAt
+                    )}`
+                  : "No task runner execution has been recorded yet."}
+              </dd>
+            </div>
+          </dl>
+        </details>
+
+        <details className="schedule-support-panel">
+          <summary>Current v0 rules</summary>
+          <dl className="digest-delivery-list">
+            <div>
+              <dt>Digest safety</dt>
+              <dd>Only published digests can be sent.</dd>
+            </div>
+            <div>
+              <dt>Duplicate protection</dt>
+              <dd>
+                Scheduled runs skip the same schedule / digest / channel on the
+                same local day. Manual runs are explicit force runs.
+              </dd>
+            </div>
+            <div>
+              <dt>Failure handling</dt>
+              <dd>
+                One failed channel records a failed delivery log but does not
+                stop other channels.
+              </dd>
+            </div>
+          </dl>
+        </details>
+
+        <details className="schedule-support-panel">
+          <summary>Recent schedule events</summary>
           <WorkflowEventList
             events={recentScheduleEvents}
-            title="Recent schedule events"
-            description="Task runner and schedule execution audit trail."
+            title="Audit trail"
+            description="Task runner and schedule execution events."
           />
-        </aside>
-      </div>
+        </details>
+      </section>
     </WorkspacePageShell>
   );
 }

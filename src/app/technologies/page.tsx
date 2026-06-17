@@ -8,8 +8,8 @@ export default function TechnologiesPage() {
   return (
     <UserPageShell
       title="Technology Signals"
-      description="已发布 AI 技术信号，按优先级、适合人群、来源和学习路径整理，帮助你判断先看什么。中文内容优先展示，原始来源保留入口。"
-      sectionLabel="已发布技术信号"
+      description="Discover published AI technology signals and decide what to read first."
+      sectionLabel="Published signals"
       className="technology-list-page"
     >
       <TechnologyBrowser

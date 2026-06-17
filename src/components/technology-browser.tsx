@@ -1,22 +1,29 @@
 "use client";
 
-import Link from "next/link";
 import { useDeferredValue, useState } from "react";
 
 import { SearchFilterBar } from "@/components/search-filter-bar";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { TechnologyListCard } from "@/components/technology-list-card";
+import { evaluateTechnologyPriority } from "@/lib/ranking";
+import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
   getTechnologySearchText,
   getTechnologySwitchLabel,
   type TechnologyContentMode
 } from "@/lib/technology-localization";
-import type { TechnologyItem, TopicTag } from "@/types/content";
+import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
 
 interface TechnologyBrowserProps {
   technologies: TechnologyItem[];
   tags: TopicTag[];
 }
+
+const priorityLevels: PriorityLevel[] = [
+  "high_priority",
+  "watch",
+  "low_priority"
+];
 
 export function TechnologyBrowser({
   technologies,
@@ -26,21 +33,25 @@ export function TechnologyBrowser({
   const [searchText, setSearchText] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [tagFilter, setTagFilter] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState("");
   const deferredSearchText = useDeferredValue(searchText);
 
   const filteredTechnologies = technologies.filter((item) => {
+    const priority = evaluateTechnologyPriority(item).priorityLevel;
     const matchesSearch =
       deferredSearchText.length === 0 ||
       getTechnologySearchText(item).includes(deferredSearchText.toLowerCase());
 
     const matchesType = typeFilter.length === 0 || item.type === typeFilter;
     const matchesTag = tagFilter.length === 0 || item.tags.includes(tagFilter);
+    const matchesPriority =
+      priorityFilter.length === 0 || priority === priorityFilter;
 
-    return matchesSearch && matchesType && matchesTag;
+    return matchesSearch && matchesType && matchesTag && matchesPriority;
   });
 
   const typeOptions = [
-    { value: "", label: "全部类型" },
+    { value: "", label: "All types" },
     ...Array.from(new Set(technologies.map((item) => item.type))).map((type) => ({
       value: type,
       label: type
@@ -48,8 +59,16 @@ export function TechnologyBrowser({
   ];
 
   const tagOptions = [
-    { value: "", label: "全部标签" },
+    { value: "", label: "All tags" },
     ...tags.map((tag) => ({ value: tag.id, label: tag.name }))
+  ];
+
+  const priorityOptions = [
+    { value: "", label: "All priorities" },
+    ...priorityLevels.map((level) => ({
+      value: level,
+      label: getPriorityLevelLabel(level, "zh")
+    }))
   ];
 
   return (
@@ -61,20 +80,27 @@ export function TechnologyBrowser({
         onTypeChange={setTypeFilter}
         tagValue={tagFilter}
         onTagChange={setTagFilter}
+        priorityValue={priorityFilter}
+        onPriorityChange={setPriorityFilter}
         typeOptions={typeOptions}
         tagOptions={tagOptions}
+        priorityOptions={priorityOptions}
         labels={{
-          search: "搜索",
-          searchPlaceholder: "搜索标题、摘要或来源",
-          type: "类型",
-          tag: "标签"
+          search: "Search",
+          searchPlaceholder: "Search title, summary, or source",
+          type: "Type",
+          tag: "Tag",
+          priority: "Priority"
         }}
       />
 
       <div className="technology-browser__toolbar user-list-toolbar">
         <div>
-          <strong>{filteredTechnologies.length} 条技术信号</strong>
-          <p>按优先级、适合人群和学习路径快速判断先读哪一条。</p>
+          <strong>{filteredTechnologies.length} technology signals</strong>
+          <p>
+            Published signals only. Open the item when the reason, audience, and
+            source match what you need to understand next.
+          </p>
         </div>
         <TechnologyLanguageSwitch
           mode={mode}
@@ -84,7 +110,7 @@ export function TechnologyBrowser({
         />
       </div>
 
-      <div className="content-grid technology-grid">
+      <div className="technology-signal-list">
         {filteredTechnologies.map((item) => (
           <TechnologyListCard
             key={item.id}
@@ -99,11 +125,8 @@ export function TechnologyBrowser({
 
       {filteredTechnologies.length === 0 ? (
         <div className="empty-state empty-state--actionable">
-          <strong>没有匹配的已发布技术信号。</strong>
-          <p>清空搜索条件，或从最新每日技术简报开始阅读。</p>
-          <Link href="/digest/today" className="action-link">
-            阅读最新简报
-          </Link>
+          <strong>No technology signals yet.</strong>
+          <p>Try clearing the filters to see published signals.</p>
         </div>
       ) : null}
     </>

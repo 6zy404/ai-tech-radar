@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { MetadataRow } from "@/components/metadata-row";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
@@ -22,7 +23,7 @@ function getStatusLabel(status: TechnologyDraft["status"]): string {
 
 function getStatusTone(
   status: TechnologyDraft["status"]
-): "neutral" | "success" | "warning" {
+): "neutral" | "success" | "warning" | "info" {
   if (status === "published") {
     return "success";
   }
@@ -31,26 +32,49 @@ function getStatusTone(
     return "warning";
   }
 
-  return "neutral";
+  return "info";
+}
+
+function getPrimaryActionLabel(status: TechnologyDraft["status"]): string {
+  if (status === "draft") {
+    return "Edit draft record";
+  }
+
+  if (status === "published") {
+    return "Inspect published record";
+  }
+
+  return "Inspect archived record";
 }
 
 export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
   const ranking = evaluateTechnologyPriority(draft);
 
   return (
-    <article className="candidate-card workspace-record-card">
-      <div className="candidate-card__meta">
-        <div className="candidate-card__meta-row">
-          <span className="candidate-card__source-type">Technology Workspace</span>
-          <span className="candidate-card__source-name">{draft.publisherName}</span>
+    <article className="workspace-record-card technology-workspace-record">
+      <div className="technology-workspace-record__meta">
+        <div className="technology-workspace-record__topline">
+          <span className="technology-workspace-record__type">Technology Workspace</span>
+          <span className="technology-workspace-record__source">
+            {draft.publisherName}
+          </span>
         </div>
-        <div className="candidate-card__meta-row candidate-card__meta-row--muted">
-          <span>{draft.publishDate}</span>
-          <span>{draft.type}</span>
-        </div>
+        <MetadataRow
+          items={[
+            { label: "Source date", value: draft.publishDate },
+            { label: "Type", value: draft.type },
+            { label: "Updated", value: draft.updatedAt.slice(0, 10) },
+            { label: "Skills", value: String(draft.relatedSkillIds.length) },
+            {
+              label: "Knowledge",
+              value: String(draft.relatedKnowledgeIds.length)
+            }
+          ]}
+          className="technology-workspace-record__metadata"
+        />
       </div>
 
-      <div className="candidate-card__body">
+      <div className="technology-workspace-record__body">
         <h2>
           <Link href={`/workspace/technologies/${draft.id}`}>
             {getDraftDisplayTitle(draft)}
@@ -59,7 +83,7 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
         <p>{draft.summary.zh ?? draft.summary.original}</p>
       </div>
 
-      <div className="candidate-card__badges">
+      <div className="technology-workspace-record__badges">
         <WorkspaceStatusBadge
           label={getStatusLabel(draft.status)}
           tone={getStatusTone(draft.status)}
@@ -70,9 +94,15 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
         <span className="info-pill">{draft.sourceLanguage.toUpperCase()}</span>
       </div>
 
-      <div className="workspace-record-card__actions">
+      <div className="technology-workspace-record__actions">
         <Link href={`/workspace/technologies/${draft.id}`} className="action-link">
-          Open detail / edit draft
+          {getPrimaryActionLabel(draft.status)}
+        </Link>
+        <Link
+          href={`/workspace/technologies/${draft.id}/preview`}
+          className="action-link"
+        >
+          Preview workspace copy
         </Link>
         {draft.status === "published" ? (
           <Link href={`/technologies/${draft.slug}`} className="action-link">

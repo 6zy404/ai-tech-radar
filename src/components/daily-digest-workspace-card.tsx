@@ -56,17 +56,17 @@ export function DailyDigestWorkspaceCard({
 
       <div className="digest-workspace-card__links">
         <Link href={`/workspace/digests/${digest.date}`} className="action-link">
-          Review
+          Review digest
         </Link>
         <Link
           href={`/workspace/digests/${digest.date}/preview`}
           className="action-link"
         >
-          Preview
+          Preview digest
         </Link>
         {digest.status === "published" ? (
           <Link href={`/digest/${digest.date}`} className="action-link">
-            Open published
+            Open published digest
           </Link>
         ) : null}
       </div>
