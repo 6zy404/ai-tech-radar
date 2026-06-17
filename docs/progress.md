@@ -81,19 +81,13 @@ current shell/component usage:
 - Learning Support templates: `/skills`, `/skills/[slug]`, `/knowledge`,
   `/knowledge/[slug]`.
 
-Suspected partial or pending (code present, visual quality not yet verified):
+Verified via `npm run ui:check` (Playwright, 1440px viewport, 24 routes): all
+routes return 200, stylesheets load, workspace pages render the workspace shell
++ nav + breadcrumbs, user-facing pages render the user shell, and no internal
+terms leak onto any user-facing page or feed. The pages previously listed as
+"pending" (`/digest/today`, `/digest/[date]`, `/workspace/operations`,
+`/workspace/duplicates`) all render correctly on the shared templates.
 
-- `/digest/today`
-- `/digest/[date]`
-- `/workspace/operations`
-- `/workspace/duplicates`
+Known visual issues from that run:
 
-## Needs Human Confirmation
-
-- Visual quality and responsive behavior: Unknown / needs verification because
-  Playwright was not run.
-- Whether the Learning Support pages are fully approved: current code and
-  `docs/design-system.md` indicate they use the template, but
-  `docs/page-structure.md` still lists `/skills` and `/knowledge` in a later
-  migration section.
-- Whether `/
+- `/workspace/delivery`: page-level horizontal overflow (

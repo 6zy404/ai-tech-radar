@@ -1,0 +1,1089 @@
+[
+  {
+    "name": "workspace-overview",
+    "route": "/workspace",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-overview.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681828946",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2300,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "delivery log",
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 13,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681828946"
+      ],
+      "buttons": [
+        "Open Operations"
+      ]
+    }
+  },
+  {
+    "name": "workspace-candidates",
+    "route": "/workspace/candidates",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/candidates",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-candidates.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681832727",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1229,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 2,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681832727"
+      ],
+      "buttons": [
+        "Refresh Enabled Sources",
+        "Manage Sources",
+        "Open Workspace",
+        "Open duplicate review"
+      ]
+    }
+  },
+  {
+    "name": "workspace-duplicates",
+    "route": "/workspace/duplicates",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/duplicates",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-duplicates.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681835165",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1059,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 4,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681835165"
+      ],
+      "buttons": [
+        "Review group"
+      ]
+    }
+  },
+  {
+    "name": "workspace-technologies",
+    "route": "/workspace/technologies",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/technologies",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-technologies.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681837469",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1095,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 1,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681837469"
+      ],
+      "buttons": [
+        "Review candidates",
+        "Edit draft record",
+        "Preview workspace copy"
+      ]
+    }
+  },
+  {
+    "name": "workspace-technology-detail",
+    "route": "/workspace/technologies/editorial-enrichment-draft",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/technologies/editorial-enrichment-draft",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-technology-detail.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681840758",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 7956,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "rule_based",
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 17,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681840758"
+      ],
+      "buttons": [
+        "Publish technology",
+        "Move technology back to draft",
+        "Archive technology",
+        "Regenerate enrichment suggestion",
+        "Save review",
+        "Apply all suggestion fields",
+        "Apply selected suggestion fields",
+        "Reject suggestion",
+        "Save draft edits"
+      ]
+    }
+  },
+  {
+    "name": "workspace-sources",
+    "route": "/workspace/sources",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/sources",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-sources.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681844097",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1292,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [
+        {
+          "tag": "span",
+          "className": "",
+          "text": "Actions",
+          "right": 1666,
+          "width": 220
+        },
+        {
+          "tag": "div",
+          "className": "source-console-row__actions",
+          "text": "Run source importDisable sourceEdit sourceView source detail",
+          "right": 1666,
+          "width": 220
+        },
+        {
+          "tag": "div",
+          "className": "source-actions source-actions--compact",
+          "text": "Run source importDisable source",
+          "right": 1666,
+          "width": 220
+        },
+        {
+          "tag": "div",
+          "className": "candidate-review-actions__buttons",
+          "text": "Run source importDisable source",
+          "right": 1666,
+          "width": 220
+        },
+        {
+          "tag": "button",
+          "className": "action-button action-button--subtle source-actions__import",
+          "text": "Run source import",
+          "right": 1568,
+          "width": 122
+        },
+        {
+          "tag": "button",
+          "className": "action-button action-button--subtle source-actions__toggle source-actions__toggle--risk",
+          "text": "Disable source",
+          "right": 1546,
+          "width": 100
+        },
+        {
+          "tag": "div",
+          "className": "source-console-row__links",
+          "text": "Edit sourceView source detail",
+          "right": 1634,
+          "width": 188
+        },
+        {
+          "tag": "a",
+          "className": "",
+          "text": "Edit source",
+          "right": 1514,
+          "width": 68
+        }
+      ],
+      "internalTermHits": [],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 2,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681844097"
+      ],
+      "buttons": [
+        "Add source",
+        "Import enabled sources",
+        "Run source import",
+        "Disable source",
+        "Run source import",
+        "Disable source"
+      ]
+    }
+  },
+  {
+    "name": "workspace-digests",
+    "route": "/workspace/digests",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/digests",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-digests.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681846607",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1353,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 3,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681846607"
+      ],
+      "buttons": [
+        "Generate digest draft",
+        "Review digest",
+        "Preview digest",
+        "Review digest",
+        "Preview digest",
+        "Review digest",
+        "Preview digest",
+        "Open published digest"
+      ]
+    }
+  },
+  {
+    "name": "workspace-delivery",
+    "route": "/workspace/delivery",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/delivery",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-delivery.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681849100",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1663,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": true,
+      "overflowingElements": [
+        {
+          "tag": "nav",
+          "className": "workspace-breadcrumbs",
+          "text": "Workspace/delivery",
+          "right": 1472,
+          "width": 1182
+        },
+        {
+          "tag": "ol",
+          "className": "",
+          "text": "Workspace/delivery",
+          "right": 1472,
+          "width": 1182
+        },
+        {
+          "tag": "header",
+          "className": "workspace-page-header",
+          "text": "DeliveryDigest DeliveryManage internal delivery channels and inspect delivery logs.Create ",
+          "right": 1472,
+          "width": 1182
+        },
+        {
+          "tag": "div",
+          "className": "workspace-page-header__actions",
+          "text": "Create channel",
+          "right": 1447,
+          "width": 127
+        },
+        {
+          "tag": "a",
+          "className": "action-button action-button--accent",
+          "text": "Create channel",
+          "right": 1447,
+          "width": 127
+        },
+        {
+          "tag": "aside",
+          "className": "workspace-security-note",
+          "text": "Internal workspace · Protected routes required · Delivery endpoints are sensitive.",
+          "right": 1472,
+          "width": 1182
+        },
+        {
+          "tag": "section",
+          "className": "delivery-console-summary",
+          "text": "Channels enabled3/41 disabledTotal channels40/0 schedules enabledFailed deliveries01 total",
+          "right": 1472,
+          "width": 1182
+        },
+        {
+          "tag": "article",
+          "className": "delivery-console-summary__card",
+          "text": "Last deliverysuccess5/31/2026, 3:32:58 AM",
+          "right": 1472,
+          "width": 287
+        }
+      ],
+      "internalTermHits": [
+        "delivery log"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 18,
+      "mainWidth": 1260,
+      "asideWidth": 1182,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681849100"
+      ],
+      "buttons": [
+        "Create channel",
+        "Manage schedules",
+        "Close form",
+        "Create channel",
+        "Test channel",
+        "View logs",
+        "Disable channel",
+        "Save channel",
+        "Test channel",
+        "View logs",
+        "Enable channel",
+        "Save channel"
+      ]
+    }
+  },
+  {
+    "name": "workspace-operations",
+    "route": "/workspace/operations",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/operations",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-operations.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681851640",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 3838,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "delivery log",
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 12,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681851640"
+      ],
+      "buttons": [
+        "View event log"
+      ]
+    }
+  },
+  {
+    "name": "workspace-operations-events",
+    "route": "/workspace/operations/events",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/operations/events",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-operations-events.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681854348",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 15952,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "WorkflowEvent",
+        "task-runner",
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 81,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681854348"
+      ],
+      "buttons": [
+        "Back to Operations",
+        "Apply filters"
+      ]
+    }
+  },
+  {
+    "name": "workspace-delivery-schedules",
+    "route": "/workspace/delivery/schedules",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/delivery/schedules",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-delivery-schedules.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681859300",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1203,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 13,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681859300"
+      ],
+      "buttons": [
+        "Create schedule",
+        "Manage channels",
+        "Close form",
+        "Create schedule",
+        "Open create schedule form",
+        "Run due schedules now"
+      ]
+    }
+  },
+  {
+    "name": "workspace-digest-detail",
+    "route": "/workspace/digests/2026-05-25",
+    "kind": "workspace",
+    "url": "http://127.0.0.1:3000/workspace/digests/2026-05-25",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\workspace-digest-detail.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681863527",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2647,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [
+        "WORKSPACE_ACCESS_TOKEN"
+      ],
+      "workspaceShell": true,
+      "workspaceNav": true,
+      "workspaceBreadcrumbs": true,
+      "userShell": false,
+      "cardCount": 14,
+      "mainWidth": 1260,
+      "asideWidth": 1060,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681863527"
+      ],
+      "buttons": [
+        "Publish digest",
+        "Move to draft",
+        "Archive digest",
+        "Save digest copy",
+        "Move up",
+        "Move down",
+        "Pin",
+        "Exclude from digest",
+        "Move up",
+        "Move down",
+        "Pin",
+        "Exclude from digest"
+      ]
+    }
+  },
+  {
+    "name": "home",
+    "route": "/",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\home.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681866727",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2625,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 11,
+      "mainWidth": 1260,
+      "asideWidth": null,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681866727"
+      ],
+      "buttons": [
+        "阅读今日简报",
+        "浏览技术信号",
+        "打开简报",
+        "查看技能",
+        "查看知识"
+      ]
+    }
+  },
+  {
+    "name": "technologies",
+    "route": "/technologies",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/technologies",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\technologies.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681869409",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 3151,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 8,
+      "mainWidth": 1260,
+      "asideWidth": null,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681869409"
+      ],
+      "buttons": [
+        "中文",
+        "原文"
+      ]
+    }
+  },
+  {
+    "name": "technology-detail",
+    "route": "/technologies/model-context-protocol",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/technologies/model-context-protocol",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\technology-detail.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681873291",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2811,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 5,
+      "mainWidth": 1260,
+      "asideWidth": 280,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681873291"
+      ],
+      "buttons": [
+        "中文",
+        "原文"
+      ]
+    }
+  },
+  {
+    "name": "digest-today",
+    "route": "/digest/today",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/digest/today",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\digest-today.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681876810",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2412,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 11,
+      "mainWidth": 1260,
+      "asideWidth": null,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681876810"
+      ],
+      "buttons": [
+        "Open signal",
+        "Open signal",
+        "View skill",
+        "View skill",
+        "View skill",
+        "View concept",
+        "View concept",
+        "View concept",
+        "View concept",
+        "Open source",
+        "Open source"
+      ]
+    }
+  },
+  {
+    "name": "feed-json",
+    "route": "/feed.json",
+    "kind": "feed",
+    "url": "http://127.0.0.1:3000/feed.json",
+    "status": 200,
+    "title": "",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\feed-json.png",
+    "stylesheetResponses": [],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 155,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": false,
+      "cardCount": 0,
+      "mainWidth": null,
+      "asideWidth": null,
+      "bodyFontFamily": "\"Times New Roman\"",
+      "topNavPosition": "static",
+      "cssLinks": [],
+      "buttons": []
+    }
+  },
+  {
+    "name": "feed-xml",
+    "route": "/feed.xml",
+    "kind": "feed",
+    "url": "http://127.0.0.1:3000/feed.xml",
+    "status": 200,
+    "title": "",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\feed-xml.png",
+    "stylesheetResponses": [],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 345,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": false,
+      "cardCount": 0,
+      "mainWidth": null,
+      "asideWidth": null,
+      "bodyFontFamily": "\"Times New Roman\"",
+      "topNavPosition": "static",
+      "cssLinks": [],
+      "buttons": []
+    }
+  },
+  {
+    "name": "digest-date",
+    "route": "/digest/2026-05-23",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/digest/2026-05-23",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\digest-date.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681884165",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2348,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 11,
+      "mainWidth": 1260,
+      "asideWidth": null,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681884165"
+      ],
+      "buttons": [
+        "Open signal",
+        "Open signal",
+        "View skill",
+        "View skill",
+        "View skill",
+        "View concept",
+        "View concept",
+        "View concept",
+        "View concept",
+        "Open source",
+        "Open source"
+      ]
+    }
+  },
+  {
+    "name": "skills",
+    "route": "/skills",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/skills",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\skills.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681887350",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 3699,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 9,
+      "mainWidth": 1260,
+      "asideWidth": null,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681887350"
+      ],
+      "buttons": []
+    }
+  },
+  {
+    "name": "skill-detail",
+    "route": "/skills/agent-workflow-design",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/skills/agent-workflow-design",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\skill-detail.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681891822",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 2851,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 5,
+      "mainWidth": 1260,
+      "asideWidth": 300,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681891822"
+      ],
+      "buttons": []
+    }
+  },
+  {
+    "name": "knowledge",
+    "route": "/knowledge",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/knowledge",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\knowledge.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681895207",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 5219,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 13,
+      "mainWidth": 1260,
+      "asideWidth": null,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681895207"
+      ],
+      "buttons": []
+    }
+  },
+  {
+    "name": "knowledge-detail",
+    "route": "/knowledge/api-contracts-and-interface-boundaries",
+    "kind": "user",
+    "url": "http://127.0.0.1:3000/knowledge/api-contracts-and-interface-boundaries",
+    "status": 200,
+    "title": "AI Tech Radar",
+    "screenshotPath": "C:\\Users\\29762\\ai-tech-radar\\visual-qa-screenshots\\knowledge-detail.png",
+    "stylesheetResponses": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681899745",
+        "status": 200
+      }
+    ],
+    "hasFailedStylesheet": false,
+    "metrics": {
+      "bodyHeight": 1783,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "horizontalOverflow": false,
+      "overflowingElements": [],
+      "internalTermHits": [],
+      "workspaceShell": false,
+      "workspaceNav": false,
+      "workspaceBreadcrumbs": false,
+      "userShell": true,
+      "cardCount": 0,
+      "mainWidth": 1260,
+      "asideWidth": 300,
+      "bodyFontFamily": "Aptos, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "topNavPosition": "sticky",
+      "cssLinks": [
+        "http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1781681899745"
+      ],
+      "buttons": []
+    }
+  }
+]
