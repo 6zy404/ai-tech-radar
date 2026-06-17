@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit --incremental false",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "sync:candidates": "tsx scripts/sync-external-candidates.ts",
     "db:init": "node scripts/run-ts-validation.cjs scripts/db-init.ts",
     "db:migrate-json": "node scripts/run-ts-validation.cjs scripts/db-migrate-json.ts",
@@ -49,6 +51,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^2.1.9"
   }
 }
