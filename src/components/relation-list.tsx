@@ -8,6 +8,7 @@ interface RelationListProps {
   emptyText: string;
   items: RelationListItem[];
   className?: string;
+  linkLabel?: string;
   formatRelationType?: (relationType: RelationListItem["relationType"]) => string;
 }
 
@@ -17,6 +18,7 @@ export function RelationList({
   emptyText,
   items,
   className = "",
+  linkLabel,
   formatRelationType
 }: RelationListProps) {
   return (
@@ -31,11 +33,16 @@ export function RelationList({
         <ul className="relation-list">
           {items.map((item) => (
             <li key={item.id} className="relation-list__item">
-              <div>
+              <div className="relation-list__text">
                 <h3>
                   <Link href={item.href}>{item.title}</Link>
                 </h3>
                 <p>{item.note}</p>
+                {linkLabel ? (
+                  <Link className="relation-list__action" href={item.href}>
+                    {linkLabel}
+                  </Link>
+                ) : null}
               </div>
               <span className="relation-pill">
                 {formatRelationType

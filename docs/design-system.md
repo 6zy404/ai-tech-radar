@@ -255,14 +255,19 @@ Routes:
 Template:
 
 - `UserPageShell`
+- shared Learning Support Index Template
 - intro panel explaining how the library helps readers understand AI technology signals
-- cards that show summary, category/type, difficulty or learning cost, and links to related published technologies
+- three-step guide that explains how to use the library
+- grouped lightweight cards using the same padding, border, radius, and shadow rules
+- cards that show summary, category/type, difficulty or learning cost, what the item helps readers evaluate or understand, limited tags, and links to related published technologies
 
 Visual rules:
 
 - these are not generic static lists; they are understanding foundations for technology discovery
 - cards should answer "what does this help me evaluate or understand?"
 - related technology links should use public technology pages only
+- `/skills` and `/knowledge` share the same max width, section rhythm, intro panel, grouped card grid, empty-state treatment, and badge weight
+- index cards are lightweight and scannable; they should not become backend records or detail pages
 
 ### User-facing Skill / Knowledge Detail Page
 
@@ -274,15 +279,18 @@ Routes:
 Template:
 
 - `UserPageShell` with detail-style hero
-- main explanation block
+- shared Learning Support Detail Template
+- article-style main column with a large hero, lead explanation, why-it-matters/context section, related items, and learning next steps
 - related published technologies
-- related skills or knowledge with explanatory notes
-- compact profile aside
+- related skills or knowledge with explanatory notes and clear links such as `Open related signal`, `View skill`, or `View concept`
+- compact profile aside for low-weight category, difficulty, counts, topics, and page-use guidance
 
 Visual rules:
 
 - details should feel like learning-path pages, not database records
 - no internal workflow state, source configuration, or workspace controls
+- aside content must remain secondary to the article body
+- missing optional fields should be hidden rather than rendered as empty headings
 
 ## Visual specifications
 
@@ -468,3 +476,65 @@ Workspace pages use a compact internal-operations surface:
 Design tokens are intentionally still plain CSS custom properties in
 `src/app/globals.css`. The current project does not introduce a component
 library or new dependency for this refactor.
+
+## UI Template QA & Consolidation v0
+
+The current baseline templates are now split into two stable families.
+
+Workspace Console Template:
+
+- compact page header instead of a large marketing hero
+- lightweight internal info bar that states workspace-only risk without
+  dominating the page
+- summary metrics near the top for count, health, state, or last-run context
+- table or compact list rows for the main object list
+- one clear page-level primary action
+- row-level secondary actions for inspect, edit, import, review, or preview
+- risky actions such as disable, reject, archive, or exclude stay visually
+  subdued
+- diagnostics, health messages, workflow events, source health, and delivery
+  details stay low priority
+
+The Workspace Console Template currently covers:
+
+- `/workspace/sources`
+- `/workspace/candidates`
+- `/workspace/digests`
+
+User-facing Reading Template:
+
+- user-facing header and public navigation only
+- content-first layout with generous reading rhythm
+- lightweight signal cards focused on title, summary, source, priority,
+  why-it-matters, audience, and a small number of tags
+- article reading path for technology details: why it matters, technical
+  context, audience, learning path, related skills, related knowledge, and
+  follow-up questions
+- missing optional explanation fields are hidden rather than rendered as empty
+  headings
+- public pages never render workspace navigation, workflow actions, audit
+  records, delivery configuration, source health, raw import fields, or
+  reviewer notes
+
+The User-facing Reading Template currently covers:
+
+- `/technologies`
+- `/technologies/[slug]`
+
+The Learning Support Index Template currently covers:
+
+- `/skills`
+- `/knowledge`
+
+The Learning Support Detail Template currently covers:
+
+- `/skills/[slug]`
+- `/knowledge/[slug]`
+
+Pages still left for later template migration:
+
+- `/digest/today`
+- `/digest/[date]`
+- `/workspace/operations`
+- `/workspace/duplicates`
+- `/workspace/technologies`

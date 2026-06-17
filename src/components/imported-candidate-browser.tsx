@@ -146,7 +146,7 @@ export function ImportedCandidateBrowser({
         }
       />
 
-      <div className="content-grid candidate-grid">
+      <div className="workspace-compact-list candidate-compact-list">
         {filteredCandidates.map((candidate) => (
           <ImportedCandidateCard
             key={candidate.id}

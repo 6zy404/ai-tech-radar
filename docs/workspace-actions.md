@@ -156,3 +156,45 @@ or `/digest/[date]`.
 User-facing pages may link to public content and feeds, but must not show
 workspace mutation controls, delivery channel configuration, workflow events,
 audit logs, task runner state, or workspace access tokens.
+
+## UI Template QA & Consolidation v0 action checklist
+
+The current Workspace Console Template action hierarchy is:
+
+- Page primary action: one dominant action per page, such as `Add source`,
+  `Refresh enabled sources`, or `Generate digest draft`.
+- Row secondary actions: object-specific inspection or safe workflow actions,
+  such as `Run source import`, `Edit source`, `View source detail`,
+  `Open workspace record`, `Open source`, `Review digest`, and `Preview digest`.
+- Risky actions: lifecycle-disrupting controls such as `Disable source`,
+  `Reject candidate`, `Archive digest`, or `Exclude from digest`; keep these
+  visually weaker than primary actions and confirm when appropriate.
+- Diagnostic actions: validation, retry, import, sync, and run controls; keep
+  them inside workspace and avoid exposing them on public routes.
+
+The current User-facing Reading Template action hierarchy is:
+
+- Public reading action: `Open signal`, `View skill`, `View concept`, or
+  `Open related signal`.
+- Public feed action: public digest pages may link to `RSS feed` and
+  `JSON feed`.
+- No public route should show `Publish`, `Convert`, `Review`, `Run import`,
+  `Send`, `Retry`, `Disable`, `Archive`, or other workspace mutation controls.
+
+Completed template action review:
+
+- `/workspace/sources`
+- `/workspace/candidates`
+- `/workspace/digests`
+- `/technologies`
+- `/technologies/[slug]`
+
+Still to review in later UI migration:
+
+- `/digest/today`
+- `/digest/[date]`
+- `/skills`
+- `/knowledge`
+- `/workspace/operations`
+- `/workspace/duplicates`
+- `/workspace/technologies`

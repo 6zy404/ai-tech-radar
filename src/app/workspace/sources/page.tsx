@@ -25,11 +25,18 @@ export default function WorkspaceSourcesPage() {
 
   return (
     <WorkspacePageShell
-      title="External Sources"
-      description="Internal source management for configuring external feeds and manually importing content into the candidate pool."
+      title="Sources"
+      description="Manage external sources and monitor import health."
       sectionLabel="Source Control"
+      className="workspace-delivery-console workspace-sources-console"
+      securityNote={
+        <>
+          <strong>Internal workspace.</strong> Source imports create candidates.
+          Review imported items before publishing.
+        </>
+      }
       actions={
-        <Link href="/workspace/sources/new" className="action-link">
+        <Link href="/workspace/sources/new" className="action-button action-button--accent">
           Add source
         </Link>
       }

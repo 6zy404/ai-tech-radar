@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { MetadataRow } from "@/components/metadata-row";
 import { TagList } from "@/components/tag-list";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
 import { jsonFeedPath, rssFeedPath } from "@/lib/digest-delivery";
@@ -9,11 +8,7 @@ import {
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
-import {
-  getPriorityLevelClass,
-  getPriorityLevelLabel,
-  getPriorityUserSummary
-} from "@/lib/ranking-display";
+import { getPriorityLevelClass } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
   getLocalizedTechnologyText,
@@ -22,8 +17,12 @@ import {
 import type {
   DailyDigest,
   KnowledgeItem,
+  PriorityLevel,
+  ReadingDifficulty,
   SkillItem,
   TechnologyItem,
+  TechnologySourceReference,
+  TechnologyType,
   TopicTag
 } from "@/types/content";
 
@@ -44,6 +43,38 @@ interface DigestTechnologyCardProps {
   compact?: boolean;
 }
 
+interface DigestSourceReference extends TechnologySourceReference {
+  id: string;
+}
+
+const priorityLabels: Record<PriorityLevel, string> = {
+  high_priority: "Immediate attention",
+  watch: "Worth tracking",
+  low_priority: "Good to know"
+};
+
+const priorityReasonCopy: Record<PriorityLevel, string> = {
+  high_priority:
+    "Multiple signals line up, so this technology is worth evaluating early.",
+  watch:
+    "This change is worth following, but still needs more context or validation.",
+  low_priority: "Useful background, but not urgent enough to prioritize today."
+};
+
+const technologyTypeLabels: Record<TechnologyType, string> = {
+  platform: "Platform",
+  tool: "Tool",
+  model: "Model",
+  protocol: "Protocol",
+  workflow: "Workflow"
+};
+
+const difficultyLabels: Record<ReadingDifficulty, string> = {
+  beginner: "Beginner friendly",
+  intermediate: "Intermediate",
+  advanced: "Advanced"
+};
+
 function getTechnologyTags(
   technology: TechnologyItem,
   tags: TopicTag[]
@@ -51,6 +82,67 @@ function getTechnologyTags(
   return technology.tags
     .map((tagId) => tags.find((tag) => tag.id === tagId))
     .filter((tag): tag is TopicTag => Boolean(tag));
+}
+
+function compactText(value: string, maxLength: number): string {
+  const trimmed = value.trim();
+
+  if (trimmed.length <= maxLength) {
+    return trimmed;
+  }
+
+  return `${trimmed.slice(0, maxLength - 3).trimEnd()}...`;
+}
+
+function getAudienceLine(audience: string[]): string | undefined {
+  const visibleAudience = audience.filter(Boolean).slice(0, 3);
+
+  if (visibleAudience.length === 0) {
+    return undefined;
+  }
+
+  return `Useful for ${visibleAudience.join(", ")}`;
+}
+
+function getDigestSourceReferences(
+  digest: DailyDigest,
+  technologies: TechnologyItem[]
+): DigestSourceReference[] {
+  const references = new Map<string, DigestSourceReference>();
+
+  for (const technology of technologies) {
+    const technologyReferences =
+      technology.sourceReferences && technology.sourceReferences.length > 0
+        ? technology.sourceReferences
+        : [
+            {
+              sourceName: technology.sourceName,
+              sourceUrl: technology.sourceUrl,
+              publisherName: technology.publisherName,
+              publishDate: technology.publishDate
+            }
+          ];
+
+    for (const reference of technologyReferences) {
+      const key = reference.sourceUrl || reference.sourceName;
+      references.set(key, {
+        id: key,
+        ...reference
+      });
+    }
+  }
+
+  for (const sourceName of digest.sourceNames) {
+    if (![...references.values()].some((item) => item.sourceName === sourceName)) {
+      references.set(sourceName, {
+        id: sourceName,
+        sourceName,
+        sourceUrl: ""
+      });
+    }
+  }
+
+  return [...references.values()];
 }
 
 function DigestTechnologyCard({
@@ -75,49 +167,78 @@ function DigestTechnologyCard({
     effectiveMode,
     technology.sourceLanguage
   );
-  const prioritySummary = getPriorityUserSummary(ranking, effectiveMode);
   const intelligence = getDigestTechnologyIntelligenceSummary(
     technology,
     ranking,
-    prioritySummary
+    priorityReasonCopy[ranking.priorityLevel]
   );
+  const whyItMatters = compactText(
+    intelligence.whyItMatters ?? priorityReasonCopy[ranking.priorityLevel],
+    compact ? 130 : 180
+  );
+  const audienceLine = getAudienceLine(intelligence.audience);
+  const difficulty = technology.readingDifficulty
+    ? difficultyLabels[technology.readingDifficulty]
+    : undefined;
 
   return (
     <article
       className={`digest-technology-card${
         compact ? " digest-technology-card--compact" : ""
-      }`}
+      }${compact ? "" : " digest-technology-card--featured"}`}
     >
-      <div className="digest-technology-card__header">
-        <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-          {getPriorityLevelLabel(ranking.priorityLevel, effectiveMode)}
-        </span>
-        <MetadataRow
-          className="digest-technology-card__meta"
-          items={[
-            { value: technology.sourceName },
-            { value: technology.publishDate }
-          ]}
-        />
-      </div>
-      <h3>
-        <Link href={`/technologies/${technology.slug}`}>{title}</Link>
-      </h3>
-      <p>{summary}</p>
-      <div className="digest-technology-card__reason">
-        <span>为什么值得看</span>
-        <p>{intelligence.whyItMatters ?? prioritySummary}</p>
-      </div>
-      {!compact ? (
-        <div className="digest-technology-card__context">
-          <span>{intelligence.relatedSkillCount} 个相关技能</span>
-          <span>{intelligence.relatedKnowledgeCount} 个背景知识</span>
-          {intelligence.audience.slice(0, 2).map((item) => (
-            <span key={item}>{item}</span>
-          ))}
+      <div className="digest-technology-card__topline">
+        <div className="digest-technology-card__badges">
+          <span className="info-pill info-pill--subtle">
+            {technologyTypeLabels[technology.type]}
+          </span>
+          <span className={getPriorityLevelClass(ranking.priorityLevel)}>
+            {priorityLabels[ranking.priorityLevel]}
+          </span>
         </div>
-      ) : null}
-      <TagList tags={getTechnologyTags(technology, tags)} limit={compact ? 2 : 3} />
+      </div>
+
+      <div className="digest-technology-card__body">
+        <h3>
+          <Link href={`/technologies/${technology.slug}`}>{title}</Link>
+        </h3>
+        <p className="digest-technology-card__summary">
+          {compactText(summary, compact ? 140 : 190)}
+        </p>
+        <div className="digest-technology-card__reason">
+          <span>Why it matters</span>
+          <p>{whyItMatters}</p>
+        </div>
+        {audienceLine ? (
+          <p className="digest-technology-card__audience">{audienceLine}</p>
+        ) : null}
+      </div>
+
+      <div className="digest-technology-card__footer">
+        <div className="digest-technology-card__meta-line">
+          <span>{technology.sourceName}</span>
+          <span>{technology.publishDate}</span>
+          {difficulty ? <span>{difficulty}</span> : null}
+          {!compact ? (
+            <span>
+              {intelligence.relatedSkillCount} skills /{" "}
+              {intelligence.relatedKnowledgeCount} concepts
+            </span>
+          ) : null}
+        </div>
+        <div className="digest-technology-card__actions">
+          <TagList
+            tags={getTechnologyTags(technology, tags)}
+            limit={compact ? 2 : 4}
+          />
+          <Link
+            className="action-link digest-technology-card__open"
+            href={`/technologies/${technology.slug}`}
+          >
+            Open signal
+          </Link>
+        </div>
+      </div>
     </article>
   );
 }
@@ -129,33 +250,93 @@ function DigestReferenceList<
   description,
   emptyText,
   items,
-  hrefPrefix
+  hrefPrefix,
+  linkLabel
 }: {
   title: string;
   description: string;
   emptyText: string;
   items: T[];
   hrefPrefix: string;
+  linkLabel: string;
 }) {
   return (
     <section className="digest-reference-section">
-      <div className="section-heading">
+      <div className="daily-digest-section__header">
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
       {items.length > 0 ? (
-        <div className="digest-reference-grid">
+        <div className="digest-reference-list">
           {items.map((item) => (
-            <article key={item.id} className="digest-reference-card">
-              <h3>
-                <Link href={`${hrefPrefix}/${item.slug}`}>{item.title}</Link>
-              </h3>
-              <p>{item.summary}</p>
+            <article key={item.id} className="digest-reference-item">
+              <div>
+                <h3>
+                  <Link href={`${hrefPrefix}/${item.slug}`}>{item.title}</Link>
+                </h3>
+                <p>{item.summary}</p>
+              </div>
+              <Link
+                className="action-link digest-reference-item__link"
+                href={`${hrefPrefix}/${item.slug}`}
+              >
+                {linkLabel}
+              </Link>
             </article>
           ))}
         </div>
       ) : (
         <p className="empty-state">{emptyText}</p>
+      )}
+    </section>
+  );
+}
+
+function DigestSourceReferences({
+  digest,
+  technologies
+}: {
+  digest: DailyDigest;
+  technologies: TechnologyItem[];
+}) {
+  const references = getDigestSourceReferences(digest, technologies);
+
+  return (
+    <section className="daily-digest-section daily-digest-sources">
+      <div className="daily-digest-section__header daily-digest-section__header--compact">
+        <h2>Source references</h2>
+        <p>
+          Public sources represented by the published technology signals in this
+          digest.
+        </p>
+      </div>
+      {references.length > 0 ? (
+        <div className="digest-source-list">
+          {references.map((reference) => (
+            <article key={reference.id} className="digest-source-chip">
+              <h3>{reference.sourceName}</h3>
+              <p>
+                {[reference.publisherName, reference.publishDate]
+                  .filter(Boolean)
+                  .join(" - ") || "Public source"}
+              </p>
+              {reference.sourceUrl ? (
+                <a
+                  className="action-link"
+                  href={reference.sourceUrl}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Open source
+                </a>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p className="empty-state">
+          No public source references are available for this digest yet.
+        </p>
       )}
     </section>
   );
@@ -173,32 +354,53 @@ export function DailyDigestContent({
 }: DailyDigestContentProps) {
   const publicTitle = getPublicDigestTitle(digest);
   const publicSummary = getPublicDigestSummary(digest);
+  const selectedTechnologies = [
+    ...highPriorityTechnologies,
+    ...watchTechnologies
+  ];
+  const sourceCount = getDigestSourceReferences(
+    digest,
+    selectedTechnologies
+  ).length;
 
   return (
-    <div className="daily-digest">
-      <section className="daily-digest-hero">
-        <div>
-          <p className="eyebrow user-eyebrow">每日技术简报</p>
+    <div className="daily-digest daily-digest-reading">
+      <section className="daily-digest-brief-header">
+        <div className="daily-digest-brief-header__copy">
+          <p className="eyebrow user-eyebrow">Daily Digest · {digest.date}</p>
           <h1>{publicTitle}</h1>
-          <p>{publicSummary}</p>
+          <p className="daily-digest-brief-header__subtitle">
+            {publicSummary}
+          </p>
           {previewNotice ? (
-            <p className="daily-digest-hero__notice">{previewNotice}</p>
+            <p className="daily-digest-brief-header__notice">
+              {previewNotice}
+            </p>
           ) : null}
         </div>
-        <div className="daily-digest-hero__stats">
+        <div className="daily-digest-meta-strip" aria-label="Digest summary">
           <span>{digest.date}</span>
-          <strong>{highPriorityTechnologies.length}</strong>
-          <span>立即关注</span>
-          <strong>{watchTechnologies.length}</strong>
-          <span>值得跟踪</span>
+          <span>{highPriorityTechnologies.length} immediate</span>
+          <span>{watchTechnologies.length} tracking</span>
+          <span>{sourceCount} sources</span>
         </div>
       </section>
 
+      <section className="daily-digest-summary-panel">
+        <p className="eyebrow user-eyebrow">Today summary</p>
+        <p>
+          This brief organizes the published signals that deserve attention
+          first, the changes worth tracking, and the skills and background
+          concepts that make today&apos;s technology movement easier to read.
+        </p>
+      </section>
+
       <section className="daily-digest-section">
-        <div className="section-heading">
-          <h2>今日立即关注</h2>
+        <div className="daily-digest-section__header">
+          <h2>Today&apos;s immediate attention</h2>
           <p>
-            已发布技术信号中优先级最高的内容，编辑固定的条目会优先展示。
+            Published technology signals ranked as the highest priority, with
+            any editor-pinned items shown first.
           </p>
         </div>
         {highPriorityTechnologies.length > 0 ? (
@@ -213,16 +415,17 @@ export function DailyDigestContent({
           </div>
         ) : (
           <p className="empty-state">
-            今天还没有立即关注条目。可以先浏览已发布技术信号。
+            No immediate-attention signals were selected for this digest.
           </p>
         )}
       </section>
 
       <section className="daily-digest-section">
-        <div className="section-heading">
-          <h2>值得跟踪</h2>
+        <div className="daily-digest-section__header daily-digest-section__header--secondary">
+          <h2>Worth tracking</h2>
           <p>
-            值得持续观察、但仍需要更多上下文或验证的技术变化。
+            Signals that are useful to follow, but still need more context or
+            validation before becoming immediate priorities.
           </p>
         </div>
         {watchTechnologies.length > 0 ? (
@@ -238,64 +441,46 @@ export function DailyDigestContent({
           </div>
         ) : (
           <p className="empty-state">
-            这期简报没有选择跟踪级条目。
+            No watch-level items were selected for this digest.
           </p>
         )}
       </section>
 
       <DigestReferenceList
-        title="需要关注的技能"
-        description="这些能力可以帮助你判断哪些技术值得试用、评估或继续学习。"
-        emptyText="这期简报还没有关联技能，可以先从上方技术条目进入。"
+        title="Skills to pay attention to"
+        description="Skills that help readers judge what to try, evaluate, or learn next."
+        emptyText="No related skills were selected for this digest yet."
         items={skills}
         hrefPrefix="/skills"
+        linkLabel="View skill"
       />
 
       <DigestReferenceList
-        title="背景知识"
-        description="理解今日技术变化所需的基础概念和上下文。"
-        emptyText="这期简报还没有关联背景知识，可以先从上方技术条目进入。"
+        title="Background knowledge"
+        description="Concepts that explain the background behind today's selected changes."
+        emptyText="No related background concepts were selected for this digest yet."
         items={knowledge}
         hrefPrefix="/knowledge"
+        linkLabel="View concept"
       />
 
-      <section className="daily-digest-section daily-digest-sources">
-        <div className="section-heading">
-          <h2>来源参考</h2>
-          <p>
-            这期简报中已发布技术条目对应的公开来源。
-          </p>
-        </div>
-        {digest.sourceNames.length > 0 ? (
-          <div className="tag-row">
-            {digest.sourceNames.map((sourceName) => (
-              <span key={sourceName} className="info-pill info-pill--subtle">
-                {sourceName}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <p className="empty-state">
-            这期简报还没有来源名称。
-          </p>
-        )}
-      </section>
+      <DigestSourceReferences
+        digest={digest}
+        technologies={selectedTechnologies}
+      />
 
       {showDeliveryLinks ? (
-        <section className="daily-digest-section daily-digest-delivery-links">
-          <div className="section-heading">
-            <h2>订阅简报</h2>
+        <section className="daily-digest-section daily-digest-feeds">
+          <div className="daily-digest-section__header daily-digest-section__header--compact">
+            <h2>Follow the digest</h2>
             <p>
-              公开 feed 只包含已发布的每日简报，草稿和归档内容不会进入 feed。
+              Stable public feeds include published daily digests only. Draft
+              and archived digests are excluded.
             </p>
           </div>
-          <div className="digest-delivery-link-row">
-            <Link href={rssFeedPath} className="action-link">
-              RSS feed
-            </Link>
-            <Link href={jsonFeedPath} className="action-link">
-              JSON feed
-            </Link>
+          <div className="digest-feed-links">
+            <Link href={rssFeedPath}>RSS feed</Link>
+            <Link href={jsonFeedPath}>JSON feed</Link>
           </div>
         </section>
       ) : null}

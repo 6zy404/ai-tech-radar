@@ -3,36 +3,70 @@ import Link from "next/link";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
+  getAllKnowledge,
   getAllSkills,
-  getAllTags,
   getAllTechnologies,
   getTagsByIds
 } from "@/lib/content";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
-import type { SkillItem, TechnologyItem } from "@/types/content";
+import type {
+  HeatLevel,
+  KnowledgeItem,
+  LearningCost,
+  SkillItem,
+  SkillType,
+  TechnologyItem
+} from "@/types/content";
 
-const skillTypeSections = [
+const skillTypeSections: Array<{
+  id: SkillType;
+  title: string;
+  description: string;
+  focus: string;
+}> = [
   {
     id: "engineering",
     title: "Engineering execution",
-    description: "Build, integrate, and operate AI systems in real products."
+    description: "Build, integrate, and operate AI systems in real products.",
+    focus: "Use these skills when a signal may change how teams build or ship."
   },
   {
     id: "analysis",
     title: "Evaluation and analysis",
-    description: "Judge whether a signal is useful, risky, or ready to test."
+    description: "Judge whether a signal is useful, risky, or ready to test.",
+    focus: "Use these skills to separate durable signals from temporary noise."
   },
   {
     id: "product",
     title: "Product judgement",
-    description: "Turn technical changes into scoped product decisions."
+    description: "Turn technical changes into scoped product decisions.",
+    focus: "Use these skills before turning a technology into a roadmap item."
+  },
+  {
+    id: "operations",
+    title: "Operations and adoption",
+    description: "Keep AI systems observable, reliable, and safe to operate.",
+    focus: "Use these skills when a signal affects rollout, reliability, or support."
   },
   {
     id: "communication",
     title: "Team communication",
-    description: "Explain tradeoffs and coordinate adoption across teams."
+    description: "Explain tradeoffs and coordinate adoption across teams.",
+    focus: "Use these skills to help non-specialists understand technical change."
   }
 ];
+
+const heatLabels: Record<HeatLevel, string> = {
+  hot: "Hot now",
+  active: "Active",
+  emerging: "Emerging"
+};
+
+const learningCostLabels: Record<LearningCost, string> = {
+  low: "Low learning cost",
+  medium: "Medium learning cost",
+  high: "High learning cost"
+};
 
 function getRelatedTechnologies(
   skill: SkillItem,
@@ -43,11 +77,45 @@ function getRelatedTechnologies(
   );
 }
 
+function getRelatedKnowledge(
+  skill: SkillItem,
+  knowledgeItems: KnowledgeItem[]
+): KnowledgeItem[] {
+  return knowledgeItems.filter((knowledge) =>
+    skill.relatedKnowledgeIds.includes(knowledge.id)
+  );
+}
+
+function getSkillOutcome(skill: SkillItem): string {
+  switch (skill.skillType) {
+    case "engineering":
+      return "Helps you decide whether a new AI capability is practical to build, integrate, and maintain.";
+    case "analysis":
+      return "Helps you evaluate evidence, failure modes, and whether the signal is ready to test.";
+    case "product":
+      return "Helps you translate technical change into a product decision with a clear scope.";
+    case "operations":
+      return "Helps you judge rollout, monitoring, reliability, and operational risk.";
+    case "communication":
+      return "Helps you explain the change and coordinate adoption across teams.";
+    default:
+      return "Helps you read technology signals with more context and less guesswork.";
+  }
+}
+
 export default function SkillsPage() {
   const skills = getAllSkills();
   const technologies = getAllTechnologies();
-  const tags = getAllTags();
+  const knowledgeItems = getAllKnowledge();
+
   const hotSkills = skills.filter((skill) => skill.heatLevel === "hot").length;
+  const relatedTechnologyCount = new Set(
+    skills.flatMap((skill) => skill.relatedTechnologyIds)
+  ).size;
+  const relatedKnowledgeCount = new Set(
+    skills.flatMap((skill) => skill.relatedKnowledgeIds)
+  ).size;
+
   const groupedSkills = skillTypeSections
     .map((section) => ({
       ...section,
@@ -57,87 +125,153 @@ export default function SkillsPage() {
 
   return (
     <UserPageShell
-      title="Skills for Understanding AI Technology"
-      description="Practice areas that help readers judge whether a new AI signal is usable, risky, or worth deeper evaluation."
+      title="Skills for Understanding AI Signals"
+      description="Use these practical skills to decide whether a new AI technology signal is worth testing, monitoring, or explaining to your team."
       sectionLabel="Understanding Skills"
+      className="skills-library-page"
     >
-      <section className="foundation-intro-panel">
-        <div>
-          <p className="eyebrow user-eyebrow">How to use this library</p>
-          <h2>Skills connect technology signals to practical evaluation.</h2>
+      {skills.length === 0 ? (
+        <section className="skills-library-empty">
+          <p className="skills-library-empty__eyebrow">Skills library</p>
+          <h2>No skills yet.</h2>
           <p>
-            Use this page when a technology sounds important but the next step is
-            unclear. Each skill links back to published technology signals and to
-            background knowledge that makes the skill easier to build.
+            Published skills will appear here when they are connected to
+            user-facing technology signals.
           </p>
-        </div>
-        <div className="foundation-intro-panel__stats">
-          <strong>{skills.length}</strong>
-          <span>skills tracked</span>
-          <strong>{hotSkills}</strong>
-          <span>currently hot</span>
-          <strong>{technologies.length}</strong>
-          <span>published signals connected</span>
-        </div>
-      </section>
-
-      <div className="foundation-group-stack">
-        {groupedSkills.map((section) => (
-          <section key={section.id} className="foundation-group">
-            <div className="foundation-group__header">
-              <div>
-                <p className="eyebrow user-eyebrow">{section.id}</p>
-                <h2>{section.title}</h2>
-              </div>
-              <p>{section.description}</p>
+        </section>
+      ) : (
+        <>
+          <section className="skills-library-intro">
+            <div className="skills-library-intro__copy">
+              <p className="skills-library-kicker">How to use this library</p>
+              <h2>
+                Skills connect fast-moving technology signals to practical
+                evaluation.
+              </h2>
+              <p>
+                Start with the skill that matches your role, then open the
+                linked technology signals and background concepts to understand
+                where the change matters.
+              </p>
             </div>
-            <div className="foundation-index-grid">
-              {section.items.map((skill) => {
-                const relatedTechnologies = getRelatedTechnologies(
-                  skill,
-                  technologies
-                );
-                const relatedTechnologyPreview = relatedTechnologies.slice(0, 2);
+            <dl className="skills-library-stats" aria-label="Skills summary">
+              <div>
+                <dt>{skills.length}</dt>
+                <dd>skills tracked</dd>
+              </div>
+              <div>
+                <dt>{hotSkills}</dt>
+                <dd>hot now</dd>
+              </div>
+              <div>
+                <dt>{relatedTechnologyCount}</dt>
+                <dd>published signals connected</dd>
+              </div>
+              <div>
+                <dt>{relatedKnowledgeCount}</dt>
+                <dd>background concepts linked</dd>
+              </div>
+            </dl>
+          </section>
 
-                return (
-                  <article key={skill.id} className="foundation-index-card">
-                    <div className="foundation-index-card__meta">
-                      <span>{skill.heatLevel}</span>
-                      <span>{skill.learningCost} learning cost</span>
-                    </div>
-                    <h2>
-                      <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
-                    </h2>
-                    <p>{skill.summary}</p>
-                    <div className="foundation-index-card__section">
-                      <span>Helps you evaluate</span>
-                      {relatedTechnologyPreview.length > 0 ? (
-                        <ul>
-                          {relatedTechnologyPreview.map((technology) => (
-                            <li key={technology.id}>
-                              <Link href={`/technologies/${technology.slug}`}>
+          <section className="skills-library-guide" aria-label="Reading path">
+            <article>
+              <span>01</span>
+              <h3>Pick a skill</h3>
+              <p>Choose the ability you need for judging a technology signal.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Open a signal</h3>
+              <p>Use related published signals as concrete examples.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Fill the background</h3>
+              <p>Use knowledge links when the signal depends on older ideas.</p>
+            </article>
+          </section>
+
+          <div className="skills-library-groups">
+            {groupedSkills.map((section) => (
+              <section className="skills-library-section" key={section.id}>
+                <div className="skills-library-section__header">
+                  <div>
+                    <p>{section.id}</p>
+                    <h2>{section.title}</h2>
+                  </div>
+                  <span>{section.focus}</span>
+                </div>
+
+                <div className="skills-library-card-grid">
+                  {section.items.map((skill) => {
+                    const relatedTechnologies = getRelatedTechnologies(
+                      skill,
+                      technologies
+                    );
+                    const relatedKnowledge = getRelatedKnowledge(
+                      skill,
+                      knowledgeItems
+                    );
+                    const tags = getTagsByIds(skill.tags);
+
+                    return (
+                      <article className="skill-library-card" key={skill.id}>
+                        <div className="skill-library-card__meta">
+                          <span>{heatLabels[skill.heatLevel]}</span>
+                          <span>{learningCostLabels[skill.learningCost]}</span>
+                        </div>
+                        <h3>
+                          <Link href={`/skills/${skill.slug}`}>
+                            {skill.title}
+                          </Link>
+                        </h3>
+                        <p className="skill-library-card__summary">
+                          {skill.summary}
+                        </p>
+                        <div className="skill-library-card__outcome">
+                          <span>Helps you decide</span>
+                          <p>{getSkillOutcome(skill)}</p>
+                        </div>
+                        <div className="skill-library-card__counts">
+                          <span>
+                            {relatedTechnologies.length} technology signals
+                          </span>
+                          <span>
+                            {relatedKnowledge.length} background concepts
+                          </span>
+                        </div>
+                        {relatedTechnologies.length > 0 ? (
+                          <div className="skill-library-card__signals">
+                            <span>Practice with</span>
+                            {relatedTechnologies.slice(0, 2).map((technology) => (
+                              <Link
+                                href={`/technologies/${technology.slug}`}
+                                key={technology.id}
+                              >
                                 {getPreferredTechnologyTitle(technology)}
                               </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p>No published technology links yet.</p>
-                      )}
-                    </div>
-                    <TagList
-                      tags={getTagsByIds(skill.tags).filter((tag) =>
-                        tags.some((knownTag) => knownTag.id === tag.id)
-                      )}
-                      limit={3}
-                    />
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-        ))}
-      </div>
+                            ))}
+                          </div>
+                        ) : null}
+                        {tags.length > 0 ? (
+                          <TagList tags={tags} limit={3} />
+                        ) : null}
+                        <Link
+                          className="skill-library-card__link"
+                          href={`/skills/${skill.slug}`}
+                        >
+                          View skill
+                        </Link>
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
+            ))}
+          </div>
+        </>
+      )}
     </UserPageShell>
   );
 }

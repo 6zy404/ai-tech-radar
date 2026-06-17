@@ -487,3 +487,52 @@ Workspace updates in this pass:
   default, keeping lists, run state, and logs as the primary view
 - workspace pages keep operational status, audit, delivery, task-runner, and
   endpoint configuration out of the user-facing product
+
+## UI Template QA & Consolidation v0
+
+Five pages are the current canonical template references.
+
+Workspace Console Template pages:
+
+- `/workspace/sources`: source management console with compact header, internal
+  info bar, source/import summary metrics, compact source rows, one primary
+  `Add source` entry, secondary row-level import/detail/edit actions, and
+  subdued disable actions.
+- `/workspace/candidates`: imported candidate review console with compact
+  header, internal info bar, candidate/source sync summary, filters, compact
+  candidate rows, duplicate review entry, and conversion/status diagnostics kept
+  inside workspace.
+- `/workspace/digests`: digest editorial console with compact header, internal
+  info bar, digest status metrics, one primary `Generate digest draft` action,
+  compact digest rows, and explicit `Review digest`, `Preview digest`, and
+  `Open published digest` links.
+
+User-facing Reading Template pages:
+
+- `/technologies`: public technology signal stream with search/type/tag/priority
+  filters, no workspace navigation, and signal cards focused on title, one-line
+  summary, why-it-matters, source, publish date, audience, difficulty, tags, and
+  `Open signal`.
+- `/technologies/[slug]`: public technology reading detail with article header,
+  source and priority context, reading path sections, related skills and
+  related knowledge explanations, follow-up questions, and source reference.
+
+Template boundary rules:
+
+- Workspace templates may show workflow state, diagnostics, quality flags,
+  duplicate context, delivery state, and reviewer actions.
+- User-facing templates must not show raw import fields, source management
+  fields, quality flags, duplicate group internals, delivery logs, audit events,
+  LLM prompts, reviewer notes, or workspace navigation.
+- Empty states should describe what is missing and provide the next appropriate
+  action for that surface. Public empty states must not send users to workspace.
+
+Pages left for later UI migration:
+
+- `/digest/today`
+- `/digest/[date]`
+- `/skills`
+- `/knowledge`
+- `/workspace/operations`
+- `/workspace/duplicates`
+- `/workspace/technologies`
