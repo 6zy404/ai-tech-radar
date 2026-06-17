@@ -21,4 +21,18 @@ out
 # Logs
 npm-debug.log*
 yarn-debug.log*
-yarn-e
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+
+# Local agent / tooling state (Codex, OMX, visual QA, etc.)
+.codex/
+.omx/
+visual-qa-screenshots/
+
+# Temporary artifacts and work-in-progress patches
+*.patch
+*.dmp
+*.pma
