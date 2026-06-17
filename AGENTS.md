@@ -1,7 +1,8 @@
 # AGENTS.md
 
 ## Project identity
-This project is a platform for helping users quickly understand which new technologies are worth paying attention to first.
+This project is a platform for helping users quickly understand which new
+technologies are worth paying attention to first.
 
 It is not a generic news site.
 It must connect:
@@ -11,82 +12,48 @@ It must connect:
 - links between new and old concepts
 
 ## Current phase
-The current phase is foundation building only.
+The project is well past the original foundation phase. It is now a working
+local-first prototype with two subsystems:
 
-Focus on:
-- project structure
-- data model
-- static pages
-- mock data
-- documentation
+- **Internal Workspace** — source configuration, real external import, candidate
+  review, duplicate resolution, draft editing/enrichment, publishing, daily
+  digest editorial workflow, multi-channel delivery, scheduled delivery + local
+  task runner, and an operations/observability dashboard.
+- **User-facing Product** — public home, technology list/detail pages, published
+  Daily Digest pages, skills/knowledge pages, and public RSS/JSON feeds.
 
-Do not jump ahead into ranking, crawling, push, or recommendation systems.
+What is implemented today is described in `README.md`, and the version-by-version
+history lives in `CHANGELOG.md`. Treat those two files as the source of truth for
+"what already exists" before starting new work.
+
+## What is intentionally NOT implemented yet
+These remain out of scope and should not be added without an explicit request:
+
+- AI black-box / personalized ranking and recommendation
+- login / user accounts / RBAC
+- production database integration and schema migrations
+- full admin platform and external monitoring/alerting
+- push / email subscription products and production cron infrastructure
+- full-site i18n (bilingual support stays at the content level only)
+- semantic/AI duplicate detection beyond the current deterministic rules
+- production secret management and distributed scheduling
+
+The current SQLite driver is an optional local persistence option; JSON remains
+the default store. The local JSON store does not provide multi-writer locking,
+role-based permissions, or production secret handling.
 
 ## Working rules
-1. Keep scope tight.
+1. Keep scope tight; do not expand a task beyond what was asked.
 2. Prefer simple and maintainable implementation.
-3. Follow existing repository conventions if they already exist.
-4. If the repo is empty, use a clean default stack and explain the setup.
-5. Reusable components are preferred over repeated page code.
-6. User-facing pages must not contain unfinished placeholder text.
+3. Follow existing repository conventions.
+4. Reusable components are preferred over repeated page code.
+5. User-facing pages must not contain unfinished placeholder text.
+6. Keep the Internal Workspace and User-facing surfaces separate.
+   - Workspace is the internal editing / operations workbench.
+   - User-facing pages are the public reading and discovery product.
+7. Never leak internal-only fields (raw payloads, import status, normalized type,
+   duplicate internals, delivery endpoints, schedules, task-runner logs, workflow
+   audit events, or workspace tokens) onto user-facing pages or public feeds.
 
 ## Product rules
-1. Do not turn the project into a generic AI news portal.
-2. Preserve the distinction between:
-   - TechnologyItem
-   - SkillItem
-   - KnowledgeItem
-3. Make relationships between these entities visible in the UI.
-4. Use mock data to demonstrate how the platform will work later.
-
-## Non-goals for now
-- no ranking engine
-- no source ingestion
-- no push delivery
-- no login system
-- no database
-- no admin dashboard
-- no recommendation engine
-
-## Documentation rules
-Whenever you add structure, also document it.
-At minimum:
-- update README
-- explain the data model
-- explain page structure
-
-## Project Context Recovery v0
-
-Long-term project context must live in repository documents, not in ChatGPT or
-Codex chat history. New sessions should start from:
-
-- `AGENTS.md`
-- `README.md`
-- `docs/project-spec.md`
-- `docs/architecture.md`
-- `docs/data-model.md`
-- `docs/page-structure.md`
-- `docs/design-system.md`
-- `docs/security-boundary.md`
-- `docs/workspace-actions.md`
-- `docs/progress.md`
-- `docs/decisions.md`
-- `docs/ui-migration-plan.md`
-- `docs/next-task.md`
-
-If a detail is not supported by current repository files, mark it as
-`Unknown / needs verification` instead of reconstructing it from old chat
-history.
-
-Default continuation rules:
-
-- UI work should default to visual-layer changes only unless explicitly scoped
-  otherwise.
-- Work on one page per task.
-- Keep Workspace and User-facing surfaces separate.
-- Workspace is the internal editing / operations workbench.
-- User-facing pages are the public reading and technology discovery product.
-- Do not run Playwright from Codex unless the user explicitly asks; Playwright
-  validation is run by the user locally.
-- Default Codex verification is `npm run typecheck` unless the task asks for a
-  different command.
+1. Do not turn the project into a generic AI news p
