@@ -1,39 +1,25 @@
 # Next Task
 
+> The previous next task — refining `/workspace/technologies` into an internal
+> Draft / Published console — is **done**. That page now uses the Workspace
+> Console Template (status overview cards, separated draft vs published/archived
+> sections, internal-only action language). See `docs/progress.md`.
+
 Recommended next task:
 
-Refine `/workspace/technologies` as an internal Draft / Published technology
-management console.
+Introduce a real automated test setup and migrate the core `validate:*` script
+assertions into it.
+
+## Why
+
+This is currently the largest engineering gap: there are ~25 `validate:*`
+scripts run through a custom `run-ts-validation.cjs` runner, but no standard test
+framework, so assertions are coarse and hard to run in CI. A real test harness
+makes every later change (refactors, persistence work) safer.
 
 ## Scope
 
-- Only modify `/workspace/technologies`.
-- Do not modify user-facing `/technologies`.
-- Do not modify API.
-- Do not modify data model.
-- Do not modify workflow.
-- Only run `npm run typecheck`.
-
-## Intent
-
-Make `/workspace/technologies` follow the Workspace Console Template:
-
-- compact internal page structure
-- draft / published / archived summary
-- clear separation between draft management and published records
-- internal-only action language
-- no public reading-page visual treatment
-
-## Starting Files
-
-- `src/app/workspace/technologies/page.tsx`
-- `src/components/technology-draft-card.tsx`
-- `src/components/workspace-page-shell.tsx`
-- `src/components/workspace-list-toolbar.tsx`
-- `src/app/globals.css`
-
-## Verification
-
-- Run only `npm run typecheck`.
-- Playwright visual validation is manual and should be run by the user outside
-  Codex if needed.
+- Add `vitest` (and `@vitest/coverage-v8` if useful) as dev dependencies.
+- Add a `test` script (and optionally `test:watch`) to `package.json`.
+- Create an initial `*.test.ts` suite covering the highest-value pure logic
+  first: ranking (`src
