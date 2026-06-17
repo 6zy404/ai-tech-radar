@@ -5561,7 +5561,9 @@ body {
 }
 
 .workspace-delivery-console .delivery-channel-table--console {
-  min-width: 1120px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
   border-radius: 12px;
   background: #ffffff;
 }
