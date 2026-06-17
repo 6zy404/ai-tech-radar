@@ -1,6 +1,8 @@
 # Progress
 
-Project Context Recovery v0. Based on current repository files only.
+Based on current repository files only. Last reconciled after committing the
+previously-uncommitted UI/design-system work (commit `e336e58`) and the project
+documentation refresh (commit `05d45ae`).
 
 ## Core Features Present
 
@@ -73,18 +75,18 @@ Completed according to `docs/design-system.md`, `docs/page-structure.md`, and
 current shell/component usage:
 
 - Workspace Console Template: `/workspace/sources`, `/workspace/candidates`,
-  `/workspace/digests`.
+  `/workspace/digests`, `/workspace/technologies` (now a draft/published/archived
+  console with status overview cards and separated draft vs published sections).
 - User-facing Reading Template: `/technologies`, `/technologies/[slug]`.
 - Learning Support templates: `/skills`, `/skills/[slug]`, `/knowledge`,
   `/knowledge/[slug]`.
 
-Suspected partial or pending:
+Suspected partial or pending (code present, visual quality not yet verified):
 
 - `/digest/today`
 - `/digest/[date]`
 - `/workspace/operations`
 - `/workspace/duplicates`
-- `/workspace/technologies`
 
 ## Needs Human Confirmation
 
@@ -94,8 +96,4 @@ Suspected partial or pending:
   `docs/design-system.md` indicate they use the template, but
   `docs/page-structure.md` still lists `/skills` and `/knowledge` in a later
   migration section.
-- Whether `/workspace/operations` should be considered an admin dashboard:
-  current repo implements it as internal operations, while the project non-goals
-  still say no full admin platform.
-- Whether existing dirty working-tree changes are final user-approved state:
-  Unknown / needs verification.
+- Whether `/
