@@ -88,6 +88,6 @@ terms leak onto any user-facing page or feed. The pages previously listed as
 "pending" (`/digest/today`, `/digest/[date]`, `/workspace/operations`,
 `/workspace/duplicates`) all render correctly on the shared templates.
 
-Known visual issues from that run:
+Visual issues found and fixed:
 
-- `/workspace/delivery`: page-level horizontal overflow (
+- `/workspace/delivery`: page-level horizontal overflow (~32p
