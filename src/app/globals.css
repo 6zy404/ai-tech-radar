@@ -5637,8 +5637,9 @@ body {
 
 .delivery-log-table {
   display: grid;
-  min-width: 1040px;
-  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
   border: 1px solid var(--delivery-console-border);
   border-radius: 12px;
   background: #ffffff;
