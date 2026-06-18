@@ -36,3 +36,14 @@ If a detail is not supported by current repository files, mark it as
 - Keep scope tight; do not expand a task beyond what was asked.
 - Prefer reusable components over repeated page code.
 - Document structural changes: update README/CHANGELOG and the relevant docs/ file.
+
+## Response conventions (agreed with the user)
+- When the user asks "what's next / 接下来怎么办 / 接下来应该做什么", treat the
+  previous stage as already complete. Do NOT re-confirm whether it is done.
+- Structure the answer:
+  1. First, in plain language: what this next stage is doing, and what effect /
+     outcome it achieves once finished.
+  2. Then give the concrete task(s) and the steps/instructions to execute.
+- In Cowork, Claude executes directly by default (showing the steps it will run).
+  Only hand the user a copy-paste instruction to run elsewhere (Codex/terminal)
+  if they ask for that.
