@@ -56,4 +56,47 @@ role-based permissions, or production secret handling.
    audit events, or workspace tokens) onto user-facing pages or public feeds.
 
 ## Product rules
-1. Do not turn the project into a generic AI news p
+1. Do not turn the project into a generic AI news portal.
+2. Preserve the distinction between:
+   - TechnologyItem
+   - SkillItem
+   - KnowledgeItem
+3. Make relationships between these entities visible in the UI.
+
+## Documentation rules
+Whenever you add or change structure, also document it. At minimum:
+- update `README.md` (current capabilities, routes, commands)
+- add a dated entry to `CHANGELOG.md` for any new feature version
+- update the relevant file under `docs/` (data model, page structure, etc.)
+
+## Project Context Recovery
+Long-term project context must live in repository documents, not in chat history.
+New sessions should start from:
+
+- `AGENTS.md`
+- `README.md`
+- `CHANGELOG.md`
+- `docs/project-spec.md`
+- `docs/architecture.md`
+- `docs/data-model.md`
+- `docs/page-structure.md`
+- `docs/design-system.md`
+- `docs/security-boundary.md`
+- `docs/workspace-actions.md`
+- `docs/progress.md`
+- `docs/decisions.md`
+- `docs/ui-migration-plan.md`
+- `docs/next-task.md`
+
+If a detail is not supported by current repository files, mark it as
+`Unknown / needs verification` instead of reconstructing it from old chat history.
+
+Default continuation rules:
+
+- UI work should default to visual-layer changes only unless explicitly scoped
+  otherwise.
+- Work on one page per task.
+- Do not run Playwright from an automated agent unless the user explicitly asks;
+  Playwright validation is run by the user locally.
+- Default verification is `npm run typecheck` unless the task asks for a
+  different command.

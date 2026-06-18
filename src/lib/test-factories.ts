@@ -42,4 +42,8 @@ export function makeWorkspaceRecord(
   return {
     ...base,
     createdAt: "2026-05-20T00:00:00.000Z",
-    updatedAt: "2026-05-20T00:00:0
+    updatedAt: "2026-05-20T00:00:00.000Z",
+    editorialNotes: [],
+    ...overrides
+  };
+}
