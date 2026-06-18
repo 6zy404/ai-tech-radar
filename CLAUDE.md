@@ -47,3 +47,21 @@ If a detail is not supported by current repository files, mark it as
 - In Cowork, Claude executes directly by default (showing the steps it will run).
   Only hand the user a copy-paste instruction to run elsewhere (Codex/terminal)
   if they ask for that.
+
+## Working environment notes (Cowork)
+This project is edited in Cowork with the folder mounted. Known quirks and the
+workarounds that already proved reliable in this repo:
+
+- Mount staleness: a file written via the editor is sometimes not yet visible to
+  the shell/git (git may say "nothing to commit", or a file may look truncated).
+  Fix: rewrite that file through the shell (`cat > file <<'EOF' ... EOF`) and
+  re-check, or just re-read it.
+- Git index corruption on large writes ("fatal: index file corrupt / bad
+  signature"). Workaround: commit via a temp index on tmpfs —
+  `export GIT_INDEX_FILE=/tmp/idx; rm -f "$GIT_INDEX_FILE"; git read-tree HEAD;
+  git add -A; git commit -m "..."`, then rebuild the on-disk index with
+  `unset GIT_INDEX_FILE; rm -f .git/index; git reset`.
+- The sandbox has no npm registry access and a broken esbuild binary, so
+  `vitest` and `tsx` cannot run there. `npm run typecheck` DOES work (tsc is
+  installed) and is the in-sandbox safety gate. Run `npm run test`,
+  `npm install`, and `npm run ui:check` on the developer machine.
