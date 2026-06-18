@@ -790,7 +790,7 @@ function chooseDefaultPrimaryCandidate(candidates: ImportedCandidate[]): string 
     })[0].id;
 }
 
-function getDuplicateReasons(
+export function getDuplicateReasons(
   left: ImportedCandidate,
   right: ImportedCandidate
 ): DuplicateReason[] {

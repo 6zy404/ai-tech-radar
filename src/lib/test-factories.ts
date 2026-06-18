@@ -1,4 +1,5 @@
 import type {
+  ImportedCandidate,
   TechnologyItem,
   TechnologyWorkspaceRecord
 } from "@/types/content";
@@ -44,6 +45,4 @@ export function makeWorkspaceRecord(
     createdAt: "2026-05-20T00:00:00.000Z",
     updatedAt: "2026-05-20T00:00:00.000Z",
     editorialNotes: [],
-    ...overrides
-  };
-}
+   
