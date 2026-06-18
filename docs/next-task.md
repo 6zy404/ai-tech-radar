@@ -1,56 +1,50 @@
 # Next Task
 
-> The previous next task — refining `/workspace/technologies` into an internal
-> Draft / Published console — is **done**. That page now uses the Workspace
-> Console Template (status overview cards, separated draft vs published/archived
-> sections, internal-only action language). See `docs/progress.md`.
+> Done since last update: vitest test setup + unit tests (ranking, publish
+> readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
+> typecheck + test), and the first refactor passes on `candidate-workflow.ts`.
 
 Recommended next task:
 
-Introduce a real automated test setup and migrate the core `validate:*` script
-assertions into it.
+Continue decomposing `candidate-workflow.ts` by extracting its remaining
+stateful "store" clusters into focused modules.
 
-## Why
+## Progress so far
 
-This is currently the largest engineering gap: there are ~25 `validate:*`
-scripts run through a custom `run-ts-validation.cjs` runner, but no standard test
-framework, so assertions are coarse and hard to run in CI. A real test harness
-makes every later change (refactors, persistence work) safer.
+`candidate-workflow.ts` has gone from 1763 to ~1264 lines via three pure,
+behavior-preserving extractions (each verified with `npm run typecheck`):
 
-## Scope
+- `src/lib/candidate-duplicate-rules.ts` — pure duplicate-detection rules and
+  identity helpers (URL/title normalization, token similarity, reason rules,
+  stable group id, primary-candidate selection).
+- `src/lib/workspace-record-normalizers.ts` — text/field/localized-text
+  normalization.
+- `src/lib/candidate-conversion-mapping.ts` — candidate → draft field mapping
+  (type, publisher, tags, draft text, source reference).
 
-- Add `vitest` (and `@vitest/coverage-v8` if useful) as dev dependencies.
-- Add a `test` script (and optionally `test:watch`) to `package.json`.
-- Create an initial `*.test.ts` suite covering the highest-value pure logic
-  first: ranking (`src/lib/ranking.ts`), duplicate detection
-  (`src/lib/candidate-workflow.ts` detection helpers), and digest publish
-  readiness (`src/lib/publish-readiness.ts` / digest workflow guards).
-- Keep the existing `validate:*` scripts working; migrate assertions
-  incrementally rather than deleting the scripts in one step.
-- Do not change the data model, workflow behavior, or any user-facing page.
+## Remaining clusters to extract (stateful — do one per step)
 
-## Starting Files
+1. Duplicate-group store: `readDuplicateGroupStore`, `writeDuplicateGroupStore`,
+   `analyzeDuplicates` (already dependency-free; takes candidates as a param).
+   The higher-level getters (`getDuplicateGroupCandidates`,
+   `getDuplicateComparisonsForCandidate`) call back into candidate getters, so
+   they must stay in `candidate-workflow.ts` to avoid a circular import.
+2. Technology-workspace store: `normalizeTechnologyWorkspaceRecord`,
+   `read/writeTechnologyWorkspaceStore`, and the record getters/updaters.
+3. Imported-candidate snapshot store: `sanitizeImportedCandidate`,
+   snapshot read/write, `mergeImportedCandidatesForSource`.
 
-- `package.json`
-- `src/lib/ranking.ts`
-- `src/lib/publish-readiness.ts`
-- `src/lib/candidate-workflow.ts`
-- existing references: `scripts/validate-ranking-workflow.ts`,
-  `scripts/validate-publishing*` / `scripts/validate-candidate-workflow.ts`,
-  `scripts/validate-digest-workflow.ts`
+## How to do it safely
 
-## Verification
-
-- `npm run typecheck`
-- `npm run test`
-- Existing `validate:*` scripts should still pass.
-- Playwright visual validation remains a manual local step (`npm run ui:check`),
-  run by the user.
+- One cluster per commit; keep extractions as verbatim code-motion (no logic
+  changes).
+- Push lower-level (store) modules so they do not import `candidate-workflow.ts`;
+  pass data in as parameters to avoid circular dependencies.
+- After each step run BOTH `npm run typecheck` and `npm run test` locally — the
+  sandbox cannot install/run vitest, so behavior verification must happen on the
+  developer machine between steps.
 
 ## Later (not this task)
 
-- Split oversized modules (e.g. `candidate-workflow.ts`, `sqlite-store.ts`,
-  `digest-workflow.ts`) once tests provide a safety net.
-- Decide whether the SQLite driver should move from JSON-blob storage to real
-  relational tables, or be documented honestly as a document store.
-- Add CI (typecheck + test) and linting/formatting config.
+- Apply the same decomposition to `sqlite-store.ts` and `digest-workflow.ts`.
+- Decide whe
