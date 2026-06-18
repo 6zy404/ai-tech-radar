@@ -65,3 +65,18 @@ workarounds that already proved reliable in this repo:
   `vitest` and `tsx` cannot run there. `npm run typecheck` DOES work (tsc is
   installed) and is the in-sandbox safety gate. Run `npm run test`,
   `npm install`, and `npm run ui:check` on the developer machine.
+
+## Proactive conversation handoff (agreed with the user)
+Claude should watch for good moments to start a fresh conversation and flag them
+without being asked. A good moment is when ALL of: the current stage is finished,
+everything is committed, and `git status` is clean — or when the chat has grown
+long enough to feel slow.
+
+When such a moment arrives, proactively tell the user:
+1. That now is a good point to open a new conversation (and that the tree is
+   clean / everything is committed).
+2. A ready-to-paste starter prompt for the new window. The prompt should: point
+   the new session at `CLAUDE.md` and `docs/next-task.md`, briefly note what was
+   just completed, and state the next step to begin.
+
+Keep it a short suggestion, not a hard stop — the user decides whether to switch.
