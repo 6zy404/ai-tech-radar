@@ -30,6 +30,30 @@ import {
   getPairKey,
   normalizeTitleForComparison
 } from "@/lib/candidate-duplicate-rules";
+import {
+  normalizeReadableText,
+  stripMarkup,
+  getPayloadText,
+  trimReadableText,
+  normalizeRequiredField,
+  normalizeEditableText,
+  normalizeStringList,
+  normalizeStoredStringList,
+  normalizeStringMap,
+  normalizeStoredStringMap,
+  normalizeReadingDifficulty,
+  normalizeIntelligenceStatus,
+  normalizeSlug,
+  mergeLocalizedText,
+} from "@/lib/workspace-record-normalizers";
+import {
+  normalizeTechnologyType,
+  inferPublisherType,
+  mapCandidateTagsToTopicTagIds,
+  buildDraftText,
+  buildDraftContent,
+  buildCandidateSourceReference,
+} from "@/lib/candidate-conversion-mapping";
 import type {
   CandidateImportStatus,
   CandidateNormalizedType,
@@ -127,168 +151,6 @@ const duplicateGroupStorePath = getLocalStoreFilePath("duplicate-groups.json");
 const legacyTechnologyDraftStorePath = getLocalStoreFilePath(
   "technology-drafts.json"
 );
-
-function normalizeReadableText(value: string | undefined): string | undefined {
-  const trimmed = value?.trim();
-
-  if (!trimmed || trimmed === "[object Object]") {
-    return undefined;
-  }
-
-  return trimmed;
-}
-
-function stripMarkup(value: string | undefined): string | undefined {
-  const trimmed = normalizeReadableText(value);
-
-  if (!trimmed) {
-    return undefined;
-  }
-
-  return trimmed
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function getPayloadText(value: unknown): string | undefined {
-  if (typeof value === "string") {
-    return stripMarkup(value);
-  }
-
-  if (value && typeof value === "object") {
-    const record = value as Record<string, unknown>;
-
-    if (typeof record["#text"] === "string") {
-      return stripMarkup(record["#text"]);
-    }
-  }
-
-  return undefined;
-}
-
-function trimReadableText(value: string | undefined, maxLength: number): string | undefined {
-  const normalizedValue = normalizeReadableText(value);
-
-  if (!normalizedValue) {
-    return undefined;
-  }
-
-  if (normalizedValue.length <= maxLength) {
-    return normalizedValue;
-  }
-
-  return `${normalizedValue.slice(0, maxLength - 3).trimEnd()}...`;
-}
-
-function normalizeOptionalField(value: string | undefined): string | undefined {
-  const trimmed = value?.trim();
-
-  return trimmed ? trimmed : undefined;
-}
-
-function normalizeRequiredField(
-  value: string | undefined,
-  fallbackValue: string
-): string {
-  return normalizeOptionalField(value) ?? fallbackValue;
-}
-
-function normalizeEditableText(value: string | undefined, fallbackValue: string): string {
-  return value === undefined ? fallbackValue : value.trim();
-}
-
-function normalizeStringList(values: string[] | undefined): string[] | undefined {
-  if (!values) {
-    return undefined;
-  }
-
-  return Array.from(
-    new Set(
-      values
-        .map((value) => value.trim())
-        .filter((value) => value.length > 0)
-    )
-  );
-}
-
-function normalizeStoredStringList(value: unknown): string[] {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-
-  return normalizeStringList(
-    value.filter((item): item is string => typeof item === "string")
-  ) ?? [];
-}
-
-function normalizeStringMap(
-  value: Record<string, string> | undefined
-): Record<string, string> | undefined {
-  if (!value) {
-    return undefined;
-  }
-
-  return Object.fromEntries(
-    Object.entries(value)
-      .map(([key, mapValue]) => [key.trim(), mapValue.trim()] as const)
-      .filter(([key, mapValue]) => key.length > 0 && mapValue.length > 0)
-  );
-}
-
-function normalizeStoredStringMap(value: unknown): Record<string, string> {
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
-    return {};
-  }
-
-  const stringEntries = Object.entries(value as Record<string, unknown>)
-    .filter((entry): entry is [string, string] => typeof entry[1] === "string")
-    .reduce<Record<string, string>>((result, [key, mapValue]) => {
-      result[key] = mapValue;
-      return result;
-    }, {});
-
-  return normalizeStringMap(stringEntries) ?? {};
-}
-
-function normalizeReadingDifficulty(value: unknown): ReadingDifficulty | undefined {
-  return value === "beginner" || value === "intermediate" || value === "advanced"
-    ? value
-    : undefined;
-}
-
-function normalizeIntelligenceStatus(value: unknown): IntelligenceStatus {
-  return value === "draft" || value === "reviewed" || value === "needs_enrichment"
-    ? value
-    : "needs_enrichment";
-}
-
-function normalizeSlug(value: string | undefined, fallbackTitle: string): string {
-  const slugSource = normalizeOptionalField(value) ?? fallbackTitle;
-  const normalizedSlug = slugSource
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-  return normalizedSlug || "technology-draft";
-}
-
-function mergeLocalizedText(
-  existingValue: LocalizedText,
-  nextValue: LocalizedText | undefined
-): LocalizedText {
-  if (!nextValue) {
-    return existingValue;
-  }
-
-  return {
-    original: normalizeRequiredField(nextValue.original, existingValue.original),
-    zh: normalizeOptionalField(nextValue.zh),
-    en: normalizeOptionalField(nextValue.en)
-  };
-}
 
 function sanitizeImportedCandidate(candidate: ImportedCandidate): ImportedCandidate {
   const rawPayload =
@@ -727,117 +589,6 @@ function applyReviewState(
       relatedCandidateIds: [...candidate.relatedCandidateIds]
     };
   });
-}
-
-function normalizeTechnologyType(
-  normalizedType: CandidateNormalizedType
-): TechnologyType {
-  if (normalizedType === "unknown") {
-    return "tool";
-  }
-
-  return normalizedType;
-}
-
-function inferPublisherType(candidate: ImportedCandidate): PublisherType {
-  const haystack = `${candidate.publisherName} ${candidate.sourceName}`.toLowerCase();
-
-  if (/(github|community|open source|maintainer|modelcontextprotocol)/.test(haystack)) {
-    return "open-source-community";
-  }
-
-  if (/(anthropic|hugging face|research|lab)/.test(haystack)) {
-    return "research-lab";
-  }
-
-  if (/(openai|cloudflare|google|microsoft|meta|amazon)/.test(haystack)) {
-    return "big-tech";
-  }
-
-  if (/(review|digest|technology review|media|journal)/.test(haystack)) {
-    return "media";
-  }
-
-  return "startup";
-}
-
-function mapCandidateTagsToTopicTagIds(candidate: ImportedCandidate): string[] {
-  const haystack = `${candidate.originalTitle} ${candidate.originalSummary ?? ""} ${
-    candidate.originalContent ?? ""
-  } ${candidate.tags.join(" ")}`.toLowerCase();
-  const matchedTagIds = new Set<string>();
-
-  for (const tag of topicTags) {
-    if (tag.id === "tag-ai-agents" && /(agent|tool use|assistant|sdk)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-retrieval" && /(retrieval|search|rag|grounding)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-multimodal" && /(vision|browser|voice|multimodal|image)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-workflow" && /(workflow|rollout|orchestration|automation|release)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-on-device" && /(local|on-device|edge)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-observability" && /(trace|evaluation|observability|monitor|benchmark)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-knowledge-graph" && /(graph|knowledge)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-
-    if (tag.id === "tag-product-strategy" && /(product|platform|team|operator|strategy)/.test(haystack)) {
-      matchedTagIds.add(tag.id);
-    }
-  }
-
-  return Array.from(matchedTagIds);
-}
-
-function buildDraftText(
-  originalValue: string,
-  originalLanguage: ImportedCandidate["originalLanguage"]
-): { original: string; zh?: string; en?: string } {
-  return {
-    original: originalValue,
-    zh: originalLanguage === "zh" ? originalValue : undefined,
-    en: originalLanguage === "en" ? originalValue : undefined
-  };
-}
-
-function buildDraftContent(candidate: ImportedCandidate): string {
-  if (candidate.originalContent) {
-    return candidate.originalContent;
-  }
-
-  if (candidate.originalSummary) {
-    return `${candidate.originalSummary}\n\nOriginal full content was not captured during import. Use the source link for the complete text.`;
-  }
-
-  return "Imported candidate without captured body content. Use the source link for the full original text.";
-}
-
-function buildCandidateSourceReference(
-  candidate: ImportedCandidate
-): CandidateSourceReference {
-  return {
-    candidateId: candidate.id,
-    sourceType: candidate.sourceType,
-    sourceName: candidate.sourceName,
-    sourceUrl: candidate.sourceUrl,
-    publisherName: candidate.publisherName,
-    publishDate: candidate.publishDate
-  };
 }
 
 function buildTechnologyWorkspaceRecord(
