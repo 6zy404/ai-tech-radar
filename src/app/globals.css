@@ -5572,13 +5572,13 @@ body {
 .workspace-delivery-console .delivery-channel-row--console {
   display: grid;
   grid-template-columns:
-    minmax(240px, 1.45fr)
-    minmax(115px, 0.65fr)
-    minmax(84px, 0.5fr)
-    minmax(92px, 0.55fr)
-    minmax(145px, 0.8fr)
-    minmax(150px, 0.88fr)
-    minmax(220px, 1fr);
+    minmax(180px, 1.45fr)
+    minmax(92px, 0.65fr)
+    minmax(72px, 0.5fr)
+    minmax(82px, 0.55fr)
+    minmax(118px, 0.8fr)
+    minmax(120px, 0.88fr)
+    minmax(150px, 1fr);
   gap: 12px;
   align-items: center;
 }
@@ -5652,13 +5652,13 @@ body {
 .delivery-log-row {
   display: grid;
   grid-template-columns:
-    minmax(150px, 0.9fr)
-    minmax(110px, 0.65fr)
-    minmax(170px, 1fr)
-    minmax(92px, 0.55fr)
-    minmax(78px, 0.42fr)
-    minmax(260px, 1.7fr)
-    minmax(120px, 0.7fr);
+    minmax(128px, 0.9fr)
+    minmax(94px, 0.65fr)
+    minmax(140px, 1fr)
+    minmax(82px, 0.55fr)
+    minmax(70px, 0.42fr)
+    minmax(180px, 1.7fr)
+    minmax(108px, 0.7fr);
   gap: 12px;
   align-items: center;
 }
@@ -5763,7 +5763,7 @@ body {
 }
 
 .source-console-table {
-  min-width: 1120px;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--delivery-console-border);
   border-radius: 12px;
@@ -5774,13 +5774,13 @@ body {
 .source-console-row {
   display: grid;
   grid-template-columns:
-    minmax(250px, 1.35fr)
-    minmax(140px, 0.72fr)
-    minmax(170px, 0.82fr)
-    minmax(135px, 0.65fr)
-    minmax(230px, 1fr)
-    minmax(130px, 0.62fr)
-    minmax(220px, 0.98fr);
+    minmax(180px, 1.35fr)
+    minmax(96px, 0.72fr)
+    minmax(110px, 0.82fr)
+    minmax(100px, 0.65fr)
+    minmax(150px, 1fr)
+    minmax(92px, 0.62fr)
+    minmax(140px, 0.98fr);
   gap: 12px;
   align-items: center;
 }
