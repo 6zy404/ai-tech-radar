@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getDuplicateReasons } from "@/lib/candidate-workflow";
+import { getDuplicateReasons } from "@/lib/candidate-duplicate-rules";
 import { makeImportedCandidate } from "@/lib/test-factories";
 
 describe("getDuplicateReasons", () => {
@@ -91,5 +91,4 @@ describe("getDuplicateReasons", () => {
     });
 
     expect(getDuplicateReasons(left, right)).toEqual([]);
-  });
-});
+  }
