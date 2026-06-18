@@ -109,13 +109,15 @@ Not a bug (working as designed):
   is why the action buttons sit off the right edge. The delivery log and channel
   tables now use the same pattern.
 
-Open design question (not a defect):
+Resolved (wide-table fit):
 
-- These wide workspace tables (sources, delivery channels, delivery logs) require
-  sideways scrolling to reach the Actions column at 1440px because the content
-  column is ~1060px while the tables want ~1120px. If sideways-scrolling-to-
-  actions feels awkward, that's a design tweak (narrower columns, an overflow
-  "⋯" action menu, or fewer columns), not a layout bug.
+- The wide workspace tables (sources, delivery channels, delivery logs) had
+  column minimums summing to ~1120-1347px, wider than the ~1060px content
+  column, so the Actions column required sideways scrolling. Column minimums
+  were reduced (cells stack/wrap vertically, so narrower columns just add a
+  little row height) so each table fits the content column. Verified via
+  `ui:check`: every route now reports `horizontalOverflow: false` and an empty
+  `overflowingElements`, and the Actions column is visible without scrolling.
 
 ## Needs Human Confirmation
 
@@ -131,6 +133,4 @@ Open design question (not a defect):
 
 ## Resolved
 
-- Previously-uncommitted working-tree changes (a large UI/design-system
-  migration) have been reviewed at a high level, confirmed to pass
-  `npm run typecheck`, and committed as `e336e58`. The tree is now clean.
+- Previously-uncommitted working-tree changes (a large UI/design
