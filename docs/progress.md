@@ -90,4 +90,47 @@ terms leak onto any user-facing page or feed. The pages previously listed as
 
 Visual issues found and fixed:
 
-- `/workspace/delivery`: page-level horizontal overflow (~32p
+- `/workspace/delivery`: page-level horizontal overflow (~32px). Root cause was
+  the workspace content column (`.workspace-shell__content`) using an implicit
+  `auto` grid track that expanded to its widest child (the delivery tables).
+  Fixed by capping it with `grid-template-columns: minmax(0, 1fr)`, and by
+  making the delivery log table and channel table scroll inside their own boxes
+  (`min-width: 0; overflow-x: auto`) instead of clipping. Re-verified with
+  `ui:check`: `horizontalOverflow` is now `false` and the content column is back
+  to 1060px.
+
+Not a bug (working as designed):
+
+- `/workspace/sources`: the source table is wrapped in
+  `.source-console-table-scroll` (`overflow-x: auto`), so on viewports narrower
+  than the table's comfortable width (~1120px) it scrolls horizontally inside
+  its own box. The Actions column is reachable by scrolling the table sideways;
+  it is not lost. The `ui:check` screenshot shows it at scroll position 0, which
+  is why the action buttons sit off the right edge. The delivery log and channel
+  tables now use the same pattern.
+
+Open design question (not a defect):
+
+- These wide workspace tables (sources, delivery channels, delivery logs) require
+  sideways scrolling to reach the Actions column at 1440px because the content
+  column is ~1060px while the tables want ~1120px. If sideways-scrolling-to-
+  actions feels awkward, that's a design tweak (narrower columns, an overflow
+  "⋯" action menu, or fewer columns), not a layout bug.
+
+## Needs Human Confirmation
+
+- Spot-check the saved screenshots in `visual-qa-screenshots/` for spacing and
+  typography polish (automated checks only cover layout/leak signals).
+- Whether the Learning Support pages are fully approved: current code and
+  `docs/design-system.md` indicate they use the template, but
+  `docs/page-structure.md` still lists `/skills` and `/knowledge` in a later
+  migration section.
+- Whether `/workspace/operations` should be considered an admin dashboard:
+  current repo implements it as internal operations, while the project non-goals
+  still say no full admin platform.
+
+## Resolved
+
+- Previously-uncommitted working-tree changes (a large UI/design-system
+  migration) have been reviewed at a high level, confirmed to pass
+  `npm run typecheck`, and committed as `e336e58`. The tree is now clean.
