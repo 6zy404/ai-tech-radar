@@ -45,4 +45,29 @@ export function makeWorkspaceRecord(
     createdAt: "2026-05-20T00:00:00.000Z",
     updatedAt: "2026-05-20T00:00:00.000Z",
     editorialNotes: [],
-   
+    ...overrides
+  };
+}
+
+export function makeImportedCandidate(
+  overrides: Partial<ImportedCandidate> = {}
+): ImportedCandidate {
+  return {
+    id: "candidate-1",
+    sourceType: "rss-feed",
+    sourceName: "Example Source",
+    sourceUrl: "https://example.com/posts/example",
+    originalTitle: "Example Technology Announcement",
+    originalSummary: "A short summary.",
+    originalContent: "Body content.",
+    originalLanguage: "en",
+    publishDate: "2026-05-20",
+    publisherName: "Example Publisher",
+    normalizedType: "tool",
+    tags: ["ai"],
+    importStatus: "new",
+    relatedCandidateIds: [],
+    rawPayload: {},
+    ...overrides
+  };
+}

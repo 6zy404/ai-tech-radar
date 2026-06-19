@@ -47,4 +47,6 @@ behavior-preserving extractions (each verified with `npm run typecheck`):
 ## Later (not this task)
 
 - Apply the same decomposition to `sqlite-store.ts` and `digest-workflow.ts`.
-- Decide whe
+- Decide whether the SQLite driver should move from JSON-blob storage to real
+  relational tables, or be documented honestly as a document store.
+- Add linting/formatting config (ESLint + Prettier).
