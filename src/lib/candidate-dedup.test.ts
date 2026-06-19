@@ -91,4 +91,5 @@ describe("getDuplicateReasons", () => {
     });
 
     expect(getDuplicateReasons(left, right)).toEqual([]);
-  }
+  });
+});

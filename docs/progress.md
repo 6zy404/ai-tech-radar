@@ -133,4 +133,6 @@ Resolved (wide-table fit):
 
 ## Resolved
 
-- Previously-uncommitted working-tree changes (a large UI/design
+- Previously-uncommitted working-tree changes (a large UI/design-system
+  migration) have been reviewed at a high level, confirmed to pass
+  `npm run typecheck`, and committed as `e336e58`. The tree is now clean.
