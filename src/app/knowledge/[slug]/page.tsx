@@ -20,17 +20,17 @@ interface KnowledgeDetailPageProps {
 }
 
 const categoryLabels: Record<KnowledgeCategory, string> = {
-  "machine-learning": "Machine learning",
-  "software-architecture": "Software architecture",
-  data: "Data",
-  "product-thinking": "Product thinking",
-  operations: "Operations"
+  "machine-learning": "机器学习",
+  "software-architecture": "软件架构",
+  data: "数据",
+  "product-thinking": "产品思维",
+  operations: "运维"
 };
 
 const difficultyLabels: Record<DifficultyLevel, string> = {
-  foundation: "Foundation",
-  intermediate: "Intermediate",
-  advanced: "Advanced"
+  foundation: "基础",
+  intermediate: "进阶",
+  advanced: "高级"
 };
 
 function formatRelationType(
@@ -42,14 +42,14 @@ function formatRelationType(
 function getConceptMatter(category: KnowledgeCategory): string {
   const categoryCopy: Record<KnowledgeCategory, string> = {
     "machine-learning":
-      "This concept helps readers separate model behavior, evaluation limits, and practical constraints before judging a new AI signal.",
+      "在判断新的 AI 信号之前，这个概念帮助读者区分模型行为、评估局限和实际约束。",
     "software-architecture":
-      "This concept helps readers see the interface boundaries and system tradeoffs behind a new tool or platform change.",
-    data: "This concept helps readers understand how retrieval, freshness, trust, and data movement shape AI product quality.",
+      "这个概念帮助读者看清新工具或平台变化背后的接口边界与系统权衡。",
+    data: "这个概念帮助读者理解检索、时效、可信度和数据流动如何塑造 AI 产品质量。",
     "product-thinking":
-      "This concept helps readers translate technical change into adoption choices, scoping decisions, and product risks.",
+      "这个概念帮助读者把技术变化转化为落地选择、范围决策和产品风险。",
     operations:
-      "This concept helps readers understand review loops, failure visibility, and rollout discipline when AI systems reach real users."
+      "这个概念帮助读者理解当 AI 系统触达真实用户时的评审闭环、故障可见性和上线纪律。"
   };
 
   return categoryCopy[category];
@@ -57,22 +57,22 @@ function getConceptMatter(category: KnowledgeCategory): string {
 
 function getLearningSteps(difficulty: DifficultyLevel): string[] {
   const sharedSteps = [
-    "Read the concept summary before opening the related technology signals.",
-    "Open one linked signal and identify where the concept appears in the product or engineering change.",
-    "Pair the concept with one related skill to decide what to evaluate next."
+    "在打开相关技术信号之前，先读一遍概念摘要。",
+    "打开一条关联信号，找出概念在产品或工程变化中出现的位置。",
+    "把概念与一项相关技能搭配，决定接下来评估什么。"
   ];
 
   if (difficulty === "advanced") {
     return [
       ...sharedSteps,
-      "Use the concept to compare longer-term architecture, data, or strategy tradeoffs."
+      "用这个概念比较更长期的架构、数据或战略权衡。"
     ];
   }
 
   if (difficulty === "intermediate") {
     return [
       ...sharedSteps,
-      "Use the concept to compare implementation choices and operational consequences."
+      "用这个概念比较实现选择及其运维后果。"
     ];
   }
 
@@ -98,7 +98,7 @@ export default async function KnowledgeDetailPage({
     fromType: "knowledge",
     targetType: "technology",
     targetIds: knowledge.relatedTechnologyIds,
-    defaultNote: "This published signal depends on this background concept."
+    defaultNote: "这条已发布信号依赖于该背景概念。"
   });
 
   const relatedSkills = buildRelationItems({
@@ -106,7 +106,7 @@ export default async function KnowledgeDetailPage({
     fromType: "knowledge",
     targetType: "skill",
     targetIds: knowledge.relatedSkillIds,
-    defaultNote: "This skill becomes easier to practice with this concept."
+    defaultNote: "有了这个概念，这项技能会更容易练习。"
   });
 
   const tags = getTagsByIds(knowledge.tags);
@@ -116,7 +116,7 @@ export default async function KnowledgeDetailPage({
     <UserPageShell
       title={knowledge.title}
       description={knowledge.summary}
-      sectionLabel="Background Knowledge"
+      sectionLabel="背景知识"
       showHeader={false}
       className="skill-detail-page knowledge-detail-page"
     >
@@ -133,38 +133,38 @@ export default async function KnowledgeDetailPage({
 
           {knowledge.content ? (
             <section className="skill-detail-section skill-detail-section--lead">
-              <h2>What this concept means</h2>
+              <h2>这个概念是什么意思</h2>
               <p>{knowledge.content}</p>
             </section>
           ) : null}
 
           <section className="skill-detail-section">
-            <h2>Why this concept matters</h2>
+            <h2>这个概念为何重要</h2>
             <p>{getConceptMatter(knowledge.category)}</p>
           </section>
 
           <RelationList
             className="skill-detail-section"
-            title="Technology signals explained by this concept"
-            description="These published signals are easier to understand when this concept is clear."
-            emptyText="No published technology signals reference this concept yet."
+            title="由这个概念解释的技术信号"
+            description="当这个概念清晰之后，这些已发布信号会更容易理解。"
+            emptyText="暂无已发布技术信号引用这个概念。"
             items={relatedTechnologies}
-            linkLabel="Open related signal"
+            linkLabel="查看相关信号"
             formatRelationType={formatRelationType}
           />
 
           <RelationList
             className="skill-detail-section"
-            title="Skills that use this concept"
-            description="These practical skills depend on the background model described here."
-            emptyText="No skills are linked to this concept yet."
+            title="使用这个概念的技能"
+            description="这些实用技能依赖于此处描述的背景模型。"
+            emptyText="暂无技能关联到这个概念。"
             items={relatedSkills}
-            linkLabel="View skill"
+            linkLabel="查看技能"
             formatRelationType={formatRelationType}
           />
 
           <section className="skill-detail-section">
-            <h2>How to continue learning</h2>
+            <h2>如何继续学习</h2>
             <ol className="skill-detail-steps">
               {learningSteps.map((step) => (
                 <li key={step}>{step}</li>
@@ -173,25 +173,25 @@ export default async function KnowledgeDetailPage({
           </section>
         </main>
 
-        <aside className="skill-detail-aside" aria-label="Knowledge summary">
+        <aside className="skill-detail-aside" aria-label="知识概览">
           <section className="skill-detail-aside-card">
-            <p className="eyebrow user-eyebrow">Knowledge profile</p>
+            <p className="eyebrow user-eyebrow">知识档案</p>
             <h2>{knowledge.title}</h2>
             <dl className="skill-detail-profile">
               <div>
-                <dt>Category</dt>
+                <dt>类别</dt>
                 <dd>{categoryLabels[knowledge.category]}</dd>
               </div>
               <div>
-                <dt>Difficulty</dt>
+                <dt>难度</dt>
                 <dd>{difficultyLabels[knowledge.difficulty]}</dd>
               </div>
               <div>
-                <dt>Technology links</dt>
+                <dt>技术关联</dt>
                 <dd>{relatedTechnologies.length}</dd>
               </div>
               <div>
-                <dt>Skill links</dt>
+                <dt>技能关联</dt>
                 <dd>{relatedSkills.length}</dd>
               </div>
             </dl>
@@ -199,17 +199,16 @@ export default async function KnowledgeDetailPage({
 
           {tags.length > 0 ? (
             <section className="skill-detail-aside-card">
-              <p className="eyebrow user-eyebrow">Topics</p>
+              <p className="eyebrow user-eyebrow">主题</p>
               <TagList tags={tags} limit={4} />
             </section>
           ) : null}
 
           <section className="skill-detail-aside-card">
-            <p className="eyebrow user-eyebrow">Reading path</p>
-            <h2>How to use this page</h2>
+            <p className="eyebrow user-eyebrow">阅读路径</p>
+            <h2>如何使用本页</h2>
             <p>
-              Start with the concept, open one related signal, then use the
-              linked skills to decide what to evaluate next.
+              先从概念开始，打开一条相关信号，再用关联技能决定接下来评估什么。
             </p>
           </section>
         </aside>

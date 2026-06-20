@@ -41,11 +41,11 @@ export function SearchFilterBar({
   labels
 }: SearchFilterBarProps) {
   const resolvedLabels = {
-    search: "Search",
-    searchPlaceholder: "Search title or summary",
-    type: "Type",
-    tag: "Tag",
-    priority: "Priority",
+    search: "搜索",
+    searchPlaceholder: "搜索标题或摘要",
+    type: "类型",
+    tag: "标签",
+    priority: "优先级",
     ...labels
   };
   const hasPriorityFilter =

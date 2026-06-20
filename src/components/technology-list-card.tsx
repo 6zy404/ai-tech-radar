@@ -82,7 +82,7 @@ export function TechnologyListCard({
         <p className="technology-card__summary">{summary}</p>
 
         <div className="technology-card__insight">
-          <span>Why it matters</span>
+          <span>为什么值得看</span>
           <p>{whyItMatters}</p>
         </div>
 
@@ -99,7 +99,7 @@ export function TechnologyListCard({
             href={`/technologies/${technology.slug}`}
             className="technology-card__open-link"
           >
-            Open signal
+            查看信号
           </Link>
         </div>
       </div>

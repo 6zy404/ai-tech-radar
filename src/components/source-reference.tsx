@@ -9,12 +9,12 @@ interface SourceReferenceProps {
 }
 
 export function SourceReference({
-  title = "Source",
+  title = "来源",
   sourceName,
   sourceUrl,
   publisherName,
   publishDate,
-  linkLabel = "Open original source",
+  linkLabel = "打开原始来源",
   showUrl = false
 }: SourceReferenceProps) {
   return (
