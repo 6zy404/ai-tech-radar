@@ -186,24 +186,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="home-entry-grid" aria-label="Primary public entry points">
-        <Link href="/digest/today" className="home-entry-card home-entry-card--highlight">
-          <span>今日简报</span>
-          <strong>直接看今天最值得关注的内容</strong>
-          <small>按优先级整理今日技术信号</small>
-        </Link>
-        <Link href="/technologies" className="home-entry-card">
-          <span>浏览技术信号</span>
-          <strong>快速判断这是什么</strong>
-          <small>查看来源、标签、关注人群与学习路径</small>
-        </Link>
-        <Link href="/skills" className="home-entry-card">
-          <span>探索技能与知识</span>
-          <strong>补齐理解新技术的背景</strong>
-          <small>从能力和概念进入技术解读</small>
-        </Link>
-      </section>
-
       <section className="product-home-digest">
         <div className="section-heading">
           <div>

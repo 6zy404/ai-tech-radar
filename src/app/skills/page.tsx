@@ -26,46 +26,46 @@ const skillTypeSections: Array<{
 }> = [
   {
     id: "engineering",
-    title: "Engineering execution",
-    description: "Build, integrate, and operate AI systems in real products.",
-    focus: "Use these skills when a signal may change how teams build or ship."
+    title: "工程落地",
+    description: "在真实产品中构建、集成并运行 AI 系统。",
+    focus: "当某个信号可能改变团队的构建或交付方式时，使用这些技能。"
   },
   {
     id: "analysis",
-    title: "Evaluation and analysis",
-    description: "Judge whether a signal is useful, risky, or ready to test.",
-    focus: "Use these skills to separate durable signals from temporary noise."
+    title: "评估与分析",
+    description: "判断一个信号是否有用、有风险，或是否可以测试。",
+    focus: "用这些技能把持久的信号与一时的噪声区分开。"
   },
   {
     id: "product",
-    title: "Product judgement",
-    description: "Turn technical changes into scoped product decisions.",
-    focus: "Use these skills before turning a technology into a roadmap item."
+    title: "产品判断",
+    description: "把技术变化转化为有明确范围的产品决策。",
+    focus: "在把某项技术纳入路线图之前，使用这些技能。"
   },
   {
     id: "operations",
-    title: "Operations and adoption",
-    description: "Keep AI systems observable, reliable, and safe to operate.",
-    focus: "Use these skills when a signal affects rollout, reliability, or support."
+    title: "运维与落地",
+    description: "让 AI 系统保持可观测、可靠、可安全运行。",
+    focus: "当信号影响上线、可靠性或支持时，使用这些技能。"
   },
   {
     id: "communication",
-    title: "Team communication",
-    description: "Explain tradeoffs and coordinate adoption across teams.",
-    focus: "Use these skills to help non-specialists understand technical change."
+    title: "团队沟通",
+    description: "解释权衡取舍，并在团队间协调落地。",
+    focus: "用这些技能帮助非专业人员理解技术变化。"
   }
 ];
 
 const heatLabels: Record<HeatLevel, string> = {
-  hot: "Hot now",
-  active: "Active",
-  emerging: "Emerging"
+  hot: "当前热门",
+  active: "活跃",
+  emerging: "新兴"
 };
 
 const learningCostLabels: Record<LearningCost, string> = {
-  low: "Low learning cost",
-  medium: "Medium learning cost",
-  high: "High learning cost"
+  low: "学习成本低",
+  medium: "学习成本中等",
+  high: "学习成本高"
 };
 
 function getRelatedTechnologies(
@@ -89,17 +89,17 @@ function getRelatedKnowledge(
 function getSkillOutcome(skill: SkillItem): string {
   switch (skill.skillType) {
     case "engineering":
-      return "Helps you decide whether a new AI capability is practical to build, integrate, and maintain.";
+      return "帮助你判断一项新的 AI 能力在构建、集成和维护上是否切实可行。";
     case "analysis":
-      return "Helps you evaluate evidence, failure modes, and whether the signal is ready to test.";
+      return "帮助你评估证据、失败模式，以及信号是否已经可以测试。";
     case "product":
-      return "Helps you translate technical change into a product decision with a clear scope.";
+      return "帮助你把技术变化转化为范围明确的产品决策。";
     case "operations":
-      return "Helps you judge rollout, monitoring, reliability, and operational risk.";
+      return "帮助你判断上线、监控、可靠性和运维风险。";
     case "communication":
-      return "Helps you explain the change and coordinate adoption across teams.";
+      return "帮助你解释变化，并在团队间协调落地。";
     default:
-      return "Helps you read technology signals with more context and less guesswork.";
+      return "帮助你在更多背景下解读技术信号，少一些猜测。";
   }
 }
 
@@ -125,70 +125,63 @@ export default function SkillsPage() {
 
   return (
     <UserPageShell
-      title="Skills for Understanding AI Signals"
-      description="Use these practical skills to decide whether a new AI technology signal is worth testing, monitoring, or explaining to your team."
-      sectionLabel="Understanding Skills"
+      title="理解 AI 信号的技能"
+      description="用这些实用技能判断一个新的 AI 技术信号是否值得测试、跟踪，或向团队解释。"
+      sectionLabel="理解技能"
       className="skills-library-page"
     >
       {skills.length === 0 ? (
         <section className="skills-library-empty">
-          <p className="skills-library-empty__eyebrow">Skills library</p>
-          <h2>No skills yet.</h2>
-          <p>
-            Published skills will appear here when they are connected to
-            user-facing technology signals.
-          </p>
+          <p className="skills-library-empty__eyebrow">技能库</p>
+          <h2>暂无技能。</h2>
+          <p>当已发布技能与用户端技术信号建立关联后，会在这里展示。</p>
         </section>
       ) : (
         <>
           <section className="skills-library-intro">
             <div className="skills-library-intro__copy">
-              <p className="skills-library-kicker">How to use this library</p>
-              <h2>
-                Skills connect fast-moving technology signals to practical
-                evaluation.
-              </h2>
+              <p className="skills-library-kicker">如何使用这个技能库</p>
+              <h2>技能把快速变化的技术信号连接到可落地的评估。</h2>
               <p>
-                Start with the skill that matches your role, then open the
-                linked technology signals and background concepts to understand
-                where the change matters.
+                先从与你角色匹配的技能开始，再打开关联的技术信号和背景概念，
+                理解这一变化在哪里重要。
               </p>
             </div>
-            <dl className="skills-library-stats" aria-label="Skills summary">
+            <dl className="skills-library-stats" aria-label="技能概览">
               <div>
                 <dt>{skills.length}</dt>
-                <dd>skills tracked</dd>
+                <dd>已收录技能</dd>
               </div>
               <div>
                 <dt>{hotSkills}</dt>
-                <dd>hot now</dd>
+                <dd>当前热门</dd>
               </div>
               <div>
                 <dt>{relatedTechnologyCount}</dt>
-                <dd>published signals connected</dd>
+                <dd>关联已发布信号</dd>
               </div>
               <div>
                 <dt>{relatedKnowledgeCount}</dt>
-                <dd>background concepts linked</dd>
+                <dd>关联背景概念</dd>
               </div>
             </dl>
           </section>
 
-          <section className="skills-library-guide" aria-label="Reading path">
+          <section className="skills-library-guide" aria-label="阅读路径">
             <article>
               <span>01</span>
-              <h3>Pick a skill</h3>
-              <p>Choose the ability you need for judging a technology signal.</p>
+              <h3>选一项技能</h3>
+              <p>选择你判断技术信号时所需的能力。</p>
             </article>
             <article>
               <span>02</span>
-              <h3>Open a signal</h3>
-              <p>Use related published signals as concrete examples.</p>
+              <h3>打开一个信号</h3>
+              <p>把关联的已发布信号当作具体示例。</p>
             </article>
             <article>
               <span>03</span>
-              <h3>Fill the background</h3>
-              <p>Use knowledge links when the signal depends on older ideas.</p>
+              <h3>补齐背景</h3>
+              <p>当信号依赖更早的概念时，使用知识链接。</p>
             </article>
           </section>
 
@@ -197,7 +190,7 @@ export default function SkillsPage() {
               <section className="skills-library-section" key={section.id}>
                 <div className="skills-library-section__header">
                   <div>
-                    <p>{section.id}</p>
+                    <p>技能方向</p>
                     <h2>{section.title}</h2>
                   </div>
                   <span>{section.focus}</span>
@@ -230,20 +223,20 @@ export default function SkillsPage() {
                           {skill.summary}
                         </p>
                         <div className="skill-library-card__outcome">
-                          <span>Helps you decide</span>
+                          <span>帮助你判断</span>
                           <p>{getSkillOutcome(skill)}</p>
                         </div>
                         <div className="skill-library-card__counts">
                           <span>
-                            {relatedTechnologies.length} technology signals
+                            {relatedTechnologies.length} 条技术信号
                           </span>
                           <span>
-                            {relatedKnowledge.length} background concepts
+                            {relatedKnowledge.length} 个背景概念
                           </span>
                         </div>
                         {relatedTechnologies.length > 0 ? (
                           <div className="skill-library-card__signals">
-                            <span>Practice with</span>
+                            <span>用这些来练习</span>
                             {relatedTechnologies.slice(0, 2).map((technology) => (
                               <Link
                                 href={`/technologies/${technology.slug}`}
@@ -261,7 +254,7 @@ export default function SkillsPage() {
                           className="skill-library-card__link"
                           href={`/skills/${skill.slug}`}
                         >
-                          View skill
+                          查看技能
                         </Link>
                       </article>
                     );

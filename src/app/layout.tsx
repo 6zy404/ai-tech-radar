@@ -7,13 +7,12 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AI Tech Radar",
-  description:
-    "A local prototype for tracking new technologies, hot skills, and classic knowledge."
+  description: "用于跟踪新技术、热门技能与经典知识的本地原型。"
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body>
         <TopNav />
         <main className="main-content">{children}</main>

@@ -48,31 +48,29 @@ interface DigestSourceReference extends TechnologySourceReference {
 }
 
 const priorityLabels: Record<PriorityLevel, string> = {
-  high_priority: "Immediate attention",
-  watch: "Worth tracking",
-  low_priority: "Good to know"
+  high_priority: "立即关注",
+  watch: "值得跟踪",
+  low_priority: "了解即可"
 };
 
 const priorityReasonCopy: Record<PriorityLevel, string> = {
-  high_priority:
-    "Multiple signals line up, so this technology is worth evaluating early.",
-  watch:
-    "This change is worth following, but still needs more context or validation.",
-  low_priority: "Useful background, but not urgent enough to prioritize today."
+  high_priority: "多项信号同时出现，这项技术值得尽早评估。",
+  watch: "这一变化值得跟进，但仍需更多背景或验证。",
+  low_priority: "可作背景了解，但今天还不够紧迫到需要优先处理。"
 };
 
 const technologyTypeLabels: Record<TechnologyType, string> = {
-  platform: "Platform",
-  tool: "Tool",
-  model: "Model",
-  protocol: "Protocol",
-  workflow: "Workflow"
+  platform: "平台",
+  tool: "工具",
+  model: "模型",
+  protocol: "协议",
+  workflow: "工作流"
 };
 
 const difficultyLabels: Record<ReadingDifficulty, string> = {
-  beginner: "Beginner friendly",
-  intermediate: "Intermediate",
-  advanced: "Advanced"
+  beginner: "入门友好",
+  intermediate: "进阶",
+  advanced: "高级"
 };
 
 function getTechnologyTags(
@@ -101,7 +99,7 @@ function getAudienceLine(audience: string[]): string | undefined {
     return undefined;
   }
 
-  return `Useful for ${visibleAudience.join(", ")}`;
+  return `适合 ${visibleAudience.join("、")}`;
 }
 
 function getDigestSourceReferences(
@@ -206,7 +204,7 @@ function DigestTechnologyCard({
           {compactText(summary, compact ? 140 : 190)}
         </p>
         <div className="digest-technology-card__reason">
-          <span>Why it matters</span>
+          <span>为什么值得看</span>
           <p>{whyItMatters}</p>
         </div>
         {audienceLine ? (
@@ -221,8 +219,8 @@ function DigestTechnologyCard({
           {difficulty ? <span>{difficulty}</span> : null}
           {!compact ? (
             <span>
-              {intelligence.relatedSkillCount} skills /{" "}
-              {intelligence.relatedKnowledgeCount} concepts
+              {intelligence.relatedSkillCount} 个技能 /{" "}
+              {intelligence.relatedKnowledgeCount} 个概念
             </span>
           ) : null}
         </div>
@@ -235,7 +233,7 @@ function DigestTechnologyCard({
             className="action-link digest-technology-card__open"
             href={`/technologies/${technology.slug}`}
           >
-            Open signal
+            查看信号
           </Link>
         </div>
       </div>
@@ -304,11 +302,8 @@ function DigestSourceReferences({
   return (
     <section className="daily-digest-section daily-digest-sources">
       <div className="daily-digest-section__header daily-digest-section__header--compact">
-        <h2>Source references</h2>
-        <p>
-          Public sources represented by the published technology signals in this
-          digest.
-        </p>
+        <h2>来源参考</h2>
+        <p>本期简报中已发布技术信号所代表的公开来源。</p>
       </div>
       {references.length > 0 ? (
         <div className="digest-source-list">
@@ -318,7 +313,7 @@ function DigestSourceReferences({
               <p>
                 {[reference.publisherName, reference.publishDate]
                   .filter(Boolean)
-                  .join(" - ") || "Public source"}
+                  .join(" - ") || "公开来源"}
               </p>
               {reference.sourceUrl ? (
                 <a
@@ -327,16 +322,14 @@ function DigestSourceReferences({
                   rel="noreferrer"
                   target="_blank"
                 >
-                  Open source
+                  打开来源
                 </a>
               ) : null}
             </article>
           ))}
         </div>
       ) : (
-        <p className="empty-state">
-          No public source references are available for this digest yet.
-        </p>
+        <p className="empty-state">本期简报暂无可展示的公开来源参考。</p>
       )}
     </section>
   );
@@ -367,7 +360,7 @@ export function DailyDigestContent({
     <div className="daily-digest daily-digest-reading">
       <section className="daily-digest-brief-header">
         <div className="daily-digest-brief-header__copy">
-          <p className="eyebrow user-eyebrow">Daily Digest · {digest.date}</p>
+          <p className="eyebrow user-eyebrow">每日简报 · {digest.date}</p>
           <h1>{publicTitle}</h1>
           <p className="daily-digest-brief-header__subtitle">
             {publicSummary}
@@ -378,30 +371,26 @@ export function DailyDigestContent({
             </p>
           ) : null}
         </div>
-        <div className="daily-digest-meta-strip" aria-label="Digest summary">
+        <div className="daily-digest-meta-strip" aria-label="简报摘要">
           <span>{digest.date}</span>
-          <span>{highPriorityTechnologies.length} immediate</span>
-          <span>{watchTechnologies.length} tracking</span>
-          <span>{sourceCount} sources</span>
+          <span>{highPriorityTechnologies.length} 条立即关注</span>
+          <span>{watchTechnologies.length} 条值得跟踪</span>
+          <span>{sourceCount} 个来源</span>
         </div>
       </section>
 
       <section className="daily-digest-summary-panel">
-        <p className="eyebrow user-eyebrow">Today summary</p>
+        <p className="eyebrow user-eyebrow">今日概览</p>
         <p>
-          This brief organizes the published signals that deserve attention
-          first, the changes worth tracking, and the skills and background
-          concepts that make today&apos;s technology movement easier to read.
+          这份简报整理了最值得优先关注的已发布信号、值得跟踪的变化，
+          以及让今天的技术动向更易理解的技能与背景知识。
         </p>
       </section>
 
       <section className="daily-digest-section">
         <div className="daily-digest-section__header">
-          <h2>Today&apos;s immediate attention</h2>
-          <p>
-            Published technology signals ranked as the highest priority, with
-            any editor-pinned items shown first.
-          </p>
+          <h2>今日立即关注</h2>
+          <p>被评为最高优先级的已发布技术信号，编辑置顶的条目优先展示。</p>
         </div>
         {highPriorityTechnologies.length > 0 ? (
           <div className="digest-technology-list digest-technology-list--featured">
@@ -414,19 +403,14 @@ export function DailyDigestContent({
             ))}
           </div>
         ) : (
-          <p className="empty-state">
-            No immediate-attention signals were selected for this digest.
-          </p>
+          <p className="empty-state">本期简报未选入需要立即关注的信号。</p>
         )}
       </section>
 
       <section className="daily-digest-section">
         <div className="daily-digest-section__header daily-digest-section__header--secondary">
-          <h2>Worth tracking</h2>
-          <p>
-            Signals that are useful to follow, but still need more context or
-            validation before becoming immediate priorities.
-          </p>
+          <h2>值得跟踪</h2>
+          <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
         </div>
         {watchTechnologies.length > 0 ? (
           <div className="digest-technology-list">
@@ -440,28 +424,26 @@ export function DailyDigestContent({
             ))}
           </div>
         ) : (
-          <p className="empty-state">
-            No watch-level items were selected for this digest.
-          </p>
+          <p className="empty-state">本期简报未选入值得跟踪的条目。</p>
         )}
       </section>
 
       <DigestReferenceList
-        title="Skills to pay attention to"
-        description="Skills that help readers judge what to try, evaluate, or learn next."
-        emptyText="No related skills were selected for this digest yet."
+        title="值得关注的技能"
+        description="帮助读者判断接下来该尝试、评估或学习什么的技能。"
+        emptyText="本期简报暂未选入相关技能。"
         items={skills}
         hrefPrefix="/skills"
-        linkLabel="View skill"
+        linkLabel="查看技能"
       />
 
       <DigestReferenceList
-        title="Background knowledge"
-        description="Concepts that explain the background behind today's selected changes."
-        emptyText="No related background concepts were selected for this digest yet."
+        title="背景知识"
+        description="解释今天所选变化背后背景的概念。"
+        emptyText="本期简报暂未选入相关背景概念。"
         items={knowledge}
         hrefPrefix="/knowledge"
-        linkLabel="View concept"
+        linkLabel="查看概念"
       />
 
       <DigestSourceReferences
@@ -472,15 +454,12 @@ export function DailyDigestContent({
       {showDeliveryLinks ? (
         <section className="daily-digest-section daily-digest-feeds">
           <div className="daily-digest-section__header daily-digest-section__header--compact">
-            <h2>Follow the digest</h2>
-            <p>
-              Stable public feeds include published daily digests only. Draft
-              and archived digests are excluded.
-            </p>
+            <h2>订阅简报</h2>
+            <p>稳定的公开订阅源仅包含已发布的每日简报，草稿和已归档简报不在其中。</p>
           </div>
           <div className="digest-feed-links">
-            <Link href={rssFeedPath}>RSS feed</Link>
-            <Link href={jsonFeedPath}>JSON feed</Link>
+            <Link href={rssFeedPath}>RSS 订阅源</Link>
+            <Link href={jsonFeedPath}>JSON 订阅源</Link>
           </div>
         </section>
       ) : null}

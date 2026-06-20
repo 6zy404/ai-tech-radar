@@ -30,7 +30,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
     <UserPageShell
       title={publicTitle}
       description={publicSummary}
-      sectionLabel="Daily Digest"
+      sectionLabel="每日简报"
       showHeader={false}
     >
       <DailyDigestContent

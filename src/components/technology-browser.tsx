@@ -51,7 +51,7 @@ export function TechnologyBrowser({
   });
 
   const typeOptions = [
-    { value: "", label: "All types" },
+    { value: "", label: "全部类型" },
     ...Array.from(new Set(technologies.map((item) => item.type))).map((type) => ({
       value: type,
       label: type
@@ -59,12 +59,12 @@ export function TechnologyBrowser({
   ];
 
   const tagOptions = [
-    { value: "", label: "All tags" },
+    { value: "", label: "全部标签" },
     ...tags.map((tag) => ({ value: tag.id, label: tag.name }))
   ];
 
   const priorityOptions = [
-    { value: "", label: "All priorities" },
+    { value: "", label: "全部优先级" },
     ...priorityLevels.map((level) => ({
       value: level,
       label: getPriorityLevelLabel(level, "zh")
@@ -86,20 +86,20 @@ export function TechnologyBrowser({
         tagOptions={tagOptions}
         priorityOptions={priorityOptions}
         labels={{
-          search: "Search",
-          searchPlaceholder: "Search title, summary, or source",
-          type: "Type",
-          tag: "Tag",
-          priority: "Priority"
+          search: "搜索",
+          searchPlaceholder: "搜索标题、摘要或来源",
+          type: "类型",
+          tag: "标签",
+          priority: "优先级"
         }}
       />
 
       <div className="technology-browser__toolbar user-list-toolbar">
         <div>
-          <strong>{filteredTechnologies.length} technology signals</strong>
+          <strong>{filteredTechnologies.length} 条技术信号</strong>
           <p>
-            Published signals only. Open the item when the reason, audience, and
-            source match what you need to understand next.
+            仅展示已发布信号。当理由、关注人群和来源符合你接下来想了解的内容时，
+            再打开对应条目。
           </p>
         </div>
         <TechnologyLanguageSwitch
@@ -125,8 +125,8 @@ export function TechnologyBrowser({
 
       {filteredTechnologies.length === 0 ? (
         <div className="empty-state empty-state--actionable">
-          <strong>No technology signals yet.</strong>
-          <p>Try clearing the filters to see published signals.</p>
+          <strong>暂无技术信号。</strong>
+          <p>试着清除筛选条件，查看已发布的信号。</p>
         </div>
       ) : null}
     </>
