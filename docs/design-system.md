@@ -309,11 +309,29 @@ Visual rules:
 
 ### Typography scale
 
-- Workspace page title: large but operational, around `2rem-3.25rem`
-- User-facing list title: larger editorial title, around `2.2rem-4.75rem`
-- User-facing article title: strongest hierarchy, around `2.4rem-5.25rem`
-- Workspace metadata: small, dense, and label-forward
-- User-facing metadata: lighter and less dominant than article content
+User-facing pages use a centralized typographic scale defined as CSS custom
+properties in `src/app/globals.css` `:root` and applied only under `.user-shell`
+(public pages). The Internal Workspace and the shared `TopNav` keep their
+existing typography.
+
+- Font family: `--font-sans` — Inter / Source Han Sans (思源黑体) / system-ui
+  fallback chain (no web font is loaded; preferred faces are used only if
+  installed)
+- `--fs-h1` `28px` — page / hero titles (`h1`)
+- `--fs-section` `22px` — section and intro headings (`h2`)
+- `--fs-card-title` `18px` — card titles (`h3`, and card titles that use `h2`)
+- `--fs-body` `15px` — body text (`p`, `li`, `dd`)
+- `--fs-label` `13px` — eyebrows, metadata, and small labels
+- `--lh-base` `1.5` — unified line-height across headings and text blocks
+
+The scale is applied through a single `.user-shell`-scoped layer at the end of
+`globals.css`. It uses `!important` so the central scale stays authoritative over
+the older per-page sizes; page components reference the tokens instead of
+hard-coding font sizes. This is a typography-only layer: it does not change
+layout, color, logic, or component structure.
+
+- Workspace page title: large but operational, around `2rem-3.25rem` (unchanged)
+- Workspace metadata: small, dense, and label-forward (unchanged)
 
 ### Cards
 
@@ -476,6 +494,14 @@ Workspace pages use a compact internal-operations surface:
 Design tokens are intentionally still plain CSS custom properties in
 `src/app/globals.css`. The current project does not introduce a component
 library or new dependency for this refactor.
+
+On public pages the later `--ui-*` and `--skills-*` palettes resolve to the
+canonical base tokens (`--accent`, `--muted`, `--user-ink`, `--bg`, `--line`,
+`--accent-soft`) through a `.user-shell`-scoped override, so user-facing
+surfaces use one brand palette instead of three. The Internal Workspace still
+reads the original `--ui-*` values (it shares some of them), and a few
+intentionally distinct tokens — card surface, soft tints, shadows, and the
+accessible `--ui-teal-strong` — are kept rather than collapsed.
 
 ## UI Template QA & Consolidation v0
 
