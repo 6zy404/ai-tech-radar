@@ -14,6 +14,20 @@
   --user-accent: #0f766e;
   --user-ink: #172026;
   --label-amber: #8a5a12;
+  /* User-facing typographic scale (typography only; applied under .user-shell) */
+  --font-sans: var(--font-inter), "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-display: 38px;
+  --fs-h1: 28px;
+  --fs-section: 22px;
+  --fs-card-title: 18px;
+  --fs-body: 15px;
+  --fs-label: 13px;
+  --lh-base: 1.5;
+  /* User-facing internal spacing (text-to-border padding) */
+  --space-card: 16px;
+  --space-box: 12px 14px;
+  --space-chip: 12px 14px;
+  --space-panel: clamp(22px, 3vw, 32px);
   --shadow: 0 12px 30px rgba(31, 41, 51, 0.08);
   --workspace-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
   --user-shadow: 0 18px 48px rgba(31, 41, 51, 0.08);
@@ -1748,7 +1762,7 @@ p {
 }
 
 .product-home-hero__stats strong {
-  color: var(--user-ink);
+  color: var(--accent);
   font-size: 2.25rem;
   line-height: 1;
 }
@@ -4666,6 +4680,20 @@ body {
   --radius-tight: 10px;
 }
 
+/* Token merge (B): on public pages, resolve the --ui-* palette to the canonical
+   base tokens (:root) so user-facing surfaces use one set of brand colors.
+   Scoped to .user-shell because the Internal Workspace also reads --ui-* and
+   must keep its own values. Card surface, soft tints, shadows, radii, and the
+   accessible --ui-teal-strong remain distinct semantic tokens. */
+.user-shell {
+  --ui-bg: var(--bg);
+  --ui-ink: var(--user-ink);
+  --ui-muted: var(--muted);
+  --ui-line: var(--line);
+  --ui-teal: var(--accent);
+  --ui-teal-soft: var(--accent-soft);
+}
+
 body {
   background:
     radial-gradient(circle at 0% 0%, rgba(8, 127, 115, 0.12), transparent 24%),
@@ -7099,13 +7127,14 @@ body {
   }
 }
 
-/* User-facing skills library */
+/* User-facing skills library — colors merged onto the canonical base tokens.
+   Distinct teal-tinted border/soft tints are kept as their own values. */
 .skills-library-page,
 .skill-detail-page {
-  --skills-ink: #101923;
-  --skills-muted: #526174;
+  --skills-ink: var(--user-ink);
+  --skills-muted: var(--muted);
   --skills-line: rgba(18, 83, 80, 0.14);
-  --skills-accent: #0f8f83;
+  --skills-accent: var(--accent);
   --skills-accent-soft: rgba(55, 214, 198, 0.14);
 }
 
@@ -7125,10 +7154,10 @@ body {
 .skills-library-intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
-  gap: clamp(24px, 5vw, 48px);
-  align-items: center;
+  gap: clamp(20px, 3vw, 32px);
+  align-items: start;
   margin-top: 28px;
-  padding: clamp(28px, 5vw, 48px);
+  padding: clamp(22px, 3.5vw, 30px);
   border: 1px solid var(--skills-line);
   border-radius: 32px;
   background:
@@ -7165,10 +7194,12 @@ body {
 
 .skills-library-stats {
   display: grid;
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+  align-content: start;
   margin: 0;
-  padding: 24px;
-  border-radius: 24px;
+  padding: 18px 20px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.78);
 }
 
@@ -7179,7 +7210,8 @@ body {
 
 .skills-library-stats dt {
   color: var(--skills-ink);
-  font-size: 2rem;
+  font-size: 1.7rem;
+  line-height: 1.05;
   font-weight: 850;
   letter-spacing: -0.05em;
 }
@@ -7282,8 +7314,8 @@ body {
 
 .skill-library-card {
   display: grid;
-  gap: 14px;
-  padding: 22px;
+  gap: 10px;
+  padding: 18px 20px;
   min-width: 0;
 }
 
@@ -7335,9 +7367,9 @@ body {
 }
 
 .skill-library-card__outcome {
-  padding: 14px 16px;
+  padding: 11px 13px;
   border-left: 3px solid rgba(15, 143, 131, 0.55);
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(231, 246, 243, 0.72);
 }
 
@@ -7676,8 +7708,8 @@ body {
   .skill-detail-section,
   .skill-detail-aside-card,
   .skill-library-card {
-    border-radius: 22px;
-    padding: 20px;
+    border-radius: 18px;
+    padding: 16px 18px;
   }
 
   .skills-library-intro h2,
@@ -7688,4 +7720,133 @@ body {
   .skills-library-stats {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================================
+   User-facing typographic scale (typography only)
+   Centralized font family + size scale + unified line-height,
+   scoped to public pages (.user-shell). Tokens live in :root.
+   Internal Workspace and the shared TopNav are intentionally
+   left on their existing typography.
+   Scale: h1 28 / section 22 / card title 18 / body 15 / label 13.
+   ============================================================ */
+.user-shell {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+}
+
+.user-shell p,
+.user-shell li,
+.user-shell dd,
+.user-shell blockquote {
+  font-size: var(--fs-body) !important;
+}
+
+.user-shell h1 {
+  font-size: var(--fs-h1) !important;
+}
+
+.user-shell h2 {
+  font-size: var(--fs-section) !important;
+}
+
+.user-shell h3,
+.user-shell h4 {
+  font-size: var(--fs-card-title) !important;
+}
+
+/* Card titles that use <h2> map to the card-title step, not section */
+.user-shell .technology-card h2,
+.user-shell .skill-library-card h2,
+.user-shell .relation-list__item h2,
+.user-shell .user-related-section__item h2 {
+  font-size: var(--fs-card-title) !important;
+}
+
+/* Secondary / label text */
+.user-shell .eyebrow,
+.user-shell small,
+.user-shell figcaption,
+.user-shell .metadata-row dt,
+.user-shell .metadata-row dd {
+  font-size: var(--fs-label) !important;
+}
+
+/* Unified line-height across headings and text blocks */
+.user-shell h1,
+.user-shell h2,
+.user-shell h3,
+.user-shell h4,
+.user-shell p,
+.user-shell li,
+.user-shell dd {
+  line-height: var(--lh-base) !important;
+}
+
+/* Display tier: hero / page-title headings get the larger --fs-display step
+   and a tighter heading line-height than the body. */
+.user-shell .product-home-hero h1,
+.user-shell .user-page-header h1,
+.user-shell .user-article-hero h1,
+.user-shell .daily-digest-hero h1,
+.user-shell .daily-digest-brief-header h1,
+.user-shell .foundation-detail-hero h1,
+.user-shell .foundation-intro-panel h2,
+.user-shell .skill-detail-hero h1 {
+  font-size: var(--fs-display) !important;
+  line-height: 1.25 !important;
+}
+
+/* ============================================================
+   User-facing internal spacing normalization (typography pass)
+   One consistent text-to-border padding across cards, nested
+   accent boxes, compact items, and hero / intro panels. Scoped
+   to .user-shell and placed last so it settles the older layered
+   padding values onto a single scale. Workspace is unaffected.
+   ============================================================ */
+
+/* Standard content cards */
+.user-shell .technology-card,
+.user-shell .home-signal-card,
+.user-shell .home-digest-card,
+.user-shell .foundation-card,
+.user-shell .foundation-index-card,
+.user-shell .digest-technology-card,
+.user-shell .skill-library-card,
+.user-shell .skills-library-guide article,
+.user-shell .user-article-section,
+.user-shell .user-related-section,
+.user-shell .source-reference,
+.user-shell .user-reference-panel,
+.user-shell .skill-detail-section,
+.user-shell .skill-detail-aside-card,
+.user-shell .skill-detail-related-card {
+  padding: var(--space-card);
+}
+
+/* Compact list items */
+.user-shell .digest-reference-item {
+  padding: var(--space-chip);
+}
+
+/* Nested accent boxes inside cards */
+.user-shell .technology-card__insight,
+.user-shell .home-signal-card__why,
+.user-shell .skill-library-card__outcome,
+.user-shell .skill-detail-related-card__note {
+  padding: var(--space-box);
+}
+
+/* Hero / large intro panels */
+.user-shell .user-page-header,
+.user-shell .product-home-hero,
+.user-shell .user-article-hero,
+.user-shell .daily-digest-hero,
+.user-shell .daily-digest-brief-header,
+.user-shell .foundation-detail-hero,
+.user-shell .foundation-intro-panel,
+.user-shell .skills-library-intro,
+.user-shell .skill-detail-hero {
+  padding: var(--space-panel);
 }
