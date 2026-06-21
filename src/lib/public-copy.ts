@@ -16,7 +16,7 @@ export function getPublicDigestTitle(digest: PublicDigestCopyInput): string {
   const title = digest.title?.trim();
 
   if (!title || containsInternalPublicCopy(title)) {
-    return `AI Tech Digest - ${digest.date}`;
+    return `AI 技术简报 · ${digest.date}`;
   }
 
   return title;
@@ -27,7 +27,7 @@ export function getPublicDigestSummary(digest: PublicDigestCopyInput): string {
     digest.editorialSummary?.trim() || digest.summary?.trim() || "";
 
   if (!summary || containsInternalPublicCopy(summary)) {
-    return "Today's brief selects the published technology signals that deserve attention first, then organizes the skills, background concepts, and public sources behind them.";
+    return "今天的简报优先挑选了值得关注的已发布技术信号，并整理了它们背后的技能、背景概念和公开来源。";
   }
 
   return summary;
