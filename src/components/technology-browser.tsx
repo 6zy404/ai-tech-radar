@@ -10,6 +10,7 @@ import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
   getTechnologySearchText,
   getTechnologySwitchLabel,
+  getTechnologyTypeLabel,
   type TechnologyContentMode
 } from "@/lib/technology-localization";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
@@ -54,7 +55,7 @@ export function TechnologyBrowser({
     { value: "", label: "全部类型" },
     ...Array.from(new Set(technologies.map((item) => item.type))).map((type) => ({
       value: type,
-      label: type
+      label: getTechnologyTypeLabel(type, "zh")
     }))
   ];
 

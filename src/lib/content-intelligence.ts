@@ -13,9 +13,9 @@ export interface DigestTechnologyIntelligenceSummary {
 }
 
 const readingDifficultyLabels: Record<ReadingDifficulty, string> = {
-  beginner: "Beginner-friendly",
-  intermediate: "Intermediate",
-  advanced: "Advanced"
+  beginner: "入门友好",
+  intermediate: "进阶",
+  advanced: "高级"
 };
 
 export function getReadingDifficultyLabel(
