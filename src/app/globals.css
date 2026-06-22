@@ -16,11 +16,11 @@
   --label-amber: #8a5a12;
   /* User-facing typographic scale (typography only; applied under .user-shell) */
   --font-sans: var(--font-inter), "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --fs-display: 38px;
-  --fs-h1: 28px;
+  --fs-display: 44px;
+  --fs-h1: 30px;
   --fs-section: 22px;
   --fs-card-title: 18px;
-  --fs-body: 15px;
+  --fs-body: 16px;
   --fs-label: 13px;
   --lh-base: 1.5;
   /* User-facing internal spacing (text-to-border padding) */
@@ -4661,7 +4661,7 @@ body {
   --ui-ink: #101828;
   --ui-muted: #667085;
   --ui-line: #d9e2dc;
-  --ui-card: rgba(255, 255, 255, 0.9);
+  --ui-card: #ffffff;
   --ui-card-solid: #ffffff;
   --ui-teal: #087f73;
   --ui-teal-strong: #06645b;
@@ -4674,7 +4674,7 @@ body {
   --workspace-nav-muted: #8da2b8;
   --workspace-nav-active: #0d9488;
   --shadow-soft: 0 14px 34px rgba(15, 23, 42, 0.06);
-  --shadow-card: 0 8px 22px rgba(15, 23, 42, 0.045);
+  --shadow-card: 0 6px 16px rgba(15, 23, 42, 0.08);
   --radius-page: 26px;
   --radius-card: 16px;
   --radius-tight: 10px;
@@ -4718,11 +4718,9 @@ body {
 .daily-digest-hero,
 .user-article-hero,
 .foundation-intro-panel {
-  border: 1px solid rgba(8, 127, 115, 0.16);
+  border: 1px solid rgba(8, 127, 115, 0.24);
   border-radius: var(--radius-page);
-  background:
-    radial-gradient(circle at 88% 10%, rgba(20, 184, 166, 0.14), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(236, 253, 245, 0.72));
+  background: linear-gradient(135deg, #ffffff 0%, rgba(217, 243, 239, 0.66) 100%);
   box-shadow: var(--shadow-soft);
 }
 
@@ -4754,7 +4752,7 @@ body {
 .user-related-section,
 .source-reference,
 .user-reference-panel {
-  border: 1px solid rgba(8, 127, 115, 0.11);
+  border: 1px solid rgba(8, 127, 115, 0.2);
   border-radius: var(--radius-card);
   background: var(--ui-card);
   box-shadow: var(--shadow-card);
