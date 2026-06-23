@@ -729,6 +729,36 @@ p {
   color: #b91c1c;
 }
 
+/* User-facing priority signals: firmer, higher-contrast pills */
+.user-shell .info-pill {
+  border: 1px solid transparent;
+  font-weight: 700;
+}
+
+.user-shell .info-pill--danger {
+  background: rgba(185, 28, 28, 0.14);
+  border-color: rgba(185, 28, 28, 0.32);
+  color: #a32d2d;
+}
+
+.user-shell .info-pill--warning {
+  background: rgba(180, 83, 9, 0.15);
+  border-color: rgba(180, 83, 9, 0.32);
+  color: #92400e;
+}
+
+.user-shell .info-pill--success {
+  background: rgba(22, 101, 52, 0.14);
+  border-color: rgba(22, 101, 52, 0.3);
+  color: #14532d;
+}
+
+.user-shell .info-pill--subtle {
+  background: rgba(31, 41, 51, 0.06);
+  border-color: rgba(31, 41, 51, 0.14);
+  color: var(--muted);
+}
+
 .detail-layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
@@ -1427,11 +1457,9 @@ p {
 }
 
 .user-content-card {
-  border-color: rgba(15, 118, 110, 0.14);
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 1), rgba(250, 247, 239, 0.92)),
-    var(--surface-strong);
-  box-shadow: var(--user-shadow);
+  border-color: rgba(8, 127, 115, 0.2);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
 }
 
 .user-content-card__meta {
@@ -4791,7 +4819,7 @@ body {
   display: grid;
   gap: 12px;
   padding: 20px;
-  border: 1px solid rgba(8, 127, 115, 0.13);
+  border: 1px solid rgba(8, 127, 115, 0.2);
   box-shadow: var(--shadow-card);
 }
 
