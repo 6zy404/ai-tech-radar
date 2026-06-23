@@ -31,6 +31,7 @@ export const technologyItems: TechnologyItem[] = [
     tags: ["tag-ai-agents", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-api-contracts", "knowledge-tool-use"],
     relatedSkillIds: ["skill-tool-integration", "skill-agent-design"],
+    relatedTechnologyIds: ["tech-browser-agents", "tech-agent-workbenches", "tech-multimodal-copilots"],
     whyItMatters:
       "MCP 把上下文和工具接入变成一份产品契约，而不是一堆一次性集成，让智能体工作流更易于比较、治理和复用。",
     whoShouldCare: ["AI 工程师", "智能体开发者", "产品构建者", "技术管理者"],
@@ -91,7 +92,8 @@ export const technologyItems: TechnologyItem[] = [
     status: "published",
     tags: ["tag-ai-agents", "tag-multimodal", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-human-loop", "knowledge-system-design"],
-    relatedSkillIds: ["skill-agent-design", "skill-scope-pilots"]
+    relatedSkillIds: ["skill-agent-design", "skill-scope-pilots"],
+    relatedTechnologyIds: ["tech-mcp", "tech-agent-workbenches"]
   },
   {
     id: "tech-slm-edge",
@@ -122,7 +124,8 @@ export const technologyItems: TechnologyItem[] = [
     status: "published",
     tags: ["tag-on-device", "tag-product-strategy"],
     relatedKnowledgeIds: ["knowledge-model-sizing", "knowledge-latency-tradeoffs"],
-    relatedSkillIds: ["skill-model-evaluation", "skill-scope-pilots"]
+    relatedSkillIds: ["skill-model-evaluation", "skill-scope-pilots"],
+    relatedTechnologyIds: ["tech-voice-runtime"]
   },
   {
     id: "tech-rag-evals",
@@ -154,6 +157,7 @@ export const technologyItems: TechnologyItem[] = [
     tags: ["tag-retrieval", "tag-observability"],
     relatedKnowledgeIds: ["knowledge-rag-basics", "knowledge-evaluation-loops"],
     relatedSkillIds: ["skill-retrieval-tuning", "skill-model-evaluation"],
+    relatedTechnologyIds: ["tech-kg-assistants"],
     whyItMatters:
       "RAG 评测看板让检索失败在上线前就暴露出来，帮助团队发现那些狭窄的提示词检查会漏掉的回归。",
     whoShouldCare: ["AI 工程师", "产品构建者", "技术管理者"],
@@ -214,7 +218,8 @@ export const technologyItems: TechnologyItem[] = [
     status: "published",
     tags: ["tag-ai-agents", "tag-observability", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-system-design", "knowledge-evaluation-loops"],
-    relatedSkillIds: ["skill-agent-design", "skill-tool-integration"]
+    relatedSkillIds: ["skill-agent-design", "skill-tool-integration"],
+    relatedTechnologyIds: ["tech-mcp", "tech-browser-agents"]
   },
   {
     id: "tech-multimodal-copilots",
@@ -245,7 +250,8 @@ export const technologyItems: TechnologyItem[] = [
     status: "published",
     tags: ["tag-multimodal", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-feedback-loops", "knowledge-tool-use"],
-    relatedSkillIds: ["skill-tool-integration", "skill-communication-ai"]
+    relatedSkillIds: ["skill-tool-integration", "skill-communication-ai"],
+    relatedTechnologyIds: ["tech-mcp"]
   },
   {
     id: "tech-kg-assistants",
@@ -276,7 +282,8 @@ export const technologyItems: TechnologyItem[] = [
     status: "published",
     tags: ["tag-knowledge-graph", "tag-ai-agents", "tag-retrieval"],
     relatedKnowledgeIds: ["knowledge-graph-thinking", "knowledge-rag-basics"],
-    relatedSkillIds: ["skill-retrieval-tuning", "skill-agent-design"]
+    relatedSkillIds: ["skill-retrieval-tuning", "skill-agent-design"],
+    relatedTechnologyIds: ["tech-rag-evals"]
   },
   {
     id: "tech-voice-runtime",
@@ -307,7 +314,8 @@ export const technologyItems: TechnologyItem[] = [
     status: "published",
     tags: ["tag-multimodal", "tag-workflow", "tag-on-device"],
     relatedKnowledgeIds: ["knowledge-latency-tradeoffs", "knowledge-human-loop"],
-    relatedSkillIds: ["skill-communication-ai", "skill-scope-pilots"]
+    relatedSkillIds: ["skill-communication-ai", "skill-scope-pilots"],
+    relatedTechnologyIds: ["tech-slm-edge"]
   }
 ];
 

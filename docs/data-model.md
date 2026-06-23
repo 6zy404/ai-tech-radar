@@ -512,6 +512,7 @@ Represents formal technology content that can be shown to end users.
 - `tags`
 - `relatedKnowledgeIds`
 - `relatedSkillIds`
+- `relatedTechnologyIds?`
 - `sourceReferences?`
 - `priority?`
 - `whyItMatters?`

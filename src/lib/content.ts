@@ -131,6 +131,7 @@ export function toUserFacingTechnologyItem(
     tags: [...item.tags],
     relatedKnowledgeIds: [...item.relatedKnowledgeIds],
     relatedSkillIds: [...item.relatedSkillIds],
+    relatedTechnologyIds: [...(item.relatedTechnologyIds ?? [])],
     sourceReferences: (item.sourceReferences ?? []).map((reference) => ({
       sourceName: reference.sourceName,
       sourceUrl: reference.sourceUrl,
