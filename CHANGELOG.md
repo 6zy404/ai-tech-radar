@@ -131,3 +131,12 @@ For per-topic deep dives, see the `docs/` directory.
 - **Bilingual support** — content-level localization (`original` / `zh` / `en`)
   for technology title, summary, and content, with Chinese-preferred display and
   original-source fallback. No route-based i18n.
+
+## Knowledge relationship network
+- **Technology-to-technology relations v0** — optional `relatedTechnologyIds` on
+  `TechnologyItem`, seeded with real cross-links between published technologies
+  (e.g. MCP ↔ browser agents ↔ agent workbenches), rendered as a navigable
+  "相关技术" section on the technology detail page via the existing
+  `RelatedItemsSection`. First step toward making the Technology / Skill /
+  Knowledge graph visible and walkable per the product rule, rather than three
+  separate lists.

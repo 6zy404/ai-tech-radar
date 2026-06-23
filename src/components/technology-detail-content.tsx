@@ -3,6 +3,10 @@
 import { useState } from "react";
 
 import { RelatedItemsSection } from "@/components/related-items-section";
+import {
+  TechnologyRelationshipGraph,
+  type RelationshipGraphNode
+} from "@/components/technology-relationship-graph";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
@@ -43,6 +47,7 @@ import type {
 interface TechnologyDetailContentProps {
   technology: TechnologyItem;
   tags: TopicTag[];
+  relatedTechnologies: RelationListItem[];
   relatedSkills: RelationListItem[];
   relatedKnowledge: RelationListItem[];
 }
@@ -50,6 +55,7 @@ interface TechnologyDetailContentProps {
 export function TechnologyDetailContent({
   technology,
   tags,
+  relatedTechnologies,
   relatedSkills,
   relatedKnowledge
 }: TechnologyDetailContentProps) {
@@ -107,6 +113,23 @@ export function TechnologyDetailContent({
       mode
     )
   }));
+  const graphNodes: RelationshipGraphNode[] = [
+    ...relatedTechnologies.map((item) => ({
+      title: item.title,
+      href: item.href,
+      kind: "technology" as const
+    })),
+    ...relatedSkills.map((item) => ({
+      title: item.title,
+      href: item.href,
+      kind: "skill" as const
+    })),
+    ...relatedKnowledge.map((item) => ({
+      title: item.title,
+      href: item.href,
+      kind: "knowledge" as const
+    }))
+  ];
 
   return (
     <UserArticleLayout
@@ -238,6 +261,19 @@ export function TechnologyDetailContent({
           </ol>
         </section>
       ) : null}
+
+      <TechnologyRelationshipGraph centerTitle={title} nodes={graphNodes} />
+
+      <RelatedItemsSection
+        title="相关技术"
+        description="与该信号在工作流或主题上相邻的其他技术，可顺着这条线继续了解。"
+        emptyText="暂无相关技术。"
+        items={relatedTechnologies}
+        linkLabel="查看技术"
+        formatRelationType={(relationType) =>
+          getRelationTypeLabel(relationType, mode)
+        }
+      />
 
       <RelatedItemsSection
         title={copy.relatedSkillsTitle}

@@ -38,6 +38,13 @@ export default async function TechnologyDetailPage({
     targetIds: technology.relatedKnowledgeIds,
     defaultNote: "这条知识为理解该技术信号提供背景。"
   });
+  const relatedTechnologies = buildRelationItems({
+    fromId: technology.id,
+    fromType: "technology",
+    targetType: "technology",
+    targetIds: technology.relatedTechnologyIds ?? [],
+    defaultNote: "与该信号相邻的技术，可顺着这条线继续了解。"
+  });
 
   return (
     <UserPageShell
@@ -49,6 +56,7 @@ export default async function TechnologyDetailPage({
       <TechnologyDetailContent
         technology={technology}
         tags={getTagsByIds(technology.tags)}
+        relatedTechnologies={relatedTechnologies}
         relatedSkills={relatedSkills}
         relatedKnowledge={relatedKnowledge}
       />
