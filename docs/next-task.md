@@ -1,5 +1,10 @@
 # Next Task
 
+> See `docs/roadmap.md` for the high-level plan. The current active direction is
+> the P2 knowledge relationship network (technology↔technology relations are
+> shipped and semantically labelled). The `candidate-workflow.ts` decomposition
+> below remains valid as interleaved cleanup, not a blocking phase.
+
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
 > typecheck + test), and the first refactor passes on `candidate-workflow.ts`.
