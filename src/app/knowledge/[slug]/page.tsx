@@ -1,18 +1,27 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { RelationList } from "@/components/relation-list";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
-  buildRelationItems,
   getAllKnowledge,
+  getAllSkills,
+  getAllTechnologies,
   getKnowledgeBySlug,
   getTagsByIds
 } from "@/lib/content";
+import {
+  getPreferredTechnologySummary,
+  getPreferredTechnologyTitle
+} from "@/lib/technology-localization";
 import type {
   DifficultyLevel,
+  HeatLevel,
   KnowledgeCategory,
-  RelationListItem
+  KnowledgeItem,
+  SkillItem,
+  SkillType,
+  TechnologyItem
 } from "@/types/content";
 
 interface KnowledgeDetailPageProps {
@@ -33,10 +42,36 @@ const difficultyLabels: Record<DifficultyLevel, string> = {
   advanced: "高级"
 };
 
-function formatRelationType(
-  relationType: RelationListItem["relationType"]
-): string {
-  return relationType.split("-").join(" ");
+const skillTypeLabels: Record<SkillType, string> = {
+  engineering: "工程落地",
+  analysis: "评估与分析",
+  product: "产品判断",
+  operations: "运维与落地",
+  communication: "团队沟通"
+};
+
+const heatLabels: Record<HeatLevel, string> = {
+  hot: "当前热门",
+  active: "活跃",
+  emerging: "新兴"
+};
+
+function getRelatedTechnologies(
+  knowledge: KnowledgeItem,
+  technologies: TechnologyItem[]
+): TechnologyItem[] {
+  return technologies.filter((technology) =>
+    knowledge.relatedTechnologyIds.includes(technology.id)
+  );
+}
+
+function getRelatedSkills(
+  knowledge: KnowledgeItem,
+  skills: SkillItem[]
+): SkillItem[] {
+  return skills.filter((skill) =>
+    knowledge.relatedSkillIds.includes(skill.id)
+  );
 }
 
 function getConceptMatter(category: KnowledgeCategory): string {
@@ -63,17 +98,11 @@ function getLearningSteps(difficulty: DifficultyLevel): string[] {
   ];
 
   if (difficulty === "advanced") {
-    return [
-      ...sharedSteps,
-      "用这个概念比较更长期的架构、数据或战略权衡。"
-    ];
+    return [...sharedSteps, "用这个概念比较更长期的架构、数据或战略权衡。"];
   }
 
   if (difficulty === "intermediate") {
-    return [
-      ...sharedSteps,
-      "用这个概念比较实现选择及其运维后果。"
-    ];
+    return [...sharedSteps, "用这个概念比较实现选择及其运维后果。"];
   }
 
   return sharedSteps;
@@ -93,23 +122,11 @@ export default async function KnowledgeDetailPage({
     notFound();
   }
 
-  const relatedTechnologies = buildRelationItems({
-    fromId: knowledge.id,
-    fromType: "knowledge",
-    targetType: "technology",
-    targetIds: knowledge.relatedTechnologyIds,
-    defaultNote: "这条已发布信号依赖于该背景概念。"
-  });
-
-  const relatedSkills = buildRelationItems({
-    fromId: knowledge.id,
-    fromType: "knowledge",
-    targetType: "skill",
-    targetIds: knowledge.relatedSkillIds,
-    defaultNote: "有了这个概念，这项技能会更容易练习。"
-  });
-
+  const technologies = getAllTechnologies();
+  const skills = getAllSkills();
   const tags = getTagsByIds(knowledge.tags);
+  const relatedTechnologies = getRelatedTechnologies(knowledge, technologies);
+  const relatedSkills = getRelatedSkills(knowledge, skills);
   const learningSteps = getLearningSteps(knowledge.difficulty);
 
   return (
@@ -123,11 +140,15 @@ export default async function KnowledgeDetailPage({
       <div className="skill-detail-layout">
         <main className="skill-detail-main">
           <section className="skill-detail-hero">
-            <p className="eyebrow user-eyebrow">
+            <p className="skill-detail-kicker">
               {categoryLabels[knowledge.category]}
             </p>
             <h1>{knowledge.title}</h1>
             <p>{knowledge.summary}</p>
+            <div className="skill-detail-hero__meta">
+              <span>{categoryLabels[knowledge.category]}</span>
+              <span>{difficultyLabels[knowledge.difficulty]}</span>
+            </div>
             {tags.length > 0 ? <TagList tags={tags} limit={4} /> : null}
           </section>
 
@@ -143,25 +164,104 @@ export default async function KnowledgeDetailPage({
             <p>{getConceptMatter(knowledge.category)}</p>
           </section>
 
-          <RelationList
-            className="skill-detail-section"
-            title="由这个概念解释的技术信号"
-            description="当这个概念清晰之后，这些已发布信号会更容易理解。"
-            emptyText="暂无已发布技术信号引用这个概念。"
-            items={relatedTechnologies}
-            linkLabel="查看相关信号"
-            formatRelationType={formatRelationType}
-          />
+          {relatedTechnologies.length > 0 ? (
+            <section className="skill-detail-section">
+              <div className="skill-detail-section__header">
+                <div>
+                  <p>由这个概念解释</p>
+                  <h2>由这个概念解释的技术信号</h2>
+                </div>
+              </div>
+              <div className="skill-detail-related-list">
+                {relatedTechnologies.map((technology) => {
+                  const technologyTags = getTagsByIds(technology.tags);
 
-          <RelationList
-            className="skill-detail-section"
-            title="使用这个概念的技能"
-            description="这些实用技能依赖于此处描述的背景模型。"
-            emptyText="暂无技能关联到这个概念。"
-            items={relatedSkills}
-            linkLabel="查看技能"
-            formatRelationType={formatRelationType}
-          />
+                  return (
+                    <article
+                      className="skill-detail-related-card"
+                      key={technology.id}
+                    >
+                      <div>
+                        <p className="skill-detail-related-card__meta">
+                          {technology.sourceName} · {technology.publishDate}
+                        </p>
+                        <h3>
+                          <Link href={`/technologies/${technology.slug}`}>
+                            {getPreferredTechnologyTitle(technology)}
+                          </Link>
+                        </h3>
+                        <p>{getPreferredTechnologySummary(technology)}</p>
+                        {technology.whyItMatters ? (
+                          <div className="skill-detail-related-card__note">
+                            <span>这个概念在这里如何体现</span>
+                            <p>{technology.whyItMatters}</p>
+                          </div>
+                        ) : null}
+                        {technologyTags.length > 0 ? (
+                          <TagList tags={technologyTags} limit={2} />
+                        ) : null}
+                      </div>
+                      <Link
+                        className="skill-detail-related-card__link"
+                        href={`/technologies/${technology.slug}`}
+                      >
+                        查看相关信号
+                      </Link>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
+
+          {relatedSkills.length > 0 ? (
+            <section className="skill-detail-section">
+              <div className="skill-detail-section__header">
+                <div>
+                  <p>搭配技能</p>
+                  <h2>使用这个概念的技能</h2>
+                </div>
+              </div>
+              <div className="skill-detail-related-list">
+                {relatedSkills.map((skill) => {
+                  const skillTags = getTagsByIds(skill.tags);
+
+                  return (
+                    <article
+                      className="skill-detail-related-card skill-detail-related-card--knowledge"
+                      key={skill.id}
+                    >
+                      <div>
+                        <p className="skill-detail-related-card__meta">
+                          {skillTypeLabels[skill.skillType]} ·{" "}
+                          {heatLabels[skill.heatLevel]}
+                        </p>
+                        <h3>
+                          <Link href={`/skills/${skill.slug}`}>
+                            {skill.title}
+                          </Link>
+                        </h3>
+                        <p>{skill.summary}</p>
+                        <div className="skill-detail-related-card__note">
+                          <span>为什么有帮助</span>
+                          <p>有了这个概念，这项技能会更容易练习和应用。</p>
+                        </div>
+                        {skillTags.length > 0 ? (
+                          <TagList tags={skillTags} limit={2} />
+                        ) : null}
+                      </div>
+                      <Link
+                        className="skill-detail-related-card__link"
+                        href={`/skills/${skill.slug}`}
+                      >
+                        查看技能
+                      </Link>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
 
           <section className="skill-detail-section">
             <h2>如何继续学习</h2>
@@ -175,8 +275,7 @@ export default async function KnowledgeDetailPage({
 
         <aside className="skill-detail-aside" aria-label="知识概览">
           <section className="skill-detail-aside-card">
-            <p className="eyebrow user-eyebrow">知识档案</p>
-            <h2>{knowledge.title}</h2>
+            <p className="skill-detail-kicker">知识档案</p>
             <dl className="skill-detail-profile">
               <div>
                 <dt>类别</dt>
@@ -187,11 +286,11 @@ export default async function KnowledgeDetailPage({
                 <dd>{difficultyLabels[knowledge.difficulty]}</dd>
               </div>
               <div>
-                <dt>技术关联</dt>
+                <dt>技术信号</dt>
                 <dd>{relatedTechnologies.length}</dd>
               </div>
               <div>
-                <dt>技能关联</dt>
+                <dt>关联技能</dt>
                 <dd>{relatedSkills.length}</dd>
               </div>
             </dl>
@@ -199,14 +298,13 @@ export default async function KnowledgeDetailPage({
 
           {tags.length > 0 ? (
             <section className="skill-detail-aside-card">
-              <p className="eyebrow user-eyebrow">主题</p>
-              <TagList tags={tags} limit={4} />
+              <p className="skill-detail-kicker">主题</p>
+              <TagList tags={tags} limit={6} />
             </section>
           ) : null}
 
           <section className="skill-detail-aside-card">
-            <p className="eyebrow user-eyebrow">阅读路径</p>
-            <h2>如何使用本页</h2>
+            <p className="skill-detail-kicker">阅读路径</p>
             <p>
               先从概念开始，打开一条相关信号，再用关联技能决定接下来评估什么。
             </p>
