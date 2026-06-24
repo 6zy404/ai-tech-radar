@@ -30,13 +30,29 @@ import {
   getLocalizedTechnologyText
 } from "@/lib/technology-localization";
 import type {
+  DifficultyLevel,
   KnowledgeItem,
   SkillItem,
+  SkillType,
   TechnologyItem,
   TopicTag
 } from "@/types/content";
 
 export const dynamic = "force-dynamic";
+
+const skillTypeLabels: Record<SkillType, string> = {
+  engineering: "工程落地",
+  analysis: "评估与分析",
+  product: "产品判断",
+  operations: "运维与落地",
+  communication: "团队沟通"
+};
+
+const difficultyLabels: Record<DifficultyLevel, string> = {
+  foundation: "基础",
+  intermediate: "进阶",
+  advanced: "高级"
+};
 
 function getPublicTechnologyTitle(technology: TechnologyItem): string {
   const mode = getEffectiveTechnologyMode(technology, "zh", "preview");
@@ -106,7 +122,9 @@ function SkillPathCard({ skill }: { skill: SkillItem }) {
 
   return (
     <article className="foundation-card">
-      <span className="foundation-card__label">{skill.skillType}</span>
+      <span className="foundation-card__label">
+        {skillTypeLabels[skill.skillType]}
+      </span>
       <h3>
         <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
       </h3>
@@ -123,7 +141,9 @@ function KnowledgePathCard({ item }: { item: KnowledgeItem }) {
 
   return (
     <article className="foundation-card">
-      <span className="foundation-card__label">{item.difficulty}</span>
+      <span className="foundation-card__label">
+        {difficultyLabels[item.difficulty]}
+      </span>
       <h3>
         <Link href={`/knowledge/${item.slug}`}>{item.title}</Link>
       </h3>
