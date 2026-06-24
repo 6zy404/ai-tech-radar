@@ -123,32 +123,37 @@ export default function KnowledgePage() {
                 它澄清了什么，以及哪些已发布信号依赖于它。
               </p>
             </div>
-            <div className="skills-library-intro__stats">
-              <strong>{knowledgeItems.length}</strong>
-              <span>知识概念</span>
-              <strong>{foundationCount}</strong>
-              <span>基础级条目</span>
-              <strong>{relatedSkillCount}</strong>
-              <span>关联技能</span>
-              <strong>{relatedTechnologyCount}</strong>
-              <span>关联已发布信号</span>
-            </div>
+            <dl className="skills-library-stats" aria-label="知识概览">
+              <div>
+                <dt>{knowledgeItems.length}</dt>
+                <dd>知识概念</dd>
+              </div>
+              <div>
+                <dt>{foundationCount}</dt>
+                <dd>基础级条目</dd>
+              </div>
+              <div>
+                <dt>{relatedSkillCount}</dt>
+                <dd>关联技能</dd>
+              </div>
+              <div>
+                <dt>{relatedTechnologyCount}</dt>
+                <dd>关联已发布信号</dd>
+              </div>
+            </dl>
           </section>
 
           <section className="skills-library-guide" aria-label="阅读路径">
             <article>
-              <span>1</span>
-              <h2>从概念开始</h2>
+              <h3>从概念开始</h3>
               <p>打开信号前，先复习背景概念。</p>
             </article>
             <article>
-              <span>2</span>
-              <h2>打开相关信号</h2>
+              <h3>打开相关信号</h3>
               <p>看看这个概念出现在哪些已发布的 AI 变化中。</p>
             </article>
             <article>
-              <span>3</span>
-              <h2>搭配技能</h2>
+              <h3>搭配技能</h3>
               <p>用关联技能评估或应用该概念。</p>
             </article>
           </section>

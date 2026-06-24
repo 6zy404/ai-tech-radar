@@ -6932,13 +6932,6 @@ body {
   padding: 20px;
 }
 
-.skills-library-guide span {
-  color: var(--skills-accent);
-  font-size: 0.74rem;
-  font-weight: 850;
-  letter-spacing: 0.14em;
-}
-
 .skills-library-guide h3 {
   margin: 8px 0 6px;
   color: var(--skills-ink);
