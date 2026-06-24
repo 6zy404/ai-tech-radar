@@ -6382,12 +6382,10 @@ body {
   gap: clamp(24px, 5vw, 56px);
   align-items: end;
   padding: clamp(34px, 7vw, 58px);
-  border: 1px solid rgba(15, 118, 110, 0.14);
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at 86% 16%, rgba(94, 234, 212, 0.2), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(240, 253, 250, 0.64));
-  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(8, 127, 115, 0.24);
+  border-radius: var(--radius-page);
+  background: linear-gradient(135deg, #ffffff 0%, rgba(217, 243, 239, 0.66) 100%);
+  box-shadow: var(--shadow-soft);
 }
 
 .daily-digest-brief-header__copy {
@@ -6430,9 +6428,9 @@ body {
   gap: 12px;
   min-width: 174px;
   padding: 22px;
-  border: 1px solid rgba(15, 118, 110, 0.08);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(8, 127, 115, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
   color: #475569;
 }
 
@@ -6460,7 +6458,7 @@ body {
   gap: 18px;
   align-items: start;
   padding: 18px 0 0;
-  border-top: 1px solid rgba(15, 118, 110, 0.12);
+  border-top: 1px solid rgba(8, 127, 115, 0.16);
 }
 
 .daily-digest-summary-panel h2,
@@ -6533,22 +6531,19 @@ body {
 .digest-technology-card {
   min-width: 0;
   padding: 20px;
-  border: 1px solid rgba(15, 118, 110, 0.11);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 18px 52px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
 }
 
 .digest-technology-card--featured {
-  border-color: rgba(15, 118, 110, 0.15);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72)),
-    radial-gradient(circle at top right, rgba(94, 234, 212, 0.1), transparent 36%);
+  border-color: rgba(8, 127, 115, 0.28);
 }
 
 .digest-technology-card--compact {
   padding: 18px 20px;
-  border-color: rgba(15, 118, 110, 0.08);
+  border-color: rgba(8, 127, 115, 0.14);
   box-shadow: none;
 }
 
@@ -6673,9 +6668,10 @@ body {
   align-items: center;
   min-width: 0;
   padding: 16px 18px;
-  border: 1px solid rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(8, 127, 115, 0.2);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.64);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
 }
 
 .digest-reference-item h3,
@@ -6710,10 +6706,10 @@ body {
 .digest-source-chip {
   max-width: 100%;
   padding: 7px 11px;
-  border: 1px solid rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(8, 127, 115, 0.18);
   border-radius: 999px;
-  color: #64748b;
-  background: rgba(255, 255, 255, 0.58);
+  color: #475569;
+  background: #ffffff;
   font-size: 0.78rem;
   font-weight: 800;
   overflow-wrap: anywhere;
