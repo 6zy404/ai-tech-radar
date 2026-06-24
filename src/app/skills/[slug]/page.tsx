@@ -15,7 +15,9 @@ import {
   getPreferredTechnologyTitle
 } from "@/lib/technology-localization";
 import type {
+  DifficultyLevel,
   HeatLevel,
+  KnowledgeCategory,
   KnowledgeItem,
   LearningCost,
   SkillItem,
@@ -45,6 +47,20 @@ const learningCostLabels: Record<LearningCost, string> = {
   low: "学习成本低",
   medium: "学习成本中等",
   high: "学习成本高"
+};
+
+const categoryLabels: Record<KnowledgeCategory, string> = {
+  "machine-learning": "机器学习",
+  "software-architecture": "软件架构",
+  data: "数据",
+  "product-thinking": "产品思维",
+  operations: "运维"
+};
+
+const difficultyLabels: Record<DifficultyLevel, string> = {
+  foundation: "基础",
+  intermediate: "进阶",
+  advanced: "高级"
 };
 
 export function generateStaticParams() {
@@ -215,7 +231,8 @@ export default async function SkillDetailPage({
                     >
                       <div>
                         <p className="skill-detail-related-card__meta">
-                          {knowledge.category} · {knowledge.difficulty}
+                          {categoryLabels[knowledge.category]} ·{" "}
+                          {difficultyLabels[knowledge.difficulty]}
                         </p>
                         <h3>
                           <Link href={`/knowledge/${knowledge.slug}`}>
