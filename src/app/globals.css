@@ -1462,10 +1462,6 @@ p {
   box-shadow: var(--shadow-card);
 }
 
-.user-content-card__meta {
-  min-block-size: 52px;
-}
-
 .candidate-card__body {
   display: grid;
   gap: 12px;
@@ -2865,56 +2861,11 @@ p {
   font-size: clamp(1.05rem, 1.5vw, 1.25rem);
 }
 
-.user-article-hero__signal {
-  display: grid;
-  gap: 5px;
-  max-width: 620px;
-  margin-top: 18px;
-  padding: 14px 16px;
-  border: 1px solid rgba(15, 118, 110, 0.14);
-  border-left: 4px solid rgba(15, 118, 110, 0.55);
-  border-radius: 16px;
-  background: rgba(255, 253, 248, 0.62);
-}
-
-.user-article-hero__signal span {
-  color: var(--label-amber);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.user-article-hero__signal strong {
-  color: var(--user-ink);
-}
-
-.user-article-hero__signal p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.user-article-hero__priority {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 12px;
-  max-width: 680px;
-  margin-top: 14px;
-}
-
-.user-article-hero__priority p,
 .user-reference-panel__copy {
   margin: 0;
   color: var(--muted);
   font-size: 0.94rem;
   line-height: 1.6;
-}
-
-.user-article-note {
-  font-size: 0.95rem;
 }
 
 .user-article-section,
@@ -2944,13 +2895,6 @@ p {
   line-height: 1.85;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-}
-
-.user-article-section--lead {
-  border-color: rgba(15, 118, 110, 0.18);
-  background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.98), rgba(255, 253, 248, 0.9)),
-    var(--surface);
 }
 
 .content-intelligence-overview {
@@ -3058,62 +3002,6 @@ p {
 .daily-digest {
   display: grid;
   gap: 28px;
-}
-
-.daily-digest-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
-  gap: 24px;
-  align-items: stretch;
-  padding: 34px;
-  border: 1px solid rgba(15, 118, 110, 0.14);
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 38%),
-    linear-gradient(135deg, rgba(255, 253, 248, 1), rgba(229, 245, 241, 0.62));
-  box-shadow: var(--user-shadow);
-}
-
-.daily-digest-hero h1 {
-  max-width: 16ch;
-  margin: 0;
-  color: var(--user-ink);
-  font-size: clamp(2.6rem, 5vw, 5rem);
-  line-height: 0.98;
-  letter-spacing: -0.06em;
-  text-wrap: balance;
-}
-
-.daily-digest-hero p {
-  max-width: 720px;
-  margin: 16px 0 0;
-  color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.7;
-}
-
-.daily-digest-hero__notice {
-  padding: 12px 14px;
-  border: 1px solid rgba(161, 98, 7, 0.22);
-  border-radius: 14px;
-  background: rgba(245, 158, 11, 0.1);
-}
-
-.daily-digest-hero__stats {
-  display: grid;
-  align-content: center;
-  gap: 8px;
-  padding: 20px;
-  border: 1px solid rgba(15, 118, 110, 0.12);
-  border-radius: 22px;
-  background: rgba(255, 253, 248, 0.78);
-  color: var(--muted);
-}
-
-.daily-digest-hero__stats strong {
-  color: var(--user-ink);
-  font-size: 2.2rem;
-  line-height: 1;
 }
 
 .daily-digest-section,
@@ -4186,8 +4074,7 @@ body {
   gap: 7px;
 }
 
-.user-article-hero,
-.daily-digest-hero {
+.user-article-hero {
   border-radius: 24px;
   box-shadow: 0 18px 48px rgba(15, 23, 42, 0.06);
 }
@@ -4209,15 +4096,6 @@ body {
 .user-article-layout__aside {
   position: sticky;
   top: 86px;
-}
-
-.daily-digest-hero {
-  padding: 30px;
-}
-
-.daily-digest-hero h1 {
-  max-width: 17ch;
-  font-size: clamp(2.3rem, 5vw, 4.5rem);
 }
 
 .digest-technology-list--featured {
@@ -4344,7 +4222,6 @@ body {
   .detail-layout,
   .user-article-layout__body,
   .user-article-hero,
-  .daily-digest-hero,
   .content-intelligence-grid,
   .digest-technology-list--featured,
   .digest-reference-grid,
@@ -4608,7 +4485,6 @@ body {
 
 .user-page-header,
 .product-home-hero,
-.daily-digest-hero,
 .user-article-hero {
   border: 1px solid rgba(8, 127, 115, 0.24);
   border-radius: var(--radius-page);
@@ -4622,7 +4498,6 @@ body {
 
 .product-home-hero__copy h1,
 .user-page-header h1,
-.daily-digest-hero h1,
 .user-article-hero h1 {
   letter-spacing: -0.055em;
 }
@@ -4690,20 +4565,6 @@ body {
   color: var(--ui-teal-strong);
 }
 
-.daily-digest-hero {
-  grid-template-columns: minmax(0, 1fr) minmax(170px, 230px);
-  padding: clamp(28px, 4vw, 44px);
-}
-
-.daily-digest-hero h1 {
-  max-width: 19ch;
-  font-size: clamp(2.15rem, 5vw, 4.05rem);
-}
-
-.daily-digest-hero__stats {
-  border: 0;
-  background: rgba(255, 255, 255, 0.76);
-}
 
 .digest-technology-list--featured {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4717,7 +4578,6 @@ body {
   border-left-color: rgba(8, 127, 115, 0.45);
   background: rgba(8, 127, 115, 0.06);
 }
-
 
 .workspace-shell {
   grid-template-columns: 180px minmax(0, 1fr);
@@ -5081,7 +4941,6 @@ body {
   }
 
   .digest-technology-list--featured,
-  .daily-digest-hero,
   .delivery-workspace-layout {
     grid-template-columns: 1fr;
   }
@@ -6364,23 +6223,6 @@ body {
   gap: 34px;
 }
 
-.daily-digest-hero--reading {
-  align-items: stretch;
-  overflow: hidden;
-}
-
-.daily-digest-hero__copy {
-  min-width: 0;
-}
-
-.daily-digest-hero--reading .daily-digest-hero__stats {
-  gap: 2px;
-  border-radius: 24px;
-  padding: 26px 28px;
-  align-self: center;
-  color: #42515f;
-}
-
 .daily-digest-summary {
   padding: 20px 22px;
   border: 1px solid rgba(15, 118, 110, 0.1);
@@ -6512,15 +6354,10 @@ body {
 }
 
 @media (max-width: 920px) {
-  .daily-digest-hero--reading,
   .digest-technology-list--featured,
   .digest-reference-grid,
   .digest-source-list {
     grid-template-columns: 1fr;
-  }
-
-  .daily-digest-hero--reading .daily-digest-hero__stats {
-    width: 100%;
   }
 }
 
@@ -7638,7 +7475,6 @@ body {
 .user-shell .product-home-hero h1,
 .user-shell .user-page-header h1,
 .user-shell .user-article-hero h1,
-.user-shell .daily-digest-hero h1,
 .user-shell .daily-digest-brief-header h1,
 .user-shell .skill-detail-hero h1 {
   font-size: var(--fs-display) !important;
@@ -7688,7 +7524,6 @@ body {
 .user-shell .user-page-header,
 .user-shell .product-home-hero,
 .user-shell .user-article-hero,
-.user-shell .daily-digest-hero,
 .user-shell .daily-digest-brief-header,
 .user-shell .skills-library-intro,
 .user-shell .skill-detail-hero {
