@@ -15,7 +15,9 @@ import {
   getPreferredTechnologyTitle
 } from "@/lib/technology-localization";
 import type {
+  DifficultyLevel,
   HeatLevel,
+  KnowledgeCategory,
   KnowledgeItem,
   LearningCost,
   SkillItem,
@@ -28,23 +30,37 @@ interface SkillDetailPageProps {
 }
 
 const skillTypeLabels: Record<SkillType, string> = {
-  engineering: "Engineering execution",
-  analysis: "Evaluation and analysis",
-  product: "Product judgement",
-  operations: "Operations and adoption",
-  communication: "Team communication"
+  engineering: "工程落地",
+  analysis: "评估与分析",
+  product: "产品判断",
+  operations: "运维与落地",
+  communication: "团队沟通"
 };
 
 const heatLabels: Record<HeatLevel, string> = {
-  hot: "Hot now",
-  active: "Active",
-  emerging: "Emerging"
+  hot: "当前热门",
+  active: "活跃",
+  emerging: "新兴"
 };
 
 const learningCostLabels: Record<LearningCost, string> = {
-  low: "Low learning cost",
-  medium: "Medium learning cost",
-  high: "High learning cost"
+  low: "学习成本低",
+  medium: "学习成本中等",
+  high: "学习成本高"
+};
+
+const categoryLabels: Record<KnowledgeCategory, string> = {
+  "machine-learning": "机器学习",
+  "software-architecture": "软件架构",
+  data: "数据",
+  "product-thinking": "产品思维",
+  operations: "运维"
+};
+
+const difficultyLabels: Record<DifficultyLevel, string> = {
+  foundation: "基础",
+  intermediate: "进阶",
+  advanced: "高级"
 };
 
 export function generateStaticParams() {
@@ -72,26 +88,26 @@ function getRelatedKnowledge(
 function getSkillSignalExplanation(skill: SkillItem): string {
   switch (skill.skillType) {
     case "engineering":
-      return "Use this skill to judge whether the signal can become a maintainable product or engineering capability.";
+      return "用这项技能判断信号能否成为可维护的产品或工程能力。";
     case "analysis":
-      return "Use this skill to inspect evidence, failure modes, and whether the signal deserves a real test.";
+      return "用这项技能检视证据、失败模式，以及信号是否值得真正测试。";
     case "product":
-      return "Use this skill to decide whether the signal should become a product bet, a small experiment, or a watch item.";
+      return "用这项技能决定信号该成为产品押注、小型实验，还是观察项。";
     case "operations":
-      return "Use this skill to understand rollout, observability, and reliability implications before adoption.";
+      return "用这项技能在采用前理解上线、可观测性和可靠性方面的影响。";
     case "communication":
-      return "Use this skill to explain the signal clearly enough for cross-functional decisions.";
+      return "用这项技能把信号解释得足够清楚，以支撑跨职能决策。";
     default:
-      return "Use this skill to read the signal with more context and less guesswork.";
+      return "用这项技能在更多背景下解读信号，少一些猜测。";
   }
 }
 
 function getSkillUseSteps(skill: SkillItem): string[] {
   return [
-    `Start with the ${skillTypeLabels[skill.skillType].toLowerCase()} lens and read the short explanation.`,
-    "Open one related technology signal and look for the concrete change it introduces.",
-    "Use the background knowledge links to fill in concepts that are assumed but not always explained.",
-    "Decide whether the signal is worth testing now, tracking, or simply understanding."
+    `先从「${skillTypeLabels[skill.skillType]}」的视角进入，读一遍简短说明。`,
+    "打开一条相关技术信号，找出它带来的具体变化。",
+    "用背景知识链接补齐那些被默认却未必解释清楚的概念。",
+    "判断这个信号是值得现在测试、持续跟踪，还是仅作了解。"
   ];
 }
 
@@ -115,7 +131,7 @@ export default async function SkillDetailPage({
     <UserPageShell
       title={skill.title}
       description={skill.summary}
-      sectionLabel="Understanding Skill"
+      sectionLabel="理解技能"
       showHeader={false}
       className="skill-detail-page"
     >
@@ -136,13 +152,13 @@ export default async function SkillDetailPage({
 
           {skill.content ? (
             <section className="skill-detail-section skill-detail-section--lead">
-              <h2>What this skill helps you do</h2>
+              <h2>这项技能能帮你做什么</h2>
               <p>{skill.content}</p>
             </section>
           ) : null}
 
           <section className="skill-detail-section">
-            <h2>Why this skill matters for AI signals</h2>
+            <h2>这项技能对解读 AI 信号为何重要</h2>
             <p>{getSkillSignalExplanation(skill)}</p>
           </section>
 
@@ -150,8 +166,8 @@ export default async function SkillDetailPage({
             <section className="skill-detail-section">
               <div className="skill-detail-section__header">
                 <div>
-                  <p>Practice with published signals</p>
-                  <h2>Technology signals this skill helps evaluate</h2>
+                  <p>用已发布信号练习</p>
+                  <h2>这项技能有助于评估的技术信号</h2>
                 </div>
               </div>
               <div className="skill-detail-related-list">
@@ -175,7 +191,7 @@ export default async function SkillDetailPage({
                         <p>{getPreferredTechnologySummary(technology)}</p>
                         {technology.whyItMatters ? (
                           <div className="skill-detail-related-card__note">
-                            <span>Why this is a useful practice case</span>
+                            <span>为什么这是一个有用的练习案例</span>
                             <p>{technology.whyItMatters}</p>
                           </div>
                         ) : null}
@@ -187,7 +203,7 @@ export default async function SkillDetailPage({
                         className="skill-detail-related-card__link"
                         href={`/technologies/${technology.slug}`}
                       >
-                        Open related signal
+                        查看相关信号
                       </Link>
                     </article>
                   );
@@ -200,8 +216,8 @@ export default async function SkillDetailPage({
             <section className="skill-detail-section">
               <div className="skill-detail-section__header">
                 <div>
-                  <p>Background concepts</p>
-                  <h2>Knowledge to pair with this skill</h2>
+                  <p>背景概念</p>
+                  <h2>与这项技能搭配的知识</h2>
                 </div>
               </div>
               <div className="skill-detail-related-list">
@@ -215,7 +231,8 @@ export default async function SkillDetailPage({
                     >
                       <div>
                         <p className="skill-detail-related-card__meta">
-                          {knowledge.category} · {knowledge.difficulty}
+                          {categoryLabels[knowledge.category]} ·{" "}
+                          {difficultyLabels[knowledge.difficulty]}
                         </p>
                         <h3>
                           <Link href={`/knowledge/${knowledge.slug}`}>
@@ -224,10 +241,10 @@ export default async function SkillDetailPage({
                         </h3>
                         <p>{knowledge.summary}</p>
                         <div className="skill-detail-related-card__note">
-                          <span>Why it helps</span>
+                          <span>为什么有帮助</span>
                           <p>
-                            This concept gives the background needed to apply
-                            the skill when reading new AI technology signals.
+                            这个概念提供了在解读新的 AI 技术信号时，应用这项技能
+                            所需的背景。
                           </p>
                         </div>
                         {knowledgeTags.length > 0 ? (
@@ -238,7 +255,7 @@ export default async function SkillDetailPage({
                         className="skill-detail-related-card__link"
                         href={`/knowledge/${knowledge.slug}`}
                       >
-                        View concept
+                        查看概念
                       </Link>
                     </article>
                   );
@@ -248,7 +265,7 @@ export default async function SkillDetailPage({
           ) : null}
 
           <section className="skill-detail-section">
-            <h2>How to use this skill</h2>
+            <h2>如何使用这项技能</h2>
             <ol className="skill-detail-steps">
               {getSkillUseSteps(skill).map((step) => (
                 <li key={step}>{step}</li>
@@ -257,28 +274,28 @@ export default async function SkillDetailPage({
           </section>
         </main>
 
-        <aside className="skill-detail-aside" aria-label="Skill summary">
+        <aside className="skill-detail-aside" aria-label="技能概览">
           <section className="skill-detail-aside-card">
-            <p className="skill-detail-kicker">Skill profile</p>
+            <p className="skill-detail-kicker">技能档案</p>
             <dl className="skill-detail-profile">
               <div>
-                <dt>Category</dt>
+                <dt>类别</dt>
                 <dd>{skillTypeLabels[skill.skillType]}</dd>
               </div>
               <div>
-                <dt>Current heat</dt>
+                <dt>当前热度</dt>
                 <dd>{heatLabels[skill.heatLevel]}</dd>
               </div>
               <div>
-                <dt>Learning cost</dt>
+                <dt>学习成本</dt>
                 <dd>{learningCostLabels[skill.learningCost]}</dd>
               </div>
               <div>
-                <dt>Technology signals</dt>
+                <dt>技术信号</dt>
                 <dd>{relatedTechnologies.length}</dd>
               </div>
               <div>
-                <dt>Background concepts</dt>
+                <dt>背景概念</dt>
                 <dd>{relatedKnowledge.length}</dd>
               </div>
             </dl>
@@ -286,16 +303,15 @@ export default async function SkillDetailPage({
 
           {tags.length > 0 ? (
             <section className="skill-detail-aside-card">
-              <p className="skill-detail-kicker">Topics</p>
+              <p className="skill-detail-kicker">主题</p>
               <TagList tags={tags} limit={6} />
             </section>
           ) : null}
 
           <section className="skill-detail-aside-card">
-            <p className="skill-detail-kicker">Reading path</p>
+            <p className="skill-detail-kicker">阅读路径</p>
             <p>
-              Start with the skill explanation, open a related signal, then use
-              the linked concepts to fill in the background.
+              先读技能说明，打开一条相关信号，再用关联概念补齐背景。
             </p>
           </section>
         </aside>

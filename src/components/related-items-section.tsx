@@ -15,7 +15,7 @@ export function RelatedItemsSection({
   title,
   description,
   items,
-  linkLabel = "Open related signal",
+  linkLabel = "查看相关信号",
   formatRelationType
 }: RelatedItemsSectionProps) {
   if (items.length === 0) {

@@ -57,6 +57,11 @@ export function TechnologyListCard({
   ]
     .filter((item): item is string => Boolean(item))
     .slice(0, 4);
+  const relationCounts = [
+    { n: technology.relatedTechnologyIds?.length ?? 0, label: "技术" },
+    { n: technology.relatedSkillIds.length, label: "技能" },
+    { n: technology.relatedKnowledgeIds.length, label: "背景知识" }
+  ].filter((relation) => relation.n > 0);
 
   return (
     <article className="technology-card technology-signal-card user-content-card">
@@ -82,9 +87,21 @@ export function TechnologyListCard({
         <p className="technology-card__summary">{summary}</p>
 
         <div className="technology-card__insight">
-          <span>Why it matters</span>
+          <span>为什么值得看</span>
           <p>{whyItMatters}</p>
         </div>
+
+        {relationCounts.length > 0 ? (
+          <div className="technology-card__relations">
+            <span className="technology-card__relations-label">关联</span>
+            {relationCounts.map((relation, index) => (
+              <span key={relation.label}>
+                {index > 0 ? <span aria-hidden="true"> · </span> : null}
+                <strong>{relation.n}</strong> {relation.label}
+              </span>
+            ))}
+          </div>
+        ) : null}
 
         <div className="technology-card__footer">
           {contextChips.length > 0 ? (
@@ -99,7 +116,7 @@ export function TechnologyListCard({
             href={`/technologies/${technology.slug}`}
             className="technology-card__open-link"
           >
-            Open signal
+            查看信号
           </Link>
         </div>
       </div>

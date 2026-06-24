@@ -3,6 +3,10 @@
 import { useState } from "react";
 
 import { RelatedItemsSection } from "@/components/related-items-section";
+import {
+  TechnologyRelationshipGraph,
+  type RelationshipGraphNode
+} from "@/components/technology-relationship-graph";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
@@ -43,6 +47,7 @@ import type {
 interface TechnologyDetailContentProps {
   technology: TechnologyItem;
   tags: TopicTag[];
+  relatedTechnologies: RelationListItem[];
   relatedSkills: RelationListItem[];
   relatedKnowledge: RelationListItem[];
 }
@@ -50,6 +55,7 @@ interface TechnologyDetailContentProps {
 export function TechnologyDetailContent({
   technology,
   tags,
+  relatedTechnologies,
   relatedSkills,
   relatedKnowledge
 }: TechnologyDetailContentProps) {
@@ -107,6 +113,23 @@ export function TechnologyDetailContent({
       mode
     )
   }));
+  const graphNodes: RelationshipGraphNode[] = [
+    ...relatedTechnologies.map((item) => ({
+      title: item.title,
+      href: item.href,
+      kind: "technology" as const
+    })),
+    ...relatedSkills.map((item) => ({
+      title: item.title,
+      href: item.href,
+      kind: "skill" as const
+    })),
+    ...relatedKnowledge.map((item) => ({
+      title: item.title,
+      href: item.href,
+      kind: "knowledge" as const
+    }))
+  ];
 
   return (
     <UserArticleLayout
@@ -162,14 +185,14 @@ export function TechnologyDetailContent({
           />
 
           <section className="user-reference-panel">
-            <p className="eyebrow user-eyebrow">Priority</p>
+            <p className="eyebrow user-eyebrow">优先级</p>
             <h2>{priorityLabel}</h2>
             <p className="user-reference-panel__copy">{prioritySummary}</p>
           </section>
 
           {readingDifficultyLabel ? (
             <section className="user-reference-panel">
-              <p className="eyebrow user-eyebrow">Reading difficulty</p>
+              <p className="eyebrow user-eyebrow">阅读难度</p>
               <h2>{readingDifficultyLabel}</h2>
             </section>
           ) : null}
@@ -185,24 +208,24 @@ export function TechnologyDetailContent({
     >
       {whyItMatters ? (
         <section className="user-article-section technology-detail-section">
-          <p className="technology-detail-section__eyebrow">Why now</p>
-          <h2>Why it matters</h2>
+          <p className="technology-detail-section__eyebrow">为什么是现在</p>
+          <h2>为什么值得看</h2>
           <p className="technology-detail-section__lede">{whyItMatters}</p>
         </section>
       ) : null}
 
       {technicalContext ? (
         <section className="user-article-section technology-detail-section">
-          <p className="technology-detail-section__eyebrow">Context</p>
-          <h2>Technical context</h2>
+          <p className="technology-detail-section__eyebrow">背景</p>
+          <h2>技术背景</h2>
           <p className="technology-detail-section__lede">{technicalContext}</p>
         </section>
       ) : null}
 
       {audienceItems.length > 0 || impactAreas.length > 0 ? (
         <section className="user-article-section technology-detail-section">
-          <p className="technology-detail-section__eyebrow">Audience</p>
-          <h2>Who should care</h2>
+          <p className="technology-detail-section__eyebrow">关注人群</p>
+          <h2>谁该关注</h2>
           {audienceItems.length > 0 ? (
             <div className="technology-detail-chip-row">
               {audienceItems.map((item) => (
@@ -214,7 +237,7 @@ export function TechnologyDetailContent({
           ) : null}
           {impactAreas.length > 0 ? (
             <div className="technology-detail-impact">
-              <span>Likely impact areas</span>
+              <span>可能影响的领域</span>
               <div className="technology-detail-chip-row">
                 {impactAreas.map((item) => (
                   <span key={item} className="technology-detail-chip">
@@ -229,8 +252,8 @@ export function TechnologyDetailContent({
 
       {learningPath.length > 0 ? (
         <section className="user-article-section technology-detail-section">
-          <p className="technology-detail-section__eyebrow">Next steps</p>
-          <h2>Learning path</h2>
+          <p className="technology-detail-section__eyebrow">下一步</p>
+          <h2>学习路径</h2>
           <ol className="technology-detail-learning-list">
             {learningPath.map((item) => (
               <li key={item}>{item}</li>
@@ -239,12 +262,25 @@ export function TechnologyDetailContent({
         </section>
       ) : null}
 
+      <TechnologyRelationshipGraph centerTitle={title} nodes={graphNodes} />
+
+      <RelatedItemsSection
+        title="相关技术"
+        description="与该信号在工作流或主题上相邻的其他技术，可顺着这条线继续了解。"
+        emptyText="暂无相关技术。"
+        items={relatedTechnologies}
+        linkLabel="查看技术"
+        formatRelationType={(relationType) =>
+          getRelationTypeLabel(relationType, mode)
+        }
+      />
+
       <RelatedItemsSection
         title={copy.relatedSkillsTitle}
         description={copy.relatedSkillsDescription}
         emptyText={copy.relatedSkillsEmpty}
         items={localizedRelatedSkills}
-        linkLabel="View skill"
+        linkLabel="查看技能"
         formatRelationType={(relationType) =>
           getRelationTypeLabel(relationType, mode)
         }
@@ -255,7 +291,7 @@ export function TechnologyDetailContent({
         description={copy.relatedKnowledgeDescription}
         emptyText={copy.relatedKnowledgeEmpty}
         items={localizedRelatedKnowledge}
-        linkLabel="View concept"
+        linkLabel="查看概念"
         formatRelationType={(relationType) =>
           getRelationTypeLabel(relationType, mode)
         }
@@ -264,9 +300,9 @@ export function TechnologyDetailContent({
       {followUpQuestions.length > 0 ? (
         <section className="user-article-section technology-detail-section">
           <p className="technology-detail-section__eyebrow">
-            Continue thinking
+            延伸思考
           </p>
-          <h2>Follow-up questions</h2>
+          <h2>后续问题</h2>
           <ul className="technology-detail-question-list">
             {followUpQuestions.map((item) => (
               <li key={item}>{item}</li>
@@ -276,7 +312,7 @@ export function TechnologyDetailContent({
       ) : null}
 
       <SourceReference
-        title="Source reference"
+        title="来源参考"
         sourceName={technology.sourceName}
         sourceUrl={technology.sourceUrl}
         publisherName={technology.publisherName}

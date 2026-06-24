@@ -24,36 +24,33 @@ const difficultySections: Array<{
 }> = [
   {
     id: "foundation",
-    title: "Foundation concepts",
-    description:
-      "Start here when a technology signal uses unfamiliar terms or older technical ideas."
+    title: "基础概念",
+    description: "当技术信号涉及陌生术语或更早的技术思想时，从这里开始。"
   },
   {
     id: "intermediate",
-    title: "Intermediate patterns",
-    description:
-      "Use these concepts to compare approaches, tradeoffs, and implementation paths."
+    title: "进阶模式",
+    description: "用这些概念比较不同方案、权衡取舍和实现路径。"
   },
   {
     id: "advanced",
-    title: "Advanced context",
-    description:
-      "Use this context when a signal changes architecture, data, or technical strategy assumptions."
+    title: "高级背景",
+    description: "当信号改变架构、数据或技术战略假设时，使用这些背景。"
   }
 ];
 
 const categoryLabels: Record<KnowledgeCategory, string> = {
-  "machine-learning": "Machine learning",
-  "software-architecture": "Software architecture",
-  data: "Data",
-  "product-thinking": "Product thinking",
-  operations: "Operations"
+  "machine-learning": "机器学习",
+  "software-architecture": "软件架构",
+  data: "数据",
+  "product-thinking": "产品思维",
+  operations: "运维"
 };
 
 const difficultyLabels: Record<DifficultyLevel, string> = {
-  foundation: "Foundation",
-  intermediate: "Intermediate",
-  advanced: "Advanced"
+  foundation: "基础",
+  intermediate: "进阶",
+  advanced: "高级"
 };
 
 function getRelatedTechnologies(
@@ -72,15 +69,11 @@ function getRelatedSkillCount(item: KnowledgeItem, skills: SkillItem[]): number 
 
 function getKnowledgeOutcome(item: KnowledgeItem): string {
   const categoryOutcomes: Record<KnowledgeCategory, string> = {
-    "machine-learning":
-      "Helps you judge model behavior, evaluation limits, and practical constraints.",
-    "software-architecture":
-      "Helps you recognize interface boundaries, system tradeoffs, and integration risks.",
-    data: "Helps you understand retrieval, freshness, trust, and data-flow assumptions.",
-    "product-thinking":
-      "Helps you turn technical changes into scoped product and adoption decisions.",
-    operations:
-      "Helps you reason about review loops, observability, and rollout discipline."
+    "machine-learning": "帮助你判断模型行为、评估的局限，以及实际约束。",
+    "software-architecture": "帮助你识别接口边界、系统权衡和集成风险。",
+    data: "帮助你理解检索、时效、可信度和数据流方面的假设。",
+    "product-thinking": "帮助你把技术变化转化为有范围的产品与落地决策。",
+    operations: "帮助你思考评审闭环、可观测性和上线纪律。"
   };
 
   return categoryOutcomes[item.category];
@@ -108,62 +101,60 @@ export default function KnowledgePage() {
 
   return (
     <UserPageShell
-      title="Knowledge for Reading AI Signals"
-      description="Concepts that help users understand AI technology signals and their context."
-      sectionLabel="Background Knowledge"
+      title="解读 AI 信号的知识"
+      description="帮助用户理解 AI 技术信号及其背景的概念。"
+      sectionLabel="背景知识"
       className="skills-library-page knowledge-library-page"
     >
       {knowledgeItems.length === 0 ? (
         <section className="skills-library-empty">
-          <p className="eyebrow user-eyebrow">No concepts yet</p>
-          <h2>No knowledge concepts yet.</h2>
-          <p>
-            Published background concepts will appear here once the learning
-            library is populated.
-          </p>
+          <p className="eyebrow user-eyebrow">暂无概念</p>
+          <h2>暂无知识概念。</h2>
+          <p>学习库填充后，已发布的背景概念会在这里展示。</p>
         </section>
       ) : (
         <>
           <section className="skills-library-intro">
             <div>
-              <p className="eyebrow user-eyebrow">Concept map</p>
-              <h2>
-                Knowledge turns fast-moving signals into understandable
-                patterns.
-              </h2>
+              <p className="eyebrow user-eyebrow">概念地图</p>
+              <h2>知识把快速变化的信号转化为可理解的模式。</h2>
               <p>
-                Use this page when a technology signal references a concept you
-                need to refresh. Each concept explains what it clarifies and
-                which published signals depend on it.
+                当技术信号引用了你需要复习的概念时，使用本页。每个概念都会说明
+                它澄清了什么，以及哪些已发布信号依赖于它。
               </p>
             </div>
-            <div className="skills-library-intro__stats">
-              <strong>{knowledgeItems.length}</strong>
-              <span>knowledge concepts</span>
-              <strong>{foundationCount}</strong>
-              <span>foundation-level entries</span>
-              <strong>{relatedSkillCount}</strong>
-              <span>skills connected</span>
-              <strong>{relatedTechnologyCount}</strong>
-              <span>published signals linked</span>
-            </div>
+            <dl className="skills-library-stats" aria-label="知识概览">
+              <div>
+                <dt>{knowledgeItems.length}</dt>
+                <dd>知识概念</dd>
+              </div>
+              <div>
+                <dt>{foundationCount}</dt>
+                <dd>基础级条目</dd>
+              </div>
+              <div>
+                <dt>{relatedSkillCount}</dt>
+                <dd>关联技能</dd>
+              </div>
+              <div>
+                <dt>{relatedTechnologyCount}</dt>
+                <dd>关联已发布信号</dd>
+              </div>
+            </dl>
           </section>
 
-          <section className="skills-library-guide" aria-label="Reading path">
+          <section className="skills-library-guide" aria-label="阅读路径">
             <article>
-              <span>1</span>
-              <h2>Start with the concept</h2>
-              <p>Refresh the background idea before opening a signal.</p>
+              <h3>从概念开始</h3>
+              <p>打开信号前，先复习背景概念。</p>
             </article>
             <article>
-              <span>2</span>
-              <h2>Open related signals</h2>
-              <p>See where the concept appears in published AI changes.</p>
+              <h3>打开相关信号</h3>
+              <p>看看这个概念出现在哪些已发布的 AI 变化中。</p>
             </article>
             <article>
-              <span>3</span>
-              <h2>Pair with skills</h2>
-              <p>Use linked skills to evaluate or apply the concept.</p>
+              <h3>搭配技能</h3>
+              <p>用关联技能评估或应用该概念。</p>
             </article>
           </section>
 
@@ -207,22 +198,16 @@ export default function KnowledgePage() {
                         </h2>
                         <p>{item.summary}</p>
                         <div className="skill-library-card__outcome">
-                          <span>Helps you understand</span>
+                          <span>帮助你理解</span>
                           <p>{getKnowledgeOutcome(item)}</p>
                         </div>
                         <div className="skill-library-card__counts">
-                          <span>
-                            {relatedTechnologies.length} related signal
-                            {relatedTechnologies.length === 1 ? "" : "s"}
-                          </span>
-                          <span>
-                            {relatedSkillTotal} related skill
-                            {relatedSkillTotal === 1 ? "" : "s"}
-                          </span>
+                          <span>{relatedTechnologies.length} 条相关信号</span>
+                          <span>{relatedSkillTotal} 个相关技能</span>
                         </div>
                         {relatedTechnologyPreview.length > 0 ? (
                           <div className="skill-library-card__signals">
-                            <span>Explains signals such as</span>
+                            <span>解释如下信号</span>
                             <ul>
                               {relatedTechnologyPreview.map((technology) => (
                                 <li key={technology.id}>
@@ -241,7 +226,7 @@ export default function KnowledgePage() {
                           className="skill-library-card__link"
                           href={`/knowledge/${item.slug}`}
                         >
-                          View concept
+                          查看概念
                         </Link>
                       </article>
                     );

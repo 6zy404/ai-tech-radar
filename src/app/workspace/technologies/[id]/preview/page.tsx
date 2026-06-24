@@ -41,6 +41,13 @@ export default async function WorkspaceTechnologyPreviewPage({
     targetIds: technology.relatedKnowledgeIds,
     defaultNote: "This knowledge item gives background for the technology signal."
   });
+  const relatedTechnologies = buildRelationItems({
+    fromId: technology.id,
+    fromType: "technology",
+    targetType: "technology",
+    targetIds: technology.relatedTechnologyIds ?? [],
+    defaultNote: "This technology is linked from the technology record."
+  });
 
   return (
     <WorkspacePageShell
@@ -56,6 +63,7 @@ export default async function WorkspaceTechnologyPreviewPage({
       <TechnologyDetailContent
         technology={technology}
         tags={getTagsByIds(technology.tags)}
+        relatedTechnologies={relatedTechnologies}
         relatedSkills={relatedSkills}
         relatedKnowledge={relatedKnowledge}
       />

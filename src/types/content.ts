@@ -255,6 +255,7 @@ export interface TechnologyItem {
   tags: string[];
   relatedKnowledgeIds: string[];
   relatedSkillIds: string[];
+  relatedTechnologyIds?: string[];
   sourceReferences?: TechnologySourceReference[];
   priority?: TechnologyPriorityRanking;
   whyItMatters?: string;
