@@ -7509,12 +7509,10 @@ body {
   display: grid;
   gap: 16px;
   padding: clamp(30px, 6vw, 54px);
-  border: 1px solid var(--skills-line);
-  border-radius: 32px;
-  background:
-    radial-gradient(circle at 88% 12%, rgba(73, 220, 205, 0.22), transparent 38%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(243, 252, 250, 0.76));
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.065);
+  border: 1px solid rgba(8, 127, 115, 0.24);
+  border-radius: var(--radius-page);
+  background: linear-gradient(135deg, #ffffff 0%, rgba(217, 243, 239, 0.66) 100%);
+  box-shadow: var(--shadow-soft);
 }
 
 .skill-detail-hero h1 {
@@ -7560,8 +7558,7 @@ body {
 }
 
 .skill-detail-section--lead {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.78));
+  background: #ffffff;
 }
 
 .skill-detail-section h2 {
