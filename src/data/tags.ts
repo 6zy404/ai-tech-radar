@@ -3,42 +3,42 @@ import type { TopicTag } from "@/types/content";
 export const topicTags: TopicTag[] = [
   {
     id: "tag-ai-agents",
-    name: "AI Agents",
-    description: "Tools and patterns for multi-step, tool-using AI systems."
+    name: "AI 智能体",
+    description: "面向多步骤、会使用工具的 AI 系统的工具与模式。"
   },
   {
     id: "tag-retrieval",
-    name: "Retrieval",
-    description: "Search, grounding, and context assembly workflows."
+    name: "检索",
+    description: "搜索、依据接地和上下文组装的工作流。"
   },
   {
     id: "tag-multimodal",
-    name: "Multimodal",
-    description: "Interfaces that combine text, image, voice, or browser actions."
+    name: "多模态",
+    description: "结合文本、图像、语音或浏览器操作的界面。"
   },
   {
     id: "tag-workflow",
-    name: "Workflow",
-    description: "Operational patterns that make AI tools usable in real teams."
+    name: "工作流",
+    description: "让 AI 工具在真实团队中可用的运营模式。"
   },
   {
     id: "tag-on-device",
-    name: "On-device AI",
-    description: "Running capable models locally on laptops, phones, or edge devices."
+    name: "端侧 AI",
+    description: "在笔记本、手机或边缘设备上本地运行有能力的模型。"
   },
   {
     id: "tag-observability",
-    name: "Observability",
-    description: "Evaluation, tracing, and monitoring for AI systems."
+    name: "可观测性",
+    description: "面向 AI 系统的评估、追踪和监控。"
   },
   {
     id: "tag-knowledge-graph",
-    name: "Knowledge Graph",
-    description: "Structured relations used to connect concepts, entities, and tasks."
+    name: "知识图谱",
+    description: "用于连接概念、实体和任务的结构化关系。"
   },
   {
     id: "tag-product-strategy",
-    name: "Product Strategy",
-    description: "Ways to decide what is worth learning, shipping, and piloting first."
+    name: "产品策略",
+    description: "判断什么最值得优先学习、交付和试点的方法。"
   }
 ];

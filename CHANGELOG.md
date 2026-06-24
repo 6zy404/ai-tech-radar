@@ -121,6 +121,22 @@ For per-topic deep dives, see the `docs/` directory.
 - **Design System v0** — separate `WorkspacePageShell` / `UserPageShell` page
   families and a shared `PageHeader` primitive, keeping internal-only fields off
   user-facing layouts.
+- **User-facing Typography Scale v0** — centralized font family and a five-step
+  size scale (`--fs-h1` 28 / `--fs-section` 22 / `--fs-card-title` 18 /
+  `--fs-body` 15 / `--fs-label` 13) plus a unified `--lh-base` 1.5 line-height,
+  defined as `:root` tokens in `src/app/globals.css` and applied only under
+  `.user-shell` (public pages). Internal Workspace and the shared TopNav keep
+  their existing typography. Typography-only: no layout, color, logic, or
+  component-structure changes.
 - **Bilingual support** — content-level localization (`original` / `zh` / `en`)
   for technology title, summary, and content, with Chinese-preferred display and
   original-source fallback. No route-based i18n.
+
+## Knowledge relationship network
+- **Technology-to-technology relations v0** — optional `relatedTechnologyIds` on
+  `TechnologyItem`, seeded with real cross-links between published technologies
+  (e.g. MCP ↔ browser agents ↔ agent workbenches), rendered as a navigable
+  "相关技术" section on the technology detail page via the existing
+  `RelatedItemsSection`. First step toward making the Technology / Skill /
+  Knowledge graph visible and walkable per the product rule, rather than three
+  separate lists.

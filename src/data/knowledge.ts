@@ -3,12 +3,12 @@ import type { KnowledgeItem } from "@/types/content";
 export const knowledgeItems: KnowledgeItem[] = [
   {
     id: "knowledge-api-contracts",
-    title: "API Contracts and Interface Boundaries",
+    title: "API 契约与接口边界",
     slug: "api-contracts-and-interface-boundaries",
     summary:
-      "Stable contracts matter when AI systems call tools, chain services, or exchange structured context.",
+      "当 AI 系统调用工具、串联服务或交换结构化上下文时，稳定的契约至关重要。",
     content:
-      "This classic concept explains why explicit inputs and outputs improve reliability. It remains relevant even when the interface is wrapped in an agent framework.",
+      "这个经典概念解释了为什么明确的输入和输出能提升可靠性。即便接口被包裹在智能体框架里，它依然适用。",
     category: "software-architecture",
     difficulty: "foundation",
     tags: ["tag-workflow"],
@@ -17,12 +17,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-tool-use",
-    title: "Tool Use and Function Calling",
+    title: "工具使用与函数调用",
     slug: "tool-use-and-function-calling",
     summary:
-      "The older idea behind many new agent systems: separate reasoning from action and validate both.",
+      "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
     content:
-      "Understanding tool use makes it easier to compare protocols, SDKs, and agent products without being distracted by branding. It is a key bridge between new tools and lasting patterns.",
+      "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
     category: "software-architecture",
     difficulty: "intermediate",
     tags: ["tag-ai-agents", "tag-workflow"],
@@ -31,12 +31,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-rag-basics",
-    title: "Retrieval-Augmented Generation Basics",
+    title: "检索增强生成基础",
     slug: "retrieval-augmented-generation-basics",
     summary:
-      "Why external knowledge retrieval changes answer quality, freshness, and trust boundaries.",
+      "为什么外部知识检索会改变答案的质量、时效性和信任边界。",
     content:
-      "RAG remains a foundational concept because it clarifies when model memory is insufficient. Teams can use it to reason about why new retrieval products matter or fail.",
+      "RAG 仍是基础概念，因为它澄清了模型自身记忆何时不够用。团队可以借它来判断新的检索产品为何重要、又为何会失败。",
     category: "data",
     difficulty: "foundation",
     tags: ["tag-retrieval"],
@@ -45,12 +45,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-evaluation-loops",
-    title: "Evaluation Loops",
+    title: "评估闭环",
     slug: "evaluation-loops",
     summary:
-      "A classic operational habit: define expected outcomes, observe failures, and tighten the loop.",
+      "一种经典的运营习惯：定义预期结果、观察失败、不断收紧闭环。",
     content:
-      "Evaluation loops are not unique to AI, which is exactly why they matter. This concept helps teams avoid treating new model behavior as unknowable magic.",
+      "评估闭环并非 AI 独有，而这恰恰是它重要的原因。这个概念帮助团队避免把新模型的行为当成无法理解的魔法。",
     category: "operations",
     difficulty: "intermediate",
     tags: ["tag-observability"],
@@ -59,12 +59,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-system-design",
-    title: "System Design Tradeoffs",
+    title: "系统设计的权衡",
     slug: "system-design-tradeoffs",
     summary:
-      "Latency, reliability, cost, and control still apply when the product surface is AI-driven.",
+      "当产品由 AI 驱动时，延迟、可靠性、成本和可控性这些权衡依然适用。",
     content:
-      "This concept connects old architecture thinking to new agent platforms. It helps readers ask what a workflow should own versus what a platform should abstract away.",
+      "这个概念把经典架构思维与新的智能体平台连接起来，帮助读者思考：哪些应由工作流自己掌控，哪些应交给平台去抽象。",
     category: "software-architecture",
     difficulty: "intermediate",
     tags: ["tag-workflow", "tag-product-strategy"],
@@ -73,12 +73,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-human-loop",
-    title: "Human-in-the-Loop Review",
+    title: "人在回路的审查",
     slug: "human-in-the-loop-review",
     summary:
-      "Human checkpoints remain essential when outputs affect customers, operations, or public communication.",
+      "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
     content:
-      "New tools may automate more steps, but review design still determines trust. This concept explains how to place human decisions where they add the most value.",
+      "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
     category: "operations",
     difficulty: "foundation",
     tags: ["tag-product-strategy", "tag-workflow"],
@@ -87,12 +87,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-graph-thinking",
-    title: "Graph Thinking for Knowledge Systems",
+    title: "面向知识系统的图思维",
     slug: "graph-thinking-for-knowledge-systems",
     summary:
-      "Modeling concepts and links explicitly makes some kinds of reasoning easier to inspect and maintain.",
+      "把概念和关联显式建模，能让某些推理更易于检查和维护。",
     content:
-      "This classic knowledge-organization concept is useful again because AI products increasingly need explainable relationships, not only nearest-neighbor similarity.",
+      "这个经典的知识组织概念之所以再次有用，是因为 AI 产品越来越需要可解释的关系，而不只是最近邻相似度。",
     category: "data",
     difficulty: "advanced",
     tags: ["tag-knowledge-graph", "tag-retrieval"],
@@ -101,12 +101,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-model-sizing",
-    title: "Model Sizing and Constraint Matching",
+    title: "模型选型与约束匹配",
     slug: "model-sizing-and-constraint-matching",
     summary:
-      "Choose model size based on latency, privacy, cost, and task complexity rather than prestige alone.",
+      "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
     content:
-      "This concept helps teams understand why smaller models can be strategically better in edge or high-volume environments. It is a useful lens for local-model decisions.",
+      "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
     category: "machine-learning",
     difficulty: "intermediate",
     tags: ["tag-on-device", "tag-product-strategy"],
@@ -115,12 +115,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-latency-tradeoffs",
-    title: "Latency Tradeoffs in Interactive Systems",
+    title: "交互系统中的延迟权衡",
     slug: "latency-tradeoffs-in-interactive-systems",
     summary:
-      "Interaction design changes when users must wait for speech, retrieval, or long multi-step actions.",
+      "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
     content:
-      "This classic systems lesson becomes visible again in voice and on-device AI products. Teams need it to reason about responsiveness, batching, and fallback behavior.",
+      "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
     category: "software-architecture",
     difficulty: "intermediate",
     tags: ["tag-on-device", "tag-multimodal"],
@@ -129,12 +129,12 @@ export const knowledgeItems: KnowledgeItem[] = [
   },
   {
     id: "knowledge-feedback-loops",
-    title: "Feedback Loops and Team Learning",
+    title: "反馈闭环与团队学习",
     slug: "feedback-loops-and-team-learning",
     summary:
-      "Small, visible loops help teams learn faster than large launches with vague success criteria.",
+      "小而可见的闭环，比目标模糊的大版本发布更能让团队快速学习。",
     content:
-      "This concept matters because many AI initiatives fail from slow learning cadence, not weak models. It supports both communication practices and pilot scoping.",
+      "这个概念重要，是因为许多 AI 项目失败于学习节奏太慢，而非模型不行。它同时支撑沟通实践和试点范围界定。",
     category: "product-thinking",
     difficulty: "foundation",
     tags: ["tag-product-strategy", "tag-observability"],
