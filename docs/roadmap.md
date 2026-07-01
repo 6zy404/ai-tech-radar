@@ -101,9 +101,11 @@ Followed topics → personalized digest = a personal tech radar.
 
 ### Interleaved — code debt
 Continue decomposing `candidate-workflow.ts` (`docs/next-task.md`; already
-1763 → 911 lines, 5 extractions done, 1 more stateful cluster planned plus
-follow-up cleanup on the remaining draft/publish/conversion logic). Do this as
-interleaved cleanup, not a separate phase.
+1763 → 744 lines; all 3 originally-planned stateful clusters extracted). What
+remains is candidate→draft conversion and publish/archive transition logic,
+which needs fresh dependency analysis rather than a checklist item before it
+can be safely split further. Do this as interleaved cleanup, not a separate
+phase.
 
 ## Recommended order
 

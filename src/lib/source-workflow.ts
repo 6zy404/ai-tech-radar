@@ -1,8 +1,8 @@
+import { getCandidateWorkflowData } from "@/lib/candidate-workflow";
 import {
-  getCandidateWorkflowData,
   getImportedCandidateSourceId,
   mergeImportedCandidatesForSource
-} from "@/lib/candidate-workflow";
+} from "@/lib/candidate-import-snapshot-store";
 import {
   normalizeCandidateId,
   normalizeCandidateTags
