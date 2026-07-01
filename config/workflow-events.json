@@ -1,6 +1,251 @@
 {
-  "updatedAt": "2026-06-02T00:40:15.452Z",
+  "updatedAt": "2026-07-01T19:12:18.975Z",
   "events": [
+    {
+      "id": "workflow-event-8da074f9-4b6c-4fea-8211-a2b3ead7985c",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-source-quality-failing-source-2026-05-30",
+      "action": "candidate.converted_to_draft",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "draft-candidate-source-quality-failing-source-2026-05-30",
+        "slug": "draft-quality-failing-source-fallback-import-2026-05-30",
+        "title": {
+          "original": "Quality Failing Source fallback import 2026-05-30",
+          "en": "Quality Failing Source fallback import 2026-05-30"
+        },
+        "summary": {
+          "original": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+          "en": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable."
+        },
+        "content": {
+          "original": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+          "en": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-30",
+        "sourceName": "Quality Failing Source",
+        "sourceUrl": "https://example.com/quality-failing.xml",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Quality Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-workflow",
+          "tag-on-device",
+          "tag-observability"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [
+          {
+            "candidateId": "candidate-source-quality-good-source-2026-05-30",
+            "sourceType": "rss-feed",
+            "sourceName": "Quality Good Source",
+            "sourceUrl": "https://example.com/quality-good.xml",
+            "publisherName": "Quality Publisher",
+            "publishDate": "2026-05-30"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 87,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [
+            "Related knowledge is not linked yet.",
+            "Related skills are not linked yet."
+          ],
+          "rankingUpdatedAt": "2026-07-01T19:12:18.944Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "candidate-source-quality-failing-source-2026-05-30",
+        "createdAt": "2026-07-01T19:12:18.943Z",
+        "updatedAt": "2026-07-01T19:12:18.943Z",
+        "editorialNotes": [
+          "Generated from imported candidate candidate-source-quality-failing-source-2026-05-30.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "metadata": {
+        "sourceCandidateId": "candidate-source-quality-failing-source-2026-05-30"
+      },
+      "createdAt": "2026-07-01T19:12:18.975Z"
+    },
+    {
+      "id": "workflow-event-d5ae3f04-e56c-46d2-b7e7-e28906e836aa",
+      "entityType": "candidate",
+      "entityId": "candidate-source-quality-failing-source-2026-05-30",
+      "action": "candidate.converted_to_draft",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "candidate-source-quality-failing-source-2026-05-30",
+        "sourceId": "quality-failing-source",
+        "sourceType": "rss-feed",
+        "sourceName": "Quality Failing Source",
+        "sourceUrl": "https://example.com/quality-failing.xml",
+        "originalTitle": "Quality Failing Source fallback import 2026-05-30",
+        "originalSummary": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+        "originalContent": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+        "originalLanguage": "en",
+        "publishDate": "2026-05-30",
+        "publisherName": "Quality Publisher",
+        "normalizedType": "tool",
+        "tags": [
+          "quality",
+          "validation",
+          "fallback"
+        ],
+        "importStatus": "converted",
+        "relatedCandidateIds": [
+          "candidate-source-quality-good-source-2026-05-30"
+        ],
+        "rawPayload": {
+          "sourceId": "quality-failing-source",
+          "fallback": true,
+          "fallbackReason": "Request failed with 404 for https://example.com/quality-failing.xml",
+          "source": {
+            "id": "quality-failing-source",
+            "name": "Quality Failing Source",
+            "type": "rss",
+            "url": "https://example.com/quality-failing.xml",
+            "enabled": true,
+            "description": "Quality validation source.",
+            "language": "en",
+            "publisherName": "Quality Publisher",
+            "publisherType": "media",
+            "defaultTags": [
+              "quality",
+              "validation"
+            ],
+            "defaultNormalizedType": "tool",
+            "lastFetchedAt": "2026-05-23T22:56:21.992Z",
+            "lastImportStatus": "partial",
+            "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+            "lastImportCount": 1,
+            "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
+            "consecutiveFailureCount": 3,
+            "totalImportedCount": 2,
+            "createdAt": "2026-05-01T00:00:00.000Z",
+            "updatedAt": "2026-05-23T22:56:21.992Z"
+          },
+          "importedAt": "2026-05-30T17:11:34.593Z",
+          "importRunId": "import-run-2026-05-30t17-11-34-592z"
+        },
+        "importedAt": "2026-05-30T17:11:34.593Z",
+        "importRunId": "import-run-2026-05-30t17-11-34-592z",
+        "reviewedAt": "2026-05-31T12:03:15.678Z",
+        "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30",
+        "duplicateGroupId": "dup-5pdjur"
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-source-quality-failing-source-2026-05-30",
+        "slug": "draft-quality-failing-source-fallback-import-2026-05-30",
+        "title": {
+          "original": "Quality Failing Source fallback import 2026-05-30",
+          "en": "Quality Failing Source fallback import 2026-05-30"
+        },
+        "summary": {
+          "original": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+          "en": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable."
+        },
+        "content": {
+          "original": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+          "en": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-30",
+        "sourceName": "Quality Failing Source",
+        "sourceUrl": "https://example.com/quality-failing.xml",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Quality Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-workflow",
+          "tag-on-device",
+          "tag-observability"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [
+          {
+            "candidateId": "candidate-source-quality-good-source-2026-05-30",
+            "sourceType": "rss-feed",
+            "sourceName": "Quality Good Source",
+            "sourceUrl": "https://example.com/quality-good.xml",
+            "publisherName": "Quality Publisher",
+            "publishDate": "2026-05-30"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 87,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [
+            "Related knowledge is not linked yet.",
+            "Related skills are not linked yet."
+          ],
+          "rankingUpdatedAt": "2026-07-01T19:12:18.944Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "candidate-source-quality-failing-source-2026-05-30",
+        "createdAt": "2026-07-01T19:12:18.943Z",
+        "updatedAt": "2026-07-01T19:12:18.943Z",
+        "editorialNotes": [
+          "Generated from imported candidate candidate-source-quality-failing-source-2026-05-30.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "metadata": {
+        "draftId": "draft-candidate-source-quality-failing-source-2026-05-30",
+        "duplicateGroupId": "dup-5pdjur",
+        "markedCandidateIds": [
+          "candidate-source-quality-failing-source-2026-05-30",
+          "candidate-source-quality-good-source-2026-05-30"
+        ]
+      },
+      "createdAt": "2026-07-01T19:12:18.955Z"
+    },
     {
       "id": "workflow-event-064e72e4-1951-48f0-9717-f3f72fb00fc6",
       "entityType": "delivery_run",
@@ -36394,87 +36639,6 @@
         "deliveryLogsCreated": 0
       },
       "createdAt": "2026-05-28T19:34:39.654Z"
-    },
-    {
-      "id": "workflow-event-ab092151-af4a-4fb6-80d2-01a80dd998e7",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-d54d5ca2-e8fe-4441-9c6a-0c7b58f22738",
-      "action": "schedule.run_failed",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-d54d5ca2-e8fe-4441-9c6a-0c7b58f22738",
-        "name": "No published digest schedule",
-        "enabled": true,
-        "digestTarget": "latest_published_digest",
-        "channelIds": [
-          "delivery-channel-83b9243c-7309-4e05-ba19-9bd5e102c11e"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "nextRunAt": "2026-05-29T01:00:00.000Z",
-        "lastRunStatus": "never_run",
-        "createdAt": "2026-05-28T19:34:39.618Z",
-        "updatedAt": "2026-05-28T19:34:39.618Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-d54d5ca2-e8fe-4441-9c6a-0c7b58f22738",
-        "name": "No published digest schedule",
-        "enabled": true,
-        "digestTarget": "latest_published_digest",
-        "channelIds": [
-          "delivery-channel-83b9243c-7309-4e05-ba19-9bd5e102c11e"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-28T19:34:39.621Z",
-        "nextRunAt": "2026-05-29T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "No digest matched the schedule target.",
-        "createdAt": "2026-05-28T19:34:39.618Z",
-        "updatedAt": "2026-05-28T19:34:39.621Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-83b46d64-acdc-4eef-a443-b64b0eeb000c",
-        "status": "failed",
-        "triggerType": "scheduled",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-28T19:34:39.632Z"
-    },
-    {
-      "id": "workflow-event-45e920f6-79e6-4a90-bc03-d29210d100a5",
-      "entityType": "task_runner",
-      "entityId": "task-runner-0c91f1d4-b326-4981-bc59-c292496f52a2",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-0c91f1d4-b326-4981-bc59-c292496f52a2",
-        "mode": "watch",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-05-28T19:34:39.591Z",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "skippedScheduleCount": 1,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 1,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "Task runner draft schedule: failed for digest 2026-05-28; Scheduled delivery can only send published digests.",
-          "Task runner published schedule: partial for digest 2026-05-27; 0 succeeded, 0 failed, 3 skipped"
-        ]
-      },
-      "metadata": {
-        "mode": "watch",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-05-28T19:34:39.603Z"
     }
   ]
 }

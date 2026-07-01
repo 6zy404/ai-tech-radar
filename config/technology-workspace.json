@@ -1,6 +1,85 @@
 {
-  "updatedAt": "2026-05-30T10:00:00.000Z",
+  "updatedAt": "2026-07-01T19:12:18.944Z",
   "records": [
+    {
+      "id": "draft-candidate-source-quality-failing-source-2026-05-30",
+      "slug": "draft-quality-failing-source-fallback-import-2026-05-30",
+      "title": {
+        "original": "Quality Failing Source fallback import 2026-05-30",
+        "en": "Quality Failing Source fallback import 2026-05-30"
+      },
+      "summary": {
+        "original": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+        "en": "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable."
+      },
+      "content": {
+        "original": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+        "en": "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow."
+      },
+      "type": "tool",
+      "publishDate": "2026-05-30",
+      "sourceName": "Quality Failing Source",
+      "sourceUrl": "https://example.com/quality-failing.xml",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "Quality Publisher",
+      "publisherType": "startup",
+      "importanceLevel": "signal",
+      "status": "draft",
+      "tags": [
+        "tag-workflow",
+        "tag-on-device",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [],
+      "relatedSkillIds": [],
+      "sourceReferences": [
+        {
+          "candidateId": "candidate-source-quality-good-source-2026-05-30",
+          "sourceType": "rss-feed",
+          "sourceName": "Quality Good Source",
+          "sourceUrl": "https://example.com/quality-good.xml",
+          "publisherName": "Quality Publisher",
+          "publishDate": "2026-05-30"
+        }
+      ],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 87,
+        "priorityReasons": [
+          "Title is complete.",
+          "Summary is complete.",
+          "Content is complete.",
+          "Tags are available.",
+          "Publisher is identified.",
+          "Multiple sources reference the same technology event.",
+          "Signal is still reasonably recent."
+        ],
+        "priorityWarnings": [
+          "Related knowledge is not linked yet.",
+          "Related skills are not linked yet."
+        ],
+        "rankingUpdatedAt": "2026-07-01T19:12:18.944Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "",
+      "whoShouldCare": [],
+      "technicalContext": "",
+      "impactAreas": [],
+      "learningPath": [],
+      "relatedKnowledgeExplanations": {},
+      "relatedSkillExplanations": {},
+      "followUpQuestions": [],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-source-quality-failing-source-2026-05-30",
+      "createdAt": "2026-07-01T19:12:18.943Z",
+      "updatedAt": "2026-07-01T19:12:18.943Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-source-quality-failing-source-2026-05-30.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ]
+    },
     {
       "id": "editorial-enrichment-draft",
       "slug": "editorial-enrichment-validation",
