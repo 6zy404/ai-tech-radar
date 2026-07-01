@@ -8,7 +8,8 @@
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
 > typecheck + test), the first three refactor passes on `candidate-workflow.ts`,
-> and the duplicate-group store extraction (step 1 below).
+> and the duplicate-group store + technology-workspace store extractions
+> (steps 1-2 below).
 
 Recommended next task:
 
@@ -17,7 +18,7 @@ stateful "store" clusters into focused modules.
 
 ## Progress so far
 
-`candidate-workflow.ts` has gone from 1763 to 997 lines via four pure,
+`candidate-workflow.ts` has gone from 1763 to 911 lines via five pure,
 behavior-preserving extractions (each verified with `npm run typecheck` and
 `npm run test`):
 
@@ -35,12 +36,26 @@ behavior-preserving extractions (each verified with `npm run typecheck` and
   getters (`getDuplicateGroupCandidates`, `updateDuplicateGroup`,
   `getDuplicateComparisonsForCandidate`) stayed put as planned, since they call
   back into candidate getters and would create a circular import otherwise.
+- `src/lib/candidate-technology-workspace-store.ts` — `TechnologyWorkspaceStore`
+  type, `normalizeTechnologyWorkspaceRecord` (private), `readTechnologyWorkspaceStore`,
+  and `writeTechnologyWorkspaceStore`. Deliberately narrower than the original
+  plan's wording ("...and the record getters/updaters"): the getters/updaters
+  (`getTechnologyWorkspaceRecords`, `updateTechnologyWorkspaceRecord`, publish/
+  archive transitions, candidate→draft conversion, etc.) turned out to be
+  woven through ~500 lines of cross-cutting logic (workflow events, publish
+  readiness, candidate conversion) rather than a self-contained cluster like
+  the duplicate-group getters were. Moving all of that in one step risked a much
+  larger, higher-risk change than the "one cluster per commit" rule intends, so
+  only the clean store layer moved this round.
 
 ## Remaining clusters to extract (stateful — do one per step)
 
 1. ~~Duplicate-group store.~~ Done — see above.
-2. Technology-workspace store: `normalizeTechnologyWorkspaceRecord`,
-   `read/writeTechnologyWorkspaceStore`, and the record getters/updaters.
+2. ~~Technology-workspace store (read/write/normalize layer).~~ Done — see above.
+   The record getters/updaters and candidate→draft conversion logic remain in
+   `candidate-workflow.ts`; a future pass could look at splitting "draft
+   publish/archive transitions" from "candidate→draft conversion" as two
+   separate, more tractable clusters, but neither is a quick verbatim move.
 3. Imported-candidate snapshot store: `sanitizeImportedCandidate`,
    snapshot read/write, `mergeImportedCandidatesForSource`.
 
