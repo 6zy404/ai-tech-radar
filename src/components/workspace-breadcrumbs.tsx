@@ -8,7 +8,9 @@ const moduleLabels: Record<string, string> = {
   candidates: "Candidates",
   duplicates: "Duplicates",
   technologies: "Drafts",
-  digests: "Digests"
+  digests: "Digests",
+  delivery: "Delivery",
+  operations: "Operations"
 };
 
 const detailLabels: Record<string, string> = {
@@ -17,6 +19,12 @@ const detailLabels: Record<string, string> = {
   duplicates: "Duplicate group",
   technologies: "Technology detail",
   digests: "Digest detail"
+};
+
+// Named sibling pages (not [id] detail routes) nested under a module.
+const namedSubPageLabels: Record<string, Record<string, string>> = {
+  delivery: { schedules: "Schedules" },
+  operations: { events: "Events" }
 };
 
 interface BreadcrumbItem {
@@ -49,6 +57,12 @@ function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
 
   if (thirdSegment === "new") {
     breadcrumbs.push({ label: "New source" });
+    return breadcrumbs;
+  }
+
+  const namedSubPageLabel = namedSubPageLabels[moduleSegment]?.[thirdSegment];
+  if (namedSubPageLabel) {
+    breadcrumbs.push({ label: namedSubPageLabel });
     return breadcrumbs;
   }
 
