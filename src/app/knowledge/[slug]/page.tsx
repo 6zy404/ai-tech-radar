@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import {
+  RelationshipGraph,
+  type RelationshipGraphNode
+} from "@/components/relationship-graph";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -128,6 +132,18 @@ export default async function KnowledgeDetailPage({
   const relatedTechnologies = getRelatedTechnologies(knowledge, technologies);
   const relatedSkills = getRelatedSkills(knowledge, skills);
   const learningSteps = getLearningSteps(knowledge.difficulty);
+  const graphNodes: RelationshipGraphNode[] = [
+    ...relatedTechnologies.map((technology) => ({
+      title: getPreferredTechnologyTitle(technology),
+      href: `/technologies/${technology.slug}`,
+      kind: "technology" as const
+    })),
+    ...relatedSkills.map((skill) => ({
+      title: skill.title,
+      href: `/skills/${skill.slug}`,
+      kind: "skill" as const
+    }))
+  ];
 
   return (
     <UserPageShell
@@ -163,6 +179,13 @@ export default async function KnowledgeDetailPage({
             <h2>这个概念为何重要</h2>
             <p>{getConceptMatter(knowledge.category)}</p>
           </section>
+
+          <RelationshipGraph
+            centerTitle={knowledge.title}
+            nodes={graphNodes}
+            sectionClassName="skill-detail-section"
+            hint="这个概念相邻的技术信号与相关技能，点击节点可继续探索。"
+          />
 
           {relatedTechnologies.length > 0 ? (
             <section className="skill-detail-section">

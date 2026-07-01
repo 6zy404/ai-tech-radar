@@ -6,9 +6,13 @@ export interface RelationshipGraphNode {
   kind: "technology" | "skill" | "knowledge";
 }
 
-interface TechnologyRelationshipGraphProps {
+interface RelationshipGraphProps {
   centerTitle: string;
   nodes: RelationshipGraphNode[];
+  /** Outer section chrome class, so the graph fits the host page's card language. */
+  sectionClassName?: string;
+  heading?: string;
+  hint?: string;
 }
 
 // Coordinate space for the connector <svg>; HTML nodes are placed at the same
@@ -26,10 +30,13 @@ const kindLabel: Record<RelationshipGraphNode["kind"], string> = {
   knowledge: "知识"
 };
 
-export function TechnologyRelationshipGraph({
+export function RelationshipGraph({
   centerTitle,
-  nodes
-}: TechnologyRelationshipGraphProps) {
+  nodes,
+  sectionClassName = "user-article-section",
+  heading = "在关系网络中的位置",
+  hint = "当前条目与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
+}: RelationshipGraphProps) {
   if (nodes.length === 0) {
     return null;
   }
@@ -44,12 +51,10 @@ export function TechnologyRelationshipGraph({
   });
 
   return (
-    <section className="tech-graph user-article-section">
+    <section className={`tech-graph ${sectionClassName}`.trim()}>
       <p className="technology-detail-section__eyebrow">关系网络</p>
-      <h2>在技术网络中的位置</h2>
-      <p className="tech-graph__hint">
-        当前技术与相邻技术、技能和背景知识的连接，点击节点可继续探索。
-      </p>
+      <h2>{heading}</h2>
+      <p className="tech-graph__hint">{hint}</p>
       <div className="tech-graph__canvas">
         <svg
           className="tech-graph__lines"

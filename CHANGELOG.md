@@ -140,3 +140,12 @@ For per-topic deep dives, see the `docs/` directory.
   `RelatedItemsSection`. First step toward making the Technology / Skill /
   Knowledge graph visible and walkable per the product rule, rather than three
   separate lists.
+- **Walkable relationship graph across all three detail pages** — the small
+  relationship visualization (previously only on the technology detail page) is
+  now a shared, generic `RelationshipGraph` component rendered on the technology,
+  skill, and knowledge detail pages. Each page shows the current node at the
+  centre with its neighbouring technologies, skills, and background knowledge as
+  clickable spokes (colour-coded by kind), so a reader can hop
+  technology → skill → knowledge → technology and always land on another page
+  that shows its own neighbourhood. This makes discover → understand →
+  **connect** hold across every entity type, not just technologies.

@@ -41,6 +41,10 @@ and the **User-facing Product** (public reading/discovery).
      on the technology detail page.
    - Relations are semantic: each link carries a relation type (supports /
      builds-on / uses / …) and a short Chinese explanation.
+   - A shared `RelationshipGraph` component renders a small, walkable
+     visualization on the technology, skill, and knowledge detail pages: the
+     current node sits at the centre with its neighbouring technologies, skills,
+     and background knowledge as clickable, colour-coded spokes.
 
 ## Completion estimate
 
@@ -49,7 +53,7 @@ and the **User-facing Product** (public reading/discovery).
 | Business pipeline / CMS | ~85% | visual confirmation of a few Workspace pages (duplicates, operations, dashboard) |
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
-| Knowledge relationship network | ~15% | only the first step done |
+| Knowledge relationship network | ~35% | walkable graph now on all three detail pages; still: relation density on skill/knowledge list cards, richer cross-entity relations, optional global graph view |
 | AI assistance / personalization | 0% | not started (and gated as out-of-scope without explicit request) |
 
 ## Roadmap
@@ -61,8 +65,13 @@ and the **User-facing Product** (public reading/discovery).
   per-page surgery.
 
 ### P2 — Knowledge relationship network (the real value; in progress)
-- Surface relationship density on list cards ("related: N").
-- Smoother multi-hop navigation; optional small relationship visualization.
+- ~~Surface relationship density on list cards ("related: N").~~ Done on
+  technology list cards; still to extend to skill/knowledge list cards.
+- ~~Smoother multi-hop navigation; optional small relationship visualization.~~
+  Done: shared `RelationshipGraph` on the technology, skill, and knowledge detail
+  pages makes every node's neighbourhood clickable and walkable.
+- Next: relation density on skill/knowledge list cards, richer cross-entity
+  relation typing, and an optional global/overview graph view.
 - Makes discover → understand → **connect** actually hold.
 
 ### P3 — AI-assisted understanding (requires explicit authorization)

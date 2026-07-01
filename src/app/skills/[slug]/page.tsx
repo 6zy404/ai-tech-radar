@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import {
+  RelationshipGraph,
+  type RelationshipGraphNode
+} from "@/components/relationship-graph";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -126,6 +130,18 @@ export default async function SkillDetailPage({
   const tags = getTagsByIds(skill.tags);
   const relatedTechnologies = getRelatedTechnologies(skill, technologies);
   const relatedKnowledge = getRelatedKnowledge(skill, knowledgeItems);
+  const graphNodes: RelationshipGraphNode[] = [
+    ...relatedTechnologies.map((technology) => ({
+      title: getPreferredTechnologyTitle(technology),
+      href: `/technologies/${technology.slug}`,
+      kind: "technology" as const
+    })),
+    ...relatedKnowledge.map((knowledge) => ({
+      title: knowledge.title,
+      href: `/knowledge/${knowledge.slug}`,
+      kind: "knowledge" as const
+    }))
+  ];
 
   return (
     <UserPageShell
@@ -161,6 +177,13 @@ export default async function SkillDetailPage({
             <h2>这项技能对解读 AI 信号为何重要</h2>
             <p>{getSkillSignalExplanation(skill)}</p>
           </section>
+
+          <RelationshipGraph
+            centerTitle={skill.title}
+            nodes={graphNodes}
+            sectionClassName="skill-detail-section"
+            hint="这项技能相邻的技术信号与背景概念，点击节点可继续探索。"
+          />
 
           {relatedTechnologies.length > 0 ? (
             <section className="skill-detail-section">
