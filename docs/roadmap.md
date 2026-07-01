@@ -41,6 +41,15 @@ and the **User-facing Product** (public reading/discovery).
      on the technology detail page.
    - Relations are semantic: each link carries a relation type (supports /
      builds-on / uses / …) and a short Chinese explanation.
+   - A shared `RelationshipGraph` component renders a small, walkable
+     visualization on the technology, skill, and knowledge detail pages: the
+     current node sits at the centre with its neighbouring technologies, skills,
+     and background knowledge as clickable, colour-coded spokes.
+   - A shared `RelationDensity` line ("关联 · N 技术 · N 技能 …") appears on all
+     three index cards (technology, skill, knowledge).
+   - Every relation in the content graph — not just technology-anchored ones —
+     now carries an explicit type and Chinese explanation, surfaced as a pill on
+     related-card lists and a tooltip on graph nodes.
 
 ## Completion estimate
 
@@ -49,7 +58,7 @@ and the **User-facing Product** (public reading/discovery).
 | Business pipeline / CMS | ~85% | visual confirmation of a few Workspace pages (duplicates, operations, dashboard) |
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
-| Knowledge relationship network | ~15% | only the first step done |
+| Knowledge relationship network | ~55% | walkable graph + shared relation-density line + full semantic relation typing now on all three detail/index pages; still: optional global/overview graph view |
 | AI assistance / personalization | 0% | not started (and gated as out-of-scope without explicit request) |
 
 ## Roadmap
@@ -61,8 +70,19 @@ and the **User-facing Product** (public reading/discovery).
   per-page surgery.
 
 ### P2 — Knowledge relationship network (the real value; in progress)
-- Surface relationship density on list cards ("related: N").
-- Smoother multi-hop navigation; optional small relationship visualization.
+- ~~Surface relationship density on list cards ("related: N").~~ Done on all
+  three index pages via a shared `RelationDensity` component (technology, skill,
+  and knowledge cards render the same `关联 · N …` line).
+- ~~Smoother multi-hop navigation; optional small relationship visualization.~~
+  Done: shared `RelationshipGraph` on the technology, skill, and knowledge detail
+  pages makes every node's neighbourhood clickable and walkable.
+- ~~Richer cross-entity relation typing.~~ Done: every `relatedXIds` reference
+  in the content graph (technology↔technology, technology↔skill,
+  technology↔knowledge, skill↔knowledge) now resolves to an explicit
+  `LinkRelation` with a real Chinese label, surfaced as a pill on related-card
+  lists and a hover tooltip on graph nodes on all three detail pages.
+- Next: an optional global/overview graph view (see the whole network on one
+  page, not just one node's neighbourhood).
 - Makes discover → understand → **connect** actually hold.
 
 ### P3 — AI-assisted understanding (requires explicit authorization)
