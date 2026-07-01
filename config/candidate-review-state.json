@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-31T12:03:15.678Z",
+  "updatedAt": "2026-07-01T19:12:18.944Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -12,12 +12,12 @@
     },
     "candidate-source-quality-failing-source-2026-05-30": {
       "importStatus": "converted",
-      "reviewedAt": "2026-05-31T12:03:15.678Z",
+      "reviewedAt": "2026-07-01T19:12:18.944Z",
       "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
     },
     "candidate-source-quality-good-source-2026-05-30": {
       "importStatus": "converted",
-      "reviewedAt": "2026-05-31T12:03:15.678Z",
+      "reviewedAt": "2026-07-01T19:12:18.944Z",
       "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
     }
   }
