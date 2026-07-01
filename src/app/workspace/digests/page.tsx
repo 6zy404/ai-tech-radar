@@ -2,10 +2,8 @@ import { DailyDigestWorkspaceCard } from "@/components/daily-digest-workspace-ca
 import { GenerateDigestAction } from "@/components/daily-digest-workspace-actions";
 import { WorkspaceListToolbar } from "@/components/workspace-list-toolbar";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
-import {
-  getDailyDigests,
-  getTodayDateString
-} from "@/lib/digest-workflow";
+import { getTodayDateString } from "@/lib/digest-store";
+import { getDailyDigests } from "@/lib/digest-workflow";
 
 export const dynamic = "force-dynamic";
 

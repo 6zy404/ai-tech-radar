@@ -9,28 +9,31 @@
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
 > typecheck + test), the first three refactor passes on `candidate-workflow.ts`,
-> and all three originally-planned store extractions (duplicate-group,
-> technology-workspace, imported-candidate snapshot).
+> all three originally-planned store extractions from `candidate-workflow.ts`
+> (duplicate-group, technology-workspace, imported-candidate snapshot), a
+> Workspace visual-confirmation pass (found and fixed a breadcrumb bug on
+> `/workspace/delivery` and `/workspace/operations` sub-pages), and the
+> `digest-store.ts` extraction from `digest-workflow.ts`.
 
 Recommended next task:
 
 The three stateful "store" clusters originally planned for
-`candidate-workflow.ts` are now all extracted (see Progress below). The file
-is down to 744 lines, all of it either genuine cross-cutting business logic
+`candidate-workflow.ts` are now all extracted (see Progress below), and the
+same pattern has also been applied to `digest-workflow.ts`. What's left in
+`candidate-workflow.ts` (744 lines) is genuine cross-cutting business logic
 (candidate review, conversion, publish transitions, workflow events) or
-exported getters/updaters that read/write those stores. There is no more
-"free" store extraction left — the next decomposition step needs fresh
-analysis of `candidate-workflow.ts` rather than following this pre-written
-list, e.g. deciding whether "candidate → draft conversion" and "draft
-publish/archive transitions" can be split into two separate modules without
-creating a circular import (both currently call back into candidate getters
-and workflow-event helpers, so this is a harder cut than the three that are
-done).
+exported getters/updaters that read/write those stores — there is no more
+"free" store extraction left there. The next decomposition step needs fresh
+analysis rather than following this pre-written list, e.g. deciding whether
+"candidate → draft conversion" and "draft publish/archive transitions" can be
+split into two separate modules without creating a circular import (both
+currently call back into candidate getters and workflow-event helpers, so
+this is a harder cut than the ones done so far).
 
 If no one has picked up that analysis yet, equally suitable next steps: apply
-the same decomposition pattern to `sqlite-store.ts` or `digest-workflow.ts`
-(see "Later" below), or work through the Workspace-side visual confirmation
-item from `docs/roadmap.md`'s completion estimate.
+the same decomposition pattern to `sqlite-store.ts` (see "Later" below, the
+one file left that hasn't had this pattern applied), or add linting/formatting
+config (ESLint + Prettier).
 
 ## Progress so far
 
@@ -86,6 +89,34 @@ decomposition of `candidate-workflow.ts` (the conversion/publish logic left
 behind by step 2) needs fresh dependency analysis, not a checklist item — see
 "Recommended next task" above.
 
+## digest-workflow.ts decomposition (done)
+
+`digest-workflow.ts` has gone from 887 to 787 lines via one extraction,
+following the exact same pattern:
+
+- `src/lib/digest-store.ts` — `DailyDigestStore` type, `getTodayDateString`,
+  `getDefaultDigestTitle`, `uniqueIds`, `normalizeDigest`,
+  `readDailyDigestStore`, and `writeDailyDigestStore`. Unlike the
+  candidate-workflow extractions, several of these (`getTodayDateString`,
+  `uniqueIds`) are small pure helpers used throughout the *rest* of
+  `digest-workflow.ts`'s business logic too, not just inside the store
+  functions — they moved along with the store because they have no
+  dependencies of their own, and `digest-workflow.ts` now imports them back
+  from `digest-store.ts` rather than duplicating them.
+- `getTodayDateString` was previously re-exported through `digest-workflow.ts`
+  for three external consumers (`src/app/digest/today/page.tsx`,
+  `src/app/workspace/digests/page.tsx`,
+  `src/app/api/workspace/digests/generate/route.ts`); updated all three to
+  import it directly from `digest-store.ts` instead of keeping the re-export.
+- Verified with `npm run typecheck`, `npm run test` (19/19 including
+  `digest-workflow.test.ts`'s 6 tests), and live reads of `/digest/today`,
+  `/workspace/digests`, a digest detail page, and the home page's digest card
+  — all rendered correct real data with no console errors.
+
+`digest-workflow.ts` still has real business logic left (digest generation,
+readiness evaluation, item-control mutations, publish transitions) — this was
+a single clean cut, not a full decomposition of the file.
+
 ## How to do it safely
 
 - One cluster per commit; keep extractions as verbatim code-motion (no logic
@@ -107,7 +138,8 @@ behind by step 2) needs fresh dependency analysis, not a checklist item — see
 
 ## Later (not this task)
 
-- Apply the same decomposition to `sqlite-store.ts` and `digest-workflow.ts`.
+- Apply the same decomposition to `sqlite-store.ts` (1164 lines, not yet
+  touched).
 - Decide whether the SQLite driver should move from JSON-blob storage to real
   relational tables, or be documented honestly as a document store.
 - Add linting/formatting config (ESLint + Prettier).
