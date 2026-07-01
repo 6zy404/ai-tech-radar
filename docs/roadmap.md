@@ -53,7 +53,7 @@ and the **User-facing Product** (public reading/discovery).
 | Business pipeline / CMS | ~85% | visual confirmation of a few Workspace pages (duplicates, operations, dashboard) |
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
-| Knowledge relationship network | ~35% | walkable graph now on all three detail pages; still: relation density on skill/knowledge list cards, richer cross-entity relations, optional global graph view |
+| Knowledge relationship network | ~40% | walkable graph + shared relation-density line now on all three detail/index pages; still: richer cross-entity relation typing, optional global graph view |
 | AI assistance / personalization | 0% | not started (and gated as out-of-scope without explicit request) |
 
 ## Roadmap
@@ -65,13 +65,14 @@ and the **User-facing Product** (public reading/discovery).
   per-page surgery.
 
 ### P2 — Knowledge relationship network (the real value; in progress)
-- ~~Surface relationship density on list cards ("related: N").~~ Done on
-  technology list cards; still to extend to skill/knowledge list cards.
+- ~~Surface relationship density on list cards ("related: N").~~ Done on all
+  three index pages via a shared `RelationDensity` component (technology, skill,
+  and knowledge cards render the same `关联 · N …` line).
 - ~~Smoother multi-hop navigation; optional small relationship visualization.~~
   Done: shared `RelationshipGraph` on the technology, skill, and knowledge detail
   pages makes every node's neighbourhood clickable and walkable.
-- Next: relation density on skill/knowledge list cards, richer cross-entity
-  relation typing, and an optional global/overview graph view.
+- Next: richer cross-entity relation typing, and an optional global/overview
+  graph view.
 - Makes discover → understand → **connect** actually hold.
 
 ### P3 — AI-assisted understanding (requires explicit authorization)
