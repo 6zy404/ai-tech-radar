@@ -117,17 +117,23 @@ export function TechnologyDetailContent({
     ...relatedTechnologies.map((item) => ({
       title: item.title,
       href: item.href,
-      kind: "technology" as const
+      kind: "technology" as const,
+      relationLabel: getRelationTypeLabel(item.relationType, mode),
+      note: item.note
     })),
-    ...relatedSkills.map((item) => ({
+    ...localizedRelatedSkills.map((item) => ({
       title: item.title,
       href: item.href,
-      kind: "skill" as const
+      kind: "skill" as const,
+      relationLabel: getRelationTypeLabel(item.relationType, mode),
+      note: item.note
     })),
-    ...relatedKnowledge.map((item) => ({
+    ...localizedRelatedKnowledge.map((item) => ({
       title: item.title,
       href: item.href,
-      kind: "knowledge" as const
+      kind: "knowledge" as const,
+      relationLabel: getRelationTypeLabel(item.relationType, mode),
+      note: item.note
     }))
   ];
 

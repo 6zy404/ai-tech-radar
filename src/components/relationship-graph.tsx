@@ -4,6 +4,10 @@ export interface RelationshipGraphNode {
   title: string;
   href: string;
   kind: "technology" | "skill" | "knowledge";
+  /** Localized relation-type label (e.g. "建立在"), shown as a hover tooltip. */
+  relationLabel?: string;
+  /** Short Chinese explanation of why the two items are connected. */
+  note?: string;
 }
 
 interface RelationshipGraphProps {
@@ -91,6 +95,13 @@ export function RelationshipGraph({
               left: `${(node.x / VIEW_W) * 100}%`,
               top: `${(node.y / VIEW_H) * 100}%`
             }}
+            title={
+              node.relationLabel
+                ? node.note
+                  ? `${node.relationLabel}：${node.note}`
+                  : node.relationLabel
+                : undefined
+            }
           >
             <span className="tech-graph__node-kind">{kindLabel[node.kind]}</span>
             {node.title}

@@ -7250,6 +7250,19 @@ body {
   font-size: 0.8rem;
 }
 
+.skill-detail-related-card__toprow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.skill-detail-related-card__toprow .skill-detail-related-card__meta {
+  margin: 0;
+}
+
 .skill-detail-related-card__note {
   margin: 12px 0;
   padding: 12px 14px;
