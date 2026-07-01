@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import { RelatedItemsSection } from "@/components/related-items-section";
 import {
-  TechnologyRelationshipGraph,
+  RelationshipGraph,
   type RelationshipGraphNode
-} from "@/components/technology-relationship-graph";
+} from "@/components/relationship-graph";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
@@ -262,7 +262,12 @@ export function TechnologyDetailContent({
         </section>
       ) : null}
 
-      <TechnologyRelationshipGraph centerTitle={title} nodes={graphNodes} />
+      <RelationshipGraph
+        centerTitle={title}
+        nodes={graphNodes}
+        heading="在技术网络中的位置"
+        hint="当前技术与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
+      />
 
       <RelatedItemsSection
         title="相关技术"
