@@ -1,5 +1,3 @@
-import { existsSync } from "node:fs";
-
 import { topicTags } from "@/data/tags";
 import { technologyItems } from "@/data/technologies";
 import { buildFallbackImportedCandidates } from "@/lib/importers";
@@ -32,6 +30,10 @@ import {
   writeDuplicateGroupStore
 } from "@/lib/candidate-duplicate-store";
 import {
+  readTechnologyWorkspaceStore,
+  writeTechnologyWorkspaceStore
+} from "@/lib/candidate-technology-workspace-store";
+import {
   normalizeReadableText,
   stripMarkup,
   getPayloadText,
@@ -39,11 +41,7 @@ import {
   normalizeRequiredField,
   normalizeEditableText,
   normalizeStringList,
-  normalizeStoredStringList,
   normalizeStringMap,
-  normalizeStoredStringMap,
-  normalizeReadingDifficulty,
-  normalizeIntelligenceStatus,
   normalizeSlug,
   mergeLocalizedText,
 } from "@/lib/workspace-record-normalizers";
@@ -88,11 +86,6 @@ interface CandidateReviewStateFile {
   items: Record<string, CandidateReviewStateEntry>;
 }
 
-interface TechnologyWorkspaceStore {
-  updatedAt: string;
-  records: TechnologyWorkspaceRecord[];
-}
-
 export interface DuplicateComparisonItem {
   candidate: ImportedCandidate;
   reasons: DuplicateReason[];
@@ -133,12 +126,6 @@ const importedCandidatesSnapshotPath = getLocalStoreFilePath(
 );
 const candidateReviewStatePath = getLocalStoreFilePath(
   "candidate-review-state.json"
-);
-const technologyWorkspaceStorePath = getLocalStoreFilePath(
-  "technology-workspace.json"
-);
-const legacyTechnologyDraftStorePath = getLocalStoreFilePath(
-  "technology-drafts.json"
 );
 
 function sanitizeImportedCandidate(candidate: ImportedCandidate): ImportedCandidate {
@@ -333,89 +320,6 @@ function readCandidateReviewState(): CandidateReviewStateFile {
 
 function writeCandidateReviewState(state: CandidateReviewStateFile) {
   writeJsonFile(candidateReviewStatePath, state);
-}
-
-function normalizeTechnologyWorkspaceRecord(
-  record: Record<string, unknown>
-): TechnologyWorkspaceRecord {
-  const rawStatus = record.status;
-  const normalizedStatus: TechnologyItem["status"] =
-    rawStatus === "published" || rawStatus === "archived" || rawStatus === "draft"
-      ? rawStatus
-      : "draft";
-
-  return {
-    ...(record as unknown as TechnologyItem),
-    status: normalizedStatus,
-    sourceCandidateId:
-      (record.sourceCandidateId as string | undefined) ??
-      (record.draftSourceCandidateId as string | undefined),
-    sourceReferences:
-      (record.sourceReferences as CandidateSourceReference[] | undefined) ?? [],
-    createdAt:
-      (record.createdAt as string | undefined) ?? new Date().toISOString(),
-    updatedAt:
-      (record.updatedAt as string | undefined) ?? new Date().toISOString(),
-    editorialNotes:
-      (record.editorialNotes as string[] | undefined) ??
-      (record.draftNotes as string[] | undefined) ??
-      [],
-    whyItMatters:
-      typeof record.whyItMatters === "string" ? record.whyItMatters : "",
-    whoShouldCare: normalizeStoredStringList(record.whoShouldCare),
-    technicalContext:
-      typeof record.technicalContext === "string" ? record.technicalContext : "",
-    impactAreas: normalizeStoredStringList(record.impactAreas),
-    learningPath: normalizeStoredStringList(record.learningPath),
-    relatedKnowledgeExplanations: normalizeStoredStringMap(
-      record.relatedKnowledgeExplanations
-    ),
-    relatedSkillExplanations: normalizeStoredStringMap(
-      record.relatedSkillExplanations
-    ),
-    followUpQuestions: normalizeStoredStringList(record.followUpQuestions),
-    readingDifficulty: normalizeReadingDifficulty(record.readingDifficulty),
-    intelligenceStatus: normalizeIntelligenceStatus(record.intelligenceStatus)
-  };
-}
-
-function readTechnologyWorkspaceStore(): TechnologyWorkspaceStore {
-  if (existsSync(technologyWorkspaceStorePath)) {
-    const store = readJsonFile<TechnologyWorkspaceStore>(technologyWorkspaceStorePath, {
-      updatedAt: new Date().toISOString(),
-      records: []
-    });
-
-    return {
-      updatedAt: store.updatedAt,
-      records: store.records.map((record) =>
-        normalizeTechnologyWorkspaceRecord(record as unknown as Record<string, unknown>)
-      )
-    };
-  }
-
-  if (existsSync(legacyTechnologyDraftStorePath)) {
-    const legacyStore = readJsonFile<{
-      updatedAt?: string;
-      drafts?: Record<string, unknown>[];
-    }>(legacyTechnologyDraftStorePath, {});
-
-    return {
-      updatedAt: legacyStore.updatedAt ?? new Date().toISOString(),
-      records: (legacyStore.drafts ?? []).map((record) =>
-        normalizeTechnologyWorkspaceRecord(record)
-      )
-    };
-  }
-
-  return {
-    updatedAt: new Date().toISOString(),
-    records: []
-  };
-}
-
-function writeTechnologyWorkspaceStore(store: TechnologyWorkspaceStore) {
-  writeJsonFile(technologyWorkspaceStorePath, store);
 }
 
 function applyReviewState(
