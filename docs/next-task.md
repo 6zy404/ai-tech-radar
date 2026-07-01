@@ -1,24 +1,40 @@
 # Next Task
 
-> See `docs/roadmap.md` for the high-level plan. The current active direction is
-> the P2 knowledge relationship network (technology↔technology relations are
-> shipped and semantically labelled). The `candidate-workflow.ts` decomposition
-> below remains valid as interleaved cleanup, not a blocking phase.
+> See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
+> (knowledge relationship network) are both done. The project is at the P3
+> decision point: do not start P3 (AI-assisted understanding) or P4
+> (personalization) without an explicit request from the owner. Until then,
+> the `candidate-workflow.ts` decomposition below is suitable interleaved work.
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
 > typecheck + test), the first three refactor passes on `candidate-workflow.ts`,
-> and the duplicate-group store + technology-workspace store extractions
-> (steps 1-2 below).
+> and all three originally-planned store extractions (duplicate-group,
+> technology-workspace, imported-candidate snapshot).
 
 Recommended next task:
 
-Continue decomposing `candidate-workflow.ts` by extracting its remaining
-stateful "store" clusters into focused modules.
+The three stateful "store" clusters originally planned for
+`candidate-workflow.ts` are now all extracted (see Progress below). The file
+is down to 744 lines, all of it either genuine cross-cutting business logic
+(candidate review, conversion, publish transitions, workflow events) or
+exported getters/updaters that read/write those stores. There is no more
+"free" store extraction left — the next decomposition step needs fresh
+analysis of `candidate-workflow.ts` rather than following this pre-written
+list, e.g. deciding whether "candidate → draft conversion" and "draft
+publish/archive transitions" can be split into two separate modules without
+creating a circular import (both currently call back into candidate getters
+and workflow-event helpers, so this is a harder cut than the three that are
+done).
+
+If no one has picked up that analysis yet, equally suitable next steps: apply
+the same decomposition pattern to `sqlite-store.ts` or `digest-workflow.ts`
+(see "Later" below), or work through the Workspace-side visual confirmation
+item from `docs/roadmap.md`'s completion estimate.
 
 ## Progress so far
 
-`candidate-workflow.ts` has gone from 1763 to 911 lines via five pure,
+`candidate-workflow.ts` has gone from 1763 to 744 lines via six pure,
 behavior-preserving extractions (each verified with `npm run typecheck` and
 `npm run test`):
 
@@ -47,17 +63,28 @@ behavior-preserving extractions (each verified with `npm run typecheck` and
   the duplicate-group getters were. Moving all of that in one step risked a much
   larger, higher-risk change than the "one cluster per commit" rule intends, so
   only the clean store layer moved this round.
+- `src/lib/candidate-import-snapshot-store.ts` — `sanitizeImportedCandidate`
+  (private), `buildFallbackSnapshot` (private), `readImportedCandidateSnapshot`,
+  `writeImportedCandidateSnapshot`, `getImportedCandidateSourceId`, and
+  `mergeImportedCandidatesForSource`. `getImportedCandidateSourceId` and
+  `mergeImportedCandidatesForSource` were previously re-exported through
+  `candidate-workflow.ts` for `source-workflow.ts`'s benefit; updated
+  `source-workflow.ts` to import them directly from the new module instead of
+  keeping a re-export hop.
 
-## Remaining clusters to extract (stateful — do one per step)
+## Remaining clusters to extract
 
 1. ~~Duplicate-group store.~~ Done — see above.
-2. ~~Technology-workspace store (read/write/normalize layer).~~ Done — see above.
-   The record getters/updaters and candidate→draft conversion logic remain in
-   `candidate-workflow.ts`; a future pass could look at splitting "draft
-   publish/archive transitions" from "candidate→draft conversion" as two
-   separate, more tractable clusters, but neither is a quick verbatim move.
-3. Imported-candidate snapshot store: `sanitizeImportedCandidate`,
-   snapshot read/write, `mergeImportedCandidatesForSource`.
+2. ~~Technology-workspace store (read/write/normalize layer).~~ Done — see
+   above. The record getters/updaters and candidate→draft conversion logic
+   remain in `candidate-workflow.ts` (see "Recommended next task" above for
+   why, and for the harder follow-up cut this leaves open).
+3. ~~Imported-candidate snapshot store.~~ Done — see above.
+
+All three originally-planned stateful clusters are extracted. Further
+decomposition of `candidate-workflow.ts` (the conversion/publish logic left
+behind by step 2) needs fresh dependency analysis, not a checklist item — see
+"Recommended next task" above.
 
 ## How to do it safely
 
@@ -65,13 +92,18 @@ behavior-preserving extractions (each verified with `npm run typecheck` and
   changes).
 - Push lower-level (store) modules so they do not import `candidate-workflow.ts`;
   pass data in as parameters to avoid circular dependencies.
+- Check for other files importing the symbols being moved (e.g.
+  `source-workflow.ts` imported two functions from `candidate-workflow.ts` that
+  moved in step 3) — update those imports to point at the new module directly
+  rather than leaving a re-export hop.
 - After each step run BOTH `npm run typecheck` and `npm run test` locally.
-  Vitest runs fine in some working environments (verified for step 1: 19/19
-  tests green) but CLAUDE.md documents a constrained Cowork sandbox where
-  `tsx`/`vitest` cannot run — if that's the environment in use, fall back to
-  `npm run typecheck` plus a manual smoke test of the affected workspace pages
-  (e.g. `/workspace/duplicates` and a group detail page for the duplicate-group
-  cluster) before committing.
+  Vitest runs fine in some working environments (verified for steps 1-3: 19/19
+  tests green each time) but CLAUDE.md documents a constrained Cowork sandbox
+  where `tsx`/`vitest` cannot run — if that's the environment in use, fall back
+  to `npm run typecheck` plus a manual smoke test of the affected workspace
+  pages (e.g. `/workspace/duplicates`, `/workspace/technologies`,
+  `/workspace/candidates` and `/workspace/sources`' "Import enabled sources"
+  action for the three clusters done so far) before committing.
 
 ## Later (not this task)
 
