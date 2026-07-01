@@ -140,3 +140,30 @@ For per-topic deep dives, see the `docs/` directory.
   `RelatedItemsSection`. First step toward making the Technology / Skill /
   Knowledge graph visible and walkable per the product rule, rather than three
   separate lists.
+- **Walkable relationship graph across all three detail pages** — the small
+  relationship visualization (previously only on the technology detail page) is
+  now a shared, generic `RelationshipGraph` component rendered on the technology,
+  skill, and knowledge detail pages. Each page shows the current node at the
+  centre with its neighbouring technologies, skills, and background knowledge as
+  clickable spokes (colour-coded by kind), so a reader can hop
+  technology → skill → knowledge → technology and always land on another page
+  that shows its own neighbourhood. This makes discover → understand →
+  **connect** hold across every entity type, not just technologies.
+- **Shared relationship-density line on all three index cards** — extracted the
+  technology list card's "关联 · N 技术 · N 技能 …" line into a reusable
+  `RelationDensity` component and adopted it on the skill and knowledge index
+  cards, which previously showed a different pill-count style. All three index
+  pages now render the same relationship-density line.
+- **Full semantic relation typing across the content graph** — every
+  technology↔technology, technology↔skill, technology↔knowledge, and
+  skill↔knowledge link that exists as a `relatedXIds` reference now has an
+  explicit `LinkRelation` entry (27 new entries: 12 skill↔knowledge, 6
+  technology↔knowledge, 9 technology↔skill), so relation-type pills and graph
+  tooltips show a real Chinese label (建立在 / 需要 / 支持 / 解释 / …) instead of
+  falling back to the generic "相关". A new `findRelationBetween` helper in
+  `src/lib/content.ts` looks up the relation regardless of which side
+  `LinkRelation` records as `from`/`to`. The skill and knowledge detail pages
+  now show the same relation-type pill (reusing `.user-related-section__relation`)
+  on each related-content card that the technology detail page already showed,
+  and the shared `RelationshipGraph` nodes carry a hover tooltip with the
+  relation label and explanation.

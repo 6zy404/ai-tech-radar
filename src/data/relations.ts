@@ -261,5 +261,248 @@ export const linkRelations: LinkRelation[] = [
     toType: "technology",
     relationType: "uses",
     note: "语音运行层常借助端侧小模型来压低延迟、保护隐私。"
+  },
+  {
+    id: "rel-agent-design-system-design",
+    fromId: "skill-agent-design",
+    fromType: "skill",
+    toId: "knowledge-system-design",
+    toType: "knowledge",
+    relationType: "builds-on",
+    note: "智能体工作流设计建立在延迟、可靠性与可控性这些经典系统权衡之上。"
+  },
+  {
+    id: "rel-agent-design-tool-use",
+    fromId: "skill-agent-design",
+    fromType: "skill",
+    toId: "knowledge-tool-use",
+    toType: "knowledge",
+    relationType: "requires",
+    note: "划清规划与工具调用的边界，需要先理解工具使用这个基础模式。"
+  },
+  {
+    id: "rel-tool-integration-api-contracts",
+    fromId: "skill-tool-integration",
+    fromType: "skill",
+    toId: "knowledge-api-contracts",
+    toType: "knowledge",
+    relationType: "builds-on",
+    note: "可维护的集成依赖清晰的输入输出契约。"
+  },
+  {
+    id: "rel-tool-integration-tool-use",
+    fromId: "skill-tool-integration",
+    fromType: "skill",
+    toId: "knowledge-tool-use",
+    toType: "knowledge",
+    relationType: "requires",
+    note: "接入 API、浏览器和内部工具，需要先分清推理与行动。"
+  },
+  {
+    id: "rel-retrieval-tuning-rag-basics",
+    fromId: "skill-retrieval-tuning",
+    fromType: "skill",
+    toId: "knowledge-rag-basics",
+    toType: "knowledge",
+    relationType: "builds-on",
+    note: "调优检索流水线之前，需要先理解检索增强生成的基础假设。"
+  },
+  {
+    id: "rel-retrieval-tuning-graph-thinking",
+    fromId: "skill-retrieval-tuning",
+    fromType: "skill",
+    toId: "knowledge-graph-thinking",
+    toType: "knowledge",
+    relationType: "extends",
+    note: "当检索需要显式关系而非近似相似度时，这项技能延伸到图思维。"
+  },
+  {
+    id: "rel-model-evaluation-evaluation-loops",
+    fromId: "skill-model-evaluation",
+    fromType: "skill",
+    toId: "knowledge-evaluation-loops",
+    toType: "knowledge",
+    relationType: "builds-on",
+    note: "定义好的输出、衡量失败，正是评估闭环这个经典习惯的具体应用。"
+  },
+  {
+    id: "rel-model-evaluation-feedback-loops",
+    fromId: "skill-model-evaluation",
+    fromType: "skill",
+    toId: "knowledge-feedback-loops",
+    toType: "knowledge",
+    relationType: "supports",
+    note: "小而可复现的评估检查，为团队的反馈闭环提供了具体信号。"
+  },
+  {
+    id: "rel-scope-pilots-feedback-loops",
+    fromId: "skill-scope-pilots",
+    fromType: "skill",
+    toId: "knowledge-feedback-loops",
+    toType: "knowledge",
+    relationType: "supports",
+    note: "聚焦、可快速验证的试点范围，能让团队更快完成一次学习闭环。"
+  },
+  {
+    id: "rel-scope-pilots-human-loop",
+    fromId: "skill-scope-pilots",
+    fromType: "skill",
+    toId: "knowledge-human-loop",
+    toType: "knowledge",
+    relationType: "requires",
+    note: "界定试点范围时，仍需要为影响用户的输出保留人工检查点。"
+  },
+  {
+    id: "rel-communication-ai-feedback-loops",
+    fromId: "skill-communication-ai",
+    fromType: "skill",
+    toId: "knowledge-feedback-loops",
+    toType: "knowledge",
+    relationType: "supports",
+    note: "更清晰的沟通缩短了从草稿到对齐的反馈闭环。"
+  },
+  {
+    id: "rel-communication-ai-human-loop",
+    fromId: "skill-communication-ai",
+    fromType: "skill",
+    toId: "knowledge-human-loop",
+    toType: "knowledge",
+    relationType: "requires",
+    note: "把 AI 输出转化为对外沟通，仍需要人工审阅来把关信任。"
+  },
+  {
+    id: "rel-browser-system-design",
+    fromId: "tech-browser-agents",
+    fromType: "technology",
+    toId: "knowledge-system-design",
+    toType: "knowledge",
+    relationType: "explains",
+    note: "浏览器代理让延迟、可靠性与可控性之间的权衡变得具体可见。"
+  },
+  {
+    id: "rel-slm-latency",
+    fromId: "tech-slm-edge",
+    fromType: "technology",
+    toId: "knowledge-latency-tradeoffs",
+    toType: "knowledge",
+    relationType: "explains",
+    note: "端侧模型的价值直接体现在它如何改变响应延迟的权衡。"
+  },
+  {
+    id: "rel-workbench-system-design",
+    fromId: "tech-agent-workbenches",
+    fromType: "technology",
+    toId: "knowledge-system-design",
+    toType: "knowledge",
+    relationType: "builds-on",
+    note: "工作台的编排选择建立在经典的系统权衡思维之上。"
+  },
+  {
+    id: "rel-workbench-eval-loop",
+    fromId: "tech-agent-workbenches",
+    fromType: "technology",
+    toId: "knowledge-evaluation-loops",
+    toType: "knowledge",
+    relationType: "requires",
+    note: "工作台要持续可靠，仍需要评估闭环来发现回归。"
+  },
+  {
+    id: "rel-copilot-tool-use",
+    fromId: "tech-multimodal-copilots",
+    fromType: "technology",
+    toId: "knowledge-tool-use",
+    toType: "knowledge",
+    relationType: "builds-on",
+    note: "多模态助手调用工具的方式，建立在工具使用这一基础模式之上。"
+  },
+  {
+    id: "rel-voice-human-loop",
+    fromId: "tech-voice-runtime",
+    fromType: "technology",
+    toId: "knowledge-human-loop",
+    toType: "knowledge",
+    relationType: "requires",
+    note: "语音交互影响真实用户体验，仍需要人工审查关键环节。"
+  },
+  {
+    id: "rel-mcp-agent-design",
+    fromId: "tech-mcp",
+    fromType: "technology",
+    toId: "skill-agent-design",
+    toType: "skill",
+    relationType: "requires",
+    note: "设计智能体工作流时，规划与工具调用的边界通常靠 MCP 这类协议来约定。"
+  },
+  {
+    id: "rel-browser-agent-design",
+    fromId: "tech-browser-agents",
+    fromType: "technology",
+    toId: "skill-agent-design",
+    toType: "skill",
+    relationType: "requires",
+    note: "把浏览器操作纳入更长的智能体工作流，需要清晰的步骤划分与回退设计。"
+  },
+  {
+    id: "rel-slm-scope-pilots",
+    fromId: "tech-slm-edge",
+    fromType: "technology",
+    toId: "skill-scope-pilots",
+    toType: "skill",
+    relationType: "supports",
+    note: "边界清晰的试点范围，能更快验证端侧小模型在具体场景下是否够用。"
+  },
+  {
+    id: "rel-rag-model-evaluation",
+    fromId: "tech-rag-evals",
+    fromType: "technology",
+    toId: "skill-model-evaluation",
+    toType: "skill",
+    relationType: "requires",
+    note: "评测看板要发挥作用，仍依赖清晰的模型与输出评估标准。"
+  },
+  {
+    id: "rel-workbench-tool-integration",
+    fromId: "tech-agent-workbenches",
+    fromType: "technology",
+    toId: "skill-tool-integration",
+    toType: "skill",
+    relationType: "requires",
+    note: "工作台要接入多种工具，仍依赖规范的集成模式和错误处理。"
+  },
+  {
+    id: "rel-copilot-tool-integration",
+    fromId: "tech-multimodal-copilots",
+    fromType: "technology",
+    toId: "skill-tool-integration",
+    toType: "skill",
+    relationType: "uses",
+    note: "多模态助手常通过工具集成模式接入代码库、文档和内部系统。"
+  },
+  {
+    id: "rel-kg-retrieval-tuning",
+    fromId: "tech-kg-assistants",
+    fromType: "technology",
+    toId: "skill-retrieval-tuning",
+    toType: "skill",
+    relationType: "requires",
+    note: "图谱助手的检索质量仍取决于底层检索流水线是否调优得当。"
+  },
+  {
+    id: "rel-kg-agent-design",
+    fromId: "tech-kg-assistants",
+    fromType: "technology",
+    toId: "skill-agent-design",
+    toType: "skill",
+    relationType: "supports",
+    note: "结构化的图谱关系能为智能体工作流提供更可靠的规划依据。"
+  },
+  {
+    id: "rel-voice-scope-pilots",
+    fromId: "tech-voice-runtime",
+    fromType: "technology",
+    toId: "skill-scope-pilots",
+    toType: "skill",
+    relationType: "supports",
+    note: "先界定清楚试点范围，能更快看清语音运行层在哪些场景真正好用。"
   }
 ];

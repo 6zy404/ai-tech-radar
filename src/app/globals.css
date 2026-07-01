@@ -1510,7 +1510,7 @@ p {
   align-content: end;
 }
 
-.technology-card__relations {
+.relation-density {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -1519,11 +1519,11 @@ p {
   font-size: var(--fs-label);
 }
 
-.technology-card__relations-label {
+.relation-density__label {
   font-weight: 700;
 }
 
-.technology-card__relations strong {
+.relation-density strong {
   color: var(--accent);
   font-weight: 800;
 }
@@ -6997,16 +6997,7 @@ body {
 }
 
 .skill-library-card__meta,
-.skill-library-card__counts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  color: var(--skills-muted);
-  font-size: 0.76rem;
-}
-
-.skill-library-card__meta span,
-.skill-library-card__counts span {
+.skill-library-card__meta span {
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.05);
   padding: 5px 9px;
@@ -7257,6 +7248,19 @@ body {
 .skill-detail-related-card__meta {
   color: var(--skills-muted) !important;
   font-size: 0.8rem;
+}
+
+.skill-detail-related-card__toprow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.skill-detail-related-card__toprow .skill-detail-related-card__meta {
+  margin: 0;
 }
 
 .skill-detail-related-card__note {

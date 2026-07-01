@@ -265,3 +265,33 @@ export function getRelationItemsFor(
     })
     .filter((item): item is RelationListItem => Boolean(item));
 }
+
+/**
+ * Looks up the semantic relation between two content items regardless of
+ * which side `linkRelations` records as `from`/`to`. Falls back to a generic
+ * relation when no explicit LinkRelation entry exists for the pair.
+ */
+export function findRelationBetween(
+  aId: string,
+  aType: ContentKind,
+  bId: string,
+  bType: ContentKind,
+  defaultRelationType: RelationType = "related-to"
+): { relationType: RelationType; note?: string } {
+  const relation = linkRelations.find(
+    (item) =>
+      (item.fromId === aId &&
+        item.fromType === aType &&
+        item.toId === bId &&
+        item.toType === bType) ||
+      (item.fromId === bId &&
+        item.fromType === bType &&
+        item.toId === aId &&
+        item.toType === aType)
+  );
+
+  return {
+    relationType: relation?.relationType ?? defaultRelationType,
+    note: relation?.note
+  };
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -223,14 +224,12 @@ export default function SkillsPage() {
                           <span>帮助你判断</span>
                           <p>{getSkillOutcome(skill)}</p>
                         </div>
-                        <div className="skill-library-card__counts">
-                          <span>
-                            {relatedTechnologies.length} 条技术信号
-                          </span>
-                          <span>
-                            {relatedKnowledge.length} 个背景概念
-                          </span>
-                        </div>
+                        <RelationDensity
+                          items={[
+                            { n: relatedTechnologies.length, label: "技术" },
+                            { n: relatedKnowledge.length, label: "背景知识" }
+                          ]}
+                        />
                         {relatedTechnologies.length > 0 ? (
                           <div className="skill-library-card__signals">
                             <span>用这些来练习</span>
