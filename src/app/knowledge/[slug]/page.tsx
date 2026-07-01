@@ -8,6 +8,7 @@ import {
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
+  findRelationBetween,
   getAllKnowledge,
   getAllSkills,
   getAllTechnologies,
@@ -16,7 +17,8 @@ import {
 } from "@/lib/content";
 import {
   getPreferredTechnologySummary,
-  getPreferredTechnologyTitle
+  getPreferredTechnologyTitle,
+  getRelationTypeLabel
 } from "@/lib/technology-localization";
 import type {
   DifficultyLevel,
@@ -132,16 +134,32 @@ export default async function KnowledgeDetailPage({
   const relatedTechnologies = getRelatedTechnologies(knowledge, technologies);
   const relatedSkills = getRelatedSkills(knowledge, skills);
   const learningSteps = getLearningSteps(knowledge.difficulty);
+  const technologyRelations = relatedTechnologies.map((technology) =>
+    findRelationBetween(knowledge.id, "knowledge", technology.id, "technology")
+  );
+  const skillRelations = relatedSkills.map((skill) =>
+    findRelationBetween(knowledge.id, "knowledge", skill.id, "skill")
+  );
   const graphNodes: RelationshipGraphNode[] = [
-    ...relatedTechnologies.map((technology) => ({
+    ...relatedTechnologies.map((technology, index) => ({
       title: getPreferredTechnologyTitle(technology),
       href: `/technologies/${technology.slug}`,
-      kind: "technology" as const
+      kind: "technology" as const,
+      relationLabel: getRelationTypeLabel(
+        technologyRelations[index].relationType,
+        "zh"
+      ),
+      note: technologyRelations[index].note
     })),
-    ...relatedSkills.map((skill) => ({
+    ...relatedSkills.map((skill, index) => ({
       title: skill.title,
       href: `/skills/${skill.slug}`,
-      kind: "skill" as const
+      kind: "skill" as const,
+      relationLabel: getRelationTypeLabel(
+        skillRelations[index].relationType,
+        "zh"
+      ),
+      note: skillRelations[index].note
     }))
   ];
 
@@ -196,7 +214,7 @@ export default async function KnowledgeDetailPage({
                 </div>
               </div>
               <div className="skill-detail-related-list">
-                {relatedTechnologies.map((technology) => {
+                {relatedTechnologies.map((technology, index) => {
                   const technologyTags = getTagsByIds(technology.tags);
 
                   return (
@@ -205,9 +223,17 @@ export default async function KnowledgeDetailPage({
                       key={technology.id}
                     >
                       <div>
-                        <p className="skill-detail-related-card__meta">
-                          {technology.sourceName} · {technology.publishDate}
-                        </p>
+                        <div className="skill-detail-related-card__toprow">
+                          <p className="skill-detail-related-card__meta">
+                            {technology.sourceName} · {technology.publishDate}
+                          </p>
+                          <span className="user-related-section__relation">
+                            {getRelationTypeLabel(
+                              technologyRelations[index].relationType,
+                              "zh"
+                            )}
+                          </span>
+                        </div>
                         <h3>
                           <Link href={`/technologies/${technology.slug}`}>
                             {getPreferredTechnologyTitle(technology)}
@@ -246,7 +272,7 @@ export default async function KnowledgeDetailPage({
                 </div>
               </div>
               <div className="skill-detail-related-list">
-                {relatedSkills.map((skill) => {
+                {relatedSkills.map((skill, index) => {
                   const skillTags = getTagsByIds(skill.tags);
 
                   return (
@@ -255,10 +281,18 @@ export default async function KnowledgeDetailPage({
                       key={skill.id}
                     >
                       <div>
-                        <p className="skill-detail-related-card__meta">
-                          {skillTypeLabels[skill.skillType]} ·{" "}
-                          {heatLabels[skill.heatLevel]}
-                        </p>
+                        <div className="skill-detail-related-card__toprow">
+                          <p className="skill-detail-related-card__meta">
+                            {skillTypeLabels[skill.skillType]} ·{" "}
+                            {heatLabels[skill.heatLevel]}
+                          </p>
+                          <span className="user-related-section__relation">
+                            {getRelationTypeLabel(
+                              skillRelations[index].relationType,
+                              "zh"
+                            )}
+                          </span>
+                        </div>
                         <h3>
                           <Link href={`/skills/${skill.slug}`}>
                             {skill.title}
