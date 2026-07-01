@@ -36,7 +36,7 @@ and the **User-facing Product** (public reading/discovery).
      updates.
    - "Solid / higher-contrast" visual pass (solid white cards, firmer
      border/shadow, cleaner hero panels); home information hierarchy.
-4. **Knowledge relationship network (just started, P2)**
+4. **Knowledge relationship network (P2, complete)**
    - `relatedTechnologyIds` on `TechnologyItem`, a navigable "相关技术" section
      on the technology detail page.
    - Relations are semantic: each link carries a relation type (supports /
@@ -50,6 +50,9 @@ and the **User-facing Product** (public reading/discovery).
    - Every relation in the content graph — not just technology-anchored ones —
      now carries an explicit type and Chinese explanation, surfaced as a pill on
      related-card lists and a tooltip on graph nodes.
+   - `/network` renders the entire graph (every published technology, skill,
+     and knowledge node, every relation edge) in one view, with click-to-focus
+     exploration of any node's direct connections.
 
 ## Completion estimate
 
@@ -58,7 +61,7 @@ and the **User-facing Product** (public reading/discovery).
 | Business pipeline / CMS | ~85% | visual confirmation of a few Workspace pages (duplicates, operations, dashboard) |
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
-| Knowledge relationship network | ~55% | walkable graph + shared relation-density line + full semantic relation typing now on all three detail/index pages; still: optional global/overview graph view |
+| Knowledge relationship network | 100% (P2 complete) | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2 |
 | AI assistance / personalization | 0% | not started (and gated as out-of-scope without explicit request) |
 
 ## Roadmap
@@ -69,7 +72,7 @@ and the **User-facing Product** (public reading/discovery).
 - Outcome: UI reaches a token-stable state — future tweaks are token edits, not
   per-page surgery.
 
-### P2 — Knowledge relationship network (the real value; in progress)
+### P2 — Knowledge relationship network (the real value; complete)
 - ~~Surface relationship density on list cards ("related: N").~~ Done on all
   three index pages via a shared `RelationDensity` component (technology, skill,
   and knowledge cards render the same `关联 · N …` line).
@@ -81,9 +84,12 @@ and the **User-facing Product** (public reading/discovery).
   technology↔knowledge, skill↔knowledge) now resolves to an explicit
   `LinkRelation` with a real Chinese label, surfaced as a pill on related-card
   lists and a hover tooltip on graph nodes on all three detail pages.
-- Next: an optional global/overview graph view (see the whole network on one
-  page, not just one node's neighbourhood).
-- Makes discover → understand → **connect** actually hold.
+- ~~Optional global/overview graph view.~~ Done: `/network` renders the whole
+  graph (all nodes, all edges) with click-to-focus exploration, linked from
+  `TopNav`.
+- Makes discover → understand → **connect** actually hold. P2 is now feature-
+  complete; the roadmap's next open item is P3, which requires explicit
+  authorization before starting (see below).
 
 ### P3 — AI-assisted understanding (requires explicit authorization)
 `AGENTS.md` currently lists AI black-box features as out of scope without an
@@ -103,3 +109,10 @@ Seal P1 (short) → focus P2 relationship network → stop and confirm with the
 owner before P3, because AI/personalization are an explicit authorization
 boundary in `AGENTS.md`. Avoid further UI micro-tuning: the project ceiling is
 the relationship network and understanding layer, not button spacing.
+
+**Status: P1 and P2 are both done.** The project is now at the P3 decision
+point. Do not start P3 (Explain / Compare / learning-path generation) or P4
+(personalization) without an explicit request from the owner — until then,
+suitable work is: interleaved code debt (`candidate-workflow.ts` decomposition,
+`docs/next-task.md`), Workspace-side visual confirmation, or small fixes/polish
+surfaced along the way.

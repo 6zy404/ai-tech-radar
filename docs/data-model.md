@@ -654,6 +654,37 @@ Explicit typed relationship between content objects.
 - `relationType`
 - `note`
 
+`findRelationBetween(aId, aType, bId, bType)` in `src/lib/content.ts` looks up
+the relation for an unordered pair regardless of which side `LinkRelation`
+records as `from`/`to`, falling back to `related-to` when no explicit entry
+exists for that pair.
+
+## ContentGraphNode / ContentGraphEdge (derived)
+
+Represents the whole technology/skill/knowledge graph for the `/network`
+overview page. Like `DigestDeliveryFeed`, this is a derived view computed by
+`getContentGraph()` in `src/lib/content.ts`, not a persisted entity.
+
+`ContentGraphNode`:
+
+- `id`
+- `title`
+- `href`
+- `kind`
+
+`ContentGraphEdge`:
+
+- `id`
+- `sourceId`
+- `targetId`
+- `relationType`
+- `note?`
+
+Nodes are every published technology, skill, and knowledge item. Edges are
+every `relatedXIds` reference across all three entity types, deduplicated as
+an unordered pair (an edge exists if either side declares the reference), with
+`relationType`/`note` resolved via `findRelationBetween`.
+
 ## Internal-only vs user-facing fields
 
 Internal-only fields:

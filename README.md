@@ -36,6 +36,11 @@ The product is split into two subsystems:
   AI-assisted editorial enrichment behind a server-side LLM provider boundary
   (mock by default, OpenAI-compatible when configured) with a prompt-quality
   review loop.
+- **Knowledge relationship network** — every technology/skill/knowledge cross-
+  reference carries an explicit, Chinese-labelled relation type; a small
+  per-item relationship graph is walkable on all three detail pages, and
+  `/network` renders the full graph in one view with click-to-focus
+  exploration of any node's direct connections.
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
@@ -59,6 +64,7 @@ Public, user-facing routes:
 - `/`, `/technologies`, `/technologies/[slug]`
 - `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
+- `/network`
 - `/feed.xml`, `/feed.json`
 
 Internal workspace / API routes (optionally token-protected):

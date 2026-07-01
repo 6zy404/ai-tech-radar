@@ -64,6 +64,7 @@ Public routes:
 - `/skills/[slug]`
 - `/knowledge`
 - `/knowledge/[slug]`
+- `/network`
 - `/feed.xml`
 - `/feed.json`
 

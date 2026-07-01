@@ -303,6 +303,20 @@ Workspace deployment boundary:
   - explains why the concept is foundational
   - links to published technology signals explained by the concept
   - links to skills that use the concept
+- `/network`
+  - user-facing whole-network overview
+  - renders every published technology, skill, and knowledge item as a node in
+    one graph (grouped by kind into three lanes), with an edge for every
+    declared relationship and its semantic type
+  - clicking a node highlights its direct connections and opens a side panel
+    with the node's title, a link to its own detail page, and its connection
+    list (relation-type pill + linked title per connection); clicking again
+    deselects
+  - a lighter, list-based reading of the same node/edge data readers already
+    encounter via the per-page `RelationshipGraph`, `RelatedItemsSection`, and
+    `RelationDensity` — this page is the one place to see the whole graph at
+    once instead of one node's neighbourhood
+  - does not show internal quality, reviewer, delivery, or source data
 
 ## User-facing public view model
 
@@ -356,15 +370,24 @@ Forbidden on public pages:
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`
-  - shared global navigation for user-facing Home, Daily Digest, Technologies, Skills, Knowledge, and the secondary Workspace entry point
+  - shared global navigation for user-facing Home, Daily Digest, Technologies, Skills, Knowledge, Network, and the secondary Workspace entry point
 - `DetailInfoCard`
   - shared reference / metadata card
 - `TagBadge`
   - shared tag presentation
-- `RelationList`
-  - shared related content section
 - `RelatedItemsSection`
   - user-facing wrapper for related skills and knowledge inside the article layout
+- `RelationshipGraph`
+  - shared per-item relationship visualization rendered on the technology,
+    skill, and knowledge detail pages: the current item at the centre with its
+    directly related technologies/skills/knowledge as clickable, colour-coded,
+    tooltip-labelled spokes
+- `RelationDensity`
+  - shared "关联 · N 技术 · N 技能 …" density line used by all three index cards
+- `ContentNetworkGraph`
+  - user-facing whole-network overview for `/network`: every published node
+    laid out by kind with every relationship edge, click-to-focus exploration,
+    and a connection-list side panel
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
 - `DailyDigestWorkspaceCard`

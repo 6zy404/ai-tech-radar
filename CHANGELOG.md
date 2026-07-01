@@ -167,3 +167,15 @@ For per-topic deep dives, see the `docs/` directory.
   on each related-content card that the technology detail page already showed,
   and the shared `RelationshipGraph` nodes carry a hover tooltip with the
   relation label and explanation.
+- **Whole-network overview page (`/network`)** — the final P2 item. A new
+  `getContentGraph()` helper in `src/lib/content.ts` computes every published
+  technology/skill/knowledge node and every `relatedXIds` reference between
+  them (deduplicated as an undirected edge, typed via `findRelationBetween`).
+  The new `ContentNetworkGraph` client component renders all 24 nodes grouped
+  into three lanes by kind with every edge drawn between them; clicking any
+  node highlights its direct connections, dims the rest, and opens a side
+  panel with the node's title, a link to its own detail page, and its full
+  connection list (relation-type pill + linked title per connection). Added to
+  `TopNav` as "关系网络". This is the one place a reader can see the whole
+  discover → understand → connect graph at once, instead of one node's
+  neighbourhood at a time.
