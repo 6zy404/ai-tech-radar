@@ -295,3 +295,108 @@ export function findRelationBetween(
     note: relation?.note
   };
 }
+
+export interface ContentGraphNode {
+  id: string;
+  title: string;
+  href: string;
+  kind: ContentKind;
+}
+
+export interface ContentGraphEdge {
+  id: string;
+  sourceId: string;
+  targetId: string;
+  relationType: RelationType;
+  note?: string;
+}
+
+export interface ContentGraphData {
+  nodes: ContentGraphNode[];
+  edges: ContentGraphEdge[];
+}
+
+/**
+ * Builds the full technology/skill/knowledge graph (all nodes, all
+ * relatedXIds pairs deduped as undirected edges) for the whole-network
+ * overview page, resolving each edge's semantic type via
+ * `findRelationBetween`.
+ */
+export function getContentGraph(): ContentGraphData {
+  const technologies = getAllTechnologies();
+  const skills = skillItems;
+  const knowledge = knowledgeItems;
+
+  const buildNode = (
+    kind: ContentKind,
+    id: string
+  ): ContentGraphNode | undefined => {
+    const title = resolveTitle(kind, id);
+    const slug = resolveSlug(kind, id);
+
+    if (!title || !slug) {
+      return undefined;
+    }
+
+    return { id, title, href: `${contentPathMap[kind]}/${slug}`, kind };
+  };
+
+  const nodes = [
+    ...technologies.map((item) => buildNode("technology", item.id)),
+    ...skills.map((item) => buildNode("skill", item.id)),
+    ...knowledge.map((item) => buildNode("knowledge", item.id))
+  ].filter((node): node is ContentGraphNode => Boolean(node));
+
+  const kindById = new Map(nodes.map((node) => [node.id, node.kind]));
+  const seenPairs = new Set<string>();
+  const edges: ContentGraphEdge[] = [];
+
+  const collectEdges = (fromId: string, targetIds: string[]) => {
+    for (const targetId of targetIds) {
+      if (targetId === fromId || !kindById.has(targetId)) {
+        continue;
+      }
+
+      const pairKey = [fromId, targetId].sort().join("|");
+
+      if (seenPairs.has(pairKey)) {
+        continue;
+      }
+
+      seenPairs.add(pairKey);
+
+      const fromType = kindById.get(fromId);
+      const toType = kindById.get(targetId);
+
+      if (!fromType || !toType) {
+        continue;
+      }
+
+      const relation = findRelationBetween(fromId, fromType, targetId, toType);
+
+      edges.push({
+        id: pairKey,
+        sourceId: fromId,
+        targetId,
+        relationType: relation.relationType,
+        note: relation.note
+      });
+    }
+  };
+
+  technologies.forEach((item) => {
+    collectEdges(item.id, item.relatedTechnologyIds ?? []);
+    collectEdges(item.id, item.relatedSkillIds);
+    collectEdges(item.id, item.relatedKnowledgeIds);
+  });
+  skills.forEach((item) => {
+    collectEdges(item.id, item.relatedTechnologyIds);
+    collectEdges(item.id, item.relatedKnowledgeIds);
+  });
+  knowledge.forEach((item) => {
+    collectEdges(item.id, item.relatedTechnologyIds);
+    collectEdges(item.id, item.relatedSkillIds);
+  });
+
+  return { nodes, edges };
+}

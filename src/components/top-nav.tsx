@@ -9,7 +9,8 @@ const primaryNavItems = [
   { href: "/digest/today", label: "每日简报" },
   { href: "/technologies", label: "技术信号" },
   { href: "/skills", label: "技能" },
-  { href: "/knowledge", label: "知识" }
+  { href: "/knowledge", label: "知识" },
+  { href: "/network", label: "关系网络" }
 ];
 
 const workspaceNavItem = { href: "/workspace", label: "内部工作台" };
