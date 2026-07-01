@@ -1,7 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
-import { generateDailyDigest, getTodayDateString } from "@/lib/digest-workflow";
+import { getTodayDateString } from "@/lib/digest-store";
+import { generateDailyDigest } from "@/lib/digest-workflow";
 
 export async function POST(request: Request) {
   try {

@@ -100,12 +100,14 @@ beside a technology. This is the CMS → AI-product turning point.
 Followed topics → personalized digest = a personal tech radar.
 
 ### Interleaved — code debt
-Continue decomposing `candidate-workflow.ts` (`docs/next-task.md`; already
-1763 → 744 lines; all 3 originally-planned stateful clusters extracted). What
-remains is candidate→draft conversion and publish/archive transition logic,
-which needs fresh dependency analysis rather than a checklist item before it
-can be safely split further. Do this as interleaved cleanup, not a separate
-phase.
+`candidate-workflow.ts` (`docs/next-task.md`; 1763 → 744 lines; all 3
+originally-planned stateful clusters extracted) and `digest-workflow.ts`
+(887 → 787 lines; store layer extracted to `digest-store.ts`) have both had
+the store-extraction pattern applied. What remains in `candidate-workflow.ts`
+is candidate→draft conversion and publish/archive transition logic, which
+needs fresh dependency analysis rather than a checklist item before it can be
+safely split further. `sqlite-store.ts` (1164 lines) hasn't been touched yet.
+Do this as interleaved cleanup, not a separate phase.
 
 ## Recommended order
 
