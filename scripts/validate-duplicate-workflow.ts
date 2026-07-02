@@ -13,10 +13,12 @@ import {
   getCandidateWorkflowData,
   getDuplicateGroups,
   getImportedCandidateById,
-  updateDuplicateGroup,
+  updateDuplicateGroup
+} from "../src/lib/candidate-workflow";
+import {
   updateTechnologyWorkspaceRecord,
   updateTechnologyWorkspaceStatus
-} from "../src/lib/candidate-workflow";
+} from "../src/lib/technology-draft-workflow";
 import { getAllTechnologies, getTechnologyBySlug } from "../src/lib/content";
 import type {
   ImportedCandidate,

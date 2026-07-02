@@ -13,7 +13,7 @@ import path from "node:path";
 process.env.PERSISTENCE_DRIVER = "json";
 process.env.LLM_API_KEY = "";
 
-import { getTechnologyWorkspaceRecordById } from "../src/lib/candidate-workflow";
+import { getTechnologyWorkspaceRecordById } from "../src/lib/technology-draft-workflow";
 import { toUserFacingTechnologyItem } from "../src/lib/content";
 import {
   applyEditorialEnrichmentSuggestion,

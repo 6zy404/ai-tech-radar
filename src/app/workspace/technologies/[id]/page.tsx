@@ -8,7 +8,7 @@ import {
   getAllTags,
   getTechnologyWorkspaceRecordById
 } from "@/lib/content";
-import { getTechnologyWorkspacePublishReadiness } from "@/lib/candidate-workflow";
+import { getTechnologyWorkspacePublishReadiness } from "@/lib/technology-draft-workflow";
 import { getEditorialEnrichmentSuggestionsForDraft } from "@/lib/editorial-enrichment-store";
 import { getWorkflowEventsForEntity } from "@/lib/workflow-events";
 

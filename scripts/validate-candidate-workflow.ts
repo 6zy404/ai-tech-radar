@@ -11,12 +11,14 @@ import {
   convertImportedCandidateToDraft,
   getCandidateWorkflowData,
   getImportedCandidateById,
+  updateImportedCandidateStatus
+} from "../src/lib/candidate-workflow";
+import {
   getTechnologyWorkspacePublishReadiness,
   getTechnologyWorkspaceRecordById,
-  updateImportedCandidateStatus,
   updateTechnologyWorkspaceRecord,
   updateTechnologyWorkspaceStatus
-} from "../src/lib/candidate-workflow";
+} from "../src/lib/technology-draft-workflow";
 import {
   getAllTechnologies,
   getTechnologyBySlug

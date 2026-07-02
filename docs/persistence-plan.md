@@ -97,8 +97,8 @@ Confirmed workflow service boundaries:
 | Imported candidates | `imported-candidates.live.json` | `candidate-workflow.ts`, `source-workflow.ts` | source import APIs, candidate refresh |
 | Candidate review state | `candidate-review-state.json` | `candidate-workflow.ts` | `/api/candidates/[id]/status`, conversion API |
 | Duplicate groups | `duplicate-groups.json` | `candidate-workflow.ts` | `/api/workspace/duplicates/[id]` |
-| Technology drafts / workspace records | `technology-workspace.json` | `candidate-workflow.ts` | conversion, draft edit, status APIs |
-| Published technologies | `technology-workspace.json` plus `src/data/technologies.ts` | `content.ts`, `candidate-workflow.ts` | publish status API |
+| Technology drafts / workspace records | `technology-workspace.json` | `technology-draft-workflow.ts` (conversion writes via `candidate-workflow.ts`) | conversion, draft edit, status APIs |
+| Published technologies | `technology-workspace.json` plus `src/data/technologies.ts` | `content.ts`, `technology-draft-workflow.ts` | publish status API |
 | Knowledge / skills | `src/data/knowledge.ts`, `src/data/skills.ts` | `content.ts` | static in this phase |
 | Daily digests | `daily-digests.json` | `digest-workflow.ts` | digest generate/edit/status APIs |
 | Delivery channels / logs | `delivery.json` | `delivery-workflow.ts` | delivery channel APIs, send/retry APIs |

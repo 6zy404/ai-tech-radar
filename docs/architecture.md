@@ -469,7 +469,7 @@ The project still uses local JSON for runtime workflow state. Persistence Migrat
 Current persistence layers:
 
 - `src/lib/repositories/local-json-store.ts` owns local JSON file paths and read/write mechanics.
-- Workflow modules such as `source-workflow.ts`, `candidate-workflow.ts`, `digest-workflow.ts`, `delivery-workflow.ts`, `scheduled-delivery-workflow.ts`, and `task-runner.ts` own state transitions.
+- Workflow modules such as `source-workflow.ts`, `candidate-workflow.ts`, `technology-draft-workflow.ts`, `digest-workflow.ts`, `delivery-workflow.ts`, `scheduled-delivery-workflow.ts`, and `task-runner.ts` own state transitions.
 - App pages and API routes call workflow modules and should not directly read or write JSON files.
 
 Future repository seams:

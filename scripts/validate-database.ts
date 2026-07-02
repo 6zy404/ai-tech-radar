@@ -5,10 +5,8 @@ import {
   getAllSkills,
   getAllTechnologies
 } from "../src/lib/content";
-import {
-  getCandidateWorkflowData,
-  getTechnologyWorkspaceRecords
-} from "../src/lib/candidate-workflow";
+import { getCandidateWorkflowData } from "../src/lib/candidate-workflow";
+import { getTechnologyWorkspaceRecords } from "../src/lib/technology-draft-workflow";
 import { getDigestDeliveryFeed } from "../src/lib/digest-delivery";
 import {
   getDailyDigests,
