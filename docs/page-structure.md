@@ -562,6 +562,9 @@ Pages left for later UI migration:
 - `/digest/[date]`
 - `/skills`
 - `/knowledge`
-- `/workspace/operations`
-- `/workspace/duplicates`
-- `/workspace/technologies`
+
+`/workspace/operations` (+ `/workspace/operations/events`), `/workspace/duplicates`
+(list + detail), and `/workspace/technologies` (list + detail) have since had a
+manual visual-confirmation pass at desktop and mobile widths (see
+`docs/next-task.md`) and are off this list; the remaining items above are all
+user-facing pages, not workspace pages.

@@ -1,10 +1,14 @@
 # Next Task
 
 > See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
-> (knowledge relationship network) are both done. The project is at the P3
-> decision point: do not start P3 (AI-assisted understanding) or P4
-> (personalization) without an explicit request from the owner. Until then,
-> the `candidate-workflow.ts` decomposition below is suitable interleaved work.
+> (knowledge relationship network) are both done. P3 (AI-assisted
+> understanding) has been explicitly authorized and its first capability,
+> Compare two technologies, has shipped as v0. Explain and learning-path
+> generation remain unauthorized and should not be started without a fresh
+> explicit request from the owner; P4 (personalization) is untouched and
+> still requires explicit authorization. Until further P3/P4 direction is
+> given, the `candidate-workflow.ts` decomposition below is suitable
+> interleaved work.
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
@@ -12,8 +16,17 @@
 > all three originally-planned store extractions from `candidate-workflow.ts`
 > (duplicate-group, technology-workspace, imported-candidate snapshot), a
 > Workspace visual-confirmation pass (found and fixed a breadcrumb bug on
-> `/workspace/delivery` and `/workspace/operations` sub-pages), and the
-> `digest-store.ts` extraction from `digest-workflow.ts`.
+> `/workspace/delivery` and `/workspace/operations` sub-pages), the
+> `digest-store.ts` extraction from `digest-workflow.ts`, Compare two
+> technologies (P3 v0, see `CHANGELOG.md`), and a second Workspace
+> visual-confirmation pass covering `/workspace` dashboard,
+> `/workspace/duplicates` (list + detail), `/workspace/operations` (+ events),
+> and `/workspace/technologies` (list + detail) at desktop and mobile widths —
+> found and fixed a real CSS specificity bug where `.detail-layout` and
+> `.candidate-review-layout` sidebars overlapped the main content on mobile
+> (≤900px) instead of stacking below it, affecting `/workspace/duplicates/[id]`,
+> `/workspace/candidates/[id]`, `/workspace/sources/[id]`, and
+> `/workspace/technologies/[id]`.
 
 Recommended next task:
 
