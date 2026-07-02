@@ -68,7 +68,7 @@ and the **User-facing Product** (public reading/discovery).
 
 | Area | Done | Remaining |
 |---|---|---|
-| Business pipeline / CMS | ~85% | visual confirmation of a few Workspace pages (duplicates, operations, dashboard) |
+| Business pipeline / CMS | ~95% | Workspace visual confirmation (dashboard, duplicates, operations, technologies) is done; remaining gap is a fresh dependency analysis for the `candidate-workflow.ts` cut, not visual work |
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
 | Knowledge relationship network | 100% (P2 complete) | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2 |
