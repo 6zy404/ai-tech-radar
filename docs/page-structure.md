@@ -266,6 +266,7 @@ Workspace deployment boundary:
   - tags
   - related knowledge as background for understanding the signal, with per-item explanations when available
   - related skills as a practical path for evaluating or acting on the signal, with per-item explanations when available
+  - a compare widget (between the related-technologies and related-skills sections) that lets a reader request a live AI-generated comparison against another published technology; always shown with a persistent "AI-generated, not reviewed" disclaimer — the first client-triggered live-generation call anywhere in the User-facing Product (every other data flow on this page is a static server read)
 - `/digest/today`
   - user-facing daily digest entry point
   - shows today's published digest when available
@@ -388,6 +389,11 @@ Forbidden on public pages:
   - user-facing whole-network overview for `/network`: every published node
     laid out by kind with every relationship edge, click-to-focus exploration,
     and a connection-list side panel
+- `TechnologyCompareWidget`
+  - user-facing, client-side AI comparison trigger and result panel on the
+    technology detail page: pick another published technology, request a live
+    comparison from `POST /api/technologies/compare`, always render the
+    "AI-generated, not reviewed" disclaimer in the same paint as the result
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
 - `DailyDigestWorkspaceCard`

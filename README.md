@@ -41,6 +41,12 @@ The product is split into two subsystems:
   per-item relationship graph is walkable on all three detail pages, and
   `/network` renders the full graph in one view with click-to-focus
   exploration of any node's direct connections.
+- **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
+  comparison (similarities, differences, when to prefer each) between two
+  published technologies on the technology detail page. Results are cached
+  per technology pair and always shown with an "AI-generated, not reviewed"
+  disclaimer; the first public-facing route that calls the LLM provider
+  directly (`POST /api/technologies/compare`).
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
@@ -66,6 +72,10 @@ Public, user-facing routes:
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/feed.xml`, `/feed.json`
+- `POST /api/technologies/compare` — public, unprotected by design (it only
+  operates on already-published technology content); see
+  [`docs/security-boundary.md`](docs/security-boundary.md) for the boundary
+  reasoning.
 
 Internal workspace / API routes (optionally token-protected):
 

@@ -4,9 +4,11 @@ import { TechnologyDetailContent } from "@/components/technology-detail-content"
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   buildRelationItems,
+  getAllTechnologies,
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";
+import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 
 interface TechnologyDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -45,6 +47,13 @@ export default async function TechnologyDetailPage({
     targetIds: technology.relatedTechnologyIds ?? [],
     defaultNote: "与该信号相邻的技术，可顺着这条线继续了解。"
   });
+  const compareCandidates = getAllTechnologies()
+    .filter((item) => item.id !== technology.id)
+    .map((item) => ({
+      id: item.id,
+      title: getPreferredTechnologyTitle(item),
+      href: `/technologies/${item.slug}`
+    }));
 
   return (
     <UserPageShell
@@ -59,6 +68,7 @@ export default async function TechnologyDetailPage({
         relatedTechnologies={relatedTechnologies}
         relatedSkills={relatedSkills}
         relatedKnowledge={relatedKnowledge}
+        compareCandidates={compareCandidates}
       />
     </UserPageShell>
   );

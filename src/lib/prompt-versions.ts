@@ -59,6 +59,39 @@ export const defaultEditorialEnrichmentPromptVersion: PromptVersion = {
     "Default v1 prompt for workspace-only editorial enrichment suggestions."
 };
 
+export const technologyComparisonPromptOutputSchema = {
+  type: "object",
+  required: ["similarities", "differences", "whenToPreferA", "whenToPreferB"],
+  properties: {
+    similarities: "string[] (max 6 items)",
+    differences: "string[] (max 6 items)",
+    whenToPreferA: "string — when a reader should prefer the first technology",
+    whenToPreferB: "string — when a reader should prefer the second technology",
+    sharedConsiderations: "string[] optional (max 6 items)"
+  }
+};
+
+export const defaultTechnologyComparisonPromptVersion: PromptVersion = {
+  id: "prompt-technology-comparison-v1",
+  name: "Technology comparison structured JSON",
+  purpose: "technology_comparison",
+  version: "technology-comparison-v1",
+  status: "active",
+  template:
+    "You are helping a reader compare two published AI technology signals on a technology discovery platform. Return only valid JSON. Do not invent facts beyond the provided source material for either technology. Be concise and concrete. Do not include internal workflow fields, raw payloads, audit logs, delivery logs, API keys, endpoint URLs, provider or model names, or reviewer-only information.",
+  outputSchema: technologyComparisonPromptOutputSchema,
+  createdAt: defaultPromptCreatedAt,
+  updatedAt: defaultPromptCreatedAt,
+  notes:
+    "Default v1 prompt for the public-facing technology comparison feature."
+};
+
+function getDefaultPromptVersionForPurpose(purpose: PromptPurpose): PromptVersion {
+  return purpose === "technology_comparison"
+    ? defaultTechnologyComparisonPromptVersion
+    : defaultEditorialEnrichmentPromptVersion;
+}
+
 function getTimestamp(): string {
   return new Date().toISOString();
 }
@@ -72,11 +105,12 @@ function getDefaultStore(): PromptVersionStore {
 
 function normalizePromptVersion(value: PromptVersion): PromptVersion {
   const now = getTimestamp();
+  const purpose = value.purpose ?? "editorial_enrichment";
 
   return {
-    ...defaultEditorialEnrichmentPromptVersion,
+    ...getDefaultPromptVersionForPurpose(purpose),
     ...value,
-    purpose: value.purpose ?? "editorial_enrichment",
+    purpose,
     status: value.status ?? "draft",
     outputSchema: value.outputSchema ?? {},
     createdAt: value.createdAt ?? now,
@@ -108,7 +142,7 @@ export function getPromptVersions(): PromptVersion[] {
 
   return store.promptVersions.length > 0
     ? store.promptVersions
-    : [defaultEditorialEnrichmentPromptVersion];
+    : [defaultEditorialEnrichmentPromptVersion, defaultTechnologyComparisonPromptVersion];
 }
 
 export function getPromptVersionById(
@@ -125,13 +159,16 @@ export function getActivePromptVersion(
     (prompt) => prompt.purpose === purpose && prompt.status === "active"
   );
 
-  return activePrompt ?? defaultEditorialEnrichmentPromptVersion;
+  return activePrompt ?? getDefaultPromptVersionForPurpose(purpose);
 }
 
-export function ensureDefaultPromptVersion(): PromptVersion {
+export function ensureDefaultPromptVersion(
+  purpose: PromptPurpose = "editorial_enrichment"
+): PromptVersion {
+  const defaultPromptVersion = getDefaultPromptVersionForPurpose(purpose);
   const store = readStore();
   const existingPrompt = store.promptVersions.find(
-    (prompt) => prompt.id === defaultEditorialEnrichmentPromptVersion.id
+    (prompt) => prompt.id === defaultPromptVersion.id
   );
 
   if (existingPrompt) {
@@ -140,30 +177,27 @@ export function ensureDefaultPromptVersion(): PromptVersion {
 
   writeStore({
     updatedAt: getTimestamp(),
-    promptVersions: [
-      defaultEditorialEnrichmentPromptVersion,
-      ...store.promptVersions
-    ]
+    promptVersions: [defaultPromptVersion, ...store.promptVersions]
   });
   tryRecordWorkflowEvent({
     entityType: "prompt_version",
-    entityId: defaultEditorialEnrichmentPromptVersion.id,
+    entityId: defaultPromptVersion.id,
     action: "prompt_version.created",
     actorType: "system",
     afterSnapshot: {
-      id: defaultEditorialEnrichmentPromptVersion.id,
-      name: defaultEditorialEnrichmentPromptVersion.name,
-      purpose: defaultEditorialEnrichmentPromptVersion.purpose,
-      version: defaultEditorialEnrichmentPromptVersion.version,
-      status: defaultEditorialEnrichmentPromptVersion.status
+      id: defaultPromptVersion.id,
+      name: defaultPromptVersion.name,
+      purpose: defaultPromptVersion.purpose,
+      version: defaultPromptVersion.version,
+      status: defaultPromptVersion.status
     },
     metadata: {
-      purpose: defaultEditorialEnrichmentPromptVersion.purpose,
-      version: defaultEditorialEnrichmentPromptVersion.version
+      purpose: defaultPromptVersion.purpose,
+      version: defaultPromptVersion.version
     }
   });
 
-  return defaultEditorialEnrichmentPromptVersion;
+  return defaultPromptVersion;
 }
 
 export function savePromptVersions(promptVersions: PromptVersion[]): void {

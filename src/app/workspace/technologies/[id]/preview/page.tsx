@@ -66,6 +66,7 @@ export default async function WorkspaceTechnologyPreviewPage({
         relatedTechnologies={relatedTechnologies}
         relatedSkills={relatedSkills}
         relatedKnowledge={relatedKnowledge}
+        compareCandidates={[]}
       />
     </WorkspacePageShell>
   );

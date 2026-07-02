@@ -10,6 +10,46 @@ function extractPromptValue(prompt: string, label: string): string {
   return match?.[1]?.trim() ?? "";
 }
 
+function extractEmbeddedJsonTitle(prompt: string, label: string): string {
+  const match = prompt.match(
+    new RegExp(`${label}:[\\s\\S]*?"title":\\s*"([^"]+)"`, "i")
+  );
+
+  return match?.[1]?.trim() ?? label;
+}
+
+function createMockTechnologyComparisonResponse(
+  request: LlmGenerateRequest
+): LlmGenerateResponse {
+  const titleA = extractEmbeddedJsonTitle(request.userPrompt, "Technology A");
+  const titleB = extractEmbeddedJsonTitle(request.userPrompt, "Technology B");
+
+  return {
+    providerName: "mock",
+    modelName: "mock-technology-comparison-v0",
+    tokenUsage: {
+      promptTokens: Math.ceil(request.userPrompt.length / 4),
+      completionTokens: 140,
+      totalTokens: Math.ceil(request.userPrompt.length / 4) + 140
+    },
+    text: JSON.stringify({
+      similarities: [
+        `${titleA} 和 ${titleB} 都在解决相邻工作流里的实际问题，而不是纯理论概念。`,
+        "两者都需要团队先明确评估标准，再决定投入多少精力。"
+      ],
+      differences: [
+        `${titleA} 更偏向解决当下具体的落地问题。`,
+        `${titleB} 的适用范围和成熟度可能与前者不同，需要结合团队现状判断。`
+      ],
+      whenToPreferA: `当团队的首要目标更贴近 ${titleA} 所解决的场景时，优先评估它。`,
+      whenToPreferB: `当团队的首要目标更贴近 ${titleB} 所解决的场景时，优先评估它。`,
+      sharedConsiderations: [
+        "本对比由本地 mock 模型生成，仅供参考，请结合原始来源自行判断。"
+      ]
+    })
+  };
+}
+
 export function createMockLlmProvider(): LlmProvider {
   return {
     name: "mock",
@@ -24,6 +64,10 @@ export function createMockLlmProvider(): LlmProvider {
           providerName: "mock",
           modelName: "mock-editorial-enrichment-v0"
         };
+      }
+
+      if (request.userPrompt.startsWith("Purpose: technology_comparison")) {
+        return createMockTechnologyComparisonResponse(request);
       }
 
       const title =

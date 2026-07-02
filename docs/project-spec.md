@@ -53,7 +53,7 @@ task-runner information.
 
 ## Route and API boundaries
 
-Public routes:
+Public pages:
 
 - `/`
 - `/digest/today`
@@ -67,6 +67,13 @@ Public routes:
 - `/network`
 - `/feed.xml`
 - `/feed.json`
+
+Public API routes:
+
+- `POST /api/technologies/compare` — generates or returns a cached AI
+  comparison between two published technologies. Unprotected by design (see
+  `docs/security-boundary.md`); never returns provider/model/prompt-version
+  metadata.
 
 Internal workspace routes:
 
@@ -243,6 +250,30 @@ Digest status values:
 Draft and archived digests are workspace-only. Published digests can be read through the user-facing digest routes and must not expose candidate, source health, duplicate, raw payload, quality flag, editorial note, manual control, or ranking score internals.
 
 Digest publication is guarded by deterministic readiness checks. Blocking errors include missing title/date, empty digest, duplicate technology references, unknown or unpublished technology references, and selected technologies missing fields required by the public digest. Warnings include no high-priority items, no related skills, no related knowledge, missing editorial summary, no source names, and unusually low or high watch-item count.
+
+## AI-Assisted Understanding v0 (Compare)
+
+P3 ("AI-assisted understanding") was explicitly out of scope in `AGENTS.md` until the
+owner authorized it. This is the first capability shipped under that authorization,
+and it is scoped to exactly one thing: comparing two published technologies. Explain
+and learning-path generation remain deferred.
+
+- On `/technologies/[slug]`, a reader can pick another published technology and
+  request a live AI-generated comparison (similarities, differences, when to
+  prefer each).
+- Unlike Editorial Enrichment, this is **not** editor-gated: the result is shown
+  immediately, with a persistent, always-visible disclaimer
+  ("AI 生成内容，未经编辑审核，仅供参考") rendered in the same paint as the result.
+  This is a deliberate departure from the rest of the project's "AI suggests,
+  editor approves" pattern, made explicit here because it is public-facing and
+  unreviewed content.
+- Results are cached per unordered technology pair (`POST /api/technologies/compare`)
+  so the same pair is only generated once, bounding both cost and repeated-request
+  load on the LLM provider.
+- Reuses the existing LLM provider boundary (mock by default, OpenAI-compatible
+  when configured), the `PromptVersion` system, and the same internal-field
+  stripping discipline as Editorial Enrichment — provider name, model name,
+  prompt version, and generation mode never appear in the public API response.
 
 ## UI Design System & Layout Refactor v0
 
