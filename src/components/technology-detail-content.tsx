@@ -9,6 +9,7 @@ import {
 } from "@/components/relationship-graph";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
+import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
 import {
@@ -50,6 +51,7 @@ interface TechnologyDetailContentProps {
   relatedTechnologies: RelationListItem[];
   relatedSkills: RelationListItem[];
   relatedKnowledge: RelationListItem[];
+  compareCandidates: { id: string; title: string; href: string }[];
 }
 
 export function TechnologyDetailContent({
@@ -57,7 +59,8 @@ export function TechnologyDetailContent({
   tags,
   relatedTechnologies,
   relatedSkills,
-  relatedKnowledge
+  relatedKnowledge,
+  compareCandidates
 }: TechnologyDetailContentProps) {
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
@@ -284,6 +287,11 @@ export function TechnologyDetailContent({
         formatRelationType={(relationType) =>
           getRelationTypeLabel(relationType, mode)
         }
+      />
+
+      <TechnologyCompareWidget
+        technology={technology}
+        candidates={compareCandidates}
       />
 
       <RelatedItemsSection

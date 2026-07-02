@@ -179,3 +179,31 @@ For per-topic deep dives, see the `docs/` directory.
   `TopNav` as "关系网络". This is the one place a reader can see the whole
   discover → understand → connect graph at once, instead of one node's
   neighbourhood at a time.
+
+## AI-assisted understanding
+- **Compare two technologies (P3 v0)** — the first capability shipped under P3
+  ("AI-assisted understanding"), which `AGENTS.md` had listed as out of scope
+  until the project owner explicitly authorized it, and scoped to exactly one
+  thing: comparing two published technologies. Explain and learning-path
+  generation remain deferred. On `/technologies/[slug]`, a reader can pick
+  another published technology from a dropdown built from
+  `getAllTechnologies()` (already published-only) and request a live
+  AI-generated comparison (similarities, differences, when to prefer each),
+  rendered by the new client-side `TechnologyCompareWidget` between the
+  "相关技术" and "相关技能" sections. Unlike Editorial Enrichment, this is
+  **not** editor-gated: the result is shown immediately, always paired with a
+  persistent "AI 生成内容，未经编辑审核，仅供参考" disclaimer in the same paint
+  as the result, so unlabeled AI content is never visible. This is also the
+  project's first public, unprotected route that calls the LLM provider
+  directly (`POST /api/technologies/compare`); results are cached per
+  unordered technology-id pair (`config/technology-comparisons.json`) so the
+  same pair is generated at most once, and a single public-mapping function
+  (`toPublicComparisonResult` in `src/lib/technology-comparison.ts`) strips
+  provider name, model name, prompt version, generation mode, and validation/
+  generation-error details before any response leaves the server — the same
+  internal-field discipline the existing LLM Provider Boundary already
+  required for Editorial Enrichment, now enforced on a public response for the
+  first time. Reuses the existing `PromptVersion` system (extended to support
+  a `technology_comparison` purpose alongside `editorial_enrichment`) and a
+  newly shared `src/lib/llm/output-sanitization.ts` helper module extracted
+  from the Editorial Enrichment output validator.

@@ -53,6 +53,16 @@ and the **User-facing Product** (public reading/discovery).
    - `/network` renders the entire graph (every published technology, skill,
      and knowledge node, every relation edge) in one view, with click-to-focus
      exploration of any node's direct connections.
+5. **Compare two technologies (P3 v0, in progress)**
+   - A reader on `/technologies/[slug]` can request a live AI-generated
+     comparison against another published technology; results are cached per
+     technology pair and always shown with a persistent, unmissable
+     "AI-generated, not reviewed" disclaimer.
+   - The project's first public, unprotected route that calls the LLM
+     provider directly (`POST /api/technologies/compare`), with a dedicated
+     public-mapping function stripping all provider/model/prompt metadata
+     before the response leaves the server.
+   - Explain and learning-path generation are not part of this v0.
 
 ## Completion estimate
 
@@ -62,7 +72,7 @@ and the **User-facing Product** (public reading/discovery).
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
 | Knowledge relationship network | 100% (P2 complete) | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2 |
-| AI assistance / personalization | 0% | not started (and gated as out-of-scope without explicit request) |
+| AI assistance / personalization | P3 in progress (Compare v0 shipped) | Explain and learning-path generation not started; P4 personalization not started (still gated as out-of-scope without explicit request) |
 
 ## Roadmap
 
@@ -92,9 +102,16 @@ and the **User-facing Product** (public reading/discovery).
   authorization before starting (see below).
 
 ### P3 — AI-assisted understanding (requires explicit authorization)
-`AGENTS.md` currently lists AI black-box features as out of scope without an
-explicit request. When authorized: Explain / Compare / generate a learning path
-beside a technology. This is the CMS → AI-product turning point.
+`AGENTS.md` previously listed AI black-box features as out of scope without an
+explicit request — that history matters because it explains why this stayed
+locked through P1/P2. The owner has now explicitly authorized P3, and
+**Compare two technologies has shipped as v0** (see `CHANGELOG.md`'s
+"AI-assisted understanding" entry and `docs/project-spec.md`'s
+"AI-Assisted Understanding v0 (Compare)" section): a reader can request a
+live, cached, disclaimer-labelled AI comparison between two published
+technologies on `/technologies/[slug]`. Explain and learning-path generation
+are still deferred — not started, and not re-authorized by the Compare work.
+This is the CMS → AI-product turning point.
 
 ### P4 — Personalization (further out; also requires authorization)
 Followed topics → personalized digest = a personal tech radar.
@@ -116,9 +133,11 @@ owner before P3, because AI/personalization are an explicit authorization
 boundary in `AGENTS.md`. Avoid further UI micro-tuning: the project ceiling is
 the relationship network and understanding layer, not button spacing.
 
-**Status: P1 and P2 are both done.** The project is now at the P3 decision
-point. Do not start P3 (Explain / Compare / learning-path generation) or P4
-(personalization) without an explicit request from the owner — until then,
-suitable work is: interleaved code debt (`candidate-workflow.ts` decomposition,
-`docs/next-task.md`), Workspace-side visual confirmation, or small fixes/polish
-surfaced along the way.
+**Status: P1 and P2 are both done. P3 is in progress under explicit
+authorization** — Compare two technologies has shipped as v0 (see the P3
+section above). Explain and learning-path generation remain unauthorized and
+should not be started without a fresh explicit request. P4 (personalization)
+is untouched and still requires explicit authorization. Suitable interleaved
+work in the meantime: `candidate-workflow.ts` decomposition
+(`docs/next-task.md`), Workspace-side visual confirmation, or small
+fixes/polish surfaced along the way.

@@ -42,7 +42,7 @@ export type EditorialEnrichmentOutputValidationStatus =
 
 export type PromptVersionStatus = "active" | "draft" | "deprecated";
 
-export type PromptPurpose = "editorial_enrichment";
+export type PromptPurpose = "editorial_enrichment" | "technology_comparison";
 
 export type EditorialEnrichmentReviewStatus =
   | "unreviewed"
@@ -314,6 +314,50 @@ export interface PromptVersion {
   createdAt: string;
   updatedAt: string;
   notes?: string;
+}
+
+export type TechnologyComparisonGenerationMode = "mock_llm" | "llm_assisted";
+
+export type TechnologyComparisonOutputValidationStatus =
+  | "valid"
+  | "warning"
+  | "failed";
+
+export interface TechnologyComparisonFields {
+  similarities: string[];
+  differences: string[];
+  whenToPreferA: string;
+  whenToPreferB: string;
+  sharedConsiderations?: string[];
+}
+
+// Persisted/cached record — internal shape, includes provider metadata.
+// Never send this directly to a public API response; see toPublicComparisonResult.
+export interface TechnologyComparisonRecord {
+  id: string;
+  pairKey: string;
+  technologyIdA: string;
+  technologyIdB: string;
+  fields: TechnologyComparisonFields;
+  generationMode: TechnologyComparisonGenerationMode;
+  providerName?: string;
+  modelName?: string;
+  promptVersionId?: string;
+  promptVersion?: string;
+  outputValidationStatus: TechnologyComparisonOutputValidationStatus;
+  outputValidationWarnings: string[];
+  generationError?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Public-safe shape returned by the API route and consumed by the client widget.
+export interface TechnologyComparisonPublicResult {
+  technologyIdA: string;
+  technologyIdB: string;
+  fields: TechnologyComparisonFields;
+  disclaimer: string;
+  generatedAt: string;
 }
 
 export interface EditorialEnrichmentSuggestion {
