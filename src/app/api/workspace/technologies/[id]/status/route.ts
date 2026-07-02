@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import {
   getTechnologyWorkspacePublishReadiness,
   updateTechnologyWorkspaceStatus
-} from "@/lib/candidate-workflow";
+} from "@/lib/technology-draft-workflow";
 import { PublishReadinessError } from "@/lib/publish-readiness";
 import type { TechnologyStatus } from "@/types/content";
 

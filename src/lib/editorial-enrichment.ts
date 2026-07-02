@@ -8,7 +8,7 @@ import {
 import {
   updateTechnologyWorkspaceRecord,
   type TechnologyWorkspaceRecordUpdate
-} from "@/lib/candidate-workflow";
+} from "@/lib/technology-draft-workflow";
 import {
   getEditorialEnrichmentSuggestionById,
   getEditorialEnrichmentSuggestions,

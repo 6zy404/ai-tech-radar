@@ -15,7 +15,7 @@ import {
   getTechnologyWorkspacePublishReadiness,
   updateTechnologyWorkspaceRecord,
   updateTechnologyWorkspaceStatus
-} from "../src/lib/candidate-workflow";
+} from "../src/lib/technology-draft-workflow";
 import { getDigestTechnologyIntelligenceSummary } from "../src/lib/content-intelligence";
 import { toUserFacingTechnologyItem } from "../src/lib/content";
 import { evaluateTechnologyPriority } from "../src/lib/ranking";

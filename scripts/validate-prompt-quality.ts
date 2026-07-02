@@ -13,7 +13,7 @@ process.env.PERSISTENCE_DRIVER = "json";
 import {
   getTechnologyWorkspaceRecordById,
   updateTechnologyWorkspaceRecord
-} from "../src/lib/candidate-workflow";
+} from "../src/lib/technology-draft-workflow";
 import { toUserFacingTechnologyItem } from "../src/lib/content";
 import {
   applyEditorialEnrichmentSuggestion,

@@ -12,10 +12,12 @@ import {
   convertImportedCandidateToDraft,
   getCandidateDraftConversionReadiness,
   getCandidateWorkflowData,
-  updateDuplicateGroup,
+  updateDuplicateGroup
+} from "../src/lib/candidate-workflow";
+import {
   updateTechnologyWorkspaceRecord,
   updateTechnologyWorkspaceStatus
-} from "../src/lib/candidate-workflow";
+} from "../src/lib/technology-draft-workflow";
 import { getAllTechnologies, getTechnologyBySlug } from "../src/lib/content";
 import { evaluateCandidateQuality, evaluateSourceQuality } from "../src/lib/quality-signals";
 import {

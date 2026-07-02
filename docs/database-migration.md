@@ -97,6 +97,7 @@ Workflow modules still own business behavior:
 
 - `source-workflow.ts`
 - `candidate-workflow.ts`
+- `technology-draft-workflow.ts`
 - `digest-workflow.ts`
 - `delivery-workflow.ts`
 - `scheduled-delivery-workflow.ts`

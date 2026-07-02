@@ -18,7 +18,7 @@
 > Workspace visual-confirmation pass (found and fixed a breadcrumb bug on
 > `/workspace/delivery` and `/workspace/operations` sub-pages), the
 > `digest-store.ts` extraction from `digest-workflow.ts`, Compare two
-> technologies (P3 v0, see `CHANGELOG.md`), and a second Workspace
+> technologies (P3 v0, see `CHANGELOG.md`), a second Workspace
 > visual-confirmation pass covering `/workspace` dashboard,
 > `/workspace/duplicates` (list + detail), `/workspace/operations` (+ events),
 > and `/workspace/technologies` (list + detail) at desktop and mobile widths —
@@ -26,27 +26,21 @@
 > `.candidate-review-layout` sidebars overlapped the main content on mobile
 > (≤900px) instead of stacking below it, affecting `/workspace/duplicates/[id]`,
 > `/workspace/candidates/[id]`, `/workspace/sources/[id]`, and
-> `/workspace/technologies/[id]`.
+> `/workspace/technologies/[id]` — and the `candidate-workflow.ts` →
+> `technology-draft-workflow.ts` extraction described below, which resolves
+> the "harder cut" this file used to flag as needing fresh analysis.
 
 Recommended next task:
 
-The three stateful "store" clusters originally planned for
-`candidate-workflow.ts` are now all extracted (see Progress below), and the
-same pattern has also been applied to `digest-workflow.ts`. What's left in
-`candidate-workflow.ts` (744 lines) is genuine cross-cutting business logic
-(candidate review, conversion, publish transitions, workflow events) or
-exported getters/updaters that read/write those stores — there is no more
-"free" store extraction left there. The next decomposition step needs fresh
-analysis rather than following this pre-written list, e.g. deciding whether
-"candidate → draft conversion" and "draft publish/archive transitions" can be
-split into two separate modules without creating a circular import (both
-currently call back into candidate getters and workflow-event helpers, so
-this is a harder cut than the ones done so far).
-
-If no one has picked up that analysis yet, equally suitable next steps: apply
-the same decomposition pattern to `sqlite-store.ts` (see "Later" below, the
-one file left that hasn't had this pattern applied), or add linting/formatting
-config (ESLint + Prettier).
+The `candidate-workflow.ts` decomposition this file used to flag as needing
+fresh dependency analysis is done (see "technology-draft-workflow.ts
+extraction" below for the analysis and the result). What's left in
+`candidate-workflow.ts` (549 lines) is candidate review, duplicate-group
+review, and candidate → draft conversion — genuinely one cohesive concern
+now, not a file with an obvious further cut. Equally suitable next steps:
+apply the same decomposition pattern to `sqlite-store.ts` (see "Later" below,
+the one file left that hasn't had this pattern applied), or add
+linting/formatting config (ESLint + Prettier).
 
 ## Progress so far
 
@@ -92,15 +86,62 @@ behavior-preserving extractions (each verified with `npm run typecheck` and
 
 1. ~~Duplicate-group store.~~ Done — see above.
 2. ~~Technology-workspace store (read/write/normalize layer).~~ Done — see
-   above. The record getters/updaters and candidate→draft conversion logic
-   remain in `candidate-workflow.ts` (see "Recommended next task" above for
-   why, and for the harder follow-up cut this leaves open).
+   above.
 3. ~~Imported-candidate snapshot store.~~ Done — see above.
+4. ~~Technology-draft-workflow (record getters/updaters, publish/archive
+   transitions).~~ Done — see "technology-draft-workflow.ts extraction" below.
 
-All three originally-planned stateful clusters are extracted. Further
-decomposition of `candidate-workflow.ts` (the conversion/publish logic left
-behind by step 2) needs fresh dependency analysis, not a checklist item — see
-"Recommended next task" above.
+All four clusters are extracted. `candidate-workflow.ts` no longer has an
+obvious further cluster to pull out — see "Recommended next task" above.
+
+## technology-draft-workflow.ts extraction (done)
+
+`candidate-workflow.ts` went from 834 to 549 lines (285 lines moved, plus 4
+dead imports removed — `topicTags`, `getImportedCandidateSourceId`,
+`mergeImportedCandidatesForSource`, and the `CandidateNormalizedType` /
+`ImportedCandidateSourceRecord` types had been left behind by earlier
+extractions and were no longer referenced anywhere in the file).
+
+The step 2 entry above previously described this as needing "fresh dependency
+analysis" to decide whether "candidate → draft conversion" and "draft
+publish/archive transitions" could split into two modules. That framing
+turned out to be the wrong cut. Conversion (`convertImportedCandidateToDraft`,
+`getCandidateDraftConversionReadiness`) is inherently a *candidate-side*
+operation — its primary side effect is mutating candidate review state, which
+is private to `candidate-workflow.ts` — so it cannot be separated from
+candidate review without exposing that private state. But conversion and
+publish/archive turned out **not** to depend on each other in the direction
+that matters: publish/archive/CRUD on `TechnologyWorkspaceRecord` never reads
+candidate or duplicate-group data, so *that* half is a clean, self-contained
+cut. Conversion keeps one call into it (`getTechnologyWorkspaceRecordById`,
+for idempotency) — a one-directional import, not a cycle.
+
+- `src/lib/technology-draft-workflow.ts` — `TechnologyWorkspaceRecordUpdate`,
+  `getTechnologyWorkspaceRecords`, `getTechnologyWorkspaceRecordById`,
+  `getTechnologyDrafts`, `getTechnologyDraftById`,
+  `getPublishedTechnologyWorkspaceRecords`,
+  `getTechnologyWorkspacePublishReadiness`, `updateTechnologyWorkspaceStatus`,
+  `updateTechnologyWorkspaceRecord`, `publishTechnologyWorkspaceRecord`.
+  `candidate-workflow.ts` now imports only `getTechnologyWorkspaceRecordById`
+  back from it (used once, in `convertImportedCandidateToDraft`'s idempotency
+  check).
+- Confirmed via grep before moving anything: every external consumer of these
+  functions (`src/lib/content.ts`, `src/lib/editorial-enrichment.ts`, and six
+  `src/app/**` page/route files) already imported them independently of any
+  candidate/duplicate-group function — none needed a mixed import split
+  except `src/app/workspace/page.tsx` and `src/lib/content.ts`, which had one
+  function from each module in the same `import` statement and needed
+  splitting into two.
+- 10 `scripts/validate-*.ts` files also imported these functions directly
+  (via relative paths, not the `@/` alias) and needed the same redirect;
+  4 of them had a mixed A/B import needing a split.
+- Verified with `npm run typecheck`, `npm run test` (31/31), and all 10
+  affected `npm run validate:*` scripts (candidates, content-intelligence,
+  database, duplicates, editorial-enrichment, llm-enrichment, persistence,
+  prompt-quality, ranking, workflow-hardening) — all passed unchanged. Also
+  live-checked `/workspace/technologies`, a technology draft detail page, and
+  the public `/technologies` list (which reads through `content.ts`) — all
+  rendered identical real data with no console errors.
 
 ## digest-workflow.ts decomposition (done)
 

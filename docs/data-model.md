@@ -930,7 +930,8 @@ This local JSON boundary is for local development and controlled single-operator
 The file-level read/write mechanics are centralized in `src/lib/repositories/local-json-store.ts`. Workflow modules own domain transitions:
 
 - `source-workflow.ts`: sources and import runs
-- `candidate-workflow.ts`: imported candidates, review state, duplicate groups, technology workspace records
+- `candidate-workflow.ts`: imported candidates, review state, duplicate groups, and candidate → draft conversion
+- `technology-draft-workflow.ts`: technology workspace record CRUD, publish/archive status transitions, and publish readiness lookup
 - `digest-workflow.ts`: digest generation, editing, readiness, and status
 - `delivery-workflow.ts`: delivery channels and delivery runs
 - `scheduled-delivery-workflow.ts`: schedules and scheduled delivery runs

@@ -16,11 +16,13 @@ import {
   convertImportedCandidateToDraft,
   getCandidateWorkflowData,
   getImportedCandidateById,
+  updateDuplicateGroup
+} from "../src/lib/candidate-workflow";
+import {
   getTechnologyWorkspaceRecords,
-  updateDuplicateGroup,
   updateTechnologyWorkspaceRecord,
   updateTechnologyWorkspaceStatus
-} from "../src/lib/candidate-workflow";
+} from "../src/lib/technology-draft-workflow";
 import { getAllTechnologies } from "../src/lib/content";
 import { createDeliveryChannel, sendDailyDigestToChannel } from "../src/lib/delivery-workflow";
 import { getDigestDeliveryFeed } from "../src/lib/digest-delivery";

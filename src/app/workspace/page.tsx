@@ -1,10 +1,8 @@
 import Link from "next/link";
 
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
-import {
-  getCandidateWorkflowData,
-  getTechnologyWorkspaceRecords
-} from "@/lib/candidate-workflow";
+import { getCandidateWorkflowData } from "@/lib/candidate-workflow";
+import { getTechnologyWorkspaceRecords } from "@/lib/technology-draft-workflow";
 import { getDeliveryChannels, getDeliveryRuns } from "@/lib/delivery-workflow";
 import { getDailyDigests } from "@/lib/digest-workflow";
 import { getSystemHealthSummary } from "@/lib/operations-metrics";
