@@ -68,7 +68,7 @@ and the **User-facing Product** (public reading/discovery).
 
 | Area | Done | Remaining |
 |---|---|---|
-| Business pipeline / CMS | ~95% | Workspace visual confirmation (dashboard, duplicates, operations, technologies) is done; remaining gap is a fresh dependency analysis for the `candidate-workflow.ts` cut, not visual work |
+| Business pipeline / CMS | ~97% | Workspace visual confirmation and the code-debt decomposition pass are both done; remaining gap is a pre-existing `npm run validate:delivery` fixture mismatch (flagged separately, unrelated to recent work) and optional lint/format tooling |
 | User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
 | User-facing content | ~90% | essentially localized |
 | Knowledge relationship network | 100% (P2 complete) | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2 |
@@ -119,11 +119,14 @@ Followed topics → personalized digest = a personal tech radar.
 ### Interleaved — code debt
 `candidate-workflow.ts` (`docs/next-task.md`; 1763 → 549 lines across four
 extractions, the last being `technology-draft-workflow.ts` for the record
-CRUD/publish/archive logic) and `digest-workflow.ts` (887 → 787 lines; store
-layer extracted to `digest-store.ts`) have both had the decomposition pattern
-applied about as far as it profitably goes for now. `sqlite-store.ts`
-(1164 lines) hasn't been touched yet — that and ESLint/Prettier config are
-the remaining items. Do this as interleaved cleanup, not a separate phase.
+CRUD/publish/archive logic), `digest-workflow.ts` (887 → 787 lines; store
+layer extracted to `digest-store.ts`), and `sqlite-store.ts` (1308 → 681
+lines; twelve per-domain files plus `sqlite-primitives.ts` extracted) have
+all had the decomposition pattern applied — every file originally flagged
+for it is done. Remaining code debt: ESLint/Prettier config, and a
+pre-existing `npm run validate:delivery` fixture mismatch found (not caused)
+during the `sqlite-store.ts` work and flagged separately. Do this as
+interleaved cleanup, not a separate phase.
 
 ## Recommended order
 

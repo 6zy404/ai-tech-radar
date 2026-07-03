@@ -6,41 +6,78 @@ import { knowledgeItems } from "@/data/knowledge";
 import { skillItems } from "@/data/skills";
 import { technologyItems } from "@/data/technologies";
 import { getLocalDataDirPath } from "@/lib/local-data";
+import {
+  getTableCount,
+  getTimestamp,
+  runSqliteTransaction,
+  selectPayloads,
+  type SqliteDatabase
+} from "@/lib/repositories/sqlite-primitives";
+import {
+  readCandidateReviewState,
+  writeCandidateReviewState,
+  type CandidateReviewStateFile
+} from "@/lib/repositories/sqlite-candidate-review-state-store";
+import {
+  readDailyDigestStore,
+  writeDailyDigestStore,
+  type DailyDigestStore
+} from "@/lib/repositories/sqlite-daily-digest-store";
+import {
+  readDeliveryStore,
+  writeDeliveryStore,
+  type DeliveryStore
+} from "@/lib/repositories/sqlite-delivery-store";
+import {
+  readDuplicateGroupStore,
+  writeDuplicateGroupStore,
+  type DuplicateGroupStore
+} from "@/lib/repositories/sqlite-duplicate-group-store";
+import {
+  readEditorialEnrichmentSuggestionStore,
+  writeEditorialEnrichmentSuggestionStore,
+  type EditorialEnrichmentSuggestionStore
+} from "@/lib/repositories/sqlite-editorial-enrichment-store";
+import {
+  readExternalSourceStore,
+  writeExternalSourceStore,
+  type ExternalSourceStore
+} from "@/lib/repositories/sqlite-external-source-store";
+import {
+  readImportedCandidateSnapshot,
+  writeImportedCandidateSnapshot
+} from "@/lib/repositories/sqlite-imported-candidate-store";
+import {
+  readPromptVersionStore,
+  writePromptVersionStore,
+  type PromptVersionStore
+} from "@/lib/repositories/sqlite-prompt-version-store";
+import {
+  readScheduledDeliveryStore,
+  writeScheduledDeliveryStore,
+  type ScheduledDeliveryStore
+} from "@/lib/repositories/sqlite-scheduled-delivery-store";
+import {
+  readTaskRunnerStore,
+  writeTaskRunnerStore,
+  type TaskRunnerStore
+} from "@/lib/repositories/sqlite-task-runner-store";
+import {
+  readTechnologyWorkspaceStore,
+  writeTechnologyWorkspaceStore,
+  type TechnologyWorkspaceStore
+} from "@/lib/repositories/sqlite-technology-workspace-store";
+import {
+  readWorkflowEventStore,
+  writeWorkflowEventStore,
+  type WorkflowEventStore
+} from "@/lib/repositories/sqlite-workflow-event-store";
 import type {
-  DailyDigest,
-  DeliveryChannel,
-  DeliveryRun,
-  DuplicateGroup,
-  EditorialEnrichmentSuggestion,
-  ExternalSource,
-  ImportRun,
-  ImportedCandidate,
-  ImportedCandidateSourceRecord,
   ImportedCandidateSnapshot,
   KnowledgeItem,
-  PromptVersion,
-  ScheduledDelivery,
-  ScheduledDeliveryRun,
   SkillItem,
-  TaskRunnerRun,
-  TechnologyItem,
-  TechnologyWorkspaceRecord,
-  WorkflowEvent
+  TechnologyItem
 } from "@/types/content";
-
-type SqlitePrimitive = string | number | null;
-
-interface SqliteStatement {
-  all(...values: SqlitePrimitive[]): Record<string, unknown>[];
-  get(...values: SqlitePrimitive[]): Record<string, unknown> | undefined;
-  run(...values: SqlitePrimitive[]): unknown;
-}
-
-interface SqliteDatabase {
-  close(): void;
-  exec(sql: string): void;
-  prepare(sql: string): SqliteStatement;
-}
 
 interface SqliteConstructor {
   new (location: string): SqliteDatabase;
@@ -64,71 +101,6 @@ interface SqliteStoreMigrationSummary {
 interface SqliteSchemaStats {
   tableName: string;
   rowCount: number;
-}
-
-interface CandidateReviewStateEntry {
-  importStatus: string;
-  reviewedAt?: string;
-  convertedTechnologyId?: string;
-}
-
-interface CandidateReviewStateFile {
-  updatedAt: string;
-  items: Record<string, CandidateReviewStateEntry>;
-}
-
-interface TechnologyWorkspaceStore {
-  updatedAt: string;
-  records: TechnologyWorkspaceRecord[];
-}
-
-interface DuplicateGroupStore {
-  updatedAt: string;
-  groups: DuplicateGroup[];
-}
-
-interface ExternalSourceStore {
-  updatedAt: string;
-  sources: ExternalSource[];
-  latestImportRun?: ImportRun;
-  importRuns?: ImportRun[];
-}
-
-interface DailyDigestStore {
-  updatedAt: string;
-  digests: DailyDigest[];
-}
-
-interface DeliveryStore {
-  updatedAt: string;
-  channels: DeliveryChannel[];
-  runs: DeliveryRun[];
-}
-
-interface ScheduledDeliveryStore {
-  updatedAt: string;
-  schedules: ScheduledDelivery[];
-  runs: ScheduledDeliveryRun[];
-}
-
-interface TaskRunnerStore {
-  updatedAt: string;
-  runs: TaskRunnerRun[];
-}
-
-interface WorkflowEventStore {
-  updatedAt: string;
-  events: WorkflowEvent[];
-}
-
-interface EditorialEnrichmentSuggestionStore {
-  updatedAt: string;
-  suggestions: EditorialEnrichmentSuggestion[];
-}
-
-interface PromptVersionStore {
-  updatedAt: string;
-  promptVersions: PromptVersion[];
 }
 
 const sqliteRequire = createRequire(__filename);
@@ -157,10 +129,6 @@ const schemaTableNames = [
   "editorial_enrichment_suggestions",
   "prompt_versions"
 ] as const;
-
-function getTimestamp(): string {
-  return new Date().toISOString();
-}
 
 export function getPersistenceDriver(): "json" | "sqlite" {
   return process.env.PERSISTENCE_DRIVER === "sqlite" ? "sqlite" : "json";
@@ -636,38 +604,6 @@ function initializeSqliteSchema(database: SqliteDatabase): void {
   `);
 }
 
-function runSqliteTransaction(database: SqliteDatabase, action: () => void): void {
-  database.exec("BEGIN IMMEDIATE;");
-
-  try {
-    action();
-    database.exec("COMMIT;");
-  } catch (error) {
-    database.exec("ROLLBACK;");
-    throw error;
-  }
-}
-
-function parsePayload<T>(row: Record<string, unknown>): T {
-  return JSON.parse(String(row.payload)) as T;
-}
-
-function getTableCount(database: SqliteDatabase, tableName: string): number {
-  const row = database
-    .prepare(`SELECT COUNT(*) AS rowCount FROM ${tableName}`)
-    .get();
-
-  return Number(row?.rowCount ?? 0);
-}
-
-function selectPayloads<T>(
-  database: SqliteDatabase,
-  sql: string,
-  ...values: SqlitePrimitive[]
-): T[] {
-  return database.prepare(sql).all(...values).map(parsePayload<T>);
-}
-
 function seedStaticContent(database: SqliteDatabase): void {
   const insertTechnology = database.prepare(`
     INSERT OR REPLACE INTO technologies (
@@ -702,569 +638,6 @@ function seedStaticContent(database: SqliteDatabase): void {
 
   for (const skill of skillItems) {
     insertSkill.run(skill.id, skill.slug, JSON.stringify(skill));
-  }
-}
-
-function clearTables(database: SqliteDatabase, tableNames: string[]): void {
-  for (const tableName of tableNames) {
-    database.prepare(`DELETE FROM ${tableName}`).run();
-  }
-}
-
-function readExternalSourceStore(database: SqliteDatabase): ExternalSourceStore {
-  const sources = selectPayloads<ExternalSource>(
-    database,
-    "SELECT payload FROM sources ORDER BY name ASC"
-  );
-  const importRuns = selectPayloads<ImportRun>(
-    database,
-    "SELECT payload FROM import_runs ORDER BY startedAt DESC"
-  );
-
-  return {
-    updatedAt: getTimestamp(),
-    sources,
-    latestImportRun: importRuns[0],
-    importRuns
-  };
-}
-
-function writeExternalSourceStore(
-  database: SqliteDatabase,
-  store: ExternalSourceStore
-): void {
-  clearTables(database, ["import_run_source_results", "import_runs", "sources"]);
-
-  const insertSource = database.prepare(`
-    INSERT OR REPLACE INTO sources (
-      id, name, type, url, enabled, status, createdAt, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  const insertRun = database.prepare(`
-    INSERT OR REPLACE INTO import_runs (
-      id, status, startedAt, finishedAt, payload
-    ) VALUES (?, ?, ?, ?, ?)
-  `);
-  const insertRunResult = database.prepare(`
-    INSERT OR REPLACE INTO import_run_source_results (
-      importRunId, sourceId, status, payload
-    ) VALUES (?, ?, ?, ?)
-  `);
-
-  for (const source of store.sources ?? []) {
-    insertSource.run(
-      source.id,
-      source.name,
-      source.type,
-      source.url,
-      source.enabled ? 1 : 0,
-      source.lastImportStatus,
-      source.createdAt,
-      source.updatedAt,
-      JSON.stringify(source)
-    );
-  }
-
-  for (const run of store.importRuns ?? []) {
-    insertRun.run(
-      run.id,
-      run.status,
-      run.startedAt,
-      run.finishedAt,
-      JSON.stringify(run)
-    );
-
-    for (const result of run.sourceResults ?? []) {
-      insertRunResult.run(
-        run.id,
-        result.sourceId,
-        result.status,
-        JSON.stringify(result)
-      );
-    }
-  }
-}
-
-function readImportedCandidateSnapshot(
-  database: SqliteDatabase
-): ImportedCandidateSnapshot {
-  return {
-    syncedAt: getTimestamp(),
-    sources: selectPayloads<ImportedCandidateSourceRecord>(
-      database,
-      "SELECT payload FROM imported_candidate_sources ORDER BY fetchedAt DESC"
-    ),
-    candidates: selectPayloads<ImportedCandidate>(
-      database,
-      "SELECT payload FROM imported_candidates ORDER BY publishDate DESC, id ASC"
-    )
-  };
-}
-
-function writeImportedCandidateSnapshot(
-  database: SqliteDatabase,
-  snapshot: ImportedCandidateSnapshot
-): void {
-  clearTables(database, ["imported_candidate_sources", "imported_candidates"]);
-
-  const insertSource = database.prepare(`
-    INSERT OR REPLACE INTO imported_candidate_sources (
-      id, sourceType, sourceUrl, fetchedAt, payload
-    ) VALUES (?, ?, ?, ?, ?)
-  `);
-  const insertCandidate = database.prepare(`
-    INSERT OR REPLACE INTO imported_candidates (
-      id, sourceId, sourceUrl, importStatus, duplicateGroupId,
-      convertedTechnologyId, publishDate, importedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const source of snapshot.sources ?? []) {
-    insertSource.run(
-      source.id,
-      source.sourceType,
-      source.sourceUrl,
-      source.fetchedAt,
-      JSON.stringify(source)
-    );
-  }
-
-  for (const candidate of snapshot.candidates ?? []) {
-    insertCandidate.run(
-      candidate.id,
-      candidate.sourceId ?? null,
-      candidate.sourceUrl,
-      candidate.importStatus,
-      candidate.duplicateGroupId ?? null,
-      candidate.convertedTechnologyId ?? null,
-      candidate.publishDate,
-      candidate.importedAt ?? null,
-      JSON.stringify(candidate)
-    );
-  }
-}
-
-function readCandidateReviewState(database: SqliteDatabase): CandidateReviewStateFile {
-  const entries = selectPayloads<CandidateReviewStateEntry & { candidateId: string }>(
-    database,
-    "SELECT payload FROM candidate_review_states ORDER BY candidateId ASC"
-  );
-
-  return {
-    updatedAt: getTimestamp(),
-    items: Object.fromEntries(
-      entries.map((entry) => {
-        const { candidateId, ...state } = entry;
-
-        return [candidateId, state];
-      })
-    )
-  };
-}
-
-function writeCandidateReviewState(
-  database: SqliteDatabase,
-  state: CandidateReviewStateFile
-): void {
-  clearTables(database, ["candidate_review_states"]);
-
-  const insertState = database.prepare(`
-    INSERT OR REPLACE INTO candidate_review_states (
-      candidateId, importStatus, reviewedAt, convertedTechnologyId, payload
-    ) VALUES (?, ?, ?, ?, ?)
-  `);
-
-  for (const [candidateId, entry] of Object.entries(state.items ?? {})) {
-    insertState.run(
-      candidateId,
-      entry.importStatus,
-      entry.reviewedAt ?? null,
-      entry.convertedTechnologyId ?? null,
-      JSON.stringify({ candidateId, ...entry })
-    );
-  }
-}
-
-function readDuplicateGroupStore(database: SqliteDatabase): DuplicateGroupStore {
-  return {
-    updatedAt: getTimestamp(),
-    groups: selectPayloads<DuplicateGroup>(
-      database,
-      "SELECT payload FROM duplicate_groups ORDER BY updatedAt DESC"
-    )
-  };
-}
-
-function writeDuplicateGroupStore(
-  database: SqliteDatabase,
-  store: DuplicateGroupStore
-): void {
-  clearTables(database, ["duplicate_groups"]);
-
-  const insertGroup = database.prepare(`
-    INSERT OR REPLACE INTO duplicate_groups (
-      id, status, primaryCandidateId, createdAt, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const group of store.groups ?? []) {
-    insertGroup.run(
-      group.id,
-      group.status,
-      group.primaryCandidateId,
-      group.createdAt,
-      group.updatedAt,
-      JSON.stringify(group)
-    );
-  }
-}
-
-function readTechnologyWorkspaceStore(
-  database: SqliteDatabase
-): TechnologyWorkspaceStore {
-  const drafts = selectPayloads<TechnologyWorkspaceRecord>(
-    database,
-    "SELECT payload FROM technology_drafts ORDER BY updatedAt DESC"
-  );
-  const publishedWorkspaceRecords = selectPayloads<TechnologyWorkspaceRecord>(
-    database,
-    "SELECT payload FROM technologies WHERE recordKind = 'workspace' ORDER BY updatedAt DESC"
-  );
-
-  return {
-    updatedAt: getTimestamp(),
-    records: [...drafts, ...publishedWorkspaceRecords]
-  };
-}
-
-function writeTechnologyWorkspaceStore(
-  database: SqliteDatabase,
-  store: TechnologyWorkspaceStore
-): void {
-  database.prepare("DELETE FROM technology_drafts").run();
-  database.prepare("DELETE FROM technologies WHERE recordKind = 'workspace'").run();
-
-  const insertDraft = database.prepare(`
-    INSERT OR REPLACE INTO technology_drafts (
-      id, slug, status, sourceCandidateId, createdAt, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-  const insertTechnology = database.prepare(`
-    INSERT OR REPLACE INTO technologies (
-      id, slug, status, publishDate, recordKind, createdAt, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, 'workspace', ?, ?, ?)
-  `);
-
-  for (const record of store.records ?? []) {
-    if (record.status === "published") {
-      insertTechnology.run(
-        record.id,
-        record.slug,
-        record.status,
-        record.publishDate,
-        record.createdAt,
-        record.updatedAt,
-        JSON.stringify(record)
-      );
-    } else {
-      insertDraft.run(
-        record.id,
-        record.slug,
-        record.status,
-        record.sourceCandidateId ?? null,
-        record.createdAt,
-        record.updatedAt,
-        JSON.stringify(record)
-      );
-    }
-  }
-}
-
-function readDailyDigestStore(database: SqliteDatabase): DailyDigestStore {
-  return {
-    updatedAt: getTimestamp(),
-    digests: selectPayloads<DailyDigest>(
-      database,
-      "SELECT payload FROM daily_digests ORDER BY date DESC"
-    )
-  };
-}
-
-function writeDailyDigestStore(database: SqliteDatabase, store: DailyDigestStore): void {
-  clearTables(database, ["daily_digests"]);
-
-  const insertDigest = database.prepare(`
-    INSERT OR REPLACE INTO daily_digests (
-      id, date, status, generatedAt, updatedAt, publishedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const digest of store.digests ?? []) {
-    insertDigest.run(
-      digest.id,
-      digest.date,
-      digest.status,
-      digest.generatedAt,
-      digest.updatedAt,
-      digest.publishedAt ?? null,
-      JSON.stringify(digest)
-    );
-  }
-}
-
-function readDeliveryStore(database: SqliteDatabase): DeliveryStore {
-  return {
-    updatedAt: getTimestamp(),
-    channels: selectPayloads<DeliveryChannel>(
-      database,
-      "SELECT payload FROM delivery_channels ORDER BY id ASC"
-    ),
-    runs: selectPayloads<DeliveryRun>(
-      database,
-      "SELECT payload FROM delivery_logs ORDER BY startedAt DESC"
-    )
-  };
-}
-
-function writeDeliveryStore(database: SqliteDatabase, store: DeliveryStore): void {
-  clearTables(database, ["delivery_logs", "delivery_channels"]);
-
-  const insertChannel = database.prepare(`
-    INSERT OR REPLACE INTO delivery_channels (
-      id, type, enabled, lastDeliveryStatus, createdAt, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-  const insertRun = database.prepare(`
-    INSERT OR REPLACE INTO delivery_logs (
-      id, digestId, digestDate, channelId, status, startedAt, finishedAt,
-      retryOfDeliveryRunId, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const channel of store.channels ?? []) {
-    insertChannel.run(
-      channel.id,
-      channel.type,
-      channel.enabled ? 1 : 0,
-      channel.lastDeliveryStatus ?? null,
-      channel.createdAt,
-      channel.updatedAt,
-      JSON.stringify(channel)
-    );
-  }
-
-  for (const run of store.runs ?? []) {
-    insertRun.run(
-      run.id,
-      run.digestId,
-      run.digestDate,
-      run.channelId,
-      run.status,
-      run.startedAt,
-      run.finishedAt ?? null,
-      run.retryOfDeliveryRunId ?? null,
-      JSON.stringify(run)
-    );
-  }
-}
-
-function readScheduledDeliveryStore(
-  database: SqliteDatabase
-): ScheduledDeliveryStore {
-  return {
-    updatedAt: getTimestamp(),
-    schedules: selectPayloads<ScheduledDelivery>(
-      database,
-      "SELECT payload FROM scheduled_deliveries ORDER BY id ASC"
-    ),
-    runs: selectPayloads<ScheduledDeliveryRun>(
-      database,
-      "SELECT payload FROM scheduled_delivery_runs ORDER BY startedAt DESC"
-    )
-  };
-}
-
-function writeScheduledDeliveryStore(
-  database: SqliteDatabase,
-  store: ScheduledDeliveryStore
-): void {
-  clearTables(database, ["scheduled_delivery_runs", "scheduled_deliveries"]);
-
-  const insertSchedule = database.prepare(`
-    INSERT OR REPLACE INTO scheduled_deliveries (
-      id, enabled, digestTarget, nextRunAt, lastRunStatus, createdAt, updatedAt,
-      payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  const insertRun = database.prepare(`
-    INSERT OR REPLACE INTO scheduled_delivery_runs (
-      id, scheduleId, digestId, digestDate, status, triggerType, startedAt,
-      finishedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const schedule of store.schedules ?? []) {
-    insertSchedule.run(
-      schedule.id,
-      schedule.enabled ? 1 : 0,
-      schedule.digestTarget,
-      schedule.nextRunAt ?? null,
-      schedule.lastRunStatus,
-      schedule.createdAt,
-      schedule.updatedAt,
-      JSON.stringify(schedule)
-    );
-  }
-
-  for (const run of store.runs ?? []) {
-    insertRun.run(
-      run.id,
-      run.scheduleId,
-      run.digestId ?? null,
-      run.digestDate ?? null,
-      run.status,
-      run.triggerType,
-      run.startedAt,
-      run.finishedAt ?? null,
-      JSON.stringify(run)
-    );
-  }
-}
-
-function readTaskRunnerStore(database: SqliteDatabase): TaskRunnerStore {
-  return {
-    updatedAt: getTimestamp(),
-    runs: selectPayloads<TaskRunnerRun>(
-      database,
-      "SELECT payload FROM task_runs ORDER BY startedAt DESC"
-    )
-  };
-}
-
-function writeTaskRunnerStore(database: SqliteDatabase, store: TaskRunnerStore): void {
-  clearTables(database, ["task_runs"]);
-
-  const insertRun = database.prepare(`
-    INSERT OR REPLACE INTO task_runs (
-      id, mode, status, startedAt, finishedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const run of store.runs ?? []) {
-    insertRun.run(
-      run.id,
-      run.mode,
-      run.status,
-      run.startedAt,
-      run.finishedAt,
-      JSON.stringify(run)
-    );
-  }
-}
-
-function readWorkflowEventStore(database: SqliteDatabase): WorkflowEventStore {
-  return {
-    updatedAt: getTimestamp(),
-    events: selectPayloads<WorkflowEvent>(
-      database,
-      "SELECT payload FROM workflow_events ORDER BY createdAt DESC"
-    )
-  };
-}
-
-function writeWorkflowEventStore(
-  database: SqliteDatabase,
-  store: WorkflowEventStore
-): void {
-  clearTables(database, ["workflow_events"]);
-
-  const insertEvent = database.prepare(`
-    INSERT OR REPLACE INTO workflow_events (
-      id, entityType, entityId, action, actorType, createdAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const event of store.events ?? []) {
-    insertEvent.run(
-      event.id,
-      event.entityType,
-      event.entityId,
-      event.action,
-      event.actorType,
-      event.createdAt,
-      JSON.stringify(event)
-    );
-  }
-}
-
-function readEditorialEnrichmentSuggestionStore(
-  database: SqliteDatabase
-): EditorialEnrichmentSuggestionStore {
-  return {
-    updatedAt: getTimestamp(),
-    suggestions: selectPayloads<EditorialEnrichmentSuggestion>(
-      database,
-      "SELECT payload FROM editorial_enrichment_suggestions ORDER BY createdAt DESC"
-    )
-  };
-}
-
-function writeEditorialEnrichmentSuggestionStore(
-  database: SqliteDatabase,
-  store: EditorialEnrichmentSuggestionStore
-): void {
-  clearTables(database, ["editorial_enrichment_suggestions"]);
-
-  const insertSuggestion = database.prepare(`
-    INSERT OR REPLACE INTO editorial_enrichment_suggestions (
-      id, technologyDraftId, status, generationMode, createdAt, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const suggestion of store.suggestions ?? []) {
-    insertSuggestion.run(
-      suggestion.id,
-      suggestion.technologyDraftId,
-      suggestion.status,
-      suggestion.generationMode,
-      suggestion.createdAt,
-      suggestion.updatedAt,
-      JSON.stringify(suggestion)
-    );
-  }
-}
-
-function readPromptVersionStore(database: SqliteDatabase): PromptVersionStore {
-  return {
-    updatedAt: getTimestamp(),
-    promptVersions: selectPayloads<PromptVersion>(
-      database,
-      "SELECT payload FROM prompt_versions ORDER BY updatedAt DESC"
-    )
-  };
-}
-
-function writePromptVersionStore(
-  database: SqliteDatabase,
-  store: PromptVersionStore
-): void {
-  clearTables(database, ["prompt_versions"]);
-
-  const insertPromptVersion = database.prepare(`
-    INSERT OR REPLACE INTO prompt_versions (
-      id, purpose, version, status, updatedAt, payload
-    ) VALUES (?, ?, ?, ?, ?, ?)
-  `);
-
-  for (const promptVersion of store.promptVersions ?? []) {
-    insertPromptVersion.run(
-      promptVersion.id,
-      promptVersion.purpose,
-      promptVersion.version,
-      promptVersion.status,
-      promptVersion.updatedAt,
-      JSON.stringify(promptVersion)
-    );
   }
 }
 
