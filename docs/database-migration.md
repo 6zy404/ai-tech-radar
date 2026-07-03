@@ -91,7 +91,22 @@ This avoids over-normalizing the prototype while still making the future Postgre
 Current repository files:
 
 - `src/lib/repositories/local-json-store.ts`
-- `src/lib/repositories/sqlite-store.ts`
+- `src/lib/repositories/sqlite-store.ts` — owns database lifecycle (open/close,
+  schema creation, seeding static content), the `readSqliteJsonStore` /
+  `writeSqliteJsonStore` filename-keyed dispatch table that `local-json-store.ts`
+  calls into when `PERSISTENCE_DRIVER=sqlite`, and `migrateJsonStoresToSqlite`.
+- `src/lib/repositories/sqlite-primitives.ts` — the `SqliteDatabase` type and
+  generic per-table helpers (`selectPayloads`, `clearTables`, `getTableCount`,
+  `runSqliteTransaction`, `getTimestamp`) shared by every domain store below.
+- Twelve `src/lib/repositories/sqlite-<domain>-store.ts` files (one per
+  `readSqliteJsonStore`/`writeSqliteJsonStore` switch case — external source,
+  imported candidate, candidate review state, duplicate group, technology
+  workspace, daily digest, delivery, scheduled delivery, task runner,
+  workflow event, editorial enrichment, prompt version), each owning the
+  read/write SQL and row-mapping for exactly one JSON store filename's SQLite
+  equivalent. `sqlite-store.ts` imports each pair and calls it from the
+  dispatch table; no domain file imports another, and none import
+  `sqlite-store.ts` back.
 
 Workflow modules still own business behavior:
 

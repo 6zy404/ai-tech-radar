@@ -7,8 +7,9 @@
 > generation remain unauthorized and should not be started without a fresh
 > explicit request from the owner; P4 (personalization) is untouched and
 > still requires explicit authorization. Until further P3/P4 direction is
-> given, the `candidate-workflow.ts` decomposition below is suitable
-> interleaved work.
+> given, adding ESLint/Prettier config (see "Later" below) is suitable
+> interleaved work — the store-decomposition pattern has now been applied to
+> every file it was planned for.
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
@@ -26,21 +27,23 @@
 > `.candidate-review-layout` sidebars overlapped the main content on mobile
 > (≤900px) instead of stacking below it, affecting `/workspace/duplicates/[id]`,
 > `/workspace/candidates/[id]`, `/workspace/sources/[id]`, and
-> `/workspace/technologies/[id]` — and the `candidate-workflow.ts` →
-> `technology-draft-workflow.ts` extraction described below, which resolves
-> the "harder cut" this file used to flag as needing fresh analysis.
+> `/workspace/technologies/[id]` — the `candidate-workflow.ts` →
+> `technology-draft-workflow.ts` extraction (resolving the "harder cut" this
+> file used to flag as needing fresh analysis), and the `sqlite-store.ts`
+> decomposition into twelve per-domain files plus `sqlite-primitives.ts` (see
+> below) — every file originally flagged for this decomposition pattern has
+> now had it applied. Also found (via a `validate:*` regression sweep, not
+> caused by this work) and flagged a pre-existing `npm run validate:delivery`
+> failure for separate follow-up.
 
 Recommended next task:
 
-The `candidate-workflow.ts` decomposition this file used to flag as needing
-fresh dependency analysis is done (see "technology-draft-workflow.ts
-extraction" below for the analysis and the result). What's left in
-`candidate-workflow.ts` (549 lines) is candidate review, duplicate-group
-review, and candidate → draft conversion — genuinely one cohesive concern
-now, not a file with an obvious further cut. Equally suitable next steps:
-apply the same decomposition pattern to `sqlite-store.ts` (see "Later" below,
-the one file left that hasn't had this pattern applied), or add
-linting/formatting config (ESLint + Prettier).
+Every file originally flagged for the store-decomposition pattern
+(`candidate-workflow.ts` → `technology-draft-workflow.ts`, `digest-workflow.ts`
+→ `digest-store.ts`, `sqlite-store.ts` → twelve domain files) is now done —
+see the sections below for each. What remains as code debt is
+linting/formatting config (ESLint + Prettier, see "Later" below) and the
+pre-existing `npm run validate:delivery` fixture mismatch flagged above.
 
 ## Progress so far
 
@@ -190,10 +193,44 @@ a single clean cut, not a full decomposition of the file.
   `/workspace/candidates` and `/workspace/sources`' "Import enabled sources"
   action for the three clusters done so far) before committing.
 
+## sqlite-store.ts decomposition (done)
+
+`sqlite-store.ts` went from 1308 to 681 lines via one extraction pass covering
+all twelve domains at once (unlike the `candidate-workflow.ts` cut, every
+domain here follows the exact same shape — a `read<X>Store`/`write<X>Store`
+pair keyed by JSON filename in a central dispatch switch — so there was no
+per-domain risk analysis needed, just mechanical, verbatim code motion times
+twelve):
+
+- `src/lib/repositories/sqlite-primitives.ts` — `SqliteDatabase` type and the
+  generic per-table helpers (`selectPayloads`, `clearTables`, `getTableCount`,
+  `runSqliteTransaction`, `getTimestamp`, `parsePayload`) every domain file
+  depends on.
+- Twelve `src/lib/repositories/sqlite-<domain>-store.ts` files — one per
+  `readSqliteJsonStore`/`writeSqliteJsonStore` switch case (external source,
+  imported candidate, candidate review state, duplicate group, technology
+  workspace, daily digest, delivery, scheduled delivery, task runner,
+  workflow event, editorial enrichment, prompt version). See
+  `docs/database-migration.md`'s Repository Boundary section for the full
+  list and import direction (domain files never import each other or
+  `sqlite-store.ts` back).
+- `sqlite-store.ts` keeps: driver/path resolution, `openSqliteDatabase`,
+  `initializeSqliteDatabase`/`resetSqliteDatabase`, `getSqliteSchemaStats`,
+  the `initializeSqliteSchema` DDL block (left untouched — it's one atomic
+  `exec()` call defining all tables together, not twelve separable pieces),
+  `seedStaticContent`, the dispatch table itself, `migrateJsonStoresToSqlite`,
+  and the three `readSqlite*` static-content readers.
+- Verified with `npm run typecheck`, `npm run test` (31/31), and — since this
+  refactor specifically touches the SQLite driver code path that vitest
+  doesn't exercise — `npm run validate:database` (the primary correctness
+  gate for this change) plus 16 other `npm run validate:*` scripts, all
+  passing unchanged. One unrelated pre-existing failure was found during this
+  sweep (`npm run validate:delivery`, confirmed broken identically on the
+  commit before this refactor via `git stash`) and flagged separately rather
+  than fixed inline — not caused by this change.
+
 ## Later (not this task)
 
-- Apply the same decomposition to `sqlite-store.ts` (1164 lines, not yet
-  touched).
 - Decide whether the SQLite driver should move from JSON-blob storage to real
   relational tables, or be documented honestly as a document store.
 - Add linting/formatting config (ESLint + Prettier).
