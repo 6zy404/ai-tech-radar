@@ -66,7 +66,9 @@ function normalizeTaskRunnerMode(value: unknown): TaskRunnerMode {
   return value === "watch" ? "watch" : "run_once";
 }
 
-function normalizeTaskRunnerRun(record: Record<string, unknown>): TaskRunnerRun {
+function normalizeTaskRunnerRun(
+  record: Record<string, unknown>
+): TaskRunnerRun {
   const now = getTimestamp();
 
   return {
@@ -106,7 +108,9 @@ function readTaskRunnerStore(): TaskRunnerStore {
   return {
     updatedAt: store.updatedAt ?? getTimestamp(),
     runs: (store.runs ?? [])
-      .map((run) => normalizeTaskRunnerRun(run as unknown as Record<string, unknown>))
+      .map((run) =>
+        normalizeTaskRunnerRun(run as unknown as Record<string, unknown>)
+      )
       .sort((left, right) => right.startedAt.localeCompare(left.startedAt))
   };
 }
@@ -277,7 +281,10 @@ export async function runScheduledDeliveryTask({
       partialCount
     }),
     dueScheduleCount: dueSchedules.length,
-    skippedScheduleCount: Math.max(allSchedules.length - dueSchedules.length, 0),
+    skippedScheduleCount: Math.max(
+      allSchedules.length - dueSchedules.length,
+      0
+    ),
     successCount,
     failedCount,
     partialCount,
@@ -351,7 +358,9 @@ export async function watchScheduledDeliveryTasks({
     } catch (error) {
       logger(
         `watchIterationError=${
-          error instanceof Error ? sanitizeRunnerMessage(error.message) : "unknown"
+          error instanceof Error
+            ? sanitizeRunnerMessage(error.message)
+            : "unknown"
         }`
       );
     }

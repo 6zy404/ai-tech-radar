@@ -20,7 +20,9 @@ export async function PATCH(request: Request, context: RouteContext) {
     return NextResponse.json({ ok: true, channel });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Unknown delivery channel error.";
+      error instanceof Error
+        ? error.message
+        : "Unknown delivery channel error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

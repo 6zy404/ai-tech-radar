@@ -34,7 +34,9 @@ interface BreadcrumbItem {
 
 function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const segments = pathname.split("/").filter(Boolean);
-  const breadcrumbs: BreadcrumbItem[] = [{ href: "/workspace", label: "Workspace" }];
+  const breadcrumbs: BreadcrumbItem[] = [
+    { href: "/workspace", label: "Workspace" }
+  ];
 
   if (segments[0] !== "workspace") {
     return breadcrumbs;
@@ -92,10 +94,15 @@ export function WorkspaceBreadcrumbs() {
               {item.href && !isLast ? (
                 <Link href={item.href}>{item.label}</Link>
               ) : (
-                <span aria-current={isLast ? "page" : undefined}>{item.label}</span>
+                <span aria-current={isLast ? "page" : undefined}>
+                  {item.label}
+                </span>
               )}
               {!isLast ? (
-                <span className="workspace-breadcrumbs__separator" aria-hidden="true">
+                <span
+                  className="workspace-breadcrumbs__separator"
+                  aria-hidden="true"
+                >
                   /
                 </span>
               ) : null}

@@ -1,6 +1,4 @@
-import {
-  getDailyDigestRenderData
-} from "@/lib/digest-view";
+import { getDailyDigestRenderData } from "@/lib/digest-view";
 import {
   getDailyDigests,
   getDigestTechnologySections
@@ -61,7 +59,10 @@ export function getDigestPublicPath(date: string): string {
   return `/digest/${date}`;
 }
 
-export function getDigestPublicUrl(date: string, baseUrl = getSiteBaseUrl()): string {
+export function getDigestPublicUrl(
+  date: string,
+  baseUrl = getSiteBaseUrl()
+): string {
   return `${baseUrl}${getDigestPublicPath(date)}`;
 }
 
@@ -155,7 +156,10 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;");
 }
 
-function formatRssDate(value: string | undefined, fallbackDate: string): string {
+function formatRssDate(
+  value: string | undefined,
+  fallbackDate: string
+): string {
   const date = new Date(value ?? `${fallbackDate}T12:00:00.000Z`);
 
   return Number.isNaN(date.getTime())

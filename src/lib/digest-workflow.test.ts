@@ -104,9 +104,13 @@ describe("buildDailyDigestFromTechnologies (generation)", () => {
       publisherType: "media"
     });
 
-    const digest = buildDailyDigestFromTechnologies([strong, weak], "2026-06-01", {
-      now: NOW
-    });
+    const digest = buildDailyDigestFromTechnologies(
+      [strong, weak],
+      "2026-06-01",
+      {
+        now: NOW
+      }
+    );
 
     expect(digest.highPriorityTechnologyIds).toContain("strong");
     expect(digest.highPriorityTechnologyIds).not.toContain("weak");

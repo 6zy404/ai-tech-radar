@@ -38,12 +38,7 @@ export interface DailyDigestUpdateInput {
 }
 
 export type DailyDigestItemAction =
-  | "exclude"
-  | "include"
-  | "pin"
-  | "unpin"
-  | "move_up"
-  | "move_down";
+  "exclude" | "include" | "pin" | "unpin" | "move_up" | "move_down";
 
 const defaultLookbackDays = 90;
 const defaultMaxHighPriorityItems = 4;
@@ -259,7 +254,9 @@ function syncDigestAggregates(
 
 function saveDigest(nextDigest: DailyDigest): DailyDigest {
   const store = readDailyDigestStore();
-  const digest = normalizeDigest(nextDigest as unknown as Record<string, unknown>);
+  const digest = normalizeDigest(
+    nextDigest as unknown as Record<string, unknown>
+  );
 
   writeDailyDigestStore({
     updatedAt: new Date().toISOString(),
@@ -337,7 +334,9 @@ export function buildDailyDigestFromTechnologies(
     manuallyAddedTechnologyIds: [],
     excludedTechnologyIds: [],
     pinnedTechnologyIds: [],
-    orderedTechnologyIds: selectedTechnologies.map((technology) => technology.id),
+    orderedTechnologyIds: selectedTechnologies.map(
+      (technology) => technology.id
+    ),
     skillIds: aggregateIds(
       selectedTechnologies,
       (technology) => technology.relatedSkillIds
@@ -358,7 +357,10 @@ export function buildDailyDigestFromTechnologies(
 
 export function generateDailyDigest(date = getTodayDateString()): DailyDigest {
   const regeneratedAt = new Date().toISOString();
-  const nextDigest = buildDailyDigestFromTechnologies(getAllTechnologies(), date);
+  const nextDigest = buildDailyDigestFromTechnologies(
+    getAllTechnologies(),
+    date
+  );
   const store = readDailyDigestStore();
   const existingDigest = store.digests.find((digest) => digest.date === date);
   const preserveManualAdjustments =
@@ -558,8 +560,12 @@ export function updateDailyDigestItemControl(
     throw new Error(`Daily digest ${date} not found.`);
   }
 
-  if (!getAllTechnologies().some((technology) => technology.id === technologyId)) {
-    throw new Error(`Technology ${technologyId} is not available for digest use.`);
+  if (
+    !getAllTechnologies().some((technology) => technology.id === technologyId)
+  ) {
+    throw new Error(
+      `Technology ${technologyId} is not available for digest use.`
+    );
   }
 
   const nextDigest: DailyDigest = {
@@ -646,7 +652,8 @@ export function evaluateDailyDigestPublishReadiness(
   digest: DailyDigest,
   options: DigestReadinessOptions = {}
 ): DigestPublishReadiness {
-  const publishedTechnologies = options.publishedTechnologies ?? getAllTechnologies();
+  const publishedTechnologies =
+    options.publishedTechnologies ?? getAllTechnologies();
   const allTechnologies = options.allTechnologies ?? publishedTechnologies;
   const allTechnologyById = new Map(
     allTechnologies.map((technology) => [technology.id, technology])

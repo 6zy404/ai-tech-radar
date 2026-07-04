@@ -54,7 +54,9 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
     <article className="workspace-record-card technology-workspace-record">
       <div className="technology-workspace-record__meta">
         <div className="technology-workspace-record__topline">
-          <span className="technology-workspace-record__type">Technology Workspace</span>
+          <span className="technology-workspace-record__type">
+            Technology Workspace
+          </span>
           <span className="technology-workspace-record__source">
             {draft.publisherName}
           </span>
@@ -95,7 +97,10 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
       </div>
 
       <div className="technology-workspace-record__actions">
-        <Link href={`/workspace/technologies/${draft.id}`} className="action-link">
+        <Link
+          href={`/workspace/technologies/${draft.id}`}
+          className="action-link"
+        >
           {getPrimaryActionLabel(draft.status)}
         </Link>
         <Link

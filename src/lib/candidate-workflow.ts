@@ -36,7 +36,7 @@ import {
   mapCandidateTagsToTopicTagIds,
   buildDraftText,
   buildDraftContent,
-  buildCandidateSourceReference,
+  buildCandidateSourceReference
 } from "@/lib/candidate-conversion-mapping";
 import type {
   CandidateImportStatus,
@@ -121,7 +121,10 @@ function buildTechnologyWorkspaceRecord(
       candidate.originalSummary || candidate.originalTitle,
       candidate.originalLanguage
     ),
-    content: buildDraftText(buildDraftContent(candidate), candidate.originalLanguage),
+    content: buildDraftText(
+      buildDraftContent(candidate),
+      candidate.originalLanguage
+    ),
     type: normalizeTechnologyType(candidate.normalizedType),
     publishDate: candidate.publishDate,
     sourceName: candidate.sourceName,
@@ -192,7 +195,9 @@ export function getImportedCandidates(): ImportedCandidate[] {
   return getCandidateWorkflowData().candidates;
 }
 
-export function getImportedCandidateById(id: string): ImportedCandidate | undefined {
+export function getImportedCandidateById(
+  id: string
+): ImportedCandidate | undefined {
   return getImportedCandidates().find((candidate) => candidate.id === id);
 }
 
@@ -206,7 +211,9 @@ export function getDuplicateGroupById(
   return getDuplicateGroups().find((group) => group.id === groupId);
 }
 
-export function getDuplicateGroupCandidates(groupId: string): ImportedCandidate[] {
+export function getDuplicateGroupCandidates(
+  groupId: string
+): ImportedCandidate[] {
   const group = getDuplicateGroupById(groupId);
   const candidates = getImportedCandidates();
 
@@ -215,7 +222,9 @@ export function getDuplicateGroupCandidates(groupId: string): ImportedCandidate[
   }
 
   return group.candidateIds
-    .map((candidateId) => candidates.find((candidate) => candidate.id === candidateId))
+    .map((candidateId) =>
+      candidates.find((candidate) => candidate.id === candidateId)
+    )
     .filter((candidate): candidate is ImportedCandidate => Boolean(candidate));
 }
 
@@ -301,7 +310,9 @@ export function getDuplicateComparisonsForCandidate(
 
   return candidate.relatedCandidateIds
     .map((relatedCandidateId) => {
-      const relatedCandidate = candidates.find((item) => item.id === relatedCandidateId);
+      const relatedCandidate = candidates.find(
+        (item) => item.id === relatedCandidateId
+      );
 
       if (!relatedCandidate) {
         return undefined;

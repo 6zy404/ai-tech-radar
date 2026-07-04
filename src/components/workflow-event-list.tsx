@@ -18,7 +18,8 @@ function getEventLabel(action: string): string {
 
 function getEventSummary(event: WorkflowEvent): string {
   const metadata = event.metadata ?? {};
-  const status = typeof metadata.status === "string" ? metadata.status : undefined;
+  const status =
+    typeof metadata.status === "string" ? metadata.status : undefined;
   const message =
     typeof metadata.message === "string" ? metadata.message : undefined;
   const errorMessage =

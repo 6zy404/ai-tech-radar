@@ -34,7 +34,9 @@ function normalizeTechnologyWorkspaceRecord(
 ): TechnologyWorkspaceRecord {
   const rawStatus = record.status;
   const normalizedStatus: TechnologyItem["status"] =
-    rawStatus === "published" || rawStatus === "archived" || rawStatus === "draft"
+    rawStatus === "published" ||
+    rawStatus === "archived" ||
+    rawStatus === "draft"
       ? rawStatus
       : "draft";
 
@@ -58,7 +60,9 @@ function normalizeTechnologyWorkspaceRecord(
       typeof record.whyItMatters === "string" ? record.whyItMatters : "",
     whoShouldCare: normalizeStoredStringList(record.whoShouldCare),
     technicalContext:
-      typeof record.technicalContext === "string" ? record.technicalContext : "",
+      typeof record.technicalContext === "string"
+        ? record.technicalContext
+        : "",
     impactAreas: normalizeStoredStringList(record.impactAreas),
     learningPath: normalizeStoredStringList(record.learningPath),
     relatedKnowledgeExplanations: normalizeStoredStringMap(
@@ -75,15 +79,20 @@ function normalizeTechnologyWorkspaceRecord(
 
 export function readTechnologyWorkspaceStore(): TechnologyWorkspaceStore {
   if (existsSync(technologyWorkspaceStorePath)) {
-    const store = readJsonFile<TechnologyWorkspaceStore>(technologyWorkspaceStorePath, {
-      updatedAt: new Date().toISOString(),
-      records: []
-    });
+    const store = readJsonFile<TechnologyWorkspaceStore>(
+      technologyWorkspaceStorePath,
+      {
+        updatedAt: new Date().toISOString(),
+        records: []
+      }
+    );
 
     return {
       updatedAt: store.updatedAt,
       records: store.records.map((record) =>
-        normalizeTechnologyWorkspaceRecord(record as unknown as Record<string, unknown>)
+        normalizeTechnologyWorkspaceRecord(
+          record as unknown as Record<string, unknown>
+        )
       )
     };
   }

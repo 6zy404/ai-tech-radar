@@ -58,7 +58,9 @@ export function ScheduledDeliveryActions({
         setMessage(nextEnabled ? "Schedule enabled." : "Schedule disabled.");
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Schedule update failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Schedule update failed."
+        );
       }
     });
   }
@@ -95,7 +97,9 @@ export function ScheduledDeliveryActions({
         setMessage(`Run ${result.run.status}: ${result.run.message}`);
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Schedule run failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Schedule run failed."
+        );
       }
     });
   }
@@ -115,7 +119,11 @@ export function ScheduledDeliveryActions({
         className="action-button action-button--accent"
         onClick={runNow}
         disabled={isPending || !enabled}
-        title={enabled ? "Run this schedule immediately" : "Enable this schedule first"}
+        title={
+          enabled
+            ? "Run this schedule immediately"
+            : "Enable this schedule first"
+        }
       >
         Run schedule now
       </button>
@@ -124,12 +132,16 @@ export function ScheduledDeliveryActions({
           Manual schedule run is disabled because this schedule is off.
         </p>
       ) : null}
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </div>
   );
 }
 
-export function RunDueSchedulesButton({ disabled }: RunDueSchedulesButtonProps) {
+export function RunDueSchedulesButton({
+  disabled
+}: RunDueSchedulesButtonProps) {
   const router = useRouter();
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -147,9 +159,12 @@ export function RunDueSchedulesButton({ disabled }: RunDueSchedulesButtonProps) 
       setMessage("");
 
       try {
-        const response = await fetch("/api/workspace/delivery/schedules/run-due", {
-          method: "POST"
-        });
+        const response = await fetch(
+          "/api/workspace/delivery/schedules/run-due",
+          {
+            method: "POST"
+          }
+        );
         const result = (await response.json()) as {
           ok: boolean;
           runs?: ScheduledDeliveryRun[];
@@ -190,7 +205,9 @@ export function RunDueSchedulesButton({ disabled }: RunDueSchedulesButtonProps) 
           No enabled schedules are ready to run.
         </p>
       ) : null}
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </div>
   );
 }

@@ -76,7 +76,9 @@ export default function WorkspaceHomePage() {
   const publishedRecords = workspaceRecords.filter(
     (record) => record.status === "published"
   ).length;
-  const digestDrafts = digests.filter((digest) => digest.status === "draft").length;
+  const digestDrafts = digests.filter(
+    (digest) => digest.status === "draft"
+  ).length;
   const publishedDigests = digests.filter(
     (digest) => digest.status === "published"
   ).length;
@@ -115,7 +117,9 @@ export default function WorkspaceHomePage() {
     latestWorkspaceRecord
       ? {
           label: "Latest technology record",
-          title: latestWorkspaceRecord.title.original || "Untitled technology record",
+          title:
+            latestWorkspaceRecord.title.original ||
+            "Untitled technology record",
           meta: `${latestWorkspaceRecord.status} · ${formatDateTime(
             latestWorkspaceRecord.updatedAt
           )}`,
@@ -175,7 +179,8 @@ export default function WorkspaceHomePage() {
       label: "Duplicates",
       href: "/workspace/duplicates",
       count: `${openDuplicateGroups} open`,
-      description: "Pick primary candidates and keep duplicate sources as references."
+      description:
+        "Pick primary candidates and keep duplicate sources as references."
     },
     {
       label: "Drafts",
@@ -211,12 +216,17 @@ export default function WorkspaceHomePage() {
       label: "Operations",
       href: "/workspace/operations",
       count: operations.status,
-      description: "Inspect system health, failures, task runner state, and audit events."
+      description:
+        "Inspect system health, failures, task runner state, and audit events."
     }
   ];
 
   const summaryCards = [
-    { label: "Enabled sources", value: enabledSources, hint: `${sources.length} configured` },
+    {
+      label: "Enabled sources",
+      value: enabledSources,
+      hint: `${sources.length} configured`
+    },
     {
       label: "New candidates",
       value: newCandidates,
@@ -296,17 +306,26 @@ export default function WorkspaceHomePage() {
       <section className="workspace-dashboard">
         <div className="workspace-dashboard__intro">
           <p className="eyebrow workspace-eyebrow">Internal workflow</p>
-          <h2>Turn external technology signals into reviewed public content.</h2>
+          <h2>
+            Turn external technology signals into reviewed public content.
+          </h2>
           <p>
             Imported data stays in the workspace until a reviewer checks source
             quality, duplicate groups, draft readiness, and digest publishing.
-            The public product only receives published technology and digest content.
+            The public product only receives published technology and digest
+            content.
           </p>
         </div>
 
-        <div className="workspace-status-summary" aria-label="Workspace status summary">
+        <div
+          className="workspace-status-summary"
+          aria-label="Workspace status summary"
+        >
           {summaryCards.map((card) => (
-            <article className="workspace-status-summary__card" key={card.label}>
+            <article
+              className="workspace-status-summary__card"
+              key={card.label}
+            >
               <strong>{card.value}</strong>
               <span>{card.label}</span>
               <small>{card.hint}</small>
@@ -368,9 +387,14 @@ export default function WorkspaceHomePage() {
       <section className="section-block">
         <div className="section-heading">
           <h2>Workflow overview</h2>
-          <p>Each step links to the workspace module responsible for that stage.</p>
+          <p>
+            Each step links to the workspace module responsible for that stage.
+          </p>
         </div>
-        <div className="workflow-overview" aria-label="Workspace workflow overview">
+        <div
+          className="workflow-overview"
+          aria-label="Workspace workflow overview"
+        >
           {workflowSteps.map((step, index) => (
             <Link className="workflow-step" href={step.href} key={step.label}>
               <span className="workflow-step__index">{index + 1}</span>
@@ -389,7 +413,11 @@ export default function WorkspaceHomePage() {
         </div>
         <div className="workspace-action-grid">
           {primaryActions.map((action) => (
-            <Link className="workspace-action-card" href={action.href} key={action.label}>
+            <Link
+              className="workspace-action-card"
+              href={action.href}
+              key={action.label}
+            >
               <strong>{action.label}</strong>
               <span>{action.description}</span>
             </Link>
@@ -418,7 +446,8 @@ export default function WorkspaceHomePage() {
           </div>
         ) : (
           <p className="empty-state">
-            No import, draft, digest, or delivery activity has been recorded yet.
+            No import, draft, digest, or delivery activity has been recorded
+            yet.
           </p>
         )}
       </section>

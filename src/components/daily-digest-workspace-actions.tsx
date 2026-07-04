@@ -62,7 +62,9 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
         );
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Digest generation failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Digest generation failed."
+        );
       }
     });
   }
@@ -73,9 +75,9 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
         <p className="eyebrow">Daily Digest</p>
         <h2>Generate digest draft</h2>
         <p>
-          Builds a draft digest from published TechnologyItem records and Ranking
-          v0 priority levels. Existing manual add, exclude, pin, order, and
-          editorial summary edits are preserved.
+          Builds a draft digest from published TechnologyItem records and
+          Ranking v0 priority levels. Existing manual add, exclude, pin, order,
+          and editorial summary edits are preserved.
         </p>
       </div>
       <div className="source-batch-panel__actions">
@@ -87,7 +89,9 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
         >
           {isPending ? "Generating digest draft..." : "Generate digest draft"}
         </button>
-        {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+        {message ? (
+          <p className="candidate-review-actions__message">{message}</p>
+        ) : null}
       </div>
     </section>
   );
@@ -148,7 +152,9 @@ export function DailyDigestStatusActions({
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "Digest status update failed."
+          error instanceof Error
+            ? error.message
+            : "Digest status update failed."
         );
       }
     });
@@ -188,10 +194,13 @@ export function DailyDigestStatusActions({
       </div>
       {readiness && !readiness.isReady ? (
         <p className="candidate-review-actions__hint">
-          Publishing is disabled until blocking digest readiness errors are fixed.
+          Publishing is disabled until blocking digest readiness errors are
+          fixed.
         </p>
       ) : null}
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </section>
   );
 }

@@ -35,7 +35,10 @@ export function WorkspacePageShell({
           sectionLabel={sectionLabel}
           actions={actions}
         />
-        <aside className="workspace-security-note" aria-label="Workspace boundary note">
+        <aside
+          className="workspace-security-note"
+          aria-label="Workspace boundary note"
+        >
           {securityNote ?? (
             <>
               <strong>Internal workspace.</strong> Protect with{" "}

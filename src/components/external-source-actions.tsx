@@ -32,13 +32,16 @@ export function ExternalSourceActions({
       setMessage("");
 
       try {
-        const response = await fetch(`/api/workspace/sources/${sourceId}/enabled`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ enabled: nextEnabled })
-        });
+        const response = await fetch(
+          `/api/workspace/sources/${sourceId}/enabled`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ enabled: nextEnabled })
+          }
+        );
         const result = (await response.json()) as {
           ok: boolean;
           message?: string;
@@ -51,7 +54,9 @@ export function ExternalSourceActions({
         setMessage(nextEnabled ? "Source enabled." : "Source disabled.");
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Source update failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Source update failed."
+        );
       }
     });
   }
@@ -61,9 +66,12 @@ export function ExternalSourceActions({
       setMessage("");
 
       try {
-        const response = await fetch(`/api/workspace/sources/${sourceId}/import`, {
-          method: "POST"
-        });
+        const response = await fetch(
+          `/api/workspace/sources/${sourceId}/import`,
+          {
+            method: "POST"
+          }
+        );
         const result = (await response.json()) as {
           ok: boolean;
           message?: string;
@@ -86,13 +94,19 @@ export function ExternalSourceActions({
         );
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Source import failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Source import failed."
+        );
       }
     });
   }
 
   return (
-    <div className={compact ? "source-actions source-actions--compact" : "source-actions"}>
+    <div
+      className={
+        compact ? "source-actions source-actions--compact" : "source-actions"
+      }
+    >
       <div className="candidate-review-actions__buttons">
         <button
           type="button"
@@ -132,7 +146,9 @@ export function ExternalSourceActions({
           This source is disabled and will be skipped by batch import.
         </p>
       ) : null}
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </div>
   );
 }

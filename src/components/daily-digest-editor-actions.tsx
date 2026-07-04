@@ -64,7 +64,9 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
         setMessage("Digest editorial fields saved.");
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Digest update failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Digest update failed."
+        );
       }
     });
   }
@@ -120,7 +122,9 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
           {isPending ? "Saving..." : "Save digest copy"}
         </button>
       </div>
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </form>
   );
 }
@@ -244,7 +248,9 @@ export function DailyDigestManualAdd({
         setMessage("Technology added.");
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Manual add failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Manual add failed."
+        );
       }
     });
   }
@@ -278,9 +284,13 @@ export function DailyDigestManualAdd({
           </button>
         </>
       ) : (
-        <p className="empty-state">All published technologies are already selected.</p>
+        <p className="empty-state">
+          All published technologies are already selected.
+        </p>
       )}
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </section>
   );
 }

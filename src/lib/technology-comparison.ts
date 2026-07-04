@@ -45,7 +45,8 @@ export async function generateOrGetTechnologyComparison(
   technologyIdA: string,
   technologyIdB: string
 ): Promise<
-  { result: TechnologyComparisonPublicResult } | { error: TechnologyComparisonError }
+  | { result: TechnologyComparisonPublicResult }
+  | { error: TechnologyComparisonError }
 > {
   if (technologyIdA === technologyIdB) {
     return {
@@ -85,7 +86,8 @@ export async function generateOrGetTechnologyComparison(
     "technology"
   );
   const config = getLlmProviderConfig();
-  const generationMode = config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
+  const generationMode =
+    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
   const { systemPrompt, userPrompt, promptVersion, promptVersionId } =
     buildTechnologyComparisonPrompt({
       technologyA,
@@ -107,7 +109,12 @@ export async function generateOrGetTechnologyComparison(
       technologyIdB: sortedIdB,
       fields: validation.ok
         ? (validation.fields as TechnologyComparisonRecord["fields"])
-        : { similarities: [], differences: [], whenToPreferA: "", whenToPreferB: "" },
+        : {
+            similarities: [],
+            differences: [],
+            whenToPreferA: "",
+            whenToPreferB: ""
+          },
       generationMode,
       providerName: response.providerName,
       modelName: response.modelName,

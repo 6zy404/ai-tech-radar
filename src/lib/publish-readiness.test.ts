@@ -35,7 +35,11 @@ describe("evaluateTechnologyPublishReadiness", () => {
 
     expect(result.isReady).toBe(false);
     expect(codes(result.blockingErrors)).toEqual(
-      expect.arrayContaining(["missing-title", "missing-summary", "missing-slug"])
+      expect.arrayContaining([
+        "missing-title",
+        "missing-summary",
+        "missing-slug"
+      ])
     );
   });
 

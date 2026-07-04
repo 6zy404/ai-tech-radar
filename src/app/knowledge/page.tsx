@@ -63,7 +63,10 @@ function getRelatedTechnologies(
   );
 }
 
-function getRelatedSkillCount(item: KnowledgeItem, skills: SkillItem[]): number {
+function getRelatedSkillCount(
+  item: KnowledgeItem,
+  skills: SkillItem[]
+): number {
   return skills.filter((skill) => item.relatedSkillIds.includes(skill.id))
     .length;
 }
@@ -181,7 +184,10 @@ export default function KnowledgePage() {
                       0,
                       2
                     );
-                    const relatedSkillTotal = getRelatedSkillCount(item, skills);
+                    const relatedSkillTotal = getRelatedSkillCount(
+                      item,
+                      skills
+                    );
 
                     return (
                       <article

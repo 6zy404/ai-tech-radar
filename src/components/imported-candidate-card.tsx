@@ -44,7 +44,9 @@ export function ImportedCandidateCard({
           <span className="candidate-card__source-type">
             {getImportedCandidateSourceTypeLabel(candidate.sourceType)}
           </span>
-          <span className="candidate-card__source-name">{candidate.sourceName}</span>
+          <span className="candidate-card__source-name">
+            {candidate.sourceName}
+          </span>
         </div>
         <div className="candidate-card__meta-row candidate-card__meta-row--muted">
           <span>{candidate.publisherName}</span>
@@ -71,8 +73,11 @@ export function ImportedCandidateCard({
             {getPriorityLevelLabel(ranking.priorityLevel)}
           </span>
         ) : null}
-        <span className="info-pill">{candidate.originalLanguage.toUpperCase()}</span>
-        {candidate.relatedCandidateIds.length > 0 && candidate.duplicateGroupId ? (
+        <span className="info-pill">
+          {candidate.originalLanguage.toUpperCase()}
+        </span>
+        {candidate.relatedCandidateIds.length > 0 &&
+        candidate.duplicateGroupId ? (
           <Link
             href={`/workspace/duplicates/${candidate.duplicateGroupId}`}
             className="info-pill info-pill--warning"

@@ -90,7 +90,9 @@ function buildDigest(
       new Set(technologies.flatMap((technology) => technology.relatedSkillIds))
     ),
     knowledgeIds: Array.from(
-      new Set(technologies.flatMap((technology) => technology.relatedKnowledgeIds))
+      new Set(
+        technologies.flatMap((technology) => technology.relatedKnowledgeIds)
+      )
     ),
     sourceNames: Array.from(
       new Set(technologies.map((technology) => technology.sourceName))
@@ -127,7 +129,11 @@ function main() {
       "Expected at least two published technologies for delivery validation."
     );
 
-    const publishedDigest = buildDigest("2026-05-23", "published", technologies);
+    const publishedDigest = buildDigest(
+      "2026-05-23",
+      "published",
+      technologies
+    );
     const draftDigest = buildDigest("2026-05-24", "draft", technologies);
     const archivedDigest = buildDigest("2026-05-25", "archived", technologies);
 
@@ -168,7 +174,10 @@ function main() {
     assertNoInternalFields(rssFeed, "RSS feed");
     assertNoInternalFields(shareText, "Share text");
     assert.equal(JSON.stringify(jsonFeed).includes(draftDigest.title), false);
-    assert.equal(JSON.stringify(jsonFeed).includes(archivedDigest.title), false);
+    assert.equal(
+      JSON.stringify(jsonFeed).includes(archivedDigest.title),
+      false
+    );
     assert.equal(rssFeed.includes(publishedDigest.title), true);
     assert.equal(rssFeed.includes(draftDigest.title), false);
     assert.equal(rssFeed.includes(archivedDigest.title), false);

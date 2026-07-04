@@ -9,7 +9,11 @@ import {
   getImportedCandidateNormalizedTypeLabel,
   getImportedCandidateSourceTypeLabel
 } from "@/lib/imported-candidate-display";
-import type { DuplicateGroup, DuplicateReason, ImportedCandidate } from "@/types/content";
+import type {
+  DuplicateGroup,
+  DuplicateReason,
+  ImportedCandidate
+} from "@/types/content";
 
 interface DuplicateGroupDetailContentProps {
   group: DuplicateGroup;
@@ -47,15 +51,17 @@ export function DuplicateGroupDetailContent({
         <p className="eyebrow">Duplicate Review</p>
         <h1>{primaryCandidate?.originalTitle ?? group.id}</h1>
         <p className="candidate-detail-hero__summary">
-          Review these imported candidates as one possible technology event. Select
-          a primary candidate before converting to a Technology draft.
+          Review these imported candidates as one possible technology event.
+          Select a primary candidate before converting to a Technology draft.
         </p>
         <div className="candidate-detail-hero__meta">
           <WorkspaceStatusBadge
             label={group.status}
             tone={getStatusTone(group.status)}
           />
-          <span className="info-pill">{group.candidateIds.length} candidates</span>
+          <span className="info-pill">
+            {group.candidateIds.length} candidates
+          </span>
           {group.reasons.map((reason) => (
             <span key={reason} className="info-pill info-pill--warning">
               {getDuplicateReasonLabel(reason)}
@@ -77,14 +83,15 @@ export function DuplicateGroupDetailContent({
               <div>
                 <h2>Candidate comparison</h2>
                 <p>
-                  Compare title, source, date, summary, and status before resolving
-                  the group.
+                  Compare title, source, date, summary, and status before
+                  resolving the group.
                 </p>
               </div>
             </div>
             <div className="candidate-duplicate-list duplicate-review-list">
               {candidates.map((candidate) => {
-                const candidateReasons = reasonsByCandidateId[candidate.id] ?? [];
+                const candidateReasons =
+                  reasonsByCandidateId[candidate.id] ?? [];
                 const isPrimary = candidate.id === group.primaryCandidateId;
 
                 return (
@@ -96,13 +103,19 @@ export function DuplicateGroupDetailContent({
                   >
                     <div className="candidate-duplicate-item__meta">
                       {isPrimary ? (
-                        <span className="info-pill info-pill--warning">Primary</span>
+                        <span className="info-pill info-pill--warning">
+                          Primary
+                        </span>
                       ) : null}
-                      <ImportedCandidateStatusBadge status={candidate.importStatus} />
+                      <ImportedCandidateStatusBadge
+                        status={candidate.importStatus}
+                      />
                       <span>{candidate.publisherName}</span>
                       <span>{candidate.publishDate}</span>
                       <span>
-                        {getImportedCandidateSourceTypeLabel(candidate.sourceType)}
+                        {getImportedCandidateSourceTypeLabel(
+                          candidate.sourceType
+                        )}
                       </span>
                     </div>
                     <h3>
@@ -110,7 +123,9 @@ export function DuplicateGroupDetailContent({
                         {candidate.originalTitle}
                       </Link>
                     </h3>
-                    <p>{candidate.originalSummary ?? "No summary available."}</p>
+                    <p>
+                      {candidate.originalSummary ?? "No summary available."}
+                    </p>
                     <div className="candidate-duplicate-item__meta">
                       <span>
                         Type:{" "}
@@ -129,7 +144,10 @@ export function DuplicateGroupDetailContent({
                     </div>
                     <div className="candidate-duplicate-item__reasons">
                       {candidateReasons.map((reason) => (
-                        <span key={reason} className="info-pill info-pill--subtle">
+                        <span
+                          key={reason}
+                          className="info-pill info-pill--subtle"
+                        >
                           {getDuplicateReasonLabel(reason)}
                         </span>
                       ))}
@@ -202,9 +220,9 @@ export function DuplicateGroupDetailContent({
           <section className="section-panel candidate-detail-section">
             <h2>Conversion rule</h2>
             <p className="detail-copy">
-              Resolved duplicate groups should convert only the primary candidate.
-              Other candidates become additional source references on the generated
-              Technology draft.
+              Resolved duplicate groups should convert only the primary
+              candidate. Other candidates become additional source references on
+              the generated Technology draft.
             </p>
           </section>
         </aside>

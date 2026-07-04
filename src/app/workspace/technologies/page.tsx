@@ -11,7 +11,9 @@ export default function WorkspaceTechnologiesPage() {
   const records = getTechnologyWorkspaceRecords();
   const draftRecords = records.filter((record) => record.status === "draft");
   const managedRecords = records.filter((record) => record.status !== "draft");
-  const draftCount = records.filter((record) => record.status === "draft").length;
+  const draftCount = records.filter(
+    (record) => record.status === "draft"
+  ).length;
   const publishedCount = records.filter(
     (record) => record.status === "published"
   ).length;
@@ -27,18 +29,24 @@ export default function WorkspaceTechnologiesPage() {
       className="workspace-technologies-console"
       securityNote={
         <>
-          <strong>Internal technology console.</strong> Draft edits, status changes,
-          source traceability, and preview checks stay in Workspace before any
-          public reading surface is opened.
+          <strong>Internal technology console.</strong> Draft edits, status
+          changes, source traceability, and preview checks stay in Workspace
+          before any public reading surface is opened.
         </>
       }
       actions={
-        <Link href="/workspace/candidates" className="action-button action-button--accent">
+        <Link
+          href="/workspace/candidates"
+          className="action-button action-button--accent"
+        >
           Review candidates
         </Link>
       }
     >
-      <section className="workspace-status-overview" aria-label="Technology status overview">
+      <section
+        className="workspace-status-overview"
+        aria-label="Technology status overview"
+      >
         <div className="workspace-status-overview__card">
           <span>Draft queue</span>
           <strong>{draftCount}</strong>
@@ -61,10 +69,15 @@ export default function WorkspaceTechnologiesPage() {
         detail="Drafts are edited here; published and archived records remain visible for internal traceability."
       />
 
-      <section className="workspace-technology-section" aria-labelledby="technology-draft-queue">
+      <section
+        className="workspace-technology-section"
+        aria-labelledby="technology-draft-queue"
+      >
         <div className="workspace-technology-section__header">
           <div>
-            <p className="workspace-technology-section__eyebrow">Draft management</p>
+            <p className="workspace-technology-section__eyebrow">
+              Draft management
+            </p>
             <h2 id="technology-draft-queue">Draft technology records</h2>
           </div>
           <span>{draftRecords.length} drafts</span>
@@ -82,7 +95,8 @@ export default function WorkspaceTechnologiesPage() {
               <strong>No draft technology records.</strong>
               <p>
                 Convert an imported candidate into a technology draft before
-                editing source context, relationships, and publication readiness.
+                editing source context, relationships, and publication
+                readiness.
               </p>
             </div>
             <Link href="/workspace/candidates" className="action-link">
@@ -98,8 +112,12 @@ export default function WorkspaceTechnologiesPage() {
       >
         <div className="workspace-technology-section__header">
           <div>
-            <p className="workspace-technology-section__eyebrow">Published archive</p>
-            <h2 id="technology-published-archive">Published and archived records</h2>
+            <p className="workspace-technology-section__eyebrow">
+              Published archive
+            </p>
+            <h2 id="technology-published-archive">
+              Published and archived records
+            </h2>
           </div>
           <span>{managedRecords.length} records</span>
         </div>
@@ -112,8 +130,8 @@ export default function WorkspaceTechnologiesPage() {
 
         {managedRecords.length === 0 ? (
           <p className="empty-state">
-            No published or archived technology records yet. Published records will
-            appear here after draft review is complete.
+            No published or archived technology records yet. Published records
+            will appear here after draft review is complete.
           </p>
         ) : null}
       </section>

@@ -11,7 +11,11 @@ const workspaceNavItems = [
   { href: "/workspace/technologies", label: "Drafts", group: "Content" },
   { href: "/workspace/digests", label: "Digests", group: "Publishing" },
   { href: "/workspace/delivery", label: "Delivery", group: "Publishing" },
-  { href: "/workspace/delivery/schedules", label: "Schedules", group: "Publishing" },
+  {
+    href: "/workspace/delivery/schedules",
+    label: "Schedules",
+    group: "Publishing"
+  },
   { href: "/workspace/operations", label: "Operations", group: "System" }
 ];
 

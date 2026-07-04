@@ -65,7 +65,9 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
           );
         }
 
-        setMessage(isEditing ? "Delivery channel updated." : "Delivery channel created.");
+        setMessage(
+          isEditing ? "Delivery channel updated." : "Delivery channel created."
+        );
         router.refresh();
       } catch (error) {
         setMessage(
@@ -161,7 +163,9 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
         </button>
       </div>
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </form>
   );
 }

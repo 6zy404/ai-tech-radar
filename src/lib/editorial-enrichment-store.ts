@@ -19,7 +19,9 @@ export interface EditorialEnrichmentReadinessState {
   latestStatus?: EditorialEnrichmentSuggestionStatus;
 }
 
-const storePath = getLocalStoreFilePath("editorial-enrichment-suggestions.json");
+const storePath = getLocalStoreFilePath(
+  "editorial-enrichment-suggestions.json"
+);
 
 function getTimestamp(): string {
   return new Date().toISOString();
@@ -117,7 +119,8 @@ export function getLatestEditorialEnrichmentSuggestionForDraft(
 export function getEditorialEnrichmentReadinessState(
   technologyDraftId: string
 ): EditorialEnrichmentReadinessState {
-  const suggestions = getEditorialEnrichmentSuggestionsForDraft(technologyDraftId);
+  const suggestions =
+    getEditorialEnrichmentSuggestionsForDraft(technologyDraftId);
   const latestSuggestion = suggestions[0];
 
   return {

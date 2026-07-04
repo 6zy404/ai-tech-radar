@@ -88,12 +88,12 @@ describe("validateTechnologyComparisonLlmOutput", () => {
     // truncateText appends "..." without shrinking the slice to make room for it,
     // so the real cap is maxLength + 2, not maxLength exactly (pre-existing
     // behavior inherited verbatim from editorial-enrichment-output.ts).
-    expect((result.fields as { whenToPreferA: string }).whenToPreferA.length).toBeLessThanOrEqual(
-      422
-    );
-    expect((result.fields as { whenToPreferA: string }).whenToPreferA.length).toBeLessThan(
-      longText.length
-    );
+    expect(
+      (result.fields as { whenToPreferA: string }).whenToPreferA.length
+    ).toBeLessThanOrEqual(422);
+    expect(
+      (result.fields as { whenToPreferA: string }).whenToPreferA.length
+    ).toBeLessThan(longText.length);
   });
 
   it("drops unsupported top-level fields and reports a warning instead of failing", () => {
@@ -102,29 +102,35 @@ describe("validateTechnologyComparisonLlmOutput", () => {
     );
 
     expect(result.ok).toBe(true);
-    expect(result.warnings.some((warning) => warning.includes("providerName"))).toBe(
-      true
-    );
+    expect(
+      result.warnings.some((warning) => warning.includes("providerName"))
+    ).toBe(true);
     expect(JSON.stringify(result.fields)).not.toContain("should-be-dropped");
   });
 
   it("caps array fields at the max item count", () => {
-    const manyItems = Array.from({ length: 10 }, (_, index) => `point ${index}`);
+    const manyItems = Array.from(
+      { length: 10 },
+      (_, index) => `point ${index}`
+    );
     const result = validateTechnologyComparisonLlmOutput(
       validComparisonJson({ similarities: manyItems })
     );
 
     expect(result.ok).toBe(true);
-    expect((result.fields as { similarities: string[] }).similarities.length).toBeLessThanOrEqual(
-      6
-    );
+    expect(
+      (result.fields as { similarities: string[] }).similarities.length
+    ).toBeLessThanOrEqual(6);
   });
 
   it("treats sharedConsiderations as optional", () => {
     const result = validateTechnologyComparisonLlmOutput(validComparisonJson());
 
     expect(result.ok).toBe(true);
-    expect((result.fields as { sharedConsiderations?: string[] }).sharedConsiderations).toBeUndefined();
+    expect(
+      (result.fields as { sharedConsiderations?: string[] })
+        .sharedConsiderations
+    ).toBeUndefined();
   });
 });
 

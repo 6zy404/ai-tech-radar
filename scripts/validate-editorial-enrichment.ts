@@ -113,14 +113,12 @@ function buildTechnologyRecord(
     summary: {
       original:
         "A complete validation item used to verify editorial enrichment suggestions before publication.",
-      zh:
-        "A complete validation item used to verify editorial enrichment suggestions before publication."
+      zh: "A complete validation item used to verify editorial enrichment suggestions before publication."
     },
     content: {
       original:
         "This validation content is long enough to pass publication checks while exercising deterministic editorial enrichment suggestions for content intelligence fields.",
-      zh:
-        "This validation content is long enough to pass publication checks while exercising deterministic editorial enrichment suggestions for content intelligence fields."
+      zh: "This validation content is long enough to pass publication checks while exercising deterministic editorial enrichment suggestions for content intelligence fields."
     },
     type: "tool",
     publishDate: "2026-05-30",
@@ -173,7 +171,9 @@ async function main() {
       "Missing enrichment suggestion should produce a publish warning."
     );
 
-    const firstSuggestion = await generateEditorialEnrichmentSuggestion(record.id);
+    const firstSuggestion = await generateEditorialEnrichmentSuggestion(
+      record.id
+    );
     assert.equal(firstSuggestion.status, "draft");
     assert.equal(firstSuggestion.generationMode, "rule_based");
     assert.ok(firstSuggestion.generatedFields.whyItMatters);
@@ -183,10 +183,13 @@ async function main() {
       "Generating a suggestion should not directly change the draft."
     );
 
-    const unreviewedReadiness = getTechnologyWorkspacePublishReadiness(record.id);
+    const unreviewedReadiness = getTechnologyWorkspacePublishReadiness(
+      record.id
+    );
     assert.ok(
       unreviewedReadiness.warnings.some(
-        (warning) => warning.code === "unreviewed-editorial-enrichment-suggestion"
+        (warning) =>
+          warning.code === "unreviewed-editorial-enrichment-suggestion"
       ),
       "Unreviewed enrichment suggestion should produce a publish warning."
     );
@@ -195,12 +198,15 @@ async function main() {
       summary: {
         original:
           "A changed validation summary that should make the previous enrichment suggestion stale.",
-        zh:
-          "A changed validation summary that should make the previous enrichment suggestion stale."
+        zh: "A changed validation summary that should make the previous enrichment suggestion stale."
       }
     });
-    const secondSuggestion = await generateEditorialEnrichmentSuggestion(record.id);
-    const staleSuggestion = getEditorialEnrichmentSuggestionById(firstSuggestion.id);
+    const secondSuggestion = await generateEditorialEnrichmentSuggestion(
+      record.id
+    );
+    const staleSuggestion = getEditorialEnrichmentSuggestionById(
+      firstSuggestion.id
+    );
     assert.equal(
       staleSuggestion?.status,
       "stale",
@@ -213,19 +219,26 @@ async function main() {
     );
     assert.equal(applied.suggestion.status, "applied");
     assert.ok(applied.record.whyItMatters?.length);
-    assert.ok((applied.record.relatedKnowledgeExplanations ?? {})["knowledge-tool-use"]);
-    assert.ok((applied.record.relatedSkillExplanations ?? {})["skill-agent-design"]);
+    assert.ok(
+      (applied.record.relatedKnowledgeExplanations ?? {})["knowledge-tool-use"]
+    );
+    assert.ok(
+      (applied.record.relatedSkillExplanations ?? {})["skill-agent-design"]
+    );
 
     const reviewedReadiness = getTechnologyWorkspacePublishReadiness(record.id);
     assert.equal(
       reviewedReadiness.warnings.some(
-        (warning) => warning.code === "unreviewed-editorial-enrichment-suggestion"
+        (warning) =>
+          warning.code === "unreviewed-editorial-enrichment-suggestion"
       ),
       false,
       "Applied latest enrichment suggestion should clear unreviewed-suggestion warning."
     );
 
-    const thirdSuggestion = await generateEditorialEnrichmentSuggestion(record.id);
+    const thirdSuggestion = await generateEditorialEnrichmentSuggestion(
+      record.id
+    );
     const beforeRejectWhyItMatters = getTechnologyWorkspaceRecordById(
       record.id
     )?.whyItMatters;
@@ -235,7 +248,10 @@ async function main() {
       "Too generic for this draft."
     );
     assert.equal(rejectedSuggestion.status, "rejected");
-    assert.equal(rejectedSuggestion.reviewerNotes, "Too generic for this draft.");
+    assert.equal(
+      rejectedSuggestion.reviewerNotes,
+      "Too generic for this draft."
+    );
     assert.equal(
       getTechnologyWorkspaceRecordById(record.id)?.whyItMatters,
       beforeRejectWhyItMatters,
@@ -246,7 +262,8 @@ async function main() {
     assert.equal(suggestions.length, 3);
 
     const events = getWorkflowEvents().filter(
-      (event) => event.entityType === "technology_draft" && event.entityId === record.id
+      (event) =>
+        event.entityType === "technology_draft" && event.entityId === record.id
     );
     assert.ok(
       events.some((event) => event.action === "editorial_enrichment.generated"),

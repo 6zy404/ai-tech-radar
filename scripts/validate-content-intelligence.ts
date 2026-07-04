@@ -92,14 +92,12 @@ function buildTechnologyRecord(
     summary: {
       original:
         "A complete validation item used to verify content intelligence persistence and publication.",
-      zh:
-        "A complete validation item used to verify content intelligence persistence and publication."
+      zh: "A complete validation item used to verify content intelligence persistence and publication."
     },
     content: {
       original:
         "This validation content is long enough to pass publication checks while exercising the explanation fields that help users understand a technology signal.",
-      zh:
-        "This validation content is long enough to pass publication checks while exercising the explanation fields that help users understand a technology signal."
+      zh: "This validation content is long enough to pass publication checks while exercising the explanation fields that help users understand a technology signal."
     },
     type: "tool",
     publishDate: "2026-05-29",
@@ -161,21 +159,31 @@ function main() {
       whyItMatters:
         "This signal matters because it turns a technology item into an explanation users can act on.",
       whoShouldCare: ["AI engineer", "product builder"],
-      technicalContext: "A content understanding layer above published technology records.",
+      technicalContext:
+        "A content understanding layer above published technology records.",
       impactAreas: ["developer tools", "enterprise AI adoption"],
-      learningPath: ["Read the source", "Review related knowledge", "Pick a pilot"],
+      learningPath: [
+        "Read the source",
+        "Review related knowledge",
+        "Pick a pilot"
+      ],
       relatedKnowledgeExplanations: {
-        "knowledge-tool-use": "Tool-use knowledge explains why the signal matters."
+        "knowledge-tool-use":
+          "Tool-use knowledge explains why the signal matters."
       },
       relatedSkillExplanations: {
-        "skill-agent-design": "Agent design helps teams apply the signal safely."
+        "skill-agent-design":
+          "Agent design helps teams apply the signal safely."
       },
       followUpQuestions: ["What workflow changes first?"],
       readingDifficulty: "beginner",
       intelligenceStatus: "reviewed"
     });
 
-    assert.equal(updatedRecord.whyItMatters?.startsWith("This signal matters"), true);
+    assert.equal(
+      updatedRecord.whyItMatters?.startsWith("This signal matters"),
+      true
+    );
     assert.deepEqual(updatedRecord.whoShouldCare, [
       "AI engineer",
       "product builder"
@@ -227,7 +235,9 @@ function main() {
     assert.equal(digestSummary.relatedSkillCount, 1);
     assert.equal(digestSummary.audience.length, 2);
 
-    const completeReadiness = getTechnologyWorkspacePublishReadiness(updatedRecord.id);
+    const completeReadiness = getTechnologyWorkspacePublishReadiness(
+      updatedRecord.id
+    );
     assert.equal(completeReadiness.isReady, true);
     assert.equal(
       completeReadiness.warnings.some(

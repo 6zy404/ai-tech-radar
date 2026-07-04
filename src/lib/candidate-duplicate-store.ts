@@ -73,7 +73,11 @@ export function analyzeDuplicates(
   }
 
   for (let index = 0; index < candidates.length; index += 1) {
-    for (let nextIndex = index + 1; nextIndex < candidates.length; nextIndex += 1) {
+    for (
+      let nextIndex = index + 1;
+      nextIndex < candidates.length;
+      nextIndex += 1
+    ) {
       const left = candidates[index];
       const right = candidates[nextIndex];
       const reasons = getDuplicateReasons(left, right);
@@ -89,7 +93,9 @@ export function analyzeDuplicates(
   }
 
   const visited = new Set<string>();
-  const candidateMap = new Map(candidates.map((candidate) => [candidate.id, candidate]));
+  const candidateMap = new Map(
+    candidates.map((candidate) => [candidate.id, candidate])
+  );
 
   for (const candidate of candidates) {
     if (visited.has(candidate.id)) {

@@ -11,7 +11,9 @@ export interface DuplicateGroupStore {
   groups: DuplicateGroup[];
 }
 
-export function readDuplicateGroupStore(database: SqliteDatabase): DuplicateGroupStore {
+export function readDuplicateGroupStore(
+  database: SqliteDatabase
+): DuplicateGroupStore {
   return {
     updatedAt: getTimestamp(),
     groups: selectPayloads<DuplicateGroup>(

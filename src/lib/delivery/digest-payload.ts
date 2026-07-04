@@ -1,7 +1,4 @@
-import {
-  getDigestPublicUrl,
-  getSiteBaseUrl
-} from "@/lib/digest-delivery";
+import { getDigestPublicUrl, getSiteBaseUrl } from "@/lib/digest-delivery";
 import { getDigestTechnologySections } from "@/lib/digest-workflow";
 import { getDailyDigestRenderData } from "@/lib/digest-view";
 import { evaluateTechnologyPriority } from "@/lib/ranking";

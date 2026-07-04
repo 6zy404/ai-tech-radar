@@ -24,7 +24,10 @@ import {
   updateTechnologyWorkspaceStatus
 } from "../src/lib/technology-draft-workflow";
 import { getAllTechnologies } from "../src/lib/content";
-import { createDeliveryChannel, sendDailyDigestToChannel } from "../src/lib/delivery-workflow";
+import {
+  createDeliveryChannel,
+  sendDailyDigestToChannel
+} from "../src/lib/delivery-workflow";
 import { getDigestDeliveryFeed } from "../src/lib/digest-delivery";
 import {
   evaluateDailyDigestPublishReadiness,
@@ -51,9 +54,7 @@ import type {
 } from "../src/types/content";
 
 type BackupEntry =
-  | { kind: "missing" }
-  | { kind: "file"; value: string }
-  | { kind: "directory" };
+  { kind: "missing" } | { kind: "file"; value: string } | { kind: "directory" };
 
 const configDirPath = path.join(process.cwd(), "config");
 const importedCandidatesSnapshotPath = path.join(
@@ -68,7 +69,10 @@ const technologyWorkspaceStorePath = path.join(
   configDirPath,
   "technology-workspace.json"
 );
-const duplicateGroupStorePath = path.join(configDirPath, "duplicate-groups.json");
+const duplicateGroupStorePath = path.join(
+  configDirPath,
+  "duplicate-groups.json"
+);
 const digestStorePath = path.join(configDirPath, "daily-digests.json");
 const deliveryStorePath = path.join(configDirPath, "delivery.json");
 const scheduleStorePath = path.join(configDirPath, "scheduled-delivery.json");
@@ -270,8 +274,8 @@ async function main() {
   try {
     writeInitialStores();
 
-    const detectedGroup = getCandidateWorkflowData().duplicateGroups.find((group) =>
-      group.candidateIds.includes("workflow-hardening-primary")
+    const detectedGroup = getCandidateWorkflowData().duplicateGroups.find(
+      (group) => group.candidateIds.includes("workflow-hardening-primary")
     );
 
     assert.ok(detectedGroup, "Expected duplicate group to be detected.");
@@ -313,7 +317,9 @@ async function main() {
     );
 
     const draft = convertImportedCandidateToDraft("workflow-hardening-primary");
-    const draftAgain = convertImportedCandidateToDraft("workflow-hardening-primary");
+    const draftAgain = convertImportedCandidateToDraft(
+      "workflow-hardening-primary"
+    );
 
     assert.equal(draftAgain.id, draft.id);
     assert.equal(
@@ -328,9 +334,10 @@ async function main() {
       "Resolved duplicate references should be carried into the draft."
     );
     assert.ok(
-      getWorkflowEventsForEntity("candidate", "workflow-hardening-primary").some(
-        (event) => event.action === "candidate.converted_to_draft"
-      ),
+      getWorkflowEventsForEntity(
+        "candidate",
+        "workflow-hardening-primary"
+      ).some((event) => event.action === "candidate.converted_to_draft"),
       "Candidate conversion should record a workflow event."
     );
 

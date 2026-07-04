@@ -66,7 +66,9 @@ export function DeliveryRunActions({ runId, status }: DeliveryRunActionsProps) {
       >
         Retry delivery
       </button>
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </div>
   );
 }

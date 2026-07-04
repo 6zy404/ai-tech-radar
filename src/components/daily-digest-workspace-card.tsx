@@ -55,7 +55,10 @@ export function DailyDigestWorkspaceCard({
       </div>
 
       <div className="digest-workspace-card__links">
-        <Link href={`/workspace/digests/${digest.date}`} className="action-link">
+        <Link
+          href={`/workspace/digests/${digest.date}`}
+          className="action-link"
+        >
           Review digest
         </Link>
         <Link

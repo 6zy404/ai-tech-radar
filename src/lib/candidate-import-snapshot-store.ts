@@ -20,7 +20,9 @@ const importedCandidatesSnapshotPath = getLocalStoreFilePath(
   "imported-candidates.live.json"
 );
 
-function sanitizeImportedCandidate(candidate: ImportedCandidate): ImportedCandidate {
+function sanitizeImportedCandidate(
+  candidate: ImportedCandidate
+): ImportedCandidate {
   const rawPayload =
     candidate.rawPayload && typeof candidate.rawPayload === "object"
       ? (candidate.rawPayload as Record<string, unknown>)
@@ -57,18 +59,17 @@ function sanitizeImportedCandidate(candidate: ImportedCandidate): ImportedCandid
         item?.["content:encoded"] ??
         release?.body ??
         listingPreview?.excerpt
-    ) ??
-    extractedParagraphs[0];
+    ) ?? extractedParagraphs[0];
   const fallbackContent =
-    (
-      getPayloadText(
-        entry?.content ??
-          entry?.summary ??
-          item?.["content:encoded"] ??
-          item?.description ??
-          release?.body
-      ) ?? extractedParagraphs.join("\n\n")
-    ) || fallbackSummary;
+    (getPayloadText(
+      entry?.content ??
+        entry?.summary ??
+        item?.["content:encoded"] ??
+        item?.description ??
+        release?.body
+    ) ??
+      extractedParagraphs.join("\n\n")) ||
+    fallbackSummary;
   const releaseAuthor =
     release?.author && typeof release.author === "object"
       ? (release.author as Record<string, unknown>)
@@ -77,11 +78,8 @@ function sanitizeImportedCandidate(candidate: ImportedCandidate): ImportedCandid
     normalizeReadableText(
       String(
         entry?.author && typeof entry.author === "object"
-          ? (entry.author as Record<string, unknown>).name ?? ""
-          : item?.["dc:creator"] ??
-            item?.author ??
-            releaseAuthor?.login ??
-            ""
+          ? ((entry.author as Record<string, unknown>).name ?? "")
+          : (item?.["dc:creator"] ?? item?.author ?? releaseAuthor?.login ?? "")
       )
     ) ?? candidate.sourceName;
 
@@ -89,14 +87,21 @@ function sanitizeImportedCandidate(candidate: ImportedCandidate): ImportedCandid
     ...candidate,
     sourceId:
       candidate.sourceId ??
-      (typeof rawPayload?.sourceId === "string" ? rawPayload.sourceId : undefined),
-    originalTitle: normalizeReadableText(candidate.originalTitle) ?? fallbackTitle,
-    originalSummary: trimReadableText(candidate.originalSummary, 260) ??
+      (typeof rawPayload?.sourceId === "string"
+        ? rawPayload.sourceId
+        : undefined),
+    originalTitle:
+      normalizeReadableText(candidate.originalTitle) ?? fallbackTitle,
+    originalSummary:
+      trimReadableText(candidate.originalSummary, 260) ??
       trimReadableText(fallbackSummary, 260),
-    originalContent: trimReadableText(candidate.originalContent, 2200) ??
+    originalContent:
+      trimReadableText(candidate.originalContent, 2200) ??
       trimReadableText(fallbackContent, 2200),
-    publisherName: normalizeReadableText(candidate.publisherName) ?? fallbackPublisher,
-    sourceUrl: normalizeReadableText(candidate.sourceUrl) ?? candidate.sourceUrl,
+    publisherName:
+      normalizeReadableText(candidate.publisherName) ?? fallbackPublisher,
+    sourceUrl:
+      normalizeReadableText(candidate.sourceUrl) ?? candidate.sourceUrl,
     relatedCandidateIds: Array.isArray(candidate.relatedCandidateIds)
       ? [...candidate.relatedCandidateIds]
       : []
@@ -111,7 +116,8 @@ function buildFallbackSnapshot(): ImportedCandidateSnapshot {
   >();
 
   for (const candidate of candidates) {
-    const key = candidate.sourceId ?? `${candidate.sourceType}:${candidate.sourceName}`;
+    const key =
+      candidate.sourceId ?? `${candidate.sourceType}:${candidate.sourceName}`;
 
     if (!groupedSourceRecords.has(key)) {
       groupedSourceRecords.set(key, {
@@ -141,7 +147,10 @@ function buildFallbackSnapshot(): ImportedCandidateSnapshot {
 }
 
 export function readImportedCandidateSnapshot(): ImportedCandidateSnapshot {
-  const snapshot = readJsonFile(importedCandidatesSnapshotPath, buildFallbackSnapshot());
+  const snapshot = readJsonFile(
+    importedCandidatesSnapshotPath,
+    buildFallbackSnapshot()
+  );
 
   return {
     ...snapshot,
@@ -151,7 +160,9 @@ export function readImportedCandidateSnapshot(): ImportedCandidateSnapshot {
   };
 }
 
-export function writeImportedCandidateSnapshot(snapshot: ImportedCandidateSnapshot) {
+export function writeImportedCandidateSnapshot(
+  snapshot: ImportedCandidateSnapshot
+) {
   writeJsonFile(importedCandidatesSnapshotPath, snapshot);
 }
 
@@ -165,7 +176,9 @@ export function getImportedCandidateSourceId(
   if (candidate.rawPayload && typeof candidate.rawPayload === "object") {
     const rawPayload = candidate.rawPayload as Record<string, unknown>;
 
-    return typeof rawPayload.sourceId === "string" ? rawPayload.sourceId : undefined;
+    return typeof rawPayload.sourceId === "string"
+      ? rawPayload.sourceId
+      : undefined;
   }
 
   return undefined;

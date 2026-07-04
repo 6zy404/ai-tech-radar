@@ -39,7 +39,10 @@ function hasText(value: string | undefined): boolean {
   return Boolean(value?.trim());
 }
 
-function getAgeInDays(dateValue: string | undefined, now: Date): number | undefined {
+function getAgeInDays(
+  dateValue: string | undefined,
+  now: Date
+): number | undefined {
   if (!dateValue) {
     return undefined;
   }
@@ -89,7 +92,9 @@ function applySourceQuality(
 
   if (sourceQuality.conversionRate > 0) {
     state.score += 6;
-    state.reasons.push("This source has previously produced converted candidates.");
+    state.reasons.push(
+      "This source has previously produced converted candidates."
+    );
   }
 
   if (sourceQuality.rejectionRate >= 0.35) {
@@ -394,7 +399,10 @@ export function evaluateTechnologyPriority(
     state.reasons.push("Editorial importance is marked important.");
   }
 
-  if (technology.publisherType === "big-tech" || technology.publisherType === "research-lab") {
+  if (
+    technology.publisherType === "big-tech" ||
+    technology.publisherType === "research-lab"
+  ) {
     state.score += 4;
     state.reasons.push("Publisher type is a strong technology signal source.");
   }

@@ -40,7 +40,9 @@ export default async function WorkspaceTechnologyDetailPage({
         skillOptions={getAllSkills()}
         knowledgeOptions={getAllKnowledge()}
         readiness={getTechnologyWorkspacePublishReadiness(record.id)}
-        enrichmentSuggestions={getEditorialEnrichmentSuggestionsForDraft(record.id)}
+        enrichmentSuggestions={getEditorialEnrichmentSuggestionsForDraft(
+          record.id
+        )}
         workflowEvents={getWorkflowEventsForEntity(
           "technology_draft",
           record.id

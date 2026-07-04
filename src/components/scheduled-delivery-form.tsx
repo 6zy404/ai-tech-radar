@@ -100,7 +100,9 @@ export function ScheduledDeliveryForm({
               )
             }
           >
-            <option value="latest_published_digest">Latest published digest</option>
+            <option value="latest_published_digest">
+              Latest published digest
+            </option>
             <option value="digest_by_date">Digest by date</option>
           </select>
         </label>
@@ -146,16 +148,21 @@ export function ScheduledDeliveryForm({
                 type="checkbox"
                 value={channel.id}
                 defaultChecked={
-                  schedule ? selectedChannelIds.has(channel.id) : channel.enabled
+                  schedule
+                    ? selectedChannelIds.has(channel.id)
+                    : channel.enabled
                 }
               />
               <span>
-                {channel.name} ({channel.type}, {channel.enabled ? "enabled" : "disabled"})
+                {channel.name} ({channel.type},{" "}
+                {channel.enabled ? "enabled" : "disabled"})
               </span>
             </label>
           ))
         ) : (
-          <p className="empty-state">Create a delivery channel before scheduling.</p>
+          <p className="empty-state">
+            Create a delivery channel before scheduling.
+          </p>
         )}
       </fieldset>
 
@@ -183,7 +190,9 @@ export function ScheduledDeliveryForm({
         </button>
       </div>
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </form>
   );
 }

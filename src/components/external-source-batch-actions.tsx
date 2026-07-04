@@ -72,7 +72,9 @@ export function ExternalSourceBatchActions({
           onClick={runBatchImport}
           disabled={isPending}
         >
-          {isPending ? "Importing enabled sources..." : "Import enabled sources"}
+          {isPending
+            ? "Importing enabled sources..."
+            : "Import enabled sources"}
         </button>
         {message ? (
           <p className="candidate-review-actions__message">{message}</p>
@@ -93,8 +95,8 @@ export function ExternalSourceBatchActions({
         </div>
       ) : (
         <p className="source-batch-panel__empty">
-          No batch import has run yet. Disabled sources will be skipped when this
-          action runs.
+          No batch import has run yet. Disabled sources will be skipped when
+          this action runs.
         </p>
       )}
     </section>

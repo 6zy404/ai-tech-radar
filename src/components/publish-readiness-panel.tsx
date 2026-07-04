@@ -16,7 +16,9 @@ function IssueList({
   tone: "error" | "warning";
 }) {
   return (
-    <div className={`publish-readiness__group publish-readiness__group--${tone}`}>
+    <div
+      className={`publish-readiness__group publish-readiness__group--${tone}`}
+    >
       <h3>{title}</h3>
       {issues.length > 0 ? (
         <ul className="publish-readiness__list">

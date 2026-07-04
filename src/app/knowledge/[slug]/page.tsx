@@ -75,9 +75,7 @@ function getRelatedSkills(
   knowledge: KnowledgeItem,
   skills: SkillItem[]
 ): SkillItem[] {
-  return skills.filter((skill) =>
-    knowledge.relatedSkillIds.includes(skill.id)
-  );
+  return skills.filter((skill) => knowledge.relatedSkillIds.includes(skill.id));
 }
 
 function getConceptMatter(category: KnowledgeCategory): string {

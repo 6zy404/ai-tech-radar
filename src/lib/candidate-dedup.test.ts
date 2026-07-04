@@ -50,7 +50,9 @@ describe("getDuplicateReasons", () => {
       originalTitle: "Acme launches its agent platform"
     });
 
-    expect(getDuplicateReasons(left, right)).toContain("same_publisher_near_date");
+    expect(getDuplicateReasons(left, right)).toContain(
+      "same_publisher_near_date"
+    );
   });
 
   it("flags two GitHub releases from the same repo family", () => {
@@ -71,7 +73,9 @@ describe("getDuplicateReasons", () => {
       originalTitle: "sdk v1.3.0 release"
     });
 
-    expect(getDuplicateReasons(left, right)).toContain("same_repo_release_family");
+    expect(getDuplicateReasons(left, right)).toContain(
+      "same_repo_release_family"
+    );
   });
 
   it("returns no reasons for clearly unrelated candidates", () => {

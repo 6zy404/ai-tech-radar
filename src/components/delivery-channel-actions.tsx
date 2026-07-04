@@ -78,7 +78,9 @@ export function DeliveryChannelActions({
           Disabled channels are blocked from manual and scheduled delivery.
         </p>
       ) : null}
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </div>
   );
 }

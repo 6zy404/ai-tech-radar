@@ -90,46 +90,46 @@ The current boundary is intentionally small:
 
 Confirmed workflow service boundaries:
 
-| Area | Repository / store file | Service / workflow owner | Mutating routes or UI |
-| --- | --- | --- | --- |
-| Sources | `external-sources.json` | `source-workflow.ts` | `/api/workspace/sources/*`, `/workspace/sources` |
-| Import runs | `external-sources.json` | `source-workflow.ts` | batch and single-source import APIs |
-| Imported candidates | `imported-candidates.live.json` | `candidate-workflow.ts`, `source-workflow.ts` | source import APIs, candidate refresh |
-| Candidate review state | `candidate-review-state.json` | `candidate-workflow.ts` | `/api/candidates/[id]/status`, conversion API |
-| Duplicate groups | `duplicate-groups.json` | `candidate-workflow.ts` | `/api/workspace/duplicates/[id]` |
-| Technology drafts / workspace records | `technology-workspace.json` | `technology-draft-workflow.ts` (conversion writes via `candidate-workflow.ts`) | conversion, draft edit, status APIs |
-| Published technologies | `technology-workspace.json` plus `src/data/technologies.ts` | `content.ts`, `technology-draft-workflow.ts` | publish status API |
-| Knowledge / skills | `src/data/knowledge.ts`, `src/data/skills.ts` | `content.ts` | static in this phase |
-| Daily digests | `daily-digests.json` | `digest-workflow.ts` | digest generate/edit/status APIs |
-| Delivery channels / logs | `delivery.json` | `delivery-workflow.ts` | delivery channel APIs, send/retry APIs |
-| Scheduled delivery | `scheduled-delivery.json` | `scheduled-delivery-workflow.ts` | schedule CRUD/run APIs |
-| Task runner state | `task-runner.json` | `task-runner.ts` | `tasks:run-once`, `tasks:watch` |
-| Editorial enrichment suggestions | `editorial-enrichment-suggestions.json` | `editorial-enrichment-store.ts`, `editorial-enrichment.ts` | workspace technology enrichment generate/apply/reject APIs |
-| Prompt versions | `prompt-versions.json` | `prompt-versions.ts` | enrichment generation workflow |
+| Area                                  | Repository / store file                                     | Service / workflow owner                                                       | Mutating routes or UI                                      |
+| ------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| Sources                               | `external-sources.json`                                     | `source-workflow.ts`                                                           | `/api/workspace/sources/*`, `/workspace/sources`           |
+| Import runs                           | `external-sources.json`                                     | `source-workflow.ts`                                                           | batch and single-source import APIs                        |
+| Imported candidates                   | `imported-candidates.live.json`                             | `candidate-workflow.ts`, `source-workflow.ts`                                  | source import APIs, candidate refresh                      |
+| Candidate review state                | `candidate-review-state.json`                               | `candidate-workflow.ts`                                                        | `/api/candidates/[id]/status`, conversion API              |
+| Duplicate groups                      | `duplicate-groups.json`                                     | `candidate-workflow.ts`                                                        | `/api/workspace/duplicates/[id]`                           |
+| Technology drafts / workspace records | `technology-workspace.json`                                 | `technology-draft-workflow.ts` (conversion writes via `candidate-workflow.ts`) | conversion, draft edit, status APIs                        |
+| Published technologies                | `technology-workspace.json` plus `src/data/technologies.ts` | `content.ts`, `technology-draft-workflow.ts`                                   | publish status API                                         |
+| Knowledge / skills                    | `src/data/knowledge.ts`, `src/data/skills.ts`               | `content.ts`                                                                   | static in this phase                                       |
+| Daily digests                         | `daily-digests.json`                                        | `digest-workflow.ts`                                                           | digest generate/edit/status APIs                           |
+| Delivery channels / logs              | `delivery.json`                                             | `delivery-workflow.ts`                                                         | delivery channel APIs, send/retry APIs                     |
+| Scheduled delivery                    | `scheduled-delivery.json`                                   | `scheduled-delivery-workflow.ts`                                               | schedule CRUD/run APIs                                     |
+| Task runner state                     | `task-runner.json`                                          | `task-runner.ts`                                                               | `tasks:run-once`, `tasks:watch`                            |
+| Editorial enrichment suggestions      | `editorial-enrichment-suggestions.json`                     | `editorial-enrichment-store.ts`, `editorial-enrichment.ts`                     | workspace technology enrichment generate/apply/reject APIs |
+| Prompt versions                       | `prompt-versions.json`                                      | `prompt-versions.ts`                                                           | enrichment generation workflow                             |
 
 Future database work should replace repository implementations first. Pages should continue calling the same workflow/service layer.
 
 ## Object Audit
 
-| Object | Current storage | Internal-only fields | User-facing fields | Future DB fit |
-| --- | --- | --- | --- | --- |
-| `ExternalSource` | `external-sources.json` | URL config, enabled, source health, import defaults | none | yes |
-| `ImportRun` | `external-sources.json` | run messages, per-source results | none | yes |
-| `ImportedCandidate` | `imported-candidates.live.json` + review state | raw payload, import status, normalized type, duplicate hints | none | yes |
-| `DuplicateGroup` | `duplicate-groups.json` | reasons, status, primary candidate | none | yes |
-| `TechnologyWorkspaceRecord` | `technology-workspace.json` | source candidate ID, candidate source references, editorial notes, draft status | mapped public technology fields after publication | yes |
-| Published `TechnologyItem` | static seed data + published workspace records | none after safe mapping | title, summary, content, source, tags, relations, priority label | yes |
-| `KnowledgeItem` | `src/data/knowledge.ts` | none | title, summary, content, relations | yes, later |
-| `SkillItem` | `src/data/skills.ts` | none | title, summary, content, relations | yes, later |
-| `DailyDigest` | `daily-digests.json` | manual adjustment IDs, editorial notes, draft/archived status | published title, summary, selected technologies, skills, knowledge, sources | yes |
-| `DeliveryChannel` | `delivery.json` | endpoint URL, enabled, channel config | none | yes, with secret split |
-| `DeliveryRun` | `delivery.json` | request/response previews, retry linkage, errors | none | yes |
-| `ScheduledDelivery` | `scheduled-delivery.json` | schedule time, channel IDs, last run status | none | yes |
-| `ScheduledDeliveryRun` | `scheduled-delivery.json` | delivery log IDs, trigger type, run message | none | yes |
-| `TaskRunnerRun` | `task-runner.json` | command-run summaries and sanitized messages | none | yes |
-| `WorkflowEvent` | `workflow-events.json` | before/after snapshots, workflow metadata, sanitized errors | none | yes |
-| `EditorialEnrichmentSuggestion` | `editorial-enrichment-suggestions.json` | source inputs, generation mode, provider/model/prompt metadata, promptVersionId, token usage, validation warnings, generation errors, reviewer notes, quality score/labels, rejection reason, applied fields | applied generated fields only after draft update | yes |
-| `PromptVersion` | `prompt-versions.json` | prompt template, output schema, status, notes | none | yes |
+| Object                          | Current storage                                | Internal-only fields                                                                                                                                                                                         | User-facing fields                                                          | Future DB fit          |
+| ------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | ---------------------- |
+| `ExternalSource`                | `external-sources.json`                        | URL config, enabled, source health, import defaults                                                                                                                                                          | none                                                                        | yes                    |
+| `ImportRun`                     | `external-sources.json`                        | run messages, per-source results                                                                                                                                                                             | none                                                                        | yes                    |
+| `ImportedCandidate`             | `imported-candidates.live.json` + review state | raw payload, import status, normalized type, duplicate hints                                                                                                                                                 | none                                                                        | yes                    |
+| `DuplicateGroup`                | `duplicate-groups.json`                        | reasons, status, primary candidate                                                                                                                                                                           | none                                                                        | yes                    |
+| `TechnologyWorkspaceRecord`     | `technology-workspace.json`                    | source candidate ID, candidate source references, editorial notes, draft status                                                                                                                              | mapped public technology fields after publication                           | yes                    |
+| Published `TechnologyItem`      | static seed data + published workspace records | none after safe mapping                                                                                                                                                                                      | title, summary, content, source, tags, relations, priority label            | yes                    |
+| `KnowledgeItem`                 | `src/data/knowledge.ts`                        | none                                                                                                                                                                                                         | title, summary, content, relations                                          | yes, later             |
+| `SkillItem`                     | `src/data/skills.ts`                           | none                                                                                                                                                                                                         | title, summary, content, relations                                          | yes, later             |
+| `DailyDigest`                   | `daily-digests.json`                           | manual adjustment IDs, editorial notes, draft/archived status                                                                                                                                                | published title, summary, selected technologies, skills, knowledge, sources | yes                    |
+| `DeliveryChannel`               | `delivery.json`                                | endpoint URL, enabled, channel config                                                                                                                                                                        | none                                                                        | yes, with secret split |
+| `DeliveryRun`                   | `delivery.json`                                | request/response previews, retry linkage, errors                                                                                                                                                             | none                                                                        | yes                    |
+| `ScheduledDelivery`             | `scheduled-delivery.json`                      | schedule time, channel IDs, last run status                                                                                                                                                                  | none                                                                        | yes                    |
+| `ScheduledDeliveryRun`          | `scheduled-delivery.json`                      | delivery log IDs, trigger type, run message                                                                                                                                                                  | none                                                                        | yes                    |
+| `TaskRunnerRun`                 | `task-runner.json`                             | command-run summaries and sanitized messages                                                                                                                                                                 | none                                                                        | yes                    |
+| `WorkflowEvent`                 | `workflow-events.json`                         | before/after snapshots, workflow metadata, sanitized errors                                                                                                                                                  | none                                                                        | yes                    |
+| `EditorialEnrichmentSuggestion` | `editorial-enrichment-suggestions.json`        | source inputs, generation mode, provider/model/prompt metadata, promptVersionId, token usage, validation warnings, generation errors, reviewer notes, quality score/labels, rejection reason, applied fields | applied generated fields only after draft update                            | yes                    |
+| `PromptVersion`                 | `prompt-versions.json`                         | prompt template, output schema, status, notes                                                                                                                                                                | none                                                                        | yes                    |
 
 ## Suggested Future Tables / Collections
 

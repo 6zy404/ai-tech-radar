@@ -106,8 +106,7 @@ export function ExternalSourceBrowser({
       );
     const matchesType = typeFilter.length === 0 || source.type === typeFilter;
     const matchesEnabled =
-      enabledFilter.length === 0 ||
-      String(source.enabled) === enabledFilter;
+      enabledFilter.length === 0 || String(source.enabled) === enabledFilter;
 
     return matchesSearch && matchesType && matchesEnabled;
   });
@@ -118,7 +117,10 @@ export function ExternalSourceBrowser({
 
   return (
     <>
-      <section className="delivery-console-summary source-console-summary" aria-label="Source summary">
+      <section
+        className="delivery-console-summary source-console-summary"
+        aria-label="Source summary"
+      >
         <div className="delivery-console-summary__card">
           <span>Total sources</span>
           <strong>{totalSources}</strong>
@@ -148,7 +150,10 @@ export function ExternalSourceBrowser({
         </div>
       </section>
 
-      <section className="source-console-import-panel" aria-label="Batch source import">
+      <section
+        className="source-console-import-panel"
+        aria-label="Batch source import"
+      >
         <ExternalSourceBatchActions latestImportRun={latestImportRun} />
       </section>
 
@@ -196,7 +201,8 @@ export function ExternalSourceBrowser({
           <div>
             <h2>Sources</h2>
             <p>
-              Compact operational view for configured source health and import controls.
+              Compact operational view for configured source health and import
+              controls.
             </p>
           </div>
           <span className="delivery-console-action">
@@ -207,19 +213,30 @@ export function ExternalSourceBrowser({
         {sources.length === 0 ? (
           <div className="source-console-empty">
             <h3>No sources yet.</h3>
-            <p>Add a source to start importing external AI technology signals.</p>
-            <Link href="/workspace/sources/new" className="action-button action-button--accent">
+            <p>
+              Add a source to start importing external AI technology signals.
+            </p>
+            <Link
+              href="/workspace/sources/new"
+              className="action-button action-button--accent"
+            >
               Add source
             </Link>
           </div>
         ) : filteredSources.length === 0 ? (
           <div className="source-console-empty">
             <h3>No sources matched the current filters.</h3>
-            <p>Adjust search, source type, or enabled status to broaden the view.</p>
+            <p>
+              Adjust search, source type, or enabled status to broaden the view.
+            </p>
           </div>
         ) : (
           <div className="source-console-table-scroll">
-            <div className="source-console-table" role="table" aria-label="External source health">
+            <div
+              className="source-console-table"
+              role="table"
+              aria-label="External source health"
+            >
               <div className="source-console-table__head" role="row">
                 <span>Source name</span>
                 <span>Type</span>
@@ -288,10 +305,17 @@ export function ExternalSourceBrowser({
                       >
                         {source.enabled ? "Enabled" : "Disabled"}
                       </span>
-                      <ExternalSourceStatusBadge status={source.lastImportStatus} />
+                      <ExternalSourceStatusBadge
+                        status={source.lastImportStatus}
+                      />
                       {quality ? (
-                        <span className={getSourceQualityLevelClass(quality.qualityLevel)}>
-                          Quality: {getSourceQualityLevelLabel(quality.qualityLevel)}
+                        <span
+                          className={getSourceQualityLevelClass(
+                            quality.qualityLevel
+                          )}
+                        >
+                          Quality:{" "}
+                          {getSourceQualityLevelLabel(quality.qualityLevel)}
                         </span>
                       ) : null}
                     </div>
@@ -306,7 +330,9 @@ export function ExternalSourceBrowser({
                     <div
                       className={[
                         "source-console-last-result",
-                        needsAttention ? "source-console-last-result--attention" : ""
+                        needsAttention
+                          ? "source-console-last-result--attention"
+                          : ""
                       ]
                         .filter(Boolean)
                         .join(" ")}
@@ -315,9 +341,9 @@ export function ExternalSourceBrowser({
                       <span>{resultMessage}</span>
                       {quality ? (
                         <span className="source-console-muted">
-                          Success {formatQualityRate(quality.successRate)} / Duplicate{" "}
-                          {formatQualityRate(quality.duplicateRate)} / Conversion{" "}
-                          {formatQualityRate(quality.conversionRate)}
+                          Success {formatQualityRate(quality.successRate)} /
+                          Duplicate {formatQualityRate(quality.duplicateRate)} /
+                          Conversion {formatQualityRate(quality.conversionRate)}
                         </span>
                       ) : null}
                     </div>
@@ -336,7 +362,9 @@ export function ExternalSourceBrowser({
                         compact
                       />
                       <div className="source-console-row__links">
-                        <Link href={`/workspace/sources/${source.id}#edit-source`}>
+                        <Link
+                          href={`/workspace/sources/${source.id}#edit-source`}
+                        >
                           Edit source
                         </Link>
                         <Link href={`/workspace/sources/${source.id}`}>

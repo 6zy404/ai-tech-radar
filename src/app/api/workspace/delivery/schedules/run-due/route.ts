@@ -15,7 +15,9 @@ export async function POST() {
     return NextResponse.json({ ok: true, runs });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Unknown due schedule run error.";
+      error instanceof Error
+        ? error.message
+        : "Unknown due schedule run error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

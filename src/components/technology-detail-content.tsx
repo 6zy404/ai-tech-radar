@@ -318,9 +318,7 @@ export function TechnologyDetailContent({
 
       {followUpQuestions.length > 0 ? (
         <section className="user-article-section technology-detail-section">
-          <p className="technology-detail-section__eyebrow">
-            延伸思考
-          </p>
+          <p className="technology-detail-section__eyebrow">延伸思考</p>
           <h2>后续问题</h2>
           <ul className="technology-detail-question-list">
             {followUpQuestions.map((item) => (

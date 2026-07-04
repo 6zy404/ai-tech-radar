@@ -19,7 +19,8 @@ export function DuplicateGroupActions({
   candidates
 }: DuplicateGroupActionsProps) {
   const router = useRouter();
-  const [selectedPrimaryId, setSelectedPrimaryId] = useState(primaryCandidateId);
+  const [selectedPrimaryId, setSelectedPrimaryId] =
+    useState(primaryCandidateId);
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
 
@@ -51,7 +52,9 @@ export function DuplicateGroupActions({
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "Duplicate group update failed."
+          error instanceof Error
+            ? error.message
+            : "Duplicate group update failed."
         );
       }
     });
@@ -118,7 +121,9 @@ export function DuplicateGroupActions({
         Only the primary candidate should be converted into a technology draft.
         Other items are preserved as source references.
       </p>
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </section>
   );
 }

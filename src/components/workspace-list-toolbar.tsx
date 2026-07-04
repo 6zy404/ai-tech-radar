@@ -17,7 +17,9 @@ export function WorkspaceListToolbar({
         <strong>{label}</strong>
         {detail ? <p>{detail}</p> : null}
       </div>
-      {actions ? <div className="workspace-list-toolbar__actions">{actions}</div> : null}
+      {actions ? (
+        <div className="workspace-list-toolbar__actions">{actions}</div>
+      ) : null}
     </div>
   );
 }

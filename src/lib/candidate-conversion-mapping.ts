@@ -21,10 +21,17 @@ export function normalizeTechnologyType(
   return normalizedType;
 }
 
-export function inferPublisherType(candidate: ImportedCandidate): PublisherType {
-  const haystack = `${candidate.publisherName} ${candidate.sourceName}`.toLowerCase();
+export function inferPublisherType(
+  candidate: ImportedCandidate
+): PublisherType {
+  const haystack =
+    `${candidate.publisherName} ${candidate.sourceName}`.toLowerCase();
 
-  if (/(github|community|open source|maintainer|modelcontextprotocol)/.test(haystack)) {
+  if (
+    /(github|community|open source|maintainer|modelcontextprotocol)/.test(
+      haystack
+    )
+  ) {
     return "open-source-community";
   }
 
@@ -43,26 +50,41 @@ export function inferPublisherType(candidate: ImportedCandidate): PublisherType 
   return "startup";
 }
 
-export function mapCandidateTagsToTopicTagIds(candidate: ImportedCandidate): string[] {
-  const haystack = `${candidate.originalTitle} ${candidate.originalSummary ?? ""} ${
-    candidate.originalContent ?? ""
-  } ${candidate.tags.join(" ")}`.toLowerCase();
+export function mapCandidateTagsToTopicTagIds(
+  candidate: ImportedCandidate
+): string[] {
+  const haystack =
+    `${candidate.originalTitle} ${candidate.originalSummary ?? ""} ${
+      candidate.originalContent ?? ""
+    } ${candidate.tags.join(" ")}`.toLowerCase();
   const matchedTagIds = new Set<string>();
 
   for (const tag of topicTags) {
-    if (tag.id === "tag-ai-agents" && /(agent|tool use|assistant|sdk)/.test(haystack)) {
+    if (
+      tag.id === "tag-ai-agents" &&
+      /(agent|tool use|assistant|sdk)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
 
-    if (tag.id === "tag-retrieval" && /(retrieval|search|rag|grounding)/.test(haystack)) {
+    if (
+      tag.id === "tag-retrieval" &&
+      /(retrieval|search|rag|grounding)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
 
-    if (tag.id === "tag-multimodal" && /(vision|browser|voice|multimodal|image)/.test(haystack)) {
+    if (
+      tag.id === "tag-multimodal" &&
+      /(vision|browser|voice|multimodal|image)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
 
-    if (tag.id === "tag-workflow" && /(workflow|rollout|orchestration|automation|release)/.test(haystack)) {
+    if (
+      tag.id === "tag-workflow" &&
+      /(workflow|rollout|orchestration|automation|release)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
 
@@ -70,15 +92,24 @@ export function mapCandidateTagsToTopicTagIds(candidate: ImportedCandidate): str
       matchedTagIds.add(tag.id);
     }
 
-    if (tag.id === "tag-observability" && /(trace|evaluation|observability|monitor|benchmark)/.test(haystack)) {
+    if (
+      tag.id === "tag-observability" &&
+      /(trace|evaluation|observability|monitor|benchmark)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
 
-    if (tag.id === "tag-knowledge-graph" && /(graph|knowledge)/.test(haystack)) {
+    if (
+      tag.id === "tag-knowledge-graph" &&
+      /(graph|knowledge)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
 
-    if (tag.id === "tag-product-strategy" && /(product|platform|team|operator|strategy)/.test(haystack)) {
+    if (
+      tag.id === "tag-product-strategy" &&
+      /(product|platform|team|operator|strategy)/.test(haystack)
+    ) {
       matchedTagIds.add(tag.id);
     }
   }

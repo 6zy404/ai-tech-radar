@@ -58,7 +58,8 @@ export class DeliverySendError extends Error {
 }
 
 const deliveryStorePath = getLocalStoreFilePath("delivery.json");
-const supportedChannelTypes: DeliveryChannelType[] = getSupportedDeliveryChannelTypes();
+const supportedChannelTypes: DeliveryChannelType[] =
+  getSupportedDeliveryChannelTypes();
 const allowedChannelTypes: DeliveryChannelType[] = [
   "webhook",
   "feishu_webhook",
@@ -124,7 +125,9 @@ function normalizeDeliveryFormat(value: unknown): DeliveryFormat {
     : "json";
 }
 
-function normalizeDeliveryChannel(record: Record<string, unknown>): DeliveryChannel {
+function normalizeDeliveryChannel(
+  record: Record<string, unknown>
+): DeliveryChannel {
   const now = getTimestamp();
   const type = normalizeChannelType(record.type);
 
@@ -142,13 +145,17 @@ function normalizeDeliveryChannel(record: Record<string, unknown>): DeliveryChan
     endpointUrl:
       typeof record.endpointUrl === "string" ? record.endpointUrl.trim() : "",
     description:
-      typeof record.description === "string" ? record.description.trim() : undefined,
+      typeof record.description === "string"
+        ? record.description.trim()
+        : undefined,
     format:
       record.format === undefined && type === "feishu_webhook"
         ? "text"
         : normalizeDeliveryFormat(record.format),
     lastDeliveredAt:
-      typeof record.lastDeliveredAt === "string" ? record.lastDeliveredAt : undefined,
+      typeof record.lastDeliveredAt === "string"
+        ? record.lastDeliveredAt
+        : undefined,
     lastDeliveryStatus: normalizeDeliveryStatus(record.lastDeliveryStatus),
     lastDeliveryMessage:
       typeof record.lastDeliveryMessage === "string"
@@ -171,7 +178,8 @@ function normalizeDeliveryRun(record: Record<string, unknown>): DeliveryRun {
     digestId: typeof record.digestId === "string" ? record.digestId : "",
     digestDate: typeof record.digestDate === "string" ? record.digestDate : "",
     channelId: typeof record.channelId === "string" ? record.channelId : "",
-    channelName: typeof record.channelName === "string" ? record.channelName : "",
+    channelName:
+      typeof record.channelName === "string" ? record.channelName : "",
     channelType: normalizeChannelType(record.channelType),
     status: status ?? "failed",
     startedAt: typeof record.startedAt === "string" ? record.startedAt : now,
@@ -182,7 +190,9 @@ function normalizeDeliveryRun(record: Record<string, unknown>): DeliveryRun {
         ? record.requestPayloadPreview
         : "",
     responseStatus:
-      typeof record.responseStatus === "number" ? record.responseStatus : undefined,
+      typeof record.responseStatus === "number"
+        ? record.responseStatus
+        : undefined,
     responseBodyPreview:
       typeof record.responseBodyPreview === "string"
         ? record.responseBodyPreview
@@ -208,7 +218,9 @@ function readDeliveryStore(): DeliveryStore {
       normalizeDeliveryChannel(channel as unknown as Record<string, unknown>)
     ),
     runs: (store.runs ?? [])
-      .map((run) => normalizeDeliveryRun(run as unknown as Record<string, unknown>))
+      .map((run) =>
+        normalizeDeliveryRun(run as unknown as Record<string, unknown>)
+      )
       .sort((left, right) => right.startedAt.localeCompare(left.startedAt))
   };
 }
@@ -381,7 +393,9 @@ export function updateDeliveryChannel(
   validateDeliveryChannelInput(input);
 
   const store = readDeliveryStore();
-  const existingChannel = store.channels.find((channel) => channel.id === channelId);
+  const existingChannel = store.channels.find(
+    (channel) => channel.id === channelId
+  );
 
   if (!existingChannel) {
     throw new Error(`Delivery channel ${channelId} not found.`);
@@ -415,7 +429,9 @@ export function setDeliveryChannelEnabled(
   enabled: boolean
 ): DeliveryChannel {
   const store = readDeliveryStore();
-  const existingChannel = store.channels.find((channel) => channel.id === channelId);
+  const existingChannel = store.channels.find(
+    (channel) => channel.id === channelId
+  );
 
   if (!existingChannel) {
     throw new Error(`Delivery channel ${channelId} not found.`);
@@ -447,7 +463,9 @@ export function buildDeliveryRequestPayload(
   const adapter = getDeliveryAdapter(channel.type);
 
   if (!adapter) {
-    throw new Error("Delivery channel type is not implemented in this version.");
+    throw new Error(
+      "Delivery channel type is not implemented in this version."
+    );
   }
 
   const payload = adapter.buildPayload(digest, channel, deliveredAt);
@@ -467,7 +485,8 @@ function persistDeliveryRun(
   const store = readDeliveryStore();
   const nextChannel: DeliveryChannel = {
     ...channel,
-    lastDeliveredAt: run.status === "success" ? run.finishedAt : channel.lastDeliveredAt,
+    lastDeliveredAt:
+      run.status === "success" ? run.finishedAt : channel.lastDeliveredAt,
     lastDeliveryStatus: run.status,
     lastDeliveryMessage: message,
     updatedAt: getTimestamp()

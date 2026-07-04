@@ -43,7 +43,9 @@ export function getTechnologyImpactAreas(technology: TechnologyItem): string[] {
     .filter((item) => item.length > 0);
 }
 
-export function getTechnologyLearningPath(technology: TechnologyItem): string[] {
+export function getTechnologyLearningPath(
+  technology: TechnologyItem
+): string[] {
   return (technology.learningPath ?? [])
     .map((item) => item.trim())
     .filter((item) => item.length > 0);

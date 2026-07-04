@@ -5,9 +5,7 @@ import { ExternalSourceActions } from "@/components/external-source-actions";
 import { ExternalSourceForm } from "@/components/external-source-form";
 import { ExternalSourceStatusBadge } from "@/components/external-source-status-badge";
 import { ImportedCandidateStatusBadge } from "@/components/imported-candidate-status-badge";
-import {
-  getExternalSourceTypeLabel
-} from "@/lib/source-display";
+import { getExternalSourceTypeLabel } from "@/lib/source-display";
 import {
   getImportedCandidateNormalizedTypeLabel,
   getImportedCandidateSourceTypeLabel
@@ -45,17 +43,26 @@ export function ExternalSourceDetailContent({
               "Internal source configuration used to import external content into the candidate pool."}
           </p>
           <div className="candidate-detail-hero__meta">
-            <span className={source.enabled ? "info-pill" : "info-pill info-pill--warning"}>
+            <span
+              className={
+                source.enabled ? "info-pill" : "info-pill info-pill--warning"
+              }
+            >
               {source.enabled ? "Enabled" : "Disabled"}
             </span>
-            <span className="info-pill">{getExternalSourceTypeLabel(source.type)}</span>
+            <span className="info-pill">
+              {getExternalSourceTypeLabel(source.type)}
+            </span>
             <span className="info-pill">{source.language.toUpperCase()}</span>
             <ExternalSourceStatusBadge status={source.lastImportStatus} />
             <span className={getSourceQualityLevelClass(quality.qualityLevel)}>
               Quality: {getSourceQualityLevelLabel(quality.qualityLevel)}
             </span>
           </div>
-          <ExternalSourceActions sourceId={source.id} enabled={source.enabled} />
+          <ExternalSourceActions
+            sourceId={source.id}
+            enabled={source.enabled}
+          />
         </section>
 
         <section className="section-panel">
@@ -74,7 +81,9 @@ export function ExternalSourceDetailContent({
                 >
                   <div className="candidate-duplicate-item__meta">
                     <span>
-                      {getImportedCandidateSourceTypeLabel(candidate.sourceType)}
+                      {getImportedCandidateSourceTypeLabel(
+                        candidate.sourceType
+                      )}
                     </span>
                     <span>{candidate.publishDate}</span>
                     <span>
@@ -83,7 +92,9 @@ export function ExternalSourceDetailContent({
                         ? candidate.importedAt.slice(0, 16).replace("T", " ")
                         : "before tracking"}
                     </span>
-                    <ImportedCandidateStatusBadge status={candidate.importStatus} />
+                    <ImportedCandidateStatusBadge
+                      status={candidate.importStatus}
+                    />
                   </div>
                   <h3>
                     <Link href={`/workspace/candidates/${candidate.id}`}>
@@ -163,7 +174,9 @@ export function ExternalSourceDetailContent({
           rows={[
             {
               label: "Status",
-              value: <ExternalSourceStatusBadge status={source.lastImportStatus} />
+              value: (
+                <ExternalSourceStatusBadge status={source.lastImportStatus} />
+              )
             },
             {
               label: "Fetched at",
@@ -210,7 +223,9 @@ export function ExternalSourceDetailContent({
             {
               label: "Quality level",
               value: (
-                <span className={getSourceQualityLevelClass(quality.qualityLevel)}>
+                <span
+                  className={getSourceQualityLevelClass(quality.qualityLevel)}
+                >
                   {getSourceQualityLevelLabel(quality.qualityLevel)}
                 </span>
               )

@@ -110,8 +110,7 @@ export const githubReleasePayloads: MockGithubReleasePayload[] = [
         name: "v0.8.0 - streaming transport and richer tool annotations",
         htmlUrl:
           "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v0.8.0",
-        body:
-          "Adds streaming transport updates, richer tool annotations, and more complete examples for client and server implementers.",
+        body: "Adds streaming transport updates, richer tool annotations, and more complete examples for client and server implementers.",
         publishedAt: "2026-04-10",
         authorLogin: "mcp-maintainers",
         language: "en",
@@ -125,8 +124,7 @@ export const githubReleasePayloads: MockGithubReleasePayload[] = [
         name: "v0.7.3 - dependency and build maintenance",
         htmlUrl:
           "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v0.7.3",
-        body:
-          "Maintenance-only release with dependency bumps, CI cleanup, and packaging fixes. Useful to test whether repository updates sometimes enter the pool even when they should later be rejected.",
+        body: "Maintenance-only release with dependency bumps, CI cleanup, and packaging fixes. Useful to test whether repository updates sometimes enter the pool even when they should later be rejected.",
         publishedAt: "2026-04-03",
         authorLogin: "mcp-maintainers",
         language: "en",

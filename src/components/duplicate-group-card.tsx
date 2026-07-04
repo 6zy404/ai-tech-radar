@@ -76,9 +76,14 @@ export function DuplicateGroupCard({
           </span>
         ))}
         {primaryCandidate ? (
-          <ImportedCandidateStatusBadge status={primaryCandidate.importStatus} />
+          <ImportedCandidateStatusBadge
+            status={primaryCandidate.importStatus}
+          />
         ) : null}
-        <Link href={`/workspace/duplicates/${group.id}`} className="action-link">
+        <Link
+          href={`/workspace/duplicates/${group.id}`}
+          className="action-link"
+        >
           Review group
         </Link>
       </div>

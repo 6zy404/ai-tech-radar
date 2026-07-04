@@ -116,14 +116,18 @@ function truncateText(value: string, maxLength: number): string {
   return `${normalized.slice(0, maxLength - 1).trim()}...`;
 }
 
-function getInputSignature(input: Omit<EditorialEnrichmentSourceInputs, "inputSignature">): string {
+function getInputSignature(
+  input: Omit<EditorialEnrichmentSourceInputs, "inputSignature">
+): string {
   return createHash("sha256").update(JSON.stringify(input)).digest("hex");
 }
 
 function getRelatedKnowledge(
   record: TechnologyWorkspaceRecord
 ): EditorialEnrichmentReferenceInput[] {
-  const knowledgeById = new Map(getAllKnowledge().map((item) => [item.id, item]));
+  const knowledgeById = new Map(
+    getAllKnowledge().map((item) => [item.id, item])
+  );
 
   return record.relatedKnowledgeIds
     .map((id) => knowledgeById.get(id))
@@ -150,7 +154,9 @@ function getRelatedSkills(
     }));
 }
 
-function buildSourceInputs(record: TechnologyWorkspaceRecord): EditorialEnrichmentSourceInputs {
+function buildSourceInputs(
+  record: TechnologyWorkspaceRecord
+): EditorialEnrichmentSourceInputs {
   const ranking = evaluateTechnologyPriority(record);
   const inputWithoutSignature = {
     title: record.title,
@@ -393,8 +399,7 @@ function getRuleBasedSuggestionMetadata(
 > {
   return {
     providerName: "rule_based",
-    outputValidationStatus:
-      Object.keys(fields).length > 0 ? "valid" : "failed",
+    outputValidationStatus: Object.keys(fields).length > 0 ? "valid" : "failed",
     outputValidationWarnings:
       Object.keys(fields).length > 0
         ? []
@@ -594,11 +599,14 @@ function markOlderDraftSuggestionsStale(
 
 export async function generateEditorialEnrichmentSuggestion(
   technologyDraftId: string,
-  options: GenerateEditorialEnrichmentOptions | EditorialEnrichmentGenerationMode = {}
+  options:
+    GenerateEditorialEnrichmentOptions | EditorialEnrichmentGenerationMode = {}
 ): Promise<EditorialEnrichmentSuggestion> {
   ensureDefaultPromptVersion();
   const generationMode =
-    typeof options === "string" ? options : options.generationMode ?? "rule_based";
+    typeof options === "string"
+      ? options
+      : (options.generationMode ?? "rule_based");
   const fieldsToGenerate =
     typeof options === "string" ? undefined : options.fieldsToGenerate;
   const record = getTechnologyWorkspaceRecordById(technologyDraftId);
@@ -608,7 +616,10 @@ export async function generateEditorialEnrichmentSuggestion(
   }
 
   const sourceInputs = buildSourceInputs(record);
-  markOlderDraftSuggestionsStale(technologyDraftId, sourceInputs.inputSignature);
+  markOlderDraftSuggestionsStale(
+    technologyDraftId,
+    sourceInputs.inputSignature
+  );
 
   const now = getTimestamp();
   const activePromptVersion = getActivePromptVersion("editorial_enrichment");
@@ -710,15 +721,21 @@ export function applyEditorialEnrichmentSuggestion(
   }
 
   if (suggestion.status === "applied") {
-    throw new Error("Editorial enrichment suggestion has already been applied.");
+    throw new Error(
+      "Editorial enrichment suggestion has already been applied."
+    );
   }
 
   if (suggestion.status === "rejected") {
-    throw new Error("Rejected editorial enrichment suggestions cannot be applied.");
+    throw new Error(
+      "Rejected editorial enrichment suggestions cannot be applied."
+    );
   }
 
   if (suggestion.outputValidationStatus === "failed") {
-    throw new Error("Failed editorial enrichment suggestions cannot be applied.");
+    throw new Error(
+      "Failed editorial enrichment suggestions cannot be applied."
+    );
   }
 
   const generatedFieldsToApply = getAppliedGeneratedFields(
@@ -737,7 +754,10 @@ export function applyEditorialEnrichmentSuggestion(
     ...generatedFieldsToApply,
     intelligenceStatus: "draft"
   };
-  const updatedRecord = updateTechnologyWorkspaceRecord(technologyDraftId, updates);
+  const updatedRecord = updateTechnologyWorkspaceRecord(
+    technologyDraftId,
+    updates
+  );
   const now = getTimestamp();
   const reviewPatch = getReviewPatch(options);
   const updatedSuggestion: EditorialEnrichmentSuggestion = {
@@ -805,7 +825,9 @@ export function rejectEditorialEnrichmentSuggestion(
   }
 
   if (suggestion.status === "applied") {
-    throw new Error("Applied editorial enrichment suggestions cannot be rejected.");
+    throw new Error(
+      "Applied editorial enrichment suggestions cannot be rejected."
+    );
   }
 
   const now = getTimestamp();

@@ -3,10 +3,7 @@ import {
   getImportedCandidateSourceId,
   mergeImportedCandidatesForSource
 } from "@/lib/candidate-import-snapshot-store";
-import {
-  normalizeCandidateId,
-  normalizeCandidateTags
-} from "@/lib/importers";
+import { normalizeCandidateId, normalizeCandidateTags } from "@/lib/importers";
 import {
   getLocalStoreFilePath,
   readLocalJsonFile as readJsonFile,
@@ -147,7 +144,8 @@ function defaultExternalSources(): ExternalSource[] {
       type: "rss",
       url: "https://openai.com/news/rss.xml",
       enabled: true,
-      description: "Official OpenAI news RSS feed for product and research updates.",
+      description:
+        "Official OpenAI news RSS feed for product and research updates.",
       language: "en",
       publisherName: "OpenAI",
       publisherType: "big-tech",
@@ -164,7 +162,8 @@ function defaultExternalSources(): ExternalSource[] {
       type: "atom",
       url: "https://github.com/modelcontextprotocol/typescript-sdk/releases.atom",
       enabled: true,
-      description: "GitHub release Atom feed for the Model Context Protocol TypeScript SDK.",
+      description:
+        "GitHub release Atom feed for the Model Context Protocol TypeScript SDK.",
       language: "en",
       publisherName: "modelcontextprotocol",
       publisherType: "open-source-community",
@@ -181,7 +180,8 @@ function defaultExternalSources(): ExternalSource[] {
       type: "github_release",
       url: "https://api.github.com/repos/modelcontextprotocol/typescript-sdk/releases",
       enabled: true,
-      description: "GitHub Releases API source for structured release payloads.",
+      description:
+        "GitHub Releases API source for structured release payloads.",
       language: "en",
       publisherName: "modelcontextprotocol",
       publisherType: "open-source-community",
@@ -198,7 +198,8 @@ function defaultExternalSources(): ExternalSource[] {
       type: "official_blog",
       url: "https://www.anthropic.com/news",
       enabled: true,
-      description: "Official Anthropic news pages used as a lightweight official-blog source.",
+      description:
+        "Official Anthropic news pages used as a lightweight official-blog source.",
       language: "en",
       publisherName: "Anthropic",
       publisherType: "research-lab",
@@ -287,7 +288,9 @@ function sanitizeSource(source: ExternalSource): ExternalSource {
     lastImportCount: source.lastImportCount ?? 0,
     lastErrorMessage:
       lastImportStatus === "failed" || lastImportStatus === "partial"
-        ? normalizeOptionalText(source.lastErrorMessage ?? source.lastImportMessage)
+        ? normalizeOptionalText(
+            source.lastErrorMessage ?? source.lastImportMessage
+          )
         : undefined,
     consecutiveFailureCount: source.consecutiveFailureCount ?? 0,
     totalImportedCount: source.totalImportedCount ?? 0,
@@ -356,7 +359,8 @@ function validateSourceInput(
 
   const normalizedUrl = normalizeUrl(url);
   const hasDuplicateUrl = existingSources.some(
-    (source) => source.id !== currentId && normalizeUrl(source.url) === normalizedUrl
+    (source) =>
+      source.id !== currentId && normalizeUrl(source.url) === normalizedUrl
   );
 
   if (hasDuplicateUrl) {
@@ -581,14 +585,18 @@ function updateSourceImportState(
 }
 
 export function getExternalSources(): ExternalSource[] {
-  return readStore().sources.sort((left, right) => left.name.localeCompare(right.name));
+  return readStore().sources.sort((left, right) =>
+    left.name.localeCompare(right.name)
+  );
 }
 
 export function getExternalSourceById(id: string): ExternalSource | undefined {
   return getExternalSources().find((source) => source.id === id);
 }
 
-export function createExternalSource(input: ExternalSourceInput): ExternalSource {
+export function createExternalSource(
+  input: ExternalSourceInput
+): ExternalSource {
   const store = readStore();
 
   validateSourceInput(input, store.sources);
@@ -737,25 +745,21 @@ export async function runImportForSource(
   }
 
   try {
-    const { importCandidatesForExternalSource } = await import(
-      "@/lib/external-import"
-    );
+    const { importCandidatesForExternalSource } =
+      await import("@/lib/external-import");
     const importedCandidates = await importCandidatesForExternalSource(source);
 
     if (importedCandidates.length === 0) {
       throw new Error("Source returned no candidate records.");
     }
 
-    const {
-      candidates,
-      candidatesCreated,
-      candidatesSkipped
-    } = prepareImportedCandidates(
-      source,
-      importedCandidates,
-      importedAt,
-      options.importRunId
-    );
+    const { candidates, candidatesCreated, candidatesSkipped } =
+      prepareImportedCandidates(
+        source,
+        importedCandidates,
+        importedAt,
+        options.importRunId
+      );
     const sourceRecord = buildSourceRecordForSource(
       source,
       candidates.length,
@@ -787,7 +791,10 @@ export async function runImportForSource(
       error instanceof Error ? error.message : "Unknown source import error.";
 
     if (useFallbackOnFailure) {
-      const importedCandidates = buildFallbackCandidatesForSource(source, message);
+      const importedCandidates = buildFallbackCandidatesForSource(
+        source,
+        message
+      );
       const {
         candidates: fallbackCandidates,
         candidatesCreated,
@@ -827,7 +834,13 @@ export async function runImportForSource(
       };
     }
 
-    const updatedSource = updateSourceImportState(source.id, "failed", message, 0, 0);
+    const updatedSource = updateSourceImportState(
+      source.id,
+      "failed",
+      message,
+      0,
+      0
+    );
 
     return {
       source: updatedSource,

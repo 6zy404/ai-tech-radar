@@ -62,8 +62,8 @@ export interface TechnologyWorkspaceRecordUpdate {
 }
 
 export function getTechnologyWorkspaceRecords(): TechnologyWorkspaceRecord[] {
-  return readTechnologyWorkspaceStore().records
-    .slice()
+  return readTechnologyWorkspaceStore()
+    .records.slice()
     .sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
 }
 
@@ -184,8 +184,14 @@ export function updateTechnologyWorkspaceRecord(
   }
 
   const nextTitle = mergeLocalizedText(existingRecord.title, updates.title);
-  const nextSummary = mergeLocalizedText(existingRecord.summary, updates.summary);
-  const nextContent = mergeLocalizedText(existingRecord.content, updates.content);
+  const nextSummary = mergeLocalizedText(
+    existingRecord.summary,
+    updates.summary
+  );
+  const nextContent = mergeLocalizedText(
+    existingRecord.content,
+    updates.content
+  );
   const nextRecordWithoutRanking: TechnologyWorkspaceRecord = {
     ...existingRecord,
     slug: normalizeSlug(updates.slug, nextTitle.original),
@@ -201,7 +207,10 @@ export function updateTechnologyWorkspaceRecord(
       updates.sourceName,
       existingRecord.sourceName
     ),
-    sourceUrl: normalizeRequiredField(updates.sourceUrl, existingRecord.sourceUrl),
+    sourceUrl: normalizeRequiredField(
+      updates.sourceUrl,
+      existingRecord.sourceUrl
+    ),
     sourceLanguage: updates.sourceLanguage ?? existingRecord.sourceLanguage,
     translationStatus:
       updates.translationStatus ?? existingRecord.translationStatus,
@@ -219,7 +228,8 @@ export function updateTechnologyWorkspaceRecord(
       normalizeStringList(updates.relatedSkillIds) ??
       existingRecord.relatedSkillIds,
     editorialNotes:
-      normalizeStringList(updates.editorialNotes) ?? existingRecord.editorialNotes,
+      normalizeStringList(updates.editorialNotes) ??
+      existingRecord.editorialNotes,
     whyItMatters: normalizeEditableText(
       updates.whyItMatters,
       existingRecord.whyItMatters ?? ""
@@ -233,9 +243,13 @@ export function updateTechnologyWorkspaceRecord(
       existingRecord.technicalContext ?? ""
     ),
     impactAreas:
-      normalizeStringList(updates.impactAreas) ?? existingRecord.impactAreas ?? [],
+      normalizeStringList(updates.impactAreas) ??
+      existingRecord.impactAreas ??
+      [],
     learningPath:
-      normalizeStringList(updates.learningPath) ?? existingRecord.learningPath ?? [],
+      normalizeStringList(updates.learningPath) ??
+      existingRecord.learningPath ??
+      [],
     relatedKnowledgeExplanations:
       normalizeStringMap(updates.relatedKnowledgeExplanations) ??
       existingRecord.relatedKnowledgeExplanations ??

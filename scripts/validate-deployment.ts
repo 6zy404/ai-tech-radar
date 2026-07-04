@@ -10,7 +10,10 @@ import {
 } from "node:fs";
 import path from "node:path";
 
-import { renderDigestJsonFeed, renderDigestRssXml } from "../src/lib/digest-delivery";
+import {
+  renderDigestJsonFeed,
+  renderDigestRssXml
+} from "../src/lib/digest-delivery";
 import { maskEndpointUrl } from "../src/lib/delivery-workflow";
 import { getLocalDataDirPath } from "../src/lib/local-data";
 import {
@@ -124,13 +127,20 @@ function assertPublicSourceDoesNotUseInternalTerms() {
     path.join(process.cwd(), "src", "app", "feed.xml"),
     path.join(process.cwd(), "src", "app", "feed.json"),
     path.join(process.cwd(), "src", "components", "daily-digest-content.tsx"),
-    path.join(process.cwd(), "src", "components", "technology-detail-content.tsx"),
+    path.join(
+      process.cwd(),
+      "src",
+      "components",
+      "technology-detail-content.tsx"
+    ),
     path.join(process.cwd(), "src", "components", "technology-list-card.tsx"),
     path.join(process.cwd(), "src", "components", "user-article-layout.tsx"),
     path.join(process.cwd(), "src", "components", "user-page-shell.tsx")
   ];
   const publicFiles = publicPaths.flatMap((publicPath) =>
-    statSync(publicPath).isDirectory() ? listFilesRecursive(publicPath) : [publicPath]
+    statSync(publicPath).isDirectory()
+      ? listFilesRecursive(publicPath)
+      : [publicPath]
   );
 
   for (const filePath of publicFiles) {
@@ -164,8 +174,14 @@ function main() {
     `Basic ${Buffer.from("workspace:deploy-secret").toString("base64")}`
   );
 
-  assert.equal(isWorkspaceAccessEnabled({ WORKSPACE_ACCESS_ENABLED: "true" }), true);
-  assert.equal(isWorkspaceAccessEnabled({ WORKSPACE_ACCESS_ENABLED: "false" }), false);
+  assert.equal(
+    isWorkspaceAccessEnabled({ WORKSPACE_ACCESS_ENABLED: "true" }),
+    true
+  );
+  assert.equal(
+    isWorkspaceAccessEnabled({ WORKSPACE_ACCESS_ENABLED: "false" }),
+    false
+  );
 
   assert.equal(
     checkWorkspaceAccess(new Headers(), {
@@ -216,7 +232,11 @@ function main() {
     "/candidates/example",
     "/technologies/drafts/example"
   ]) {
-    assert.equal(isProtectedWorkspacePath(route), true, `${route} should be protected.`);
+    assert.equal(
+      isProtectedWorkspacePath(route),
+      true,
+      `${route} should be protected.`
+    );
   }
 
   for (const route of [
@@ -228,7 +248,11 @@ function main() {
     "/feed.xml",
     "/feed.json"
   ]) {
-    assert.equal(isProtectedWorkspacePath(route), false, `${route} should stay public.`);
+    assert.equal(
+      isProtectedWorkspacePath(route),
+      false,
+      `${route} should stay public.`
+    );
   }
 
   for (const scriptName of [
@@ -247,7 +271,12 @@ function main() {
 
   assert.equal(maskedEndpoint.includes("super-secret"), false);
   assert.equal(maskedEndpoint.includes("signature=sig"), false);
-  assert.equal(maskEndpointUrl("mock://failed?token=super-secret").includes("super-secret"), false);
+  assert.equal(
+    maskEndpointUrl("mock://failed?token=super-secret").includes(
+      "super-secret"
+    ),
+    false
+  );
 
   assertNoInternalTerms(renderDigestJsonFeed(), "Public JSON feed");
   assertNoInternalTerms(renderDigestRssXml(), "Public RSS feed");

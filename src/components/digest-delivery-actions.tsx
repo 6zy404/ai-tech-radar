@@ -5,7 +5,11 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { getDeliveryChannelTypeLabel } from "@/lib/delivery-labels";
-import type { DailyDigestStatus, DeliveryChannel, DeliveryRun } from "@/types/content";
+import type {
+  DailyDigestStatus,
+  DeliveryChannel,
+  DeliveryRun
+} from "@/types/content";
 
 interface DigestDeliveryActionsProps {
   digestDate: string;
@@ -34,7 +38,9 @@ export function DigestDeliveryActions({
   channels
 }: DigestDeliveryActionsProps) {
   const router = useRouter();
-  const [selectedChannelId, setSelectedChannelId] = useState(channels[0]?.id ?? "");
+  const [selectedChannelId, setSelectedChannelId] = useState(
+    channels[0]?.id ?? ""
+  );
   const [preview, setPreview] = useState("");
   const [message, setMessage] = useState("");
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
@@ -132,11 +138,14 @@ export function DigestDeliveryActions({
         setMessage(
           result.run.status === "success"
             ? "Delivery succeeded."
-            : result.run.errorMessage ?? "Delivery failed. Check delivery logs."
+            : (result.run.errorMessage ??
+                "Delivery failed. Check delivery logs.")
         );
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Digest delivery failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Digest delivery failed."
+        );
       }
     });
   }
@@ -148,7 +157,8 @@ export function DigestDeliveryActions({
           <p className="eyebrow">Digest Delivery</p>
           <h2>Manual send</h2>
           <p>
-            Send this published digest to one enabled workspace delivery channel.
+            Send this published digest to one enabled workspace delivery
+            channel.
           </p>
         </div>
       </div>
@@ -211,7 +221,9 @@ export function DigestDeliveryActions({
         </>
       )}
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </section>
   );
 }

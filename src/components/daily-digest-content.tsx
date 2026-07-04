@@ -131,7 +131,9 @@ function getDigestSourceReferences(
   }
 
   for (const sourceName of digest.sourceNames) {
-    if (![...references.values()].some((item) => item.sourceName === sourceName)) {
+    if (
+      ![...references.values()].some((item) => item.sourceName === sourceName)
+    ) {
       references.set(sourceName, {
         id: sourceName,
         sourceName,
@@ -362,13 +364,9 @@ export function DailyDigestContent({
         <div className="daily-digest-brief-header__copy">
           <p className="eyebrow user-eyebrow">每日简报 · {digest.date}</p>
           <h1>{publicTitle}</h1>
-          <p className="daily-digest-brief-header__subtitle">
-            {publicSummary}
-          </p>
+          <p className="daily-digest-brief-header__subtitle">{publicSummary}</p>
           {previewNotice ? (
-            <p className="daily-digest-brief-header__notice">
-              {previewNotice}
-            </p>
+            <p className="daily-digest-brief-header__notice">{previewNotice}</p>
           ) : null}
         </div>
         <div className="daily-digest-meta-strip" aria-label="简报摘要">
@@ -455,7 +453,9 @@ export function DailyDigestContent({
         <section className="daily-digest-section daily-digest-feeds">
           <div className="daily-digest-section__header daily-digest-section__header--compact">
             <h2>订阅简报</h2>
-            <p>稳定的公开订阅源仅包含已发布的每日简报，草稿和已归档简报不在其中。</p>
+            <p>
+              稳定的公开订阅源仅包含已发布的每日简报，草稿和已归档简报不在其中。
+            </p>
           </div>
           <div className="digest-feed-links">
             <Link href={rssFeedPath}>RSS 订阅源</Link>

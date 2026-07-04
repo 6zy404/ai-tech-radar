@@ -89,7 +89,11 @@ export function TopNav() {
             <li>
               <Link
                 href={workspaceNavItem.href}
-                className={navLinkClassName(pathname, workspaceNavItem.href, true)}
+                className={navLinkClassName(
+                  pathname,
+                  workspaceNavItem.href,
+                  true
+                )}
                 aria-current={
                   isActiveNavItem(pathname, workspaceNavItem.href)
                     ? "page"

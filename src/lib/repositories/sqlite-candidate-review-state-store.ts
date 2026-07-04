@@ -19,7 +19,9 @@ export interface CandidateReviewStateFile {
 export function readCandidateReviewState(
   database: SqliteDatabase
 ): CandidateReviewStateFile {
-  const entries = selectPayloads<CandidateReviewStateEntry & { candidateId: string }>(
+  const entries = selectPayloads<
+    CandidateReviewStateEntry & { candidateId: string }
+  >(
     database,
     "SELECT payload FROM candidate_review_states ORDER BY candidateId ASC"
   );

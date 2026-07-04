@@ -58,14 +58,21 @@ const publisherTypes: PublisherType[] = [
   "media"
 ];
 const importanceLevels: ImportanceLevel[] = ["signal", "important", "critical"];
-const technologyStatuses: TechnologyStatus[] = ["draft", "published", "archived"];
+const technologyStatuses: TechnologyStatus[] = [
+  "draft",
+  "published",
+  "archived"
+];
 
 function hasText(value: string | undefined): boolean {
   return Boolean(value?.trim());
 }
 
 function getLocalizedLength(value: { original?: string; zh?: string }): number {
-  return Math.max(value.original?.trim().length ?? 0, value.zh?.trim().length ?? 0);
+  return Math.max(
+    value.original?.trim().length ?? 0,
+    value.zh?.trim().length ?? 0
+  );
 }
 
 function isValidHttpUrl(value: string | undefined): boolean {
@@ -126,7 +133,10 @@ function issue(
   return { severity, field, code, message };
 }
 
-function isAllowed<T extends string>(value: string, allowedValues: readonly T[]): boolean {
+function isAllowed<T extends string>(
+  value: string,
+  allowedValues: readonly T[]
+): boolean {
   return allowedValues.includes(value as T);
 }
 
@@ -154,7 +164,9 @@ export function evaluateTechnologyPublishReadiness(
     blockingErrors.push(
       issue("blocking", "slug", "missing-slug", "Slug is required.")
     );
-  } else if (hasDuplicateSlug(record, workspaceRecords, publishedTechnologies)) {
+  } else if (
+    hasDuplicateSlug(record, workspaceRecords, publishedTechnologies)
+  ) {
     blockingErrors.push(
       issue(
         "blocking",
@@ -167,7 +179,12 @@ export function evaluateTechnologyPublishReadiness(
 
   if (!hasText(record.sourceName)) {
     blockingErrors.push(
-      issue("blocking", "sourceName", "missing-source-name", "Source name is required.")
+      issue(
+        "blocking",
+        "sourceName",
+        "missing-source-name",
+        "Source name is required."
+      )
     );
   }
 
@@ -256,11 +273,19 @@ export function evaluateTechnologyPublishReadiness(
 
   if (!isAllowed(record.status, technologyStatuses)) {
     blockingErrors.push(
-      issue("blocking", "status", "invalid-status", "Technology status is invalid.")
+      issue(
+        "blocking",
+        "status",
+        "invalid-status",
+        "Technology status is invalid."
+      )
     );
   }
 
-  if (record.sourceLanguage === "en" && (!hasText(record.title.zh) || !hasText(record.summary.zh))) {
+  if (
+    record.sourceLanguage === "en" &&
+    (!hasText(record.title.zh) || !hasText(record.summary.zh))
+  ) {
     warnings.push(
       issue(
         "warning",

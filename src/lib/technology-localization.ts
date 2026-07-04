@@ -12,10 +12,7 @@ import type {
 export type TechnologyContentMode = "zh" | "original";
 export type TechnologyContentContext = "preview" | "detail";
 export type TechnologyTranslationCoverage =
-  | "not_needed"
-  | "full"
-  | "partial"
-  | "none";
+  "not_needed" | "full" | "partial" | "none";
 
 interface TechnologyDetailCopy {
   switchLabel: string;
@@ -90,8 +87,7 @@ const technologyRelationNoteTranslations: Record<string, string> = {
     "这个技能可以帮助评估或落地这条技术信号。",
   "This knowledge item gives background for understanding the signal.":
     "这个知识条目可以帮助理解这条技术信号的背景。",
-  "Linked in the content relationship model.":
-    "这个关联来自当前内容关系模型。"
+  "Linked in the content relationship model.": "这个关联来自当前内容关系模型。"
 };
 
 function normalizeText(value?: string): string | undefined {
@@ -344,7 +340,7 @@ export function getLocalizedTechnologyText(
   }
 
   return sourceLanguage === "zh"
-    ? normalizeText(value.zh) ?? value.original
+    ? (normalizeText(value.zh) ?? value.original)
     : value.original;
 }
 
@@ -354,7 +350,9 @@ export function getPreferredTechnologyText(
 ): string {
   return getLocalizedTechnologyText(
     value,
-    sourceLanguage === "zh" || hasLocalizedText(value, "zh") ? "zh" : "original",
+    sourceLanguage === "zh" || hasLocalizedText(value, "zh")
+      ? "zh"
+      : "original",
     sourceLanguage
   );
 }
@@ -486,7 +484,8 @@ export function getTechnologyDetailCopy(
       relatedKnowledgeTitle: "Knowledge to understand it",
       relatedKnowledgeDescription:
         "Review these concepts first if the signal depends on unfamiliar foundations.",
-      relatedKnowledgeEmpty: "No knowledge background has been linked for this item."
+      relatedKnowledgeEmpty:
+        "No knowledge background has been linked for this item."
     };
   }
 
@@ -505,10 +504,12 @@ export function getTechnologyDetailCopy(
     publishedLabel: "发布日期",
     importanceLabel: "重要程度",
     relatedSkillsTitle: "理解路径：相关技能",
-    relatedSkillsDescription: "这些能力可以帮助你评估、试点或落地这条技术信号。",
+    relatedSkillsDescription:
+      "这些能力可以帮助你评估、试点或落地这条技术信号。",
     relatedSkillsEmpty: "当前条目还没有关联技能路径。",
     relatedKnowledgeTitle: "理解路径：背景知识",
-    relatedKnowledgeDescription: "如果这条信号依赖陌生概念，可以先从这些知识条目开始理解。",
+    relatedKnowledgeDescription:
+      "如果这条信号依赖陌生概念，可以先从这些知识条目开始理解。",
     relatedKnowledgeEmpty: "当前条目还没有关联背景知识。"
   };
 }

@@ -19,7 +19,8 @@ export async function PATCH(request: Request, context: RouteContext) {
 
     return NextResponse.json({ ok: true, source });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown source error.";
+    const message =
+      error instanceof Error ? error.message : "Unknown source error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

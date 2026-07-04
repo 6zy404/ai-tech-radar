@@ -104,14 +104,12 @@ function buildTechnologyRecord(
     summary: {
       original:
         "A complete validation item used to verify optional LLM-assisted editorial enrichment suggestions.",
-      zh:
-        "A complete validation item used to verify optional LLM-assisted editorial enrichment suggestions."
+      zh: "A complete validation item used to verify optional LLM-assisted editorial enrichment suggestions."
     },
     content: {
       original:
         "This validation content is long enough to exercise prompt construction, mock provider generation, output validation, apply, reject, and user-facing field isolation.",
-      zh:
-        "This validation content is long enough to exercise prompt construction, mock provider generation, output validation, apply, reject, and user-facing field isolation."
+      zh: "This validation content is long enough to exercise prompt construction, mock provider generation, output validation, apply, reject, and user-facing field isolation."
     },
     type: "tool",
     publishDate: "2026-05-30",
@@ -231,9 +229,12 @@ async function main() {
     assert.equal(ruleBasedSuggestion.generationMode, "rule_based");
     assert.ok(ruleBasedSuggestion.generatedFields.whyItMatters);
 
-    const mockSuggestion = await generateEditorialEnrichmentSuggestion(record.id, {
-      generationMode: "llm_assisted"
-    });
+    const mockSuggestion = await generateEditorialEnrichmentSuggestion(
+      record.id,
+      {
+        generationMode: "llm_assisted"
+      }
+    );
     assert.equal(
       mockSuggestion.generationMode,
       "mock_llm",
@@ -250,15 +251,22 @@ async function main() {
       "Generating a suggestion should not update the draft before apply."
     );
 
-    const applied = applyEditorialEnrichmentSuggestion(record.id, mockSuggestion.id);
+    const applied = applyEditorialEnrichmentSuggestion(
+      record.id,
+      mockSuggestion.id
+    );
     assert.ok(applied.record.whyItMatters);
     assert.equal(applied.suggestion.status, "applied");
 
-    const rejectCandidate = await generateEditorialEnrichmentSuggestion(record.id, {
-      generationMode: "mock_llm"
-    });
-    const beforeRejectWhyItMatters =
-      getTechnologyWorkspaceRecordById(record.id)?.whyItMatters;
+    const rejectCandidate = await generateEditorialEnrichmentSuggestion(
+      record.id,
+      {
+        generationMode: "mock_llm"
+      }
+    );
+    const beforeRejectWhyItMatters = getTechnologyWorkspaceRecordById(
+      record.id
+    )?.whyItMatters;
     const rejected = rejectEditorialEnrichmentSuggestion(
       record.id,
       rejectCandidate.id,
@@ -273,9 +281,12 @@ async function main() {
 
     process.env.LLM_PROVIDER = "mock";
     process.env.LLM_MOCK_RESPONSE = "{ invalid json";
-    const failedSuggestion = await generateEditorialEnrichmentSuggestion(record.id, {
-      generationMode: "mock_llm"
-    });
+    const failedSuggestion = await generateEditorialEnrichmentSuggestion(
+      record.id,
+      {
+        generationMode: "mock_llm"
+      }
+    );
     assert.equal(failedSuggestion.outputValidationStatus, "failed");
     assert.ok(failedSuggestion.generationError);
 
@@ -302,7 +313,8 @@ async function main() {
     assert.match(internalFieldValidation.error ?? "", /internal-only/);
 
     const events = getWorkflowEvents().filter(
-      (event) => event.entityType === "technology_draft" && event.entityId === record.id
+      (event) =>
+        event.entityType === "technology_draft" && event.entityId === record.id
     );
     assert.ok(
       events.some((event) => event.action === "editorial_enrichment.generated"),

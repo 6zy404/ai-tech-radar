@@ -11,7 +11,9 @@ export interface WorkflowEventStore {
   events: WorkflowEvent[];
 }
 
-export function readWorkflowEventStore(database: SqliteDatabase): WorkflowEventStore {
+export function readWorkflowEventStore(
+  database: SqliteDatabase
+): WorkflowEventStore {
   return {
     updatedAt: getTimestamp(),
     events: selectPayloads<WorkflowEvent>(

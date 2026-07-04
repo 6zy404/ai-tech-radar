@@ -87,7 +87,9 @@ function getStatusLabel(suggestion: EditorialEnrichmentSuggestion): string {
   return "Stale";
 }
 
-function getGenerationModeLabel(mode: EditorialEnrichmentGenerationMode): string {
+function getGenerationModeLabel(
+  mode: EditorialEnrichmentGenerationMode
+): string {
   if (mode === "llm_assisted") {
     return "LLM-assisted";
   }
@@ -100,7 +102,9 @@ function getGenerationModeLabel(mode: EditorialEnrichmentGenerationMode): string
 }
 
 function formatConfidence(value: number | undefined): string {
-  return typeof value === "number" ? `${Math.round(value * 100)}% confidence` : "";
+  return typeof value === "number"
+    ? `${Math.round(value * 100)}% confidence`
+    : "";
 }
 
 function hasMeaningfulValue(value: unknown): boolean {
@@ -241,7 +245,9 @@ export function TechnologyEditorialEnrichmentPanel({
             router.refresh();
           }
 
-          throw new Error(result.message || "Editorial enrichment action failed.");
+          throw new Error(
+            result.message || "Editorial enrichment action failed."
+          );
         }
 
         setMessage(
@@ -312,8 +318,9 @@ export function TechnologyEditorialEnrichmentPanel({
           <h2>Prompt quality and suggestion review</h2>
           <p>
             Generate a rule-based or LLM-assisted explanation draft, compare it
-            with current Content Intelligence fields, then review, apply selected
-            fields, or reject it. Suggestions stay workspace-only until applied.
+            with current Content Intelligence fields, then review, apply
+            selected fields, or reject it. Suggestions stay workspace-only until
+            applied.
           </p>
         </div>
         <div className="editorial-enrichment-panel__actions">
@@ -352,7 +359,9 @@ export function TechnologyEditorialEnrichmentPanel({
       ) : (
         <>
           <div className="editorial-enrichment-panel__meta">
-            <span className={`status-badge status-badge--${selectedSuggestion.status}`}>
+            <span
+              className={`status-badge status-badge--${selectedSuggestion.status}`}
+            >
               {getStatusLabel(selectedSuggestion)}
             </span>
             <span className="info-pill">
@@ -363,7 +372,9 @@ export function TechnologyEditorialEnrichmentPanel({
             </span>
             {selectedSuggestion.promptVersionId ? (
               <span className="info-pill">
-                Prompt {selectedSuggestion.promptVersion ?? selectedSuggestion.promptVersionId}
+                Prompt{" "}
+                {selectedSuggestion.promptVersion ??
+                  selectedSuggestion.promptVersionId}
               </span>
             ) : null}
             {selectedSuggestion.providerName ? (
@@ -372,7 +383,9 @@ export function TechnologyEditorialEnrichmentPanel({
               </span>
             ) : null}
             {selectedSuggestion.modelName ? (
-              <span className="info-pill">Model {selectedSuggestion.modelName}</span>
+              <span className="info-pill">
+                Model {selectedSuggestion.modelName}
+              </span>
             ) : null}
             {selectedSuggestion.outputValidationStatus ? (
               <span className="info-pill">
@@ -506,7 +519,8 @@ export function TechnologyEditorialEnrichmentPanel({
           <div className="editorial-enrichment-compare">
             {fieldLabels.map((field) => {
               const currentValue = getCurrentFieldValue(record, field.key);
-              const suggestedValue = selectedSuggestion.generatedFields[field.key];
+              const suggestedValue =
+                selectedSuggestion.generatedFields[field.key];
               const willOverwrite =
                 selectedFields.includes(field.key) &&
                 hasMeaningfulValue(suggestedValue) &&

@@ -58,14 +58,18 @@ export function ImportedCandidateReviewActions({
         setMessage(`Status updated to ${nextStatus}.`);
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Status update failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Status update failed."
+        );
       }
     });
   }
 
   function convertToDraft() {
     if (!canConvert) {
-      setMessage(conversionBlockedMessage ?? "This candidate cannot be converted.");
+      setMessage(
+        conversionBlockedMessage ?? "This candidate cannot be converted."
+      );
       return;
     }
 
@@ -83,14 +87,18 @@ export function ImportedCandidateReviewActions({
         };
 
         if (!response.ok || !result.ok || !result.draftId) {
-          throw new Error(result.message || "Convert to workspace record failed.");
+          throw new Error(
+            result.message || "Convert to workspace record failed."
+          );
         }
 
         setMessage("Technology workspace record generated.");
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "Convert to workspace record failed."
+          error instanceof Error
+            ? error.message
+            : "Convert to workspace record failed."
         );
       }
     });
@@ -131,7 +139,8 @@ export function ImportedCandidateReviewActions({
           title={
             canConvert
               ? "Create or update the linked technology draft"
-              : conversionBlockedMessage ?? "Resolve duplicate or status blockers first"
+              : (conversionBlockedMessage ??
+                "Resolve duplicate or status blockers first")
           }
         >
           {convertedTechnologyId
@@ -154,12 +163,15 @@ export function ImportedCandidateReviewActions({
           </span>
         ) : (
           <span className="candidate-review-actions__hint">
-            The generated technology draft stays linked to this imported candidate.
+            The generated technology draft stays linked to this imported
+            candidate.
           </span>
         )}
       </div>
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </section>
   );
 }

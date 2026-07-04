@@ -48,7 +48,9 @@ export async function POST(request: Request, context: RouteContext) {
     }
 
     const message =
-      error instanceof Error ? error.message : "Unknown digest status update error.";
+      error instanceof Error
+        ? error.message
+        : "Unknown digest status update error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

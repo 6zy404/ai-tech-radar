@@ -9,7 +9,11 @@ function isApiPath(pathname: string): boolean {
   return pathname.startsWith("/api/");
 }
 
-function unauthorizedResponse(pathname: string, status: number, message: string) {
+function unauthorizedResponse(
+  pathname: string,
+  status: number,
+  message: string
+) {
   if (isApiPath(pathname)) {
     return NextResponse.json({ error: message }, { status });
   }

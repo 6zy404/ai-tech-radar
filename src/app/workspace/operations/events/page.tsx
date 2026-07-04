@@ -20,7 +20,7 @@ interface OperationsEventsPageProps {
 }
 
 function getSearchParam(value: string | string[] | undefined): string {
-  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
+  return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
 }
 
 function formatDateTime(value: string): string {
@@ -39,7 +39,10 @@ function getEventSummary(event: WorkflowEvent): string {
   const metadata = event.metadata ?? {};
 
   return sanitizeOperationsText(
-    metadata.errorMessage ?? metadata.message ?? metadata.status ?? event.actorType
+    metadata.errorMessage ??
+      metadata.message ??
+      metadata.status ??
+      event.actorType
   );
 }
 
@@ -91,7 +94,10 @@ export default async function WorkspaceOperationsEventsPage({
           </Link>
         </div>
 
-        <form className="operations-event-filter" action="/workspace/operations/events">
+        <form
+          className="operations-event-filter"
+          action="/workspace/operations/events"
+        >
           <label>
             Entity type
             <select name="entityType" defaultValue={entityTypeFilter}>
@@ -158,7 +164,10 @@ export default async function WorkspaceOperationsEventsPage({
                   items={[
                     { label: "Entity", value: event.entityId },
                     { label: "Actor", value: event.actorType },
-                    { label: "Actor ID", value: event.actorId ?? "system/local" }
+                    {
+                      label: "Actor ID",
+                      value: event.actorId ?? "system/local"
+                    }
                   ]}
                 />
 
@@ -171,11 +180,15 @@ export default async function WorkspaceOperationsEventsPage({
                     </div>
                     <div>
                       <strong>Before</strong>
-                      <pre>{formatOperationsJsonPreview(event.beforeSnapshot)}</pre>
+                      <pre>
+                        {formatOperationsJsonPreview(event.beforeSnapshot)}
+                      </pre>
                     </div>
                     <div>
                       <strong>After</strong>
-                      <pre>{formatOperationsJsonPreview(event.afterSnapshot)}</pre>
+                      <pre>
+                        {formatOperationsJsonPreview(event.afterSnapshot)}
+                      </pre>
                     </div>
                   </div>
                 </details>
@@ -183,7 +196,9 @@ export default async function WorkspaceOperationsEventsPage({
             ))}
           </div>
         ) : (
-          <p className="empty-state">No workflow events match the selected filters.</p>
+          <p className="empty-state">
+            No workflow events match the selected filters.
+          </p>
         )}
       </section>
     </WorkspacePageShell>

@@ -54,11 +54,15 @@ async function main() {
     return;
   }
 
-  console.error("Usage: tsx scripts/tasks-runner.ts <run-once|watch> [--interval=60]");
+  console.error(
+    "Usage: tsx scripts/tasks-runner.ts <run-once|watch> [--interval=60]"
+  );
   process.exitCode = 1;
 }
 
 void main().catch((error) => {
-  console.error(error instanceof Error ? error.message : "Unknown task runner error.");
+  console.error(
+    error instanceof Error ? error.message : "Unknown task runner error."
+  );
   process.exitCode = 1;
 });

@@ -93,7 +93,9 @@ function buildDigest(
       new Set(technologies.flatMap((technology) => technology.relatedSkillIds))
     ),
     knowledgeIds: Array.from(
-      new Set(technologies.flatMap((technology) => technology.relatedKnowledgeIds))
+      new Set(
+        technologies.flatMap((technology) => technology.relatedKnowledgeIds)
+      )
     ),
     sourceNames: Array.from(
       new Set(technologies.map((technology) => technology.sourceName))
@@ -149,7 +151,11 @@ async function main() {
       "Expected at least two published technologies for delivery channel validation."
     );
 
-    const publishedDigest = buildDigest("2026-05-24", "published", technologies);
+    const publishedDigest = buildDigest(
+      "2026-05-24",
+      "published",
+      technologies
+    );
     const draftDigest = buildDigest("2026-05-25", "draft", technologies);
 
     writeDigestStore([draftDigest, publishedDigest]);
@@ -202,7 +208,9 @@ async function main() {
     assert.ok(feishuBody.content?.text?.includes(publishedDigest.title));
     assert.ok(feishuBody.content?.text?.includes("今日立即关注"));
     assert.ok(feishuBody.content?.text?.includes("值得跟踪"));
-    assert.ok(feishuBody.content?.text?.includes(`/digest/${publishedDigest.date}`));
+    assert.ok(
+      feishuBody.content?.text?.includes(`/digest/${publishedDigest.date}`)
+    );
     assertNoInternalFields(feishuRequest.body, "Feishu request body");
     assertNoInternalFields(feishuRequest.preview, "Feishu preview");
 

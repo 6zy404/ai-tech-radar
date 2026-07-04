@@ -27,10 +27,17 @@ function listFilesRecursive(relativePath: string): string[] {
 }
 
 function assertContains(content: string, expected: string, label: string) {
-  assert.ok(content.includes(expected), `${label} should contain "${expected}".`);
+  assert.ok(
+    content.includes(expected),
+    `${label} should contain "${expected}".`
+  );
 }
 
-function assertDoesNotContain(content: string, forbidden: string, label: string) {
+function assertDoesNotContain(
+  content: string,
+  forbidden: string,
+  label: string
+) {
   assert.equal(
     content.includes(forbidden),
     false,

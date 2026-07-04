@@ -11,7 +11,10 @@ import {
   getDailyDigests,
   getSelectedDigestTechnologyIds
 } from "../src/lib/digest-workflow";
-import { getDeliveryChannels, getDeliveryRuns } from "../src/lib/delivery-workflow";
+import {
+  getDeliveryChannels,
+  getDeliveryRuns
+} from "../src/lib/delivery-workflow";
 import {
   getLocalStoreFilePath,
   readLocalJsonDiskFile
@@ -202,12 +205,21 @@ function validateSchema() {
 function validateDriverData(label: string) {
   const { snapshot, candidates, duplicateGroups, workspaceRecords } =
     getCandidateWorkflowData();
-  const externalSourceIds = new Set(getExternalSources().map((source) => source.id));
-  const snapshotSourceIds = new Set(snapshot.sources.map((source) => source.id));
+  const externalSourceIds = new Set(
+    getExternalSources().map((source) => source.id)
+  );
+  const snapshotSourceIds = new Set(
+    snapshot.sources.map((source) => source.id)
+  );
   const candidateIds = new Set(candidates.map((candidate) => candidate.id));
-  const workspaceRecordIds = new Set(workspaceRecords.map((record) => record.id));
+  const workspaceRecordIds = new Set(
+    workspaceRecords.map((record) => record.id)
+  );
 
-  assert.ok(getAllTechnologies().length > 0, `${label} should read technologies.`);
+  assert.ok(
+    getAllTechnologies().length > 0,
+    `${label} should read technologies.`
+  );
 
   for (const candidate of candidates) {
     if (candidate.sourceId) {
@@ -294,7 +306,9 @@ function validateDriverData(label: string) {
 
   const digestIds = new Set(getDailyDigests().map((digest) => digest.id));
   const digestDates = new Set(getDailyDigests().map((digest) => digest.date));
-  const channelIds = new Set(getDeliveryChannels().map((channel) => channel.id));
+  const channelIds = new Set(
+    getDeliveryChannels().map((channel) => channel.id)
+  );
   const deliveryRunIds = new Set(getDeliveryRuns().map((run) => run.id));
 
   for (const run of getDeliveryRuns()) {
@@ -330,7 +344,10 @@ function validateDriverData(label: string) {
     }
   }
 
-  assertNoInternalTerms(`${label} user-facing technologies`, getAllTechnologies());
+  assertNoInternalTerms(
+    `${label} user-facing technologies`,
+    getAllTechnologies()
+  );
   assertNoInternalTerms(`${label} public digest feed`, getDigestDeliveryFeed());
 }
 
@@ -338,15 +355,25 @@ validateSchema();
 
 const migrationSummary = migrateCurrentJsonStores();
 
-assert.equal(migrationSummary.errors, 0, "JSON -> SQLite migration should not fail.");
+assert.equal(
+  migrationSummary.errors,
+  0,
+  "JSON -> SQLite migration should not fail."
+);
 assert.ok(
   getSqliteSchemaStats().some(
     (item) => item.tableName === "technologies" && item.rowCount > 0
   ),
   "SQLite technologies table should contain migrated or seeded rows."
 );
-assert.ok(readSqliteSeedTechnologies().length > 0, "Seed technologies should be readable.");
-assert.ok(readSqliteKnowledgeItems().length > 0, "Knowledge items should be seeded.");
+assert.ok(
+  readSqliteSeedTechnologies().length > 0,
+  "Seed technologies should be readable."
+);
+assert.ok(
+  readSqliteKnowledgeItems().length > 0,
+  "Knowledge items should be seeded."
+);
 assert.ok(readSqliteSkillItems().length > 0, "Skill items should be seeded.");
 
 process.env.PERSISTENCE_DRIVER = "sqlite";

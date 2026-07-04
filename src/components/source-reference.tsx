@@ -28,7 +28,9 @@ export function SourceReference({
       <a href={sourceUrl} target="_blank" rel="noreferrer">
         {linkLabel}
       </a>
-      {showUrl ? <span className="source-reference__url">{sourceUrl}</span> : null}
+      {showUrl ? (
+        <span className="source-reference__url">{sourceUrl}</span>
+      ) : null}
     </section>
   );
 }

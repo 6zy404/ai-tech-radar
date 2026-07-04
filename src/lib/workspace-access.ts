@@ -64,7 +64,9 @@ function decodeBasicAuth(value: string): string | undefined {
   }
 }
 
-export function extractWorkspaceAccessToken(headers: Headers): string | undefined {
+export function extractWorkspaceAccessToken(
+  headers: Headers
+): string | undefined {
   const explicitToken = headers.get("x-workspace-access-token")?.trim();
 
   if (explicitToken) {
@@ -112,7 +114,8 @@ export function checkWorkspaceAccess(
       enabled,
       configured: false,
       authorized: false,
-      reason: "Workspace access protection is enabled but no token is configured."
+      reason:
+        "Workspace access protection is enabled but no token is configured."
     };
   }
 
@@ -125,6 +128,8 @@ export function checkWorkspaceAccess(
     enabled,
     configured: true,
     authorized,
-    reason: authorized ? undefined : "Workspace access token is missing or invalid."
+    reason: authorized
+      ? undefined
+      : "Workspace access token is missing or invalid."
   };
 }

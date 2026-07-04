@@ -45,7 +45,10 @@ function getLineList(formData: FormData, name: string): string[] {
     .filter((item) => item.length > 0);
 }
 
-function getKeyValueMap(formData: FormData, name: string): Record<string, string> {
+function getKeyValueMap(
+  formData: FormData,
+  name: string
+): Record<string, string> {
   return getFormValue(formData, name)
     .split("\n")
     .map((line) => line.trim())
@@ -91,70 +94,80 @@ export function TechnologyWorkspaceEditForm({
       setMessage("");
 
       try {
-        const response = await fetch(`/api/workspace/technologies/${record.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            slug: getFormValue(formData, "slug"),
-            title: {
-              original: getFormValue(formData, "titleOriginal"),
-              zh: getFormValue(formData, "titleZh")
+        const response = await fetch(
+          `/api/workspace/technologies/${record.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
             },
-            summary: {
-              original: getFormValue(formData, "summaryOriginal"),
-              zh: getFormValue(formData, "summaryZh")
-            },
-            content: {
-              original: getFormValue(formData, "contentOriginal"),
-              zh: getFormValue(formData, "contentZh")
-            },
-            type: getFormValue(formData, "type"),
-            publishDate: getFormValue(formData, "publishDate"),
-            sourceName: getFormValue(formData, "sourceName"),
-            sourceUrl: getFormValue(formData, "sourceUrl"),
-            sourceLanguage: getFormValue(formData, "sourceLanguage"),
-            translationStatus: getFormValue(formData, "translationStatus"),
-            publisherName: getFormValue(formData, "publisherName"),
-            publisherType: getFormValue(formData, "publisherType"),
-            importanceLevel: getFormValue(formData, "importanceLevel"),
-            tags: getFormValues(formData, "tags"),
-            relatedKnowledgeIds: getFormValues(formData, "relatedKnowledgeIds"),
-            relatedSkillIds: getFormValues(formData, "relatedSkillIds"),
-            editorialNotes: getEditorialNotes(formData),
-            whyItMatters: getFormValue(formData, "whyItMatters"),
-            whoShouldCare: getLineList(formData, "whoShouldCare"),
-            technicalContext: getFormValue(formData, "technicalContext"),
-            impactAreas: getLineList(formData, "impactAreas"),
-            learningPath: getLineList(formData, "learningPath"),
-            relatedKnowledgeExplanations: getKeyValueMap(
-              formData,
-              "relatedKnowledgeExplanations"
-            ),
-            relatedSkillExplanations: getKeyValueMap(
-              formData,
-              "relatedSkillExplanations"
-            ),
-            followUpQuestions: getLineList(formData, "followUpQuestions"),
-            readingDifficulty: getFormValue(formData, "readingDifficulty"),
-            intelligenceStatus: getFormValue(formData, "intelligenceStatus")
-          })
-        });
+            body: JSON.stringify({
+              slug: getFormValue(formData, "slug"),
+              title: {
+                original: getFormValue(formData, "titleOriginal"),
+                zh: getFormValue(formData, "titleZh")
+              },
+              summary: {
+                original: getFormValue(formData, "summaryOriginal"),
+                zh: getFormValue(formData, "summaryZh")
+              },
+              content: {
+                original: getFormValue(formData, "contentOriginal"),
+                zh: getFormValue(formData, "contentZh")
+              },
+              type: getFormValue(formData, "type"),
+              publishDate: getFormValue(formData, "publishDate"),
+              sourceName: getFormValue(formData, "sourceName"),
+              sourceUrl: getFormValue(formData, "sourceUrl"),
+              sourceLanguage: getFormValue(formData, "sourceLanguage"),
+              translationStatus: getFormValue(formData, "translationStatus"),
+              publisherName: getFormValue(formData, "publisherName"),
+              publisherType: getFormValue(formData, "publisherType"),
+              importanceLevel: getFormValue(formData, "importanceLevel"),
+              tags: getFormValues(formData, "tags"),
+              relatedKnowledgeIds: getFormValues(
+                formData,
+                "relatedKnowledgeIds"
+              ),
+              relatedSkillIds: getFormValues(formData, "relatedSkillIds"),
+              editorialNotes: getEditorialNotes(formData),
+              whyItMatters: getFormValue(formData, "whyItMatters"),
+              whoShouldCare: getLineList(formData, "whoShouldCare"),
+              technicalContext: getFormValue(formData, "technicalContext"),
+              impactAreas: getLineList(formData, "impactAreas"),
+              learningPath: getLineList(formData, "learningPath"),
+              relatedKnowledgeExplanations: getKeyValueMap(
+                formData,
+                "relatedKnowledgeExplanations"
+              ),
+              relatedSkillExplanations: getKeyValueMap(
+                formData,
+                "relatedSkillExplanations"
+              ),
+              followUpQuestions: getLineList(formData, "followUpQuestions"),
+              readingDifficulty: getFormValue(formData, "readingDifficulty"),
+              intelligenceStatus: getFormValue(formData, "intelligenceStatus")
+            })
+          }
+        );
         const result = (await response.json()) as {
           ok: boolean;
           message?: string;
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message || "Technology workspace save failed.");
+          throw new Error(
+            result.message || "Technology workspace save failed."
+          );
         }
 
         setMessage("Draft edits saved.");
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "Technology workspace save failed."
+          error instanceof Error
+            ? error.message
+            : "Technology workspace save failed."
         );
       }
     });
@@ -193,7 +206,11 @@ export function TechnologyWorkspaceEditForm({
         </label>
         <label className="field">
           <span>Publish date</span>
-          <input name="publishDate" type="date" defaultValue={record.publishDate} />
+          <input
+            name="publishDate"
+            type="date"
+            defaultValue={record.publishDate}
+          />
         </label>
       </div>
 
@@ -219,7 +236,11 @@ export function TechnologyWorkspaceEditForm({
         </label>
         <label className="field">
           <span>Chinese summary</span>
-          <textarea name="summaryZh" rows={4} defaultValue={record.summary.zh ?? ""} />
+          <textarea
+            name="summaryZh"
+            rows={4}
+            defaultValue={record.summary.zh ?? ""}
+          />
         </label>
       </div>
 
@@ -234,7 +255,11 @@ export function TechnologyWorkspaceEditForm({
         </label>
         <label className="field">
           <span>Chinese content</span>
-          <textarea name="contentZh" rows={10} defaultValue={record.content.zh ?? ""} />
+          <textarea
+            name="contentZh"
+            rows={10}
+            defaultValue={record.content.zh ?? ""}
+          />
         </label>
       </div>
 
@@ -273,7 +298,10 @@ export function TechnologyWorkspaceEditForm({
         </label>
         <label className="field">
           <span>Translation status</span>
-          <select name="translationStatus" defaultValue={record.translationStatus}>
+          <select
+            name="translationStatus"
+            defaultValue={record.translationStatus}
+          >
             <option value="not_needed">Not needed</option>
             <option value="pending">Pending</option>
             <option value="done">Done</option>
@@ -346,8 +374,9 @@ export function TechnologyWorkspaceEditForm({
       <fieldset className="workspace-edit-form__fieldset workspace-edit-form__fieldset--intelligence">
         <legend>Content Intelligence</legend>
         <p className="workspace-edit-form__hint">
-          These fields shape the public explanation layer. Missing fields produce
-          publish warnings because the user-facing page will be less useful.
+          These fields shape the public explanation layer. Missing fields
+          produce publish warnings because the user-facing page will be less
+          useful.
         </p>
 
         <div className="workspace-edit-form__grid workspace-edit-form__grid--two">
@@ -469,7 +498,9 @@ export function TechnologyWorkspaceEditForm({
         />
       </label>
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </form>
   );
 }

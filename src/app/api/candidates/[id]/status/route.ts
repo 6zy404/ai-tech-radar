@@ -35,7 +35,8 @@ export async function POST(request: Request, context: RouteContext) {
 
     return NextResponse.json({ ok: true, state });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown status update error.";
+    const message =
+      error instanceof Error ? error.message : "Unknown status update error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

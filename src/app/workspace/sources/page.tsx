@@ -36,7 +36,10 @@ export default function WorkspaceSourcesPage() {
         </>
       }
       actions={
-        <Link href="/workspace/sources/new" className="action-button action-button--accent">
+        <Link
+          href="/workspace/sources/new"
+          className="action-button action-button--accent"
+        >
           Add source
         </Link>
       }

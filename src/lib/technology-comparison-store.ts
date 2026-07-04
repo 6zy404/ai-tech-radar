@@ -10,7 +10,9 @@ export interface TechnologyComparisonStore {
   comparisons: TechnologyComparisonRecord[];
 }
 
-const comparisonStorePath = getLocalStoreFilePath("technology-comparisons.json");
+const comparisonStorePath = getLocalStoreFilePath(
+  "technology-comparisons.json"
+);
 
 export function getComparisonPairKey(idA: string, idB: string): string {
   return [idA, idB].sort().join("::");
@@ -51,11 +53,16 @@ function normalizeComparisonRecord(
       record.generationMode === "llm_assisted" ? "llm_assisted" : "mock_llm",
     providerName:
       typeof record.providerName === "string" ? record.providerName : undefined,
-    modelName: typeof record.modelName === "string" ? record.modelName : undefined,
+    modelName:
+      typeof record.modelName === "string" ? record.modelName : undefined,
     promptVersionId:
-      typeof record.promptVersionId === "string" ? record.promptVersionId : undefined,
+      typeof record.promptVersionId === "string"
+        ? record.promptVersionId
+        : undefined,
     promptVersion:
-      typeof record.promptVersion === "string" ? record.promptVersion : undefined,
+      typeof record.promptVersion === "string"
+        ? record.promptVersion
+        : undefined,
     outputValidationStatus:
       record.outputValidationStatus === "valid" ||
       record.outputValidationStatus === "warning" ||
@@ -66,7 +73,9 @@ function normalizeComparisonRecord(
       ? (record.outputValidationWarnings as string[])
       : [],
     generationError:
-      typeof record.generationError === "string" ? record.generationError : undefined,
+      typeof record.generationError === "string"
+        ? record.generationError
+        : undefined,
     createdAt: typeof record.createdAt === "string" ? record.createdAt : now,
     updatedAt: typeof record.updatedAt === "string" ? record.updatedAt : now
   };
@@ -112,7 +121,9 @@ export function saveTechnologyComparisonRecord(
   writeComparisonStore({
     updatedAt: new Date().toISOString(),
     comparisons: [
-      ...store.comparisons.filter((item) => item.pairKey !== nextRecord.pairKey),
+      ...store.comparisons.filter(
+        (item) => item.pairKey !== nextRecord.pairKey
+      ),
       nextRecord
     ]
   });
