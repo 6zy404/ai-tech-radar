@@ -1,6 +1,710 @@
 {
-  "updatedAt": "2026-07-01T19:12:18.975Z",
+  "updatedAt": "2026-07-04T20:20:18.718Z",
   "events": [
+    {
+      "id": "workflow-event-3635242f-58bc-45a5-b516-d780e578ed7a",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-api-contracts",
+          "knowledge-human-loop",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "自动化产品简报",
+          "AI 工具标准简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-05-23T12:00:00.000Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "published",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-api-contracts",
+          "knowledge-human-loop",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "自动化产品简报",
+          "AI 工具标准简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.705Z",
+        "publishedAt": "2026-07-04T20:20:18.705Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23"
+      },
+      "createdAt": "2026-07-04T20:20:18.718Z"
+    },
+    {
+      "id": "workflow-event-ec8ffcbe-b34a-4c60-8fdd-4189a34d9536",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.652Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp",
+          "tech-rag-evals",
+          "tech-agent-workbenches",
+          "tech-browser-agents"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge",
+          "tech-mcp",
+          "tech-rag-evals",
+          "tech-agent-workbenches"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-retrieval-tuning",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-rag-basics"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "检索质量摘要",
+          "智能体平台评测",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.677Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ],
+        "lastRegeneratedAt": "2026-07-04T20:20:18.677Z"
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "preserveManualAdjustments": true
+      },
+      "createdAt": "2026-07-04T20:20:18.689Z"
+    },
+    {
+      "id": "workflow-event-a8ba8c43-c9c7-4b47-8423-3a0da6143196",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.627Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.652Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "tech-slm-edge",
+        "action": "move_up"
+      },
+      "createdAt": "2026-07-04T20:20:18.664Z"
+    },
+    {
+      "id": "workflow-event-de4de569-ce76-4038-b79f-a96a1e5681e9",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.599Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.627Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "tech-slm-edge",
+        "action": "pin"
+      },
+      "createdAt": "2026-07-04T20:20:18.640Z"
+    },
+    {
+      "id": "workflow-event-5b134083-1f84-4451-be8f-fc67af3d7472",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.567Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "tech-slm-edge"
+        ],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-browser-agents",
+          "tech-slm-edge"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "边缘 AI 实地笔记",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.599Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "tech-slm-edge",
+        "action": "include"
+      },
+      "createdAt": "2026-07-04T20:20:18.612Z"
+    },
+    {
+      "id": "workflow-event-4517e1df-9ba4-4be8-b67f-8e077130426f",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-api-contracts",
+          "knowledge-human-loop",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "自动化产品简报",
+          "AI 工具标准简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.527Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "tech-mcp"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.567Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "tech-mcp",
+        "action": "exclude"
+      },
+      "createdAt": "2026-07-04T20:20:18.583Z"
+    },
+    {
+      "id": "workflow-event-182d86cb-651a-4986-ac75-744d99a7ceae",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Daily Technology Digest - 2026-05-23",
+        "summary": "2 item(s) are selected for editorial validation.",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-tool-integration",
+          "skill-agent-design",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-api-contracts",
+          "knowledge-tool-use",
+          "knowledge-human-loop",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "AI 工具标准简报",
+          "自动化产品简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-05-23T12:00:00.000Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp"
+        ],
+        "watchTechnologyIds": [
+          "tech-browser-agents"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-api-contracts",
+          "knowledge-human-loop",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "自动化产品简报",
+          "AI 工具标准简报"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-04T20:20:18.527Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23"
+      },
+      "createdAt": "2026-07-04T20:20:18.547Z"
+    },
     {
       "id": "workflow-event-8da074f9-4b6c-4fea-8211-a2b3ead7985c",
       "entityType": "technology_draft",
@@ -36099,546 +36803,6 @@
         "nextStatus": "converted"
       },
       "createdAt": "2026-05-30T19:27:50.038Z"
-    },
-    {
-      "id": "workflow-event-45597a87-86a7-4775-a9c3-a4f2d54e90f7",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-05-30T19:27:49.963Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:49.961Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T19:27:50.010Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:50.010Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "slug": "validated-workspace-draft",
-        "status": "draft"
-      },
-      "createdAt": "2026-05-30T19:27:50.018Z"
-    },
-    {
-      "id": "workflow-event-a3d5623b-c40e-4590-8b10-5253ce3caac6",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-05-30T19:27:49.963Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:49.961Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools"
-      },
-      "createdAt": "2026-05-30T19:27:49.994Z"
-    },
-    {
-      "id": "workflow-event-18abaedd-4137-457c-ad18-114ce54d3dc5",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "candidate-rss-openai-rss-responses-tools",
-        "sourceId": "fallback-rss-openai-blog-rss",
-        "sourceType": "rss-feed",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "originalTitle": "New tools for building agent workflows in the Responses API",
-        "originalSummary": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-        "originalContent": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-        "originalLanguage": "en",
-        "publishDate": "2026-04-11",
-        "publisherName": "OpenAI",
-        "normalizedType": "workflow",
-        "tags": [
-          "agents",
-          "workflow",
-          "api"
-        ],
-        "importStatus": "reviewed",
-        "relatedCandidateIds": [],
-        "rawPayload": {
-          "sourceId": "fallback-rss-openai-blog-rss",
-          "feedTitle": "OpenAI Blog RSS",
-          "feedUrl": "https://example.com/openai-blog/rss",
-          "entry": {
-            "guid": "openai-rss-responses-tools",
-            "title": "New tools for building agent workflows in the Responses API",
-            "link": "https://example.com/openai-blog/responses-agent-tools",
-            "summary": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-            "content": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-            "isoDate": "2026-04-11",
-            "publisherName": "OpenAI",
-            "language": "en",
-            "categories": [
-              "agents",
-              "workflow",
-              "api"
-            ],
-            "normalizedTypeHint": "workflow",
-            "importStatus": "new"
-          }
-        },
-        "reviewedAt": "2026-05-30T19:27:49.930Z"
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-05-30T19:27:49.963Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:49.961Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-candidate-rss-openai-rss-responses-tools",
-        "markedCandidateIds": [
-          "candidate-rss-openai-rss-responses-tools"
-        ]
-      },
-      "createdAt": "2026-05-30T19:27:49.973Z"
-    },
-    {
-      "id": "workflow-event-67258586-3ba8-43a7-88d1-65803ab87970",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "reviewed",
-        "reviewedAt": "2026-05-30T19:27:49.930Z"
-      },
-      "metadata": {
-        "nextStatus": "reviewed"
-      },
-      "createdAt": "2026-05-30T19:27:49.944Z"
-    },
-    {
-      "id": "workflow-event-fae77b1f-9ce1-476e-917d-4922bf95bdde",
-      "entityType": "source",
-      "entityId": "quality-good-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "quality-good-source",
-        "name": "Quality Good Source",
-        "type": "rss",
-        "url": "https://example.com/quality-good.xml",
-        "enabled": true,
-        "description": "Quality validation source.",
-        "language": "en",
-        "publisherName": "Quality Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "quality",
-          "validation"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastFetchedAt": "2026-05-23T22:56:22.548Z",
-        "lastImportStatus": "partial",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-good.xml",
-        "lastImportCount": 1,
-        "consecutiveFailureCount": 1,
-        "totalImportedCount": 5,
-        "lastSuccessfulImportAt": "2026-05-20T10:00:00.000Z",
-        "createdAt": "2026-05-01T00:00:00.000Z",
-        "updatedAt": "2026-05-23T22:56:22.548Z",
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-good.xml"
-      },
-      "afterSnapshot": {
-        "id": "quality-good-source",
-        "name": "Quality Good Source",
-        "type": "rss",
-        "url": "https://example.com/quality-good.xml",
-        "enabled": true,
-        "description": "Quality validation source.",
-        "language": "en",
-        "publisherName": "Quality Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "quality",
-          "validation"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastFetchedAt": "2026-05-30T17:11:45.665Z",
-        "lastImportStatus": "partial",
-        "lastImportMessage": "Live import failed; local fallback used. fetch failed",
-        "lastImportCount": 1,
-        "consecutiveFailureCount": 2,
-        "totalImportedCount": 5,
-        "lastSuccessfulImportAt": "2026-05-20T10:00:00.000Z",
-        "createdAt": "2026-05-01T00:00:00.000Z",
-        "updatedAt": "2026-05-30T17:11:45.665Z",
-        "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
-      },
-      "metadata": {
-        "status": "partial",
-        "message": "Live import failed; local fallback used. fetch failed",
-        "importCount": 1,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-05-30T17:11:45.682Z"
-    },
-    {
-      "id": "workflow-event-40c074c2-d811-4a99-97cc-8bb0b73f0004",
-      "entityType": "source",
-      "entityId": "quality-failing-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "quality-failing-source",
-        "name": "Quality Failing Source",
-        "type": "rss",
-        "url": "https://example.com/quality-failing.xml",
-        "enabled": true,
-        "description": "Quality validation source.",
-        "language": "en",
-        "publisherName": "Quality Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "quality",
-          "validation"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastFetchedAt": "2026-05-23T22:56:21.992Z",
-        "lastImportStatus": "partial",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "lastImportCount": 1,
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "consecutiveFailureCount": 3,
-        "totalImportedCount": 2,
-        "createdAt": "2026-05-01T00:00:00.000Z",
-        "updatedAt": "2026-05-23T22:56:21.992Z"
-      },
-      "afterSnapshot": {
-        "id": "quality-failing-source",
-        "name": "Quality Failing Source",
-        "type": "rss",
-        "url": "https://example.com/quality-failing.xml",
-        "enabled": true,
-        "description": "Quality validation source.",
-        "language": "en",
-        "publisherName": "Quality Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "quality",
-          "validation"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastFetchedAt": "2026-05-30T17:11:35.449Z",
-        "lastImportStatus": "partial",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "lastImportCount": 1,
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "consecutiveFailureCount": 4,
-        "totalImportedCount": 2,
-        "createdAt": "2026-05-01T00:00:00.000Z",
-        "updatedAt": "2026-05-30T17:11:35.449Z"
-      },
-      "metadata": {
-        "status": "partial",
-        "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "importCount": 1,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-05-30T17:11:35.469Z"
-    },
-    {
-      "id": "workflow-event-be0590c3-a033-42bb-8044-3c23e2b99f54",
-      "entityType": "task_runner",
-      "entityId": "task-runner-bfa824c3-7ace-4088-91e2-523a490d004e",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-bfa824c3-7ace-4088-91e2-523a490d004e",
-        "mode": "run_once",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-05-28T19:34:39.643Z",
-        "status": "failed",
-        "dueScheduleCount": 1,
-        "skippedScheduleCount": 0,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 0,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "No published digest schedule: failed for no digest; No digest matched the schedule target."
-        ]
-      },
-      "metadata": {
-        "mode": "run_once",
-        "status": "failed",
-        "dueScheduleCount": 1,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-05-28T19:34:39.654Z"
     }
   ]
 }
