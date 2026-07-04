@@ -86,6 +86,20 @@ The schema intentionally stores each domain record as a JSON payload plus key qu
 
 This avoids over-normalizing the prototype while still making the future Postgres/Supabase migration path clear.
 
+**Storage model (decided 2026-07-05): this driver is a document store, and
+that is its honest, intentional design — not a half-finished relational
+migration.** Reads return every row's `payload` for a domain
+(`SELECT payload`), writes clear the domain's table and reinsert the whole
+store, exactly matching the JSON-file contract that workflow modules program
+against. The key columns and indexes are denormalized copies maintained for
+two purposes only: rehearsing the future Postgres/Supabase table shapes, and
+external SQL inspection of local state — business code never queries them
+(the only SQL readers are the static-content seed readers and the schema
+stats helper). Moving to per-record relational access was evaluated and
+rejected while the project is a local-first prototype; see
+`docs/decisions.md` → "SQLite Storage Model" for the full reasoning and the
+revisit condition.
+
 ## Repository Boundary
 
 Current repository files:
