@@ -50,8 +50,16 @@ Every file originally flagged for the store-decomposition pattern
 every page ever flagged for visual confirmation (workspace and user-facing)
 has had its desktop+mobile pass — see the sections below for each. What
 remains as code debt is linting/formatting config (ESLint + Prettier, see
-"Later" below) and the pre-existing `npm run validate:delivery` fixture
-mismatch flagged above.
+"Later" below).
+
+The pre-existing `npm run validate:delivery` fixture mismatch flagged above is
+now fixed: the script's fixture digest title (`Delivery validation digest ...`)
+and summary contained the word "validation", which `getPublicDigestTitle` /
+`getPublicDigestSummary` (`src/lib/public-copy.ts`, added later by the UI
+refactor's public-copy sanitization) intentionally rewrite into generic public
+digest copy — so the feed-title assertions failed against the sanitized output.
+The fixture copy was renamed to public-safe wording (`Public delivery digest
+...`); the sanitizer behavior itself was correct and unchanged.
 
 ## Progress so far
 
