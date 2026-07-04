@@ -1,4 +1,8 @@
-import { getTimestamp, selectPayloads, type SqliteDatabase } from "@/lib/repositories/sqlite-primitives";
+import {
+  getTimestamp,
+  selectPayloads,
+  type SqliteDatabase
+} from "@/lib/repositories/sqlite-primitives";
 import type { TechnologyWorkspaceRecord } from "@/types/content";
 
 export interface TechnologyWorkspaceStore {
@@ -29,7 +33,9 @@ export function writeTechnologyWorkspaceStore(
   store: TechnologyWorkspaceStore
 ): void {
   database.prepare("DELETE FROM technology_drafts").run();
-  database.prepare("DELETE FROM technologies WHERE recordKind = 'workspace'").run();
+  database
+    .prepare("DELETE FROM technologies WHERE recordKind = 'workspace'")
+    .run();
 
   const insertDraft = database.prepare(`
     INSERT OR REPLACE INTO technology_drafts (

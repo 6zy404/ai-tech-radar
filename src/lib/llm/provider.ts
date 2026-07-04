@@ -55,7 +55,5 @@ export function getLlmProviderConfig(): LlmProviderConfig {
 export function getConfiguredProviderLabel(): string {
   const config = getLlmProviderConfig();
 
-  return config.provider === "openai_compatible"
-    ? "openai-compatible"
-    : "mock";
+  return config.provider === "openai_compatible" ? "openai-compatible" : "mock";
 }

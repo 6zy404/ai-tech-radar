@@ -78,8 +78,10 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
   const ranking = evaluateTechnologyPriority(technology);
   const summary = getPublicTechnologySummary(technology);
   const whyItMatters =
-    getTechnologyWhyItMatters(technology, getPriorityUserSummary(ranking, "zh")) ??
-    summary;
+    getTechnologyWhyItMatters(
+      technology,
+      getPriorityUserSummary(ranking, "zh")
+    ) ?? summary;
   const audience = getTechnologyAudience(technology).slice(0, 3);
   const difficulty = getReadingDifficultyLabel(technology.readingDifficulty);
   const tags = technology.tags
@@ -183,11 +185,12 @@ export default function HomePage() {
         <div className="product-home-hero__copy">
           <p className="eyebrow user-eyebrow">AI 技术发现</p>
           <h1>发现值得关注的 AI 技术</h1>
-          <p>
-            一条清晰的阅读路径，帮你理解它为何重要、掌握所需背景。
-          </p>
+          <p>一条清晰的阅读路径，帮你理解它为何重要、掌握所需背景。</p>
           <div className="product-home-hero__actions">
-            <Link href="/digest/today" className="action-button action-button--primary">
+            <Link
+              href="/digest/today"
+              className="action-button action-button--primary"
+            >
               阅读今日简报
             </Link>
             <Link href="/technologies" className="action-link">
@@ -236,7 +239,9 @@ export default function HomePage() {
         ) : (
           <div className="empty-state empty-state--actionable">
             <strong>还没有已发布简报。</strong>
-            <p>你可以先浏览已发布技术信号，等每日简报发布后这里会展示最新一期。</p>
+            <p>
+              你可以先浏览已发布技术信号，等每日简报发布后这里会展示最新一期。
+            </p>
             <Link href="/technologies" className="action-link">
               浏览技术信号
             </Link>
@@ -250,7 +255,9 @@ export default function HomePage() {
             <p className="eyebrow user-eyebrow">优先技术信号</p>
             <h2>现在最值得关注</h2>
           </div>
-          <p>这些已发布条目结合来源、优先级和解释字段，帮助读者快速判断下一步该看什么。</p>
+          <p>
+            这些已发布条目结合来源、优先级和解释字段，帮助读者快速判断下一步该看什么。
+          </p>
         </div>
         {prioritySignals.length > 0 ? (
           <div className="home-signal-grid">

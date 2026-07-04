@@ -77,7 +77,11 @@ function restoreFile(filePath: string, value: string | undefined) {
 }
 
 function removeRuntimeStores() {
-  for (const filePath of [deliveryStorePath, scheduleStorePath, taskRunnerStorePath]) {
+  for (const filePath of [
+    deliveryStorePath,
+    scheduleStorePath,
+    taskRunnerStorePath
+  ]) {
     if (existsSync(filePath)) {
       if (statSync(filePath).isDirectory()) {
         rmSync(filePath, { recursive: true, force: true });
@@ -110,7 +114,8 @@ function buildDigest(
     status,
     title: `Task runner validation ${date}`,
     summary: "A public digest prepared for task runner validation.",
-    editorialSummary: "Editor-approved public summary for task runner validation.",
+    editorialSummary:
+      "Editor-approved public summary for task runner validation.",
     highPriorityTechnologyIds: [highPriorityTechnology.id],
     watchTechnologyIds: [watchTechnology.id],
     manuallyAddedTechnologyIds: [],
@@ -121,7 +126,9 @@ function buildDigest(
       new Set(technologies.flatMap((technology) => technology.relatedSkillIds))
     ),
     knowledgeIds: Array.from(
-      new Set(technologies.flatMap((technology) => technology.relatedKnowledgeIds))
+      new Set(
+        technologies.flatMap((technology) => technology.relatedKnowledgeIds)
+      )
     ),
     sourceNames: Array.from(
       new Set(technologies.map((technology) => technology.sourceName))
@@ -133,7 +140,10 @@ function buildDigest(
   };
 }
 
-function createLoggerBuffer(): { lines: string[]; logger: (message: string) => void } {
+function createLoggerBuffer(): {
+  lines: string[];
+  logger: (message: string) => void;
+} {
   const lines: string[] = [];
 
   return {
@@ -185,11 +195,18 @@ async function main() {
 
     assert.equal(emptyRun.dueScheduleCount, 0);
     assert.equal(emptyRun.status, "success");
-    assert.equal(emptyLogger.lines.some((line) => line.includes("No due schedules.")), true);
+    assert.equal(
+      emptyLogger.lines.some((line) => line.includes("No due schedules.")),
+      true
+    );
 
     removeRuntimeStores();
 
-    const publishedDigest = buildDigest("2026-05-27", "published", technologies);
+    const publishedDigest = buildDigest(
+      "2026-05-27",
+      "published",
+      technologies
+    );
     const draftDigest = buildDigest("2026-05-28", "draft", technologies);
     const archivedDigest = buildDigest("2026-05-29", "archived", technologies);
 
@@ -260,7 +277,9 @@ async function main() {
     assert.equal(runOnce.deliveryLogsCreated, 2);
     assert.equal(runOnce.status, "partial");
     assert.equal(
-      runOnce.messages.some((message) => message.includes(publishedSchedule.name)),
+      runOnce.messages.some((message) =>
+        message.includes(publishedSchedule.name)
+      ),
       true
     );
     assert.equal(
@@ -268,7 +287,9 @@ async function main() {
       true
     );
     assert.equal(
-      runOnce.messages.some((message) => message.includes(disabledSchedule.name)),
+      runOnce.messages.some((message) =>
+        message.includes(disabledSchedule.name)
+      ),
       false
     );
 
@@ -303,7 +324,9 @@ async function main() {
       "Duplicate-protected second run should skip the already sent channels."
     );
 
-    const allLogLines = [...runOnceLogger.lines, ...duplicateLogger.lines].join("\n");
+    const allLogLines = [...runOnceLogger.lines, ...duplicateLogger.lines].join(
+      "\n"
+    );
 
     assert.equal(allLogLines.includes("super-secret"), false);
     assert.equal(allLogLines.includes("endpointUrl"), false);

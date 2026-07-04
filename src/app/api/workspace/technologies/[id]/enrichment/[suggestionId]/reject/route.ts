@@ -39,27 +39,23 @@ export async function POST(request: Request, context: RouteContext) {
   try {
     const { id, suggestionId } = await context.params;
     const body = await request.json().catch(() => ({}));
-    const suggestion = rejectEditorialEnrichmentSuggestion(
-      id,
-      suggestionId,
-      {
-        qualityScore:
-          isRecord(body) && typeof body.qualityScore === "number"
-            ? body.qualityScore
-            : undefined,
-        qualityLabels: isRecord(body)
-          ? parseQualityLabels(body.qualityLabels)
-          : [],
-        reviewerNotes:
-          isRecord(body) && typeof body.reviewerNotes === "string"
-            ? body.reviewerNotes
-            : undefined,
-        rejectionReason:
-          isRecord(body) && typeof body.rejectionReason === "string"
-            ? body.rejectionReason
-            : undefined
-      }
-    );
+    const suggestion = rejectEditorialEnrichmentSuggestion(id, suggestionId, {
+      qualityScore:
+        isRecord(body) && typeof body.qualityScore === "number"
+          ? body.qualityScore
+          : undefined,
+      qualityLabels: isRecord(body)
+        ? parseQualityLabels(body.qualityLabels)
+        : [],
+      reviewerNotes:
+        isRecord(body) && typeof body.reviewerNotes === "string"
+          ? body.reviewerNotes
+          : undefined,
+      rejectionReason:
+        isRecord(body) && typeof body.rejectionReason === "string"
+          ? body.rejectionReason
+          : undefined
+    });
 
     revalidatePath("/workspace");
     revalidatePath("/workspace/technologies");

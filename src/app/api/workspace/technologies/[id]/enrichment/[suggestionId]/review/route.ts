@@ -44,7 +44,9 @@ export async function POST(request: Request, context: RouteContext) {
         isRecord(body) && typeof body.qualityScore === "number"
           ? body.qualityScore
           : undefined,
-      qualityLabels: isRecord(body) ? parseQualityLabels(body.qualityLabels) : [],
+      qualityLabels: isRecord(body)
+        ? parseQualityLabels(body.qualityLabels)
+        : [],
       reviewerNotes:
         isRecord(body) && typeof body.reviewerNotes === "string"
           ? body.reviewerNotes

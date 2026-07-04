@@ -81,7 +81,10 @@ export function SearchFilterBar({
       </label>
       <label className="field">
         <span>{resolvedLabels.tag}</span>
-        <select value={tagValue} onChange={(event) => onTagChange(event.target.value)}>
+        <select
+          value={tagValue}
+          onChange={(event) => onTagChange(event.target.value)}
+        >
           {tagOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

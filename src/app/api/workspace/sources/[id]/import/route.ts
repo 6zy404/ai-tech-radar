@@ -19,7 +19,8 @@ export async function POST(_request: Request, context: RouteContext) {
 
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown import error.";
+    const message =
+      error instanceof Error ? error.message : "Unknown import error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

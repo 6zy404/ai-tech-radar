@@ -1,7 +1,13 @@
-import { getCandidateDraftConversionReadiness, getCandidateWorkflowData } from "@/lib/candidate-workflow";
+import {
+  getCandidateDraftConversionReadiness,
+  getCandidateWorkflowData
+} from "@/lib/candidate-workflow";
 import { getDeliveryRuns } from "@/lib/delivery-workflow";
 import { getDailyDigests } from "@/lib/digest-workflow";
-import { evaluateCandidateQuality, evaluateSourcesQuality } from "@/lib/quality-signals";
+import {
+  evaluateCandidateQuality,
+  evaluateSourcesQuality
+} from "@/lib/quality-signals";
 import {
   getScheduledDeliveries,
   getScheduledDeliveryRuns
@@ -22,10 +28,7 @@ import type {
 } from "@/types/content";
 
 export type OperationsHealthStatus =
-  | "healthy"
-  | "warning"
-  | "critical"
-  | "unknown";
+  "healthy" | "warning" | "critical" | "unknown";
 
 export interface OperationsMetric {
   label: string;
@@ -151,7 +154,9 @@ function getEventMessage(event: WorkflowEvent): string {
   );
 }
 
-function sanitizeWorkflowEventForOperations(event: WorkflowEvent): WorkflowEvent {
+function sanitizeWorkflowEventForOperations(
+  event: WorkflowEvent
+): WorkflowEvent {
   return {
     ...event,
     beforeSnapshot: sanitizeOperationsValue(event.beforeSnapshot),
@@ -180,7 +185,11 @@ export function sanitizeOperationsValue(value: unknown): unknown {
   if (value && typeof value === "object") {
     return Object.fromEntries(
       Object.entries(value as Record<string, unknown>).map(([key, item]) => {
-        if (/endpoint|url|token|secret|signature|authorization|password|key/i.test(key)) {
+        if (
+          /endpoint|url|token|secret|signature|authorization|password|key/i.test(
+            key
+          )
+        ) {
           return [key, "[redacted]"];
         }
 
@@ -215,7 +224,9 @@ export function formatOperationsJsonPreview(
     : serialized;
 }
 
-function getFailedImportSummary(sources: ExternalSource[]): FailedImportSummary[] {
+function getFailedImportSummary(
+  sources: ExternalSource[]
+): FailedImportSummary[] {
   return sources
     .filter(
       (source) =>
@@ -233,14 +244,18 @@ function getFailedImportSummary(sources: ExternalSource[]): FailedImportSummary[
       status: source.lastImportStatus,
       failedAt: source.lastFetchedAt,
       message: sanitizeOperationsText(
-        source.lastErrorMessage ?? source.lastImportMessage ?? "Import needs review."
+        source.lastErrorMessage ??
+          source.lastImportMessage ??
+          "Import needs review."
       ),
       consecutiveFailureCount: source.consecutiveFailureCount ?? 0,
       href: `/workspace/sources/${source.id}`
     }));
 }
 
-function getFailedDeliverySummary(runs: DeliveryRun[]): FailedDeliverySummary[] {
+function getFailedDeliverySummary(
+  runs: DeliveryRun[]
+): FailedDeliverySummary[] {
   return runs
     .filter((run) => run.status === "failed")
     .sort(
@@ -318,13 +333,13 @@ function getCandidateQualityAttention(): OperationsAttentionItem[] {
 
       return [
         {
-        id: `candidate-quality-${candidate.id}`,
-        severity: "warning" as const,
-        title,
-        description: `Candidate quality needs review: ${reason}.`,
-        href: `/workspace/candidates/${candidate.id}`,
-        source: "Candidate quality",
-        createdAt: candidate.importedAt
+          id: `candidate-quality-${candidate.id}`,
+          severity: "warning" as const,
+          title,
+          description: `Candidate quality needs review: ${reason}.`,
+          href: `/workspace/candidates/${candidate.id}`,
+          source: "Candidate quality",
+          createdAt: candidate.importedAt
         }
       ];
     })
@@ -368,7 +383,8 @@ function getAttentionRequiredItems({
     })),
     ...failedScheduledRuns.slice(0, 8).map((item) => ({
       id: `schedule-${item.runId}`,
-      severity: item.status === "failed" ? ("critical" as const) : ("warning" as const),
+      severity:
+        item.status === "failed" ? ("critical" as const) : ("warning" as const),
       title: item.scheduleName,
       description: `${item.status}: ${item.message}`,
       href: item.href,
@@ -401,10 +417,14 @@ function getAttentionRequiredItems({
     ...getCandidateQualityAttention()
   ];
 
-  if (latestTaskRunnerRun?.status === "failed" || latestTaskRunnerRun?.status === "partial") {
+  if (
+    latestTaskRunnerRun?.status === "failed" ||
+    latestTaskRunnerRun?.status === "partial"
+  ) {
     attentionItems.unshift({
       id: `task-runner-${latestTaskRunnerRun.id}`,
-      severity: latestTaskRunnerRun.status === "failed" ? "critical" : "warning",
+      severity:
+        latestTaskRunnerRun.status === "failed" ? "critical" : "warning",
       title: "Latest task runner run needs review",
       description: `${latestTaskRunnerRun.status}: ${latestTaskRunnerRun.messages
         .map(sanitizeOperationsText)
@@ -416,7 +436,9 @@ function getAttentionRequiredItems({
   }
 
   return attentionItems
-    .sort((left, right) => parseTime(right.createdAt) - parseTime(left.createdAt))
+    .sort(
+      (left, right) => parseTime(right.createdAt) - parseTime(left.createdAt)
+    )
     .slice(0, 24);
 }
 
@@ -431,7 +453,11 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   const sources = getExternalSources();
   const importRuns = getExternalSourceImportRuns();
   const { candidates, duplicateGroups } = getCandidateWorkflowData();
-  const sourceQualityById = evaluateSourcesQuality(sources, candidates, importRuns);
+  const sourceQualityById = evaluateSourcesQuality(
+    sources,
+    candidates,
+    importRuns
+  );
   const deliveryRuns = getDeliveryRuns();
   const scheduledDeliveries = getScheduledDeliveries();
   const scheduledRuns = getScheduledDeliveryRuns();
@@ -478,13 +504,18 @@ export function getSystemHealthSummary(): OperationsDashboardData {
 
   if (
     failedImports.some(
-      (source) => source.status === "failed" || source.consecutiveFailureCount >= 2
+      (source) =>
+        source.status === "failed" || source.consecutiveFailureCount >= 2
     )
   ) {
     criticalReasons.push("One or more sources have failed imports.");
   }
 
-  if (failedWorkflowEvents.some((event) => event.action.includes("publish_failed"))) {
+  if (
+    failedWorkflowEvents.some((event) =>
+      event.action.includes("publish_failed")
+    )
+  ) {
     criticalReasons.push("A publish workflow failed.");
   }
 
@@ -530,7 +561,9 @@ export function getSystemHealthSummary(): OperationsDashboardData {
         : "healthy";
   const statusReasons =
     status === "healthy"
-      ? ["No source, delivery, schedule, task runner, or workflow failures are currently visible."]
+      ? [
+          "No source, delivery, schedule, task runner, or workflow failures are currently visible."
+        ]
       : status === "unknown"
         ? ["No operational history has been recorded yet."]
         : [...criticalReasons, ...warningReasons];

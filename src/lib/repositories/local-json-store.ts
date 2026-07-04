@@ -38,7 +38,10 @@ export function writeLocalJsonFile(filePath: string, value: unknown) {
   writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-export function readLocalJsonDiskFile<T>(filePath: string, fallbackValue: T): T {
+export function readLocalJsonDiskFile<T>(
+  filePath: string,
+  fallbackValue: T
+): T {
   if (!existsSync(filePath)) {
     return fallbackValue;
   }

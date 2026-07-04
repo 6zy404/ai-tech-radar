@@ -25,7 +25,10 @@ import type {
 } from "../src/types/content";
 
 const configDirPath = path.join(process.cwd(), "config");
-const externalSourcesStorePath = path.join(configDirPath, "external-sources.json");
+const externalSourcesStorePath = path.join(
+  configDirPath,
+  "external-sources.json"
+);
 const importedCandidatesSnapshotPath = path.join(
   configDirPath,
   "imported-candidates.live.json"
@@ -38,7 +41,10 @@ const technologyWorkspaceStorePath = path.join(
   configDirPath,
   "technology-workspace.json"
 );
-const duplicateGroupStorePath = path.join(configDirPath, "duplicate-groups.json");
+const duplicateGroupStorePath = path.join(
+  configDirPath,
+  "duplicate-groups.json"
+);
 
 const internalQualityFields = [
   "candidateQuality",
@@ -99,7 +105,8 @@ function buildSource(overrides: Partial<ExternalSource>): ExternalSource {
 }
 
 function buildCandidate(
-  overrides: Partial<ImportedCandidate> & Pick<ImportedCandidate, "id" | "originalTitle">
+  overrides: Partial<ImportedCandidate> &
+    Pick<ImportedCandidate, "id" | "originalTitle">
 ): ImportedCandidate {
   return {
     id: overrides.id,
@@ -121,10 +128,9 @@ function buildCandidate(
     tags: overrides.tags ?? ["quality", "validation"],
     importStatus: overrides.importStatus ?? "new",
     relatedCandidateIds: overrides.relatedCandidateIds ?? [],
-    rawPayload:
-      overrides.rawPayload ?? {
-        sourceId: overrides.sourceId ?? "quality-good-source"
-      }
+    rawPayload: overrides.rawPayload ?? {
+      sourceId: overrides.sourceId ?? "quality-good-source"
+    }
   };
 }
 
@@ -256,7 +262,8 @@ function resetValidationStores() {
     syncedAt: now,
     sources: sources.map((source) => ({
       id: source.id,
-      sourceType: source.type === "official_blog" ? "official-blog" : "rss-feed",
+      sourceType:
+        source.type === "official_blog" ? "official-blog" : "rss-feed",
       sourceName: source.name,
       sourceUrl: source.url,
       syncStatus: "fallback",
@@ -336,12 +343,18 @@ function main() {
       lastImportStatus: "failed",
       consecutiveFailureCount: 2
     });
-    const sourceStore = JSON.parse(readFileSync(externalSourcesStorePath, "utf8")) as {
+    const sourceStore = JSON.parse(
+      readFileSync(externalSourcesStorePath, "utf8")
+    ) as {
       importRuns: ImportRun[];
       sources: ExternalSource[];
     };
-    const readyCandidate = candidates.find((item) => item.id === "quality-ready");
-    const missingCandidate = candidates.find((item) => item.id === "quality-missing");
+    const readyCandidate = candidates.find(
+      (item) => item.id === "quality-ready"
+    );
+    const missingCandidate = candidates.find(
+      (item) => item.id === "quality-missing"
+    );
     const duplicateCandidate = candidates.find(
       (item) => item.id === "quality-duplicate-a"
     );
@@ -351,7 +364,8 @@ function main() {
     assert.ok(duplicateCandidate, "Expected duplicate candidate to exist.");
 
     const goodQuality = evaluateSourceQuality(
-      sourceStore.sources.find((source) => source.id === goodSource.id) ?? goodSource,
+      sourceStore.sources.find((source) => source.id === goodSource.id) ??
+        goodSource,
       candidates,
       sourceStore.importRuns
     );
@@ -391,7 +405,8 @@ function main() {
     );
 
     const readyQuality = evaluateCandidateQuality(readyCandidate, {
-      canConvert: getCandidateDraftConversionReadiness(readyCandidate.id).canConvert
+      canConvert: getCandidateDraftConversionReadiness(readyCandidate.id)
+        .canConvert
     });
     const missingQuality = evaluateCandidateQuality(missingCandidate, {
       canConvert: getCandidateDraftConversionReadiness(missingCandidate.id)

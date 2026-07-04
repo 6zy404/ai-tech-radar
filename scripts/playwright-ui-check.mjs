@@ -75,7 +75,10 @@ const internalTerms = [
 
 async function readDailyDigests() {
   try {
-    const raw = await readFile(path.join(localDataDir, "daily-digests.json"), "utf8");
+    const raw = await readFile(
+      path.join(localDataDir, "daily-digests.json"),
+      "utf8"
+    );
     const parsed = JSON.parse(raw);
 
     return Array.isArray(parsed.digests) ? parsed.digests : [];
@@ -102,18 +105,34 @@ const digests = await readDailyDigests();
 const workspaceTechnologyRecords = await readTechnologyWorkspaceRecords();
 const latestPublishedDigest = digests
   .filter((digest) => digest.status === "published")
-  .sort((left, right) => String(right.date).localeCompare(String(left.date)))[0];
-const latestWorkspaceDigest = digests
-  .sort((left, right) => String(right.date).localeCompare(String(left.date)))[0];
-const latestWorkspaceTechnology = workspaceTechnologyRecords.sort((left, right) =>
-  String(right.updatedAt ?? "").localeCompare(String(left.updatedAt ?? ""))
+  .sort((left, right) =>
+    String(right.date).localeCompare(String(left.date))
+  )[0];
+const latestWorkspaceDigest = digests.sort((left, right) =>
+  String(right.date).localeCompare(String(left.date))
+)[0];
+const latestWorkspaceTechnology = workspaceTechnologyRecords.sort(
+  (left, right) =>
+    String(right.updatedAt ?? "").localeCompare(String(left.updatedAt ?? ""))
 )[0];
 
 const pages = [
   { name: "workspace-overview", route: "/workspace", kind: "workspace" },
-  { name: "workspace-candidates", route: "/workspace/candidates", kind: "workspace" },
-  { name: "workspace-duplicates", route: "/workspace/duplicates", kind: "workspace" },
-  { name: "workspace-technologies", route: "/workspace/technologies", kind: "workspace" },
+  {
+    name: "workspace-candidates",
+    route: "/workspace/candidates",
+    kind: "workspace"
+  },
+  {
+    name: "workspace-duplicates",
+    route: "/workspace/duplicates",
+    kind: "workspace"
+  },
+  {
+    name: "workspace-technologies",
+    route: "/workspace/technologies",
+    kind: "workspace"
+  },
   ...(latestWorkspaceTechnology
     ? [
         {
@@ -125,8 +144,16 @@ const pages = [
     : []),
   { name: "workspace-sources", route: "/workspace/sources", kind: "workspace" },
   { name: "workspace-digests", route: "/workspace/digests", kind: "workspace" },
-  { name: "workspace-delivery", route: "/workspace/delivery", kind: "workspace" },
-  { name: "workspace-operations", route: "/workspace/operations", kind: "workspace" },
+  {
+    name: "workspace-delivery",
+    route: "/workspace/delivery",
+    kind: "workspace"
+  },
+  {
+    name: "workspace-operations",
+    route: "/workspace/operations",
+    kind: "workspace"
+  },
   {
     name: "workspace-operations-events",
     route: "/workspace/operations/events",
@@ -148,7 +175,11 @@ const pages = [
     : []),
   { name: "home", route: "/", kind: "user" },
   { name: "technologies", route: "/technologies", kind: "user" },
-  { name: "technology-detail", route: "/technologies/model-context-protocol", kind: "user" },
+  {
+    name: "technology-detail",
+    route: "/technologies/model-context-protocol",
+    kind: "user"
+  },
   { name: "digest-today", route: "/digest/today", kind: "user" },
   { name: "feed-json", route: "/feed.json", kind: "feed" },
   { name: "feed-xml", route: "/feed.xml", kind: "feed" },
@@ -234,19 +265,29 @@ for (const target of pages) {
         return {
           tag: element.tagName.toLowerCase(),
           className: String(element.getAttribute("class") ?? ""),
-          text: String(element.textContent ?? "").trim().slice(0, 90),
+          text: String(element.textContent ?? "")
+            .trim()
+            .slice(0, 90),
           right: Math.round(rect.right),
           width: Math.round(rect.width)
         };
       });
 
-    const main = document.querySelector(".user-article-layout__main, .detail-main, .candidate-review-main, main");
-    const aside = document.querySelector(".user-article-layout__aside, .detail-side, .candidate-review-aside, aside");
+    const main = document.querySelector(
+      ".user-article-layout__main, .detail-main, .candidate-review-main, main"
+    );
+    const aside = document.querySelector(
+      ".user-article-layout__aside, .detail-side, .candidate-review-aside, aside"
+    );
     const mainRect = main?.getBoundingClientRect();
     const asideRect = aside?.getBoundingClientRect();
     const bodyStyle = window.getComputedStyle(document.body);
-    const navStyle = window.getComputedStyle(document.querySelector(".top-nav") ?? document.body);
-    const buttons = Array.from(document.querySelectorAll("button, a.action-link, .action-button"))
+    const navStyle = window.getComputedStyle(
+      document.querySelector(".top-nav") ?? document.body
+    );
+    const buttons = Array.from(
+      document.querySelectorAll("button, a.action-link, .action-button")
+    )
       .map((element) => String(element.textContent ?? "").trim())
       .filter(Boolean)
       .slice(0, 12);
@@ -255,19 +296,26 @@ for (const target of pages) {
       bodyHeight: Math.round(bodyRect.height),
       viewportWidth,
       viewportHeight,
-      horizontalOverflow: document.documentElement.scrollWidth > viewportWidth + 2,
+      horizontalOverflow:
+        document.documentElement.scrollWidth > viewportWidth + 2,
       overflowingElements,
       internalTermHits: terms.filter((term) => bodyText.includes(term)),
       workspaceShell: Boolean(document.querySelector(".workspace-shell")),
       workspaceNav: Boolean(document.querySelector(".workspace-nav")),
-      workspaceBreadcrumbs: Boolean(document.querySelector(".workspace-breadcrumbs")),
+      workspaceBreadcrumbs: Boolean(
+        document.querySelector(".workspace-breadcrumbs")
+      ),
       userShell: Boolean(document.querySelector(".user-shell")),
-      cardCount: document.querySelectorAll("article, .detail-panel, .section-panel").length,
+      cardCount: document.querySelectorAll(
+        "article, .detail-panel, .section-panel"
+      ).length,
       mainWidth: mainRect ? Math.round(mainRect.width) : null,
       asideWidth: asideRect ? Math.round(asideRect.width) : null,
       bodyFontFamily: bodyStyle.fontFamily,
       topNavPosition: navStyle.position,
-      cssLinks: Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map((link) => link.href),
+      cssLinks: Array.from(
+        document.querySelectorAll('link[rel="stylesheet"]')
+      ).map((link) => link.href),
       buttons
     };
   }, internalTerms);
@@ -279,7 +327,9 @@ for (const target of pages) {
     title,
     screenshotPath,
     stylesheetResponses,
-    hasFailedStylesheet: stylesheetResponses.some((stylesheet) => stylesheet.status >= 400),
+    hasFailedStylesheet: stylesheetResponses.some(
+      (stylesheet) => stylesheet.status >= 400
+    ),
     metrics
   });
 

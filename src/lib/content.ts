@@ -13,7 +13,10 @@ import {
   getTechnologyWorkspaceRecordById,
   getTechnologyWorkspaceRecords
 } from "@/lib/technology-draft-workflow";
-import { homeFeaturedTechnologyIds, technologyItems } from "@/data/technologies";
+import {
+  homeFeaturedTechnologyIds,
+  technologyItems
+} from "@/data/technologies";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
   getPersistenceDriver,
@@ -59,7 +62,9 @@ export function getAllImportedCandidates(): ImportedCandidate[] {
 }
 
 export function getAllSkills(): SkillItem[] {
-  return getPersistenceDriver() === "sqlite" ? readSqliteSkillItems() : skillItems;
+  return getPersistenceDriver() === "sqlite"
+    ? readSqliteSkillItems()
+    : skillItems;
 }
 
 export function getAllKnowledge(): KnowledgeItem[] {
@@ -216,15 +221,16 @@ export function buildRelationItems({
         return undefined;
       }
 
-      const relation = fromId && fromType
-        ? linkRelations.find(
-            (item) =>
-              item.fromId === fromId &&
-              item.fromType === fromType &&
-              item.toId === targetId &&
-              item.toType === targetType
-          )
-        : undefined;
+      const relation =
+        fromId && fromType
+          ? linkRelations.find(
+              (item) =>
+                item.fromId === fromId &&
+                item.fromType === fromType &&
+                item.toId === targetId &&
+                item.toType === targetType
+            )
+          : undefined;
 
       return {
         id: `${fromId ?? "direct"}-${targetId}`,

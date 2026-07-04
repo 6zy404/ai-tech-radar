@@ -155,7 +155,10 @@ export async function PATCH(request: Request, context: RouteContext) {
       ),
       relatedSkillExplanations: getStringRecord(body.relatedSkillExplanations),
       followUpQuestions: getStringArray(body.followUpQuestions),
-      readingDifficulty: getEnumValue(body.readingDifficulty, readingDifficulties),
+      readingDifficulty: getEnumValue(
+        body.readingDifficulty,
+        readingDifficulties
+      ),
       intelligenceStatus: getEnumValue(
         body.intelligenceStatus,
         intelligenceStatuses

@@ -1,10 +1,5 @@
 import assert from "node:assert/strict";
-import {
-  existsSync,
-  readFileSync,
-  unlinkSync,
-  writeFileSync
-} from "node:fs";
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 import {
@@ -19,10 +14,7 @@ import {
   updateTechnologyWorkspaceRecord,
   updateTechnologyWorkspaceStatus
 } from "../src/lib/technology-draft-workflow";
-import {
-  getAllTechnologies,
-  getTechnologyBySlug
-} from "../src/lib/content";
+import { getAllTechnologies, getTechnologyBySlug } from "../src/lib/content";
 import { PublishReadinessError } from "../src/lib/publish-readiness";
 import { getLocalizedTechnologyText } from "../src/lib/technology-localization";
 import type { TechnologyWorkspaceRecord } from "../src/types/content";
@@ -40,7 +32,10 @@ const importedCandidatesSnapshotPath = path.join(
   configDirPath,
   "imported-candidates.live.json"
 );
-const duplicateGroupStorePath = path.join(configDirPath, "duplicate-groups.json");
+const duplicateGroupStorePath = path.join(
+  configDirPath,
+  "duplicate-groups.json"
+);
 const internalOnlyTechnologyFields = [
   "rawPayload",
   "importStatus",
@@ -76,7 +71,9 @@ function readWorkspaceRecords(): TechnologyWorkspaceRecord[] {
     return [];
   }
 
-  const store = JSON.parse(readFileSync(technologyWorkspaceStorePath, "utf8")) as {
+  const store = JSON.parse(
+    readFileSync(technologyWorkspaceStorePath, "utf8")
+  ) as {
     records?: TechnologyWorkspaceRecord[];
   };
 
@@ -108,7 +105,9 @@ function assertPublishBlocked(recordId: string, expectedCode: string) {
       "Expected publish blocking to throw PublishReadinessError."
     );
     assert.ok(
-      error.readiness.blockingErrors.some((issue) => issue.code === expectedCode),
+      error.readiness.blockingErrors.some(
+        (issue) => issue.code === expectedCode
+      ),
       `Expected publish blocking to include ${expectedCode}.`
     );
   }
@@ -143,7 +142,9 @@ function assertNoInternalOnlyTechnologyFields(
 function main() {
   const reviewStateBackup = backupFile(candidateReviewStatePath);
   const workspaceStoreBackup = backupFile(technologyWorkspaceStorePath);
-  const importedCandidatesSnapshotBackup = backupFile(importedCandidatesSnapshotPath);
+  const importedCandidatesSnapshotBackup = backupFile(
+    importedCandidatesSnapshotPath
+  );
   const duplicateGroupStoreBackup = backupFile(duplicateGroupStorePath);
 
   try {
@@ -249,7 +250,9 @@ function main() {
     );
 
     updateImportedCandidateStatus(targetCandidate.id, "converted");
-    const beforePublish = getAllTechnologies().find((item) => item.id === draft.id);
+    const beforePublish = getAllTechnologies().find(
+      (item) => item.id === draft.id
+    );
 
     assert.equal(
       beforePublish,
@@ -258,7 +261,9 @@ function main() {
     );
 
     updateTechnologyWorkspaceStatus(draft.id, "published");
-    const publishedTechnology = getAllTechnologies().find((item) => item.id === draft.id);
+    const publishedTechnology = getAllTechnologies().find(
+      (item) => item.id === draft.id
+    );
 
     assert.ok(
       publishedTechnology,
@@ -440,7 +445,10 @@ function main() {
   } finally {
     restoreFile(candidateReviewStatePath, reviewStateBackup);
     restoreFile(technologyWorkspaceStorePath, workspaceStoreBackup);
-    restoreFile(importedCandidatesSnapshotPath, importedCandidatesSnapshotBackup);
+    restoreFile(
+      importedCandidatesSnapshotPath,
+      importedCandidatesSnapshotBackup
+    );
     restoreFile(duplicateGroupStorePath, duplicateGroupStoreBackup);
   }
 }

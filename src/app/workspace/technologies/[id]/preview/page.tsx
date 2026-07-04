@@ -39,7 +39,8 @@ export default async function WorkspaceTechnologyPreviewPage({
     fromType: "technology",
     targetType: "knowledge",
     targetIds: technology.relatedKnowledgeIds,
-    defaultNote: "This knowledge item gives background for the technology signal."
+    defaultNote:
+      "This knowledge item gives background for the technology signal."
   });
   const relatedTechnologies = buildRelationItems({
     fromId: technology.id,
@@ -55,7 +56,10 @@ export default async function WorkspaceTechnologyPreviewPage({
       description="Preview the draft with the same user-facing technology detail renderer before publishing."
       sectionLabel="Publish Preview"
       actions={
-        <Link href={`/workspace/technologies/${record.id}`} className="action-link">
+        <Link
+          href={`/workspace/technologies/${record.id}`}
+          className="action-link"
+        >
           Back to workspace record
         </Link>
       }

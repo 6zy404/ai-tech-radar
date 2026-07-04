@@ -52,8 +52,7 @@ export function TechnologyCompareWidget({
           })
         });
         const payload = (await response.json()) as
-          | { fields: TechnologyComparisonFields }
-          | { error: string };
+          { fields: TechnologyComparisonFields } | { error: string };
 
         if (!response.ok || "error" in payload) {
           setError(
@@ -138,7 +137,8 @@ export function TechnologyCompareWidget({
             <p>{fields.whenToPreferB}</p>
           </div>
 
-          {fields.sharedConsiderations && fields.sharedConsiderations.length > 0 ? (
+          {fields.sharedConsiderations &&
+          fields.sharedConsiderations.length > 0 ? (
             <div className="technology-compare-widget__block">
               <span>共同注意事项</span>
               <ul>

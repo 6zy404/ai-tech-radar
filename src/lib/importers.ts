@@ -1,7 +1,4 @@
-import type {
-  ImportedCandidate,
-  ImportedSourceType
-} from "@/types/content";
+import type { ImportedCandidate, ImportedSourceType } from "@/types/content";
 import type {
   MockGithubReleasePayload,
   MockOfficialBlogPayload,
@@ -127,7 +124,9 @@ const officialBlogImporter: CandidateImporter<MockOfficialBlogPayload> = {
 
 export function buildFallbackImportedCandidates(): ImportedCandidate[] {
   return [
-    ...rssFeedPayloads.flatMap((payload) => rssImporter.importFromPayload(payload)),
+    ...rssFeedPayloads.flatMap((payload) =>
+      rssImporter.importFromPayload(payload)
+    ),
     ...githubReleasePayloads.flatMap((payload) =>
       githubReleaseImporter.importFromPayload(payload)
     ),

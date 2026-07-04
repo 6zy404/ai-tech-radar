@@ -20,7 +20,10 @@ export function MetadataRow({ items, className = "" }: MetadataRowProps) {
   return (
     <dl className={`metadata-row ${className}`.trim()}>
       {visibleItems.map((item, index) => (
-        <div key={`${item.label ?? "meta"}-${index}`} className="metadata-row__item">
+        <div
+          key={`${item.label ?? "meta"}-${index}`}
+          className="metadata-row__item"
+        >
           {item.label ? <dt>{item.label}</dt> : null}
           <dd>{item.value}</dd>
         </div>

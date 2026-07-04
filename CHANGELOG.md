@@ -13,12 +13,14 @@ For per-topic deep dives, see the `docs/` directory.
 > were reconstructed from that log and may not carry exact dates.
 
 ## Foundation
+
 - Next.js + TypeScript app foundation.
 - Core models for technologies, skills, knowledge, tags, relations, imported
   candidates, external sources, and workspace technology records.
 - Bundled mock data to demonstrate the platform structure.
 
 ## Source ingestion & candidate review
+
 - **External Source Management v0** — local JSON source configuration, source
   search/filters, create/edit form, enable/disable, manual single-source import,
   batch import for enabled sources, and source health status (import count,
@@ -37,6 +39,7 @@ For per-topic deep dives, see the `docs/` directory.
   additional source references carried into generated drafts.
 
 ## Drafting, ranking & publishing
+
 - **Candidate → technology draft conversion** and an internal technology
   workspace with draft/published/archived status, source traceability, and
   lightweight editing.
@@ -49,6 +52,7 @@ For per-topic deep dives, see the `docs/` directory.
   publication.
 
 ## Content intelligence & AI-assisted enrichment
+
 - **Content Intelligence v1** — editable explanation fields (why it matters, who
   should care, technical context, impact areas, learning path, related
   knowledge/skill explanations, follow-up questions, reading difficulty,
@@ -64,6 +68,7 @@ For per-topic deep dives, see the `docs/` directory.
   handling.
 
 ## Daily digest & delivery
+
 - **Daily Digest Editorial Workflow v1** — generates a draft digest from
   published technologies using Ranking v0, with editable copy, manual
   add/exclude/pin/order controls that survive regeneration, aggregated related
@@ -86,6 +91,7 @@ For per-topic deep dives, see the `docs/` directory.
   duplicate-send protection, and URL/token sanitization in logs.
 
 ## Persistence, hardening & operations
+
 - **Deployment Readiness & Security Boundary v0** — explicit public/workspace/
   internal-API route boundaries, optional token protection for workspace routes,
   documented environment variables, and `validate:deployment` checks.
@@ -107,6 +113,7 @@ For per-topic deep dives, see the `docs/` directory.
   digest status, open duplicates, and candidate quality issues.
 
 ## Navigation, IA & design system
+
 - **Workspace Navigation & Information Architecture v0** — `/workspace`
   dashboard, a clickable Sources → Import → Candidates → Duplicates → Drafts →
   Publish → Digests workflow overview, shared workspace navigation, and
@@ -133,6 +140,7 @@ For per-topic deep dives, see the `docs/` directory.
   original-source fallback. No route-based i18n.
 
 ## Knowledge relationship network
+
 - **Technology-to-technology relations v0** — optional `relatedTechnologyIds` on
   `TechnologyItem`, seeded with real cross-links between published technologies
   (e.g. MCP ↔ browser agents ↔ agent workbenches), rendered as a navigable
@@ -181,6 +189,7 @@ For per-topic deep dives, see the `docs/` directory.
   neighbourhood at a time.
 
 ## AI-assisted understanding
+
 - **Compare two technologies (P3 v0)** — the first capability shipped under P3
   ("AI-assisted understanding"), which `AGENTS.md` had listed as out of scope
   until the project owner explicitly authorized it, and scoped to exactly one
@@ -209,6 +218,7 @@ For per-topic deep dives, see the `docs/` directory.
   from the Editorial Enrichment output validator.
 
 ## Developer tooling
+
 - **Linting & formatting config v0 (ESLint + Prettier)** — flat-config ESLint 9
   (`eslint.config.mjs`) extending `next/core-web-vitals`, `next/typescript`,
   and `eslint-config-prettier`, with `.claude/**`, `config/**`, and build
@@ -217,7 +227,7 @@ For per-topic deep dives, see the `docs/` directory.
   destructuring rest siblings. Prettier config (`.prettierrc.json` /
   `.prettierignore`) is calibrated to the existing house style — double
   quotes, semicolons, no trailing commas, 80 columns — plus `endOfLine:
-  "auto"` because the working tree is checked out with `core.autocrlf=true`
+"auto"` because the working tree is checked out with `core.autocrlf=true`
   (CRLF), which Prettier's default `lf` setting would otherwise flag in every
   file. New commands: `npm run lint`, `lint:fix`, `format`, `format:check`.
   The first lint pass surfaced and removed four pieces of dead code (an

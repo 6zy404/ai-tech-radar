@@ -13,7 +13,10 @@ import path from "node:path";
 process.env.PERSISTENCE_DRIVER = "json";
 
 import { getCandidateWorkflowData } from "../src/lib/candidate-workflow";
-import { getDigestDeliveryFeed, renderDigestJsonFeed } from "../src/lib/digest-delivery";
+import {
+  getDigestDeliveryFeed,
+  renderDigestJsonFeed
+} from "../src/lib/digest-delivery";
 import { getAllTechnologies } from "../src/lib/content";
 import {
   getSystemHealthSummary,
@@ -35,12 +38,13 @@ import type {
 } from "../src/types/content";
 
 type BackupEntry =
-  | { kind: "missing" }
-  | { kind: "file"; value: string }
-  | { kind: "directory" };
+  { kind: "missing" } | { kind: "file"; value: string } | { kind: "directory" };
 
 const configDirPath = path.join(process.cwd(), "config");
-const externalSourceStorePath = path.join(configDirPath, "external-sources.json");
+const externalSourceStorePath = path.join(
+  configDirPath,
+  "external-sources.json"
+);
 const importedCandidateStorePath = path.join(
   configDirPath,
   "imported-candidates.live.json"
@@ -49,7 +53,10 @@ const candidateReviewStatePath = path.join(
   configDirPath,
   "candidate-review-state.json"
 );
-const duplicateGroupStorePath = path.join(configDirPath, "duplicate-groups.json");
+const duplicateGroupStorePath = path.join(
+  configDirPath,
+  "duplicate-groups.json"
+);
 const deliveryStorePath = path.join(configDirPath, "delivery.json");
 const scheduleStorePath = path.join(configDirPath, "scheduled-delivery.json");
 const taskRunnerStorePath = path.join(configDirPath, "task-runner.json");
@@ -357,7 +364,10 @@ function writeFixtureStores() {
   });
   writeJsonFile(importedCandidateStorePath, snapshot);
   writeJsonFile(candidateReviewStatePath, { updatedAt: now, items: {} });
-  writeJsonFile(duplicateGroupStorePath, { updatedAt: now, groups: [duplicateGroup] });
+  writeJsonFile(duplicateGroupStorePath, {
+    updatedAt: now,
+    groups: [duplicateGroup]
+  });
   writeJsonFile(deliveryStorePath, {
     updatedAt: now,
     channels: [channel],
@@ -369,7 +379,10 @@ function writeFixtureStores() {
     runs: [failedScheduledRun]
   });
   writeJsonFile(taskRunnerStorePath, { updatedAt: now, runs: [taskRun] });
-  writeJsonFile(workflowEventStorePath, { updatedAt: now, events: workflowEvents });
+  writeJsonFile(workflowEventStorePath, {
+    updatedAt: now,
+    events: workflowEvents
+  });
   writeJsonFile(digestStorePath, { updatedAt: now, digests: [digest] });
 }
 
@@ -381,7 +394,9 @@ function assertPublicSourceIsolation() {
 
 function assertRouteFilesExist() {
   assert.ok(
-    existsSync(path.join(process.cwd(), "src/app/workspace/operations/page.tsx")),
+    existsSync(
+      path.join(process.cwd(), "src/app/workspace/operations/page.tsx")
+    ),
     "/workspace/operations page file should exist."
   );
   assert.ok(
@@ -437,7 +452,9 @@ function main() {
       "Failed source import should appear in attention required."
     );
     assert.equal(
-      operations.failedDeliveries.some((run) => run.runId === "operations-delivery-run"),
+      operations.failedDeliveries.some(
+        (run) => run.runId === "operations-delivery-run"
+      ),
       true,
       "Failed delivery should appear in failed delivery summary."
     );
@@ -449,7 +466,9 @@ function main() {
       "Failed scheduled run should appear in operations summary."
     );
     assert.ok(
-      getWorkflowEvents().some((event) => event.id === "operations-event-failure"),
+      getWorkflowEvents().some(
+        (event) => event.id === "operations-event-failure"
+      ),
       "WorkflowEvent records should be queryable."
     );
     assert.equal(
@@ -462,7 +481,9 @@ function main() {
       "Duplicate groups should remain available to operations."
     );
     assert.equal(
-      sanitizeOperationsText(`Failed ${secretUrl}`).includes("super-secret-token"),
+      sanitizeOperationsText(`Failed ${secretUrl}`).includes(
+        "super-secret-token"
+      ),
       false,
       "Operations text sanitizer should hide token-like values."
     );

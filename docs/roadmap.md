@@ -66,23 +66,25 @@ and the **User-facing Product** (public reading/discovery).
 
 ## Completion estimate
 
-| Area | Done | Remaining |
-|---|---|---|
-| Business pipeline / CMS | ~97% | Workspace visual confirmation and the code-debt decomposition pass are both done; remaining gap is a pre-existing `npm run validate:delivery` fixture mismatch (flagged separately, unrelated to recent work) and optional lint/format tooling |
-| User-facing visuals / design system | ~95% | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
-| User-facing content | ~90% | essentially localized |
-| Knowledge relationship network | 100% (P2 complete) | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2 |
-| AI assistance / personalization | P3 in progress (Compare v0 shipped) | Explain and learning-path generation not started; P4 personalization not started (still gated as out-of-scope without explicit request) |
+| Area                                | Done                                | Remaining                                                                                                                                                                                                                                      |
+| ----------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business pipeline / CMS             | ~97%                                | Workspace visual confirmation and the code-debt decomposition pass are both done; remaining gap is a pre-existing `npm run validate:delivery` fixture mismatch (flagged separately, unrelated to recent work) and optional lint/format tooling |
+| User-facing visuals / design system | ~95%                                | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog                        |
+| User-facing content                 | ~90%                                | essentially localized                                                                                                                                                                                                                          |
+| Knowledge relationship network      | 100% (P2 complete)                  | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                                              |
+| AI assistance / personalization     | P3 in progress (Compare v0 shipped) | Explain and learning-path generation not started; P4 personalization not started (still gated as out-of-scope without explicit request)                                                                                                        |
 
 ## Roadmap
 
 ### P1 — Seal the current pass (short; do first)
+
 - Finalize the "solid / contrast" visual pass.
 - Commit and sync docs (`progress.md`, `ui-migration-plan.md`) to match code.
 - Outcome: UI reaches a token-stable state — future tweaks are token edits, not
   per-page surgery.
 
 ### P2 — Knowledge relationship network (the real value; complete)
+
 - ~~Surface relationship density on list cards ("related: N").~~ Done on all
   three index pages via a shared `RelationDensity` component (technology, skill,
   and knowledge cards render the same `关联 · N …` line).
@@ -102,6 +104,7 @@ and the **User-facing Product** (public reading/discovery).
   authorization before starting (see below).
 
 ### P3 — AI-assisted understanding (requires explicit authorization)
+
 `AGENTS.md` previously listed AI black-box features as out of scope without an
 explicit request — that history matters because it explains why this stayed
 locked through P1/P2. The owner has now explicitly authorized P3, and
@@ -114,9 +117,11 @@ are still deferred — not started, and not re-authorized by the Compare work.
 This is the CMS → AI-product turning point.
 
 ### P4 — Personalization (further out; also requires authorization)
+
 Followed topics → personalized digest = a personal tech radar.
 
 ### Interleaved — code debt
+
 `candidate-workflow.ts` (`docs/next-task.md`; 1763 → 549 lines across four
 extractions, the last being `technology-draft-workflow.ts` for the record
 CRUD/publish/archive logic), `digest-workflow.ts` (887 → 787 lines; store

@@ -13,7 +13,9 @@ export interface ExternalSourceStore {
   importRuns?: ImportRun[];
 }
 
-export function readExternalSourceStore(database: SqliteDatabase): ExternalSourceStore {
+export function readExternalSourceStore(
+  database: SqliteDatabase
+): ExternalSourceStore {
   const sources = selectPayloads<ExternalSource>(
     database,
     "SELECT payload FROM sources ORDER BY name ASC"
@@ -35,7 +37,11 @@ export function writeExternalSourceStore(
   database: SqliteDatabase,
   store: ExternalSourceStore
 ): void {
-  clearTables(database, ["import_run_source_results", "import_runs", "sources"]);
+  clearTables(database, [
+    "import_run_source_results",
+    "import_runs",
+    "sources"
+  ]);
 
   const insertSource = database.prepare(`
     INSERT OR REPLACE INTO sources (

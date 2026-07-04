@@ -22,7 +22,9 @@ export function UserPageShell({
   children
 }: UserPageShellProps) {
   return (
-    <div className={`user-shell${showHeader ? "" : " user-shell--detail"}${className ? ` ${className}` : ""}`}>
+    <div
+      className={`user-shell${showHeader ? "" : " user-shell--detail"}${className ? ` ${className}` : ""}`}
+    >
       {showHeader ? (
         <PageHeader
           variant="user"

@@ -8,7 +8,9 @@ interface RelatedItemsSectionProps {
   emptyText: string;
   items: RelationListItem[];
   linkLabel?: string;
-  formatRelationType?: (relationType: RelationListItem["relationType"]) => string;
+  formatRelationType?: (
+    relationType: RelationListItem["relationType"]
+  ) => string;
 }
 
 export function RelatedItemsSection({

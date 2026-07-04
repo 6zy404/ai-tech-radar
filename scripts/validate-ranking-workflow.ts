@@ -19,7 +19,10 @@ import {
   updateTechnologyWorkspaceStatus
 } from "../src/lib/technology-draft-workflow";
 import { getAllTechnologies, getTechnologyBySlug } from "../src/lib/content";
-import { evaluateCandidateQuality, evaluateSourceQuality } from "../src/lib/quality-signals";
+import {
+  evaluateCandidateQuality,
+  evaluateSourceQuality
+} from "../src/lib/quality-signals";
 import {
   evaluateImportedCandidatePriority,
   evaluateTechnologyPriority
@@ -33,7 +36,10 @@ import type {
 } from "../src/types/content";
 
 const configDirPath = path.join(process.cwd(), "config");
-const externalSourcesStorePath = path.join(configDirPath, "external-sources.json");
+const externalSourcesStorePath = path.join(
+  configDirPath,
+  "external-sources.json"
+);
 const importedCandidatesSnapshotPath = path.join(
   configDirPath,
   "imported-candidates.live.json"
@@ -46,7 +52,10 @@ const technologyWorkspaceStorePath = path.join(
   configDirPath,
   "technology-workspace.json"
 );
-const duplicateGroupStorePath = path.join(configDirPath, "duplicate-groups.json");
+const duplicateGroupStorePath = path.join(
+  configDirPath,
+  "duplicate-groups.json"
+);
 const now = new Date("2026-05-22T12:00:00.000Z");
 
 const internalOnlyFields = [
@@ -97,19 +106,22 @@ function buildSource(overrides: Partial<ExternalSource>): ExternalSource {
     defaultNormalizedType: overrides.defaultNormalizedType ?? "tool",
     lastFetchedAt: overrides.lastFetchedAt ?? now.toISOString(),
     lastImportStatus: overrides.lastImportStatus ?? "success",
-    lastImportMessage: overrides.lastImportMessage ?? "Ranking validation import.",
+    lastImportMessage:
+      overrides.lastImportMessage ?? "Ranking validation import.",
     lastImportCount: overrides.lastImportCount ?? 1,
     lastErrorMessage: overrides.lastErrorMessage,
     consecutiveFailureCount: overrides.consecutiveFailureCount ?? 0,
     totalImportedCount: overrides.totalImportedCount ?? 1,
-    lastSuccessfulImportAt: overrides.lastSuccessfulImportAt ?? now.toISOString(),
+    lastSuccessfulImportAt:
+      overrides.lastSuccessfulImportAt ?? now.toISOString(),
     createdAt: overrides.createdAt ?? now.toISOString(),
     updatedAt: overrides.updatedAt ?? now.toISOString()
   };
 }
 
 function buildCandidate(
-  overrides: Partial<ImportedCandidate> & Pick<ImportedCandidate, "id" | "originalTitle">
+  overrides: Partial<ImportedCandidate> &
+    Pick<ImportedCandidate, "id" | "originalTitle">
 ): ImportedCandidate {
   const sourceId = overrides.sourceId ?? "ranking-good-source";
   const sourceName = overrides.sourceName ?? "Ranking Good Source";
@@ -134,10 +146,9 @@ function buildCandidate(
     tags: overrides.tags ?? ["ranking", "validation"],
     importStatus: overrides.importStatus ?? "new",
     relatedCandidateIds: overrides.relatedCandidateIds ?? [],
-    rawPayload:
-      overrides.rawPayload ?? {
-        sourceId
-      }
+    rawPayload: overrides.rawPayload ?? {
+      sourceId
+    }
   };
 }
 
@@ -308,7 +319,11 @@ function assertNoInternalQualityFields(item: TechnologyItem) {
   const record = item as unknown as Record<string, unknown>;
 
   for (const field of internalOnlyFields) {
-    assert.equal(field in record, false, `Published item should not expose ${field}.`);
+    assert.equal(
+      field in record,
+      false,
+      `Published item should not expose ${field}.`
+    );
   }
 
   for (const reference of item.sourceReferences ?? []) {
@@ -345,7 +360,8 @@ function main() {
     assert.ok(duplicateCandidate, "Expected duplicate candidate to exist.");
 
     const highQuality = evaluateCandidateQuality(highCandidate, {
-      canConvert: getCandidateDraftConversionReadiness(highCandidate.id).canConvert
+      canConvert: getCandidateDraftConversionReadiness(highCandidate.id)
+        .canConvert
     });
     const highRanking = evaluateImportedCandidatePriority(highCandidate, {
       sourceQuality: getSourceQuality("ranking-good-source", candidates),
@@ -375,7 +391,9 @@ function main() {
       "Expected incomplete candidate not to become high_priority."
     );
     assert.ok(
-      poorRanking.priorityWarnings.some((warning) => /poor|missing|invalid/i.test(warning)),
+      poorRanking.priorityWarnings.some((warning) =>
+        /poor|missing|invalid/i.test(warning)
+      ),
       "Expected poor source or missing fields to produce priority warnings."
     );
 
@@ -390,8 +408,9 @@ function main() {
       {
         sourceQuality: getSourceQuality("ranking-duplicate-source", candidates),
         candidateQuality: evaluateCandidateQuality(duplicateCandidate, {
-          canConvert: getCandidateDraftConversionReadiness(duplicateCandidate.id)
-            .canConvert
+          canConvert: getCandidateDraftConversionReadiness(
+            duplicateCandidate.id
+          ).canConvert
         }),
         duplicateGroupStatus: duplicateGroup.status,
         now
@@ -423,7 +442,8 @@ function main() {
     const rankingWithReferences = evaluateTechnologyPriority(draft, { now });
 
     assert.ok(
-      rankingWithReferences.priorityScore > rankingWithoutReferences.priorityScore,
+      rankingWithReferences.priorityScore >
+        rankingWithoutReferences.priorityScore,
       "Expected additional references to improve ranking score."
     );
 
@@ -450,12 +470,20 @@ function main() {
 
     const publishedTechnology = getTechnologyBySlug("ranking-validation-draft");
 
-    assert.ok(publishedTechnology, "Expected published draft detail lookup to work.");
     assert.ok(
-      getAllTechnologies().some((technology) => technology.id === publishableDraft.id),
+      publishedTechnology,
+      "Expected published draft detail lookup to work."
+    );
+    assert.ok(
+      getAllTechnologies().some(
+        (technology) => technology.id === publishableDraft.id
+      ),
       "Expected published draft to appear in user-facing technology list."
     );
-    assert.ok(publishedTechnology.priority, "Expected published technology to expose priority.");
+    assert.ok(
+      publishedTechnology.priority,
+      "Expected published technology to expose priority."
+    );
     assert.ok(publishedTechnology.priority.priorityReasons.length > 0);
     assertNoInternalQualityFields(publishedTechnology);
 

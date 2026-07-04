@@ -53,10 +53,12 @@ export function TechnologyBrowser({
 
   const typeOptions = [
     { value: "", label: "全部类型" },
-    ...Array.from(new Set(technologies.map((item) => item.type))).map((type) => ({
-      value: type,
-      label: getTechnologyTypeLabel(type, "zh")
-    }))
+    ...Array.from(new Set(technologies.map((item) => item.type))).map(
+      (type) => ({
+        value: type,
+        label: getTechnologyTypeLabel(type, "zh")
+      })
+    )
   ];
 
   const tagOptions = [

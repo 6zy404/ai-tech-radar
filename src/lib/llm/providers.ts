@@ -1,7 +1,4 @@
-import {
-  getLlmProviderConfig,
-  type LlmProvider
-} from "@/lib/llm/provider";
+import { getLlmProviderConfig, type LlmProvider } from "@/lib/llm/provider";
 import { createMockLlmProvider } from "@/lib/llm/providers/mock";
 import { createOpenAiCompatibleProvider } from "@/lib/llm/providers/openai";
 

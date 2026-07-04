@@ -29,7 +29,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const message = error instanceof Error ? error.message : "Unknown source error.";
+    const message =
+      error instanceof Error ? error.message : "Unknown source error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

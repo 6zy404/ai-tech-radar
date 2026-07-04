@@ -10,7 +10,9 @@ interface TagListProps {
 export function TagList({ tags, limit, className = "" }: TagListProps) {
   const visibleTags = typeof limit === "number" ? tags.slice(0, limit) : tags;
   const remainingCount =
-    typeof limit === "number" ? Math.max(tags.length - visibleTags.length, 0) : 0;
+    typeof limit === "number"
+      ? Math.max(tags.length - visibleTags.length, 0)
+      : 0;
 
   if (tags.length === 0) {
     return null;

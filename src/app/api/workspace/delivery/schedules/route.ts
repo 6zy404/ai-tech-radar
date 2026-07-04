@@ -15,7 +15,9 @@ export function GET() {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as Record<string, unknown>;
-    const schedule = createScheduledDelivery(coerceScheduledDeliveryInput(body));
+    const schedule = createScheduledDelivery(
+      coerceScheduledDeliveryInput(body)
+    );
 
     revalidatePath("/workspace");
     revalidatePath("/workspace/delivery");

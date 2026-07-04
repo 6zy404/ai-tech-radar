@@ -1,12 +1,11 @@
-import type {
-  DuplicateReason,
-  ImportedCandidate
-} from "@/types/content";
+import type { DuplicateReason, ImportedCandidate } from "@/types/content";
 
 // Pure duplicate-detection rules and identity helpers extracted from
 // candidate-workflow.ts. No disk or store access; safe to unit test directly.
 
-export function dedupeDuplicateReasons(reasons: DuplicateReason[]): DuplicateReason[] {
+export function dedupeDuplicateReasons(
+  reasons: DuplicateReason[]
+): DuplicateReason[] {
   return Array.from(new Set(reasons));
 }
 
@@ -25,7 +24,9 @@ function normalizeUrlForComparison(url: string): string {
   }
 }
 
-function getRawPayloadRecord(candidate: ImportedCandidate): Record<string, unknown> {
+function getRawPayloadRecord(
+  candidate: ImportedCandidate
+): Record<string, unknown> {
   return candidate.rawPayload && typeof candidate.rawPayload === "object"
     ? (candidate.rawPayload as Record<string, unknown>)
     : {};
@@ -76,8 +77,20 @@ function getCanonicalUrl(candidate: ImportedCandidate): string | undefined {
       "url",
       "html_url"
     ]) ??
-    getRecordString(entry, ["canonicalUrl", "canonical_url", "link", "url", "id"]) ??
-    getRecordString(item, ["canonicalUrl", "canonical_url", "link", "url", "guid"]) ??
+    getRecordString(entry, [
+      "canonicalUrl",
+      "canonical_url",
+      "link",
+      "url",
+      "id"
+    ]) ??
+    getRecordString(item, [
+      "canonicalUrl",
+      "canonical_url",
+      "link",
+      "url",
+      "guid"
+    ]) ??
     getRecordString(release, ["html_url", "url"]) ??
     getRecordString(listingPreview, ["url", "href"]);
 
@@ -141,7 +154,10 @@ function buildTitleTokenSet(title: string): Set<string> {
   );
 }
 
-function calculateTokenSimilarity(leftTitle: string, rightTitle: string): number {
+function calculateTokenSimilarity(
+  leftTitle: string,
+  rightTitle: string
+): number {
   const leftTokens = buildTitleTokenSet(leftTitle);
   const rightTokens = buildTitleTokenSet(rightTitle);
 
@@ -196,18 +212,19 @@ function getCandidatePrimaryScore(candidate: ImportedCandidate): number {
   ].reduce((score, value) => score + value, 0);
 }
 
-export function chooseDefaultPrimaryCandidate(candidates: ImportedCandidate[]): string {
-  return candidates
-    .slice()
-    .sort((left, right) => {
-      const scoreDiff = getCandidatePrimaryScore(right) - getCandidatePrimaryScore(left);
+export function chooseDefaultPrimaryCandidate(
+  candidates: ImportedCandidate[]
+): string {
+  return candidates.slice().sort((left, right) => {
+    const scoreDiff =
+      getCandidatePrimaryScore(right) - getCandidatePrimaryScore(left);
 
-      if (scoreDiff !== 0) {
-        return scoreDiff;
-      }
+    if (scoreDiff !== 0) {
+      return scoreDiff;
+    }
 
-      return right.publishDate.localeCompare(left.publishDate);
-    })[0].id;
+    return right.publishDate.localeCompare(left.publishDate);
+  })[0].id;
 }
 
 export function getDuplicateReasons(
@@ -220,7 +237,8 @@ export function getDuplicateReasons(
     right.originalTitle
   );
   const samePublisher =
-    left.publisherName.trim().toLowerCase() === right.publisherName.trim().toLowerCase();
+    left.publisherName.trim().toLowerCase() ===
+    right.publisherName.trim().toLowerCase();
   const sameUrl =
     normalizeUrlForComparison(left.sourceUrl) ===
     normalizeUrlForComparison(right.sourceUrl);
@@ -249,7 +267,8 @@ export function getDuplicateReasons(
   }
 
   if (
-    (sameNormalizedTitle && normalizeTitleForComparison(left.originalTitle).length > 0) ||
+    (sameNormalizedTitle &&
+      normalizeTitleForComparison(left.originalTitle).length > 0) ||
     titleSimilarity >= 0.82
   ) {
     reasons.push("similar_title");

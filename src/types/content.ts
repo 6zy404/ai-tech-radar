@@ -1,18 +1,10 @@
 export type ContentKind = "technology" | "skill" | "knowledge";
 
 export type TechnologyType =
-  | "platform"
-  | "tool"
-  | "model"
-  | "protocol"
-  | "workflow";
+  "platform" | "tool" | "model" | "protocol" | "workflow";
 
 export type PublisherType =
-  | "big-tech"
-  | "startup"
-  | "research-lab"
-  | "open-source-community"
-  | "media";
+  "big-tech" | "startup" | "research-lab" | "open-source-community" | "media";
 
 export type ImportanceLevel = "signal" | "important" | "critical";
 
@@ -23,32 +15,20 @@ export type ReadingDifficulty = "beginner" | "intermediate" | "advanced";
 export type IntelligenceStatus = "draft" | "reviewed" | "needs_enrichment";
 
 export type EditorialEnrichmentSuggestionStatus =
-  | "draft"
-  | "applied"
-  | "rejected"
-  | "stale";
+  "draft" | "applied" | "rejected" | "stale";
 
 export type EditorialEnrichmentGenerationMode =
-  | "rule_based"
-  | "llm_assisted"
-  | "mock_llm"
-  | "ai_assisted_placeholder";
+  "rule_based" | "llm_assisted" | "mock_llm" | "ai_assisted_placeholder";
 
 export type EditorialEnrichmentOutputValidationStatus =
-  | "not_applicable"
-  | "valid"
-  | "warning"
-  | "failed";
+  "not_applicable" | "valid" | "warning" | "failed";
 
 export type PromptVersionStatus = "active" | "draft" | "deprecated";
 
 export type PromptPurpose = "editorial_enrichment" | "technology_comparison";
 
 export type EditorialEnrichmentReviewStatus =
-  | "unreviewed"
-  | "accepted"
-  | "partially_accepted"
-  | "rejected";
+  "unreviewed" | "accepted" | "partially_accepted" | "rejected";
 
 export type EditorialEnrichmentQualityLabel =
   | "accurate"
@@ -63,25 +43,17 @@ export type EditorialEnrichmentQualityLabel =
 export type DailyDigestStatus = "draft" | "published" | "archived";
 
 export type DeliveryChannelType =
-  | "webhook"
-  | "feishu_webhook"
-  | "email"
-  | "telegram"
-  | "discord";
+  "webhook" | "feishu_webhook" | "email" | "telegram" | "discord";
 
 export type DeliveryFormat = "json" | "text";
 
 export type DeliveryStatus = "pending" | "success" | "failed";
 
 export type ScheduledDeliveryDigestTarget =
-  | "latest_published_digest"
-  | "digest_by_date";
+  "latest_published_digest" | "digest_by_date";
 
 export type ScheduledDeliveryRunStatus =
-  | "never_run"
-  | "success"
-  | "failed"
-  | "partial";
+  "never_run" | "success" | "failed" | "partial";
 
 export type ScheduledDeliveryTriggerType = "scheduled" | "manual" | "retry";
 
@@ -90,9 +62,7 @@ export type TaskRunnerMode = "run_once" | "watch";
 export type TaskRunnerStatus = "success" | "failed" | "partial";
 
 export type WorkflowEventActorType =
-  | "system"
-  | "workspace_user"
-  | "task_runner";
+  "system" | "workspace_user" | "task_runner";
 
 export type WorkflowEventAction =
   | "candidate.status_updated"
@@ -130,21 +100,13 @@ export type SourceLanguage = "en" | "zh";
 export type TranslationStatus = "not_needed" | "pending" | "done" | "failed";
 
 export type ImportedSourceType =
-  | "rss-feed"
-  | "github-release"
-  | "official-blog";
+  "rss-feed" | "github-release" | "official-blog";
 
 export type ExternalSourceType =
-  | "rss"
-  | "atom"
-  | "github_release"
-  | "official_blog";
+  "rss" | "atom" | "github_release" | "official_blog";
 
 export type ExternalSourceImportStatus =
-  | "never_run"
-  | "success"
-  | "failed"
-  | "partial";
+  "never_run" | "success" | "failed" | "partial";
 
 export type SourceQualityLevel = "good" | "watch" | "poor" | "unknown";
 
@@ -155,10 +117,7 @@ export type RankingSource = "rule_based" | "manual_override";
 export type CandidateNormalizedType = TechnologyType | "unknown";
 
 export type CandidateImportStatus =
-  | "new"
-  | "reviewed"
-  | "converted"
-  | "rejected";
+  "new" | "reviewed" | "converted" | "rejected";
 
 export type CandidateQualityFlag =
   | "missing_summary"
@@ -184,11 +143,7 @@ export type DuplicateReason =
 export type DuplicateGroupStatus = "open" | "resolved" | "ignored";
 
 export type SkillType =
-  | "engineering"
-  | "analysis"
-  | "product"
-  | "operations"
-  | "communication";
+  "engineering" | "analysis" | "product" | "operations" | "communication";
 
 export type HeatLevel = "emerging" | "active" | "hot";
 
@@ -319,9 +274,7 @@ export interface PromptVersion {
 export type TechnologyComparisonGenerationMode = "mock_llm" | "llm_assisted";
 
 export type TechnologyComparisonOutputValidationStatus =
-  | "valid"
-  | "warning"
-  | "failed";
+  "valid" | "warning" | "failed";
 
 export interface TechnologyComparisonFields {
   similarities: string[];

@@ -33,4 +33,7 @@ export function getReservedDeliveryChannelTypes(): DeliveryChannelType[] {
 
 export { getDeliveryChannelTypeLabel };
 
-export type { DeliveryAdapterPayload, DeliveryAdapterSendResult } from "./types";
+export type {
+  DeliveryAdapterPayload,
+  DeliveryAdapterSendResult
+} from "./types";

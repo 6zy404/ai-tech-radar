@@ -22,7 +22,9 @@ export function UserArticleLayout({
       <div className="user-article-layout__hero">{hero}</div>
       <div className="user-article-layout__body">
         <main className="user-article-layout__main">{children}</main>
-        {aside ? <aside className="user-article-layout__aside">{aside}</aside> : null}
+        {aside ? (
+          <aside className="user-article-layout__aside">{aside}</aside>
+        ) : null}
       </div>
     </article>
   );

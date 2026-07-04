@@ -65,7 +65,8 @@ const rssFeedSources: RssFeedSourceConfig[] = [
     id: "mcp-github-releases-atom",
     sourceType: "rss-feed",
     sourceName: "GitHub Releases Atom - MCP TypeScript SDK",
-    sourceUrl: "https://github.com/modelcontextprotocol/typescript-sdk/releases.atom",
+    sourceUrl:
+      "https://github.com/modelcontextprotocol/typescript-sdk/releases.atom",
     publisherName: "modelcontextprotocol",
     maxItems: 4
   }
@@ -76,7 +77,8 @@ const gitHubReleaseSources: GitHubReleaseSourceConfig[] = [
     id: "mcp-github-releases-api",
     sourceType: "github-release",
     sourceName: "GitHub Releases API - MCP TypeScript SDK",
-    sourceUrl: "https://api.github.com/repos/modelcontextprotocol/typescript-sdk/releases",
+    sourceUrl:
+      "https://api.github.com/repos/modelcontextprotocol/typescript-sdk/releases",
     repository: "modelcontextprotocol/typescript-sdk",
     publisherName: "modelcontextprotocol",
     maxItems: 4
@@ -270,7 +272,10 @@ function mapExternalSourceTypeToImportedSourceType(
   return "rss-feed";
 }
 
-function inferGitHubRepository(sourceUrl: string, fallbackName: string): string {
+function inferGitHubRepository(
+  sourceUrl: string,
+  fallbackName: string
+): string {
   try {
     const parsedUrl = new URL(sourceUrl);
     const parts = parsedUrl.pathname.split("/").filter(Boolean);
@@ -418,7 +423,10 @@ function getAtomEntryLink(entry: Record<string, unknown>): string {
   return "";
 }
 
-function getRssGuidOrLink(item: Record<string, unknown>, fallbackValue: string): string {
+function getRssGuidOrLink(
+  item: Record<string, unknown>,
+  fallbackValue: string
+): string {
   const guid = item.guid;
 
   if (typeof guid === "string" && guid.trim().length > 0) {
@@ -428,7 +436,10 @@ function getRssGuidOrLink(item: Record<string, unknown>, fallbackValue: string):
   if (guid && typeof guid === "object") {
     const record = guid as Record<string, unknown>;
 
-    if (typeof record["#text"] === "string" && record["#text"].trim().length > 0) {
+    if (
+      typeof record["#text"] === "string" &&
+      record["#text"].trim().length > 0
+    ) {
       return record["#text"];
     }
   }
@@ -508,7 +519,9 @@ async function fetchRssFeedCandidates(
         item,
         sourceUrl || `${title}-${config.sourceName}`
       );
-      const combinedText = [title, summary, content, config.sourceName].join(" ");
+      const combinedText = [title, summary, content, config.sourceName].join(
+        " "
+      );
 
       return {
         id: `candidate-rss-${normalizeCandidateId(candidateSeed)}`,
@@ -564,10 +577,15 @@ async function fetchRssFeedCandidates(
           return stripHtml(String(category ?? ""));
         })
         .filter(Boolean);
-      const publisher = typeof entry.author === "object"
-        ? stripHtml(String((entry.author as Record<string, unknown>).name ?? ""))
-        : config.publisherName;
-      const combinedText = [title, summary, content, config.sourceName].join(" ");
+      const publisher =
+        typeof entry.author === "object"
+          ? stripHtml(
+              String((entry.author as Record<string, unknown>).name ?? "")
+            )
+          : config.publisherName;
+      const combinedText = [title, summary, content, config.sourceName].join(
+        " "
+      );
 
       return {
         id: `candidate-rss-${normalizeCandidateId(sourceUrl || title)}`,
@@ -625,7 +643,10 @@ async function fetchGitHubReleaseCandidates(
       );
       const content = stripHtml(release.body ?? "");
       const summary = trimToLength(content, 260);
-      const seededTags = [release.prerelease ? "pre-release" : "release", "github"];
+      const seededTags = [
+        release.prerelease ? "pre-release" : "release",
+        "github"
+      ];
       const combinedText = [title, content, config.repository].join(" ");
 
       return {
@@ -664,7 +685,9 @@ function extractAnthropicListingItems(
   html: string,
   maxItems: number
 ): ListingPreviewItem[] {
-  const hrefs = [...html.matchAll(/href="(\/news\/[^"]+)"/g)].map((match) => match[1]);
+  const hrefs = [...html.matchAll(/href="(\/news\/[^"]+)"/g)].map(
+    (match) => match[1]
+  );
   const uniqueHrefs = [...new Set(hrefs)].slice(0, maxItems);
 
   return uniqueHrefs.map((href) => {
@@ -673,11 +696,13 @@ function extractAnthropicListingItems(
 
     return {
       href,
-      date: window.match(/<time[^>]*>(.*?)<\/time>/i)?.[1]
+      date: window
+        .match(/<time[^>]*>(.*?)<\/time>/i)?.[1]
         ?.replace(/<[^>]+>/g, " ")
         .replace(/\s+/g, " ")
         .trim(),
-      excerpt: window.match(/<p[^>]*>(.*?)<\/p>/i)?.[1]
+      excerpt: window
+        .match(/<p[^>]*>(.*?)<\/p>/i)?.[1]
         ?.replace(/<[^>]+>/g, " ")
         .replace(/\s+/g, " ")
         .trim()
@@ -689,7 +714,10 @@ function extractReadableParagraphs(html: string): string[] {
   return [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
     .map((match) =>
       decodeHtmlEntities(
-        match[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+        match[1]
+          .replace(/<[^>]+>/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
       )
     )
     .filter((paragraph) => {
@@ -716,18 +744,25 @@ async function fetchOfficialBlogCandidates(
     const articleHtml = await fetchText(articleUrl);
     const title =
       decodeHtmlEntities(
-        articleHtml.match(/<meta property="og:title" content="([^"]+)"/i)?.[1] ?? ""
-      ) ||
-      stripHtml(articleHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "");
+        articleHtml.match(
+          /<meta property="og:title" content="([^"]+)"/i
+        )?.[1] ?? ""
+      ) || stripHtml(articleHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "");
     const paragraphs = extractReadableParagraphs(articleHtml);
     const summary = trimToLength(
-      preview.excerpt || paragraphs[0] || "No summary extracted from the source page.",
+      preview.excerpt ||
+        paragraphs[0] ||
+        "No summary extracted from the source page.",
       260
     );
-    const content = trimToLength(paragraphs.slice(0, 4).join("\n\n") || summary, 2200);
+    const content = trimToLength(
+      paragraphs.slice(0, 4).join("\n\n") || summary,
+      2200
+    );
     const dateMatch =
-      articleHtml.match(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}\b/)?.[0] ??
-      preview.date;
+      articleHtml.match(
+        /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}\b/
+      )?.[0] ?? preview.date;
     const combinedText = [title, summary, content, config.sourceName].join(" ");
 
     results.push({
@@ -767,14 +802,16 @@ export function getExternalSourceSummaries(): Array<{
   sourceName: string;
   sourceUrl: string;
 }> {
-  return [...rssFeedSources, ...gitHubReleaseSources, ...officialBlogSources].map(
-    (source) => ({
-      id: source.id,
-      sourceType: source.sourceType,
-      sourceName: source.sourceName,
-      sourceUrl: source.sourceUrl
-    })
-  );
+  return [
+    ...rssFeedSources,
+    ...gitHubReleaseSources,
+    ...officialBlogSources
+  ].map((source) => ({
+    id: source.id,
+    sourceType: source.sourceType,
+    sourceName: source.sourceName,
+    sourceUrl: source.sourceUrl
+  }));
 }
 
 async function importCandidatesForConfig(

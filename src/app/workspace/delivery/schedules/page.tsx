@@ -88,7 +88,10 @@ export default function WorkspaceDeliverySchedulesPage() {
       description="Manage local schedules for sending published Daily Digest records to enabled delivery channels."
       sectionLabel="Delivery / Schedules"
       actions={
-        <a className="action-button action-button--accent" href="#create-schedule">
+        <a
+          className="action-button action-button--accent"
+          href="#create-schedule"
+        >
           Create schedule
         </a>
       }
@@ -99,7 +102,10 @@ export default function WorkspaceDeliverySchedulesPage() {
         </>
       }
     >
-      <section className="delivery-console-summary" aria-label="Schedule summary">
+      <section
+        className="delivery-console-summary"
+        aria-label="Schedule summary"
+      >
         <article className="delivery-console-summary__card">
           <span>Total schedules</span>
           <strong>{schedules.length}</strong>
@@ -315,14 +321,16 @@ export default function WorkspaceDeliverySchedulesPage() {
                 <article className="schedule-run-row" key={run.id}>
                   <span>{formatDateTime(run.finishedAt ?? run.startedAt)}</span>
                   <strong>{run.scheduleName}</strong>
-                  <span>{run.digestDate ? `Digest ${run.digestDate}` : "No digest"}</span>
+                  <span>
+                    {run.digestDate ? `Digest ${run.digestDate}` : "No digest"}
+                  </span>
                   <WorkspaceStatusBadge
                     label={run.status}
                     tone={getRunStatusTone(run.status)}
                   />
                   <span>
-                    {run.successfulChannels} success, {run.failedChannels} failed,{" "}
-                    {run.skippedChannels} skipped
+                    {run.successfulChannels} success, {run.failedChannels}{" "}
+                    failed, {run.skippedChannels} skipped
                   </span>
                   <span>{run.triggerType}</span>
                   <span className="delivery-log-message">{run.message}</span>

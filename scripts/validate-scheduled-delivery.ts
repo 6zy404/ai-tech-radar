@@ -104,7 +104,9 @@ function buildDigest(
       new Set(technologies.flatMap((technology) => technology.relatedSkillIds))
     ),
     knowledgeIds: Array.from(
-      new Set(technologies.flatMap((technology) => technology.relatedKnowledgeIds))
+      new Set(
+        technologies.flatMap((technology) => technology.relatedKnowledgeIds)
+      )
     ),
     sourceNames: Array.from(
       new Set(technologies.map((technology) => technology.sourceName))
@@ -163,7 +165,11 @@ async function main() {
       "Expected at least two published technologies for scheduled delivery validation."
     );
 
-    const publishedDigest = buildDigest("2026-05-25", "published", technologies);
+    const publishedDigest = buildDigest(
+      "2026-05-25",
+      "published",
+      technologies
+    );
     const draftDigest = buildDigest("2026-05-26", "draft", technologies);
     const archivedDigest = buildDigest("2026-05-27", "archived", technologies);
 

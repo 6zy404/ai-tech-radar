@@ -17,7 +17,9 @@ export function makeTechnologyItem(
     title: { original: "Example Technology" },
     slug: "example-technology",
     summary: { original: "A concise summary of the example technology." },
-    content: { original: "Longer body content explaining the example technology." },
+    content: {
+      original: "Longer body content explaining the example technology."
+    },
     type: "tool",
     publishDate: "2026-05-20",
     sourceName: "Example Source",

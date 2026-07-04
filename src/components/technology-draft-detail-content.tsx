@@ -72,15 +72,17 @@ export function TechnologyDraftDetailContent({
             {draft.summary.zh ?? draft.summary.original}
           </p>
           <p className="translation-note">
-            This record was generated from an imported candidate and stays inside
-            the internal workspace until it is published for end users.
+            This record was generated from an imported candidate and stays
+            inside the internal workspace until it is published for end users.
           </p>
           <div className="candidate-detail-hero__meta">
             <WorkspaceStatusBadge
               label={draft.status}
               tone={getStatusTone(draft.status)}
             />
-            <span className="info-pill">{draft.sourceLanguage.toUpperCase()}</span>
+            <span className="info-pill">
+              {draft.sourceLanguage.toUpperCase()}
+            </span>
             <span className="info-pill">{draft.translationStatus}</span>
             <span className={getPriorityLevelClass(ranking.priorityLevel)}>
               {getPriorityLevelLabel(ranking.priorityLevel)}
@@ -102,7 +104,9 @@ export function TechnologyDraftDetailContent({
 
         <section className="section-panel technology-detail-panel__content">
           <h2>Record content</h2>
-          <p className="detail-copy">{draft.content.zh ?? draft.content.original}</p>
+          <p className="detail-copy">
+            {draft.content.zh ?? draft.content.original}
+          </p>
         </section>
 
         <section className="section-panel">

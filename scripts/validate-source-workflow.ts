@@ -20,7 +20,10 @@ import {
 import type { ExternalSourceInput } from "../src/lib/source-workflow";
 
 const configDirPath = path.join(process.cwd(), "config");
-const externalSourcesStorePath = path.join(configDirPath, "external-sources.json");
+const externalSourcesStorePath = path.join(
+  configDirPath,
+  "external-sources.json"
+);
 const importedCandidatesSnapshotPath = path.join(
   configDirPath,
   "imported-candidates.live.json"
@@ -91,7 +94,11 @@ async function main() {
 
     const source = createExternalSource(buildSourceInput());
 
-    assert.equal(source.enabled, true, "Expected created source to be enabled.");
+    assert.equal(
+      source.enabled,
+      true,
+      "Expected created source to be enabled."
+    );
     assert.equal(source.lastImportStatus, "never_run");
     assert.deepEqual(source.defaultTags, ["validation", "workflow"]);
 
@@ -149,7 +156,9 @@ async function main() {
       "Expected batch import summary to record created candidates."
     );
 
-    const importedCandidates = getImportedCandidatesForExternalSource(source.id);
+    const importedCandidates = getImportedCandidatesForExternalSource(
+      source.id
+    );
 
     assert.ok(
       importedCandidates.length > 0,
@@ -158,12 +167,18 @@ async function main() {
     assert.equal(importedCandidates[0].sourceId, source.id);
     assert.equal(importedCandidates[0].sourceName, source.name);
     assert.equal(importedCandidates[0].sourceUrl, source.url);
-    assert.ok(importedCandidates[0].importedAt, "Expected importedAt to be set.");
+    assert.ok(
+      importedCandidates[0].importedAt,
+      "Expected importedAt to be set."
+    );
     assert.equal(importedCandidates[0].importRunId, batchResult.run.id);
 
     const importedSource = getExternalSourceById(source.id);
 
-    assert.ok(importedSource?.lastFetchedAt, "Expected source lastFetchedAt to update.");
+    assert.ok(
+      importedSource?.lastFetchedAt,
+      "Expected source lastFetchedAt to update."
+    );
     assert.ok(
       importedSource?.lastImportStatus === "success" ||
         importedSource?.lastImportStatus === "partial",

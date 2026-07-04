@@ -71,7 +71,8 @@ export function createMockLlmProvider(): LlmProvider {
       }
 
       const title =
-        extractPromptValue(request.userPrompt, "Title") || "this technology signal";
+        extractPromptValue(request.userPrompt, "Title") ||
+        "this technology signal";
 
       return {
         providerName: "mock",
@@ -83,10 +84,18 @@ export function createMockLlmProvider(): LlmProvider {
         },
         text: JSON.stringify({
           whyItMatters: `${title} matters because it may change how teams evaluate, integrate, or govern emerging AI capabilities.`,
-          whoShouldCare: ["AI engineer", "product builder", "technical manager"],
+          whoShouldCare: [
+            "AI engineer",
+            "product builder",
+            "technical manager"
+          ],
           technicalContext:
             "This is a mock LLM-assisted draft generated from the provided title, summary, tags, priority reasons, and related context.",
-          impactAreas: ["developer tools", "agent workflow", "enterprise AI adoption"],
+          impactAreas: [
+            "developer tools",
+            "agent workflow",
+            "enterprise AI adoption"
+          ],
           learningPath: [
             "Read the original source to confirm the concrete change.",
             "Review the linked background knowledge before comparing implementation options.",

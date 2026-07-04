@@ -60,7 +60,9 @@ export function ImportedCandidateSyncControls({
         );
         router.refresh();
       } catch (error) {
-        setMessage(error instanceof Error ? error.message : "Source refresh failed.");
+        setMessage(
+          error instanceof Error ? error.message : "Source refresh failed."
+        );
       }
     });
   }
@@ -90,7 +92,9 @@ export function ImportedCandidateSyncControls({
         </Link>
       </div>
 
-      {message ? <p className="candidate-sync-controls__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-sync-controls__message">{message}</p>
+      ) : null}
     </div>
   );
 }

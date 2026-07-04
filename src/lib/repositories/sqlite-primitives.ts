@@ -20,7 +20,10 @@ export function parsePayload<T>(row: Record<string, unknown>): T {
   return JSON.parse(String(row.payload)) as T;
 }
 
-export function getTableCount(database: SqliteDatabase, tableName: string): number {
+export function getTableCount(
+  database: SqliteDatabase,
+  tableName: string
+): number {
   const row = database
     .prepare(`SELECT COUNT(*) AS rowCount FROM ${tableName}`)
     .get();
@@ -33,10 +36,16 @@ export function selectPayloads<T>(
   sql: string,
   ...values: SqlitePrimitive[]
 ): T[] {
-  return database.prepare(sql).all(...values).map(parsePayload<T>);
+  return database
+    .prepare(sql)
+    .all(...values)
+    .map(parsePayload<T>);
 }
 
-export function clearTables(database: SqliteDatabase, tableNames: string[]): void {
+export function clearTables(
+  database: SqliteDatabase,
+  tableNames: string[]
+): void {
   for (const tableName of tableNames) {
     database.prepare(`DELETE FROM ${tableName}`).run();
   }

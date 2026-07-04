@@ -28,7 +28,10 @@ export default async function WorkspaceDigestPreviewPage({
       description="Preview the digest with the user-facing renderer before publishing."
       sectionLabel="Digest Preview"
       actions={
-        <Link href={`/workspace/digests/${digest.date}`} className="action-link">
+        <Link
+          href={`/workspace/digests/${digest.date}`}
+          className="action-link"
+        >
           Back to digest review
         </Link>
       }

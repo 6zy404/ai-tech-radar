@@ -367,9 +367,7 @@ export default async function SkillDetailPage({
 
           <section className="skill-detail-aside-card">
             <p className="skill-detail-kicker">阅读路径</p>
-            <p>
-              先读技能说明，打开一条相关信号，再用关联概念补齐背景。
-            </p>
+            <p>先读技能说明，打开一条相关信号，再用关联概念补齐背景。</p>
           </section>
         </aside>
       </div>

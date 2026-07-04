@@ -26,7 +26,10 @@ export function readDeliveryStore(database: SqliteDatabase): DeliveryStore {
   };
 }
 
-export function writeDeliveryStore(database: SqliteDatabase, store: DeliveryStore): void {
+export function writeDeliveryStore(
+  database: SqliteDatabase,
+  store: DeliveryStore
+): void {
   clearTables(database, ["delivery_logs", "delivery_channels"]);
 
   const insertChannel = database.prepare(`

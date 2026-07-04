@@ -51,8 +51,12 @@ function sanitizeExplanationRecord(
   return entries.length > 0 ? Object.fromEntries(entries) : undefined;
 }
 
-function sanitizeReadingDifficulty(value: unknown): ReadingDifficulty | undefined {
-  return value === "beginner" || value === "intermediate" || value === "advanced"
+function sanitizeReadingDifficulty(
+  value: unknown
+): ReadingDifficulty | undefined {
+  return value === "beginner" ||
+    value === "intermediate" ||
+    value === "advanced"
     ? value
     : undefined;
 }

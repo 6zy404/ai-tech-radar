@@ -9,8 +9,14 @@ import {
 import { getCandidateWorkflowData } from "../src/lib/candidate-workflow";
 import { getTechnologyWorkspaceRecords } from "../src/lib/technology-draft-workflow";
 import { getDigestDeliveryFeed } from "../src/lib/digest-delivery";
-import { getDailyDigests, getSelectedDigestTechnologyIds } from "../src/lib/digest-workflow";
-import { getDeliveryChannels, getDeliveryRuns } from "../src/lib/delivery-workflow";
+import {
+  getDailyDigests,
+  getSelectedDigestTechnologyIds
+} from "../src/lib/digest-workflow";
+import {
+  getDeliveryChannels,
+  getDeliveryRuns
+} from "../src/lib/delivery-workflow";
 import { getLocalDataDirPath } from "../src/lib/local-data";
 import { getLocalStoreFilePath } from "../src/lib/repositories/local-json-store";
 import {
@@ -72,10 +78,16 @@ function assertLocalStorePathIsBounded(fileName: string) {
 function validateCandidateReferences() {
   const { snapshot, candidates, duplicateGroups, workspaceRecords } =
     getCandidateWorkflowData();
-  const externalSourceIds = new Set(getExternalSources().map((source) => source.id));
-  const snapshotSourceIds = new Set(snapshot.sources.map((source) => source.id));
+  const externalSourceIds = new Set(
+    getExternalSources().map((source) => source.id)
+  );
+  const snapshotSourceIds = new Set(
+    snapshot.sources.map((source) => source.id)
+  );
   const candidateIds = new Set(candidates.map((candidate) => candidate.id));
-  const workspaceRecordIds = new Set(workspaceRecords.map((record) => record.id));
+  const workspaceRecordIds = new Set(
+    workspaceRecords.map((record) => record.id)
+  );
 
   for (const candidate of candidates) {
     if (candidate.sourceId) {
@@ -177,7 +189,9 @@ function validateDigestReferences() {
 function validateDeliveryReferences() {
   const digestIds = new Set(getDailyDigests().map((digest) => digest.id));
   const digestDates = new Set(getDailyDigests().map((digest) => digest.date));
-  const channelIds = new Set(getDeliveryChannels().map((channel) => channel.id));
+  const channelIds = new Set(
+    getDeliveryChannels().map((channel) => channel.id)
+  );
   const deliveryRunIds = new Set(getDeliveryRuns().map((run) => run.id));
 
   for (const run of getDeliveryRuns()) {

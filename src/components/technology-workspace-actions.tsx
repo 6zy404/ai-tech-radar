@@ -44,13 +44,16 @@ export function TechnologyWorkspaceActions({
       setMessage("");
 
       try {
-        const response = await fetch(`/api/workspace/technologies/${recordId}/status`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ status: nextStatus })
-        });
+        const response = await fetch(
+          `/api/workspace/technologies/${recordId}/status`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status: nextStatus })
+          }
+        );
         const result = (await response.json()) as {
           ok: boolean;
           message?: string;
@@ -122,15 +125,17 @@ export function TechnologyWorkspaceActions({
         </button>
       </div>
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
       {!readiness.isReady ? (
         <p className="candidate-review-actions__message">
           Publishing is blocked until the readiness errors are fixed.
         </p>
       ) : readiness.warnings.length > 0 ? (
         <p className="candidate-review-actions__message">
-          Publishing is allowed, but {readiness.warnings.length} warning(s) should be
-          reviewed first.
+          Publishing is allowed, but {readiness.warnings.length} warning(s)
+          should be reviewed first.
         </p>
       ) : null}
     </section>

@@ -1,7 +1,4 @@
-import type {
-  CandidateQualityFlag,
-  SourceQualityLevel
-} from "@/types/content";
+import type { CandidateQualityFlag, SourceQualityLevel } from "@/types/content";
 
 export function formatQualityRate(value: number): string {
   return `${Math.round(value * 100)}%`;
@@ -48,7 +45,9 @@ export function getCandidateQualityFlagLabel(
   return labels[flag];
 }
 
-export function getCandidateQualityFlagClass(flag: CandidateQualityFlag): string {
+export function getCandidateQualityFlagClass(
+  flag: CandidateQualityFlag
+): string {
   if (flag === "ready_for_review") {
     return "info-pill info-pill--success";
   }

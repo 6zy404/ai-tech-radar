@@ -103,14 +103,12 @@ function buildTechnologyRecord(
     summary: {
       original:
         "A complete validation item used to verify prompt-versioned enrichment suggestions.",
-      zh:
-        "A complete validation item used to verify prompt-versioned enrichment suggestions."
+      zh: "A complete validation item used to verify prompt-versioned enrichment suggestions."
     },
     content: {
       original:
         "This validation content is long enough to exercise prompt versions, quality review, selected-field apply, rejection, and user-facing isolation.",
-      zh:
-        "This validation content is long enough to exercise prompt versions, quality review, selected-field apply, rejection, and user-facing isolation."
+      zh: "This validation content is long enough to exercise prompt versions, quality review, selected-field apply, rejection, and user-facing isolation."
     },
     type: "tool",
     publishDate: "2026-05-30",
@@ -165,10 +163,16 @@ async function main() {
     writeWorkspaceRecords([buildTechnologyRecord()]);
     writeJsonFile(enrichmentStorePath, { updatedAt: now, suggestions: [] });
     writeJsonFile(workflowEventStorePath, { updatedAt: now, events: [] });
-    writeJsonFile(promptVersionStorePath, { updatedAt: now, promptVersions: [] });
+    writeJsonFile(promptVersionStorePath, {
+      updatedAt: now,
+      promptVersions: []
+    });
 
     const promptVersion = ensureDefaultPromptVersion();
-    assert.equal(promptVersion.id, getActivePromptVersion("editorial_enrichment").id);
+    assert.equal(
+      promptVersion.id,
+      getActivePromptVersion("editorial_enrichment").id
+    );
 
     const firstSuggestion = await generateEditorialEnrichmentSuggestion(
       "prompt-quality-draft"
@@ -219,16 +223,14 @@ async function main() {
       summary: {
         original:
           "A changed validation summary that should mark the pending suggestion stale.",
-        zh:
-          "A changed validation summary that should mark the pending suggestion stale."
+        zh: "A changed validation summary that should mark the pending suggestion stale."
       }
     });
     const thirdSuggestion = await generateEditorialEnrichmentSuggestion(
       "prompt-quality-draft"
     );
-    const suggestionsAfterRegenerate = getEditorialEnrichmentSuggestionsForDraft(
-      "prompt-quality-draft"
-    );
+    const suggestionsAfterRegenerate =
+      getEditorialEnrichmentSuggestionsForDraft("prompt-quality-draft");
     assert.equal(
       suggestionsAfterRegenerate.find((item) => item.id === secondSuggestion.id)
         ?.status,
@@ -236,8 +238,9 @@ async function main() {
       "Input changes should mark older pending suggestions stale."
     );
 
-    const beforeRejectTechnicalContext =
-      getTechnologyWorkspaceRecordById("prompt-quality-draft")?.technicalContext;
+    const beforeRejectTechnicalContext = getTechnologyWorkspaceRecordById(
+      "prompt-quality-draft"
+    )?.technicalContext;
     const rejected = rejectEditorialEnrichmentSuggestion(
       "prompt-quality-draft",
       thirdSuggestion.id,
@@ -250,9 +253,13 @@ async function main() {
     );
     assert.equal(rejected.status, "rejected");
     assert.equal(rejected.reviewStatus, "rejected");
-    assert.equal(rejected.rejectionReason, "Insufficient source-specific context.");
     assert.equal(
-      getTechnologyWorkspaceRecordById("prompt-quality-draft")?.technicalContext,
+      rejected.rejectionReason,
+      "Insufficient source-specific context."
+    );
+    assert.equal(
+      getTechnologyWorkspaceRecordById("prompt-quality-draft")
+        ?.technicalContext,
       beforeRejectTechnicalContext,
       "Rejecting a suggestion should not change draft fields."
     );
@@ -262,7 +269,9 @@ async function main() {
     );
     assert.ok(finalSuggestions.length >= 3);
 
-    const eventActions = new Set(getWorkflowEvents().map((event) => event.action));
+    const eventActions = new Set(
+      getWorkflowEvents().map((event) => event.action)
+    );
     for (const expectedAction of [
       "prompt_version.created",
       "enrichment_suggestion.generated",

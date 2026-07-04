@@ -19,7 +19,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, digest });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Unknown digest generation error.";
+      error instanceof Error
+        ? error.message
+        : "Unknown digest generation error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

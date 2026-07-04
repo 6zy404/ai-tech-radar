@@ -96,7 +96,9 @@ function buildTechnology(
     importanceLevel: overrides.importanceLevel ?? "critical",
     status: overrides.status ?? "published",
     tags: overrides.tags ?? ["tag-ai-agents"],
-    relatedKnowledgeIds: overrides.relatedKnowledgeIds ?? ["knowledge-tool-use"],
+    relatedKnowledgeIds: overrides.relatedKnowledgeIds ?? [
+      "knowledge-tool-use"
+    ],
     relatedSkillIds: overrides.relatedSkillIds ?? ["skill-agent-design"],
     sourceReferences: overrides.sourceReferences,
     priority: overrides.priority
@@ -121,13 +123,19 @@ function buildStoreDigest(
     manuallyAddedTechnologyIds: [],
     excludedTechnologyIds: [],
     pinnedTechnologyIds: [],
-    orderedTechnologyIds: selectedTechnologies.map((technology) => technology.id),
+    orderedTechnologyIds: selectedTechnologies.map(
+      (technology) => technology.id
+    ),
     skillIds: Array.from(
-      new Set(selectedTechnologies.flatMap((technology) => technology.relatedSkillIds))
+      new Set(
+        selectedTechnologies.flatMap((technology) => technology.relatedSkillIds)
+      )
     ),
     knowledgeIds: Array.from(
       new Set(
-        selectedTechnologies.flatMap((technology) => technology.relatedKnowledgeIds)
+        selectedTechnologies.flatMap(
+          (technology) => technology.relatedKnowledgeIds
+        )
       )
     ),
     sourceNames: Array.from(
@@ -237,15 +245,26 @@ function main() {
       evaluateTechnologyPriority(lowPriorityTechnology, { now }).priorityLevel,
       "low_priority"
     );
-    assert.deepEqual(generatedDigest.highPriorityTechnologyIds, ["digest-high"]);
+    assert.deepEqual(generatedDigest.highPriorityTechnologyIds, [
+      "digest-high"
+    ]);
     assert.deepEqual(generatedDigest.watchTechnologyIds, ["digest-watch"]);
     assert.equal(
       generatedDigest.highPriorityTechnologyIds.includes("digest-draft"),
       false
     );
-    assert.equal(generatedDigest.watchTechnologyIds.includes("digest-draft"), false);
-    assert.equal(generatedDigest.highPriorityTechnologyIds.includes("digest-low"), false);
-    assert.equal(generatedDigest.watchTechnologyIds.includes("digest-low"), false);
+    assert.equal(
+      generatedDigest.watchTechnologyIds.includes("digest-draft"),
+      false
+    );
+    assert.equal(
+      generatedDigest.highPriorityTechnologyIds.includes("digest-low"),
+      false
+    );
+    assert.equal(
+      generatedDigest.watchTechnologyIds.includes("digest-low"),
+      false
+    );
 
     const publishedTechnologies = getAllTechnologies();
 
@@ -268,7 +287,10 @@ function main() {
 
     assert.equal(editedDigest.title, "Edited Daily Digest");
     assert.equal(editedDigest.summary, "Edited generated summary.");
-    assert.equal(editedDigest.editorialSummary, "Editor-written public summary.");
+    assert.equal(
+      editedDigest.editorialSummary,
+      "Editor-written public summary."
+    );
 
     const excludedTechnologyId = publishedTechnologies[0].id;
     const manuallyAddedTechnologyId = publishedTechnologies[2].id;
@@ -279,7 +301,9 @@ function main() {
     );
 
     assert.equal(
-      getSelectedDigestTechnologyIds(excludedDigest).includes(excludedTechnologyId),
+      getSelectedDigestTechnologyIds(excludedDigest).includes(
+        excludedTechnologyId
+      ),
       false
     );
 
@@ -301,7 +325,9 @@ function main() {
       "pin"
     );
 
-    assert.ok(pinnedDigest.pinnedTechnologyIds.includes(manuallyAddedTechnologyId));
+    assert.ok(
+      pinnedDigest.pinnedTechnologyIds.includes(manuallyAddedTechnologyId)
+    );
 
     const movedDigest = updateDailyDigestItemControl(
       date,
@@ -309,17 +335,23 @@ function main() {
       "move_up"
     );
 
-    assert.ok(movedDigest.orderedTechnologyIds.includes(manuallyAddedTechnologyId));
+    assert.ok(
+      movedDigest.orderedTechnologyIds.includes(manuallyAddedTechnologyId)
+    );
 
     const regeneratedDigest = generateDailyDigest(date);
 
-    assert.ok(regeneratedDigest.excludedTechnologyIds.includes(excludedTechnologyId));
+    assert.ok(
+      regeneratedDigest.excludedTechnologyIds.includes(excludedTechnologyId)
+    );
     assert.ok(
       regeneratedDigest.manuallyAddedTechnologyIds.includes(
         manuallyAddedTechnologyId
       )
     );
-    assert.ok(regeneratedDigest.pinnedTechnologyIds.includes(manuallyAddedTechnologyId));
+    assert.ok(
+      regeneratedDigest.pinnedTechnologyIds.includes(manuallyAddedTechnologyId)
+    );
     assert.equal(
       regeneratedDigest.editorialSummary,
       "Editor-written public summary."

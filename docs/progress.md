@@ -83,10 +83,11 @@ current shell/component usage:
 
 Verified via `npm run ui:check` (Playwright, 1440px viewport, 24 routes): all
 routes return 200, stylesheets load, workspace pages render the workspace shell
-+ nav + breadcrumbs, user-facing pages render the user shell, and no internal
-terms leak onto any user-facing page or feed. The pages previously listed as
-"pending" (`/digest/today`, `/digest/[date]`, `/workspace/operations`,
-`/workspace/duplicates`) all render correctly on the shared templates.
+
+- nav + breadcrumbs, user-facing pages render the user shell, and no internal
+  terms leak onto any user-facing page or feed. The pages previously listed as
+  "pending" (`/digest/today`, `/digest/[date]`, `/workspace/operations`,
+  `/workspace/duplicates`) all render correctly on the shared templates.
 
 Visual issues found and fixed:
 

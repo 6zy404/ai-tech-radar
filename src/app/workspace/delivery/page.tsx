@@ -44,7 +44,9 @@ function formatDateTime(value: string | undefined): string {
   return Number.isNaN(date.getTime()) ? value : date.toLocaleString("en");
 }
 
-function getRunMessage(run: ReturnType<typeof getDeliveryRuns>[number]): string {
+function getRunMessage(
+  run: ReturnType<typeof getDeliveryRuns>[number]
+): string {
   if (run.errorMessage) {
     return run.errorMessage;
   }
@@ -62,7 +64,9 @@ export default function WorkspaceDeliveryPage() {
   const schedules = getScheduledDeliveries();
   const enabledCount = channels.filter((channel) => channel.enabled).length;
   const failedCount = runs.filter((run) => run.status === "failed").length;
-  const enabledScheduleCount = schedules.filter((schedule) => schedule.enabled).length;
+  const enabledScheduleCount = schedules.filter(
+    (schedule) => schedule.enabled
+  ).length;
   const recentDeliveryEvents = getRecentWorkflowEvents({
     entityTypes: ["delivery_run"],
     limit: 6
@@ -76,7 +80,10 @@ export default function WorkspaceDeliveryPage() {
       description="Manage internal delivery channels and inspect delivery logs."
       sectionLabel="Delivery"
       actions={
-        <a className="action-button action-button--accent" href="#create-channel">
+        <a
+          className="action-button action-button--accent"
+          href="#create-channel"
+        >
           Create channel
         </a>
       }
@@ -87,7 +94,10 @@ export default function WorkspaceDeliveryPage() {
         </>
       }
     >
-      <section className="delivery-console-summary" aria-label="Delivery summary">
+      <section
+        className="delivery-console-summary"
+        aria-label="Delivery summary"
+      >
         <article className="delivery-console-summary__card">
           <span>Channels enabled</span>
           <strong>
@@ -98,7 +108,9 @@ export default function WorkspaceDeliveryPage() {
         <article className="delivery-console-summary__card">
           <span>Total channels</span>
           <strong>{channels.length}</strong>
-          <p>{enabledScheduleCount}/{schedules.length} schedules enabled</p>
+          <p>
+            {enabledScheduleCount}/{schedules.length} schedules enabled
+          </p>
         </article>
         <article className="delivery-console-summary__card">
           <span>Failed deliveries</span>
@@ -121,9 +133,9 @@ export default function WorkspaceDeliveryPage() {
             <p className="section-eyebrow">Delivery channels</p>
             <h2>Configured channels</h2>
             <p>
-              Generic webhook and Feishu bot webhook channels are workspace-only.
-              Endpoint URLs are masked here and never appear in user-facing
-              pages.
+              Generic webhook and Feishu bot webhook channels are
+              workspace-only. Endpoint URLs are masked here and never appear in
+              user-facing pages.
             </p>
           </div>
           <Link className="action-link" href="/workspace/delivery/schedules">
@@ -154,7 +166,11 @@ export default function WorkspaceDeliveryPage() {
         </section>
 
         {channels.length > 0 ? (
-          <div className="delivery-table-scroll" role="region" aria-label="Delivery channels table">
+          <div
+            className="delivery-table-scroll"
+            role="region"
+            aria-label="Delivery channels table"
+          >
             <div className="delivery-channel-table delivery-channel-table--console">
               <div className="delivery-channel-table__head delivery-channel-table__head--console">
                 <span>Name</span>
@@ -180,10 +196,16 @@ export default function WorkspaceDeliveryPage() {
                   <div className="delivery-channel-row__cell" data-label="Type">
                     <span>{getDeliveryChannelTypeLabel(channel.type)}</span>
                   </div>
-                  <div className="delivery-channel-row__cell" data-label="Format">
+                  <div
+                    className="delivery-channel-row__cell"
+                    data-label="Format"
+                  >
                     <span>{channel.format}</span>
                   </div>
-                  <div className="delivery-channel-row__cell" data-label="Status">
+                  <div
+                    className="delivery-channel-row__cell"
+                    data-label="Status"
+                  >
                     <WorkspaceStatusBadge
                       label={channel.enabled ? "enabled" : "disabled"}
                       tone={channel.enabled ? "success" : "neutral"}
@@ -203,7 +225,9 @@ export default function WorkspaceDeliveryPage() {
                       label={channel.lastDeliveryStatus ?? "never sent"}
                       tone={getDeliveryStatusTone(channel.lastDeliveryStatus)}
                     />
-                    <small>{channel.lastDeliveryMessage ?? "No delivery yet."}</small>
+                    <small>
+                      {channel.lastDeliveryMessage ?? "No delivery yet."}
+                    </small>
                   </div>
                   <div className="delivery-channel-row__actions">
                     <Link
@@ -232,11 +256,16 @@ export default function WorkspaceDeliveryPage() {
             </div>
           </div>
         ) : (
-          <p className="empty-state">No delivery channel has been configured.</p>
+          <p className="empty-state">
+            No delivery channel has been configured.
+          </p>
         )}
       </section>
 
-      <section id="delivery-logs" className="detail-panel delivery-console-panel">
+      <section
+        id="delivery-logs"
+        className="detail-panel delivery-console-panel"
+      >
         <div className="delivery-console-panel__header">
           <div>
             <p className="section-eyebrow">Delivery logs</p>
@@ -249,7 +278,11 @@ export default function WorkspaceDeliveryPage() {
         </div>
 
         {runs.length > 0 ? (
-          <div className="delivery-table-scroll" role="region" aria-label="Delivery logs table">
+          <div
+            className="delivery-table-scroll"
+            role="region"
+            aria-label="Delivery logs table"
+          >
             <div className="delivery-log-table">
               <div className="delivery-log-table__head">
                 <span>Time</span>
@@ -272,14 +305,18 @@ export default function WorkspaceDeliveryPage() {
                     tone={getDeliveryStatusTone(run.status)}
                   />
                   <span>{run.responseStatus?.toString() ?? "n/a"}</span>
-                  <span className="delivery-log-message">{getRunMessage(run)}</span>
+                  <span className="delivery-log-message">
+                    {getRunMessage(run)}
+                  </span>
                   <DeliveryRunActions runId={run.id} status={run.status} />
                 </article>
               ))}
             </div>
           </div>
         ) : (
-          <p className="empty-state">No delivery runs have been recorded yet.</p>
+          <p className="empty-state">
+            No delivery runs have been recorded yet.
+          </p>
         )}
       </section>
 

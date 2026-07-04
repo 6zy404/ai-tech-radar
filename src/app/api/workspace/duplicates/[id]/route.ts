@@ -42,7 +42,9 @@ export async function PATCH(request: Request, context: RouteContext) {
     return NextResponse.json({ ok: true, group });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Unknown duplicate update error.";
+      error instanceof Error
+        ? error.message
+        : "Unknown duplicate update error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

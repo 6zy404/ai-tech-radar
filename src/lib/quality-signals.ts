@@ -39,7 +39,10 @@ function isValidDate(value: string | undefined): boolean {
 }
 
 function isCandidateDuplicate(candidate: ImportedCandidate): boolean {
-  return Boolean(candidate.duplicateGroupId) || candidate.relatedCandidateIds.length > 0;
+  return (
+    Boolean(candidate.duplicateGroupId) ||
+    candidate.relatedCandidateIds.length > 0
+  );
 }
 
 function isCandidateTooShort(candidate: ImportedCandidate): boolean {
@@ -70,14 +73,20 @@ function hasCandidatePublisher(candidate: ImportedCandidate): boolean {
   return !(typeof rawPublisher === "string" && rawPublisher.trim() === "");
 }
 
-function getCandidateSourceId(candidate: ImportedCandidate): string | undefined {
+function getCandidateSourceId(
+  candidate: ImportedCandidate
+): string | undefined {
   if (candidate.sourceId) {
     return candidate.sourceId;
   }
 
   const rawPayload = candidate.rawPayload;
 
-  if (rawPayload && typeof rawPayload === "object" && "sourceId" in rawPayload) {
+  if (
+    rawPayload &&
+    typeof rawPayload === "object" &&
+    "sourceId" in rawPayload
+  ) {
     const sourceId = (rawPayload as { sourceId?: unknown }).sourceId;
 
     return typeof sourceId === "string" ? sourceId : undefined;
@@ -213,7 +222,8 @@ export function evaluateSourceQuality(
 
     return candidateSourceId
       ? candidateSourceId === source.id
-      : candidate.sourceName === source.name || candidate.sourceUrl === source.url;
+      : candidate.sourceName === source.name ||
+          candidate.sourceUrl === source.url;
   });
   const sourceResults = importRuns.flatMap((run) =>
     run.sourceResults.filter((result) => result.sourceId === source.id)
@@ -239,12 +249,14 @@ export function evaluateSourceQuality(
   const totalCandidatesImported = sourceCandidates.length;
   const convertedCandidateCount = sourceCandidates.filter(
     (candidate) =>
-      candidate.importStatus === "converted" || Boolean(candidate.convertedTechnologyId)
+      candidate.importStatus === "converted" ||
+      Boolean(candidate.convertedTechnologyId)
   ).length;
   const rejectedCandidateCount = sourceCandidates.filter(
     (candidate) => candidate.importStatus === "rejected"
   ).length;
-  const duplicateCandidateCount = sourceCandidates.filter(isCandidateDuplicate).length;
+  const duplicateCandidateCount =
+    sourceCandidates.filter(isCandidateDuplicate).length;
   const baseMetrics: Omit<SourceQualityMetrics, "qualityLevel"> = {
     successRate: calculateRate(successfulImportRuns, totalImportRuns),
     totalImportRuns,
@@ -254,9 +266,18 @@ export function evaluateSourceQuality(
     convertedCandidateCount,
     rejectedCandidateCount,
     duplicateCandidateCount,
-    duplicateRate: calculateRate(duplicateCandidateCount, totalCandidatesImported),
-    conversionRate: calculateRate(convertedCandidateCount, totalCandidatesImported),
-    rejectionRate: calculateRate(rejectedCandidateCount, totalCandidatesImported),
+    duplicateRate: calculateRate(
+      duplicateCandidateCount,
+      totalCandidatesImported
+    ),
+    conversionRate: calculateRate(
+      convertedCandidateCount,
+      totalCandidatesImported
+    ),
+    rejectionRate: calculateRate(
+      rejectedCandidateCount,
+      totalCandidatesImported
+    ),
     lastSuccessfulImportAt: source.lastSuccessfulImportAt,
     consecutiveFailureCount: source.consecutiveFailureCount ?? 0
   };

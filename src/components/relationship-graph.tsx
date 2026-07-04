@@ -103,7 +103,9 @@ export function RelationshipGraph({
                 : undefined
             }
           >
-            <span className="tech-graph__node-kind">{kindLabel[node.kind]}</span>
+            <span className="tech-graph__node-kind">
+              {kindLabel[node.kind]}
+            </span>
             {node.title}
           </Link>
         ))}

@@ -31,7 +31,11 @@ export const technologyItems: TechnologyItem[] = [
     tags: ["tag-ai-agents", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-api-contracts", "knowledge-tool-use"],
     relatedSkillIds: ["skill-tool-integration", "skill-agent-design"],
-    relatedTechnologyIds: ["tech-browser-agents", "tech-agent-workbenches", "tech-multimodal-copilots"],
+    relatedTechnologyIds: [
+      "tech-browser-agents",
+      "tech-agent-workbenches",
+      "tech-multimodal-copilots"
+    ],
     whyItMatters:
       "MCP 把上下文和工具接入变成一份产品契约，而不是一堆一次性集成，让智能体工作流更易于比较、治理和复用。",
     whoShouldCare: ["AI 工程师", "智能体开发者", "产品构建者", "技术管理者"],
@@ -123,7 +127,10 @@ export const technologyItems: TechnologyItem[] = [
     importanceLevel: "important",
     status: "published",
     tags: ["tag-on-device", "tag-product-strategy"],
-    relatedKnowledgeIds: ["knowledge-model-sizing", "knowledge-latency-tradeoffs"],
+    relatedKnowledgeIds: [
+      "knowledge-model-sizing",
+      "knowledge-latency-tradeoffs"
+    ],
     relatedSkillIds: ["skill-model-evaluation", "skill-scope-pilots"],
     relatedTechnologyIds: ["tech-voice-runtime"]
   },
@@ -161,8 +168,7 @@ export const technologyItems: TechnologyItem[] = [
     whyItMatters:
       "RAG 评测看板让检索失败在上线前就暴露出来，帮助团队发现那些狭窄的提示词检查会漏掉的回归。",
     whoShouldCare: ["AI 工程师", "产品构建者", "技术管理者"],
-    technicalContext:
-      "这个信号属于围绕检索系统和生产级 LLM 应用的质量控制层。",
+    technicalContext: "这个信号属于围绕检索系统和生产级 LLM 应用的质量控制层。",
     impactAreas: ["检索系统", "评估", "企业 AI 落地"],
     learningPath: [
       "先复习基本的 RAG 检索流程。",
@@ -178,8 +184,7 @@ export const technologyItems: TechnologyItem[] = [
     relatedSkillExplanations: {
       "skill-retrieval-tuning":
         "需要检索调优，才能把看板发现转化为更好的检索行为。",
-      "skill-model-evaluation":
-        "模型评估有助于把检索问题与答案生成问题区分开。"
+      "skill-model-evaluation": "模型评估有助于把检索问题与答案生成问题区分开。"
     },
     followUpQuestions: [
       "哪些检索失败对产品代价最高？",
@@ -217,7 +222,10 @@ export const technologyItems: TechnologyItem[] = [
     importanceLevel: "important",
     status: "published",
     tags: ["tag-ai-agents", "tag-observability", "tag-workflow"],
-    relatedKnowledgeIds: ["knowledge-system-design", "knowledge-evaluation-loops"],
+    relatedKnowledgeIds: [
+      "knowledge-system-design",
+      "knowledge-evaluation-loops"
+    ],
     relatedSkillIds: ["skill-agent-design", "skill-tool-integration"],
     relatedTechnologyIds: ["tech-mcp", "tech-browser-agents"]
   },
@@ -313,7 +321,10 @@ export const technologyItems: TechnologyItem[] = [
     importanceLevel: "signal",
     status: "published",
     tags: ["tag-multimodal", "tag-workflow", "tag-on-device"],
-    relatedKnowledgeIds: ["knowledge-latency-tradeoffs", "knowledge-human-loop"],
+    relatedKnowledgeIds: [
+      "knowledge-latency-tradeoffs",
+      "knowledge-human-loop"
+    ],
     relatedSkillIds: ["skill-communication-ai", "skill-scope-pilots"],
     relatedTechnologyIds: ["tech-slm-edge"]
   }

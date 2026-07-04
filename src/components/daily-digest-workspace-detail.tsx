@@ -90,16 +90,23 @@ function WorkspaceDigestTechnologyList({
             const isPinned = pinnedIds.has(technology.id);
 
             return (
-              <article key={technology.id} className="digest-workspace-technology">
+              <article
+                key={technology.id}
+                className="digest-workspace-technology"
+              >
                 <div className="digest-workspace-technology__header">
-                  <span className={getPriorityLevelClass(ranking.priorityLevel)}>
+                  <span
+                    className={getPriorityLevelClass(ranking.priorityLevel)}
+                  >
                     {getPriorityLevelLabel(ranking.priorityLevel)}
                   </span>
                   {isPinned ? (
                     <span className="info-pill info-pill--success">Pinned</span>
                   ) : null}
                   {digest.manuallyAddedTechnologyIds.includes(technology.id) ? (
-                    <span className="info-pill info-pill--subtle">Manual add</span>
+                    <span className="info-pill info-pill--subtle">
+                      Manual add
+                    </span>
                   ) : null}
                   <MetadataRow
                     items={[
@@ -187,7 +194,9 @@ function DigestDeliveryPanel({ digest }: { digest: DailyDigest }) {
       <div className="section-heading">
         <div>
           <p className="eyebrow">Delivery</p>
-          <h2>{isPublished ? "Publicly delivered" : "Not publicly delivered yet"}</h2>
+          <h2>
+            {isPublished ? "Publicly delivered" : "Not publicly delivered yet"}
+          </h2>
           <p>
             Delivery surfaces are generated from published digest records only.
           </p>
@@ -241,7 +250,9 @@ function DigestDeliveryPanel({ digest }: { digest: DailyDigest }) {
         ) : (
           <div>
             <dt>Public links</dt>
-            <dd>Publish this digest before public feed and share links are shown.</dd>
+            <dd>
+              Publish this digest before public feed and share links are shown.
+            </dd>
           </div>
         )}
       </dl>
@@ -283,7 +294,8 @@ function DigestDeliveryLogPanel({ runs }: { runs: DeliveryRun[] }) {
             <article className="digest-delivery-log" key={run.id}>
               <div className="digest-delivery-log__header">
                 <strong>
-                  {run.channelName} · {getDeliveryChannelTypeLabel(run.channelType)}
+                  {run.channelName} ·{" "}
+                  {getDeliveryChannelTypeLabel(run.channelType)}
                 </strong>
                 <WorkspaceStatusBadge
                   label={run.status}
@@ -299,7 +311,10 @@ function DigestDeliveryLogPanel({ runs }: { runs: DeliveryRun[] }) {
               <MetadataRow
                 items={[
                   { label: "Started", value: run.startedAt.slice(0, 16) },
-                  { label: "HTTP", value: run.responseStatus?.toString() ?? "n/a" }
+                  {
+                    label: "HTTP",
+                    value: run.responseStatus?.toString() ?? "n/a"
+                  }
                 ]}
               />
               {run.errorMessage ? (
@@ -405,7 +420,10 @@ export function DailyDigestWorkspaceDetail({
               value: highPriorityTechnologies.length
             },
             { label: "Watch", value: watchTechnologies.length },
-            { label: "Manual add", value: digest.manuallyAddedTechnologyIds.length },
+            {
+              label: "Manual add",
+              value: digest.manuallyAddedTechnologyIds.length
+            },
             { label: "Excluded", value: digest.excludedTechnologyIds.length },
             { label: "Pinned", value: digest.pinnedTechnologyIds.length },
             { label: "Skills", value: skills.length },

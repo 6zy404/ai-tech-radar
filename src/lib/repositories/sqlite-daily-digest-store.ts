@@ -11,7 +11,9 @@ export interface DailyDigestStore {
   digests: DailyDigest[];
 }
 
-export function readDailyDigestStore(database: SqliteDatabase): DailyDigestStore {
+export function readDailyDigestStore(
+  database: SqliteDatabase
+): DailyDigestStore {
   return {
     updatedAt: getTimestamp(),
     digests: selectPayloads<DailyDigest>(
@@ -21,7 +23,10 @@ export function readDailyDigestStore(database: SqliteDatabase): DailyDigestStore
   };
 }
 
-export function writeDailyDigestStore(database: SqliteDatabase, store: DailyDigestStore): void {
+export function writeDailyDigestStore(
+  database: SqliteDatabase,
+  store: DailyDigestStore
+): void {
   clearTables(database, ["daily_digests"]);
 
   const insertDigest = database.prepare(`

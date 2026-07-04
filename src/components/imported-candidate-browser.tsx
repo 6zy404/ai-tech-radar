@@ -49,7 +49,8 @@ export function ImportedCandidateBrowser({
       );
 
     const matchesSourceType =
-      sourceTypeFilter.length === 0 || candidate.sourceType === sourceTypeFilter;
+      sourceTypeFilter.length === 0 ||
+      candidate.sourceType === sourceTypeFilter;
     const matchesNormalizedType =
       normalizedTypeFilter.length === 0 ||
       candidate.normalizedType === normalizedTypeFilter;

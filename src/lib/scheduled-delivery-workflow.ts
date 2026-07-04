@@ -93,11 +93,7 @@ function normalizeTriggerType(value: unknown): ScheduledDeliveryTriggerType {
 function normalizeChannelIds(value: unknown): string[] {
   if (Array.isArray(value)) {
     return Array.from(
-      new Set(
-        value
-          .map((item) => String(item).trim())
-          .filter(Boolean)
-      )
+      new Set(value.map((item) => String(item).trim()).filter(Boolean))
     );
   }
 
@@ -119,7 +115,9 @@ function isValidDateString(value: string | undefined): boolean {
   return Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value));
 }
 
-function parseScheduleTime(value: string): { hour: number; minute: number } | undefined {
+function parseScheduleTime(
+  value: string
+): { hour: number; minute: number } | undefined {
   const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(value);
 
   if (!match) {
@@ -210,7 +208,8 @@ export function computeNextRunAt(
 function normalizeSchedule(record: Record<string, unknown>): ScheduledDelivery {
   const now = getTimestamp();
   const scheduleTime =
-    typeof record.scheduleTime === "string" && parseScheduleTime(record.scheduleTime)
+    typeof record.scheduleTime === "string" &&
+    parseScheduleTime(record.scheduleTime)
       ? record.scheduleTime
       : "09:00";
   const timezone =
@@ -253,7 +252,9 @@ function normalizeSchedule(record: Record<string, unknown>): ScheduledDelivery {
   return schedule;
 }
 
-function normalizeScheduleRun(record: Record<string, unknown>): ScheduledDeliveryRun {
+function normalizeScheduleRun(
+  record: Record<string, unknown>
+): ScheduledDeliveryRun {
   const now = getTimestamp();
 
   return {
@@ -262,7 +263,8 @@ function normalizeScheduleRun(record: Record<string, unknown>): ScheduledDeliver
         ? record.id
         : `scheduled-delivery-run-${randomUUID()}`,
     scheduleId: typeof record.scheduleId === "string" ? record.scheduleId : "",
-    scheduleName: typeof record.scheduleName === "string" ? record.scheduleName : "",
+    scheduleName:
+      typeof record.scheduleName === "string" ? record.scheduleName : "",
     digestId: typeof record.digestId === "string" ? record.digestId : undefined,
     digestDate:
       typeof record.digestDate === "string" ? record.digestDate : undefined,
@@ -306,7 +308,9 @@ function readScheduleStore(): ScheduledDeliveryStore {
       normalizeSchedule(schedule as unknown as Record<string, unknown>)
     ),
     runs: (store.runs ?? [])
-      .map((run) => normalizeScheduleRun(run as unknown as Record<string, unknown>))
+      .map((run) =>
+        normalizeScheduleRun(run as unknown as Record<string, unknown>)
+      )
       .sort((left, right) => right.startedAt.localeCompare(left.startedAt))
   };
 }
@@ -334,7 +338,10 @@ function validateScheduledDeliveryInput(input: ScheduledDeliveryInput) {
     issues.push("Digest target is not supported.");
   }
 
-  if (input.digestTarget === "digest_by_date" && !isValidDateString(input.digestDate)) {
+  if (
+    input.digestTarget === "digest_by_date" &&
+    !isValidDateString(input.digestDate)
+  ) {
     issues.push("Digest date is required for digest_by_date schedules.");
   }
 
@@ -365,7 +372,8 @@ export function coerceScheduledDeliveryInput(
     digestDate: String(record.digestDate ?? "").trim() || undefined,
     channelIds: normalizeChannelIds(record.channelIds),
     scheduleTime: String(record.scheduleTime ?? "09:00").trim(),
-    timezone: String(record.timezone ?? defaultTimezone).trim() || defaultTimezone
+    timezone:
+      String(record.timezone ?? defaultTimezone).trim() || defaultTimezone
   };
 }
 
@@ -376,7 +384,9 @@ export function getScheduledDeliveries(): ScheduledDelivery[] {
 export function getScheduledDeliveryById(
   scheduleId: string
 ): ScheduledDelivery | undefined {
-  return getScheduledDeliveries().find((schedule) => schedule.id === scheduleId);
+  return getScheduledDeliveries().find(
+    (schedule) => schedule.id === scheduleId
+  );
 }
 
 export function getScheduledDeliveryRuns(): ScheduledDeliveryRun[] {
@@ -386,10 +396,14 @@ export function getScheduledDeliveryRuns(): ScheduledDeliveryRun[] {
 export function getScheduledDeliveryRunsForSchedule(
   scheduleId: string
 ): ScheduledDeliveryRun[] {
-  return getScheduledDeliveryRuns().filter((run) => run.scheduleId === scheduleId);
+  return getScheduledDeliveryRuns().filter(
+    (run) => run.scheduleId === scheduleId
+  );
 }
 
-export function getDueScheduledDeliveries(now = new Date()): ScheduledDelivery[] {
+export function getDueScheduledDeliveries(
+  now = new Date()
+): ScheduledDelivery[] {
   return getScheduledDeliveries().filter((schedule) => {
     if (!schedule.enabled) {
       return false;
@@ -401,7 +415,9 @@ export function getDueScheduledDeliveries(now = new Date()): ScheduledDelivery[]
 
     const nextRunAt = new Date(schedule.nextRunAt);
 
-    return !Number.isNaN(nextRunAt.getTime()) && nextRunAt.getTime() <= now.getTime();
+    return (
+      !Number.isNaN(nextRunAt.getTime()) && nextRunAt.getTime() <= now.getTime()
+    );
   });
 }
 
@@ -507,7 +523,9 @@ export function setScheduledDeliveryEnabled(
   return nextSchedule;
 }
 
-function resolveDigestForSchedule(schedule: ScheduledDelivery): DailyDigest | undefined {
+function resolveDigestForSchedule(
+  schedule: ScheduledDelivery
+): DailyDigest | undefined {
   if (schedule.digestTarget === "digest_by_date") {
     return schedule.digestDate
       ? getDailyDigestByDate(schedule.digestDate)
@@ -590,7 +608,10 @@ function persistScheduledDeliveryRun(
   const nextSchedule: ScheduledDelivery = {
     ...schedule,
     lastRunAt: run.finishedAt,
-    nextRunAt: computeNextRunAt(schedule, new Date(run.finishedAt ?? run.startedAt)),
+    nextRunAt: computeNextRunAt(
+      schedule,
+      new Date(run.finishedAt ?? run.startedAt)
+    ),
     lastRunStatus: run.status,
     lastRunMessage: run.message,
     updatedAt: getTimestamp()
@@ -609,7 +630,8 @@ function persistScheduledDeliveryRun(
     entityType: "scheduled_delivery",
     entityId: schedule.id,
     action: run.status === "failed" ? "schedule.run_failed" : "schedule.run",
-    actorType: run.triggerType === "scheduled" ? "task_runner" : "workspace_user",
+    actorType:
+      run.triggerType === "scheduled" ? "task_runner" : "workspace_user",
     beforeSnapshot: schedule,
     afterSnapshot: nextSchedule,
     metadata: {
@@ -693,7 +715,11 @@ export async function runScheduleById(
 
   const previouslySentChannelIds =
     !force && triggerType === "scheduled"
-      ? getPreviouslySentScheduledChannelIds(schedule, digest, new Date(startedAt))
+      ? getPreviouslySentScheduledChannelIds(
+          schedule,
+          digest,
+          new Date(startedAt)
+        )
       : new Set<string>();
   let successfulChannels = 0;
   let failedChannels = 0;
@@ -703,7 +729,11 @@ export async function runScheduleById(
   for (const channelId of uniqueChannelIds) {
     const channel = getDeliveryChannelById(channelId);
 
-    if (!channel || !channel.enabled || previouslySentChannelIds.has(channelId)) {
+    if (
+      !channel ||
+      !channel.enabled ||
+      previouslySentChannelIds.has(channelId)
+    ) {
       skippedChannels += 1;
       continue;
     }

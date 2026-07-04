@@ -184,7 +184,9 @@ export function resetSqliteDatabase(): void {
   initializeSqliteDatabase();
 }
 
-export function getSqliteSchemaStats(database = openSqliteDatabase()): SqliteSchemaStats[] {
+export function getSqliteSchemaStats(
+  database = openSqliteDatabase()
+): SqliteSchemaStats[] {
   const shouldClose = arguments.length === 0;
 
   try {
@@ -205,10 +207,7 @@ export function getSqliteSchemaStats(database = openSqliteDatabase()): SqliteSch
   }
 }
 
-export function readSqliteJsonStore<T>(
-  fileName: string,
-  fallbackValue: T
-): T {
+export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
   const database = openSqliteDatabase();
 
   try {
@@ -261,13 +260,19 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
           );
           break;
         case "candidate-review-state.json":
-          writeCandidateReviewState(database, value as CandidateReviewStateFile);
+          writeCandidateReviewState(
+            database,
+            value as CandidateReviewStateFile
+          );
           break;
         case "duplicate-groups.json":
           writeDuplicateGroupStore(database, value as DuplicateGroupStore);
           break;
         case "technology-workspace.json":
-          writeTechnologyWorkspaceStore(database, value as TechnologyWorkspaceStore);
+          writeTechnologyWorkspaceStore(
+            database,
+            value as TechnologyWorkspaceStore
+          );
           break;
         case "daily-digests.json":
           writeDailyDigestStore(database, value as DailyDigestStore);
@@ -276,7 +281,10 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
           writeDeliveryStore(database, value as DeliveryStore);
           break;
         case "scheduled-delivery.json":
-          writeScheduledDeliveryStore(database, value as ScheduledDeliveryStore);
+          writeScheduledDeliveryStore(
+            database,
+            value as ScheduledDeliveryStore
+          );
           break;
         case "task-runner.json":
           writeTaskRunnerStore(database, value as TaskRunnerStore);
@@ -356,7 +364,10 @@ export function migrateJsonStoresToSqlite(stores: {
       );
       writePromptVersionStore(
         database,
-        stores.promptVersions ?? { updatedAt: getTimestamp(), promptVersions: [] }
+        stores.promptVersions ?? {
+          updatedAt: getTimestamp(),
+          promptVersions: []
+        }
       );
       seedStaticContent(database);
     });
@@ -633,7 +644,11 @@ function seedStaticContent(database: SqliteDatabase): void {
   }
 
   for (const knowledge of knowledgeItems) {
-    insertKnowledge.run(knowledge.id, knowledge.slug, JSON.stringify(knowledge));
+    insertKnowledge.run(
+      knowledge.id,
+      knowledge.slug,
+      JSON.stringify(knowledge)
+    );
   }
 
   for (const skill of skillItems) {

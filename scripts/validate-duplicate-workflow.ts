@@ -40,7 +40,10 @@ const technologyWorkspaceStorePath = path.join(
   configDirPath,
   "technology-workspace.json"
 );
-const duplicateGroupStorePath = path.join(configDirPath, "duplicate-groups.json");
+const duplicateGroupStorePath = path.join(
+  configDirPath,
+  "duplicate-groups.json"
+);
 
 const internalOnlyFields = [
   "rawPayload",
@@ -78,7 +81,8 @@ function writeJsonFile(filePath: string, value: unknown) {
 }
 
 function buildCandidate(
-  overrides: Partial<ImportedCandidate> & Pick<ImportedCandidate, "id" | "originalTitle">
+  overrides: Partial<ImportedCandidate> &
+    Pick<ImportedCandidate, "id" | "originalTitle">
 ): ImportedCandidate {
   const sourceType = overrides.sourceType ?? "rss-feed";
   const sourceName = overrides.sourceName ?? "Validation Source";
@@ -105,11 +109,10 @@ function buildCandidate(
     tags: overrides.tags ?? ["validation", "duplicate"],
     importStatus: overrides.importStatus ?? "new",
     relatedCandidateIds: overrides.relatedCandidateIds ?? [],
-    rawPayload:
-      overrides.rawPayload ?? {
-        canonicalUrl: sourceUrl,
-        sourceId: overrides.sourceId ?? "validation-source"
-      }
+    rawPayload: overrides.rawPayload ?? {
+      canonicalUrl: sourceUrl,
+      sourceId: overrides.sourceId ?? "validation-source"
+    }
   };
 }
 
@@ -153,7 +156,8 @@ function resetValidationStores() {
       sourceId: "validation-github",
       sourceType: "github-release",
       sourceName: "Validation GitHub Releases",
-      sourceUrl: "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v1.2.0",
+      sourceUrl:
+        "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v1.2.0",
       originalTitle: "TypeScript SDK v1.2.0 release",
       publisherName: "modelcontextprotocol",
       publishDate: "2026-05-10",
@@ -172,7 +176,8 @@ function resetValidationStores() {
       sourceId: "validation-github",
       sourceType: "github-release",
       sourceName: "Validation GitHub Releases",
-      sourceUrl: "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v1.2.1",
+      sourceUrl:
+        "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v1.2.1",
       originalTitle: "TypeScript SDK v1.2.1 release",
       publisherName: "modelcontextprotocol",
       publishDate: "2026-05-12",
@@ -212,7 +217,8 @@ function resetValidationStores() {
         id: "validation-github",
         sourceType: "github-release",
         sourceName: "Validation GitHub Releases",
-        sourceUrl: "https://github.com/modelcontextprotocol/typescript-sdk/releases",
+        sourceUrl:
+          "https://github.com/modelcontextprotocol/typescript-sdk/releases",
         syncStatus: "fallback",
         itemCount: 2,
         fetchedAt: new Date().toISOString()
@@ -276,7 +282,11 @@ function main() {
 
     const { candidates, duplicateGroups } = getCandidateWorkflowData();
 
-    assert.equal(candidates.length, 6, "Expected validation candidates to load.");
+    assert.equal(
+      candidates.length,
+      6,
+      "Expected validation candidates to load."
+    );
     assert.ok(
       duplicateGroups.length >= 3,
       "Expected duplicate groups to be generated."
@@ -339,9 +349,8 @@ function main() {
       "Expected non-primary duplicate to link to the generated draft."
     );
 
-    const publishableDraft: TechnologyWorkspaceRecord = updateTechnologyWorkspaceRecord(
-      draft.id,
-      {
+    const publishableDraft: TechnologyWorkspaceRecord =
+      updateTechnologyWorkspaceRecord(draft.id, {
         slug: "validation-duplicate-review-draft",
         title: {
           original: "Validation duplicate review draft"
@@ -358,8 +367,7 @@ function main() {
         relatedKnowledgeIds: ["knowledge-tool-use"],
         relatedSkillIds: ["skill-agent-design"],
         editorialNotes: ["Duplicate review validation completed."]
-      }
-    );
+      });
 
     updateTechnologyWorkspaceStatus(publishableDraft.id, "published");
 

@@ -128,13 +128,13 @@ The step 2 entry above previously described this as needing "fresh dependency
 analysis" to decide whether "candidate → draft conversion" and "draft
 publish/archive transitions" could split into two modules. That framing
 turned out to be the wrong cut. Conversion (`convertImportedCandidateToDraft`,
-`getCandidateDraftConversionReadiness`) is inherently a *candidate-side*
+`getCandidateDraftConversionReadiness`) is inherently a _candidate-side_
 operation — its primary side effect is mutating candidate review state, which
 is private to `candidate-workflow.ts` — so it cannot be separated from
 candidate review without exposing that private state. But conversion and
 publish/archive turned out **not** to depend on each other in the direction
 that matters: publish/archive/CRUD on `TechnologyWorkspaceRecord` never reads
-candidate or duplicate-group data, so *that* half is a clean, self-contained
+candidate or duplicate-group data, so _that_ half is a clean, self-contained
 cut. Conversion keeps one call into it (`getTechnologyWorkspaceRecordById`,
 for idempotency) — a one-directional import, not a cycle.
 
@@ -174,7 +174,7 @@ following the exact same pattern:
   `getDefaultDigestTitle`, `uniqueIds`, `normalizeDigest`,
   `readDailyDigestStore`, and `writeDailyDigestStore`. Unlike the
   candidate-workflow extractions, several of these (`getTodayDateString`,
-  `uniqueIds`) are small pure helpers used throughout the *rest* of
+  `uniqueIds`) are small pure helpers used throughout the _rest_ of
   `digest-workflow.ts`'s business logic too, not just inside the store
   functions — they moved along with the store because they have no
   dependencies of their own, and `digest-workflow.ts` now imports them back

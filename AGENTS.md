@@ -1,17 +1,20 @@
 # AGENTS.md
 
 ## Project identity
+
 This project is a platform for helping users quickly understand which new
 technologies are worth paying attention to first.
 
 It is not a generic news site.
 It must connect:
+
 - new technologies
 - hot skills
 - classic knowledge
 - links between new and old concepts
 
 ## Current phase
+
 The project is well past the original foundation phase. It is now a working
 local-first prototype with two subsystems:
 
@@ -27,6 +30,7 @@ history lives in `CHANGELOG.md`. Treat those two files as the source of truth fo
 "what already exists" before starting new work.
 
 ## What is intentionally NOT implemented yet
+
 These remain out of scope and should not be added without an explicit request:
 
 - AI black-box / personalized ranking and recommendation
@@ -43,6 +47,7 @@ the default store. The local JSON store does not provide multi-writer locking,
 role-based permissions, or production secret handling.
 
 ## Working rules
+
 1. Keep scope tight; do not expand a task beyond what was asked.
 2. Prefer simple and maintainable implementation.
 3. Follow existing repository conventions.
@@ -56,6 +61,7 @@ role-based permissions, or production secret handling.
    audit events, or workspace tokens) onto user-facing pages or public feeds.
 
 ## Product rules
+
 1. Do not turn the project into a generic AI news portal.
 2. Preserve the distinction between:
    - TechnologyItem
@@ -64,12 +70,15 @@ role-based permissions, or production secret handling.
 3. Make relationships between these entities visible in the UI.
 
 ## Documentation rules
+
 Whenever you add or change structure, also document it. At minimum:
+
 - update `README.md` (current capabilities, routes, commands)
 - add a dated entry to `CHANGELOG.md` for any new feature version
 - update the relevant file under `docs/` (data model, page structure, etc.)
 
 ## Project Context Recovery
+
 Long-term project context must live in repository documents, not in chat history.
 New sessions should start from:
 

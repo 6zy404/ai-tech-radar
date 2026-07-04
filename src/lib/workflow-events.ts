@@ -161,7 +161,9 @@ export function recordWorkflowError(
   }
 ): WorkflowEvent {
   const message =
-    input.error instanceof Error ? input.error.message : "Unknown workflow error.";
+    input.error instanceof Error
+      ? input.error.message
+      : "Unknown workflow error.";
 
   return recordWorkflowEvent({
     ...input,

@@ -21,7 +21,8 @@ export async function POST() {
       run
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown refresh error.";
+    const message =
+      error instanceof Error ? error.message : "Unknown refresh error.";
 
     return NextResponse.json({ ok: false, message }, { status: 500 });
   }

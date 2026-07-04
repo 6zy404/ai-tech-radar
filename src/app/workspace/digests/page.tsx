@@ -9,7 +9,9 @@ export const dynamic = "force-dynamic";
 
 export default function WorkspaceDigestsPage() {
   const digests = getDailyDigests();
-  const draftCount = digests.filter((digest) => digest.status === "draft").length;
+  const draftCount = digests.filter(
+    (digest) => digest.status === "draft"
+  ).length;
   const publishedCount = digests.filter(
     (digest) => digest.status === "published"
   ).length;
@@ -25,7 +27,10 @@ export default function WorkspaceDigestsPage() {
     >
       <GenerateDigestAction date={getTodayDateString()} />
 
-      <section className="workspace-status-overview" aria-label="Digest status overview">
+      <section
+        className="workspace-status-overview"
+        aria-label="Digest status overview"
+      >
         <div className="workspace-status-overview__card">
           <span>Draft digests</span>
           <strong>{draftCount}</strong>

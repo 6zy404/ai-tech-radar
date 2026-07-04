@@ -66,7 +66,9 @@ export function ContentNetworkGraph({
     [positioned]
   );
 
-  const selectedNode = selectedId ? (positionById.get(selectedId) ?? null) : null;
+  const selectedNode = selectedId
+    ? (positionById.get(selectedId) ?? null)
+    : null;
 
   const selectedEdges = useMemo(() => {
     if (!selectedId) {
@@ -226,9 +228,7 @@ export function ContentNetworkGraph({
                 ))}
               </ul>
             ) : (
-              <p className="content-network__panel-empty">
-                暂无已记录的连接。
-              </p>
+              <p className="content-network__panel-empty">暂无已记录的连接。</p>
             )}
           </>
         ) : (

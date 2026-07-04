@@ -86,7 +86,9 @@ export const defaultTechnologyComparisonPromptVersion: PromptVersion = {
     "Default v1 prompt for the public-facing technology comparison feature."
 };
 
-function getDefaultPromptVersionForPurpose(purpose: PromptPurpose): PromptVersion {
+function getDefaultPromptVersionForPurpose(
+  purpose: PromptPurpose
+): PromptVersion {
   return purpose === "technology_comparison"
     ? defaultTechnologyComparisonPromptVersion
     : defaultEditorialEnrichmentPromptVersion;
@@ -142,7 +144,10 @@ export function getPromptVersions(): PromptVersion[] {
 
   return store.promptVersions.length > 0
     ? store.promptVersions
-    : [defaultEditorialEnrichmentPromptVersion, defaultTechnologyComparisonPromptVersion];
+    : [
+        defaultEditorialEnrichmentPromptVersion,
+        defaultTechnologyComparisonPromptVersion
+      ];
 }
 
 export function getPromptVersionById(
@@ -151,9 +156,7 @@ export function getPromptVersionById(
   return getPromptVersions().find((prompt) => prompt.id === promptVersionId);
 }
 
-export function getActivePromptVersion(
-  purpose: PromptPurpose
-): PromptVersion {
+export function getActivePromptVersion(purpose: PromptPurpose): PromptVersion {
   const promptVersions = getPromptVersions();
   const activePrompt = promptVersions.find(
     (prompt) => prompt.purpose === purpose && prompt.status === "active"

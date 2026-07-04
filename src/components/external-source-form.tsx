@@ -41,7 +41,9 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
 
       try {
         const response = await fetch(
-          isEditing ? `/api/workspace/sources/${source?.id}` : "/api/workspace/sources",
+          isEditing
+            ? `/api/workspace/sources/${source?.id}`
+            : "/api/workspace/sources",
           {
             method: isEditing ? "PATCH" : "POST",
             headers: {
@@ -74,7 +76,9 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
         }
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "External source save failed."
+          error instanceof Error
+            ? error.message
+            : "External source save failed."
         );
       }
     });
@@ -192,7 +196,9 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
         </button>
       </div>
 
-      {message ? <p className="candidate-review-actions__message">{message}</p> : null}
+      {message ? (
+        <p className="candidate-review-actions__message">{message}</p>
+      ) : null}
     </form>
   );
 }

@@ -151,7 +151,9 @@ export default function WorkspaceOperationsPage() {
             ))}
           </div>
         ) : (
-          <p className="empty-state">No operation currently requires attention.</p>
+          <p className="empty-state">
+            No operation currently requires attention.
+          </p>
         )}
       </section>
 
@@ -201,7 +203,9 @@ export default function WorkspaceOperationsPage() {
             <div className="section-heading">
               <div>
                 <h2>Failed deliveries</h2>
-                <p>Delivery attempts that returned failed status or error output.</p>
+                <p>
+                  Delivery attempts that returned failed status or error output.
+                </p>
               </div>
             </div>
             {operations.failedDeliveries.length > 0 ? (
@@ -239,7 +243,9 @@ export default function WorkspaceOperationsPage() {
             <div className="section-heading">
               <div>
                 <h2>Failed scheduled runs</h2>
-                <p>Schedule executions with failed or partial channel results.</p>
+                <p>
+                  Schedule executions with failed or partial channel results.
+                </p>
               </div>
             </div>
             {operations.failedScheduledRuns.length > 0 ? (
@@ -298,14 +304,20 @@ export default function WorkspaceOperationsPage() {
                   >
                     <div>
                       <strong>{getEventSummary(event.action)}</strong>
-                      <p>{sanitizeOperationsText(event.metadata?.message ?? event.actorType)}</p>
+                      <p>
+                        {sanitizeOperationsText(
+                          event.metadata?.message ?? event.actorType
+                        )}
+                      </p>
                     </div>
                     <span>{formatDateTime(event.createdAt)}</span>
                   </Link>
                 ))}
               </div>
             ) : (
-              <p className="empty-state">No workflow event has been recorded yet.</p>
+              <p className="empty-state">
+                No workflow event has been recorded yet.
+              </p>
             )}
           </section>
         </aside>

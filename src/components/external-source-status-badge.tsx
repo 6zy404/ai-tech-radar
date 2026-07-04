@@ -1,6 +1,4 @@
-import {
-  getExternalSourceImportStatusLabel
-} from "@/lib/source-display";
+import { getExternalSourceImportStatusLabel } from "@/lib/source-display";
 import type { ExternalSourceImportStatus } from "@/types/content";
 
 interface ExternalSourceStatusBadgeProps {

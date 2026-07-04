@@ -47,7 +47,11 @@ export function getImportedCandidateNormalizedTypeLabel(
 export function getImportedCandidatePreviewText(
   candidate: ImportedCandidate
 ): string {
-  return candidate.originalSummary ?? candidate.originalContent ?? "No summary available.";
+  return (
+    candidate.originalSummary ??
+    candidate.originalContent ??
+    "No summary available."
+  );
 }
 
 export function getImportedCandidateSearchText(
@@ -69,7 +73,9 @@ export function getImportedCandidateSearchText(
     .toLowerCase();
 }
 
-export function getImportedCandidateDuplicateLabel(candidate: ImportedCandidate): string {
+export function getImportedCandidateDuplicateLabel(
+  candidate: ImportedCandidate
+): string {
   const duplicateCount = candidate.relatedCandidateIds.length;
 
   if (duplicateCount === 0) {

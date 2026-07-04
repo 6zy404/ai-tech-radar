@@ -41,7 +41,9 @@ export function ImportedCandidateDetailContent({
   ranking,
   workflowEvents
 }: ImportedCandidateDetailContentProps) {
-  const conversionReadiness = getCandidateDraftConversionReadiness(candidate.id);
+  const conversionReadiness = getCandidateDraftConversionReadiness(
+    candidate.id
+  );
 
   return (
     <div className="candidate-review-page">
@@ -127,14 +129,22 @@ export function ImportedCandidateDetailContent({
                       />
                     </div>
                     <h3>
-                      <Link href={`/workspace/candidates/${comparison.candidate.id}`}>
+                      <Link
+                        href={`/workspace/candidates/${comparison.candidate.id}`}
+                      >
                         {comparison.candidate.originalTitle}
                       </Link>
                     </h3>
-                    <p>{comparison.candidate.originalSummary ?? "No summary available."}</p>
+                    <p>
+                      {comparison.candidate.originalSummary ??
+                        "No summary available."}
+                    </p>
                     <div className="candidate-duplicate-item__reasons">
                       {comparison.reasons.map((reason) => (
-                        <span key={reason} className="info-pill info-pill--subtle">
+                        <span
+                          key={reason}
+                          className="info-pill info-pill--subtle"
+                        >
                           {getDuplicateReasonLabel(reason)}
                         </span>
                       ))}
@@ -219,7 +229,9 @@ export function ImportedCandidateDetailContent({
               {
                 label: "Priority",
                 value: (
-                  <span className={getPriorityLevelClass(ranking.priorityLevel)}>
+                  <span
+                    className={getPriorityLevelClass(ranking.priorityLevel)}
+                  >
                     {getPriorityLevelLabel(ranking.priorityLevel)}
                   </span>
                 )
@@ -247,7 +259,11 @@ export function ImportedCandidateDetailContent({
               },
               {
                 label: "Current status",
-                value: <ImportedCandidateStatusBadge status={candidate.importStatus} />
+                value: (
+                  <ImportedCandidateStatusBadge
+                    status={candidate.importStatus}
+                  />
+                )
               },
               {
                 label: "Reviewed at",
@@ -283,7 +299,8 @@ export function ImportedCandidateDetailContent({
               },
               {
                 label: "Tags",
-                value: candidate.tags.length > 0 ? candidate.tags.join(", ") : "None"
+                value:
+                  candidate.tags.length > 0 ? candidate.tags.join(", ") : "None"
               }
             ]}
           />

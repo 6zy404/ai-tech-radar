@@ -11,7 +11,9 @@ export interface PromptVersionStore {
   promptVersions: PromptVersion[];
 }
 
-export function readPromptVersionStore(database: SqliteDatabase): PromptVersionStore {
+export function readPromptVersionStore(
+  database: SqliteDatabase
+): PromptVersionStore {
   return {
     updatedAt: getTimestamp(),
     promptVersions: selectPayloads<PromptVersion>(

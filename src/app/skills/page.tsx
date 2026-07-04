@@ -233,14 +233,16 @@ export default function SkillsPage() {
                         {relatedTechnologies.length > 0 ? (
                           <div className="skill-library-card__signals">
                             <span>用这些来练习</span>
-                            {relatedTechnologies.slice(0, 2).map((technology) => (
-                              <Link
-                                href={`/technologies/${technology.slug}`}
-                                key={technology.id}
-                              >
-                                {getPreferredTechnologyTitle(technology)}
-                              </Link>
-                            ))}
+                            {relatedTechnologies
+                              .slice(0, 2)
+                              .map((technology) => (
+                                <Link
+                                  href={`/technologies/${technology.slug}`}
+                                  key={technology.id}
+                                >
+                                  {getPreferredTechnologyTitle(technology)}
+                                </Link>
+                              ))}
                           </div>
                         ) : null}
                         {tags.length > 0 ? (

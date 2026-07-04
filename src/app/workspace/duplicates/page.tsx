@@ -7,7 +7,9 @@ export const dynamic = "force-dynamic";
 
 export default function WorkspaceDuplicatesPage() {
   const { candidates, duplicateGroups } = getCandidateWorkflowData();
-  const openCount = duplicateGroups.filter((group) => group.status === "open").length;
+  const openCount = duplicateGroups.filter(
+    (group) => group.status === "open"
+  ).length;
   const resolvedCount = duplicateGroups.filter(
     (group) => group.status === "resolved"
   ).length;

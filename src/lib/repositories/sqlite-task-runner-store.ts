@@ -21,7 +21,10 @@ export function readTaskRunnerStore(database: SqliteDatabase): TaskRunnerStore {
   };
 }
 
-export function writeTaskRunnerStore(database: SqliteDatabase, store: TaskRunnerStore): void {
+export function writeTaskRunnerStore(
+  database: SqliteDatabase,
+  store: TaskRunnerStore
+): void {
   clearTables(database, ["task_runs"]);
 
   const insertRun = database.prepare(`
