@@ -6,11 +6,12 @@
 > Compare two technologies, has shipped as v0. Explain and learning-path
 > generation remain unauthorized and should not be started without a fresh
 > explicit request from the owner; P4 (personalization) is untouched and
-> still requires explicit authorization. Until further P3/P4 direction is
-> given, the main remaining interleaved work is the SQLite storage-model
-> decision (see "Later" below) — the store-decomposition pattern has been
-> applied to every file it was planned for, and the ESLint/Prettier config
-> has now shipped too (see "ESLint + Prettier config (done)" below).
+> still requires explicit authorization. The tracked code-debt list is now
+> empty: the store-decomposition pattern has been applied to every file it was
+> planned for, the ESLint/Prettier config has shipped, and the SQLite
+> storage-model decision has been made (document store by design — see
+> `docs/decisions.md`). Further work waits on explicit P3/P4 direction from
+> the owner.
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
@@ -51,9 +52,11 @@ Every file originally flagged for the store-decomposition pattern
 every page ever flagged for visual confirmation (workspace and user-facing)
 has had its desktop+mobile pass — see the sections below for each. The
 linting/formatting config (ESLint + Prettier) has also shipped — see "ESLint +
-Prettier config (done)" below. The remaining tracked code debt is the SQLite
-storage-model decision under "Later"; beyond that, new product work waits on
-explicit P3/P4 direction from the owner.
+Prettier config (done)" below. The SQLite storage-model decision has also been
+made and recorded (2026-07-05): the driver stays a document store by design —
+see `docs/decisions.md` → "SQLite Storage Model" and the storage-model note in
+`docs/database-migration.md`. With that, the tracked code-debt list is empty;
+new product work waits on explicit P3/P4 direction from the owner.
 
 The pre-existing `npm run validate:delivery` fixture mismatch flagged above is
 now fixed: the script's fixture digest title (`Delivery validation digest ...`)
@@ -264,7 +267,23 @@ dev dependencies were installed via `registry.npmmirror.com` with the
 owner's approval and `package-lock.json` `resolved` URLs normalized back to
 the official registry (integrity hashes are identical between the two).
 
+## SQLite storage-model decision (done)
+
+Previously the last "Later" item ("decide whether the SQLite driver should
+move from JSON-blob storage to real relational tables, or be documented
+honestly as a document store"). Decided 2026-07-05 with the owner: **the
+driver stays a document store, documented honestly.** Analysis confirmed the
+driver's reads/writes move whole domain stores (`SELECT payload` /
+clear-and-reinsert) exactly matching the JSON-file contract, and no business
+code queries the denormalized key columns. A relational move would require
+per-record repository semantics across every workflow module — production
+database work `AGENTS.md` keeps out of scope — while the default JSON driver
+kept the old semantics. Recorded in `docs/decisions.md` → "SQLite Storage
+Model", with aligned wording in `docs/database-migration.md` and
+`docs/data-model.md`. Revisit only when a production database migration is
+explicitly authorized.
+
 ## Later (not this task)
 
-- Decide whether the SQLite driver should move from JSON-blob storage to real
-  relational tables, or be documented honestly as a document store.
+- (empty — the tracked code-debt list is clear; new product work waits on
+  explicit P3/P4 direction from the owner)

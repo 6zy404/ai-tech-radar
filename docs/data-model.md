@@ -981,4 +981,10 @@ Each table keeps a full JSON `payload` plus key query columns such as `id`, `sta
 
 Static seed technologies, knowledge items, and skill items are seeded into SQLite for SQLite-mode reads. JSON mode continues to use the TypeScript data files and local JSON stores.
 
-The first SQLite driver does not fully normalize every relation. It prioritizes preserving existing workflow behavior and making the future database boundary replaceable.
+The SQLite driver is intentionally a **document store** (decided 2026-07-05,
+see `docs/decisions.md` → "SQLite Storage Model"): reads and writes move whole
+domain stores, matching the JSON-file contract, and the key columns/indexes
+are denormalized copies kept for future Postgres table-shape rehearsal and
+external SQL inspection, not for business queries. It prioritizes preserving
+existing workflow behavior and making the future database boundary
+replaceable.
