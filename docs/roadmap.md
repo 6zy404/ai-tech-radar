@@ -69,7 +69,7 @@ and the **User-facing Product** (public reading/discovery).
 | Area | Done | Remaining |
 |---|---|---|
 | Business pipeline / CMS | ~97% | Workspace visual confirmation and the code-debt decomposition pass are both done; remaining gap is a pre-existing `npm run validate:delivery` fixture mismatch (flagged separately, unrelated to recent work) and optional lint/format tooling |
-| User-facing visuals / design system | ~85% | finish the contrast pass; per-page mobile sweep |
+| User-facing visuals / design system | ~95% | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
 | User-facing content | ~90% | essentially localized |
 | Knowledge relationship network | 100% (P2 complete) | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2 |
 | AI assistance / personalization | P3 in progress (Compare v0 shipped) | Explain and learning-path generation not started; P4 personalization not started (still gated as out-of-scope without explicit request) |

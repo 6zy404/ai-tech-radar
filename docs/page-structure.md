@@ -556,15 +556,13 @@ Template boundary rules:
 - Empty states should describe what is missing and provide the next appropriate
   action for that surface. Public empty states must not send users to workspace.
 
-Pages left for later UI migration:
-
-- `/digest/today`
-- `/digest/[date]`
-- `/skills`
-- `/knowledge`
+Pages left for later UI migration: none — the list is empty.
 
 `/workspace/operations` (+ `/workspace/operations/events`), `/workspace/duplicates`
-(list + detail), and `/workspace/technologies` (list + detail) have since had a
-manual visual-confirmation pass at desktop and mobile widths (see
-`docs/next-task.md`) and are off this list; the remaining items above are all
-user-facing pages, not workspace pages.
+(list + detail), and `/workspace/technologies` (list + detail) had a manual
+visual-confirmation pass at desktop and mobile widths, and `/digest/today`,
+`/digest/[date]`, `/skills` (index + detail), and `/knowledge` (index + detail)
+have since had the same pass (layout stacking, horizontal overflow,
+internal-field leak scan, console errors — see `docs/next-task.md`). Every page
+that was ever on this list has now been confirmed against the current template
+standards.

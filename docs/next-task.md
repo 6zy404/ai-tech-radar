@@ -34,16 +34,24 @@
 > below) — every file originally flagged for this decomposition pattern has
 > now had it applied. Also found (via a `validate:*` regression sweep, not
 > caused by this work) and flagged a pre-existing `npm run validate:delivery`
-> failure for separate follow-up.
+> failure for separate follow-up. Most recently: a user-facing
+> visual-confirmation pass covering `/digest/today`, `/digest/[date]`,
+> `/skills` (index + detail), and `/knowledge` (index + detail) at desktop and
+> mobile widths — checking layout stacking, horizontal overflow, an
+> internal-field leak scan of rendered text, and console errors. No new bugs
+> found this round; this empties `docs/page-structure.md`'s "pages left for
+> later UI migration" list entirely.
 
 Recommended next task:
 
 Every file originally flagged for the store-decomposition pattern
 (`candidate-workflow.ts` → `technology-draft-workflow.ts`, `digest-workflow.ts`
-→ `digest-store.ts`, `sqlite-store.ts` → twelve domain files) is now done —
-see the sections below for each. What remains as code debt is
-linting/formatting config (ESLint + Prettier, see "Later" below) and the
-pre-existing `npm run validate:delivery` fixture mismatch flagged above.
+→ `digest-store.ts`, `sqlite-store.ts` → twelve domain files) is now done, and
+every page ever flagged for visual confirmation (workspace and user-facing)
+has had its desktop+mobile pass — see the sections below for each. What
+remains as code debt is linting/formatting config (ESLint + Prettier, see
+"Later" below) and the pre-existing `npm run validate:delivery` fixture
+mismatch flagged above.
 
 ## Progress so far
 
