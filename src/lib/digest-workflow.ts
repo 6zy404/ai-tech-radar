@@ -205,13 +205,6 @@ function isDigestManuallyAdjusted(digest: DailyDigest): boolean {
   );
 }
 
-function getAutoDigestContentIds(digest: DailyDigest): string[] {
-  return uniqueIds([
-    ...digest.highPriorityTechnologyIds,
-    ...digest.watchTechnologyIds
-  ]);
-}
-
 function getActiveDigestInputIds(digest: DailyDigest): string[] {
   const excludedIds = new Set(digest.excludedTechnologyIds);
 
