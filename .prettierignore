@@ -1,0 +1,14 @@
+# build output
+.next
+out
+node_modules
+.claude
+
+# runtime workflow state (local JSON stores, not source code)
+config
+
+# generated / external artifacts
+package-lock.json
+visual-qa-screenshots
+next-env.d.ts
+*.sqlite

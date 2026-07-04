@@ -7,9 +7,10 @@
 > generation remain unauthorized and should not be started without a fresh
 > explicit request from the owner; P4 (personalization) is untouched and
 > still requires explicit authorization. Until further P3/P4 direction is
-> given, adding ESLint/Prettier config (see "Later" below) is suitable
-> interleaved work — the store-decomposition pattern has now been applied to
-> every file it was planned for.
+> given, the main remaining interleaved work is the SQLite storage-model
+> decision (see "Later" below) — the store-decomposition pattern has been
+> applied to every file it was planned for, and the ESLint/Prettier config
+> has now shipped too (see "ESLint + Prettier config (done)" below).
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
@@ -48,9 +49,11 @@ Every file originally flagged for the store-decomposition pattern
 (`candidate-workflow.ts` → `technology-draft-workflow.ts`, `digest-workflow.ts`
 → `digest-store.ts`, `sqlite-store.ts` → twelve domain files) is now done, and
 every page ever flagged for visual confirmation (workspace and user-facing)
-has had its desktop+mobile pass — see the sections below for each. What
-remains as code debt is linting/formatting config (ESLint + Prettier, see
-"Later" below).
+has had its desktop+mobile pass — see the sections below for each. The
+linting/formatting config (ESLint + Prettier) has also shipped — see "ESLint +
+Prettier config (done)" below. The remaining tracked code debt is the SQLite
+storage-model decision under "Later"; beyond that, new product work waits on
+explicit P3/P4 direction from the owner.
 
 The pre-existing `npm run validate:delivery` fixture mismatch flagged above is
 now fixed: the script's fixture digest title (`Delivery validation digest ...`)
@@ -245,8 +248,23 @@ twelve):
   commit before this refactor via `git stash`) and flagged separately rather
   than fixed inline — not caused by this change.
 
+## ESLint + Prettier config (done)
+
+Previously the "Add linting/formatting config" item under "Later"; now shipped
+(see `CHANGELOG.md` → "Developer tooling" for the full description). In short:
+flat-config ESLint 9 (`eslint.config.mjs`, `next/core-web-vitals` +
+`next/typescript` + `eslint-config-prettier`), Prettier calibrated to the
+existing house style (`trailingComma: "none"`, `endOfLine: "auto"` for the
+CRLF working tree), `lint` / `lint:fix` / `format` / `format:check` scripts,
+and four dead-code removals surfaced by the first lint pass. `npm run lint`
+is clean; verified with `npm run typecheck`, `npm run test` (31/31),
+`validate:database`, and `validate:digest`. Note for future sessions:
+`registry.npmjs.org` was unreachable from this machine (TLS reset), so the
+dev dependencies were installed via `registry.npmmirror.com` with the
+owner's approval and `package-lock.json` `resolved` URLs normalized back to
+the official registry (integrity hashes are identical between the two).
+
 ## Later (not this task)
 
 - Decide whether the SQLite driver should move from JSON-blob storage to real
   relational tables, or be documented honestly as a document store.
-- Add linting/formatting config (ESLint + Prettier).

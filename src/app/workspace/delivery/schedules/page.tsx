@@ -8,7 +8,6 @@ import { ScheduledDeliveryForm } from "@/components/scheduled-delivery-form";
 import { WorkflowEventList } from "@/components/workflow-event-list";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
-import { getDeliveryChannelTypeLabel } from "@/lib/delivery-labels";
 import { getDeliveryChannels } from "@/lib/delivery-workflow";
 import {
   getScheduledDeliveries,

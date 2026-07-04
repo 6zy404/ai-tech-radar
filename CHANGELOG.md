@@ -207,3 +207,24 @@ For per-topic deep dives, see the `docs/` directory.
   a `technology_comparison` purpose alongside `editorial_enrichment`) and a
   newly shared `src/lib/llm/output-sanitization.ts` helper module extracted
   from the Editorial Enrichment output validator.
+
+## Developer tooling
+- **Linting & formatting config v0 (ESLint + Prettier)** — flat-config ESLint 9
+  (`eslint.config.mjs`) extending `next/core-web-vitals`, `next/typescript`,
+  and `eslint-config-prettier`, with `.claude/**`, `config/**`, and build
+  output ignored, `@typescript-eslint/no-require-imports` disabled for `.cjs`
+  scripts, and unused-vars tuned to allow `_`-prefixed bindings and
+  destructuring rest siblings. Prettier config (`.prettierrc.json` /
+  `.prettierignore`) is calibrated to the existing house style — double
+  quotes, semicolons, no trailing commas, 80 columns — plus `endOfLine:
+  "auto"` because the working tree is checked out with `core.autocrlf=true`
+  (CRLF), which Prettier's default `lf` setting would otherwise flag in every
+  file. New commands: `npm run lint`, `lint:fix`, `format`, `format:check`.
+  The first lint pass surfaced and removed four pieces of dead code (an
+  orphaned private `getAutoDigestContentIds` in `digest-workflow.ts` and
+  unused imports in `validate-database.ts` and the delivery schedules page).
+  Also fixed the pre-existing `validate:delivery` fixture mismatch: its
+  fixture digest copy contained the word "validation", which the public-copy
+  sanitizer (`src/lib/public-copy.ts`) intentionally rewrites out of public
+  digest titles, so the feed-title assertions failed; the fixture was renamed
+  to public-safe wording and the sanitizer left unchanged.

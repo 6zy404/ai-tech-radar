@@ -135,6 +135,10 @@ Open <http://localhost:3000>.
 ```bash
 npm run typecheck        # default verification
 npm run build
+npm run lint             # ESLint (next/core-web-vitals + next/typescript + prettier compat)
+npm run lint:fix         # ESLint with autofix
+npm run format:check     # Prettier check (no writes)
+npm run format           # Prettier write
 npm run sync:candidates  # refresh imported candidates from live sources
 
 # persistence / task runner
