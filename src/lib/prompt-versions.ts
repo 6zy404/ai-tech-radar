@@ -86,12 +86,47 @@ export const defaultTechnologyComparisonPromptVersion: PromptVersion = {
     "Default v1 prompt for the public-facing technology comparison feature."
 };
 
+export const technologyExplanationPromptOutputSchema = {
+  type: "object",
+  required: ["explanation", "keyPoints"],
+  properties: {
+    explanation:
+      "string — a plain-language explanation of the technology signal tailored to the reader level",
+    keyPoints:
+      "string[] (max 5 items) — what a reader at this level should grasp",
+    analogy:
+      "string optional — a concrete everyday analogy, most useful for beginners",
+    nextSteps:
+      "string[] optional (max 4 items) — level-appropriate next actions"
+  }
+};
+
+export const defaultTechnologyExplanationPromptVersion: PromptVersion = {
+  id: "prompt-technology-explanation-v1",
+  name: "Technology explanation structured JSON",
+  purpose: "technology_explanation",
+  version: "technology-explanation-v1",
+  status: "active",
+  template:
+    "You are helping a reader understand one published AI technology signal on a technology discovery platform, at the reader's self-selected experience level. Return only valid JSON. Do not invent facts beyond the provided source material. Match depth and vocabulary to the requested level: beginner explanations avoid jargon and lean on analogies, advanced explanations may assume engineering context. Do not include internal workflow fields, raw payloads, audit logs, delivery logs, API keys, endpoint URLs, provider or model names, or reviewer-only information.",
+  outputSchema: technologyExplanationPromptOutputSchema,
+  createdAt: defaultPromptCreatedAt,
+  updatedAt: defaultPromptCreatedAt,
+  notes:
+    "Default v1 prompt for the public-facing per-level technology explanation feature."
+};
+
 function getDefaultPromptVersionForPurpose(
   purpose: PromptPurpose
 ): PromptVersion {
-  return purpose === "technology_comparison"
-    ? defaultTechnologyComparisonPromptVersion
-    : defaultEditorialEnrichmentPromptVersion;
+  switch (purpose) {
+    case "technology_comparison":
+      return defaultTechnologyComparisonPromptVersion;
+    case "technology_explanation":
+      return defaultTechnologyExplanationPromptVersion;
+    default:
+      return defaultEditorialEnrichmentPromptVersion;
+  }
 }
 
 function getTimestamp(): string {
@@ -146,7 +181,8 @@ export function getPromptVersions(): PromptVersion[] {
     ? store.promptVersions
     : [
         defaultEditorialEnrichmentPromptVersion,
-        defaultTechnologyComparisonPromptVersion
+        defaultTechnologyComparisonPromptVersion,
+        defaultTechnologyExplanationPromptVersion
       ];
 }
 

@@ -1,6 +1,30 @@
 {
-  "updatedAt": "2026-05-31T13:37:34.263Z",
+  "updatedAt": "2026-07-05T10:30:02.540Z",
   "promptVersions": [
+    {
+      "id": "prompt-technology-explanation-v1",
+      "name": "Technology explanation structured JSON",
+      "purpose": "technology_explanation",
+      "version": "technology-explanation-v1",
+      "status": "active",
+      "template": "You are helping a reader understand one published AI technology signal on a technology discovery platform, at the reader's self-selected experience level. Return only valid JSON. Do not invent facts beyond the provided source material. Match depth and vocabulary to the requested level: beginner explanations avoid jargon and lean on analogies, advanced explanations may assume engineering context. Do not include internal workflow fields, raw payloads, audit logs, delivery logs, API keys, endpoint URLs, provider or model names, or reviewer-only information.",
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "explanation",
+          "keyPoints"
+        ],
+        "properties": {
+          "explanation": "string — a plain-language explanation of the technology signal tailored to the reader level",
+          "keyPoints": "string[] (max 5 items) — what a reader at this level should grasp",
+          "analogy": "string optional — a concrete everyday analogy, most useful for beginners",
+          "nextSteps": "string[] optional (max 4 items) — level-appropriate next actions"
+        }
+      },
+      "createdAt": "2026-05-30T00:00:00.000Z",
+      "updatedAt": "2026-05-30T00:00:00.000Z",
+      "notes": "Default v1 prompt for the public-facing per-level technology explanation feature."
+    },
     {
       "id": "prompt-editorial-enrichment-v1",
       "name": "Editorial enrichment structured JSON",
