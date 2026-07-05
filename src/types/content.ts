@@ -26,7 +26,10 @@ export type EditorialEnrichmentOutputValidationStatus =
 export type PromptVersionStatus = "active" | "draft" | "deprecated";
 
 export type PromptPurpose =
-  "editorial_enrichment" | "technology_comparison" | "technology_explanation";
+  | "editorial_enrichment"
+  | "technology_comparison"
+  | "technology_explanation"
+  | "technology_learning_path";
 
 export type EditorialEnrichmentReviewStatus =
   "unreviewed" | "accepted" | "partially_accepted" | "rejected";
@@ -354,6 +357,43 @@ export interface TechnologyExplanationPublicResult {
   technologyId: string;
   audienceLevel: TechnologyExplanationAudienceLevel;
   fields: TechnologyExplanationFields;
+  disclaimer: string;
+  generatedAt: string;
+}
+
+export type TechnologyLearningPathGenerationMode = "mock_llm" | "llm_assisted";
+
+export type TechnologyLearningPathOutputValidationStatus =
+  "valid" | "warning" | "failed";
+
+export interface TechnologyLearningPathFields {
+  overview: string;
+  steps: string[];
+  checkpoints?: string[];
+}
+
+// Persisted/cached record — internal shape, includes provider metadata.
+// Never send this directly to a public API response; see toPublicLearningPathResult.
+export interface TechnologyLearningPathRecord {
+  id: string;
+  technologyId: string;
+  fields: TechnologyLearningPathFields;
+  generationMode: TechnologyLearningPathGenerationMode;
+  providerName?: string;
+  modelName?: string;
+  promptVersionId?: string;
+  promptVersion?: string;
+  outputValidationStatus: TechnologyLearningPathOutputValidationStatus;
+  outputValidationWarnings: string[];
+  generationError?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Public-safe shape returned by the API route and consumed by the client widget.
+export interface TechnologyLearningPathPublicResult {
+  technologyId: string;
+  fields: TechnologyLearningPathFields;
   disclaimer: string;
   generatedAt: string;
 }

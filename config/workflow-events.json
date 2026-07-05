@@ -1,6 +1,55 @@
 {
-  "updatedAt": "2026-07-05T10:30:02.577Z",
+  "updatedAt": "2026-07-05T22:56:36.132Z",
   "events": [
+    {
+      "id": "workflow-event-7ddb8977-4cee-4537-9370-21dd4e618556",
+      "entityType": "technology_learning_path",
+      "entityId": "tech-mcp",
+      "action": "technology_learning_path.generated",
+      "actorType": "system",
+      "metadata": {
+        "generationMode": "mock_llm",
+        "providerName": "mock",
+        "modelName": "mock-technology-learning-path-v0",
+        "promptVersionId": "prompt-technology-learning-path-v1",
+        "outputValidationStatus": "valid"
+      },
+      "createdAt": "2026-07-05T22:56:36.132Z"
+    },
+    {
+      "id": "workflow-event-37f56f91-2922-431a-9bda-7feced0a83db",
+      "entityType": "technology_learning_path",
+      "entityId": "tech-mcp",
+      "action": "technology_learning_path.generated",
+      "actorType": "system",
+      "metadata": {
+        "generationMode": "mock_llm",
+        "providerName": "mock",
+        "modelName": "mock-technology-learning-path-v0",
+        "promptVersionId": "prompt-technology-learning-path-v1",
+        "outputValidationStatus": "valid"
+      },
+      "createdAt": "2026-07-05T22:55:51.323Z"
+    },
+    {
+      "id": "workflow-event-8f18a1fc-7d54-4ab8-a48f-37693aacc8c4",
+      "entityType": "prompt_version",
+      "entityId": "prompt-technology-learning-path-v1",
+      "action": "prompt_version.created",
+      "actorType": "system",
+      "afterSnapshot": {
+        "id": "prompt-technology-learning-path-v1",
+        "name": "Technology learning path structured JSON",
+        "purpose": "technology_learning_path",
+        "version": "technology-learning-path-v1",
+        "status": "active"
+      },
+      "metadata": {
+        "purpose": "technology_learning_path",
+        "version": "technology-learning-path-v1"
+      },
+      "createdAt": "2026-07-05T22:55:51.301Z"
+    },
     {
       "id": "workflow-event-4070402c-536f-4a2f-b986-e48529a504a8",
       "entityType": "technology_explanation",
@@ -36369,299 +36418,6 @@
         "nextStatus": "reviewed"
       },
       "createdAt": "2026-05-30T19:27:58.204Z"
-    },
-    {
-      "id": "workflow-event-c538a29f-fca9-47df-8ebd-122f0168cbdf",
-      "entityType": "technology_draft",
-      "entityId": "validation-warning-only-record",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T19:27:50.010Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:50.072Z",
-        "editorialNotes": []
-      },
-      "afterSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "watch",
-          "priorityScore": 57,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Tags are missing.",
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet.",
-            "Publisher is missing."
-          ],
-          "rankingUpdatedAt": "2026-05-30T19:27:50.120Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:50.120Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validation-warning-only-record"
-      },
-      "createdAt": "2026-05-30T19:27:50.132Z"
-    },
-    {
-      "id": "workflow-event-9d6baf6d-4a31-4bda-82c0-c7f964e11d55",
-      "entityType": "technology_draft",
-      "entityId": "validation-duplicate-slug-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-duplicate-slug-record",
-        "slug": "model-context-protocol",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/validation-duplicate-slug",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T19:27:50.010Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:50.072Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "blockingErrors": [
-          "duplicate-slug"
-        ]
-      },
-      "createdAt": "2026-05-30T19:27:50.108Z"
-    },
-    {
-      "id": "workflow-event-2682e686-b437-449e-bd68-db1f580b463c",
-      "entityType": "technology_draft",
-      "entityId": "validation-incomplete-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-incomplete-record",
-        "slug": "",
-        "title": {
-          "original": ""
-        },
-        "summary": {
-          "original": ""
-        },
-        "content": {
-          "original": ""
-        },
-        "type": "workflow",
-        "publishDate": "",
-        "sourceName": "",
-        "sourceUrl": "not-a-url",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T19:27:50.010Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T19:27:49.961Z",
-        "updatedAt": "2026-05-30T19:27:50.072Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "blockingErrors": [
-          "missing-title",
-          "missing-summary",
-          "missing-slug",
-          "missing-source-name",
-          "invalid-source-url",
-          "invalid-publish-date",
-          "missing-content"
-        ]
-      },
-      "createdAt": "2026-05-30T19:27:50.082Z"
     }
   ]
 }

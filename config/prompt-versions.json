@@ -1,6 +1,29 @@
 {
-  "updatedAt": "2026-07-05T10:30:02.540Z",
+  "updatedAt": "2026-07-05T22:55:51.288Z",
   "promptVersions": [
+    {
+      "id": "prompt-technology-learning-path-v1",
+      "name": "Technology learning path structured JSON",
+      "purpose": "technology_learning_path",
+      "version": "technology-learning-path-v1",
+      "status": "active",
+      "template": "You are helping a reader plan how to learn one published AI technology signal on a technology discovery platform. Build the path on the provided related background knowledge and related skills — reference them by name in the steps where they fit, and do not invent resources or facts beyond the provided source material. Order steps from foundation to application. Return only valid JSON. Do not include internal workflow fields, raw payloads, audit logs, delivery logs, API keys, endpoint URLs, provider or model names, or reviewer-only information.",
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "overview",
+          "steps"
+        ],
+        "properties": {
+          "overview": "string — one-paragraph summary of what this learning path prepares the reader to do",
+          "steps": "string[] (3-6 items, ordered) — concrete learning steps that build on the provided related knowledge and skills",
+          "checkpoints": "string[] optional (max 4 items) — self-check questions to confirm understanding"
+        }
+      },
+      "createdAt": "2026-05-30T00:00:00.000Z",
+      "updatedAt": "2026-05-30T00:00:00.000Z",
+      "notes": "Default v1 prompt for the public-facing graph-grounded learning path feature."
+    },
     {
       "id": "prompt-technology-explanation-v1",
       "name": "Technology explanation structured JSON",
