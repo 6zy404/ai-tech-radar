@@ -53,6 +53,12 @@ The product is split into two subsystems:
   technology detail page. Results are cached per technology × level and shown
   with the same "AI-generated, not reviewed" disclaimer
   (`POST /api/technologies/explain`).
+- **Graph-grounded learning path (P3 v2)** — reader-triggered, live
+  AI-generated learning path (overview, ordered steps, self-check
+  checkpoints) for a published technology, grounded in its related
+  knowledge and skills from the content graph. Results are cached per
+  technology and shown with the same disclaimer
+  (`POST /api/technologies/learning-path`).
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
@@ -78,9 +84,9 @@ Public, user-facing routes:
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/feed.xml`, `/feed.json`
-- `POST /api/technologies/compare` and `POST /api/technologies/explain` —
-  public, unprotected by design (they only operate on already-published
-  technology content); see
+- `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
+  `POST /api/technologies/learning-path` — public, unprotected by design
+  (they only operate on already-published technology content); see
   [`docs/security-boundary.md`](docs/security-boundary.md) for the boundary
   reasoning.
 

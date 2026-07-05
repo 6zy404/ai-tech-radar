@@ -236,6 +236,28 @@ For per-topic deep dives, see the `docs/` directory.
   (`toPublicExplanationResult` in `src/lib/technology-explanation.ts`) that
   strips provider name, model name, prompt version, generation mode, and
   validation/generation-error details before any response leaves the server.
+- **Graph-grounded learning path (P3 v2)** — the third and final P3 capability
+  from the agreed candidate list, completing the Compare → Explain → learning
+  path sequence. On `/technologies/[slug]`, a reader clicks 生成学习路径 in
+  the new `TechnologyLearningPathWidget` (rendered between the editor-curated
+  学习路径 section and the relationship graph) and receives a live
+  AI-generated learning path for the current technology: a path `overview`,
+  ordered `steps` (3–6), and optional self-check `checkpoints`. The defining
+  difference from Compare/Explain is **graph grounding**: the prompt feeds
+  the technology's actual related knowledge and related skills (titles +
+  summaries from the content graph) and instructs the model to build the
+  steps on them by name — connecting P2's relationship network to P3's AI
+  layer. Results are cached per technology
+  (`config/technology-learning-paths.json`, keyed by `technologyId`), served
+  by the new public `POST /api/technologies/learning-path` route, and always
+  rendered with the same persistent "AI 生成内容，未经编辑审核，仅供参考"
+  disclaimer in the same paint as the result. Same structural template as
+  Compare/Explain: a `technology_learning_path` `PromptVersion` purpose with
+  purpose-aware default, shared `output-sanitization.ts` validator helpers,
+  a mock-provider branch (which references real related knowledge/skill
+  titles extracted from the prompt), and a dedicated public-mapping function
+  (`toPublicLearningPathResult` in `src/lib/technology-learning-path.ts`)
+  stripping all provider/model/prompt metadata from the public response.
 
 ## Developer tooling
 

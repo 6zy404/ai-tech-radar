@@ -11,6 +11,7 @@ import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
 import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
+import { TechnologyLearningPathWidget } from "@/components/technology-learning-path-widget";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
 import {
@@ -273,6 +274,8 @@ export function TechnologyDetailContent({
           </ol>
         </section>
       ) : null}
+
+      <TechnologyLearningPathWidget technology={technology} />
 
       <RelationshipGraph
         centerTitle={title}

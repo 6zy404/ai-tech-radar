@@ -92,6 +92,51 @@ function createMockTechnologyExplanationResponse(
   };
 }
 
+function createMockTechnologyLearningPathResponse(
+  request: LlmGenerateRequest
+): LlmGenerateResponse {
+  const title = extractEmbeddedJsonTitle(request.userPrompt, "Technology");
+  const knowledgeLabel =
+    "Related background knowledge \\(from the content graph\\)";
+  const skillLabel = "Related skills \\(from the content graph\\)";
+  const knowledgeTitle = extractEmbeddedJsonTitle(
+    request.userPrompt,
+    knowledgeLabel
+  );
+  const skillTitle = extractEmbeddedJsonTitle(request.userPrompt, skillLabel);
+  const hasKnowledge = knowledgeTitle !== knowledgeLabel;
+  const hasSkill = skillTitle !== skillLabel;
+
+  const steps = [
+    hasKnowledge
+      ? `先补齐背景概念「${knowledgeTitle}」，理解 ${title} 建立在什么基础上。`
+      : `先阅读 ${title} 的原始来源，弄清它解决的核心问题。`,
+    `对照本页的「为什么值得看」和「技术背景」，梳理 ${title} 与现有做法的差异。`,
+    hasSkill
+      ? `练习相关技能「${skillTitle}」，用它评估 ${title} 在自己场景下的适用性。`
+      : `结合团队现状，列出评估 ${title} 时要回答的两三个具体问题。`,
+    `做一个小范围验证或阅读一个真实案例，再决定投入多少精力跟进 ${title}。`
+  ];
+
+  return {
+    providerName: "mock",
+    modelName: "mock-technology-learning-path-v0",
+    tokenUsage: {
+      promptTokens: Math.ceil(request.userPrompt.length / 4),
+      completionTokens: 160,
+      totalTokens: Math.ceil(request.userPrompt.length / 4) + 160
+    },
+    text: JSON.stringify({
+      overview: `这条路径帮助你从背景概念出发，逐步建立对 ${title} 的判断力：先懂它建立在什么之上，再评估它对自己的实际价值。`,
+      steps,
+      checkpoints: [
+        `能用一句话说清 ${title} 解决什么问题、给谁用。`,
+        "能说出它与团队现有做法的最大差异和迁移成本。"
+      ]
+    })
+  };
+}
+
 export function createMockLlmProvider(): LlmProvider {
   return {
     name: "mock",
@@ -114,6 +159,10 @@ export function createMockLlmProvider(): LlmProvider {
 
       if (request.userPrompt.startsWith("Purpose: technology_explanation")) {
         return createMockTechnologyExplanationResponse(request);
+      }
+
+      if (request.userPrompt.startsWith("Purpose: technology_learning_path")) {
+        return createMockTechnologyLearningPathResponse(request);
       }
 
       const title =

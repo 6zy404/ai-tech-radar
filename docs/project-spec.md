@@ -77,6 +77,10 @@ Public API routes:
 - `POST /api/technologies/explain` — generates or returns a cached AI
   explanation of one published technology tailored to a reader-selected
   experience level. Same boundary discipline as the compare route.
+- `POST /api/technologies/learning-path` — generates or returns a cached AI
+  learning path for one published technology, grounded in its related
+  knowledge and skills from the content graph. Same boundary discipline as
+  the compare route.
 
 Internal workspace routes:
 
@@ -254,12 +258,12 @@ Draft and archived digests are workspace-only. Published digests can be read thr
 
 Digest publication is guarded by deterministic readiness checks. Blocking errors include missing title/date, empty digest, duplicate technology references, unknown or unpublished technology references, and selected technologies missing fields required by the public digest. Warnings include no high-priority items, no related skills, no related knowledge, missing editorial summary, no source names, and unusually low or high watch-item count.
 
-## AI-Assisted Understanding (Compare v0 + Explain v1)
+## AI-Assisted Understanding (Compare v0 + Explain v1 + Learning Path v2)
 
 P3 ("AI-assisted understanding") was explicitly out of scope in `AGENTS.md` until the
 owner authorized it. Compare was the first capability shipped under that
-authorization; Explain is the second, authorized separately by the owner.
-Learning-path generation is the agreed next candidate but has not shipped.
+authorization; Explain is the second and the graph-grounded learning path is
+the third — all three agreed P3 candidates have now shipped.
 
 - On `/technologies/[slug]`, a reader can pick another published technology and
   request a live AI-generated comparison (similarities, differences, when to
@@ -292,6 +296,25 @@ Explain (v1) follows the exact same pattern with a different cache dimension:
 - Uses a dedicated `technology_explanation` `PromptVersion` purpose and the
   same public-mapping strip (`toPublicExplanationResult` in
   `src/lib/technology-explanation.ts`).
+
+Learning path (v2) completes the sequence, with graph grounding as its
+defining trait:
+
+- On `/technologies/[slug]`, a reader requests a live AI-generated learning
+  path for the current technology: an overview, ordered steps, and optional
+  self-check checkpoints.
+- The prompt feeds the technology's actual related knowledge and related
+  skills (titles + summaries from the content graph) and instructs the model
+  to build the steps on them by name — the P2 relationship network is the
+  source material, not free-form generation.
+- Same non-editor-gated model, same always-visible disclaimer in the same
+  paint as the result.
+- Results are cached per technology (`POST /api/technologies/learning-path`,
+  keyed by `technologyId`), so each technology's path is generated at most
+  once.
+- Uses a dedicated `technology_learning_path` `PromptVersion` purpose and the
+  same public-mapping strip (`toPublicLearningPathResult` in
+  `src/lib/technology-learning-path.ts`).
 
 ## UI Design System & Layout Refactor v0
 

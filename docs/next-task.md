@@ -2,11 +2,10 @@
 
 > See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
 > (knowledge relationship network) are both done. P3 (AI-assisted
-> understanding) is explicitly authorized and in progress: Compare two
-> technologies shipped as v0, and Explain at the reader's level shipped as v1
-> (2026-07-05, owner chose Explain-first ordering). Learning-path generation
-> is the agreed next P3 candidate — the owner's Explain-first choice implies
-> it follows, but confirm before starting. P4 (personalization) is untouched
+> understanding) has completed its agreed candidate list: Compare (v0),
+> Explain (v1), and the graph-grounded learning path (v2) have all shipped
+> (the last two on 2026-07-05, owner-authorized). Any further P3 capability
+> is new scope to be proposed by the owner. P4 (personalization) is untouched
 > and still requires explicit authorization. The tracked code-debt list is
 > empty: the store-decomposition pattern has been applied to every file it was
 > planned for, the ESLint/Prettier config has shipped, and the SQLite
@@ -74,11 +73,34 @@ new tests), and a live end-to-end pass in the dev server (widget renders, POST
 returns the public-safe shape with the disclaimer, provider metadata absent
 from the response, cache record written).
 
-The recommended next task is the remaining P3 candidate, **learning-path
-generation**, pending the owner's go-ahead: reader-triggered, graph-grounded
-(walk the existing related-knowledge/skill relations of the technology),
-cached per technology, same disclaimer and public-mapping discipline. Follow
-the same structural template as Compare/Explain.
+That learning-path candidate has now shipped too (2026-07-05, same day,
+owner-authorized): **Graph-grounded learning path (P3 v2)** — see
+`CHANGELOG.md` → "AI-assisted understanding". New
+`src/lib/technology-learning-path.ts` (workflow + `toPublicLearningPathResult`
+public strip), `technology-learning-path-store.ts` (cache keyed by
+`technologyId` in `config/technology-learning-paths.json`),
+`llm/prompts/technology-learning-path.ts` (feeds the technology's related
+knowledge/skills — titles + summaries — into the prompt and instructs the
+model to build steps on them by name), `llm/technology-learning-path-output.ts`
+(overview + steps required, checkpoints optional), a
+`technology_learning_path` `PromptVersion` purpose with default, a
+mock-provider branch that references real related item titles, public
+`POST /api/technologies/learning-path`, and the `TechnologyLearningPathWidget`
+on `/technologies/[slug]` (between the editor-curated 学习路径 section and
+the relationship graph, reusing the compare widget's CSS). Verified with
+typecheck, lint, format:check, vitest 54/54 (9 new tests), and a live
+end-to-end pass (steps reference the real related knowledge「API 契约与接口
+边界」and skill「智能体工作流设计」for tech-mcp; disclaimer renders first in
+the result; provider metadata absent from the response; cache record
+written). One bug was found and fixed during live verification: the mock's
+title extraction missed because the prompt labels include "(from the content
+graph)" — the regex label now escapes it, and the stale ungrounded cache
+record was deleted before re-verifying.
+
+With that, **the agreed P3 candidate list (Compare → Explain → learning path)
+is complete.** There is no predefined next task: further P3 capabilities are
+new scope for the owner to propose, and P4 (personalization) still requires
+explicit authorization.
 
 The pre-existing `npm run validate:delivery` fixture mismatch flagged above is
 now fixed: the script's fixture digest title (`Delivery validation digest ...`)

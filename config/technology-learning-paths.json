@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-07-05T22:56:36.120Z",
+  "learningPaths": [
+    {
+      "id": "technology-learning-path-5b2b68bc-bef2-4312-b325-e294856c0384",
+      "technologyId": "tech-mcp",
+      "fields": {
+        "overview": "这条路径帮助你从背景概念出发，逐步建立对 模型上下文协议 的判断力：先懂它建立在什么之上，再评估它对自己的实际价值。",
+        "steps": [
+          "先补齐背景概念「API 契约与接口边界」，理解 模型上下文协议 建立在什么基础上。",
+          "对照本页的「为什么值得看」和「技术背景」，梳理 模型上下文协议 与现有做法的差异。",
+          "练习相关技能「智能体工作流设计」，用它评估 模型上下文协议 在自己场景下的适用性。",
+          "做一个小范围验证或阅读一个真实案例，再决定投入多少精力跟进 模型上下文协议。"
+        ],
+        "checkpoints": [
+          "能用一句话说清 模型上下文协议 解决什么问题、给谁用。",
+          "能说出它与团队现有做法的最大差异和迁移成本。"
+        ]
+      },
+      "generationMode": "mock_llm",
+      "providerName": "mock",
+      "modelName": "mock-technology-learning-path-v0",
+      "promptVersionId": "prompt-technology-learning-path-v1",
+      "promptVersion": "technology-learning-path-v1",
+      "outputValidationStatus": "valid",
+      "outputValidationWarnings": [],
+      "createdAt": "2026-07-05T22:56:36.120Z",
+      "updatedAt": "2026-07-05T22:56:36.120Z"
+    }
+  ]
+}

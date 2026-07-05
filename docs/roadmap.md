@@ -53,7 +53,7 @@ and the **User-facing Product** (public reading/discovery).
    - `/network` renders the entire graph (every published technology, skill,
      and knowledge node, every relation edge) in one view, with click-to-focus
      exploration of any node's direct connections.
-5. **AI-assisted understanding (P3, in progress — Compare v0 + Explain v1)**
+5. **AI-assisted understanding (P3, agreed scope complete — Compare v0 + Explain v1 + Learning Path v2)**
    - A reader on `/technologies/[slug]` can request a live AI-generated
      comparison against another published technology; results are cached per
      technology pair and always shown with a persistent, unmissable
@@ -62,20 +62,25 @@ and the **User-facing Product** (public reading/discovery).
      资深) and request a live AI-generated explanation of the current
      technology tailored to that level (`POST /api/technologies/explain`),
      cached per technology × level, with the same disclaimer discipline.
-   - Both are public, unprotected routes that call the LLM provider directly,
-     each with a dedicated public-mapping function stripping all
+   - The same reader can also request a graph-grounded learning path
+     (`POST /api/technologies/learning-path`): the prompt feeds the
+     technology's actual related knowledge and skills from the content graph
+     and builds ordered steps on them, cached per technology.
+   - All three are public, unprotected routes that call the LLM provider
+     directly, each with a dedicated public-mapping function stripping all
      provider/model/prompt metadata before the response leaves the server.
-   - Learning-path generation is the agreed next P3 candidate; not started.
+   - This completes the agreed P3 candidate list (Compare → Explain →
+     learning path); further P3 ideas are new scope.
 
 ## Completion estimate
 
-| Area                                | Done                                             | Remaining                                                                                                                                                                                                               |
-| ----------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Business pipeline / CMS             | ~98%                                             | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
-| User-facing visuals / design system | ~95%                                             | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
-| User-facing content                 | ~90%                                             | essentially localized                                                                                                                                                                                                   |
-| Knowledge relationship network      | 100% (P2 complete)                               | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
-| AI assistance / personalization     | P3 in progress (Compare v0 + Explain v1 shipped) | Learning-path generation is the agreed next P3 candidate (owner chose Explain-first ordering); P4 personalization not started (still gated as out-of-scope without explicit request)                                    |
+| Area                                | Done                                                                          | Remaining                                                                                                                                                                                                               |
+| ----------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business pipeline / CMS             | ~98%                                                                          | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
+| User-facing visuals / design system | ~95%                                                                          | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
+| User-facing content                 | ~90%                                                                          | essentially localized                                                                                                                                                                                                   |
+| Knowledge relationship network      | 100% (P2 complete)                                                            | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
+| AI assistance / personalization     | P3 agreed scope complete (Compare v0 + Explain v1 + Learning Path v2 shipped) | Further P3 capabilities would be new scope proposed by the owner; P4 personalization not started (still gated as out-of-scope without explicit request)                                                                 |
 
 ## Roadmap
 
@@ -146,11 +151,11 @@ owner before P3, because AI/personalization are an explicit authorization
 boundary in `AGENTS.md`. Avoid further UI micro-tuning: the project ceiling is
 the relationship network and understanding layer, not button spacing.
 
-**Status: P1 and P2 are both done. P3 is in progress under explicit
-authorization** — Compare two technologies shipped as v0 and Explain at the
-reader's level shipped as v1 (see the P3 section above). Learning-path
-generation is the agreed next P3 candidate; confirm with the owner before
-starting. P4 (personalization) is untouched and still requires explicit
-authorization. The interleaved code-debt list is empty (store decomposition,
-visual confirmation, ESLint/Prettier, and the SQLite storage-model decision
-are all done — see `docs/next-task.md`).
+**Status: P1 and P2 are done, and P3's agreed candidate list is complete** —
+Compare (v0), Explain (v1), and the graph-grounded learning path (v2) have
+all shipped (see the P3 section above). Any further P3 capability is new
+scope to be proposed and authorized by the owner. P4 (personalization) is
+untouched and still requires explicit authorization. The interleaved
+code-debt list is empty (store decomposition, visual confirmation,
+ESLint/Prettier, and the SQLite storage-model decision are all done — see
+`docs/next-task.md`).
