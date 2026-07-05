@@ -216,6 +216,26 @@ For per-topic deep dives, see the `docs/` directory.
   a `technology_comparison` purpose alongside `editorial_enrichment`) and a
   newly shared `src/lib/llm/output-sanitization.ts` helper module extracted
   from the Editorial Enrichment output validator.
+- **Explain a technology at the reader's level (P3 v1)** — the second P3
+  capability, authorized by the owner after Compare v0 and built as a
+  deliberate structural clone of it. On `/technologies/[slug]`, a reader picks
+  their experience level (入门 / 进阶 / 资深) in the new
+  `TechnologyExplainWidget` (rendered between the 技术背景 and 谁该关注
+  sections) and requests a live AI-generated explanation tailored to that
+  level: a plain-language `explanation`, `keyPoints`, an optional beginner
+  `analogy`, and optional `nextSteps`. Results are cached per technology ×
+  level (`config/technology-explanations.json`, cache key
+  `technologyId::audienceLevel`) so each combination is generated at most
+  once, served by the new public `POST /api/technologies/explain` route and
+  always rendered with the same persistent "AI 生成内容，未经编辑审核，仅供参考"
+  disclaimer in the same paint as the result. Reuses the Compare
+  infrastructure wholesale: the server-side LLM provider boundary (mock by
+  default), a new `technology_explanation` `PromptVersion` purpose with a
+  purpose-aware default, the shared `output-sanitization.ts` validator
+  helpers, and a dedicated public-mapping function
+  (`toPublicExplanationResult` in `src/lib/technology-explanation.ts`) that
+  strips provider name, model name, prompt version, generation mode, and
+  validation/generation-error details before any response leaves the server.
 
 ## Developer tooling
 

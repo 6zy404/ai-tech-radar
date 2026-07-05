@@ -47,6 +47,12 @@ The product is split into two subsystems:
   per technology pair and always shown with an "AI-generated, not reviewed"
   disclaimer; the first public-facing route that calls the LLM provider
   directly (`POST /api/technologies/compare`).
+- **Explain at the reader's level (P3 v1)** — reader-triggered, live
+  AI-generated explanation of a published technology tailored to a
+  self-selected experience level (beginner / intermediate / advanced) on the
+  technology detail page. Results are cached per technology × level and shown
+  with the same "AI-generated, not reviewed" disclaimer
+  (`POST /api/technologies/explain`).
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
@@ -72,8 +78,9 @@ Public, user-facing routes:
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/feed.xml`, `/feed.json`
-- `POST /api/technologies/compare` — public, unprotected by design (it only
-  operates on already-published technology content); see
+- `POST /api/technologies/compare` and `POST /api/technologies/explain` —
+  public, unprotected by design (they only operate on already-published
+  technology content); see
   [`docs/security-boundary.md`](docs/security-boundary.md) for the boundary
   reasoning.
 

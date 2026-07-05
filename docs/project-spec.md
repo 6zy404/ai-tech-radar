@@ -74,6 +74,9 @@ Public API routes:
   comparison between two published technologies. Unprotected by design (see
   `docs/security-boundary.md`); never returns provider/model/prompt-version
   metadata.
+- `POST /api/technologies/explain` — generates or returns a cached AI
+  explanation of one published technology tailored to a reader-selected
+  experience level. Same boundary discipline as the compare route.
 
 Internal workspace routes:
 
@@ -251,12 +254,12 @@ Draft and archived digests are workspace-only. Published digests can be read thr
 
 Digest publication is guarded by deterministic readiness checks. Blocking errors include missing title/date, empty digest, duplicate technology references, unknown or unpublished technology references, and selected technologies missing fields required by the public digest. Warnings include no high-priority items, no related skills, no related knowledge, missing editorial summary, no source names, and unusually low or high watch-item count.
 
-## AI-Assisted Understanding v0 (Compare)
+## AI-Assisted Understanding (Compare v0 + Explain v1)
 
 P3 ("AI-assisted understanding") was explicitly out of scope in `AGENTS.md` until the
-owner authorized it. This is the first capability shipped under that authorization,
-and it is scoped to exactly one thing: comparing two published technologies. Explain
-and learning-path generation remain deferred.
+owner authorized it. Compare was the first capability shipped under that
+authorization; Explain is the second, authorized separately by the owner.
+Learning-path generation is the agreed next candidate but has not shipped.
 
 - On `/technologies/[slug]`, a reader can pick another published technology and
   request a live AI-generated comparison (similarities, differences, when to
@@ -274,6 +277,21 @@ and learning-path generation remain deferred.
   when configured), the `PromptVersion` system, and the same internal-field
   stripping discipline as Editorial Enrichment — provider name, model name,
   prompt version, and generation mode never appear in the public API response.
+
+Explain (v1) follows the exact same pattern with a different cache dimension:
+
+- On `/technologies/[slug]`, a reader picks their experience level
+  (入门 / 进阶 / 资深) and requests a live AI-generated explanation of the
+  current technology tailored to that level: a plain-language explanation,
+  key points, an optional beginner analogy, and optional next steps.
+- Same non-editor-gated model, same always-visible disclaimer rendered in the
+  same paint as the result.
+- Results are cached per technology × level (`POST /api/technologies/explain`,
+  cache key `technologyId::audienceLevel`), so each combination is generated
+  at most once.
+- Uses a dedicated `technology_explanation` `PromptVersion` purpose and the
+  same public-mapping strip (`toPublicExplanationResult` in
+  `src/lib/technology-explanation.ts`).
 
 ## UI Design System & Layout Refactor v0
 

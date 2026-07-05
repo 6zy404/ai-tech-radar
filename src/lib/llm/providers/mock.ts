@@ -50,6 +50,48 @@ function createMockTechnologyComparisonResponse(
   };
 }
 
+function createMockTechnologyExplanationResponse(
+  request: LlmGenerateRequest
+): LlmGenerateResponse {
+  const title = extractEmbeddedJsonTitle(request.userPrompt, "Technology");
+  const levelLine = extractPromptValue(request.userPrompt, "Reader level");
+  const isBeginner = levelLine.startsWith("beginner");
+  const isAdvanced = levelLine.startsWith("advanced");
+
+  const explanation = isBeginner
+    ? `${title} 可以理解为一种帮助团队解决具体工程问题的新工具或新方法。它之所以被关注，是因为它可能改变现有工作流里某个环节的做法。入门阶段不需要掌握全部细节，先弄清它解决什么问题、给谁用即可。`
+    : isAdvanced
+      ? `${title} 的核心价值在于它对现有工程链路的具体改动点和权衡取舍。评估时应关注它的接口边界、与现有栈的集成成本，以及在什么规模下收益开始超过维护开销。`
+      : `${title} 是一个值得跟踪的技术信号：它针对一个真实的工程场景提出了新的做法。建议先对照自己团队的现状判断相关性，再决定是否投入时间做小范围验证。`;
+
+  return {
+    providerName: "mock",
+    modelName: "mock-technology-explanation-v0",
+    tokenUsage: {
+      promptTokens: Math.ceil(request.userPrompt.length / 4),
+      completionTokens: 120,
+      totalTokens: Math.ceil(request.userPrompt.length / 4) + 120
+    },
+    text: JSON.stringify({
+      explanation,
+      keyPoints: [
+        `先弄清 ${title} 解决的核心问题是什么。`,
+        "对照团队现状判断这个信号与自己的相关性。",
+        "结合原始来源交叉验证，再决定投入多少精力。"
+      ],
+      ...(isBeginner
+        ? {
+            analogy: `可以把 ${title} 想象成给现有工作流换上了一个更合适的零件——整体流程不变，但某个环节变得更顺畅。`
+          }
+        : {}),
+      nextSteps: [
+        "阅读原始来源，确认具体的变化点。",
+        "浏览本页的相关知识和相关技能，补齐背景。"
+      ]
+    })
+  };
+}
+
 export function createMockLlmProvider(): LlmProvider {
   return {
     name: "mock",
@@ -68,6 +110,10 @@ export function createMockLlmProvider(): LlmProvider {
 
       if (request.userPrompt.startsWith("Purpose: technology_comparison")) {
         return createMockTechnologyComparisonResponse(request);
+      }
+
+      if (request.userPrompt.startsWith("Purpose: technology_explanation")) {
+        return createMockTechnologyExplanationResponse(request);
       }
 
       const title =

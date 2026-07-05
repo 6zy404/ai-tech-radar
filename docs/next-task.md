@@ -2,16 +2,16 @@
 
 > See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
 > (knowledge relationship network) are both done. P3 (AI-assisted
-> understanding) has been explicitly authorized and its first capability,
-> Compare two technologies, has shipped as v0. Explain and learning-path
-> generation remain unauthorized and should not be started without a fresh
-> explicit request from the owner; P4 (personalization) is untouched and
-> still requires explicit authorization. The tracked code-debt list is now
+> understanding) is explicitly authorized and in progress: Compare two
+> technologies shipped as v0, and Explain at the reader's level shipped as v1
+> (2026-07-05, owner chose Explain-first ordering). Learning-path generation
+> is the agreed next P3 candidate — the owner's Explain-first choice implies
+> it follows, but confirm before starting. P4 (personalization) is untouched
+> and still requires explicit authorization. The tracked code-debt list is
 > empty: the store-decomposition pattern has been applied to every file it was
 > planned for, the ESLint/Prettier config has shipped, and the SQLite
 > storage-model decision has been made (document store by design — see
-> `docs/decisions.md`). Further work waits on explicit P3/P4 direction from
-> the owner.
+> `docs/decisions.md`).
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
@@ -55,8 +55,30 @@ linting/formatting config (ESLint + Prettier) has also shipped — see "ESLint +
 Prettier config (done)" below. The SQLite storage-model decision has also been
 made and recorded (2026-07-05): the driver stays a document store by design —
 see `docs/decisions.md` → "SQLite Storage Model" and the storage-model note in
-`docs/database-migration.md`. With that, the tracked code-debt list is empty;
-new product work waits on explicit P3/P4 direction from the owner.
+`docs/database-migration.md`. With that, the tracked code-debt list is empty.
+
+Most recently (2026-07-05): **Explain at the reader's level (P3 v1)** shipped —
+see `CHANGELOG.md` → "AI-assisted understanding" for the full description. It
+is a deliberate structural clone of Compare v0: new
+`src/lib/technology-explanation.ts` (workflow + `toPublicExplanationResult`
+public strip), `technology-explanation-store.ts` (cache keyed
+`technologyId::audienceLevel` in `config/technology-explanations.json`),
+`llm/prompts/technology-explanation.ts`,
+`llm/technology-explanation-output.ts` (validator on the shared
+`output-sanitization.ts` helpers), a `technology_explanation` `PromptVersion`
+purpose with default, a mock-provider branch, public
+`POST /api/technologies/explain`, and the `TechnologyExplainWidget` on
+`/technologies/[slug]` (between 技术背景 and 谁该关注, reusing the compare
+widget's CSS). Verified with typecheck, lint, format:check, vitest 45/45 (14
+new tests), and a live end-to-end pass in the dev server (widget renders, POST
+returns the public-safe shape with the disclaimer, provider metadata absent
+from the response, cache record written).
+
+The recommended next task is the remaining P3 candidate, **learning-path
+generation**, pending the owner's go-ahead: reader-triggered, graph-grounded
+(walk the existing related-knowledge/skill relations of the technology),
+cached per technology, same disclaimer and public-mapping discipline. Follow
+the same structural template as Compare/Explain.
 
 The pre-existing `npm run validate:delivery` fixture mismatch flagged above is
 now fixed: the script's fixture digest title (`Delivery validation digest ...`)

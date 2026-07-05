@@ -267,6 +267,7 @@ Workspace deployment boundary:
   - related knowledge as background for understanding the signal, with per-item explanations when available
   - related skills as a practical path for evaluating or acting on the signal, with per-item explanations when available
   - a compare widget (between the related-technologies and related-skills sections) that lets a reader request a live AI-generated comparison against another published technology; always shown with a persistent "AI-generated, not reviewed" disclaimer — the first client-triggered live-generation call anywhere in the User-facing Product (every other data flow on this page is a static server read)
+  - an explain widget (between the technical-context and who-should-care sections) that lets a reader pick their experience level (入门 / 进阶 / 资深) and request a live AI-generated explanation of the current technology tailored to that level, cached per technology × level; same persistent "AI-generated, not reviewed" disclaimer discipline as the compare widget
 - `/digest/today`
   - user-facing daily digest entry point
   - shows today's published digest when available
@@ -394,6 +395,11 @@ Forbidden on public pages:
     technology detail page: pick another published technology, request a live
     comparison from `POST /api/technologies/compare`, always render the
     "AI-generated, not reviewed" disclaimer in the same paint as the result
+- `TechnologyExplainWidget`
+  - user-facing, client-side per-level AI explanation trigger and result panel
+    on the technology detail page: pick an experience level (入门 / 进阶 /
+    资深), request a live explanation from `POST /api/technologies/explain`,
+    same disclaimer discipline as `TechnologyCompareWidget`
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
 - `DailyDigestWorkspaceCard`

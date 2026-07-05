@@ -10,6 +10,7 @@ import {
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
+import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
 import {
@@ -230,6 +231,8 @@ export function TechnologyDetailContent({
           <p className="technology-detail-section__lede">{technicalContext}</p>
         </section>
       ) : null}
+
+      <TechnologyExplainWidget technology={technology} />
 
       {audienceItems.length > 0 || impactAreas.length > 0 ? (
         <section className="user-article-section technology-detail-section">

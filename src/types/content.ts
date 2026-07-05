@@ -25,7 +25,8 @@ export type EditorialEnrichmentOutputValidationStatus =
 
 export type PromptVersionStatus = "active" | "draft" | "deprecated";
 
-export type PromptPurpose = "editorial_enrichment" | "technology_comparison";
+export type PromptPurpose =
+  "editorial_enrichment" | "technology_comparison" | "technology_explanation";
 
 export type EditorialEnrichmentReviewStatus =
   "unreviewed" | "accepted" | "partially_accepted" | "rejected";
@@ -309,6 +310,50 @@ export interface TechnologyComparisonPublicResult {
   technologyIdA: string;
   technologyIdB: string;
   fields: TechnologyComparisonFields;
+  disclaimer: string;
+  generatedAt: string;
+}
+
+export type TechnologyExplanationAudienceLevel =
+  "beginner" | "intermediate" | "advanced";
+
+export type TechnologyExplanationGenerationMode = "mock_llm" | "llm_assisted";
+
+export type TechnologyExplanationOutputValidationStatus =
+  "valid" | "warning" | "failed";
+
+export interface TechnologyExplanationFields {
+  explanation: string;
+  keyPoints: string[];
+  analogy?: string;
+  nextSteps?: string[];
+}
+
+// Persisted/cached record — internal shape, includes provider metadata.
+// Never send this directly to a public API response; see toPublicExplanationResult.
+export interface TechnologyExplanationRecord {
+  id: string;
+  cacheKey: string;
+  technologyId: string;
+  audienceLevel: TechnologyExplanationAudienceLevel;
+  fields: TechnologyExplanationFields;
+  generationMode: TechnologyExplanationGenerationMode;
+  providerName?: string;
+  modelName?: string;
+  promptVersionId?: string;
+  promptVersion?: string;
+  outputValidationStatus: TechnologyExplanationOutputValidationStatus;
+  outputValidationWarnings: string[];
+  generationError?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Public-safe shape returned by the API route and consumed by the client widget.
+export interface TechnologyExplanationPublicResult {
+  technologyId: string;
+  audienceLevel: TechnologyExplanationAudienceLevel;
+  fields: TechnologyExplanationFields;
   disclaimer: string;
   generatedAt: string;
 }
