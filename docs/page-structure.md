@@ -263,7 +263,9 @@ Workspace deployment boundary:
   - source name, publish date, and original link without making long URLs dominate the page
   - productized priority label and short explanation
   - Content Intelligence modules for why it matters, who should care, technical context, impact areas, reading difficulty, learning path, and follow-up questions
-  - tags
+  - tags; the 主题标签 reference panel renders follow-toggle chips
+    (`FollowableTagList`) so readers can add the signal's topics to their
+    personal radar in place (hero tags stay static)
   - related knowledge as background for understanding the signal, with per-item explanations when available
   - related skills as a practical path for evaluating or acting on the signal, with per-item explanations when available
   - a compare widget (between the related-technologies and related-skills sections) that lets a reader request a live AI-generated comparison against another published technology; always shown with a persistent "AI-generated, not reviewed" disclaimer — the first client-triggered live-generation call anywhere in the User-facing Product (every other data flow on this page is a static server read)
@@ -296,6 +298,8 @@ Workspace deployment boundary:
   - explains what the skill helps readers do
   - links to published technology signals where the skill is useful
   - links to background knowledge that makes the skill easier to apply
+  - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
+    readers can add the skill's topics to their personal radar in place
 - `/knowledge`
   - user-facing knowledge index
   - presents durable concepts that help readers understand fast-moving AI signals
@@ -306,6 +310,8 @@ Workspace deployment boundary:
   - explains why the concept is foundational
   - links to published technology signals explained by the concept
   - links to skills that use the concept
+  - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
+    readers can add the concept's topics to their personal radar in place
 - `/radar`
   - user-facing personal radar (P4 v0)
   - readers follow topic tags via toggle chips; follows live only in browser
@@ -378,6 +384,13 @@ Forbidden on public pages:
   - compact metadata row, used with different page-level styling
 - `TagList`
   - safe public tag rendering helper
+- `FollowableTagList`
+  - user-facing client component rendering an item's tags as the same
+    follow/unfollow toggle chips used on `/radar` (localStorage-backed via
+    `src/lib/followed-tags.ts`, reusing the `my-radar__tag-toggle` styles),
+    with a hint line linking to `/radar` when any of the page's tags is
+    followed; used by the tags section on the technology, skill, and
+    knowledge detail pages (hero and related-card tags stay on `TagList`)
 - `SourceReference`
   - user-facing original source reference section
 - `PageShell`

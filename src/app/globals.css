@@ -8093,3 +8093,16 @@ button.tech-graph__node:focus-visible {
   font-size: var(--fs-label);
   color: var(--muted);
 }
+
+/* Detail-page follow-topic entry: reuses the my-radar toggle chips. */
+.followable-tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.followable-tag-list__hint {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
