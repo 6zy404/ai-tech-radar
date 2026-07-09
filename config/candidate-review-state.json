@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T12:31:13.570Z",
+  "updatedAt": "2026-07-09T13:59:16.703Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -24,6 +24,68 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-09T12:31:13.570Z",
       "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-09T13:59:16.221Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-09T13:59:16.342Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.438Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.461Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.486Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.509Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.531Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.552Z"
+    },
+    "candidate-rss-https-openai-com-index-government-national-security-partnerships": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.573Z"
+    },
+    "candidate-rss-https-openai-com-index-k-12-educators-practical-skills": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T13:59:16.594Z"
+    },
+    "candidate-rss-https-openai-com-index-separating-signal-from-noise-coding-evaluations": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T13:59:16.617Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T13:59:16.641Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-1-26": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T13:59:16.662Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T13:59:16.683Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T13:59:16.703Z"
     }
   }
 }
