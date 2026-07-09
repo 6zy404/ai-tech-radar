@@ -1,6 +1,105 @@
 {
-  "updatedAt": "2026-07-01T19:12:18.944Z",
+  "updatedAt": "2026-07-09T12:31:13.665Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "slug": "gpt-live",
+      "title": {
+        "original": "Introducing GPT-Live",
+        "zh": "GPT-Live：OpenAI 新一代实时语音模型"
+      },
+      "summary": {
+        "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+        "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
+      },
+      "content": {
+        "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
+        "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-08",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/introducing-gpt-live",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "frontier-model",
+        "multimodal",
+        "voice"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "Title is complete.",
+          "Summary is complete.",
+          "Content is complete.",
+          "Tags are available.",
+          "Related knowledge is linked.",
+          "Related skills are linked.",
+          "Publisher is identified.",
+          "Signal is recent.",
+          "Editorial importance is marked important.",
+          "Publisher type is a strong technology signal source."
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-09T12:31:13.665Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
+      "whoShouldCare": [
+        "语音产品工程师",
+        "对话式 AI 产品经理",
+        "多模态应用开发者"
+      ],
+      "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
+      "impactAreas": [
+        "语音助手",
+        "客服与外呼",
+        "多模态应用",
+        "无障碍交互"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
+        "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
+        "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
+        "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
+        "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
+        "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
+      },
+      "followUpQuestions": [
+        "GPT-Live 是否会开放 API，定价和配额如何？",
+        "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
+        "哪些现有的文字交互场景值得优先升级为语音？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "createdAt": "2026-07-09T12:31:13.569Z",
+      "updatedAt": "2026-07-09T12:31:13.665Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
+      ]
+    },
     {
       "id": "draft-candidate-source-quality-failing-source-2026-05-30",
       "slug": "draft-quality-failing-source-fallback-import-2026-05-30",
