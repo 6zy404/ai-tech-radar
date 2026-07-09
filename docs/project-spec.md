@@ -359,6 +359,12 @@ deliberately minimal and keeps every existing boundary intact:
   where they read about it; a hint line links back to `/radar` when any of
   the page's tags is followed. Same localStorage-only boundary — no new
   routes, no server state.
+- Personalized digest view (v0.2, same day): public digest pages highlight
+  items matching the reader's followed topics (命中关注 line) and offer a
+  只看我关注的 client-side filter with guided empty states. The served
+  digest content stays identical for everyone; readers with no follows see
+  the digest unchanged apart from one hint line linking to `/radar`. Same
+  localStorage-only boundary.
 
 ## Current non-goals
 

@@ -1,9 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { TagList } from "@/components/tag-list";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
-import { jsonFeedPath, rssFeedPath } from "@/lib/digest-delivery";
 import type { PublicDigestView } from "@/lib/digest-view";
+import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
+import {
+  followedTagsChangedEventName,
+  readFollowedTagIds
+} from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelClass } from "@/lib/ranking-display";
 import {
@@ -354,6 +361,55 @@ export function DailyDigestContent({
     selectedTechnologies
   ).length;
 
+  // Personalized digest view (P4): highlight and optionally filter by the
+  // reader's followed topics. Follows stay in browser localStorage only —
+  // the served digest content is identical for everyone.
+  const [followedTagIds, setFollowedTagIds] = useState<string[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showOnlyFollowed, setShowOnlyFollowed] = useState(false);
+
+  useEffect(() => {
+    const syncFromStorage = () => setFollowedTagIds(readFollowedTagIds());
+
+    syncFromStorage();
+    setIsLoaded(true);
+    window.addEventListener(followedTagsChangedEventName, syncFromStorage);
+    window.addEventListener("storage", syncFromStorage);
+
+    return () => {
+      window.removeEventListener(followedTagsChangedEventName, syncFromStorage);
+      window.removeEventListener("storage", syncFromStorage);
+    };
+  }, []);
+
+  const followedTagSet = new Set(followedTagIds);
+  const getMatchedTags = (technology: TechnologyItem): TopicTag[] =>
+    tags.filter(
+      (tag) => followedTagSet.has(tag.id) && technology.tags.includes(tag.id)
+    );
+
+  const hasFollows = isLoaded && followedTagIds.length > 0;
+  const filterActive = hasFollows && showOnlyFollowed;
+  const matchedCount = hasFollows
+    ? selectedTechnologies.filter(
+        (technology) => getMatchedTags(technology).length > 0
+      ).length
+    : 0;
+  const visibleHighPriorityTechnologies = filterActive
+    ? highPriorityTechnologies.filter(
+        (technology) => getMatchedTags(technology).length > 0
+      )
+    : highPriorityTechnologies;
+  const visibleWatchTechnologies = filterActive
+    ? watchTechnologies.filter(
+        (technology) => getMatchedTags(technology).length > 0
+      )
+    : watchTechnologies;
+  const filterHasNoMatches =
+    filterActive &&
+    visibleHighPriorityTechnologies.length === 0 &&
+    visibleWatchTechnologies.length === 0;
+
   return (
     <div className="daily-digest daily-digest-reading">
       <section className="daily-digest-brief-header">
@@ -381,46 +437,122 @@ export function DailyDigestContent({
         </p>
       </section>
 
-      <section className="daily-digest-section">
-        <div className="daily-digest-section__header">
-          <h2>今日立即关注</h2>
-          <p>被评为最高优先级的已发布技术信号，编辑置顶的条目优先展示。</p>
-        </div>
-        {highPriorityTechnologies.length > 0 ? (
-          <div className="digest-technology-list digest-technology-list--featured">
-            {highPriorityTechnologies.map((technology) => (
-              <DigestTechnologyCard
-                key={technology.id}
-                technology={technology}
-                tags={tags}
-              />
-            ))}
-          </div>
+      {isLoaded ? (
+        hasFollows ? (
+          <section
+            className="daily-digest-personal-bar"
+            aria-label="按关注话题筛选"
+          >
+            <p>
+              已关注 {followedTagIds.length} 个话题，本期命中 {matchedCount}{" "}
+              条。
+            </p>
+            <button
+              type="button"
+              className={`my-radar__tag-toggle${
+                filterActive ? " my-radar__tag-toggle--active" : ""
+              }`}
+              aria-pressed={filterActive}
+              onClick={() => setShowOnlyFollowed((value) => !value)}
+            >
+              {filterActive ? "✓ 只看我关注的" : "只看我关注的"}
+            </button>
+          </section>
         ) : (
-          <p className="empty-state">本期简报未选入需要立即关注的信号。</p>
-        )}
-      </section>
+          <section className="daily-digest-personal-bar">
+            <p>
+              关注感兴趣的话题后，简报会标出并可筛选命中你关注的内容。{" "}
+              <Link className="action-link" href="/radar">
+                前往我的雷达
+              </Link>
+            </p>
+          </section>
+        )
+      ) : null}
 
-      <section className="daily-digest-section">
-        <div className="daily-digest-section__header daily-digest-section__header--secondary">
-          <h2>值得跟踪</h2>
-          <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
-        </div>
-        {watchTechnologies.length > 0 ? (
-          <div className="digest-technology-list">
-            {watchTechnologies.map((technology) => (
-              <DigestTechnologyCard
-                key={technology.id}
-                technology={technology}
-                tags={tags}
-                compact
-              />
-            ))}
+      {filterActive && visibleHighPriorityTechnologies.length === 0 ? null : (
+        <section className="daily-digest-section">
+          <div className="daily-digest-section__header">
+            <h2>今日立即关注</h2>
+            <p>被评为最高优先级的已发布技术信号，编辑置顶的条目优先展示。</p>
           </div>
-        ) : (
-          <p className="empty-state">本期简报未选入值得跟踪的条目。</p>
-        )}
-      </section>
+          {visibleHighPriorityTechnologies.length > 0 ? (
+            <div className="digest-technology-list digest-technology-list--featured">
+              {visibleHighPriorityTechnologies.map((technology) => {
+                const matchedTags = getMatchedTags(technology);
+
+                return (
+                  <div key={technology.id} className="my-radar__item">
+                    {matchedTags.length > 0 ? (
+                      <p className="my-radar__match-line">
+                        命中关注：
+                        {matchedTags.map((tag) => tag.name).join("、")}
+                      </p>
+                    ) : null}
+                    <DigestTechnologyCard technology={technology} tags={tags} />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="empty-state">本期简报未选入需要立即关注的信号。</p>
+          )}
+        </section>
+      )}
+
+      {filterActive && visibleWatchTechnologies.length === 0 ? null : (
+        <section className="daily-digest-section">
+          <div className="daily-digest-section__header daily-digest-section__header--secondary">
+            <h2>值得跟踪</h2>
+            <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
+          </div>
+          {visibleWatchTechnologies.length > 0 ? (
+            <div className="digest-technology-list">
+              {visibleWatchTechnologies.map((technology) => {
+                const matchedTags = getMatchedTags(technology);
+
+                return (
+                  <div key={technology.id} className="my-radar__item">
+                    {matchedTags.length > 0 ? (
+                      <p className="my-radar__match-line">
+                        命中关注：
+                        {matchedTags.map((tag) => tag.name).join("、")}
+                      </p>
+                    ) : null}
+                    <DigestTechnologyCard
+                      technology={technology}
+                      tags={tags}
+                      compact
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="empty-state">本期简报未选入值得跟踪的条目。</p>
+          )}
+        </section>
+      )}
+
+      {filterHasNoMatches ? (
+        <section className="empty-state empty-state--actionable">
+          <strong>本期简报没有命中你关注的话题。</strong>
+          <p>
+            可以查看全部内容，或到
+            <Link className="action-link" href="/radar">
+              我的雷达
+            </Link>
+            调整关注的话题。
+          </p>
+          <button
+            type="button"
+            className="my-radar__tag-toggle"
+            onClick={() => setShowOnlyFollowed(false)}
+          >
+            查看全部内容
+          </button>
+        </section>
+      ) : null}
 
       <DigestReferenceList
         title="值得关注的技能"

@@ -279,6 +279,12 @@ Workspace deployment boundary:
   - user-facing published digest for a specific date
   - shows immediate-attention technologies, worth-tracking technologies, Content Intelligence why-watch snippets, related skills, related knowledge, and source names
   - links to public RSS and JSON feed surfaces without making feeds dominate the reading page
+  - personalized view (P4 v0.2, shared with `/digest/today` via
+    `DailyDigestContent`): items matching the reader's followed topics carry a
+    命中关注 line, and a 只看我关注的 toggle filters the signal sections
+    client-side (localStorage follows only; the served content is identical
+    for everyone); readers with no follows see one hint line linking to
+    `/radar`
   - does not show internal ranking scores, quality flags, candidate data, duplicate group data, manual digest controls, editorial notes, or workspace actions
 - `/feed.xml`
   - public RSS feed generated from published daily digest records only
@@ -440,6 +446,10 @@ Forbidden on public pages:
     in `src/lib/digest-view.ts`) rather than the full `DailyDigest` workflow
     object, so internal-only digest fields never enter the rendered page
     payload
+  - a client component (P4 v0.2): renders the followed-topic personalization
+    bar, per-item 命中关注 lines, and the 只看我关注的 client-side filter on
+    top of the same public-safe props (follows read from localStorage via
+    `src/lib/followed-tags.ts`)
 - `DailyDigestWorkspaceCard`
   - workspace-only digest list record
 - `DailyDigestWorkspaceDetail`

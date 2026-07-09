@@ -11,10 +11,10 @@ import {
   getPublicDigestSummary,
   getPublicDigestTitle
 } from "@/lib/public-copy";
+import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
 import type { DailyDigest, TechnologyItem } from "@/types/content";
 
-export const rssFeedPath = "/feed.xml";
-export const jsonFeedPath = "/feed.json";
+export { jsonFeedPath, rssFeedPath };
 
 interface DigestDeliveryTechnology {
   title: string;

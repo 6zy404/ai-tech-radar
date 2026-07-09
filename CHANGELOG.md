@@ -261,6 +261,30 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Personalization
 
+- **Personalized digest view (P4 v0.2)** — shipped 2026-07-09, the third
+  P4 slice: the public digest pages (`/digest/today` and `/digest/[date]`,
+  both rendered by `DailyDigestContent`) now react to the reader's followed
+  topics. When the reader follows topics, a personalization bar appears
+  between 今日概览 and the signal sections showing "已关注 N 个话题，本期命中
+  M 条" plus a "只看我关注的" toggle; matched items carry the same
+  "命中关注：X" explanation line as `/radar` (highlight always on, full
+  editorial curation shown by default). Turning the filter on hides
+  non-matching items, hides a signal section entirely when it has no matches,
+  and shows a guided empty state with a one-click "查看全部内容" reset when
+  nothing matches. Readers with no follows see the digest unchanged except a
+  one-line hint linking to `/radar`. Implementation: `DailyDigestContent`
+  became a client component (same pattern as `technology-detail-content.tsx`),
+  reusing `src/lib/followed-tags.ts` and the `my-radar__*` chip/match-line
+  styles; the `rssFeedPath` / `jsonFeedPath` constants moved to a new
+  dependency-free `src/lib/feed-paths.ts` (re-exported from
+  `digest-delivery.ts` for existing consumers) so the client bundle does not
+  pull the filesystem-backed digest workflow. Skills / knowledge / sources /
+  feed sections are untouched, and the route still serves identical published
+  content to everyone — personalization is entirely client-side, consistent
+  with the P4 v0 boundary. Verified with typecheck, lint, format:check,
+  vitest 54/54, and a live pass on `/digest/today` (highlight, filter on/off,
+  zero-match empty state + reset, no-follows hint, mobile width without
+  overflow, no console errors).
 - **Detail-page follow entry (P4 v0.1)** — shipped 2026-07-09, immediately
   after P4 v0, as the owner-chosen follow-up: readers can now follow a topic
   from where they read about it, not only on `/radar`. The tags section on
