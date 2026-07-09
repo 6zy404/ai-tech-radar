@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T12:32:56.505Z",
+  "updatedAt": "2026-07-09T13:59:52.863Z",
   "digests": [
     {
       "id": "digest-2026-07-09",
@@ -7,31 +7,40 @@
       "status": "published",
       "title": "Daily Technology Digest - 2026-07-09",
       "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-      "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
+      "editorialSummary": "今天有三条值得关注的信号：OpenAI 发布新一代实时语音模型 GPT-Live，语音正在成为有独立模型代际的产品线；自托管推理引擎 vLLM 发布 v0.24.0 稳定版且下一版 rc 已在推进；本地运行时 Ollama 的 v0.31.2 则继续打磨普通硬件上的可用性。三条放在一起看：模型能力、服务端推理和端侧推理都在同步提速。",
       "highPriorityTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
       ],
       "watchTechnologyIds": [],
       "manuallyAddedTechnologyIds": [],
       "excludedTechnologyIds": [],
       "pinnedTechnologyIds": [],
       "orderedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
       ],
       "skillIds": [
+        "skill-scope-pilots",
         "skill-model-evaluation",
-        "skill-scope-pilots"
+        "skill-tool-integration"
       ],
       "knowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
         "knowledge-human-loop",
-        "knowledge-latency-tradeoffs"
+        "knowledge-system-design"
       ],
       "sourceNames": [
-        "OpenAI News"
+        "Ollama Releases",
+        "OpenAI News",
+        "vLLM Releases"
       ],
       "generatedAt": "2026-07-09T12:00:00.000Z",
-      "updatedAt": "2026-07-09T12:32:56.505Z",
-      "lastRegeneratedAt": "2026-07-09T12:32:56.437Z",
+      "updatedAt": "2026-07-09T13:59:52.861Z",
+      "lastRegeneratedAt": "2026-07-09T13:59:16.729Z",
       "publishedAt": "2026-07-09T12:32:56.505Z",
       "editorialNotes": [
         "Generated from published TechnologyItem records using Ranking v0 priority levels.",
