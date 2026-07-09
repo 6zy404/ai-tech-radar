@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T13:59:16.703Z",
+  "updatedAt": "2026-07-09T20:58:31.395Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -11,13 +11,13 @@
       "reviewedAt": "2026-05-20T10:00:00.000Z"
     },
     "candidate-source-quality-failing-source-2026-05-30": {
-      "importStatus": "converted",
-      "reviewedAt": "2026-07-01T19:12:18.944Z",
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T20:57:53.354Z",
       "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
     },
     "candidate-source-quality-good-source-2026-05-30": {
-      "importStatus": "converted",
-      "reviewedAt": "2026-07-01T19:12:18.944Z",
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T20:57:53.374Z",
       "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
     },
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
@@ -86,6 +86,40 @@
     "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3": {
       "importStatus": "reviewed",
       "reviewedAt": "2026-07-09T13:59:16.703Z"
+    },
+    "candidate-source-source-hugging-face-blog-2026-07-09": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T20:57:53.257Z"
+    },
+    "candidate-source-source-mcp-servers-releases-2026-07-09": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T20:57:53.285Z"
+    },
+    "candidate-source-source-ollama-releases-2026-07-09": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T20:57:53.309Z"
+    },
+    "candidate-source-source-vllm-releases-2026-07-09": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-09T20:57:53.332Z"
+    },
+    "candidate-rss-https-openai-com-index-gpt-5-6-preferred-model-microsoft-365-copilot": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T20:57:53.393Z"
+    },
+    "candidate-rss-https-openai-com-index-bio-bug-bounty": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-09T20:57:53.414Z"
+    },
+    "candidate-rss-https-openai-com-index-gpt-5-6": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-09T20:58:31.344Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+    },
+    "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-09T20:58:31.395Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
     }
   }
 }

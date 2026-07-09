@@ -1,6 +1,54 @@
 {
-  "updatedAt": "2026-07-09T13:59:52.863Z",
+  "updatedAt": "2026-07-09T21:03:29.906Z",
   "digests": [
+    {
+      "id": "digest-2026-07-10",
+      "date": "2026-07-10",
+      "status": "published",
+      "title": "Daily Technology Digest - 2026-07-10",
+      "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
+      "editorialSummary": "今天的两条信号都来自 OpenAI，但指向两个不同的判断维度：GPT-5.6 把旗舰模型的竞争轴从能力上限转向单位 token 的智能密度与单位成本性能，并且发布即成为 Microsoft 365 Copilot 的首选模型；ChatGPT Work 则把智能体推向「长时程数字同事」的产品形态——跨应用执行、连续数小时工作、以交付物为完成标准。一个关乎你为什么该重估模型选型，一个关乎团队评估 AI 的标准正在从回答质量转向任务完成率。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+      ],
+      "skillIds": [
+        "skill-scope-pilots",
+        "skill-model-evaluation",
+        "skill-agent-design"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design",
+        "knowledge-tool-use"
+      ],
+      "sourceNames": [
+        "OpenAI News",
+        "vLLM Releases"
+      ],
+      "generatedAt": "2026-07-10T12:00:00.000Z",
+      "updatedAt": "2026-07-09T21:03:29.905Z",
+      "publishedAt": "2026-07-09T21:03:29.905Z",
+      "editorialNotes": [
+        "Generated from published TechnologyItem records using Ranking v0 priority levels.",
+        "Low-priority items are excluded by default in Daily Digest v0."
+      ]
+    },
     {
       "id": "digest-2026-07-09",
       "date": "2026-07-09",
