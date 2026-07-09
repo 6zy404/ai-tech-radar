@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-05-30T17:11:45.703Z",
+  "updatedAt": "2026-07-09T12:28:23.997Z",
   "sources": [
     {
       "id": "quality-good-source",
       "name": "Quality Good Source",
       "type": "rss",
       "url": "https://example.com/quality-good.xml",
-      "enabled": true,
+      "enabled": false,
       "description": "Quality validation source.",
       "language": "en",
       "publisherName": "Quality Publisher",
@@ -24,7 +24,7 @@
       "totalImportedCount": 5,
       "lastSuccessfulImportAt": "2026-05-20T10:00:00.000Z",
       "createdAt": "2026-05-01T00:00:00.000Z",
-      "updatedAt": "2026-05-30T17:11:45.665Z",
+      "updatedAt": "2026-07-09T12:28:08.311Z",
       "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
     },
     {
@@ -32,7 +32,7 @@
       "name": "Quality Failing Source",
       "type": "rss",
       "url": "https://example.com/quality-failing.xml",
-      "enabled": true,
+      "enabled": false,
       "description": "Quality validation source.",
       "language": "en",
       "publisherName": "Quality Publisher",
@@ -50,83 +50,272 @@
       "consecutiveFailureCount": 4,
       "totalImportedCount": 2,
       "createdAt": "2026-05-01T00:00:00.000Z",
-      "updatedAt": "2026-05-30T17:11:35.449Z"
+      "updatedAt": "2026-07-09T12:28:08.312Z"
+    },
+    {
+      "id": "source-ollama-releases",
+      "name": "Ollama Releases",
+      "type": "atom",
+      "url": "https://github.com/ollama/ollama/releases.atom",
+      "enabled": true,
+      "description": "Ollama local LLM runtime release feed.",
+      "language": "en",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "defaultTags": [
+        "local-inference",
+        "open-source"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-09T12:28:08.320Z",
+      "updatedAt": "2026-07-09T12:28:20.768Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-09T12:28:20.768Z",
+      "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "lastSuccessfulImportAt": "2026-07-09T12:28:20.768Z"
+    },
+    {
+      "id": "source-vllm-releases",
+      "name": "vLLM Releases",
+      "type": "atom",
+      "url": "https://github.com/vllm-project/vllm/releases.atom",
+      "enabled": true,
+      "description": "vLLM high-throughput LLM inference engine release feed.",
+      "language": "en",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "defaultTags": [
+        "inference",
+        "serving"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-09T12:28:08.320Z",
+      "updatedAt": "2026-07-09T12:28:23.966Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-09T12:28:23.966Z",
+      "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "lastSuccessfulImportAt": "2026-07-09T12:28:23.966Z"
+    },
+    {
+      "id": "source-mcp-servers-releases",
+      "name": "MCP Servers Releases",
+      "type": "atom",
+      "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+      "enabled": true,
+      "description": "Model Context Protocol reference servers release feed.",
+      "language": "en",
+      "publisherName": "modelcontextprotocol",
+      "publisherType": "open-source-community",
+      "defaultTags": [
+        "mcp",
+        "agent"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-09T12:28:08.321Z",
+      "updatedAt": "2026-07-09T12:28:19.727Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-09T12:28:19.727Z",
+      "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "lastSuccessfulImportAt": "2026-07-09T12:28:19.727Z"
+    },
+    {
+      "id": "source-hugging-face-blog",
+      "name": "Hugging Face Blog",
+      "type": "rss",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "enabled": true,
+      "description": "Hugging Face official blog feed.",
+      "language": "en",
+      "publisherName": "Hugging Face",
+      "publisherType": "open-source-community",
+      "defaultTags": [
+        "open-source",
+        "model"
+      ],
+      "defaultNormalizedType": "unknown",
+      "lastImportStatus": "failed",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 1,
+      "totalImportedCount": 0,
+      "createdAt": "2026-07-09T12:28:08.321Z",
+      "updatedAt": "2026-07-09T12:28:18.898Z",
+      "maxItems": 4,
+      "lastErrorMessage": "fetch failed",
+      "lastFetchedAt": "2026-07-09T12:28:18.898Z",
+      "lastImportMessage": "fetch failed"
+    },
+    {
+      "id": "source-openai-news",
+      "name": "OpenAI News",
+      "type": "rss",
+      "url": "https://openai.com/news/rss.xml",
+      "enabled": true,
+      "description": "OpenAI official news feed.",
+      "language": "en",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "defaultTags": [
+        "frontier-model"
+      ],
+      "defaultNormalizedType": "model",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-09T12:28:08.321Z",
+      "updatedAt": "2026-07-09T12:28:22.394Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-09T12:28:22.394Z",
+      "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "lastSuccessfulImportAt": "2026-07-09T12:28:22.394Z"
     }
   ],
   "latestImportRun": {
-    "id": "import-run-2026-05-30t17-11-34-592z",
-    "startedAt": "2026-05-30T17:11:34.592Z",
-    "finishedAt": "2026-05-30T17:11:45.702Z",
+    "id": "import-run-2026-07-09t12-28-08-322z",
+    "startedAt": "2026-07-09T12:28:08.322Z",
+    "finishedAt": "2026-07-09T12:28:23.997Z",
     "status": "partial",
-    "totalSources": 2,
-    "enabledSources": 2,
-    "skippedSources": 0,
-    "successfulSources": 0,
-    "failedSources": 0,
-    "partialSources": 2,
-    "totalCandidatesCreated": 0,
-    "totalCandidatesSkipped": 2,
+    "totalSources": 7,
+    "enabledSources": 5,
+    "skippedSources": 2,
+    "successfulSources": 4,
+    "failedSources": 1,
+    "partialSources": 0,
+    "totalCandidatesCreated": 16,
+    "totalCandidatesSkipped": 0,
     "messages": [
-      "Quality Failing Source: Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-      "Quality Good Source: Live import failed; local fallback used. fetch failed"
+      "Hugging Face Blog: fetch failed",
+      "MCP Servers Releases: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "Ollama Releases: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "OpenAI News: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+      "vLLM Releases: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s)."
     ],
     "sourceResults": [
       {
-        "sourceId": "quality-failing-source",
-        "sourceName": "Quality Failing Source",
-        "status": "partial",
-        "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "candidateCount": 1,
+        "sourceId": "source-hugging-face-blog",
+        "sourceName": "Hugging Face Blog",
+        "status": "failed",
+        "message": "fetch failed",
+        "candidateCount": 0,
         "candidatesCreated": 0,
-        "candidatesSkipped": 1
+        "candidatesSkipped": 0
       },
       {
-        "sourceId": "quality-good-source",
-        "sourceName": "Quality Good Source",
-        "status": "partial",
-        "message": "Live import failed; local fallback used. fetch failed",
-        "candidateCount": 1,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 1
+        "sourceId": "source-mcp-servers-releases",
+        "sourceName": "MCP Servers Releases",
+        "status": "success",
+        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
+        "candidatesSkipped": 0
+      },
+      {
+        "sourceId": "source-ollama-releases",
+        "sourceName": "Ollama Releases",
+        "status": "success",
+        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
+        "candidatesSkipped": 0
+      },
+      {
+        "sourceId": "source-openai-news",
+        "sourceName": "OpenAI News",
+        "status": "success",
+        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
+        "candidatesSkipped": 0
+      },
+      {
+        "sourceId": "source-vllm-releases",
+        "sourceName": "vLLM Releases",
+        "status": "success",
+        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
+        "candidatesSkipped": 0
       }
     ]
   },
   "importRuns": [
     {
-      "id": "import-run-2026-05-30t17-11-34-592z",
-      "startedAt": "2026-05-30T17:11:34.592Z",
-      "finishedAt": "2026-05-30T17:11:45.702Z",
+      "id": "import-run-2026-07-09t12-28-08-322z",
+      "startedAt": "2026-07-09T12:28:08.322Z",
+      "finishedAt": "2026-07-09T12:28:23.997Z",
       "status": "partial",
-      "totalSources": 2,
-      "enabledSources": 2,
-      "skippedSources": 0,
-      "successfulSources": 0,
-      "failedSources": 0,
-      "partialSources": 2,
-      "totalCandidatesCreated": 0,
-      "totalCandidatesSkipped": 2,
+      "totalSources": 7,
+      "enabledSources": 5,
+      "skippedSources": 2,
+      "successfulSources": 4,
+      "failedSources": 1,
+      "partialSources": 0,
+      "totalCandidatesCreated": 16,
+      "totalCandidatesSkipped": 0,
       "messages": [
-        "Quality Failing Source: Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-        "Quality Good Source: Live import failed; local fallback used. fetch failed"
+        "Hugging Face Blog: fetch failed",
+        "MCP Servers Releases: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "Ollama Releases: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "OpenAI News: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "vLLM Releases: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s)."
       ],
       "sourceResults": [
         {
-          "sourceId": "quality-failing-source",
-          "sourceName": "Quality Failing Source",
-          "status": "partial",
-          "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-          "candidateCount": 1,
+          "sourceId": "source-hugging-face-blog",
+          "sourceName": "Hugging Face Blog",
+          "status": "failed",
+          "message": "fetch failed",
+          "candidateCount": 0,
           "candidatesCreated": 0,
-          "candidatesSkipped": 1
+          "candidatesSkipped": 0
         },
         {
-          "sourceId": "quality-good-source",
-          "sourceName": "Quality Good Source",
-          "status": "partial",
-          "message": "Live import failed; local fallback used. fetch failed",
-          "candidateCount": 1,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 1
+          "sourceId": "source-mcp-servers-releases",
+          "sourceName": "MCP Servers Releases",
+          "status": "success",
+          "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-ollama-releases",
+          "sourceName": "Ollama Releases",
+          "status": "success",
+          "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-openai-news",
+          "sourceName": "OpenAI News",
+          "status": "success",
+          "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
+          "candidatesSkipped": 0
+        },
+        {
+          "sourceId": "source-vllm-releases",
+          "sourceName": "vLLM Releases",
+          "status": "success",
+          "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
+          "candidatesSkipped": 0
         }
       ]
     }

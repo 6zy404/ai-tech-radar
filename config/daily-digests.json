@@ -1,11 +1,48 @@
 {
-  "updatedAt": "2026-05-23T12:00:00.000Z",
+  "updatedAt": "2026-07-09T12:32:56.505Z",
   "digests": [
     {
-      "id": "digest-2026-05-24",
-      "date": "2026-05-24",
-      "status": "draft",
-      "title": "Delivery integration validation 2026-05-24",
+      "id": "digest-2026-07-09",
+      "date": "2026-07-09",
+      "status": "published",
+      "title": "Daily Technology Digest - 2026-07-09",
+      "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
+      "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-latency-tradeoffs"
+      ],
+      "sourceNames": [
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-07-09T12:00:00.000Z",
+      "updatedAt": "2026-07-09T12:32:56.505Z",
+      "lastRegeneratedAt": "2026-07-09T12:32:56.437Z",
+      "publishedAt": "2026-07-09T12:32:56.505Z",
+      "editorialNotes": [
+        "Generated from published TechnologyItem records using Ranking v0 priority levels.",
+        "Low-priority items are excluded by default in Daily Digest v0."
+      ]
+    },
+    {
+      "id": "digest-2026-05-25",
+      "date": "2026-05-25",
+      "status": "archived",
+      "title": "Delivery integration validation 2026-05-25",
       "summary": "A published digest prepared for webhook delivery validation.",
       "editorialSummary": "Editor-approved public summary for delivery validation.",
       "highPriorityTechnologyIds": [
@@ -43,10 +80,10 @@
       ]
     },
     {
-      "id": "digest-2026-05-25",
-      "date": "2026-05-25",
-      "status": "archived",
-      "title": "Delivery integration validation 2026-05-25",
+      "id": "digest-2026-05-24",
+      "date": "2026-05-24",
+      "status": "draft",
+      "title": "Delivery integration validation 2026-05-24",
       "summary": "A published digest prepared for webhook delivery validation.",
       "editorialSummary": "Editor-approved public summary for delivery validation.",
       "highPriorityTechnologyIds": [
