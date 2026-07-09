@@ -9,7 +9,8 @@
 > radar at `/radar`, localStorage-only, deterministic Ranking v0 grouping —
 > has shipped (see "Personal radar (done)" below), followed the same day by
 > the owner-chosen v0.1 — the detail-page follow entry (see "Detail-page
-> follow entry (done)" below). Any further P3 or P4
+> follow entry (done)" below) — and v0.2 — the personalized digest view
+> (see "Personalized digest view (done)" below). Any further P3 or P4
 > capability is new scope to be proposed by the owner per capability. The
 > tracked code-debt list is empty: the store-decomposition pattern has been
 > applied to every file it was planned for, the ESLint/Prettier config has
@@ -320,6 +321,26 @@ the three records were re-tagged. Verified with typecheck, lint,
 format:check, vitest 54/54, and a live end-to-end pass (follow toggles →
 grouped matches with explanation lines → persistence across reload → mobile
 width without overflow → zero console errors).
+
+## Personalized digest view (done)
+
+P4 v0.2, owner-chosen and shipped 2026-07-09 (scope aligned via upfront
+questions: highlight + optional filter, light hint for readers with no
+follows, hidden sections + total empty state when the filter matches
+nothing). `DailyDigestContent` became a `"use client"` component (same
+pattern as `technology-detail-content.tsx`) and now renders: a
+personalization bar between 今日概览 and the signal sections (已关注 N /
+命中 M + 只看我关注的 toggle, or a one-line `/radar` hint when no follows),
+per-item 命中关注 lines reusing `my-radar__match-line`, client-side section
+filtering with per-section hiding, and a guided zero-match empty state with
+a 查看全部内容 reset. Enabler: `rssFeedPath` / `jsonFeedPath` moved to the
+new dependency-free `src/lib/feed-paths.ts` (re-exported from
+`digest-delivery.ts`) because the client component must not import the
+fs-backed digest workflow. New `.daily-digest-personal-bar` CSS block.
+Verified with typecheck, lint, format:check, vitest 54/54, and a live pass
+on `/digest/today` covering all four states (highlight, filter with all
+matched, zero-match empty state + reset, no-follows hint) plus mobile width
+and console checks.
 
 ## Detail-page follow entry (done)
 

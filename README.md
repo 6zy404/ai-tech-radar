@@ -67,7 +67,10 @@ The product is split into two subsystems:
   follow entry (P4 v0.1): the tags section on technology/skill/knowledge
   detail pages renders the same follow-toggle chips, so readers can follow a
   topic where they read about it, with an inline "已加入我的雷达 → 查看"
-  link back to `/radar`.
+  link back to `/radar`. Public digest pages carry a personalized view
+  (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
+  "只看我关注的" toggle filters the signal sections client-side — the served
+  digest stays identical for everyone.
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.

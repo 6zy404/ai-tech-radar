@@ -8094,6 +8094,25 @@ button.tech-graph__node:focus-visible {
   color: var(--muted);
 }
 
+/* Personalized digest bar: followed-topic highlight + filter toggle. */
+.daily-digest-personal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  border-radius: 14px;
+  padding: 12px 18px;
+}
+
+.daily-digest-personal-bar p {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
 /* Detail-page follow-topic entry: reuses the my-radar toggle chips. */
 .followable-tag-list {
   display: flex;
