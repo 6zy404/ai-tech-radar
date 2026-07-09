@@ -65,6 +65,8 @@ Public pages:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/radar` — personal radar; follows are browser-local (localStorage), the
+  route itself serves the same published content to everyone
 - `/feed.xml`
 - `/feed.json`
 
@@ -336,10 +338,26 @@ The product now treats visual structure as part of the system boundary:
 This refactor does not add ranking, recommendation, subscription, login,
 database behavior, delivery channels, or full-site i18n.
 
+## Personal Radar (P4 v0)
+
+P4 ("personalization") was owner-authorized on 2026-07-09. The v0 scope is
+deliberately minimal and keeps every existing boundary intact:
+
+- Readers follow topic tags on `/radar` via toggle chips; follows are stored
+  only in the reader's browser `localStorage` — no accounts, no server-side
+  profile, no personal data on the server.
+- The radar filters published technologies whose tags intersect the followed
+  set and groups them with the existing deterministic Ranking v0 levels; each
+  item carries an explicit "命中关注：X" explanation line. This is
+  deterministic, explainable filtering — not AI ranking and not a
+  recommendation system.
+- The route serves identical published content to everyone; personalization
+  happens entirely client-side.
+
 ## Current non-goals
 
 - AI black-box ranking
-- personalized recommendation
+- personalized recommendation beyond the deterministic followed-topic radar
 - recommendation system
 - push notification
 - email subscription

@@ -1,6 +1,621 @@
 {
-  "updatedAt": "2026-07-09T14:26:37.355Z",
+  "updatedAt": "2026-07-09T14:35:01.428Z",
   "events": [
+    {
+      "id": "workflow-event-820b3701-cb03-446e-af27-a3da36945ec0",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "slug": "ollama",
+        "title": {
+          "original": "Ollama v0.31.2",
+          "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
+        },
+        "summary": {
+          "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
+          "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
+        },
+        "content": {
+          "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
+          "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-08",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "github-actions[bot]",
+        "publisherType": "open-source-community",
+        "importanceLevel": "signal",
+        "status": "published",
+        "tags": [
+          "local-inference",
+          "open-source",
+          "edge"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-latency-tradeoffs"
+        ],
+        "relatedSkillIds": [
+          "skill-scope-pilots",
+          "skill-tool-integration"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 93,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T13:59:16.415Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
+        "whoShouldCare": [
+          "本地/端侧应用开发者",
+          "隐私敏感场景的团队",
+          "AI 工具链工程师"
+        ],
+        "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
+        "impactAreas": [
+          "本地开发工具",
+          "端侧 AI",
+          "隐私敏感应用"
+        ],
+        "learningPath": [
+          "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
+          "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
+          "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
+          "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
+          "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
+        },
+        "relatedSkillExplanations": {
+          "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
+          "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
+        },
+        "followUpQuestions": [
+          "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
+          "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
+          "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "createdAt": "2026-07-09T13:59:16.342Z",
+        "updatedAt": "2026-07-09T13:59:16.415Z",
+        "editorialNotes": [
+          "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "slug": "ollama-v0-31-2",
+        "title": {
+          "original": "Ollama v0.31.2",
+          "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
+        },
+        "summary": {
+          "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
+          "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
+        },
+        "content": {
+          "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
+          "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-08",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "github-actions[bot]",
+        "publisherType": "open-source-community",
+        "importanceLevel": "signal",
+        "status": "published",
+        "tags": [
+          "tag-inference",
+          "tag-on-device"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-latency-tradeoffs"
+        ],
+        "relatedSkillIds": [
+          "skill-scope-pilots",
+          "skill-tool-integration"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 93,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T14:35:01.415Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
+        "whoShouldCare": [
+          "本地/端侧应用开发者",
+          "隐私敏感场景的团队",
+          "AI 工具链工程师"
+        ],
+        "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
+        "impactAreas": [
+          "本地开发工具",
+          "端侧 AI",
+          "隐私敏感应用"
+        ],
+        "learningPath": [
+          "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
+          "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
+          "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
+          "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
+          "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
+        },
+        "relatedSkillExplanations": {
+          "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
+          "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
+        },
+        "followUpQuestions": [
+          "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
+          "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
+          "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "createdAt": "2026-07-09T13:59:16.342Z",
+        "updatedAt": "2026-07-09T14:35:01.415Z",
+        "editorialNotes": [
+          "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
+        ]
+      },
+      "metadata": {
+        "slug": "ollama-v0-31-2",
+        "status": "published"
+      },
+      "createdAt": "2026-07-09T14:35:01.428Z"
+    },
+    {
+      "id": "workflow-event-6cb24e2d-9f02-4285-8b67-ed140a1c35ae",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "slug": "vllm",
+        "title": {
+          "original": "vLLM v0.24.0",
+          "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
+        },
+        "summary": {
+          "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
+          "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
+        },
+        "content": {
+          "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
+          "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-06-30",
+        "sourceName": "vLLM Releases",
+        "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "khluu",
+        "publisherType": "startup",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "inference",
+          "serving",
+          "open-source"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent.",
+            "Editorial importance is marked important."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T13:59:16.297Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
+        "whoShouldCare": [
+          "推理平台工程师",
+          "需要私有化部署的团队",
+          "关注推理成本的架构师"
+        ],
+        "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
+        "impactAreas": [
+          "模型服务",
+          "推理成本优化",
+          "私有化部署"
+        ],
+        "learningPath": [
+          "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
+          "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
+          "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
+          "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
+          "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
+          "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
+        },
+        "followUpQuestions": [
+          "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
+          "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
+          "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
+        ],
+        "readingDifficulty": "advanced",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "createdAt": "2026-07-09T13:59:16.219Z",
+        "updatedAt": "2026-07-09T13:59:16.297Z",
+        "editorialNotes": [
+          "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "slug": "vllm-v0-24-0",
+        "title": {
+          "original": "vLLM v0.24.0",
+          "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
+        },
+        "summary": {
+          "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
+          "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
+        },
+        "content": {
+          "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
+          "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-06-30",
+        "sourceName": "vLLM Releases",
+        "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "khluu",
+        "publisherType": "startup",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent.",
+            "Editorial importance is marked important."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T14:35:01.391Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
+        "whoShouldCare": [
+          "推理平台工程师",
+          "需要私有化部署的团队",
+          "关注推理成本的架构师"
+        ],
+        "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
+        "impactAreas": [
+          "模型服务",
+          "推理成本优化",
+          "私有化部署"
+        ],
+        "learningPath": [
+          "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
+          "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
+          "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
+          "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
+          "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
+          "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
+        },
+        "followUpQuestions": [
+          "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
+          "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
+          "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
+        ],
+        "readingDifficulty": "advanced",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "createdAt": "2026-07-09T13:59:16.219Z",
+        "updatedAt": "2026-07-09T14:35:01.391Z",
+        "editorialNotes": [
+          "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
+        ]
+      },
+      "metadata": {
+        "slug": "vllm-v0-24-0",
+        "status": "published"
+      },
+      "createdAt": "2026-07-09T14:35:01.402Z"
+    },
+    {
+      "id": "workflow-event-27a6bb01-d96d-4198-a596-4c96f8ca7849",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "slug": "gpt-live",
+        "title": {
+          "original": "Introducing GPT-Live",
+          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
+        },
+        "summary": {
+          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
+        },
+        "content": {
+          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
+          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
+        },
+        "type": "model",
+        "publishDate": "2026-07-08",
+        "sourceName": "OpenAI News",
+        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "frontier-model",
+          "multimodal",
+          "voice"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent.",
+            "Editorial importance is marked important.",
+            "Publisher type is a strong technology signal source."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T12:31:13.665Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
+        "whoShouldCare": [
+          "语音产品工程师",
+          "对话式 AI 产品经理",
+          "多模态应用开发者"
+        ],
+        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
+        "impactAreas": [
+          "语音助手",
+          "客服与外呼",
+          "多模态应用",
+          "无障碍交互"
+        ],
+        "learningPath": [
+          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
+          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
+          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
+          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
+          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
+          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
+        },
+        "followUpQuestions": [
+          "GPT-Live 是否会开放 API，定价和配额如何？",
+          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
+          "哪些现有的文字交互场景值得优先升级为语音？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "createdAt": "2026-07-09T12:31:13.569Z",
+        "updatedAt": "2026-07-09T12:31:13.665Z",
+        "editorialNotes": [
+          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "slug": "introducing-gpt-live",
+        "title": {
+          "original": "Introducing GPT-Live",
+          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
+        },
+        "summary": {
+          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
+        },
+        "content": {
+          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
+          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
+        },
+        "type": "model",
+        "publishDate": "2026-07-08",
+        "sourceName": "OpenAI News",
+        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-multimodal"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent.",
+            "Editorial importance is marked important.",
+            "Publisher type is a strong technology signal source."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T14:35:01.353Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
+        "whoShouldCare": [
+          "语音产品工程师",
+          "对话式 AI 产品经理",
+          "多模态应用开发者"
+        ],
+        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
+        "impactAreas": [
+          "语音助手",
+          "客服与外呼",
+          "多模态应用",
+          "无障碍交互"
+        ],
+        "learningPath": [
+          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
+          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
+          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
+          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
+          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
+          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
+        },
+        "followUpQuestions": [
+          "GPT-Live 是否会开放 API，定价和配额如何？",
+          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
+          "哪些现有的文字交互场景值得优先升级为语音？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "createdAt": "2026-07-09T12:31:13.569Z",
+        "updatedAt": "2026-07-09T14:35:01.353Z",
+        "editorialNotes": [
+          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
+        ]
+      },
+      "metadata": {
+        "slug": "introducing-gpt-live",
+        "status": "published"
+      },
+      "createdAt": "2026-07-09T14:35:01.374Z"
+    },
     {
       "id": "workflow-event-15af0b17-51aa-4c4e-b1d8-b1426a1813ea",
       "entityType": "daily_digest",
@@ -37376,263 +37991,6 @@
         "slug": "validated-workspace-draft"
       },
       "createdAt": "2026-05-30T21:56:37.198Z"
-    },
-    {
-      "id": "workflow-event-7fd1e534-d4ee-42dc-a76a-c808bebcdd0e",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "importStatus": "converted",
-        "reviewedAt": "2026-05-30T21:56:36.880Z",
-        "convertedTechnologyId": "draft-candidate-rss-openai-rss-responses-tools"
-      },
-      "afterSnapshot": {
-        "importStatus": "converted",
-        "reviewedAt": "2026-05-30T21:56:37.115Z",
-        "convertedTechnologyId": "draft-candidate-rss-openai-rss-responses-tools"
-      },
-      "metadata": {
-        "nextStatus": "converted"
-      },
-      "createdAt": "2026-05-30T21:56:37.138Z"
-    },
-    {
-      "id": "workflow-event-531cd48c-fe18-448e-8228-cfb35d13f8ea",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-05-30T21:56:36.876Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:36.873Z",
-        "updatedAt": "2026-05-30T21:56:36.873Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T21:56:37.053Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:36.873Z",
-        "updatedAt": "2026-05-30T21:56:37.053Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "slug": "validated-workspace-draft",
-        "status": "draft"
-      },
-      "createdAt": "2026-05-30T21:56:37.082Z"
-    },
-    {
-      "id": "workflow-event-0c828fdc-8e3e-4c33-87a2-de87075a1aee",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-05-30T21:56:36.876Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:36.873Z",
-        "updatedAt": "2026-05-30T21:56:36.873Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools"
-      },
-      "createdAt": "2026-05-30T21:56:37.016Z"
     }
   ]
 }

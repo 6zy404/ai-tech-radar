@@ -59,6 +59,11 @@ The product is split into two subsystems:
   knowledge and skills from the content graph. Results are cached per
   technology and shown with the same disclaimer
   (`POST /api/technologies/learning-path`).
+- **Personal radar (P4 v0)** — readers follow topic tags (stored only in
+  browser localStorage, no accounts) and `/radar` aggregates matching
+  published signals into the existing priority groups, with an explicit
+  "matched because you follow X" line per item. Deterministic filtering on
+  Ranking v0 — no AI ranking, no server-side profile.
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
@@ -83,6 +88,7 @@ Public, user-facing routes:
 - `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
+- `/radar`
 - `/feed.xml`, `/feed.json`
 - `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
   `POST /api/technologies/learning-path` — public, unprotected by design
