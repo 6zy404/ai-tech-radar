@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-09T13:59:16.174Z",
+  "updatedAt": "2026-07-09T20:58:31.312Z",
   "groups": [
+    {
+      "id": "dup-5pdjur",
+      "candidateIds": [
+        "candidate-source-quality-failing-source-2026-05-30",
+        "candidate-source-quality-good-source-2026-05-30"
+      ],
+      "primaryCandidateId": "candidate-source-quality-failing-source-2026-05-30",
+      "status": "ignored",
+      "reasons": [
+        "similar_title",
+        "same_publisher_near_date"
+      ],
+      "createdAt": "2026-07-09T20:58:31.310Z",
+      "updatedAt": "2026-07-09T20:58:31.312Z"
+    },
     {
       "id": "dup-1tfbq4c",
       "candidateIds": [

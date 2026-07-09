@@ -17,8 +17,13 @@
 > shipped, and the SQLite storage-model decision has been made (document
 > store by design — see `docs/decisions.md`). The first real
 > content-production rounds have also run: five real external sources are
-> configured, and three enriched real signals (gpt-live, vllm, ollama) plus
-> the 2026-07-09 digest are published.
+> configured, and five enriched real signals (gpt-live, vllm, ollama, plus
+> gpt-5-6 and chatgpt-work from the 2026-07-10 round) and the 2026-07-09 /
+> 2026-07-10 digests are published. The 2026-07-10 round also added the
+> canonical tag `tag-frontier-models` (前沿模型), dispositioned all 10 open
+> candidates (2 published, 2 reviewed-not-selected, 6 rejected including 4
+> fallback placeholders and 2 stale May quality fixtures), and closed the
+> last open duplicate group.
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running

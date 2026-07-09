@@ -1,6 +1,201 @@
 {
-  "updatedAt": "2026-07-09T14:35:01.415Z",
+  "updatedAt": "2026-07-09T21:02:20.083Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "slug": "chatgpt-work",
+      "title": {
+        "original": "ChatGPT is now a partner for your most ambitious work",
+        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
+      },
+      "summary": {
+        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
+        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
+      },
+      "content": {
+        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
+        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "Title is complete.",
+          "Summary is complete.",
+          "Content is complete.",
+          "Tags are available.",
+          "Related knowledge is linked.",
+          "Related skills are linked.",
+          "Publisher is identified.",
+          "Signal is recent.",
+          "Publisher type is a strong technology signal source."
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-09T21:02:20.083Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
+      "whoShouldCare": [
+        "知识工作者与团队负责人",
+        "智能体应用开发者",
+        "AI 产品经理"
+      ],
+      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
+      "impactAreas": [
+        "办公自动化",
+        "团队协作方式",
+        "智能体产品设计",
+        "知识工作流程"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
+        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
+        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
+        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
+        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
+        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
+      },
+      "followUpQuestions": [
+        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
+        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
+        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "createdAt": "2026-07-09T20:58:31.394Z",
+      "updatedAt": "2026-07-09T21:02:20.083Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "slug": "gpt-5-6",
+      "title": {
+        "original": "GPT-5.6: Frontier intelligence that scales with your ambition",
+        "zh": "GPT-5.6：OpenAI 新一代旗舰模型，主打单位算力智能密度"
+      },
+      "summary": {
+        "original": "OpenAI's newest frontier model promises more intelligence from every token, stronger performance per dollar, and more capability on demand.",
+        "zh": "OpenAI 发布新一代旗舰模型 GPT-5.6，强调每个 token 提供更多智能、更强的单位成本性能与按需扩展的能力，发布同期即成为 Microsoft 365 Copilot 的首选模型。"
+      },
+      "content": {
+        "original": "OpenAI introduced GPT-5.6, a frontier model update framed around efficiency: more intelligence from every token, stronger performance per dollar, and more capability on demand for hard work. In a companion announcement, Microsoft named GPT-5.6 the preferred model in Microsoft 365 Copilot across Word, Excel, PowerPoint, Chat, and Cowork.",
+        "zh": "OpenAI 发布了新一代旗舰模型 GPT-5.6。与以往强调能力上限不同，这次官方叙事的重心是效率：每个 token 提供更多智能、更强的单位成本性能，以及为高难度任务按需扩展的能力。\n\n值得注意的是发布节奏：同期的配套公告确认，GPT-5.6 已成为 Microsoft 365 Copilot 在 Word、Excel、PowerPoint、Chat 与 Cowork 中的首选模型。旗舰模型的代际更新正在以更短的路径进入主流办公场景——发布即大规模落地，而不是先经历一轮开发者试用期。\n\n对做模型选型的团队来说，这个信号提示竞争轴的变化：当各家旗舰能力趋近时，「单位 token 的智能密度」和「单位成本的性能」正在成为新的比较维度。官方公告未给出完整的规格与基准细节，具体提升幅度需要以原始来源和后续文档为准。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/gpt-5-6",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "Title is complete.",
+          "Summary is complete.",
+          "Content is complete.",
+          "Tags are available.",
+          "Related knowledge is linked.",
+          "Related skills are linked.",
+          "Publisher is identified.",
+          "Signal is recent.",
+          "Publisher type is a strong technology signal source."
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-09T21:02:20.050Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "旗舰模型的竞争叙事正从「能力更强」转向「单位 token 智能密度与单位成本性能」，这直接改变选型和成本测算的方式；发布即成为 Microsoft 365 Copilot 首选模型，也说明代际更新进入主流生产场景的路径正在缩短。",
+      "whoShouldCare": [
+        "AI 应用开发者",
+        "平台与基础设施负责人",
+        "AI 产品经理"
+      ],
+      "technicalContext": "「每个 token 更多智能」意味着同样预算下可以换取更少的 token 消耗或更高的输出质量，因此选型比较需要把 token 效率、延迟和价格放在一起看，而不是只看基准分数。每一代旗舰模型的宣称提升，都应在自己的任务评估集上重新验证。",
+      "impactAreas": [
+        "通用助手与办公套件",
+        "开发者 API 应用",
+        "企业级 AI 集成",
+        "模型选型与成本"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 GPT-5.6 的定位、可用范围和与上一代的宣称差异。",
+        "复习「模型选型与约束匹配」：把任务需求、模型规格与成本约束放在一个框架里比较。",
+        "在自己的评估集上对比新旧模型：同样任务下的质量、token 消耗和延迟各变化多少。",
+        "如果收益明确，先在一个低风险场景做迁移试点，再决定是否全面切换。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "旗舰模型换代后，「任务-模型-成本」的匹配关系需要重估，这个概念提供了重估的框架。",
+        "knowledge-evaluation-loops": "官方宣称的性能提升需要用自己的评估闭环验证，而不是直接采信发布文案。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "用自己的任务集对比新旧模型的质量、成本与延迟，是判断是否值得迁移的唯一可靠方法。",
+        "skill-scope-pilots": "模型换代迁移应先在小范围试点验证收益与回归风险，再决定推广节奏。"
+      },
+      "followUpQuestions": [
+        "GPT-5.6 的 API 定价与配额如何，相对 GPT-5.5 的单位成本变化多大？",
+        "「按需扩展的能力」具体是什么产品形态（推理档位、上下文规格还是工具能力）？",
+        "官方是否提供旧版本的迁移指引和弃用时间表？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-gpt-5-6",
+      "createdAt": "2026-07-09T20:58:31.343Z",
+      "updatedAt": "2026-07-09T21:02:20.050Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; announcement copy is high-level, content kept conservative pending specs and pricing.",
+        "Companion M365 Copilot adoption announcement folded in as context (its candidate marked reviewed, not published separately)."
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
       "slug": "ollama-v0-31-2",

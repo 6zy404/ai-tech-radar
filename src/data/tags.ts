@@ -45,5 +45,10 @@ export const topicTags: TopicTag[] = [
     id: "tag-inference",
     name: "推理与部署",
     description: "大模型推理引擎、部署形态与成本优化相关的信号。"
+  },
+  {
+    id: "tag-frontier-models",
+    name: "前沿模型",
+    description: "旗舰大模型的代际更新、能力边界与性价比变化。"
   }
 ];
