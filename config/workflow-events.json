@@ -1,6 +1,1285 @@
 {
-  "updatedAt": "2026-07-09T21:03:58.706Z",
+  "updatedAt": "2026-07-09T21:14:42.242Z",
   "events": [
+    {
+      "id": "workflow-event-aa68acaf-a9ba-4acf-9cc5-90debf5d63f4",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-human-loop",
+          "knowledge-model-sizing",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-05-23T12:00:00.000Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "published",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-human-loop",
+          "knowledge-model-sizing",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.233Z",
+        "publishedAt": "2026-07-09T21:14:42.233Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23"
+      },
+      "createdAt": "2026-07-09T21:14:42.242Z"
+    },
+    {
+      "id": "workflow-event-1c592b9a-5ab8-49e4-a659-8eddb17ffaa0",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.190Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp",
+          "tech-rag-evals",
+          "tech-agent-workbenches",
+          "tech-browser-agents"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+          "tech-mcp",
+          "tech-rag-evals",
+          "tech-agent-workbenches",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-tool-integration",
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-retrieval-tuning"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-system-design",
+          "knowledge-api-contracts",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-rag-basics",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "检索质量摘要",
+          "智能体平台评测",
+          "自动化产品简报",
+          "AI 工具标准简报",
+          "Ollama Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.210Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ],
+        "lastRegeneratedAt": "2026-07-09T21:14:42.210Z"
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "preserveManualAdjustments": true
+      },
+      "createdAt": "2026-07-09T21:14:42.221Z"
+    },
+    {
+      "id": "workflow-event-6ee7151c-eadf-4f93-8777-ce438a73cadb",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.170Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.190Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "action": "move_up"
+      },
+      "createdAt": "2026-07-09T21:14:42.200Z"
+    },
+    {
+      "id": "workflow-event-bd7f36e6-8901-4c12-8be8-58ba1168889b",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.136Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.170Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "action": "pin"
+      },
+      "createdAt": "2026-07-09T21:14:42.180Z"
+    },
+    {
+      "id": "workflow-event-e80185f8-d2eb-4101-b9b7-6cd5b6c951e8",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-model-sizing"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.112Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.136Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "action": "include"
+      },
+      "createdAt": "2026-07-09T21:14:42.154Z"
+    },
+    {
+      "id": "workflow-event-127462cf-030a-4cf9-80c1-2aa38d175fe8",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-human-loop",
+          "knowledge-model-sizing",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.086Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-model-sizing"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.112Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "action": "exclude"
+      },
+      "createdAt": "2026-07-09T21:14:42.124Z"
+    },
+    {
+      "id": "workflow-event-7894b11e-9f94-4fba-9e4a-e463db0c3e46",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Daily Technology Digest - 2026-05-23",
+        "summary": "2 item(s) are selected for editorial validation.",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-scope-pilots",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-tool-use",
+          "knowledge-human-loop",
+          "knowledge-model-sizing",
+          "knowledge-evaluation-loops"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-05-23T12:00:00.000Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-human-loop",
+          "knowledge-model-sizing",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T21:14:42.086Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23"
+      },
+      "createdAt": "2026-07-09T21:14:42.099Z"
+    },
+    {
+      "id": "workflow-event-7441cb05-d473-4939-8391-1d4167b9632f",
+      "entityType": "technology_draft",
+      "entityId": "draft-ranking-duplicate-a",
+      "action": "draft.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-ranking-duplicate-a",
+        "slug": "ranking-validation-draft",
+        "title": {
+          "original": "Ranking validation draft"
+        },
+        "summary": {
+          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
+        },
+        "content": {
+          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-20",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Ranking Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use"
+        ],
+        "relatedSkillIds": [
+          "skill-agent-design"
+        ],
+        "sourceReferences": [
+          {
+            "candidateId": "ranking-duplicate-b",
+            "sourceType": "rss-feed",
+            "sourceName": "Ranking Duplicate Source",
+            "sourceUrl": "https://example.com/shared-ranking-event",
+            "publisherName": "Ranking Publisher",
+            "publishDate": "2026-05-20"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 97,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T21:14:30.579Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "ranking-duplicate-a",
+        "createdAt": "2026-07-09T21:14:30.530Z",
+        "updatedAt": "2026-07-09T21:14:30.579Z",
+        "editorialNotes": [
+          "Ranking validation completed."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-ranking-duplicate-a",
+        "slug": "ranking-validation-draft",
+        "title": {
+          "original": "Ranking validation draft"
+        },
+        "summary": {
+          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
+        },
+        "content": {
+          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-20",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Ranking Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "published",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use"
+        ],
+        "relatedSkillIds": [
+          "skill-agent-design"
+        ],
+        "sourceReferences": [
+          {
+            "candidateId": "ranking-duplicate-b",
+            "sourceType": "rss-feed",
+            "sourceName": "Ranking Duplicate Source",
+            "sourceUrl": "https://example.com/shared-ranking-event",
+            "publisherName": "Ranking Publisher",
+            "publishDate": "2026-05-20"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 97,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T21:14:30.602Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "ranking-duplicate-a",
+        "createdAt": "2026-07-09T21:14:30.530Z",
+        "updatedAt": "2026-07-09T21:14:30.602Z",
+        "editorialNotes": [
+          "Ranking validation completed."
+        ]
+      },
+      "metadata": {
+        "status": "published",
+        "slug": "ranking-validation-draft"
+      },
+      "createdAt": "2026-07-09T21:14:30.611Z"
+    },
+    {
+      "id": "workflow-event-3d7ba551-e627-4036-a9d0-11cd5299d002",
+      "entityType": "technology_draft",
+      "entityId": "draft-ranking-duplicate-a",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-ranking-duplicate-a",
+        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
+        "title": {
+          "original": "Shared ranking duplicate event reaches release",
+          "en": "Shared ranking duplicate event reaches release"
+        },
+        "summary": {
+          "original": "A complete ranking validation candidate with enough context for priority triage.",
+          "en": "A complete ranking validation candidate with enough context for priority triage."
+        },
+        "content": {
+          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
+          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-20",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Ranking Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-workflow"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [
+          {
+            "candidateId": "ranking-duplicate-b",
+            "sourceType": "rss-feed",
+            "sourceName": "Ranking Duplicate Source",
+            "sourceUrl": "https://example.com/shared-ranking-event",
+            "publisherName": "Ranking Publisher",
+            "publishDate": "2026-05-20"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 87,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [
+            "Related knowledge is not linked yet.",
+            "Related skills are not linked yet."
+          ],
+          "rankingUpdatedAt": "2026-07-09T21:14:30.530Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "ranking-duplicate-a",
+        "createdAt": "2026-07-09T21:14:30.530Z",
+        "updatedAt": "2026-07-09T21:14:30.530Z",
+        "editorialNotes": [
+          "Generated from imported candidate ranking-duplicate-a.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-ranking-duplicate-a",
+        "slug": "ranking-validation-draft",
+        "title": {
+          "original": "Ranking validation draft"
+        },
+        "summary": {
+          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
+        },
+        "content": {
+          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-20",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Ranking Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use"
+        ],
+        "relatedSkillIds": [
+          "skill-agent-design"
+        ],
+        "sourceReferences": [
+          {
+            "candidateId": "ranking-duplicate-b",
+            "sourceType": "rss-feed",
+            "sourceName": "Ranking Duplicate Source",
+            "sourceUrl": "https://example.com/shared-ranking-event",
+            "publisherName": "Ranking Publisher",
+            "publishDate": "2026-05-20"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 97,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T21:14:30.579Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "ranking-duplicate-a",
+        "createdAt": "2026-07-09T21:14:30.530Z",
+        "updatedAt": "2026-07-09T21:14:30.579Z",
+        "editorialNotes": [
+          "Ranking validation completed."
+        ]
+      },
+      "metadata": {
+        "slug": "ranking-validation-draft",
+        "status": "draft"
+      },
+      "createdAt": "2026-07-09T21:14:30.591Z"
+    },
+    {
+      "id": "workflow-event-a60832c3-b06f-4fcd-95c6-33444aeb2452",
+      "entityType": "technology_draft",
+      "entityId": "draft-ranking-duplicate-a",
+      "action": "candidate.converted_to_draft",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "draft-ranking-duplicate-a",
+        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
+        "title": {
+          "original": "Shared ranking duplicate event reaches release",
+          "en": "Shared ranking duplicate event reaches release"
+        },
+        "summary": {
+          "original": "A complete ranking validation candidate with enough context for priority triage.",
+          "en": "A complete ranking validation candidate with enough context for priority triage."
+        },
+        "content": {
+          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
+          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-20",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Ranking Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-workflow"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [
+          {
+            "candidateId": "ranking-duplicate-b",
+            "sourceType": "rss-feed",
+            "sourceName": "Ranking Duplicate Source",
+            "sourceUrl": "https://example.com/shared-ranking-event",
+            "publisherName": "Ranking Publisher",
+            "publishDate": "2026-05-20"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 87,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [
+            "Related knowledge is not linked yet.",
+            "Related skills are not linked yet."
+          ],
+          "rankingUpdatedAt": "2026-07-09T21:14:30.530Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "ranking-duplicate-a",
+        "createdAt": "2026-07-09T21:14:30.530Z",
+        "updatedAt": "2026-07-09T21:14:30.530Z",
+        "editorialNotes": [
+          "Generated from imported candidate ranking-duplicate-a.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "metadata": {
+        "sourceCandidateId": "ranking-duplicate-a"
+      },
+      "createdAt": "2026-07-09T21:14:30.566Z"
+    },
+    {
+      "id": "workflow-event-80d79dfa-e0cd-45e6-8742-d22faf55e258",
+      "entityType": "candidate",
+      "entityId": "ranking-duplicate-a",
+      "action": "candidate.converted_to_draft",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "ranking-duplicate-a",
+        "sourceId": "ranking-duplicate-source",
+        "sourceType": "rss-feed",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "originalTitle": "Shared ranking duplicate event reaches release",
+        "originalSummary": "A complete ranking validation candidate with enough context for priority triage.",
+        "originalContent": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
+        "originalLanguage": "en",
+        "publishDate": "2026-05-20",
+        "publisherName": "Ranking Publisher",
+        "normalizedType": "tool",
+        "tags": [
+          "ranking",
+          "validation"
+        ],
+        "importStatus": "new",
+        "relatedCandidateIds": [
+          "ranking-duplicate-b"
+        ],
+        "rawPayload": {
+          "sourceId": "ranking-duplicate-source"
+        },
+        "duplicateGroupId": "dup-5stp1x"
+      },
+      "afterSnapshot": {
+        "id": "draft-ranking-duplicate-a",
+        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
+        "title": {
+          "original": "Shared ranking duplicate event reaches release",
+          "en": "Shared ranking duplicate event reaches release"
+        },
+        "summary": {
+          "original": "A complete ranking validation candidate with enough context for priority triage.",
+          "en": "A complete ranking validation candidate with enough context for priority triage."
+        },
+        "content": {
+          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
+          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
+        },
+        "type": "tool",
+        "publishDate": "2026-05-20",
+        "sourceName": "Ranking Duplicate Source",
+        "sourceUrl": "https://example.com/shared-ranking-event",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "Ranking Publisher",
+        "publisherType": "startup",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-workflow"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [
+          {
+            "candidateId": "ranking-duplicate-b",
+            "sourceType": "rss-feed",
+            "sourceName": "Ranking Duplicate Source",
+            "sourceUrl": "https://example.com/shared-ranking-event",
+            "publisherName": "Ranking Publisher",
+            "publishDate": "2026-05-20"
+          }
+        ],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 87,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Publisher is identified.",
+            "Multiple sources reference the same technology event.",
+            "Signal is still reasonably recent."
+          ],
+          "priorityWarnings": [
+            "Related knowledge is not linked yet.",
+            "Related skills are not linked yet."
+          ],
+          "rankingUpdatedAt": "2026-07-09T21:14:30.530Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "ranking-duplicate-a",
+        "createdAt": "2026-07-09T21:14:30.530Z",
+        "updatedAt": "2026-07-09T21:14:30.530Z",
+        "editorialNotes": [
+          "Generated from imported candidate ranking-duplicate-a.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "metadata": {
+        "draftId": "draft-ranking-duplicate-a",
+        "duplicateGroupId": "dup-5stp1x",
+        "markedCandidateIds": [
+          "ranking-duplicate-a",
+          "ranking-duplicate-b"
+        ]
+      },
+      "createdAt": "2026-07-09T21:14:30.543Z"
+    },
+    {
+      "id": "workflow-event-42a60275-e57a-4008-b086-76c2e4aec59d",
+      "entityType": "duplicate_group",
+      "entityId": "dup-5stp1x",
+      "action": "duplicate_group.resolved",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "dup-5stp1x",
+        "candidateIds": [
+          "ranking-duplicate-a",
+          "ranking-duplicate-b"
+        ],
+        "primaryCandidateId": "ranking-duplicate-a",
+        "status": "open",
+        "reasons": [
+          "same_source_url"
+        ],
+        "createdAt": "2026-07-09T21:14:30.501Z",
+        "updatedAt": "2026-07-09T21:14:30.501Z"
+      },
+      "afterSnapshot": {
+        "id": "dup-5stp1x",
+        "candidateIds": [
+          "ranking-duplicate-a",
+          "ranking-duplicate-b"
+        ],
+        "primaryCandidateId": "ranking-duplicate-a",
+        "status": "resolved",
+        "reasons": [
+          "same_source_url"
+        ],
+        "createdAt": "2026-07-09T21:14:30.501Z",
+        "updatedAt": "2026-07-09T21:14:30.501Z"
+      },
+      "metadata": {
+        "candidateIds": [
+          "ranking-duplicate-a",
+          "ranking-duplicate-b"
+        ],
+        "primaryCandidateId": "ranking-duplicate-a"
+      },
+      "createdAt": "2026-07-09T21:14:30.514Z"
+    },
     {
       "id": "workflow-event-38af9cd7-3119-49cc-a810-78d0a4165930",
       "entityType": "technology_draft",
@@ -37573,570 +38852,6 @@
         "deliveryLogIds": []
       },
       "createdAt": "2026-05-30T21:58:13.482Z"
-    },
-    {
-      "id": "workflow-event-75e33a04-3391-420e-8193-05a661d9dd63",
-      "entityType": "task_runner",
-      "entityId": "task-runner-5c5ae6cc-399e-4cc4-83b1-6128e1fbd473",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-5c5ae6cc-399e-4cc4-83b1-6128e1fbd473",
-        "mode": "watch",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-05-30T21:58:13.398Z",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "skippedScheduleCount": 1,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 1,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "Task runner draft schedule: failed for digest 2026-05-28; Scheduled delivery can only send published digests.",
-          "Task runner published schedule: partial for digest 2026-05-27; 0 succeeded, 0 failed, 3 skipped"
-        ]
-      },
-      "metadata": {
-        "mode": "watch",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-05-30T21:58:13.420Z"
-    },
-    {
-      "id": "workflow-event-5abfe3d3-87c6-4a84-88a0-5d71181806d5",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.198Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:13.199Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.353Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:13.354Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-e93cae1a-b6a4-4564-9bd9-44728c8690e5",
-        "digestId": "digest-2026-05-27",
-        "digestDate": "2026-05-27",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 3,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-30T21:58:13.375Z"
-    },
-    {
-      "id": "workflow-event-b1fb6698-f406-41d6-9ae4-01bf9d8b4a20",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-      "action": "schedule.run_failed",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.154Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-05-30T21:58:12.650Z",
-        "updatedAt": "2026-05-30T21:58:13.155Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.309Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-05-30T21:58:12.650Z",
-        "updatedAt": "2026-05-30T21:58:13.310Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-b7cf2fcb-27f6-4ee9-b168-137680fa26f3",
-        "digestId": "digest-2026-05-28",
-        "digestDate": "2026-05-28",
-        "status": "failed",
-        "triggerType": "scheduled",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-30T21:58:13.328Z"
-    },
-    {
-      "id": "workflow-event-eafa44d1-7801-4dc7-bcce-85d89e5e6a85",
-      "entityType": "task_runner",
-      "entityId": "task-runner-24bcdf75-8899-40cc-a8d4-839c2d03ef2f",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-24bcdf75-8899-40cc-a8d4-839c2d03ef2f",
-        "mode": "watch",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-05-30T21:58:13.249Z",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "skippedScheduleCount": 1,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 1,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "Task runner draft schedule: failed for digest 2026-05-28; Scheduled delivery can only send published digests.",
-          "Task runner published schedule: partial for digest 2026-05-27; 0 succeeded, 0 failed, 3 skipped"
-        ]
-      },
-      "metadata": {
-        "mode": "watch",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-05-30T21:58:13.275Z"
-    },
-    {
-      "id": "workflow-event-36414dd5-af1e-45fb-a4f9-7b7b30d38f91",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.049Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:13.050Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.198Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:13.199Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-517ee6e2-093f-45f8-aa00-688d8125a9b0",
-        "digestId": "digest-2026-05-27",
-        "digestDate": "2026-05-27",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 3,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-30T21:58:13.224Z"
-    },
-    {
-      "id": "workflow-event-d2bd2580-721b-4c6c-b069-08783f5f9d9e",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-      "action": "schedule.run_failed",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:12.992Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-05-30T21:58:12.650Z",
-        "updatedAt": "2026-05-30T21:58:12.993Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.154Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-05-30T21:58:12.650Z",
-        "updatedAt": "2026-05-30T21:58:13.155Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-c0afe5c5-c02a-4ab1-8418-2e8d1653289b",
-        "digestId": "digest-2026-05-28",
-        "digestDate": "2026-05-28",
-        "status": "failed",
-        "triggerType": "scheduled",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-30T21:58:13.173Z"
-    },
-    {
-      "id": "workflow-event-56dcafb5-4362-4502-9705-932d1f0e1d77",
-      "entityType": "task_runner",
-      "entityId": "task-runner-2db11f1d-ffaf-4d2d-87b9-81511302f679",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-2db11f1d-ffaf-4d2d-87b9-81511302f679",
-        "mode": "run_once",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-05-30T21:58:13.101Z",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "skippedScheduleCount": 1,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 1,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "Task runner draft schedule: failed for digest 2026-05-28; Scheduled delivery can only send published digests.",
-          "Task runner published schedule: partial for digest 2026-05-27; 0 succeeded, 0 failed, 3 skipped"
-        ]
-      },
-      "metadata": {
-        "mode": "run_once",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-05-30T21:58:13.131Z"
-    },
-    {
-      "id": "workflow-event-c81f159b-e585-4d24-a5b6-097f04b9e46c",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:12.860Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:12.861Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:13.049Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:13.050Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-ada9528f-de29-4b2b-9174-d09767a83018",
-        "digestId": "digest-2026-05-27",
-        "digestDate": "2026-05-27",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 3,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-30T21:58:13.078Z"
-    },
-    {
-      "id": "workflow-event-7f69f6b1-1b0f-4437-b087-4b8c8f1e3a8d",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-      "action": "schedule.run_failed",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:12.654Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-05-30T21:58:12.650Z",
-        "updatedAt": "2026-05-30T21:58:12.655Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-b17ca88e-a413-489b-a338-cdcf3342e606",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:12.992Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-05-30T21:58:12.650Z",
-        "updatedAt": "2026-05-30T21:58:12.993Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-80867a27-75db-41f1-ae89-7cefd4d42b70",
-        "digestId": "digest-2026-05-28",
-        "digestDate": "2026-05-28",
-        "status": "failed",
-        "triggerType": "scheduled",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-05-30T21:58:13.019Z"
-    },
-    {
-      "id": "workflow-event-9d19ff58-b1bb-409f-9d1e-683f6576b9d4",
-      "entityType": "task_runner",
-      "entityId": "task-runner-87141ab0-2706-40d4-a44d-6646415ccb3c",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-87141ab0-2706-40d4-a44d-6646415ccb3c",
-        "mode": "run_once",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-05-30T21:58:12.927Z",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "skippedScheduleCount": 1,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 1,
-        "deliveryLogsCreated": 2,
-        "messages": [
-          "Task runner draft schedule: failed for digest 2026-05-28; Scheduled delivery can only send published digests.",
-          "Task runner published schedule: partial for digest 2026-05-27; 1 succeeded, 1 failed, 1 skipped"
-        ]
-      },
-      "metadata": {
-        "mode": "run_once",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "deliveryLogsCreated": 2
-      },
-      "createdAt": "2026-05-30T21:58:12.962Z"
-    },
-    {
-      "id": "workflow-event-70b588eb-6213-4b1f-858c-461b4d9afa93",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "never_run",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:12.648Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-2e81b3ed-14df-4fde-8c6f-5cf8d305aec4",
-        "name": "Task runner published schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-27",
-        "channelIds": [
-          "delivery-channel-e5b0578e-3d9b-4cc1-a123-10519ea69f21",
-          "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-          "delivery-channel-8dfc70f5-add0-4d03-8a4f-ed084b51aa0d"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-05-30T21:58:12.860Z",
-        "nextRunAt": "2026-05-31T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-05-30T21:58:12.648Z",
-        "updatedAt": "2026-05-30T21:58:12.861Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-1393f54d-9659-4d04-b985-9ae8ee422ac9",
-        "digestId": "digest-2026-05-27",
-        "digestDate": "2026-05-27",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 1,
-        "failedChannels": 1,
-        "skippedChannels": 1,
-        "deliveryLogIds": [
-          "delivery-run-a72b5c0e-6a84-4682-bc2b-b98acc823713",
-          "delivery-run-61f13275-63a9-4394-9806-1ee4506a6179"
-        ]
-      },
-      "createdAt": "2026-05-30T21:58:12.894Z"
-    },
-    {
-      "id": "workflow-event-63271215-480c-4074-b9da-80cda3365c33",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-61f13275-63a9-4394-9806-1ee4506a6179",
-      "action": "delivery.failed",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-61f13275-63a9-4394-9806-1ee4506a6179",
-        "digestId": "digest-2026-05-27",
-        "digestDate": "2026-05-27",
-        "channelId": "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-        "channelName": "Task runner failed webhook",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "startedAt": "2026-05-30T21:58:12.800Z",
-        "requestPayloadPreview": "Task runner validation 2026-05-27\n日期：2026-05-27\n\nEditor-approved public summary for task runner validation.\n\n今日立即关注：\n1. 模型上下文协议\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：AI Tooling Standards Brief · 2026-04-10\n2. 浏览器自动化代理\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：Automation Product Brief · 2026-04-09\n\n值得跟踪：\n暂无值得跟踪内容。\n\n阅读全文：http://localhost:3000/digest/2026-05-27",
-        "finishedAt": "2026-05-30T21:58:12.803Z",
-        "responseStatus": 500,
-        "responseBodyPreview": "Mock webhook failed.",
-        "errorMessage": "Feishu webhook returned HTTP 500."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-27",
-        "digestDate": "2026-05-27",
-        "channelId": "delivery-channel-13f4edff-fe19-40eb-880e-d8dc847dbc36",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "message": "Feishu webhook returned HTTP 500."
-      },
-      "createdAt": "2026-05-30T21:58:12.832Z"
     }
   ]
 }

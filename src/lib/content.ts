@@ -17,7 +17,6 @@ import {
   homeFeaturedTechnologyIds,
   technologyItems
 } from "@/data/technologies";
-import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
   getPersistenceDriver,
   readSqliteKnowledgeItems,
@@ -52,7 +51,7 @@ export function getAllTechnologies(): TechnologyItem[] {
   return [
     ...seedTechnologies
       .filter((item) => item.status === "published")
-      .map(withTechnologyPriority),
+      .map(withoutTechnologyPriorityInternals),
     ...getPublishedTechnologyWorkspaceRecords().map(toUserFacingTechnologyItem)
   ].sort((left, right) => right.publishDate.localeCompare(left.publishDate));
 }
@@ -119,7 +118,7 @@ export function getFeaturedTechnologies(): TechnologyItem[] {
 export function toUserFacingTechnologyItem(
   item: TechnologyWorkspaceRecord
 ): TechnologyItem {
-  return withTechnologyPriority({
+  return {
     id: item.id,
     title: item.title,
     slug: item.slug,
@@ -159,14 +158,20 @@ export function toUserFacingTechnologyItem(
     followUpQuestions: [...(item.followUpQuestions ?? [])],
     readingDifficulty: item.readingDifficulty,
     intelligenceStatus: item.intelligenceStatus
-  });
+  };
 }
 
-function withTechnologyPriority(item: TechnologyItem): TechnologyItem {
-  return {
-    ...item,
-    priority: evaluateTechnologyPriority(item)
-  };
+// Public technology items intentionally carry no `priority` object: the full
+// ranking (score, raw reasons, warnings) is internal-only per
+// docs/security-boundary.md, and every public surface derives the productized
+// priority level on demand via evaluateTechnologyPriority. Stripping it here
+// keeps ranking internals out of RSC payloads for client components.
+function withoutTechnologyPriorityInternals(
+  item: TechnologyItem
+): TechnologyItem {
+  const { priority: _priority, ...publicItem } = item;
+
+  return publicItem;
 }
 
 function resolveTitle(kind: ContentKind, id: string): string | undefined {
