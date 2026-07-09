@@ -92,6 +92,21 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Persistence, hardening & operations
 
+- **Public technology RSC payload hardening** — 2026-07-10: public
+  `TechnologyItem`s no longer carry the persisted `priority` ranking object
+  (`priorityScore`, raw `priorityReasons`/`priorityWarnings`,
+  `rankingSource`). Those fields were never rendered on public pages, but
+  because the technology detail, digest, and radar renderers are client
+  components, the full ranking object was serialized into their RSC flight
+  payloads — the same class of leak fixed earlier for digest pages via
+  `PublicDigestView`. The public mapping in `src/lib/content.ts`
+  (`toUserFacingTechnologyItem` + seed-item strip) now omits `priority`
+  entirely; every public surface already derived the productized priority
+  level on demand via `evaluateTechnologyPriority` (pure over public
+  fields), so no component changed. `validate:ranking` now asserts the
+  inverse contract: published technologies expose no ranking internals and
+  the priority level stays derivable. The full `TechnologyPriorityRanking`
+  remains on `TechnologyWorkspaceRecord` behind the workspace boundary.
 - **Deployment Readiness & Security Boundary v0** — explicit public/workspace/
   internal-API route boundaries, optional token protection for workspace routes,
   documented environment variables, and `validate:deployment` checks.

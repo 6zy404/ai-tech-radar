@@ -480,11 +480,19 @@ function main() {
       ),
       "Expected published draft to appear in user-facing technology list."
     );
-    assert.ok(
+    assert.strictEqual(
       publishedTechnology.priority,
-      "Expected published technology to expose priority."
+      undefined,
+      "Expected published technology to carry no ranking internals (priority is derived on demand)."
     );
-    assert.ok(publishedTechnology.priority.priorityReasons.length > 0);
+
+    const derivedRanking = evaluateTechnologyPriority(publishedTechnology);
+
+    assert.ok(
+      derivedRanking.priorityLevel,
+      "Expected priority level to be derivable from the public technology item."
+    );
+    assert.ok(derivedRanking.priorityReasons.length > 0);
     assertNoInternalQualityFields(publishedTechnology);
 
     console.log("Ranking workflow validation passed.");

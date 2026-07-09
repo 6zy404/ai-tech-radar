@@ -847,8 +847,11 @@ Internal-only fields:
 
 User-facing priority fields:
 
-- `priority.priorityLevel`
-- short priority explanation copy derived from `priorityLevel`
+- the productized priority level and its short explanation copy, derived on
+  demand via `evaluateTechnologyPriority` at render time — public
+  `TechnologyItem`s carry no persisted `priority` object, so ranking
+  internals never enter client-component RSC payloads (the full
+  `TechnologyPriorityRanking` stays on `TechnologyWorkspaceRecord`)
 
 Fields not shown in the user-facing UI:
 
