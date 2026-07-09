@@ -3,10 +3,7 @@ import Link from "next/link";
 import { TagList } from "@/components/tag-list";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
 import { jsonFeedPath, rssFeedPath } from "@/lib/digest-delivery";
-import {
-  getPublicDigestSummary,
-  getPublicDigestTitle
-} from "@/lib/public-copy";
+import type { PublicDigestView } from "@/lib/digest-view";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelClass } from "@/lib/ranking-display";
 import {
@@ -15,7 +12,6 @@ import {
   type TechnologyContentMode
 } from "@/lib/technology-localization";
 import type {
-  DailyDigest,
   KnowledgeItem,
   PriorityLevel,
   ReadingDifficulty,
@@ -27,7 +23,7 @@ import type {
 } from "@/types/content";
 
 interface DailyDigestContentProps {
-  digest: DailyDigest;
+  digest: PublicDigestView;
   highPriorityTechnologies: TechnologyItem[];
   watchTechnologies: TechnologyItem[];
   skills: SkillItem[];
@@ -103,7 +99,7 @@ function getAudienceLine(audience: string[]): string | undefined {
 }
 
 function getDigestSourceReferences(
-  digest: DailyDigest,
+  digest: PublicDigestView,
   technologies: TechnologyItem[]
 ): DigestSourceReference[] {
   const references = new Map<string, DigestSourceReference>();
@@ -296,7 +292,7 @@ function DigestSourceReferences({
   digest,
   technologies
 }: {
-  digest: DailyDigest;
+  digest: PublicDigestView;
   technologies: TechnologyItem[];
 }) {
   const references = getDigestSourceReferences(digest, technologies);
@@ -347,8 +343,8 @@ export function DailyDigestContent({
   previewNotice,
   showDeliveryLinks = false
 }: DailyDigestContentProps) {
-  const publicTitle = getPublicDigestTitle(digest);
-  const publicSummary = getPublicDigestSummary(digest);
+  const publicTitle = digest.title;
+  const publicSummary = digest.summary;
   const selectedTechnologies = [
     ...highPriorityTechnologies,
     ...watchTechnologies

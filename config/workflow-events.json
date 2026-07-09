@@ -1,6 +1,702 @@
 {
-  "updatedAt": "2026-07-09T14:00:51.344Z",
+  "updatedAt": "2026-07-09T14:26:37.355Z",
   "events": [
+    {
+      "id": "workflow-event-15af0b17-51aa-4c4e-b1d8-b1426a1813ea",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop",
+          "knowledge-model-sizing"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-05-23T12:00:00.000Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "published",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop",
+          "knowledge-model-sizing"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.345Z",
+        "publishedAt": "2026-07-09T14:26:37.345Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23"
+      },
+      "createdAt": "2026-07-09T14:26:37.355Z"
+    },
+    {
+      "id": "workflow-event-f137ea47-9596-43b4-968b-9a13aa8d7af0",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.298Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "tech-mcp",
+          "tech-rag-evals",
+          "tech-agent-workbenches",
+          "tech-browser-agents"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+          "tech-mcp",
+          "tech-rag-evals",
+          "tech-agent-workbenches",
+          "tech-browser-agents"
+        ],
+        "skillIds": [
+          "skill-agent-design",
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-tool-integration",
+          "skill-retrieval-tuning"
+        ],
+        "knowledgeIds": [
+          "knowledge-system-design",
+          "knowledge-evaluation-loops",
+          "knowledge-api-contracts",
+          "knowledge-human-loop",
+          "knowledge-model-sizing",
+          "knowledge-rag-basics",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "检索质量摘要",
+          "智能体平台评测",
+          "自动化产品简报",
+          "AI 工具标准简报",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.320Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ],
+        "lastRegeneratedAt": "2026-07-09T14:26:37.320Z"
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "preserveManualAdjustments": true
+      },
+      "createdAt": "2026-07-09T14:26:37.332Z"
+    },
+    {
+      "id": "workflow-event-8ad3547d-fdf1-4cb6-aeb5-1f2dde37fb50",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.274Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.298Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "action": "move_up"
+      },
+      "createdAt": "2026-07-09T14:26:37.309Z"
+    },
+    {
+      "id": "workflow-event-05972902-89fb-47cc-90ae-ba3b1f11c07d",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.248Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.274Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "action": "pin"
+      },
+      "createdAt": "2026-07-09T14:26:37.286Z"
+    },
+    {
+      "id": "workflow-event-4fb43805-13c2-4ca1-a840-517ba16e11eb",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.220Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing",
+          "knowledge-system-design"
+        ],
+        "sourceNames": [
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.248Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "action": "include"
+      },
+      "createdAt": "2026-07-09T14:26:37.260Z"
+    },
+    {
+      "id": "workflow-event-6221f6c6-d0eb-4f62-b663-b48a5f3b720f",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop",
+          "knowledge-model-sizing"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.191Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "knowledgeIds": [
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs"
+        ],
+        "sourceNames": [
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.220Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23",
+        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "action": "exclude"
+      },
+      "createdAt": "2026-07-09T14:26:37.233Z"
+    },
+    {
+      "id": "workflow-event-e7a19277-e127-447f-9550-bd563e8473aa",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-05-23",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Daily Technology Digest - 2026-05-23",
+        "summary": "2 item(s) are selected for editorial validation.",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-tool-integration",
+          "skill-model-evaluation"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-05-23T12:00:00.000Z",
+        "editorialNotes": [
+          "Validation seed digest."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-05-23",
+        "date": "2026-05-23",
+        "status": "draft",
+        "title": "Edited Daily Digest",
+        "summary": "Edited generated summary.",
+        "editorialSummary": "Editor-written public summary.",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "watchTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "skillIds": [
+          "skill-scope-pilots",
+          "skill-model-evaluation",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop",
+          "knowledge-model-sizing"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News"
+        ],
+        "generatedAt": "2026-05-23T12:00:00.000Z",
+        "updatedAt": "2026-07-09T14:26:37.191Z",
+        "editorialNotes": [
+          "Manual editorial note."
+        ]
+      },
+      "metadata": {
+        "date": "2026-05-23"
+      },
+      "createdAt": "2026-07-09T14:26:37.205Z"
+    },
     {
       "id": "workflow-event-d8caabfa-bfd5-4d34-902e-b9cb1562263e",
       "entityType": "technology_draft",
@@ -36937,618 +37633,6 @@
         "sourceCandidateId": "candidate-rss-openai-rss-responses-tools"
       },
       "createdAt": "2026-05-30T21:56:37.016Z"
-    },
-    {
-      "id": "workflow-event-efeddedc-641c-41ea-924d-2c0e78e014e4",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "candidate-rss-openai-rss-responses-tools",
-        "sourceId": "fallback-rss-openai-blog-rss",
-        "sourceType": "rss-feed",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "originalTitle": "New tools for building agent workflows in the Responses API",
-        "originalSummary": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-        "originalContent": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-        "originalLanguage": "en",
-        "publishDate": "2026-04-11",
-        "publisherName": "OpenAI",
-        "normalizedType": "workflow",
-        "tags": [
-          "agents",
-          "workflow",
-          "api"
-        ],
-        "importStatus": "reviewed",
-        "relatedCandidateIds": [],
-        "rawPayload": {
-          "sourceId": "fallback-rss-openai-blog-rss",
-          "feedTitle": "OpenAI Blog RSS",
-          "feedUrl": "https://example.com/openai-blog/rss",
-          "entry": {
-            "guid": "openai-rss-responses-tools",
-            "title": "New tools for building agent workflows in the Responses API",
-            "link": "https://example.com/openai-blog/responses-agent-tools",
-            "summary": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-            "content": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-            "isoDate": "2026-04-11",
-            "publisherName": "OpenAI",
-            "language": "en",
-            "categories": [
-              "agents",
-              "workflow",
-              "api"
-            ],
-            "normalizedTypeHint": "workflow",
-            "importStatus": "new"
-          }
-        },
-        "reviewedAt": "2026-05-30T21:56:36.804Z"
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-05-30T21:56:36.876Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:36.873Z",
-        "updatedAt": "2026-05-30T21:56:36.873Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-candidate-rss-openai-rss-responses-tools",
-        "markedCandidateIds": [
-          "candidate-rss-openai-rss-responses-tools"
-        ]
-      },
-      "createdAt": "2026-05-30T21:56:36.944Z"
-    },
-    {
-      "id": "workflow-event-3cc22d3f-7f8a-4097-a55f-9925f0fccb7e",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "reviewed",
-        "reviewedAt": "2026-05-30T21:56:36.804Z"
-      },
-      "metadata": {
-        "nextStatus": "reviewed"
-      },
-      "createdAt": "2026-05-30T21:56:36.837Z"
-    },
-    {
-      "id": "workflow-event-05487da7-360d-424a-ac10-6c86d850e0f3",
-      "entityType": "technology_draft",
-      "entityId": "validation-warning-only-record",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T21:56:25.868Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:25.781Z",
-        "updatedAt": "2026-05-30T21:56:25.988Z",
-        "editorialNotes": []
-      },
-      "afterSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "watch",
-          "priorityScore": 57,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Tags are missing.",
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet.",
-            "Publisher is missing."
-          ],
-          "rankingUpdatedAt": "2026-05-30T21:56:26.087Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:25.781Z",
-        "updatedAt": "2026-05-30T21:56:26.087Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validation-warning-only-record"
-      },
-      "createdAt": "2026-05-30T21:56:26.110Z"
-    },
-    {
-      "id": "workflow-event-8205e067-8e8e-46b3-8d86-e4d59bba4c77",
-      "entityType": "technology_draft",
-      "entityId": "validation-duplicate-slug-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-duplicate-slug-record",
-        "slug": "model-context-protocol",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/validation-duplicate-slug",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T21:56:25.868Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:25.781Z",
-        "updatedAt": "2026-05-30T21:56:25.988Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "blockingErrors": [
-          "duplicate-slug"
-        ]
-      },
-      "createdAt": "2026-05-30T21:56:26.061Z"
-    },
-    {
-      "id": "workflow-event-7fa1a053-5aa7-4575-9409-47da1ed15724",
-      "entityType": "technology_draft",
-      "entityId": "validation-incomplete-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-incomplete-record",
-        "slug": "",
-        "title": {
-          "original": ""
-        },
-        "summary": {
-          "original": ""
-        },
-        "content": {
-          "original": ""
-        },
-        "type": "workflow",
-        "publishDate": "",
-        "sourceName": "",
-        "sourceUrl": "not-a-url",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T21:56:25.868Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:25.781Z",
-        "updatedAt": "2026-05-30T21:56:25.988Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "blockingErrors": [
-          "missing-title",
-          "missing-summary",
-          "missing-slug",
-          "missing-source-name",
-          "invalid-source-url",
-          "invalid-publish-date",
-          "missing-content"
-        ]
-      },
-      "createdAt": "2026-05-30T21:56:26.023Z"
-    },
-    {
-      "id": "workflow-event-fe6faed6-2aa6-45c2-82b1-1b69aeb28b20",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T21:56:25.868Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:25.781Z",
-        "updatedAt": "2026-05-30T21:56:25.868Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-05-30T21:56:25.947Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-05-30T21:56:25.781Z",
-        "updatedAt": "2026-05-30T21:56:25.946Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validated-workspace-draft"
-      },
-      "createdAt": "2026-05-30T21:56:25.969Z"
-    },
-    {
-      "id": "workflow-event-f6e20ff6-23e6-435f-87a3-fcb57ead0023",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "importStatus": "converted",
-        "reviewedAt": "2026-05-30T21:56:25.784Z",
-        "convertedTechnologyId": "draft-candidate-rss-openai-rss-responses-tools"
-      },
-      "afterSnapshot": {
-        "importStatus": "converted",
-        "reviewedAt": "2026-05-30T21:56:25.906Z",
-        "convertedTechnologyId": "draft-candidate-rss-openai-rss-responses-tools"
-      },
-      "metadata": {
-        "nextStatus": "converted"
-      },
-      "createdAt": "2026-05-30T21:56:25.923Z"
     }
   ]
 }
