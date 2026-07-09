@@ -5,6 +5,7 @@ import {
   RelationshipGraph,
   type RelationshipGraphNode
 } from "@/components/relationship-graph";
+import { FollowableTagList } from "@/components/followable-tag-list";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -354,7 +355,7 @@ export default async function KnowledgeDetailPage({
           {tags.length > 0 ? (
             <section className="skill-detail-aside-card">
               <p className="skill-detail-kicker">主题</p>
-              <TagList tags={tags} limit={6} />
+              <FollowableTagList tags={tags} />
             </section>
           ) : null}
 

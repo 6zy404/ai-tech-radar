@@ -261,6 +261,24 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Personalization
 
+- **Detail-page follow entry (P4 v0.1)** — shipped 2026-07-09, immediately
+  after P4 v0, as the owner-chosen follow-up: readers can now follow a topic
+  from where they read about it, not only on `/radar`. The tags section on
+  all three user-facing detail pages (technology `/technologies/[slug]`,
+  skill `/skills/[slug]`, knowledge `/knowledge/[slug]`) now renders the new
+  shared client component `FollowableTagList`
+  (`src/components/followable-tag-list.tsx`) instead of the static `TagList`:
+  each tag becomes the same follow/unfollow toggle chip used on `/radar`
+  (reusing the `my-radar__tag-toggle` styles and the localStorage helpers in
+  `src/lib/followed-tags.ts`, so state syncs across components and tabs).
+  Below the chips, one hint line closes the loop: "点击话题，将它加入我的雷达"
+  when none of the page's tags are followed, or "已加入我的雷达 · 查看" with a
+  link to `/radar` when at least one is. Hero tags and the small tags on
+  related-item cards stay static (`TagList`); no accounts, no server state —
+  the same P4 v0 boundary. Verified with typecheck, lint, format:check,
+  vitest 54/54, and a live pass on all three detail pages (toggle on/off,
+  localStorage + hint sync, mobile width without overflow, no new console
+  errors).
 - **Personal radar (P4 v0)** — the first capability shipped under P4
   ("personalization"), owner-authorized on 2026-07-09 with a deliberately
   minimal, boundary-respecting design: **no accounts, no server-side profile,

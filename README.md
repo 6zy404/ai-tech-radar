@@ -63,7 +63,11 @@ The product is split into two subsystems:
   browser localStorage, no accounts) and `/radar` aggregates matching
   published signals into the existing priority groups, with an explicit
   "matched because you follow X" line per item. Deterministic filtering on
-  Ranking v0 — no AI ranking, no server-side profile.
+  Ranking v0 — no AI ranking, no server-side profile. Detail pages carry a
+  follow entry (P4 v0.1): the tags section on technology/skill/knowledge
+  detail pages renders the same follow-toggle chips, so readers can follow a
+  topic where they read about it, with an inline "已加入我的雷达 → 查看"
+  link back to `/radar`.
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.

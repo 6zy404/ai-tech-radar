@@ -7,7 +7,9 @@
 > (the last two on 2026-07-05, owner-authorized). P4 (personalization) was
 > owner-authorized on 2026-07-09 and its v0 — the followed-topics personal
 > radar at `/radar`, localStorage-only, deterministic Ranking v0 grouping —
-> has shipped (see "Personal radar (done)" below). Any further P3 or P4
+> has shipped (see "Personal radar (done)" below), followed the same day by
+> the owner-chosen v0.1 — the detail-page follow entry (see "Detail-page
+> follow entry (done)" below). Any further P3 or P4
 > capability is new scope to be proposed by the owner per capability. The
 > tracked code-debt list is empty: the store-decomposition pattern has been
 > applied to every file it was planned for, the ESLint/Prettier config has
@@ -318,6 +320,23 @@ the three records were re-tagged. Verified with typecheck, lint,
 format:check, vitest 54/54, and a live end-to-end pass (follow toggles →
 grouped matches with explanation lines → persistence across reload → mobile
 width without overflow → zero console errors).
+
+## Detail-page follow entry (done)
+
+P4 v0.1, owner-chosen and shipped 2026-07-09 (scope aligned via upfront
+questions: followable chips in the body tags section only, all three detail
+pages, chip state + radar link feedback, hero tags stay static). New shared
+client component `src/components/followable-tag-list.tsx` renders an item's
+tags as the same follow/unfollow toggle chips as `/radar` (reusing
+`my-radar__tag-toggle` styles and `src/lib/followed-tags.ts`), plus a hint
+line ("点击话题，将它加入我的雷达" / "已加入我的雷达 · 查看" linking to
+`/radar`). Adopted in the tags section of `technology-detail-content.tsx`,
+`src/app/skills/[slug]/page.tsx`, and `src/app/knowledge/[slug]/page.tsx`;
+hero and related-card tags stay on the static `TagList`. Small
+`.followable-tag-list` CSS block next to the my-radar styles. Verified with
+typecheck, lint, format:check, vitest 54/54, and a live pass on all three
+detail pages (toggle both directions with localStorage + hint sync, mobile
+width without overflow, no new console errors).
 
 ## ESLint + Prettier config (done)
 

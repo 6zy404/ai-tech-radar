@@ -353,6 +353,12 @@ deliberately minimal and keeps every existing boundary intact:
   recommendation system.
 - The route serves identical published content to everyone; personalization
   happens entirely client-side.
+- Follow entry on detail pages (v0.1, same day): the tags section on the
+  technology, skill, and knowledge detail pages renders the same
+  follow-toggle chips (`FollowableTagList`), so readers can follow a topic
+  where they read about it; a hint line links back to `/radar` when any of
+  the page's tags is followed. Same localStorage-only boundary — no new
+  routes, no server state.
 
 ## Current non-goals
 

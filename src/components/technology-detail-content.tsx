@@ -7,6 +7,7 @@ import {
   RelationshipGraph,
   type RelationshipGraphNode
 } from "@/components/relationship-graph";
+import { FollowableTagList } from "@/components/followable-tag-list";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
@@ -211,7 +212,7 @@ export function TechnologyDetailContent({
           {tags.length > 0 ? (
             <section className="user-reference-panel">
               <p className="eyebrow user-eyebrow">{copy.tagsLabel}</p>
-              <TagList tags={tags} limit={6} />
+              <FollowableTagList tags={tags} />
             </section>
           ) : null}
         </>
