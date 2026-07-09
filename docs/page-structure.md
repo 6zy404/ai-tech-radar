@@ -306,6 +306,16 @@ Workspace deployment boundary:
   - explains why the concept is foundational
   - links to published technology signals explained by the concept
   - links to skills that use the concept
+- `/radar`
+  - user-facing personal radar (P4 v0)
+  - readers follow topic tags via toggle chips; follows live only in browser
+    localStorage (no accounts, no server-side profile)
+  - aggregates published technologies whose tags intersect the followed set,
+    grouped by the existing deterministic Ranking v0 priority levels and
+    date-sorted within groups, reusing `TechnologyListCard`
+  - each matched item shows an explicit "命中关注：X" explanation line
+  - guided empty states for "no follows yet" and "follows but no matches"
+  - does not show internal quality, reviewer, delivery, or source data
 - `/network`
   - user-facing whole-network overview
   - renders every published technology, skill, and knowledge item as a node in
@@ -401,6 +411,11 @@ Forbidden on public pages:
     on the technology detail page: pick an experience level (入门 / 进阶 /
     资深), request a live explanation from `POST /api/technologies/explain`,
     same disclaimer discipline as `TechnologyCompareWidget`
+- `MyRadarContent`
+  - user-facing client component for `/radar`: followed-tag toggle chips
+    (localStorage-backed via `src/lib/followed-tags.ts`), deterministic
+    priority-grouped matching of published signals, per-item matched-topic
+    explanation line, and guided empty states
 - `TechnologyLearningPathWidget`
   - user-facing, client-side AI learning-path trigger and result panel on the
     technology detail page: request a graph-grounded learning path from

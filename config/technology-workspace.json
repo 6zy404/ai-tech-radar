@@ -1,9 +1,9 @@
 {
-  "updatedAt": "2026-07-09T13:59:16.415Z",
+  "updatedAt": "2026-07-09T14:35:01.415Z",
   "records": [
     {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "slug": "ollama",
+      "slug": "ollama-v0-31-2",
       "title": {
         "original": "Ollama v0.31.2",
         "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
@@ -27,9 +27,8 @@
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "local-inference",
-        "open-source",
-        "edge"
+        "tag-inference",
+        "tag-on-device"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -54,7 +53,7 @@
           "Signal is recent."
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-09T13:59:16.415Z",
+        "rankingUpdatedAt": "2026-07-09T14:35:01.415Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
@@ -92,14 +91,14 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
       "createdAt": "2026-07-09T13:59:16.342Z",
-      "updatedAt": "2026-07-09T13:59:16.415Z",
+      "updatedAt": "2026-07-09T14:35:01.415Z",
       "editorialNotes": [
         "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
       ]
     },
     {
       "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-      "slug": "vllm",
+      "slug": "vllm-v0-24-0",
       "title": {
         "original": "vLLM v0.24.0",
         "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
@@ -123,9 +122,7 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "inference",
-        "serving",
-        "open-source"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -151,7 +148,7 @@
           "Editorial importance is marked important."
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-09T13:59:16.297Z",
+        "rankingUpdatedAt": "2026-07-09T14:35:01.391Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
@@ -189,14 +186,14 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
       "createdAt": "2026-07-09T13:59:16.219Z",
-      "updatedAt": "2026-07-09T13:59:16.297Z",
+      "updatedAt": "2026-07-09T14:35:01.391Z",
       "editorialNotes": [
         "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
       ]
     },
     {
       "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "slug": "gpt-live",
+      "slug": "introducing-gpt-live",
       "title": {
         "original": "Introducing GPT-Live",
         "zh": "GPT-Live：OpenAI 新一代实时语音模型"
@@ -220,9 +217,7 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "frontier-model",
-        "multimodal",
-        "voice"
+        "tag-multimodal"
       ],
       "relatedKnowledgeIds": [
         "knowledge-latency-tradeoffs",
@@ -249,7 +244,7 @@
           "Publisher type is a strong technology signal source."
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-09T12:31:13.665Z",
+        "rankingUpdatedAt": "2026-07-09T14:35:01.353Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
@@ -288,7 +283,7 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
       "createdAt": "2026-07-09T12:31:13.569Z",
-      "updatedAt": "2026-07-09T12:31:13.665Z",
+      "updatedAt": "2026-07-09T14:35:01.353Z",
       "editorialNotes": [
         "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
       ]

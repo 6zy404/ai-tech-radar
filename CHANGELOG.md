@@ -259,6 +259,28 @@ For per-topic deep dives, see the `docs/` directory.
   (`toPublicLearningPathResult` in `src/lib/technology-learning-path.ts`)
   stripping all provider/model/prompt metadata from the public response.
 
+## Personalization
+
+- **Personal radar (P4 v0)** — the first capability shipped under P4
+  ("personalization"), owner-authorized on 2026-07-09 with a deliberately
+  minimal, boundary-respecting design: **no accounts, no server-side profile,
+  no AI ranking**. Readers follow topic tags via toggle chips on the new
+  public `/radar` page ("我的雷达", added to `TopNav`); follows are stored
+  only in browser `localStorage`
+  (`src/lib/followed-tags.ts`, key `ai-tech-radar:followed-tag-ids`, with a
+  custom event + `storage` listener for cross-component sync). The radar
+  aggregates published technologies whose tags intersect the followed set,
+  groups them with the existing deterministic Ranking v0 priority levels
+  (立即关注 / 值得跟踪 / 了解即可, date-sorted within groups, reusing
+  `TechnologyListCard`), and shows an explainability line per item
+  (命中关注：X). Empty states guide first-time and no-match cases. Also fixed
+  a content defect found during verification: the three real published
+  signals (gpt-live / vllm / ollama) used freeform tag strings instead of
+  canonical `TopicTag` ids, so they could not be matched by tag anywhere; a
+  new canonical tag `tag-inference` (推理与部署) was added and the three
+  records were re-tagged (`tag-multimodal`, `tag-inference`,
+  `tag-inference` + `tag-on-device`).
+
 ## Developer tooling
 
 - **Linting & formatting config v0 (ESLint + Prettier)** — flat-config ESLint 9

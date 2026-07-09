@@ -4,13 +4,18 @@
 > (knowledge relationship network) are both done. P3 (AI-assisted
 > understanding) has completed its agreed candidate list: Compare (v0),
 > Explain (v1), and the graph-grounded learning path (v2) have all shipped
-> (the last two on 2026-07-05, owner-authorized). Any further P3 capability
-> is new scope to be proposed by the owner. P4 (personalization) is untouched
-> and still requires explicit authorization. The tracked code-debt list is
-> empty: the store-decomposition pattern has been applied to every file it was
-> planned for, the ESLint/Prettier config has shipped, and the SQLite
-> storage-model decision has been made (document store by design — see
-> `docs/decisions.md`).
+> (the last two on 2026-07-05, owner-authorized). P4 (personalization) was
+> owner-authorized on 2026-07-09 and its v0 — the followed-topics personal
+> radar at `/radar`, localStorage-only, deterministic Ranking v0 grouping —
+> has shipped (see "Personal radar (done)" below). Any further P3 or P4
+> capability is new scope to be proposed by the owner per capability. The
+> tracked code-debt list is empty: the store-decomposition pattern has been
+> applied to every file it was planned for, the ESLint/Prettier config has
+> shipped, and the SQLite storage-model decision has been made (document
+> store by design — see `docs/decisions.md`). The first real
+> content-production rounds have also run: five real external sources are
+> configured, and three enriched real signals (gpt-live, vllm, ollama) plus
+> the 2026-07-09 digest are published.
 
 > Done since last update: vitest test setup + unit tests (ranking, publish
 > readiness, dedup, digest), CI workflow (`.github/workflows/ci.yml` running
@@ -294,6 +299,25 @@ twelve):
   sweep (`npm run validate:delivery`, confirmed broken identically on the
   commit before this refactor via `git stash`) and flagged separately rather
   than fixed inline — not caused by this change.
+
+## Personal radar (done)
+
+P4 v0, owner-authorized and shipped 2026-07-09 (scope choices confirmed with
+the owner: tags-only follows, priority-grouped radar). New public `/radar`
+page ("我的雷达" in `TopNav`): `src/lib/followed-tags.ts` (localStorage
+helpers + change event), `src/components/my-radar-content.tsx` (tag toggle
+chips, deterministic Ranking v0 grouping, per-item 命中关注 line, guided
+empty states, reusing `TechnologyListCard`), `src/app/radar/page.tsx`, and a
+small `my-radar__*` CSS block on existing tokens. No accounts, no server
+profile, no AI ranking — see `docs/project-spec.md` → "Personal Radar
+(P4 v0)". A content defect was found and fixed during verification: the
+three real published signals used freeform tag strings instead of canonical
+`TopicTag` ids, so tag matching (and card tag rendering) missed them; a new
+canonical `tag-inference` (推理与部署) was added to `src/data/tags.ts` and
+the three records were re-tagged. Verified with typecheck, lint,
+format:check, vitest 54/54, and a live end-to-end pass (follow toggles →
+grouped matches with explanation lines → persistence across reload → mobile
+width without overflow → zero console errors).
 
 ## ESLint + Prettier config (done)
 

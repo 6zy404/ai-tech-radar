@@ -16,6 +16,8 @@ Public routes can be exposed:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/radar` (follows are browser-localStorage only; the route serves the same
+  published content to everyone and holds no per-reader server state)
 - `/feed.xml`
 - `/feed.json`
 - `POST /api/technologies/compare`

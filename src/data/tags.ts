@@ -40,5 +40,10 @@ export const topicTags: TopicTag[] = [
     id: "tag-product-strategy",
     name: "产品策略",
     description: "判断什么最值得优先学习、交付和试点的方法。"
+  },
+  {
+    id: "tag-inference",
+    name: "推理与部署",
+    description: "大模型推理引擎、部署形态与成本优化相关的信号。"
   }
 ];

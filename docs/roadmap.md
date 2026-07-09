@@ -74,13 +74,13 @@ and the **User-facing Product** (public reading/discovery).
 
 ## Completion estimate
 
-| Area                                | Done                                                                          | Remaining                                                                                                                                                                                                               |
-| ----------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Business pipeline / CMS             | ~98%                                                                          | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
-| User-facing visuals / design system | ~95%                                                                          | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
-| User-facing content                 | ~90%                                                                          | essentially localized                                                                                                                                                                                                   |
-| Knowledge relationship network      | 100% (P2 complete)                                                            | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
-| AI assistance / personalization     | P3 agreed scope complete (Compare v0 + Explain v1 + Learning Path v2 shipped) | Further P3 capabilities would be new scope proposed by the owner; P4 personalization not started (still gated as out-of-scope without explicit request)                                                                 |
+| Area                                | Done                                                     | Remaining                                                                                                                                                                                                               |
+| ----------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business pipeline / CMS             | ~98%                                                     | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
+| User-facing visuals / design system | ~95%                                                     | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
+| User-facing content                 | ~90%                                                     | essentially localized                                                                                                                                                                                                   |
+| Knowledge relationship network      | 100% (P2 complete)                                       | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
+| AI assistance / personalization     | P3 agreed scope complete; P4 v0 shipped (personal radar) | Further P3 capabilities and further P4 capabilities (detail-page follow entries, personalized digest view) are new scope proposed per capability                                                                        |
 
 ## Roadmap
 
@@ -127,9 +127,17 @@ agreed next P3 candidate** — the owner's Explain-first choice implies it
 follows, but confirm before starting. This is the CMS → AI-product turning
 point.
 
-### P4 — Personalization (further out; also requires authorization)
+### P4 — Personalization (authorized 2026-07-09; v0 shipped)
 
 Followed topics → personalized digest = a personal tech radar.
+
+**v0 shipped** (see `CHANGELOG.md` → "Personalization"): readers follow topic
+tags on the public `/radar` page; follows live only in browser localStorage
+(no accounts, no server profile), and the radar groups matching published
+signals with the existing deterministic Ranking v0 levels plus a per-item
+"命中关注：X" explanation line. Remaining P4 ideas (follow entry points on
+detail pages, a personalized digest view, follow-based highlights elsewhere)
+are future scope to be proposed per capability.
 
 ### Interleaved — code debt
 
@@ -151,11 +159,11 @@ owner before P3, because AI/personalization are an explicit authorization
 boundary in `AGENTS.md`. Avoid further UI micro-tuning: the project ceiling is
 the relationship network and understanding layer, not button spacing.
 
-**Status: P1 and P2 are done, and P3's agreed candidate list is complete** —
-Compare (v0), Explain (v1), and the graph-grounded learning path (v2) have
-all shipped (see the P3 section above). Any further P3 capability is new
-scope to be proposed and authorized by the owner. P4 (personalization) is
-untouched and still requires explicit authorization. The interleaved
+**Status: P1 and P2 are done, P3's agreed candidate list is complete, and
+P4 v0 has shipped** — Compare (v0), Explain (v1), the graph-grounded
+learning path (v2), and the personal radar (P4 v0, `/radar`) are all live
+(see the sections above). Any further P3 or P4 capability is new scope to be
+proposed and authorized by the owner per capability. The interleaved
 code-debt list is empty (store decomposition, visual confirmation,
 ESLint/Prettier, and the SQLite storage-model decision are all done — see
 `docs/next-task.md`).

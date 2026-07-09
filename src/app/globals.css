@@ -8011,3 +8011,85 @@ button.tech-graph__node:focus-visible {
     font-size: 0.68rem;
   }
 }
+
+/* My Radar (P4 v0) — followed-topic personal radar page */
+.my-radar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.my-radar__manager {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.my-radar__manager-copy h2 {
+  margin: 4px 0 6px;
+  font-size: var(--fs-section);
+}
+
+.my-radar__manager-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-body);
+}
+
+.my-radar__tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.my-radar__tag-toggle {
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: var(--fs-label);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.my-radar__tag-toggle:hover {
+  border-color: var(--accent);
+}
+
+.my-radar__tag-toggle--active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.my-radar__group-header h2 {
+  margin: 0 0 4px;
+  font-size: var(--fs-section);
+}
+
+.my-radar__group-header p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: var(--fs-body);
+}
+
+.my-radar__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.my-radar__match-line {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
