@@ -408,6 +408,10 @@ Forbidden on public pages:
     `TechnologyCompareWidget`
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
+  - consumes a public-safe `PublicDigestView` (mapped by `toPublicDigestView`
+    in `src/lib/digest-view.ts`) rather than the full `DailyDigest` workflow
+    object, so internal-only digest fields never enter the rendered page
+    payload
 - `DailyDigestWorkspaceCard`
   - workspace-only digest list record
 - `DailyDigestWorkspaceDetail`

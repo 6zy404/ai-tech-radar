@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import { DailyDigestContent } from "@/components/daily-digest-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getPublishedDailyDigestByDate } from "@/lib/digest-workflow";
-import { getDailyDigestRenderData } from "@/lib/digest-view";
+import {
+  getDailyDigestRenderData,
+  toPublicDigestView
+} from "@/lib/digest-view";
 import {
   getPublicDigestSummary,
   getPublicDigestTitle
@@ -34,7 +37,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
       showHeader={false}
     >
       <DailyDigestContent
-        digest={digest}
+        digest={toPublicDigestView(digest)}
         showDeliveryLinks
         {...getDailyDigestRenderData(digest)}
       />

@@ -3,7 +3,10 @@ import Link from "next/link";
 import { DailyDigestContent } from "@/components/daily-digest-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getTodayDateString } from "@/lib/digest-store";
-import { getDailyDigestRenderData } from "@/lib/digest-view";
+import {
+  getDailyDigestRenderData,
+  toPublicDigestView
+} from "@/lib/digest-view";
 import {
   getLatestPublishedDailyDigest,
   getPublishedDailyDigestByDate
@@ -30,7 +33,7 @@ export default function TodayDigestPage() {
     >
       {latestDigest ? (
         <DailyDigestContent
-          digest={latestDigest}
+          digest={toPublicDigestView(latestDigest)}
           previewNotice={previewNotice}
           showDeliveryLinks
           {...getDailyDigestRenderData(latestDigest)}

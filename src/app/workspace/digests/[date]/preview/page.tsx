@@ -4,7 +4,10 @@ import { notFound } from "next/navigation";
 import { DailyDigestContent } from "@/components/daily-digest-content";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { getDailyDigestByDate } from "@/lib/digest-workflow";
-import { getDailyDigestRenderData } from "@/lib/digest-view";
+import {
+  getDailyDigestRenderData,
+  toPublicDigestView
+} from "@/lib/digest-view";
 
 interface WorkspaceDigestPreviewPageProps {
   params: Promise<{ date: string }>;
@@ -37,7 +40,7 @@ export default async function WorkspaceDigestPreviewPage({
       }
     >
       <DailyDigestContent
-        digest={digest}
+        digest={toPublicDigestView(digest)}
         previewNotice="Workspace preview only. Draft or archived digests are not available through the public /digest/[date] route."
         {...getDailyDigestRenderData(digest)}
       />
