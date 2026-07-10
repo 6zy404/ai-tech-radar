@@ -392,7 +392,7 @@ function main() {
     );
     assert.ok(
       poorRanking.priorityWarnings.some((warning) =>
-        /poor|missing|invalid/i.test(warning)
+        /较差|缺少|无效|不明确/.test(warning)
       ),
       "Expected poor source or missing fields to produce priority warnings."
     );

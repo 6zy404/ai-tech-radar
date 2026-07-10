@@ -471,7 +471,7 @@ async function fetchText(url: string): Promise<string> {
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed with ${response.status} for ${url}`);
+    throw new Error(`请求失败（HTTP ${response.status}）：${url}`);
   }
 
   return response.text();
@@ -484,7 +484,7 @@ async function fetchJson<T>(url: string): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed with ${response.status} for ${url}`);
+    throw new Error(`请求失败（HTTP ${response.status}）：${url}`);
   }
 
   return response.json() as Promise<T>;
@@ -612,7 +612,7 @@ async function fetchRssFeedCandidates(
     });
   }
 
-  throw new Error(`Unsupported feed format for ${config.sourceUrl}`);
+  throw new Error(`不支持的订阅源格式：${config.sourceUrl}`);
 }
 
 interface GitHubReleaseApiRecord {
@@ -750,9 +750,7 @@ async function fetchOfficialBlogCandidates(
       ) || stripHtml(articleHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "");
     const paragraphs = extractReadableParagraphs(articleHtml);
     const summary = trimToLength(
-      preview.excerpt ||
-        paragraphs[0] ||
-        "No summary extracted from the source page.",
+      preview.excerpt || paragraphs[0] || "未能从来源页面提取摘要。",
       260
     );
     const content = trimToLength(

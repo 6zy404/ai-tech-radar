@@ -129,6 +129,30 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Navigation, IA & design system
 
+- **Workspace diagnostic-string localization (Chinese)** — 2026-07-10, the
+  owner-chosen follow-up to Workspace UI localization v0: the six categories
+  of lib-generated diagnostic strings deliberately left English in that pass
+  are now generated in Chinese — Ranking v0 `priorityReasons` /
+  `priorityWarnings` (`src/lib/ranking.ts`), Publish Quality Gate messages
+  (`publish-readiness.ts`), digest publish-readiness messages
+  (`digest-workflow.ts`), source import messages (`source-workflow.ts`,
+  `external-import.ts`, including the fallback-candidate placeholder copy),
+  delivery / scheduled-delivery / task-runner messages, and operations
+  statusReasons + attention-item copy (`operations-metrics.ts`). The vitest
+  tests and validate scripts asserting those strings were updated in the
+  same change (`ranking.test.ts`, `validate:ranking`,
+  `validate:delivery-integration`, `validate:delivery-channels`,
+  `validate:scheduled-delivery`, `validate:tasks`, `validate:operations`);
+  `validate:workspace-boundary` — found to have been silently stale since
+  earlier copy refactors (it asserted "Internal Workspace" copy that no
+  longer existed pre-localization) — was re-pointed at the current Chinese
+  nav/dashboard/action copy. Historical English messages already persisted
+  in `config/` stores are intentionally untouched (audit data; they age out
+  naturally). Digest *generation* copy (default title/summary/editorial-note
+  templates, which feed public digest content), workflow event action codes,
+  and imported data content remain English by design. Verified with
+  typecheck, lint, format, vitest 54/54, and all 22 `validate:*` scripts
+  green.
 - **Workspace UI localization v0 (Chinese)** — 2026-07-10: all Internal
   Workspace UI chrome is now Chinese — the workspace nav/groups and
   breadcrumbs, every `/workspace/*` page title/description/section label,

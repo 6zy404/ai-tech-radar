@@ -244,9 +244,7 @@ function getFailedImportSummary(
       status: source.lastImportStatus,
       failedAt: source.lastFetchedAt,
       message: sanitizeOperationsText(
-        source.lastErrorMessage ??
-          source.lastImportMessage ??
-          "Import needs review."
+        source.lastErrorMessage ?? source.lastImportMessage ?? "导入需要复查。"
       ),
       consecutiveFailureCount: source.consecutiveFailureCount ?? 0,
       href: `/workspace/sources/${source.id}`
@@ -270,7 +268,7 @@ function getFailedDeliverySummary(
       channelType: run.channelType,
       failedAt: run.finishedAt ?? run.startedAt,
       message: sanitizeOperationsText(
-        run.errorMessage ?? run.responseBodyPreview ?? "Delivery failed."
+        run.errorMessage ?? run.responseBodyPreview ?? "投递失败。"
       ),
       href: `/workspace/digests/${run.digestDate}`
     }));
@@ -326,7 +324,7 @@ function getCandidateQualityAttention(): OperationsAttentionItem[] {
         return [];
       }
 
-      const title = candidate.originalTitle || "Untitled imported candidate";
+      const title = candidate.originalTitle || "未命名导入候选";
       const reason = quality.hasTitle
         ? blockingFlags.join(", ")
         : "missing_title";
@@ -336,9 +334,9 @@ function getCandidateQualityAttention(): OperationsAttentionItem[] {
           id: `candidate-quality-${candidate.id}`,
           severity: "warning" as const,
           title,
-          description: `Candidate quality needs review: ${reason}.`,
+          description: `候选质量需要复查：${reason}。`,
           href: `/workspace/candidates/${candidate.id}`,
-          source: "Candidate quality",
+          source: "候选质量",
           createdAt: candidate.importedAt
         }
       ];
@@ -367,9 +365,9 @@ function getAttentionRequiredItems({
           ? ("critical" as const)
           : ("warning" as const),
       title: item.sourceName,
-      description: `Source import status is ${item.status}. ${item.message}`,
+      description: `来源导入状态为 ${item.status}。${item.message}`,
       href: item.href,
-      source: "Source import",
+      source: "来源导入",
       createdAt: item.failedAt
     })),
     ...failedDeliveries.slice(0, 8).map((item) => ({
@@ -378,7 +376,7 @@ function getAttentionRequiredItems({
       title: `${item.digestDate} -> ${item.channelName}`,
       description: item.message,
       href: item.href,
-      source: "Delivery",
+      source: "投递",
       createdAt: item.failedAt
     })),
     ...failedScheduledRuns.slice(0, 8).map((item) => ({
@@ -388,7 +386,7 @@ function getAttentionRequiredItems({
       title: item.scheduleName,
       description: `${item.status}: ${item.message}`,
       href: item.href,
-      source: "Scheduled delivery",
+      source: "定时投递",
       createdAt: item.runAt
     })),
     ...duplicateGroups
@@ -397,10 +395,10 @@ function getAttentionRequiredItems({
       .map((group) => ({
         id: `duplicate-${group.id}`,
         severity: "warning" as const,
-        title: `Duplicate group ${group.id}`,
-        description: `${group.candidateIds.length} candidates need primary selection.`,
+        title: `重复组 ${group.id}`,
+        description: `${group.candidateIds.length} 条候选待选定主候选。`,
         href: `/workspace/duplicates/${group.id}`,
-        source: "Duplicate review",
+        source: "重复组审核",
         createdAt: group.updatedAt
       })),
     ...failedWorkflowEvents.slice(0, 8).map((event) => ({
@@ -411,7 +409,7 @@ function getAttentionRequiredItems({
       title: event.action,
       description: getEventMessage(event),
       href: "/workspace/operations/events",
-      source: "Workflow event",
+      source: "工作流事件",
       createdAt: event.createdAt
     })),
     ...getCandidateQualityAttention()
@@ -425,12 +423,12 @@ function getAttentionRequiredItems({
       id: `task-runner-${latestTaskRunnerRun.id}`,
       severity:
         latestTaskRunnerRun.status === "failed" ? "critical" : "warning",
-      title: "Latest task runner run needs review",
+      title: "最近一次任务运行器运行需要复查",
       description: `${latestTaskRunnerRun.status}: ${latestTaskRunnerRun.messages
         .map(sanitizeOperationsText)
         .join(" ")}`,
       href: "/workspace/delivery/schedules",
-      source: "Task runner",
+      source: "任务运行器",
       createdAt: latestTaskRunnerRun.finishedAt
     });
   }
@@ -495,7 +493,7 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   const warningReasons: string[] = [];
 
   if (latestTaskRunnerRun?.status === "failed") {
-    criticalReasons.push("Latest task runner run failed.");
+    criticalReasons.push("最近一次任务运行器运行失败。");
   }
 
   if (failedScheduledRuns.some((run) => run.status === "failed")) {
@@ -508,7 +506,7 @@ export function getSystemHealthSummary(): OperationsDashboardData {
         source.status === "failed" || source.consecutiveFailureCount >= 2
     )
   ) {
-    criticalReasons.push("One or more sources have failed imports.");
+    criticalReasons.push("有来源导入失败。");
   }
 
   if (
@@ -520,15 +518,15 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   }
 
   if (latestTaskRunnerRun?.status === "partial") {
-    warningReasons.push("Latest task runner run was partial.");
+    warningReasons.push("最近一次任务运行器运行为部分成功。");
   }
 
   if (failedDeliveries.length > 0) {
-    warningReasons.push("One or more delivery runs failed.");
+    warningReasons.push("有投递运行失败。");
   }
 
   if (failedImports.some((source) => source.status === "partial")) {
-    warningReasons.push("One or more sources used fallback import.");
+    warningReasons.push("有来源使用了回退导入。");
   }
 
   if (failedScheduledRuns.some((run) => run.status === "partial")) {
@@ -536,11 +534,11 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   }
 
   if (openDuplicateGroups > 0) {
-    warningReasons.push("Open duplicate groups need review.");
+    warningReasons.push("有待处理的重复组需要审核。");
   }
 
   if (getCandidateQualityAttention().length > 0) {
-    warningReasons.push("Some candidates have blocking quality issues.");
+    warningReasons.push("部分候选存在阻塞性质量问题。");
   }
 
   const hasNoSignals =
@@ -561,11 +559,9 @@ export function getSystemHealthSummary(): OperationsDashboardData {
         : "healthy";
   const statusReasons =
     status === "healthy"
-      ? [
-          "No source, delivery, schedule, task runner, or workflow failures are currently visible."
-        ]
+      ? ["当前没有可见的来源、投递、计划、任务运行器或工作流失败。"]
       : status === "unknown"
-        ? ["No operational history has been recorded yet."]
+        ? ["还没有记录任何运维历史。"]
         : [...criticalReasons, ...warningReasons];
 
   return {

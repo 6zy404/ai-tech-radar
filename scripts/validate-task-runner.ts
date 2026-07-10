@@ -196,7 +196,7 @@ async function main() {
     assert.equal(emptyRun.dueScheduleCount, 0);
     assert.equal(emptyRun.status, "success");
     assert.equal(
-      emptyLogger.lines.some((line) => line.includes("No due schedules.")),
+      emptyLogger.lines.some((line) => line.includes("没有到期计划。")),
       true
     );
 
@@ -319,7 +319,7 @@ async function main() {
 
     assert.equal(duplicateRun.deliveryLogsCreated, 0);
     assert.equal(
-      duplicateRun.messages.some((message) => message.includes("3 skipped")),
+      duplicateRun.messages.some((message) => message.includes("跳过 3")),
       true,
       "Duplicate-protected second run should skip the already sent channels."
     );

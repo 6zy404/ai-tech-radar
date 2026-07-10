@@ -54,7 +54,7 @@ export class DigestPublishReadinessError extends Error {
   readiness: DigestPublishReadiness;
 
   constructor(readiness: DigestPublishReadiness) {
-    super("Digest is not ready to publish.");
+    super("简报尚未达到发布条件。");
     this.name = "DigestPublishReadinessError";
     this.readiness = readiness;
   }
@@ -519,7 +519,7 @@ export function updateDailyDigest(
   const existingDigest = getDailyDigestByDate(date);
 
   if (!existingDigest) {
-    throw new Error(`Daily digest ${date} not found.`);
+    throw new Error(`未找到 ${date} 的每日简报。`);
   }
 
   const nextDigest = syncDigestAggregates({
@@ -557,15 +557,13 @@ export function updateDailyDigestItemControl(
   const existingDigest = getDailyDigestByDate(date);
 
   if (!existingDigest) {
-    throw new Error(`Daily digest ${date} not found.`);
+    throw new Error(`未找到 ${date} 的每日简报。`);
   }
 
   if (
     !getAllTechnologies().some((technology) => technology.id === technologyId)
   ) {
-    throw new Error(
-      `Technology ${technologyId} is not available for digest use.`
-    );
+    throw new Error(`技术 ${technologyId} 不可用于简报。`);
   }
 
   const nextDigest: DailyDigest = {
@@ -672,7 +670,7 @@ export function evaluateDailyDigestPublishReadiness(
     blockingErrors.push(
       createReadinessIssue(
         "missing_title",
-        "Digest title is required before publication.",
+        "发布前必须填写简报标题。",
         "blocking"
       )
     );
@@ -680,11 +678,7 @@ export function evaluateDailyDigestPublishReadiness(
 
   if (!isValidDate(digest.date)) {
     blockingErrors.push(
-      createReadinessIssue(
-        "invalid_date",
-        "Digest date is missing or invalid.",
-        "blocking"
-      )
+      createReadinessIssue("invalid_date", "简报日期缺失或无效。", "blocking")
     );
   }
 
@@ -692,7 +686,7 @@ export function evaluateDailyDigestPublishReadiness(
     blockingErrors.push(
       createReadinessIssue(
         "empty_digest",
-        "At least one immediate-attention or watch item is required.",
+        "至少需要一条立即关注或值得跟踪条目。",
         "blocking"
       )
     );
@@ -702,7 +696,7 @@ export function evaluateDailyDigestPublishReadiness(
     blockingErrors.push(
       createReadinessIssue(
         "duplicate_technology",
-        `Digest references duplicate technology item(s): ${duplicateInputIds.join(", ")}.`,
+        `简报重复引用了技术条目：${duplicateInputIds.join("、")}。`,
         "blocking"
       )
     );
@@ -716,7 +710,7 @@ export function evaluateDailyDigestPublishReadiness(
       blockingErrors.push(
         createReadinessIssue(
           "missing_technology",
-          `Digest references unknown TechnologyItem ${id}.`,
+          `简报引用了未知技术条目 ${id}。`,
           "blocking"
         )
       );
@@ -727,7 +721,7 @@ export function evaluateDailyDigestPublishReadiness(
       blockingErrors.push(
         createReadinessIssue(
           "unpublished_technology",
-          `Digest references TechnologyItem ${id}, but it is not published.`,
+          `简报引用的技术条目 ${id} 尚未发布。`,
           "blocking"
         )
       );
@@ -745,7 +739,7 @@ export function evaluateDailyDigestPublishReadiness(
       blockingErrors.push(
         createReadinessIssue(
           "incomplete_user_facing_item",
-          `TechnologyItem ${id} is missing required user-facing digest fields.`,
+          `技术条目 ${id} 缺少简报所需的用户端字段。`,
           "blocking"
         )
       );
@@ -759,7 +753,7 @@ export function evaluateDailyDigestPublishReadiness(
     warnings.push(
       createReadinessIssue(
         "no_high_priority_items",
-        "No immediate-attention items are selected.",
+        "未选入任何立即关注条目。",
         "warning"
       )
     );
@@ -769,7 +763,7 @@ export function evaluateDailyDigestPublishReadiness(
     warnings.push(
       createReadinessIssue(
         "no_related_skills",
-        "No related skills are aggregated for this digest.",
+        "这期简报没有聚合到相关技能。",
         "warning"
       )
     );
@@ -779,7 +773,7 @@ export function evaluateDailyDigestPublishReadiness(
     warnings.push(
       createReadinessIssue(
         "no_related_knowledge",
-        "No related knowledge items are aggregated for this digest.",
+        "这期简报没有聚合到背景知识。",
         "warning"
       )
     );
@@ -789,7 +783,7 @@ export function evaluateDailyDigestPublishReadiness(
     warnings.push(
       createReadinessIssue(
         "missing_editorial_summary",
-        "Editorial summary is empty.",
+        "编辑概览为空。",
         "warning"
       )
     );
@@ -799,7 +793,7 @@ export function evaluateDailyDigestPublishReadiness(
     warnings.push(
       createReadinessIssue(
         "no_sources",
-        "No source names are aggregated for this digest.",
+        "这期简报没有聚合到来源名称。",
         "warning"
       )
     );
@@ -809,7 +803,7 @@ export function evaluateDailyDigestPublishReadiness(
     warnings.push(
       createReadinessIssue(
         "watch_count_out_of_range",
-        "Watch section count is unusually low or high.",
+        "值得跟踪板块的条目数异常偏低或偏高。",
         "warning"
       )
     );
@@ -877,7 +871,7 @@ export function updateDailyDigestStatus(
   const existingDigest = getDailyDigestByDate(date);
 
   if (!existingDigest) {
-    throw new Error(`Daily digest ${date} not found.`);
+    throw new Error(`未找到 ${date} 的每日简报。`);
   }
 
   const savedDigest = saveDigest({

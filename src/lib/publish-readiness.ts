@@ -30,7 +30,7 @@ export class PublishReadinessError extends Error {
   readiness: PublishReadinessResult;
 
   constructor(readiness: PublishReadinessResult) {
-    super("Technology workspace record is not ready to publish.");
+    super("技术工作台记录尚未达到发布条件。");
     this.name = "PublishReadinessError";
     this.readiness = readiness;
   }
@@ -150,19 +150,19 @@ export function evaluateTechnologyPublishReadiness(
 
   if (!hasLocalizedText(record.title)) {
     blockingErrors.push(
-      issue("blocking", "title", "missing-title", "Title is required.")
+      issue("blocking", "title", "missing-title", "标题为必填项。")
     );
   }
 
   if (!hasLocalizedText(record.summary)) {
     blockingErrors.push(
-      issue("blocking", "summary", "missing-summary", "Summary is required.")
+      issue("blocking", "summary", "missing-summary", "摘要为必填项。")
     );
   }
 
   if (!hasText(record.slug)) {
     blockingErrors.push(
-      issue("blocking", "slug", "missing-slug", "Slug is required.")
+      issue("blocking", "slug", "missing-slug", "Slug 为必填项。")
     );
   } else if (
     hasDuplicateSlug(record, workspaceRecords, publishedTechnologies)
@@ -172,7 +172,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "slug",
         "duplicate-slug",
-        "Slug already exists on another technology record."
+        "Slug 已被另一条技术记录使用。"
       )
     );
   }
@@ -183,7 +183,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "sourceName",
         "missing-source-name",
-        "Source name is required."
+        "来源名称为必填项。"
       )
     );
   }
@@ -194,7 +194,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "sourceUrl",
         "invalid-source-url",
-        "Source URL must be a valid http or https URL."
+        "来源 URL 必须是有效的 http 或 https 地址。"
       )
     );
   }
@@ -205,7 +205,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "publishDate",
         "invalid-publish-date",
-        "Publish date must use YYYY-MM-DD format."
+        "发布日期必须使用 YYYY-MM-DD 格式。"
       )
     );
   }
@@ -216,14 +216,14 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "content",
         "missing-content",
-        "Content must include original or Chinese text."
+        "正文必须包含原文或中文内容。"
       )
     );
   }
 
   if (!isAllowed(record.type, technologyTypes)) {
     blockingErrors.push(
-      issue("blocking", "type", "invalid-type", "Technology type is invalid.")
+      issue("blocking", "type", "invalid-type", "技术类型无效。")
     );
   }
 
@@ -233,7 +233,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "sourceLanguage",
         "invalid-source-language",
-        "Source language is invalid."
+        "来源语言无效。"
       )
     );
   }
@@ -244,7 +244,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "translationStatus",
         "invalid-translation-status",
-        "Translation status is invalid."
+        "翻译状态无效。"
       )
     );
   }
@@ -255,7 +255,7 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "publisherType",
         "invalid-publisher-type",
-        "Publisher type is invalid."
+        "发布方类型无效。"
       )
     );
   }
@@ -266,19 +266,14 @@ export function evaluateTechnologyPublishReadiness(
         "blocking",
         "importanceLevel",
         "invalid-importance-level",
-        "Importance level is invalid."
+        "重要程度无效。"
       )
     );
   }
 
   if (!isAllowed(record.status, technologyStatuses)) {
     blockingErrors.push(
-      issue(
-        "blocking",
-        "status",
-        "invalid-status",
-        "Technology status is invalid."
-      )
+      issue("blocking", "status", "invalid-status", "技术状态无效。")
     );
   }
 
@@ -291,7 +286,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "translation",
         "missing-chinese-title-summary",
-        "English-source record does not have both Chinese title and summary."
+        "英文来源记录还没有配齐中文标题和中文摘要。"
       )
     );
   }
@@ -302,7 +297,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "tags",
         "too-few-tags",
-        "Add at least two tags to make the published item easier to browse."
+        "建议至少添加两个标签，让发布内容更易浏览。"
       )
     );
   }
@@ -313,7 +308,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "relatedKnowledgeIds",
         "missing-related-knowledge",
-        "No related knowledge item is linked yet."
+        "尚未关联任何背景知识。"
       )
     );
   }
@@ -324,7 +319,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "relatedSkillIds",
         "missing-related-skills",
-        "No related skill is linked yet."
+        "尚未关联任何技能。"
       )
     );
   }
@@ -335,7 +330,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "publisherName",
         "missing-publisher-name",
-        "Publisher name is missing."
+        "缺少发布方名称。"
       )
     );
   }
@@ -346,7 +341,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "summary",
         "short-summary",
-        "Summary is short; consider adding more context before publishing."
+        "摘要偏短；建议在发布前补充更多背景。"
       )
     );
   }
@@ -357,7 +352,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "content",
         "short-content",
-        "Content is short; consider adding more explanation before publishing."
+        "正文偏短；建议在发布前补充更多解释。"
       )
     );
   }
@@ -368,7 +363,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "editorialNotes",
         "missing-editorial-notes",
-        "Editorial notes are empty."
+        "编辑备注为空。"
       )
     );
   }
@@ -381,7 +376,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "editorialEnrichment",
         "missing-editorial-enrichment-suggestion",
-        "No editorial enrichment suggestion has been generated; editors may miss an explanation-quality pass before publishing."
+        "尚未生成富化建议；编辑可能会错过发布前的解释质量检查。"
       )
     );
   } else if (enrichmentReadiness.hasUnreviewedSuggestion) {
@@ -390,7 +385,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "editorialEnrichment",
         "unreviewed-editorial-enrichment-suggestion",
-        "An editorial enrichment suggestion exists but has not been applied or rejected yet."
+        "已存在富化建议，但尚未应用或拒绝。"
       )
     );
   }
@@ -401,7 +396,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "whyItMatters",
         "missing-why-it-matters",
-        "Why it matters is empty; this weakens user-facing understanding quality."
+        "「为什么值得看」为空；会削弱用户端的理解质量。"
       )
     );
   }
@@ -412,7 +407,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "whoShouldCare",
         "missing-who-should-care",
-        "No target audience is listed; users may not know whether this signal matters to them."
+        "未列出目标人群；用户可能无法判断这条信号与自己是否相关。"
       )
     );
   }
@@ -423,7 +418,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "relatedKnowledgeExplanations",
         "missing-knowledge-explanations",
-        "Related knowledge explanations are empty; the detail page will have less learning context."
+        "知识关联说明为空；详情页的学习背景会变少。"
       )
     );
   }
@@ -434,7 +429,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "relatedSkillExplanations",
         "missing-skill-explanations",
-        "Related skill explanations are empty; the detail page will have less practical guidance."
+        "技能关联说明为空；详情页的实践指引会变少。"
       )
     );
   }
@@ -445,7 +440,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "learningPath",
         "missing-learning-path",
-        "Learning path is empty; users will have less guidance on what to read next."
+        "学习路径为空；用户将缺少下一步阅读指引。"
       )
     );
   }
@@ -456,7 +451,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "followUpQuestions",
         "missing-follow-up-questions",
-        "Follow-up questions are empty; users will have fewer prompts for deeper understanding."
+        "后续问题为空；用户深入理解的线索会变少。"
       )
     );
   }

@@ -448,7 +448,7 @@ function main() {
     );
     assert.equal(operations.status, "critical");
     assert.ok(
-      operations.attentionItems.some((item) => item.source === "Source import"),
+      operations.attentionItems.some((item) => item.source === "来源导入"),
       "Failed source import should appear in attention required."
     );
     assert.equal(

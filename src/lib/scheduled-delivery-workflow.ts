@@ -44,7 +44,7 @@ export class ScheduledDeliveryValidationError extends Error {
   issues: string[];
 
   constructor(issues: string[]) {
-    super("Scheduled delivery validation failed.");
+    super("定时投递校验失败。");
     this.name = "ScheduledDeliveryValidationError";
     this.issues = issues;
   }
@@ -224,7 +224,7 @@ function normalizeSchedule(record: Record<string, unknown>): ScheduledDelivery {
     name:
       typeof record.name === "string" && record.name.trim()
         ? record.name.trim()
-        : "Untitled schedule",
+        : "未命名计划",
     enabled: typeof record.enabled === "boolean" ? record.enabled : true,
     digestTarget: normalizeDigestTarget(record.digestTarget),
     digestDate:
@@ -331,30 +331,30 @@ function validateScheduledDeliveryInput(input: ScheduledDeliveryInput) {
   const issues: string[] = [];
 
   if (!input.name.trim()) {
-    issues.push("Schedule name is required.");
+    issues.push("计划名称为必填项。");
   }
 
   if (!allowedDigestTargets.includes(input.digestTarget)) {
-    issues.push("Digest target is not supported.");
+    issues.push("不支持该简报目标。");
   }
 
   if (
     input.digestTarget === "digest_by_date" &&
     !isValidDateString(input.digestDate)
   ) {
-    issues.push("Digest date is required for digest_by_date schedules.");
+    issues.push("digest_by_date 类型的计划必须填写简报日期。");
   }
 
   if (!parseScheduleTime(input.scheduleTime)) {
-    issues.push("Schedule time must use HH:mm format.");
+    issues.push("计划时间必须使用 HH:mm 格式。");
   }
 
   if (!input.timezone.trim()) {
-    issues.push("Timezone is required.");
+    issues.push("时区为必填项。");
   }
 
   if (input.channelIds.length === 0) {
-    issues.push("At least one delivery channel is required.");
+    issues.push("至少需要一个投递渠道。");
   }
 
   if (issues.length > 0) {
@@ -464,7 +464,7 @@ export function updateScheduledDelivery(
   );
 
   if (!existingSchedule) {
-    throw new Error(`Scheduled delivery ${scheduleId} not found.`);
+    throw new Error(`未找到定时投递 ${scheduleId}。`);
   }
 
   const nextSchedule: ScheduledDelivery = {
@@ -502,7 +502,7 @@ export function setScheduledDeliveryEnabled(
   );
 
   if (!existingSchedule) {
-    throw new Error(`Scheduled delivery ${scheduleId} not found.`);
+    throw new Error(`未找到定时投递 ${scheduleId}。`);
   }
 
   const nextSchedule: ScheduledDelivery = {
@@ -662,11 +662,11 @@ export async function runScheduleById(
   const schedule = getScheduledDeliveryById(scheduleId);
 
   if (!schedule) {
-    throw new Error(`Scheduled delivery ${scheduleId} not found.`);
+    throw new Error(`未找到定时投递 ${scheduleId}。`);
   }
 
   if (!schedule.enabled) {
-    throw new Error("Scheduled delivery is disabled.");
+    throw new Error("定时投递已停用。");
   }
 
   const triggerType = options.triggerType ?? "manual";
@@ -693,7 +693,7 @@ export async function runScheduleById(
       ...baseRun,
       finishedAt,
       status: "failed",
-      message: "No digest matched the schedule target."
+      message: "没有匹配计划目标的简报。"
     };
 
     return persistScheduledDeliveryRun(schedule, run);
@@ -707,7 +707,7 @@ export async function runScheduleById(
       digestDate: digest.date,
       finishedAt,
       status: "failed",
-      message: "Scheduled delivery can only send published digests."
+      message: "定时投递只能发送已发布的简报。"
     };
 
     return persistScheduledDeliveryRun(schedule, run);
@@ -760,9 +760,9 @@ export async function runScheduleById(
     totalChannels: uniqueChannelIds.length
   });
   const message = [
-    `${successfulChannels} succeeded`,
-    `${failedChannels} failed`,
-    `${skippedChannels} skipped`
+    `成功 ${successfulChannels}`,
+    `失败 ${failedChannels}`,
+    `跳过 ${skippedChannels}`
   ].join(", ");
   const run: ScheduledDeliveryRun = {
     ...baseRun,

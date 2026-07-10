@@ -36,7 +36,7 @@ describe("evaluateTechnologyPriority", () => {
 
     expect(ranking.priorityLevel).toBe("low_priority");
     expect(ranking.priorityScore).toBeLessThan(45);
-    expect(ranking.priorityWarnings).toContain("Summary is missing.");
+    expect(ranking.priorityWarnings).toContain("缺少摘要。");
   });
 
   it("returns a manual override unchanged instead of recomputing", () => {

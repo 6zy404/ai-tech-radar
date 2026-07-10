@@ -62,44 +62,42 @@ function applySourceQuality(
 ) {
   if (!sourceQuality) {
     state.score -= 4;
-    state.warnings.push("No source quality data is available yet.");
+    state.warnings.push("暂无来源质量数据。");
     return;
   }
 
   if (sourceQuality.qualityLevel === "good") {
     state.score += 18;
-    state.reasons.push("Source quality is good.");
+    state.reasons.push("来源质量良好。");
   } else if (sourceQuality.qualityLevel === "watch") {
     state.score += 4;
-    state.warnings.push("Source quality needs watching.");
+    state.warnings.push("来源质量需要关注。");
   } else if (sourceQuality.qualityLevel === "poor") {
     state.score -= 25;
-    state.warnings.push("Source quality is poor.");
+    state.warnings.push("来源质量较差。");
   } else {
     state.score -= 8;
-    state.warnings.push("Source quality is still unknown.");
+    state.warnings.push("来源质量尚不明确。");
   }
 
   if (sourceQuality.successRate >= 0.8) {
     state.score += 6;
-    state.reasons.push("Source import success rate is stable.");
+    state.reasons.push("来源导入成功率稳定。");
   }
 
   if (sourceQuality.duplicateRate >= 0.5) {
     state.score -= 10;
-    state.warnings.push("Source has a high duplicate rate.");
+    state.warnings.push("来源重复率偏高。");
   }
 
   if (sourceQuality.conversionRate > 0) {
     state.score += 6;
-    state.reasons.push(
-      "This source has previously produced converted candidates."
-    );
+    state.reasons.push("该来源此前产出过成功转换的候选。");
   }
 
   if (sourceQuality.rejectionRate >= 0.35) {
     state.score -= 10;
-    state.warnings.push("Source has an elevated rejection rate.");
+    state.warnings.push("来源拒绝率偏高。");
   }
 }
 
@@ -109,48 +107,48 @@ function applyCandidateQuality(
 ) {
   if (candidateQuality.isConvertible) {
     state.score += 12;
-    state.reasons.push("Candidate appears ready for review.");
+    state.reasons.push("候选已具备审核条件。");
   }
 
   for (const flag of candidateQuality.flags) {
     if (flag === "missing_summary") {
       state.score -= 15;
-      state.warnings.push("Candidate summary is missing.");
+      state.warnings.push("候选缺少摘要。");
     }
 
     if (flag === "missing_content") {
       state.score -= 12;
-      state.warnings.push("Candidate content is missing.");
+      state.warnings.push("候选缺少正文。");
     }
 
     if (flag === "missing_publisher") {
       state.score -= 8;
-      state.warnings.push("Publisher is unclear.");
+      state.warnings.push("发布方不明确。");
     }
 
     if (flag === "invalid_source_url") {
       state.score -= 20;
-      state.warnings.push("Source URL is invalid.");
+      state.warnings.push("来源 URL 无效。");
     }
 
     if (flag === "invalid_publish_date") {
       state.score -= 10;
-      state.warnings.push("Publish date is invalid.");
+      state.warnings.push("发布日期无效。");
     }
 
     if (flag === "missing_tags") {
       state.score -= 8;
-      state.warnings.push("Tags are missing.");
+      state.warnings.push("缺少标签。");
     }
 
     if (flag === "too_short") {
       state.score -= 12;
-      state.warnings.push("Summary or content is too short.");
+      state.warnings.push("摘要或正文过短。");
     }
 
     if (flag === "not_convertible") {
       state.score -= 12;
-      state.warnings.push("Candidate is currently blocked from conversion.");
+      state.warnings.push("候选当前无法转换。");
     }
   }
 
@@ -159,7 +157,7 @@ function applyCandidateQuality(
     candidateQuality.flags.length >= 4
   ) {
     state.score -= 8;
-    state.warnings.push("Candidate has multiple quality issues.");
+    state.warnings.push("候选存在多项质量问题。");
   }
 }
 
@@ -171,7 +169,7 @@ function applyDuplicateSignals(
 ) {
   if (additionalReferenceCount > 0) {
     state.score += Math.min(12, 6 + additionalReferenceCount * 2);
-    state.reasons.push("Multiple sources reference the same technology event.");
+    state.reasons.push("多个来源指向同一技术事件。");
     return;
   }
 
@@ -181,12 +179,12 @@ function applyDuplicateSignals(
 
   if (duplicateGroupStatus === "resolved") {
     state.score += 5;
-    state.reasons.push("Duplicate group has been resolved.");
+    state.reasons.push("重复组已解决。");
   } else if (duplicateGroupStatus === "ignored") {
-    state.warnings.push("Duplicate hint was ignored by reviewer.");
+    state.warnings.push("重复提示已被审核者忽略。");
   } else {
     state.score -= 18;
-    state.warnings.push("Possible duplicate still needs review.");
+    state.warnings.push("疑似重复仍需审核。");
   }
 }
 
@@ -205,53 +203,53 @@ function applyContentCompleteness(
 ) {
   if (hasText(item.title.original) || hasText(item.title.zh)) {
     state.score += 5;
-    state.reasons.push("Title is complete.");
+    state.reasons.push("标题完整。");
   }
 
   if (hasText(item.summary.original) || hasText(item.summary.zh)) {
     state.score += 5;
-    state.reasons.push("Summary is complete.");
+    state.reasons.push("摘要完整。");
   } else {
     state.score -= 15;
-    state.warnings.push("Summary is missing.");
+    state.warnings.push("缺少摘要。");
   }
 
   if (hasText(item.content.original) || hasText(item.content.zh)) {
     state.score += 5;
-    state.reasons.push("Content is complete.");
+    state.reasons.push("正文完整。");
   } else {
     state.score -= 12;
-    state.warnings.push("Content is missing.");
+    state.warnings.push("缺少正文。");
   }
 
   if (item.tags.length > 0) {
     state.score += 6;
-    state.reasons.push("Tags are available.");
+    state.reasons.push("已配置标签。");
   } else {
     state.score -= 8;
-    state.warnings.push("Tags are missing.");
+    state.warnings.push("缺少标签。");
   }
 
   if (item.relatedKnowledgeIds.length > 0) {
     state.score += 5;
-    state.reasons.push("Related knowledge is linked.");
+    state.reasons.push("已关联背景知识。");
   } else {
-    state.warnings.push("Related knowledge is not linked yet.");
+    state.warnings.push("尚未关联背景知识。");
   }
 
   if (item.relatedSkillIds.length > 0) {
     state.score += 5;
-    state.reasons.push("Related skills are linked.");
+    state.reasons.push("已关联技能。");
   } else {
-    state.warnings.push("Related skills are not linked yet.");
+    state.warnings.push("尚未关联技能。");
   }
 
   if (hasText(item.publisherName)) {
     state.score += 4;
-    state.reasons.push("Publisher is identified.");
+    state.reasons.push("发布方明确。");
   } else {
     state.score -= 8;
-    state.warnings.push("Publisher is missing.");
+    state.warnings.push("缺少发布方。");
   }
 }
 
@@ -267,19 +265,19 @@ function applyRecency(
 
   if (age === undefined) {
     state.score -= 5;
-    state.warnings.push("Recency cannot be determined.");
+    state.warnings.push("无法判断时效性。");
     return;
   }
 
   if (age <= 30) {
     state.score += 8;
-    state.reasons.push("Signal is recent.");
+    state.reasons.push("信号发布时间很近。");
   } else if (age <= 90) {
     state.score += 4;
-    state.reasons.push("Signal is still reasonably recent.");
+    state.reasons.push("信号仍在较新时间窗内。");
   } else {
     state.score -= 5;
-    state.warnings.push("Signal is older than the preferred review window.");
+    state.warnings.push("信号已超出建议的审核时间窗。");
   }
 }
 
@@ -320,7 +318,7 @@ function buildRanking(
     priorityReasons:
       priorityReasons.length > 0
         ? priorityReasons
-        : ["Rule-based ranking found enough information for basic triage."],
+        : ["规则排序已获得足够信息完成基础分级。"],
     priorityWarnings,
     rankingUpdatedAt: (options.now ?? new Date()).toISOString(),
     rankingSource: "rule_based"
@@ -352,17 +350,17 @@ export function evaluateImportedCandidatePriority(
 
   if (hasText(candidate.originalTitle)) {
     state.score += 5;
-    state.reasons.push("Title is present.");
+    state.reasons.push("标题存在。");
   }
 
   if (candidate.tags.length > 0) {
     state.score += 6;
-    state.reasons.push("Tags are available.");
+    state.reasons.push("已配置标签。");
   }
 
   if (hasText(candidate.publisherName)) {
     state.score += 4;
-    state.reasons.push("Publisher is identified.");
+    state.reasons.push("发布方明确。");
   }
 
   return buildRanking(state, {
@@ -393,10 +391,10 @@ export function evaluateTechnologyPriority(
 
   if (technology.importanceLevel === "critical") {
     state.score += 10;
-    state.reasons.push("Editorial importance is critical.");
+    state.reasons.push("编辑标记为关键重要性。");
   } else if (technology.importanceLevel === "important") {
     state.score += 6;
-    state.reasons.push("Editorial importance is marked important.");
+    state.reasons.push("编辑标记为重要。");
   }
 
   if (
@@ -404,7 +402,7 @@ export function evaluateTechnologyPriority(
     technology.publisherType === "research-lab"
   ) {
     state.score += 4;
-    state.reasons.push("Publisher type is a strong technology signal source.");
+    state.reasons.push("发布方类型属于强技术信号来源。");
   }
 
   return buildRanking(state, {
