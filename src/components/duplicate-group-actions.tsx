@@ -45,17 +45,13 @@ export function DuplicateGroupActions({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message || "Duplicate group update failed.");
+          throw new Error(result.message || "重复组更新失败。");
         }
 
-        setMessage("Duplicate group updated.");
+        setMessage("重复组已更新。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error
-            ? error.message
-            : "Duplicate group update failed."
-        );
+        setMessage(error instanceof Error ? error.message : "重复组更新失败。");
       }
     });
   }
@@ -63,7 +59,7 @@ export function DuplicateGroupActions({
   return (
     <section className="candidate-review-actions duplicate-review-actions">
       <label className="field duplicate-review-actions__primary">
-        <span>Primary candidate</span>
+        <span>主候选</span>
         <select
           value={selectedPrimaryId}
           onChange={(event) => setSelectedPrimaryId(event.target.value)}
@@ -84,7 +80,7 @@ export function DuplicateGroupActions({
           onClick={() => updateGroup({ primaryCandidateId: selectedPrimaryId })}
           disabled={isPending || selectedPrimaryId === primaryCandidateId}
         >
-          Set Primary
+          设为主候选
         </button>
         <button
           type="button"
@@ -97,7 +93,7 @@ export function DuplicateGroupActions({
           }
           disabled={isPending || status === "resolved"}
         >
-          Resolve Group
+          解决重复组
         </button>
         <button
           type="button"
@@ -105,7 +101,7 @@ export function DuplicateGroupActions({
           onClick={() => updateGroup({ status: "ignored" })}
           disabled={isPending || status === "ignored"}
         >
-          Ignore
+          忽略
         </button>
         <button
           type="button"
@@ -113,13 +109,12 @@ export function DuplicateGroupActions({
           onClick={() => updateGroup({ status: "open" })}
           disabled={isPending || status === "open"}
         >
-          Reopen
+          重新打开
         </button>
       </div>
 
       <p className="candidate-review-actions__hint">
-        Only the primary candidate should be converted into a technology draft.
-        Other items are preserved as source references.
+        只有主候选应被转换为技术草稿，其余条目会保留为来源引用。
       </p>
       {message ? (
         <p className="candidate-review-actions__message">{message}</p>

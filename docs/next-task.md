@@ -1,5 +1,13 @@
 # Next Task
 
+> Update 2026-07-10: Workspace UI localization v0 shipped — all Internal
+> Workspace UI chrome is now Chinese (see `CHANGELOG.md` → "Navigation, IA &
+> design system"). Lib-generated diagnostic strings (ranking reasons, import
+> / delivery run messages, readiness messages, workflow event snapshots,
+> operations statusReasons / attention items) intentionally stay English in
+> this pass; translating them (plus the validate-script assertions on those
+> strings) is a possible follow-up task if the owner wants it.
+
 > See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
 > (knowledge relationship network) are both done. P3 (AI-assisted
 > understanding) has completed its agreed candidate list: Compare (v0),

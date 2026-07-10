@@ -129,6 +129,28 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Navigation, IA & design system
 
+- **Workspace UI localization v0 (Chinese)** — 2026-07-10: all Internal
+  Workspace UI chrome is now Chinese — the workspace nav/groups and
+  breadcrumbs, every `/workspace/*` page title/description/section label,
+  dashboard, table heads, form labels and placeholders, buttons, confirm
+  dialogs, empty states, hints, client action messages, and date formatting
+  (`en` → `zh-CN`). Display-label helpers (`source-display`,
+  `imported-candidate-display`, `quality-display`, `delivery-labels`,
+  `getRankingSourceLabel`, operations metric labels) now return Chinese, and
+  workspace components pass `"zh"` to the bilingual `getPriorityLevelLabel`;
+  status enums rendered raw before (draft/published, open/resolved,
+  success/failed, healthy/critical …) gained local label maps. Deliberately
+  NOT translated in this pass: lib-generated diagnostic strings persisted in
+  data or asserted by `validate:*` scripts (ranking `priorityReasons`
+  / `priorityWarnings`, import/delivery run messages, readiness check
+  messages, workflow event snapshots, operations `statusReasons` /
+  attention-item text) plus data content itself. Public pages untouched — the
+  translated label helpers are workspace-only, and the bilingual public
+  priority-label behavior is preserved. Verified with typecheck, lint,
+  format, vitest 54/54, `validate:operations`, and a live sweep of all 11
+  workspace routes (leftover-English scan showed only in-scope diagnostic
+  and data strings, zero console errors).
+
 - **Workspace Navigation & Information Architecture v0** — `/workspace`
   dashboard, a clickable Sources → Import → Candidates → Duplicates → Drafts →
   Publish → Digests workflow overview, shared workspace navigation, and

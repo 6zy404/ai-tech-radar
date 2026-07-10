@@ -73,7 +73,7 @@ export function DigestDeliveryActions({
         const result = (await response.json()) as DeliveryPreviewResponse;
 
         if (!response.ok || !result.ok || !result.preview) {
-          throw new Error(result.message ?? "Delivery preview failed.");
+          throw new Error(result.message ?? "投递预览失败。");
         }
 
         if (!isCancelled) {
@@ -82,9 +82,7 @@ export function DigestDeliveryActions({
       } catch (error) {
         if (!isCancelled) {
           setPreview("");
-          setMessage(
-            error instanceof Error ? error.message : "Delivery preview failed."
-          );
+          setMessage(error instanceof Error ? error.message : "投递预览失败。");
         }
       } finally {
         if (!isCancelled) {
@@ -107,9 +105,9 @@ export function DigestDeliveryActions({
 
     if (
       !window.confirm(
-        `Send this published digest to ${
-          selectedChannel?.name ?? "the selected delivery channel"
-        }? This performs an external delivery action and writes a delivery log.`
+        `把这期已发布简报发送到「${
+          selectedChannel?.name ?? "所选投递渠道"
+        }」？这是一次对外投递操作，并会写入投递日志。`
       )
     ) {
       return;
@@ -132,20 +130,17 @@ export function DigestDeliveryActions({
         const result = (await response.json()) as DeliverySendResponse;
 
         if (!response.ok || !result.ok || !result.run) {
-          throw new Error(result.message ?? "Digest delivery failed.");
+          throw new Error(result.message ?? "简报投递失败。");
         }
 
         setMessage(
           result.run.status === "success"
-            ? "Delivery succeeded."
-            : (result.run.errorMessage ??
-                "Delivery failed. Check delivery logs.")
+            ? "投递成功。"
+            : (result.run.errorMessage ?? "投递失败，请查看投递日志。")
         );
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Digest delivery failed."
-        );
+        setMessage(error instanceof Error ? error.message : "简报投递失败。");
       }
     });
   }
@@ -154,28 +149,23 @@ export function DigestDeliveryActions({
     <section className="detail-panel digest-delivery-action-panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Digest Delivery</p>
-          <h2>Manual send</h2>
-          <p>
-            Send this published digest to one enabled workspace delivery
-            channel.
-          </p>
+          <p className="eyebrow">简报投递</p>
+          <h2>手动发送</h2>
+          <p>把这期已发布简报发送到一个已启用的工作台投递渠道。</p>
         </div>
       </div>
 
       {!canDeliver ? (
-        <p className="empty-state">
-          Publish this digest before sending it to delivery channels.
-        </p>
+        <p className="empty-state">先发布这期简报，再发送到投递渠道。</p>
       ) : channels.length === 0 ? (
         <p className="empty-state">
-          No enabled delivery channel is available.{" "}
-          <Link href="/workspace/delivery">Configure delivery channels</Link>.
+          没有可用的已启用投递渠道。{" "}
+          <Link href="/workspace/delivery">配置投递渠道</Link>。
         </p>
       ) : (
         <>
           <label className="field">
-            <span>Delivery channel</span>
+            <span>投递渠道</span>
             <select
               value={selectedChannelId}
               onChange={(event) => setSelectedChannelId(event.target.value)}
@@ -190,16 +180,16 @@ export function DigestDeliveryActions({
           </label>
 
           <div className="digest-share-panel">
-            <h3>Delivery preview</h3>
+            <h3>投递预览</h3>
             <textarea
               className="digest-share-preview"
               readOnly
               value={
                 isLoadingPreview
-                  ? "Loading delivery preview..."
-                  : preview || "Preview unavailable."
+                  ? "正在加载投递预览…"
+                  : preview || "预览不可用。"
               }
-              aria-label="Digest delivery payload preview"
+              aria-label="简报投递载荷预览"
             />
           </div>
 
@@ -211,11 +201,11 @@ export function DigestDeliveryActions({
               disabled={isPending || isLoadingPreview || !selectedChannelId}
               title={
                 selectedChannelId
-                  ? "Send the published digest to the selected enabled channel"
-                  : "Select an enabled delivery channel first"
+                  ? "把已发布简报发送到所选的已启用渠道"
+                  : "请先选择一个已启用的投递渠道"
               }
             >
-              Send to selected channel
+              发送到所选渠道
             </button>
           </div>
         </>

@@ -25,9 +25,7 @@ export function ScheduledDeliveryActions({
   function updateEnabled(nextEnabled: boolean) {
     if (
       !nextEnabled &&
-      !window.confirm(
-        "Disable this schedule? It will stop automatic local delivery runs until re-enabled."
-      )
+      !window.confirm("停用这个计划？重新启用前它将停止本地自动投递运行。")
     ) {
       return;
     }
@@ -52,15 +50,13 @@ export function ScheduledDeliveryActions({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Schedule update failed.");
+          throw new Error(result.message ?? "计划更新失败。");
         }
 
-        setMessage(nextEnabled ? "Schedule enabled." : "Schedule disabled.");
+        setMessage(nextEnabled ? "计划已启用。" : "计划已停用。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Schedule update failed."
-        );
+        setMessage(error instanceof Error ? error.message : "计划更新失败。");
       }
     });
   }
@@ -68,7 +64,7 @@ export function ScheduledDeliveryActions({
   function runNow() {
     if (
       !window.confirm(
-        "Run this schedule now? Manual runs can send the selected published digest to enabled channels and will create delivery logs."
+        "立即运行这个计划？手动运行会把所选已发布简报发送到已启用渠道，并生成投递日志。"
       )
     ) {
       return;
@@ -91,15 +87,13 @@ export function ScheduledDeliveryActions({
         };
 
         if (!response.ok || !result.ok || !result.run) {
-          throw new Error(result.message ?? "Schedule run failed.");
+          throw new Error(result.message ?? "计划运行失败。");
         }
 
-        setMessage(`Run ${result.run.status}: ${result.run.message}`);
+        setMessage(`运行 ${result.run.status}：${result.run.message}`);
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Schedule run failed."
-        );
+        setMessage(error instanceof Error ? error.message : "计划运行失败。");
       }
     });
   }
@@ -112,24 +106,20 @@ export function ScheduledDeliveryActions({
         onClick={() => updateEnabled(!enabled)}
         disabled={isPending}
       >
-        {enabled ? "Disable schedule" : "Enable schedule"}
+        {enabled ? "停用计划" : "启用计划"}
       </button>
       <button
         type="button"
         className="action-button action-button--accent"
         onClick={runNow}
         disabled={isPending || !enabled}
-        title={
-          enabled
-            ? "Run this schedule immediately"
-            : "Enable this schedule first"
-        }
+        title={enabled ? "立即运行这个计划" : "请先启用这个计划"}
       >
-        Run schedule now
+        立即运行计划
       </button>
       {!enabled ? (
         <p className="candidate-review-actions__hint">
-          Manual schedule run is disabled because this schedule is off.
+          计划已停用，无法手动运行。
         </p>
       ) : null}
       {message ? (
@@ -149,7 +139,7 @@ export function RunDueSchedulesButton({
   function runDueSchedules() {
     if (
       !window.confirm(
-        "Run all due schedules now? Only enabled schedules and enabled channels will be attempted."
+        "立即运行所有到期计划？只会尝试已启用的计划和已启用的渠道。"
       )
     ) {
       return;
@@ -172,14 +162,14 @@ export function RunDueSchedulesButton({
         };
 
         if (!response.ok || !result.ok || !result.runs) {
-          throw new Error(result.message ?? "Due schedule run failed.");
+          throw new Error(result.message ?? "到期计划运行失败。");
         }
 
-        setMessage(`${result.runs.length} due schedule run(s) completed.`);
+        setMessage(`已完成 ${result.runs.length} 次到期计划运行。`);
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "Due schedule run failed."
+          error instanceof Error ? error.message : "到期计划运行失败。"
         );
       }
     });
@@ -194,15 +184,15 @@ export function RunDueSchedulesButton({
         disabled={isPending || disabled}
         title={
           disabled
-            ? "Create and enable at least one schedule before running due schedules"
-            : "Run every enabled schedule that is due now"
+            ? "先创建并启用至少一个计划，再运行到期计划"
+            : "运行当前所有到期的已启用计划"
         }
       >
-        Run due schedules now
+        立即运行到期计划
       </button>
       {disabled ? (
         <p className="candidate-review-actions__hint">
-          No enabled schedules are ready to run.
+          没有可运行的已启用计划。
         </p>
       ) : null}
       {message ? (

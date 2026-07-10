@@ -64,9 +64,9 @@ export default function WorkspaceCandidatesPage() {
 
   return (
     <WorkspacePageShell
-      title="Imported Candidates"
-      description="Internal review queue for imported source items. Search, filter, inspect duplicates, and convert promising candidates into technology drafts."
-      sectionLabel="Candidate Pool"
+      title="导入候选"
+      description="导入内容的内部审核队列。搜索、筛选、检查重复项，并把有价值的候选转换为技术草稿。"
+      sectionLabel="候选池"
     >
       <ImportedCandidateBrowser
         candidates={candidates}

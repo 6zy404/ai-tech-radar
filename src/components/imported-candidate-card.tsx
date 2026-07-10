@@ -70,7 +70,7 @@ export function ImportedCandidateCard({
         </span>
         {ranking ? (
           <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-            {getPriorityLevelLabel(ranking.priorityLevel)}
+            {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
           </span>
         ) : null}
         <span className="info-pill">
@@ -92,7 +92,7 @@ export function ImportedCandidateCard({
         ))}
         {hiddenQualityFlagCount > 0 ? (
           <span className="info-pill info-pill--subtle">
-            +{hiddenQualityFlagCount} quality flags
+            +{hiddenQualityFlagCount} 个质量标记
           </span>
         ) : null}
         {candidate.convertedTechnologyId ? (
@@ -100,7 +100,7 @@ export function ImportedCandidateCard({
             href={`/workspace/technologies/${candidate.convertedTechnologyId}`}
             className="detail-info-card__link"
           >
-            Open workspace record
+            打开工作台记录
           </Link>
         ) : null}
         {hasSourceDetail && candidate.sourceId ? (
@@ -108,7 +108,7 @@ export function ImportedCandidateCard({
             href={`/workspace/sources/${candidate.sourceId}`}
             className="detail-info-card__link"
           >
-            Open source
+            打开来源
           </Link>
         ) : null}
       </div>

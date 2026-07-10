@@ -16,7 +16,7 @@ export function DeliveryRunActions({ runId, status }: DeliveryRunActionsProps) {
   function retry() {
     if (
       !window.confirm(
-        "Retry this failed delivery? This may send the digest to the channel again and will create a new delivery log."
+        "重试这次失败的投递？简报可能会再次发送到该渠道，并生成一条新的投递日志。"
       )
     ) {
       return;
@@ -39,15 +39,13 @@ export function DeliveryRunActions({ runId, status }: DeliveryRunActionsProps) {
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Delivery retry failed.");
+          throw new Error(result.message ?? "投递重试失败。");
         }
 
-        setMessage("Retry completed. Check the latest delivery log.");
+        setMessage("重试完成，请查看最新的投递日志。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Delivery retry failed."
-        );
+        setMessage(error instanceof Error ? error.message : "投递重试失败。");
       }
     });
   }
@@ -64,7 +62,7 @@ export function DeliveryRunActions({ runId, status }: DeliveryRunActionsProps) {
         onClick={retry}
         disabled={isPending}
       >
-        Retry delivery
+        重试投递
       </button>
       {message ? (
         <p className="candidate-review-actions__message">{message}</p>

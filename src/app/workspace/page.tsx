@@ -35,7 +35,7 @@ function parseTime(value: string | undefined): number {
 
 function formatDateTime(value: string | undefined): string {
   if (!value) {
-    return "Not recorded";
+    return "未记录";
   }
 
   const date = new Date(value);
@@ -43,12 +43,35 @@ function formatDateTime(value: string | undefined): string {
     return value;
   }
 
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat("zh-CN", {
     month: "short",
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit"
   }).format(date);
+}
+
+const statusDisplayLabels: Record<string, string> = {
+  success: "成功",
+  failed: "失败",
+  partial: "部分成功",
+  pending: "进行中",
+  draft: "草稿",
+  published: "已发布",
+  archived: "已归档",
+  never_run: "未运行",
+  healthy: "健康",
+  warning: "警告",
+  critical: "严重",
+  unknown: "未知"
+};
+
+function formatStatus(value: string | undefined): string {
+  if (!value) {
+    return "未记录";
+  }
+
+  return statusDisplayLabels[value] ?? value;
 }
 
 export default function WorkspaceHomePage() {
@@ -106,9 +129,9 @@ export default function WorkspaceHomePage() {
   const recentActivity: DashboardActivity[] = [
     latestImportRun
       ? {
-          label: "Latest batch import",
-          title: latestImportRun.status,
-          meta: `${latestImportRun.totalCandidatesCreated} created, ${latestImportRun.totalCandidatesSkipped} skipped · ${formatDateTime(
+          label: "最近一次批量导入",
+          title: formatStatus(latestImportRun.status),
+          meta: `新增 ${latestImportRun.totalCandidatesCreated} 条，跳过 ${latestImportRun.totalCandidatesSkipped} 条 · ${formatDateTime(
             latestImportRun.finishedAt
           )}`,
           href: "/workspace/sources"
@@ -116,11 +139,9 @@ export default function WorkspaceHomePage() {
       : null,
     latestWorkspaceRecord
       ? {
-          label: "Latest technology record",
-          title:
-            latestWorkspaceRecord.title.original ||
-            "Untitled technology record",
-          meta: `${latestWorkspaceRecord.status} · ${formatDateTime(
+          label: "最近更新的技术记录",
+          title: latestWorkspaceRecord.title.original || "未命名技术记录",
+          meta: `${formatStatus(latestWorkspaceRecord.status)} · ${formatDateTime(
             latestWorkspaceRecord.updatedAt
           )}`,
           href: `/workspace/technologies/${latestWorkspaceRecord.id}`
@@ -128,17 +149,17 @@ export default function WorkspaceHomePage() {
       : null,
     latestDigest
       ? {
-          label: "Latest digest",
-          title: latestDigest.title || "Untitled digest",
-          meta: `${latestDigest.status} · ${formatDateTime(latestDigest.updatedAt)}`,
+          label: "最近更新的简报",
+          title: latestDigest.title || "未命名简报",
+          meta: `${formatStatus(latestDigest.status)} · ${formatDateTime(latestDigest.updatedAt)}`,
           href: `/workspace/digests/${latestDigest.date}`
         }
       : null,
     latestDeliveryRun
       ? {
-          label: "Latest delivery",
+          label: "最近一次投递",
           title: latestDeliveryRun.channelName,
-          meta: `${latestDeliveryRun.status} · ${formatDateTime(
+          meta: `${formatStatus(latestDeliveryRun.status)} · ${formatDateTime(
             latestDeliveryRun.finishedAt ?? latestDeliveryRun.startedAt
           )}`,
           href: "/workspace/delivery"
@@ -146,9 +167,9 @@ export default function WorkspaceHomePage() {
       : null,
     latestScheduledRun
       ? {
-          label: "Latest scheduled delivery",
+          label: "最近一次定时投递",
           title: latestScheduledRun.scheduleName,
-          meta: `${latestScheduledRun.status} - ${formatDateTime(
+          meta: `${formatStatus(latestScheduledRun.status)} - ${formatDateTime(
             latestScheduledRun.finishedAt ?? latestScheduledRun.startedAt
           )}`,
           href: "/workspace/delivery/schedules"
@@ -158,169 +179,159 @@ export default function WorkspaceHomePage() {
 
   const workflowSteps = [
     {
-      label: "Sources",
+      label: "来源",
       href: "/workspace/sources",
-      count: `${enabledSources}/${sources.length} enabled`,
-      description: "Configure RSS, release, and official update sources."
+      count: `${enabledSources}/${sources.length} 已启用`,
+      description: "配置 RSS、版本发布和官方更新页来源。"
     },
     {
-      label: "Import",
+      label: "导入",
       href: "/workspace/sources",
-      count: latestImportRun ? latestImportRun.status : "not run",
-      description: "Run enabled sources into the candidate pool."
+      count: latestImportRun ? formatStatus(latestImportRun.status) : "未运行",
+      description: "运行已启用来源，把内容导入候选池。"
     },
     {
-      label: "Candidates",
+      label: "候选",
       href: "/workspace/candidates",
-      count: `${newCandidates} new`,
-      description: "Review imported items before they become formal drafts."
+      count: `${newCandidates} 条新候选`,
+      description: "在导入内容成为正式草稿前进行审核。"
     },
     {
-      label: "Duplicates",
+      label: "重复组",
       href: "/workspace/duplicates",
-      count: `${openDuplicateGroups} open`,
-      description:
-        "Pick primary candidates and keep duplicate sources as references."
+      count: `${openDuplicateGroups} 组待处理`,
+      description: "选择主候选，把重复来源保留为参考引用。"
     },
     {
-      label: "Drafts",
+      label: "草稿",
       href: "/workspace/technologies",
-      count: `${draftRecords} drafts`,
-      description: "Edit formal technology records and run publish checks."
+      count: `${draftRecords} 条草稿`,
+      description: "编辑正式技术记录并运行发布检查。"
     },
     {
-      label: "Publish",
+      label: "发布",
       href: "/workspace/technologies",
-      count: `${publishedRecords} published`,
-      description: "Move ready technology records into the user-facing product."
+      count: `${publishedRecords} 条已发布`,
+      description: "把就绪的技术记录发布到用户产品。"
     },
     {
-      label: "Digests",
+      label: "简报",
       href: "/workspace/digests",
-      count: `${digestDrafts} drafts`,
-      description: "Generate, edit, preview, and publish daily briefs."
+      count: `${digestDrafts} 条草稿`,
+      description: "生成、编辑、预览并发布每日简报。"
     },
     {
-      label: "Delivery",
+      label: "投递",
       href: "/workspace/delivery",
-      count: `${enabledDeliveryChannels} channels`,
-      description: "Manually send published digests to configured channels."
+      count: `${enabledDeliveryChannels} 个渠道`,
+      description: "把已发布简报手动发送到配置的渠道。"
     },
     {
-      label: "Schedules",
+      label: "定时投递",
       href: "/workspace/delivery/schedules",
-      count: `${enabledDeliverySchedules} enabled`,
-      description: "Run local scheduled delivery for published daily briefs."
+      count: `${enabledDeliverySchedules} 个已启用`,
+      description: "为已发布简报运行本地定时投递。"
     },
     {
-      label: "Operations",
+      label: "运维",
       href: "/workspace/operations",
-      count: operations.status,
-      description:
-        "Inspect system health, failures, task runner state, and audit events."
+      count: formatStatus(operations.status),
+      description: "检查系统健康、失败项、任务运行器状态与审计事件。"
     }
   ];
 
   const summaryCards = [
     {
-      label: "Enabled sources",
+      label: "已启用来源",
       value: enabledSources,
-      hint: `${sources.length} configured`
+      hint: `共配置 ${sources.length} 个`
     },
     {
-      label: "New candidates",
+      label: "新候选",
       value: newCandidates,
-      hint: `${candidates.length} total imported`
+      hint: `累计导入 ${candidates.length} 条`
     },
     {
-      label: "Open duplicate groups",
+      label: "待处理重复组",
       value: openDuplicateGroups,
-      hint: `${duplicateGroups.length} total groups`
+      hint: `共 ${duplicateGroups.length} 组`
     },
     {
-      label: "Drafts waiting",
+      label: "待编辑草稿",
       value: draftRecords,
-      hint: `${workspaceRecords.length} workspace records`
+      hint: `共 ${workspaceRecords.length} 条工作台记录`
     },
     {
-      label: "Published technologies",
+      label: "已发布技术",
       value: publishedRecords,
-      hint: "Visible to users"
+      hint: "对用户可见"
     },
     {
-      label: "Digest drafts",
+      label: "简报草稿",
       value: digestDrafts,
-      hint: `${publishedDigests} published digests`
+      hint: `已发布 ${publishedDigests} 期简报`
     },
     {
-      label: "Delivery channels",
+      label: "投递渠道",
       value: enabledDeliveryChannels,
-      hint: `${failedDeliveryRuns} failed delivery runs`
+      hint: `${failedDeliveryRuns} 次投递失败`
     },
     {
-      label: "Delivery schedules",
+      label: "投递计划",
       value: enabledDeliverySchedules,
-      hint: `${scheduledRuns.length} scheduled runs`
+      hint: `${scheduledRuns.length} 次定时运行`
     }
   ];
 
   const primaryActions = [
     {
-      label: "Import enabled sources",
+      label: "导入已启用来源",
       href: "/workspace/sources",
-      description: "Run the batch import control."
+      description: "运行批量导入。"
     },
     {
-      label: "Review candidates",
+      label: "审核候选",
       href: "/workspace/candidates",
-      description: "Process new imported items."
+      description: "处理新导入的内容。"
     },
     {
-      label: "Resolve duplicates",
+      label: "处理重复组",
       href: "/workspace/duplicates",
-      description: "Choose primary candidates."
+      description: "选择主候选。"
     },
     {
-      label: "Edit drafts",
+      label: "编辑草稿",
       href: "/workspace/technologies",
-      description: "Prepare formal technology records."
+      description: "完善正式技术记录。"
     },
     {
-      label: "Manage digests",
+      label: "管理简报",
       href: "/workspace/digests",
-      description: "Edit and publish daily briefs."
+      description: "编辑并发布每日简报。"
     },
     {
-      label: "Open operations",
+      label: "打开运维",
       href: "/workspace/operations",
-      description: "Check failures, recent events, and system health."
+      description: "检查失败项、近期事件与系统健康。"
     }
   ];
 
   return (
     <WorkspacePageShell
-      title="Internal Editorial Workspace"
-      description="Internal control surface for source import, candidate review, duplicate resolution, technology drafts, publication, digest editing, delivery, and operations."
-      sectionLabel="Reviewer / Editor"
+      title="内部编辑工作台"
+      description="覆盖来源导入、候选审核、重复处理、技术草稿、发布、简报编辑、投递与运维的内部控制面板。"
+      sectionLabel="审核 / 编辑"
     >
       <section className="workspace-dashboard">
         <div className="workspace-dashboard__intro">
-          <p className="eyebrow workspace-eyebrow">Internal workflow</p>
-          <h2>
-            Turn external technology signals into reviewed public content.
-          </h2>
+          <p className="eyebrow workspace-eyebrow">内部工作流</p>
+          <h2>把外部技术信号变成经过审核的公开内容。</h2>
           <p>
-            Imported data stays in the workspace until a reviewer checks source
-            quality, duplicate groups, draft readiness, and digest publishing.
-            The public product only receives published technology and digest
-            content.
+            导入的数据会一直留在工作台内，直到审核者确认来源质量、重复组、草稿就绪状态和简报发布。公开产品只接收已发布的技术与简报内容。
           </p>
         </div>
 
-        <div
-          className="workspace-status-summary"
-          aria-label="Workspace status summary"
-        >
+        <div className="workspace-status-summary" aria-label="工作台状态摘要">
           {summaryCards.map((card) => (
             <article
               className="workspace-status-summary__card"
@@ -337,48 +348,47 @@ export default function WorkspaceHomePage() {
       <section className="section-block">
         <div className="section-heading">
           <div>
-            <h2>Operations summary</h2>
+            <h2>运维摘要</h2>
             <p>
-              Lightweight health view for sources, delivery, scheduled runs,
-              task runner state, and workflow events.
+              来源、投递、定时运行、任务运行器状态与工作流事件的轻量健康视图。
             </p>
           </div>
           <Link className="action-link" href="/workspace/operations">
-            Open Operations
+            打开运维
           </Link>
         </div>
         <div className="workspace-operations-summary">
           <article
             className={`workspace-operations-summary__card workspace-operations-summary__card--${operations.status}`}
           >
-            <span>System health</span>
-            <strong>{operations.status}</strong>
+            <span>系统健康</span>
+            <strong>{formatStatus(operations.status)}</strong>
             <small>{operations.statusReasons[0]}</small>
           </article>
           <article className="workspace-operations-summary__card">
-            <span>Attention required</span>
+            <span>需要关注</span>
             <strong>{operations.attentionItems.length}</strong>
-            <small>items currently visible</small>
+            <small>当前可见的待关注项</small>
           </article>
           <article className="workspace-operations-summary__card">
-            <span>Failed deliveries</span>
+            <span>投递失败</span>
             <strong>{operations.failedDeliveries.length}</strong>
-            <small>delivery runs need review</small>
+            <small>次投递需要复查</small>
           </article>
           <article className="workspace-operations-summary__card">
-            <span>Failed sources</span>
+            <span>来源失败</span>
             <strong>{operations.failedImports.length}</strong>
-            <small>source imports need review</small>
+            <small>个来源导入需要复查</small>
           </article>
           <article className="workspace-operations-summary__card">
-            <span>Recent task runner</span>
+            <span>最近任务运行器</span>
             <strong>
-              {operations.taskRunnerSummary.latestRun?.status ?? "not run"}
+              {formatStatus(operations.taskRunnerSummary.latestRun?.status)}
             </strong>
             <small>
               {operations.taskRunnerSummary.latestRun
-                ? `${operations.taskRunnerSummary.latestRun.deliveryLogsCreated} delivery logs`
-                : "no local runner record"}
+                ? `${operations.taskRunnerSummary.latestRun.deliveryLogsCreated} 条投递日志`
+                : "暂无本地运行记录"}
             </small>
           </article>
         </div>
@@ -386,15 +396,10 @@ export default function WorkspaceHomePage() {
 
       <section className="section-block">
         <div className="section-heading">
-          <h2>Workflow overview</h2>
-          <p>
-            Each step links to the workspace module responsible for that stage.
-          </p>
+          <h2>工作流总览</h2>
+          <p>每个步骤都链接到负责该阶段的工作台模块。</p>
         </div>
-        <div
-          className="workflow-overview"
-          aria-label="Workspace workflow overview"
-        >
+        <div className="workflow-overview" aria-label="工作台工作流总览">
           {workflowSteps.map((step, index) => (
             <Link className="workflow-step" href={step.href} key={step.label}>
               <span className="workflow-step__index">{index + 1}</span>
@@ -408,8 +413,8 @@ export default function WorkspaceHomePage() {
 
       <section className="section-block">
         <div className="section-heading">
-          <h2>Primary actions</h2>
-          <p>Start from the step that matches the work you need to do now.</p>
+          <h2>常用操作</h2>
+          <p>从与当前工作匹配的步骤开始。</p>
         </div>
         <div className="workspace-action-grid">
           {primaryActions.map((action) => (
@@ -427,8 +432,8 @@ export default function WorkspaceHomePage() {
 
       <section className="section-block">
         <div className="section-heading">
-          <h2>Recent activity</h2>
-          <p>Only real local workflow records are shown here.</p>
+          <h2>近期活动</h2>
+          <p>这里只展示真实的本地工作流记录。</p>
         </div>
         {recentActivity.length > 0 ? (
           <div className="workspace-activity-list">
@@ -446,19 +451,18 @@ export default function WorkspaceHomePage() {
           </div>
         ) : (
           <p className="empty-state">
-            No import, draft, digest, or delivery activity has been recorded
-            yet.
+            还没有记录任何导入、草稿、简报或投递活动。
           </p>
         )}
       </section>
 
       <section className="section-block section-block--subtle">
         <div className="section-heading">
-          <h2>Source snapshots</h2>
+          <h2>来源快照</h2>
           <p>
             {snapshot.sources.length > 0
-              ? `${snapshot.sources.length} imported source snapshots are available for candidate traceability.`
-              : "No imported source snapshots are available yet."}
+              ? `${snapshot.sources.length} 个导入来源快照可用于候选溯源。`
+              : "暂无可用的导入来源快照。"}
           </p>
         </div>
       </section>

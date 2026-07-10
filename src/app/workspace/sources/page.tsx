@@ -25,14 +25,14 @@ export default function WorkspaceSourcesPage() {
 
   return (
     <WorkspacePageShell
-      title="Sources"
-      description="Manage external sources and monitor import health."
-      sectionLabel="Source Control"
+      title="来源"
+      description="管理外部来源并监控导入健康状态。"
+      sectionLabel="来源管理"
       className="workspace-delivery-console workspace-sources-console"
       securityNote={
         <>
-          <strong>Internal workspace.</strong> Source imports create candidates.
-          Review imported items before publishing.
+          <strong>内部工作台。</strong>
+          来源导入会生成候选，发布前请先审核导入内容。
         </>
       }
       actions={
@@ -40,7 +40,7 @@ export default function WorkspaceSourcesPage() {
           href="/workspace/sources/new"
           className="action-button action-button--accent"
         >
-          Add source
+          新增来源
         </Link>
       }
     >

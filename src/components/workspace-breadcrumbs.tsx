@@ -4,27 +4,27 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const moduleLabels: Record<string, string> = {
-  sources: "Sources",
-  candidates: "Candidates",
-  duplicates: "Duplicates",
-  technologies: "Drafts",
-  digests: "Digests",
-  delivery: "Delivery",
-  operations: "Operations"
+  sources: "来源",
+  candidates: "候选",
+  duplicates: "重复组",
+  technologies: "草稿",
+  digests: "简报",
+  delivery: "投递",
+  operations: "运维"
 };
 
 const detailLabels: Record<string, string> = {
-  sources: "Source detail",
-  candidates: "Candidate detail",
-  duplicates: "Duplicate group",
-  technologies: "Technology detail",
-  digests: "Digest detail"
+  sources: "来源详情",
+  candidates: "候选详情",
+  duplicates: "重复组详情",
+  technologies: "技术详情",
+  digests: "简报详情"
 };
 
 // Named sibling pages (not [id] detail routes) nested under a module.
 const namedSubPageLabels: Record<string, Record<string, string>> = {
-  delivery: { schedules: "Schedules" },
-  operations: { events: "Events" }
+  delivery: { schedules: "定时投递" },
+  operations: { events: "事件" }
 };
 
 interface BreadcrumbItem {
@@ -35,7 +35,7 @@ interface BreadcrumbItem {
 function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const segments = pathname.split("/").filter(Boolean);
   const breadcrumbs: BreadcrumbItem[] = [
-    { href: "/workspace", label: "Workspace" }
+    { href: "/workspace", label: "工作台" }
   ];
 
   if (segments[0] !== "workspace") {
@@ -58,7 +58,7 @@ function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   }
 
   if (thirdSegment === "new") {
-    breadcrumbs.push({ label: "New source" });
+    breadcrumbs.push({ label: "新建来源" });
     return breadcrumbs;
   }
 
@@ -69,11 +69,11 @@ function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   }
 
   breadcrumbs.push({
-    label: detailLabels[moduleSegment] ?? "Detail"
+    label: detailLabels[moduleSegment] ?? "详情"
   });
 
   if (segments[3] === "preview") {
-    breadcrumbs.push({ label: "Preview" });
+    breadcrumbs.push({ label: "预览" });
   }
 
   return breadcrumbs;
@@ -84,7 +84,7 @@ export function WorkspaceBreadcrumbs() {
   const breadcrumbs = buildBreadcrumbs(pathname);
 
   return (
-    <nav className="workspace-breadcrumbs" aria-label="Workspace breadcrumbs">
+    <nav className="workspace-breadcrumbs" aria-label="工作台面包屑">
       <ol>
         {breadcrumbs.map((item, index) => {
           const isLast = index === breadcrumbs.length - 1;

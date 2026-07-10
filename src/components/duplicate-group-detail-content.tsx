@@ -33,6 +33,12 @@ function getStatusTone(status: DuplicateGroup["status"]) {
   return "warning" as const;
 }
 
+const groupStatusLabels: Record<DuplicateGroup["status"], string> = {
+  open: "待处理",
+  resolved: "已解决",
+  ignored: "已忽略"
+};
+
 export function DuplicateGroupDetailContent({
   group,
   candidates,
@@ -48,20 +54,17 @@ export function DuplicateGroupDetailContent({
   return (
     <div className="candidate-review-page duplicate-review-page">
       <section className="detail-panel candidate-review-hero workspace-object-hero">
-        <p className="eyebrow">Duplicate Review</p>
+        <p className="eyebrow">重复组审核</p>
         <h1>{primaryCandidate?.originalTitle ?? group.id}</h1>
         <p className="candidate-detail-hero__summary">
-          Review these imported candidates as one possible technology event.
-          Select a primary candidate before converting to a Technology draft.
+          把这些导入候选当作同一个技术事件来审核。在转换为技术草稿前先选定主候选。
         </p>
         <div className="candidate-detail-hero__meta">
           <WorkspaceStatusBadge
-            label={group.status}
+            label={groupStatusLabels[group.status]}
             tone={getStatusTone(group.status)}
           />
-          <span className="info-pill">
-            {group.candidateIds.length} candidates
-          </span>
+          <span className="info-pill">{group.candidateIds.length} 条候选</span>
           {group.reasons.map((reason) => (
             <span key={reason} className="info-pill info-pill--warning">
               {getDuplicateReasonLabel(reason)}
@@ -81,11 +84,8 @@ export function DuplicateGroupDetailContent({
           <section className="section-panel candidate-detail-section">
             <div className="section-heading">
               <div>
-                <h2>Candidate comparison</h2>
-                <p>
-                  Compare title, source, date, summary, and status before
-                  resolving the group.
-                </p>
+                <h2>候选比较</h2>
+                <p>在解决重复组前，比较标题、来源、日期、摘要与状态。</p>
               </div>
             </div>
             <div className="candidate-duplicate-list duplicate-review-list">
@@ -104,7 +104,7 @@ export function DuplicateGroupDetailContent({
                     <div className="candidate-duplicate-item__meta">
                       {isPrimary ? (
                         <span className="info-pill info-pill--warning">
-                          Primary
+                          主候选
                         </span>
                       ) : null}
                       <ImportedCandidateStatusBadge
@@ -123,12 +123,10 @@ export function DuplicateGroupDetailContent({
                         {candidate.originalTitle}
                       </Link>
                     </h3>
-                    <p>
-                      {candidate.originalSummary ?? "No summary available."}
-                    </p>
+                    <p>{candidate.originalSummary ?? "暂无摘要。"}</p>
                     <div className="candidate-duplicate-item__meta">
                       <span>
-                        Type:{" "}
+                        类型：
                         {getImportedCandidateNormalizedTypeLabel(
                           candidate.normalizedType
                         )}
@@ -139,7 +137,7 @@ export function DuplicateGroupDetailContent({
                         rel="noreferrer"
                         className="detail-info-card__link"
                       >
-                        Open source
+                        打开来源
                       </a>
                     </div>
                     <div className="candidate-duplicate-item__reasons">
@@ -166,24 +164,24 @@ export function DuplicateGroupDetailContent({
 
         <aside className="candidate-review-aside">
           <DetailInfoCard
-            title="Group workflow"
+            title="重复组工作流"
             className="detail-info-card--compact"
             rows={[
               {
-                label: "Group ID",
+                label: "重复组 ID",
                 value: group.id
               },
               {
-                label: "Status",
+                label: "状态",
                 value: (
                   <WorkspaceStatusBadge
-                    label={group.status}
+                    label={groupStatusLabels[group.status]}
                     tone={getStatusTone(group.status)}
                   />
                 )
               },
               {
-                label: "Primary candidate",
+                label: "主候选",
                 value: (
                   <Link
                     href={`/workspace/candidates/${group.primaryCandidateId}`}
@@ -194,35 +192,33 @@ export function DuplicateGroupDetailContent({
                 )
               },
               {
-                label: "Converted draft",
+                label: "已转换草稿",
                 value: convertedTechnologyId ? (
                   <Link
                     href={`/workspace/technologies/${convertedTechnologyId}`}
                     className="detail-info-card__link"
                   >
-                    Open workspace record
+                    打开工作台记录
                   </Link>
                 ) : (
-                  "No draft generated yet"
+                  "尚未生成草稿"
                 )
               },
               {
-                label: "Created",
+                label: "创建时间",
                 value: group.createdAt.slice(0, 10)
               },
               {
-                label: "Updated",
+                label: "更新时间",
                 value: group.updatedAt.slice(0, 10)
               }
             ]}
           />
 
           <section className="section-panel candidate-detail-section">
-            <h2>Conversion rule</h2>
+            <h2>转换规则</h2>
             <p className="detail-copy">
-              Resolved duplicate groups should convert only the primary
-              candidate. Other candidates become additional source references on
-              the generated Technology draft.
+              已解决的重复组只应转换主候选。其余候选会成为生成的技术草稿上的附加来源引用。
             </p>
           </section>
         </aside>

@@ -25,6 +25,12 @@ function getStatusTone(status: DuplicateGroup["status"]) {
   return "warning" as const;
 }
 
+const groupStatusLabels: Record<DuplicateGroup["status"], string> = {
+  open: "待处理",
+  resolved: "已解决",
+  ignored: "已忽略"
+};
+
 export function DuplicateGroupCard({
   group,
   candidates
@@ -38,17 +44,17 @@ export function DuplicateGroupCard({
       <div className="candidate-card__meta">
         <div className="candidate-card__meta-row">
           <WorkspaceStatusBadge
-            label={group.status}
+            label={groupStatusLabels[group.status]}
             tone={getStatusTone(group.status)}
           />
           <span className="candidate-card__source-type">
-            {candidates.length} candidates
+            {candidates.length} 条候选
           </span>
           <span className="candidate-card__source-name">{group.id}</span>
         </div>
         <div className="candidate-card__meta-row candidate-card__meta-row--muted">
-          <span>Primary: {primaryCandidate?.id ?? "Not selected"}</span>
-          <span>Updated {group.updatedAt.slice(0, 10)}</span>
+          <span>主候选：{primaryCandidate?.id ?? "未选择"}</span>
+          <span>更新于 {group.updatedAt.slice(0, 10)}</span>
         </div>
       </div>
 
@@ -60,7 +66,7 @@ export function DuplicateGroupCard({
         </h2>
         <p>
           {primaryCandidate?.originalSummary ??
-            "Review this duplicate group before converting candidates into a technology draft."}
+            "在把候选转换为技术草稿前，请先审核这个重复组。"}
         </p>
       </div>
 
@@ -84,7 +90,7 @@ export function DuplicateGroupCard({
           href={`/workspace/duplicates/${group.id}`}
           className="action-link"
         >
-          Review group
+          审核重复组
         </Link>
       </div>
     </article>

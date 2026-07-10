@@ -85,21 +85,21 @@ export function ImportedCandidateBrowser({
 
       <div className="search-filter-bar candidate-search-filter-bar">
         <label className="field">
-          <span>Search</span>
+          <span>搜索</span>
           <input
             type="search"
             value={searchText}
             onChange={(event) => setSearchText(event.target.value)}
-            placeholder="Search imported titles, sources, or tags"
+            placeholder="按导入标题、来源或标签搜索"
           />
         </label>
         <label className="field">
-          <span>Source type</span>
+          <span>来源类型</span>
           <select
             value={sourceTypeFilter}
             onChange={(event) => setSourceTypeFilter(event.target.value)}
           >
-            <option value="">All source types</option>
+            <option value="">全部来源类型</option>
             {sourceTypeOptions.map((option) => (
               <option key={option} value={option}>
                 {getImportedCandidateSourceTypeLabel(option)}
@@ -108,12 +108,12 @@ export function ImportedCandidateBrowser({
           </select>
         </label>
         <label className="field">
-          <span>Normalized type</span>
+          <span>内容类型</span>
           <select
             value={normalizedTypeFilter}
             onChange={(event) => setNormalizedTypeFilter(event.target.value)}
           >
-            <option value="">All normalized types</option>
+            <option value="">全部内容类型</option>
             {normalizedTypeOptions.map((option) => (
               <option key={option} value={option}>
                 {getImportedCandidateNormalizedTypeLabel(option)}
@@ -122,12 +122,12 @@ export function ImportedCandidateBrowser({
           </select>
         </label>
         <label className="field">
-          <span>Status</span>
+          <span>状态</span>
           <select
             value={statusFilter}
             onChange={(event) => setStatusFilter(event.target.value)}
           >
-            <option value="">All statuses</option>
+            <option value="">全部状态</option>
             {statusOptions.map((option) => (
               <option key={option} value={option}>
                 {getImportedCandidateStatusLabel(option)}
@@ -138,11 +138,11 @@ export function ImportedCandidateBrowser({
       </div>
 
       <WorkspaceListToolbar
-        label={`${filteredCandidates.length} imported candidates`}
-        detail="Review candidates, inspect duplicates, and convert suitable items into technology drafts."
+        label={`${filteredCandidates.length} 条导入候选`}
+        detail="审核候选、检查重复项，并把合适的内容转换为技术草稿。"
         actions={
           <Link href="/workspace/duplicates" className="action-link">
-            Open duplicate review
+            打开重复组审核
           </Link>
         }
       />
@@ -162,9 +162,7 @@ export function ImportedCandidateBrowser({
       </div>
 
       {filteredCandidates.length === 0 ? (
-        <p className="empty-state">
-          No imported candidates matched the current search and filters.
-        </p>
+        <p className="empty-state">没有匹配当前搜索和筛选条件的候选。</p>
       ) : null}
     </>
   );

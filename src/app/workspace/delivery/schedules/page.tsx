@@ -21,12 +21,25 @@ export const dynamic = "force-dynamic";
 
 function formatDateTime(value: string | undefined): string {
   if (!value) {
-    return "Not recorded";
+    return "未记录";
   }
 
   const date = new Date(value);
 
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("en");
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN");
+}
+
+const runStatusLabels: Record<string, string> = {
+  never_run: "未运行",
+  success: "成功",
+  failed: "失败",
+  partial: "部分成功"
+};
+
+function getRunStatusLabel(
+  status: ScheduledDeliveryRunStatus | undefined
+): string {
+  return status ? (runStatusLabels[status] ?? status) : "未运行";
 }
 
 function getRunStatusTone(status: ScheduledDeliveryRunStatus | undefined) {
@@ -47,10 +60,10 @@ function getRunStatusTone(status: ScheduledDeliveryRunStatus | undefined) {
 
 function getDigestTargetLabel(target: string, digestDate: string | undefined) {
   if (target === "digest_by_date") {
-    return digestDate ? `Digest ${digestDate}` : "Digest by date";
+    return digestDate ? `${digestDate} 简报` : "指定日期简报";
   }
 
-  return "Latest published digest";
+  return "最新已发布简报";
 }
 
 export default function WorkspaceDeliverySchedulesPage() {
@@ -84,47 +97,44 @@ export default function WorkspaceDeliverySchedulesPage() {
   return (
     <WorkspacePageShell
       className="workspace-delivery-console workspace-schedule-console"
-      title="Scheduled Delivery"
-      description="Manage local schedules for sending published Daily Digest records to enabled delivery channels."
-      sectionLabel="Delivery / Schedules"
+      title="定时投递"
+      description="管理把已发布每日简报发送到已启用投递渠道的本地计划。"
+      sectionLabel="投递 / 定时"
       actions={
         <a
           className="action-button action-button--accent"
           href="#create-schedule"
         >
-          Create schedule
+          创建计划
         </a>
       }
       securityNote={
         <>
-          <strong>Internal workspace</strong> - schedules trigger delivery
-          channels; keep one task runner active per data directory.
+          <strong>内部工作台</strong> ·
+          计划会触发投递渠道；每个数据目录只保留一个任务运行器。
         </>
       }
     >
-      <section
-        className="delivery-console-summary"
-        aria-label="Schedule summary"
-      >
+      <section className="delivery-console-summary" aria-label="计划摘要">
         <article className="delivery-console-summary__card">
-          <span>Total schedules</span>
+          <span>计划总数</span>
           <strong>{schedules.length}</strong>
-          <p>{enabledCount} enabled</p>
+          <p>{enabledCount} 个已启用</p>
         </article>
         <article className="delivery-console-summary__card">
-          <span>Due now</span>
+          <span>当前到期</span>
           <strong>{dueCount}</strong>
-          <p>{schedules.length - enabledCount} disabled</p>
+          <p>{schedules.length - enabledCount} 个已停用</p>
         </article>
         <article className="delivery-console-summary__card">
-          <span>Last run</span>
-          <strong>{lastRun?.status ?? "never run"}</strong>
+          <span>最近运行</span>
+          <strong>{getRunStatusLabel(lastRun?.status)}</strong>
           <p>{formatDateTime(lastRun?.finishedAt ?? lastRun?.startedAt)}</p>
         </article>
         <article className="delivery-console-summary__card">
-          <span>Failed runs</span>
+          <span>失败运行</span>
           <strong>{failedRunCount}</strong>
-          <p>{runs.length} scheduled run records</p>
+          <p>共 {runs.length} 条计划运行记录</p>
         </article>
       </section>
 
@@ -134,33 +144,31 @@ export default function WorkspaceDeliverySchedulesPage() {
       >
         <div className="delivery-console-panel__header">
           <div>
-            <p className="section-eyebrow">Delivery schedules</p>
-            <h2>Configured schedules</h2>
+            <p className="section-eyebrow">投递计划</p>
+            <h2>已配置计划</h2>
             <p>
-              Schedules decide when to send. Channels decide where to send.
-              Disabled schedules and disabled channels are skipped.
+              计划决定何时发送，渠道决定发送到哪里。停用的计划和停用的渠道会被跳过。
             </p>
           </div>
           <Link className="action-link" href="/workspace/delivery">
-            Manage channels
+            管理渠道
           </Link>
         </div>
 
         <section
           id="create-schedule"
           className="delivery-create-panel schedule-create-panel"
-          aria-label="Create delivery schedule"
+          aria-label="创建投递计划"
         >
           <div className="delivery-create-panel__summary">
             <div>
-              <h3>Create schedule</h3>
+              <h3>创建计划</h3>
               <p>
-                Use one digest target, one local time, and one or more enabled
-                channels. The form is hidden until this section is opened.
+                选择一个简报目标、一个本地时间，以及一个或多个已启用渠道。表单在打开本区域前保持收起。
               </p>
             </div>
             <a className="action-link" href="#delivery-schedules">
-              Close form
+              收起表单
             </a>
           </div>
           <div className="delivery-create-panel__body">
@@ -172,24 +180,24 @@ export default function WorkspaceDeliverySchedulesPage() {
           <div
             className="delivery-table-scroll"
             role="region"
-            aria-label="Scheduled deliveries table"
+            aria-label="定时投递表格"
           >
             <div className="schedule-table schedule-table--console">
               <div className="schedule-table__head">
-                <span>Name</span>
-                <span>Target</span>
-                <span>Time</span>
-                <span>Channels</span>
-                <span>State</span>
-                <span>Last run</span>
-                <span>Next run</span>
-                <span>Actions</span>
+                <span>名称</span>
+                <span>目标</span>
+                <span>时间</span>
+                <span>渠道</span>
+                <span>状态</span>
+                <span>最近运行</span>
+                <span>下次运行</span>
+                <span>操作</span>
               </div>
               {schedules.map((schedule) => {
                 const channelNames = schedule.channelIds.map((channelId) => {
                   const channel = channelById.get(channelId);
 
-                  return channel ? channel.name : `${channelId} (missing)`;
+                  return channel ? channel.name : `${channelId}（缺失）`;
                 });
                 const disabledChannelCount = schedule.channelIds.filter(
                   (channelId) => {
@@ -202,22 +210,22 @@ export default function WorkspaceDeliverySchedulesPage() {
                   (channelId) => !channelById.has(channelId)
                 ).length;
                 const channelSummary = [
-                  `${schedule.channelIds.length} selected`,
+                  `已选 ${schedule.channelIds.length} 个`,
                   disabledChannelCount
-                    ? `${disabledChannelCount} disabled`
+                    ? `${disabledChannelCount} 个已停用`
                     : null,
-                  missingChannelCount ? `${missingChannelCount} missing` : null
+                  missingChannelCount ? `${missingChannelCount} 个缺失` : null
                 ]
                   .filter(Boolean)
-                  .join(", ");
+                  .join("，");
 
                 return (
                   <article className="schedule-row" key={schedule.id}>
                     <div className="schedule-row__identity">
                       <strong>{schedule.name}</strong>
-                      <p>{schedule.lastRunMessage ?? "No run message yet."}</p>
+                      <p>{schedule.lastRunMessage ?? "暂无运行消息。"}</p>
                     </div>
-                    <div className="schedule-cell" data-label="Target">
+                    <div className="schedule-cell" data-label="目标">
                       <span>
                         {getDigestTargetLabel(
                           schedule.digestTarget,
@@ -225,12 +233,12 @@ export default function WorkspaceDeliverySchedulesPage() {
                         )}
                       </span>
                     </div>
-                    <div className="schedule-cell" data-label="Time">
+                    <div className="schedule-cell" data-label="时间">
                       <span>{schedule.scheduleTime}</span>
                       <small>{schedule.timezone}</small>
                     </div>
-                    <div className="schedule-cell" data-label="Channels">
-                      <span>{channelSummary || "No channels"}</span>
+                    <div className="schedule-cell" data-label="渠道">
+                      <span>{channelSummary || "无渠道"}</span>
                       <small>
                         {channelNames.length > 0
                           ? `${channelNames.slice(0, 2).join(", ")}${
@@ -238,23 +246,23 @@ export default function WorkspaceDeliverySchedulesPage() {
                                 ? ` +${channelNames.length - 2}`
                                 : ""
                             }`
-                          : "None selected"}
+                          : "未选择"}
                       </small>
                     </div>
-                    <div className="schedule-cell" data-label="State">
+                    <div className="schedule-cell" data-label="状态">
                       <WorkspaceStatusBadge
-                        label={schedule.enabled ? "enabled" : "disabled"}
+                        label={schedule.enabled ? "已启用" : "已停用"}
                         tone={schedule.enabled ? "success" : "neutral"}
                       />
                     </div>
-                    <div className="schedule-cell" data-label="Last run">
+                    <div className="schedule-cell" data-label="最近运行">
                       <WorkspaceStatusBadge
-                        label={schedule.lastRunStatus}
+                        label={getRunStatusLabel(schedule.lastRunStatus)}
                         tone={getRunStatusTone(schedule.lastRunStatus)}
                       />
                       <small>{formatDateTime(schedule.lastRunAt)}</small>
                     </div>
-                    <div className="schedule-cell" data-label="Next run">
+                    <div className="schedule-cell" data-label="下次运行">
                       <span>{formatDateTime(schedule.nextRunAt)}</span>
                     </div>
                     <div className="schedule-row__actions">
@@ -263,7 +271,7 @@ export default function WorkspaceDeliverySchedulesPage() {
                         enabled={schedule.enabled}
                       />
                       <details className="schedule-row__edit">
-                        <summary>Edit</summary>
+                        <summary>编辑</summary>
                         <ScheduledDeliveryForm
                           schedule={schedule}
                           channels={channels}
@@ -277,13 +285,12 @@ export default function WorkspaceDeliverySchedulesPage() {
           </div>
         ) : (
           <div className="schedule-empty-state">
-            <h3>No schedules yet</h3>
+            <h3>还没有计划</h3>
             <p>
-              Create a schedule after adding at least one delivery channel. A
-              schedule only sends published digests and skips disabled channels.
+              先添加至少一个投递渠道，再创建计划。计划只会发送已发布的简报，并跳过停用的渠道。
             </p>
             <a className="action-link" href="#create-schedule">
-              Open create schedule form
+              打开创建计划表单
             </a>
           </div>
         )}
@@ -292,12 +299,9 @@ export default function WorkspaceDeliverySchedulesPage() {
       <section className="detail-panel delivery-console-panel schedule-runs-panel">
         <div className="delivery-console-panel__header">
           <div>
-            <p className="section-eyebrow">Scheduled runs</p>
-            <h2>Recent executions</h2>
-            <p>
-              Each run groups the per-channel DeliveryLog records for one
-              schedule execution.
-            </p>
+            <p className="section-eyebrow">计划运行</p>
+            <h2>近期执行</h2>
+            <p>每条运行记录汇总一次计划执行的各渠道投递日志。</p>
           </div>
         </div>
 
@@ -305,32 +309,32 @@ export default function WorkspaceDeliverySchedulesPage() {
           <div
             className="delivery-table-scroll"
             role="region"
-            aria-label="Scheduled delivery runs table"
+            aria-label="定时投递运行表格"
           >
             <div className="schedule-run-table">
               <div className="schedule-run-table__head">
-                <span>Time</span>
-                <span>Schedule</span>
-                <span>Digest</span>
-                <span>Status</span>
-                <span>Channels</span>
-                <span>Trigger</span>
-                <span>Message</span>
+                <span>时间</span>
+                <span>计划</span>
+                <span>简报</span>
+                <span>状态</span>
+                <span>渠道</span>
+                <span>触发方式</span>
+                <span>消息</span>
               </div>
               {runs.slice(0, 20).map((run) => (
                 <article className="schedule-run-row" key={run.id}>
                   <span>{formatDateTime(run.finishedAt ?? run.startedAt)}</span>
                   <strong>{run.scheduleName}</strong>
                   <span>
-                    {run.digestDate ? `Digest ${run.digestDate}` : "No digest"}
+                    {run.digestDate ? `${run.digestDate} 简报` : "无简报"}
                   </span>
                   <WorkspaceStatusBadge
-                    label={run.status}
+                    label={getRunStatusLabel(run.status)}
                     tone={getRunStatusTone(run.status)}
                   />
                   <span>
-                    {run.successfulChannels} success, {run.failedChannels}{" "}
-                    failed, {run.skippedChannels} skipped
+                    成功 {run.successfulChannels}，失败 {run.failedChannels}
+                    ，跳过 {run.skippedChannels}
                   </span>
                   <span>{run.triggerType}</span>
                   <span className="delivery-log-message">{run.message}</span>
@@ -339,76 +343,68 @@ export default function WorkspaceDeliverySchedulesPage() {
             </div>
           </div>
         ) : (
-          <p className="empty-state">
-            No scheduled delivery runs have been recorded yet.
-          </p>
+          <p className="empty-state">还没有记录任何定时投递运行。</p>
         )}
       </section>
 
-      <section className="schedule-support-grid" aria-label="Schedule support">
+      <section className="schedule-support-grid" aria-label="计划辅助信息">
         <details className="schedule-support-panel">
-          <summary>Task runner and due runs</summary>
-          <p>
-            The CLI runner uses the same duplicate protection as this workspace
-            page.
-          </p>
+          <summary>任务运行器与到期运行</summary>
+          <p>命令行运行器与本页使用相同的重复发送保护。</p>
           <RunDueSchedulesButton disabled={dueCount === 0} />
           <dl className="digest-delivery-list">
             <div>
-              <dt>Run once</dt>
+              <dt>运行一次</dt>
               <dd>
                 <code>npm run tasks:run-once</code>
               </dd>
             </div>
             <div>
-              <dt>Watch mode</dt>
+              <dt>监听模式</dt>
               <dd>
                 <code>npm run tasks:watch</code>
               </dd>
             </div>
             <div>
-              <dt>Latest task runner result</dt>
+              <dt>最近任务运行器结果</dt>
               <dd>
                 {latestTaskRunnerRun
-                  ? `${latestTaskRunnerRun.status} - ${latestTaskRunnerRun.dueScheduleCount} due, ${latestTaskRunnerRun.deliveryLogsCreated} delivery logs - ${formatDateTime(
+                  ? `${getRunStatusLabel(latestTaskRunnerRun.status)} - 到期 ${latestTaskRunnerRun.dueScheduleCount} 个，投递日志 ${latestTaskRunnerRun.deliveryLogsCreated} 条 - ${formatDateTime(
                       latestTaskRunnerRun.finishedAt
                     )}`
-                  : "No task runner execution has been recorded yet."}
+                  : "还没有记录任何任务运行器执行。"}
               </dd>
             </div>
           </dl>
         </details>
 
         <details className="schedule-support-panel">
-          <summary>Current v0 rules</summary>
+          <summary>当前 v0 规则</summary>
           <dl className="digest-delivery-list">
             <div>
-              <dt>Digest safety</dt>
-              <dd>Only published digests can be sent.</dd>
+              <dt>简报安全</dt>
+              <dd>只有已发布的简报可以发送。</dd>
             </div>
             <div>
-              <dt>Duplicate protection</dt>
+              <dt>重复保护</dt>
               <dd>
-                Scheduled runs skip the same schedule / digest / channel on the
-                same local day. Manual runs are explicit force runs.
+                定时运行会在同一本地日内跳过相同的计划 / 简报 /
+                渠道组合。手动运行是明确的强制运行。
               </dd>
             </div>
             <div>
-              <dt>Failure handling</dt>
-              <dd>
-                One failed channel records a failed delivery log but does not
-                stop other channels.
-              </dd>
+              <dt>失败处理</dt>
+              <dd>单个渠道失败会记录一条失败投递日志，但不会中断其他渠道。</dd>
             </div>
           </dl>
         </details>
 
         <details className="schedule-support-panel">
-          <summary>Recent schedule events</summary>
+          <summary>近期计划事件</summary>
           <WorkflowEventList
             events={recentScheduleEvents}
-            title="Audit trail"
-            description="Task runner and schedule execution events."
+            title="审计记录"
+            description="任务运行器与计划执行事件。"
           />
         </details>
       </section>

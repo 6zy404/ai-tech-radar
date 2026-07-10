@@ -51,6 +51,12 @@ function getStatusTone(
   return "neutral";
 }
 
+const draftStatusLabels: Record<TechnologyDraft["status"], string> = {
+  draft: "草稿",
+  published: "已发布",
+  archived: "已归档"
+};
+
 export function TechnologyDraftDetailContent({
   draft,
   tagOptions,
@@ -66,18 +72,17 @@ export function TechnologyDraftDetailContent({
     <div className="detail-layout">
       <div className="detail-main">
         <section className="detail-panel technology-detail-panel workspace-object-hero">
-          <p className="eyebrow">Technology Workspace</p>
+          <p className="eyebrow">技术工作台</p>
           <h1>{getDraftDisplayTitle(draft)}</h1>
           <p className="technology-detail-panel__summary">
             {draft.summary.zh ?? draft.summary.original}
           </p>
           <p className="translation-note">
-            This record was generated from an imported candidate and stays
-            inside the internal workspace until it is published for end users.
+            这条记录由导入候选生成，在面向用户发布前会一直留在内部工作台中。
           </p>
           <div className="candidate-detail-hero__meta">
             <WorkspaceStatusBadge
-              label={draft.status}
+              label={draftStatusLabels[draft.status]}
               tone={getStatusTone(draft.status)}
             />
             <span className="info-pill">
@@ -85,7 +90,7 @@ export function TechnologyDraftDetailContent({
             </span>
             <span className="info-pill">{draft.translationStatus}</span>
             <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-              {getPriorityLevelLabel(ranking.priorityLevel)}
+              {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
             </span>
           </div>
           <TechnologyWorkspaceActions
@@ -103,14 +108,14 @@ export function TechnologyDraftDetailContent({
         />
 
         <section className="section-panel technology-detail-panel__content">
-          <h2>Record content</h2>
+          <h2>记录正文</h2>
           <p className="detail-copy">
             {draft.content.zh ?? draft.content.original}
           </p>
         </section>
 
         <section className="section-panel">
-          <h2>Editorial notes</h2>
+          <h2>编辑备注</h2>
           <ul className="relation-list">
             {draft.editorialNotes.map((note) => (
               <li key={note} className="relation-list__item">
@@ -133,86 +138,86 @@ export function TechnologyDraftDetailContent({
 
         <WorkflowEventList
           events={workflowEvents}
-          title="Draft workflow events"
-          description="Recent publish, edit, and conversion events for this workspace record."
+          title="草稿工作流事件"
+          description="这条工作台记录最近的发布、编辑与转换事件。"
         />
       </div>
 
       <aside className="detail-side">
         <DetailInfoCard
-          title="Draft reference"
+          title="草稿参考"
           rows={[
             {
-              label: "Priority",
+              label: "优先级",
               value: (
                 <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-                  {getPriorityLevelLabel(ranking.priorityLevel)}
+                  {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
                 </span>
               )
             },
             {
-              label: "Ranking source",
+              label: "判定方式",
               value: getRankingSourceLabel(ranking.rankingSource)
             },
             {
-              label: "Priority reasons",
+              label: "优先级理由",
               value: ranking.priorityReasons.slice(0, 3).join(" ")
             },
             {
-              label: "Priority warnings",
+              label: "优先级警告",
               value:
                 ranking.priorityWarnings.length > 0
                   ? ranking.priorityWarnings.slice(0, 3).join(" ")
-                  : "No priority warnings"
+                  : "无优先级警告"
             },
             {
-              label: "Source candidate",
+              label: "来源候选",
               value: draft.sourceCandidateId ? (
                 <Link
                   href={`/workspace/candidates/${draft.sourceCandidateId}`}
                   className="detail-info-card__link"
                 >
-                  Open imported candidate
+                  打开导入候选
                 </Link>
               ) : (
-                "No source candidate link"
+                "无来源候选关联"
               )
             },
             {
-              label: "Status",
-              value: draft.status
+              label: "状态",
+              value: draftStatusLabels[draft.status]
             },
             {
-              label: "User-facing page",
+              label: "用户端页面",
               value:
                 draft.status === "published" ? (
                   <Link
                     href={`/technologies/${draft.slug}`}
                     className="detail-info-card__link"
                   >
-                    Open published technology page
+                    打开已发布技术页面
                   </Link>
                 ) : (
-                  "Not visible in the user-facing product yet"
+                  "尚未在用户产品中可见"
                 )
             },
             {
-              label: "Preview",
+              label: "预览",
               value: (
                 <Link
                   href={`/workspace/technologies/${draft.id}/preview`}
                   className="detail-info-card__link"
                 >
-                  Open user-facing preview
+                  打开用户端预览
                 </Link>
               )
             },
             {
-              label: "Source",
+              label: "来源",
               value: draft.sourceName
             },
             {
-              label: "Source URL",
+              label: "来源 URL",
               value: (
                 <a
                   className="detail-info-card__link"
@@ -225,7 +230,7 @@ export function TechnologyDraftDetailContent({
               )
             },
             {
-              label: "Additional references",
+              label: "附加引用",
               value:
                 draft.sourceReferences && draft.sourceReferences.length > 0 ? (
                   <div className="candidate-source-link">
@@ -240,31 +245,31 @@ export function TechnologyDraftDetailContent({
                     ))}
                   </div>
                 ) : (
-                  "No additional duplicate references"
+                  "无附加重复引用"
                 )
             },
             {
-              label: "Type",
+              label: "类型",
               value: draft.type
             },
             {
-              label: "Publisher",
+              label: "发布方",
               value: draft.publisherName
             },
             {
-              label: "Language",
+              label: "语言",
               value: draft.sourceLanguage.toUpperCase()
             },
             {
-              label: "Translation status",
+              label: "翻译状态",
               value: draft.translationStatus
             },
             {
-              label: "Tags",
-              value: draft.tags.length > 0 ? draft.tags.join(", ") : "None"
+              label: "标签",
+              value: draft.tags.length > 0 ? draft.tags.join(", ") : "无"
             },
             {
-              label: "Updated",
+              label: "更新于",
               value: draft.updatedAt.slice(0, 10)
             }
           ]}

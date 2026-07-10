@@ -39,7 +39,7 @@ export function getPriorityLevelClass(level: PriorityLevel): string {
 }
 
 export function getRankingSourceLabel(source: RankingSource): string {
-  return source === "manual_override" ? "Manual override" : "Rule-based";
+  return source === "manual_override" ? "人工覆盖" : "规则判定";
 }
 
 export function getPriorityUserSummary(

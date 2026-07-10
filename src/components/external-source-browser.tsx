@@ -28,7 +28,7 @@ interface ExternalSourceBrowserProps {
 }
 
 function formatDateTime(value: string | undefined): string {
-  return value ? value.slice(0, 16).replace("T", " ") : "Never run";
+  return value ? value.slice(0, 16).replace("T", " ") : "未运行";
 }
 
 function getLatestImportLabel(
@@ -45,7 +45,7 @@ function getLatestImportLabel(
     .sort()
     .at(-1);
 
-  return latestFetchedAt ? formatDateTime(latestFetchedAt) : "Never run";
+  return latestFetchedAt ? formatDateTime(latestFetchedAt) : "未运行";
 }
 
 function isAttentionSource(source: ExternalSource): boolean {
@@ -68,13 +68,13 @@ function maskSourceUrl(value: string): string {
 
     return `${url.protocol}//${url.host}${path}`;
   } catch {
-    return "Invalid source URL";
+    return "无效的来源 URL";
   }
 }
 
 function sanitizeSourceMessage(value: string | undefined): string {
   if (!value) {
-    return "No import result yet.";
+    return "暂无导入结果。";
   }
 
   const withoutUrls = value.replace(/https?:\/\/[^\s)]+/gi, "[source URL]");
@@ -119,17 +119,17 @@ export function ExternalSourceBrowser({
     <>
       <section
         className="delivery-console-summary source-console-summary"
-        aria-label="Source summary"
+        aria-label="来源摘要"
       >
         <div className="delivery-console-summary__card">
-          <span>Total sources</span>
+          <span>来源总数</span>
           <strong>{totalSources}</strong>
-          <p>Configured external feeds.</p>
+          <p>已配置的外部订阅源。</p>
         </div>
         <div className="delivery-console-summary__card">
-          <span>Enabled sources</span>
+          <span>已启用来源</span>
           <strong>{enabledSources}</strong>
-          <p>{totalSources - enabledSources} disabled.</p>
+          <p>{totalSources - enabledSources} 个已停用。</p>
         </div>
         <div
           className={[
@@ -139,42 +139,42 @@ export function ExternalSourceBrowser({
             .filter(Boolean)
             .join(" ")}
         >
-          <span>Failed imports</span>
+          <span>导入失败</span>
           <strong>{failedImports}</strong>
-          <p>Sources needing review.</p>
+          <p>需要复查的来源。</p>
         </div>
         <div className="delivery-console-summary__card">
-          <span>Last import</span>
+          <span>最近导入</span>
           <strong>{latestImportLabel}</strong>
-          <p>Latest batch or source fetch.</p>
+          <p>最近一次批量或单源抓取。</p>
         </div>
       </section>
 
       <section
         className="source-console-import-panel"
-        aria-label="Batch source import"
+        aria-label="批量来源导入"
       >
         <ExternalSourceBatchActions latestImportRun={latestImportRun} />
       </section>
 
       <div className="search-filter-bar candidate-search-filter-bar source-console-filter">
         <label className="field">
-          <span>Search</span>
+          <span>搜索</span>
           <input
             type="search"
             value={searchText}
             onChange={(event) => setSearchText(event.target.value)}
-            placeholder="Search source name, URL, publisher, or tags"
+            placeholder="按来源名称、URL、发布方或标签搜索"
           />
         </label>
 
         <label className="field">
-          <span>Source type</span>
+          <span>来源类型</span>
           <select
             value={typeFilter}
             onChange={(event) => setTypeFilter(event.target.value)}
           >
-            <option value="">All source types</option>
+            <option value="">全部类型</option>
             {typeOptions.map((option) => (
               <option key={option} value={option}>
                 {getExternalSourceTypeLabel(option)}
@@ -184,14 +184,14 @@ export function ExternalSourceBrowser({
         </label>
 
         <label className="field">
-          <span>Enabled</span>
+          <span>启用状态</span>
           <select
             value={enabledFilter}
             onChange={(event) => setEnabledFilter(event.target.value)}
           >
-            <option value="">All sources</option>
-            <option value="true">Enabled</option>
-            <option value="false">Disabled</option>
+            <option value="">全部来源</option>
+            <option value="true">已启用</option>
+            <option value="false">已停用</option>
           </select>
         </label>
       </div>
@@ -199,52 +199,45 @@ export function ExternalSourceBrowser({
       <section className="delivery-console-panel source-console-list-panel">
         <div className="delivery-console-panel__header">
           <div>
-            <h2>Sources</h2>
-            <p>
-              Compact operational view for configured source health and import
-              controls.
-            </p>
+            <h2>来源</h2>
+            <p>已配置来源的健康状态与导入控制的紧凑运维视图。</p>
           </div>
           <span className="delivery-console-action">
-            {filteredSources.length} shown
+            当前显示 {filteredSources.length} 个
           </span>
         </div>
 
         {sources.length === 0 ? (
           <div className="source-console-empty">
-            <h3>No sources yet.</h3>
-            <p>
-              Add a source to start importing external AI technology signals.
-            </p>
+            <h3>还没有来源。</h3>
+            <p>新增一个来源，开始导入外部 AI 技术信号。</p>
             <Link
               href="/workspace/sources/new"
               className="action-button action-button--accent"
             >
-              Add source
+              新增来源
             </Link>
           </div>
         ) : filteredSources.length === 0 ? (
           <div className="source-console-empty">
-            <h3>No sources matched the current filters.</h3>
-            <p>
-              Adjust search, source type, or enabled status to broaden the view.
-            </p>
+            <h3>没有匹配当前筛选条件的来源。</h3>
+            <p>调整搜索、来源类型或启用状态以扩大范围。</p>
           </div>
         ) : (
           <div className="source-console-table-scroll">
             <div
               className="source-console-table"
               role="table"
-              aria-label="External source health"
+              aria-label="外部来源健康状态"
             >
               <div className="source-console-table__head" role="row">
-                <span>Source name</span>
-                <span>Type</span>
-                <span>Status</span>
-                <span>Last import</span>
-                <span>Last result</span>
-                <span>Candidates imported</span>
-                <span>Actions</span>
+                <span>来源名称</span>
+                <span>类型</span>
+                <span>状态</span>
+                <span>最近导入</span>
+                <span>最近结果</span>
+                <span>导入候选数</span>
+                <span>操作</span>
               </div>
 
               {filteredSources.map((source) => {
@@ -275,7 +268,7 @@ export function ExternalSourceBrowser({
                         </Link>
                       </h3>
                       <p className="source-console-description">
-                        {source.description ?? "No description provided."}
+                        {source.description ?? "暂无描述。"}
                       </p>
                       <span className="source-console-url">
                         {maskSourceUrl(source.url)}
@@ -285,7 +278,7 @@ export function ExternalSourceBrowser({
                     <div className="source-console-type" role="cell">
                       <strong>{getExternalSourceTypeLabel(source.type)}</strong>
                       <span className="source-console-muted">
-                        {source.publisherName ?? "No publisher"}
+                        {source.publisherName ?? "未填写发布方"}
                       </span>
                       <span className="source-console-muted">
                         {source.language.toUpperCase()}
@@ -303,7 +296,7 @@ export function ExternalSourceBrowser({
                             : "info-pill info-pill--warning"
                         }
                       >
-                        {source.enabled ? "Enabled" : "Disabled"}
+                        {source.enabled ? "已启用" : "已停用"}
                       </span>
                       <ExternalSourceStatusBadge
                         status={source.lastImportStatus}
@@ -314,7 +307,7 @@ export function ExternalSourceBrowser({
                             quality.qualityLevel
                           )}
                         >
-                          Quality:{" "}
+                          质量：
                           {getSourceQualityLevelLabel(quality.qualityLevel)}
                         </span>
                       ) : null}
@@ -323,7 +316,7 @@ export function ExternalSourceBrowser({
                     <div className="source-console-last-import" role="cell">
                       <strong>{formatDateTime(source.lastFetchedAt)}</strong>
                       <span className="source-console-muted">
-                        Failures: {source.consecutiveFailureCount ?? 0}
+                        连续失败：{source.consecutiveFailureCount ?? 0}
                       </span>
                     </div>
 
@@ -341,17 +334,17 @@ export function ExternalSourceBrowser({
                       <span>{resultMessage}</span>
                       {quality ? (
                         <span className="source-console-muted">
-                          Success {formatQualityRate(quality.successRate)} /
-                          Duplicate {formatQualityRate(quality.duplicateRate)} /
-                          Conversion {formatQualityRate(quality.conversionRate)}
+                          成功 {formatQualityRate(quality.successRate)} / 重复{" "}
+                          {formatQualityRate(quality.duplicateRate)} / 转化{" "}
+                          {formatQualityRate(quality.conversionRate)}
                         </span>
                       ) : null}
                     </div>
 
                     <div className="source-console-candidates" role="cell">
-                      <strong>Last: {source.lastImportCount ?? 0}</strong>
+                      <strong>本次：{source.lastImportCount ?? 0}</strong>
                       <span className="source-console-muted">
-                        Total: {source.totalImportedCount ?? 0}
+                        累计：{source.totalImportedCount ?? 0}
                       </span>
                     </div>
 
@@ -365,10 +358,10 @@ export function ExternalSourceBrowser({
                         <Link
                           href={`/workspace/sources/${source.id}#edit-source`}
                         >
-                          Edit source
+                          编辑来源
                         </Link>
                         <Link href={`/workspace/sources/${source.id}`}>
-                          View source detail
+                          查看来源详情
                         </Link>
                       </div>
                     </div>

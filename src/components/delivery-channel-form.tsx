@@ -59,21 +59,15 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
 
         if (!response.ok || !result.ok || !result.channel) {
           throw new Error(
-            result.issues?.join(" ") ??
-              result.message ??
-              "Delivery channel save failed."
+            result.issues?.join(" ") ?? result.message ?? "投递渠道保存失败。"
           );
         }
 
-        setMessage(
-          isEditing ? "Delivery channel updated." : "Delivery channel created."
-        );
+        setMessage(isEditing ? "投递渠道已更新。" : "投递渠道已创建。");
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error
-            ? error.message
-            : "Delivery channel save failed."
+          error instanceof Error ? error.message : "投递渠道保存失败。"
         );
       }
     });
@@ -83,12 +77,12 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
     <form action={submit} className="source-form delivery-channel-form">
       <div className="source-form__grid">
         <label className="field">
-          <span>Name</span>
+          <span>名称</span>
           <input name="name" defaultValue={channel?.name ?? ""} required />
         </label>
 
         <label className="field">
-          <span>Channel type</span>
+          <span>渠道类型</span>
           <select
             name="type"
             value={channelType}
@@ -100,13 +94,13 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
               }
             }}
           >
-            <option value="webhook">Generic webhook</option>
-            <option value="feishu_webhook">Feishu bot webhook</option>
+            <option value="webhook">通用 Webhook</option>
+            <option value="feishu_webhook">飞书机器人 Webhook</option>
           </select>
         </label>
 
         <label className="field">
-          <span>Format</span>
+          <span>格式</span>
           <select
             name="format"
             value={format}
@@ -114,23 +108,23 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
               setFormat(event.target.value as DeliveryChannel["format"])
             }
           >
-            <option value="json">JSON webhook payload</option>
-            <option value="text">Text digest summary</option>
+            <option value="json">JSON Webhook 载荷</option>
+            <option value="text">文本简报摘要</option>
           </select>
         </label>
 
         <label className="field source-form__wide">
-          <span>Endpoint URL</span>
+          <span>端点 URL</span>
           <input
             name="endpointUrl"
             defaultValue={channel?.endpointUrl ?? ""}
-            placeholder="https://example.com/webhook, Feishu bot URL, or mock://success"
+            placeholder="https://example.com/webhook、飞书机器人 URL 或 mock://success"
             required
           />
         </label>
 
         <label className="field source-form__wide">
-          <span>Description</span>
+          <span>描述</span>
           <textarea
             name="description"
             defaultValue={channel?.description ?? ""}
@@ -145,12 +139,12 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
           type="checkbox"
           defaultChecked={channel?.enabled ?? true}
         />
-        <span>Enabled for manual digest delivery</span>
+        <span>允许手动简报投递</span>
       </label>
 
       <p className="empty-state">
-        Generic webhook supports JSON or text payloads. Feishu bot webhook sends
-        a Feishu text message, so choose text format for Feishu channels.
+        通用 Webhook 支持 JSON 或文本载荷。飞书机器人 Webhook
+        发送的是飞书文本消息，因此飞书渠道请选择文本格式。
       </p>
 
       <div className="candidate-review-actions__buttons">
@@ -159,7 +153,7 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
           className="action-button action-button--accent"
           disabled={isPending}
         >
-          {isEditing ? "Save channel" : "Create channel"}
+          {isEditing ? "保存渠道" : "创建渠道"}
         </button>
       </div>
 

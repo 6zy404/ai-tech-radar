@@ -52,15 +52,15 @@ export default async function WorkspaceTechnologyPreviewPage({
 
   return (
     <WorkspacePageShell
-      title="Technology Preview"
-      description="Preview the draft with the same user-facing technology detail renderer before publishing."
-      sectionLabel="Publish Preview"
+      title="技术预览"
+      description="发布前用与用户端相同的技术详情渲染器预览草稿。"
+      sectionLabel="发布预览"
       actions={
         <Link
           href={`/workspace/technologies/${record.id}`}
           className="action-link"
         >
-          Back to workspace record
+          返回工作台记录
         </Link>
       }
     >

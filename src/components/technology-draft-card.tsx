@@ -18,7 +18,13 @@ function getDraftDisplayTitle(draft: TechnologyDraft): string {
 }
 
 function getStatusLabel(status: TechnologyDraft["status"]): string {
-  return `${status.slice(0, 1).toUpperCase()}${status.slice(1)}`;
+  const labels: Record<TechnologyDraft["status"], string> = {
+    draft: "草稿",
+    published: "已发布",
+    archived: "已归档"
+  };
+
+  return labels[status];
 }
 
 function getStatusTone(
@@ -37,14 +43,14 @@ function getStatusTone(
 
 function getPrimaryActionLabel(status: TechnologyDraft["status"]): string {
   if (status === "draft") {
-    return "Edit draft record";
+    return "编辑草稿记录";
   }
 
   if (status === "published") {
-    return "Inspect published record";
+    return "查看已发布记录";
   }
 
-  return "Inspect archived record";
+  return "查看已归档记录";
 }
 
 export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
@@ -54,21 +60,19 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
     <article className="workspace-record-card technology-workspace-record">
       <div className="technology-workspace-record__meta">
         <div className="technology-workspace-record__topline">
-          <span className="technology-workspace-record__type">
-            Technology Workspace
-          </span>
+          <span className="technology-workspace-record__type">技术工作台</span>
           <span className="technology-workspace-record__source">
             {draft.publisherName}
           </span>
         </div>
         <MetadataRow
           items={[
-            { label: "Source date", value: draft.publishDate },
-            { label: "Type", value: draft.type },
-            { label: "Updated", value: draft.updatedAt.slice(0, 10) },
-            { label: "Skills", value: String(draft.relatedSkillIds.length) },
+            { label: "来源日期", value: draft.publishDate },
+            { label: "类型", value: draft.type },
+            { label: "更新于", value: draft.updatedAt.slice(0, 10) },
+            { label: "技能", value: String(draft.relatedSkillIds.length) },
             {
-              label: "Knowledge",
+              label: "知识",
               value: String(draft.relatedKnowledgeIds.length)
             }
           ]}
@@ -91,7 +95,7 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
           tone={getStatusTone(draft.status)}
         />
         <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-          {getPriorityLevelLabel(ranking.priorityLevel)}
+          {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
         </span>
         <span className="info-pill">{draft.sourceLanguage.toUpperCase()}</span>
       </div>
@@ -107,11 +111,11 @@ export function TechnologyDraftCard({ draft }: TechnologyDraftCardProps) {
           href={`/workspace/technologies/${draft.id}/preview`}
           className="action-link"
         >
-          Preview workspace copy
+          预览用户端效果
         </Link>
         {draft.status === "published" ? (
           <Link href={`/technologies/${draft.slug}`} className="action-link">
-            Open public page
+            打开公开页面
           </Link>
         ) : null}
       </div>

@@ -60,9 +60,9 @@ export default async function WorkspaceCandidateDetailPage({
 
   return (
     <WorkspacePageShell
-      title="Imported Candidate Detail"
-      description="Internal review detail for an imported candidate. Inspect original content, duplicate hints, source traceability, and conversion state."
-      sectionLabel="Candidate Review"
+      title="导入候选详情"
+      description="导入候选的内部审核详情。查看原始内容、重复提示、来源溯源与转换状态。"
+      sectionLabel="候选审核"
     >
       <ImportedCandidateDetailContent
         candidate={candidate}

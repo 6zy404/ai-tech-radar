@@ -34,7 +34,7 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
   function generateDigest() {
     if (
       !window.confirm(
-        "Generate or regenerate today's digest draft? Existing manual add, exclude, pin, order, editorial summary, and notes are preserved."
+        "生成或重新生成今日简报草稿？已有的手动添加、排除、置顶、排序、编辑概览和备注都会保留。"
       )
     ) {
       return;
@@ -54,17 +54,13 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
         const result = (await response.json()) as DigestResponse;
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Digest generation failed.");
+          throw new Error(result.message ?? "简报生成失败。");
         }
 
-        setMessage(
-          "Digest generated. Existing manual adjustments are preserved when present."
-        );
+        setMessage("简报已生成。已有的手动调整会被保留。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Digest generation failed."
-        );
+        setMessage(error instanceof Error ? error.message : "简报生成失败。");
       }
     });
   }
@@ -72,12 +68,11 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
   return (
     <section className="source-batch-panel digest-workspace-actions">
       <div>
-        <p className="eyebrow">Daily Digest</p>
-        <h2>Generate digest draft</h2>
+        <p className="eyebrow">每日简报</p>
+        <h2>生成简报草稿</h2>
         <p>
-          Builds a draft digest from published TechnologyItem records and
-          Ranking v0 priority levels. Existing manual add, exclude, pin, order,
-          and editorial summary edits are preserved.
+          基于已发布技术记录和 Ranking v0
+          优先级生成草稿简报。已有的手动添加、排除、置顶、排序和编辑概览会被保留。
         </p>
       </div>
       <div className="source-batch-panel__actions">
@@ -87,7 +82,7 @@ export function GenerateDigestAction({ date }: GenerateDigestActionProps) {
           onClick={generateDigest}
           disabled={isPending}
         >
-          {isPending ? "Generating digest draft..." : "Generate digest draft"}
+          {isPending ? "正在生成简报草稿…" : "生成简报草稿"}
         </button>
         {message ? (
           <p className="candidate-review-actions__message">{message}</p>
@@ -110,7 +105,7 @@ export function DailyDigestStatusActions({
     if (
       nextStatus === "published" &&
       !window.confirm(
-        "Publish this digest to public digest pages and feeds? Readiness checks must pass first."
+        "把这期简报发布到公开简报页和订阅源？发布前必须先通过就绪检查。"
       )
     ) {
       return;
@@ -118,9 +113,7 @@ export function DailyDigestStatusActions({
 
     if (
       nextStatus === "archived" &&
-      !window.confirm(
-        "Archive this digest? Archived digests are not publicly delivered by default."
-      )
+      !window.confirm("归档这期简报？归档的简报默认不会公开投递。")
     ) {
       return;
     }
@@ -144,17 +137,15 @@ export function DailyDigestStatusActions({
             .join(" ");
 
           throw new Error(
-            blockingSummary || result.message || "Digest status update failed."
+            blockingSummary || result.message || "简报状态更新失败。"
           );
         }
 
-        setMessage(`Digest moved to ${nextStatus}.`);
+        setMessage(`简报状态已更新为 ${nextStatus}。`);
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error
-            ? error.message
-            : "Digest status update failed."
+          error instanceof Error ? error.message : "简报状态更新失败。"
         );
       }
     });
@@ -173,7 +164,7 @@ export function DailyDigestStatusActions({
             (readiness ? !readiness.isReady : false)
           }
         >
-          Publish digest
+          发布简报
         </button>
         <button
           type="button"
@@ -181,7 +172,7 @@ export function DailyDigestStatusActions({
           onClick={() => updateStatus("draft")}
           disabled={isPending || status === "draft"}
         >
-          Move to draft
+          退回草稿
         </button>
         <button
           type="button"
@@ -189,13 +180,12 @@ export function DailyDigestStatusActions({
           onClick={() => updateStatus("archived")}
           disabled={isPending || status === "archived"}
         >
-          Archive digest
+          归档简报
         </button>
       </div>
       {readiness && !readiness.isReady ? (
         <p className="candidate-review-actions__hint">
-          Publishing is disabled until blocking digest readiness errors are
-          fixed.
+          修复简报就绪检查中的阻塞错误后才能发布。
         </p>
       ) : null}
       {message ? (

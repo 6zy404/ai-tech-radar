@@ -29,7 +29,7 @@ interface DailyDigestManualAddProps {
 async function readDigestResponse(response: Response): Promise<DigestResponse> {
   return (await response.json().catch(() => ({
     ok: false,
-    message: "Digest request failed."
+    message: "简报请求失败。"
   }))) as DigestResponse;
 }
 
@@ -58,15 +58,13 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
         const result = await readDigestResponse(response);
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Digest update failed.");
+          throw new Error(result.message ?? "简报更新失败。");
         }
 
-        setMessage("Digest editorial fields saved.");
+        setMessage("简报编辑字段已保存。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Digest update failed."
-        );
+        setMessage(error instanceof Error ? error.message : "简报更新失败。");
       }
     });
   }
@@ -75,37 +73,36 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
     <form action={saveDigest} className="detail-panel digest-edit-form">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Editorial Fields</p>
-          <h2>Edit digest copy</h2>
+          <p className="eyebrow">编辑字段</p>
+          <h2>编辑简报文案</h2>
           <p>
-            These fields control the public digest copy. Regenerate keeps them
-            when manual adjustments exist.
+            这些字段控制公开简报的文案。存在手动调整时，重新生成会保留它们。
           </p>
         </div>
       </div>
 
       <label className="field">
-        <span>Title</span>
+        <span>标题</span>
         <input name="title" defaultValue={digest.title} />
       </label>
 
       <label className="field">
-        <span>Summary</span>
+        <span>摘要</span>
         <textarea name="summary" defaultValue={digest.summary} rows={3} />
       </label>
 
       <label className="field">
-        <span>Editorial summary</span>
+        <span>编辑概览</span>
         <textarea
           name="editorialSummary"
           defaultValue={digest.editorialSummary ?? ""}
           rows={4}
-          placeholder="Optional editor-written overview for the public digest."
+          placeholder="编辑撰写的公开简报概览（可选）。"
         />
       </label>
 
       <label className="field">
-        <span>Editorial notes</span>
+        <span>编辑备注</span>
         <textarea
           name="editorialNotes"
           defaultValue={digest.editorialNotes.join("\n")}
@@ -119,7 +116,7 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
           className="action-button action-button--accent"
           disabled={isPending}
         >
-          {isPending ? "Saving..." : "Save digest copy"}
+          {isPending ? "正在保存…" : "保存简报文案"}
         </button>
       </div>
       {message ? (
@@ -142,7 +139,7 @@ export function DailyDigestItemActions({
     if (
       action === "exclude" &&
       !window.confirm(
-        "Exclude this technology from the digest? It will stay excluded when the digest is regenerated."
+        "把这条技术从简报中排除？重新生成简报时它会保持排除状态。"
       )
     ) {
       return;
@@ -162,14 +159,14 @@ export function DailyDigestItemActions({
         const result = await readDigestResponse(response);
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Digest item update failed.");
+          throw new Error(result.message ?? "简报条目更新失败。");
         }
 
-        setMessage("Updated.");
+        setMessage("已更新。");
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error ? error.message : "Digest item update failed."
+          error instanceof Error ? error.message : "简报条目更新失败。"
         );
       }
     });
@@ -183,7 +180,7 @@ export function DailyDigestItemActions({
         onClick={() => runAction("move_up")}
         disabled={isPending}
       >
-        Move up
+        上移
       </button>
       <button
         type="button"
@@ -191,7 +188,7 @@ export function DailyDigestItemActions({
         onClick={() => runAction("move_down")}
         disabled={isPending}
       >
-        Move down
+        下移
       </button>
       <button
         type="button"
@@ -199,7 +196,7 @@ export function DailyDigestItemActions({
         onClick={() => runAction(isPinned ? "unpin" : "pin")}
         disabled={isPending}
       >
-        {isPinned ? "Unpin" : "Pin"}
+        {isPinned ? "取消置顶" : "置顶"}
       </button>
       <button
         type="button"
@@ -207,7 +204,7 @@ export function DailyDigestItemActions({
         onClick={() => runAction("exclude")}
         disabled={isPending}
       >
-        Exclude from digest
+        从简报中排除
       </button>
       {message ? <span>{message}</span> : null}
     </div>
@@ -242,26 +239,21 @@ export function DailyDigestManualAdd({
         const result = await readDigestResponse(response);
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Manual add failed.");
+          throw new Error(result.message ?? "手动添加失败。");
         }
 
-        setMessage("Technology added.");
+        setMessage("技术已添加。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Manual add failed."
-        );
+        setMessage(error instanceof Error ? error.message : "手动添加失败。");
       }
     });
   }
 
   return (
     <section className="detail-panel digest-manual-add">
-      <h2>Manual add</h2>
-      <p>
-        Add a published TechnologyItem to this digest without changing the
-        ranking rules.
-      </p>
+      <h2>手动添加</h2>
+      <p>在不改变排序规则的前提下，把已发布技术添加到这期简报。</p>
       {technologies.length > 0 ? (
         <>
           <select
@@ -280,13 +272,11 @@ export function DailyDigestManualAdd({
             onClick={includeTechnology}
             disabled={isPending}
           >
-            {isPending ? "Adding technology..." : "Add technology to digest"}
+            {isPending ? "正在添加…" : "添加技术到简报"}
           </button>
         </>
       ) : (
-        <p className="empty-state">
-          All published technologies are already selected.
-        </p>
+        <p className="empty-state">所有已发布技术都已被选入。</p>
       )}
       {message ? (
         <p className="candidate-review-actions__message">{message}</p>

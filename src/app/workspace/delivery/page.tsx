@@ -36,12 +36,22 @@ function getDeliveryStatusTone(status: DeliveryStatus | undefined) {
 
 function formatDateTime(value: string | undefined): string {
   if (!value) {
-    return "Not recorded";
+    return "未记录";
   }
 
   const date = new Date(value);
 
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("en");
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN");
+}
+
+const deliveryStatusLabels: Record<string, string> = {
+  pending: "进行中",
+  success: "成功",
+  failed: "失败"
+};
+
+function getDeliveryStatusLabel(status: DeliveryStatus | undefined): string {
+  return status ? (deliveryStatusLabels[status] ?? status) : "从未发送";
 }
 
 function getRunMessage(
@@ -55,7 +65,7 @@ function getRunMessage(
     return run.responseBodyPreview;
   }
 
-  return run.status === "success" ? "Delivery succeeded." : "No response body.";
+  return run.status === "success" ? "投递成功。" : "无响应内容。";
 }
 
 export default function WorkspaceDeliveryPage() {
@@ -76,50 +86,46 @@ export default function WorkspaceDeliveryPage() {
   return (
     <WorkspacePageShell
       className="workspace-delivery-console"
-      title="Digest Delivery"
-      description="Manage internal delivery channels and inspect delivery logs."
-      sectionLabel="Delivery"
+      title="简报投递"
+      description="管理内部投递渠道并查看投递日志。"
+      sectionLabel="投递"
       actions={
         <a
           className="action-button action-button--accent"
           href="#create-channel"
         >
-          Create channel
+          创建渠道
         </a>
       }
       securityNote={
         <>
-          <strong>Internal workspace</strong> · Protected routes required ·
-          Delivery endpoints are sensitive.
+          <strong>内部工作台</strong> · 需要路由保护 · 投递端点属于敏感信息。
         </>
       }
     >
-      <section
-        className="delivery-console-summary"
-        aria-label="Delivery summary"
-      >
+      <section className="delivery-console-summary" aria-label="投递摘要">
         <article className="delivery-console-summary__card">
-          <span>Channels enabled</span>
+          <span>已启用渠道</span>
           <strong>
             {enabledCount}/{channels.length}
           </strong>
-          <p>{channels.length - enabledCount} disabled</p>
+          <p>{channels.length - enabledCount} 个已停用</p>
         </article>
         <article className="delivery-console-summary__card">
-          <span>Total channels</span>
+          <span>渠道总数</span>
           <strong>{channels.length}</strong>
           <p>
-            {enabledScheduleCount}/{schedules.length} schedules enabled
+            {enabledScheduleCount}/{schedules.length} 个计划已启用
           </p>
         </article>
         <article className="delivery-console-summary__card">
-          <span>Failed deliveries</span>
+          <span>投递失败</span>
           <strong>{failedCount}</strong>
-          <p>{runs.length} total delivery logs</p>
+          <p>共 {runs.length} 条投递日志</p>
         </article>
         <article className="delivery-console-summary__card">
-          <span>Last delivery</span>
-          <strong>{latestRun?.status ?? "never sent"}</strong>
+          <span>最近投递</span>
+          <strong>{getDeliveryStatusLabel(latestRun?.status)}</strong>
           <p>{formatDateTime(latestRun?.finishedAt ?? latestRun?.startedAt)}</p>
         </article>
       </section>
@@ -130,34 +136,33 @@ export default function WorkspaceDeliveryPage() {
       >
         <div className="delivery-console-panel__header">
           <div>
-            <p className="section-eyebrow">Delivery channels</p>
-            <h2>Configured channels</h2>
+            <p className="section-eyebrow">投递渠道</p>
+            <h2>已配置渠道</h2>
             <p>
-              Generic webhook and Feishu bot webhook channels are
-              workspace-only. Endpoint URLs are masked here and never appear in
-              user-facing pages.
+              通用 Webhook 与飞书机器人 Webhook 渠道仅限工作台使用。端点 URL
+              在这里做了脱敏，且永远不会出现在用户端页面。
             </p>
           </div>
           <Link className="action-link" href="/workspace/delivery/schedules">
-            Manage schedules
+            管理定时投递
           </Link>
         </div>
 
         <section
           id="create-channel"
           className="delivery-create-panel"
-          aria-label="Create delivery channel"
+          aria-label="创建投递渠道"
         >
           <div className="delivery-create-panel__summary">
             <div>
-              <h3>Create delivery channel</h3>
+              <h3>创建投递渠道</h3>
               <p>
-                Add a generic webhook or Feishu bot webhook. Use mock://success
-                or mock://failed for local validation.
+                添加通用 Webhook 或飞书机器人 Webhook。本地验证可使用
+                mock://success 或 mock://failed。
               </p>
             </div>
             <a className="action-link" href="#delivery-channels">
-              Close form
+              收起表单
             </a>
           </div>
           <div className="delivery-create-panel__body">
@@ -169,17 +174,17 @@ export default function WorkspaceDeliveryPage() {
           <div
             className="delivery-table-scroll"
             role="region"
-            aria-label="Delivery channels table"
+            aria-label="投递渠道表格"
           >
             <div className="delivery-channel-table delivery-channel-table--console">
               <div className="delivery-channel-table__head delivery-channel-table__head--console">
-                <span>Name</span>
-                <span>Type</span>
-                <span>Format</span>
-                <span>Status</span>
-                <span>Last delivery</span>
-                <span>Last status</span>
-                <span>Actions</span>
+                <span>名称</span>
+                <span>类型</span>
+                <span>格式</span>
+                <span>状态</span>
+                <span>最近投递</span>
+                <span>最近结果</span>
+                <span>操作</span>
               </div>
               {channels.map((channel) => (
                 <article
@@ -188,45 +193,39 @@ export default function WorkspaceDeliveryPage() {
                 >
                   <div className="delivery-channel-row__identity">
                     <strong>{channel.name}</strong>
-                    <p>{channel.description || "No description provided."}</p>
+                    <p>{channel.description || "暂无描述。"}</p>
                     <code className="delivery-masked-endpoint">
                       {maskEndpointUrl(channel.endpointUrl)}
                     </code>
                   </div>
-                  <div className="delivery-channel-row__cell" data-label="Type">
+                  <div className="delivery-channel-row__cell" data-label="类型">
                     <span>{getDeliveryChannelTypeLabel(channel.type)}</span>
                   </div>
-                  <div
-                    className="delivery-channel-row__cell"
-                    data-label="Format"
-                  >
+                  <div className="delivery-channel-row__cell" data-label="格式">
                     <span>{channel.format}</span>
                   </div>
-                  <div
-                    className="delivery-channel-row__cell"
-                    data-label="Status"
-                  >
+                  <div className="delivery-channel-row__cell" data-label="状态">
                     <WorkspaceStatusBadge
-                      label={channel.enabled ? "enabled" : "disabled"}
+                      label={channel.enabled ? "已启用" : "已停用"}
                       tone={channel.enabled ? "success" : "neutral"}
                     />
                   </div>
                   <div
                     className="delivery-channel-row__cell"
-                    data-label="Last delivery"
+                    data-label="最近投递"
                   >
                     <span>{formatDateTime(channel.lastDeliveredAt)}</span>
                   </div>
                   <div
                     className="delivery-channel-row__cell delivery-channel-row__last-status"
-                    data-label="Last status"
+                    data-label="最近结果"
                   >
                     <WorkspaceStatusBadge
-                      label={channel.lastDeliveryStatus ?? "never sent"}
+                      label={getDeliveryStatusLabel(channel.lastDeliveryStatus)}
                       tone={getDeliveryStatusTone(channel.lastDeliveryStatus)}
                     />
                     <small>
-                      {channel.lastDeliveryMessage ?? "No delivery yet."}
+                      {channel.lastDeliveryMessage ?? "暂无投递记录。"}
                     </small>
                   </div>
                   <div className="delivery-channel-row__actions">
@@ -234,13 +233,13 @@ export default function WorkspaceDeliveryPage() {
                       className="action-link delivery-console-action"
                       href="/workspace/digests"
                     >
-                      Test channel
+                      测试渠道
                     </Link>
                     <a
                       className="action-link delivery-console-action"
                       href="#delivery-logs"
                     >
-                      View logs
+                      查看日志
                     </a>
                     <DeliveryChannelActions
                       channelId={channel.id}
@@ -248,7 +247,7 @@ export default function WorkspaceDeliveryPage() {
                     />
                   </div>
                   <details className="delivery-channel-row__edit">
-                    <summary>Edit channel</summary>
+                    <summary>编辑渠道</summary>
                     <DeliveryChannelForm channel={channel} />
                   </details>
                 </article>
@@ -256,9 +255,7 @@ export default function WorkspaceDeliveryPage() {
             </div>
           </div>
         ) : (
-          <p className="empty-state">
-            No delivery channel has been configured.
-          </p>
+          <p className="empty-state">还没有配置任何投递渠道。</p>
         )}
       </section>
 
@@ -268,11 +265,10 @@ export default function WorkspaceDeliveryPage() {
       >
         <div className="delivery-console-panel__header">
           <div>
-            <p className="section-eyebrow">Delivery logs</p>
-            <h2>Recent sends</h2>
+            <p className="section-eyebrow">投递日志</p>
+            <h2>近期发送</h2>
             <p>
-              Each send creates a log. Failed sends can be retried without
-              changing the digest content.
+              每次发送都会生成一条日志。失败的发送可以在不改动简报内容的情况下重试。
             </p>
           </div>
         </div>
@@ -281,17 +277,17 @@ export default function WorkspaceDeliveryPage() {
           <div
             className="delivery-table-scroll"
             role="region"
-            aria-label="Delivery logs table"
+            aria-label="投递日志表格"
           >
             <div className="delivery-log-table">
               <div className="delivery-log-table__head">
-                <span>Time</span>
-                <span>Digest date</span>
-                <span>Channel</span>
-                <span>Status</span>
+                <span>时间</span>
+                <span>简报日期</span>
+                <span>渠道</span>
+                <span>状态</span>
                 <span>HTTP</span>
-                <span>Message</span>
-                <span>Retry</span>
+                <span>消息</span>
+                <span>重试</span>
               </div>
               {runs.slice(0, 24).map((run) => (
                 <article className="delivery-log-row" key={run.id}>
@@ -301,10 +297,10 @@ export default function WorkspaceDeliveryPage() {
                   </Link>
                   <span>{run.channelName}</span>
                   <WorkspaceStatusBadge
-                    label={run.status}
+                    label={getDeliveryStatusLabel(run.status)}
                     tone={getDeliveryStatusTone(run.status)}
                   />
-                  <span>{run.responseStatus?.toString() ?? "n/a"}</span>
+                  <span>{run.responseStatus?.toString() ?? "无"}</span>
                   <span className="delivery-log-message">
                     {getRunMessage(run)}
                   </span>
@@ -314,18 +310,16 @@ export default function WorkspaceDeliveryPage() {
             </div>
           </div>
         ) : (
-          <p className="empty-state">
-            No delivery runs have been recorded yet.
-          </p>
+          <p className="empty-state">还没有记录任何投递发送。</p>
         )}
       </section>
 
       <details className="delivery-audit-panel">
-        <summary>Recent delivery events</summary>
+        <summary>近期投递事件</summary>
         <WorkflowEventList
           events={recentDeliveryEvents}
-          title="Audit trail"
-          description="Low-weight audit trail for delivery send success and failure."
+          title="审计记录"
+          description="投递发送成功与失败的轻量审计记录。"
         />
       </details>
     </WorkspacePageShell>

@@ -25,7 +25,7 @@ export function TechnologyWorkspaceActions({
     if (
       nextStatus === "published" &&
       !window.confirm(
-        "Publish this technology record to the user-facing product? Readiness checks must pass first."
+        "把这条技术记录发布到用户产品？发布前必须先通过就绪检查。"
       )
     ) {
       return;
@@ -33,9 +33,7 @@ export function TechnologyWorkspaceActions({
 
     if (
       nextStatus === "archived" &&
-      !window.confirm(
-        "Archive this technology record? It will no longer be treated as an active public technology signal."
-      )
+      !window.confirm("归档这条技术记录？它将不再作为活跃的公开技术信号。")
     ) {
       return;
     }
@@ -71,21 +69,19 @@ export function TechnologyWorkspaceActions({
           throw new Error(
             [result.message, readinessMessage]
               .filter((value): value is string => Boolean(value))
-              .join(" ") || "Technology workspace update failed."
+              .join(" ") || "技术工作台更新失败。"
           );
         }
 
         setMessage(
           nextStatus === "published" && result.readiness?.warnings.length
-            ? `Record published with ${result.readiness.warnings.length} warning(s).`
-            : `Record status updated to ${nextStatus}.`
+            ? `记录已发布，附带 ${result.readiness.warnings.length} 条警告。`
+            : `记录状态已更新为 ${nextStatus}。`
         );
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error
-            ? error.message
-            : "Technology workspace update failed."
+          error instanceof Error ? error.message : "技术工作台更新失败。"
         );
       }
     });
@@ -101,11 +97,11 @@ export function TechnologyWorkspaceActions({
           disabled={isPending || status === "published" || !readiness.isReady}
           title={
             readiness.isReady
-              ? "Publish this technology record"
-              : "Resolve blocking readiness errors before publishing"
+              ? "发布这条技术记录"
+              : "发布前请先解决阻塞性就绪错误"
           }
         >
-          Publish technology
+          发布技术
         </button>
         <button
           type="button"
@@ -113,7 +109,7 @@ export function TechnologyWorkspaceActions({
           onClick={() => updateStatus("draft")}
           disabled={isPending || status === "draft"}
         >
-          Move technology back to draft
+          退回草稿
         </button>
         <button
           type="button"
@@ -121,7 +117,7 @@ export function TechnologyWorkspaceActions({
           onClick={() => updateStatus("archived")}
           disabled={isPending || status === "archived"}
         >
-          Archive technology
+          归档技术
         </button>
       </div>
 
@@ -130,12 +126,11 @@ export function TechnologyWorkspaceActions({
       ) : null}
       {!readiness.isReady ? (
         <p className="candidate-review-actions__message">
-          Publishing is blocked until the readiness errors are fixed.
+          修复就绪检查中的阻塞错误后才能发布。
         </p>
       ) : readiness.warnings.length > 0 ? (
         <p className="candidate-review-actions__message">
-          Publishing is allowed, but {readiness.warnings.length} warning(s)
-          should be reviewed first.
+          可以发布，但建议先复查 {readiness.warnings.length} 条警告。
         </p>
       ) : null}
     </section>

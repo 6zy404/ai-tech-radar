@@ -26,7 +26,7 @@ function getSearchParam(value: string | string[] | undefined): string {
 function formatDateTime(value: string): string {
   const date = new Date(value);
 
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("en");
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN");
 }
 
 function uniqueSorted(values: string[]): string[] {
@@ -75,22 +75,20 @@ export default async function WorkspaceOperationsEventsPage({
 
   return (
     <WorkspacePageShell
-      title="Workflow Events"
-      description="Internal audit trail for key workflow state changes, failures, task runner runs, delivery results, and source imports."
-      sectionLabel="Admin Operations"
+      title="工作流事件"
+      description="关键工作流状态变化、失败、任务运行器运行、投递结果与来源导入的内部审计记录。"
+      sectionLabel="运维管理"
     >
       <section className="detail-panel operations-section">
         <div className="section-heading">
           <div>
-            <h2>Event filters</h2>
+            <h2>事件筛选</h2>
             <p>
-              Narrow recent WorkflowEvent records by entity type, action, or
-              actor type. Snapshots are truncated and sanitized for workspace
-              review.
+              按实体类型、动作或操作者类型缩小近期工作流事件的范围。快照已截断并脱敏，供工作台审阅。
             </p>
           </div>
           <Link className="action-link" href="/workspace/operations">
-            Back to Operations
+            返回运维
           </Link>
         </div>
 
@@ -99,9 +97,9 @@ export default async function WorkspaceOperationsEventsPage({
           action="/workspace/operations/events"
         >
           <label>
-            Entity type
+            实体类型
             <select name="entityType" defaultValue={entityTypeFilter}>
-              <option value="">All</option>
+              <option value="">全部</option>
               {entityTypes.map((entityType) => (
                 <option value={entityType} key={entityType}>
                   {entityType}
@@ -110,9 +108,9 @@ export default async function WorkspaceOperationsEventsPage({
             </select>
           </label>
           <label>
-            Action
+            动作
             <select name="action" defaultValue={actionFilter}>
-              <option value="">All</option>
+              <option value="">全部</option>
               {actions.map((action) => (
                 <option value={action} key={action}>
                   {action}
@@ -121,9 +119,9 @@ export default async function WorkspaceOperationsEventsPage({
             </select>
           </label>
           <label>
-            Actor type
+            操作者类型
             <select name="actorType" defaultValue={actorTypeFilter}>
-              <option value="">All</option>
+              <option value="">全部</option>
               {actorTypes.map((actorType) => (
                 <option value={actorType} key={actorType}>
                   {actorType}
@@ -131,18 +129,17 @@ export default async function WorkspaceOperationsEventsPage({
               ))}
             </select>
           </label>
-          <button type="submit">Apply filters</button>
-          <Link href="/workspace/operations/events">Clear</Link>
+          <button type="submit">应用筛选</button>
+          <Link href="/workspace/operations/events">清空</Link>
         </form>
       </section>
 
       <section className="section-block">
         <div className="section-heading">
           <div>
-            <h2>Events</h2>
+            <h2>事件</h2>
             <p>
-              Showing {filteredEvents.length} of {events.length} stored event
-              records.
+              当前显示 {filteredEvents.length} / {events.length} 条已存储事件。
             </p>
           </div>
         </div>
@@ -162,30 +159,30 @@ export default async function WorkspaceOperationsEventsPage({
 
                 <MetadataRow
                   items={[
-                    { label: "Entity", value: event.entityId },
-                    { label: "Actor", value: event.actorType },
+                    { label: "实体", value: event.entityId },
+                    { label: "操作者", value: event.actorType },
                     {
-                      label: "Actor ID",
+                      label: "操作者 ID",
                       value: event.actorId ?? "system/local"
                     }
                   ]}
                 />
 
                 <details className="operations-event-card__detail">
-                  <summary>View sanitized event detail</summary>
+                  <summary>查看脱敏后的事件详情</summary>
                   <div className="operations-event-card__snapshots">
                     <div>
-                      <strong>Metadata</strong>
+                      <strong>元数据</strong>
                       <pre>{formatOperationsJsonPreview(event.metadata)}</pre>
                     </div>
                     <div>
-                      <strong>Before</strong>
+                      <strong>变更前</strong>
                       <pre>
                         {formatOperationsJsonPreview(event.beforeSnapshot)}
                       </pre>
                     </div>
                     <div>
-                      <strong>After</strong>
+                      <strong>变更后</strong>
                       <pre>
                         {formatOperationsJsonPreview(event.afterSnapshot)}
                       </pre>
@@ -196,9 +193,7 @@ export default async function WorkspaceOperationsEventsPage({
             ))}
           </div>
         ) : (
-          <p className="empty-state">
-            No workflow events match the selected filters.
-          </p>
+          <p className="empty-state">没有匹配当前筛选条件的工作流事件。</p>
         )}
       </section>
     </WorkspacePageShell>

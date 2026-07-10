@@ -37,12 +37,12 @@ export default async function WorkspaceSourceDetailPage({
 
   return (
     <WorkspacePageShell
-      title="External Source Detail"
-      description="Inspect source configuration, latest import status, and candidates generated from this source."
-      sectionLabel="Source Control"
+      title="外部来源详情"
+      description="查看来源配置、最近导入状态，以及由这个来源生成的候选。"
+      sectionLabel="来源管理"
       actions={
         <Link href="/workspace/sources" className="action-link">
-          Back to sources
+          返回来源列表
         </Link>
       }
     >

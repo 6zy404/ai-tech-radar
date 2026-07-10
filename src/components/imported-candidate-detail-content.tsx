@@ -69,7 +69,7 @@ export function ImportedCandidateDetailContent({
             {candidate.originalLanguage.toUpperCase()}
           </span>
           <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-            {getPriorityLevelLabel(ranking.priorityLevel)}
+            {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
           </span>
           {candidate.relatedCandidateIds.length > 0 ? (
             <span className="info-pill info-pill--warning">
@@ -91,7 +91,7 @@ export function ImportedCandidateDetailContent({
         <div className="candidate-review-main">
           {candidate.originalContent ? (
             <section className="section-panel candidate-detail-section">
-              <h2>Original content</h2>
+              <h2>原始内容</h2>
               <p className="detail-copy">{candidate.originalContent}</p>
             </section>
           ) : null}
@@ -100,18 +100,15 @@ export function ImportedCandidateDetailContent({
             <section className="section-panel candidate-detail-section">
               <div className="section-heading">
                 <div>
-                  <h2>Possible duplicates</h2>
-                  <p>
-                    Compare likely duplicates before converting this item into a
-                    workspace draft.
-                  </p>
+                  <h2>疑似重复</h2>
+                  <p>在把这条内容转换为工作台草稿前，先比较疑似重复项。</p>
                 </div>
                 {candidate.duplicateGroupId ? (
                   <Link
                     href={`/workspace/duplicates/${candidate.duplicateGroupId}`}
                     className="action-link"
                   >
-                    Review group
+                    审核重复组
                   </Link>
                 ) : null}
               </div>
@@ -136,8 +133,7 @@ export function ImportedCandidateDetailContent({
                       </Link>
                     </h3>
                     <p>
-                      {comparison.candidate.originalSummary ??
-                        "No summary available."}
+                      {comparison.candidate.originalSummary ?? "暂无摘要。"}
                     </p>
                     <div className="candidate-duplicate-item__reasons">
                       {comparison.reasons.map((reason) => (
@@ -156,7 +152,7 @@ export function ImportedCandidateDetailContent({
           ) : null}
 
           <section className="section-panel candidate-detail-section raw-payload-panel">
-            <h2>Raw payload snapshot</h2>
+            <h2>原始载荷快照</h2>
             <div className="raw-payload-shell">
               <pre className="raw-payload">
                 {JSON.stringify(candidate.rawPayload, null, 2)}
@@ -166,18 +162,18 @@ export function ImportedCandidateDetailContent({
 
           <WorkflowEventList
             events={workflowEvents}
-            title="Candidate workflow events"
-            description="Recent internal state changes for this imported candidate."
+            title="候选工作流事件"
+            description="这条导入候选最近的内部状态变化。"
           />
         </div>
 
         <aside className="candidate-review-aside">
           <DetailInfoCard
-            title="Reference"
+            title="参考信息"
             className="detail-info-card--compact"
             rows={[
               {
-                label: "Source",
+                label: "来源",
                 value: source ? (
                   <Link
                     href={`/workspace/sources/${source.id}`}
@@ -190,15 +186,15 @@ export function ImportedCandidateDetailContent({
                 )
               },
               {
-                label: "Source ID",
-                value: candidate.sourceId ?? "No source ID"
+                label: "来源 ID",
+                value: candidate.sourceId ?? "无来源 ID"
               },
               {
-                label: "Source type",
+                label: "来源类型",
                 value: getImportedCandidateSourceTypeLabel(candidate.sourceType)
               },
               {
-                label: "Original source link",
+                label: "原始来源链接",
                 value: (
                   <div className="candidate-source-link">
                     <a
@@ -207,7 +203,7 @@ export function ImportedCandidateDetailContent({
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Open original source
+                      打开原始来源
                     </a>
                     <span className="candidate-source-link__url">
                       {candidate.sourceUrl}
@@ -216,49 +212,49 @@ export function ImportedCandidateDetailContent({
                 )
               },
               {
-                label: "Publisher",
+                label: "发布方",
                 value: candidate.publisherName
               }
             ]}
           />
 
           <DetailInfoCard
-            title="Review snapshot"
+            title="审核快照"
             className="detail-info-card--compact"
             rows={[
               {
-                label: "Priority",
+                label: "优先级",
                 value: (
                   <span
                     className={getPriorityLevelClass(ranking.priorityLevel)}
                   >
-                    {getPriorityLevelLabel(ranking.priorityLevel)}
+                    {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
                   </span>
                 )
               },
               {
-                label: "Ranking source",
+                label: "判定方式",
                 value: getRankingSourceLabel(ranking.rankingSource)
               },
               {
-                label: "Reasons",
+                label: "理由",
                 value: ranking.priorityReasons.slice(0, 3).join(" ")
               },
               {
-                label: "Warnings",
+                label: "警告",
                 value:
                   ranking.priorityWarnings.length > 0
                     ? ranking.priorityWarnings.slice(0, 3).join(" ")
-                    : "No priority warnings"
+                    : "无优先级警告"
               },
               {
-                label: "Normalized type",
+                label: "内容类型",
                 value: getImportedCandidateNormalizedTypeLabel(
                   candidate.normalizedType
                 )
               },
               {
-                label: "Current status",
+                label: "当前状态",
                 value: (
                   <ImportedCandidateStatusBadge
                     status={candidate.importStatus}
@@ -266,13 +262,13 @@ export function ImportedCandidateDetailContent({
                 )
               },
               {
-                label: "Reviewed at",
+                label: "审核时间",
                 value: candidate.reviewedAt
                   ? candidate.reviewedAt.slice(0, 10)
-                  : "Not reviewed yet"
+                  : "尚未审核"
               },
               {
-                label: "Duplicate group",
+                label: "重复组",
                 value: candidate.duplicateGroupId ? (
                   <Link
                     href={`/workspace/duplicates/${candidate.duplicateGroupId}`}
@@ -281,26 +277,26 @@ export function ImportedCandidateDetailContent({
                     {candidate.duplicateGroupId}
                   </Link>
                 ) : (
-                  "No duplicate group"
+                  "无重复组"
                 )
               },
               {
-                label: "Workspace record",
+                label: "工作台记录",
                 value: candidate.convertedTechnologyId ? (
                   <Link
                     href={`/workspace/technologies/${candidate.convertedTechnologyId}`}
                     className="detail-info-card__link"
                   >
-                    Open generated workspace record
+                    打开生成的工作台记录
                   </Link>
                 ) : (
-                  "No workspace record generated yet"
+                  "尚未生成工作台记录"
                 )
               },
               {
-                label: "Tags",
+                label: "标签",
                 value:
-                  candidate.tags.length > 0 ? candidate.tags.join(", ") : "None"
+                  candidate.tags.length > 0 ? candidate.tags.join(", ") : "无"
               }
             ]}
           />

@@ -20,7 +20,7 @@ export function DeliveryChannelActions({
     if (
       !nextEnabled &&
       !window.confirm(
-        "Disable this delivery channel? Disabled channels cannot receive manual or scheduled digest sends."
+        "停用这个投递渠道？停用后它将无法接收手动或定时的简报发送。"
       )
     ) {
       return;
@@ -46,16 +46,14 @@ export function DeliveryChannelActions({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Delivery channel update failed.");
+          throw new Error(result.message ?? "投递渠道更新失败。");
         }
 
-        setMessage(nextEnabled ? "Channel enabled." : "Channel disabled.");
+        setMessage(nextEnabled ? "渠道已启用。" : "渠道已停用。");
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error
-            ? error.message
-            : "Delivery channel update failed."
+          error instanceof Error ? error.message : "投递渠道更新失败。"
         );
       }
     });
@@ -70,12 +68,12 @@ export function DeliveryChannelActions({
           onClick={() => updateEnabled(!enabled)}
           disabled={isPending}
         >
-          {enabled ? "Disable channel" : "Enable channel"}
+          {enabled ? "停用渠道" : "启用渠道"}
         </button>
       </div>
       {!enabled ? (
         <p className="candidate-review-actions__hint">
-          Disabled channels are blocked from manual and scheduled delivery.
+          已停用的渠道无法参与手动和定时投递。
         </p>
       ) : null}
       {message ? (

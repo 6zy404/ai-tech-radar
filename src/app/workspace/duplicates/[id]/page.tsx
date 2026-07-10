@@ -42,9 +42,9 @@ export default async function WorkspaceDuplicateDetailPage({
 
   return (
     <WorkspacePageShell
-      title="Duplicate Group Detail"
-      description="Internal comparison view for selecting a primary imported candidate and preventing duplicate technology drafts."
-      sectionLabel="Candidate Deduplication"
+      title="重复组详情"
+      description="用于选择主候选、防止生成重复技术草稿的内部比较视图。"
+      sectionLabel="候选去重"
     >
       <DuplicateGroupDetailContent
         group={group}

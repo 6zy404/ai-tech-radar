@@ -23,15 +23,14 @@ export default function WorkspaceTechnologiesPage() {
 
   return (
     <WorkspacePageShell
-      title="Technology Workspace"
-      description="Internal technology records generated from imported candidates. Review draft quality, keep source links, and control publication state."
-      sectionLabel="Draft Control"
+      title="技术工作台"
+      description="由导入候选生成的内部技术记录。审核草稿质量、保留来源链接并控制发布状态。"
+      sectionLabel="草稿管理"
       className="workspace-technologies-console"
       securityNote={
         <>
-          <strong>Internal technology console.</strong> Draft edits, status
-          changes, source traceability, and preview checks stay in Workspace
-          before any public reading surface is opened.
+          <strong>内部技术控制台。</strong>
+          草稿编辑、状态变更、来源溯源与预览检查都留在工作台内，之后才会开放任何公开阅读页面。
         </>
       }
       actions={
@@ -39,34 +38,34 @@ export default function WorkspaceTechnologiesPage() {
           href="/workspace/candidates"
           className="action-button action-button--accent"
         >
-          Review candidates
+          审核候选
         </Link>
       }
     >
       <section
         className="workspace-status-overview"
-        aria-label="Technology status overview"
+        aria-label="技术记录状态总览"
       >
         <div className="workspace-status-overview__card">
-          <span>Draft queue</span>
+          <span>草稿队列</span>
           <strong>{draftCount}</strong>
-          <small>Needs workspace review</small>
+          <small>等待工作台审核</small>
         </div>
         <div className="workspace-status-overview__card">
-          <span>Published records</span>
+          <span>已发布记录</span>
           <strong>{publishedCount}</strong>
-          <small>Visible in the user product</small>
+          <small>在用户产品中可见</small>
         </div>
         <div className="workspace-status-overview__card">
-          <span>Archived records</span>
+          <span>已归档记录</span>
           <strong>{archivedCount}</strong>
-          <small>Retained for traceability</small>
+          <small>保留用于溯源</small>
         </div>
       </section>
 
       <WorkspaceListToolbar
-        label={`${records.length} technology workspace records`}
-        detail="Drafts are edited here; published and archived records remain visible for internal traceability."
+        label={`${records.length} 条技术工作台记录`}
+        detail="草稿在这里编辑；已发布和已归档的记录保留可见，用于内部溯源。"
       />
 
       <section
@@ -75,12 +74,10 @@ export default function WorkspaceTechnologiesPage() {
       >
         <div className="workspace-technology-section__header">
           <div>
-            <p className="workspace-technology-section__eyebrow">
-              Draft management
-            </p>
-            <h2 id="technology-draft-queue">Draft technology records</h2>
+            <p className="workspace-technology-section__eyebrow">草稿管理</p>
+            <h2 id="technology-draft-queue">技术草稿记录</h2>
           </div>
-          <span>{draftRecords.length} drafts</span>
+          <span>{draftRecords.length} 条草稿</span>
         </div>
 
         <div className="workspace-compact-list technology-workspace-list">
@@ -92,15 +89,13 @@ export default function WorkspaceTechnologiesPage() {
         {draftRecords.length === 0 ? (
           <section className="empty-state empty-state--actionable">
             <div>
-              <strong>No draft technology records.</strong>
+              <strong>暂无技术草稿。</strong>
               <p>
-                Convert an imported candidate into a technology draft before
-                editing source context, relationships, and publication
-                readiness.
+                先把导入候选转换为技术草稿，再编辑来源背景、关联关系和发布就绪状态。
               </p>
             </div>
             <Link href="/workspace/candidates" className="action-link">
-              Review candidates to create a draft
+              去候选列表创建草稿
             </Link>
           </section>
         ) : null}
@@ -112,14 +107,10 @@ export default function WorkspaceTechnologiesPage() {
       >
         <div className="workspace-technology-section__header">
           <div>
-            <p className="workspace-technology-section__eyebrow">
-              Published archive
-            </p>
-            <h2 id="technology-published-archive">
-              Published and archived records
-            </h2>
+            <p className="workspace-technology-section__eyebrow">发布与归档</p>
+            <h2 id="technology-published-archive">已发布与已归档记录</h2>
           </div>
-          <span>{managedRecords.length} records</span>
+          <span>{managedRecords.length} 条记录</span>
         </div>
 
         <div className="workspace-compact-list technology-workspace-list">
@@ -130,16 +121,14 @@ export default function WorkspaceTechnologiesPage() {
 
         {managedRecords.length === 0 ? (
           <p className="empty-state">
-            No published or archived technology records yet. Published records
-            will appear here after draft review is complete.
+            还没有已发布或已归档的技术记录。草稿审核完成后，发布的记录会出现在这里。
           </p>
         ) : null}
       </section>
 
       {records.length === 0 ? (
         <p className="workspace-technology-empty-note">
-          Technology workspace records are created only through candidate
-          conversion; this page does not ingest sources or rank technologies.
+          技术工作台记录只能通过候选转换创建；此页面不负责导入来源或技术排序。
         </p>
       ) : null}
     </WorkspacePageShell>
