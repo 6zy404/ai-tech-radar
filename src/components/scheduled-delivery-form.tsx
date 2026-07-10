@@ -63,20 +63,14 @@ export function ScheduledDeliveryForm({
 
         if (!response.ok || !result.ok || !result.schedule) {
           throw new Error(
-            result.issues?.join(" ") ??
-              result.message ??
-              "Scheduled delivery save failed."
+            result.issues?.join(" ") ?? result.message ?? "计划保存失败。"
           );
         }
 
-        setMessage(isEditing ? "Schedule updated." : "Schedule created.");
+        setMessage(isEditing ? "计划已更新。" : "计划已创建。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error
-            ? error.message
-            : "Scheduled delivery save failed."
-        );
+        setMessage(error instanceof Error ? error.message : "计划保存失败。");
       }
     });
   }
@@ -85,12 +79,12 @@ export function ScheduledDeliveryForm({
     <form action={submit} className="source-form delivery-channel-form">
       <div className="source-form__grid">
         <label className="field">
-          <span>Name</span>
+          <span>名称</span>
           <input name="name" defaultValue={schedule?.name ?? ""} required />
         </label>
 
         <label className="field">
-          <span>Digest target</span>
+          <span>简报目标</span>
           <select
             name="digestTarget"
             value={digestTarget}
@@ -100,15 +94,13 @@ export function ScheduledDeliveryForm({
               )
             }
           >
-            <option value="latest_published_digest">
-              Latest published digest
-            </option>
-            <option value="digest_by_date">Digest by date</option>
+            <option value="latest_published_digest">最新已发布简报</option>
+            <option value="digest_by_date">指定日期简报</option>
           </select>
         </label>
 
         <label className="field">
-          <span>Digest date</span>
+          <span>简报日期</span>
           <input
             name="digestDate"
             type="date"
@@ -119,7 +111,7 @@ export function ScheduledDeliveryForm({
         </label>
 
         <label className="field">
-          <span>Schedule time</span>
+          <span>计划时间</span>
           <input
             name="scheduleTime"
             type="time"
@@ -129,7 +121,7 @@ export function ScheduledDeliveryForm({
         </label>
 
         <label className="field">
-          <span>Timezone</span>
+          <span>时区</span>
           <input
             name="timezone"
             defaultValue={schedule?.timezone ?? "Asia/Shanghai"}
@@ -139,7 +131,7 @@ export function ScheduledDeliveryForm({
       </div>
 
       <fieldset className="source-form__wide digest-delivery-list">
-        <legend>Delivery channels</legend>
+        <legend>投递渠道</legend>
         {channels.length > 0 ? (
           channels.map((channel) => (
             <label className="source-form__checkbox" key={channel.id}>
@@ -154,15 +146,13 @@ export function ScheduledDeliveryForm({
                 }
               />
               <span>
-                {channel.name} ({channel.type},{" "}
-                {channel.enabled ? "enabled" : "disabled"})
+                {channel.name}（{channel.type}，
+                {channel.enabled ? "已启用" : "已停用"}）
               </span>
             </label>
           ))
         ) : (
-          <p className="empty-state">
-            Create a delivery channel before scheduling.
-          </p>
+          <p className="empty-state">请先创建投递渠道，再配置计划。</p>
         )}
       </fieldset>
 
@@ -172,12 +162,11 @@ export function ScheduledDeliveryForm({
           type="checkbox"
           defaultChecked={schedule?.enabled ?? true}
         />
-        <span>Enabled for scheduled delivery</span>
+        <span>启用定时投递</span>
       </label>
 
       <p className="empty-state">
-        Scheduled delivery only sends published digests. Disabled channels are
-        skipped during a run.
+        定时投递只发送已发布的简报。运行时会跳过已停用的渠道。
       </p>
 
       <div className="candidate-review-actions__buttons">
@@ -186,7 +175,7 @@ export function ScheduledDeliveryForm({
           className="action-button action-button--accent"
           disabled={isPending || channels.length === 0}
         >
-          {isEditing ? "Save schedule" : "Create schedule"}
+          {isEditing ? "保存计划" : "创建计划"}
         </button>
       </div>
 

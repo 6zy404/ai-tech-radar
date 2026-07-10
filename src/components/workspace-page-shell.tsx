@@ -17,7 +17,7 @@ interface WorkspacePageShellProps {
 export function WorkspacePageShell({
   title,
   description,
-  sectionLabel = "Internal Editorial Workspace",
+  sectionLabel = "内部编辑工作台",
   actions,
   className,
   securityNote,
@@ -35,16 +35,12 @@ export function WorkspacePageShell({
           sectionLabel={sectionLabel}
           actions={actions}
         />
-        <aside
-          className="workspace-security-note"
-          aria-label="Workspace boundary note"
-        >
+        <aside className="workspace-security-note" aria-label="工作台边界提示">
           {securityNote ?? (
             <>
-              <strong>Internal workspace.</strong> Protect with{" "}
-              <code>WORKSPACE_ACCESS_TOKEN</code>. Delivery endpoints and local
-              data paths are sensitive; keep one task runner active per data
-              directory.
+              <strong>内部工作台。</strong>对外部署前请用{" "}
+              <code>WORKSPACE_ACCESS_TOKEN</code>{" "}
+              保护本区域。投递端点与本地数据路径属于敏感信息；每个数据目录只保留一个任务运行器。
             </>
           )}
         </aside>

@@ -62,6 +62,18 @@ function getStatusTone(status: DailyDigest["status"]) {
   return "warning" as const;
 }
 
+const digestStatusLabels: Record<DailyDigest["status"], string> = {
+  draft: "草稿",
+  published: "已发布",
+  archived: "已归档"
+};
+
+const runStatusLabels: Record<DeliveryRun["status"], string> = {
+  pending: "进行中",
+  success: "成功",
+  failed: "失败"
+};
+
 function WorkspaceDigestTechnologyList({
   title,
   description,
@@ -98,14 +110,14 @@ function WorkspaceDigestTechnologyList({
                   <span
                     className={getPriorityLevelClass(ranking.priorityLevel)}
                   >
-                    {getPriorityLevelLabel(ranking.priorityLevel)}
+                    {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
                   </span>
                   {isPinned ? (
-                    <span className="info-pill info-pill--success">Pinned</span>
+                    <span className="info-pill info-pill--success">已置顶</span>
                   ) : null}
                   {digest.manuallyAddedTechnologyIds.includes(technology.id) ? (
                     <span className="info-pill info-pill--subtle">
-                      Manual add
+                      手动添加
                     </span>
                   ) : null}
                   <MetadataRow
@@ -131,7 +143,7 @@ function WorkspaceDigestTechnologyList({
           })}
         </div>
       ) : (
-        <p className="empty-state">No technologies selected in this section.</p>
+        <p className="empty-state">本板块未选入任何技术。</p>
       )}
     </section>
   );
@@ -146,18 +158,15 @@ function PublishReadinessPanel({
     <section className="detail-panel digest-readiness-panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Publish Readiness</p>
-          <h2>{readiness.isReady ? "Ready to publish" : "Blocked"}</h2>
-          <p>
-            Blocking errors stop publication. Warnings are allowed, but should
-            be reviewed before publishing.
-          </p>
+          <p className="eyebrow">发布就绪</p>
+          <h2>{readiness.isReady ? "可以发布" : "已阻塞"}</h2>
+          <p>阻塞错误会阻止发布；警告不阻止发布，但应在发布前复查。</p>
         </div>
       </div>
 
       {readiness.blockingErrors.length > 0 ? (
         <div className="digest-readiness-list digest-readiness-list--blocking">
-          <strong>Blocking errors</strong>
+          <strong>阻塞错误</strong>
           <ul>
             {readiness.blockingErrors.map((issue) => (
               <li key={`${issue.code}-${issue.message}`}>{issue.message}</li>
@@ -165,12 +174,12 @@ function PublishReadinessPanel({
           </ul>
         </div>
       ) : (
-        <p className="digest-readiness-ok">No blocking errors.</p>
+        <p className="digest-readiness-ok">没有阻塞错误。</p>
       )}
 
       {readiness.warnings.length > 0 ? (
         <div className="digest-readiness-list">
-          <strong>Warnings</strong>
+          <strong>警告</strong>
           <ul>
             {readiness.warnings.map((issue) => (
               <li key={`${issue.code}-${issue.message}`}>{issue.message}</li>
@@ -178,7 +187,7 @@ function PublishReadinessPanel({
           </ul>
         </div>
       ) : (
-        <p className="empty-state">No warnings.</p>
+        <p className="empty-state">没有警告。</p>
       )}
     </section>
   );
@@ -193,37 +202,33 @@ function DigestDeliveryPanel({ digest }: { digest: DailyDigest }) {
     <section className="detail-panel digest-delivery-panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Delivery</p>
-          <h2>
-            {isPublished ? "Publicly delivered" : "Not publicly delivered yet"}
-          </h2>
-          <p>
-            Delivery surfaces are generated from published digest records only.
-          </p>
+          <p className="eyebrow">投递</p>
+          <h2>{isPublished ? "已公开投递" : "尚未公开投递"}</h2>
+          <p>投递面只会由已发布的简报记录生成。</p>
         </div>
       </div>
 
       <dl className="digest-delivery-list">
         <div>
-          <dt>Status</dt>
+          <dt>状态</dt>
           <dd>
             <span
               className={`info-pill ${
                 isPublished ? "info-pill--success" : "info-pill--warning"
               }`}
             >
-              {isPublished ? "Published" : "Workspace only"}
+              {isPublished ? "已发布" : "仅工作台可见"}
             </span>
           </dd>
         </div>
         <div>
-          <dt>Last updated</dt>
+          <dt>最近更新</dt>
           <dd>{digest.updatedAt.slice(0, 16)}</dd>
         </div>
         {isPublished ? (
           <>
             <div>
-              <dt>Public digest URL</dt>
+              <dt>公开简报 URL</dt>
               <dd>
                 <Link href={`/digest/${digest.date}`} className="delivery-url">
                   {publicDigestUrl}
@@ -231,7 +236,7 @@ function DigestDeliveryPanel({ digest }: { digest: DailyDigest }) {
               </dd>
             </div>
             <div>
-              <dt>RSS feed URL</dt>
+              <dt>RSS 订阅源 URL</dt>
               <dd>
                 <Link href={rssFeedPath} className="delivery-url">
                   {rssFeedUrl}
@@ -239,7 +244,7 @@ function DigestDeliveryPanel({ digest }: { digest: DailyDigest }) {
               </dd>
             </div>
             <div>
-              <dt>JSON feed URL</dt>
+              <dt>JSON 订阅源 URL</dt>
               <dd>
                 <Link href={jsonFeedPath} className="delivery-url">
                   {jsonFeedUrl}
@@ -249,27 +254,24 @@ function DigestDeliveryPanel({ digest }: { digest: DailyDigest }) {
           </>
         ) : (
           <div>
-            <dt>Public links</dt>
-            <dd>
-              Publish this digest before public feed and share links are shown.
-            </dd>
+            <dt>公开链接</dt>
+            <dd>先发布这期简报，之后才会显示公开订阅和分享链接。</dd>
           </div>
         )}
       </dl>
 
       <div className="digest-share-panel">
-        <h3>Share text preview</h3>
+        <h3>分享文本预览</h3>
         {isPublished ? (
           <textarea
             className="digest-share-preview"
             readOnly
             value={buildDigestShareText(digest)}
-            aria-label="Digest share text preview"
+            aria-label="简报分享文本预览"
           />
         ) : (
           <p className="empty-state">
-            Not publicly delivered yet. Publish this digest to generate share
-            text with the public URL.
+            尚未公开投递。发布这期简报后会生成带公开 URL 的分享文本。
           </p>
         )}
       </div>
@@ -282,9 +284,9 @@ function DigestDeliveryLogPanel({ runs }: { runs: DeliveryRun[] }) {
     <section className="detail-panel digest-delivery-log-panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Delivery Logs</p>
-          <h2>Recent sends</h2>
-          <p>Manual delivery sends for this digest only.</p>
+          <p className="eyebrow">投递日志</p>
+          <h2>近期发送</h2>
+          <p>仅显示这期简报的手动投递记录。</p>
         </div>
       </div>
 
@@ -298,7 +300,7 @@ function DigestDeliveryLogPanel({ runs }: { runs: DeliveryRun[] }) {
                   {getDeliveryChannelTypeLabel(run.channelType)}
                 </strong>
                 <WorkspaceStatusBadge
-                  label={run.status}
+                  label={runStatusLabels[run.status]}
                   tone={
                     run.status === "success"
                       ? "success"
@@ -310,10 +312,10 @@ function DigestDeliveryLogPanel({ runs }: { runs: DeliveryRun[] }) {
               </div>
               <MetadataRow
                 items={[
-                  { label: "Started", value: run.startedAt.slice(0, 16) },
+                  { label: "开始于", value: run.startedAt.slice(0, 16) },
                   {
                     label: "HTTP",
-                    value: run.responseStatus?.toString() ?? "n/a"
+                    value: run.responseStatus?.toString() ?? "无"
                   }
                 ]}
               />
@@ -325,7 +327,7 @@ function DigestDeliveryLogPanel({ runs }: { runs: DeliveryRun[] }) {
           ))}
         </div>
       ) : (
-        <p className="empty-state">No delivery send has been attempted yet.</p>
+        <p className="empty-state">还没有尝试过投递发送。</p>
       )}
     </section>
   );
@@ -348,24 +350,24 @@ export function DailyDigestWorkspaceDetail({
       <main className="candidate-review-layout__main">
         <section className="workspace-object-hero">
           <div>
-            <p className="eyebrow">Digest Review</p>
+            <p className="eyebrow">简报审核</p>
             <h1>{digest.title}</h1>
             <p>{digest.editorialSummary || digest.summary}</p>
             <MetadataRow
               items={[
-                { label: "Date", value: digest.date },
-                { label: "Generated", value: digest.generatedAt.slice(0, 16) },
-                { label: "Updated", value: digest.updatedAt.slice(0, 16) },
+                { label: "日期", value: digest.date },
+                { label: "生成于", value: digest.generatedAt.slice(0, 16) },
+                { label: "更新于", value: digest.updatedAt.slice(0, 16) },
                 {
-                  label: "Regenerated",
+                  label: "重新生成",
                   value: digest.lastRegeneratedAt?.slice(0, 16)
                 },
-                { label: "Published", value: digest.publishedAt?.slice(0, 16) }
+                { label: "发布于", value: digest.publishedAt?.slice(0, 16) }
               ]}
             />
           </div>
           <WorkspaceStatusBadge
-            label={digest.status}
+            label={digestStatusLabels[digest.status]}
             tone={getStatusTone(digest.status)}
           />
         </section>
@@ -381,23 +383,23 @@ export function DailyDigestWorkspaceDetail({
         <PublishReadinessPanel readiness={readiness} />
 
         <WorkspaceDigestTechnologyList
-          title="Immediate attention"
-          description="High-priority ranking results plus manually pinned high-priority items."
+          title="今日立即关注"
+          description="高优先级排序结果，以及手动置顶的高优先级条目。"
           digest={digest}
           technologies={highPriorityTechnologies}
         />
 
         <WorkspaceDigestTechnologyList
-          title="Worth tracking"
-          description="Watch-level ranking results and manually added items that are not high priority."
+          title="值得跟踪"
+          description="跟踪级排序结果，以及未达高优先级的手动添加条目。"
           digest={digest}
           technologies={watchTechnologies}
         />
 
         <WorkflowEventList
           events={workflowEvents}
-          title="Digest workflow events"
-          description="Recent generation, edit, publish, and delivery-related events for this digest."
+          title="简报工作流事件"
+          description="这期简报最近的生成、编辑、发布与投递相关事件。"
         />
       </main>
 
@@ -413,35 +415,35 @@ export function DailyDigestWorkspaceDetail({
         <DigestDeliveryLogPanel runs={deliveryRuns} />
 
         <DetailInfoCard
-          title="Digest structure"
+          title="简报结构"
           rows={[
             {
-              label: "High priority",
+              label: "立即关注",
               value: highPriorityTechnologies.length
             },
-            { label: "Watch", value: watchTechnologies.length },
+            { label: "值得跟踪", value: watchTechnologies.length },
             {
-              label: "Manual add",
+              label: "手动添加",
               value: digest.manuallyAddedTechnologyIds.length
             },
-            { label: "Excluded", value: digest.excludedTechnologyIds.length },
-            { label: "Pinned", value: digest.pinnedTechnologyIds.length },
-            { label: "Skills", value: skills.length },
-            { label: "Knowledge", value: knowledge.length },
-            { label: "Sources", value: digest.sourceNames.length }
+            { label: "已排除", value: digest.excludedTechnologyIds.length },
+            { label: "已置顶", value: digest.pinnedTechnologyIds.length },
+            { label: "技能", value: skills.length },
+            { label: "知识", value: knowledge.length },
+            { label: "来源", value: digest.sourceNames.length }
           ]}
         />
 
         <DetailInfoCard
-          title="Regenerate behavior"
+          title="重新生成规则"
           rows={[
             {
-              label: "Rule",
+              label: "规则",
               value:
-                "Regenerate refreshes ranking-based sections while preserving manual add, exclude, pin, order, and editorial summary."
+                "重新生成会刷新基于排序的板块，同时保留手动添加、排除、置顶、排序和编辑概览。"
             },
             {
-              label: "Editorial notes",
+              label: "编辑备注",
               value: digest.editorialNotes.join(" ")
             }
           ]}
@@ -453,17 +455,17 @@ export function DailyDigestWorkspaceDetail({
         />
 
         <section className="detail-panel">
-          <h2>Preview</h2>
+          <h2>预览</h2>
           <div className="digest-workspace-card__links">
             <Link
               href={`/workspace/digests/${digest.date}/preview`}
               className="action-link"
             >
-              Preview user-facing digest
+              预览用户端简报
             </Link>
             {digest.status === "published" ? (
               <Link href={`/digest/${digest.date}`} className="action-link">
-                Open published digest
+                打开已发布简报
               </Link>
             ) : null}
           </div>

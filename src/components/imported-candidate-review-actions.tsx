@@ -29,7 +29,7 @@ export function ImportedCandidateReviewActions({
     if (
       nextStatus === "rejected" &&
       !window.confirm(
-        "Reject this imported candidate? It will stay traceable in the workspace but should not be converted into a technology draft."
+        "拒绝这条导入候选？它会保留在工作台中可供溯源，但不应再转换为技术草稿。"
       )
     ) {
       return;
@@ -52,24 +52,20 @@ export function ImportedCandidateReviewActions({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message || "Status update failed.");
+          throw new Error(result.message || "状态更新失败。");
         }
 
-        setMessage(`Status updated to ${nextStatus}.`);
+        setMessage(`状态已更新为 ${nextStatus}。`);
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Status update failed."
-        );
+        setMessage(error instanceof Error ? error.message : "状态更新失败。");
       }
     });
   }
 
   function convertToDraft() {
     if (!canConvert) {
-      setMessage(
-        conversionBlockedMessage ?? "This candidate cannot be converted."
-      );
+      setMessage(conversionBlockedMessage ?? "这条候选无法转换。");
       return;
     }
 
@@ -87,18 +83,14 @@ export function ImportedCandidateReviewActions({
         };
 
         if (!response.ok || !result.ok || !result.draftId) {
-          throw new Error(
-            result.message || "Convert to workspace record failed."
-          );
+          throw new Error(result.message || "转换为工作台记录失败。");
         }
 
-        setMessage("Technology workspace record generated.");
+        setMessage("已生成技术工作台记录。");
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error
-            ? error.message
-            : "Convert to workspace record failed."
+          error instanceof Error ? error.message : "转换为工作台记录失败。"
         );
       }
     });
@@ -113,7 +105,7 @@ export function ImportedCandidateReviewActions({
           onClick={() => updateStatus("reviewed")}
           disabled={isPending || importStatus === "reviewed"}
         >
-          Mark candidate as reviewed
+          标记为已审核
         </button>
         <button
           type="button"
@@ -121,7 +113,7 @@ export function ImportedCandidateReviewActions({
           onClick={() => updateStatus("rejected")}
           disabled={isPending || importStatus === "rejected"}
         >
-          Reject candidate
+          拒绝候选
         </button>
         <button
           type="button"
@@ -129,7 +121,7 @@ export function ImportedCandidateReviewActions({
           onClick={() => updateStatus("new")}
           disabled={isPending || importStatus === "new"}
         >
-          Reset candidate to new
+          重置为新候选
         </button>
         <button
           type="button"
@@ -138,14 +130,11 @@ export function ImportedCandidateReviewActions({
           disabled={isPending || !canConvert}
           title={
             canConvert
-              ? "Create or update the linked technology draft"
-              : (conversionBlockedMessage ??
-                "Resolve duplicate or status blockers first")
+              ? "创建或更新关联的技术草稿"
+              : (conversionBlockedMessage ?? "请先处理重复或状态方面的阻碍")
           }
         >
-          {convertedTechnologyId
-            ? "Refresh linked technology draft"
-            : "Convert to technology draft"}
+          {convertedTechnologyId ? "刷新关联技术草稿" : "转换为技术草稿"}
         </button>
       </div>
 
@@ -155,7 +144,7 @@ export function ImportedCandidateReviewActions({
             href={`/workspace/technologies/${convertedTechnologyId}`}
             className="action-link"
           >
-            Open Workspace Record
+            打开工作台记录
           </Link>
         ) : !canConvert && conversionBlockedMessage ? (
           <span className="candidate-review-actions__hint">
@@ -163,8 +152,7 @@ export function ImportedCandidateReviewActions({
           </span>
         ) : (
           <span className="candidate-review-actions__hint">
-            The generated technology draft stays linked to this imported
-            candidate.
+            生成的技术草稿会保持与这条导入候选的关联。
           </span>
         )}
       </div>

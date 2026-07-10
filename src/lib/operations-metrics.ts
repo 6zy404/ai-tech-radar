@@ -573,9 +573,9 @@ export function getSystemHealthSummary(): OperationsDashboardData {
     statusReasons,
     metrics: [
       {
-        label: "Sources health",
+        label: "来源健康",
         value: `${goodSources}/${sources.length}`,
-        detail: "sources evaluated as good",
+        detail: "个来源评估为良好",
         status:
           sources.length === 0
             ? "unknown"
@@ -586,11 +586,11 @@ export function getSystemHealthSummary(): OperationsDashboardData {
                 : "warning"
       },
       {
-        label: "Latest import",
-        value: latestImportRun?.status ?? "not run",
+        label: "最近导入",
+        value: latestImportRun?.status ?? "未运行",
         detail: latestImportRun
-          ? `${latestImportRun.totalCandidatesCreated} created, ${latestImportRun.totalCandidatesSkipped} skipped`
-          : "no import run recorded",
+          ? `新增 ${latestImportRun.totalCandidatesCreated}，跳过 ${latestImportRun.totalCandidatesSkipped}`
+          : "暂无导入运行记录",
         status: latestImportRun
           ? latestImportRun.status === "failed"
             ? "critical"
@@ -600,11 +600,11 @@ export function getSystemHealthSummary(): OperationsDashboardData {
           : "unknown"
       },
       {
-        label: "Task runner",
-        value: latestTaskRunnerRun?.status ?? "not run",
+        label: "任务运行器",
+        value: latestTaskRunnerRun?.status ?? "未运行",
         detail: latestTaskRunnerRun
-          ? `${latestTaskRunnerRun.dueScheduleCount} due, ${latestTaskRunnerRun.deliveryLogsCreated} delivery logs`
-          : "no task runner audit record",
+          ? `到期 ${latestTaskRunnerRun.dueScheduleCount}，投递日志 ${latestTaskRunnerRun.deliveryLogsCreated}`
+          : "暂无任务运行器审计记录",
         status: latestTaskRunnerRun
           ? latestTaskRunnerRun.status === "failed"
             ? "critical"
@@ -614,9 +614,9 @@ export function getSystemHealthSummary(): OperationsDashboardData {
           : "unknown"
       },
       {
-        label: "Scheduled delivery",
-        value: latestScheduledRun?.status ?? "not run",
-        detail: `${scheduledDeliveries.filter((schedule) => schedule.enabled).length}/${scheduledDeliveries.length} schedules enabled`,
+        label: "定时投递",
+        value: latestScheduledRun?.status ?? "未运行",
+        detail: `${scheduledDeliveries.filter((schedule) => schedule.enabled).length}/${scheduledDeliveries.length} 个计划已启用`,
         status: latestScheduledRun
           ? latestScheduledRun.status === "failed"
             ? "critical"
@@ -626,9 +626,9 @@ export function getSystemHealthSummary(): OperationsDashboardData {
           : "unknown"
       },
       {
-        label: "Latest digest",
-        value: latestDigest?.status ?? "none",
-        detail: latestDigest ? latestDigest.date : "no digest recorded",
+        label: "最近简报",
+        value: latestDigest?.status ?? "无",
+        detail: latestDigest ? latestDigest.date : "暂无简报记录",
         status: latestDigest
           ? latestDigest.status === "published"
             ? "healthy"
@@ -636,15 +636,15 @@ export function getSystemHealthSummary(): OperationsDashboardData {
           : "unknown"
       },
       {
-        label: "Failed deliveries",
+        label: "投递失败",
         value: String(failedDeliveries.length),
-        detail: "delivery runs needing review",
+        detail: "次投递需要复查",
         status: statusForCount(failedDeliveries.length)
       },
       {
-        label: "Failed workflow events",
+        label: "工作流失败事件",
         value: String(failedWorkflowEvents.length),
-        detail: "audit events with failure signals",
+        detail: "条带失败信号的审计事件",
         status: statusForCount(failedWorkflowEvents.length)
       }
     ],

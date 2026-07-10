@@ -29,13 +29,20 @@ function getHealthTone(status: OperationsHealthStatus) {
 
 function formatDateTime(value: string | undefined): string {
   if (!value) {
-    return "Not recorded";
+    return "未记录";
   }
 
   const date = new Date(value);
 
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("en");
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN");
 }
+
+const healthStatusLabels: Record<OperationsHealthStatus, string> = {
+  healthy: "健康",
+  warning: "警告",
+  critical: "严重",
+  unknown: "未知"
+};
 
 function getEventSummary(action: string): string {
   return action.replaceAll("_", " ").replaceAll(".", " / ");
@@ -46,53 +53,53 @@ export default function WorkspaceOperationsPage() {
   const latestTaskRunnerRun = operations.taskRunnerSummary.latestRun;
   const quickLinks = [
     {
-      label: "Review failed sources",
+      label: "复查失败来源",
       href: "/workspace/sources",
-      detail: `${operations.failedImports.length} source issue(s)`
+      detail: `${operations.failedImports.length} 个来源问题`
     },
     {
-      label: "Review failed deliveries",
+      label: "复查失败投递",
       href: "/workspace/delivery",
-      detail: `${operations.failedDeliveries.length} failed delivery run(s)`
+      detail: `${operations.failedDeliveries.length} 次投递失败`
     },
     {
-      label: "Open task runner logs",
+      label: "打开任务运行器日志",
       href: "/workspace/delivery/schedules",
       detail: latestTaskRunnerRun
-        ? `${latestTaskRunnerRun.status} at ${formatDateTime(
+        ? `${latestTaskRunnerRun.status} · ${formatDateTime(
             latestTaskRunnerRun.finishedAt
           )}`
-        : "No task runner run recorded"
+        : "暂无任务运行器记录"
     },
     {
-      label: "Open audit events",
+      label: "打开审计事件",
       href: "/workspace/operations/events",
-      detail: `${operations.failedWorkflowEvents.length} failure event(s)`
+      detail: `${operations.failedWorkflowEvents.length} 条失败事件`
     },
     {
-      label: "Resolve duplicates",
+      label: "处理重复组",
       href: "/workspace/duplicates",
-      detail: "Review open duplicate groups"
+      detail: "复查待处理的重复组"
     },
     {
-      label: "Open digest workspace",
+      label: "打开简报工作台",
       href: "/workspace/digests",
-      detail: "Review generated and published digests"
+      detail: "复查已生成和已发布的简报"
     }
   ];
 
   return (
     <WorkspacePageShell
-      title="Operations"
-      description="Internal observability view for source health, imports, delivery, scheduled runs, task runner state, and workflow events."
-      sectionLabel="Admin Operations"
+      title="运维"
+      description="覆盖来源健康、导入、投递、定时运行、任务运行器状态与工作流事件的内部可观测视图。"
+      sectionLabel="运维管理"
     >
       <section className="operations-hero">
         <div className="operations-hero__status">
-          <p className="eyebrow workspace-eyebrow">System health</p>
-          <h2>{operations.status}</h2>
+          <p className="eyebrow workspace-eyebrow">系统健康</p>
+          <h2>{healthStatusLabels[operations.status]}</h2>
           <WorkspaceStatusBadge
-            label={operations.status}
+            label={healthStatusLabels[operations.status]}
             tone={getHealthTone(operations.status)}
           />
           <ul>
@@ -102,7 +109,7 @@ export default function WorkspaceOperationsPage() {
           </ul>
         </div>
 
-        <div className="operations-metric-grid" aria-label="Operations metrics">
+        <div className="operations-metric-grid" aria-label="运维指标">
           {operations.metrics.map((metric) => (
             <article
               className={`operations-metric operations-metric--${metric.status}`}
@@ -119,14 +126,11 @@ export default function WorkspaceOperationsPage() {
       <section className="section-block">
         <div className="section-heading">
           <div>
-            <h2>Attention required</h2>
-            <p>
-              Items that should be checked by a maintainer before they become
-              hidden operational drift.
-            </p>
+            <h2>需要关注</h2>
+            <p>这些条目应由维护者及时检查，避免演变成隐性的运维漂移。</p>
           </div>
           <Link className="action-link" href="/workspace/operations/events">
-            View event log
+            查看事件日志
           </Link>
         </div>
 
@@ -144,16 +148,14 @@ export default function WorkspaceOperationsPage() {
                   <p>{sanitizeOperationsText(item.description)}</p>
                 </div>
                 <WorkspaceStatusBadge
-                  label={item.severity}
+                  label={healthStatusLabels[item.severity]}
                   tone={getHealthTone(item.severity)}
                 />
               </Link>
             ))}
           </div>
         ) : (
-          <p className="empty-state">
-            No operation currently requires attention.
-          </p>
+          <p className="empty-state">当前没有需要关注的运维事项。</p>
         )}
       </section>
 
@@ -162,8 +164,8 @@ export default function WorkspaceOperationsPage() {
           <section className="detail-panel operations-section">
             <div className="section-heading">
               <div>
-                <h2>Failed imports</h2>
-                <p>Sources with failed or fallback imports.</p>
+                <h2>导入失败</h2>
+                <p>导入失败或使用了回退层的来源。</p>
               </div>
             </div>
             {operations.failedImports.length > 0 ? (
@@ -180,13 +182,13 @@ export default function WorkspaceOperationsPage() {
                     </div>
                     <MetadataRow
                       items={[
-                        { label: "Status", value: item.status },
+                        { label: "状态", value: item.status },
                         {
-                          label: "Failures",
+                          label: "连续失败",
                           value: String(item.consecutiveFailureCount)
                         },
                         {
-                          label: "Last failed",
+                          label: "最近失败",
                           value: formatDateTime(item.failedAt)
                         }
                       ]}
@@ -195,17 +197,15 @@ export default function WorkspaceOperationsPage() {
                 ))}
               </div>
             ) : (
-              <p className="empty-state">No failed source import is visible.</p>
+              <p className="empty-state">当前没有可见的来源导入失败。</p>
             )}
           </section>
 
           <section className="detail-panel operations-section">
             <div className="section-heading">
               <div>
-                <h2>Failed deliveries</h2>
-                <p>
-                  Delivery attempts that returned failed status or error output.
-                </p>
+                <h2>投递失败</h2>
+                <p>返回失败状态或错误输出的投递尝试。</p>
               </div>
             </div>
             {operations.failedDeliveries.length > 0 ? (
@@ -224,9 +224,9 @@ export default function WorkspaceOperationsPage() {
                     </div>
                     <MetadataRow
                       items={[
-                        { label: "Type", value: item.channelType },
+                        { label: "类型", value: item.channelType },
                         {
-                          label: "Failed",
+                          label: "失败于",
                           value: formatDateTime(item.failedAt)
                         }
                       ]}
@@ -235,17 +235,15 @@ export default function WorkspaceOperationsPage() {
                 ))}
               </div>
             ) : (
-              <p className="empty-state">No failed delivery run is visible.</p>
+              <p className="empty-state">当前没有可见的投递失败。</p>
             )}
           </section>
 
           <section className="detail-panel operations-section">
             <div className="section-heading">
               <div>
-                <h2>Failed scheduled runs</h2>
-                <p>
-                  Schedule executions with failed or partial channel results.
-                </p>
+                <h2>定时运行失败</h2>
+                <p>渠道结果为失败或部分成功的计划执行。</p>
               </div>
             </div>
             {operations.failedScheduledRuns.length > 0 ? (
@@ -262,26 +260,26 @@ export default function WorkspaceOperationsPage() {
                     </div>
                     <MetadataRow
                       items={[
-                        { label: "Status", value: item.status },
+                        { label: "状态", value: item.status },
                         {
-                          label: "Failed channels",
+                          label: "失败渠道",
                           value: String(item.failedChannels)
                         },
-                        { label: "Run time", value: formatDateTime(item.runAt) }
+                        { label: "运行时间", value: formatDateTime(item.runAt) }
                       ]}
                     />
                   </Link>
                 ))}
               </div>
             ) : (
-              <p className="empty-state">No failed scheduled run is visible.</p>
+              <p className="empty-state">当前没有可见的定时运行失败。</p>
             )}
           </section>
         </main>
 
         <aside className="operations-layout__aside">
           <section className="detail-panel operations-section">
-            <h2>Quick links</h2>
+            <h2>快捷入口</h2>
             <div className="operations-quick-links">
               {quickLinks.map((link) => (
                 <Link href={link.href} key={link.href}>
@@ -293,7 +291,7 @@ export default function WorkspaceOperationsPage() {
           </section>
 
           <section className="detail-panel operations-section">
-            <h2>Recent activity</h2>
+            <h2>近期活动</h2>
             {operations.recentEvents.length > 0 ? (
               <div className="workflow-event-list">
                 {operations.recentEvents.slice(0, 10).map((event) => (
@@ -315,9 +313,7 @@ export default function WorkspaceOperationsPage() {
                 ))}
               </div>
             ) : (
-              <p className="empty-state">
-                No workflow event has been recorded yet.
-              </p>
+              <p className="empty-state">还没有记录任何工作流事件。</p>
             )}
           </section>
         </aside>

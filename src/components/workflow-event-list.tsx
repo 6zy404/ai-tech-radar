@@ -9,7 +9,7 @@ interface WorkflowEventListProps {
 function formatDateTime(value: string): string {
   const date = new Date(value);
 
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("en");
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString("zh-CN");
 }
 
 function getEventLabel(action: string): string {
@@ -31,15 +31,15 @@ function getEventSummary(event: WorkflowEvent): string {
 }
 
 export function WorkflowEventList({
-  title = "Workflow events",
-  description = "Recent internal state changes for this object.",
+  title = "工作流事件",
+  description = "该对象最近的内部状态变化。",
   events
 }: WorkflowEventListProps) {
   return (
     <section className="detail-panel workflow-event-panel">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Audit</p>
+          <p className="eyebrow">审计</p>
           <h2>{title}</h2>
           <p>{description}</p>
         </div>
@@ -58,7 +58,7 @@ export function WorkflowEventList({
           ))}
         </div>
       ) : (
-        <p className="empty-state">No workflow event has been recorded yet.</p>
+        <p className="empty-state">还没有记录任何工作流事件。</p>
       )}
     </section>
   );

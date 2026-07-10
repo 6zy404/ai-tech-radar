@@ -36,11 +36,10 @@ export function ExternalSourceDetailContent({
     <div className="detail-layout">
       <div className="detail-main">
         <section className="detail-panel technology-detail-panel workspace-object-hero">
-          <p className="eyebrow">External Source</p>
+          <p className="eyebrow">外部来源</p>
           <h1>{source.name}</h1>
           <p className="technology-detail-panel__summary">
-            {source.description ??
-              "Internal source configuration used to import external content into the candidate pool."}
+            {source.description ?? "用于把外部内容导入候选池的内部来源配置。"}
           </p>
           <div className="candidate-detail-hero__meta">
             <span
@@ -48,7 +47,7 @@ export function ExternalSourceDetailContent({
                 source.enabled ? "info-pill" : "info-pill info-pill--warning"
               }
             >
-              {source.enabled ? "Enabled" : "Disabled"}
+              {source.enabled ? "已启用" : "已停用"}
             </span>
             <span className="info-pill">
               {getExternalSourceTypeLabel(source.type)}
@@ -56,7 +55,7 @@ export function ExternalSourceDetailContent({
             <span className="info-pill">{source.language.toUpperCase()}</span>
             <ExternalSourceStatusBadge status={source.lastImportStatus} />
             <span className={getSourceQualityLevelClass(quality.qualityLevel)}>
-              Quality: {getSourceQualityLevelLabel(quality.qualityLevel)}
+              质量：{getSourceQualityLevelLabel(quality.qualityLevel)}
             </span>
           </div>
           <ExternalSourceActions
@@ -66,12 +65,12 @@ export function ExternalSourceDetailContent({
         </section>
 
         <section className="section-panel">
-          <h2>Edit source</h2>
+          <h2>编辑来源</h2>
           <ExternalSourceForm source={source} />
         </section>
 
         <section className="section-panel candidate-detail-section">
-          <h2>Recent imported candidates</h2>
+          <h2>最近导入的候选</h2>
           {candidates.length > 0 ? (
             <div className="candidate-duplicate-list">
               {candidates.map((candidate) => (
@@ -87,10 +86,10 @@ export function ExternalSourceDetailContent({
                     </span>
                     <span>{candidate.publishDate}</span>
                     <span>
-                      Imported{" "}
+                      导入于{" "}
                       {candidate.importedAt
                         ? candidate.importedAt.slice(0, 16).replace("T", " ")
-                        : "before tracking"}
+                        : "追踪开始之前"}
                     </span>
                     <ImportedCandidateStatusBadge
                       status={candidate.importStatus}
@@ -101,7 +100,7 @@ export function ExternalSourceDetailContent({
                       {candidate.originalTitle}
                     </Link>
                   </h3>
-                  <p>{candidate.originalSummary ?? "No summary available."}</p>
+                  <p>{candidate.originalSummary ?? "暂无摘要。"}</p>
                   <div className="candidate-duplicate-item__reasons">
                     <span className="info-pill info-pill--subtle">
                       {getImportedCandidateNormalizedTypeLabel(
@@ -119,8 +118,7 @@ export function ExternalSourceDetailContent({
             </div>
           ) : (
             <p className="empty-state">
-              No candidates are currently linked to this source. Run source
-              import to create candidate records.
+              暂无关联到这个来源的候选。运行来源导入即可生成候选记录。
             </p>
           )}
         </section>
@@ -128,10 +126,10 @@ export function ExternalSourceDetailContent({
 
       <aside className="detail-side">
         <DetailInfoCard
-          title="Source config"
+          title="来源配置"
           rows={[
             {
-              label: "Type",
+              label: "类型",
               value: getExternalSourceTypeLabel(source.type)
             },
             {
@@ -148,80 +146,80 @@ export function ExternalSourceDetailContent({
               )
             },
             {
-              label: "Publisher",
-              value: source.publisherName ?? "No publisher"
+              label: "发布方",
+              value: source.publisherName ?? "未填写发布方"
             },
             {
-              label: "Publisher type",
+              label: "发布方类型",
               value: source.publisherType
             },
             {
-              label: "Default type",
+              label: "默认内容类型",
               value: source.defaultNormalizedType
             },
             {
-              label: "Default tags",
+              label: "默认标签",
               value:
                 source.defaultTags.length > 0
                   ? source.defaultTags.join(", ")
-                  : "None"
+                  : "无"
             }
           ]}
         />
 
         <DetailInfoCard
-          title="Latest import"
+          title="最近导入"
           rows={[
             {
-              label: "Status",
+              label: "状态",
               value: (
                 <ExternalSourceStatusBadge status={source.lastImportStatus} />
               )
             },
             {
-              label: "Fetched at",
+              label: "抓取时间",
               value: source.lastFetchedAt
                 ? source.lastFetchedAt.slice(0, 16).replace("T", " ")
-                : "Never fetched"
+                : "从未抓取"
             },
             {
-              label: "Last count",
+              label: "本次数量",
               value: String(source.lastImportCount ?? 0)
             },
             {
-              label: "Failures",
+              label: "连续失败",
               value: String(source.consecutiveFailureCount ?? 0)
             },
             {
-              label: "Total imported",
+              label: "累计导入",
               value: String(source.totalImportedCount ?? 0)
             },
             {
-              label: "Last success",
+              label: "最近成功",
               value: source.lastSuccessfulImportAt
                 ? source.lastSuccessfulImportAt.slice(0, 16).replace("T", " ")
-                : "No successful import yet"
+                : "尚无成功导入"
             },
             {
-              label: "Message",
-              value: source.lastImportMessage ?? "No import has run yet"
+              label: "最近消息",
+              value: source.lastImportMessage ?? "尚未运行导入"
             },
             {
-              label: "Last error",
-              value: source.lastErrorMessage ?? "No recent error"
+              label: "最近错误",
+              value: source.lastErrorMessage ?? "近期无错误"
             },
             {
-              label: "Candidate count",
+              label: "候选数量",
               value: String(candidates.length)
             }
           ]}
         />
 
         <DetailInfoCard
-          title="Source quality"
+          title="来源质量"
           rows={[
             {
-              label: "Quality level",
+              label: "质量等级",
               value: (
                 <span
                   className={getSourceQualityLevelClass(quality.qualityLevel)}
@@ -231,27 +229,27 @@ export function ExternalSourceDetailContent({
               )
             },
             {
-              label: "Success rate",
+              label: "成功率",
               value: `${formatQualityRate(quality.successRate)} (${quality.successfulImportRuns}/${quality.totalImportRuns})`
             },
             {
-              label: "Duplicate rate",
+              label: "重复率",
               value: `${formatQualityRate(quality.duplicateRate)} (${quality.duplicateCandidateCount}/${quality.totalCandidatesImported})`
             },
             {
-              label: "Conversion rate",
+              label: "转化率",
               value: `${formatQualityRate(quality.conversionRate)} (${quality.convertedCandidateCount}/${quality.totalCandidatesImported})`
             },
             {
-              label: "Rejection rate",
+              label: "拒绝率",
               value: `${formatQualityRate(quality.rejectionRate)} (${quality.rejectedCandidateCount}/${quality.totalCandidatesImported})`
             },
             {
-              label: "Failed runs",
+              label: "失败轮次",
               value: String(quality.failedImportRuns)
             },
             {
-              label: "Consecutive failures",
+              label: "连续失败",
               value: String(quality.consecutiveFailureCount)
             }
           ]}

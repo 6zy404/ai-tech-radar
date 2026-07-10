@@ -8,12 +8,12 @@ export const dynamic = "force-dynamic";
 export default function NewWorkspaceSourcePage() {
   return (
     <WorkspacePageShell
-      title="Add External Source"
-      description="Create a local source configuration for importing external technology updates into the internal candidate pool."
-      sectionLabel="Source Control"
+      title="新增外部来源"
+      description="创建本地来源配置，把外部技术更新导入内部候选池。"
+      sectionLabel="来源管理"
       actions={
         <Link href="/workspace/sources" className="action-link">
-          Back to sources
+          返回来源列表
         </Link>
       }
     >

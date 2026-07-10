@@ -4,19 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const workspaceNavItems = [
-  { href: "/workspace", label: "Overview", group: "Control" },
-  { href: "/workspace/sources", label: "Sources", group: "Content" },
-  { href: "/workspace/candidates", label: "Candidates", group: "Content" },
-  { href: "/workspace/duplicates", label: "Duplicates", group: "Content" },
-  { href: "/workspace/technologies", label: "Drafts", group: "Content" },
-  { href: "/workspace/digests", label: "Digests", group: "Publishing" },
-  { href: "/workspace/delivery", label: "Delivery", group: "Publishing" },
+  { href: "/workspace", label: "总览", group: "控制台" },
+  { href: "/workspace/sources", label: "来源", group: "内容" },
+  { href: "/workspace/candidates", label: "候选", group: "内容" },
+  { href: "/workspace/duplicates", label: "重复组", group: "内容" },
+  { href: "/workspace/technologies", label: "草稿", group: "内容" },
+  { href: "/workspace/digests", label: "简报", group: "发布" },
+  { href: "/workspace/delivery", label: "投递", group: "发布" },
   {
     href: "/workspace/delivery/schedules",
-    label: "Schedules",
-    group: "Publishing"
+    label: "定时投递",
+    group: "发布"
   },
-  { href: "/workspace/operations", label: "Operations", group: "System" }
+  { href: "/workspace/operations", label: "运维", group: "系统" }
 ];
 
 function isActivePath(pathname: string, href: string): boolean {
@@ -36,10 +36,10 @@ export function WorkspaceNav() {
   let currentGroup = "";
 
   return (
-    <nav className="workspace-nav" aria-label="Workspace navigation">
+    <nav className="workspace-nav" aria-label="工作台导航">
       <div className="workspace-nav__brand">
-        <span>Internal</span>
-        <strong>Workspace</strong>
+        <span>内部</span>
+        <strong>工作台</strong>
       </div>
       <ul className="workspace-nav__list">
         {workspaceNavItems.map((item) => {

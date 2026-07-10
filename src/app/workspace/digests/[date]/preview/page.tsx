@@ -27,21 +27,21 @@ export default async function WorkspaceDigestPreviewPage({
 
   return (
     <WorkspacePageShell
-      title="Daily Digest Preview"
-      description="Preview the digest with the user-facing renderer before publishing."
-      sectionLabel="Digest Preview"
+      title="每日简报预览"
+      description="发布前用用户端渲染器预览这期简报。"
+      sectionLabel="简报预览"
       actions={
         <Link
           href={`/workspace/digests/${digest.date}`}
           className="action-link"
         >
-          Back to digest review
+          返回简报审核
         </Link>
       }
     >
       <DailyDigestContent
         digest={toPublicDigestView(digest)}
-        previewNotice="Workspace preview only. Draft or archived digests are not available through the public /digest/[date] route."
+        previewNotice="仅工作台预览。草稿和已归档简报不会通过公开的 /digest/[date] 路由提供。"
         {...getDailyDigestRenderData(digest)}
       />
     </WorkspacePageShell>

@@ -11,8 +11,8 @@ export function getImportedCandidateSourceTypeLabel(
 ): string {
   const labels: Record<ImportedSourceType, string> = {
     "rss-feed": "RSS / Atom",
-    "github-release": "GitHub Release",
-    "official-blog": "Official Blog"
+    "github-release": "GitHub 版本发布",
+    "official-blog": "官方博客"
   };
 
   return labels[sourceType];
@@ -22,10 +22,10 @@ export function getImportedCandidateStatusLabel(
   status: CandidateImportStatus
 ): string {
   const labels: Record<CandidateImportStatus, string> = {
-    new: "New",
-    reviewed: "Reviewed",
-    converted: "Converted",
-    rejected: "Rejected"
+    new: "新候选",
+    reviewed: "已审核",
+    converted: "已转换",
+    rejected: "已拒绝"
   };
 
   return labels[status];
@@ -34,24 +34,28 @@ export function getImportedCandidateStatusLabel(
 export function getImportedCandidateNormalizedTypeLabel(
   normalizedType: CandidateNormalizedType
 ): string {
-  if (normalizedType === "unknown") {
-    return "Unknown";
-  }
+  const labels: Partial<Record<CandidateNormalizedType, string>> = {
+    unknown: "未知",
+    platform: "平台",
+    tool: "工具",
+    model: "模型",
+    protocol: "协议",
+    workflow: "工作流"
+  };
 
-  return normalizedType
-    .split("-")
-    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
-    .join(" ");
+  return (
+    labels[normalizedType] ??
+    normalizedType
+      .split("-")
+      .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+      .join(" ")
+  );
 }
 
 export function getImportedCandidatePreviewText(
   candidate: ImportedCandidate
 ): string {
-  return (
-    candidate.originalSummary ??
-    candidate.originalContent ??
-    "No summary available."
-  );
+  return candidate.originalSummary ?? candidate.originalContent ?? "暂无摘要。";
 }
 
 export function getImportedCandidateSearchText(
@@ -79,23 +83,19 @@ export function getImportedCandidateDuplicateLabel(
   const duplicateCount = candidate.relatedCandidateIds.length;
 
   if (duplicateCount === 0) {
-    return "No duplicate hint";
+    return "无重复提示";
   }
 
-  if (duplicateCount === 1) {
-    return "1 possible duplicate";
-  }
-
-  return `${duplicateCount} possible duplicates`;
+  return `${duplicateCount} 条疑似重复`;
 }
 
 export function getDuplicateReasonLabel(reason: DuplicateReason): string {
   const labels: Record<DuplicateReason, string> = {
-    same_source_url: "Same source URL",
-    similar_title: "Similar title",
-    same_publisher_near_date: "Same publisher near date",
-    same_repo_release_family: "Same GitHub repo release family",
-    same_canonical_url: "Same canonical link"
+    same_source_url: "来源 URL 相同",
+    similar_title: "标题高度相似",
+    same_publisher_near_date: "同发布方且日期相近",
+    same_repo_release_family: "同一 GitHub 仓库版本系列",
+    same_canonical_url: "规范链接相同"
   };
 
   return labels[reason];

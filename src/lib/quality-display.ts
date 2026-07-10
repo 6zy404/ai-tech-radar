@@ -6,10 +6,10 @@ export function formatQualityRate(value: number): string {
 
 export function getSourceQualityLevelLabel(level: SourceQualityLevel): string {
   const labels: Record<SourceQualityLevel, string> = {
-    good: "Good",
-    watch: "Watch",
-    poor: "Poor",
-    unknown: "Unknown"
+    good: "良好",
+    watch: "关注",
+    poor: "较差",
+    unknown: "未知"
   };
 
   return labels[level];
@@ -30,16 +30,16 @@ export function getCandidateQualityFlagLabel(
   flag: CandidateQualityFlag
 ): string {
   const labels: Record<CandidateQualityFlag, string> = {
-    missing_summary: "No summary",
-    missing_content: "No content",
-    missing_publisher: "No publisher",
-    invalid_source_url: "Invalid URL",
-    invalid_publish_date: "Invalid date",
-    missing_tags: "No tags",
-    possible_duplicate: "Possible duplicate",
-    too_short: "Too short",
-    ready_for_review: "Ready for review",
-    not_convertible: "Convert blocked"
+    missing_summary: "缺摘要",
+    missing_content: "缺正文",
+    missing_publisher: "缺发布方",
+    invalid_source_url: "URL 无效",
+    invalid_publish_date: "日期无效",
+    missing_tags: "缺标签",
+    possible_duplicate: "疑似重复",
+    too_short: "内容过短",
+    ready_for_review: "可审核",
+    not_convertible: "转换受阻"
   };
 
   return labels[flag];

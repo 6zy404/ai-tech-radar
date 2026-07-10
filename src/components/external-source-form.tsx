@@ -61,13 +61,11 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
 
         if (!response.ok || !result.ok || !result.source) {
           throw new Error(
-            result.issues?.join(" ") ??
-              result.message ??
-              "External source save failed."
+            result.issues?.join(" ") ?? result.message ?? "来源保存失败。"
           );
         }
 
-        setMessage(isEditing ? "Source updated." : "Source created.");
+        setMessage(isEditing ? "来源已更新。" : "来源已创建。");
 
         if (!isEditing) {
           router.push(`/workspace/sources/${result.source.id}`);
@@ -75,11 +73,7 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
           router.refresh();
         }
       } catch (error) {
-        setMessage(
-          error instanceof Error
-            ? error.message
-            : "External source save failed."
-        );
+        setMessage(error instanceof Error ? error.message : "来源保存失败。");
       }
     });
   }
@@ -88,17 +82,17 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
     <form action={submit} className="source-form">
       <div className="source-form__grid">
         <label className="field">
-          <span>Name</span>
+          <span>名称</span>
           <input name="name" defaultValue={source?.name ?? ""} required />
         </label>
 
         <label className="field">
-          <span>Type</span>
+          <span>类型</span>
           <select name="type" defaultValue={source?.type ?? "rss"}>
             <option value="rss">RSS</option>
             <option value="atom">Atom</option>
-            <option value="github_release">GitHub Release</option>
-            <option value="official_blog">Official Blog</option>
+            <option value="github_release">GitHub 版本发布</option>
+            <option value="official_blog">官方博客</option>
           </select>
         </label>
 
@@ -113,7 +107,7 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
         </label>
 
         <label className="field source-form__wide">
-          <span>Description</span>
+          <span>描述</span>
           <textarea
             name="description"
             defaultValue={source?.description ?? ""}
@@ -122,53 +116,53 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
         </label>
 
         <label className="field">
-          <span>Language</span>
+          <span>语言</span>
           <select name="language" defaultValue={source?.language ?? "en"}>
-            <option value="en">English</option>
-            <option value="zh">Chinese</option>
+            <option value="en">英文</option>
+            <option value="zh">中文</option>
           </select>
         </label>
 
         <label className="field">
-          <span>Publisher type</span>
+          <span>发布方类型</span>
           <select
             name="publisherType"
             defaultValue={source?.publisherType ?? "media"}
           >
-            <option value="big-tech">Big tech</option>
-            <option value="startup">Startup</option>
-            <option value="research-lab">Research lab</option>
-            <option value="open-source-community">Open-source community</option>
-            <option value="media">Media</option>
+            <option value="big-tech">大型科技公司</option>
+            <option value="startup">创业公司</option>
+            <option value="research-lab">研究机构</option>
+            <option value="open-source-community">开源社区</option>
+            <option value="media">媒体</option>
           </select>
         </label>
 
         <label className="field">
-          <span>Publisher</span>
+          <span>发布方</span>
           <input
             name="publisherName"
             defaultValue={source?.publisherName ?? ""}
-            placeholder="Optional publisher name"
+            placeholder="发布方名称（可选）"
           />
         </label>
 
         <label className="field">
-          <span>Default normalized type</span>
+          <span>默认内容类型</span>
           <select
             name="defaultNormalizedType"
             defaultValue={source?.defaultNormalizedType ?? "unknown"}
           >
-            <option value="unknown">Unknown</option>
-            <option value="platform">Platform</option>
-            <option value="tool">Tool</option>
-            <option value="model">Model</option>
-            <option value="protocol">Protocol</option>
-            <option value="workflow">Workflow</option>
+            <option value="unknown">未知</option>
+            <option value="platform">平台</option>
+            <option value="tool">工具</option>
+            <option value="model">模型</option>
+            <option value="protocol">协议</option>
+            <option value="workflow">工作流</option>
           </select>
         </label>
 
         <label className="field source-form__wide">
-          <span>Default tags</span>
+          <span>默认标签</span>
           <input
             name="defaultTags"
             defaultValue={source?.defaultTags.join(", ") ?? ""}
@@ -183,7 +177,7 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
           type="checkbox"
           defaultChecked={source?.enabled ?? true}
         />
-        <span>Enabled for imports</span>
+        <span>启用导入</span>
       </label>
 
       <div className="candidate-review-actions__buttons">
@@ -192,7 +186,7 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
           className="action-button action-button--accent"
           disabled={isPending}
         >
-          {isEditing ? "Save source" : "Create source"}
+          {isEditing ? "保存来源" : "创建来源"}
         </button>
       </div>
 

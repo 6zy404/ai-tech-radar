@@ -39,9 +39,9 @@ export default async function WorkspaceDigestDetailPage({
 
   return (
     <WorkspacePageShell
-      title="Daily Digest Detail"
-      description="Inspect the generated digest, review selected technologies and ranking reasons, then publish when ready."
-      sectionLabel="Digest Review"
+      title="每日简报详情"
+      description="查看生成的简报、审核选入的技术与排序理由，就绪后发布。"
+      sectionLabel="简报审核"
     >
       <DailyDigestWorkspaceDetail
         digest={digest}

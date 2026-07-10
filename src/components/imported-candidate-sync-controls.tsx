@@ -50,19 +50,15 @@ export function ImportedCandidateSyncControls({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message || "Source refresh failed.");
+          throw new Error(result.message || "来源刷新失败。");
         }
 
         setMessage(
-          `Source refresh completed at ${formatSyncTime(
-            result.syncedAt ?? syncedAt
-          )}.`
+          `来源刷新完成于 ${formatSyncTime(result.syncedAt ?? syncedAt)}。`
         );
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Source refresh failed."
-        );
+        setMessage(error instanceof Error ? error.message : "来源刷新失败。");
       }
     });
   }
@@ -70,9 +66,9 @@ export function ImportedCandidateSyncControls({
   return (
     <div className="candidate-sync-controls">
       <div className="candidate-sync-controls__meta">
-        <strong>{candidateCount} imported candidates</strong>
-        <span>{sourceCount} configured sources</span>
-        <span>Last sync: {formatSyncTime(syncedAt)}</span>
+        <strong>{candidateCount} 条导入候选</strong>
+        <span>{sourceCount} 个已配置来源</span>
+        <span>最近同步：{formatSyncTime(syncedAt)}</span>
       </div>
 
       <div className="candidate-sync-controls__actions">
@@ -82,13 +78,13 @@ export function ImportedCandidateSyncControls({
           onClick={refreshSources}
           disabled={isPending}
         >
-          {isPending ? "Refreshing..." : "Refresh Enabled Sources"}
+          {isPending ? "正在刷新…" : "刷新已启用来源"}
         </button>
         <Link href="/workspace/sources" className="action-link">
-          Manage Sources
+          管理来源
         </Link>
         <Link href="/workspace/technologies" className="action-link">
-          Open Workspace
+          打开草稿列表
         </Link>
       </div>
 

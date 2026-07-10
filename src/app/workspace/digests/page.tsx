@@ -21,33 +21,30 @@ export default function WorkspaceDigestsPage() {
 
   return (
     <WorkspacePageShell
-      title="Daily Digests"
-      description="Generate, edit, preview, validate, and publish daily briefs built from published TechnologyItem records and Ranking v0 priority levels."
-      sectionLabel="Digest Control"
+      title="每日简报"
+      description="基于已发布技术记录和 Ranking v0 优先级，生成、编辑、预览、校验并发布每日简报。"
+      sectionLabel="简报管理"
     >
       <GenerateDigestAction date={getTodayDateString()} />
 
-      <section
-        className="workspace-status-overview"
-        aria-label="Digest status overview"
-      >
+      <section className="workspace-status-overview" aria-label="简报状态总览">
         <div className="workspace-status-overview__card">
-          <span>Draft digests</span>
+          <span>草稿简报</span>
           <strong>{draftCount}</strong>
         </div>
         <div className="workspace-status-overview__card">
-          <span>Published digests</span>
+          <span>已发布简报</span>
           <strong>{publishedCount}</strong>
         </div>
         <div className="workspace-status-overview__card">
-          <span>Archived digests</span>
+          <span>已归档简报</span>
           <strong>{archivedCount}</strong>
         </div>
       </section>
 
       <WorkspaceListToolbar
-        label={`${digests.length} digest records`}
-        detail="Digest editorial workflow keeps manual edits separate from generated ranking sections. It is not push delivery, email, or personalization."
+        label={`${digests.length} 条简报记录`}
+        detail="简报编辑工作流会把人工调整与生成的排序板块分开保存。它不是推送投递、邮件或个性化功能。"
       />
 
       <div className="workspace-compact-list digest-workspace-list">
@@ -58,8 +55,7 @@ export default function WorkspaceDigestsPage() {
 
       {digests.length === 0 ? (
         <p className="empty-state">
-          No digests have been generated yet. Generate a digest draft to inspect
-          the first workspace review copy.
+          还没有生成过简报。生成一份简报草稿即可查看第一份工作台审核稿。
         </p>
       ) : null}
     </WorkspacePageShell>

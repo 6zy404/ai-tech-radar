@@ -43,29 +43,29 @@ export function PublishReadinessPanel({
     <section className="section-panel publish-readiness">
       <div className="publish-readiness__header">
         <div>
-          <p className="eyebrow">Publish Quality Gate</p>
-          <h2>Publish readiness</h2>
+          <p className="eyebrow">发布质量门</p>
+          <h2>发布就绪状态</h2>
         </div>
         <span
           className={`info-pill${
             readiness.isReady ? "" : " info-pill--warning"
           }`}
         >
-          {readiness.isReady ? "Ready to publish" : "Blocked"}
+          {readiness.isReady ? "可以发布" : "已阻塞"}
         </span>
       </div>
 
       <div className="publish-readiness__grid">
         <IssueList
-          title="Blocking errors"
+          title="阻塞错误"
           issues={readiness.blockingErrors}
-          emptyText="No blocking errors."
+          emptyText="没有阻塞错误。"
           tone="error"
         />
         <IssueList
-          title="Warnings"
+          title="警告"
           issues={readiness.warnings}
-          emptyText="No warnings."
+          emptyText="没有警告。"
           tone="warning"
         />
       </div>

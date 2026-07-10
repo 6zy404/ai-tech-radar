@@ -20,37 +20,37 @@ const fieldLabels: Array<{
   key: keyof EditorialEnrichmentGeneratedFields;
   label: string;
 }> = [
-  { key: "whyItMatters", label: "Why it matters" },
-  { key: "whoShouldCare", label: "Who should care" },
-  { key: "technicalContext", label: "Technical context" },
-  { key: "impactAreas", label: "Impact areas" },
-  { key: "learningPath", label: "Learning path" },
+  { key: "whyItMatters", label: "为什么值得看" },
+  { key: "whoShouldCare", label: "谁该关注" },
+  { key: "technicalContext", label: "技术背景" },
+  { key: "impactAreas", label: "影响领域" },
+  { key: "learningPath", label: "学习路径" },
   {
     key: "relatedKnowledgeExplanations",
-    label: "Knowledge explanations"
+    label: "知识关联说明"
   },
-  { key: "relatedSkillExplanations", label: "Skill explanations" },
-  { key: "followUpQuestions", label: "Follow-up questions" },
-  { key: "readingDifficulty", label: "Reading difficulty" }
+  { key: "relatedSkillExplanations", label: "技能关联说明" },
+  { key: "followUpQuestions", label: "后续问题" },
+  { key: "readingDifficulty", label: "阅读难度" }
 ];
 
 const qualityLabelOptions: Array<{
   value: EditorialEnrichmentQualityLabel;
   label: string;
 }> = [
-  { value: "accurate", label: "Accurate" },
-  { value: "clear", label: "Clear" },
-  { value: "good_enough", label: "Good enough" },
-  { value: "needs_human_edit", label: "Needs human edit" },
-  { value: "missing_context", label: "Missing context" },
-  { value: "too_generic", label: "Too generic" },
-  { value: "too_verbose", label: "Too verbose" },
-  { value: "hallucination_risk", label: "Hallucination risk" }
+  { value: "accurate", label: "准确" },
+  { value: "clear", label: "清晰" },
+  { value: "good_enough", label: "够用" },
+  { value: "needs_human_edit", label: "需人工修改" },
+  { value: "missing_context", label: "缺上下文" },
+  { value: "too_generic", label: "过于泛化" },
+  { value: "too_verbose", label: "过于冗长" },
+  { value: "hallucination_risk", label: "幻觉风险" }
 ];
 
 function formatValue(value: unknown): string {
   if (Array.isArray(value)) {
-    return value.length > 0 ? value.join("\n") : "Empty";
+    return value.length > 0 ? value.join("\n") : "（空）";
   }
 
   if (value && typeof value === "object") {
@@ -58,10 +58,10 @@ function formatValue(value: unknown): string {
 
     return entries.length > 0
       ? entries.map(([key, item]) => `${key}: ${item}`).join("\n")
-      : "Empty";
+      : "（空）";
   }
 
-  return typeof value === "string" && value.trim() ? value : "Empty";
+  return typeof value === "string" && value.trim() ? value : "（空）";
 }
 
 function getCurrentFieldValue(
@@ -73,38 +73,36 @@ function getCurrentFieldValue(
 
 function getStatusLabel(suggestion: EditorialEnrichmentSuggestion): string {
   if (suggestion.status === "draft") {
-    return "Pending review";
+    return "待审阅";
   }
 
   if (suggestion.status === "applied") {
-    return "Applied";
+    return "已应用";
   }
 
   if (suggestion.status === "rejected") {
-    return "Rejected";
+    return "已拒绝";
   }
 
-  return "Stale";
+  return "已过期";
 }
 
 function getGenerationModeLabel(
   mode: EditorialEnrichmentGenerationMode
 ): string {
   if (mode === "llm_assisted") {
-    return "LLM-assisted";
+    return "LLM 辅助";
   }
 
   if (mode === "mock_llm") {
     return "Mock LLM";
   }
 
-  return "Rule-based";
+  return "规则生成";
 }
 
 function formatConfidence(value: number | undefined): string {
-  return typeof value === "number"
-    ? `${Math.round(value * 100)}% confidence`
-    : "";
+  return typeof value === "number" ? `置信度 ${Math.round(value * 100)}%` : "";
 }
 
 function hasMeaningfulValue(value: unknown): boolean {
@@ -212,7 +210,7 @@ export function TechnologyEditorialEnrichmentPanel({
     fieldsToApply?: Array<keyof EditorialEnrichmentGeneratedFields>
   ) {
     if (action === "reject" && !rejectionReason.trim()) {
-      setMessage("Add a rejection reason before rejecting the suggestion.");
+      setMessage("拒绝建议前请先填写拒绝原因。");
       return;
     }
 
@@ -245,23 +243,21 @@ export function TechnologyEditorialEnrichmentPanel({
             router.refresh();
           }
 
-          throw new Error(
-            result.message || "Editorial enrichment action failed."
-          );
+          throw new Error(result.message || "富化建议操作失败。");
         }
 
         setMessage(
           action === "generate"
             ? generationMode === "llm_assisted"
-              ? "LLM-assisted suggestion generated."
+              ? "已生成 LLM 辅助建议。"
               : generationMode === "mock_llm"
-                ? "Mock LLM suggestion generated."
-                : "Rule-based suggestion generated."
+                ? "已生成 Mock LLM 建议。"
+                : "已生成规则建议。"
             : action === "review"
-              ? "Suggestion review saved."
+              ? "建议评审已保存。"
               : action === "apply"
-                ? "Suggestion applied to selected draft fields."
-                : "Suggestion rejected."
+                ? "建议已应用到所选草稿字段。"
+                : "建议已拒绝。"
         );
         setReviewerNotes("");
         setRejectionReason("");
@@ -270,9 +266,7 @@ export function TechnologyEditorialEnrichmentPanel({
         router.refresh();
       } catch (error) {
         setMessage(
-          error instanceof Error
-            ? error.message
-            : "Editorial enrichment action failed."
+          error instanceof Error ? error.message : "富化建议操作失败。"
         );
       }
     });
@@ -287,9 +281,7 @@ export function TechnologyEditorialEnrichmentPanel({
     if (
       overwriteLabels.length > 0 &&
       !window.confirm(
-        `Apply suggestion fields and overwrite existing draft values for: ${overwriteLabels.join(
-          ", "
-        )}?`
+        `应用建议字段并覆盖以下草稿现有内容：${overwriteLabels.join("、")}？`
       )
     ) {
       return;
@@ -301,7 +293,7 @@ export function TechnologyEditorialEnrichmentPanel({
   function rejectSuggestion(suggestionId: string) {
     if (
       !window.confirm(
-        "Reject this enrichment suggestion? The suggestion will stay in the workspace audit trail but will not update the draft."
+        "拒绝这条富化建议？建议会保留在工作台审计记录中，但不会更新草稿。"
       )
     ) {
       return;
@@ -314,18 +306,16 @@ export function TechnologyEditorialEnrichmentPanel({
     <section className="section-panel editorial-enrichment-panel">
       <div className="editorial-enrichment-panel__header">
         <div>
-          <p className="eyebrow">Editorial Enrichment</p>
-          <h2>Prompt quality and suggestion review</h2>
+          <p className="eyebrow">编辑富化</p>
+          <h2>提示词质量与建议评审</h2>
           <p>
-            Generate a rule-based or LLM-assisted explanation draft, compare it
-            with current Content Intelligence fields, then review, apply
-            selected fields, or reject it. Suggestions stay workspace-only until
-            applied.
+            生成规则式或 LLM
+            辅助的解释草稿，与当前内容智能字段对比，然后评审、应用所选字段或拒绝。建议在被应用之前只存在于工作台内。
           </p>
         </div>
         <div className="editorial-enrichment-panel__actions">
           <label className="field field--compact">
-            <span>Generation mode</span>
+            <span>生成方式</span>
             <select
               value={generationMode}
               onChange={(event) =>
@@ -334,9 +324,9 @@ export function TechnologyEditorialEnrichmentPanel({
                 )
               }
             >
-              <option value="rule_based">Rule-based suggestion</option>
-              <option value="llm_assisted">LLM-assisted suggestion</option>
-              <option value="mock_llm">Mock LLM suggestion</option>
+              <option value="rule_based">规则生成建议</option>
+              <option value="llm_assisted">LLM 辅助建议</option>
+              <option value="mock_llm">Mock LLM 建议</option>
             </select>
           </label>
           <button
@@ -345,17 +335,13 @@ export function TechnologyEditorialEnrichmentPanel({
             disabled={isPending}
             onClick={() => runAction("generate")}
           >
-            {selectedSuggestion
-              ? "Regenerate enrichment suggestion"
-              : "Generate enrichment suggestion"}
+            {selectedSuggestion ? "重新生成富化建议" : "生成富化建议"}
           </button>
         </div>
       </div>
 
       {!selectedSuggestion ? (
-        <p className="empty-state">
-          No enrichment suggestion has been generated for this draft yet.
-        </p>
+        <p className="empty-state">这条草稿还没有生成过富化建议。</p>
       ) : (
         <>
           <div className="editorial-enrichment-panel__meta">
@@ -365,31 +351,31 @@ export function TechnologyEditorialEnrichmentPanel({
               {getStatusLabel(selectedSuggestion)}
             </span>
             <span className="info-pill">
-              Review {selectedSuggestion.reviewStatus ?? "unreviewed"}
+              评审 {selectedSuggestion.reviewStatus ?? "unreviewed"}
             </span>
             <span className="info-pill">
               {getGenerationModeLabel(selectedSuggestion.generationMode)}
             </span>
             {selectedSuggestion.promptVersionId ? (
               <span className="info-pill">
-                Prompt{" "}
+                提示词{" "}
                 {selectedSuggestion.promptVersion ??
                   selectedSuggestion.promptVersionId}
               </span>
             ) : null}
             {selectedSuggestion.providerName ? (
               <span className="info-pill">
-                Provider {selectedSuggestion.providerName}
+                提供方 {selectedSuggestion.providerName}
               </span>
             ) : null}
             {selectedSuggestion.modelName ? (
               <span className="info-pill">
-                Model {selectedSuggestion.modelName}
+                模型 {selectedSuggestion.modelName}
               </span>
             ) : null}
             {selectedSuggestion.outputValidationStatus ? (
               <span className="info-pill">
-                Validation {selectedSuggestion.outputValidationStatus}
+                校验 {selectedSuggestion.outputValidationStatus}
               </span>
             ) : null}
             {formatConfidence(selectedSuggestion.confidence) ? (
@@ -399,17 +385,17 @@ export function TechnologyEditorialEnrichmentPanel({
             ) : null}
             {selectedSuggestion.qualityScore ? (
               <span className="info-pill">
-                Quality {selectedSuggestion.qualityScore}/5
+                质量 {selectedSuggestion.qualityScore}/5
               </span>
             ) : null}
             <span className="info-pill">
-              Created {selectedSuggestion.createdAt.slice(0, 10)}
+              创建于 {selectedSuggestion.createdAt.slice(0, 10)}
             </span>
           </div>
 
           {suggestions.length > 1 ? (
             <div className="editorial-enrichment-history">
-              <h3>Suggestion history</h3>
+              <h3>建议历史</h3>
               <div className="editorial-enrichment-history__items">
                 {suggestions.map((suggestion) => (
                   <button
@@ -433,14 +419,14 @@ export function TechnologyEditorialEnrichmentPanel({
 
           {selectedSuggestion.generationError ? (
             <p className="workspace-edit-form__hint workspace-edit-form__hint--warning">
-              Generation failed: {selectedSuggestion.generationError}
+              生成失败：{selectedSuggestion.generationError}
             </p>
           ) : null}
 
           {selectedSuggestion.limitations &&
           selectedSuggestion.limitations.length > 0 ? (
             <div className="editorial-enrichment-panel__notes">
-              <h3>Limitations</h3>
+              <h3>局限性</h3>
               <ul>
                 {selectedSuggestion.limitations.map((limitation) => (
                   <li key={limitation}>{limitation}</li>
@@ -452,7 +438,7 @@ export function TechnologyEditorialEnrichmentPanel({
           {selectedSuggestion.outputValidationWarnings &&
           selectedSuggestion.outputValidationWarnings.length > 0 ? (
             <div className="editorial-enrichment-panel__notes">
-              <h3>Validation warnings</h3>
+              <h3>校验警告</h3>
               <ul>
                 {selectedSuggestion.outputValidationWarnings.map((warning) => (
                   <li key={warning}>{warning}</li>
@@ -463,21 +449,21 @@ export function TechnologyEditorialEnrichmentPanel({
 
           <div className="editorial-enrichment-review">
             <label className="field field--compact">
-              <span>Quality score</span>
+              <span>质量评分</span>
               <select
                 value={qualityScore}
                 onChange={(event) => setQualityScore(event.target.value)}
               >
-                <option value="">Not scored</option>
-                <option value="5">5 - strong</option>
-                <option value="4">4 - usable</option>
-                <option value="3">3 - needs edit</option>
-                <option value="2">2 - weak</option>
-                <option value="1">1 - reject</option>
+                <option value="">未评分</option>
+                <option value="5">5 - 优秀</option>
+                <option value="4">4 - 可用</option>
+                <option value="3">3 - 需修改</option>
+                <option value="2">2 - 较弱</option>
+                <option value="1">1 - 应拒绝</option>
               </select>
             </label>
             <div className="editorial-enrichment-review__labels">
-              <span>Quality labels</span>
+              <span>质量标签</span>
               <div>
                 {qualityLabelOptions.map((option) => (
                   <label key={option.value} className="checkbox-pill">
@@ -494,7 +480,7 @@ export function TechnologyEditorialEnrichmentPanel({
           </div>
 
           <div className="editorial-enrichment-field-picker">
-            <span>Fields to apply</span>
+            <span>要应用的字段</span>
             <div>
               {fieldLabels.map((field) => {
                 const hasSuggestion = hasMeaningfulValue(
@@ -533,15 +519,15 @@ export function TechnologyEditorialEnrichmentPanel({
                 >
                   <h3>
                     {field.label}
-                    {willOverwrite ? <span>Will overwrite</span> : null}
+                    {willOverwrite ? <span>将覆盖</span> : null}
                   </h3>
                   <div className="editorial-enrichment-compare__columns">
                     <div>
-                      <span>Current draft</span>
+                      <span>当前草稿</span>
                       <p>{formatValue(currentValue)}</p>
                     </div>
                     <div>
-                      <span>Suggested</span>
+                      <span>建议内容</span>
                       <p>{formatValue(suggestedValue)}</p>
                     </div>
                   </div>
@@ -551,22 +537,22 @@ export function TechnologyEditorialEnrichmentPanel({
           </div>
 
           <label className="field">
-            <span>Reviewer notes</span>
+            <span>评审备注</span>
             <textarea
               rows={3}
               value={reviewerNotes}
               onChange={(event) => setReviewerNotes(event.target.value)}
-              placeholder="Optional notes about accuracy, specificity, or edits needed."
+              placeholder="关于准确性、具体程度或所需修改的备注（可选）。"
             />
           </label>
 
           <label className="field">
-            <span>Rejection reason</span>
+            <span>拒绝原因</span>
             <textarea
               rows={3}
               value={rejectionReason}
               onChange={(event) => setRejectionReason(event.target.value)}
-              placeholder="Required only when rejecting this suggestion."
+              placeholder="仅在拒绝这条建议时必填。"
             />
           </label>
 
@@ -577,7 +563,7 @@ export function TechnologyEditorialEnrichmentPanel({
               disabled={!canReview || isPending}
               onClick={() => runAction("review", selectedSuggestion.id)}
             >
-              Save review
+              保存评审
             </button>
             <button
               type="button"
@@ -590,7 +576,7 @@ export function TechnologyEditorialEnrichmentPanel({
                 )
               }
             >
-              Apply all suggestion fields
+              应用全部建议字段
             </button>
             <button
               type="button"
@@ -600,7 +586,7 @@ export function TechnologyEditorialEnrichmentPanel({
                 applySuggestionFields(selectedSuggestion.id, selectedFields)
               }
             >
-              Apply selected suggestion fields
+              应用所选建议字段
             </button>
             <button
               type="button"
@@ -608,7 +594,7 @@ export function TechnologyEditorialEnrichmentPanel({
               disabled={!canReject || isPending}
               onClick={() => rejectSuggestion(selectedSuggestion.id)}
             >
-              Reject suggestion
+              拒绝建议
             </button>
           </div>
         </>
@@ -618,8 +604,7 @@ export function TechnologyEditorialEnrichmentPanel({
 
       {record.status !== "draft" ? (
         <p className="workspace-edit-form__hint">
-          Applied enrichment is restricted to draft records so generated
-          suggestions cannot directly alter already published content.
+          富化建议只能应用到草稿记录，因此生成内容无法直接修改已发布的内容。
         </p>
       ) : null}
     </section>

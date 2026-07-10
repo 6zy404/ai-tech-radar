@@ -20,6 +20,12 @@ function getStatusTone(status: DailyDigest["status"]) {
   return "warning" as const;
 }
 
+const digestStatusLabels: Record<DailyDigest["status"], string> = {
+  draft: "草稿",
+  published: "已发布",
+  archived: "已归档"
+};
+
 export function DailyDigestWorkspaceCard({
   digest
 }: DailyDigestWorkspaceCardProps) {
@@ -28,7 +34,7 @@ export function DailyDigestWorkspaceCard({
       <div className="candidate-card__meta">
         <div className="candidate-card__meta-row">
           <WorkspaceStatusBadge
-            label={digest.status}
+            label={digestStatusLabels[digest.status]}
             tone={getStatusTone(digest.status)}
           />
           <span className="candidate-card__source-name">{digest.date}</span>
@@ -36,13 +42,13 @@ export function DailyDigestWorkspaceCard({
         <MetadataRow
           items={[
             {
-              label: "Immediate",
+              label: "立即关注",
               value: digest.highPriorityTechnologyIds.length
             },
-            { label: "Watch", value: digest.watchTechnologyIds.length },
-            { label: "Sources", value: digest.sourceNames.length },
-            { label: "Updated", value: digest.updatedAt.slice(0, 10) },
-            { label: "Published", value: digest.publishedAt?.slice(0, 10) }
+            { label: "值得跟踪", value: digest.watchTechnologyIds.length },
+            { label: "来源", value: digest.sourceNames.length },
+            { label: "更新于", value: digest.updatedAt.slice(0, 10) },
+            { label: "发布于", value: digest.publishedAt?.slice(0, 10) }
           ]}
         />
       </div>
@@ -59,17 +65,17 @@ export function DailyDigestWorkspaceCard({
           href={`/workspace/digests/${digest.date}`}
           className="action-link"
         >
-          Review digest
+          审核简报
         </Link>
         <Link
           href={`/workspace/digests/${digest.date}/preview`}
           className="action-link"
         >
-          Preview digest
+          预览简报
         </Link>
         {digest.status === "published" ? (
           <Link href={`/digest/${digest.date}`} className="action-link">
-            Open published digest
+            打开已发布简报
           </Link>
         ) : null}
       </div>

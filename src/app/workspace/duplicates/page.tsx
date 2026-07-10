@@ -19,28 +19,28 @@ export default function WorkspaceDuplicatesPage() {
 
   return (
     <WorkspacePageShell
-      title="Duplicate Review"
-      description="Internal review queue for possible duplicate imported candidates. Resolve groups before generating formal technology drafts."
-      sectionLabel="Candidate Deduplication"
+      title="重复组审核"
+      description="疑似重复导入候选的内部审核队列。在生成正式技术草稿前先处理重复组。"
+      sectionLabel="候选去重"
     >
       <div className="workspace-status-overview">
         <article className="workspace-status-overview__card">
-          <span>Open groups</span>
+          <span>待处理</span>
           <strong>{openCount}</strong>
         </article>
         <article className="workspace-status-overview__card">
-          <span>Resolved groups</span>
+          <span>已解决</span>
           <strong>{resolvedCount}</strong>
         </article>
         <article className="workspace-status-overview__card">
-          <span>Ignored groups</span>
+          <span>已忽略</span>
           <strong>{ignoredCount}</strong>
         </article>
       </div>
 
       <WorkspaceListToolbar
-        label={`${duplicateGroups.length} duplicate groups`}
-        detail="Select a primary candidate, resolve real duplicates, or ignore false positives."
+        label={`${duplicateGroups.length} 个重复组`}
+        detail="选择主候选、解决真实重复，或忽略误报。"
       />
 
       <div className="content-grid candidate-grid">
@@ -60,9 +60,7 @@ export default function WorkspaceDuplicatesPage() {
       </div>
 
       {duplicateGroups.length === 0 ? (
-        <p className="empty-state">
-          No duplicate groups are currently detected.
-        </p>
+        <p className="empty-state">当前没有检测到重复组。</p>
       ) : null}
     </WorkspacePageShell>
   );

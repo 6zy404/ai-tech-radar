@@ -21,9 +21,7 @@ export function ExternalSourceActions({
   function updateEnabled(nextEnabled: boolean) {
     if (
       !nextEnabled &&
-      !window.confirm(
-        "Disable this source? Disabled sources are skipped by batch import until re-enabled."
-      )
+      !window.confirm("停用这个来源？停用后批量导入会跳过它，直到重新启用。")
     ) {
       return;
     }
@@ -48,15 +46,13 @@ export function ExternalSourceActions({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Source update failed.");
+          throw new Error(result.message ?? "来源更新失败。");
         }
 
-        setMessage(nextEnabled ? "Source enabled." : "Source disabled.");
+        setMessage(nextEnabled ? "来源已启用。" : "来源已停用。");
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Source update failed."
-        );
+        setMessage(error instanceof Error ? error.message : "来源更新失败。");
       }
     });
   }
@@ -82,21 +78,19 @@ export function ExternalSourceActions({
         };
 
         if (!response.ok || !result.ok) {
-          throw new Error(result.message ?? "Source import failed.");
+          throw new Error(result.message ?? "来源导入失败。");
         }
 
         setMessage(
-          `${result.status ?? "Import"}: ${
-            result.message ?? "Import completed."
-          } Created ${result.candidatesCreated ?? 0}, skipped ${
+          `${result.status ?? "导入"}：${
+            result.message ?? "导入完成。"
+          }新增 ${result.candidatesCreated ?? 0} 条，跳过 ${
             result.candidatesSkipped ?? 0
-          }.`
+          } 条。`
         );
         router.refresh();
       } catch (error) {
-        setMessage(
-          error instanceof Error ? error.message : "Source import failed."
-        );
+        setMessage(error instanceof Error ? error.message : "来源导入失败。");
       }
     });
   }
@@ -119,11 +113,11 @@ export function ExternalSourceActions({
           disabled={isPending || !enabled}
           title={
             enabled
-              ? "Import candidate content from this source now"
-              : "Disabled source cannot be imported. Enable it first."
+              ? "立即从这个来源导入候选内容"
+              : "已停用的来源无法导入，请先启用。"
           }
         >
-          Run source import
+          运行来源导入
         </button>
         <button
           type="button"
@@ -138,12 +132,12 @@ export function ExternalSourceActions({
           onClick={() => updateEnabled(!enabled)}
           disabled={isPending}
         >
-          {enabled ? "Disable source" : "Enable source"}
+          {enabled ? "停用来源" : "启用来源"}
         </button>
       </div>
       {!enabled ? (
         <p className="candidate-review-actions__hint">
-          This source is disabled and will be skipped by batch import.
+          该来源已停用，批量导入会跳过它。
         </p>
       ) : null}
       {message ? (

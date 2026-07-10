@@ -30,9 +30,9 @@ export default async function WorkspaceTechnologyDetailPage({
 
   return (
     <WorkspacePageShell
-      title="Technology Workspace Detail"
-      description="Inspect an internal technology record, preserve source traceability, and decide whether it stays draft, published, or archived."
-      sectionLabel="Draft Review"
+      title="技术工作台详情"
+      description="查看内部技术记录、保留来源溯源，并决定它保持草稿、发布还是归档。"
+      sectionLabel="草稿审核"
     >
       <TechnologyDraftDetailContent
         draft={record}
