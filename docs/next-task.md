@@ -2,11 +2,16 @@
 
 > Update 2026-07-10: Workspace UI localization v0 shipped — all Internal
 > Workspace UI chrome is now Chinese (see `CHANGELOG.md` → "Navigation, IA &
-> design system"). Lib-generated diagnostic strings (ranking reasons, import
-> / delivery run messages, readiness messages, workflow event snapshots,
-> operations statusReasons / attention items) intentionally stay English in
-> this pass; translating them (plus the validate-script assertions on those
-> strings) is a possible follow-up task if the owner wants it.
+> design system"). The follow-up diagnostic-string pass shipped the same
+> day (owner-chosen): ranking reasons/warnings, publish & digest readiness
+> messages, import / delivery / schedule / task-runner messages, and
+> operations statusReasons / attention items are now generated in Chinese,
+> with the asserting vitest tests and validate scripts updated to match
+> (all 22 validators green). Historical English messages already persisted
+> in `config/` are intentionally left as-is (audit data); they age out as
+> new records are written. Still English by design: digest *generation*
+> copy (default digest title/summary/editorial-note templates, which feed
+> public content), workflow event action codes, and data content itself.
 
 > See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
 > (knowledge relationship network) are both done. P3 (AI-assisted

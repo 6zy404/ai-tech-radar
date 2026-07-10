@@ -332,29 +332,29 @@ function validateSourceInput(
   const url = input.url.trim();
 
   if (!name) {
-    issues.push("Source name is required.");
+    issues.push("来源名称为必填项。");
   }
 
   if (!allowedSourceTypes.includes(input.type)) {
-    issues.push("Source type is not supported.");
+    issues.push("不支持该来源类型。");
   }
 
   if (!url) {
-    issues.push("Source URL is required.");
+    issues.push("来源 URL 为必填项。");
   } else if (!isValidHttpUrl(url)) {
-    issues.push("Source URL must be a valid http or https URL.");
+    issues.push("来源 URL 必须是有效的 http 或 https 地址。");
   }
 
   if (!allowedLanguages.includes(input.language)) {
-    issues.push("Source language is not supported.");
+    issues.push("不支持该来源语言。");
   }
 
   if (!allowedPublisherTypes.includes(input.publisherType)) {
-    issues.push("Publisher type is not supported.");
+    issues.push("不支持该发布方类型。");
   }
 
   if (!allowedNormalizedTypes.includes(input.defaultNormalizedType)) {
-    issues.push("Default normalized type is not supported.");
+    issues.push("不支持该默认内容类型。");
   }
 
   const normalizedUrl = normalizeUrl(url);
@@ -421,9 +421,9 @@ function buildFallbackCandidatesForSource(
       sourceUrl: source.url,
       originalTitle: normalizedTitle,
       originalSummary:
-        "Local fallback candidate generated so the source import workflow can be inspected when the live source is unavailable.",
+        "实时来源不可用时生成的本地回退候选，用于检查来源导入工作流。",
       originalContent:
-        "The live external source could not be imported in this local run. This fallback candidate preserves the source configuration, import attempt, and traceability fields so reviewers can still verify the source to candidate workflow.",
+        "本次本地运行未能导入实时外部来源。这条回退候选保留了来源配置、导入尝试与溯源字段，便于审核者继续验证「来源 → 候选」工作流。",
       originalLanguage: source.language,
       publishDate: date,
       publisherName: source.publisherName ?? source.name,
@@ -540,7 +540,7 @@ function updateSourceImportState(
   const source = store.sources.find((item) => item.id === sourceId);
 
   if (!source) {
-    throw new Error(`External source ${sourceId} not found.`);
+    throw new Error(`未找到外部来源 ${sourceId}。`);
   }
 
   const nextSource: ExternalSource = {
@@ -619,7 +619,7 @@ export function updateExternalSource(
   const existingSource = store.sources.find((source) => source.id === sourceId);
 
   if (!existingSource) {
-    throw new Error(`External source ${sourceId} not found.`);
+    throw new Error(`未找到外部来源 ${sourceId}。`);
   }
 
   validateSourceInput(input, store.sources, sourceId);
@@ -657,7 +657,7 @@ export function setExternalSourceEnabled(
   const existingSource = store.sources.find((source) => source.id === sourceId);
 
   if (!existingSource) {
-    throw new Error(`External source ${sourceId} not found.`);
+    throw new Error(`未找到外部来源 ${sourceId}。`);
   }
 
   const nextSource: ExternalSource = {
@@ -720,14 +720,14 @@ export async function runImportForSource(
   const importedAt = nowIso();
 
   if (!source) {
-    throw new Error(`External source ${sourceId} not found.`);
+    throw new Error(`未找到外部来源 ${sourceId}。`);
   }
 
   if (!source.enabled) {
     const updatedSource = updateSourceImportState(
       source.id,
       "failed",
-      "Source is disabled. Enable it before importing.",
+      "来源已停用。导入前请先启用。",
       0,
       0
     );
@@ -736,7 +736,7 @@ export async function runImportForSource(
       source: updatedSource,
       candidates: [],
       status: "failed",
-      message: updatedSource.lastImportMessage ?? "Source is disabled.",
+      message: updatedSource.lastImportMessage ?? "来源已停用。",
       candidatesCreated: 0,
       candidatesSkipped: 0,
       importedAt,
@@ -750,7 +750,7 @@ export async function runImportForSource(
     const importedCandidates = await importCandidatesForExternalSource(source);
 
     if (importedCandidates.length === 0) {
-      throw new Error("Source returned no candidate records.");
+      throw new Error("来源没有返回任何候选记录。");
     }
 
     const { candidates, candidatesCreated, candidatesSkipped } =
@@ -771,7 +771,7 @@ export async function runImportForSource(
     const updatedSource = updateSourceImportState(
       source.id,
       "success",
-      `Imported ${candidatesCreated} new candidate(s); skipped ${candidatesSkipped} duplicate or existing candidate(s).`,
+      `导入 ${candidatesCreated} 条新候选；跳过 ${candidatesSkipped} 条重复或已存在的候选。`,
       candidates.length,
       candidatesCreated
     );
@@ -780,7 +780,7 @@ export async function runImportForSource(
       source: updatedSource,
       candidates,
       status: "success",
-      message: updatedSource.lastImportMessage ?? "Import completed.",
+      message: updatedSource.lastImportMessage ?? "导入完成。",
       candidatesCreated,
       candidatesSkipped,
       importedAt,
@@ -788,7 +788,7 @@ export async function runImportForSource(
     };
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Unknown source import error.";
+      error instanceof Error ? error.message : "未知的来源导入错误。";
 
     if (useFallbackOnFailure) {
       const importedCandidates = buildFallbackCandidatesForSource(
@@ -809,7 +809,7 @@ export async function runImportForSource(
         source,
         fallbackCandidates.length,
         "fallback",
-        `Live import failed; local fallback used. ${message}`
+        `实时导入失败；已使用本地回退。${message}`
       );
 
       mergeImportedCandidatesForSource(sourceRecord, fallbackCandidates);
@@ -817,7 +817,7 @@ export async function runImportForSource(
       const updatedSource = updateSourceImportState(
         source.id,
         "partial",
-        `Live import failed; local fallback used. ${message}`,
+        `实时导入失败；已使用本地回退。${message}`,
         fallbackCandidates.length,
         candidatesCreated
       );
@@ -874,7 +874,7 @@ export async function runBatchImportForEnabledSources(
       );
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Unknown source import error.";
+        error instanceof Error ? error.message : "未知的来源导入错误。";
       const updatedSource = updateSourceImportState(
         source.id,
         "failed",

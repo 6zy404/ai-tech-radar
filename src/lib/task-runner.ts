@@ -189,7 +189,7 @@ function logTaskRunnerRun(
   );
 
   if (run.dueScheduleCount === 0) {
-    logger("No due schedules.");
+    logger("没有到期计划。");
   }
 
   logger(
@@ -209,7 +209,7 @@ function logTaskRunnerRun(
 }
 
 function getRunMessage(run: ScheduledDeliveryRun): string {
-  const digestLabel = run.digestDate ? `digest ${run.digestDate}` : "no digest";
+  const digestLabel = run.digestDate ? `简报 ${run.digestDate}` : "无简报";
 
   return `${run.scheduleName}: ${run.status} for ${digestLabel}; ${run.message}`;
 }
@@ -258,14 +258,14 @@ export async function runScheduledDeliveryTask({
       failedCount += 1;
       messages.push(
         `${schedule.name}: ${
-          error instanceof Error ? error.message : "Unknown schedule error."
+          error instanceof Error ? error.message : "未知计划错误。"
         }`
       );
     }
   }
 
   if (dueSchedules.length === 0) {
-    messages.push("No due schedules.");
+    messages.push("没有到期计划。");
   }
 
   const finishedAt = getTimestamp();
@@ -342,7 +342,7 @@ export async function watchScheduledDeliveryTasks({
   const runs: TaskRunnerRun[] = [];
   let iteration = 0;
 
-  logger(`Task runner watch mode started. intervalMs=${intervalMs}`);
+  logger(`任务运行器监听模式已启动。intervalMs=${intervalMs}`);
 
   while (!signal?.aborted) {
     iteration += 1;
@@ -372,7 +372,7 @@ export async function watchScheduledDeliveryTasks({
     await sleep(intervalMs, signal);
   }
 
-  logger("Task runner watch mode stopped.");
+  logger("任务运行器监听模式已停止。");
 
   return runs;
 }

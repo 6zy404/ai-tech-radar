@@ -197,21 +197,21 @@ async function main() {
         digestDate: publishedDigest.date,
         channelId: disabledChannel.id
       }),
-      "disabled"
+      "停用"
     );
     await assertRejectsWithMessage(
       sendDailyDigestToChannel({
         digestDate: draftDigest.date,
         channelId: successChannel.id
       }),
-      "published"
+      "已发布"
     );
     await assertRejectsWithMessage(
       sendDailyDigestToChannel({
         digestDate: archivedDigest.date,
         channelId: successChannel.id
       }),
-      "published"
+      "已发布"
     );
 
     const payload = buildDailyDigestWebhookPayload(

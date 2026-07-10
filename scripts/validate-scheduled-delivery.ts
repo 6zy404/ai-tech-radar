@@ -232,7 +232,7 @@ async function main() {
         triggerType: "manual",
         force: true
       }),
-      "disabled"
+      "停用"
     );
 
     const draftRun = await runScheduleById(draftSchedule.id, {
@@ -243,7 +243,7 @@ async function main() {
 
     assert.equal(draftRun.status, "failed");
     assert.equal(draftRun.deliveryLogIds.length, 0);
-    assert.equal(draftRun.message.includes("published"), true);
+    assert.equal(draftRun.message.includes("已发布"), true);
 
     const firstScheduledRun = await runScheduleById(publishedSchedule.id, {
       triggerType: "scheduled",

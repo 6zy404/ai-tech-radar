@@ -54,20 +54,12 @@ function main() {
     scripts?: Record<string, string>;
   };
 
-  assertContains(topNav, "Internal Workspace", "Top navigation");
-  assertContains(
-    workspaceShell,
-    "Internal editorial workspace.",
-    "Workspace boundary note"
-  );
+  assertContains(topNav, "内部工作台", "Top navigation");
+  assertContains(workspaceShell, "内部工作台。", "Workspace boundary note");
+  assertContains(workspaceDashboard, "内部编辑工作台", "Workspace dashboard");
   assertContains(
     workspaceDashboard,
-    "Internal Editorial Workspace",
-    "Workspace dashboard"
-  );
-  assertContains(
-    workspaceDashboard,
-    "Turn external technology signals into reviewed public content.",
+    "把外部技术信号变成经过审核的公开内容。",
     "Workspace dashboard"
   );
 
@@ -118,19 +110,19 @@ function main() {
 
   for (const expected of [
     "window.confirm",
-    "Run source import",
-    "Disable source",
-    "Reject candidate",
-    "Archive technology",
-    "Generate digest draft",
-    "Archive digest",
-    "Send to selected channel",
-    "Disable channel",
-    "Run schedule now",
-    "Run due schedules now",
-    "Retry failed delivery",
-    "Exclude from digest",
-    "Apply selected suggestion fields"
+    "运行来源导入",
+    "停用来源",
+    "拒绝候选",
+    "归档技术",
+    "生成简报草稿",
+    "归档简报",
+    "发送到所选渠道",
+    "停用渠道",
+    "立即运行计划",
+    "立即运行到期计划",
+    "重试投递",
+    "从简报中排除",
+    "应用所选建议字段"
   ]) {
     assertContains(combinedActions, expected, "Workspace action components");
   }

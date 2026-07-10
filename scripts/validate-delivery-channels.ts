@@ -219,14 +219,14 @@ async function main() {
         digestDate: publishedDigest.date,
         channelId: disabledFeishuChannel.id
       }),
-      "disabled"
+      "停用"
     );
     await assertRejectsWithMessage(
       sendDailyDigestToChannel({
         digestDate: draftDigest.date,
         channelId: feishuChannel.id
       }),
-      "published"
+      "已发布"
     );
 
     const webhookRun = await sendDailyDigestToChannel({

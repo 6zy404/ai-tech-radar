@@ -41,7 +41,7 @@ export class DeliveryChannelValidationError extends Error {
   issues: string[];
 
   constructor(issues: string[]) {
-    super("Delivery channel validation failed.");
+    super("投递渠道校验失败。");
     this.name = "DeliveryChannelValidationError";
     this.issues = issues;
   }
@@ -139,7 +139,7 @@ function normalizeDeliveryChannel(
     name:
       typeof record.name === "string" && record.name.trim()
         ? record.name.trim()
-        : "Untitled delivery channel",
+        : "未命名投递渠道",
     type,
     enabled: typeof record.enabled === "boolean" ? record.enabled : true,
     endpointUrl:
@@ -255,29 +255,27 @@ function validateDeliveryChannelInput(input: DeliveryChannelInput) {
   const issues: string[] = [];
 
   if (!input.name.trim()) {
-    issues.push("Channel name is required.");
+    issues.push("渠道名称为必填项。");
   }
 
   if (!allowedChannelTypes.includes(input.type)) {
-    issues.push("Channel type is not supported.");
+    issues.push("不支持该渠道类型。");
   }
 
   const adapter = getDeliveryAdapter(input.type);
 
   if (!supportedChannelTypes.includes(input.type) || !adapter) {
-    issues.push(
-      "Only generic webhook and Feishu webhook channels can be sent in this version."
-    );
+    issues.push("当前版本只能发送通用 Webhook 和飞书 Webhook 渠道。");
   }
 
   if (!input.endpointUrl.trim()) {
-    issues.push("Endpoint URL is required.");
+    issues.push("端点 URL 为必填项。");
   } else if (!isValidEndpointUrl(input.endpointUrl)) {
-    issues.push("Endpoint URL must be http(s) or a local mock endpoint.");
+    issues.push("端点 URL 必须是 http(s) 或本地 mock 端点。");
   }
 
   if (!allowedFormats.includes(input.format)) {
-    issues.push("Delivery format must be json or text.");
+    issues.push("投递格式必须是 json 或 text。");
   }
 
   if (adapter) {
@@ -398,7 +396,7 @@ export function updateDeliveryChannel(
   );
 
   if (!existingChannel) {
-    throw new Error(`Delivery channel ${channelId} not found.`);
+    throw new Error(`未找到投递渠道 ${channelId}。`);
   }
 
   const nextChannel: DeliveryChannel = {
@@ -434,7 +432,7 @@ export function setDeliveryChannelEnabled(
   );
 
   if (!existingChannel) {
-    throw new Error(`Delivery channel ${channelId} not found.`);
+    throw new Error(`未找到投递渠道 ${channelId}。`);
   }
 
   const nextChannel: DeliveryChannel = {
@@ -463,9 +461,7 @@ export function buildDeliveryRequestPayload(
   const adapter = getDeliveryAdapter(channel.type);
 
   if (!adapter) {
-    throw new Error(
-      "Delivery channel type is not implemented in this version."
-    );
+    throw new Error("当前版本尚未实现该投递渠道类型。");
   }
 
   const payload = adapter.buildPayload(digest, channel, deliveredAt);
@@ -528,15 +524,15 @@ export function getDeliveryPreview(digestDate: string, channelId: string) {
   const channel = getDeliveryChannelById(channelId);
 
   if (!digest) {
-    throw new Error(`Digest ${digestDate} not found.`);
+    throw new Error(`未找到 ${digestDate} 的简报。`);
   }
 
   if (digest.status !== "published") {
-    throw new Error("Only published digests can be previewed for delivery.");
+    throw new Error("只有已发布的简报可以预览投递。");
   }
 
   if (!channel) {
-    throw new Error(`Delivery channel ${channelId} not found.`);
+    throw new Error(`未找到投递渠道 ${channelId}。`);
   }
 
   const { preview, contentType } = buildDeliveryRequestPayload(digest, channel);
@@ -561,19 +557,19 @@ export async function sendDailyDigestToChannel({
   const channel = getDeliveryChannelById(channelId);
 
   if (!digest) {
-    throw new Error(`Digest ${digestDate} not found.`);
+    throw new Error(`未找到 ${digestDate} 的简报。`);
   }
 
   if (digest.status !== "published") {
-    throw new Error("Only published digests can be delivered.");
+    throw new Error("只有已发布的简报可以投递。");
   }
 
   if (!channel) {
-    throw new Error(`Delivery channel ${channelId} not found.`);
+    throw new Error(`未找到投递渠道 ${channelId}。`);
   }
 
   if (!channel.enabled) {
-    throw new Error("Delivery channel is disabled.");
+    throw new Error("投递渠道已停用。");
   }
 
   const startedAt = getTimestamp();
@@ -597,14 +593,10 @@ export async function sendDailyDigestToChannel({
       ...baseRun,
       status: "failed",
       finishedAt,
-      errorMessage: "Delivery channel type is not implemented in this version."
+      errorMessage: "当前版本尚未实现该投递渠道类型。"
     };
 
-    persistDeliveryRun(
-      run,
-      channel,
-      "Delivery channel type is not implemented in this version."
-    );
+    persistDeliveryRun(run, channel, "当前版本尚未实现该投递渠道类型。");
 
     return run;
   }
@@ -639,7 +631,7 @@ export async function sendDailyDigestToChannel({
         }.`
       };
 
-      persistDeliveryRun(run, channel, run.errorMessage ?? "Delivery failed.");
+      persistDeliveryRun(run, channel, run.errorMessage ?? "投递失败。");
 
       return run;
     }
@@ -652,11 +644,11 @@ export async function sendDailyDigestToChannel({
       responseBodyPreview: responseText
     };
 
-    return persistDeliveryRun(run, channel, "Delivery succeeded.");
+    return persistDeliveryRun(run, channel, "投递成功。");
   } catch (error) {
     const finishedAt = getTimestamp();
     const errorMessage =
-      error instanceof Error ? error.message : "Unknown delivery error.";
+      error instanceof Error ? error.message : "未知投递错误。";
     const run: DeliveryRun = {
       ...pendingRun,
       status: "failed",
@@ -674,7 +666,7 @@ export async function retryDeliveryRun(runId: string): Promise<DeliveryRun> {
   const existingRun = getDeliveryRuns().find((run) => run.id === runId);
 
   if (!existingRun) {
-    throw new Error(`Delivery run ${runId} not found.`);
+    throw new Error(`未找到投递记录 ${runId}。`);
   }
 
   return sendDailyDigestToChannel({
