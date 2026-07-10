@@ -9,7 +9,7 @@
 > with the asserting vitest tests and validate scripts updated to match
 > (all 22 validators green). Historical English messages already persisted
 > in `config/` are intentionally left as-is (audit data); they age out as
-> new records are written. Still English by design: digest *generation*
+> new records are written. Still English by design: digest _generation_
 > copy (default digest title/summary/editorial-note templates, which feed
 > public content), workflow event action codes, and data content itself.
 

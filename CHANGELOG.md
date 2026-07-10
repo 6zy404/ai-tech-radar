@@ -148,7 +148,7 @@ For per-topic deep dives, see the `docs/` directory.
   longer existed pre-localization) — was re-pointed at the current Chinese
   nav/dashboard/action copy. Historical English messages already persisted
   in `config/` stores are intentionally untouched (audit data; they age out
-  naturally). Digest *generation* copy (default title/summary/editorial-note
+  naturally). Digest _generation_ copy (default title/summary/editorial-note
   templates, which feed public digest content), workflow event action codes,
   and imported data content remain English by design. Verified with
   typecheck, lint, format, vitest 54/54, and all 22 `validate:*` scripts
