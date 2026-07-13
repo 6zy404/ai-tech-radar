@@ -1,6 +1,40 @@
 {
-  "updatedAt": "2026-05-26T21:06:01.231Z",
+  "updatedAt": "2026-07-13T07:40:29.287Z",
   "runs": [
+    {
+      "id": "task-runner-392a7682-d70d-4249-b4d3-cac6ec390e43",
+      "mode": "run_once",
+      "startedAt": "2026-07-13T07:40:29.279Z",
+      "finishedAt": "2026-07-13T07:40:29.280Z",
+      "status": "success",
+      "dueScheduleCount": 0,
+      "skippedScheduleCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "partialCount": 0,
+      "deliveryLogsCreated": 0,
+      "messages": [
+        "定时导入未到期。",
+        "没有到期计划。"
+      ]
+    },
+    {
+      "id": "task-runner-35ede866-dfb1-4776-9b3d-b60b9d9f2b37",
+      "mode": "run_once",
+      "startedAt": "2026-07-13T07:34:36.165Z",
+      "finishedAt": "2026-07-13T07:34:52.541Z",
+      "status": "partial",
+      "dueScheduleCount": 0,
+      "skippedScheduleCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "partialCount": 0,
+      "deliveryLogsCreated": 0,
+      "messages": [
+        "定时导入部分成功：5 个启用来源（成功 4，失败 1，部分 0），新增候选 13 条，跳过 3 条。",
+        "没有到期计划。"
+      ]
+    },
     {
       "id": "task-runner-57d3f1c3-f88c-4ba8-a0b0-cc7f9978325c",
       "mode": "run_once",
