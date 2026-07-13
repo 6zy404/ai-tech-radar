@@ -7,6 +7,7 @@ import { useState } from "react";
 const primaryNavItems = [
   { href: "/", label: "首页" },
   { href: "/digest/today", label: "每日简报" },
+  { href: "/news", label: "今日快讯" },
   { href: "/technologies", label: "技术信号" },
   { href: "/skills", label: "技能" },
   { href: "/knowledge", label: "知识" },

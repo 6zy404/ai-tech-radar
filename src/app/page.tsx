@@ -19,6 +19,7 @@ import {
   getPublicDigestSummary,
   getPublicDigestTitle
 } from "@/lib/public-copy";
+import { getLatestPublicNewsItems, newsDisclaimer } from "@/lib/news";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
   getPriorityLevelClass,
@@ -173,6 +174,7 @@ export default function HomePage() {
       : technologies.slice(0, 3);
   const skills = getAllSkills().slice(0, 3);
   const knowledge = getAllKnowledge().slice(0, 4);
+  const latestNews = getLatestPublicNewsItems(4);
 
   return (
     <UserPageShell
@@ -269,6 +271,44 @@ export default function HomePage() {
           <div className="empty-state empty-state--actionable">
             <strong>还没有已发布技术信号。</strong>
             <p>发布正式技术记录后，这里会突出最值得先读的内容。</p>
+          </div>
+        )}
+      </section>
+
+      <section className="section-block">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow user-eyebrow">今日快讯</p>
+            <h2>来源里正在发生什么</h2>
+          </div>
+          <Link href="/news" className="action-link">
+            查看全部快讯
+          </Link>
+        </div>
+        {latestNews.length > 0 ? (
+          <div className="home-news-list">
+            {latestNews.map((item) => (
+              <article key={item.key} className="home-news-row">
+                <div className="home-news-row__meta">
+                  <span className="home-news-row__source">
+                    {item.sourceName}
+                  </span>
+                  <span>{item.publishDate}</span>
+                </div>
+                <a
+                  href={item.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {item.title}
+                </a>
+              </article>
+            ))}
+            <p className="home-news-list__note">{newsDisclaimer}</p>
+          </div>
+        ) : (
+          <div className="empty-state">
+            最近还没有自动聚合的快讯。来源定时导入后，这里会展示最新资讯。
           </div>
         )}
       </section>
