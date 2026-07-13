@@ -1,6 +1,63 @@
 {
-  "updatedAt": "2026-07-13T02:05:15.651Z",
+  "updatedAt": "2026-07-13T08:02:23.753Z",
   "digests": [
+    {
+      "id": "digest-2026-07-13",
+      "date": "2026-07-13",
+      "status": "published",
+      "title": "每日技术简报 - 2026-07-13",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 2 个来源。",
+      "editorialSummary": "今天的主线是开源推理生态的收敛：vLLM v0.25.0 把 Model Runner V2 变成所有稠密模型的默认执行引擎，Hugging Face 同期宣布 Transformers 后端在 vLLM 中追平原生速度——「参考实现」与「高性能实现」的边界正在消失。另一条值得留意的是 NVIDIA 的智能体数据主张：把智能体能力短板重新定义为数据问题，并用 Nemotron 开放数据集给出合成数据的规模化路径。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents"
+      ],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots",
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-api-contracts",
+        "knowledge-evaluation-loops"
+      ],
+      "sourceNames": [
+        "Hugging Face Blog",
+        "OpenAI News",
+        "vLLM Releases"
+      ],
+      "generatedAt": "2026-07-13T12:00:00.000Z",
+      "updatedAt": "2026-07-13T08:02:23.752Z",
+      "publishedAt": "2026-07-13T08:02:23.752Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：定时导入 17 条候选，发布 3 条新信号（vLLM v0.25.0 / Transformers 原生后端 / Nemotron 开放数据），手动加入两条 HF 信号并置顶 vLLM v0.25.0。"
+      ]
+    },
     {
       "id": "digest-2026-07-10",
       "date": "2026-07-10",
