@@ -1,6 +1,289 @@
 {
-  "updatedAt": "2026-07-09T21:02:20.083Z",
+  "updatedAt": "2026-07-13T08:00:48.725Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "slug": "nvidia-open-data-for-agents",
+      "title": {
+        "original": "Data for Agents",
+        "zh": "NVIDIA Nemotron 开放数据：用合成数据支撑智能体开发"
+      },
+      "summary": {
+        "original": "NVIDIA argues that agentic AI needs open data — software engineering traces, tool-use failures, multi-step reasoning, retrieval, safety and user simulation — and that synthetic data is how it scales, backed by the Nemotron open dataset family.",
+        "zh": "NVIDIA 在 Hugging Face 发文阐述智能体时代的数据主张：真正的智能体能力来自工程轨迹、工具调用失败、多步推理、检索与用户模拟等数据，而合成数据是规模化的关键。Nemotron 系列开放数据集（Nemotron-CC、CC-MATH、Pretraining）是这一主张的落地。"
+      },
+      "content": {
+        "original": "NVIDIA lays out why agent capability is a data problem: recovering from broken API calls and unseen workflows requires traces of tool-use failures, multi-step reasoning, retrieval and user simulation. The Nemotron open data family (Nemotron-CC, Nemotron-CC-MATH, Nemotron Pretraining) shows synthetic data as the scaling path, with about 145 ICML papers citing Nemotron models and datasets.",
+        "zh": "NVIDIA 的核心论点是：智能体能力本质上是一个数据问题。一个无法从失败的 API 调用或没见过的工作流中恢复的「智能体」，只是带工具的自动补全。要跨过这道坎，需要软件工程轨迹、工具调用失败、多步推理、检索、安全、用户模拟等类型的数据——这正是 Nemotron 开放数据产品覆盖的范围。\n\n合成数据在其中扮演规模化引擎的角色：Nemotron-CC 用合成增强 Common Crawl 预训练语料，Nemotron-CC-MATH 用合成数学题提升推理能力，Nemotron Pretraining 则覆盖通用、代码、数学等数万亿 token。NVIDIA 援引 ICML 上约 145 篇引用 Nemotron 模型与数据集的论文来说明开放数据对研究生态的带动。\n\n文中还有一个对企业实用的角度：每家公司都有自己的「秘密」（独有的工作流、语料、客户模式），这些信号让 AI 有用，但不应该被直接暴露。合成数据提供了保留信号、隐藏底料的路径。更进一步，开放数据让智能体行为变得可检查、可解释——当模型会调用工具、执行工作流、跨系统行动时，开发者需要理解塑造这些行为的数据。对正在构建智能体的团队来说，这是一份值得对照自查的数据清单。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-08",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "NVIDIA",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-13T08:00:48.725Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「智能体做不好」重新定义为数据问题而不是模型问题，并给出了可操作的数据类型清单与合成数据方法。对智能体团队来说，这比又一个新框架更接近瓶颈本质。",
+      "whoShouldCare": [
+        "构建智能体产品的工程团队",
+        "负责训练/微调数据的算法工程师",
+        "关心数据合规与商业机密的技术负责人"
+      ],
+      "technicalContext": "智能体训练数据的关键类型：工具调用轨迹（含失败恢复）、多步推理链、检索行为、安全边界、用户模拟。合成数据管线在保留这些行为信号的同时避免暴露源数据，Nemotron 系列是当前最大的开放实现之一。",
+      "impactAreas": [
+        "智能体训练与微调",
+        "企业数据资产策略",
+        "开放数据研究生态"
+      ],
+      "learningPath": [
+        "对照文中的数据类型清单，盘点自己的智能体缺哪类训练/评估数据",
+        "浏览 Nemotron 开放数据集，理解合成数据的构造方式",
+        "为一个真实工作流构造小规模合成轨迹数据并验证效果"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "工具调用（尤其是失败与恢复）的轨迹数据是智能体与「带工具的自动补全」的分界线。",
+        "knowledge-evaluation-loops": "开放数据让行为可检查：评估闭环需要知道模型行为由什么数据塑造。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "设计智能体时应同步设计其数据来源：哪些行为需要哪类轨迹数据支撑。",
+        "skill-model-evaluation": "用真实世界（非基准）的失败案例评估智能体，是这篇文章隐含的评估方法论。"
+      },
+      "followUpQuestions": [
+        "你的智能体最常见的失败模式，有对应的训练数据吗？",
+        "合成数据在多大程度上能替代真实用户轨迹？",
+        "如何验证合成数据没有泄漏源数据中的敏感信息？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "createdAt": "2026-07-13T08:00:48.625Z",
+      "updatedAt": "2026-07-13T08:00:48.725Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 NVIDIA 在 Hugging Face 的博客（经 hf-mirror 镜像访问）编写。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "slug": "vllm-transformers-native-backend",
+      "title": {
+        "original": "Native-speed vLLM transformers modeling backend",
+        "zh": "vLLM 的 Transformers 后端达到原生速度：450+ 架构免移植高性能推理"
+      },
+      "summary": {
+        "original": "The transformers modeling backend in vLLM now meets or beats vLLM's hand-written native implementations across dense and MoE Qwen3 models. Model authors get ultra-fast vLLM inference from their transformers implementation with a single --model-impl transformers flag.",
+        "zh": "Hugging Face 与 vLLM 宣布：vLLM 中的 Transformers 建模后端在 Qwen3 4B/32B 稠密模型和 235B FP8 MoE 上全面追平甚至反超 vLLM 手写原生实现。模型作者只需一个 --model-impl transformers 开关，就能让 Transformers 实现直接获得 vLLM 级推理性能，无需移植。"
+      },
+      "content": {
+        "original": "Hugging Face benchmarked the transformers modeling backend against vLLM native implementations across three Qwen3 models (4B dense single GPU, 32B dense tensor-parallel, 235B FP8 MoE on 8xH100). The backend now meets or beats native throughput in all three, composing with the usual parallelism options.",
+        "zh": "Transformers 库支持 450 多种模型架构，长期扮演着「参考建模库」的角色：模型作者先在 Transformers 里实现，再由 vLLM、SGLang、MLX、llama.cpp 等推理框架逐个移植。去年 vLLM 集成了 Transformers 作为建模后端，让模型无需移植即可运行——但性能一直落后于手写原生实现。\n\n这次的更新改变了这一点。Hugging Face 在三个差异很大的 Qwen3 模型上做了头对头对比：单卡 4B 稠密模型、张量并行的 32B 稠密模型、以及 8×H100 上数据并行 + 专家并行的 235B FP8 MoE。结果是 Transformers 后端在全部三档上追平或反超原生实现。使用方式只是一个开关（--model-impl transformers），与现有并行配置完全兼容；目前的例外是线性注意力类模型（官方表示即将支持）。\n\n这件事的生态意义大于单点性能：模型实现只需写一次 Transformers 版本，就能同时获得可读的参考实现和生产级推理性能，「参考实现 vs 高性能实现」的二选一正在消失。对推理团队来说，新架构模型的可用时间差（Transformers 先可用、vLLM 原生实现晚数周）也随之消失。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-08",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "startup",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-13T08:00:48.572Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它消除了「参考实现」与「高性能实现」之间的移植成本：新模型在 Transformers 里实现一次，就能立即以 vLLM 级性能上线。这会显著缩短新架构从发布到可生产部署的时间差。",
+      "whoShouldCare": [
+        "跟进新模型架构的推理工程师",
+        "维护自有模型实现的模型作者",
+        "评估推理框架选型的平台团队"
+      ],
+      "technicalContext": "Transformers 提供建模代码（前向计算与权重定义），vLLM 提供连续批处理、自定义注意力内核等服务优化，两者通过 --model-impl 契约组合。基准对比在相同服务配置下只切换代码路径（native / transformers before / after）。",
+      "impactAreas": [
+        "新模型的上线周期",
+        "推理框架选型",
+        "开源建模库生态分工"
+      ],
+      "learningPath": [
+        "理解建模库与推理引擎的分工：模型实现、执行优化分别在哪一层",
+        "用 --model-impl transformers 与原生实现各跑一次相同负载，对比吞吐",
+        "跟踪线性注意力等尚未支持的架构类型的进展"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "--model-impl 是典型的接口契约：只要 Transformers 实现符合约定，vLLM 的优化就自动生效。",
+        "knowledge-latency-tradeoffs": "后端切换是否影响你的延迟分布，需要用真实负载验证而不是只看吞吐峰值。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "头对头基准（相同配置、只换代码路径）是这类「性能追平」声明的标准验证方法。",
+        "skill-tool-integration": "一个开关接入的集成方式值得学习：不改变现有服务编排，只切换实现层。"
+      },
+      "followUpQuestions": [
+        "你在用的模型架构是否在 450+ 支持列表里？",
+        "线性注意力模型的支持何时落地？",
+        "SGLang、MLX 等其他推理框架会跟进类似的后端模式吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "createdAt": "2026-07-13T08:00:48.467Z",
+      "updatedAt": "2026-07-13T08:00:48.572Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 Hugging Face 博客（经 hf-mirror 镜像访问）编写。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "slug": "vllm-v0-25-0",
+      "title": {
+        "original": "vLLM v0.25.0",
+        "zh": "vLLM v0.25.0：Model Runner V2 成为默认执行引擎的大版本"
+      },
+      "summary": {
+        "original": "vLLM v0.25.0 ships 558 commits from 232 contributors. Model Runner V2 becomes the default for all dense models, building on the quantized-model support introduced in the previous release.",
+        "zh": "vLLM 发布 v0.25.0：558 个提交、232 位贡献者参与的大版本。Model Runner V2 正式成为所有稠密模型的默认执行引擎，在上一版本量化模型支持的基础上完成了推理执行栈的代际切换。"
+      },
+      "content": {
+        "original": "vLLM v0.25.0 makes Model Runner V2 the default for all dense models, marking the completion of a major execution-stack transition that started with quantized-model support in v0.24. The release aggregates 558 commits from 232 contributors (64 new).",
+        "zh": "vLLM v0.25.0 是推理执行栈切换的收官版本：Model Runner V2（MRv2）正式成为所有稠密模型的默认执行引擎。这次发布汇集了 558 个提交、232 位贡献者（其中 64 位是新贡献者），延续了上一个版本（v0.24.0）打下的量化模型支持基础。\n\n对使用者来说，这是一次「默认值变更」级别的升级：过去需要显式开启的新执行引擎，现在开箱即用。执行引擎决定了批处理调度、KV 缓存管理和算子路径，直接影响吞吐与延迟表现，因此升级前后值得用自己的真实负载做一轮基准对比，而不是只看官方数字。\n\n结合同期 Hugging Face 宣布 Transformers 后端在 vLLM 中达到原生速度，可以看到开源推理生态正在收敛：vLLM 负责极致的服务优化，模型实现层则越来越多地交给标准化的建模库。对自建推理服务的团队而言，vLLM 的大版本节奏（v0.24 → v0.25 两个月内完成执行栈切换）本身就是一个值得跟踪的信号。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-11",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.25.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-13T08:00:48.402Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理引擎的默认执行栈切换会直接改变吞吐、延迟和 GPU 成本曲线。vLLM 是目前自建大模型服务最主流的开源选择，它的大版本升级几乎影响所有自托管推理团队。",
+      "whoShouldCare": [
+        "推理平台与服务工程师",
+        "关注 GPU 成本的 MLOps 负责人",
+        "自托管开源模型的技术团队"
+      ],
+      "technicalContext": "Model Runner V2 是 vLLM 重写的模型执行层，负责调度、KV 缓存与算子路径。v0.24 先以量化模型为试点，v0.25 将其推广为全部稠密模型的默认值——这是典型的「灰度到默认」的执行栈迁移路径。",
+      "impactAreas": [
+        "自托管模型推理服务",
+        "GPU 成本与容量规划",
+        "开源推理生态标准化"
+      ],
+      "learningPath": [
+        "先理解推理引擎在服务栈中的位置：模型实现、执行引擎、服务编排各自负责什么",
+        "用官方文档跑通 vLLM 的基本部署，观察吞吐与显存占用",
+        "在自己的真实负载上对比 v0.24 与 v0.25 的表现，验证默认值变更的影响"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "执行引擎升级改变了同一张卡能服务的模型规模与并发上限，模型规模直觉是评估这次升级收益的基础。",
+        "knowledge-system-design": "MRv2 的灰度到默认路径是系统级组件迁移的典型案例：先在子集验证，再切换默认值。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "版本升级前后的基准对比（吞吐、P99 延迟、显存）是判断是否跟进的直接依据。",
+        "skill-scope-pilots": "对生产推理服务，先在非关键流量上试点新版本，再决定全量升级。"
+      },
+      "followUpQuestions": [
+        "MRv2 对 MoE 与多模态模型的支持进度如何？",
+        "你的负载在 v0.25 上的吞吐/延迟变化是多少？",
+        "Transformers 后端与原生实现在你的目标模型上还有差距吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "createdAt": "2026-07-13T08:00:47.504Z",
+      "updatedAt": "2026-07-13T08:00:48.402Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 GitHub release notes 编写。"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
       "slug": "chatgpt-work",

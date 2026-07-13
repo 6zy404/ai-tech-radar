@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T20:58:31.395Z",
+  "updatedAt": "2026-07-13T08:00:48.625Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -120,6 +120,45 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-09T20:58:31.395Z",
       "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0-rc0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-13T07:55:30.854Z"
+    },
+    "candidate-rss-https-openai-com-index-deutsche-telekom": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-13T07:55:30.896Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-torch-attention-profile": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-13T07:55:30.930Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-13T07:55:30.964Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-13T07:55:31.000Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-amazon-one-click-to-sagemaker-studio": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-13T07:55:31.033Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-13T08:00:47.505Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-13T08:00:48.468Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-13T08:00:48.625Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents"
     }
   }
 }
