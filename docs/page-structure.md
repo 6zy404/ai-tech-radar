@@ -58,6 +58,7 @@ Purpose:
 Used by:
 
 - `/`
+- `/news`
 - `/technologies`
 - `/skills`
 - `/knowledge`
@@ -209,6 +210,9 @@ Purpose:
   - shows local task runner commands: `npm run tasks:run-once` and `npm run tasks:watch`
   - shows the latest `TaskRunnerRun` summary when the command-line runner has executed
   - inspect next run time, last run status, skipped channel count, and linked delivery logs
+  - shows the scheduled-import (定时导入) panel: enable/disable the task-runner
+    daily source import, edit its daily time, and inspect its next/last run
+    plus the latest batch import result
   - keeps schedule configuration, schedule run logs, task-runner logs, and command-line runner details out of user-facing pages
 - `/workspace/operations`
   - workspace-only operations dashboard
@@ -249,7 +253,22 @@ Workspace deployment boundary:
   - highlights high-priority published technology signals
   - links readers into Skills and Knowledge as understanding paths
   - links to `/digest/today`, `/technologies`, `/skills`, and `/knowledge`
+  - shows a compact latest-news board (今日快讯) linking to `/news`, with the
+    auto-aggregation disclaimer
   - does not show workspace actions, source health, delivery, audit, task-runner, or local JSON warnings
+- `/news`
+  - user-facing auto-aggregated news fast lane (今日快讯)
+  - renders recently imported candidates (last 7 days, grouped by day) through
+    the dedicated sanitizing map in `src/lib/news.ts` — title, truncated
+    summary, source name, external source link, publish date, and display
+    tags only
+  - always labelled "自动聚合内容，未经编辑精选"; links converted + published
+    items to their formal technology signal page
+  - hides rejected candidates, fallback placeholder candidates, and
+    non-primary duplicates; shows a guided empty state when the window is
+    empty
+  - does not show import status, raw payloads, candidate IDs, duplicate
+    internals, source health, or any workspace action
 - `/technologies`
   - user-facing published technology list
   - bilingual content preference for title and summary
@@ -402,7 +421,7 @@ Forbidden on public pages:
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`
-  - shared global navigation for user-facing Home, Daily Digest, Technologies, Skills, Knowledge, Network, and the secondary Workspace entry point
+  - shared global navigation for user-facing Home, Daily Digest, News, Technologies, Skills, Knowledge, Network, My Radar, and the secondary Workspace entry point
 - `DetailInfoCard`
   - shared reference / metadata card
 - `TagBadge`

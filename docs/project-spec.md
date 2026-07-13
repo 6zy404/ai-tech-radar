@@ -39,7 +39,10 @@ Responsibilities:
 
 - explain what the product is from `/` and guide readers into the public discovery flow
 - surface the latest published Daily Digest as the primary "start here" entry
-- render published `TechnologyItem` content only
+- offer `/news` as an auto-aggregated fast lane (two-tier content model): the
+  most recently imported items, sanitized and clearly labelled 未经编辑精选,
+  alongside — never instead of — the editor-curated signal and digest tier
+- render published `TechnologyItem` content only on the curated tier
 - support content-level bilingual reading for technology title, summary, and content
 - show source links, tags, related knowledge, related skills, priority labels, and Content Intelligence explanations
 - show published Daily Digest pages generated from published technology items
@@ -56,6 +59,8 @@ task-runner information.
 Public pages:
 
 - `/`
+- `/news` — auto-aggregated news fast lane (sanitized imported candidates,
+  last 7 days; see `docs/security-boundary.md` → "News Fast Lane Boundary")
 - `/digest/today`
 - `/digest/[date]`
 - `/technologies`
@@ -170,6 +175,28 @@ The batch summary records total sources, enabled sources, skipped disabled sourc
 - `failed`: no candidates were imported and the error was recorded
 
 `npm run validate:sources` verifies source validation, duplicate URL rejection, disabled-source behavior, batch import summaries, source health updates, candidate traceability, duplicate skipping, and failed import persistence.
+
+## Scheduled Import + News Fast Lane v0
+
+Shipped 2026-07-13 (owner-authorized) to make content freshness automatic
+without weakening the editorial gate:
+
+- The local task runner (`tasks:run-once` / `tasks:watch`) checks
+  `config/scheduled-import.json` on every pass and runs one batch import for
+  all enabled sources when the configured daily time (default `08:00`
+  Asia/Shanghai) has passed. Unattended imports never create fallback
+  placeholder candidates. Managed from `/workspace/delivery/schedules`;
+  Windows Task Scheduler setup lives in `docs/deployment.md`.
+- `/news` (今日快讯) publicly renders the last 7 days of imported candidates
+  through the sanitizing map in `src/lib/news.ts` — title / truncated
+  summary / source / date / display tags only, always labelled
+  自动聚合，未经编辑精选. Rejected, fallback, and non-primary duplicate
+  candidates are excluded; converted + published items link to their formal
+  signal page. The home page carries a compact latest-news board.
+- This is a **two-tier content model**: the fast lane answers "what is
+  happening right now", while the curated TechnologyItem + digest tier keeps
+  answering "what deserves attention first". The editorial workflow is
+  unchanged.
 
 ## Publish Quality Gate v0
 

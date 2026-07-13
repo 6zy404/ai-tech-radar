@@ -12,10 +12,10 @@ The product is split into two subsystems:
   edit and enrich draft content, run publish-readiness checks, publish/archive
   records, build and publish Daily Digests, deliver digests to external
   channels, schedule deliveries, and monitor operations.
-- **User-facing Product** — a public home, readable technology list/detail
-  pages (published records only), published Daily Digest pages, skills/knowledge
-  pages that explain the signals, public RSS/JSON feeds, and content-level
-  bilingual support.
+- **User-facing Product** — a public home, an auto-aggregated news fast lane
+  (`/news`), readable technology list/detail pages (published records only),
+  published Daily Digest pages, skills/knowledge pages that explain the
+  signals, public RSS/JSON feeds, and content-level bilingual support.
 
 > **Status:** working prototype, past the original foundation phase. For the full
 > feature history see [`CHANGELOG.md`](CHANGELOG.md). For deep dives on any area
@@ -24,8 +24,17 @@ The product is split into two subsystems:
 ## Current capabilities
 
 - **Ingestion** — real import for RSS / Atom, GitHub releases, and
-  official-blog-style pages, with a local fallback layer, batch import, and
-  source/candidate quality signals.
+  official-blog-style pages, with a local fallback layer, batch import,
+  source/candidate quality signals, and a task-runner scheduled daily import
+  (`config/scheduled-import.json`, managed from
+  `/workspace/delivery/schedules`).
+- **News fast lane (two-tier content model)** — `/news` publicly renders
+  recently imported candidates (last 7 days, grouped by day) through a
+  dedicated sanitizing map (`src/lib/news.ts`): title / summary / source /
+  date / tags only, always labelled "自动聚合，未经编辑精选", with rejected
+  candidates, fallback placeholders, and non-primary duplicates excluded, and
+  converted items linking to their published signal. The curated technology
+  signal + digest tier stays editor-gated and unchanged.
 - **Review** — candidate review workflow with filters, deterministic and
   explainable duplicate detection, and duplicate-group resolution.
 - **Drafting & publishing** — candidate → draft conversion, lightweight draft
@@ -75,7 +84,10 @@ The product is split into two subsystems:
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
-  scheduled sending of published digests, and a local cron/task runner.
+  scheduled sending of published digests, and a local cron/task runner that
+  also runs the scheduled daily source import (see
+  [`docs/deployment.md`](docs/deployment.md) for Windows Task Scheduler
+  setup).
 - **Operations** — a workspace operations dashboard, a `WorkflowEvent` audit log,
   and per-subsystem `validate:*` checks.
 - **Persistence** — local JSON by default, with an optional SQLite driver.
@@ -91,7 +103,7 @@ reading storage directly.
 
 Public, user-facing routes:
 
-- `/`, `/technologies`, `/technologies/[slug]`
+- `/`, `/news`, `/technologies`, `/technologies/[slug]`
 - `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
@@ -214,8 +226,9 @@ not a project failure.
 Runtime workflow state lives in `config/` as JSON (the default fallback store):
 imported candidates, candidate review state, external sources, technology
 workspace records, duplicate groups, daily digests, delivery, scheduled
-delivery, task runner, workflow events, editorial enrichment suggestions, and
-prompt versions. Set `LOCAL_DATA_DIR` to point at a different local directory.
+delivery, scheduled import, task runner, workflow events, editorial enrichment
+suggestions, and prompt versions. Set `LOCAL_DATA_DIR` to point at a different
+local directory.
 
 ## Project structure
 

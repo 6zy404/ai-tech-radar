@@ -27,7 +27,12 @@ Used by end users.
 
 Responsibilities:
 
-- display formal `TechnologyItem` content only
+- display formal `TechnologyItem` content only on the curated tier
+- offer an auto-aggregated news fast lane (`/news`) rendered through a
+  dedicated sanitizing map (`src/lib/news.ts`) and always labelled as
+  unedited aggregation — the deliberate two-tier exception to "candidates are
+  workspace-only" (see `docs/security-boundary.md` → "News Fast Lane
+  Boundary")
 - provide readable technology list and detail pages
 - show title, summary, content, source, tags, related skills, and related knowledge
 - prefer Chinese content when translation exists
@@ -115,7 +120,7 @@ prerequisite instead of silently doing nothing.
 
 Route and API boundaries:
 
-- Public routes: `/`, `/technologies`, `/technologies/[slug]`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
+- Public routes: `/`, `/news`, `/technologies`, `/technologies/[slug]`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
 - Internal routes: `/workspace/*`
 - Internal mutation APIs: `/api/workspace/*` and `/api/candidates/*`
 - Public pages do not import workspace action components and do not call workspace mutation APIs
@@ -392,7 +397,10 @@ The workspace route `/workspace/delivery/schedules` shows schedule configuration
 
 ## Real Cron / Task Runner v1
 
-Task Runner v1 is a local execution layer for Scheduled Delivery. It does not introduce a production cron service, distributed scheduler, subscription system, user accounts, or a database.
+Task Runner v1 is a local execution layer for Scheduled Delivery — and, since
+the news fast lane milestone, for the scheduled daily source import. It does
+not introduce a production cron service, distributed scheduler, subscription
+system, user accounts, or a database.
 
 Object responsibilities:
 
@@ -402,6 +410,9 @@ Object responsibilities:
 - `DeliveryRun` still records each per-channel delivery attempt.
 - `ScheduledDeliveryRun` still records one schedule execution across channels.
 - `TaskRunnerRun` records one command-line runner pass across all due schedules.
+- `ScheduledImportConfig` (`src/lib/scheduled-import.ts`,
+  `config/scheduled-import.json`) owns when the daily source import runs;
+  `runBatchImportForEnabledSources` still owns the import itself.
 
 Command entry points:
 
@@ -417,6 +428,11 @@ Execution rules:
 - disabled channels are skipped
 - duplicate protection prevents the same schedule / digest / channel from being sent more than once in the same local day during scheduled runs
 - manual force runs remain separate from scheduled task-runner runs
+- each pass first runs the scheduled source import when it is due (enabled
+  and `nextRunAt` missing or in the past); the run advances `nextRunAt` to
+  the next daily time, which also prevents same-day duplicate imports
+- unattended imports run without fallback placeholder candidates; a failed
+  import downgrades an otherwise successful runner pass to `partial`
 
 Audit and logging:
 
@@ -434,6 +450,7 @@ Deployment readiness defines which parts of the local-first prototype can be pub
 Public user-facing routes:
 
 - `/`
+- `/news`
 - `/technologies`
 - `/technologies/[slug]`
 - `/digest/today`
