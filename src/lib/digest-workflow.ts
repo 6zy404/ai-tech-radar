@@ -148,14 +148,10 @@ function buildDigestSummary(
   sourceCount: number
 ): string {
   if (highPriorityCount === 0 && watchCount === 0) {
-    return "No recent published technology signals qualified for today's digest.";
+    return "近期没有符合条件的已发布技术信号可选入今日简报。";
   }
 
-  return [
-    `${highPriorityCount} item(s) need immediate attention`,
-    `${watchCount} item(s) are worth tracking`,
-    `${sourceCount} source(s) are represented`
-  ].join(". ");
+  return `今日 ${highPriorityCount} 条立即关注，${watchCount} 条值得跟踪，覆盖 ${sourceCount} 个来源。`;
 }
 
 function hasText(value: string | undefined): boolean {
@@ -349,8 +345,8 @@ export function buildDailyDigestFromTechnologies(
     generatedAt: timestamp,
     updatedAt: timestamp,
     editorialNotes: [
-      "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-      "Low-priority items are excluded by default in Daily Digest v0."
+      "由已发布技术记录按 Ranking v0 优先级生成。",
+      "Daily Digest v0 默认排除低优先级条目。"
     ]
   };
 }

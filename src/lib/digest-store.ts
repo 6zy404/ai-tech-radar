@@ -21,7 +21,7 @@ export function getTodayDateString(now = new Date()): string {
 }
 
 export function getDefaultDigestTitle(date: string): string {
-  return `Daily Technology Digest - ${date}`;
+  return `每日技术简报 - ${date}`;
 }
 
 function normalizeDigestStatus(value: unknown): DailyDigestStatus {
@@ -66,7 +66,7 @@ export function normalizeDigest(record: Record<string, unknown>): DailyDigest {
     summary:
       typeof record.summary === "string" && record.summary.trim()
         ? record.summary
-        : "A daily brief generated from published technology signals.",
+        : "由已发布技术信号生成的每日简报。",
     editorialSummary:
       typeof record.editorialSummary === "string"
         ? record.editorialSummary

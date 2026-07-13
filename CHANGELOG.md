@@ -129,6 +129,24 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Navigation, IA & design system
 
+- **Digest generation copy localization (Chinese)** — 2026-07-10, the final
+  slice of the localization sequence and the only one that touches public
+  content generation: the default digest title template
+  (`getDefaultDigestTitle` in `digest-store.ts`, now `每日技术简报 - 日期`),
+  the generated digest summary (`buildDigestSummary` in
+  `digest-workflow.ts`, now `今日 N 条立即关注，N 条值得跟踪，覆盖 N 个来源。`
+  plus a Chinese empty-digest fallback), the `normalizeDigest` summary
+  fallback, and the default editorial-note templates are now generated in
+  Chinese. The two published real digests (2026-07-09 / 2026-07-10) had
+  their English default titles/summaries backfilled to the new Chinese
+  copy via `updateDailyDigest` (editor-written Chinese editorial summaries
+  untouched); the May delivery-validation fixtures were left as-is since
+  `public-copy.ts` already sanitizes them on public surfaces. Share text
+  and the public-copy fallbacks were already Chinese. Verified with
+  typecheck, lint, format, vitest 54/54, the six digest/delivery
+  validators, and a live pass over `/digest/today`, `/digest/2026-07-09`,
+  `/feed.xml`, `/feed.json`, and the home digest card (feed item titles now
+  Chinese, zero leftover generation English, zero console errors).
 - **Workspace diagnostic-string localization (Chinese)** — 2026-07-10, the
   owner-chosen follow-up to Workspace UI localization v0: the six categories
   of lib-generated diagnostic strings deliberately left English in that pass
