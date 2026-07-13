@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-07-09T21:03:29.906Z",
+  "updatedAt": "2026-07-13T02:05:15.651Z",
   "digests": [
     {
       "id": "digest-2026-07-10",
       "date": "2026-07-10",
       "status": "published",
-      "title": "Daily Technology Digest - 2026-07-10",
-      "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
+      "title": "每日技术简报 - 2026-07-10",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 2 个来源。",
       "editorialSummary": "今天的两条信号都来自 OpenAI，但指向两个不同的判断维度：GPT-5.6 把旗舰模型的竞争轴从能力上限转向单位 token 的智能密度与单位成本性能，并且发布即成为 Microsoft 365 Copilot 的首选模型；ChatGPT Work 则把智能体推向「长时程数字同事」的产品形态——跨应用执行、连续数小时工作、以交付物为完成标准。一个关乎你为什么该重估模型选型，一个关乎团队评估 AI 的标准正在从回答质量转向任务完成率。",
       "highPriorityTechnologyIds": [
         "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
@@ -42,7 +42,7 @@
         "vLLM Releases"
       ],
       "generatedAt": "2026-07-10T12:00:00.000Z",
-      "updatedAt": "2026-07-09T21:03:29.905Z",
+      "updatedAt": "2026-07-13T02:05:15.619Z",
       "publishedAt": "2026-07-09T21:03:29.905Z",
       "editorialNotes": [
         "Generated from published TechnologyItem records using Ranking v0 priority levels.",
@@ -53,8 +53,8 @@
       "id": "digest-2026-07-09",
       "date": "2026-07-09",
       "status": "published",
-      "title": "Daily Technology Digest - 2026-07-09",
-      "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
+      "title": "每日技术简报 - 2026-07-09",
+      "summary": "今日 1 条立即关注，0 条值得跟踪，覆盖 1 个来源。",
       "editorialSummary": "今天有三条值得关注的信号：OpenAI 发布新一代实时语音模型 GPT-Live，语音正在成为有独立模型代际的产品线；自托管推理引擎 vLLM 发布 v0.24.0 稳定版且下一版 rc 已在推进；本地运行时 Ollama 的 v0.31.2 则继续打磨普通硬件上的可用性。三条放在一起看：模型能力、服务端推理和端侧推理都在同步提速。",
       "highPriorityTechnologyIds": [
         "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
@@ -87,7 +87,7 @@
         "vLLM Releases"
       ],
       "generatedAt": "2026-07-09T12:00:00.000Z",
-      "updatedAt": "2026-07-09T13:59:52.861Z",
+      "updatedAt": "2026-07-13T02:05:15.650Z",
       "lastRegeneratedAt": "2026-07-09T13:59:16.729Z",
       "publishedAt": "2026-07-09T12:32:56.505Z",
       "editorialNotes": [

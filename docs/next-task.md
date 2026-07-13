@@ -9,9 +9,11 @@
 > with the asserting vitest tests and validate scripts updated to match
 > (all 22 validators green). Historical English messages already persisted
 > in `config/` are intentionally left as-is (audit data); they age out as
-> new records are written. Still English by design: digest _generation_
-> copy (default digest title/summary/editorial-note templates, which feed
-> public content), workflow event action codes, and data content itself.
+> new records are written. The digest _generation_ copy (default digest
+> title/summary/editorial-note templates, which feed public content) was
+> localized the same day as the final slice, with the two published real
+> digests backfilled to the new Chinese titles/summaries. Still English by
+> design: workflow event action codes and data content itself.
 
 > See `docs/roadmap.md` for the high-level plan. P1 (visual pass) and P2
 > (knowledge relationship network) are both done. P3 (AI-assisted
