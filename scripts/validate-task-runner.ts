@@ -32,6 +32,10 @@ const digestStorePath = path.join(configDirPath, "daily-digests.json");
 const deliveryStorePath = path.join(configDirPath, "delivery.json");
 const scheduleStorePath = path.join(configDirPath, "scheduled-delivery.json");
 const taskRunnerStorePath = path.join(configDirPath, "task-runner.json");
+const scheduledImportStorePath = path.join(
+  configDirPath,
+  "scheduled-import.json"
+);
 const now = "2026-05-27T01:00:00.000Z";
 const dueTime = new Date("2099-05-27T01:05:00.000Z");
 const internalOnlyTerms = [
@@ -172,9 +176,28 @@ async function main() {
   const deliveryStoreBackup = backupFile(deliveryStorePath);
   const scheduleStoreBackup = backupFile(scheduleStorePath);
   const taskRunnerStoreBackup = backupFile(taskRunnerStorePath);
+  const scheduledImportStoreBackup = backupFile(scheduledImportStorePath);
 
   try {
     removeRuntimeStores();
+
+    // 停用定时导入，保证验证运行不会触发真实的外部来源导入。
+    mkdirSync(configDirPath, { recursive: true });
+    writeFileSync(
+      scheduledImportStorePath,
+      JSON.stringify(
+        {
+          enabled: false,
+          scheduleTime: "08:00",
+          timezone: "Asia/Shanghai",
+          lastRunStatus: "never_run",
+          updatedAt: now
+        },
+        null,
+        2
+      ),
+      "utf8"
+    );
 
     const technologies = getAllTechnologies()
       .filter((technology) => technology.status === "published")
@@ -198,6 +221,11 @@ async function main() {
     assert.equal(
       emptyLogger.lines.some((line) => line.includes("没有到期计划。")),
       true
+    );
+    assert.equal(
+      emptyRun.messages.some((message) => message.includes("定时导入已停用。")),
+      true,
+      "Disabled scheduled import should be reported and skipped."
     );
 
     removeRuntimeStores();
@@ -427,6 +455,7 @@ async function main() {
     restoreFile(deliveryStorePath, deliveryStoreBackup);
     restoreFile(scheduleStorePath, scheduleStoreBackup);
     restoreFile(taskRunnerStorePath, taskRunnerStoreBackup);
+    restoreFile(scheduledImportStorePath, scheduledImportStoreBackup);
   }
 }
 
