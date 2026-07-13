@@ -6,6 +6,12 @@ import {
   runScheduleById
 } from "@/lib/scheduled-delivery-workflow";
 import {
+  buildScheduledImportMessage,
+  getScheduledImportConfig,
+  isScheduledImportDue,
+  runScheduledImport
+} from "@/lib/scheduled-import";
+import {
   getLocalStoreFilePath,
   readLocalJsonFile as readJsonFile,
   writeLocalJsonFile as writeJsonFile
@@ -235,6 +241,34 @@ export async function runScheduledDeliveryTask({
   let failedCount = 0;
   let partialCount = 0;
   let deliveryLogsCreated = 0;
+  let importOutcome: "none" | "partial" | "failed" = "none";
+
+  const importConfig = getScheduledImportConfig();
+
+  if (isScheduledImportDue(importConfig, now)) {
+    try {
+      const { run: importRun } = await runScheduledImport({ now });
+
+      messages.push(buildScheduledImportMessage(importRun));
+
+      if (importRun.status === "failed") {
+        importOutcome = "failed";
+      } else if (importRun.status === "partial") {
+        importOutcome = "partial";
+      }
+    } catch (error) {
+      importOutcome = "failed";
+      messages.push(
+        `定时导入失败：${
+          error instanceof Error ? error.message : "未知导入错误。"
+        }`
+      );
+    }
+  } else {
+    messages.push(
+      importConfig.enabled ? "定时导入未到期。" : "定时导入已停用。"
+    );
+  }
 
   for (const schedule of dueSchedules) {
     try {
@@ -269,17 +303,25 @@ export async function runScheduledDeliveryTask({
   }
 
   const finishedAt = getTimestamp();
+  let status = getTaskRunnerStatus({
+    dueScheduleCount: dueSchedules.length,
+    successCount,
+    failedCount,
+    partialCount
+  });
+
+  if (importOutcome === "failed") {
+    status = status === "failed" ? "failed" : "partial";
+  } else if (importOutcome === "partial" && status === "success") {
+    status = "partial";
+  }
+
   let run: TaskRunnerRun = {
     id: `task-runner-${randomUUID()}`,
     mode,
     startedAt,
     finishedAt,
-    status: getTaskRunnerStatus({
-      dueScheduleCount: dueSchedules.length,
-      successCount,
-      failedCount,
-      partialCount
-    }),
+    status,
     dueScheduleCount: dueSchedules.length,
     skippedScheduleCount: Math.max(
       allSchedules.length - dueSchedules.length,

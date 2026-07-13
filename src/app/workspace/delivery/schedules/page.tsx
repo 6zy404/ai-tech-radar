@@ -5,6 +5,7 @@ import {
   ScheduledDeliveryActions
 } from "@/components/scheduled-delivery-actions";
 import { ScheduledDeliveryForm } from "@/components/scheduled-delivery-form";
+import { ScheduledImportActions } from "@/components/scheduled-import-actions";
 import { WorkflowEventList } from "@/components/workflow-event-list";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
@@ -13,6 +14,8 @@ import {
   getScheduledDeliveries,
   getScheduledDeliveryRuns
 } from "@/lib/scheduled-delivery-workflow";
+import { getScheduledImportConfig } from "@/lib/scheduled-import";
+import { getLatestExternalSourceImportRun } from "@/lib/source-workflow";
 import { getLatestTaskRunnerRun } from "@/lib/task-runner";
 import { getRecentWorkflowEvents } from "@/lib/workflow-events";
 import type { ScheduledDeliveryRunStatus } from "@/types/content";
@@ -72,6 +75,8 @@ export default function WorkspaceDeliverySchedulesPage() {
   const schedules = getScheduledDeliveries();
   const runs = getScheduledDeliveryRuns();
   const latestTaskRunnerRun = getLatestTaskRunnerRun();
+  const scheduledImportConfig = getScheduledImportConfig();
+  const latestImportRun = getLatestExternalSourceImportRun();
   const now = Date.now();
   const enabledCount = schedules.filter((schedule) => schedule.enabled).length;
   const failedRunCount = runs.filter((run) => run.status === "failed").length;
@@ -348,6 +353,70 @@ export default function WorkspaceDeliverySchedulesPage() {
       </section>
 
       <section className="schedule-support-grid" aria-label="计划辅助信息">
+        <details className="schedule-support-panel" open>
+          <summary>定时导入（来源自动更新）</summary>
+          <p>
+            任务运行器在检查到期投递计划的同时，按这里的时间每天自动导入所有已启用来源，为公开快讯提供新内容。
+          </p>
+          <dl className="digest-delivery-list">
+            <div>
+              <dt>状态</dt>
+              <dd>
+                <WorkspaceStatusBadge
+                  label={scheduledImportConfig.enabled ? "已启用" : "已停用"}
+                  tone={scheduledImportConfig.enabled ? "success" : "neutral"}
+                />
+              </dd>
+            </div>
+            <div>
+              <dt>每日时间</dt>
+              <dd>
+                {scheduledImportConfig.scheduleTime}（
+                {scheduledImportConfig.timezone}）
+              </dd>
+            </div>
+            <div>
+              <dt>下次导入</dt>
+              <dd>
+                {scheduledImportConfig.nextRunAt
+                  ? formatDateTime(scheduledImportConfig.nextRunAt)
+                  : "下次任务运行器执行时立即导入"}
+              </dd>
+            </div>
+            <div>
+              <dt>最近定时导入</dt>
+              <dd>
+                {getRunStatusLabel(
+                  scheduledImportConfig.lastRunStatus === "never_run"
+                    ? undefined
+                    : scheduledImportConfig.lastRunStatus
+                )}{" "}
+                - {formatDateTime(scheduledImportConfig.lastRunAt)}
+                {scheduledImportConfig.lastRunMessage ? (
+                  <small className="delivery-log-message">
+                    {scheduledImportConfig.lastRunMessage}
+                  </small>
+                ) : null}
+              </dd>
+            </div>
+            <div>
+              <dt>最近一次导入结果</dt>
+              <dd>
+                {latestImportRun
+                  ? `${getRunStatusLabel(latestImportRun.status)} - 新增候选 ${latestImportRun.totalCandidatesCreated} 条 - ${formatDateTime(latestImportRun.finishedAt)}`
+                  : "还没有导入记录。"}
+                <Link className="action-link" href="/workspace/sources">
+                  查看来源健康
+                </Link>
+              </dd>
+            </div>
+          </dl>
+          <ScheduledImportActions
+            enabled={scheduledImportConfig.enabled}
+            scheduleTime={scheduledImportConfig.scheduleTime}
+          />
+        </details>
+
         <details className="schedule-support-panel">
           <summary>任务运行器与到期运行</summary>
           <p>命令行运行器与本页使用相同的重复发送保护。</p>
