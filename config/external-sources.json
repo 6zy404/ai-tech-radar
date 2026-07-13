@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T20:55:53.719Z",
+  "updatedAt": "2026-07-13T07:34:52.540Z",
   "sources": [
     {
       "id": "quality-good-source",
@@ -67,17 +67,16 @@
         "open-source"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "partial",
-      "lastImportCount": 1,
-      "consecutiveFailureCount": 1,
-      "totalImportedCount": 5,
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-07-09T20:54:42.138Z",
+      "updatedAt": "2026-07-13T07:34:48.737Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-09T20:54:42.138Z",
-      "lastImportMessage": "Live import failed; local fallback used. fetch failed",
-      "lastSuccessfulImportAt": "2026-07-09T12:28:20.768Z",
-      "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
+      "lastFetchedAt": "2026-07-13T07:34:48.737Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-13T07:34:48.737Z"
     },
     {
       "id": "source-vllm-releases",
@@ -94,17 +93,16 @@
         "serving"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "partial",
-      "lastImportCount": 1,
-      "consecutiveFailureCount": 1,
-      "totalImportedCount": 5,
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-07-09T20:55:53.693Z",
+      "updatedAt": "2026-07-13T07:34:52.521Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-09T20:55:53.693Z",
-      "lastImportMessage": "Live import failed; local fallback used. fetch failed",
-      "lastSuccessfulImportAt": "2026-07-09T12:28:23.966Z",
-      "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
+      "lastFetchedAt": "2026-07-13T07:34:52.521Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-13T07:34:52.521Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -121,17 +119,16 @@
         "agent"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "partial",
-      "lastImportCount": 1,
-      "consecutiveFailureCount": 1,
-      "totalImportedCount": 5,
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-09T20:54:32.110Z",
+      "updatedAt": "2026-07-13T07:34:47.607Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-09T20:54:32.110Z",
-      "lastImportMessage": "Live import failed; local fallback used. fetch failed",
-      "lastSuccessfulImportAt": "2026-07-09T12:28:19.727Z",
-      "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
+      "lastFetchedAt": "2026-07-13T07:34:47.607Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-13T07:34:47.607Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -148,16 +145,16 @@
         "model"
       ],
       "defaultNormalizedType": "unknown",
-      "lastImportStatus": "partial",
-      "lastImportCount": 1,
-      "consecutiveFailureCount": 2,
+      "lastImportStatus": "failed",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 3,
       "totalImportedCount": 1,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-09T20:54:12.603Z",
+      "updatedAt": "2026-07-13T07:34:46.732Z",
       "maxItems": 4,
-      "lastErrorMessage": "Live import failed; local fallback used. fetch failed",
-      "lastFetchedAt": "2026-07-09T20:54:12.603Z",
-      "lastImportMessage": "Live import failed; local fallback used. fetch failed"
+      "lastErrorMessage": "fetch failed",
+      "lastFetchedAt": "2026-07-13T07:34:46.732Z",
+      "lastImportMessage": "fetch failed"
     },
     {
       "id": "source-openai-news",
@@ -176,148 +173,148 @@
       "lastImportStatus": "success",
       "lastImportCount": 4,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 8,
+      "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-09T20:54:43.378Z",
+      "updatedAt": "2026-07-13T07:34:50.461Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-09T20:54:43.378Z",
-      "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-      "lastSuccessfulImportAt": "2026-07-09T20:54:43.378Z"
+      "lastFetchedAt": "2026-07-13T07:34:50.461Z",
+      "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-13T07:34:50.461Z"
     }
   ],
   "latestImportRun": {
-    "id": "import-run-2026-07-09t20-54-02-010z",
-    "startedAt": "2026-07-09T20:54:02.010Z",
-    "finishedAt": "2026-07-09T20:55:53.719Z",
+    "id": "import-run-2026-07-13t07-34-36-166z",
+    "startedAt": "2026-07-13T07:34:36.166Z",
+    "finishedAt": "2026-07-13T07:34:52.540Z",
     "status": "partial",
     "totalSources": 7,
     "enabledSources": 5,
     "skippedSources": 2,
-    "successfulSources": 1,
-    "failedSources": 0,
-    "partialSources": 4,
-    "totalCandidatesCreated": 8,
-    "totalCandidatesSkipped": 0,
+    "successfulSources": 4,
+    "failedSources": 1,
+    "partialSources": 0,
+    "totalCandidatesCreated": 13,
+    "totalCandidatesSkipped": 3,
     "messages": [
-      "Hugging Face Blog: Live import failed; local fallback used. fetch failed",
-      "MCP Servers Releases: Live import failed; local fallback used. fetch failed",
-      "Ollama Releases: Live import failed; local fallback used. fetch failed",
-      "OpenAI News: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-      "vLLM Releases: Live import failed; local fallback used. fetch failed"
+      "Hugging Face Blog: fetch failed",
+      "MCP Servers Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "Ollama Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "OpenAI News: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+      "vLLM Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。"
     ],
     "sourceResults": [
       {
         "sourceId": "source-hugging-face-blog",
         "sourceName": "Hugging Face Blog",
-        "status": "partial",
-        "message": "Live import failed; local fallback used. fetch failed",
-        "candidateCount": 1,
-        "candidatesCreated": 1,
+        "status": "failed",
+        "message": "fetch failed",
+        "candidateCount": 0,
+        "candidatesCreated": 0,
         "candidatesSkipped": 0
       },
       {
         "sourceId": "source-mcp-servers-releases",
         "sourceName": "MCP Servers Releases",
-        "status": "partial",
-        "message": "Live import failed; local fallback used. fetch failed",
-        "candidateCount": 1,
-        "candidatesCreated": 1,
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
         "candidatesSkipped": 0
       },
       {
         "sourceId": "source-ollama-releases",
         "sourceName": "Ollama Releases",
-        "status": "partial",
-        "message": "Live import failed; local fallback used. fetch failed",
-        "candidateCount": 1,
-        "candidatesCreated": 1,
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
         "candidatesSkipped": 0
       },
       {
         "sourceId": "source-openai-news",
         "sourceName": "OpenAI News",
         "status": "success",
-        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+        "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
         "candidateCount": 4,
-        "candidatesCreated": 4,
-        "candidatesSkipped": 0
+        "candidatesCreated": 1,
+        "candidatesSkipped": 3
       },
       {
         "sourceId": "source-vllm-releases",
         "sourceName": "vLLM Releases",
-        "status": "partial",
-        "message": "Live import failed; local fallback used. fetch failed",
-        "candidateCount": 1,
-        "candidatesCreated": 1,
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "candidateCount": 4,
+        "candidatesCreated": 4,
         "candidatesSkipped": 0
       }
     ]
   },
   "importRuns": [
     {
-      "id": "import-run-2026-07-09t20-54-02-010z",
-      "startedAt": "2026-07-09T20:54:02.010Z",
-      "finishedAt": "2026-07-09T20:55:53.719Z",
+      "id": "import-run-2026-07-13t07-34-36-166z",
+      "startedAt": "2026-07-13T07:34:36.166Z",
+      "finishedAt": "2026-07-13T07:34:52.540Z",
       "status": "partial",
       "totalSources": 7,
       "enabledSources": 5,
       "skippedSources": 2,
-      "successfulSources": 1,
-      "failedSources": 0,
-      "partialSources": 4,
-      "totalCandidatesCreated": 8,
-      "totalCandidatesSkipped": 0,
+      "successfulSources": 4,
+      "failedSources": 1,
+      "partialSources": 0,
+      "totalCandidatesCreated": 13,
+      "totalCandidatesSkipped": 3,
       "messages": [
-        "Hugging Face Blog: Live import failed; local fallback used. fetch failed",
-        "MCP Servers Releases: Live import failed; local fallback used. fetch failed",
-        "Ollama Releases: Live import failed; local fallback used. fetch failed",
-        "OpenAI News: Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "vLLM Releases: Live import failed; local fallback used. fetch failed"
+        "Hugging Face Blog: fetch failed",
+        "MCP Servers Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "Ollama Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "OpenAI News: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "vLLM Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。"
       ],
       "sourceResults": [
         {
           "sourceId": "source-hugging-face-blog",
           "sourceName": "Hugging Face Blog",
-          "status": "partial",
-          "message": "Live import failed; local fallback used. fetch failed",
-          "candidateCount": 1,
-          "candidatesCreated": 1,
+          "status": "failed",
+          "message": "fetch failed",
+          "candidateCount": 0,
+          "candidatesCreated": 0,
           "candidatesSkipped": 0
         },
         {
           "sourceId": "source-mcp-servers-releases",
           "sourceName": "MCP Servers Releases",
-          "status": "partial",
-          "message": "Live import failed; local fallback used. fetch failed",
-          "candidateCount": 1,
-          "candidatesCreated": 1,
+          "status": "success",
+          "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
           "candidatesSkipped": 0
         },
         {
           "sourceId": "source-ollama-releases",
           "sourceName": "Ollama Releases",
-          "status": "partial",
-          "message": "Live import failed; local fallback used. fetch failed",
-          "candidateCount": 1,
-          "candidatesCreated": 1,
+          "status": "success",
+          "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
           "candidatesSkipped": 0
         },
         {
           "sourceId": "source-openai-news",
           "sourceName": "OpenAI News",
           "status": "success",
-          "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
+          "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
           "candidateCount": 4,
-          "candidatesCreated": 4,
-          "candidatesSkipped": 0
+          "candidatesCreated": 1,
+          "candidatesSkipped": 3
         },
         {
           "sourceId": "source-vllm-releases",
           "sourceName": "vLLM Releases",
-          "status": "partial",
-          "message": "Live import failed; local fallback used. fetch failed",
-          "candidateCount": 1,
-          "candidatesCreated": 1,
+          "status": "success",
+          "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+          "candidateCount": 4,
+          "candidatesCreated": 4,
           "candidatesSkipped": 0
         }
       ]
