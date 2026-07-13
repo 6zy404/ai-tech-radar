@@ -7,6 +7,8 @@ This document defines the current safety boundary between public product pages a
 Public routes can be exposed:
 
 - `/`
+- `/news` (auto-aggregated news fast lane; see "News Fast Lane Boundary"
+  below for the exact candidate-field allowlist)
 - `/technologies`
 - `/technologies/[slug]`
 - `/digest/today`
@@ -42,6 +44,37 @@ They must not render:
 - `LLM_API_KEY`
 - editorial enrichment provider/model metadata
 - editorial enrichment prompt versions, token usage, validation warnings, or generation errors
+
+## News Fast Lane Boundary
+
+`/news` (and the home news board) is the one deliberate exception to
+"imported candidates are workspace-only": it renders recently imported
+candidates publicly, but only through the dedicated sanitizing map in
+`src/lib/news.ts` (`PublicNewsItem`). That module is the single place an
+`ImportedCandidate` may cross into a public surface.
+
+Allowed to cross the boundary:
+
+- `originalTitle` (as `title`)
+- `originalSummary` (trimmed and truncated)
+- `sourceName` and `sourceUrl`
+- `publishDate` (or the imported-at date when the publish date is invalid)
+- display tag names (canonical `TopicTag` names when the tag is a known id)
+- a link to the published technology page when the candidate was converted
+  and published (slug + public title only)
+
+Never crosses the boundary:
+
+- `rawPayload`, `originalContent`, `importStatus`, `normalizedType`
+- candidate IDs, `duplicateGroupId`, duplicate reasons, review state
+- source health, quality flags, import run internals
+
+Filtering rules enforced in the same module: rejected candidates are hidden,
+`fallback`-tagged placeholder candidates are hidden, non-primary members of
+open/resolved duplicate groups are hidden, and the window is capped (last 7
+days, max 200 items). Every fast-lane surface renders the fixed
+"自动聚合内容，未经编辑精选" disclaimer so unreviewed content is always
+labelled.
 
 ## Internal Surfaces
 
@@ -111,8 +144,11 @@ Task runner commands and audit summaries are internal-only:
 - `npm run tasks:run-once`
 - `npm run tasks:watch`
 - `config/task-runner.json`
+- `config/scheduled-import.json` (scheduled daily source import configuration)
 
-Public digest and technology pages must not display runner configuration or logs.
+Public digest and technology pages must not display runner configuration or
+logs. The `/news` fast lane shows imported content but never the import
+schedule, runner status, or import run messages.
 
 ## Workflow Event Boundary
 

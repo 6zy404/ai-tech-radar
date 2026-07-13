@@ -364,6 +364,39 @@ Task runner rules:
 - schedule and channel failures are recorded without crashing the whole runner
 - messages are sanitized before storage so endpoint URLs and token-like values are not preserved in runner logs
 - the runner reuses scheduled-delivery duplicate protection for same-day schedule / digest / channel sends
+- each pass also checks `ScheduledImportConfig` and runs the due daily source
+  import first; a failed import downgrades an otherwise successful pass to
+  `partial`, and the import summary is appended to `messages`
+
+## ScheduledImportConfig
+
+Represents the workspace-only configuration for the task-runner scheduled
+daily source import (v0). Stored as a single object in
+`config/scheduled-import.json` (new in the news fast lane milestone), not a
+list.
+
+- `enabled` (default `true`)
+- `scheduleTime`: simple `HH:mm` (default `08:00`)
+- `timezone`: defaults to `Asia/Shanghai`
+- `nextRunAt?`: missing means "due on the next runner pass" (bootstrap)
+- `lastRunAt?`
+- `lastRunStatus`: `never_run | success | failed | partial`
+- `lastRunMessage?`
+- `updatedAt`
+
+Scheduled import rules:
+
+- the task runner runs the import when `enabled` and `nextRunAt` is missing
+  or in the past, then advances `nextRunAt` to the next scheduled time — this
+  doubles as same-day duplicate protection
+- unattended imports run with `useFallbackOnFailure: false`, so source
+  failures update source health but never create fallback placeholder
+  candidates
+- the import itself is the existing `runBatchImportForEnabledSources`; its
+  `ImportRun` record and per-source health updates are unchanged
+- managed from `/workspace/delivery/schedules`
+  (`PATCH /api/workspace/scheduled-import`); never rendered on user-facing
+  pages
 
 ## WorkflowEvent
 
@@ -778,6 +811,35 @@ the relation for an unordered pair regardless of which side `LinkRelation`
 records as `from`/`to`, falling back to `related-to` when no explicit entry
 exists for that pair.
 
+## PublicNewsItem / PublicNewsDay (derived)
+
+Represents the public news fast lane view for `/news` and the home news
+board. Like `DigestDeliveryFeed`, this is a derived view computed on read by
+`getPublicNewsItems()` / `getPublicNewsDays()` in `src/lib/news.ts`, not a
+persisted entity. It is the only mapping through which an `ImportedCandidate`
+may reach a public surface.
+
+`PublicNewsItem`:
+
+- `key`: derived from date + source URL (never the candidate id)
+- `title`
+- `summary?`: trimmed and truncated
+- `sourceName`
+- `sourceUrl`
+- `publishDate`
+- `tags`: display names (canonical `TopicTag` names when the tag is a known id)
+- `publishedTechnology?`: `{ slug, title }` when the candidate was converted
+  and the technology is published
+
+`PublicNewsDay`: `{ date, items }`, grouped and sorted newest-first.
+
+Mapping rules (enforced in `src/lib/news.ts`): last 7 days only (max 200
+items), rejected candidates excluded, `fallback`-tagged placeholder
+candidates excluded, non-primary members of open/resolved duplicate groups
+excluded. `rawPayload`, `originalContent`, `importStatus`, `normalizedType`,
+candidate IDs, and duplicate internals never enter the public shape. All
+fast-lane surfaces render the fixed 自动聚合 disclaimer.
+
 ## ContentGraphNode / ContentGraphEdge (derived)
 
 Represents the whole technology/skill/knowledge graph for the `/network`
@@ -1005,6 +1067,7 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `daily-digests.json`
 - `delivery.json`
 - `scheduled-delivery.json`
+- `scheduled-import.json`
 - `task-runner.json`
 - `workflow-events.json`
 - `editorial-enrichment-suggestions.json`

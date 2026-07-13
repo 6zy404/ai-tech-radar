@@ -38,6 +38,44 @@ For per-topic deep dives, see the `docs/` directory.
   resolved/ignored status, a conversion guard for non-primary duplicates, and
   additional source references carried into generated drafts.
 
+## News fast lane & scheduled import
+
+- **News fast lane + task-runner scheduled import v0 (two-tier content
+  model)** — 2026-07-13, owner-authorized to solve content freshness/volume
+  without weakening the editorial gate. Two coupled pieces:
+  1. **Public news fast lane (`/news` + home board)**: recently imported
+     candidates (last 7 days, grouped by day, capped at 200) are now publicly
+     readable through a new dedicated sanitizing layer `src/lib/news.ts` —
+     the single mapping point where an `ImportedCandidate` may reach a public
+     surface. Only title / truncated summary / source name / source URL /
+     publish date / display tags cross the boundary; `rawPayload`,
+     `importStatus`, `normalizedType`, duplicate-group internals, and
+     candidate IDs never enter the RSC payload. Rejected candidates,
+     `fallback`-tagged placeholder candidates, and non-primary members of
+     open/resolved duplicate groups are excluded; candidates already
+     converted + published link to their formal signal page. Every surface
+     carries the fixed "自动聚合内容，未经编辑精选" disclaimer. New `/news`
+     page (「今日快讯」 in `TopNav`), a compact latest-news board on the home
+     page, and `.news-*` / `.home-news-*` CSS on existing tokens. The curated
+     TechnologyItem/digest tier is untouched — the fast lane deliberately
+     contrasts with it rather than replacing it.
+  2. **Scheduled daily import in the task runner**: each
+     `tasks:run-once` / `tasks:watch` pass now also checks
+     `config/scheduled-import.json` (new `src/lib/scheduled-import.ts`;
+     default enabled, 08:00 Asia/Shanghai) and, when due, runs one batch
+     import for all enabled sources with `useFallbackOnFailure: false` so
+     unattended runs never mint placeholder candidates. Same
+     `nextRunAt`-advance timing model as `ScheduledDelivery` (bootstrap:
+     missing `nextRunAt` = due now), which doubles as same-day duplicate
+     protection. Import status folds into the `TaskRunnerRun` status
+     (failed import downgrades a successful pass to `partial`) and messages.
+     Managed from `/workspace/delivery/schedules` (new 定时导入 panel,
+     `ScheduledImportActions` client component, `PATCH
+/api/workspace/scheduled-import`); Windows Task Scheduler setup
+     documented in `docs/deployment.md`. `validate:tasks` now pins a
+     disabled scheduled-import config during its runs (and asserts the
+     skip message) so validation never triggers live network imports.
+
 ## Drafting, ranking & publishing
 
 - **Candidate → technology draft conversion** and an internal technology

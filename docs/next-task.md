@@ -1,5 +1,25 @@
 # Next Task
 
+> Update 2026-07-13: **News fast lane + scheduled import v0 shipped**
+> (owner-authorized, "content freshness/volume" direction — see
+> `CHANGELOG.md` → "News fast lane & scheduled import" for the full entry).
+> Two pieces: (1) public `/news` (今日快讯, in `TopNav`, plus a home board)
+> renders the last 7 days of imported candidates through the new sanitizing
+> map `src/lib/news.ts` — the single candidate→public mapping point, with
+> rejected/fallback/non-primary-duplicate exclusion and a fixed
+> 自动聚合，未经编辑精选 disclaimer; (2) the task runner now runs a scheduled
+> daily source import (`src/lib/scheduled-import.ts`,
+> `config/scheduled-import.json`, default 08:00 Asia/Shanghai, no fallback
+> placeholders on unattended runs), managed from
+> `/workspace/delivery/schedules` (定时导入 panel +
+> `PATCH /api/workspace/scheduled-import`), with Windows Task Scheduler
+> setup documented in `docs/deployment.md`. `validate:tasks` pins a disabled
+> import config during validation so it never triggers live imports. The
+> curated signal/digest tier and its editorial gate are unchanged
+> (two-tier content model, recorded in `docs/project-spec.md` →
+> "Scheduled Import + News Fast Lane v0" and `docs/security-boundary.md` →
+> "News Fast Lane Boundary").
+
 > Update 2026-07-10: Workspace UI localization v0 shipped — all Internal
 > Workspace UI chrome is now Chinese (see `CHANGELOG.md` → "Navigation, IA &
 > design system"). The follow-up diagnostic-string pass shipped the same

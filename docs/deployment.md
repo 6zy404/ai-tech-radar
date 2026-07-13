@@ -7,6 +7,7 @@ This project is still a local-first prototype, but it can be run in a controlled
 Public user-facing routes:
 
 - `/`
+- `/news`
 - `/technologies`
 - `/technologies/[slug]`
 - `/digest/today`
@@ -91,6 +92,36 @@ npm run tasks:run-once
 System cron can call `npm run tasks:run-once` on a fixed cadence. PM2 or a platform process manager can run `npm run tasks:watch` if a long-running local loop is preferred.
 
 Avoid running multiple task runners against the same `LOCAL_DATA_DIR`. The local JSON store is not a distributed lock or multi-writer database.
+
+### Scheduled source import (v0)
+
+Each task-runner pass also checks `config/scheduled-import.json` and, when the
+configured daily time has passed, runs one batch import for all enabled
+sources (`runBatchImportForEnabledSources`, without fallback placeholder
+candidates). This keeps the public `/news` fast lane fresh without manual
+imports. The config is editable from `/workspace/delivery/schedules`
+(enable/disable + daily time, default `08:00` Asia/Shanghai); after each run
+`nextRunAt` moves to the next scheduled time, which also prevents same-day
+duplicate imports.
+
+### Windows Task Scheduler (unattended daily runs)
+
+Register a daily task that calls the runner once (adjust the schedule time and
+project path; run from an elevated or the owning user's PowerShell):
+
+```powershell
+schtasks /Create /TN "ai-tech-radar-tasks" /SC DAILY /ST 08:05 `
+  /TR "cmd /c cd /d C:\Users\Administrator\ai-tech-radar && npm run tasks:run-once >> config\task-runner-cron.log 2>&1"
+```
+
+Notes:
+
+- Schedule the Windows task a few minutes **after** the configured import time
+  so the run is already due when the runner starts.
+- `schtasks /Run /TN "ai-tech-radar-tasks"` triggers a manual test run;
+  `schtasks /Delete /TN "ai-tech-radar-tasks"` removes it.
+- The same duplicate protections apply: an extra run on the same day skips the
+  already-run import and already-sent deliveries.
 
 ## Local JSON Limits
 
