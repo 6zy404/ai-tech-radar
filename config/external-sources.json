@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-13T07:34:52.540Z",
+  "updatedAt": "2026-07-13T07:48:28.496Z",
   "sources": [
     {
       "id": "quality-good-source",
@@ -134,9 +134,9 @@
       "id": "source-hugging-face-blog",
       "name": "Hugging Face Blog",
       "type": "rss",
-      "url": "https://huggingface.co/blog/feed.xml",
+      "url": "https://hf-mirror.com/blog/feed.xml",
       "enabled": true,
-      "description": "Hugging Face official blog feed.",
+      "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
       "language": "en",
       "publisherName": "Hugging Face",
       "publisherType": "open-source-community",
@@ -145,16 +145,16 @@
         "model"
       ],
       "defaultNormalizedType": "unknown",
-      "lastImportStatus": "failed",
-      "lastImportCount": 0,
-      "consecutiveFailureCount": 3,
-      "totalImportedCount": 1,
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 5,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-13T07:34:46.732Z",
+      "updatedAt": "2026-07-13T07:48:28.496Z",
       "maxItems": 4,
-      "lastErrorMessage": "fetch failed",
-      "lastFetchedAt": "2026-07-13T07:34:46.732Z",
-      "lastImportMessage": "fetch failed"
+      "lastFetchedAt": "2026-07-13T07:48:28.496Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-13T07:48:28.496Z"
     },
     {
       "id": "source-openai-news",
@@ -182,142 +182,5 @@
       "lastSuccessfulImportAt": "2026-07-13T07:34:50.461Z"
     }
   ],
-  "latestImportRun": {
-    "id": "import-run-2026-07-13t07-34-36-166z",
-    "startedAt": "2026-07-13T07:34:36.166Z",
-    "finishedAt": "2026-07-13T07:34:52.540Z",
-    "status": "partial",
-    "totalSources": 7,
-    "enabledSources": 5,
-    "skippedSources": 2,
-    "successfulSources": 4,
-    "failedSources": 1,
-    "partialSources": 0,
-    "totalCandidatesCreated": 13,
-    "totalCandidatesSkipped": 3,
-    "messages": [
-      "Hugging Face Blog: fetch failed",
-      "MCP Servers Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-      "Ollama Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-      "OpenAI News: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-      "vLLM Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。"
-    ],
-    "sourceResults": [
-      {
-        "sourceId": "source-hugging-face-blog",
-        "sourceName": "Hugging Face Blog",
-        "status": "failed",
-        "message": "fetch failed",
-        "candidateCount": 0,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 0
-      },
-      {
-        "sourceId": "source-mcp-servers-releases",
-        "sourceName": "MCP Servers Releases",
-        "status": "success",
-        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 4,
-        "candidatesSkipped": 0
-      },
-      {
-        "sourceId": "source-ollama-releases",
-        "sourceName": "Ollama Releases",
-        "status": "success",
-        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 4,
-        "candidatesSkipped": 0
-      },
-      {
-        "sourceId": "source-openai-news",
-        "sourceName": "OpenAI News",
-        "status": "success",
-        "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 1,
-        "candidatesSkipped": 3
-      },
-      {
-        "sourceId": "source-vllm-releases",
-        "sourceName": "vLLM Releases",
-        "status": "success",
-        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 4,
-        "candidatesSkipped": 0
-      }
-    ]
-  },
-  "importRuns": [
-    {
-      "id": "import-run-2026-07-13t07-34-36-166z",
-      "startedAt": "2026-07-13T07:34:36.166Z",
-      "finishedAt": "2026-07-13T07:34:52.540Z",
-      "status": "partial",
-      "totalSources": 7,
-      "enabledSources": 5,
-      "skippedSources": 2,
-      "successfulSources": 4,
-      "failedSources": 1,
-      "partialSources": 0,
-      "totalCandidatesCreated": 13,
-      "totalCandidatesSkipped": 3,
-      "messages": [
-        "Hugging Face Blog: fetch failed",
-        "MCP Servers Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-        "Ollama Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-        "OpenAI News: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-        "vLLM Releases: 导入 4 条新候选；跳过 0 条重复或已存在的候选。"
-      ],
-      "sourceResults": [
-        {
-          "sourceId": "source-hugging-face-blog",
-          "sourceName": "Hugging Face Blog",
-          "status": "failed",
-          "message": "fetch failed",
-          "candidateCount": 0,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 0
-        },
-        {
-          "sourceId": "source-mcp-servers-releases",
-          "sourceName": "MCP Servers Releases",
-          "status": "success",
-          "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 4,
-          "candidatesSkipped": 0
-        },
-        {
-          "sourceId": "source-ollama-releases",
-          "sourceName": "Ollama Releases",
-          "status": "success",
-          "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 4,
-          "candidatesSkipped": 0
-        },
-        {
-          "sourceId": "source-openai-news",
-          "sourceName": "OpenAI News",
-          "status": "success",
-          "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 1,
-          "candidatesSkipped": 3
-        },
-        {
-          "sourceId": "source-vllm-releases",
-          "sourceName": "vLLM Releases",
-          "status": "success",
-          "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 4,
-          "candidatesSkipped": 0
-        }
-      ]
-    }
-  ]
+  "importRuns": []
 }

@@ -1,6 +1,72 @@
 {
-  "updatedAt": "2026-07-13T07:40:29.301Z",
+  "updatedAt": "2026-07-13T07:48:28.508Z",
   "events": [
+    {
+      "id": "workflow-event-f264fb03-ab52-4a92-b532-5ab73c7a9780",
+      "entityType": "source",
+      "entityId": "source-hugging-face-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 3,
+        "totalImportedCount": 1,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-13T07:47:51.433Z",
+        "maxItems": 4,
+        "lastErrorMessage": "fetch failed",
+        "lastFetchedAt": "2026-07-13T07:34:46.732Z",
+        "lastImportMessage": "fetch failed"
+      },
+      "afterSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 5,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-13T07:48:28.496Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-13T07:48:28.496Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-13T07:48:28.496Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-13T07:48:28.507Z"
+    },
     {
       "id": "workflow-event-638bba2f-f7ad-4e34-b382-7a6c7dc93d0e",
       "entityType": "task_runner",
@@ -35794,37 +35860,6 @@
         "deliveryLogIds": []
       },
       "createdAt": "2026-06-01T18:10:52.905Z"
-    },
-    {
-      "id": "workflow-event-705eef1d-ab8f-4ddc-a2d0-128faaea28eb",
-      "entityType": "task_runner",
-      "entityId": "task-runner-12512836-0de9-4bef-a23a-8468e461ee89",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-12512836-0de9-4bef-a23a-8468e461ee89",
-        "mode": "run_once",
-        "startedAt": "2099-05-27T01:05:00.000Z",
-        "finishedAt": "2026-06-01T18:10:52.866Z",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "skippedScheduleCount": 1,
-        "successCount": 0,
-        "failedCount": 1,
-        "partialCount": 1,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "Task runner draft schedule: failed for digest 2026-05-28; Scheduled delivery can only send published digests.",
-          "Task runner published schedule: partial for digest 2026-05-27; 0 succeeded, 0 failed, 3 skipped"
-        ]
-      },
-      "metadata": {
-        "mode": "run_once",
-        "status": "partial",
-        "dueScheduleCount": 2,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-06-01T18:10:52.879Z"
     }
   ]
 }
