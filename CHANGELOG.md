@@ -38,6 +38,26 @@ For per-topic deep dives, see the `docs/` directory.
   resolved/ignored status, a conversion guard for non-primary duplicates, and
   additional source references carried into generated drafts.
 
+## Digest archive
+
+- **Public digest archive index v0 (`/digest`)** — 2026-07-14, shipped the
+  same day as site-wide search as the follow-up discoverability slice.
+  Previously published digests were only reachable via `/digest/today` or by
+  knowing the exact date URL. The new public `/digest` page lists every
+  `status = published` digest grouped by month (newest first), each entry
+  showing the date, public title and summary (via the existing
+  `getPublicDigestTitle` / `getPublicDigestSummary` sanitizers in
+  `src/lib/public-copy.ts`), and immediate-attention / worth-tracking counts,
+  linking to `/digest/[date]`. The 订阅简报 section on both public digest
+  pages gained a 往期简报归档 link. Scope deliberately cut to one page per
+  the house rule — the topic-timeline idea from the same proposal remains a
+  separate future task. Draft/archived digests, editorial notes, and manual
+  adjustment ids never render; the archive exposes exactly the digest set
+  already public in `/feed.xml` / `/feed.json`. New `.digest-archive-*` CSS
+  on existing tokens. Verified with typecheck, lint, format, and a live pass
+  (month grouping, sanitized May fixture title, entry links, leak scan,
+  no overflow, console clean).
+
 ## Site-wide search
 
 - **Public site-wide search v0** — 2026-07-14, owner-authorized as the next

@@ -61,6 +61,8 @@ Public pages:
 - `/`
 - `/news` — auto-aggregated news fast lane (sanitized imported candidates,
   last 7 days; see `docs/security-boundary.md` → "News Fast Lane Boundary")
+- `/digest` — month-grouped archive index of published digests (public
+  title/summary/date/counts only)
 - `/digest/today`
 - `/digest/[date]`
 - `/technologies`
