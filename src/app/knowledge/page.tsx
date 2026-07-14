@@ -216,7 +216,7 @@ export default function KnowledgePage() {
                         />
                         {relatedTechnologyPreview.length > 0 ? (
                           <div className="skill-library-card__signals">
-                            <span>解释如下信号</span>
+                            <span>可解释信号</span>
                             <ul>
                               {relatedTechnologyPreview.map((technology) => (
                                 <li key={technology.id}>

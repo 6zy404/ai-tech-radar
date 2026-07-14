@@ -280,13 +280,13 @@ export function getRelationTypeLabel(
   }
 
   const labels: Record<RelationType, string> = {
-    "builds-on": "建立在",
-    uses: "使用",
-    explains: "解释",
-    requires: "需要",
-    extends: "扩展",
-    supports: "支持",
-    "related-to": "相关"
+    "builds-on": "渊源",
+    uses: "借助",
+    explains: "释义",
+    requires: "必备",
+    extends: "延伸",
+    supports: "印证",
+    "related-to": "关联"
   };
 
   return labels[relationType];

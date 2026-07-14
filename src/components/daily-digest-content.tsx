@@ -12,7 +12,10 @@ import {
   readFollowedTagIds
 } from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
-import { getPriorityLevelClass } from "@/lib/ranking-display";
+import {
+  getPriorityLevelClass,
+  getPriorityLevelLabel
+} from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
   getLocalizedTechnologyText,
@@ -49,12 +52,6 @@ interface DigestTechnologyCardProps {
 interface DigestSourceReference extends TechnologySourceReference {
   id: string;
 }
-
-const priorityLabels: Record<PriorityLevel, string> = {
-  high_priority: "立即关注",
-  watch: "值得跟踪",
-  low_priority: "了解即可"
-};
 
 const priorityReasonCopy: Record<PriorityLevel, string> = {
   high_priority: "多项信号同时出现，这项技术值得尽早评估。",
@@ -196,7 +193,7 @@ function DigestTechnologyCard({
             {technologyTypeLabels[technology.type]}
           </span>
           <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-            {priorityLabels[ranking.priorityLevel]}
+            {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
           </span>
         </div>
       </div>
@@ -209,7 +206,7 @@ function DigestTechnologyCard({
           {compactText(summary, compact ? 140 : 190)}
         </p>
         <div className="digest-technology-card__reason">
-          <span>为什么值得看</span>
+          <span>为什么重要</span>
           <p>{whyItMatters}</p>
         </div>
         {audienceLine ? (
@@ -474,7 +471,7 @@ export function DailyDigestContent({
         <section className="daily-digest-section">
           <div className="daily-digest-section__header">
             <h2>今日立即关注</h2>
-            <p>被评为最高优先级的已发布技术信号，编辑置顶的条目优先展示。</p>
+            <p>精选评级最高的已发布技术信号，编辑置顶的条目优先展示。</p>
           </div>
           {visibleHighPriorityTechnologies.length > 0 ? (
             <div className="digest-technology-list digest-technology-list--featured">

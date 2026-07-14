@@ -20,7 +20,7 @@ const fieldLabels: Array<{
   key: keyof EditorialEnrichmentGeneratedFields;
   label: string;
 }> = [
-  { key: "whyItMatters", label: "为什么值得看" },
+  { key: "whyItMatters", label: "为什么重要" },
   { key: "whoShouldCare", label: "谁该关注" },
   { key: "technicalContext", label: "技术背景" },
   { key: "impactAreas", label: "影响领域" },

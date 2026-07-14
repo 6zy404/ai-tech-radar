@@ -373,7 +373,7 @@ export function TechnologyWorkspaceEditForm({
 
         <div className="workspace-edit-form__grid workspace-edit-form__grid--two">
           <label className="field">
-            <span>为什么值得看</span>
+            <span>为什么重要</span>
             <textarea
               name="whyItMatters"
               rows={4}

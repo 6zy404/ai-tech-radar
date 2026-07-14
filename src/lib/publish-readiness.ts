@@ -396,7 +396,7 @@ export function evaluateTechnologyPublishReadiness(
         "warning",
         "whyItMatters",
         "missing-why-it-matters",
-        "「为什么值得看」为空；会削弱用户端的理解质量。"
+        "「为什么重要」为空；会削弱用户端的理解质量。"
       )
     );
   }

@@ -208,8 +208,8 @@ export default async function KnowledgeDetailPage({
             <section className="skill-detail-section">
               <div className="skill-detail-section__header">
                 <div>
-                  <p>由这个概念解释</p>
-                  <h2>由这个概念解释的技术信号</h2>
+                  <p>可解释</p>
+                  <h2>这个概念能解释的技术信号</h2>
                 </div>
               </div>
               <div className="skill-detail-related-list">
@@ -299,7 +299,7 @@ export default async function KnowledgeDetailPage({
                         </h3>
                         <p>{skill.summary}</p>
                         <div className="skill-detail-related-card__note">
-                          <span>为什么有帮助</span>
+                          <span>附注</span>
                           <p>有了这个概念，这项技能会更容易练习和应用。</p>
                         </div>
                         {skillTags.length > 0 ? (

@@ -104,7 +104,7 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
       </h3>
       <p>{summary}</p>
       <div className="home-signal-card__why">
-        <span>为什么值得看</span>
+        <span>为什么重要</span>
         <p>{whyItMatters}</p>
       </div>
       <div className="home-signal-card__footer">
@@ -132,7 +132,7 @@ function SkillPathCard({ skill }: { skill: SkillItem }) {
         <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
       </h3>
       <p>{skill.summary}</p>
-      <small>关联 {relatedTechnologies.length} 条已发布技术信号。</small>
+      <small>已关联 {relatedTechnologies.length} 条已发布技术信号。</small>
     </article>
   );
 }
@@ -151,7 +151,7 @@ function KnowledgePathCard({ item }: { item: KnowledgeItem }) {
         <Link href={`/knowledge/${item.slug}`}>{item.title}</Link>
       </h3>
       <p>{item.summary}</p>
-      <small>解释 {relatedTechnologies.length} 条已发布技术信号。</small>
+      <small>已解释 {relatedTechnologies.length} 条已发布技术信号。</small>
     </article>
   );
 }

@@ -193,7 +193,7 @@ export default async function SkillDetailPage({
           ) : null}
 
           <section className="skill-detail-section">
-            <h2>这项技能对解读 AI 信号为何重要</h2>
+            <h2>解读 AI 信号，为什么需要这项技能</h2>
             <p>{getSkillSignalExplanation(skill)}</p>
           </section>
 
@@ -241,7 +241,7 @@ export default async function SkillDetailPage({
                         <p>{getPreferredTechnologySummary(technology)}</p>
                         {technology.whyItMatters ? (
                           <div className="skill-detail-related-card__note">
-                            <span>为什么这是一个有用的练习案例</span>
+                            <span>为什么重要</span>
                             <p>{technology.whyItMatters}</p>
                           </div>
                         ) : null}
@@ -299,10 +299,10 @@ export default async function SkillDetailPage({
                         </h3>
                         <p>{knowledge.summary}</p>
                         <div className="skill-detail-related-card__note">
-                          <span>为什么有帮助</span>
+                          <span>附注</span>
                           <p>
-                            这个概念提供了在解读新的 AI 技术信号时，应用这项技能
-                            所需的背景。
+                            理解这个概念，能帮你在解读新技术信号时更好地运用这项
+                            技能。
                           </p>
                         </div>
                         {knowledgeTags.length > 0 ? (
