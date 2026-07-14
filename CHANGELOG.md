@@ -12,6 +12,28 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — skills & knowledge
+
+- **Dossier direction live on `/skills`, `/skills/[slug]`, `/knowledge`,
+  `/knowledge/[slug]`** — 2026-07-14, same night, the second adoption round
+  right after `/technologies`. Unlike the technology pages, these four
+  routes hand-roll their own card/section markup per route rather than
+  sharing components, so `DossierCard`, `DossierStampTag`, and
+  `DossierCatalogNote` were used directly in each `page.tsx` (no new
+  page-specific sibling components needed). Every index card's outcome
+  blurb and every related-item note — including the skill↔knowledge "附注"
+  note on both detail pages — now renders through `DossierCatalogNote`;
+  heat/cost/category/difficulty pills and relation-type labels render
+  through `DossierStampTag`. `RelationshipGraph`, `TagList`,
+  `FollowableTagList`, and `RelationDensity` needed no changes at all — the
+  `.dossier`-scoped CSS written for the technology round already targets
+  their shared classnames, so they picked up the look for free once these
+  pages added the `dossier` class. Verified with typecheck, lint, format,
+  vitest 61/61, and a live pass across all four pages (index + detail,
+  relation pills, catalog notes, mobile width at 375px with no horizontal
+  overflow, zero console errors) plus a regression check that home,
+  `/radar`, and the technology pages were unaffected.
+
 ## Dossier direction adoption — /technologies
 
 - **Dossier direction live on `/technologies` and `/technologies/[slug]`** —
