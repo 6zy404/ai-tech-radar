@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-13T07:48:28.495Z",
+  "syncedAt": "2026-07-14T00:05:07.427Z",
   "sources": [
     {
       "id": "source-hugging-face-blog",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-13T07:48:28.492Z"
+      "fetchedAt": "2026-07-14T00:05:02.812Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-13T07:34:47.606Z"
+      "fetchedAt": "2026-07-14T00:05:03.549Z"
     },
     {
       "id": "source-ollama-releases",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-13T07:34:48.737Z"
+      "fetchedAt": "2026-07-14T00:05:04.558Z"
     },
     {
       "id": "source-openai-news",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-13T07:34:50.460Z"
+      "fetchedAt": "2026-07-14T00:05:05.741Z"
     },
     {
       "id": "quality-failing-source",
@@ -64,10 +64,64 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-13T07:34:52.519Z"
+      "fetchedAt": "2026-07-14T00:05:07.424Z"
     }
   ],
   "candidates": [
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+      "originalTitle": "v0.32.0",
+      "originalSummary": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…",
+      "originalContent": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-14",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source",
+        "agents",
+        "retrieval"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.0",
+          "updated": "2026-07-14T00:04:33Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.0"
+          },
+          "title": "v0.32.0",
+          "content": {
+            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;New interactive agent experience: running &lt;code&gt;ollama&lt;/code&gt; now launches an agent to help you code and delegate work&lt;/li&gt;\n&lt;/ul&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;ul&gt;\n&lt;li&gt;Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)&lt;/li&gt;\n&lt;li&gt;Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through &lt;code&gt;ollama launch&lt;/code&gt;&lt;/li&gt;\n&lt;li&gt;Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Full Changelog: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0&quot;&gt;&lt;tt&gt;v0.31.2...v0.32.0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-14T00:05:03.575Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-07-14T00:05:03.575Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+    },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
       "sourceType": "rss-feed",
@@ -113,65 +167,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:50.482Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:05.769Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-13T07:34:50.482Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0-rc0",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0-rc0",
-      "originalTitle": "v0.32.0",
-      "originalSummary": "What's Changed create: select the qwen3.5 parser and renderer for Qwen3.5/Next by @jessegross in #17078 launch: warn before old agent models by @ParthSareen in #17063 cmd: agent UI by @ParthSareen in #17017 Full Changelog : v0.31.2...v0.32.0-rc0",
-      "originalContent": "<h2>What's Changed</h2> <ul> <li>create: select the qwen3.5 parser and renderer for Qwen3.5/Next by <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/jessegross/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/jessegross\">@jessegross</a> in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4833143254\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17078\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17078/hovercard\" href=\"https://github.com/ollama/ollama/pull/17078\">#17078</a></li> <li>launch: warn before old agent models by <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/ParthSareen/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/ParthSareen\">@ParthSareen</a> in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4824071170\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17063\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17063/hovercard\" href=\"https://github.com/ollama/ollama/pull/17063\">#17063</a></li> <li>cmd: agent UI by <a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/ParthSareen/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/ParthSareen\">@ParthSar…",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-11",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source",
-        "agents"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.32.0-rc0",
-          "updated": "2026-07-11T01:03:46Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.0-rc0"
-          },
-          "title": "v0.32.0",
-          "content": {
-            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;create: select the qwen3.5 parser and renderer for Qwen3.5/Next by &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/jessegross/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/jessegross&quot;&gt;@jessegross&lt;/a&gt; in &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4833143254&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17078&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17078/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17078&quot;&gt;#17078&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;launch: warn before old agent models by &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/ParthSareen/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/ParthSareen&quot;&gt;@ParthSareen&lt;/a&gt; in &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4824071170&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17063&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17063/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17063&quot;&gt;#17063&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;cmd: agent UI by &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/ParthSareen/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/ParthSareen&quot;&gt;@ParthSareen&lt;/a&gt; in &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4801310276&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17017&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17017/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17017&quot;&gt;#17017&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0-rc0&quot;&gt;&lt;tt&gt;v0.31.2...v0.32.0-rc0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:47.632Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-13T07:34:47.632Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:05.769Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
@@ -223,12 +224,49 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:50.482Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:05.769Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-13T07:34:50.482Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:05.769Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-torch-attention-profile",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/torch-attention-profile",
+      "originalTitle": "Profiling in PyTorch (Part 3): Attention is all you profile",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-10",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
+          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/torch-attention-profile",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/torch-attention-profile",
+            "isPermaLink": "true"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-14T00:05:02.263Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-14T00:05:02.263Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
@@ -275,12 +313,65 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:46.759Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:02.840Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-13T07:34:46.759Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:02.840Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0-rc0",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0-rc0",
+      "originalTitle": "v0.32.0-rc0",
+      "originalSummary": "cmd: agent UI ( #17017 )",
+      "originalContent": "<p>cmd: agent UI (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4801310276\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17017\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17017/hovercard\" href=\"https://github.com/ollama/ollama/pull/17017\">#17017</a>)</p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-10",
+      "publisherName": "ParthSareen",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source",
+        "agents"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.0-rc0",
+          "updated": "2026-07-10T00:27:31Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.0-rc0"
+          },
+          "title": "v0.32.0-rc0",
+          "content": {
+            "#text": "&lt;p&gt;cmd: agent UI (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4801310276&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17017&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17017/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17017&quot;&gt;#17017&lt;/a&gt;)&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "ParthSareen"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/u/29360864?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-14T00:05:03.575Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-07-14T00:05:03.575Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-deutsche-telekom",
@@ -316,49 +407,53 @@
           "pubDate": "Fri, 10 Jul 2026 07:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:34:48.762Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:04.585Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-07-13T07:34:48.762Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:04.585Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-torch-attention-profile",
+      "id": "candidate-rss-https-openai-com-academy-getting-started",
       "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/torch-attention-profile",
-      "originalTitle": "Profiling in PyTorch (Part 3): Attention is all you profile",
-      "originalSummary": "",
-      "originalContent": "",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/academy/getting-started",
+      "originalTitle": "Getting started with ChatGPT",
+      "originalSummary": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI.",
+      "originalContent": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI.",
       "originalLanguage": "en",
       "publishDate": "2026-07-10",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
       "tags": [
-        "open-source",
-        "model"
+        "frontier-model",
+        "openai academy"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
         "item": {
-          "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
-          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/torch-attention-profile",
+          "title": "Getting started with ChatGPT",
+          "description": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI.",
+          "link": "https://openai.com/academy/getting-started",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/torch-attention-profile",
+            "#text": "https://openai.com/academy/getting-started",
             "isPermaLink": "true"
-          }
+          },
+          "category": "OpenAI Academy",
+          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:48:20.828Z"
+        "importedAt": "2026-07-14T00:05:04.585Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-13T07:48:20.828Z"
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-14T00:05:04.585Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-gpt-5-6-preferred-model-microsoft-365-copilot",
@@ -394,28 +489,28 @@
           "pubDate": "Thu, 09 Jul 2026 13:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:34:48.762Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:04.585Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-07-13T07:34:48.762Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:04.585Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
-      "id": "candidate-rss-https-openai-com-index-gpt-5-6",
+      "id": "candidate-rss-https-openai-com-index-bio-bug-bounty",
       "sourceType": "rss-feed",
       "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/gpt-5-6",
-      "originalTitle": "GPT-5.6: Frontier intelligence that scales with your ambition",
-      "originalSummary": "More intelligence from every token, stronger performance per dollar, and more capability on demand for your hardest work.",
-      "originalContent": "More intelligence from every token, stronger performance per dollar, and more capability on demand for your hardest work.",
+      "sourceUrl": "https://openai.com/index/bio-bug-bounty",
+      "originalTitle": "GPT-5.5 Bio Bug Bounty",
+      "originalSummary": "Details about the OpenAI Bio Bounty program",
+      "originalContent": "Details about the OpenAI Bio Bounty program",
       "originalLanguage": "en",
       "publishDate": "2026-07-09",
       "publisherName": "OpenAI",
       "normalizedType": "model",
       "tags": [
         "frontier-model",
-        "product"
+        "safety"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
@@ -424,65 +519,23 @@
         "feedTitle": "OpenAI News",
         "feedUrl": "https://openai.com/news/rss.xml",
         "item": {
-          "title": "GPT-5.6: Frontier intelligence that scales with your ambition",
-          "description": "More intelligence from every token, stronger performance per dollar, and more capability on demand for your hardest work.",
-          "link": "https://openai.com/index/gpt-5-6",
+          "title": "GPT-5.5 Bio Bug Bounty",
+          "description": "Details about the OpenAI Bio Bounty program",
+          "link": "https://openai.com/index/bio-bug-bounty",
           "guid": {
-            "#text": "https://openai.com/index/gpt-5-6",
+            "#text": "https://openai.com/index/bio-bug-bounty",
             "isPermaLink": "true"
           },
-          "category": "Product",
+          "category": "Safety",
           "pubDate": "Thu, 09 Jul 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:34:48.762Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:04.585Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-07-13T07:34:48.762Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-      "originalTitle": "ChatGPT is now a partner for your most ambitious work",
-      "originalSummary": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-      "originalContent": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-09",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "product",
-        "agents"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "ChatGPT is now a partner for your most ambitious work",
-          "description": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-          "link": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-          "guid": {
-            "#text": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-            "isPermaLink": "true"
-          },
-          "category": "Product",
-          "pubDate": "Thu, 09 Jul 2026 10:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:34:48.762Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-13T07:34:48.762Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:04.585Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc3",
@@ -529,12 +582,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:50.482Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:05.769Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-13T07:34:50.482Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:05.769Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc2",
@@ -582,12 +635,87 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:50.482Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:05.769Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-13T07:34:50.482Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:05.769Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+      "originalTitle": "Data for Agents",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-08",
+      "publisherName": "Hugging Face",
+      "normalizedType": "workflow",
+      "tags": [
+        "open-source",
+        "model",
+        "agents"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Data for Agents",
+          "pubDate": "Wed, 08 Jul 2026 17:16:05 GMT",
+          "link": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-14T00:05:02.263Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-14T00:05:02.263Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+      "originalTitle": "Native-speed vLLM transformers modeling backend",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-08",
+      "publisherName": "Hugging Face",
+      "normalizedType": "model",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Native-speed vLLM transformers modeling backend",
+          "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+            "isPermaLink": "true"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-14T00:05:02.263Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-14T00:05:02.263Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
@@ -635,63 +763,23 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:47.632Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:03.575Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-13T07:34:47.632Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:03.575Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "id": "candidate-rss-https-hf-mirror-com-blog-amazon-one-click-to-sagemaker-studio",
       "sourceType": "rss-feed",
       "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-      "originalTitle": "Data for Agents",
-      "originalSummary": "",
-      "originalContent": "",
+      "sourceUrl": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
+      "originalTitle": "From HF Mirror to Amazon SageMaker Studio in one click",
       "originalLanguage": "en",
-      "publishDate": "2026-07-08",
+      "publishDate": "2026-07-07",
       "publisherName": "Hugging Face",
-      "normalizedType": "workflow",
-      "tags": [
-        "open-source",
-        "model",
-        "agents"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Data for Agents",
-          "pubDate": "Wed, 08 Jul 2026 17:16:05 GMT",
-          "link": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:48:20.828Z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-13T07:48:20.828Z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-      "originalTitle": "Native-speed vLLM transformers modeling backend",
-      "originalSummary": "",
-      "originalContent": "",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-08",
-      "publisherName": "Hugging Face",
-      "normalizedType": "model",
+      "normalizedType": "tool",
       "tags": [
         "open-source",
         "model"
@@ -703,19 +791,21 @@
         "feedTitle": "HF Mirror - Blog",
         "feedUrl": "https://hf-mirror.com/blog/feed.xml",
         "item": {
-          "title": "Native-speed vLLM transformers modeling backend",
-          "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+          "title": "From HF Mirror to Amazon SageMaker Studio in one click",
+          "pubDate": "Tue, 07 Jul 2026 21:15:33 GMT",
+          "link": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-            "isPermaLink": "true"
+            "#text": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
+            "isPermaLink": "false"
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:48:20.828Z"
+        "importedAt": "2026-07-14T00:05:02.263Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-13T07:48:20.828Z"
+      "importedAt": "2026-07-14T00:05:02.263Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc2",
@@ -763,101 +853,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:47.632Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:03.575Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-13T07:34:47.632Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-amazon-one-click-to-sagemaker-studio",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-      "originalTitle": "From HF Mirror to Amazon SageMaker Studio in one click",
-      "originalSummary": "",
-      "originalContent": "",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-07",
-      "publisherName": "Hugging Face",
-      "normalizedType": "tool",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "From HF Mirror to Amazon SageMaker Studio in one click",
-          "pubDate": "Tue, 07 Jul 2026 21:15:33 GMT",
-          "link": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-13T07:48:20.828Z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-13T07:48:20.828Z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc1",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2-rc1",
-      "originalTitle": "v0.31.2-rc1: create: harden GGUF create flows (#17062)",
-      "originalSummary": "create: harden GGUF create flows lint",
-      "originalContent": "<ul> <li> <p>create: harden GGUF create flows</p> </li> <li> <p>lint</p> </li> </ul>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-06",
-      "publisherName": "dhiltgen",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.31.2-rc1",
-          "updated": "2026-07-06T23:20:20Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.31.2-rc1"
-          },
-          "title": "v0.31.2-rc1: create: harden GGUF create flows (#17062)",
-          "content": {
-            "#text": "&lt;ul&gt;\n&lt;li&gt;\n&lt;p&gt;create: harden GGUF create flows&lt;/p&gt;\n&lt;/li&gt;\n&lt;li&gt;\n&lt;p&gt;lint&lt;/p&gt;\n&lt;/li&gt;\n&lt;/ul&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "dhiltgen"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/4033016?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:47.632Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-13T07:34:47.632Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:03.575Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -904,12 +905,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:46.759Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:02.840Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-13T07:34:46.759Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:02.840Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -956,12 +957,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:46.759Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:02.840Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-13T07:34:46.759Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:02.840Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -1008,12 +1009,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-13T07:34:46.759Z",
-        "importRunId": "import-run-2026-07-13t07-34-36-166z"
+        "importedAt": "2026-07-14T00:05:02.840Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-13T07:34:46.759Z",
-      "importRunId": "import-run-2026-07-13t07-34-36-166z"
+      "importedAt": "2026-07-14T00:05:02.840Z",
+      "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
       "id": "candidate-source-quality-failing-source-2026-05-30",
