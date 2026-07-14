@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { DossierCard } from "@/components/dossier-card";
+import { DossierCatalogNote } from "@/components/dossier-catalog-note";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -22,7 +25,6 @@ import {
 import { getLatestPublicNewsItems, newsDisclaimer } from "@/lib/news";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
-  getPriorityLevelClass,
   getPriorityLevelLabel,
   getPriorityUserSummary
 } from "@/lib/ranking-display";
@@ -40,6 +42,8 @@ import type {
 } from "@/types/content";
 
 export const dynamic = "force-dynamic";
+
+const cardTilts = ["a", "b", "c"] as const;
 
 const skillTypeLabels: Record<SkillType, string> = {
   engineering: "工程落地",
@@ -75,7 +79,13 @@ function getPublicTechnologySummary(technology: TechnologyItem): string {
   );
 }
 
-function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
+function HomeTechnologyCard({
+  technology,
+  tilt
+}: {
+  technology: TechnologyItem;
+  tilt: "a" | "b" | "c";
+}) {
   const ranking = evaluateTechnologyPriority(technology);
   const summary = getPublicTechnologySummary(technology);
   const whyItMatters =
@@ -90,11 +100,11 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
     .filter((tag): tag is TopicTag => Boolean(tag));
 
   return (
-    <article className="home-signal-card">
+    <DossierCard tilt={tilt} className="home-signal-card">
       <div className="home-signal-card__meta">
-        <span className={getPriorityLevelClass(ranking.priorityLevel)}>
+        <DossierStampTag>
           {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
-        </span>
+        </DossierStampTag>
         <span>{technology.publishDate}</span>
       </div>
       <h3>
@@ -103,10 +113,7 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
         </Link>
       </h3>
       <p>{summary}</p>
-      <div className="home-signal-card__why">
-        <span>为什么重要</span>
-        <p>{whyItMatters}</p>
-      </div>
+      <DossierCatalogNote label="为什么重要">{whyItMatters}</DossierCatalogNote>
       <div className="home-signal-card__footer">
         {audience.map((item) => (
           <span key={item}>{item}</span>
@@ -114,45 +121,57 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
         {difficulty ? <span>{difficulty}</span> : null}
       </div>
       <TagList tags={tags} limit={2} />
-    </article>
+    </DossierCard>
   );
 }
 
-function SkillPathCard({ skill }: { skill: SkillItem }) {
+function SkillPathCard({
+  skill,
+  tilt
+}: {
+  skill: SkillItem;
+  tilt: "a" | "b" | "c";
+}) {
   const relatedTechnologies = getAllTechnologies().filter((technology) =>
     skill.relatedTechnologyIds.includes(technology.id)
   );
 
   return (
-    <article className="foundation-card">
-      <span className="foundation-card__label">
+    <DossierCard tilt={tilt} className="foundation-card">
+      <DossierStampTag className="dossier-stamp-tag--muted">
         {skillTypeLabels[skill.skillType]}
-      </span>
+      </DossierStampTag>
       <h3>
         <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
       </h3>
       <p>{skill.summary}</p>
       <small>已关联 {relatedTechnologies.length} 条已发布技术信号。</small>
-    </article>
+    </DossierCard>
   );
 }
 
-function KnowledgePathCard({ item }: { item: KnowledgeItem }) {
+function KnowledgePathCard({
+  item,
+  tilt
+}: {
+  item: KnowledgeItem;
+  tilt: "a" | "b" | "c";
+}) {
   const relatedTechnologies = getAllTechnologies().filter((technology) =>
     item.relatedTechnologyIds.includes(technology.id)
   );
 
   return (
-    <article className="foundation-card">
-      <span className="foundation-card__label">
+    <DossierCard tilt={tilt} className="foundation-card">
+      <DossierStampTag className="dossier-stamp-tag--muted">
         {difficultyLabels[item.difficulty]}
-      </span>
+      </DossierStampTag>
       <h3>
         <Link href={`/knowledge/${item.slug}`}>{item.title}</Link>
       </h3>
       <p>{item.summary}</p>
       <small>已解释 {relatedTechnologies.length} 条已发布技术信号。</small>
-    </article>
+    </DossierCard>
   );
 }
 
@@ -182,6 +201,7 @@ export default function HomePage() {
       description="发现、理解并持续跟踪值得优先关注的 AI 技术信号。"
       sectionLabel="AI 技术发现"
       showHeader={false}
+      className="dossier"
     >
       <section className="product-home-hero">
         <div className="product-home-hero__copy">
@@ -221,7 +241,7 @@ export default function HomePage() {
           </Link>
         </div>
         {latestDigest && digestData ? (
-          <article className="home-digest-card">
+          <DossierCard className="home-digest-card">
             <div>
               <span>{latestDigest.date}</span>
               <h3>
@@ -237,7 +257,7 @@ export default function HomePage() {
               <strong>{digestData.watchTechnologies.length}</strong>
               <span>值得跟踪</span>
             </div>
-          </article>
+          </DossierCard>
         ) : (
           <div className="empty-state empty-state--actionable">
             <strong>还没有已发布简报。</strong>
@@ -263,8 +283,12 @@ export default function HomePage() {
         </div>
         {prioritySignals.length > 0 ? (
           <div className="home-signal-grid">
-            {prioritySignals.map((technology) => (
-              <HomeTechnologyCard key={technology.id} technology={technology} />
+            {prioritySignals.map((technology, index) => (
+              <HomeTechnologyCard
+                key={technology.id}
+                technology={technology}
+                tilt={cardTilts[index % cardTilts.length]}
+              />
             ))}
           </div>
         ) : (
@@ -325,8 +349,12 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="foundation-card-list">
-            {skills.map((skill) => (
-              <SkillPathCard key={skill.id} skill={skill} />
+            {skills.map((skill, index) => (
+              <SkillPathCard
+                key={skill.id}
+                skill={skill}
+                tilt={cardTilts[index % cardTilts.length]}
+              />
             ))}
           </div>
         </div>
@@ -342,8 +370,12 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="foundation-card-list">
-            {knowledge.map((item) => (
-              <KnowledgePathCard key={item.id} item={item} />
+            {knowledge.map((item, index) => (
+              <KnowledgePathCard
+                key={item.id}
+                item={item}
+                tilt={cardTilts[index % cardTilts.length]}
+              />
             ))}
           </div>
         </div>

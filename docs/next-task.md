@@ -1,5 +1,29 @@
 # Next Task
 
+> Update 2026-07-14 (same night, sixth and final adoption round):
+> **Dossier direction migration complete.** The homepage (`/`) is the last
+> page in the original adoption order — `HomeTechnologyCard`,
+> `SkillPathCard`, `KnowledgePathCard`, and the digest summary card
+> (page-specific, unshared) now use `DossierCard` / `DossierStampTag` /
+> `DossierCatalogNote`; the news-row list stays CSS-reskinned only since
+> `DossierRegisterRow` can't carry `target="_blank"` for its external
+> links. See `CHANGELOG.md` → "Dossier direction adoption — homepage
+> (migration complete)" and `docs/design-system.md` → "Dossier direction"
+> → "Adopted pages" for the full history of all six rounds. Every page in
+> the original migration-cost plan now renders the "编辑桌" look:
+> `/`, `/technologies` (+ `[slug]`), `/skills` (+ `[slug]`), `/knowledge`
+> (+ `[slug]`), `/timeline`, `/digest` (+ `today` + `[date]`), `/search`,
+> `/radar`, `/news`. **Not migrated, and not part of that plan**:
+> `/network` (needs its own hand-written force-directed graph treatment,
+> not a card swap — see design-system.md "Decided specifics") and the
+> entire Internal Workspace (by design, keeps its own dark console look).
+> Verified with typecheck, lint, format, vitest 61/61, and a live pass on
+> every page in the list plus a `/network` regression check. **Next
+> actual step**: there is no predefined next step for this initiative —
+> dark/light theming is the one open question left, and `/network`'s
+> adoption is new scope; both need explicit direction from the owner
+> before starting.
+
 > Update 2026-07-14 (same night, fifth adoption round): **Dossier
 > direction adopted on `/radar` and `/news`** — closing out the "each need
 > one new state" pages from the original plan. `MyRadarContent` swaps

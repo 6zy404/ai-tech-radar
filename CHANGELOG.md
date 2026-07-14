@@ -12,6 +12,27 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — homepage (migration complete)
+
+- **Dossier direction live on `/` (homepage)** — 2026-07-14, same night,
+  sixth and final adoption round. `HomeTechnologyCard`, `SkillPathCard`,
+  `KnowledgePathCard`, and the digest summary card (all page-specific,
+  not shared with any other page) now render through `DossierCard`, with
+  `DossierStampTag` for the priority/category pills and
+  `DossierCatalogNote` for the "为什么重要" block. The compact news-row
+  list keeps its original markup (CSS reskin only), since
+  `DossierRegisterRow`'s `Link`-only href doesn't support the
+  `target="_blank"` behavior those external-link rows need. This
+  completes the original migration-cost plan's adoption order: every
+  page named in it now renders the "编辑桌" look. `/network` (its own
+  hand-written force-directed graph, not a card swap) was discussed as a
+  target for this direction but was never placed in the adoption order
+  and remains unmigrated, alongside the Internal Workspace by design.
+  Verified with typecheck, lint, format, vitest 61/61, and a live pass
+  (all sections render — hero, digest card, priority signals, news rows,
+  skill/knowledge cards — mobile width without overflow, zero console
+  errors, `/network` confirmed unaffected).
+
 ## Dossier direction adoption — /radar & /news
 
 - **Dossier direction live on `/radar` and `/news`** — 2026-07-14, same

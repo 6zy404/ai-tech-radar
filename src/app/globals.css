@@ -9529,3 +9529,103 @@ button.tech-graph__node:focus-visible {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
+
+/* ============================================================
+   Dossier direction v6 -- ADOPTED on the homepage, the last page in the
+   migration order (it aggregates card types every earlier round already
+   restyled: signal cards, digest card, foundation cards, news rows).
+   ============================================================ */
+
+.dossier .product-home-hero {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .product-home-hero__copy h1 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .product-home-hero__copy p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .product-home-hero__stats {
+  background: var(--dossier-ground);
+}
+
+.dossier .product-home-hero__stats strong {
+  color: var(--dossier-stamp);
+}
+
+.dossier .section-heading h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .section-heading p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .home-digest-card span,
+.dossier .home-signal-card__meta {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .home-digest-card h3,
+.dossier .home-signal-card h3,
+.dossier .foundation-card h3 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .home-digest-card p,
+.dossier .home-signal-card p,
+.dossier .foundation-card p,
+.dossier .foundation-card small {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .home-digest-card__stats {
+  background: var(--dossier-ground);
+}
+
+.dossier .home-digest-card__stats strong {
+  color: var(--dossier-stamp);
+}
+
+.dossier .home-signal-card__footer span {
+  background: transparent;
+  border: 1px solid var(--dossier-line);
+  color: var(--dossier-muted);
+}
+
+.dossier .home-discovery-grid {
+  border-top: 1px solid var(--dossier-line);
+}
+
+.dossier .home-news-row {
+  border-bottom: 1px solid var(--dossier-line);
+}
+
+.dossier .home-news-row__source {
+  color: var(--dossier-accent);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .home-news-row a {
+  color: var(--dossier-ink);
+}
+
+.dossier .home-news-list__note {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
