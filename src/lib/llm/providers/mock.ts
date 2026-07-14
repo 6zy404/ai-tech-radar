@@ -111,7 +111,7 @@ function createMockTechnologyLearningPathResponse(
     hasKnowledge
       ? `先补齐背景概念「${knowledgeTitle}」，理解 ${title} 建立在什么基础上。`
       : `先阅读 ${title} 的原始来源，弄清它解决的核心问题。`,
-    `对照本页的「为什么值得看」和「技术背景」，梳理 ${title} 与现有做法的差异。`,
+    `对照本页的「为什么重要」和「技术背景」，梳理 ${title} 与现有做法的差异。`,
     hasSkill
       ? `练习相关技能「${skillTitle}」，用它评估 ${title} 在自己场景下的适用性。`
       : `结合团队现状，列出评估 ${title} 时要回答的两三个具体问题。`,

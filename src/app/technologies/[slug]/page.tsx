@@ -58,7 +58,7 @@ export default async function TechnologyDetailPage({
   return (
     <UserPageShell
       title="技术详情"
-      description="以阅读为先，呈现已发布信号、来源，以及解释它的技能与知识。"
+      description="以阅读为先，呈现已发布信号、来源，以及帮助理解它的技能与知识。"
       sectionLabel="已发布技术"
       showHeader={false}
     >

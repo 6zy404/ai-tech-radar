@@ -13,7 +13,7 @@ export function getPriorityLevelLabel(
     const labels: Record<PriorityLevel, string> = {
       high_priority: "立即关注",
       watch: "值得跟踪",
-      low_priority: "可以了解"
+      low_priority: "背景参考"
     };
 
     return labels[level];

@@ -10,6 +10,7 @@ import {
   toggleFollowedTagId
 } from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
+import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
 
 interface MyRadarContentProps {
@@ -21,17 +22,17 @@ const priorityGroups: { level: PriorityLevel; title: string; lede: string }[] =
   [
     {
       level: "high_priority",
-      title: "立即关注",
+      title: getPriorityLevelLabel("high_priority", "zh"),
       lede: "命中你关注话题、且多项信号显示值得尽早评估的内容。"
     },
     {
       level: "watch",
-      title: "值得跟踪",
+      title: getPriorityLevelLabel("watch", "zh"),
       lede: "命中你关注话题、值得持续留意的变化。"
     },
     {
       level: "low_priority",
-      title: "了解即可",
+      title: getPriorityLevelLabel("low_priority", "zh"),
       lede: "命中你关注话题的背景型内容，空闲时浏览。"
     }
   ];

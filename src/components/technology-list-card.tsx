@@ -88,7 +88,7 @@ export function TechnologyListCard({
         <p className="technology-card__summary">{summary}</p>
 
         <div className="technology-card__insight">
-          <span>为什么值得看</span>
+          <span>为什么重要</span>
           <p>{whyItMatters}</p>
         </div>
 

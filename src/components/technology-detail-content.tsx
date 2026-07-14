@@ -221,7 +221,7 @@ export function TechnologyDetailContent({
       {whyItMatters ? (
         <section className="user-article-section technology-detail-section">
           <p className="technology-detail-section__eyebrow">为什么是现在</p>
-          <h2>为什么值得看</h2>
+          <h2>为什么重要</h2>
           <p className="technology-detail-section__lede">{whyItMatters}</p>
         </section>
       ) : null}
