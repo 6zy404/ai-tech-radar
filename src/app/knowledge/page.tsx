@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { DossierCard } from "@/components/dossier-card";
+import { DossierCatalogNote } from "@/components/dossier-catalog-note";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -17,6 +20,8 @@ import type {
   SkillItem,
   TechnologyItem
 } from "@/types/content";
+
+const cardTilts = ["a", "b", "c"] as const;
 
 const difficultySections: Array<{
   id: DifficultyLevel;
@@ -108,7 +113,7 @@ export default function KnowledgePage() {
       title="解读 AI 信号的知识"
       description="帮助用户理解 AI 技术信号及其背景的概念。"
       sectionLabel="背景知识"
-      className="skills-library-page knowledge-library-page"
+      className="skills-library-page knowledge-library-page dossier"
     >
       {knowledgeItems.length === 0 ? (
         <section className="skills-library-empty">
@@ -175,7 +180,7 @@ export default function KnowledgePage() {
                   <p>{section.description}</p>
                 </div>
                 <div className="skills-library-card-grid">
-                  {section.items.map((item) => {
+                  {section.items.map((item, index) => {
                     const relatedTechnologies = getRelatedTechnologies(
                       item,
                       technologies
@@ -190,13 +195,18 @@ export default function KnowledgePage() {
                     );
 
                     return (
-                      <article
-                        key={item.id}
+                      <DossierCard
+                        tilt={cardTilts[index % cardTilts.length]}
                         className="skill-library-card knowledge-library-card"
+                        key={item.id}
                       >
-                        <div className="skill-library-card__meta">
-                          <span>{categoryLabels[item.category]}</span>
-                          <span>{difficultyLabels[item.difficulty]}</span>
+                        <div className="dossier-technology-card__chips">
+                          <DossierStampTag>
+                            {categoryLabels[item.category]}
+                          </DossierStampTag>
+                          <DossierStampTag className="dossier-stamp-tag--muted">
+                            {difficultyLabels[item.difficulty]}
+                          </DossierStampTag>
                         </div>
                         <h2>
                           <Link href={`/knowledge/${item.slug}`}>
@@ -204,10 +214,9 @@ export default function KnowledgePage() {
                           </Link>
                         </h2>
                         <p>{item.summary}</p>
-                        <div className="skill-library-card__outcome">
-                          <span>帮助你理解</span>
-                          <p>{getKnowledgeOutcome(item)}</p>
-                        </div>
+                        <DossierCatalogNote label="帮助你理解">
+                          {getKnowledgeOutcome(item)}
+                        </DossierCatalogNote>
                         <RelationDensity
                           items={[
                             { n: relatedTechnologies.length, label: "技术" },
@@ -237,7 +246,7 @@ export default function KnowledgePage() {
                         >
                           查看概念
                         </Link>
-                      </article>
+                      </DossierCard>
                     );
                   })}
                 </div>

@@ -684,10 +684,28 @@ additive and cannot regress any currently shipped page.
   (`UserPageShell`'s `className` prop) or directly on `UserArticleLayout`'s
   root article; every other `.user-shell` page is unaffected because none
   of them carry that class yet.
+- **`/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`** — same
+  day, second adoption round. Unlike the technology pages, these four
+  routes don't share card/section components with each other or with
+  anything else (each `page.tsx` hand-rolls its own
+  `skill-library-card` / `skill-detail-related-card` markup), so no new
+  page-specific sibling components were needed: `DossierCard`,
+  `DossierStampTag`, and `DossierCatalogNote` are imported and used
+  directly in all four page files in place of the plain
+  `<article>`/`<div>`/`<span>` markup they used before. The index-card
+  outcome blurb ("帮助你判断" / "帮助你理解") and every related-item note
+  (including the skill↔knowledge "附注" note) now render through
+  `DossierCatalogNote`; the heat/cost/category/difficulty pills and each
+  relation-type label render through `DossierStampTag`. `RelationshipGraph`,
+  `TagList`, `FollowableTagList`, and `RelationDensity` are reused as-is —
+  they already picked up the dossier look for free from the CSS overrides
+  written for the technology round, since those target the shared
+  classnames (`.tech-graph__*`, `.tag-badge`, `.my-radar__tag-toggle`)
+  rather than being technology-page-specific.
 
-Next up per the original migration-cost plan: skills/knowledge and the
-topic timeline (structurally closest, cheapest — `DossierRegisterRow`'s
-first real use), then the digest pages and search, then `/radar` and
-`/news` (each need one new state), and the homepage last since it
-aggregates every other component. Dark/light theming for this direction is
-still an explicit open question, not decided.
+Next up per the original migration-cost plan: the topic timeline
+(structurally closest, cheapest — `DossierRegisterRow`'s first real use),
+then the digest pages and search, then `/radar` and `/news` (each need one
+new state), and the homepage last since it aggregates every other
+component. Dark/light theming for this direction is still an explicit open
+question, not decided.

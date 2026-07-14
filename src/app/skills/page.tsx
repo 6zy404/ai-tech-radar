@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { DossierCard } from "@/components/dossier-card";
+import { DossierCatalogNote } from "@/components/dossier-catalog-note";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -18,6 +21,8 @@ import type {
   SkillType,
   TechnologyItem
 } from "@/types/content";
+
+const cardTilts = ["a", "b", "c"] as const;
 
 const skillTypeSections: Array<{
   id: SkillType;
@@ -129,7 +134,7 @@ export default function SkillsPage() {
       title="理解 AI 信号的技能"
       description="用这些实用技能判断一个新的 AI 技术信号是否值得测试、跟踪，或向团队解释。"
       sectionLabel="理解技能"
-      className="skills-library-page"
+      className="skills-library-page dossier"
     >
       {skills.length === 0 ? (
         <section className="skills-library-empty">
@@ -195,7 +200,7 @@ export default function SkillsPage() {
                 </div>
 
                 <div className="skills-library-card-grid">
-                  {section.items.map((skill) => {
+                  {section.items.map((skill, index) => {
                     const relatedTechnologies = getRelatedTechnologies(
                       skill,
                       technologies
@@ -207,10 +212,18 @@ export default function SkillsPage() {
                     const tags = getTagsByIds(skill.tags);
 
                     return (
-                      <article className="skill-library-card" key={skill.id}>
-                        <div className="skill-library-card__meta">
-                          <span>{heatLabels[skill.heatLevel]}</span>
-                          <span>{learningCostLabels[skill.learningCost]}</span>
+                      <DossierCard
+                        tilt={cardTilts[index % cardTilts.length]}
+                        className="skill-library-card"
+                        key={skill.id}
+                      >
+                        <div className="dossier-technology-card__chips">
+                          <DossierStampTag>
+                            {heatLabels[skill.heatLevel]}
+                          </DossierStampTag>
+                          <DossierStampTag className="dossier-stamp-tag--muted">
+                            {learningCostLabels[skill.learningCost]}
+                          </DossierStampTag>
                         </div>
                         <h3>
                           <Link href={`/skills/${skill.slug}`}>
@@ -220,10 +233,9 @@ export default function SkillsPage() {
                         <p className="skill-library-card__summary">
                           {skill.summary}
                         </p>
-                        <div className="skill-library-card__outcome">
-                          <span>帮助你判断</span>
-                          <p>{getSkillOutcome(skill)}</p>
-                        </div>
+                        <DossierCatalogNote label="帮助你判断">
+                          {getSkillOutcome(skill)}
+                        </DossierCatalogNote>
                         <RelationDensity
                           items={[
                             { n: relatedTechnologies.length, label: "技术" },
@@ -254,7 +266,7 @@ export default function SkillsPage() {
                         >
                           查看技能
                         </Link>
-                      </article>
+                      </DossierCard>
                     );
                   })}
                 </div>

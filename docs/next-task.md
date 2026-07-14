@@ -1,10 +1,28 @@
 # Next Task
 
-> Update 2026-07-14 (night): **Dossier direction adopted on `/technologies`
-> + `/technologies/[slug]`.** Following the migration order from the
-> earlier design-session update below, the staged component slice is now
-> wired into real pages — see `CHANGELOG.md` → "Dossier direction adoption
-> — /technologies" and `docs/design-system.md` → "Dossier direction" →
+> Update 2026-07-14 (later that night): **Dossier direction adopted on
+> `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`.** Second
+> adoption round, right after the technology pages below. These four routes
+> hand-roll their own markup per route (no shared card/section component
+> across them), so `DossierCard` / `DossierStampTag` / `DossierCatalogNote`
+> were used directly in each `page.tsx` — no new page-specific components
+> needed this round. `RelationshipGraph`, `TagList`, `FollowableTagList`,
+> and `RelationDensity` needed zero changes: the CSS written for the
+> technology round already covers their shared classnames. See
+> `CHANGELOG.md` → "Dossier direction adoption — skills & knowledge" and
+> `docs/design-system.md` → "Dossier direction" → "Adopted pages" for the
+> full description. Verified with typecheck, lint, format, vitest 61/61,
+> and a live pass on all four pages plus a regression check on home,
+> `/radar`, and the technology pages. **Next actual step**: the topic
+> timeline (`/timeline` — `DossierRegisterRow`'s first real use), then
+> digest + search, then `/radar` + `/news`, homepage last. Dark/light
+> theming is still undecided — don't start it without asking first.
+
+> Update 2026-07-14 (night): **Dossier direction adopted on the technology
+> list and detail pages.** Following the migration order from the earlier
+> design-session update below, the staged component slice is now wired
+> into real pages — see `CHANGELOG.md` → "Dossier direction adoption —
+> /technologies" and `docs/design-system.md` → "Dossier direction" →
 > "Adopted pages" for the full description. In short: the list page uses
 > `DossierSearchInput` + `DossierCategoryChips` + a new
 > `DossierTechnologyCard`; the detail page uses a new

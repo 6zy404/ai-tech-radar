@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { DossierCard } from "@/components/dossier-card";
+import { DossierCatalogNote } from "@/components/dossier-catalog-note";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import {
   RelationshipGraph,
   type RelationshipGraphNode
@@ -168,7 +171,7 @@ export default async function KnowledgeDetailPage({
       description={knowledge.summary}
       sectionLabel="背景知识"
       showHeader={false}
-      className="skill-detail-page knowledge-detail-page"
+      className="skill-detail-page knowledge-detail-page dossier"
     >
       <div className="skill-detail-layout">
         <main className="skill-detail-main">
@@ -179,8 +182,12 @@ export default async function KnowledgeDetailPage({
             <h1>{knowledge.title}</h1>
             <p>{knowledge.summary}</p>
             <div className="skill-detail-hero__meta">
-              <span>{categoryLabels[knowledge.category]}</span>
-              <span>{difficultyLabels[knowledge.difficulty]}</span>
+              <DossierStampTag>
+                {categoryLabels[knowledge.category]}
+              </DossierStampTag>
+              <DossierStampTag className="dossier-stamp-tag--muted">
+                {difficultyLabels[knowledge.difficulty]}
+              </DossierStampTag>
             </div>
             {tags.length > 0 ? <TagList tags={tags} limit={4} /> : null}
           </section>
@@ -217,7 +224,7 @@ export default async function KnowledgeDetailPage({
                   const technologyTags = getTagsByIds(technology.tags);
 
                   return (
-                    <article
+                    <DossierCard
                       className="skill-detail-related-card"
                       key={technology.id}
                     >
@@ -226,12 +233,12 @@ export default async function KnowledgeDetailPage({
                           <p className="skill-detail-related-card__meta">
                             {technology.sourceName} · {technology.publishDate}
                           </p>
-                          <span className="user-related-section__relation">
+                          <DossierStampTag>
                             {getRelationTypeLabel(
                               technologyRelations[index].relationType,
                               "zh"
                             )}
-                          </span>
+                          </DossierStampTag>
                         </div>
                         <h3>
                           <Link href={`/technologies/${technology.slug}`}>
@@ -240,10 +247,9 @@ export default async function KnowledgeDetailPage({
                         </h3>
                         <p>{getPreferredTechnologySummary(technology)}</p>
                         {technology.whyItMatters ? (
-                          <div className="skill-detail-related-card__note">
-                            <span>这个概念在这里如何体现</span>
-                            <p>{technology.whyItMatters}</p>
-                          </div>
+                          <DossierCatalogNote label="这个概念在这里如何体现">
+                            {technology.whyItMatters}
+                          </DossierCatalogNote>
                         ) : null}
                         {technologyTags.length > 0 ? (
                           <TagList tags={technologyTags} limit={2} />
@@ -255,7 +261,7 @@ export default async function KnowledgeDetailPage({
                       >
                         查看相关信号
                       </Link>
-                    </article>
+                    </DossierCard>
                   );
                 })}
               </div>
@@ -275,7 +281,7 @@ export default async function KnowledgeDetailPage({
                   const skillTags = getTagsByIds(skill.tags);
 
                   return (
-                    <article
+                    <DossierCard
                       className="skill-detail-related-card skill-detail-related-card--knowledge"
                       key={skill.id}
                     >
@@ -285,12 +291,12 @@ export default async function KnowledgeDetailPage({
                             {skillTypeLabels[skill.skillType]} ·{" "}
                             {heatLabels[skill.heatLevel]}
                           </p>
-                          <span className="user-related-section__relation">
+                          <DossierStampTag>
                             {getRelationTypeLabel(
                               skillRelations[index].relationType,
                               "zh"
                             )}
-                          </span>
+                          </DossierStampTag>
                         </div>
                         <h3>
                           <Link href={`/skills/${skill.slug}`}>
@@ -298,10 +304,9 @@ export default async function KnowledgeDetailPage({
                           </Link>
                         </h3>
                         <p>{skill.summary}</p>
-                        <div className="skill-detail-related-card__note">
-                          <span>附注</span>
-                          <p>有了这个概念，这项技能会更容易练习和应用。</p>
-                        </div>
+                        <DossierCatalogNote>
+                          有了这个概念，这项技能会更容易练习和应用。
+                        </DossierCatalogNote>
                         {skillTags.length > 0 ? (
                           <TagList tags={skillTags} limit={2} />
                         ) : null}
@@ -312,7 +317,7 @@ export default async function KnowledgeDetailPage({
                       >
                         查看技能
                       </Link>
-                    </article>
+                    </DossierCard>
                   );
                 })}
               </div>
