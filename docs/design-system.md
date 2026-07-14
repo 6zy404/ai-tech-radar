@@ -746,6 +746,28 @@ additive and cannot regress any currently shipped page.
   page-specific `NewsCard` swaps to `DossierCard`, matching the identical
   treatment already given to `/search`'s `SearchNewsCard`.
 
-Next up per the original migration-cost plan: the homepage, last, since it
-aggregates every other component. Dark/light theming for this direction is
-still an explicit open question, not decided.
+- **Homepage (`/`)** — same night, sixth and final adoption round. All
+  three page-specific card components (`HomeTechnologyCard`,
+  `SkillPathCard`, `KnowledgePathCard`) plus the digest summary card now
+  render through `DossierCard`, with `DossierStampTag` for the priority/
+  category pills and `DossierCatalogNote` for the "为什么重要" block —
+  none of these are shared with other pages, so all were changed directly
+  in `src/app/page.tsx`. The compact news-row list keeps its original
+  markup (CSS-reskinned only), since `DossierRegisterRow`'s `Link`-only
+  href doesn't support the `target="_blank"` external-link behavior the
+  rows need.
+
+**This completes the original migration-cost plan's adoption order**:
+every page named in it (`/`, `/technologies`, `/technologies/[slug]`,
+`/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`,
+`/timeline`, `/digest`, `/digest/today`, `/digest/[date]`, `/search`,
+`/radar`, `/news`) now renders the "编辑桌" look. `/network` was
+discussed as a target for this direction too (its own hand-written
+force-directed graph, not a card swap — see "Decided specifics" above)
+but was never placed in the adoption order and remains unmigrated; it,
+and the whole Internal Workspace (`docs/architecture.md` — workspace
+pages intentionally keep their own dark console look, separate from the
+User-facing Product), are the only user-facing/internal surfaces still on
+the teal/cream system. Dark/light theming for this direction is still an
+explicit open question, not decided — a future session should ask before
+starting it.
