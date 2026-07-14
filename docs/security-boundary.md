@@ -21,6 +21,9 @@ Public routes can be exposed:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/timeline` (published technology signals grouped by topic tag, newest
+  first; reads only already-public technology fields, no news candidate
+  data)
 - `/radar` (follows are browser-localStorage only; the route serves the same
   published content to everyone and holds no per-reader server state)
 - `/search` (deterministic keyword search over published technology

@@ -12,6 +12,7 @@ const primaryNavItems = [
   { href: "/skills", label: "技能" },
   { href: "/knowledge", label: "知识" },
   { href: "/network", label: "关系网络" },
+  { href: "/timeline", label: "时间线" },
   { href: "/radar", label: "我的雷达" },
   { href: "/search", label: "搜索" }
 ];
