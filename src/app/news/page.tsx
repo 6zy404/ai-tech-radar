@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { DossierCard } from "@/components/dossier-card";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getTodayDateString } from "@/lib/digest-store";
 import {
@@ -28,7 +29,7 @@ function getNewsDayLabel(date: string, today: string): string {
 
 function NewsCard({ item }: { item: PublicNewsItem }) {
   return (
-    <article className="news-card u-card">
+    <DossierCard className="news-card">
       <div className="news-card__meta">
         <span className="news-card__source">{item.sourceName}</span>
         <span>{item.publishDate}</span>
@@ -54,7 +55,7 @@ function NewsCard({ item }: { item: PublicNewsItem }) {
           已收录为精选技术信号：{item.publishedTechnology.title}
         </Link>
       ) : null}
-    </article>
+    </DossierCard>
   );
 }
 
@@ -71,7 +72,7 @@ export default function NewsPage() {
       title="今日快讯"
       description={`最近 ${newsWindowDays} 天从外部来源自动聚合的 AI 资讯，按日期分组。想看有编辑判断的内容，请阅读精选技术信号与每日简报。`}
       sectionLabel="自动聚合快讯"
-      className="news-page"
+      className="news-page dossier"
       actions={
         <Link href="/technologies" className="action-link">
           浏览精选技术信号

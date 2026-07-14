@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { TechnologyListCard } from "@/components/technology-list-card";
+import { DossierTechnologyCard } from "@/components/dossier-technology-card";
 import {
   followedTagsChangedEventName,
   readFollowedTagIds,
@@ -17,6 +17,8 @@ interface MyRadarContentProps {
   technologies: TechnologyItem[];
   tags: TopicTag[];
 }
+
+const cardTilts = ["a", "b", "c"] as const;
 
 const priorityGroups: { level: PriorityLevel; title: string; lede: string }[] =
   [
@@ -149,15 +151,16 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
             <h2>{group.title}</h2>
             <p>{group.lede}</p>
           </div>
-          <div className="technology-signal-list">
-            {group.items.map(({ technology, matchedTags }) => (
+          <div className="dossier-technology-list">
+            {group.items.map(({ technology, matchedTags }, index) => (
               <div key={technology.id} className="my-radar__item">
                 <p className="my-radar__match-line">
                   命中关注：{matchedTags.map((tag) => tag.name).join("、")}
                 </p>
-                <TechnologyListCard
+                <DossierTechnologyCard
                   technology={technology}
                   mode="zh"
+                  tilt={cardTilts[index % cardTilts.length]}
                   tags={technology.tags
                     .map((tagId) => tags.find((tag) => tag.id === tagId))
                     .filter((tag): tag is TopicTag => Boolean(tag))}

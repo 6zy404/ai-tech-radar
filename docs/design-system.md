@@ -737,7 +737,15 @@ additive and cannot regress any currently shipped page.
   that route's ancestor shell never carries the class — fixed by moving
   `dossier` onto the component's own root.
 
-Next up per the original migration-cost plan: `/radar` and `/news` (each
-need one new state), and the homepage last since it aggregates every other
-component. Dark/light theming for this direction is still an explicit open
-question, not decided.
+- **`/radar` and `/news`** — same night, fifth adoption round, the "each
+  need one new state" pages from the original plan. `MyRadarContent`
+  swaps `TechnologyListCard` for `DossierTechnologyCard` (the same
+  page-specific card built for `/technologies`) — safe because
+  `MyRadarContent` is only ever rendered by `/radar`, so the home page's
+  own separate `TechnologyListCard` usage is untouched. `/news`'s
+  page-specific `NewsCard` swaps to `DossierCard`, matching the identical
+  treatment already given to `/search`'s `SearchNewsCard`.
+
+Next up per the original migration-cost plan: the homepage, last, since it
+aggregates every other component. Dark/light theming for this direction is
+still an explicit open question, not decided.
