@@ -38,6 +38,31 @@ For per-topic deep dives, see the `docs/` directory.
   resolved/ignored status, a conversion guard for non-primary duplicates, and
   additional source references carried into generated drafts.
 
+## Site-wide search
+
+- **Public site-wide search v0** — 2026-07-14, owner-authorized as the next
+  capability after the news fast lane. New public `/search` page (「搜索」 in
+  `TopNav`) with server-rendered `?q=` keyword search over the four public
+  content pools: published technology signals, skills, knowledge, and the
+  news fast lane. Matching is deterministic and explainable — case-insensitive
+  substring match on title / summary / tag display names only (content bodies
+  deliberately excluded to keep results low-noise), with space-separated
+  terms ANDed. Results render grouped per content type with per-group counts;
+  the news group always carries the fixed 自动聚合 disclaimer, making search
+  a compliant fast-lane surface. Implementation: new `src/lib/search.ts`
+  (`searchPublicContent` + `PublicSearchResults`), reusing
+  `getAllTechnologies` / `getAllSkills` / `getAllKnowledge` (published-only
+  public shapes), `getPublicNewsItems` (the existing `src/lib/news.ts`
+  sanitizing map — no new candidate→public mapping point was created), and
+  `getPreferredTechnologyTitle/Summary` for bilingual display; new
+  `src/app/search/page.tsx` (Next 15 async `searchParams`, plain GET form,
+  guided empty states for "no query" and "no matches") and a `.search-*`
+  CSS block on existing tokens. No AI, no external service, no new API
+  route; the served results are identical for everyone. Verified with
+  typecheck, lint, and a live pass (Chinese/English queries, multi-term AND,
+  case-insensitivity, news-group disclaimer, mobile width without overflow,
+  no new console errors).
+
 ## News fast lane & scheduled import
 
 - **News fast lane + task-runner scheduled import v0 (two-tier content

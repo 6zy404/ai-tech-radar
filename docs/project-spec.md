@@ -72,6 +72,9 @@ Public pages:
 - `/network`
 - `/radar` — personal radar; follows are browser-local (localStorage), the
   route itself serves the same published content to everyone
+- `/search` — site-wide keyword search over published signals, skills,
+  knowledge, and the news fast lane (deterministic title/summary/tag
+  matching; news results reuse the `src/lib/news.ts` sanitizing map)
 - `/feed.xml`
 - `/feed.json`
 

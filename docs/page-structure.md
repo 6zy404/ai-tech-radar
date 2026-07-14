@@ -361,6 +361,18 @@ Workspace deployment boundary:
     `RelationDensity` — this page is the one place to see the whole graph at
     once instead of one node's neighbourhood
   - does not show internal quality, reviewer, delivery, or source data
+- `/search`
+  - user-facing site-wide keyword search (「搜索」 in `TopNav`)
+  - server-rendered `?q=` GET form; deterministic case-insensitive substring
+    matching on title / summary / tag display names only, with
+    space-separated terms ANDed
+  - searches the four public content pools: published technology signals,
+    skills, knowledge, and the news fast lane; results render grouped per
+    content type with counts
+  - news results reuse the `src/lib/news.ts` public mapping (`PublicNewsItem`)
+    and the news group always carries the fixed 自动聚合 disclaimer
+  - guided empty states for "no query yet" and "no matches"
+  - does not show internal quality, reviewer, delivery, or source data
 
 ## User-facing public view model
 
@@ -421,7 +433,7 @@ Forbidden on public pages:
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`
-  - shared global navigation for user-facing Home, Daily Digest, News, Technologies, Skills, Knowledge, Network, My Radar, and the secondary Workspace entry point
+  - shared global navigation for user-facing Home, Daily Digest, News, Technologies, Skills, Knowledge, Network, My Radar, Search, and the secondary Workspace entry point
 - `DetailInfoCard`
   - shared reference / metadata card
 - `TagBadge`
