@@ -9363,3 +9363,116 @@ button.tech-graph__node:focus-visible {
     padding-left: 0;
   }
 }
+
+/* ============================================================
+   Dossier direction v4 -- ADOPTED on /digest, /digest/today,
+   /digest/[date], and /search.
+   ============================================================ */
+
+.dossier .action-link {
+  color: var(--dossier-accent);
+  text-decoration-color: var(--dossier-stamp);
+}
+
+/* -- digest archive index -- */
+.dossier .digest-archive-month h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .digest-archive__count,
+.dossier .digest-archive-card__date {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .digest-archive-card p {
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+/* -- daily digest reading page -- */
+.dossier .daily-digest-brief-header,
+.dossier .daily-digest-summary-panel,
+.dossier .daily-digest-section,
+.dossier .daily-digest-personal-bar,
+.dossier .digest-reference-section {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .daily-digest-brief-header h1,
+.dossier .daily-digest-section__header h2,
+.dossier .digest-reference-section .daily-digest-section__header h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .daily-digest-brief-header__subtitle,
+.dossier .daily-digest-summary-panel p,
+.dossier .daily-digest-section__header p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .daily-digest-meta-strip {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .digest-technology-card__summary,
+.dossier .digest-technology-card__audience,
+.dossier .digest-technology-card__meta-line {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .digest-reference-item p,
+.dossier .digest-source-chip p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .digest-reference-item h3,
+.dossier .digest-source-chip h3 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+/* -- search -- */
+.dossier .search-form .dossier-search {
+  flex: 1 1 260px;
+}
+
+.dossier .search-form input[type="search"] {
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: var(--dossier-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+}
+
+.dossier .search-page__summary,
+.dossier .search-group__notice {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .search-group__heading h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .search-group__heading span {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .search-result p {
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}

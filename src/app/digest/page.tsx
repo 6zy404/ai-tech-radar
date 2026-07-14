@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { DossierCard } from "@/components/dossier-card";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getDailyDigests } from "@/lib/digest-workflow";
 import {
@@ -8,6 +10,8 @@ import {
 } from "@/lib/public-copy";
 
 export const dynamic = "force-dynamic";
+
+const cardTilts = ["a", "b", "c"] as const;
 
 interface ArchiveEntry {
   date: string;
@@ -65,7 +69,7 @@ export default function DigestArchivePage() {
       title="往期简报"
       description="按月归档的已发布每日简报。每期汇总当天值得关注的技术信号与编辑判断。"
       sectionLabel="简报归档"
-      className="digest-archive-page"
+      className="digest-archive-page dossier"
       actions={
         <Link href="/digest/today" className="action-link">
           阅读最新一期
@@ -81,21 +85,22 @@ export default function DigestArchivePage() {
             <section key={month.month} className="digest-archive-month">
               <h2>{getMonthLabel(month.month)}</h2>
               <div className="digest-archive-month__list">
-                {month.entries.map((entry) => (
-                  <article
+                {month.entries.map((entry, index) => (
+                  <DossierCard
                     key={entry.date}
-                    className="digest-archive-card u-card"
+                    tilt={cardTilts[index % cardTilts.length]}
+                    className="digest-archive-card"
                   >
                     <div className="digest-archive-card__meta">
                       <span className="digest-archive-card__date">
                         {entry.date}
                       </span>
-                      <span>
+                      <DossierStampTag>
                         立即关注 {entry.highCount} 条
                         {entry.watchCount > 0
                           ? ` · 值得跟踪 ${entry.watchCount} 条`
                           : ""}
-                      </span>
+                      </DossierStampTag>
                     </div>
                     <h3>
                       <Link href={`/digest/${entry.date}`}>{entry.title}</Link>
@@ -107,7 +112,7 @@ export default function DigestArchivePage() {
                     >
                       阅读这一期
                     </Link>
-                  </article>
+                  </DossierCard>
                 ))}
               </div>
             </section>

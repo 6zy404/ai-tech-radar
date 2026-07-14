@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { DossierCard } from "@/components/dossier-card";
 import { UserPageShell } from "@/components/user-page-shell";
 import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
 import { searchPublicContent, type SearchResultLink } from "@/lib/search";
@@ -12,7 +13,7 @@ export const dynamic = "force-dynamic";
 
 function SearchResultCard({ item }: { item: SearchResultLink }) {
   return (
-    <article className="search-result u-card">
+    <DossierCard className="search-result">
       <h3>
         <Link href={item.href}>{item.title}</Link>
       </h3>
@@ -27,13 +28,13 @@ function SearchResultCard({ item }: { item: SearchResultLink }) {
           ))}
         </div>
       ) : null}
-    </article>
+    </DossierCard>
   );
 }
 
 function SearchNewsCard({ item }: { item: PublicNewsItem }) {
   return (
-    <article className="search-result u-card">
+    <DossierCard className="search-result">
       <h3>
         <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener">
           {item.title}
@@ -59,7 +60,7 @@ function SearchNewsCard({ item }: { item: PublicNewsItem }) {
           已收录为精选技术信号：{item.publishedTechnology.title}
         </Link>
       ) : null}
-    </article>
+    </DossierCard>
   );
 }
 
@@ -100,16 +101,42 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       title="全站搜索"
       description="按关键词检索已发布的技术信号、技能、知识与自动聚合快讯。多个关键词用空格分隔时需同时命中。"
       sectionLabel="搜索"
-      className="search-page"
+      className="search-page dossier"
     >
       <form className="search-form" action="/search" method="get">
-        <input
-          type="search"
-          name="q"
-          defaultValue={results.query}
-          placeholder="输入关键词，如：推理、Agent、上下文"
-          aria-label="搜索关键词"
-        />
+        <div className="dossier-search">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              cx="6.5"
+              cy="6.5"
+              r="4.5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+            />
+            <line
+              x1="10"
+              y1="10"
+              x2="13.5"
+              y2="13.5"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+          </svg>
+          <input
+            type="search"
+            name="q"
+            defaultValue={results.query}
+            placeholder="输入关键词，如：推理、Agent、上下文"
+            aria-label="搜索关键词"
+          />
+        </div>
         <button type="submit" className="action-link">
           搜索
         </button>

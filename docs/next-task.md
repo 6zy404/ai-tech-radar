@@ -1,5 +1,27 @@
 # Next Task
 
+> Update 2026-07-14 (same night, fourth adoption round): **Dossier
+> direction adopted on `/digest`, `/digest/today`, `/digest/[date]`, and
+> `/search`.** The digest archive uses `DossierCard`/`DossierStampTag`
+> directly; the shared `DailyDigestContent` (public digest pages + the
+> workspace preview route) gained `DossierCard` for its cards,
+> `DossierStampTag` for badges, and `DossierCatalogNote` for the
+> "为什么重要" block; `/search` got `DossierCard` results and an inlined
+> icon-pill search box (server GET-form, not the controlled
+> `DossierSearchInput`). Caught and fixed a real bug this round: the
+> workspace digest-preview route rendered borderless/invisible cards at
+> first because it's wrapped in `WorkspacePageShell` (no `.dossier`
+> ancestor) — fixed by putting `dossier` on `DailyDigestContent`'s own
+> root div instead of relying on an ancestor shell, mirroring how
+> `TechnologyDetailContent` already does it. See `CHANGELOG.md` →
+> "Dossier direction adoption — digest & search" and
+> `docs/design-system.md` → "Dossier direction" → "Adopted pages" for the
+> full description. Verified with typecheck, lint, format, vitest 61/61,
+> and a live pass on all four public routes plus the workspace preview
+> route. **Next actual step**: `/radar` + `/news`, then the homepage last.
+> Dark/light theming is still undecided — don't start it without asking
+> first.
+
 > Update 2026-07-14 (same night, third adoption round): **Dossier
 > direction adopted on `/timeline`** — `DossierRegisterRow`'s first real
 > use. Each topic's chronological entry list now renders as a ledger of
