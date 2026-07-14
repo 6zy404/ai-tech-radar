@@ -90,7 +90,7 @@ The product is split into two subsystems:
   enter the page (`src/lib/search.ts`).
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
-  `/feed.xml`, and `/feed.json`.
+  the month-grouped `/digest` archive index, `/feed.xml`, and `/feed.json`.
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
@@ -112,7 +112,7 @@ reading storage directly.
 Public, user-facing routes:
 
 - `/`, `/news`, `/technologies`, `/technologies/[slug]`
-- `/digest/today`, `/digest/[date]`
+- `/digest` (archive), `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/radar`

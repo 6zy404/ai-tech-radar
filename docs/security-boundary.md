@@ -11,6 +11,9 @@ Public routes can be exposed:
   below for the exact candidate-field allowlist)
 - `/technologies`
 - `/technologies/[slug]`
+- `/digest` (archive index; renders only published digests through the same
+  public-copy sanitizers as the digest pages — date, public title/summary,
+  and section counts, never editorial notes or manual adjustment ids)
 - `/digest/today`
 - `/digest/[date]`
 - `/skills`

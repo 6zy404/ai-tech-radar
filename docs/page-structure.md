@@ -290,6 +290,14 @@ Workspace deployment boundary:
   - a compare widget (between the related-technologies and related-skills sections) that lets a reader request a live AI-generated comparison against another published technology; always shown with a persistent "AI-generated, not reviewed" disclaimer — the first client-triggered live-generation call anywhere in the User-facing Product (every other data flow on this page is a static server read)
   - an explain widget (between the technical-context and who-should-care sections) that lets a reader pick their experience level (入门 / 进阶 / 资深) and request a live AI-generated explanation of the current technology tailored to that level, cached per technology × level; same persistent "AI-generated, not reviewed" disclaimer discipline as the compare widget
   - a learning-path widget (between the editor-curated learning-path section and the relationship graph) that lets a reader request a live AI-generated learning path grounded in the technology's related knowledge and skills from the content graph, cached per technology; same disclaimer discipline
+- `/digest`
+  - user-facing digest archive index (往期简报)
+  - lists all published digests grouped by month, newest first, with date,
+    public title, public summary, and immediate-attention / worth-tracking
+    counts, each linking to `/digest/[date]`
+  - uses the same public-copy sanitizers as the digest pages; never renders
+    draft/archived digests, editorial notes, or manual adjustment ids
+  - linked from the 订阅简报 section on public digest pages (往期简报归档)
 - `/digest/today`
   - user-facing daily digest entry point
   - shows today's published digest when available
