@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { DossierRegisterRow } from "@/components/dossier-register-row";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
 import {
@@ -65,7 +66,7 @@ export default function TimelinePage() {
       title="主题时间线"
       description="按话题查看已发布技术信号的时间演进：同一主题下先后发生了什么，一眼看清脉络。"
       sectionLabel="时间线"
-      className="timeline-page"
+      className="timeline-page dossier"
       actions={
         <Link href="/radar" className="action-link">
           关注感兴趣的话题
@@ -82,21 +83,18 @@ export default function TimelinePage() {
             <p className="timeline-topic__description">
               {topic.tagDescription}
             </p>
-            <ol className="timeline-topic__list">
+            <ol className="timeline-topic__list dossier-timeline-list">
               {topic.entries.map((entry) => (
-                <li key={entry.slug} className="timeline-node">
-                  <div className="timeline-node__date">{entry.publishDate}</div>
-                  <div className="timeline-node__body">
-                    <h3>
-                      <Link href={`/technologies/${entry.slug}`}>
-                        {entry.title}
-                      </Link>
-                    </h3>
-                    <p>{entry.summary}</p>
-                    <span className="timeline-node__source">
-                      {entry.sourceName}
-                    </span>
-                  </div>
+                <li key={entry.slug} className="dossier-timeline-node">
+                  <DossierRegisterRow
+                    title={entry.title}
+                    date={entry.publishDate}
+                    href={`/technologies/${entry.slug}`}
+                    tag={entry.sourceName}
+                  />
+                  <p className="dossier-timeline-node__summary">
+                    {entry.summary}
+                  </p>
                 </li>
               ))}
             </ol>
