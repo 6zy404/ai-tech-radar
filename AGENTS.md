@@ -92,6 +92,7 @@ New sessions should start from:
 - `docs/design-system.md`
 - `docs/security-boundary.md`
 - `docs/workspace-actions.md`
+- `docs/editorial-round-playbook.md`
 - `docs/progress.md`
 - `docs/decisions.md`
 - `docs/ui-migration-plan.md`

@@ -1,5 +1,20 @@
 # Next Task
 
+> Update 2026-07-14 (later same day): three more discoverability slices
+> shipped after search — **digest archive** (`/digest`, month-grouped index
+> of published digests), **topic timeline** (`/timeline`, published
+> technology signals grouped by tag as chronological lists), and unit test
+> coverage for `searchPublicContent` (`src/lib/search.test.ts`, first
+> `vi.mock` usage in this repo). Each landed as its own commit per the
+> one-page-per-task rule; see `CHANGELOG.md` → "Digest archive" / "Topic
+> timeline" for details. Also new: `docs/editorial-round-playbook.md` — a
+> step-by-step checklist (with API call equivalents) for the recurring
+> "review new candidates → publish signals → publish digest → verify"
+> round, distilled from actually running that round twice today. Read it
+> before doing another editorial round instead of re-deriving the steps.
+> All four changes verified with typecheck/lint/format green and vitest
+> 61/61.
+
 > Update 2026-07-14: **Public site-wide search v0 shipped** (owner-authorized
 > after the news fast lane; scope aligned upfront: graph three types + news,
 > server-rendered `?q=`, title/summary/tags matching only). New public
