@@ -1,5 +1,19 @@
 # Next Task
 
+> Update 2026-07-14: **Public site-wide search v0 shipped** (owner-authorized
+> after the news fast lane; scope aligned upfront: graph three types + news,
+> server-rendered `?q=`, title/summary/tags matching only). New public
+> `/search` page (「搜索」 in `TopNav`), `src/lib/search.ts`
+> (`searchPublicContent`, deterministic case-insensitive AND matching), and a
+> `.search-*` CSS block; news results reuse the `src/lib/news.ts` mapping and
+> always render the 自动聚合 disclaimer, so no new candidate→public mapping
+> point was created. Verified with typecheck, lint, and a live pass (CN/EN
+> queries, multi-term AND, disclaimer, mobile width, console clean). See
+> `CHANGELOG.md` → "Site-wide search". Also on 2026-07-14: the Windows Task
+> Scheduler daily task `ai-tech-radar-tasks` (08:05) was registered and
+> test-run on the owner's machine — the deployment.md manual step is done, so
+> daily imports now run unattended.
+
 > Update 2026-07-13: **News fast lane + scheduled import v0 shipped**
 > (owner-authorized, "content freshness/volume" direction — see
 > `CHANGELOG.md` → "News fast lane & scheduled import" for the full entry).

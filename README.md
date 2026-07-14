@@ -80,6 +80,14 @@ The product is split into two subsystems:
   (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
   "只看我关注的" toggle filters the signal sections client-side — the served
   digest stays identical for everyone.
+- **Site-wide search** — public `/search` (「搜索」 in `TopNav`) with
+  server-rendered `?q=` keyword search over published technology signals,
+  skills, knowledge, and the sanitized news fast lane. Deterministic,
+  case-insensitive substring matching on title / summary / tag names only
+  (space-separated terms are ANDed), results grouped per content type, and
+  the fixed auto-aggregation disclaimer on the news group. News results reuse
+  the same `src/lib/news.ts` public mapping as `/news`; no internal fields
+  enter the page (`src/lib/search.ts`).
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   `/feed.xml`, and `/feed.json`.
@@ -108,6 +116,7 @@ Public, user-facing routes:
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/radar`
+- `/search`
 - `/feed.xml`, `/feed.json`
 - `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
   `POST /api/technologies/learning-path` — public, unprotected by design

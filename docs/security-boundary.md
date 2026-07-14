@@ -20,6 +20,13 @@ Public routes can be exposed:
 - `/network`
 - `/radar` (follows are browser-localStorage only; the route serves the same
   published content to everyone and holds no per-reader server state)
+- `/search` (deterministic keyword search over published technology
+  signals, skills, knowledge, and the news fast lane; matching covers only
+  title / summary / tag display names, results are identical for everyone,
+  and news results go through the same `src/lib/news.ts` mapping as `/news`
+  — including the fixed 自动聚合 disclaimer on the news group, so search is
+  a compliant fast-lane surface rather than a new candidate→public mapping
+  point)
 - `/feed.xml`
 - `/feed.json`
 - `POST /api/technologies/compare`
