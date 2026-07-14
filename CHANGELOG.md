@@ -12,6 +12,21 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — /radar & /news
+
+- **Dossier direction live on `/radar` and `/news`** — 2026-07-14, same
+  night, fifth adoption round, closing out the "each need one new state"
+  pages from the original plan. `MyRadarContent` swaps its
+  `TechnologyListCard` usage for `DossierTechnologyCard` (the same
+  page-specific card built for `/technologies`) — safe to change directly
+  since `MyRadarContent` is only ever rendered by `/radar`, so the home
+  page's independent `TechnologyListCard` usage is untouched. `/news`'s
+  page-specific `NewsCard` swaps to `DossierCard`, the same treatment
+  `/search`'s `SearchNewsCard` already got. Verified with typecheck, lint,
+  format, vitest 61/61, and a live pass (follow/unfollow toggle still
+  filters correctly, disclaimer and tags render, mobile width without
+  overflow, zero console errors, home page confirmed unaffected).
+
 ## Dossier direction adoption — digest & search
 
 - **Dossier direction live on `/digest`, `/digest/today`, `/digest/[date]`,

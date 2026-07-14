@@ -9476,3 +9476,56 @@ button.tech-graph__node:focus-visible {
   color: var(--dossier-ink);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
+
+/* ============================================================
+   Dossier direction v5 -- ADOPTED on /radar and /news.
+   ============================================================ */
+
+.dossier .my-radar__manager {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .my-radar__manager-copy h2,
+.dossier .my-radar__group-header h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .my-radar__manager-copy p,
+.dossier .my-radar__group-header p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .my-radar__match-line {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .news-page__notice {
+  border: 1px dashed var(--dossier-stamp);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .news-day__heading h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .news-day__heading span {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .news-card p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}

@@ -1,5 +1,21 @@
 # Next Task
 
+> Update 2026-07-14 (same night, fifth adoption round): **Dossier
+> direction adopted on `/radar` and `/news`** — closing out the "each need
+> one new state" pages from the original plan. `MyRadarContent` swaps
+> `TechnologyListCard` for `DossierTechnologyCard`, safe since
+> `MyRadarContent` is only rendered by `/radar` (home page's own
+> `TechnologyListCard` usage is separate and untouched); `/news`'s
+> `NewsCard` swaps to `DossierCard`, the same treatment `/search` already
+> got. See `CHANGELOG.md` → "Dossier direction adoption — /radar & /news"
+> and `docs/design-system.md` → "Dossier direction" → "Adopted pages" for
+> the full description. Verified with typecheck, lint, format, vitest
+> 61/61, and a live pass (follow/unfollow filtering still works, no
+> console errors, no overflow at 375px, home page confirmed unaffected).
+> **Next actual step**: the homepage, last, since it aggregates every
+> other component already migrated. Dark/light theming is still
+> undecided — don't start it without asking first.
+
 > Update 2026-07-14 (same night, fourth adoption round): **Dossier
 > direction adopted on `/digest`, `/digest/today`, `/digest/[date]`, and
 > `/search`.** The digest archive uses `DossierCard`/`DossierStampTag`
