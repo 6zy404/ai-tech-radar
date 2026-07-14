@@ -564,3 +564,98 @@ Pages still left for later template migration:
 - `/workspace/operations`
 - `/workspace/duplicates`
 - `/workspace/technologies`
+
+## Dossier direction (staged, 2026-07-14)
+
+An owner-directed visual-identity exploration for the User-facing Product
+produced a fully specified alternate direction — nicknamed "编辑桌"
+(editor's desk / dossier) — evaluated against alternatives (an "instrument
+console" direction and a "knowledge graph" direction, both rejected) through
+a series of HTML/CSS mockups covering every public page type. The direction
+is **specified but not adopted**: no `src/app/**/page.tsx` renders it yet,
+and it does not replace the current teal/cream token system described
+above. This section exists so a future session can pick up implementation
+without re-deriving the decisions.
+
+Concept: content reads as an archival dossier — index cards, catalog
+numbers, rubber-stamp tags, and "附注" (annotation) cross-reference notes
+that state _why_ a related item is connected, not just that it is. The
+defining feature is reusing this pattern for real: technology detail pages
+already carry `relatedKnowledgeExplanations` / `relatedSkillExplanations`
+fields (see `docs/data-model.md`), so the dossier's connective-note idea
+needs no new data, only new layout.
+
+Decided specifics:
+
+- **Palette / type**: sage-grey paper (`#e6e7de` ground, `#f8f6ee` card
+  surface), Georgia/宋体 serif for headings and body, `ui-monospace` for
+  metadata (dates, catalog numbers, section eyebrows), rust-red stamp
+  accent (`#8a3b2a`) for tags, deep pine accent (`#34524a`) for structural
+  emphasis. Deliberately not the cream+serif+terracotta combination common
+  in AI-generated design, nor a corkboard/pushpin motif (tried and
+  rejected as too literal).
+- **Fonts**: system fonts for launch (zero cost, no external dependency).
+  Custom fonts (思源宋体 Bold for CJK headings, Fraunces for Latin/numeral
+  text) are a deferred follow-up — `fonts.gstatic.com` is unreachable from
+  the primary dev machine (same class of issue as the npm/Hugging Face
+  mirror workarounds elsewhere in this project), so any real
+  implementation must self-host pre-subsetted `woff2` files rather than
+  rely on `next/font/google` fetching live.
+- **Relation vocabulary**: `RelationType` labels rewritten to read as
+  native Chinese rather than translated English, and to use the _same_
+  word from both directions instead of an English-shaped passive mirror
+  (see `getRelationTypeLabel` in `src/lib/technology-localization.ts`,
+  already shipped — see CHANGELOG "Copy tone fixes").
+- **`/network` relationship graph**: a hand-written force-directed layout
+  (repulsion + spring edges + drag, no external graph library — `d3` and
+  similar are unreachable via CDN in this environment) rendered on the
+  same flat grid-paper background as every other dossier page, not a
+  corkboard skin. Confirmed enhancements: search-highlight + category
+  filter (stamp-chip style), an embedded "local graph" widget scoped to
+  one item's direct neighbors on detail pages, and hover-over-edge
+  relation labels. Zoom/pan was explored and explicitly rejected as not
+  worth its cost at the current node count (~13 in mockups; the real page
+  has ~24) — revisit only if the real graph proves visually cramped.
+- **Search input**: icon-pill style (rounded, magnifying-glass icon) —
+  chosen over an underline-only input, a bordered "index card" input, and
+  a library-request-slip style, after comparing all four against the same
+  live filtering behavior.
+- **Category filter**: rubber-stamp toggle chips, matching the tag-filter
+  chips already used on `/technologies` and `/radar` rather than
+  introducing a new shape.
+
+### Staged component library (not yet wired to any page)
+
+A first slice of reusable components was built and verified (typecheck,
+lint, format, and a live rendering + interaction check via a temporary,
+already-deleted preview route) but is **not imported by any real page**:
+
+- `DossierCard` (`src/components/dossier-card.tsx`) — bordered index-card
+  tile with a resting tilt that straightens on hover / collapses on narrow
+  screens.
+- `DossierStampTag` (`src/components/dossier-stamp-tag.tsx`) — rubber-stamp
+  label; renders as a `<button>` with `aria-pressed` when given `onClick`,
+  otherwise a static `<span>`.
+- `DossierCatalogNote` (`src/components/dossier-catalog-note.tsx`) — the
+  "附注" cross-reference annotation block.
+- `DossierRegisterRow` (`src/components/dossier-register-row.tsx`) — a
+  compact date + title + tag row for archive/timeline/relation lists.
+- `DossierSearchInput` (`src/components/dossier-search-input.tsx`) —
+  the confirmed icon-pill search box.
+- `DossierCategoryChips` (`src/components/dossier-category-chips.tsx`) —
+  the confirmed stamp-chip category filter, composed from
+  `DossierStampTag`.
+
+All CSS lives under a single `.dossier` root class in `globals.css`
+(`--dossier-*` custom properties, prefixed to avoid any collision with the
+live `--bg` / `--accent` / etc. tokens), so applying it to a page is
+additive and cannot regress any currently shipped page.
+
+Next step per the migration-cost plan (produced during the same session,
+not checked into the repo — recreate if needed): assemble these into the
+technology list/detail pages first, since that content type has the most
+complete data to prove the "附注" pattern against, then skills/knowledge
+and the topic timeline (structurally closest, cheapest), then the digest
+pages and search, then `/radar` and `/news` (each need one new state), and
+the homepage last since it aggregates every other component. Dark/light
+theming for this direction is an explicit open question, not decided.

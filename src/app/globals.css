@@ -8584,3 +8584,191 @@ button.tech-graph__node:focus-visible {
   background: #ffffff;
   font: inherit;
 }
+
+/* ============================================================
+   Dossier design system v0 -- STAGED, not applied to any live page.
+   Component tokens/classes for the "编辑桌" direction approved during
+   the 2026-07-14 design session (docs/design-system.md -> "Dossier
+   direction (staged)"). Everything here is scoped under .dossier so it
+   cannot affect any existing page; no page component imports these
+   classes yet. Prefixed --dossier- to avoid any collision with the
+   live --bg/--accent/etc. tokens above.
+   ============================================================ */
+.dossier {
+  --dossier-ground: #e6e7de;
+  --dossier-surface: #f8f6ee;
+  --dossier-line: #c9c5b2;
+  --dossier-ink: #2b2a22;
+  --dossier-muted: #6d6b5b;
+  --dossier-accent: #34524a;
+  --dossier-stamp: #8a3b2a;
+  background: var(--dossier-ground);
+  background-image:
+    linear-gradient(var(--dossier-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dossier-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: -1px -1px;
+  color: var(--dossier-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+}
+
+.dossier-card {
+  position: relative;
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  padding: 18px 18px 16px;
+  box-shadow:
+    0 1px 2px rgba(43, 42, 34, 0.08),
+    0 10px 22px -14px rgba(43, 42, 34, 0.35);
+  transition: transform 0.18s ease;
+}
+
+.dossier-card--tilt-a {
+  transform: rotate(-1deg);
+}
+
+.dossier-card--tilt-b {
+  transform: rotate(0.7deg);
+}
+
+.dossier-card--tilt-c {
+  transform: rotate(-0.4deg);
+}
+
+.dossier-card:hover {
+  transform: rotate(0deg) translateY(-3px);
+}
+
+@media (max-width: 640px) {
+  .dossier-card--tilt-a,
+  .dossier-card--tilt-b,
+  .dossier-card--tilt-c {
+    transform: none;
+  }
+
+  .dossier-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.dossier-stamp-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--dossier-stamp);
+  border: 1px solid var(--dossier-stamp);
+  border-radius: 999px;
+  padding: 4px 12px;
+  background: var(--dossier-surface);
+  cursor: default;
+}
+
+.dossier-stamp-tag--interactive {
+  cursor: pointer;
+  border: 1px solid var(--dossier-line);
+  color: var(--dossier-muted);
+}
+
+.dossier-stamp-tag--on {
+  color: var(--dossier-ground);
+  background: var(--dossier-stamp);
+  border-color: var(--dossier-stamp);
+}
+
+.dossier-catalog-note {
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--dossier-muted);
+  border-top: 1px dashed var(--dossier-line);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.dossier-catalog-note__label {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dossier-accent);
+  margin-bottom: 6px;
+}
+
+.dossier-register-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--dossier-line);
+}
+
+.dossier-register-row time {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--dossier-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.dossier-register-row h4 {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.dossier-register-row__tag {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--dossier-accent);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .dossier-register-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+.dossier-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.dossier-search:focus-within {
+  border-color: var(--dossier-accent);
+}
+
+.dossier-search svg {
+  flex: none;
+  opacity: 0.55;
+}
+
+.dossier-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 14.5px;
+  color: var(--dossier-ink);
+  padding: 0;
+  min-width: 0;
+}
+
+.dossier-search input:focus {
+  outline: none;
+}
+
+.dossier-category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

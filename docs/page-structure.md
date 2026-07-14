@@ -488,6 +488,12 @@ Forbidden on public pages:
     technology detail page: request a graph-grounded learning path from
     `POST /api/technologies/learning-path`, same disclaimer discipline as
     `TechnologyCompareWidget`
+- `DossierCard` / `DossierStampTag` / `DossierCatalogNote` /
+  `DossierRegisterRow` / `DossierSearchInput` / `DossierCategoryChips`
+  - **staged, not yet used by any page** — a first component slice for the
+    "编辑桌" (dossier) design direction; see `docs/design-system.md` →
+    "Dossier direction (staged)" for the full specification and intended
+    adoption order before wiring these into real pages
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
   - consumes a public-safe `PublicDigestView` (mapped by `toPublicDigestView`
