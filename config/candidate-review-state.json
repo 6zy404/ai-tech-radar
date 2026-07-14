@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-13T08:00:48.625Z",
+  "updatedAt": "2026-07-14T00:51:56.002Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -159,6 +159,15 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-13T08:00:48.625Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents"
+    },
+    "candidate-rss-https-openai-com-academy-getting-started": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-14T00:51:55.401Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-14T00:51:56.002Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
     }
   }
 }

@@ -1,6 +1,1013 @@
 {
-  "updatedAt": "2026-07-14T00:05:07.460Z",
+  "updatedAt": "2026-07-14T00:56:11.920Z",
   "events": [
+    {
+      "id": "workflow-event-62f1dd99-6db9-456f-9b64-dab9604899a7",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-14",
+      "action": "digest.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "今天的头条只有一个：Ollama v0.32.0 把本地运行时的默认入口从「跑模型」换成了「用智能体」——直接运行 ollama 命令即启动一个能写码、联网搜索、委派任务的交互式智能体，且默认横幅挂的是云端模型 glm-5.2:cloud。装机量巨大的本地工具主动拥抱本地/云混合、把智能体做成默认形态，这对端侧与云端的分工是个标志性信号。距离聚焦 iGPU 卸载的 v0.31.2 稳定版发布不到一周，转型节奏值得所有做开发者工具的团队留意。推理生态的另一条线（vLLM v0.25.0 的 Model Runner V2 代际切换）延续昨日判断，仍在持续关注区。",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:55:56.767Z",
+        "editorialNotes": [
+          "2026-07-14 round: scheduled import brought 3 new candidates; Ollama v0.32.0 published as the day's lead signal (pinned), OpenAI Academy tutorial rejected, vLLM v0.25.1 bugfix already dispositioned. Older high-priority items retained per current-panel convention."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "published",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "今天的头条只有一个：Ollama v0.32.0 把本地运行时的默认入口从「跑模型」换成了「用智能体」——直接运行 ollama 命令即启动一个能写码、联网搜索、委派任务的交互式智能体，且默认横幅挂的是云端模型 glm-5.2:cloud。装机量巨大的本地工具主动拥抱本地/云混合、把智能体做成默认形态，这对端侧与云端的分工是个标志性信号。距离聚焦 iGPU 卸载的 v0.31.2 稳定版发布不到一周，转型节奏值得所有做开发者工具的团队留意。推理生态的另一条线（vLLM v0.25.0 的 Model Runner V2 代际切换）延续昨日判断，仍在持续关注区。",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:56:11.906Z",
+        "publishedAt": "2026-07-14T00:56:11.906Z",
+        "editorialNotes": [
+          "2026-07-14 round: scheduled import brought 3 new candidates; Ollama v0.32.0 published as the day's lead signal (pinned), OpenAI Academy tutorial rejected, vLLM v0.25.1 bugfix already dispositioned. Older high-priority items retained per current-panel convention."
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-14"
+      },
+      "createdAt": "2026-07-14T00:56:11.920Z"
+    },
+    {
+      "id": "workflow-event-9e5eb3b2-45cc-4230-bc9f-61aed6605830",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-14",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:55:10.044Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "今天的头条只有一个：Ollama v0.32.0 把本地运行时的默认入口从「跑模型」换成了「用智能体」——直接运行 ollama 命令即启动一个能写码、联网搜索、委派任务的交互式智能体，且默认横幅挂的是云端模型 glm-5.2:cloud。装机量巨大的本地工具主动拥抱本地/云混合、把智能体做成默认形态，这对端侧与云端的分工是个标志性信号。距离聚焦 iGPU 卸载的 v0.31.2 稳定版发布不到一周，转型节奏值得所有做开发者工具的团队留意。推理生态的另一条线（vLLM v0.25.0 的 Model Runner V2 代际切换）延续昨日判断，仍在持续关注区。",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:55:56.767Z",
+        "editorialNotes": [
+          "2026-07-14 round: scheduled import brought 3 new candidates; Ollama v0.32.0 published as the day's lead signal (pinned), OpenAI Academy tutorial rejected, vLLM v0.25.1 bugfix already dispositioned. Older high-priority items retained per current-panel convention."
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-14"
+      },
+      "createdAt": "2026-07-14T00:55:56.783Z"
+    },
+    {
+      "id": "workflow-event-9e559003-2dc5-4a6f-88c5-e8f837f824ea",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-14",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:54:13.159Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:55:10.044Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-14",
+        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "action": "pin"
+      },
+      "createdAt": "2026-07-14T00:55:10.058Z"
+    },
+    {
+      "id": "workflow-event-9ed5c2d7-45f3-4bc1-adee-9b3e4abe2bbb",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-14",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "digest-2026-07-14",
+        "date": "2026-07-14",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-14",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-14T12:00:00.000Z",
+        "updatedAt": "2026-07-14T00:54:13.159Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-14",
+        "preserveManualAdjustments": false
+      },
+      "createdAt": "2026-07-14T00:54:13.180Z"
+    },
+    {
+      "id": "workflow-event-49ce4fe0-abd0-4397-8baa-ced3fc2b60dd",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "action": "draft.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "slug": "ollama-v0-32-0",
+        "title": {
+          "original": "Ollama v0.32.0",
+          "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+        },
+        "summary": {
+          "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+          "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+        },
+        "content": {
+          "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+          "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-14",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "importanceLevel": "important",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-on-device",
+          "tag-inference"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use",
+          "knowledge-model-sizing"
+        ],
+        "relatedSkillIds": [
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-14T00:52:46.436Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+        "whoShouldCare": [
+          "本地/端侧应用开发者",
+          "AI 工具链与开发者体验工程师",
+          "评估智能体工作流落地的团队"
+        ],
+        "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+        "impactAreas": [
+          "开发者工具",
+          "端侧 AI",
+          "智能体工作流"
+        ],
+        "learningPath": [
+          "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+          "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+          "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+          "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+          "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+        },
+        "relatedSkillExplanations": {
+          "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+          "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+        },
+        "followUpQuestions": [
+          "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+          "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+          "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "createdAt": "2026-07-14T00:51:56.001Z",
+        "updatedAt": "2026-07-14T00:52:46.436Z",
+        "editorialNotes": [
+          "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "slug": "ollama-v0-32-0",
+        "title": {
+          "original": "Ollama v0.32.0",
+          "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+        },
+        "summary": {
+          "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+          "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+        },
+        "content": {
+          "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+          "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-14",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-ai-agents",
+          "tag-on-device",
+          "tag-inference"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use",
+          "knowledge-model-sizing"
+        ],
+        "relatedSkillIds": [
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-14T00:53:54.231Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+        "whoShouldCare": [
+          "本地/端侧应用开发者",
+          "AI 工具链与开发者体验工程师",
+          "评估智能体工作流落地的团队"
+        ],
+        "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+        "impactAreas": [
+          "开发者工具",
+          "端侧 AI",
+          "智能体工作流"
+        ],
+        "learningPath": [
+          "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+          "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+          "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+          "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+          "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+        },
+        "relatedSkillExplanations": {
+          "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+          "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+        },
+        "followUpQuestions": [
+          "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+          "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+          "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "createdAt": "2026-07-14T00:51:56.001Z",
+        "updatedAt": "2026-07-14T00:53:54.231Z",
+        "editorialNotes": [
+          "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+        ]
+      },
+      "metadata": {
+        "status": "published",
+        "slug": "ollama-v0-32-0"
+      },
+      "createdAt": "2026-07-14T00:53:54.245Z"
+    },
+    {
+      "id": "workflow-event-1dc74f1a-aa3f-485a-8fd2-4066110dcbc4",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "slug": "draft-v0-32-0",
+        "title": {
+          "original": "v0.32.0",
+          "en": "v0.32.0"
+        },
+        "summary": {
+          "original": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…",
+          "en": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…"
+        },
+        "content": {
+          "original": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
+          "en": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-14",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "github-actions[bot]",
+        "publisherType": "open-source-community",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-retrieval",
+          "tag-on-device"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 83,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "发布方明确。",
+            "信号发布时间很近。"
+          ],
+          "priorityWarnings": [
+            "尚未关联背景知识。",
+            "尚未关联技能。"
+          ],
+          "rankingUpdatedAt": "2026-07-14T00:51:56.002Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "createdAt": "2026-07-14T00:51:56.001Z",
+        "updatedAt": "2026-07-14T00:51:56.001Z",
+        "editorialNotes": [
+          "Generated from imported candidate candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "slug": "ollama-v0-32-0",
+        "title": {
+          "original": "Ollama v0.32.0",
+          "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+        },
+        "summary": {
+          "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+          "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+        },
+        "content": {
+          "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+          "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-14",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "importanceLevel": "important",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-on-device",
+          "tag-inference"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use",
+          "knowledge-model-sizing"
+        ],
+        "relatedSkillIds": [
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-14T00:52:46.436Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+        "whoShouldCare": [
+          "本地/端侧应用开发者",
+          "AI 工具链与开发者体验工程师",
+          "评估智能体工作流落地的团队"
+        ],
+        "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+        "impactAreas": [
+          "开发者工具",
+          "端侧 AI",
+          "智能体工作流"
+        ],
+        "learningPath": [
+          "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+          "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+          "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+          "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+          "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+        },
+        "relatedSkillExplanations": {
+          "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+          "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+        },
+        "followUpQuestions": [
+          "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+          "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+          "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "createdAt": "2026-07-14T00:51:56.001Z",
+        "updatedAt": "2026-07-14T00:52:46.436Z",
+        "editorialNotes": [
+          "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+        ]
+      },
+      "metadata": {
+        "slug": "ollama-v0-32-0",
+        "status": "draft"
+      },
+      "createdAt": "2026-07-14T00:52:46.448Z"
+    },
+    {
+      "id": "workflow-event-d242fb7c-4ddc-4106-a522-06902a0cf09a",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "action": "candidate.converted_to_draft",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "slug": "draft-v0-32-0",
+        "title": {
+          "original": "v0.32.0",
+          "en": "v0.32.0"
+        },
+        "summary": {
+          "original": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…",
+          "en": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…"
+        },
+        "content": {
+          "original": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
+          "en": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-14",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "github-actions[bot]",
+        "publisherType": "open-source-community",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-retrieval",
+          "tag-on-device"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 83,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "发布方明确。",
+            "信号发布时间很近。"
+          ],
+          "priorityWarnings": [
+            "尚未关联背景知识。",
+            "尚未关联技能。"
+          ],
+          "rankingUpdatedAt": "2026-07-14T00:51:56.002Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "createdAt": "2026-07-14T00:51:56.001Z",
+        "updatedAt": "2026-07-14T00:51:56.001Z",
+        "editorialNotes": [
+          "Generated from imported candidate candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "metadata": {
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      },
+      "createdAt": "2026-07-14T00:51:56.037Z"
+    },
+    {
+      "id": "workflow-event-2f04fa97-4033-4b3f-bfce-e9ccaba402e0",
+      "entityType": "candidate",
+      "entityId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "action": "candidate.converted_to_draft",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "sourceType": "rss-feed",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "originalTitle": "v0.32.0",
+        "originalSummary": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…",
+        "originalContent": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
+        "originalLanguage": "en",
+        "publishDate": "2026-07-14",
+        "publisherName": "github-actions[bot]",
+        "normalizedType": "tool",
+        "tags": [
+          "local-inference",
+          "open-source",
+          "agents",
+          "retrieval"
+        ],
+        "importStatus": "new",
+        "relatedCandidateIds": [],
+        "rawPayload": {
+          "sourceId": "source-ollama-releases",
+          "feedTitle": "Release notes from ollama",
+          "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+          "entry": {
+            "id": "tag:github.com,2008:Repository/658928958/v0.32.0",
+            "updated": "2026-07-14T00:04:33Z",
+            "link": {
+              "rel": "alternate",
+              "type": "text/html",
+              "href": "https://github.com/ollama/ollama/releases/tag/v0.32.0"
+            },
+            "title": "v0.32.0",
+            "content": {
+              "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;New interactive agent experience: running &lt;code&gt;ollama&lt;/code&gt; now launches an agent to help you code and delegate work&lt;/li&gt;\n&lt;/ul&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;ul&gt;\n&lt;li&gt;Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)&lt;/li&gt;\n&lt;li&gt;Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through &lt;code&gt;ollama launch&lt;/code&gt;&lt;/li&gt;\n&lt;li&gt;Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Full Changelog: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0&quot;&gt;&lt;tt&gt;v0.31.2...v0.32.0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
+              "type": "html"
+            },
+            "author": {
+              "name": "github-actions[bot]"
+            },
+            "media:thumbnail": {
+              "height": "30",
+              "width": "30",
+              "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+            }
+          },
+          "externalSourceType": "atom",
+          "importedAt": "2026-07-14T00:05:03.575Z",
+          "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        },
+        "sourceId": "source-ollama-releases",
+        "importedAt": "2026-07-14T00:05:03.575Z",
+        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "slug": "draft-v0-32-0",
+        "title": {
+          "original": "v0.32.0",
+          "en": "v0.32.0"
+        },
+        "summary": {
+          "original": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…",
+          "en": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…"
+        },
+        "content": {
+          "original": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
+          "en": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-14",
+        "sourceName": "Ollama Releases",
+        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+        "sourceLanguage": "en",
+        "translationStatus": "pending",
+        "publisherName": "github-actions[bot]",
+        "publisherType": "open-source-community",
+        "importanceLevel": "signal",
+        "status": "draft",
+        "tags": [
+          "tag-ai-agents",
+          "tag-retrieval",
+          "tag-on-device"
+        ],
+        "relatedKnowledgeIds": [],
+        "relatedSkillIds": [],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 83,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "发布方明确。",
+            "信号发布时间很近。"
+          ],
+          "priorityWarnings": [
+            "尚未关联背景知识。",
+            "尚未关联技能。"
+          ],
+          "rankingUpdatedAt": "2026-07-14T00:51:56.002Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "",
+        "whoShouldCare": [],
+        "technicalContext": "",
+        "impactAreas": [],
+        "learningPath": [],
+        "relatedKnowledgeExplanations": {},
+        "relatedSkillExplanations": {},
+        "followUpQuestions": [],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "needs_enrichment",
+        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "createdAt": "2026-07-14T00:51:56.001Z",
+        "updatedAt": "2026-07-14T00:51:56.001Z",
+        "editorialNotes": [
+          "Generated from imported candidate candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0.",
+          "Review normalized type, publisher type, and related links before publishing."
+        ]
+      },
+      "metadata": {
+        "draftId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "markedCandidateIds": [
+          "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ]
+      },
+      "createdAt": "2026-07-14T00:51:56.016Z"
+    },
+    {
+      "id": "workflow-event-f75b38b5-0446-4a8a-8aa6-15754cc77ae0",
+      "entityType": "candidate",
+      "entityId": "candidate-rss-https-openai-com-academy-getting-started",
+      "action": "candidate.status_updated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "importStatus": "rejected",
+        "reviewedAt": "2026-07-14T00:51:55.401Z"
+      },
+      "metadata": {
+        "nextStatus": "rejected"
+      },
+      "createdAt": "2026-07-14T00:51:55.414Z"
+    },
     {
       "id": "workflow-event-72bc6a24-e749-4efc-bc67-6ac418f822e7",
       "entityType": "task_runner",
@@ -36050,629 +37057,6 @@
         ]
       },
       "createdAt": "2026-06-02T00:11:01.151Z"
-    },
-    {
-      "id": "workflow-event-ef1de6c0-0a65-41c2-940f-a96f21ed442b",
-      "entityType": "candidate",
-      "entityId": "validation-same-url-b",
-      "action": "candidate.convert_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-same-url-b",
-        "sourceId": "validation-blog",
-        "sourceType": "official-blog",
-        "sourceName": "Validation Blog",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "originalTitle": "Validation duplicate URL follow up",
-        "originalSummary": "Validation candidate used to exercise duplicate review workflow.",
-        "originalContent": "Validation content with enough body text to generate a publishable Technology draft after editorial edits.",
-        "originalLanguage": "en",
-        "publishDate": "2026-05-01",
-        "publisherName": "Validation Publisher",
-        "normalizedType": "tool",
-        "tags": [
-          "validation",
-          "duplicate"
-        ],
-        "importStatus": "new",
-        "relatedCandidateIds": [
-          "validation-same-url-a"
-        ],
-        "rawPayload": {
-          "canonicalUrl": "https://example.com/news/shared-protocol-update",
-          "sourceId": "validation-blog"
-        },
-        "duplicateGroupId": "dup-sn9js5"
-      },
-      "metadata": {
-        "duplicateGroupId": "dup-sn9js5",
-        "errorMessage": "This candidate belongs to a duplicate group and is not the primary candidate. Resolve the group or convert the primary candidate instead."
-      },
-      "createdAt": "2026-06-02T00:11:01.090Z"
-    },
-    {
-      "id": "workflow-event-c18fe94d-d2c3-43e1-8a92-68acc412388c",
-      "entityType": "duplicate_group",
-      "entityId": "dup-sn9js5",
-      "action": "duplicate_group.resolved",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "dup-sn9js5",
-        "candidateIds": [
-          "validation-same-url-a",
-          "validation-same-url-b"
-        ],
-        "primaryCandidateId": "validation-same-url-a",
-        "status": "open",
-        "reasons": [
-          "same_source_url",
-          "same_canonical_url"
-        ],
-        "createdAt": "2026-06-02T00:11:01.020Z",
-        "updatedAt": "2026-06-02T00:11:01.020Z"
-      },
-      "afterSnapshot": {
-        "id": "dup-sn9js5",
-        "candidateIds": [
-          "validation-same-url-a",
-          "validation-same-url-b"
-        ],
-        "primaryCandidateId": "validation-same-url-a",
-        "status": "resolved",
-        "reasons": [
-          "same_source_url",
-          "same_canonical_url"
-        ],
-        "createdAt": "2026-06-02T00:11:01.020Z",
-        "updatedAt": "2026-06-02T00:11:01.021Z"
-      },
-      "metadata": {
-        "candidateIds": [
-          "validation-same-url-a",
-          "validation-same-url-b"
-        ],
-        "primaryCandidateId": "validation-same-url-a"
-      },
-      "createdAt": "2026-06-02T00:11:01.044Z"
-    },
-    {
-      "id": "workflow-event-cd338020-a83f-4322-aeb2-b7feef9b74c7",
-      "entityType": "source",
-      "entityId": "source-failing-validation-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-failing-validation-source",
-        "name": "Failing Validation Source",
-        "type": "rss",
-        "url": "http://127.0.0.1:9/unavailable-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "failed",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 1,
-        "totalImportedCount": 0,
-        "createdAt": "2026-06-02T00:10:27.783Z",
-        "updatedAt": "2026-06-02T00:10:27.787Z",
-        "maxItems": 4,
-        "lastErrorMessage": "fetch failed",
-        "lastFetchedAt": "2026-06-02T00:10:27.787Z",
-        "lastImportMessage": "fetch failed"
-      },
-      "afterSnapshot": {
-        "id": "source-failing-validation-source",
-        "name": "Failing Validation Source",
-        "type": "rss",
-        "url": "http://127.0.0.1:9/unavailable-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "failed",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 2,
-        "totalImportedCount": 0,
-        "createdAt": "2026-06-02T00:10:27.783Z",
-        "updatedAt": "2026-06-02T00:10:28.051Z",
-        "maxItems": 4,
-        "lastErrorMessage": "fetch failed",
-        "lastFetchedAt": "2026-06-02T00:10:28.051Z",
-        "lastImportMessage": "fetch failed"
-      },
-      "metadata": {
-        "status": "failed",
-        "message": "fetch failed",
-        "importCount": 0,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-06-02T00:10:28.067Z"
-    },
-    {
-      "id": "workflow-event-1dc306bf-6157-4f70-ab90-26cc7b106d9e",
-      "entityType": "source",
-      "entityId": "source-validation-rss-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-validation-rss-source",
-        "name": "Validation RSS Source",
-        "type": "rss",
-        "url": "https://example.com/validation-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "partial",
-        "lastImportCount": 1,
-        "consecutiveFailureCount": 2,
-        "totalImportedCount": 1,
-        "createdAt": "2026-06-02T00:10:26.409Z",
-        "updatedAt": "2026-06-02T00:10:27.737Z",
-        "maxItems": 4,
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml",
-        "lastFetchedAt": "2026-06-02T00:10:27.737Z",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml"
-      },
-      "afterSnapshot": {
-        "id": "source-validation-rss-source",
-        "name": "Validation RSS Source",
-        "type": "rss",
-        "url": "https://example.com/validation-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "failed",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 3,
-        "totalImportedCount": 1,
-        "createdAt": "2026-06-02T00:10:26.409Z",
-        "updatedAt": "2026-06-02T00:10:28.011Z",
-        "maxItems": 4,
-        "lastErrorMessage": "Request failed with 404 for https://example.com/validation-feed.xml",
-        "lastFetchedAt": "2026-06-02T00:10:28.011Z",
-        "lastImportMessage": "Request failed with 404 for https://example.com/validation-feed.xml"
-      },
-      "metadata": {
-        "status": "failed",
-        "message": "Request failed with 404 for https://example.com/validation-feed.xml",
-        "importCount": 0,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-06-02T00:10:28.028Z"
-    },
-    {
-      "id": "workflow-event-22c2990f-df1f-47a2-9a3c-fc8e5ea88490",
-      "entityType": "source",
-      "entityId": "source-failing-validation-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-failing-validation-source",
-        "name": "Failing Validation Source",
-        "type": "rss",
-        "url": "http://127.0.0.1:9/unavailable-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-06-02T00:10:27.783Z",
-        "updatedAt": "2026-06-02T00:10:27.783Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-failing-validation-source",
-        "name": "Failing Validation Source",
-        "type": "rss",
-        "url": "http://127.0.0.1:9/unavailable-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "failed",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 1,
-        "totalImportedCount": 0,
-        "createdAt": "2026-06-02T00:10:27.783Z",
-        "updatedAt": "2026-06-02T00:10:27.787Z",
-        "maxItems": 4,
-        "lastErrorMessage": "fetch failed",
-        "lastFetchedAt": "2026-06-02T00:10:27.787Z",
-        "lastImportMessage": "fetch failed"
-      },
-      "metadata": {
-        "status": "failed",
-        "message": "fetch failed",
-        "importCount": 0,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-06-02T00:10:27.805Z"
-    },
-    {
-      "id": "workflow-event-159fe628-f7e6-4d64-8fa4-e88ed346296d",
-      "entityType": "source",
-      "entityId": "source-validation-rss-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-validation-rss-source",
-        "name": "Validation RSS Source",
-        "type": "rss",
-        "url": "https://example.com/validation-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "partial",
-        "lastImportCount": 1,
-        "consecutiveFailureCount": 1,
-        "totalImportedCount": 1,
-        "createdAt": "2026-06-02T00:10:26.409Z",
-        "updatedAt": "2026-06-02T00:10:27.143Z",
-        "maxItems": 4,
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml",
-        "lastFetchedAt": "2026-06-02T00:10:27.143Z",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml"
-      },
-      "afterSnapshot": {
-        "id": "source-validation-rss-source",
-        "name": "Validation RSS Source",
-        "type": "rss",
-        "url": "https://example.com/validation-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "partial",
-        "lastImportCount": 1,
-        "consecutiveFailureCount": 2,
-        "totalImportedCount": 1,
-        "createdAt": "2026-06-02T00:10:26.409Z",
-        "updatedAt": "2026-06-02T00:10:27.737Z",
-        "maxItems": 4,
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml",
-        "lastFetchedAt": "2026-06-02T00:10:27.737Z",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml"
-      },
-      "metadata": {
-        "status": "partial",
-        "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml",
-        "importCount": 1,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-06-02T00:10:27.756Z"
-    },
-    {
-      "id": "workflow-event-883c649c-c247-4c38-91dc-99459513bd0c",
-      "entityType": "source",
-      "entityId": "source-validation-rss-source",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-validation-rss-source",
-        "name": "Validation RSS Source",
-        "type": "rss",
-        "url": "https://example.com/validation-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-06-02T00:10:26.409Z",
-        "updatedAt": "2026-06-02T00:10:26.409Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-validation-rss-source",
-        "name": "Validation RSS Source",
-        "type": "rss",
-        "url": "https://example.com/validation-feed.xml",
-        "enabled": true,
-        "description": "Validation-only source config.",
-        "language": "en",
-        "publisherName": "Validation Publisher",
-        "publisherType": "media",
-        "defaultTags": [
-          "validation",
-          "workflow"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "partial",
-        "lastImportCount": 1,
-        "consecutiveFailureCount": 1,
-        "totalImportedCount": 1,
-        "createdAt": "2026-06-02T00:10:26.409Z",
-        "updatedAt": "2026-06-02T00:10:27.143Z",
-        "maxItems": 4,
-        "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml",
-        "lastFetchedAt": "2026-06-02T00:10:27.143Z",
-        "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml"
-      },
-      "metadata": {
-        "status": "partial",
-        "message": "Live import failed; local fallback used. Request failed with 404 for https://example.com/validation-feed.xml",
-        "importCount": 1,
-        "candidatesCreated": 1
-      },
-      "createdAt": "2026-06-02T00:10:27.163Z"
-    },
-    {
-      "id": "workflow-event-31c7397f-c50d-4ed7-80f5-17d7d6efdbd4",
-      "entityType": "technology_draft",
-      "entityId": "validation-warning-only-record",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:09:55.552Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-06-02T00:09:55.448Z",
-        "updatedAt": "2026-06-02T00:09:55.685Z",
-        "editorialNotes": []
-      },
-      "afterSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "watch",
-          "priorityScore": 57,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Tags are missing.",
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet.",
-            "Publisher is missing."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:09:55.767Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-06-02T00:09:55.448Z",
-        "updatedAt": "2026-06-02T00:09:55.767Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validation-warning-only-record"
-      },
-      "createdAt": "2026-06-02T00:09:55.783Z"
-    },
-    {
-      "id": "workflow-event-de34db9a-9de5-4468-bdcc-b7c7a39beccf",
-      "entityType": "technology_draft",
-      "entityId": "validation-duplicate-slug-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-duplicate-slug-record",
-        "slug": "model-context-protocol",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/validation-duplicate-slug",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:09:55.552Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-06-02T00:09:55.448Z",
-        "updatedAt": "2026-06-02T00:09:55.685Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "blockingErrors": [
-          "duplicate-slug"
-        ]
-      },
-      "createdAt": "2026-06-02T00:09:55.743Z"
     }
   ]
 }
