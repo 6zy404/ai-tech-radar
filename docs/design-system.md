@@ -703,9 +703,18 @@ additive and cannot regress any currently shipped page.
   classnames (`.tech-graph__*`, `.tag-badge`, `.my-radar__tag-toggle`)
   rather than being technology-page-specific.
 
-Next up per the original migration-cost plan: the topic timeline
-(structurally closest, cheapest — `DossierRegisterRow`'s first real use),
-then the digest pages and search, then `/radar` and `/news` (each need one
-new state), and the homepage last since it aggregates every other
-component. Dark/light theming for this direction is still an explicit open
-question, not decided.
+- **`/timeline`** — same night, third adoption round, and the first real
+  use of `DossierRegisterRow`. Each topic's chronological entry list now
+  renders as a ledger of register rows (`title`/`date`/`href`/`tag`, with
+  `tag` set to the entry's source name) instead of the rail-and-dot
+  connector list the page used before — a better fit for the archival
+  "编辑桌" concept than a timeline-rail metaphor. `DossierRegisterRow`
+  itself only covers the compact title/date/tag line, so the entry
+  summary renders as a plain paragraph underneath it
+  (`.dossier-timeline-node__summary`), indented to align under the title
+  column; no changes to `DossierRegisterRow` itself were needed.
+
+Next up per the original migration-cost plan: the digest pages and search,
+then `/radar` and `/news` (each need one new state), and the homepage last
+since it aggregates every other component. Dark/light theming for this
+direction is still an explicit open question, not decided.

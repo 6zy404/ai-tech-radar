@@ -9316,3 +9316,50 @@ button.tech-graph__node:focus-visible {
 .dossier .skill-detail-profile dd {
   color: var(--dossier-ink);
 }
+
+/* ============================================================
+   Dossier direction v3 -- ADOPTED on /timeline. First real use of
+   DossierRegisterRow: each topic's chronological list is now a ledger of
+   register rows (border-bottom separated) instead of the rail-and-dot
+   connector list, which better fits the archival "编辑桌" concept.
+   ============================================================ */
+
+.dossier .timeline-topic__heading h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .timeline-topic__heading span {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .timeline-topic__description {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .dossier-timeline-list {
+  border-left: none;
+  padding-left: 0;
+}
+
+.dossier-timeline-node {
+  padding: 4px 0 16px;
+}
+
+.dossier-timeline-node__summary {
+  margin: 6px 0 0;
+  padding-left: 96px;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .dossier-timeline-node__summary {
+    padding-left: 0;
+  }
+}

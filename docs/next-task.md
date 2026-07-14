@@ -1,5 +1,20 @@
 # Next Task
 
+> Update 2026-07-14 (same night, third adoption round): **Dossier
+> direction adopted on `/timeline`** — `DossierRegisterRow`'s first real
+> use. Each topic's chronological entry list now renders as a ledger of
+> register rows (date + title + source-name tag) instead of the
+> rail-and-dot connector list; the entry summary renders as a plain
+> paragraph underneath since `DossierRegisterRow` only covers the compact
+> line. See `CHANGELOG.md` → "Dossier direction adoption — /timeline" and
+> `docs/design-system.md` → "Dossier direction" → "Adopted pages" for the
+> full description. Verified with typecheck, lint, format, vitest 61/61,
+> and a live pass (10 topics, newest-first order per topic, links resolve,
+> mobile width without overflow, console clean). **Next actual step**: the
+> digest pages and search, then `/radar` + `/news`, homepage last.
+> Dark/light theming is still undecided — don't start it without asking
+> first.
+
 > Update 2026-07-14 (later that night): **Dossier direction adopted on
 > `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`.** Second
 > adoption round, right after the technology pages below. These four routes

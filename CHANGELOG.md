@@ -12,6 +12,24 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — /timeline
+
+- **Dossier direction live on `/timeline`** — 2026-07-14, same night, third
+  adoption round and the first real use of `DossierRegisterRow`
+  (previously unused since the component slice shipped). Each topic's
+  chronological entry list now renders as a ledger of register rows
+  (`title` + `date` + `href` + a `tag` set to the entry's source name)
+  instead of the rail-and-dot connector list the page used before — the
+  ledger reads better against the archival "编辑桌" concept than a
+  timeline-rail metaphor. Since `DossierRegisterRow` only covers the
+  compact title/date/tag line, the entry summary renders as a plain
+  paragraph underneath, indented to align under the title column
+  (`.dossier-timeline-node__summary`); the component itself needed no
+  changes. Verified with typecheck, lint, format, vitest 61/61, and a live
+  pass (10 topics rendered, newest-first ordering confirmed per topic,
+  detail-page links resolve, mobile width without overflow, console
+  clean).
+
 ## Dossier direction adoption — skills & knowledge
 
 - **Dossier direction live on `/skills`, `/skills/[slug]`, `/knowledge`,
