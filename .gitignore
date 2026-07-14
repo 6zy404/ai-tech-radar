@@ -28,9 +28,10 @@ config/task-runner-cron.log
 # OS files
 .DS_Store
 
-# Local agent / tooling state (Codex, OMX, visual QA, etc.)
+# Local agent / tooling state (Codex, OMX, Claude Code, visual QA, etc.)
 .codex/
 .omx/
+.claude/
 visual-qa-screenshots/
 
 # Temporary artifacts and work-in-progress patches
