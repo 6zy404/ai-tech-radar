@@ -490,10 +490,22 @@ Forbidden on public pages:
     `TechnologyCompareWidget`
 - `DossierCard` / `DossierStampTag` / `DossierCatalogNote` /
   `DossierRegisterRow` / `DossierSearchInput` / `DossierCategoryChips`
-  - **staged, not yet used by any page** — a first component slice for the
-    "编辑桌" (dossier) design direction; see `docs/design-system.md` →
-    "Dossier direction (staged)" for the full specification and intended
-    adoption order before wiring these into real pages
+  - reusable component slice for the "编辑桌" (dossier) design direction;
+    adopted on `/technologies` and `/technologies/[slug]` (see
+    `DossierTechnologyCard` and `DossierRelatedItemsSection` below) —
+    `DossierRegisterRow` remains unused until a page needs a ledger-style
+    row. See `docs/design-system.md` → "Dossier direction" for the full
+    specification and remaining adoption order.
+- `DossierTechnologyCard`
+  - user-facing dossier-styled index card for `/technologies`; a
+    page-specific sibling of `TechnologyListCard` (kept unchanged, since it
+    is still shared with the home page and `/radar`)
+- `DossierRelatedItemsSection`
+  - user-facing dossier-styled rendering of the technology detail page's
+    相关技术/相关技能/相关知识 sections, showing each connection's note
+    through `DossierCatalogNote`; a page-specific sibling of
+    `RelatedItemsSection` (kept unchanged, since it is still shared with
+    the not-yet-migrated skill and knowledge detail pages)
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
   - consumes a public-safe `PublicDigestView` (mapped by `toPublicDigestView`

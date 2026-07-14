@@ -2,9 +2,10 @@
 
 import { useDeferredValue, useState } from "react";
 
-import { SearchFilterBar } from "@/components/search-filter-bar";
+import { DossierCategoryChips } from "@/components/dossier-category-chips";
+import { DossierSearchInput } from "@/components/dossier-search-input";
+import { DossierTechnologyCard } from "@/components/dossier-technology-card";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
-import { TechnologyListCard } from "@/components/technology-list-card";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
@@ -14,6 +15,8 @@ import {
   type TechnologyContentMode
 } from "@/lib/technology-localization";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
+
+const cardTilts = ["a", "b", "c"] as const;
 
 interface TechnologyBrowserProps {
   technologies: TechnologyItem[];
@@ -75,29 +78,32 @@ export function TechnologyBrowser({
   ];
 
   return (
-    <>
-      <SearchFilterBar
-        searchValue={searchText}
-        onSearchChange={setSearchText}
-        typeValue={typeFilter}
-        onTypeChange={setTypeFilter}
-        tagValue={tagFilter}
-        onTagChange={setTagFilter}
-        priorityValue={priorityFilter}
-        onPriorityChange={setPriorityFilter}
-        typeOptions={typeOptions}
-        tagOptions={tagOptions}
-        priorityOptions={priorityOptions}
-        labels={{
-          search: "搜索",
-          searchPlaceholder: "搜索标题、摘要或来源",
-          type: "类型",
-          tag: "标签",
-          priority: "优先级"
-        }}
+    <div className="dossier-technology-browser">
+      <DossierSearchInput
+        value={searchText}
+        onChange={setSearchText}
+        placeholder="搜索标题、摘要或来源"
       />
 
-      <div className="technology-browser__toolbar user-list-toolbar">
+      <div className="dossier-technology-browser__filters">
+        <DossierCategoryChips
+          options={typeOptions}
+          active={typeFilter}
+          onChange={setTypeFilter}
+        />
+        <DossierCategoryChips
+          options={tagOptions}
+          active={tagFilter}
+          onChange={setTagFilter}
+        />
+        <DossierCategoryChips
+          options={priorityOptions}
+          active={priorityFilter}
+          onChange={setPriorityFilter}
+        />
+      </div>
+
+      <div className="dossier-technology-browser__toolbar">
         <div>
           <strong>{filteredTechnologies.length} 条技术信号</strong>
           <p>
@@ -113,12 +119,13 @@ export function TechnologyBrowser({
         />
       </div>
 
-      <div className="technology-signal-list">
-        {filteredTechnologies.map((item) => (
-          <TechnologyListCard
+      <div className="dossier-technology-list">
+        {filteredTechnologies.map((item, index) => (
+          <DossierTechnologyCard
             key={item.id}
             technology={item}
             mode={mode}
+            tilt={cardTilts[index % cardTilts.length]}
             tags={item.tags
               .map((tagId) => tags.find((tag) => tag.id === tagId))
               .filter((tag): tag is TopicTag => Boolean(tag))}
@@ -127,11 +134,11 @@ export function TechnologyBrowser({
       </div>
 
       {filteredTechnologies.length === 0 ? (
-        <div className="empty-state empty-state--actionable">
+        <div className="dossier-empty-state">
           <strong>暂无技术信号。</strong>
           <p>试着清除筛选条件，查看已发布的信号。</p>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

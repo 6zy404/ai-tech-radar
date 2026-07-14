@@ -8772,3 +8772,442 @@ button.tech-graph__node:focus-visible {
   flex-wrap: wrap;
   gap: 8px;
 }
+
+/* ============================================================
+   Dossier design system v1 -- ADOPTED on /technologies and
+   /technologies/[slug] (docs/design-system.md -> "Dossier direction
+   (staged)" -> adoption order). Everything below is still scoped under
+   .dossier, so every other .user-shell page (skills, knowledge, digest,
+   radar, news, home) is untouched and keeps the teal/cream system above.
+   ============================================================ */
+
+.dossier {
+  padding: 26px clamp(16px, 4vw, 40px) 64px;
+  border: 1px solid var(--dossier-line);
+}
+
+@media (max-width: 640px) {
+  .dossier {
+    padding: 18px 14px 48px;
+  }
+}
+
+.dossier .user-page-header {
+  border-bottom: 1px solid var(--dossier-line);
+}
+
+.dossier .user-page-header h1 {
+  color: var(--dossier-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  letter-spacing: 0;
+}
+
+.dossier .user-page-header__description {
+  color: var(--dossier-muted);
+}
+
+.dossier .eyebrow,
+.dossier .user-eyebrow {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+/* -- technology browser (/technologies list) -- */
+.dossier-technology-browser {
+  display: grid;
+  gap: 18px;
+}
+
+.dossier-technology-browser__filters {
+  display: grid;
+  gap: 8px;
+}
+
+.dossier-technology-browser__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 2px;
+  border-bottom: 1px dashed var(--dossier-line);
+}
+
+.dossier-technology-browser__toolbar strong {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--dossier-accent);
+}
+
+.dossier-technology-browser__toolbar p {
+  margin: 4px 0 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13px;
+  max-width: 60ch;
+}
+
+.dossier-technology-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+  padding-top: 8px;
+}
+
+.dossier-empty-state {
+  padding: 28px;
+  border: 1px dashed var(--dossier-line);
+  text-align: center;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier-empty-state strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--dossier-ink);
+}
+
+/* -- technology index card -- */
+.dossier-technology-card {
+  display: grid;
+  gap: 10px;
+}
+
+.dossier-technology-card__topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dossier-technology-card__catalog {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--dossier-muted);
+  letter-spacing: 0.02em;
+}
+
+.dossier-technology-card__title {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+.dossier-technology-card__title a {
+  color: var(--dossier-ink);
+  text-decoration: none;
+}
+
+.dossier-technology-card__title a:hover {
+  text-decoration: underline;
+}
+
+.dossier-technology-card__summary {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.dossier-technology-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.dossier-technology-card__source {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--dossier-muted);
+}
+
+.dossier-technology-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dossier-technology-card__open {
+  margin-left: auto;
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--dossier-accent);
+  text-decoration: none;
+}
+
+.dossier-technology-card__open:hover {
+  text-decoration: underline;
+}
+
+.dossier-stamp-tag--muted {
+  color: var(--dossier-muted);
+  border-color: var(--dossier-line);
+}
+
+/* -- language switch -- */
+.dossier .technology-language-switch__label {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .technology-language-switch__track {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+}
+
+.dossier .technology-language-switch__button {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .technology-language-switch__button--active {
+  background: var(--dossier-accent);
+  color: var(--dossier-surface);
+}
+
+/* -- article layout / hero (technology detail) -- */
+.dossier.user-article-layout {
+  background: transparent;
+}
+
+.dossier .user-article-hero {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .user-article-hero h1 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .user-article-hero__summary,
+.dossier .technology-detail-hero__priority-copy {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .technology-detail-hero__meta {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+/* -- every content-section box, including the AI widgets and the
+   relationship graph, which all share this same class -- */
+.dossier .user-article-section {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .technology-detail-section__eyebrow {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .technology-detail-section h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .technology-detail-section__lede,
+.dossier .technology-detail-learning-list,
+.dossier .technology-detail-question-list {
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .technology-detail-impact > span {
+  color: var(--dossier-muted);
+}
+
+/* -- source reference / reference panels (aside) -- */
+.dossier .source-reference,
+.dossier .user-reference-panel {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .source-reference h2,
+.dossier .user-reference-panel h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .user-reference-panel__copy {
+  color: var(--dossier-muted);
+}
+
+.dossier .source-reference__meta {
+  color: var(--dossier-muted);
+}
+
+.dossier .source-reference a {
+  color: var(--dossier-accent);
+}
+
+/* -- tags (hero + aside follow list) -- */
+.dossier .tag-badge {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .followable-tag-list__hint {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .my-radar__tag-toggle {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .my-radar__tag-toggle--active {
+  background: var(--dossier-stamp);
+  border-color: var(--dossier-stamp);
+  color: var(--dossier-surface);
+}
+
+/* -- relationship graph -- */
+.dossier .tech-graph__node {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .tech-graph__node--center {
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+  color: var(--dossier-surface);
+}
+
+.dossier .tech-graph__lines line {
+  stroke: var(--dossier-line);
+}
+
+/* -- AI widgets (compare / explain / learning path) -- */
+.dossier .technology-compare-widget__select {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+}
+
+.dossier .technology-compare-widget__result {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-ground);
+  box-shadow: none;
+}
+
+.dossier .technology-compare-widget .technology-compare-widget__disclaimer {
+  background: transparent;
+  border: 1px dashed var(--dossier-stamp);
+  color: var(--dossier-stamp);
+}
+
+.dossier .technology-compare-widget__block > span {
+  color: var(--dossier-muted);
+}
+
+.dossier .technology-compare-widget__block p,
+.dossier .technology-compare-widget__block ul {
+  color: var(--dossier-ink);
+}
+
+.dossier .action-button--accent {
+  background: var(--dossier-stamp);
+  border-color: var(--dossier-stamp);
+  color: var(--dossier-surface);
+}
+
+.dossier .action-button--accent:hover {
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+}
+
+/* -- related items (dossier-specific: "附注" cross-reference cards) -- */
+.dossier-related-section {
+  display: grid;
+  gap: 14px;
+}
+
+.dossier-related-section__header h2 {
+  margin: 0 0 4px;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier-related-section__header p {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+}
+
+.dossier-related-section__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.dossier-related-section__item {
+  display: grid;
+  gap: 8px;
+}
+
+.dossier-related-section__topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dossier-related-section__topline h3 {
+  margin: 0;
+  font-size: 15.5px;
+}
+
+.dossier-related-section__topline h3 a {
+  color: var(--dossier-ink);
+  text-decoration: none;
+}
+
+.dossier-related-section__topline h3 a:hover {
+  text-decoration: underline;
+}
+
+.dossier-related-section__link {
+  display: inline-block;
+  margin-top: 2px;
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--dossier-accent);
+  text-decoration: none;
+}
+
+.dossier-related-section__link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .dossier-technology-list,
+  .dossier-related-section__list {
+    grid-template-columns: 1fr;
+  }
+}

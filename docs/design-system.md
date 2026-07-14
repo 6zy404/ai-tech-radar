@@ -565,17 +565,17 @@ Pages still left for later template migration:
 - `/workspace/duplicates`
 - `/workspace/technologies`
 
-## Dossier direction (staged, 2026-07-14)
+## Dossier direction (adoption in progress — /technologies live, 2026-07-14)
 
 An owner-directed visual-identity exploration for the User-facing Product
 produced a fully specified alternate direction — nicknamed "编辑桌"
 (editor's desk / dossier) — evaluated against alternatives (an "instrument
 console" direction and a "knowledge graph" direction, both rejected) through
-a series of HTML/CSS mockups covering every public page type. The direction
-is **specified but not adopted**: no `src/app/**/page.tsx` renders it yet,
-and it does not replace the current teal/cream token system described
-above. This section exists so a future session can pick up implementation
-without re-deriving the decisions.
+a series of HTML/CSS mockups covering every public page type. It has now
+started shipping to real pages, one page-family per round per the adoption
+order below; everything not yet migrated still renders the teal/cream token
+system described above. This section exists so a future session can pick up
+the remaining migration without re-deriving the decisions.
 
 Concept: content reads as an archival dossier — index cards, catalog
 numbers, rubber-stamp tags, and "附注" (annotation) cross-reference notes
@@ -624,11 +624,10 @@ Decided specifics:
   chips already used on `/technologies` and `/radar` rather than
   introducing a new shape.
 
-### Staged component library (not yet wired to any page)
+### Component library
 
-A first slice of reusable components was built and verified (typecheck,
-lint, format, and a live rendering + interaction check via a temporary,
-already-deleted preview route) but is **not imported by any real page**:
+Built 2026-07-14, first wired into real pages the same day (see "Adopted
+pages" below):
 
 - `DossierCard` (`src/components/dossier-card.tsx`) — bordered index-card
   tile with a resting tilt that straightens on hover / collapses on narrow
@@ -640,6 +639,8 @@ already-deleted preview route) but is **not imported by any real page**:
   "附注" cross-reference annotation block.
 - `DossierRegisterRow` (`src/components/dossier-register-row.tsx`) — a
   compact date + title + tag row for archive/timeline/relation lists.
+  **Still unused** — no adopted page has needed a ledger-style row yet;
+  the topic timeline is its likely first real consumer.
 - `DossierSearchInput` (`src/components/dossier-search-input.tsx`) —
   the confirmed icon-pill search box.
 - `DossierCategoryChips` (`src/components/dossier-category-chips.tsx`) —
@@ -651,11 +652,42 @@ All CSS lives under a single `.dossier` root class in `globals.css`
 live `--bg` / `--accent` / etc. tokens), so applying it to a page is
 additive and cannot regress any currently shipped page.
 
-Next step per the migration-cost plan (produced during the same session,
-not checked into the repo — recreate if needed): assemble these into the
-technology list/detail pages first, since that content type has the most
-complete data to prove the "附注" pattern against, then skills/knowledge
-and the topic timeline (structurally closest, cheapest), then the digest
-pages and search, then `/radar` and `/news` (each need one new state), and
-the homepage last since it aggregates every other component. Dark/light
-theming for this direction is an explicit open question, not decided.
+### Adopted pages
+
+- **`/technologies` (list)** — `TechnologyBrowser` now renders
+  `DossierSearchInput` + three `DossierCategoryChips` rows (type/tag/
+  priority, replacing `SearchFilterBar`) and a new
+  `DossierTechnologyCard` (`src/components/dossier-technology-card.tsx`,
+  cycling the three tilt variants) instead of `TechnologyListCard` for
+  each signal. `TechnologyListCard` and `SearchFilterBar` themselves were
+  left unchanged, since both are still shared with the home page and
+  `/radar` (not yet migrated) — the new components are page-specific
+  siblings, not variant props on the shared ones.
+- **`/technologies/[slug]` (detail, incl. the workspace preview route that
+  reuses the same renderer)** — `TechnologyDetailContent` gained a new
+  `DossierRelatedItemsSection` (`src/components/dossier-related-items-section.tsx`)
+  for the 相关技术/相关技能/相关知识 sections: each connection renders as a
+  `DossierCard` with its relation-type `DossierStampTag` and its note
+  through `DossierCatalogNote` — the "附注" pattern this whole direction
+  was designed around, reusing the existing `relatedSkillExplanations` /
+  `relatedKnowledgeExplanations` data with no schema change. The hero and
+  priority pill use `DossierStampTag`; the catalog-number line
+  (`工具 · 第 2026-07-14 号`) is shared CSS between the hero and the list
+  card. The three AI widgets (compare/explain/learning-path) and the
+  `RelationshipGraph` component are still shared with the not-yet-migrated
+  skill/knowledge detail pages, so they were **not** forked — they get the
+  dossier look through `.dossier`-scoped CSS overrides on their existing
+  classnames (`.user-article-section`, `.tech-graph__*`,
+  `.technology-compare-widget__*`) instead, which is inert on any page
+  without a `.dossier` ancestor.
+- Both pages opt in by adding a `dossier` class next to `user-shell`
+  (`UserPageShell`'s `className` prop) or directly on `UserArticleLayout`'s
+  root article; every other `.user-shell` page is unaffected because none
+  of them carry that class yet.
+
+Next up per the original migration-cost plan: skills/knowledge and the
+topic timeline (structurally closest, cheapest — `DossierRegisterRow`'s
+first real use), then the digest pages and search, then `/radar` and
+`/news` (each need one new state), and the homepage last since it
+aggregates every other component. Dark/light theming for this direction is
+still an explicit open question, not decided.
