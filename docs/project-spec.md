@@ -72,6 +72,9 @@ Public pages:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/timeline` — published technology signals grouped by topic tag as
+  chronological (newest-first) lists; published-content only, no news
+  fast-lane data
 - `/radar` — personal radar; follows are browser-local (localStorage), the
   route itself serves the same published content to everyone
 - `/search` — site-wide keyword search over published signals, skills,

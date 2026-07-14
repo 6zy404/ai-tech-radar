@@ -38,6 +38,26 @@ For per-topic deep dives, see the `docs/` directory.
   resolved/ignored status, a conversion guard for non-primary duplicates, and
   additional source references carried into generated drafts.
 
+## Topic timeline
+
+- **Public topic timeline v0 (`/timeline`)** — 2026-07-14, the other half of
+  the "topic timeline" idea from the search proposal, shipped as its own
+  page per the one-page-per-task rule. New public `/timeline` (「时间线」 in
+  `TopNav`) groups every published technology signal by topic tag and
+  renders each topic as a chronological (newest-first) list of dated nodes
+  linking to `/technologies/[slug]` — e.g. seeing the vLLM release cadence or
+  the Ollama agent-workbench pivot laid out in order under 推理与部署 / AI
+  智能体. Scoped to published-signal data only (no news fast-lane items, to
+  keep each topic's story readable instead of noisy); topics are sorted by
+  signal count then name, and only topics with at least one published signal
+  render. Implementation: no new data layer — reuses `getAllTechnologies()` /
+  `getAllTags()` and the existing bilingual title/summary helpers
+  (`getPreferredTechnologyTitle/Summary`). New `.timeline-*` CSS (a simple
+  connector-line + dot rail per topic) on existing tokens. Verified with
+  typecheck, lint, format, and a live pass (10 topics rendered, newest-first
+  ordering confirmed per topic, detail-page links resolve, mobile width
+  without overflow, console clean).
+
 ## Digest archive
 
 - **Public digest archive index v0 (`/digest`)** — 2026-07-14, shipped the

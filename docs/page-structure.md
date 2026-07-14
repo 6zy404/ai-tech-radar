@@ -369,6 +369,15 @@ Workspace deployment boundary:
     `RelationDensity` — this page is the one place to see the whole graph at
     once instead of one node's neighbourhood
   - does not show internal quality, reviewer, delivery, or source data
+- `/timeline`
+  - user-facing topic timeline (「时间线」 in `TopNav`)
+  - published technology signals grouped by topic tag, each rendered as a
+    chronological (newest-first) list of dated nodes linking to
+    `/technologies/[slug]`
+  - topics sorted by signal count, then name; only topics with at least one
+    published signal are shown
+  - published-signal data only — no news fast-lane items, no internal fields
+  - guided empty state when no published signals exist yet
 - `/search`
   - user-facing site-wide keyword search (「搜索」 in `TopNav`)
   - server-rendered `?q=` GET form; deterministic case-insensitive substring
@@ -441,7 +450,7 @@ Forbidden on public pages:
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`
-  - shared global navigation for user-facing Home, Daily Digest, News, Technologies, Skills, Knowledge, Network, My Radar, Search, and the secondary Workspace entry point
+  - shared global navigation for user-facing Home, Daily Digest, News, Technologies, Skills, Knowledge, Network, Timeline, My Radar, Search, and the secondary Workspace entry point
 - `DetailInfoCard`
   - shared reference / metadata card
 - `TagBadge`

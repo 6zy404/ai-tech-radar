@@ -80,6 +80,11 @@ The product is split into two subsystems:
   (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
   "只看我关注的" toggle filters the signal sections client-side — the served
   digest stays identical for everyone.
+- **Topic timeline** — public `/timeline` (「时间线」 in `TopNav`) groups
+  published technology signals by topic tag, each shown as a chronological
+  (newest-first) list linking to its detail page. Published-signal data only
+  (no news fast-lane noise); reuses `getAllTechnologies` / `getAllTags` and
+  the bilingual title/summary helpers, no new data or route.
 - **Site-wide search** — public `/search` (「搜索」 in `TopNav`) with
   server-rendered `?q=` keyword search over published technology signals,
   skills, knowledge, and the sanitized news fast lane. Deterministic,
@@ -115,6 +120,7 @@ Public, user-facing routes:
 - `/digest` (archive), `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
+- `/timeline`
 - `/radar`
 - `/search`
 - `/feed.xml`, `/feed.json`
