@@ -1,6 +1,103 @@
 {
-  "updatedAt": "2026-07-13T08:00:48.725Z",
+  "updatedAt": "2026-07-14T00:53:54.232Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "slug": "ollama-v0-32-0",
+      "title": {
+        "original": "Ollama v0.32.0",
+        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+      },
+      "summary": {
+        "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+      },
+      "content": {
+        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-14",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-14T00:53:54.231Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+      "whoShouldCare": [
+        "本地/端侧应用开发者",
+        "AI 工具链与开发者体验工程师",
+        "评估智能体工作流落地的团队"
+      ],
+      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+      "impactAreas": [
+        "开发者工具",
+        "端侧 AI",
+        "智能体工作流"
+      ],
+      "learningPath": [
+        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+      },
+      "followUpQuestions": [
+        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "createdAt": "2026-07-14T00:51:56.001Z",
+      "updatedAt": "2026-07-14T00:53:54.231Z",
+      "editorialNotes": [
+        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
       "slug": "nvidia-open-data-for-agents",

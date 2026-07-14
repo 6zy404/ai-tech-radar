@@ -1,6 +1,56 @@
 {
-  "updatedAt": "2026-07-13T08:02:23.753Z",
+  "updatedAt": "2026-07-14T00:56:11.906Z",
   "digests": [
+    {
+      "id": "digest-2026-07-14",
+      "date": "2026-07-14",
+      "status": "published",
+      "title": "每日技术简报 - 2026-07-14",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+      "editorialSummary": "今天的头条只有一个：Ollama v0.32.0 把本地运行时的默认入口从「跑模型」换成了「用智能体」——直接运行 ollama 命令即启动一个能写码、联网搜索、委派任务的交互式智能体，且默认横幅挂的是云端模型 glm-5.2:cloud。装机量巨大的本地工具主动拥抱本地/云混合、把智能体做成默认形态，这对端侧与云端的分工是个标志性信号。距离聚焦 iGPU 卸载的 v0.31.2 稳定版发布不到一周，转型节奏值得所有做开发者工具的团队留意。推理生态的另一条线（vLLM v0.25.0 的 Model Runner V2 代际切换）延续昨日判断，仍在持续关注区。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots",
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-system-design",
+        "knowledge-human-loop",
+        "knowledge-latency-tradeoffs",
+        "knowledge-tool-use"
+      ],
+      "sourceNames": [
+        "Ollama Releases",
+        "OpenAI News",
+        "vLLM Releases"
+      ],
+      "generatedAt": "2026-07-14T12:00:00.000Z",
+      "updatedAt": "2026-07-14T00:56:11.906Z",
+      "publishedAt": "2026-07-14T00:56:11.906Z",
+      "editorialNotes": [
+        "2026-07-14 round: scheduled import brought 3 new candidates; Ollama v0.32.0 published as the day's lead signal (pinned), OpenAI Academy tutorial rejected, vLLM v0.25.1 bugfix already dispositioned. Older high-priority items retained per current-panel convention."
+      ]
+    },
     {
       "id": "digest-2026-07-13",
       "date": "2026-07-13",
