@@ -35,6 +35,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
       description={publicSummary}
       sectionLabel="每日简报"
       showHeader={false}
+      className="dossier"
     >
       <DailyDigestContent
         digest={toPublicDigestView(digest)}

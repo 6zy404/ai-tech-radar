@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { DossierCard } from "@/components/dossier-card";
+import { DossierCatalogNote } from "@/components/dossier-catalog-note";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TagList } from "@/components/tag-list";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
 import type { PublicDigestView } from "@/lib/digest-view";
@@ -12,10 +15,7 @@ import {
   readFollowedTagIds
 } from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
-import {
-  getPriorityLevelClass,
-  getPriorityLevelLabel
-} from "@/lib/ranking-display";
+import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
   getLocalizedTechnologyText,
@@ -182,19 +182,19 @@ function DigestTechnologyCard({
     : undefined;
 
   return (
-    <article
+    <DossierCard
       className={`digest-technology-card${
         compact ? " digest-technology-card--compact" : ""
       }${compact ? "" : " digest-technology-card--featured"}`}
     >
       <div className="digest-technology-card__topline">
         <div className="digest-technology-card__badges">
-          <span className="info-pill info-pill--subtle">
+          <DossierStampTag className="dossier-stamp-tag--muted">
             {technologyTypeLabels[technology.type]}
-          </span>
-          <span className={getPriorityLevelClass(ranking.priorityLevel)}>
+          </DossierStampTag>
+          <DossierStampTag>
             {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
-          </span>
+          </DossierStampTag>
         </div>
       </div>
 
@@ -205,10 +205,9 @@ function DigestTechnologyCard({
         <p className="digest-technology-card__summary">
           {compactText(summary, compact ? 140 : 190)}
         </p>
-        <div className="digest-technology-card__reason">
-          <span>为什么重要</span>
-          <p>{whyItMatters}</p>
-        </div>
+        <DossierCatalogNote label="为什么重要">
+          {whyItMatters}
+        </DossierCatalogNote>
         {audienceLine ? (
           <p className="digest-technology-card__audience">{audienceLine}</p>
         ) : null}
@@ -239,7 +238,7 @@ function DigestTechnologyCard({
           </Link>
         </div>
       </div>
-    </article>
+    </DossierCard>
   );
 }
 
@@ -269,7 +268,7 @@ function DigestReferenceList<
       {items.length > 0 ? (
         <div className="digest-reference-list">
           {items.map((item) => (
-            <article key={item.id} className="digest-reference-item">
+            <DossierCard key={item.id} className="digest-reference-item">
               <div>
                 <h3>
                   <Link href={`${hrefPrefix}/${item.slug}`}>{item.title}</Link>
@@ -282,7 +281,7 @@ function DigestReferenceList<
               >
                 {linkLabel}
               </Link>
-            </article>
+            </DossierCard>
           ))}
         </div>
       ) : (
@@ -310,7 +309,7 @@ function DigestSourceReferences({
       {references.length > 0 ? (
         <div className="digest-source-list">
           {references.map((reference) => (
-            <article key={reference.id} className="digest-source-chip">
+            <DossierCard key={reference.id} className="digest-source-chip">
               <h3>{reference.sourceName}</h3>
               <p>
                 {[reference.publisherName, reference.publishDate]
@@ -327,7 +326,7 @@ function DigestSourceReferences({
                   打开来源
                 </a>
               ) : null}
-            </article>
+            </DossierCard>
           ))}
         </div>
       ) : (
@@ -408,7 +407,7 @@ export function DailyDigestContent({
     visibleWatchTechnologies.length === 0;
 
   return (
-    <div className="daily-digest daily-digest-reading">
+    <div className="daily-digest daily-digest-reading dossier">
       <section className="daily-digest-brief-header">
         <div className="daily-digest-brief-header__copy">
           <p className="eyebrow user-eyebrow">每日简报 · {digest.date}</p>

@@ -714,7 +714,30 @@ additive and cannot regress any currently shipped page.
   (`.dossier-timeline-node__summary`), indented to align under the title
   column; no changes to `DossierRegisterRow` itself were needed.
 
-Next up per the original migration-cost plan: the digest pages and search,
-then `/radar` and `/news` (each need one new state), and the homepage last
-since it aggregates every other component. Dark/light theming for this
-direction is still an explicit open question, not decided.
+- **`/digest` (archive), `/digest/today`, `/digest/[date]`, and
+  `/search`** — same night, fourth adoption round. The digest archive
+  index (`/digest/page.tsx`, page-specific) swaps its entry cards for
+  `DossierCard` + `DossierStampTag`. The shared `DailyDigestContent`
+  (rendered by both public digest routes and the workspace preview route)
+  gained `DossierCard` for its technology cards, skill/knowledge reference
+  cards, and source-reference chips, `DossierStampTag` for the type/
+  priority badges, and `DossierCatalogNote` for the "为什么重要" reason
+  block — `dossier` is applied directly on `DailyDigestContent`'s own root
+  div (not just the page shell), the same self-contained pattern used by
+  `TechnologyDetailContent`, so the workspace preview route (which renders
+  inside `WorkspacePageShell`, not a dossier-scoped shell) still resolves
+  the `--dossier-*` custom properties correctly instead of rendering
+  borderless cards. `/search` swaps its result cards for `DossierCard` and
+  its GET-form search box for the `.dossier-search` icon-pill markup
+  (copied inline, not the `DossierSearchInput` component, since the page
+  is an uncontrolled server-rendered form rather than client state).
+  Verified this round caught a real bug before commit: the digest preview
+  route initially rendered invisible/borderless cards because
+  `--dossier-*` custom properties are only defined inside `.dossier`, and
+  that route's ancestor shell never carries the class — fixed by moving
+  `dossier` onto the component's own root.
+
+Next up per the original migration-cost plan: `/radar` and `/news` (each
+need one new state), and the homepage last since it aggregates every other
+component. Dark/light theming for this direction is still an explicit open
+question, not decided.

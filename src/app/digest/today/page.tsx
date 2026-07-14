@@ -30,6 +30,7 @@ export default function TodayDigestPage() {
       description="以阅读为先的简报，汇总今天值得关注的技术信号。"
       sectionLabel="每日简报"
       showHeader={false}
+      className="dossier"
     >
       {latestDigest ? (
         <DailyDigestContent

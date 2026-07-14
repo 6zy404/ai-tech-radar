@@ -12,6 +12,34 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — digest & search
+
+- **Dossier direction live on `/digest`, `/digest/today`, `/digest/[date]`,
+  and `/search`** — 2026-07-14, same night, fourth adoption round. The
+  digest archive index swaps its entry cards for `DossierCard` +
+  `DossierStampTag`. The shared `DailyDigestContent` component (rendered
+  by both public digest routes and the workspace digest-preview route)
+  gained `DossierCard` for technology/reference/source cards,
+  `DossierStampTag` for type/priority badges, and `DossierCatalogNote` for
+  the "为什么重要" reason block. `/search` swaps result cards for
+  `DossierCard` and its GET-form search input for the `.dossier-search`
+  icon-pill markup (inlined, since the page is an uncontrolled
+  server-rendered form rather than client state, so the
+  `DossierSearchInput` component's controlled-input API doesn't fit).
+  A real bug was caught and fixed before commit: `dossier` was only added
+  to the two public digest page shells at first, but the workspace
+  digest-preview route renders `DailyDigestContent` inside
+  `WorkspacePageShell` (no `.dossier` ancestor there), so its new
+  `DossierCard`/`DossierStampTag` instances resolved `--dossier-*` custom
+  properties to nothing and rendered borderless/invisible cards. Fixed by
+  moving `dossier` onto `DailyDigestContent`'s own root div — the same
+  self-contained pattern `TechnologyDetailContent` already used — so the
+  component carries its own dossier scope regardless of which shell wraps
+  it. Verified with typecheck, lint, format, vitest 61/61, and a live pass
+  on all four routes plus the workspace preview route (cards render with
+  visible borders/backgrounds there too, mobile width without overflow,
+  zero console errors).
+
 ## Dossier direction adoption — /timeline
 
 - **Dossier direction live on `/timeline`** — 2026-07-14, same night, third
