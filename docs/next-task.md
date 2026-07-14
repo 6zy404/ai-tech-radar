@@ -1,5 +1,24 @@
 # Next Task
 
+> Update 2026-07-14 (night): **Dossier direction adopted on `/technologies`
+> + `/technologies/[slug]`.** Following the migration order from the
+> earlier design-session update below, the staged component slice is now
+> wired into real pages — see `CHANGELOG.md` → "Dossier direction adoption
+> — /technologies" and `docs/design-system.md` → "Dossier direction" →
+> "Adopted pages" for the full description. In short: the list page uses
+> `DossierSearchInput` + `DossierCategoryChips` + a new
+> `DossierTechnologyCard`; the detail page uses a new
+> `DossierRelatedItemsSection` (the "附注" cross-reference notes — the
+> feature this whole direction was designed to prove) plus `DossierStampTag`
+> for the hero pill; the three AI widgets and `RelationshipGraph` got a CSS
+> reskin instead of a fork, since they're still shared with not-yet-migrated
+> pages. Verified with typecheck, lint, format, vitest 61/61, and a live
+> dev-server pass. **Next actual step**, per the design-system.md adoption
+> order: skills/knowledge detail + index pages, then the topic timeline
+> (`DossierRegisterRow`'s first real use), then digest + search, then
+> `/radar` + `/news`, homepage last. Dark/light theming for this direction
+> is still undecided — don't start it without asking first.
+
 > Update 2026-07-14 (evening): **UI direction exploration + copy tone
 > fixes.** Owner asked for a full visual-identity exploration of the
 > User-facing Product; three directions were mocked up in HTML/CSS against

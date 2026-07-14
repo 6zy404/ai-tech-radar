@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 
-import { RelatedItemsSection } from "@/components/related-items-section";
+import { DossierRelatedItemsSection } from "@/components/dossier-related-items-section";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import {
   RelationshipGraph,
   type RelationshipGraphNode
@@ -27,7 +28,6 @@ import {
 } from "@/lib/content-intelligence";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
-  getPriorityLevelClass,
   getPriorityLevelLabel,
   getPriorityUserSummary
 } from "@/lib/ranking-display";
@@ -145,14 +145,15 @@ export function TechnologyDetailContent({
 
   return (
     <UserArticleLayout
-      className="technology-detail-reading"
+      className="dossier technology-detail-reading"
       hero={
         <section className="user-article-hero technology-detail-hero">
           <div className="user-article-hero__copy technology-detail-hero__copy">
             <div className="technology-detail-hero__topline">
-              <p className="eyebrow user-eyebrow">
-                {getTechnologyTypeLabel(technology.type, mode)}
-              </p>
+              <span className="dossier-technology-card__catalog">
+                {getTechnologyTypeLabel(technology.type, mode)} · 第{" "}
+                {technology.publishDate} 号
+              </span>
               <TechnologyLanguageSwitch
                 mode={mode}
                 onChange={setRequestedMode}
@@ -168,9 +169,7 @@ export function TechnologyDetailContent({
             <div className="technology-detail-hero__meta">
               <span>{technology.sourceName}</span>
               <span>{technology.publishDate}</span>
-              <span className={getPriorityLevelClass(ranking.priorityLevel)}>
-                {priorityLabel}
-              </span>
+              <DossierStampTag>{priorityLabel}</DossierStampTag>
             </div>
 
             <p className="technology-detail-hero__priority-copy">
@@ -243,9 +242,12 @@ export function TechnologyDetailContent({
           {audienceItems.length > 0 ? (
             <div className="technology-detail-chip-row">
               {audienceItems.map((item) => (
-                <span key={item} className="technology-detail-chip">
+                <DossierStampTag
+                  key={item}
+                  className="dossier-stamp-tag--muted"
+                >
                   {item}
-                </span>
+                </DossierStampTag>
               ))}
             </div>
           ) : null}
@@ -254,9 +256,12 @@ export function TechnologyDetailContent({
               <span>可能影响的领域</span>
               <div className="technology-detail-chip-row">
                 {impactAreas.map((item) => (
-                  <span key={item} className="technology-detail-chip">
+                  <DossierStampTag
+                    key={item}
+                    className="dossier-stamp-tag--muted"
+                  >
                     {item}
-                  </span>
+                  </DossierStampTag>
                 ))}
               </div>
             </div>
@@ -285,10 +290,9 @@ export function TechnologyDetailContent({
         hint="当前技术与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
       />
 
-      <RelatedItemsSection
+      <DossierRelatedItemsSection
         title="相关技术"
         description="与该信号在工作流或主题上相邻的其他技术，可顺着这条线继续了解。"
-        emptyText="暂无相关技术。"
         items={relatedTechnologies}
         linkLabel="查看技术"
         formatRelationType={(relationType) =>
@@ -301,10 +305,9 @@ export function TechnologyDetailContent({
         candidates={compareCandidates}
       />
 
-      <RelatedItemsSection
+      <DossierRelatedItemsSection
         title={copy.relatedSkillsTitle}
         description={copy.relatedSkillsDescription}
-        emptyText={copy.relatedSkillsEmpty}
         items={localizedRelatedSkills}
         linkLabel="查看技能"
         formatRelationType={(relationType) =>
@@ -312,10 +315,9 @@ export function TechnologyDetailContent({
         }
       />
 
-      <RelatedItemsSection
+      <DossierRelatedItemsSection
         title={copy.relatedKnowledgeTitle}
         description={copy.relatedKnowledgeDescription}
-        emptyText={copy.relatedKnowledgeEmpty}
         items={localizedRelatedKnowledge}
         linkLabel="查看概念"
         formatRelationType={(relationType) =>

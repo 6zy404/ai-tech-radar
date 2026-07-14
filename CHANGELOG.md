@@ -12,6 +12,36 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — /technologies
+
+- **Dossier direction live on `/technologies` and `/technologies/[slug]`** —
+  2026-07-14, later the same day as the staged component slice below, the
+  first real page-by-page adoption per the migration order recorded in
+  `docs/design-system.md`. Both pages now render the archival "编辑桌" look
+  end to end: `/technologies` (`TechnologyBrowser`) uses `DossierSearchInput`
+  and three `DossierCategoryChips` rows (type/tag/priority) in place of
+  `SearchFilterBar`, and a new `DossierTechnologyCard` in place of
+  `TechnologyListCard` for each signal (tilt cycled per card). The detail
+  page (`TechnologyDetailContent`, also reused by the workspace preview
+  route) gained a new `DossierRelatedItemsSection` for the
+  相关技术/相关技能/相关知识 sections — the flagship "附注" feature this whole
+  direction was designed to prove, rendering each connection's
+  `relatedSkillExplanations`/`relatedKnowledgeExplanations` note through
+  `DossierCatalogNote` with no data-model change — plus `DossierStampTag`
+  for the hero/priority pill. `TechnologyListCard`, `SearchFilterBar`, and
+  `RelatedItemsSection` were deliberately left unchanged (new page-specific
+  siblings were added instead), since all three are still shared with pages
+  not yet migrated (home, `/radar`, skills, knowledge). The three AI widgets
+  (compare/explain/learning-path) and `RelationshipGraph` — also shared with
+  the not-yet-migrated skill/knowledge detail pages — were reskinned through
+  `.dossier`-scoped CSS on their existing classnames rather than forked, so
+  they pick up the look on this page while staying inert everywhere else.
+  Both pages opt in with one added `dossier` class on their shell/layout
+  root; every other `.user-shell` page is unaffected. Verified with
+  typecheck, lint, format, vitest 61/61, and a live pass in the dev server
+  (filter interactions, related-item notes, mobile width at 375px with no
+  horizontal overflow, zero console errors).
+
 ## UI direction exploration & copy tone fixes
 
 - **Dossier design direction v0 (staged)** — 2026-07-14, owner-directed
