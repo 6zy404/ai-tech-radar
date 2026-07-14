@@ -1,5 +1,24 @@
 # Next Task
 
+> Update 2026-07-14 (evening): **UI direction exploration + copy tone
+> fixes.** Owner asked for a full visual-identity exploration of the
+> User-facing Product; three directions were mocked up in HTML/CSS against
+> every public page type and the "编辑桌" (dossier/archival) direction was
+> selected and fully specified — see `docs/design-system.md` → "Dossier
+> direction (staged)" for the complete spec (palette, type, `/network`'s
+> hand-written force-directed graph, search/filter components, adoption
+> order). A first slice of six reusable components shipped
+> (`src/components/dossier-*.tsx` + a `.dossier`-scoped block in
+> `globals.css`), verified but **not wired into any real page yet** — the
+> next actual step is assembling them into `/technologies` +
+> `/technologies/[slug]` first (see the design-system.md section for the
+> full order). Separately, the exploration surfaced a real bug worth
+> fixing immediately rather than staging: the `RelationType` label
+> vocabulary and a few other public-facing strings read like translated
+> English. That got fixed for real this session (not staged) — see
+> `CHANGELOG.md` → "Copy tone fixes". Both pieces verified with
+> typecheck/lint/format/vitest 61/61 green, plus live browser checks.
+
 > Update 2026-07-14 (later same day): three more discoverability slices
 > shipped after search — **digest archive** (`/digest`, month-grouped index
 > of published digests), **topic timeline** (`/timeline`, published

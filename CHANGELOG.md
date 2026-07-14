@@ -12,6 +12,45 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## UI direction exploration & copy tone fixes
+
+- **Dossier design direction v0 (staged)** — 2026-07-14, owner-directed
+  visual-identity exploration for the User-facing Product. Evaluated three
+  full directions via HTML/CSS mockups (an "instrument console," a
+  "knowledge graph," and an editorial "编辑桌"/dossier direction) against
+  every public page type; the dossier direction was selected and specified
+  in full (palette, type, motion, card language, `/network`'s hand-written
+  force-directed graph replacing the corkboard concept it started from,
+  icon-pill search, stamp-chip filters). See `docs/design-system.md` →
+  "Dossier direction (staged)" for the complete specification. A first
+  slice of six reusable components shipped
+  (`src/components/dossier-*.tsx`) plus a `.dossier`-scoped token/class
+  block in `globals.css` — verified with typecheck, lint, format, and a
+  live rendering + interaction check, but **not wired into any real page
+  yet**; this is staged scaffolding for a future page-by-page migration,
+  not a shipped feature.
+- **Copy tone fixes** — 2026-07-14, same session, the one real (non-staged)
+  code change it produced. The `RelationType` label vocabulary
+  (建立在/需要/支持/解释/相关, `getRelationTypeLabel` in
+  `src/lib/technology-localization.ts`) read like word-for-word English
+  translations, including a passive "被…于" mirror for the reverse
+  direction. Rewritten to five archival-register words used symmetrically
+  in both directions (渊源/借助/释义/必备/延伸/印证/关联 — seven values;
+  `RelationType` has `uses`/`extends` beyond the original five named in
+  discussion). Auditing this pattern elsewhere in the public UI turned up
+  more instances: a duplicated-with-drift priority-label dictionary
+  (`daily-digest-content.tsx` and `my-radar-content.tsx` each hardcoded
+  their own copy of `getPriorityLevelLabel`'s three labels, and had
+  already diverged — `了解即可` vs. the canonical `可以了解`, itself
+  replaced with `背景参考`), the `whyItMatters` field heading
+  "为什么值得看" unified to "为什么重要" across all seven places it
+  appeared (public and workspace), two passive "被评为…/由…解释"
+  constructions rewritten active, and two bare verb+object stat lines
+  given the `已` aspect marker natural Chinese count lines normally carry.
+  Verified with typecheck, lint, format, vitest 61/61, and a live pass
+  over `/`, `/digest/today`, `/radar`, `/knowledge`, and a technology
+  detail page.
+
 ## Foundation
 
 - Next.js + TypeScript app foundation.
