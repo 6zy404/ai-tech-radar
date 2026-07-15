@@ -1,6 +1,879 @@
 {
-  "updatedAt": "2026-07-14T00:56:11.920Z",
+  "updatedAt": "2026-07-15T09:30:22.567Z",
   "events": [
+    {
+      "id": "workflow-event-5fa373fb-d2c1-4ce3-ac9c-ea5698de5b10",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 3 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "安静的一天：今日自动聚合的快讯里没有产生新的精选信号，值得持续关注的仍是三条既有主线——GPT Live 的实时多模态入口、Ollama v0.32.0 把本地运行时的默认形态换成智能体、以及 vLLM v0.25.0 的 Model Runner V2 代际切换。编辑今日做了一处收敛：剔除已被 v0.25.0 取代的 vLLM v0.24.0，同一项目不再占据两个简报位。另外，快讯区可以看到 MCP Servers 仓库保持着稳定的发版节奏，关注智能体工具生态的读者可以留意其月度更新。",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:30:03.484Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+        "editorialNotes": [
+          "2026-07-15 安静日轮次：候选池 0 条 new，8 条 reviewed 均为 07-09/07-13 往轮已处置存货（当日导入为同条目重取，评审状态持久化生效）。",
+          "编辑动作：exclude vllm v0.24.0（被 v0.25.0 取代，避免同项目双版本占位）。",
+          "自动 summary 按生成区计数（4 条）不扣除排除项，已手动改写为 3 条。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "published",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 3 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "安静的一天：今日自动聚合的快讯里没有产生新的精选信号，值得持续关注的仍是三条既有主线——GPT Live 的实时多模态入口、Ollama v0.32.0 把本地运行时的默认形态换成智能体、以及 vLLM v0.25.0 的 Model Runner V2 代际切换。编辑今日做了一处收敛：剔除已被 v0.25.0 取代的 vLLM v0.24.0，同一项目不再占据两个简报位。另外，快讯区可以看到 MCP Servers 仓库保持着稳定的发版节奏，关注智能体工具生态的读者可以留意其月度更新。",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:30:22.553Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+        "publishedAt": "2026-07-15T09:30:22.553Z",
+        "editorialNotes": [
+          "2026-07-15 安静日轮次：候选池 0 条 new，8 条 reviewed 均为 07-09/07-13 往轮已处置存货（当日导入为同条目重取，评审状态持久化生效）。",
+          "编辑动作：exclude vllm v0.24.0（被 v0.25.0 取代，避免同项目双版本占位）。",
+          "自动 summary 按生成区计数（4 条）不扣除排除项，已手动改写为 3 条。"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-15"
+      },
+      "createdAt": "2026-07-15T09:30:22.566Z"
+    },
+    {
+      "id": "workflow-event-23d498a5-bbcf-4cbc-9a11-045107169e14",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "���� 3 ��������ע��0 ��ֵ�ø��٣����� 3 ����Դ��",
+        "editorialSummary": "������һ�죺�����Զ��ۺϵĿ�Ѷ��û�в����µľ�ѡ�źţ�ֵ�ó�����ע�����������������ߡ���GPT Live ��ʵʱ��ģ̬��ڡ�Ollama v0.32.0 �ѱ�������ʱ��Ĭ����̬���������塢�Լ� vLLM v0.25.0 �� Model Runner V2 �����л����༭��������һ���������޳��ѱ� v0.25.0 ȡ���� vLLM v0.24.0��ͬһ��Ŀ����ռ��������λ�����⣬��Ѷ�����Կ��� MCP Servers �ֿⱣ�����ȶ��ķ�����࣬��ע�����幤����̬�Ķ��߿����������¶ȸ��¡�",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:29:18.523Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+        "editorialNotes": [
+          "2026-07-15 �������ִΣ���ѡ�� 0 �� new��8 �� reviewed ��Ϊ 07-09/07-13 �����Ѵ��ô�������յ���Ϊͬ��Ŀ��ȡ������״̬�־û���Ч����",
+          "�༭������exclude vllm v0.24.0���� v0.25.0 ȡ��������ͬ��Ŀ˫�汾ռλ����",
+          "�Զ� summary ��������������4 �������۳��ų�����ֶ���дΪ 3 ����"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 3 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "安静的一天：今日自动聚合的快讯里没有产生新的精选信号，值得持续关注的仍是三条既有主线——GPT Live 的实时多模态入口、Ollama v0.32.0 把本地运行时的默认形态换成智能体、以及 vLLM v0.25.0 的 Model Runner V2 代际切换。编辑今日做了一处收敛：剔除已被 v0.25.0 取代的 vLLM v0.24.0，同一项目不再占据两个简报位。另外，快讯区可以看到 MCP Servers 仓库保持着稳定的发版节奏，关注智能体工具生态的读者可以留意其月度更新。",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:30:03.484Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+        "editorialNotes": [
+          "2026-07-15 安静日轮次：候选池 0 条 new，8 条 reviewed 均为 07-09/07-13 往轮已处置存货（当日导入为同条目重取，评审状态持久化生效）。",
+          "编辑动作：exclude vllm v0.24.0（被 v0.25.0 取代，避免同项目双版本占位）。",
+          "自动 summary 按生成区计数（4 条）不扣除排除项，已手动改写为 3 条。"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-15"
+      },
+      "createdAt": "2026-07-15T09:30:03.500Z"
+    },
+    {
+      "id": "workflow-event-96de1dec-11d9-4e3e-9136-0af70da0bce5",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:28:36.410Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "���� 3 ��������ע��0 ��ֵ�ø��٣����� 3 ����Դ��",
+        "editorialSummary": "������һ�죺�����Զ��ۺϵĿ�Ѷ��û�в����µľ�ѡ�źţ�ֵ�ó�����ע�����������������ߡ���GPT Live ��ʵʱ��ģ̬��ڡ�Ollama v0.32.0 �ѱ�������ʱ��Ĭ����̬���������塢�Լ� vLLM v0.25.0 �� Model Runner V2 �����л����༭��������һ���������޳��ѱ� v0.25.0 ȡ���� vLLM v0.24.0��ͬһ��Ŀ����ռ��������λ�����⣬��Ѷ�����Կ��� MCP Servers �ֿⱣ�����ȶ��ķ�����࣬��ע�����幤����̬�Ķ��߿����������¶ȸ��¡�",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:29:18.523Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+        "editorialNotes": [
+          "2026-07-15 �������ִΣ���ѡ�� 0 �� new��8 �� reviewed ��Ϊ 07-09/07-13 �����Ѵ��ô�������յ���Ϊͬ��Ŀ��ȡ������״̬�־û���Ч����",
+          "�༭������exclude vllm v0.24.0���� v0.25.0 ȡ��������ͬ��Ŀ˫�汾ռλ����",
+          "�Զ� summary ��������������4 �������۳��ų�����ֶ���дΪ 3 ����"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-15"
+      },
+      "createdAt": "2026-07-15T09:29:18.537Z"
+    },
+    {
+      "id": "workflow-event-7af3df2f-a0f3-4704-9312-4822ed15f81e",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:28:36.275Z",
+        "lastRegeneratedAt": "2026-07-15T09:28:36.275Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:28:36.410Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ],
+        "lastRegeneratedAt": "2026-07-15T09:28:36.410Z"
+      },
+      "metadata": {
+        "date": "2026-07-15",
+        "preserveManualAdjustments": true
+      },
+      "createdAt": "2026-07-15T09:28:36.423Z"
+    },
+    {
+      "id": "workflow-event-43606edf-54a9-486b-9c77-d1d31c4a85aa",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:28:21.786Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:28:36.275Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ],
+        "lastRegeneratedAt": "2026-07-15T09:28:36.275Z"
+      },
+      "metadata": {
+        "date": "2026-07-15",
+        "preserveManualAdjustments": true
+      },
+      "createdAt": "2026-07-15T09:28:36.289Z"
+    },
+    {
+      "id": "workflow-event-3d177d21-db32-4a06-8848-88a474fcf861",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:27:38.490Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:28:21.786Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-15",
+        "technologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "action": "exclude"
+      },
+      "createdAt": "2026-07-15T09:28:21.799Z"
+    },
+    {
+      "id": "workflow-event-ac86c880-082b-41fd-87ac-2cab8df11d8d",
+      "entityType": "daily_digest",
+      "entityId": "digest-2026-07-15",
+      "action": "digest.generated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "digest-2026-07-15",
+        "date": "2026-07-15",
+        "status": "draft",
+        "title": "每日技术简报 - 2026-07-15",
+        "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+        "editorialSummary": "",
+        "highPriorityTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "watchTechnologyIds": [],
+        "manuallyAddedTechnologyIds": [],
+        "excludedTechnologyIds": [],
+        "pinnedTechnologyIds": [],
+        "orderedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+        ],
+        "skillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots",
+          "skill-agent-design",
+          "skill-tool-integration"
+        ],
+        "knowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-system-design",
+          "knowledge-human-loop",
+          "knowledge-latency-tradeoffs",
+          "knowledge-tool-use"
+        ],
+        "sourceNames": [
+          "Ollama Releases",
+          "OpenAI News",
+          "vLLM Releases"
+        ],
+        "generatedAt": "2026-07-15T12:00:00.000Z",
+        "updatedAt": "2026-07-15T09:27:38.490Z",
+        "editorialNotes": [
+          "由已发布技术记录按 Ranking v0 优先级生成。",
+          "Daily Digest v0 默认排除低优先级条目。"
+        ]
+      },
+      "metadata": {
+        "date": "2026-07-15",
+        "preserveManualAdjustments": false
+      },
+      "createdAt": "2026-07-15T09:27:38.505Z"
+    },
+    {
+      "id": "workflow-event-4185eef5-8b06-4bd8-9ec6-9f841180d245",
+      "entityType": "source",
+      "entityId": "source-mcp-servers-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-14T00:05:03.552Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-14T00:05:03.552Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:03.552Z"
+      },
+      "afterSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-15T00:05:04.431Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-15T00:05:04.431Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-15T00:05:04.431Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-15T00:05:04.443Z"
+    },
+    {
+      "id": "workflow-event-3a67a105-ce49-43fd-aef0-9a9bf3e05f9c",
+      "entityType": "source",
+      "entityId": "source-hugging-face-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 5,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-14T00:05:02.816Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-14T00:05:02.816Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:02.816Z"
+      },
+      "afterSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 5,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-15T00:05:03.651Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-15T00:05:03.651Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-15T00:05:03.651Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-15T00:05:03.692Z"
+    },
     {
       "id": "workflow-event-62f1dd99-6db9-456f-9b64-dab9604899a7",
       "entityType": "daily_digest",
@@ -35935,1128 +36808,6 @@
         "date": "2026-05-23"
       },
       "createdAt": "2026-06-02T00:12:38.383Z"
-    },
-    {
-      "id": "workflow-event-3196e544-0b02-4e7f-9838-0438823f4d02",
-      "entityType": "technology_draft",
-      "entityId": "draft-ranking-duplicate-a",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "ranking-validation-draft",
-        "title": {
-          "original": "Ranking validation draft"
-        },
-        "summary": {
-          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
-        },
-        "content": {
-          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 100,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:12:04.631Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-06-02T00:12:04.535Z",
-        "updatedAt": "2026-06-02T00:12:04.631Z",
-        "editorialNotes": [
-          "Ranking validation completed."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "ranking-validation-draft",
-        "title": {
-          "original": "Ranking validation draft"
-        },
-        "summary": {
-          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
-        },
-        "content": {
-          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 100,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:12:04.676Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-06-02T00:12:04.535Z",
-        "updatedAt": "2026-06-02T00:12:04.676Z",
-        "editorialNotes": [
-          "Ranking validation completed."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "ranking-validation-draft"
-      },
-      "createdAt": "2026-06-02T00:12:04.693Z"
-    },
-    {
-      "id": "workflow-event-0fa952a6-07ec-4e24-9835-25bd576f1d3a",
-      "entityType": "technology_draft",
-      "entityId": "draft-ranking-duplicate-a",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
-        "title": {
-          "original": "Shared ranking duplicate event reaches release",
-          "en": "Shared ranking duplicate event reaches release"
-        },
-        "summary": {
-          "original": "A complete ranking validation candidate with enough context for priority triage.",
-          "en": "A complete ranking validation candidate with enough context for priority triage."
-        },
-        "content": {
-          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 91,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:12:04.536Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-06-02T00:12:04.535Z",
-        "updatedAt": "2026-06-02T00:12:04.535Z",
-        "editorialNotes": [
-          "Generated from imported candidate ranking-duplicate-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "ranking-validation-draft",
-        "title": {
-          "original": "Ranking validation draft"
-        },
-        "summary": {
-          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
-        },
-        "content": {
-          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 100,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:12:04.631Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-06-02T00:12:04.535Z",
-        "updatedAt": "2026-06-02T00:12:04.631Z",
-        "editorialNotes": [
-          "Ranking validation completed."
-        ]
-      },
-      "metadata": {
-        "slug": "ranking-validation-draft",
-        "status": "draft"
-      },
-      "createdAt": "2026-06-02T00:12:04.652Z"
-    },
-    {
-      "id": "workflow-event-0a57023b-c35a-4e2f-9887-4438849aeeb6",
-      "entityType": "technology_draft",
-      "entityId": "draft-ranking-duplicate-a",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
-        "title": {
-          "original": "Shared ranking duplicate event reaches release",
-          "en": "Shared ranking duplicate event reaches release"
-        },
-        "summary": {
-          "original": "A complete ranking validation candidate with enough context for priority triage.",
-          "en": "A complete ranking validation candidate with enough context for priority triage."
-        },
-        "content": {
-          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 91,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:12:04.536Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-06-02T00:12:04.535Z",
-        "updatedAt": "2026-06-02T00:12:04.535Z",
-        "editorialNotes": [
-          "Generated from imported candidate ranking-duplicate-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "ranking-duplicate-a"
-      },
-      "createdAt": "2026-06-02T00:12:04.603Z"
-    },
-    {
-      "id": "workflow-event-d15f572c-ba8c-4c08-8ebe-1bf0d2d75292",
-      "entityType": "candidate",
-      "entityId": "ranking-duplicate-a",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "ranking-duplicate-a",
-        "sourceId": "ranking-duplicate-source",
-        "sourceType": "rss-feed",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "originalTitle": "Shared ranking duplicate event reaches release",
-        "originalSummary": "A complete ranking validation candidate with enough context for priority triage.",
-        "originalContent": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-        "originalLanguage": "en",
-        "publishDate": "2026-05-20",
-        "publisherName": "Ranking Publisher",
-        "normalizedType": "tool",
-        "tags": [
-          "ranking",
-          "validation"
-        ],
-        "importStatus": "new",
-        "relatedCandidateIds": [
-          "ranking-duplicate-b"
-        ],
-        "rawPayload": {
-          "sourceId": "ranking-duplicate-source"
-        },
-        "duplicateGroupId": "dup-5stp1x"
-      },
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
-        "title": {
-          "original": "Shared ranking duplicate event reaches release",
-          "en": "Shared ranking duplicate event reaches release"
-        },
-        "summary": {
-          "original": "A complete ranking validation candidate with enough context for priority triage.",
-          "en": "A complete ranking validation candidate with enough context for priority triage."
-        },
-        "content": {
-          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 91,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:12:04.536Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-06-02T00:12:04.535Z",
-        "updatedAt": "2026-06-02T00:12:04.535Z",
-        "editorialNotes": [
-          "Generated from imported candidate ranking-duplicate-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-ranking-duplicate-a",
-        "duplicateGroupId": "dup-5stp1x",
-        "markedCandidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ]
-      },
-      "createdAt": "2026-06-02T00:12:04.557Z"
-    },
-    {
-      "id": "workflow-event-c77c614c-e3a6-48df-bd9f-daca4ac87396",
-      "entityType": "duplicate_group",
-      "entityId": "dup-5stp1x",
-      "action": "duplicate_group.resolved",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "dup-5stp1x",
-        "candidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ],
-        "primaryCandidateId": "ranking-duplicate-a",
-        "status": "open",
-        "reasons": [
-          "same_source_url"
-        ],
-        "createdAt": "2026-06-02T00:12:04.476Z",
-        "updatedAt": "2026-06-02T00:12:04.476Z"
-      },
-      "afterSnapshot": {
-        "id": "dup-5stp1x",
-        "candidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ],
-        "primaryCandidateId": "ranking-duplicate-a",
-        "status": "resolved",
-        "reasons": [
-          "same_source_url"
-        ],
-        "createdAt": "2026-06-02T00:12:04.476Z",
-        "updatedAt": "2026-06-02T00:12:04.477Z"
-      },
-      "metadata": {
-        "candidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ],
-        "primaryCandidateId": "ranking-duplicate-a"
-      },
-      "createdAt": "2026-06-02T00:12:04.499Z"
-    },
-    {
-      "id": "workflow-event-bb53c703-ce10-434c-b97a-7f8b44269be9",
-      "entityType": "technology_draft",
-      "entityId": "draft-validation-same-url-a",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-validation-same-url-a",
-        "slug": "validation-duplicate-review-draft",
-        "title": {
-          "original": "Validation duplicate review draft"
-        },
-        "summary": {
-          "original": "A validation draft generated from the primary candidate of a resolved duplicate group."
-        },
-        "content": {
-          "original": "This validation draft confirms that duplicate review preserves additional source references while keeping internal duplicate fields out of the user-facing product."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-01",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Validation Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "validation-same-url-b",
-            "sourceType": "official-blog",
-            "sourceName": "Validation Blog",
-            "sourceUrl": "https://example.com/news/shared-protocol-update",
-            "publisherName": "Validation Publisher",
-            "publishDate": "2026-05-01"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 97,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:11:01.211Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "validation-same-url-a",
-        "createdAt": "2026-06-02T00:11:01.125Z",
-        "updatedAt": "2026-06-02T00:11:01.211Z",
-        "editorialNotes": [
-          "Duplicate review validation completed."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-validation-same-url-a",
-        "slug": "validation-duplicate-review-draft",
-        "title": {
-          "original": "Validation duplicate review draft"
-        },
-        "summary": {
-          "original": "A validation draft generated from the primary candidate of a resolved duplicate group."
-        },
-        "content": {
-          "original": "This validation draft confirms that duplicate review preserves additional source references while keeping internal duplicate fields out of the user-facing product."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-01",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Validation Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "validation-same-url-b",
-            "sourceType": "official-blog",
-            "sourceName": "Validation Blog",
-            "sourceUrl": "https://example.com/news/shared-protocol-update",
-            "publisherName": "Validation Publisher",
-            "publishDate": "2026-05-01"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 97,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:11:01.257Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "validation-same-url-a",
-        "createdAt": "2026-06-02T00:11:01.125Z",
-        "updatedAt": "2026-06-02T00:11:01.257Z",
-        "editorialNotes": [
-          "Duplicate review validation completed."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validation-duplicate-review-draft"
-      },
-      "createdAt": "2026-06-02T00:11:01.274Z"
-    },
-    {
-      "id": "workflow-event-26db2591-558a-477b-92d6-504fb971db60",
-      "entityType": "technology_draft",
-      "entityId": "draft-validation-same-url-a",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-validation-same-url-a",
-        "slug": "draft-validation-shared-protocol-update",
-        "title": {
-          "original": "Validation shared protocol update",
-          "en": "Validation shared protocol update"
-        },
-        "summary": {
-          "original": "Validation candidate used to exercise duplicate review workflow.",
-          "en": "Validation candidate used to exercise duplicate review workflow."
-        },
-        "content": {
-          "original": "Validation content with enough body text to generate a publishable Technology draft after editorial edits.",
-          "en": "Validation content with enough body text to generate a publishable Technology draft after editorial edits."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-01",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Validation Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "validation-same-url-b",
-            "sourceType": "official-blog",
-            "sourceName": "Validation Blog",
-            "sourceUrl": "https://example.com/news/shared-protocol-update",
-            "publisherName": "Validation Publisher",
-            "publishDate": "2026-05-01"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:11:01.127Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "validation-same-url-a",
-        "createdAt": "2026-06-02T00:11:01.125Z",
-        "updatedAt": "2026-06-02T00:11:01.125Z",
-        "editorialNotes": [
-          "Generated from imported candidate validation-same-url-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-validation-same-url-a",
-        "slug": "validation-duplicate-review-draft",
-        "title": {
-          "original": "Validation duplicate review draft"
-        },
-        "summary": {
-          "original": "A validation draft generated from the primary candidate of a resolved duplicate group."
-        },
-        "content": {
-          "original": "This validation draft confirms that duplicate review preserves additional source references while keeping internal duplicate fields out of the user-facing product."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-01",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Validation Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "validation-same-url-b",
-            "sourceType": "official-blog",
-            "sourceName": "Validation Blog",
-            "sourceUrl": "https://example.com/news/shared-protocol-update",
-            "publisherName": "Validation Publisher",
-            "publishDate": "2026-05-01"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 97,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-06-02T00:11:01.211Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "validation-same-url-a",
-        "createdAt": "2026-06-02T00:11:01.125Z",
-        "updatedAt": "2026-06-02T00:11:01.211Z",
-        "editorialNotes": [
-          "Duplicate review validation completed."
-        ]
-      },
-      "metadata": {
-        "slug": "validation-duplicate-review-draft",
-        "status": "draft"
-      },
-      "createdAt": "2026-06-02T00:11:01.232Z"
-    },
-    {
-      "id": "workflow-event-bf77509b-b7dc-4c48-bed6-a14c04238d36",
-      "entityType": "technology_draft",
-      "entityId": "draft-validation-same-url-a",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-validation-same-url-a",
-        "slug": "draft-validation-shared-protocol-update",
-        "title": {
-          "original": "Validation shared protocol update",
-          "en": "Validation shared protocol update"
-        },
-        "summary": {
-          "original": "Validation candidate used to exercise duplicate review workflow.",
-          "en": "Validation candidate used to exercise duplicate review workflow."
-        },
-        "content": {
-          "original": "Validation content with enough body text to generate a publishable Technology draft after editorial edits.",
-          "en": "Validation content with enough body text to generate a publishable Technology draft after editorial edits."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-01",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Validation Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "validation-same-url-b",
-            "sourceType": "official-blog",
-            "sourceName": "Validation Blog",
-            "sourceUrl": "https://example.com/news/shared-protocol-update",
-            "publisherName": "Validation Publisher",
-            "publishDate": "2026-05-01"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:11:01.127Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "validation-same-url-a",
-        "createdAt": "2026-06-02T00:11:01.125Z",
-        "updatedAt": "2026-06-02T00:11:01.125Z",
-        "editorialNotes": [
-          "Generated from imported candidate validation-same-url-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "validation-same-url-a"
-      },
-      "createdAt": "2026-06-02T00:11:01.188Z"
-    },
-    {
-      "id": "workflow-event-7b82523f-f67e-4be2-a058-405a11810836",
-      "entityType": "candidate",
-      "entityId": "validation-same-url-a",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-same-url-a",
-        "sourceId": "validation-rss",
-        "sourceType": "rss-feed",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "originalTitle": "Validation shared protocol update",
-        "originalSummary": "Validation candidate used to exercise duplicate review workflow.",
-        "originalContent": "Validation content with enough body text to generate a publishable Technology draft after editorial edits.",
-        "originalLanguage": "en",
-        "publishDate": "2026-05-01",
-        "publisherName": "Validation Publisher",
-        "normalizedType": "tool",
-        "tags": [
-          "validation",
-          "duplicate"
-        ],
-        "importStatus": "new",
-        "relatedCandidateIds": [
-          "validation-same-url-b"
-        ],
-        "rawPayload": {
-          "canonicalUrl": "https://example.com/news/shared-protocol-update",
-          "sourceId": "validation-rss"
-        },
-        "duplicateGroupId": "dup-sn9js5"
-      },
-      "afterSnapshot": {
-        "id": "draft-validation-same-url-a",
-        "slug": "draft-validation-shared-protocol-update",
-        "title": {
-          "original": "Validation shared protocol update",
-          "en": "Validation shared protocol update"
-        },
-        "summary": {
-          "original": "Validation candidate used to exercise duplicate review workflow.",
-          "en": "Validation candidate used to exercise duplicate review workflow."
-        },
-        "content": {
-          "original": "Validation content with enough body text to generate a publishable Technology draft after editorial edits.",
-          "en": "Validation content with enough body text to generate a publishable Technology draft after editorial edits."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-01",
-        "sourceName": "Validation RSS",
-        "sourceUrl": "https://example.com/news/shared-protocol-update",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Validation Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "validation-same-url-b",
-            "sourceType": "official-blog",
-            "sourceName": "Validation Blog",
-            "sourceUrl": "https://example.com/news/shared-protocol-update",
-            "publisherName": "Validation Publisher",
-            "publishDate": "2026-05-01"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-06-02T00:11:01.127Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "validation-same-url-a",
-        "createdAt": "2026-06-02T00:11:01.125Z",
-        "updatedAt": "2026-06-02T00:11:01.125Z",
-        "editorialNotes": [
-          "Generated from imported candidate validation-same-url-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-validation-same-url-a",
-        "duplicateGroupId": "dup-sn9js5",
-        "markedCandidateIds": [
-          "validation-same-url-a",
-          "validation-same-url-b"
-        ]
-      },
-      "createdAt": "2026-06-02T00:11:01.151Z"
     }
   ]
 }

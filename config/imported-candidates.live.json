@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-14T00:05:07.427Z",
+  "syncedAt": "2026-07-15T00:05:04.428Z",
   "sources": [
     {
       "id": "source-hugging-face-blog",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-14T00:05:02.812Z"
+      "fetchedAt": "2026-07-15T00:05:03.644Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-14T00:05:03.549Z"
+      "fetchedAt": "2026-07-15T00:05:04.425Z"
     },
     {
       "id": "source-ollama-releases",
@@ -232,95 +232,6 @@
       "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-torch-attention-profile",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/torch-attention-profile",
-      "originalTitle": "Profiling in PyTorch (Part 3): Attention is all you profile",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
-          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/torch-attention-profile",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/torch-attention-profile",
-            "isPermaLink": "true"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:02.263Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-14T00:05:02.263Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
-      "sourceType": "rss-feed",
-      "sourceName": "MCP Servers Releases",
-      "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10",
-      "originalTitle": "Release 2026.7.10",
-      "originalSummary": "Release : v2026.7.10 Updated packages @modelcontextprotocol/server-filesystem@2026.7.10 mcp-server-time@2026.7.10 mcp-server-fetch@2026.7.10 mcp-server-git@2026.7.10",
-      "originalContent": "<h1>Release : v2026.7.10</h1> <h2>Updated packages</h2> <ul> <li>@modelcontextprotocol/server-filesystem@2026.7.10</li> <li>mcp-server-time@2026.7.10</li> <li>mcp-server-fetch@2026.7.10</li> <li>mcp-server-git@2026.7.10</li> </ul>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
-      "tags": [
-        "mcp",
-        "agent"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-mcp-servers-releases",
-        "feedTitle": "Release notes from servers",
-        "feedUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/890668799/2026.7.10",
-          "updated": "2026-07-10T03:39:07Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10"
-          },
-          "title": "Release 2026.7.10",
-          "content": {
-            "#text": "&lt;h1&gt;Release : v2026.7.10&lt;/h1&gt;\n&lt;h2&gt;Updated packages&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;@modelcontextprotocol/server-filesystem@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-time@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-fetch@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-git@2026.7.10&lt;/li&gt;\n&lt;/ul&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:02.840Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-14T00:05:02.840Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0-rc0",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
@@ -454,6 +365,95 @@
       "sourceId": "source-openai-news",
       "importedAt": "2026-07-14T00:05:04.585Z",
       "importRunId": "import-run-2026-07-14t00-05-02-256z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-torch-attention-profile",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/torch-attention-profile",
+      "originalTitle": "Profiling in PyTorch (Part 3): Attention is all you profile",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-10",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
+          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/torch-attention-profile",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/torch-attention-profile",
+            "isPermaLink": "true"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-15T00:05:03.147Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-15T00:05:03.147Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
+      "sourceType": "rss-feed",
+      "sourceName": "MCP Servers Releases",
+      "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10",
+      "originalTitle": "Release 2026.7.10",
+      "originalSummary": "Release : v2026.7.10 Updated packages @modelcontextprotocol/server-filesystem@2026.7.10 mcp-server-time@2026.7.10 mcp-server-fetch@2026.7.10 mcp-server-git@2026.7.10",
+      "originalContent": "<h1>Release : v2026.7.10</h1> <h2>Updated packages</h2> <ul> <li>@modelcontextprotocol/server-filesystem@2026.7.10</li> <li>mcp-server-time@2026.7.10</li> <li>mcp-server-fetch@2026.7.10</li> <li>mcp-server-git@2026.7.10</li> </ul>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-10",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "mcp",
+        "agent"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-mcp-servers-releases",
+        "feedTitle": "Release notes from servers",
+        "feedUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/890668799/2026.7.10",
+          "updated": "2026-07-10T03:39:07Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10"
+          },
+          "title": "Release 2026.7.10",
+          "content": {
+            "#text": "&lt;h1&gt;Release : v2026.7.10&lt;/h1&gt;\n&lt;h2&gt;Updated packages&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;@modelcontextprotocol/server-filesystem@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-time@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-fetch@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-git@2026.7.10&lt;/li&gt;\n&lt;/ul&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-15T00:05:03.711Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      },
+      "sourceId": "source-mcp-servers-releases",
+      "importedAt": "2026-07-15T00:05:03.711Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-gpt-5-6-preferred-model-microsoft-365-copilot",
@@ -643,81 +643,6 @@
       "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-      "originalTitle": "Data for Agents",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-08",
-      "publisherName": "Hugging Face",
-      "normalizedType": "workflow",
-      "tags": [
-        "open-source",
-        "model",
-        "agents"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Data for Agents",
-          "pubDate": "Wed, 08 Jul 2026 17:16:05 GMT",
-          "link": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:02.263Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-14T00:05:02.263Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-      "originalTitle": "Native-speed vLLM transformers modeling backend",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-08",
-      "publisherName": "Hugging Face",
-      "normalizedType": "model",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Native-speed vLLM transformers modeling backend",
-          "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-            "isPermaLink": "true"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:02.263Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-14T00:05:02.263Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
@@ -771,15 +696,53 @@
       "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-amazon-one-click-to-sagemaker-studio",
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
       "sourceType": "rss-feed",
       "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-      "originalTitle": "From HF Mirror to Amazon SageMaker Studio in one click",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+      "originalTitle": "Data for Agents",
       "originalLanguage": "en",
-      "publishDate": "2026-07-07",
+      "publishDate": "2026-07-08",
       "publisherName": "Hugging Face",
-      "normalizedType": "tool",
+      "normalizedType": "workflow",
+      "tags": [
+        "open-source",
+        "model",
+        "agents"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Data for Agents",
+          "pubDate": "Wed, 08 Jul 2026 17:16:05 GMT",
+          "link": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-15T00:05:03.147Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-15T00:05:03.147Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+      "originalTitle": "Native-speed vLLM transformers modeling backend",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-08",
+      "publisherName": "Hugging Face",
+      "normalizedType": "model",
       "tags": [
         "open-source",
         "model"
@@ -791,21 +754,21 @@
         "feedTitle": "HF Mirror - Blog",
         "feedUrl": "https://hf-mirror.com/blog/feed.xml",
         "item": {
-          "title": "From HF Mirror to Amazon SageMaker Studio in one click",
-          "pubDate": "Tue, 07 Jul 2026 21:15:33 GMT",
-          "link": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
+          "title": "Native-speed vLLM transformers modeling backend",
+          "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-            "isPermaLink": "false"
+            "#text": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+            "isPermaLink": "true"
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:02.263Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-15T00:05:03.147Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-14T00:05:02.263Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-15T00:05:03.147Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc2",
@@ -861,6 +824,43 @@
       "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
+      "id": "candidate-rss-https-hf-mirror-com-blog-amazon-one-click-to-sagemaker-studio",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
+      "originalTitle": "From HF Mirror to Amazon SageMaker Studio in one click",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-07",
+      "publisherName": "Hugging Face",
+      "normalizedType": "tool",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "From HF Mirror to Amazon SageMaker Studio in one click",
+          "pubDate": "Tue, 07 Jul 2026 21:15:33 GMT",
+          "link": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-15T00:05:03.147Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-15T00:05:03.147Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+    },
+    {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
       "sourceType": "rss-feed",
       "sourceName": "MCP Servers Releases",
@@ -905,12 +905,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:02.840Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-15T00:05:03.711Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-14T00:05:02.840Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-15T00:05:03.711Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -957,12 +957,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:02.840Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-15T00:05:03.711Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-14T00:05:02.840Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-15T00:05:03.711Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -1009,12 +1009,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:02.840Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-15T00:05:03.711Z",
+        "importRunId": "import-run-2026-07-15t00-05-03-139z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-14T00:05:02.840Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-15T00:05:03.711Z",
+      "importRunId": "import-run-2026-07-15t00-05-03-139z"
     },
     {
       "id": "candidate-source-quality-failing-source-2026-05-30",

@@ -1,6 +1,59 @@
 {
-  "updatedAt": "2026-07-14T00:56:11.906Z",
+  "updatedAt": "2026-07-15T09:30:22.553Z",
   "digests": [
+    {
+      "id": "digest-2026-07-15",
+      "date": "2026-07-15",
+      "status": "published",
+      "title": "每日技术简报 - 2026-07-15",
+      "summary": "今日 3 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+      "editorialSummary": "安静的一天：今日自动聚合的快讯里没有产生新的精选信号，值得持续关注的仍是三条既有主线——GPT Live 的实时多模态入口、Ollama v0.32.0 把本地运行时的默认形态换成智能体、以及 vLLM v0.25.0 的 Model Runner V2 代际切换。编辑今日做了一处收敛：剔除已被 v0.25.0 取代的 vLLM v0.24.0，同一项目不再占据两个简报位。另外，快讯区可以看到 MCP Servers 仓库保持着稳定的发版节奏，关注智能体工具生态的读者可以留意其月度更新。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+      ],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots",
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-human-loop",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design",
+        "knowledge-tool-use"
+      ],
+      "sourceNames": [
+        "Ollama Releases",
+        "OpenAI News",
+        "vLLM Releases"
+      ],
+      "generatedAt": "2026-07-15T12:00:00.000Z",
+      "updatedAt": "2026-07-15T09:30:22.553Z",
+      "lastRegeneratedAt": "2026-07-15T09:28:36.410Z",
+      "publishedAt": "2026-07-15T09:30:22.553Z",
+      "editorialNotes": [
+        "2026-07-15 安静日轮次：候选池 0 条 new，8 条 reviewed 均为 07-09/07-13 往轮已处置存货（当日导入为同条目重取，评审状态持久化生效）。",
+        "编辑动作：exclude vllm v0.24.0（被 v0.25.0 取代，避免同项目双版本占位）。",
+        "自动 summary 按生成区计数（4 条）不扣除排除项，已手动改写为 3 条。"
+      ]
+    },
     {
       "id": "digest-2026-07-14",
       "date": "2026-07-14",
