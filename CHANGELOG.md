@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction adoption — /network (force-directed rebuild)
+
+- **Dossier direction live on `/network`** — 2026-07-15, owner-authorized
+  follow-up to the six-round migration below. Unlike every other round,
+  this wasn't a card-component swap: `ContentNetworkGraph` was rewritten
+  from its fixed three-lane layout to a hand-written, Fruchterman-
+  Reingold-style force-directed simulation (node repulsion, spring-edge
+  attraction, a weak centering force, ~150 relaxation frames) so the
+  33-node/88-edge graph's real topology drives the layout instead of an
+  artificial technology/skill/knowledge lane split. Ships the three
+  enhancements confirmed in the original design session: search-highlight
+  (`DossierSearchInput`), a category filter (`DossierCategoryChips`), and
+  hover-over-edge relation labels; nodes are also draggable. Zoom/pan
+  stayed out, per the earlier decision not to add it at this node count.
+  Two real bugs were caught and fixed during live verification before
+  commit: (1) the initial node scatter used `Math.cos`/`Math.sin`, which
+  the JS spec doesn't guarantee bit-identical across Node's and the
+  browser's V8 builds, causing a genuine hydration mismatch on every
+  load — fixed by rendering an SSR-safe integer-arithmetic grid for first
+  paint and only applying the trig-based organic scatter from inside a
+  client-only effect, after hydration; (2) combining node-selection with
+  search/filter used an implicit AND across the two lenses, so selecting
+  a node unrelated to the current search term dimmed the entire graph to
+  nothing — fixed to a union (a node stays visible if it satisfies either
+  active lens). See `docs/design-system.md` → "Dossier direction" →
+  "Adopted pages" for the full writeup. With this, the whole User-facing
+  Product is on the dossier system; only the Internal Workspace remains
+  on the original system, by design. Verified with typecheck, lint,
+  format, vitest 61/61, and a live pass (fresh-tab reload confirmed zero
+  hydration errors, selection/search/filter combinations checked via
+  computed DOM state, mobile width at 375px with no overflow, console
+  clean).
+
 ## Dossier direction adoption — homepage (migration complete)
 
 - **Dossier direction live on `/` (homepage)** — 2026-07-14, same night,

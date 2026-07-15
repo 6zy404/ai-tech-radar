@@ -7841,6 +7841,19 @@ a.tech-graph__node:hover {
 
 /* Whole-network overview graph (/network) */
 .content-network {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.content-network__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.content-network__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
   gap: 24px;
@@ -7849,11 +7862,14 @@ a.tech-graph__node:hover {
 
 .content-network__canvas {
   position: relative;
-  min-height: 640px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 320px;
   border: 1px solid rgba(8, 127, 115, 0.2);
   border-radius: var(--radius-card);
   background: #ffffff;
   box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 
 .content-network__lines {
@@ -7867,11 +7883,35 @@ a.tech-graph__node:hover {
 .content-network__edge {
   stroke: rgba(100, 116, 139, 0.2);
   stroke-width: 1;
+  transition: opacity 140ms ease;
 }
 
 .content-network__edge--active {
   stroke: rgba(8, 127, 115, 0.65);
   stroke-width: 2;
+}
+
+.content-network__edge--dim {
+  opacity: 0.15;
+}
+
+.content-network__edge-hit {
+  stroke: transparent;
+  stroke-width: 10;
+  cursor: pointer;
+}
+
+.content-network__edge-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 button.tech-graph__node {
@@ -7886,10 +7926,16 @@ button.tech-graph__node:focus-visible {
 
 .content-network__node {
   z-index: 1;
+  cursor: grab;
+  touch-action: none;
   transition:
     opacity 140ms ease,
     transform 140ms ease,
     box-shadow 140ms ease;
+}
+
+.content-network__node:active {
+  cursor: grabbing;
 }
 
 .content-network__node--selected {
@@ -7991,7 +8037,7 @@ button.tech-graph__node:focus-visible {
 }
 
 @media (max-width: 860px) {
-  .content-network {
+  .content-network__body {
     grid-template-columns: 1fr;
   }
 
@@ -8001,10 +8047,6 @@ button.tech-graph__node:focus-visible {
 }
 
 @media (max-width: 640px) {
-  .content-network__canvas {
-    min-height: 520px;
-  }
-
   .content-network__node {
     max-width: 92px;
     padding: 5px 8px;
@@ -9628,4 +9670,68 @@ button.tech-graph__node:focus-visible {
 .dossier .home-news-list__note {
   color: var(--dossier-stamp);
   font-family: ui-monospace, monospace;
+}
+
+/* ============================================================
+   Dossier direction v7 -- ADOPTED on /network. The one page the original
+   migration order left out: not a card swap like every other round, but
+   the hand-written force-directed layout decided in docs/design-system.md
+   -> "Dossier direction" -> "Decided specifics". The generic
+   ".dossier .tech-graph__node" rule (used by the single-item relationship
+   graph on technology/skill/knowledge detail pages) flattens node borders
+   to a uniform --dossier-line, which is right for a one-center graph but
+   would erase the technology/skill/knowledge color coding this 24-node
+   overview relies on -- so the three kind variants are reasserted here at
+   higher selector specificity.
+   ============================================================ */
+
+.dossier .content-network__canvas {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  box-shadow: none;
+}
+
+.dossier .content-network__panel {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  box-shadow: none;
+}
+
+.dossier .content-network__panel h3 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .content-network__panel-hint,
+.dossier .content-network__panel-count,
+.dossier .content-network__panel-empty,
+.dossier .content-network__legend-item {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .content-network__edge {
+  stroke: var(--dossier-line);
+}
+
+.dossier .content-network__edge--active {
+  stroke: var(--dossier-stamp);
+}
+
+.dossier .content-network__edge-label {
+  background: var(--dossier-ink);
+  color: var(--dossier-surface);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .content-network__node.tech-graph__node--technology {
+  border-color: rgba(8, 127, 115, 0.5);
+}
+
+.dossier .content-network__node.tech-graph__node--skill {
+  border-color: rgba(138, 90, 18, 0.45);
+}
+
+.dossier .content-network__node.tech-graph__node--knowledge {
+  border-color: rgba(24, 95, 165, 0.4);
 }

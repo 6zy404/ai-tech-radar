@@ -1,5 +1,30 @@
 # Next Task
 
+> Update 2026-07-15: **`/network` adopted the dossier direction**,
+> owner-authorized as the follow-up scoped after the homepage round below
+> (dark/light theming was explicitly deferred — not part of this round).
+> `ContentNetworkGraph` was rewritten from its fixed three-lane layout to
+> a hand-written force-directed simulation (repulsion + spring edges +
+> centering, ~150-frame relaxation), plus search-highlight, a category
+> filter, hover-over-edge relation labels, and node dragging — the three
+> enhancements confirmed in the original design session, minus zoom/pan
+> (stayed out per that same decision). Two real bugs were found and fixed
+> during live verification: a `Math.cos`/`Math.sin`-driven hydration
+> mismatch (fixed with an SSR-safe integer grid for first paint, trig
+> scatter applied client-only post-hydration), and an implicit-AND bug
+> where combining node-selection with search dimmed the whole graph to
+> nothing when they didn't overlap (fixed to a union). See `CHANGELOG.md`
+> → "Dossier direction adoption — /network (force-directed rebuild)" and
+> `docs/design-system.md` → "Dossier direction" → "Adopted pages" for the
+> full writeup. Verified with typecheck, lint, format, vitest 61/61, and
+> a live pass (fresh-tab reload confirmed zero hydration errors, mobile
+> width without overflow, console clean). **With this, the whole
+> User-facing Product is on the dossier system** — only the Internal
+> Workspace remains on the original look, by design. **Next actual
+> step**: there is no predefined next step. Dark/light theming is still
+> the one open, undecided question for this whole direction — a future
+> session should ask before starting it, rather than assume either way.
+
 > Update 2026-07-14 (same night, sixth and final adoption round):
 > **Dossier direction migration complete.** The homepage (`/`) is the last
 > page in the original adoption order — `HomeTechnologyCard`,

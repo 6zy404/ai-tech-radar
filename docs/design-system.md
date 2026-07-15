@@ -761,13 +761,54 @@ additive and cannot regress any currently shipped page.
 every page named in it (`/`, `/technologies`, `/technologies/[slug]`,
 `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`,
 `/timeline`, `/digest`, `/digest/today`, `/digest/[date]`, `/search`,
-`/radar`, `/news`) now renders the "编辑桌" look. `/network` was
-discussed as a target for this direction too (its own hand-written
-force-directed graph, not a card swap — see "Decided specifics" above)
-but was never placed in the adoption order and remains unmigrated; it,
-and the whole Internal Workspace (`docs/architecture.md` — workspace
-pages intentionally keep their own dark console look, separate from the
-User-facing Product), are the only user-facing/internal surfaces still on
-the teal/cream system. Dark/light theming for this direction is still an
-explicit open question, not decided — a future session should ask before
+`/radar`, `/news`) now renders the "编辑桌" look.
+
+- **`/network`** — 2026-07-15, owner-authorized follow-up (this page was
+  discussed during the original design session but deliberately left out
+  of the migration order, since it needed its own hand-written
+  force-directed graph rather than a card swap). `ContentNetworkGraph`
+  was rewritten from the fixed three-lane layout to a hand-written
+  Fruchterman-Reingold-style force simulation (repulsion between every
+  node pair, spring attraction along edges, a weak centering force,
+  120 fps-driven relaxation over ~150 frames) so the graph's real
+  topology — not an artificial technology/skill/knowledge lane split —
+  drives the layout. Ships the three confirmed enhancements from
+  "Decided specifics" above: search-highlight (`DossierSearchInput`),
+  a category filter (`DossierCategoryChips`), and hover-over-edge
+  relation labels (an invisible wide hit-line under each thin visible
+  edge, `pointer-events`-only, showing `getRelationTypeLabel` in a
+  floating tag at the edge midpoint); zoom/pan stayed out per the
+  earlier decision. Nodes are draggable (pointer capture + a physics
+  "pin" so the simulation doesn't fight a node the reader is currently
+  moving). One real bug was caught during live verification and fixed
+  before commit: the initial scatter used `Math.cos`/`Math.sin`, which
+  the JS spec does not guarantee bit-identical across engines (Node's
+  V8 vs. the browser's), producing a genuine hydration mismatch on every
+  load; fixed by rendering an SSR-safe plain grid (integer arithmetic
+  only, spec-guaranteed identical) for the first paint and only applying
+  the trig-based organic scatter from inside a client-only `useEffect`,
+  after hydration has already reconciled. A second bug surfaced while
+  testing search + node-selection together: dimming combined the two
+  lenses with an implicit AND (a node had to satisfy both to stay
+  visible), so selecting a node with no connection to the current search
+  term dimmed the entire graph to nothing — fixed to a union (a node
+  stays visible if it satisfies _either_ active lens). Reuses
+  `getContentGraph()` unchanged (no data-layer change); `.dossier`
+  overrides reassert the three kind-specific border colors at higher
+  specificity than the generic `.dossier .tech-graph__node` rule (which
+  flattens borders uniformly — correct for the single-item relationship
+  graph's one-center case, wrong for a 33-node overview that needs
+  technology/skill/knowledge to stay visually distinguishable). Verified
+  with typecheck, lint, format, vitest 61/61, and a live pass (fresh-tab
+  reload confirmed zero hydration errors, selection + search + category
+  filter combinations checked via computed DOM state, mobile width at
+  375px with no horizontal overflow, console clean).
+
+With `/network` done, the whole User-facing Product is now on the
+dossier system. The Internal Workspace (`docs/architecture.md` —
+workspace pages intentionally keep their own dark console look, separate
+from the User-facing Product) remains the only surface still on the
+original system, by design, not as unfinished migration work. Dark/light
+theming for this direction is still an explicit open question, not
+decided — a future session should ask before
 starting it.
