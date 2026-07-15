@@ -943,3 +943,46 @@ vitest 61/61, and a live pass (search-driven labels show exactly the
 matching subset, selecting a node shows exactly its own label plus the
 connections panel, dark mode's dot ring color matches the canvas
 background instead of showing a stray white ring, zero console errors).
+
+### `/network` edge focus + relation-type legend (2026-07-15, same day)
+
+Owner-approved follow-up after node overlap was fixed: measured edge
+crossing density separately from node overlap (segment-intersection test
+over all edge pairs) and found **789 crossing pairs among the 88 edges**
+— roughly a fifth of all possible pairs. Two mockup directions were shown
+before implementing (a three-panel before/current/after comparison plus a
+legend mock): edges now rest at low opacity (0.35, down from effectively
+full solid-color visibility under `.dossier`) and a selected node's own
+edges pop to full opacity in the stamp accent color, while everything
+else stays faint or drops further via the existing `--dim` class (0.15)
+— "quiet until you focus on something" instead of "everything at once".
+This reused the existing `isActive`/`isDimmed` per-edge class logic
+unchanged; only the CSS `opacity` values for `.content-network__edge`
+(new: `opacity: 0.35`) and `.content-network__edge--active` (new:
+`opacity: 1`) needed to change — no component logic changes.
+
+Separately, the panel's resting-state legend gained a **relation-type**
+section below the existing technology/skill/knowledge kind legend: a new
+`relationTypes` memo derived from the actual `edges` prop
+(`Array.from(new Set(edges.map(e => e.relationType)))`, deduplicated and
+sorted, so it always reflects real data rather than a hardcoded list),
+rendered as a wrapped row of `DossierStampTag`s under a small "关系类型"
+eyebrow heading — the same relation-type labels already shown per-
+connection in the selected-node panel and on edge hover, now also visible
+as a glossary before a reader has interacted with anything.
+
+A verification detour worth recording: an early opacity check in the
+browser automation tool reported the wrong value (0.35 for both active
+and dim edges) immediately after clicking a node. Direct inspection with
+`Element.getAnimations()` showed the CSS transition's `currentTime` frozen
+at `0` and `document.hidden === true` — the automation tab is reported as
+backgrounded, and browsers throttle CSS transition timelines in hidden
+tabs. Calling `.finish()` on the stuck animations immediately produced the
+correct values (`1` and `0.15`), confirming the CSS itself was correct
+and the discrepancy was purely a side effect of how the test tab reports
+visibility, not a real bug. Verified with typecheck, lint, format, vitest
+61/61, and a live pass (resting opacity 0.35 confirmed directly, active/
+dim target values confirmed via forced-animation-completion after ruling
+out the tab-visibility artifact, relation legend renders all 7 relation
+types actually present in the real data, zero console errors on a fresh
+tab).
