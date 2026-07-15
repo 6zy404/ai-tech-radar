@@ -1,5 +1,28 @@
 # Next Task
 
+> Update 2026-07-15 (later still, same day): **Topic hub shipped —
+> `/topics/[tagId]`.** Same session as the nav simplification below,
+> owner-directed after reviewing a page mockup and a separate index-page
+> mockup — the index page was explicitly declined (no `/topics` listing, no
+> global nav entry; the hub is a pure drill-down destination). New
+> `getTopicHub(tagId)` in `src/lib/topic-hub.ts` merges a tag's published
+> technologies (newest-first), tagged skills, tagged knowledge, and its
+> direct `getContentGraph()` neighbors (excluding nodes already in the
+> three lists, each carrying its edge's relation-type label) into one page;
+> `notFound()` for an unknown tag or one with no content anywhere. The only
+> entry point: a new "查看专题" link on every `FollowableTagList` chip
+> (technology/skill/knowledge detail pages) — the generic `TagList` used
+> everywhere else (index cards, related-item cards, search results, digest
+> cards) was deliberately left untouched, per an explicit scope check
+> during planning (turning every tag pill site-wide into a link was a much
+> bigger, unconfirmed change). See `CHANGELOG.md` → "Topic hub" for the
+> full writeup. Verified with typecheck, lint, format, vitest 61/61, and a
+> live pass (tag-inference: 6 signals + 10 graph neighbors; tag-ai-agents:
+> all four sections including directly-tagged skills/knowledge; unknown tag
+> → real 404; zero console errors). **Next actual step**: none predefined —
+> both items surfaced in this session's UI-simplification discussion (nav
+> merge and topic hub) are now done.
+
 > Update 2026-07-15 (later still, same day): **Nav simplification —
 > /news, /timeline, /radar folded into /technologies as view tabs.**
 > Owner-directed after reviewing a before/after nav mockup and a live
@@ -20,9 +43,9 @@
 > with typecheck, lint, format, vitest, and a live pass on all four
 > `?view=` values, the three redirects, the search toggle, and the four
 > repointed cross-page links. **Next actual step**: none predefined — this
-> closes out the owner's nav-simplification request; the earlier
-> `/topics/[tagId]` topic-hub proposal (discussed the same session) remains
-> unbuilt and unscoped pending a future decision.
+> closes out the owner's nav-simplification request. (The `/topics/[tagId]`
+> topic-hub proposal discussed the same session has since shipped too — see
+> the update above.)
 
 > Update 2026-07-15 (later still, same day): **Deferred `tilt`-prop cleanup
 > done.** The `DossierCard`/`DossierTechnologyCard` `tilt` prop and every

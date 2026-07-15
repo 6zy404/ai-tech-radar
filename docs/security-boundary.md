@@ -24,6 +24,10 @@ Public routes can be exposed:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/topics/[tagId]` (topic hub; a drill-down destination reached only via
+  `FollowableTagList` chip links, not a global nav entry or index page —
+  merges a tag's published technologies, skills, knowledge, and direct
+  `getContentGraph()` neighbors; `notFound()` for an unknown or empty tag)
 - `/search` (deterministic keyword search over published technology
   signals, skills, knowledge, and the news fast lane; matching covers only
   title / summary / tag display names, results are identical for everyone,

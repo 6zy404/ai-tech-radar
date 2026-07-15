@@ -82,6 +82,10 @@ Public pages:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/topics/[tagId]` — topic hub merging a tag's published technologies,
+  skills, knowledge, and direct content-graph neighbors into one page;
+  reached only via `FollowableTagList` chip links (no index page, no global
+  nav entry); `notFound()` for an unknown tag or one with no content
 - `/search` — site-wide keyword search over published signals, skills,
   knowledge, and the news fast lane (deterministic title/summary/tag
   matching; news results reuse the `src/lib/news.ts` sanitizing map)

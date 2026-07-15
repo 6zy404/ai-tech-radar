@@ -53,6 +53,14 @@ The product is split into two subsystems:
   force-directed layout, search-highlight, a category filter, hover-over-edge
   relation labels, draggable nodes, and click-to-focus exploration of any
   node's direct connections.
+- **Topic hub (`/topics/[tagId]`)** — a per-topic drill-down page merging what
+  `/network`, the 按话题 view, and `/search` each show in fragments for one
+  topic tag: the tag's published technology signals, tagged skills, tagged
+  knowledge, and a "图谱关联" section listing its direct content-graph
+  neighbors with relation-type labels. Reached only via a "查看专题" link on
+  `FollowableTagList` chips (technology/skill/knowledge detail pages) — no
+  index page, no global nav entry. Pure derived view (`getTopicHub` in
+  `src/lib/topic-hub.ts`), no new persisted data or AI calls.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
@@ -127,6 +135,7 @@ Public, user-facing routes:
 - `/digest` (archive), `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
+- `/topics/[tagId]` — topic hub (reached via tag chip links, not a nav entry)
 - `/search`
 - `/feed.xml`, `/feed.json`
 - `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
