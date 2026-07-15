@@ -8289,6 +8289,19 @@ a.tech-graph__node:hover {
   color: var(--muted);
 }
 
+.followable-tag-list__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.followable-tag-list__topic-link {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* Public news fast lane (自动聚合快讯): /news page and the home news board. */
 .news-page__notice {
   margin: 0;
@@ -9030,6 +9043,79 @@ a.tech-graph__node:hover {
   padding-top: 8px;
 }
 
+/* -- topic hub (/topics/[tagId]) -- */
+.topic-hub-section {
+  margin-bottom: 32px;
+}
+
+.topic-hub-section__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--dossier-line);
+}
+
+.topic-hub-section__heading h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.topic-hub-section__heading span {
+  font-size: 12px;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.topic-hub-section__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.topic-hub-card h3 {
+  margin: 8px 0 4px;
+  font-size: 15px;
+}
+
+.topic-hub-card p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--dossier-muted);
+}
+
+.topic-hub-card__meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--dossier-muted);
+}
+
+.topic-hub-section__relations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topic-hub-relation {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--dossier-ink);
+}
+
+.topic-hub-relation:hover {
+  border-color: var(--dossier-accent);
+}
+
 .dossier-empty-state {
   padding: 28px;
   border: 1px dashed var(--dossier-line);
@@ -9244,6 +9330,14 @@ a.tech-graph__node:hover {
 .dossier .followable-tag-list__hint {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .followable-tag-list__topic-link {
+  color: var(--dossier-muted);
+}
+
+.dossier .followable-tag-list__topic-link:hover {
+  color: var(--dossier-accent);
 }
 
 .dossier .my-radar__tag-toggle {

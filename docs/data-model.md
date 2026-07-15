@@ -867,6 +867,29 @@ every `relatedXIds` reference across all three entity types, deduplicated as
 an unordered pair (an edge exists if either side declares the reference), with
 `relationType`/`note` resolved via `findRelationBetween`.
 
+## TopicHubData (derived)
+
+Represents the `/topics/[tagId]` topic hub page — like `ContentGraphNode`,
+a derived view computed by `getTopicHub(tagId)` in `src/lib/topic-hub.ts`,
+not a persisted entity.
+
+- `tag`: the `TopicTag`
+- `technologies`: published `TechnologyItem`s tagged with `tagId`
+  (newest-first), mapped to a safe `{ slug, title, summary, publishDate,
+sourceName }` shape via the same bilingual title/summary helpers
+  `/timeline` uses
+- `skills`: `SkillItem`s tagged with `tagId`
+- `knowledge`: `KnowledgeItem`s tagged with `tagId`
+- `relatedNodes`: the topic's direct neighbors in `getContentGraph()` —
+  every node connected by an edge to any technology/skill/knowledge above,
+  excluding nodes already in one of those three lists, each carrying its
+  edge's `relationType`/`note`
+
+Returns `undefined` (page renders `notFound()`) when the tag id doesn't
+exist or none of the three pools has a match — mirroring `/timeline`'s
+"only topics with at least one published signal" rule, extended to all
+three content kinds.
+
 ## Internal-only vs user-facing fields
 
 Internal-only fields:

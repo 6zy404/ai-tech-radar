@@ -53,19 +53,27 @@ export function FollowableTagList({ tags }: FollowableTagListProps) {
           const isFollowed = followedTagSet.has(tag.id);
 
           return (
-            <button
-              key={tag.id}
-              type="button"
-              className={`my-radar__tag-toggle${
-                isFollowed ? " my-radar__tag-toggle--active" : ""
-              }`}
-              aria-pressed={isFollowed}
-              title={tag.description}
-              onClick={() => setFollowedTagIds(toggleFollowedTagId(tag.id))}
-            >
-              {isFollowed ? "✓ " : "+ "}
-              {tag.name}
-            </button>
+            <span key={tag.id} className="followable-tag-list__item">
+              <button
+                type="button"
+                className={`my-radar__tag-toggle${
+                  isFollowed ? " my-radar__tag-toggle--active" : ""
+                }`}
+                aria-pressed={isFollowed}
+                title={tag.description}
+                onClick={() => setFollowedTagIds(toggleFollowedTagId(tag.id))}
+              >
+                {isFollowed ? "✓ " : "+ "}
+                {tag.name}
+              </button>
+              <Link
+                href={`/topics/${tag.id}`}
+                className="followable-tag-list__topic-link"
+                title={`查看「${tag.name}」专题`}
+              >
+                查看专题
+              </Link>
+            </span>
           );
         })}
       </div>

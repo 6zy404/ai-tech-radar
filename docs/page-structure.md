@@ -398,6 +398,20 @@ Workspace deployment boundary:
     and the news group always carries the fixed 自动聚合 disclaimer
   - guided empty states for "no query yet" and "no matches"
   - does not show internal quality, reviewer, delivery, or source data
+- `/topics/[tagId]`
+  - user-facing topic hub: a drill-down destination, not a global nav entry
+    or index page — reached only via "查看专题" links on `FollowableTagList`
+    chips (technology/skill/knowledge detail pages)
+  - merges what `/network`, the 按话题 view, and `/search` each show in
+    fragments for one topic tag into a single page: the tag's published
+    technology signals (newest first), tagged skills, tagged knowledge, and
+    a "图谱关联" section listing the topic's direct graph neighbors (via
+    `getContentGraph()`, excluding nodes already shown in the three
+    sections above) with their relation-type label
+  - `notFound()` for an unknown tag id or a tag with no published content in
+    any of the three pools (`getTopicHub` in `src/lib/topic-hub.ts`)
+  - published-content only; no internal fields, no new AI calls, no new
+    persisted data — a pure derived view like `/network`'s content graph
 
 ## User-facing public view model
 
@@ -454,6 +468,8 @@ Forbidden on public pages:
     `/technologies?view=followed` when any of the page's tags is
     followed; used by the tags section on the technology, skill, and
     knowledge detail pages (hero and related-card tags stay on `TagList`)
+  - each chip also renders a small "查看专题" link to `/topics/[tagId]`
+    alongside the follow toggle — the only entry point into the topic hub
 - `SourceReference`
   - user-facing original source reference section
 - `PageShell`

@@ -12,6 +12,31 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Topic hub (`/topics/[tagId]`)
+
+- **Per-topic drill-down page shipped** — 2026-07-15, same session as the nav
+  simplification above, owner-directed after reviewing a page mockup and an
+  index-page mockup (the index page was explicitly declined — no `/topics`
+  listing, no global nav entry). `getTopicHub(tagId)` in the new
+  `src/lib/topic-hub.ts` merges what `/network`, the 按话题 view, and
+  `/search` each show in fragments for one topic tag: published
+  technologies tagged with it (newest-first, reusing the same bilingual
+  title/summary helpers `/timeline` uses), tagged skills, tagged knowledge,
+  and a "图谱关联" section — every node in `getContentGraph()` connected by
+  an edge to any of the above, excluding nodes already shown in the three
+  lists, each carrying its edge's Chinese relation-type label. Returns
+  `undefined` (→ `notFound()`) for an unknown tag id or one with no content
+  in any of the three pools. The only entry point is a new "查看专题" link
+  rendered on every chip in `FollowableTagList` (technology/skill/knowledge
+  detail pages) — deliberately scoped narrower than the generic `TagList`
+  used site-wide on index cards, related-item cards, and search results,
+  which stay pure display with no new interactive surface. Pure derived
+  view: no new persisted fields, no AI calls, no internal fields. Verified
+  with typecheck, lint, format, vitest 61/61, and a live pass (tag-inference
+  showing 6 signals + 10 graph neighbors, tag-ai-agents showing all four
+  sections including directly-tagged skills/knowledge, an unknown tag id
+  returning a real 404, zero console errors).
+
 ## Nav simplification: /news, /timeline, /radar folded into /technologies
 
 - **Public nav cut from 10 items to 6** — 2026-07-15, owner-directed after
