@@ -808,7 +808,46 @@ With `/network` done, the whole User-facing Product is now on the
 dossier system. The Internal Workspace (`docs/architecture.md` —
 workspace pages intentionally keep their own dark console look, separate
 from the User-facing Product) remains the only surface still on the
-original system, by design, not as unfinished migration work. Dark/light
-theming for this direction is still an explicit open question, not
-decided — a future session should ask before
-starting it.
+original system, by design, not as unfinished migration work.
+
+### Dark mode (system preference only, 2026-07-15)
+
+Owner-decided the same day the `/network` round shipped: dark mode
+follows `prefers-color-scheme: dark` only — no manual toggle, no
+persisted state, matching the project's minimal-client-state pattern
+elsewhere (`followed-tags.ts`, radar). Two options were discussed (system
+preference vs. a localStorage toggle like the followed-tags pattern);
+system preference won since it needs no new state or UI and is the
+smaller, more contained change.
+
+Almost every dossier rule already routes color through the seven
+`--dossier-*` custom properties, so the entire dossier scope repaints
+from one `@media (prefers-color-scheme: dark) { .dossier { ...7
+redeclared properties... } }` block — custom properties resolve at paint
+time, so every earlier `.dossier ...` rule picks up the new values
+automatically with zero changes to the ~1100 lines of rules that
+reference them.
+
+Live verification surfaced a real scoping gap before this shipped:
+`TopNav` (rendered once in `layout.tsx`, a sibling of every page's
+content — not a `.dossier` descendant, and shared with the Internal
+Workspace too) and the `body` background gradient (visible as light
+gutters on either side of `.main-content` on wide viewports, since
+`.main-content` is width-capped and centered) both use hardcoded light
+colors outside the `.dossier` scope. Theming only `.dossier` would have
+left readers with a dark page body under a still-light nav bar and light
+gutters down the sides — a visibly half-finished result. Owner confirmed
+folding both into this round rather than shipping the gap. `TopNav`'s
+dark variant is unconditional (not scoped to `.dossier`), so it also
+applies on Internal Workspace pages — harmless/likely an improvement,
+since the workspace rail is already dark; the workspace's own
+`--workspace-*` styling is untouched otherwise. A few small hardcoded
+color literals inside the dossier scope (the `.dossier-card` shadow tint,
+and the three kind-specific node border colors added for `/network`)
+were deliberately left unchanged — they read as reasonable accent colors
+against a dark ground too, and touching them wasn't needed for
+correctness. Verified with typecheck, lint, format, vitest 61/61, and a
+live pass forcing both color schemes via the browser's color-scheme
+emulation (dark: `.dossier`/`.top-nav`/`body` all repaint correctly on
+`/network` and a workspace page, zero console errors; light: unchanged
+from before, zero regressions).
