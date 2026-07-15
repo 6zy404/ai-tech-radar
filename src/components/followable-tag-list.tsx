@@ -73,7 +73,7 @@ export function FollowableTagList({ tags }: FollowableTagListProps) {
         followedCount > 0 ? (
           <p className="followable-tag-list__hint">
             已加入我的雷达 ·{" "}
-            <Link className="action-link" href="/radar">
+            <Link className="action-link" href="/technologies?view=followed">
               查看
             </Link>
           </p>

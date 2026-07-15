@@ -7,9 +7,12 @@ This document defines the current safety boundary between public product pages a
 Public routes can be exposed:
 
 - `/`
-- `/news` (auto-aggregated news fast lane; see "News Fast Lane Boundary"
-  below for the exact candidate-field allowlist)
-- `/technologies`
+- `/technologies` (four views via `?view=`: 精选 default, 全部快讯 — the
+  auto-aggregated news fast lane, see "News Fast Lane Boundary" below for
+  the exact candidate-field allowlist — 按话题, and 我关注的 — follows are
+  browser-localStorage only, the route serves the same published content to
+  everyone and holds no per-reader server state; `/news`, `/timeline`, and
+  `/radar` redirect here to the matching view)
 - `/technologies/[slug]`
 - `/digest` (archive index; renders only published digests through the same
   public-copy sanitizers as the digest pages — date, public title/summary,
@@ -21,18 +24,13 @@ Public routes can be exposed:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
-- `/timeline` (published technology signals grouped by topic tag, newest
-  first; reads only already-public technology fields, no news candidate
-  data)
-- `/radar` (follows are browser-localStorage only; the route serves the same
-  published content to everyone and holds no per-reader server state)
 - `/search` (deterministic keyword search over published technology
   signals, skills, knowledge, and the news fast lane; matching covers only
   title / summary / tag display names, results are identical for everyone,
-  and news results go through the same `src/lib/news.ts` mapping as `/news`
-  — including the fixed 自动聚合 disclaimer on the news group, so search is
-  a compliant fast-lane surface rather than a new candidate→public mapping
-  point)
+  and news results go through the same `src/lib/news.ts` mapping as the
+  全部快讯 view — including the fixed 自动聚合 disclaimer on the news group,
+  so search is a compliant fast-lane surface rather than a new
+  candidate→public mapping point)
 - `/feed.xml`
 - `/feed.json`
 - `POST /api/technologies/compare`
@@ -60,9 +58,10 @@ They must not render:
 
 ## News Fast Lane Boundary
 
-`/news` (and the home news board) is the one deliberate exception to
-"imported candidates are workspace-only": it renders recently imported
-candidates publicly, but only through the dedicated sanitizing map in
+The 全部快讯 view on `/technologies?view=news` (and the home news board) is
+the one deliberate exception to "imported candidates are workspace-only": it
+renders recently imported candidates publicly, but only through the
+dedicated sanitizing map in
 `src/lib/news.ts` (`PublicNewsItem`). That module is the single place an
 `ImportedCandidate` may cross into a public surface.
 
@@ -160,7 +159,7 @@ Task runner commands and audit summaries are internal-only:
 - `config/scheduled-import.json` (scheduled daily source import configuration)
 
 Public digest and technology pages must not display runner configuration or
-logs. The `/news` fast lane shows imported content but never the import
+logs. The 全部快讯 fast lane shows imported content but never the import
 schedule, runner status, or import run messages.
 
 ## Workflow Event Boundary

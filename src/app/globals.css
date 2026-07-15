@@ -3905,6 +3905,49 @@ body {
   cursor: pointer;
 }
 
+.top-nav__search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.top-nav__search form {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.15s ease;
+}
+
+.top-nav__search--open form {
+  width: 160px;
+}
+
+.top-nav__search input {
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #344054;
+  font-size: 0.85rem;
+}
+
+.top-nav__search-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #667085;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
 .top-nav__toggle-bars,
 .top-nav__toggle-bars::before,
 .top-nav__toggle-bars::after {
@@ -4464,6 +4507,10 @@ body {
 
   .top-nav__toggle {
     display: inline-flex;
+  }
+
+  .top-nav__search--open form {
+    width: 120px;
   }
 
   .top-nav__menu {
@@ -8910,6 +8957,37 @@ a.tech-graph__node:hover {
   font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
 }
 
+/* -- technology view tabs (/technologies: 精选/全部快讯/按话题/我关注的) -- */
+.technology-view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--dossier-line);
+}
+
+.technology-view-tab {
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: -1px;
+  color: var(--dossier-muted);
+  font-size: 13px;
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.technology-view-tab:hover {
+  color: var(--dossier-ink);
+}
+
+.technology-view-tab--active {
+  border-color: var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+  font-weight: 500;
+}
+
 /* -- technology browser (/technologies list) -- */
 .dossier-technology-browser {
   display: grid;
@@ -9874,5 +9952,17 @@ a.tech-graph__node:hover {
     border-color: rgba(255, 255, 255, 0.14);
     background: rgba(255, 255, 255, 0.06);
     color: #cfcdbf;
+  }
+
+  .top-nav__search-toggle {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: #cfcdbf;
+  }
+
+  .top-nav__search input {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e9e7dc;
   }
 }

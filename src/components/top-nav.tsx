@@ -2,19 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const primaryNavItems = [
   { href: "/", label: "首页" },
   { href: "/digest/today", label: "每日简报" },
-  { href: "/news", label: "今日快讯" },
   { href: "/technologies", label: "技术信号" },
   { href: "/skills", label: "技能" },
   { href: "/knowledge", label: "知识" },
-  { href: "/network", label: "关系网络" },
-  { href: "/timeline", label: "时间线" },
-  { href: "/radar", label: "我的雷达" },
-  { href: "/search", label: "搜索" }
+  { href: "/network", label: "关系网络" }
 ];
 
 const workspaceNavItem = { href: "/workspace", label: "内部工作台" };
@@ -48,8 +44,16 @@ function navLinkClassName(
 export function TopNav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    if (searchOpen) {
+      searchInputRef.current?.focus();
+    }
+  }, [searchOpen]);
 
   return (
     <header className="top-nav">
@@ -110,6 +114,62 @@ export function TopNav() {
             </li>
           </ul>
         </nav>
+
+        <div
+          className={`top-nav__search${searchOpen ? " top-nav__search--open" : ""}`}
+        >
+          <form
+            action="/search"
+            method="get"
+            role="search"
+            onSubmit={() => setSearchOpen(false)}
+          >
+            <input
+              ref={searchInputRef}
+              type="search"
+              name="q"
+              placeholder="搜索"
+              aria-label="搜索关键词"
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  setSearchOpen(false);
+                }
+              }}
+            />
+          </form>
+          <button
+            type="button"
+            className="top-nav__search-toggle"
+            aria-label={searchOpen ? "收起搜索" : "展开搜索"}
+            aria-expanded={searchOpen}
+            onClick={() => setSearchOpen((open) => !open)}
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="6.5"
+                cy="6.5"
+                r="4.5"
+                stroke="currentColor"
+                strokeWidth="1.4"
+              />
+              <line
+                x1="10"
+                y1="10"
+                x2="13.5"
+                y2="13.5"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
   );

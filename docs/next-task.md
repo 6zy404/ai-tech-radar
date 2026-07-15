@@ -1,5 +1,29 @@
 # Next Task
 
+> Update 2026-07-15 (later still, same day): **Nav simplification —
+> /news, /timeline, /radar folded into /technologies as view tabs.**
+> Owner-directed after reviewing a before/after nav mockup and a live
+> comparison of the current `/timeline`/`/network` pages: the public nav had
+> grown to 10 items, and three of them (今日快讯, 时间线, 我的雷达) were just
+> different filters/groupings over the same published-technology data, not
+> independent destinations. `/technologies` now reads a `?view=` query param
+> (`news`/全部快讯, `timeline`/按话题, `followed`/我关注的, default 精选) and
+> renders a tab strip plus one of `TechnologyBrowser` (unchanged), the new
+> `NewsFeedSection`/`TopicTimelineSection` components (extracted verbatim
+> from the old pages), or the existing `MyRadarContent` (reused as-is).
+> `src/app/{news,timeline,radar}/page.tsx` are now one-line redirects to the
+> matching `?view=`. The 搜索 nav link became an inline search icon/box in
+> `TopNav` (still GETs to the untouched `/search` page). Nav is now 6 public
+> items. Confirmed before starting that every CSS class used by the moved
+> JSX was already unscoped, so no selector rewrites were needed. See
+> `CHANGELOG.md` → "Nav simplification" for the full file list. Verified
+> with typecheck, lint, format, vitest, and a live pass on all four
+> `?view=` values, the three redirects, the search toggle, and the four
+> repointed cross-page links. **Next actual step**: none predefined — this
+> closes out the owner's nav-simplification request; the earlier
+> `/topics/[tagId]` topic-hub proposal (discussed the same session) remains
+> unbuilt and unscoped pending a future decision.
+
 > Update 2026-07-15 (later still, same day): **Deferred `tilt`-prop cleanup
 > done.** The `DossierCard`/`DossierTechnologyCard` `tilt` prop and every
 > call site's `cardTilts` cycling array (flagged as dead code in the
