@@ -1,5 +1,29 @@
 # Next Task
 
+> Update 2026-07-15 (later the same day): **Dark mode shipped for the
+> dossier direction**, owner-decided as system-preference-only
+> (`prefers-color-scheme: dark`) — no manual toggle, no persisted state.
+> Since almost every dossier rule already routes color through the seven
+> `--dossier-*` custom properties, the whole scope repaints from one
+> `@media (prefers-color-scheme: dark) { .dossier { ... } }` block
+> redeclaring those seven values, no changes needed elsewhere. Live
+> verification caught a real scoping gap first: `TopNav` (outside
+> `.dossier`, shared with the Internal Workspace) and the `body`
+> background gradient (visible as gutters beside `.main-content` on wide
+> viewports) both used hardcoded light colors — theming only `.dossier`
+> would have shipped a dark page under a still-light nav bar. Both got a
+> dark variant too; `TopNav`'s applies unconditionally, so Workspace pages
+> pick it up as well (harmless next to the already-dark rail). See
+> `CHANGELOG.md` → "Dossier direction — dark mode (system preference
+> only)" and `docs/design-system.md` → "Dossier direction" → "Dark mode
+> (system preference only, 2026-07-15)" for the full writeup. Verified
+> with typecheck, lint, format, vitest 61/61, and a live pass forcing both
+> color schemes via browser emulation (zero console errors in either,
+> light mode unchanged). **With this, the entire open-question list from
+> the dossier migration is closed** — both `/network` and dark mode are
+> done. **Next actual step**: none predefined; this is a natural point to
+> pick a new initiative.
+
 > Update 2026-07-15: **`/network` adopted the dossier direction**,
 > owner-authorized as the follow-up scoped after the homepage round below
 > (dark/light theming was explicitly deferred — not part of this round).

@@ -9735,3 +9735,84 @@ button.tech-graph__node:focus-visible {
 .dossier .content-network__node.tech-graph__node--knowledge {
   border-color: rgba(24, 95, 165, 0.4);
 }
+
+/* ============================================================
+   Dossier direction -- dark mode (system preference only, 2026-07-15).
+   No manual toggle, no persisted state: readers whose OS/browser is set
+   to dark automatically get a dark dossier. Almost every rule above
+   already routes color through the seven --dossier-* custom properties,
+   so redeclaring them here is enough to repaint the whole dossier scope
+   -- CSS custom properties resolve at paint time, not compile time, so
+   every earlier ".dossier ..." rule above picks this up automatically.
+   Two things live *outside* .dossier and need their own dark variant so
+   dark mode doesn't look half-finished: TopNav (rendered once in
+   layout.tsx, a sibling of every page's content, shared with the
+   Internal Workspace too) and the body background gradient, which is
+   visible as light gutters on either side of .main-content on wide
+   viewports. The Internal Workspace's own dark console styling is
+   untouched -- it already uses its own --workspace-* tokens.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  .dossier {
+    --dossier-ground: #1e1f1a;
+    --dossier-surface: #2a2b23;
+    --dossier-line: #46473a;
+    --dossier-ink: #e9e7dc;
+    --dossier-muted: #a3a08c;
+    --dossier-accent: #6fa090;
+    --dossier-stamp: #c97a62;
+  }
+
+  body {
+    background:
+      radial-gradient(
+        circle at 0% 0%,
+        rgba(111, 160, 144, 0.14),
+        transparent 24%
+      ),
+      linear-gradient(180deg, #17160f 0%, #1c1b17 100%);
+  }
+
+  .top-nav {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: rgba(28, 27, 23, 0.92);
+  }
+
+  .brand {
+    color: #e9e7dc;
+  }
+
+  .top-nav__link {
+    color: #a3a08c;
+  }
+
+  .top-nav__link:hover,
+  .brand:hover {
+    color: #6fa090;
+  }
+
+  .top-nav__link--active {
+    color: #6fa090;
+    background: rgba(111, 160, 144, 0.14);
+  }
+
+  .top-nav__link--active::after {
+    background: #6fa090;
+  }
+
+  .top-nav__link--workspace {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: #cfcdbf;
+  }
+
+  .top-nav__separator {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .top-nav__toggle {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: #cfcdbf;
+  }
+}
