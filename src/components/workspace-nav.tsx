@@ -9,6 +9,8 @@ const workspaceNavItems = [
   { href: "/workspace/candidates", label: "候选", group: "内容" },
   { href: "/workspace/duplicates", label: "重复组", group: "内容" },
   { href: "/workspace/technologies", label: "草稿", group: "内容" },
+  { href: "/workspace/skills", label: "技能", group: "内容" },
+  { href: "/workspace/knowledge", label: "知识", group: "内容" },
   { href: "/workspace/digests", label: "简报", group: "发布" },
   { href: "/workspace/delivery", label: "投递", group: "发布" },
   {

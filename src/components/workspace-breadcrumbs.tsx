@@ -8,6 +8,8 @@ const moduleLabels: Record<string, string> = {
   candidates: "候选",
   duplicates: "重复组",
   technologies: "草稿",
+  skills: "技能",
+  knowledge: "知识",
   digests: "简报",
   delivery: "投递",
   operations: "运维"
@@ -18,7 +20,15 @@ const detailLabels: Record<string, string> = {
   candidates: "候选详情",
   duplicates: "重复组详情",
   technologies: "技术详情",
+  skills: "技能详情",
+  knowledge: "知识详情",
   digests: "简报详情"
+};
+
+const newPageLabels: Record<string, string> = {
+  sources: "新建来源",
+  skills: "新建技能",
+  knowledge: "新建知识"
 };
 
 // Named sibling pages (not [id] detail routes) nested under a module.
@@ -58,7 +68,7 @@ function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   }
 
   if (thirdSegment === "new") {
-    breadcrumbs.push({ label: "新建来源" });
+    breadcrumbs.push({ label: newPageLabels[moduleSegment] ?? "新建" });
     return breadcrumbs;
   }
 
