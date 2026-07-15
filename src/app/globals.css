@@ -10060,3 +10060,40 @@ a.tech-graph__node:hover {
     color: #e9e7dc;
   }
 }
+
+/* Skill/Knowledge workspace editing v0: checkbox pickers in the edit forms */
+.content-workspace-fieldset {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 12px;
+}
+
+.content-workspace-fieldset legend {
+  padding: 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--workspace-accent);
+}
+
+.content-workspace-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 14px;
+}
+
+.content-workspace-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.content-workspace-checkbox input {
+  margin: 0;
+}
+
+.content-workspace-status-actions {
+  align-items: center;
+}
