@@ -421,6 +421,16 @@ export function ContentNetworkGraph({
   };
 
   const matchedCount = nodes.filter(matchesFilter).length;
+  const relationTypes = useMemo(
+    () =>
+      Array.from(new Set(edges.map((edge) => edge.relationType))).sort((a, b) =>
+        getRelationTypeLabel(a, "zh").localeCompare(
+          getRelationTypeLabel(b, "zh"),
+          "zh"
+        )
+      ),
+    [edges]
+  );
 
   return (
     <div className="content-network">
@@ -624,6 +634,18 @@ export function ContentNetworkGraph({
                   知识
                 </li>
               </ul>
+              {relationTypes.length > 0 ? (
+                <>
+                  <p className="content-network__legend-heading">关系类型</p>
+                  <div className="content-network__relation-legend">
+                    {relationTypes.map((relationType) => (
+                      <DossierStampTag key={relationType}>
+                        {getRelationTypeLabel(relationType, "zh")}
+                      </DossierStampTag>
+                    ))}
+                  </div>
+                </>
+              ) : null}
               <p className="content-network__panel-count">
                 {isFilterActive
                   ? `匹配 ${matchedCount} / ${nodes.length} 个节点`

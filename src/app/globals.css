@@ -7880,15 +7880,23 @@ a.tech-graph__node:hover {
   overflow: visible;
 }
 
+/* Edges rest at low opacity by default (789 crossing pairs measured on
+   the real 33-node/88-edge graph -- always-visible edges read as a
+   busy web). A selected node's own edges pop to full opacity in the
+   accent color; everything else stays faint or drops further via
+   --dim, so the graph reads as "quiet until you focus on something"
+   instead of "everything at once". */
 .content-network__edge {
   stroke: rgba(100, 116, 139, 0.2);
   stroke-width: 1;
+  opacity: 0.35;
   transition: opacity 140ms ease;
 }
 
 .content-network__edge--active {
   stroke: rgba(8, 127, 115, 0.65);
   stroke-width: 2;
+  opacity: 1;
 }
 
 .content-network__edge--dim {
@@ -8064,6 +8072,23 @@ a.tech-graph__node:hover {
 
 .content-network__legend-item--knowledge::before {
   background: #2f6ea3;
+}
+
+.content-network__legend-heading {
+  margin: 16px 0 8px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(100, 116, 139, 0.24);
+  color: var(--muted);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.content-network__relation-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .content-network__panel-count {
@@ -9739,6 +9764,11 @@ a.tech-graph__node:hover {
 .dossier .content-network__legend-item {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .content-network__legend-heading {
+  color: var(--dossier-stamp);
+  border-top-color: var(--dossier-line);
 }
 
 .dossier .content-network__edge {

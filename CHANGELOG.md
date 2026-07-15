@@ -12,6 +12,32 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## `/network` edge focus + relation-type legend
+
+- **Edge crossing density reduced, relation-type legend added** —
+  2026-07-15, same day, owner-approved follow-up after the node-overlap
+  fix. Measured edge crossing density (segment-intersection test): 789
+  crossing pairs among the graph's 88 edges. Edges now rest at low
+  opacity (0.35) by default; a selected node's own edges pop to full
+  opacity in the stamp accent color, everything else stays faint or drops
+  further via the existing dim state — reused the existing per-edge
+  active/dim class logic unchanged, only the CSS opacity values changed.
+  Separately, the panel's resting-state legend gained a relation-type
+  section (必备/关联/渊源/…) below the existing kind legend, derived live
+  from the actual edge data (deduplicated `relationType` values, not a
+  hardcoded list) and rendered as `DossierStampTag`s — the same relation
+  labels already shown per-connection and on edge hover, now also visible
+  as a glossary before any interaction. See `docs/design-system.md` →
+  "Dossier direction" → "`/network` edge focus + relation-type legend
+  (2026-07-15, same day)" for the full writeup, including a verification
+  detour where the browser automation tool initially reported wrong
+  opacity values due to CSS transitions being throttled in a backgrounded
+  tab — confirmed via `Element.getAnimations()` to be a test-tooling
+  artifact, not a real bug. Verified with typecheck, lint, format, vitest
+  61/61, and a live pass (opacity values confirmed correct, relation
+  legend shows all 7 types present in the real data, zero console errors
+  on a fresh tab).
+
 ## `/network` dot nodes (overlap fix)
 
 - **Node overlap fixed on `/network`** — 2026-07-15, owner-reported the
