@@ -16,8 +16,6 @@ import {
 } from "@/lib/technology-localization";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
 
-const cardTilts = ["a", "b", "c"] as const;
-
 interface TechnologyBrowserProps {
   technologies: TechnologyItem[];
   tags: TopicTag[];
@@ -120,12 +118,11 @@ export function TechnologyBrowser({
       </div>
 
       <div className="dossier-technology-list">
-        {filteredTechnologies.map((item, index) => (
+        {filteredTechnologies.map((item) => (
           <DossierTechnologyCard
             key={item.id}
             technology={item}
             mode={mode}
-            tilt={cardTilts[index % cardTilts.length]}
             tags={item.tags
               .map((tagId) => tags.find((tag) => tag.id === tagId))
               .filter((tag): tag is TopicTag => Boolean(tag))}
