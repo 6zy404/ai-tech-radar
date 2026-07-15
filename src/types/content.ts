@@ -97,7 +97,15 @@ export type WorkflowEventAction =
   | "schedule.run"
   | "schedule.run_failed"
   | "task_runner.run"
-  | "source.imported";
+  | "source.imported"
+  | "skill.created"
+  | "skill.updated"
+  | "skill.published"
+  | "skill.publish_failed"
+  | "knowledge.created"
+  | "knowledge.updated"
+  | "knowledge.published"
+  | "knowledge.publish_failed";
 
 export type SourceLanguage = "en" | "zh";
 
@@ -744,6 +752,22 @@ export interface KnowledgeItem {
   tags: string[];
   relatedTechnologyIds: string[];
   relatedSkillIds: string[];
+}
+
+export type ContentWorkspaceStatus = "draft" | "published";
+
+export type ContentWorkspaceOrigin = "workspace" | "seed" | "seed_override";
+
+export interface SkillWorkspaceRecord extends SkillItem {
+  status: ContentWorkspaceStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface KnowledgeWorkspaceRecord extends KnowledgeItem {
+  status: ContentWorkspaceStatus;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface LinkRelation {
