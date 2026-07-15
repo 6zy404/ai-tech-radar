@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T00:05:07.449Z",
+  "updatedAt": "2026-07-15T00:05:04.431Z",
   "sources": [
     {
       "id": "quality-good-source",
@@ -124,11 +124,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-14T00:05:03.552Z",
+      "updatedAt": "2026-07-15T00:05:04.431Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-14T00:05:03.552Z",
+      "lastFetchedAt": "2026-07-15T00:05:04.431Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-14T00:05:03.552Z"
+      "lastSuccessfulImportAt": "2026-07-15T00:05:04.431Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -150,11 +150,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 5,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-14T00:05:02.816Z",
+      "updatedAt": "2026-07-15T00:05:03.651Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-14T00:05:02.816Z",
+      "lastFetchedAt": "2026-07-15T00:05:03.651Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-14T00:05:02.816Z"
+      "lastSuccessfulImportAt": "2026-07-15T00:05:03.651Z"
     },
     {
       "id": "source-openai-news",
@@ -182,142 +182,5 @@
       "lastSuccessfulImportAt": "2026-07-14T00:05:05.745Z"
     }
   ],
-  "latestImportRun": {
-    "id": "import-run-2026-07-14t00-05-02-256z",
-    "startedAt": "2026-07-14T00:05:02.256Z",
-    "finishedAt": "2026-07-14T00:05:07.449Z",
-    "status": "success",
-    "totalSources": 7,
-    "enabledSources": 5,
-    "skippedSources": 2,
-    "successfulSources": 5,
-    "failedSources": 0,
-    "partialSources": 0,
-    "totalCandidatesCreated": 3,
-    "totalCandidatesSkipped": 17,
-    "messages": [
-      "Hugging Face Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "MCP Servers Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "Ollama Releases: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-      "OpenAI News: 导入 2 条新候选；跳过 2 条重复或已存在的候选。",
-      "vLLM Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。"
-    ],
-    "sourceResults": [
-      {
-        "sourceId": "source-hugging-face-blog",
-        "sourceName": "Hugging Face Blog",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 4
-      },
-      {
-        "sourceId": "source-mcp-servers-releases",
-        "sourceName": "MCP Servers Releases",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 4
-      },
-      {
-        "sourceId": "source-ollama-releases",
-        "sourceName": "Ollama Releases",
-        "status": "success",
-        "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 1,
-        "candidatesSkipped": 3
-      },
-      {
-        "sourceId": "source-openai-news",
-        "sourceName": "OpenAI News",
-        "status": "success",
-        "message": "导入 2 条新候选；跳过 2 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 2,
-        "candidatesSkipped": 2
-      },
-      {
-        "sourceId": "source-vllm-releases",
-        "sourceName": "vLLM Releases",
-        "status": "success",
-        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 4
-      }
-    ]
-  },
-  "importRuns": [
-    {
-      "id": "import-run-2026-07-14t00-05-02-256z",
-      "startedAt": "2026-07-14T00:05:02.256Z",
-      "finishedAt": "2026-07-14T00:05:07.449Z",
-      "status": "success",
-      "totalSources": 7,
-      "enabledSources": 5,
-      "skippedSources": 2,
-      "successfulSources": 5,
-      "failedSources": 0,
-      "partialSources": 0,
-      "totalCandidatesCreated": 3,
-      "totalCandidatesSkipped": 17,
-      "messages": [
-        "Hugging Face Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "MCP Servers Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "Ollama Releases: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-        "OpenAI News: 导入 2 条新候选；跳过 2 条重复或已存在的候选。",
-        "vLLM Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。"
-      ],
-      "sourceResults": [
-        {
-          "sourceId": "source-hugging-face-blog",
-          "sourceName": "Hugging Face Blog",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 4
-        },
-        {
-          "sourceId": "source-mcp-servers-releases",
-          "sourceName": "MCP Servers Releases",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 4
-        },
-        {
-          "sourceId": "source-ollama-releases",
-          "sourceName": "Ollama Releases",
-          "status": "success",
-          "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 1,
-          "candidatesSkipped": 3
-        },
-        {
-          "sourceId": "source-openai-news",
-          "sourceName": "OpenAI News",
-          "status": "success",
-          "message": "导入 2 条新候选；跳过 2 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 2,
-          "candidatesSkipped": 2
-        },
-        {
-          "sourceId": "source-vllm-releases",
-          "sourceName": "vLLM Releases",
-          "status": "success",
-          "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 4
-        }
-      ]
-    }
-  ]
+  "importRuns": []
 }
