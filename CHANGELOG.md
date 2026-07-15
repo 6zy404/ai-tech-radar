@@ -12,6 +12,21 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## `DossierCard` tilt prop cleanup
+
+- **Removed the inert `tilt` prop and `cardTilts` arrays** — 2026-07-15,
+  same day, closing out the one deferred cleanup item flagged when the
+  resting tilt was removed in favor of a flat rest state (see "Dossier
+  direction — flat cards" below). That change was CSS-only at the time;
+  `DossierCard`'s and `DossierTechnologyCard`'s `tilt` prop and every call
+  site's `cardTilts` cycling array still computed a value and passed it
+  down, but the class it produced no longer had any CSS behind it. Removed
+  for real across 8 files (`dossier-card.tsx`, `dossier-technology-card.tsx`,
+  `technology-browser.tsx`, `my-radar-content.tsx`, `src/app/page.tsx`,
+  `src/app/digest/page.tsx`, `src/app/knowledge/page.tsx`,
+  `src/app/skills/page.tsx`) — net -64 lines, no visual change. Verified
+  with typecheck, lint, and format:check.
+
 ## `/network` edge focus + relation-type legend
 
 - **Edge crossing density reduced, relation-type legend added** —

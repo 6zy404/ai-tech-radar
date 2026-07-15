@@ -1,5 +1,17 @@
 # Next Task
 
+> Update 2026-07-15 (later still, same day): **Deferred `tilt`-prop cleanup
+> done.** The `DossierCard`/`DossierTechnologyCard` `tilt` prop and every
+> call site's `cardTilts` cycling array (flagged as dead code in the
+> `/network` polish update below) are now removed for real:
+> `dossier-card.tsx`, `dossier-technology-card.tsx`, `technology-browser.tsx`,
+> `my-radar-content.tsx`, `src/app/digest/page.tsx`,
+> `src/app/knowledge/page.tsx`, `src/app/skills/page.tsx`, and
+> `src/app/page.tsx` — 8 files, net -64 lines, no visual change. Verified
+> with typecheck, lint, and format:check (all clean). **With this, the
+> tracked code-debt list is empty again** and there is no predefined next
+> step — the owner should pick the next initiative.
+
 > Update 2026-07-15 (later still, same day): **`/network` polish round —
 > node overlap fixed, edge crossings dimmed, relation-type legend added.**
 > Owner reported the graph "felt chaotic" and got worse when zoomed.
