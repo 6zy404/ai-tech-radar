@@ -12,6 +12,31 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dossier direction — flat cards (tilt removed)
+
+- **`DossierCard` tilt removed** — 2026-07-15, owner-directed. The
+  per-index resting tilt (three rotation angles, straightened on hover)
+  read as too busy across full card grids and was replaced with a flat
+  rest state plus a plain hover lift. Three replacement directions were
+  mocked up and compared before deciding: plain flat, flat with a
+  folded-corner accent, and flat with a content-kind-colored tab spine.
+  The colored-spine option was ruled out during discussion: the existing
+  technology/skill/knowledge three-color code only carries information
+  where multiple kinds share a view (`/network`, the per-item
+  `RelationshipGraph`) — on a single-kind list page every card would show
+  the same spine color, which is exactly the decoration-with-no-signal
+  failure mode that color system is careful to avoid elsewhere. Plain flat
+  was chosen. Implementation was CSS-only: the `.dossier-card--tilt-a/b/c`
+  rotation rules were removed from `globals.css`; `DossierCard`'s `tilt`
+  prop and every call site's `cardTilts` cycling array were deliberately
+  left unchanged (the tilt class names still land in the DOM, just inert)
+  — a full prop removal is a separate, deferred cleanup. See
+  `docs/design-system.md` → "Dossier direction" → "Flat cards
+  (2026-07-15)" for the full writeup. Verified with typecheck, lint,
+  format, vitest 61/61, and a live check that cards compute
+  `transform: none` at rest on `/technologies`, `/skills`, and `/`, zero
+  console errors.
+
 ## Dossier direction — dark mode (system preference only)
 
 - **Dark mode for the dossier direction** — 2026-07-15, same day as the

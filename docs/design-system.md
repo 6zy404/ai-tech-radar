@@ -630,8 +630,13 @@ Built 2026-07-14, first wired into real pages the same day (see "Adopted
 pages" below):
 
 - `DossierCard` (`src/components/dossier-card.tsx`) — bordered index-card
-  tile with a resting tilt that straightens on hover / collapses on narrow
-  screens.
+  tile. Originally shipped with a per-index resting tilt that straightened
+  on hover; removed 2026-07-15 (see "Flat cards" below) in favor of a flat
+  rest state with a plain hover lift. The `tilt` prop and each call site's
+  `cardTilts` cycling array are still wired through unchanged — the CSS
+  rules that rendered the rotation were removed instead of touching every
+  call site, so the classes are present in the DOM but inert. A full prop
+  removal is a separate, deliberately deferred cleanup.
 - `DossierStampTag` (`src/components/dossier-stamp-tag.tsx`) — rubber-stamp
   label; renders as a `<button>` with `aria-pressed` when given `onClick`,
   otherwise a static `<span>`.
@@ -851,3 +856,37 @@ live pass forcing both color schemes via the browser's color-scheme
 emulation (dark: `.dossier`/`.top-nav`/`body` all repaint correctly on
 `/network` and a workspace page, zero console errors; light: unchanged
 from before, zero regressions).
+
+### Flat cards (2026-07-15)
+
+Owner-directed: `DossierCard`'s per-index resting tilt (three rotation
+angles cycled by `cardTilts[index % cardTilts.length]`, straightened on
+hover) read as too literal/busy once seen across full card grids on real
+pages, and was replaced with a flat rest state. Three replacement
+directions were mocked up and compared side by side before deciding: (A)
+flat with no added ornament, (B) flat plus a folded-corner accent
+(`clip-path` + a triangle pseudo-element) to keep some "physical paper"
+character, and (C) flat plus a left tab-spine colored by content kind
+(technology/skill/knowledge), echoing a folder-tab. C was ruled out during
+discussion, not on visual grounds — reusing the technology/skill/knowledge
+three-color code (see `RelationshipGraph`/`ContentNetworkGraph` above) only
+carries information where multiple kinds appear in the same view; on a
+single-kind list page (e.g. every card on `/skills` would show the same
+spine color), it would have been decoration with no signal, the exact
+failure mode the three-color system elsewhere is careful to avoid. Option
+A (plain flat) was chosen.
+
+Implementation was CSS-only: `.dossier-card--tilt-a/b/c` and the
+`rotate(...)` in `.dossier-card:hover` were removed from `globals.css`,
+leaving `.dossier-card:hover { transform: translateY(-3px); }` (desktop)
+/ `-2px` (≤640px). `DossierCard`'s `tilt` prop and the `cardTilts` cycling
+arrays in every call site (`technology-browser.tsx`, `my-radar-content.tsx`,
+`digest/page.tsx`, `knowledge/page.tsx`, `skills/page.tsx`,
+`dossier-technology-card.tsx`, `page.tsx`) were deliberately left
+unchanged — the `dossier-card--tilt-*` class names still land in the DOM,
+they're just inert with no matching CSS rule. Removing that prop
+plumbing from every call site is a separate, deferred cleanup, not bundled
+into this visual change. Verified with typecheck, lint, format, vitest
+61/61, and a live check that `.dossier-card` elements compute
+`transform: none` at rest across `/technologies`, `/skills`, and `/`,
+with zero console errors.
