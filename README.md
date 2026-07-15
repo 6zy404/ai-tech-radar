@@ -107,6 +107,18 @@ The product is split into two subsystems:
   disclaimer on the news group. News results reuse the same
   `src/lib/news.ts` public mapping as the 全部快讯 view; no internal fields
   enter the page (`src/lib/search.ts`).
+- **Skill/Knowledge workspace editing (v0)** — `/workspace/skills` and
+  `/workspace/knowledge` manage the skill and knowledge content pools:
+  create new entries, or edit the bundled `src/data` seed entries via
+  copy-on-write runtime overrides (`config/skill-workspace.json` /
+  `config/knowledge-workspace.json` — seed files stay read-only). Entries
+  carry a draft/published status with a minimal publish gate (title / slug /
+  summary required and unique slug as blocking errors; short content,
+  missing or non-canonical tags, and missing relations as warnings). Public
+  `getAllSkills` / `getAllKnowledge` serve the merged view with drafts
+  filtered from every public surface (index/detail pages, content graph,
+  search, topic hubs). v0 edits related-content ids only; typed
+  `LinkRelation` editing is deferred.
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   the month-grouped `/digest` archive index, `/feed.xml`, and `/feed.json`.
@@ -255,10 +267,10 @@ not a project failure.
 
 Runtime workflow state lives in `config/` as JSON (the default fallback store):
 imported candidates, candidate review state, external sources, technology
-workspace records, duplicate groups, daily digests, delivery, scheduled
-delivery, scheduled import, task runner, workflow events, editorial enrichment
-suggestions, and prompt versions. Set `LOCAL_DATA_DIR` to point at a different
-local directory.
+workspace records, skill and knowledge workspace records, duplicate groups,
+daily digests, delivery, scheduled delivery, scheduled import, task runner,
+workflow events, editorial enrichment suggestions, and prompt versions. Set
+`LOCAL_DATA_DIR` to point at a different local directory.
 
 ## Project structure
 

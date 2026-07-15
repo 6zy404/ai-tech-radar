@@ -149,6 +149,12 @@ The safe public mapping is still explicit:
   (`toPublicDigestView` in `src/lib/digest-view.ts`), so internal digest
   fields (editorial notes, manual adjustment id lists) never enter the page
   payload — the full `DailyDigest` object stays in the workflow layer
+- skill and knowledge workspace records
+  (`config/skill-workspace.json` / `config/knowledge-workspace.json`) reach
+  public pages only through the merged read in `getAllSkills` /
+  `getAllKnowledge`: draft records are filtered from every public surface,
+  and the merged items carry no workspace-only fields (`status`, origin,
+  and timestamps stay behind the workspace boundary)
 - delivery channels, delivery logs, schedules, task-runner records, and workflow events are workspace-only
 
 `npm run validate:persistence` provides a lightweight consistency and isolation check for local workflow data. `npm run validate:database` repeats the critical reference and public-field checks against both JSON and SQLite driver modes.

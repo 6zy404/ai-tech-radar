@@ -20,6 +20,8 @@ Responsibilities:
 - inspect duplicate hints
 - convert candidates into technology workspace records
 - edit draft title, summary, content, tags, source metadata, related knowledge, and related skills
+- create and edit skill / knowledge entries (workspace overrides of the
+  bundled seeds plus new entries, with a draft/published status flow)
 - run Publish Quality Gate v0
 - preview user-facing output before publishing
 - publish or archive technology records

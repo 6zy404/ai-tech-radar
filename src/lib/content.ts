@@ -23,6 +23,8 @@ import {
   readSqliteSeedTechnologies,
   readSqliteSkillItems
 } from "@/lib/repositories/sqlite-store";
+import { getMergedPublicKnowledge } from "@/lib/knowledge-workflow";
+import { getMergedPublicSkills } from "@/lib/skill-workflow";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
   ContentKind,
@@ -61,15 +63,19 @@ export function getAllImportedCandidates(): ImportedCandidate[] {
 }
 
 export function getAllSkills(): SkillItem[] {
-  return getPersistenceDriver() === "sqlite"
-    ? readSqliteSkillItems()
-    : skillItems;
+  const baseSkills =
+    getPersistenceDriver() === "sqlite" ? readSqliteSkillItems() : skillItems;
+
+  return getMergedPublicSkills(baseSkills);
 }
 
 export function getAllKnowledge(): KnowledgeItem[] {
-  return getPersistenceDriver() === "sqlite"
-    ? readSqliteKnowledgeItems()
-    : knowledgeItems;
+  const baseKnowledge =
+    getPersistenceDriver() === "sqlite"
+      ? readSqliteKnowledgeItems()
+      : knowledgeItems;
+
+  return getMergedPublicKnowledge(baseKnowledge);
 }
 
 export function getAllTags(): TopicTag[] {
@@ -94,11 +100,11 @@ export {
 };
 
 export function getSkillBySlug(slug: string): SkillItem | undefined {
-  return skillItems.find((item) => item.slug === slug);
+  return getAllSkills().find((item) => item.slug === slug);
 }
 
 export function getKnowledgeBySlug(slug: string): KnowledgeItem | undefined {
-  return knowledgeItems.find((item) => item.slug === slug);
+  return getAllKnowledge().find((item) => item.slug === slug);
 }
 
 export function getTagById(id: string): TopicTag | undefined {
@@ -182,10 +188,10 @@ function resolveTitle(kind: ContentKind, id: string): string | undefined {
   }
 
   if (kind === "skill") {
-    return skillItems.find((item) => item.id === id)?.title;
+    return getAllSkills().find((item) => item.id === id)?.title;
   }
 
-  return knowledgeItems.find((item) => item.id === id)?.title;
+  return getAllKnowledge().find((item) => item.id === id)?.title;
 }
 
 function resolveSlug(kind: ContentKind, id: string): string | undefined {
@@ -194,10 +200,10 @@ function resolveSlug(kind: ContentKind, id: string): string | undefined {
   }
 
   if (kind === "skill") {
-    return skillItems.find((item) => item.id === id)?.slug;
+    return getAllSkills().find((item) => item.id === id)?.slug;
   }
 
-  return knowledgeItems.find((item) => item.id === id)?.slug;
+  return getAllKnowledge().find((item) => item.id === id)?.slug;
 }
 
 interface BuildRelationItemsOptions {
@@ -337,8 +343,8 @@ export interface ContentGraphData {
  */
 export function getContentGraph(): ContentGraphData {
   const technologies = getAllTechnologies();
-  const skills = skillItems;
-  const knowledge = knowledgeItems;
+  const skills = getAllSkills();
+  const knowledge = getAllKnowledge();
 
   const buildNode = (
     kind: ContentKind,
