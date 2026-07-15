@@ -1,6 +1,336 @@
 {
-  "updatedAt": "2026-07-15T09:30:22.567Z",
+  "updatedAt": "2026-07-15T20:34:23.798Z",
   "events": [
+    {
+      "id": "workflow-event-d2280a62-b0d9-46c1-a02a-2467620800b0",
+      "entityType": "skill",
+      "entityId": "skill-agent-design",
+      "action": "skill.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-agent-design",
+        "title": "智能体工作流设计",
+        "slug": "agent-workflow-design",
+        "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
+        "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
+        "skillType": "engineering",
+        "heatLevel": "hot",
+        "learningCost": "high",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents",
+          "tech-agent-workbenches"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "skill-agent-design",
+        "title": "智能体工作流设计",
+        "slug": "agent-workflow-design",
+        "summary": "OVERRIDE-CHECK summary text.",
+        "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
+        "skillType": "engineering",
+        "heatLevel": "hot",
+        "learningCost": "high",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents",
+          "tech-agent-workbenches"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-15T20:34:23.782Z",
+        "updatedAt": "2026-07-15T20:34:23.782Z"
+      },
+      "createdAt": "2026-07-15T20:34:23.798Z"
+    },
+    {
+      "id": "workflow-event-b0a6b599-6ae0-42ae-9bc4-a0fbb17a2d75",
+      "entityType": "skill",
+      "entityId": "skill-ws-13aa4d2b",
+      "action": "skill.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-13aa4d2b",
+        "title": "Public Wire Test",
+        "slug": "public-wire-test",
+        "summary": "Testing public overlay wiring.",
+        "content": "c",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "draft",
+        "createdAt": "2026-07-15T20:33:52.260Z",
+        "updatedAt": "2026-07-15T20:33:52.260Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-13aa4d2b",
+        "title": "Public Wire Test",
+        "slug": "public-wire-test",
+        "summary": "Testing public overlay wiring.",
+        "content": "c",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "published",
+        "createdAt": "2026-07-15T20:33:52.260Z",
+        "updatedAt": "2026-07-15T20:34:05.228Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-15T20:34:05.245Z"
+    },
+    {
+      "id": "workflow-event-7fe15cb6-d060-4598-a12f-5b655a6366e2",
+      "entityType": "skill",
+      "entityId": "skill-ws-13aa4d2b",
+      "action": "skill.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "skill-ws-13aa4d2b",
+        "title": "Public Wire Test",
+        "slug": "public-wire-test",
+        "summary": "Testing public overlay wiring.",
+        "content": "c",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "draft",
+        "createdAt": "2026-07-15T20:33:52.260Z",
+        "updatedAt": "2026-07-15T20:33:52.260Z"
+      },
+      "createdAt": "2026-07-15T20:33:52.277Z"
+    },
+    {
+      "id": "workflow-event-4476136c-77ff-4f42-b618-9e04ca92960f",
+      "entityType": "skill",
+      "entityId": "skill-agent-design",
+      "action": "skill.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-agent-design",
+        "title": "智能体工作流设计",
+        "slug": "agent-workflow-design",
+        "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
+        "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
+        "skillType": "engineering",
+        "heatLevel": "hot",
+        "learningCost": "high",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents",
+          "tech-agent-workbenches"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "skill-agent-design",
+        "title": "智能体工作流设计",
+        "slug": "agent-workflow-design",
+        "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
+        "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
+        "skillType": "engineering",
+        "heatLevel": "hot",
+        "learningCost": "high",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedTechnologyIds": [
+          "tech-mcp",
+          "tech-browser-agents",
+          "tech-agent-workbenches"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-system-design",
+          "knowledge-tool-use"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-15T20:31:16.371Z",
+        "updatedAt": "2026-07-15T20:31:16.371Z"
+      },
+      "createdAt": "2026-07-15T20:31:16.392Z"
+    },
+    {
+      "id": "workflow-event-87b2d9ad-d97d-493f-84ba-a84b621fd012",
+      "entityType": "skill",
+      "entityId": "skill-ws-5dcaa870",
+      "action": "skill.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-5dcaa870",
+        "title": "E2E Test Skill",
+        "slug": "e2e-test-skill",
+        "summary": "E2E summary for verification.",
+        "content": "short",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "draft",
+        "createdAt": "2026-07-15T20:30:47.218Z",
+        "updatedAt": "2026-07-15T20:30:59.851Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-5dcaa870",
+        "title": "E2E Test Skill",
+        "slug": "e2e-test-skill",
+        "summary": "E2E summary for verification.",
+        "content": "short",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "published",
+        "createdAt": "2026-07-15T20:30:47.218Z",
+        "updatedAt": "2026-07-15T20:30:59.935Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-15T20:30:59.948Z"
+    },
+    {
+      "id": "workflow-event-febd3e3c-7f3f-4125-9173-c527c11ac789",
+      "entityType": "skill",
+      "entityId": "skill-ws-5dcaa870",
+      "action": "skill.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-5dcaa870",
+        "title": "E2E Test Skill",
+        "slug": "e2e-test-skill",
+        "summary": "",
+        "content": "short",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "draft",
+        "createdAt": "2026-07-15T20:30:47.218Z",
+        "updatedAt": "2026-07-15T20:30:47.218Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-5dcaa870",
+        "title": "E2E Test Skill",
+        "slug": "e2e-test-skill",
+        "summary": "E2E summary for verification.",
+        "content": "short",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "draft",
+        "createdAt": "2026-07-15T20:30:47.218Z",
+        "updatedAt": "2026-07-15T20:30:59.851Z"
+      },
+      "createdAt": "2026-07-15T20:30:59.866Z"
+    },
+    {
+      "id": "workflow-event-e778d1d7-2c58-487a-a3af-1e9a429ae3cf",
+      "entityType": "skill",
+      "entityId": "skill-ws-5dcaa870",
+      "action": "skill.publish_failed",
+      "actorType": "workspace_user",
+      "metadata": {
+        "blockingErrors": [
+          "missing-summary"
+        ]
+      },
+      "createdAt": "2026-07-15T20:30:59.225Z"
+    },
+    {
+      "id": "workflow-event-d971a4ff-3ba7-452c-8658-c08d2a1766dc",
+      "entityType": "skill",
+      "entityId": "skill-ws-5dcaa870",
+      "action": "skill.publish_failed",
+      "actorType": "workspace_user",
+      "metadata": {
+        "blockingErrors": [
+          "missing-summary"
+        ]
+      },
+      "createdAt": "2026-07-15T20:30:59.145Z"
+    },
+    {
+      "id": "workflow-event-3f458dc8-41ba-4fde-bc0c-228735695bd1",
+      "entityType": "skill",
+      "entityId": "skill-ws-5dcaa870",
+      "action": "skill.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "skill-ws-5dcaa870",
+        "title": "E2E Test Skill",
+        "slug": "e2e-test-skill",
+        "summary": "",
+        "content": "short",
+        "skillType": "engineering",
+        "heatLevel": "active",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [],
+        "relatedKnowledgeIds": [],
+        "status": "draft",
+        "createdAt": "2026-07-15T20:30:47.218Z",
+        "updatedAt": "2026-07-15T20:30:47.218Z"
+      },
+      "createdAt": "2026-07-15T20:30:47.234Z"
+    },
     {
       "id": "workflow-event-5fa373fb-d2c1-4ce3-ac9c-ea5698de5b10",
       "entityType": "daily_digest",
@@ -36020,794 +36350,6 @@
         "message": "Feishu webhook returned HTTP 500."
       },
       "createdAt": "2026-06-02T00:14:04.707Z"
-    },
-    {
-      "id": "workflow-event-b5da1c87-0bd6-4ff2-b930-b32c694ee2ce",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-557527c6-824d-418f-a7b7-0f6c464d6448",
-      "action": "delivery.sent",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-557527c6-824d-418f-a7b7-0f6c464d6448",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-        "channelName": "Scheduled delivery success webhook",
-        "channelType": "webhook",
-        "status": "success",
-        "startedAt": "2026-06-02T00:14:04.624Z",
-        "requestPayloadPreview": "{\n  \"type\": \"daily_digest\",\n  \"digestDate\": \"2026-05-25\",\n  \"title\": \"Scheduled delivery validation 2026-05-25\",\n  \"summary\": \"Editor-approved public summary for scheduled delivery.\",\n  \"digestUrl\": \"http://localhost:3000/digest/2026-05-25\",\n  \"highPriorityItems\": [\n    {\n      \"title\": \"模型上下文协议\",\n      \"summary\": \"一种正在形成的协议层，用来标准化 AI 工具在不同产品中请求上下文、工具和能力的方式。\",\n      \"url\": \"http://localhost:3000/technologies/model-context-protocol\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"AI Tooling Standards Brief\",\n      \"publishDate\": \"2026-04-10\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-workflow\"\n      ]\n    },\n    {\n      \"title\": \"浏览器自动化代理\",\n      \"summary\": \"浏览器驱动代理把规划、网页导航和真实任务执行连接起来，适合仍依赖网页流程的产品场景。\",\n      \"url\": \"http://localhost:3000/technologies/browser-automation-agents\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"Automation Product Brief\",\n      \"publishDate\": \"2026-04-09\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-multimodal\",\n        \"tag-workflow\"\n      ]\n    }\n  ],\n  \"watchItems\": [],\n  \"skillNames\": [\n    \"Tool Integration Patterns\",\n    \"Agent Workflow Design\",\n    \"AI Pilot Scoping\"\n  ],\n  \"knowledgeNames\": [\n    \"API Contracts and Interface Boundaries\",\n    \"Tool Use and Function Calling\",\n    \"Human-in-the-Loop Review\",\n    \"System Design Tradeoffs\"\n  ],\n  \"sourceNames\": [\n    \"AI Tooling Standards Brief\",\n    \"Automation Product Brief\"\n  ],\n  \"generatedAt\": \"2026-05-25T01:00:00.000Z\",\n  \"deliveredAt\": \"2026-06-02T00:1...",
-        "finishedAt": "2026-06-02T00:14:04.627Z",
-        "responseStatus": 200,
-        "responseBodyPreview": "Mock webhook accepted."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-        "channelType": "webhook",
-        "status": "success",
-        "message": "Delivery succeeded."
-      },
-      "createdAt": "2026-06-02T00:14:04.653Z"
-    },
-    {
-      "id": "workflow-event-9e99c75e-6584-451c-9c13-44caa52ea91e",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-e44b0e19-e05f-4f71-8568-857784da1ee8",
-      "action": "schedule.run_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-e44b0e19-e05f-4f71-8568-857784da1ee8",
-        "name": "Draft digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-26",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "never_run",
-        "createdAt": "2026-06-02T00:14:04.562Z",
-        "updatedAt": "2026-06-02T00:14:04.562Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-e44b0e19-e05f-4f71-8568-857784da1ee8",
-        "name": "Draft digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-26",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.566Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-06-02T00:14:04.562Z",
-        "updatedAt": "2026-06-02T00:14:04.567Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-1b6fb3ed-860d-437d-a860-9e442fdb1458",
-        "digestId": "digest-2026-05-26",
-        "digestDate": "2026-05-26",
-        "status": "failed",
-        "triggerType": "manual",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-06-02T00:14:04.594Z"
-    },
-    {
-      "id": "workflow-event-b55565aa-c99c-4b25-9cd8-358e9cfb49fa",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "AI Tooling Standards Brief",
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "published",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "AI Tooling Standards Brief",
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.652Z",
-        "publishedAt": "2026-06-02T00:12:38.652Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-06-02T00:12:38.671Z"
-    },
-    {
-      "id": "workflow-event-1c84df4a-6edc-4f7d-8ef0-299bb90a327f",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.generated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief",
-          "Edge AI Field Notes"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.557Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp",
-          "tech-rag-evals",
-          "tech-agent-workbenches",
-          "tech-browser-agents"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge",
-          "tech-mcp",
-          "tech-rag-evals",
-          "tech-agent-workbenches"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-model-evaluation",
-          "skill-scope-pilots",
-          "skill-retrieval-tuning",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-system-design",
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-rag-basics"
-        ],
-        "sourceNames": [
-          "Agent Platform Review",
-          "Automation Product Brief",
-          "Edge AI Field Notes",
-          "Retrieval Quality Digest"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.604Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ],
-        "lastRegeneratedAt": "2026-06-02T00:12:38.604Z"
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "preserveManualAdjustments": true
-      },
-      "createdAt": "2026-06-02T00:12:38.626Z"
-    },
-    {
-      "id": "workflow-event-b0c73a01-1c44-40cd-abc3-e5326bcde410",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief",
-          "Edge AI Field Notes"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.509Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief",
-          "Edge AI Field Notes"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.557Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "tech-slm-edge",
-        "action": "move_up"
-      },
-      "createdAt": "2026-06-02T00:12:38.583Z"
-    },
-    {
-      "id": "workflow-event-d89ad494-4947-4bd0-b987-54b183ebc99e",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief",
-          "Edge AI Field Notes"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.458Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief",
-          "Edge AI Field Notes"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.509Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "tech-slm-edge",
-        "action": "pin"
-      },
-      "createdAt": "2026-06-02T00:12:38.532Z"
-    },
-    {
-      "id": "workflow-event-559dee8d-d631-433f-bbd9-fa7b2612d4c9",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.408Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief",
-          "Edge AI Field Notes"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.458Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "tech-slm-edge",
-        "action": "include"
-      },
-      "createdAt": "2026-06-02T00:12:38.485Z"
-    },
-    {
-      "id": "workflow-event-1a459b87-0a65-4e19-8110-b3b34af224dd",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "AI Tooling Standards Brief",
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.352Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.408Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "tech-mcp",
-        "action": "exclude"
-      },
-      "createdAt": "2026-06-02T00:12:38.428Z"
-    },
-    {
-      "id": "workflow-event-10138be0-53b5-4a30-a2e0-f0378786abc3",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-05-23",
-        "summary": "2 item(s) are selected for editorial validation.",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-tool-integration",
-          "skill-agent-design",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-tool-use",
-          "knowledge-human-loop",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "AI Tooling Standards Brief",
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "AI Tooling Standards Brief",
-          "Automation Product Brief"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-06-02T00:12:38.352Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-06-02T00:12:38.383Z"
     }
   ]
 }
