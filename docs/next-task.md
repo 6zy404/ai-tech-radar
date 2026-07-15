@@ -1,5 +1,44 @@
 # Next Task
 
+> Update 2026-07-15 (later still, same day): **`/network` polish round —
+> node overlap fixed, edge crossings dimmed, relation-type legend added.**
+> Owner reported the graph "felt chaotic" and got worse when zoomed.
+> Measured before touching anything: 44 overlapping node-label pairs at
+> desktop width (33 labels, avg. ~112px wide, in a 568×568px canvas), 93
+> pairs at a narrower simulated-zoom width — the force layout's
+> ideal-distance formula never accounted for actual label footprint.
+> Fixed by making nodes small kind-colored dots by default (11-15px),
+> full title label only on hover/selection/an active search match (not
+> general filter-match, to avoid recreating the crowding for a filtered
+> category with a dozen-plus nodes). Re-measured: zero overlapping dots.
+> Same-day follow-up: measured edge crossing density separately (789
+> crossing pairs among 88 edges) and dimmed edges to rest at low opacity,
+> with a selected node's own edges popping to full accent-color opacity;
+> also added a relation-type legend (必备/关联/渊源/…) to the panel,
+> derived live from the real edge data. Also same day, separately:
+> `DossierCard`'s resting tilt was removed in favor of a flat rest state
+> (three mockup directions compared first) — `tilt` prop and each call
+> site's `cardTilts` array were **deliberately left in place, now inert**
+> (CSS-only fix); removing that prop plumbing from `technology-browser.tsx`,
+> `my-radar-content.tsx`, `digest/page.tsx`, `knowledge/page.tsx`,
+> `skills/page.tsx`, `dossier-technology-card.tsx`, and `page.tsx` is the
+> one concrete piece of low-risk deferred cleanup left on the books. See
+> `CHANGELOG.md` (three separate entries, same day) and
+> `docs/design-system.md` → "Dossier direction" for the full writeups of
+> each. All verified with typecheck, lint, format, vitest 61/61, and live
+> passes; one verification detour worth knowing about for future sessions
+> using this browser automation tool: CSS transitions can appear frozen
+> mid-value in this environment because the automation tab reports
+> `document.hidden === true` (browsers throttle transition timelines in
+> backgrounded tabs) — use `Element.getAnimations().forEach(a =>
+a.finish())` before reading `getComputedStyle` if a transitioned value
+> looks wrong. **Next actual step**: no predefined product task remains.
+> The dossier migration (all rounds), dark mode, and this `/network`
+> polish pass are all closed out — tree is clean, everything committed.
+> Either do the deferred `tilt`-prop cleanup above, or the owner should
+> pick the next initiative; nothing here should be assumed or started
+> without asking first.
+
 > Update 2026-07-15 (later the same day): **Dark mode shipped for the
 > dossier direction**, owner-decided as system-preference-only
 > (`prefers-color-scheme: dark`) — no manual toggle, no persisted state.
