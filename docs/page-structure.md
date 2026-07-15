@@ -356,10 +356,17 @@ Workspace deployment boundary:
   - guided empty states for "no follows yet" and "follows but no matches"
   - does not show internal quality, reviewer, delivery, or source data
 - `/network`
-  - user-facing whole-network overview
+  - user-facing whole-network overview, dossier direction (2026-07-15)
   - renders every published technology, skill, and knowledge item as a node in
-    one graph (grouped by kind into three lanes), with an edge for every
-    declared relationship and its semantic type
+    one graph, laid out by a hand-written force-directed simulation (node
+    repulsion, spring-edge attraction, a weak centering force) so the graph's
+    real topology — not a fixed technology/skill/knowledge lane split — drives
+    the layout, with an edge for every declared relationship and its semantic
+    type
+  - a search box highlights matching node titles; category chips filter by
+    kind (technology/skill/knowledge); hovering an edge shows its relation
+    label; nodes can be dragged to reposition them; search/filter and node
+    selection combine as a union (a node stays visible if it matches either)
   - clicking a node highlights its direct connections and opens a side panel
     with the node's title, a link to its own detail page, and its connection
     list (relation-type pill + linked title per connection); clicking again
@@ -466,8 +473,10 @@ Forbidden on public pages:
   - shared "关联 · N 技术 · N 技能 …" density line used by all three index cards
 - `ContentNetworkGraph`
   - user-facing whole-network overview for `/network`: every published node
-    laid out by kind with every relationship edge, click-to-focus exploration,
-    and a connection-list side panel
+    laid out by a hand-written force-directed simulation with every
+    relationship edge, search-highlight, a category filter, hover-over-edge
+    relation labels, draggable nodes, click-to-focus exploration, and a
+    connection-list side panel
 - `TechnologyCompareWidget`
   - user-facing, client-side AI comparison trigger and result panel on the
     technology detail page: pick another published technology, request a live

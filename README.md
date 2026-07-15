@@ -48,8 +48,10 @@ The product is split into two subsystems:
 - **Knowledge relationship network** — every technology/skill/knowledge cross-
   reference carries an explicit, Chinese-labelled relation type; a small
   per-item relationship graph is walkable on all three detail pages, and
-  `/network` renders the full graph in one view with click-to-focus
-  exploration of any node's direct connections.
+  `/network` renders the full graph in one view with a hand-written
+  force-directed layout, search-highlight, a category filter, hover-over-edge
+  relation labels, draggable nodes, and click-to-focus exploration of any
+  node's direct connections.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
