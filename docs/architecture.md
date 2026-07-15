@@ -105,10 +105,18 @@ All `/workspace/*` pages share a workspace-only second-level navigation:
 - Candidates
 - Duplicates
 - Drafts
+- Skills
+- Knowledge
 - Digests
 - Delivery
 - Schedules
 - Operations
+
+Skills and Knowledge are the content consoles added by Skill/Knowledge
+workspace editing v0: they manage the skill / knowledge pools (new entries
+plus copy-on-write overrides of the `src/data` seeds) with a
+draft/published status flow and a minimal publish gate; drafts never reach
+public pages.
 
 Workspace detail and preview pages also show breadcrumbs so editors can return to the correct module list. This navigation is intentionally not rendered on user-facing pages such as `/technologies`, `/technologies/[slug]`, `/digest/today`, or `/digest/[date]`.
 

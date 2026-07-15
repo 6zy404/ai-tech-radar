@@ -786,6 +786,36 @@ Represents a classic concept that helps explain newer technology signals.
 - `relatedTechnologyIds`
 - `relatedSkillIds`
 
+## SkillWorkspaceRecord / KnowledgeWorkspaceRecord
+
+Workspace-only editable versions of `SkillItem` / `KnowledgeItem` (Skill/
+Knowledge workspace editing v0, 2026-07-16). Each extends the public item
+shape with:
+
+- `status`: `draft | published` (`ContentWorkspaceStatus`)
+- `createdAt` / `updatedAt`
+
+Stored in `config/skill-workspace.json` / `config/knowledge-workspace.json`
+(`skill-workflow.ts` / `knowledge-workflow.ts`). The stores are a
+**copy-on-write overlay** over the `src/data` seed arrays:
+
+- editing a seed entry copies it into the store (initial status `published`,
+  since the seed version is already live); the seed data files are never
+  modified
+- new entries are created directly in the store with status `draft`
+- the public read (`getAllSkills` / `getAllKnowledge` in `content.ts`)
+  merges seeds with the store: a published record overrides its seed by id,
+  a draft record hides its seed, and store-new records appear only once
+  published; the merged items carry no workspace-only fields
+- entry origin (`workspace | seed | seed_override`,
+  `ContentWorkspaceOrigin`) is derived at read time, not persisted
+
+Publishing runs a minimal gate: missing title/slug/summary and a duplicate
+slug (within the merged pool of the same kind) block; short content,
+missing or non-canonical tags, and missing related content warn. Status and
+edit transitions record `skill.*` / `knowledge.*` workflow events. v0 edits
+related-content id lists only; typed `LinkRelation` editing is deferred.
+
 ## TopicTag
 
 Cross-cutting label used for browsing and grouping.
@@ -1087,6 +1117,8 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `candidate-review-state.json`
 - `external-sources.json`
 - `technology-workspace.json`
+- `skill-workspace.json`
+- `knowledge-workspace.json`
 - `duplicate-groups.json`
 - `daily-digests.json`
 - `delivery.json`
@@ -1104,6 +1136,9 @@ This local JSON boundary is for local development and controlled single-operator
 The file-level read/write mechanics are centralized in `src/lib/repositories/local-json-store.ts`. Workflow modules own domain transitions:
 
 - `source-workflow.ts`: sources and import runs
+- `skill-workflow.ts` / `knowledge-workflow.ts`: skill and knowledge
+  workspace records, seed copy-on-write overlay, publish gate, and the
+  merged public read
 - `candidate-workflow.ts`: imported candidates, review state, duplicate groups, and candidate → draft conversion
 - `technology-draft-workflow.ts`: technology workspace record CRUD, publish/archive status transitions, and publish readiness lookup
 - `digest-workflow.ts`: digest generation, editing, readiness, and status

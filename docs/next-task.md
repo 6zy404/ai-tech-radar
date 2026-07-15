@@ -1,5 +1,31 @@
 # Next Task
 
+> Update 2026-07-16: **Skill/Knowledge workspace editing v0 shipped**,
+> owner-approved after choosing the content-side direction (功能全但内容薄)
+> and reviewing a design mockup; three scope decisions were confirmed
+> upfront (seed entries editable via copy-on-write runtime overrides,
+> draft/published status flow with a minimal publish gate, v0 edits
+> related-content ids only — typed `LinkRelation` editing deferred to v1).
+> Landed as four commits: store + workflow layer with 16 vitest tests
+> (`src/lib/skill-workflow.ts` / `knowledge-workflow.ts`,
+> `config/skill-workspace.json` / `knowledge-workspace.json`), API routes
+> under `/api/workspace/{skills,knowledge}`, workspace pages
+> (`/workspace/skills`, `/workspace/knowledge` + `new` + `[id]`, nav and
+> breadcrumb entries), and public wiring (`getAllSkills` /
+> `getAllKnowledge` serve the merged view with drafts filtered; the
+> previously seed-direct reads in `content.ts` — `getSkillBySlug` /
+> `getKnowledgeBySlug`, `resolveTitle` / `resolveSlug`, `getContentGraph`
+> — were converged onto them). See `CHANGELOG.md` → "Skill/Knowledge
+> workspace editing v0" for the full writeup. Live-verified end to end
+> (draft hidden → publish → visible on index/detail/search; seed override
+> public; 409 readiness on blocked publish; zero console errors); vitest
+> 77/77. Same session, earlier: the 2026-07-15 daily digest quiet-day
+> round was published (no candidates needed decisions; vLLM v0.24.0
+> excluded as superseded). **Next actual step**: none predefined — natural
+> follow-ups to propose to the owner are a v1 for typed `LinkRelation`
+> editing, or using the new consoles to grow the real skill/knowledge
+> pools (content work, not code).
+
 > Update 2026-07-15 (later still, same day): **Topic hub shipped —
 > `/topics/[tagId]`.** Same session as the nav simplification below,
 > owner-directed after reviewing a page mockup and a separate index-page

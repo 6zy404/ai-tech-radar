@@ -12,6 +12,46 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Skill/Knowledge workspace editing v0
+
+- **Workspace editing flow for skills and knowledge shipped** — 2026-07-16,
+  owner-approved via a design mockup after choosing the content-side
+  direction (the skill/knowledge pools were previously only editable by
+  changing `src/data` seed code — the structural bottleneck for content
+  growth). Three confirmed scope decisions: seed entries are editable via
+  copy-on-write runtime overrides (seed files stay read-only), entries carry
+  a draft/published status flow with a minimal publish gate, and v0 edits
+  related-content ids only (typed `LinkRelation` editing deferred). Four
+  commits: (1) `src/lib/skill-workflow.ts` / `knowledge-workflow.ts` — new
+  `config/skill-workspace.json` / `knowledge-workspace.json` stores,
+  copy-on-write update/status transitions (editing a seed copies it into
+  the store as `published`, since the seed version is already live; new
+  records start as `draft`), pure cores (`buildXWorkspaceEntries`,
+  `evaluateXPublishReadiness`, `applyXWorkspaceOverlay`) with 16 vitest
+  tests, `skill.*`/`knowledge.*` workflow events; (2) API routes
+  `POST/PATCH /api/workspace/{skills,knowledge}[/[id]]` and
+  `POST .../[id]/status` mirroring the technology route shapes (409 +
+  readiness payload on blocked publish), all under the existing
+  `/api/workspace/*` token boundary; (3) workspace pages —
+  `/workspace/skills` and `/workspace/knowledge` lists (草稿/已发布/内置种子/
+  工作台覆盖 tiles, origin badges via a shared `ContentWorkspaceEntryCard`),
+  `new` + `[id]` edit pages (shared `ContentWorkspaceStatusActions` with
+  confirm + readiness errors, existing `PublishReadinessPanel`, per-domain
+  forms with canonical-`TopicTag` checkboxes and related-content pickers),
+  技能/知识 nav entries and breadcrumb labels; (4) public wiring —
+  `getAllSkills` / `getAllKnowledge` in `src/lib/content.ts` now serve the
+  merged seed+workspace view with drafts filtered, and the previously
+  seed-direct reads (`getSkillBySlug` / `getKnowledgeBySlug`,
+  `resolveTitle` / `resolveSlug`, `getContentGraph`) were converged onto
+  them so the overlay applies consistently across index/detail pages, the
+  content graph, search, and topic hubs. Publish gate: title/slug/summary
+  required + unique slug blocking; short content, missing/non-canonical
+  tags, and missing relations as warnings. Live-verified end to end:
+  draft invisible on `/skills` → publish → visible on index/detail/search;
+  seed override visible publicly and reverting cleanly after store
+  cleanup; 409 readiness on blocked publish; zero console errors.
+  Verified with typecheck, lint, format, and vitest 77/77.
+
 ## Topic hub (`/topics/[tagId]`)
 
 - **Per-topic drill-down page shipped** — 2026-07-15, same session as the nav

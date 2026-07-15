@@ -19,6 +19,8 @@ Used by:
 
 - `/workspace/candidates`
 - `/workspace/technologies`
+- `/workspace/skills`
+- `/workspace/knowledge`
 - `/workspace/sources`
 - `/workspace/duplicates`
 - `/workspace/digests`
@@ -42,6 +44,8 @@ Used by:
 
 - `/workspace/candidates/[id]`
 - `/workspace/technologies/[id]`
+- `/workspace/skills/[id]`
+- `/workspace/knowledge/[id]`
 - `/workspace/sources/[id]`
 - `/workspace/duplicates/[id]`
 - `/workspace/digests/[date]`
@@ -172,6 +176,24 @@ Purpose:
   - user-facing technology detail preview for an unpublished workspace record
   - reuses the user-facing detail renderer
   - does not render internal-only fields such as raw payload, import status, normalized type, or duplicate group
+- `/workspace/skills` and `/workspace/knowledge`
+  - workspace-only skill / knowledge content consoles (Skill/Knowledge
+    workspace editing v0)
+  - status tiles for 草稿 / 已发布 / 内置种子（未覆盖）/ 工作台覆盖
+  - workspace entries (new + seed overrides) listed before untouched seeds,
+    each row carrying a draft/published badge and an origin badge
+    (工作台新建 / 内置种子 / 种子已覆盖)
+  - one primary 新建 action per console (`/workspace/skills/new`,
+    `/workspace/knowledge/new`)
+- `/workspace/skills/[id]` and `/workspace/knowledge/[id]`
+  - skill / knowledge edit detail: status panel with confirm-gated
+    publish / unpublish, the shared `PublishReadinessPanel`, and the edit
+    form (title, slug, summary, content, per-kind attributes,
+    canonical-`TopicTag` checkbox picker, related-content pickers)
+  - editing a seed entry copies it into the workspace store
+    (copy-on-write); the origin note explains that seed code files are
+    never modified
+  - links to the public page when the entry is published
 - `/workspace/digests`
   - internal digest list
   - generate today's digest
@@ -452,6 +474,18 @@ Forbidden on public pages:
   - workspace-only list count and operational summary
 - `WorkspaceStatusBadge`
   - workspace-only status treatment for internal technology records and operational state
+- `ContentWorkspaceEntryCard`
+  - workspace-only list row shared by the skill and knowledge consoles:
+    title, summary, per-kind metadata, draft/published badge, and origin
+    badge (工作台新建 / 内置种子 / 种子已覆盖)
+- `ContentWorkspaceStatusActions`
+  - workspace-only publish / unpublish control shared by the skill and
+    knowledge edit pages, with confirmation prompts and 409 readiness
+    messages surfaced inline
+- `SkillWorkspaceForm` / `KnowledgeWorkspaceForm`
+  - workspace-only create/edit forms with canonical-`TopicTag` checkbox
+    pickers and related-content pickers; submit to the
+    `/api/workspace/{skills,knowledge}` routes
 - `UserPageShell`
   - user-facing page framing for published content
 - `UserArticleLayout`
