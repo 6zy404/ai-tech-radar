@@ -43,8 +43,6 @@ import type {
 
 export const dynamic = "force-dynamic";
 
-const cardTilts = ["a", "b", "c"] as const;
-
 const skillTypeLabels: Record<SkillType, string> = {
   engineering: "工程落地",
   analysis: "评估与分析",
@@ -79,13 +77,7 @@ function getPublicTechnologySummary(technology: TechnologyItem): string {
   );
 }
 
-function HomeTechnologyCard({
-  technology,
-  tilt
-}: {
-  technology: TechnologyItem;
-  tilt: "a" | "b" | "c";
-}) {
+function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
   const ranking = evaluateTechnologyPriority(technology);
   const summary = getPublicTechnologySummary(technology);
   const whyItMatters =
@@ -100,7 +92,7 @@ function HomeTechnologyCard({
     .filter((tag): tag is TopicTag => Boolean(tag));
 
   return (
-    <DossierCard tilt={tilt} className="home-signal-card">
+    <DossierCard className="home-signal-card">
       <div className="home-signal-card__meta">
         <DossierStampTag>
           {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
@@ -125,19 +117,13 @@ function HomeTechnologyCard({
   );
 }
 
-function SkillPathCard({
-  skill,
-  tilt
-}: {
-  skill: SkillItem;
-  tilt: "a" | "b" | "c";
-}) {
+function SkillPathCard({ skill }: { skill: SkillItem }) {
   const relatedTechnologies = getAllTechnologies().filter((technology) =>
     skill.relatedTechnologyIds.includes(technology.id)
   );
 
   return (
-    <DossierCard tilt={tilt} className="foundation-card">
+    <DossierCard className="foundation-card">
       <DossierStampTag className="dossier-stamp-tag--muted">
         {skillTypeLabels[skill.skillType]}
       </DossierStampTag>
@@ -150,19 +136,13 @@ function SkillPathCard({
   );
 }
 
-function KnowledgePathCard({
-  item,
-  tilt
-}: {
-  item: KnowledgeItem;
-  tilt: "a" | "b" | "c";
-}) {
+function KnowledgePathCard({ item }: { item: KnowledgeItem }) {
   const relatedTechnologies = getAllTechnologies().filter((technology) =>
     item.relatedTechnologyIds.includes(technology.id)
   );
 
   return (
-    <DossierCard tilt={tilt} className="foundation-card">
+    <DossierCard className="foundation-card">
       <DossierStampTag className="dossier-stamp-tag--muted">
         {difficultyLabels[item.difficulty]}
       </DossierStampTag>
@@ -283,12 +263,8 @@ export default function HomePage() {
         </div>
         {prioritySignals.length > 0 ? (
           <div className="home-signal-grid">
-            {prioritySignals.map((technology, index) => (
-              <HomeTechnologyCard
-                key={technology.id}
-                technology={technology}
-                tilt={cardTilts[index % cardTilts.length]}
-              />
+            {prioritySignals.map((technology) => (
+              <HomeTechnologyCard key={technology.id} technology={technology} />
             ))}
           </div>
         ) : (
@@ -349,12 +325,8 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="foundation-card-list">
-            {skills.map((skill, index) => (
-              <SkillPathCard
-                key={skill.id}
-                skill={skill}
-                tilt={cardTilts[index % cardTilts.length]}
-              />
+            {skills.map((skill) => (
+              <SkillPathCard key={skill.id} skill={skill} />
             ))}
           </div>
         </div>
@@ -370,12 +342,8 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="foundation-card-list">
-            {knowledge.map((item, index) => (
-              <KnowledgePathCard
-                key={item.id}
-                item={item}
-                tilt={cardTilts[index % cardTilts.length]}
-              />
+            {knowledge.map((item) => (
+              <KnowledgePathCard key={item.id} item={item} />
             ))}
           </div>
         </div>

@@ -23,7 +23,6 @@ interface DossierTechnologyCardProps {
   technology: TechnologyItem;
   tags: TopicTag[];
   mode: TechnologyContentMode;
-  tilt: "a" | "b" | "c";
   context?: TechnologyContentContext;
 }
 
@@ -37,7 +36,6 @@ export function DossierTechnologyCard({
   technology,
   tags,
   mode,
-  tilt,
   context = "preview"
 }: DossierTechnologyCardProps) {
   const effectiveMode = getEffectiveTechnologyMode(technology, mode, context);
@@ -67,7 +65,7 @@ export function DossierTechnologyCard({
     .slice(0, 4);
 
   return (
-    <DossierCard tilt={tilt} className="dossier-technology-card">
+    <DossierCard className="dossier-technology-card">
       <div className="dossier-technology-card__topline">
         <span className="dossier-technology-card__catalog">
           {getTechnologyTypeLabel(technology.type, effectiveMode)} · 第{" "}

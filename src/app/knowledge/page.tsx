@@ -21,8 +21,6 @@ import type {
   TechnologyItem
 } from "@/types/content";
 
-const cardTilts = ["a", "b", "c"] as const;
-
 const difficultySections: Array<{
   id: DifficultyLevel;
   title: string;
@@ -180,7 +178,7 @@ export default function KnowledgePage() {
                   <p>{section.description}</p>
                 </div>
                 <div className="skills-library-card-grid">
-                  {section.items.map((item, index) => {
+                  {section.items.map((item) => {
                     const relatedTechnologies = getRelatedTechnologies(
                       item,
                       technologies
@@ -196,7 +194,6 @@ export default function KnowledgePage() {
 
                     return (
                       <DossierCard
-                        tilt={cardTilts[index % cardTilts.length]}
                         className="skill-library-card knowledge-library-card"
                         key={item.id}
                       >

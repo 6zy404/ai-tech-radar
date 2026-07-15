@@ -11,8 +11,6 @@ import {
 
 export const dynamic = "force-dynamic";
 
-const cardTilts = ["a", "b", "c"] as const;
-
 interface ArchiveEntry {
   date: string;
   title: string;
@@ -85,12 +83,8 @@ export default function DigestArchivePage() {
             <section key={month.month} className="digest-archive-month">
               <h2>{getMonthLabel(month.month)}</h2>
               <div className="digest-archive-month__list">
-                {month.entries.map((entry, index) => (
-                  <DossierCard
-                    key={entry.date}
-                    tilt={cardTilts[index % cardTilts.length]}
-                    className="digest-archive-card"
-                  >
+                {month.entries.map((entry) => (
+                  <DossierCard key={entry.date} className="digest-archive-card">
                     <div className="digest-archive-card__meta">
                       <span className="digest-archive-card__date">
                         {entry.date}
