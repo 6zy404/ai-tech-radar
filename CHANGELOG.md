@@ -12,6 +12,29 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## `/network` dot nodes (overlap fix)
+
+- **Node overlap fixed on `/network`** — 2026-07-15, owner-reported the
+  whole-graph overview "felt chaotic" and got worse when zoomed. Measured
+  before fixing: 44 overlapping node-label pairs at desktop width (33
+  labels, avg. ~112px wide, in a 568×568px canvas), 93 pairs at a
+  narrower simulated-zoom width (305×320px canvas) — the force layout's
+  "ideal distance" formula never accounted for actual label footprint, so
+  labels were simply too wide for the room the physics gave them. Fixed
+  by making nodes small kind-colored dots by default (11-15px), with the
+  full title label appearing only when a node is hovered, selected, or
+  matches the active search text — not general category-filter match,
+  since a filtered category can still hold a dozen-plus nodes. Every node
+  keeps `aria-label`/`title` set to its full title regardless of visual
+  state, so screen readers and native tooltips are unaffected. Re-measured
+  after the fix: zero overlapping dots at both canvas sizes tested. See
+  `docs/design-system.md` → "Dossier direction" → "`/network` dot nodes
+  (2026-07-15)" for the full writeup. Verified with typecheck, lint, format,
+  vitest 61/61, and a live pass (search shows exactly the matching
+  labels, selection shows exactly its own label plus the connections
+  panel, dark mode's dot ring blends into the canvas background, zero
+  console errors).
+
 ## Dossier direction — flat cards (tilt removed)
 
 - **`DossierCard` tilt removed** — 2026-07-15, owner-directed. The
