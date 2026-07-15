@@ -225,6 +225,7 @@ export function ContentNetworkGraph({
   const [searchText, setSearchText] = useState("");
   const [kindFilter, setKindFilter] = useState("");
   const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
+  const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [positions, setPositions] = useState<PositionMap>(() =>
     gridLayout(nodes)
   );
@@ -295,6 +296,16 @@ export function ContentNetworkGraph({
 
     return matchesSearch && matchesKind;
   };
+
+  // Nodes render as small dots by default; the full title only appears for
+  // a hovered/selected node, or -- since a reader typing a name is
+  // explicitly asking to find it -- a search match. Kind-filter alone
+  // (with no search text) does not force labels, since a filtered
+  // category can still hold a dozen-plus nodes and showing every title at
+  // once would recreate the original crowding problem.
+  const matchesSearchOnly = (node: ContentGraphNode) =>
+    normalizedSearch.length > 0 &&
+    node.title.toLowerCase().includes(normalizedSearch);
 
   const selectedNode = selectedId
     ? (positionById.get(selectedId) ?? null)
@@ -506,10 +517,13 @@ export function ContentNetworkGraph({
             }
 
             const isDimmed = isDimmedByActiveChecks(nodeChecks);
+            const showLabel =
+              isSelected ||
+              node.id === hoveredNodeId ||
+              matchesSearchOnly(node);
             const className = [
-              "tech-graph__node",
-              `tech-graph__node--${node.kind}`,
               "content-network__node",
+              `content-network__node--${node.kind}`,
               isSelected ? "content-network__node--selected" : "",
               isDimmed ? "content-network__node--dim" : ""
             ]
@@ -526,12 +540,28 @@ export function ContentNetworkGraph({
                 onPointerDown={(event) => handlePointerDown(event, node.id)}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
+                onPointerEnter={() => setHoveredNodeId(node.id)}
+                onPointerLeave={() =>
+                  setHoveredNodeId((current) =>
+                    current === node.id ? null : current
+                  )
+                }
                 aria-pressed={isSelected}
+                aria-label={node.title}
+                title={node.title}
               >
-                <span className="tech-graph__node-kind">
-                  {kindLabel[node.kind]}
-                </span>
-                {node.title}
+                <span
+                  className="content-network__node-dot"
+                  aria-hidden="true"
+                />
+                {showLabel ? (
+                  <span
+                    className="content-network__node-label"
+                    aria-hidden="true"
+                  >
+                    {node.title}
+                  </span>
+                ) : null}
               </button>
             );
           })}
@@ -581,7 +611,7 @@ export function ContentNetworkGraph({
           ) : (
             <>
               <p className="content-network__panel-hint">
-                点击任意节点查看它的直接连接，拖动节点可以重新摆放；再次点击节点可取消选中。
+                节点默认只显示彩色圆点；悬停或搜索可以看到名称。点击任意节点查看它的直接连接，拖动节点可以重新摆放；再次点击节点可取消选中。
               </p>
               <ul className="content-network__legend">
                 <li className="content-network__legend-item content-network__legend-item--technology">

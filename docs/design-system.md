@@ -890,3 +890,56 @@ into this visual change. Verified with typecheck, lint, format, vitest
 61/61, and a live check that `.dossier-card` elements compute
 `transform: none` at rest across `/technologies`, `/skills`, and `/`,
 with zero console errors.
+
+### `/network` dot nodes (2026-07-15)
+
+Owner-reported: the whole-graph overview felt chaotic, and got worse when
+the page was zoomed. Measured before changing anything (headless overlap
+detection over `getBoundingClientRect()`, not a guess): at desktop width
+the 33 node labels (avg. ~112px wide) overlapped in **44 pairs** inside a
+568×568px canvas; at a narrower simulated-zoom width the same graph hit
+**93 overlapping pairs** in a 305×320px canvas. Root cause: the
+force-directed layout's "ideal distance" is computed from canvas
+area ÷ node count, which assumes point-like nodes — it never accounted
+for each node's actual rendered label footprint, so at 33+ nodes the
+labels were simply too wide for the space the physics gave them,
+independent of how well-tuned the physics constants were. The global nav
+and other breakpoints were checked at the same widths and found intact —
+the "gets worse when zoomed" report was this same overlap problem
+scaling with the shrinking canvas, not a separate layout bug.
+
+Two directions were discussed: (A) keep always-visible text labels and
+throw more room at the problem (bigger canvas, single-line ellipsis
+titles), or (B) make nodes small dots by default, with the full title
+label appearing only for a hovered, selected, or search-matched node.
+(B) was chosen — it's the standard scalable pattern for dense force
+graphs and doesn't run out of headroom as node count grows, unlike (A).
+
+Implementation: `ContentNetworkGraph` no longer reuses `RelationshipGraph`'s
+`tech-graph__node`/`tech-graph__node--<kind>` classes (that class family
+still serves its original single-item-graph consumer unchanged). Node
+buttons now render a small `.content-network__node-dot` (11px resting,
+15px on hover/select/focus, kind-colored fill — fixed hex, not
+`--dossier-*` tokens, consistent with this file's precedent of leaving
+small accent colors constant across themes) plus an optional
+`.content-network__node-label` (a small paper-style tag, positioned above
+the dot, `pointer-events: none` so it can't intercept clicks). The label
+shows when `node.id === selectedId`, `node.id === hoveredNodeId` (new
+state, wired the same way `hoveredEdgeId` already was), or the node
+matches the active **search text** specifically — deliberately not
+general filter-match, since kind-filter alone can still select a dozen-
+plus nodes (e.g. all 17 technology nodes) and forcing every one to show
+its label at once would recreate the original crowding problem. Every
+node button keeps `aria-label`/`title` set to the full title regardless
+of visual label state, so the accessible name and native tooltip are
+unaffected by the redesign. The panel's default hint line was updated to
+say hovering/searching reveals names, since the always-on label — a
+discoverable-by-default affordance — was removed.
+
+Re-measured after the change: **zero overlapping dots** at both the
+568×568px desktop canvas and the 305×320px narrow-zoom canvas (down from
+44 and 93 label-overlap pairs). Verified with typecheck, lint, format,
+vitest 61/61, and a live pass (search-driven labels show exactly the
+matching subset, selecting a node shows exactly its own label plus the
+connections panel, dark mode's dot ring color matches the canvas
+background instead of showing a stray white ring, zero console errors).
