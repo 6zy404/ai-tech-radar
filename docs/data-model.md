@@ -813,8 +813,9 @@ exists for that pair.
 
 ## PublicNewsItem / PublicNewsDay (derived)
 
-Represents the public news fast lane view for `/news` and the home news
-board. Like `DigestDeliveryFeed`, this is a derived view computed on read by
+Represents the public news fast lane view for the 全部快讯 view on
+`/technologies?view=news` and the home news board. Like `DigestDeliveryFeed`,
+this is a derived view computed on read by
 `getPublicNewsItems()` / `getPublicNewsDays()` in `src/lib/news.ts`, not a
 persisted entity. It is the only mapping through which an `ImportedCandidate`
 may reach a public surface.

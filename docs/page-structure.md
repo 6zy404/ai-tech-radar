@@ -58,8 +58,7 @@ Purpose:
 Used by:
 
 - `/`
-- `/news`
-- `/technologies`
+- `/technologies` (also hosts the 全部快讯/按话题/我关注的 views via `?view=`)
 - `/skills`
 - `/knowledge`
 
@@ -253,29 +252,49 @@ Workspace deployment boundary:
   - highlights high-priority published technology signals
   - links readers into Skills and Knowledge as understanding paths
   - links to `/digest/today`, `/technologies`, `/skills`, and `/knowledge`
-  - shows a compact latest-news board (今日快讯) linking to `/news`, with the
-    auto-aggregation disclaimer
+  - shows a compact latest-news board (今日快讯) linking to
+    `/technologies?view=news`, with the auto-aggregation disclaimer
   - does not show workspace actions, source health, delivery, audit, task-runner, or local JSON warnings
-- `/news`
-  - user-facing auto-aggregated news fast lane (今日快讯)
-  - renders recently imported candidates (last 7 days, grouped by day) through
-    the dedicated sanitizing map in `src/lib/news.ts` — title, truncated
-    summary, source name, external source link, publish date, and display
-    tags only
-  - always labelled "自动聚合内容，未经编辑精选"; links converted + published
-    items to their formal technology signal page
-  - hides rejected candidates, fallback placeholder candidates, and
-    non-primary duplicates; shows a guided empty state when the window is
-    empty
-  - does not show import status, raw payloads, candidate IDs, duplicate
-    internals, source health, or any workspace action
 - `/technologies`
-  - user-facing published technology list
-  - bilingual content preference for title and summary
-  - uses a compact signal-stream layout on desktop so users scan one curated item at a time instead of reading a workspace-style grid
-  - cards show signal type, signal strength, audience fit, Content Intelligence why-watch summary, reading difficulty, source, tags, and related context counts
-  - cards show productized priority labels such as immediate attention / worth tracking / good to know
-  - user-facing wording must not expose demo / mock semantics
+  - user-facing published technology hub with four views switched by a
+    `?view=` query param and a tab strip at the top of the page; `/news`,
+    `/timeline`, and `/radar` each redirect here to the matching view
+    (`src/app/{news,timeline,radar}/page.tsx` are one-line `redirect()`s)
+  - 精选 (default, no `view` param, `TechnologyBrowser`): user-facing
+    published technology list; bilingual content preference for title and
+    summary; uses a compact signal-stream layout on desktop so users scan
+    one curated item at a time instead of reading a workspace-style grid;
+    cards show signal type, signal strength, audience fit, Content
+    Intelligence why-watch summary, reading difficulty, source, tags, and
+    related context counts; cards show productized priority labels such as
+    immediate attention / worth tracking / good to know; user-facing
+    wording must not expose demo / mock semantics
+  - 全部快讯 (`?view=news`, `NewsFeedSection`): user-facing auto-aggregated
+    news fast lane (今日快讯); renders recently imported candidates (last 7
+    days, grouped by day) through the dedicated sanitizing map in
+    `src/lib/news.ts` — title, truncated summary, source name, external
+    source link, publish date, and display tags only; always labelled
+    "自动聚合内容，未经编辑精选"; links converted + published items to their
+    formal technology signal page; hides rejected candidates, fallback
+    placeholder candidates, and non-primary duplicates; shows a guided
+    empty state when the window is empty; does not show import status, raw
+    payloads, candidate IDs, duplicate internals, source health, or any
+    workspace action
+  - 按话题 (`?view=timeline`, `TopicTimelineSection`): published technology
+    signals grouped by topic tag, each rendered as a chronological
+    (newest-first) list of dated nodes linking to `/technologies/[slug]`;
+    topics sorted by signal count, then name; only topics with at least one
+    published signal are shown; published-signal data only — no news
+    fast-lane items, no internal fields; guided empty state when no
+    published signals exist yet
+  - 我关注的 (`?view=followed`, `MyRadarContent`): readers follow topic tags
+    via toggle chips; follows live only in browser localStorage (no
+    accounts, no server-side profile); aggregates published technologies
+    whose tags intersect the followed set, grouped by the existing
+    deterministic Ranking v0 priority levels and date-sorted within groups;
+    each matched item shows an explicit "命中关注：X" explanation line;
+    guided empty states for "no follows yet" and "follows but no matches";
+    does not show internal quality, reviewer, delivery, or source data
 - `/technologies/[slug]`
   - user-facing published technology detail
   - bilingual content reading
@@ -311,7 +330,7 @@ Workspace deployment boundary:
     命中关注 line, and a 只看我关注的 toggle filters the signal sections
     client-side (localStorage follows only; the served content is identical
     for everyone); readers with no follows see one hint line linking to
-    `/radar`
+    `/technologies?view=followed`
   - does not show internal ranking scores, quality flags, candidate data, duplicate group data, manual digest controls, editorial notes, or workspace actions
 - `/feed.xml`
   - public RSS feed generated from published daily digest records only
@@ -345,16 +364,6 @@ Workspace deployment boundary:
   - links to skills that use the concept
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
     readers can add the concept's topics to their personal radar in place
-- `/radar`
-  - user-facing personal radar (P4 v0)
-  - readers follow topic tags via toggle chips; follows live only in browser
-    localStorage (no accounts, no server-side profile)
-  - aggregates published technologies whose tags intersect the followed set,
-    grouped by the existing deterministic Ranking v0 priority levels and
-    date-sorted within groups, reusing `TechnologyListCard`
-  - each matched item shows an explicit "命中关注：X" explanation line
-  - guided empty states for "no follows yet" and "follows but no matches"
-  - does not show internal quality, reviewer, delivery, or source data
 - `/network`
   - user-facing whole-network overview, dossier direction (2026-07-15)
   - renders every published technology, skill, and knowledge item as a node in
@@ -376,17 +385,9 @@ Workspace deployment boundary:
     `RelationDensity` — this page is the one place to see the whole graph at
     once instead of one node's neighbourhood
   - does not show internal quality, reviewer, delivery, or source data
-- `/timeline`
-  - user-facing topic timeline (「时间线」 in `TopNav`)
-  - published technology signals grouped by topic tag, each rendered as a
-    chronological (newest-first) list of dated nodes linking to
-    `/technologies/[slug]`
-  - topics sorted by signal count, then name; only topics with at least one
-    published signal are shown
-  - published-signal data only — no news fast-lane items, no internal fields
-  - guided empty state when no published signals exist yet
 - `/search`
-  - user-facing site-wide keyword search (「搜索」 in `TopNav`)
+  - user-facing site-wide keyword search (an inline search icon in `TopNav`
+    opens the query box, GETs to this page)
   - server-rendered `?q=` GET form; deterministic case-insensitive substring
     matching on title / summary / tag display names only, with
     space-separated terms ANDed
@@ -447,9 +448,10 @@ Forbidden on public pages:
   - safe public tag rendering helper
 - `FollowableTagList`
   - user-facing client component rendering an item's tags as the same
-    follow/unfollow toggle chips used on `/radar` (localStorage-backed via
-    `src/lib/followed-tags.ts`, reusing the `my-radar__tag-toggle` styles),
-    with a hint line linking to `/radar` when any of the page's tags is
+    follow/unfollow toggle chips used on the 我关注的 view
+    (localStorage-backed via `src/lib/followed-tags.ts`, reusing the
+    `my-radar__tag-toggle` styles), with a hint line linking to
+    `/technologies?view=followed` when any of the page's tags is
     followed; used by the tags section on the technology, skill, and
     knowledge detail pages (hero and related-card tags stay on `TagList`)
 - `SourceReference`
@@ -457,7 +459,10 @@ Forbidden on public pages:
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`
-  - shared global navigation for user-facing Home, Daily Digest, News, Technologies, Skills, Knowledge, Network, Timeline, My Radar, Search, and the secondary Workspace entry point
+  - shared global navigation for user-facing Home, Daily Digest, Technologies
+    (which also hosts the former News/Timeline/My Radar views), Skills,
+    Knowledge, Network, an inline search icon/box (GETs to `/search`), and
+    the secondary Workspace entry point
 - `DetailInfoCard`
   - shared reference / metadata card
 - `TagBadge`
@@ -488,7 +493,8 @@ Forbidden on public pages:
     资深), request a live explanation from `POST /api/technologies/explain`,
     same disclaimer discipline as `TechnologyCompareWidget`
 - `MyRadarContent`
-  - user-facing client component for `/radar`: followed-tag toggle chips
+  - user-facing client component rendered by the 我关注的 view on
+    `/technologies?view=followed`: followed-tag toggle chips
     (localStorage-backed via `src/lib/followed-tags.ts`), deterministic
     priority-grouped matching of published signals, per-item matched-topic
     explanation line, and guided empty states
@@ -508,7 +514,8 @@ Forbidden on public pages:
 - `DossierTechnologyCard`
   - user-facing dossier-styled index card for `/technologies`; a
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it
-    is still shared with the home page and `/radar`)
+    is still shared with the home page and the 我关注的 view's
+    `MyRadarContent`)
 - `DossierRelatedItemsSection`
   - user-facing dossier-styled rendering of the technology detail page's
     相关技术/相关技能/相关知识 sections, showing each connection's note

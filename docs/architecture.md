@@ -28,11 +28,11 @@ Used by end users.
 Responsibilities:
 
 - display formal `TechnologyItem` content only on the curated tier
-- offer an auto-aggregated news fast lane (`/news`) rendered through a
-  dedicated sanitizing map (`src/lib/news.ts`) and always labelled as
-  unedited aggregation — the deliberate two-tier exception to "candidates are
-  workspace-only" (see `docs/security-boundary.md` → "News Fast Lane
-  Boundary")
+- offer an auto-aggregated news fast lane (the 全部快讯 view on
+  `/technologies?view=news`) rendered through a dedicated sanitizing map
+  (`src/lib/news.ts`) and always labelled as unedited aggregation — the
+  deliberate two-tier exception to "candidates are workspace-only" (see
+  `docs/security-boundary.md` → "News Fast Lane Boundary")
 - provide readable technology list and detail pages
 - show title, summary, content, source, tags, related skills, and related knowledge
 - prefer Chinese content when translation exists
@@ -120,7 +120,7 @@ prerequisite instead of silently doing nothing.
 
 Route and API boundaries:
 
-- Public routes: `/`, `/news`, `/technologies`, `/technologies/[slug]`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
+- Public routes: `/`, `/technologies` (also hosts the news/timeline/radar views via `?view=`), `/technologies/[slug]`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
 - Internal routes: `/workspace/*`
 - Internal mutation APIs: `/api/workspace/*` and `/api/candidates/*`
 - Public pages do not import workspace action components and do not call workspace mutation APIs
@@ -450,8 +450,7 @@ Deployment readiness defines which parts of the local-first prototype can be pub
 Public user-facing routes:
 
 - `/`
-- `/news`
-- `/technologies`
+- `/technologies` (also hosts the news/timeline/radar views via `?view=`)
 - `/technologies/[slug]`
 - `/digest/today`
 - `/digest/[date]`

@@ -458,7 +458,7 @@ export function DailyDigestContent({
           <section className="daily-digest-personal-bar">
             <p>
               关注感兴趣的话题后，简报会标出并可筛选命中你关注的内容。{" "}
-              <Link className="action-link" href="/radar">
+              <Link className="action-link" href="/technologies?view=followed">
                 前往我的雷达
               </Link>
             </p>
@@ -535,7 +535,7 @@ export function DailyDigestContent({
           <strong>本期简报没有命中你关注的话题。</strong>
           <p>
             可以查看全部内容，或到
-            <Link className="action-link" href="/radar">
+            <Link className="action-link" href="/technologies?view=followed">
               我的雷达
             </Link>
             调整关注的话题。

@@ -7,8 +7,7 @@ This project is still a local-first prototype, but it can be run in a controlled
 Public user-facing routes:
 
 - `/`
-- `/news`
-- `/technologies`
+- `/technologies` (also hosts the news/timeline/radar views via `?view=`)
 - `/technologies/[slug]`
 - `/digest/today`
 - `/digest/[date]`

@@ -39,9 +39,10 @@ Responsibilities:
 
 - explain what the product is from `/` and guide readers into the public discovery flow
 - surface the latest published Daily Digest as the primary "start here" entry
-- offer `/news` as an auto-aggregated fast lane (two-tier content model): the
-  most recently imported items, sanitized and clearly labelled 未经编辑精选,
-  alongside — never instead of — the editor-curated signal and digest tier
+- offer the 全部快讯 view on `/technologies?view=news` as an auto-aggregated
+  fast lane (two-tier content model): the most recently imported items,
+  sanitized and clearly labelled 未经编辑精选, alongside — never instead of —
+  the editor-curated 精选 view and digest tier
 - render published `TechnologyItem` content only on the curated tier
 - support content-level bilingual reading for technology title, summary, and content
 - show source links, tags, related knowledge, related skills, priority labels, and Content Intelligence explanations
@@ -59,24 +60,28 @@ task-runner information.
 Public pages:
 
 - `/`
-- `/news` — auto-aggregated news fast lane (sanitized imported candidates,
-  last 7 days; see `docs/security-boundary.md` → "News Fast Lane Boundary")
 - `/digest` — month-grouped archive index of published digests (public
   title/summary/date/counts only)
 - `/digest/today`
 - `/digest/[date]`
-- `/technologies`
+- `/technologies` — four views via `?view=`:
+  - default (精选) — curated published technology list
+  - `news` (全部快讯) — auto-aggregated news fast lane (sanitized imported
+    candidates, last 7 days; see `docs/security-boundary.md` → "News Fast
+    Lane Boundary")
+  - `timeline` (按话题) — published technology signals grouped by topic tag
+    as chronological (newest-first) lists; published-content only, no news
+    fast-lane data
+  - `followed` (我关注的) — personal radar; follows are browser-local
+    (localStorage), the view itself serves the same published content to
+    everyone
+  - `/news`, `/timeline`, and `/radar` redirect here to the matching view
 - `/technologies/[slug]`
 - `/skills`
 - `/skills/[slug]`
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
-- `/timeline` — published technology signals grouped by topic tag as
-  chronological (newest-first) lists; published-content only, no news
-  fast-lane data
-- `/radar` — personal radar; follows are browser-local (localStorage), the
-  route itself serves the same published content to everyone
 - `/search` — site-wide keyword search over published signals, skills,
   knowledge, and the news fast lane (deterministic title/summary/tag
   matching; news results reuse the `src/lib/news.ts` sanitizing map)
@@ -195,8 +200,9 @@ without weakening the editorial gate:
   Asia/Shanghai) has passed. Unattended imports never create fallback
   placeholder candidates. Managed from `/workspace/delivery/schedules`;
   Windows Task Scheduler setup lives in `docs/deployment.md`.
-- `/news` (今日快讯) publicly renders the last 7 days of imported candidates
-  through the sanitizing map in `src/lib/news.ts` — title / truncated
+- The 全部快讯 view on `/technologies?view=news` (今日快讯) publicly renders
+  the last 7 days of imported candidates through the sanitizing map in
+  `src/lib/news.ts` — title / truncated
   summary / source / date / display tags only, always labelled
   自动聚合，未经编辑精选. Rejected, fallback, and non-primary duplicate
   candidates are excluded; converted + published items link to their formal
@@ -378,27 +384,29 @@ database behavior, delivery channels, or full-site i18n.
 P4 ("personalization") was owner-authorized on 2026-07-09. The v0 scope is
 deliberately minimal and keeps every existing boundary intact:
 
-- Readers follow topic tags on `/radar` via toggle chips; follows are stored
-  only in the reader's browser `localStorage` — no accounts, no server-side
-  profile, no personal data on the server.
-- The radar filters published technologies whose tags intersect the followed
-  set and groups them with the existing deterministic Ranking v0 levels; each
-  item carries an explicit "命中关注：X" explanation line. This is
-  deterministic, explainable filtering — not AI ranking and not a
+- Readers follow topic tags on the 我关注的 view (`/technologies?view=followed`)
+  via toggle chips; follows are stored only in the reader's browser
+  `localStorage` — no accounts, no server-side profile, no personal data on
+  the server.
+- The radar view filters published technologies whose tags intersect the
+  followed set and groups them with the existing deterministic Ranking v0
+  levels; each item carries an explicit "命中关注：X" explanation line. This
+  is deterministic, explainable filtering — not AI ranking and not a
   recommendation system.
-- The route serves identical published content to everyone; personalization
+- The view serves identical published content to everyone; personalization
   happens entirely client-side.
 - Follow entry on detail pages (v0.1, same day): the tags section on the
   technology, skill, and knowledge detail pages renders the same
   follow-toggle chips (`FollowableTagList`), so readers can follow a topic
-  where they read about it; a hint line links back to `/radar` when any of
-  the page's tags is followed. Same localStorage-only boundary — no new
-  routes, no server state.
+  where they read about it; a hint line links back to
+  `/technologies?view=followed` when any of the page's tags is followed.
+  Same localStorage-only boundary — no new routes, no server state.
 - Personalized digest view (v0.2, same day): public digest pages highlight
   items matching the reader's followed topics (命中关注 line) and offer a
   只看我关注的 client-side filter with guided empty states. The served
   digest content stays identical for everyone; readers with no follows see
-  the digest unchanged apart from one hint line linking to `/radar`. Same
+  the digest unchanged apart from one hint line linking to
+  `/technologies?view=followed`. Same
   localStorage-only boundary.
 
 ## Current non-goals

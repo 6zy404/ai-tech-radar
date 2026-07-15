@@ -281,7 +281,7 @@ export default function HomePage() {
             <p className="eyebrow user-eyebrow">今日快讯</p>
             <h2>来源里正在发生什么</h2>
           </div>
-          <Link href="/news" className="action-link">
+          <Link href="/technologies?view=news" className="action-link">
             查看全部快讯
           </Link>
         </div>

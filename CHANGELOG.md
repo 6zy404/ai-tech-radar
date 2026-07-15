@@ -12,6 +12,38 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Nav simplification: /news, /timeline, /radar folded into /technologies
+
+- **Public nav cut from 10 items to 6** — 2026-07-15, owner-directed after
+  reviewing a before/after mockup and comparison page. 今日快讯 (`/news`),
+  时间线 (`/timeline`), and 我的雷达 (`/radar`) were three different
+  filters/groupings over the same published-technology data, not
+  independent destinations, so they're now four views on `/technologies`
+  switched by a `?view=` query param and a tab strip (精选 default,
+  `news`/全部快讯, `timeline`/按话题, `followed`/我关注的). `/technologies/page.tsx`
+  reads the `view` param and renders `TechnologyBrowser` (unchanged),
+  the new `NewsFeedSection` and `TopicTimelineSection` components
+  (extracted verbatim from the old news/timeline pages, with
+  `getTimelineTopics` changed to take `technologies`/`tags` as parameters
+  instead of re-fetching them), or the existing `MyRadarContent` (reused
+  as-is). `src/app/{news,timeline,radar}/page.tsx` are now one-line
+  `redirect()`s to the matching `?view=`, matching the existing
+  `src/app/candidates/page.tsx` legacy-redirect pattern. All four cross-page
+  links that pointed at the old routes (`page.tsx`'s home news-board link,
+  `daily-digest-content.tsx`'s two personalization-bar links, and
+  `followable-tag-list.tsx`'s follow hint) were repointed at the matching
+  `/technologies?view=` URL. The 搜索 nav link was replaced with an
+  always-visible inline search icon/box in `TopNav` that still GETs to the
+  untouched `/search` page. Confirmed before starting that every CSS
+  class used by the moved-in JSX (`.news-day`, `.news-card`, `.timeline-topic`,
+  `.dossier-timeline-node`, `.my-radar`, etc.) was already unscoped (only
+  extra rules were scoped to the generic `.dossier` ancestor, which
+  `/technologies` already carries), so the merge needed zero CSS selector
+  rewrites — only new `.technology-view-tabs`/`.top-nav__search` blocks.
+  Verified with typecheck, lint, format, vitest, and a live pass (all four
+  `?view=` values, the three old routes redirecting correctly, the search
+  toggle, and the repointed cross-links).
+
 ## `DossierCard` tilt prop cleanup
 
 - **Removed the inert `tilt` prop and `cardTilts` arrays** — 2026-07-15,

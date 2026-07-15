@@ -28,8 +28,9 @@ The product is split into two subsystems:
   source/candidate quality signals, and a task-runner scheduled daily import
   (`config/scheduled-import.json`, managed from
   `/workspace/delivery/schedules`).
-- **News fast lane (two-tier content model)** — `/news` publicly renders
-  recently imported candidates (last 7 days, grouped by day) through a
+- **News fast lane (two-tier content model)** — the 全部快讯 view on
+  `/technologies?view=news` publicly renders recently imported candidates
+  (last 7 days, grouped by day) through a
   dedicated sanitizing map (`src/lib/news.ts`): title / summary / source /
   date / tags only, always labelled "自动聚合，未经编辑精选", with rejected
   candidates, fallback placeholders, and non-primary duplicates excluded, and
@@ -71,29 +72,32 @@ The product is split into two subsystems:
   technology and shown with the same disclaimer
   (`POST /api/technologies/learning-path`).
 - **Personal radar (P4 v0)** — readers follow topic tags (stored only in
-  browser localStorage, no accounts) and `/radar` aggregates matching
-  published signals into the existing priority groups, with an explicit
-  "matched because you follow X" line per item. Deterministic filtering on
-  Ranking v0 — no AI ranking, no server-side profile. Detail pages carry a
-  follow entry (P4 v0.1): the tags section on technology/skill/knowledge
-  detail pages renders the same follow-toggle chips, so readers can follow a
-  topic where they read about it, with an inline "已加入我的雷达 → 查看"
-  link back to `/radar`. Public digest pages carry a personalized view
+  browser localStorage, no accounts) and the 我关注的 view on
+  `/technologies?view=followed` aggregates matching published signals into
+  the existing priority groups, with an explicit "matched because you follow
+  X" line per item. Deterministic filtering on Ranking v0 — no AI ranking, no
+  server-side profile. Detail pages carry a follow entry (P4 v0.1): the tags
+  section on technology/skill/knowledge detail pages renders the same
+  follow-toggle chips, so readers can follow a topic where they read about
+  it, with an inline "已加入我的雷达 → 查看" link back to
+  `/technologies?view=followed`. Public digest pages carry a personalized view
   (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
   "只看我关注的" toggle filters the signal sections client-side — the served
   digest stays identical for everyone.
-- **Topic timeline** — public `/timeline` (「时间线」 in `TopNav`) groups
-  published technology signals by topic tag, each shown as a chronological
-  (newest-first) list linking to its detail page. Published-signal data only
-  (no news fast-lane noise); reuses `getAllTechnologies` / `getAllTags` and
-  the bilingual title/summary helpers, no new data or route.
-- **Site-wide search** — public `/search` (「搜索」 in `TopNav`) with
-  server-rendered `?q=` keyword search over published technology signals,
-  skills, knowledge, and the sanitized news fast lane. Deterministic,
-  case-insensitive substring matching on title / summary / tag names only
-  (space-separated terms are ANDed), results grouped per content type, and
-  the fixed auto-aggregation disclaimer on the news group. News results reuse
-  the same `src/lib/news.ts` public mapping as `/news`; no internal fields
+- **Topic timeline** — the 按话题 view on `/technologies?view=timeline`
+  groups published technology signals by topic tag, each shown as a
+  chronological (newest-first) list linking to its detail page.
+  Published-signal data only (no news fast-lane noise); reuses
+  `getAllTechnologies` / `getAllTags` and the bilingual title/summary
+  helpers, no new data or route.
+- **Site-wide search** — public `/search` (an inline search icon in
+  `TopNav` opens the query box) with server-rendered `?q=` keyword search
+  over published technology signals, skills, knowledge, and the sanitized
+  news fast lane. Deterministic, case-insensitive substring matching on
+  title / summary / tag names only (space-separated terms are ANDed),
+  results grouped per content type, and the fixed auto-aggregation
+  disclaimer on the news group. News results reuse the same
+  `src/lib/news.ts` public mapping as the 全部快讯 view; no internal fields
   enter the page (`src/lib/search.ts`).
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
@@ -118,14 +122,14 @@ reading storage directly.
 
 Public, user-facing routes:
 
-- `/`, `/news`, `/technologies`, `/technologies/[slug]`
+- `/`, `/technologies` (精选/全部快讯/按话题/我关注的 four views via `?view=`),
+  `/technologies/[slug]`
 - `/digest` (archive), `/digest/today`, `/digest/[date]`
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
-- `/timeline`
-- `/radar`
 - `/search`
 - `/feed.xml`, `/feed.json`
+- `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
 - `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
   `POST /api/technologies/learning-path` — public, unprotected by design
   (they only operate on already-published technology content); see
