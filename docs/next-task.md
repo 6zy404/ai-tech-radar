@@ -42,7 +42,11 @@
 > excluded as superseded). **Next actual step**: none predefined — natural
 > follow-ups to propose to the owner are a v1 for typed `LinkRelation`
 > editing, or using the new consoles to grow the real skill/knowledge
-> pools (content work, not code).
+> pools (content work, not code). Content growth has since started (same
+> day): four real entries authored and published through the new
+> consoles — 技能「推理服务容量规划」「实时语音交互设计」, 知识
+> 「合成数据与数据配方」「本地与云混合推理架构」— all grounded in the
+> nine published signals, zero publish-gate warnings.
 
 > Update 2026-07-15 (later still, same day): **Topic hub shipped —
 > `/topics/[tagId]`.** Same session as the nav simplification below,
