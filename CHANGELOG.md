@@ -12,6 +12,33 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Dark-mode contrast completion round
+
+- **Site-wide contrast fixes, dark mode completed** — 2026-07-16,
+  owner-reported ("有一些界面字的颜色和背景颜色相近导致看不清字"). A WCAG
+  contrast scan in both color schemes located the cause almost entirely
+  in dark mode: the 2026-07-15 dark round only redeclared the seven
+  `--dossier-*` tokens (+ TopNav/body), leaving every component styled
+  through older generic root tokens or hardcoded light-mode colors
+  "half dark" — worst cases at 1.16–1.8:1 (page headers keeping their
+  light paper gradients under dark-mode light text, the tech-detail
+  aside panels, the home news rows, relationship-graph headings/nodes,
+  hardcoded `#34404a`-family body copy). CSS-only fix in
+  `globals.css`'s dark media block: (1) the dark `.dossier` scope now
+  also redeclares the generic root tokens (`--muted`, `--user-ink`,
+  `--accent`, `--surface-strong`, ...) so the light-by-design workspace
+  is untouched; (2) targeted overrides remap the hardcoded leftovers to
+  dossier tokens; (3) three marginal values nudged one step for 4.5:1
+  (dark `--dossier-stamp`, light `--dossier-muted`, and
+  `--workspace-nav-active` + white active-link text — the last a
+  pre-existing light-mode issue); (4) in dark mode the Internal
+  Workspace gets an opaque light board behind `.workspace-shell`
+  instead of sitting on the dark body. Re-scanned to zero failures
+  across 11 public routes + the workspace in both schemes, zero console
+  errors, light mode visually unchanged apart from the two token
+  nudges. Full audit notes in `docs/design-system.md` → "Dark-mode
+  contrast completion round". Verified with typecheck, lint, format.
+
 ## Skill/Knowledge workspace editing v0
 
 - **Workspace editing flow for skills and knowledge shipped** — 2026-07-16,

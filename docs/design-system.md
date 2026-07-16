@@ -857,6 +857,54 @@ emulation (dark: `.dossier`/`.top-nav`/`body` all repaint correctly on
 `/network` and a workspace page, zero console errors; light: unchanged
 from before, zero regressions).
 
+### Dark-mode contrast completion round (2026-07-16)
+
+Owner-reported: some interface text was too close to its background to
+read. A WCAG contrast scan (per-text-node effective-background
+computation, run in both color schemes across the public pages and the
+workspace) located the cause almost entirely in **dark mode**: the
+2026-07-15 dark round only redeclared the seven `--dossier-*` tokens
+plus TopNav/body, so every component styled through the older generic
+root tokens (`--muted`, `--user-ink`, `--accent`, `--surface-strong`,
+...) or hardcoded light-mode colors ended up "half dark" — light panels
+under dark-mode light text (`.user-page-header`'s paper gradient, the
+tech-detail aside panels, `.home-news-row`, the digest meta strip;
+ratios 1.2–2.3) or light-mode dark inks on dark dossier surfaces (the
+relationship-graph headings/nodes, hardcoded `#34404a`-family body copy
+on the tech/skill pages; 1.16–2.6).
+
+The fix keeps the original round's architecture and finishes it:
+
+- the dark `.dossier` block now also redeclares the generic root tokens
+  (scoped to `.dossier`, so the light-by-design Internal Workspace is
+  unaffected), which fixed every var-driven failure at once;
+- targeted dark overrides remap the hardcoded leftovers to dossier
+  tokens (page-header backgrounds drop to the dark ground, aside panels
+  to `--dossier-surface`, the `#34404a`/`#34465b`/`#40546a` copy inks to
+  `--dossier-ink`/`--dossier-muted`, `#00796f` accents to
+  `--dossier-accent`, the graph nodes to surface chips);
+- three marginal token values were nudged one step for 4.5:1 small-text
+  contrast: dark `--dossier-stamp` `#c97a62`→`#d28a73` (was 4.39 on the
+  dark surface), light `--dossier-muted` `#6d6b5b`→`#62604f` (was 4.32
+  on the light ground), and `--workspace-nav-active` `#0d9488`→`#0f766e`
+  with explicit white active text (was 2.83 — a pre-existing light-mode
+  issue too);
+- the Internal Workspace, whose light design sat directly on the
+  unconditionally-dark body in dark mode (breadcrumbs/headings at
+  1.2–2.0), gets an opaque light board behind `.workspace-shell` in dark
+  mode instead of a dark redesign;
+- accent-on-accent-tint pills (skill hero meta, news tag chips) switch
+  their text to ink on the tint.
+
+Re-scanned to zero failures on `/`, `/technologies` (all views), a
+technology detail page, `/digest/today`, `/skills` + a skill detail,
+`/knowledge` + a knowledge detail, `/network`, `/search`,
+`/topics/[tagId]`, and `/workspace/skills`, in both schemes (the few
+remaining reports in the light workspace were confirmed to be scanner
+artifacts of gradient averaging, not real failures). Zero console
+errors; light mode visually unchanged apart from the two one-step token
+nudges.
+
 ### Flat cards (2026-07-15)
 
 Owner-directed: `DossierCard`'s per-index resting tilt (three rotation
