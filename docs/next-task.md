@@ -1,5 +1,23 @@
 # Next Task
 
+> Update 2026-07-16 (later, same session): **Dark-mode contrast
+> completion round shipped**, owner-reported (界面文字与背景颜色相近看不清).
+> A both-scheme WCAG contrast scan traced it to the 2026-07-15 dark round
+> covering only the seven `--dossier-*` tokens — components on older
+> generic tokens or hardcoded light-mode colors were "half dark" (worst
+> 1.16:1). CSS-only fix in the dark media block: generic root tokens now
+> also redeclared under the dark `.dossier` scope, hardcoded leftovers
+> remapped to dossier tokens, three marginal values nudged one step
+> (dark `--dossier-stamp`, light `--dossier-muted`,
+> `--workspace-nav-active`), and the Internal Workspace gets an opaque
+> light board behind `.workspace-shell` in dark mode. Re-scanned to zero
+> across 11 public routes + workspace in both schemes. Full writeup:
+> `docs/design-system.md` → "Dark-mode contrast completion round";
+> CHANGELOG entry added. Verification note for future sessions: the
+> scanner's gradient-averaging approximation can report false positives
+> on pages whose body gradient has a strong corner tint — confirm via the
+> element's real background chain before fixing.
+
 > Update 2026-07-16: **Skill/Knowledge workspace editing v0 shipped**,
 > owner-approved after choosing the content-side direction (功能全但内容薄)
 > and reviewing a design mockup; three scope decisions were confirmed

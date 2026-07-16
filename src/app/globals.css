@@ -284,7 +284,9 @@ p {
   list-style: none;
   margin: -8px 0 0;
   padding: 0;
-  color: #64748b;
+  /* Darkened from #64748b for 4.5:1 on the light board (2026-07-16
+     contrast round). */
+  color: #475569;
   font-size: 0.86rem;
   font-weight: 700;
 }
@@ -4574,7 +4576,9 @@ body {
   --workspace-panel: #f8fafc;
   --workspace-nav-bg: #101928;
   --workspace-nav-muted: #8da2b8;
-  --workspace-nav-active: #0d9488;
+  /* Darkened from #0d9488 so the active label passes 4.5:1 (2026-07-16
+     contrast round). */
+  --workspace-nav-active: #0f766e;
   --shadow-soft: 0 14px 34px rgba(15, 23, 42, 0.06);
   --shadow-card: 0 6px 16px rgba(15, 23, 42, 0.08);
   --radius-page: 26px;
@@ -4744,6 +4748,7 @@ body {
 .workspace-nav__link--active,
 .workspace-nav__link--active:hover {
   background: var(--workspace-nav-active);
+  color: #ffffff;
 }
 
 .workspace-nav__group {
@@ -8775,7 +8780,9 @@ a.tech-graph__node:hover {
   --dossier-surface: #f8f6ee;
   --dossier-line: #c9c5b2;
   --dossier-ink: #2b2a22;
-  --dossier-muted: #6d6b5b;
+  /* Darkened from #6d6b5b (4.32:1 on --dossier-ground) for 4.5:1
+     small-text contrast (2026-07-16 contrast round). */
+  --dossier-muted: #62604f;
   --dossier-accent: #34524a;
   --dossier-stamp: #8a3b2a;
   background: var(--dossier-ground);
@@ -9992,7 +9999,23 @@ a.tech-graph__node:hover {
     --dossier-ink: #e9e7dc;
     --dossier-muted: #a3a08c;
     --dossier-accent: #6fa090;
-    --dossier-stamp: #c97a62;
+    /* #c97a62 measured 4.39:1 on --dossier-surface, just under the 4.5
+       small-text bar; lightened one step for the whole dark scope. */
+    --dossier-stamp: #d28a73;
+    /* Generic root tokens still referenced by pre-dossier public-page
+       rules (var(--muted) meta lines, var(--surface-strong) rows, ...).
+       Redeclared here, scoped to .dossier, so public pages flip while
+       the Internal Workspace (non-dossier) keeps its light design. */
+    --surface: #2a2b23;
+    --surface-strong: #2a2b23;
+    --text: #e9e7dc;
+    --muted: #a3a08c;
+    --line: #46473a;
+    --accent: #6fa090;
+    --accent-soft: rgba(111, 160, 144, 0.16);
+    --user-ink: #e9e7dc;
+    --user-accent: #6fa090;
+    --label-amber: #d9a44a;
   }
 
   body {
@@ -10058,6 +10081,143 @@ a.tech-graph__node:hover {
     border-color: rgba(255, 255, 255, 0.14);
     background: rgba(255, 255, 255, 0.06);
     color: #e9e7dc;
+  }
+
+  /* ---- dark-mode completion (2026-07-16 contrast round) ----
+     Components whose light-mode looks were hardcoded (not token-driven)
+     and therefore stayed light while their text flipped, or vice versa.
+     Each override below maps a measured WCAG failure back onto the
+     dossier tokens; see docs/design-system.md for the audit notes. */
+
+  /* Page headers: the per-page light "paper" gradients stay in light
+     mode only; in dark the header sits directly on the dark ground. */
+  .dossier .user-page-header {
+    background: none;
+  }
+
+  /* Technology detail aside: a higher-specificity light background won
+     over the dossier surface override. */
+  .dossier .user-article-layout__aside .source-reference,
+  .dossier .user-article-layout__aside .user-reference-panel {
+    background: var(--dossier-surface);
+  }
+
+  /* Primary action buttons keep white-on-accent copy; the dark accent
+     (#6fa090) is too light a ground for white text. */
+  .dossier .action-button--primary {
+    color: #1e1f1a;
+  }
+
+  /* Digest header notice + meta strip kept hardcoded light panels. */
+  .dossier .daily-digest-brief-header__notice {
+    background: rgba(217, 164, 74, 0.12);
+    border-color: rgba(217, 164, 74, 0.35);
+  }
+
+  .dossier .daily-digest-meta-strip {
+    background: var(--dossier-surface);
+    border-color: var(--dossier-line);
+    color: var(--dossier-muted);
+  }
+
+  .dossier .daily-digest-meta-strip span {
+    color: var(--dossier-muted);
+  }
+
+  .dossier .daily-digest-meta-strip strong {
+    color: var(--dossier-ink);
+  }
+
+  /* Relationship graph: white node chips and hardcoded kind colors. */
+  .dossier .tech-graph__node {
+    background: var(--dossier-surface);
+    border-color: var(--dossier-line);
+    box-shadow: none;
+  }
+
+  .dossier .tech-graph__node--center {
+    background: var(--dossier-accent);
+    border-color: var(--dossier-accent);
+    color: #1e1f1a;
+  }
+
+  .dossier .tech-graph__node--knowledge .tech-graph__node-kind {
+    color: #7fb2e5;
+  }
+
+  .dossier .tech-graph__hint {
+    color: var(--dossier-muted);
+  }
+
+  /* Hardcoded body-copy inks that never flipped. */
+  .dossier .user-article-section p,
+  .dossier .content-intelligence-list,
+  .dossier .technology-detail-hero__priority-copy,
+  .dossier .technology-detail-learning-list,
+  .dossier .technology-detail-question-list,
+  .dossier .technology-compare-widget__block p,
+  .dossier .technology-compare-widget__block ul,
+  .dossier .skill-library-card__summary,
+  .dossier .skill-detail-section > p,
+  .dossier .skill-detail-steps,
+  .dossier .skill-detail-related-card p {
+    color: var(--dossier-ink);
+  }
+
+  .dossier .skill-library-card__outcome p,
+  .dossier .skill-detail-related-card__note p,
+  .dossier .skill-detail-hero__meta span,
+  .dossier .skill-detail-aside-card p:not(.skill-detail-kicker),
+  .dossier .skill-detail-profile dt {
+    color: var(--dossier-muted);
+  }
+
+  .dossier .skill-library-card__outcome span,
+  .dossier .skill-library-card__signals span,
+  .dossier .skill-detail-related-card__note span,
+  .dossier .skill-detail-section__header p {
+    color: var(--dossier-stamp);
+  }
+
+  .dossier .skill-library-card__signals a,
+  .dossier .skill-library-card__link,
+  .dossier .skill-detail-related-card__link {
+    color: var(--dossier-accent);
+  }
+
+  /* Accent pills sit on an accent-tinted ground, so accent-colored text
+     stays too close; use ink on the tint instead. */
+  .dossier .skill-library-card__meta span:first-child,
+  .dossier .skill-detail-hero__meta span:first-child {
+    color: var(--dossier-ink);
+  }
+
+  /* Light-tinted note panels under the now-muted text above. */
+  .dossier .skill-library-card__outcome,
+  .dossier .skill-detail-related-card__note {
+    background: rgba(111, 160, 144, 0.1);
+  }
+
+  /* /search: the GET-form submit button showed the UA's light
+     ButtonFace; news tag pills kept a light-mode teal tint. */
+  .dossier .search-form button.action-link {
+    background: transparent;
+  }
+
+  .dossier .news-card__tags span {
+    background: rgba(111, 160, 144, 0.14);
+    color: var(--dossier-ink);
+  }
+
+  /* The Internal Workspace keeps its light design by design; in dark
+     mode the (unconditionally dark) body used to show through behind
+     its unpanelled chrome — breadcrumbs, section headings, eyebrows —
+     and behind its translucent light panels. Give the workspace shell
+     an opaque light board so the light design holds together. */
+  .workspace-shell {
+    padding: 22px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #f7f4ed 0%, #f0ebe2 100%);
   }
 }
 
