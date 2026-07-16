@@ -1,0 +1,52 @@
+{
+  "updatedAt": "2026-07-16T03:16:31.060Z",
+  "records": [
+    {
+      "id": "knowledge-ws-818b7bb3",
+      "title": "合成数据与数据配方",
+      "slug": "synthetic-data-and-data-recipes",
+      "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
+      "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.696Z",
+      "updatedAt": "2026-07-16T03:16:30.987Z"
+    },
+    {
+      "id": "knowledge-ws-c761533e",
+      "title": "本地与云混合推理架构",
+      "slug": "local-cloud-hybrid-inference",
+      "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
+      "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.762Z",
+      "updatedAt": "2026-07-16T03:16:31.059Z"
+    }
+  ]
+}

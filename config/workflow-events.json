@@ -1,6 +1,373 @@
 {
-  "updatedAt": "2026-07-16T00:05:05.841Z",
+  "updatedAt": "2026-07-16T03:16:31.073Z",
   "events": [
+    {
+      "id": "workflow-event-e79e3f70-9e0b-44ef-be37-5cb3fd5ef164",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-c761533e",
+      "action": "knowledge.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "knowledge-ws-c761533e",
+        "title": "本地与云混合推理架构",
+        "slug": "local-cloud-hybrid-inference",
+        "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
+        "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
+        "category": "software-architecture",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-on-device",
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "relatedSkillIds": [
+          "skill-tool-integration",
+          "skill-agent-design"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.762Z",
+        "updatedAt": "2026-07-16T03:16:15.762Z"
+      },
+      "afterSnapshot": {
+        "id": "knowledge-ws-c761533e",
+        "title": "本地与云混合推理架构",
+        "slug": "local-cloud-hybrid-inference",
+        "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
+        "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
+        "category": "software-architecture",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-on-device",
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "relatedSkillIds": [
+          "skill-tool-integration",
+          "skill-agent-design"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-16T03:16:15.762Z",
+        "updatedAt": "2026-07-16T03:16:31.059Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-16T03:16:31.073Z"
+    },
+    {
+      "id": "workflow-event-4accf3ef-9120-40be-9567-e1a89417dc8b",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-818b7bb3",
+      "action": "knowledge.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "knowledge-ws-818b7bb3",
+        "title": "合成数据与数据配方",
+        "slug": "synthetic-data-and-data-recipes",
+        "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
+        "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
+        "category": "machine-learning",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-frontier-models",
+          "tag-ai-agents"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.696Z",
+        "updatedAt": "2026-07-16T03:16:15.696Z"
+      },
+      "afterSnapshot": {
+        "id": "knowledge-ws-818b7bb3",
+        "title": "合成数据与数据配方",
+        "slug": "synthetic-data-and-data-recipes",
+        "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
+        "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
+        "category": "machine-learning",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-frontier-models",
+          "tag-ai-agents"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-16T03:16:15.696Z",
+        "updatedAt": "2026-07-16T03:16:30.987Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-16T03:16:31.000Z"
+    },
+    {
+      "id": "workflow-event-71417e4a-b0e0-436a-910c-26edb3dfba56",
+      "entityType": "skill",
+      "entityId": "skill-ws-1a0da8a9",
+      "action": "skill.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-1a0da8a9",
+        "title": "实时语音交互设计",
+        "slug": "realtime-voice-interaction-design",
+        "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+        "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+        "skillType": "product",
+        "heatLevel": "emerging",
+        "learningCost": "medium",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.431Z",
+        "updatedAt": "2026-07-16T03:16:15.431Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-1a0da8a9",
+        "title": "实时语音交互设计",
+        "slug": "realtime-voice-interaction-design",
+        "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+        "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+        "skillType": "product",
+        "heatLevel": "emerging",
+        "learningCost": "medium",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-16T03:16:15.431Z",
+        "updatedAt": "2026-07-16T03:16:30.417Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-16T03:16:30.433Z"
+    },
+    {
+      "id": "workflow-event-80be1cd1-abec-4775-891b-e9dd5c6d7ef8",
+      "entityType": "skill",
+      "entityId": "skill-ws-a9e80194",
+      "action": "skill.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-a9e80194",
+        "title": "推理服务容量规划",
+        "slug": "inference-capacity-planning",
+        "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
+        "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+        "skillType": "analysis",
+        "heatLevel": "hot",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference",
+          "tag-observability"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.362Z",
+        "updatedAt": "2026-07-16T03:16:15.362Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-a9e80194",
+        "title": "推理服务容量规划",
+        "slug": "inference-capacity-planning",
+        "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
+        "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+        "skillType": "analysis",
+        "heatLevel": "hot",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference",
+          "tag-observability"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-16T03:16:15.362Z",
+        "updatedAt": "2026-07-16T03:16:30.331Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-16T03:16:30.344Z"
+    },
+    {
+      "id": "workflow-event-dd2266a9-9315-4cb7-8323-ba6e26c3bd8a",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-c761533e",
+      "action": "knowledge.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "knowledge-ws-c761533e",
+        "title": "本地与云混合推理架构",
+        "slug": "local-cloud-hybrid-inference",
+        "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
+        "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
+        "category": "software-architecture",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-on-device",
+          "tag-inference"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
+        ],
+        "relatedSkillIds": [
+          "skill-tool-integration",
+          "skill-agent-design"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.762Z",
+        "updatedAt": "2026-07-16T03:16:15.762Z"
+      },
+      "createdAt": "2026-07-16T03:16:15.773Z"
+    },
+    {
+      "id": "workflow-event-79b08cb6-95ed-4cb4-9a0d-1045dbd857d2",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-818b7bb3",
+      "action": "knowledge.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "knowledge-ws-818b7bb3",
+        "title": "合成数据与数据配方",
+        "slug": "synthetic-data-and-data-recipes",
+        "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
+        "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
+        "category": "machine-learning",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-frontier-models",
+          "tag-ai-agents"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.696Z",
+        "updatedAt": "2026-07-16T03:16:15.696Z"
+      },
+      "createdAt": "2026-07-16T03:16:15.707Z"
+    },
+    {
+      "id": "workflow-event-b60ef174-fd98-41c9-8573-9c485072c9d3",
+      "entityType": "skill",
+      "entityId": "skill-ws-1a0da8a9",
+      "action": "skill.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "skill-ws-1a0da8a9",
+        "title": "实时语音交互设计",
+        "slug": "realtime-voice-interaction-design",
+        "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+        "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+        "skillType": "product",
+        "heatLevel": "emerging",
+        "learningCost": "medium",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.431Z",
+        "updatedAt": "2026-07-16T03:16:15.431Z"
+      },
+      "createdAt": "2026-07-16T03:16:15.442Z"
+    },
+    {
+      "id": "workflow-event-9e6445f5-0e4e-4e38-a865-d484bade6bcf",
+      "entityType": "skill",
+      "entityId": "skill-ws-a9e80194",
+      "action": "skill.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "skill-ws-a9e80194",
+        "title": "推理服务容量规划",
+        "slug": "inference-capacity-planning",
+        "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
+        "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+        "skillType": "analysis",
+        "heatLevel": "hot",
+        "learningCost": "medium",
+        "tags": [
+          "tag-inference",
+          "tag-observability"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+          "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-model-sizing"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-16T03:16:15.362Z",
+        "updatedAt": "2026-07-16T03:16:15.362Z"
+      },
+      "createdAt": "2026-07-16T03:16:15.375Z"
+    },
     {
       "id": "workflow-event-725f66f0-59bb-4aeb-abad-b23c14667ea7",
       "entityType": "source",
@@ -36072,364 +36439,6 @@
         "message": "Delivery succeeded."
       },
       "createdAt": "2026-06-02T00:14:36.249Z"
-    },
-    {
-      "id": "workflow-event-81899e1f-55e3-4058-a535-8a22eef85a9f",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-6190e679-72ec-4202-861b-74e9b809d47b",
-      "action": "schedule.run_failed",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-6190e679-72ec-4202-861b-74e9b809d47b",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-fa467b71-b2d4-4332-8720-0c1e35d5791c"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "never_run",
-        "createdAt": "2026-06-02T00:14:36.171Z",
-        "updatedAt": "2026-06-02T00:14:36.171Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-6190e679-72ec-4202-861b-74e9b809d47b",
-        "name": "Task runner draft schedule",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-28",
-        "channelIds": [
-          "delivery-channel-fa467b71-b2d4-4332-8720-0c1e35d5791c"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:36.174Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-06-02T00:14:36.171Z",
-        "updatedAt": "2026-06-02T00:14:36.174Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-e3c6b819-8323-40fb-9e5a-35e902cc7dfe",
-        "digestId": "digest-2026-05-28",
-        "digestDate": "2026-05-28",
-        "status": "failed",
-        "triggerType": "scheduled",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-06-02T00:14:36.195Z"
-    },
-    {
-      "id": "workflow-event-95854220-19a7-4017-967e-5a41f2734c69",
-      "entityType": "task_runner",
-      "entityId": "task-runner-415c9e8a-b537-4b5c-85c6-01a94fac1911",
-      "action": "task_runner.run",
-      "actorType": "task_runner",
-      "afterSnapshot": {
-        "id": "task-runner-415c9e8a-b537-4b5c-85c6-01a94fac1911",
-        "mode": "run_once",
-        "startedAt": "2000-01-01T00:00:00.000Z",
-        "finishedAt": "2026-06-02T00:14:36.100Z",
-        "status": "success",
-        "dueScheduleCount": 0,
-        "skippedScheduleCount": 0,
-        "successCount": 0,
-        "failedCount": 0,
-        "partialCount": 0,
-        "deliveryLogsCreated": 0,
-        "messages": [
-          "No due schedules."
-        ]
-      },
-      "metadata": {
-        "mode": "run_once",
-        "status": "success",
-        "dueScheduleCount": 0,
-        "deliveryLogsCreated": 0
-      },
-      "createdAt": "2026-06-02T00:14:36.126Z"
-    },
-    {
-      "id": "workflow-event-e705481a-5716-4a7b-b10e-cc952ed76ba7",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.904Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.905Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:05.067Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:05.068Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-37210e28-ee39-4de3-95c0-3b71751e9639",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 1,
-        "failedChannels": 1,
-        "skippedChannels": 1,
-        "deliveryLogIds": [
-          "delivery-run-d05d99ab-2343-4c92-94f7-f4226c1b53b9",
-          "delivery-run-362086bd-970d-4cff-9a01-4d9757da8267"
-        ]
-      },
-      "createdAt": "2026-06-02T00:14:05.090Z"
-    },
-    {
-      "id": "workflow-event-f830bc0c-6536-4e0f-9f93-de8fd54c6819",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-362086bd-970d-4cff-9a01-4d9757da8267",
-      "action": "delivery.failed",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-362086bd-970d-4cff-9a01-4d9757da8267",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-        "channelName": "Scheduled delivery failed webhook",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "startedAt": "2026-06-02T00:14:05.023Z",
-        "requestPayloadPreview": "Scheduled delivery validation 2026-05-25\n日期：2026-05-25\n\nEditor-approved public summary for scheduled delivery.\n\n今日立即关注：\n1. 模型上下文协议\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：AI Tooling Standards Brief · 2026-04-10\n2. 浏览器自动化代理\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：Automation Product Brief · 2026-04-09\n\n值得跟踪：\n暂无值得跟踪内容。\n\n阅读全文：http://localhost:3000/digest/2026-05-25",
-        "finishedAt": "2026-06-02T00:14:05.024Z",
-        "responseStatus": 500,
-        "responseBodyPreview": "Mock webhook failed.",
-        "errorMessage": "Feishu webhook returned HTTP 500."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "message": "Feishu webhook returned HTTP 500."
-      },
-      "createdAt": "2026-06-02T00:14:05.040Z"
-    },
-    {
-      "id": "workflow-event-ac124617-b17f-4dac-bfb7-299b81d76a55",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-d05d99ab-2343-4c92-94f7-f4226c1b53b9",
-      "action": "delivery.sent",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-d05d99ab-2343-4c92-94f7-f4226c1b53b9",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-        "channelName": "Scheduled delivery success webhook",
-        "channelType": "webhook",
-        "status": "success",
-        "startedAt": "2026-06-02T00:14:04.984Z",
-        "requestPayloadPreview": "{\n  \"type\": \"daily_digest\",\n  \"digestDate\": \"2026-05-25\",\n  \"title\": \"Scheduled delivery validation 2026-05-25\",\n  \"summary\": \"Editor-approved public summary for scheduled delivery.\",\n  \"digestUrl\": \"http://localhost:3000/digest/2026-05-25\",\n  \"highPriorityItems\": [\n    {\n      \"title\": \"模型上下文协议\",\n      \"summary\": \"一种正在形成的协议层，用来标准化 AI 工具在不同产品中请求上下文、工具和能力的方式。\",\n      \"url\": \"http://localhost:3000/technologies/model-context-protocol\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"AI Tooling Standards Brief\",\n      \"publishDate\": \"2026-04-10\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-workflow\"\n      ]\n    },\n    {\n      \"title\": \"浏览器自动化代理\",\n      \"summary\": \"浏览器驱动代理把规划、网页导航和真实任务执行连接起来，适合仍依赖网页流程的产品场景。\",\n      \"url\": \"http://localhost:3000/technologies/browser-automation-agents\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"Automation Product Brief\",\n      \"publishDate\": \"2026-04-09\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-multimodal\",\n        \"tag-workflow\"\n      ]\n    }\n  ],\n  \"watchItems\": [],\n  \"skillNames\": [\n    \"Tool Integration Patterns\",\n    \"Agent Workflow Design\",\n    \"AI Pilot Scoping\"\n  ],\n  \"knowledgeNames\": [\n    \"API Contracts and Interface Boundaries\",\n    \"Tool Use and Function Calling\",\n    \"Human-in-the-Loop Review\",\n    \"System Design Tradeoffs\"\n  ],\n  \"sourceNames\": [\n    \"AI Tooling Standards Brief\",\n    \"Automation Product Brief\"\n  ],\n  \"generatedAt\": \"2026-05-25T01:00:00.000Z\",\n  \"deliveredAt\": \"2026-06-02T00:1...",
-        "finishedAt": "2026-06-02T00:14:04.985Z",
-        "responseStatus": 200,
-        "responseBodyPreview": "Mock webhook accepted."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-        "channelType": "webhook",
-        "status": "success",
-        "message": "Delivery succeeded."
-      },
-      "createdAt": "2026-06-02T00:14:05.001Z"
-    },
-    {
-      "id": "workflow-event-62623d75-7330-4ac5-9d78-e98959aa349e",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-e44b0e19-e05f-4f71-8568-857784da1ee8",
-      "action": "schedule.run_failed",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-e44b0e19-e05f-4f71-8568-857784da1ee8",
-        "name": "Draft digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-26",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.566Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-06-02T00:14:04.562Z",
-        "updatedAt": "2026-06-02T00:14:04.567Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-e44b0e19-e05f-4f71-8568-857784da1ee8",
-        "name": "Draft digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-26",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.943Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "failed",
-        "lastRunMessage": "Scheduled delivery can only send published digests.",
-        "createdAt": "2026-06-02T00:14:04.562Z",
-        "updatedAt": "2026-06-02T00:14:04.943Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-7f846089-ec06-4778-863b-ba81f4011d43",
-        "digestId": "digest-2026-05-26",
-        "digestDate": "2026-05-26",
-        "status": "failed",
-        "triggerType": "scheduled",
-        "totalChannels": 1,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 0,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-06-02T00:14:04.963Z"
-    },
-    {
-      "id": "workflow-event-edff666f-5cff-4c5b-8699-e2afb6bfbbd1",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-      "action": "schedule.run",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.782Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.782Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.904Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.905Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-db145bad-b647-4311-9392-487dbb872b8f",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "status": "partial",
-        "triggerType": "manual",
-        "totalChannels": 3,
-        "successfulChannels": 1,
-        "failedChannels": 1,
-        "skippedChannels": 1,
-        "deliveryLogIds": [
-          "delivery-run-87ddb84f-466c-49cc-bcdb-dfa5b671834e",
-          "delivery-run-d933f61b-a61e-4720-bc28-2074d34f1513"
-        ]
-      },
-      "createdAt": "2026-06-02T00:14:04.921Z"
-    },
-    {
-      "id": "workflow-event-c03380e3-4275-4450-9e38-bb861ec1527e",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-d933f61b-a61e-4720-bc28-2074d34f1513",
-      "action": "delivery.failed",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-d933f61b-a61e-4720-bc28-2074d34f1513",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-        "channelName": "Scheduled delivery failed webhook",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "startedAt": "2026-06-02T00:14:04.866Z",
-        "requestPayloadPreview": "Scheduled delivery validation 2026-05-25\n日期：2026-05-25\n\nEditor-approved public summary for scheduled delivery.\n\n今日立即关注：\n1. 模型上下文协议\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：AI Tooling Standards Brief · 2026-04-10\n2. 浏览器自动化代理\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：Automation Product Brief · 2026-04-09\n\n值得跟踪：\n暂无值得跟踪内容。\n\n阅读全文：http://localhost:3000/digest/2026-05-25",
-        "finishedAt": "2026-06-02T00:14:04.867Z",
-        "responseStatus": 500,
-        "responseBodyPreview": "Mock webhook failed.",
-        "errorMessage": "Feishu webhook returned HTTP 500."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "message": "Feishu webhook returned HTTP 500."
-      },
-      "createdAt": "2026-06-02T00:14:04.884Z"
     }
   ]
 }
