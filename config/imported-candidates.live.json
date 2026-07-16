@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-15T00:05:04.428Z",
+  "syncedAt": "2026-07-16T00:05:05.821Z",
   "sources": [
     {
       "id": "source-hugging-face-blog",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-15T00:05:03.644Z"
+      "fetchedAt": "2026-07-16T00:05:02.741Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-15T00:05:04.425Z"
+      "fetchedAt": "2026-07-16T00:05:03.540Z"
     },
     {
       "id": "source-ollama-releases",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-14T00:05:04.558Z"
+      "fetchedAt": "2026-07-16T00:05:04.511Z"
     },
     {
       "id": "source-openai-news",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-14T00:05:05.741Z"
+      "fetchedAt": "2026-07-16T00:05:05.818Z"
     },
     {
       "id": "quality-failing-source",
@@ -69,13 +69,297 @@
   ],
   "candidates": [
     {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+      "originalTitle": "What building Shippy taught us about building agents",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "Hugging Face",
+      "normalizedType": "workflow",
+      "tags": [
+        "open-source",
+        "model",
+        "agents"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "What building Shippy taught us about building agents",
+          "pubDate": "Wed, 15 Jul 2026 17:29:41 GMT",
+          "link": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:02.147Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-16T00:05:02.147Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-ibm-research-model-routing-is-simple-until-it-isnt",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/ibm-research/model-routing-is-simple-until-it-isnt",
+      "originalTitle": "Model Routing Is Simple. Until It Isn’t.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "Hugging Face",
+      "normalizedType": "model",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Model Routing Is Simple. Until It Isn’t.",
+          "pubDate": "Wed, 15 Jul 2026 17:27:01 GMT",
+          "link": "https://hf-mirror.com/blog/ibm-research/model-routing-is-simple-until-it-isnt",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/ibm-research/model-routing-is-simple-until-it-isnt",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:02.147Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-16T00:05:02.147Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+      "originalTitle": "Welcome Inkling by Thinking Machines",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Welcome Inkling by Thinking Machines",
+          "pubDate": "Wed, 15 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+            "isPermaLink": "true"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:02.147Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-16T00:05:02.147Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
+      "originalTitle": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+          "pubDate": "Wed, 15 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/real-world-voiceeq",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/real-world-voiceeq",
+            "isPermaLink": "true"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:02.147Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-16T00:05:02.147Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1-rc0",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.1-rc0",
+      "originalTitle": "v0.32.1-rc0",
+      "originalSummary": "cmd: put current working dir in the system prompt ( #17188 )",
+      "originalContent": "<p>cmd: put current working dir in the system prompt (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4887553796\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17188\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17188/hovercard\" href=\"https://github.com/ollama/ollama/pull/17188\">#17188</a>)</p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "ParthSareen",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.1-rc0",
+          "updated": "2026-07-15T19:10:28Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.1-rc0"
+          },
+          "title": "v0.32.1-rc0",
+          "content": {
+            "#text": "&lt;p&gt;cmd: put current working dir in the system prompt (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4887553796&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17188&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17188/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17188&quot;&gt;#17188&lt;/a&gt;)&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "ParthSareen"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/u/29360864?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-16T00:05:03.572Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-07-16T00:05:03.572Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-advancing-ai-safety-through-state-and-federal-action",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/advancing-ai-safety-through-state-and-federal-action",
+      "originalTitle": "The US is advancing AI safety through state and federal action",
+      "originalSummary": "OpenAI outlines a “reverse federalism” approach to AI governance, where state laws help build a national framework for safe, democratic AI.",
+      "originalContent": "OpenAI outlines a “reverse federalism” approach to AI governance, where state laws help build a national framework for safe, democratic AI.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "global affairs"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "The US is advancing AI safety through state and federal action",
+          "description": "OpenAI outlines a “reverse federalism” approach to AI governance, where state laws help build a national framework for safe, democratic AI.",
+          "link": "https://openai.com/index/advancing-ai-safety-through-state-and-federal-action",
+          "guid": {
+            "#text": "https://openai.com/index/advancing-ai-safety-through-state-and-federal-action",
+            "isPermaLink": "true"
+          },
+          "category": "Global Affairs",
+          "pubDate": "Wed, 15 Jul 2026 12:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:04.543Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-16T00:05:04.543Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+      "originalTitle": "GPT-Red: Unlocking Self-Improvement for Robustness",
+      "originalSummary": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness.",
+      "originalContent": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "safety"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "GPT-Red: Unlocking Self-Improvement for Robustness",
+          "description": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness.",
+          "link": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+          "guid": {
+            "#text": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+            "isPermaLink": "true"
+          },
+          "category": "Safety",
+          "pubDate": "Wed, 15 Jul 2026 10:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:04.543Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-16T00:05:04.543Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
       "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
       "originalTitle": "v0.32.0",
       "originalSummary": "What's Changed New interactive agent experience: running ollama now launches an agent to help you code and delegate work ❯ ollama Ollama 0.32.0 ▸ Chat, Code, & Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work Renamed the Cod…",
-      "originalContent": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p>Full Changelog: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
+      "originalContent": "<h2>What's Changed</h2> <ul> <li>New interactive agent experience: running <code>ollama</code> now launches an agent to help you code and delegate work</li> </ul> <div class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\"❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work\"><pre class=\"notranslate\"><code>❯ ollama Ollama 0.32.0 ▸ Chat, Code, &amp; Work (glm-5.2:cloud) Chat with models, code, search the web, and delegate real work </code></pre></div> <ul> <li>Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)</li> <li>Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through <code>ollama launch</code></li> <li>Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0\"><tt>v0.31.2...v0.32.0</tt></a></p>",
       "originalLanguage": "en",
       "publishDate": "2026-07-14",
       "publisherName": "github-actions[bot]",
@@ -94,7 +378,7 @@
         "feedUrl": "https://github.com/ollama/ollama/releases.atom",
         "entry": {
           "id": "tag:github.com,2008:Repository/658928958/v0.32.0",
-          "updated": "2026-07-14T00:04:33Z",
+          "updated": "2026-07-14T00:05:12Z",
           "link": {
             "rel": "alternate",
             "type": "text/html",
@@ -102,7 +386,7 @@
           },
           "title": "v0.32.0",
           "content": {
-            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;New interactive agent experience: running &lt;code&gt;ollama&lt;/code&gt; now launches an agent to help you code and delegate work&lt;/li&gt;\n&lt;/ul&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;ul&gt;\n&lt;li&gt;Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)&lt;/li&gt;\n&lt;li&gt;Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through &lt;code&gt;ollama launch&lt;/code&gt;&lt;/li&gt;\n&lt;li&gt;Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Full Changelog: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0&quot;&gt;&lt;tt&gt;v0.31.2...v0.32.0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
+            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;New interactive agent experience: running &lt;code&gt;ollama&lt;/code&gt; now launches an agent to help you code and delegate work&lt;/li&gt;\n&lt;/ul&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;❯ ollama\nOllama 0.32.0\n\n▸ Chat, Code, &amp;amp; Work (glm-5.2:cloud)\n    Chat with models, code, search the web, and delegate real work\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;ul&gt;\n&lt;li&gt;Renamed the Codex App integration to ChatGPT: use ollama launch chatgpt (and --restore to return to your usual ChatGPT profile)&lt;/li&gt;\n&lt;li&gt;Simplified integration selection: the ollama launch menu now only offers the most popular integrations (other integrations can be accessed through &lt;code&gt;ollama launch&lt;/code&gt;&lt;/li&gt;\n&lt;li&gt;Warns before launching older agent models: CodeLlama, Qwen2.5(-coder), Llama 3.x, Mistral, StarCoder, and the base DeepSeek-R1 tags now prompt a deprecation warning before ollama launch continues&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.2...v0.32.0&quot;&gt;&lt;tt&gt;v0.31.2...v0.32.0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
             "type": "html"
           },
           "author": {
@@ -115,12 +399,96 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:03.575Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-16T00:05:03.572Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-14T00:05:03.575Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-16T00:05:03.572Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-managing-ai-investments-in-agentic-era",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/managing-ai-investments-in-agentic-era",
+      "originalTitle": "How to manage AI investments in the agentic era",
+      "originalSummary": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows.",
+      "originalContent": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-14",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "ai adoption",
+        "agents",
+        "workflow"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "How to manage AI investments in the agentic era",
+          "description": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows.",
+          "link": "https://openai.com/index/managing-ai-investments-in-agentic-era",
+          "guid": {
+            "#text": "https://openai.com/index/managing-ai-investments-in-agentic-era",
+            "isPermaLink": "true"
+          },
+          "category": "AI Adoption",
+          "pubDate": "Tue, 14 Jul 2026 10:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:04.543Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-16T00:05:04.543Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-academy-codex-for-work-how-sales-teams-use-codex",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/academy/codex-for-work/how-sales-teams-use-codex",
+      "originalTitle": "How sales teams use ChatGPT Work",
+      "originalSummary": "See how sales teams can use ChatGPT Work to create pipeline briefs, meeting prep packets, forecast reviews, account plans, and stalled-deal diagnoses from real work inputs.",
+      "originalContent": "See how sales teams can use ChatGPT Work to create pipeline briefs, meeting prep packets, forecast reviews, account plans, and stalled-deal diagnoses from real work inputs.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-14",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "openai academy"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "How sales teams use ChatGPT Work",
+          "description": "See how sales teams can use ChatGPT Work to create pipeline briefs, meeting prep packets, forecast reviews, account plans, and stalled-deal diagnoses from real work inputs.",
+          "link": "https://openai.com/academy/codex-for-work/how-sales-teams-use-codex",
+          "guid": {
+            "#text": "https://openai.com/academy/codex-for-work/how-sales-teams-use-codex",
+            "isPermaLink": "true"
+          },
+          "category": "OpenAI Academy",
+          "pubDate": "Tue, 14 Jul 2026 00:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-16T00:05:04.543Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-16T00:05:04.543Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
@@ -232,6 +600,58 @@
       "importRunId": "import-run-2026-07-14t00-05-02-256z"
     },
     {
+      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
+      "sourceType": "rss-feed",
+      "sourceName": "MCP Servers Releases",
+      "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10",
+      "originalTitle": "Release 2026.7.10",
+      "originalSummary": "Release : v2026.7.10 Updated packages @modelcontextprotocol/server-filesystem@2026.7.10 mcp-server-time@2026.7.10 mcp-server-fetch@2026.7.10 mcp-server-git@2026.7.10",
+      "originalContent": "<h1>Release : v2026.7.10</h1> <h2>Updated packages</h2> <ul> <li>@modelcontextprotocol/server-filesystem@2026.7.10</li> <li>mcp-server-time@2026.7.10</li> <li>mcp-server-fetch@2026.7.10</li> <li>mcp-server-git@2026.7.10</li> </ul>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-10",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "mcp",
+        "agent"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-mcp-servers-releases",
+        "feedTitle": "Release notes from servers",
+        "feedUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/890668799/2026.7.10",
+          "updated": "2026-07-10T03:39:07Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10"
+          },
+          "title": "Release 2026.7.10",
+          "content": {
+            "#text": "&lt;h1&gt;Release : v2026.7.10&lt;/h1&gt;\n&lt;h2&gt;Updated packages&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;@modelcontextprotocol/server-filesystem@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-time@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-fetch@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-git@2026.7.10&lt;/li&gt;\n&lt;/ul&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-16T00:05:02.776Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      },
+      "sourceId": "source-mcp-servers-releases",
+      "importedAt": "2026-07-16T00:05:02.776Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+    },
+    {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0-rc0",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
@@ -277,265 +697,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:03.575Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-16T00:05:03.572Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-14T00:05:03.575Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-deutsche-telekom",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/deutsche-telekom",
-      "originalTitle": "How Deutsche Telekom is rewiring telecommunications with AI",
-      "originalSummary": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, network operations, and the future of voice.",
-      "originalContent": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, network operations, and the future of voice.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "workflow",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "How Deutsche Telekom is rewiring telecommunications with AI",
-          "description": "How Deutsche Telekom is becoming an AI-native telco with OpenAI-transforming customer service, employee workflows, network operations, and the future of voice.",
-          "link": "https://openai.com/index/deutsche-telekom",
-          "guid": {
-            "#text": "https://openai.com/index/deutsche-telekom",
-            "isPermaLink": "true"
-          },
-          "pubDate": "Fri, 10 Jul 2026 07:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:04.585Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-14T00:05:04.585Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-academy-getting-started",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/academy/getting-started",
-      "originalTitle": "Getting started with ChatGPT",
-      "originalSummary": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI.",
-      "originalContent": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "openai academy"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Getting started with ChatGPT",
-          "description": "Learn how to use ChatGPT, start your first conversation, and discover simple ways to write, brainstorm, and solve problems with AI.",
-          "link": "https://openai.com/academy/getting-started",
-          "guid": {
-            "#text": "https://openai.com/academy/getting-started",
-            "isPermaLink": "true"
-          },
-          "category": "OpenAI Academy",
-          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:04.585Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-14T00:05:04.585Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-torch-attention-profile",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/torch-attention-profile",
-      "originalTitle": "Profiling in PyTorch (Part 3): Attention is all you profile",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
-          "pubDate": "Fri, 10 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/torch-attention-profile",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/torch-attention-profile",
-            "isPermaLink": "true"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-15T00:05:03.147Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-15T00:05:03.147Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
-      "sourceType": "rss-feed",
-      "sourceName": "MCP Servers Releases",
-      "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10",
-      "originalTitle": "Release 2026.7.10",
-      "originalSummary": "Release : v2026.7.10 Updated packages @modelcontextprotocol/server-filesystem@2026.7.10 mcp-server-time@2026.7.10 mcp-server-fetch@2026.7.10 mcp-server-git@2026.7.10",
-      "originalContent": "<h1>Release : v2026.7.10</h1> <h2>Updated packages</h2> <ul> <li>@modelcontextprotocol/server-filesystem@2026.7.10</li> <li>mcp-server-time@2026.7.10</li> <li>mcp-server-fetch@2026.7.10</li> <li>mcp-server-git@2026.7.10</li> </ul>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
-      "tags": [
-        "mcp",
-        "agent"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-mcp-servers-releases",
-        "feedTitle": "Release notes from servers",
-        "feedUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/890668799/2026.7.10",
-          "updated": "2026-07-10T03:39:07Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10"
-          },
-          "title": "Release 2026.7.10",
-          "content": {
-            "#text": "&lt;h1&gt;Release : v2026.7.10&lt;/h1&gt;\n&lt;h2&gt;Updated packages&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;@modelcontextprotocol/server-filesystem@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-time@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-fetch@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-git@2026.7.10&lt;/li&gt;\n&lt;/ul&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-15T00:05:03.711Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
-      },
-      "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-15T00:05:03.711Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-gpt-5-6-preferred-model-microsoft-365-copilot",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
-      "originalTitle": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
-      "originalSummary": "Learn how GPT-5.6 powers Microsoft 365 Copilot with stronger AI capabilities across Word, Excel, PowerPoint, Chat, and Cowork for faster, higher-quality work.",
-      "originalContent": "Learn how GPT-5.6 powers Microsoft 365 Copilot with stronger AI capabilities across Word, Excel, PowerPoint, Chat, and Cowork for faster, higher-quality work.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-09",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "product"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "GPT-5.6 is now the preferred model in Microsoft 365 Copilot",
-          "description": "Learn how GPT-5.6 powers Microsoft 365 Copilot with stronger AI capabilities across Word, Excel, PowerPoint, Chat, and Cowork for faster, higher-quality work.",
-          "link": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
-          "guid": {
-            "#text": "https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot",
-            "isPermaLink": "true"
-          },
-          "category": "Product",
-          "pubDate": "Thu, 09 Jul 2026 13:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:04.585Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-14T00:05:04.585Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-bio-bug-bounty",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/bio-bug-bounty",
-      "originalTitle": "GPT-5.5 Bio Bug Bounty",
-      "originalSummary": "Details about the OpenAI Bio Bounty program",
-      "originalContent": "Details about the OpenAI Bio Bounty program",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-09",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "safety"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "GPT-5.5 Bio Bug Bounty",
-          "description": "Details about the OpenAI Bio Bounty program",
-          "link": "https://openai.com/index/bio-bug-bounty",
-          "guid": {
-            "#text": "https://openai.com/index/bio-bug-bounty",
-            "isPermaLink": "true"
-          },
-          "category": "Safety",
-          "pubDate": "Thu, 09 Jul 2026 10:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-14T00:05:04.585Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-14T00:05:04.585Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-16T00:05:03.572Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc3",
@@ -688,177 +855,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:03.575Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-16T00:05:03.572Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-14T00:05:03.575Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-      "originalTitle": "Data for Agents",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-08",
-      "publisherName": "Hugging Face",
-      "normalizedType": "workflow",
-      "tags": [
-        "open-source",
-        "model",
-        "agents"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Data for Agents",
-          "pubDate": "Wed, 08 Jul 2026 17:16:05 GMT",
-          "link": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-15T00:05:03.147Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-15T00:05:03.147Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-      "originalTitle": "Native-speed vLLM transformers modeling backend",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-08",
-      "publisherName": "Hugging Face",
-      "normalizedType": "model",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Native-speed vLLM transformers modeling backend",
-          "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-            "isPermaLink": "true"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-15T00:05:03.147Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-15T00:05:03.147Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc2",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2-rc2",
-      "originalTitle": "v0.31.2-rc2: llm: allow iGPU mmproj offload with fit padding (#16996)",
-      "originalSummary": "llm: allow iGPU mmproj offload with fit padding llama.cpp's fit pass sizes text-model placement before the multimodal projector is loaded. Ollama had been avoiding that risk on non-Metal iGPUs by disabling projector offload entirely, which forces CLIP onto CP…",
-      "originalContent": "<ul> <li>llm: allow iGPU mmproj offload with fit padding</li> </ul> <p>llama.cpp's fit pass sizes text-model placement before the multimodal projector is loaded. Ollama had been avoiding that risk on non-Metal iGPUs by disabling projector offload entirely, which forces CLIP onto CPU on GB10 and Strix Halo even when the projector has ample memory available.</p> <p>Let integrated GPUs use the same projector-memory check as other GPUs. When projector offload is enabled, add the estimated projector memory plus the existing 1 GiB headroom to Ollama-owned LLAMA_ARG_FIT_TARGET so fit leaves space for the later projector allocation. If Ollama/device setup already supplied a fit target, add the projector pad to it. If the user set LLAMA_ARG_FIT_TARGET explicitly, leave it exactly as provided.</p> <p>Fixes <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4569968989\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16419\" data-hovercard-type=\"issue\" data-hovercard-url=\"/ollama/ollama/issues/16419/hovercard\" href=\"https://github.com/ollama/ollama/issues/16419\">#16419</a></p> <ul> <li>review comments</li> </ul>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-07",
-      "publisherName": "dhiltgen",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.31.2-rc2",
-          "updated": "2026-07-07T22:28:42Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.31.2-rc2"
-          },
-          "title": "v0.31.2-rc2: llm: allow iGPU mmproj offload with fit padding (#16996)",
-          "content": {
-            "#text": "&lt;ul&gt;\n&lt;li&gt;llm: allow iGPU mmproj offload with fit padding&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;llama.cpp&#39;s fit pass sizes text-model placement before the multimodal projector is loaded. Ollama had been avoiding that risk on non-Metal iGPUs by disabling projector offload entirely, which forces CLIP onto CPU on GB10 and Strix Halo even when the projector has ample memory available.&lt;/p&gt;\n&lt;p&gt;Let integrated GPUs use the same projector-memory check as other GPUs. When projector offload is enabled, add the estimated projector memory plus the existing 1 GiB headroom to Ollama-owned LLAMA_ARG_FIT_TARGET so fit leaves space for the later projector allocation. If Ollama/device setup already supplied a fit target, add the projector pad to it. If the user set LLAMA_ARG_FIT_TARGET explicitly, leave it exactly as provided.&lt;/p&gt;\n&lt;p&gt;Fixes &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4569968989&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/16419&quot; data-hovercard-type=&quot;issue&quot; data-hovercard-url=&quot;/ollama/ollama/issues/16419/hovercard&quot; href=&quot;https://github.com/ollama/ollama/issues/16419&quot;&gt;#16419&lt;/a&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;review comments&lt;/li&gt;\n&lt;/ul&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "dhiltgen"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/4033016?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:03.575Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-14T00:05:03.575Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-amazon-one-click-to-sagemaker-studio",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-      "originalTitle": "From HF Mirror to Amazon SageMaker Studio in one click",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-07",
-      "publisherName": "Hugging Face",
-      "normalizedType": "tool",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "From HF Mirror to Amazon SageMaker Studio in one click",
-          "pubDate": "Tue, 07 Jul 2026 21:15:33 GMT",
-          "link": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/amazon/one-click-to-sagemaker-studio",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-15T00:05:03.147Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-15T00:05:03.147Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      "importedAt": "2026-07-16T00:05:03.572Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -905,12 +907,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-15T00:05:03.711Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+        "importedAt": "2026-07-16T00:05:02.776Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-15T00:05:03.711Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      "importedAt": "2026-07-16T00:05:02.776Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -957,12 +959,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-15T00:05:03.711Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+        "importedAt": "2026-07-16T00:05:02.776Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-15T00:05:03.711Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      "importedAt": "2026-07-16T00:05:02.776Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -1009,12 +1011,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-15T00:05:03.711Z",
-        "importRunId": "import-run-2026-07-15t00-05-03-139z"
+        "importedAt": "2026-07-16T00:05:02.776Z",
+        "importRunId": "import-run-2026-07-16t00-05-02-141z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-15T00:05:03.711Z",
-      "importRunId": "import-run-2026-07-15t00-05-03-139z"
+      "importedAt": "2026-07-16T00:05:02.776Z",
+      "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
       "id": "candidate-source-quality-failing-source-2026-05-30",

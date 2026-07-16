@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T00:05:04.431Z",
+  "updatedAt": "2026-07-16T00:05:05.824Z",
   "sources": [
     {
       "id": "quality-good-source",
@@ -70,13 +70,13 @@
       "lastImportStatus": "success",
       "lastImportCount": 4,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 10,
+      "totalImportedCount": 11,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-07-14T00:05:04.562Z",
+      "updatedAt": "2026-07-16T00:05:04.516Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-14T00:05:04.562Z",
+      "lastFetchedAt": "2026-07-16T00:05:04.516Z",
       "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-14T00:05:04.562Z"
+      "lastSuccessfulImportAt": "2026-07-16T00:05:04.516Z"
     },
     {
       "id": "source-vllm-releases",
@@ -124,11 +124,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-15T00:05:04.431Z",
+      "updatedAt": "2026-07-16T00:05:03.544Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-15T00:05:04.431Z",
+      "lastFetchedAt": "2026-07-16T00:05:03.544Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-15T00:05:04.431Z"
+      "lastSuccessfulImportAt": "2026-07-16T00:05:03.544Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -148,13 +148,13 @@
       "lastImportStatus": "success",
       "lastImportCount": 4,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 5,
+      "totalImportedCount": 9,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-15T00:05:03.651Z",
+      "updatedAt": "2026-07-16T00:05:02.746Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-15T00:05:03.651Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-15T00:05:03.651Z"
+      "lastFetchedAt": "2026-07-16T00:05:02.746Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-16T00:05:02.746Z"
     },
     {
       "id": "source-openai-news",
@@ -173,13 +173,13 @@
       "lastImportStatus": "success",
       "lastImportCount": 4,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 11,
+      "totalImportedCount": 15,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-14T00:05:05.745Z",
+      "updatedAt": "2026-07-16T00:05:05.824Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-14T00:05:05.745Z",
-      "lastImportMessage": "导入 2 条新候选；跳过 2 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-14T00:05:05.745Z"
+      "lastFetchedAt": "2026-07-16T00:05:05.824Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-16T00:05:05.824Z"
     }
   ],
   "importRuns": []

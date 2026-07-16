@@ -1,6 +1,268 @@
 {
-  "updatedAt": "2026-07-15T20:34:23.798Z",
+  "updatedAt": "2026-07-16T00:05:05.841Z",
   "events": [
+    {
+      "id": "workflow-event-725f66f0-59bb-4aeb-abad-b23c14667ea7",
+      "entityType": "source",
+      "entityId": "source-openai-news",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-openai-news",
+        "name": "OpenAI News",
+        "type": "rss",
+        "url": "https://openai.com/news/rss.xml",
+        "enabled": true,
+        "description": "OpenAI official news feed.",
+        "language": "en",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "frontier-model"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 11,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-14T00:05:05.745Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-14T00:05:05.745Z",
+        "lastImportMessage": "导入 2 条新候选；跳过 2 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:05.745Z"
+      },
+      "afterSnapshot": {
+        "id": "source-openai-news",
+        "name": "OpenAI News",
+        "type": "rss",
+        "url": "https://openai.com/news/rss.xml",
+        "enabled": true,
+        "description": "OpenAI official news feed.",
+        "language": "en",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "frontier-model"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 15,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-16T00:05:05.824Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:05.824Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:05.824Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-16T00:05:05.841Z"
+    },
+    {
+      "id": "workflow-event-9d0dac1f-c6bf-4be3-b057-fea3f694f9e5",
+      "entityType": "source",
+      "entityId": "source-ollama-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-ollama-releases",
+        "name": "Ollama Releases",
+        "type": "atom",
+        "url": "https://github.com/ollama/ollama/releases.atom",
+        "enabled": true,
+        "description": "Ollama local LLM runtime release feed.",
+        "language": "en",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "local-inference",
+          "open-source"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 10,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-14T00:05:04.562Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-14T00:05:04.562Z",
+        "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:04.562Z"
+      },
+      "afterSnapshot": {
+        "id": "source-ollama-releases",
+        "name": "Ollama Releases",
+        "type": "atom",
+        "url": "https://github.com/ollama/ollama/releases.atom",
+        "enabled": true,
+        "description": "Ollama local LLM runtime release feed.",
+        "language": "en",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "local-inference",
+          "open-source"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 11,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-16T00:05:04.516Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:04.516Z",
+        "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:04.516Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 1
+      },
+      "createdAt": "2026-07-16T00:05:04.529Z"
+    },
+    {
+      "id": "workflow-event-a4fb580a-10a2-4457-926c-e1a5892bbb57",
+      "entityType": "source",
+      "entityId": "source-mcp-servers-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-15T00:05:04.431Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-15T00:05:04.431Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-15T00:05:04.431Z"
+      },
+      "afterSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-16T00:05:03.544Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:03.544Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:03.544Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-16T00:05:03.557Z"
+    },
+    {
+      "id": "workflow-event-1bc1447f-4c63-45be-8321-26f2eb86f53b",
+      "entityType": "source",
+      "entityId": "source-hugging-face-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 5,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-15T00:05:03.651Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-15T00:05:03.651Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-15T00:05:03.651Z"
+      },
+      "afterSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-16T00:05:02.746Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:02.746Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:02.746Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-16T00:05:02.760Z"
+    },
     {
       "id": "workflow-event-d2280a62-b0d9-46c1-a02a-2467620800b0",
       "entityType": "skill",
@@ -36168,188 +36430,6 @@
         "message": "Feishu webhook returned HTTP 500."
       },
       "createdAt": "2026-06-02T00:14:04.884Z"
-    },
-    {
-      "id": "workflow-event-d315c24d-4f8d-4aa6-95f9-0b50eeb7d8af",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-87ddb84f-466c-49cc-bcdb-dfa5b671834e",
-      "action": "delivery.sent",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-87ddb84f-466c-49cc-bcdb-dfa5b671834e",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-        "channelName": "Scheduled delivery success webhook",
-        "channelType": "webhook",
-        "status": "success",
-        "startedAt": "2026-06-02T00:14:04.823Z",
-        "requestPayloadPreview": "{\n  \"type\": \"daily_digest\",\n  \"digestDate\": \"2026-05-25\",\n  \"title\": \"Scheduled delivery validation 2026-05-25\",\n  \"summary\": \"Editor-approved public summary for scheduled delivery.\",\n  \"digestUrl\": \"http://localhost:3000/digest/2026-05-25\",\n  \"highPriorityItems\": [\n    {\n      \"title\": \"模型上下文协议\",\n      \"summary\": \"一种正在形成的协议层，用来标准化 AI 工具在不同产品中请求上下文、工具和能力的方式。\",\n      \"url\": \"http://localhost:3000/technologies/model-context-protocol\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"AI Tooling Standards Brief\",\n      \"publishDate\": \"2026-04-10\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-workflow\"\n      ]\n    },\n    {\n      \"title\": \"浏览器自动化代理\",\n      \"summary\": \"浏览器驱动代理把规划、网页导航和真实任务执行连接起来，适合仍依赖网页流程的产品场景。\",\n      \"url\": \"http://localhost:3000/technologies/browser-automation-agents\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"Automation Product Brief\",\n      \"publishDate\": \"2026-04-09\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-multimodal\",\n        \"tag-workflow\"\n      ]\n    }\n  ],\n  \"watchItems\": [],\n  \"skillNames\": [\n    \"Tool Integration Patterns\",\n    \"Agent Workflow Design\",\n    \"AI Pilot Scoping\"\n  ],\n  \"knowledgeNames\": [\n    \"API Contracts and Interface Boundaries\",\n    \"Tool Use and Function Calling\",\n    \"Human-in-the-Loop Review\",\n    \"System Design Tradeoffs\"\n  ],\n  \"sourceNames\": [\n    \"AI Tooling Standards Brief\",\n    \"Automation Product Brief\"\n  ],\n  \"generatedAt\": \"2026-05-25T01:00:00.000Z\",\n  \"deliveredAt\": \"2026-06-02T00:1...",
-        "finishedAt": "2026-06-02T00:14:04.824Z",
-        "responseStatus": 200,
-        "responseBodyPreview": "Mock webhook accepted."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-        "channelType": "webhook",
-        "status": "success",
-        "message": "Delivery succeeded."
-      },
-      "createdAt": "2026-06-02T00:14:04.847Z"
-    },
-    {
-      "id": "workflow-event-872b49d5-51bd-4e66-ba3a-eeb1b04c808f",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.738Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.738Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.782Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "0 succeeded, 0 failed, 3 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.782Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-c0b5a8a0-1a99-4c07-9fb7-c18d154d4013",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 0,
-        "failedChannels": 0,
-        "skippedChannels": 3,
-        "deliveryLogIds": []
-      },
-      "createdAt": "2026-06-02T00:14:04.800Z"
-    },
-    {
-      "id": "workflow-event-ec0d5b25-b6ba-4bc1-97ec-d2ec8bc4dc1d",
-      "entityType": "scheduled_delivery",
-      "entityId": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-      "action": "schedule.run",
-      "actorType": "task_runner",
-      "beforeSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "never_run",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.560Z"
-      },
-      "afterSnapshot": {
-        "id": "delivery-schedule-995b4f94-a74c-4134-b5eb-8c33bd9f3712",
-        "name": "Published digest scheduled delivery",
-        "enabled": true,
-        "digestTarget": "digest_by_date",
-        "digestDate": "2026-05-25",
-        "channelIds": [
-          "delivery-channel-f6fbeb35-a3fd-4f4f-ad77-7ace3e66f4c7",
-          "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-          "delivery-channel-1e039bfd-f773-4bba-a7fe-98e681b046fe"
-        ],
-        "scheduleTime": "09:00",
-        "timezone": "Asia/Shanghai",
-        "lastRunAt": "2026-06-02T00:14:04.738Z",
-        "nextRunAt": "2026-06-02T01:00:00.000Z",
-        "lastRunStatus": "partial",
-        "lastRunMessage": "1 succeeded, 1 failed, 1 skipped",
-        "createdAt": "2026-06-02T00:14:04.560Z",
-        "updatedAt": "2026-06-02T00:14:04.738Z"
-      },
-      "metadata": {
-        "runId": "scheduled-delivery-run-8784892a-7480-4c34-a179-fde7c8e44739",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "status": "partial",
-        "triggerType": "scheduled",
-        "totalChannels": 3,
-        "successfulChannels": 1,
-        "failedChannels": 1,
-        "skippedChannels": 1,
-        "deliveryLogIds": [
-          "delivery-run-557527c6-824d-418f-a7b7-0f6c464d6448",
-          "delivery-run-d3bae3a3-7883-4eb1-af62-7edaa8fb3aa5"
-        ]
-      },
-      "createdAt": "2026-06-02T00:14:04.757Z"
-    },
-    {
-      "id": "workflow-event-76ebdd99-524c-4f4a-a6d7-db1508dd60b9",
-      "entityType": "delivery_run",
-      "entityId": "delivery-run-d3bae3a3-7883-4eb1-af62-7edaa8fb3aa5",
-      "action": "delivery.failed",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "delivery-run-d3bae3a3-7883-4eb1-af62-7edaa8fb3aa5",
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-        "channelName": "Scheduled delivery failed webhook",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "startedAt": "2026-06-02T00:14:04.679Z",
-        "requestPayloadPreview": "Scheduled delivery validation 2026-05-25\n日期：2026-05-25\n\nEditor-approved public summary for scheduled delivery.\n\n今日立即关注：\n1. 模型上下文协议\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：AI Tooling Standards Brief · 2026-04-10\n2. 浏览器自动化代理\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：Automation Product Brief · 2026-04-09\n\n值得跟踪：\n暂无值得跟踪内容。\n\n阅读全文：http://localhost:3000/digest/2026-05-25",
-        "finishedAt": "2026-06-02T00:14:04.680Z",
-        "responseStatus": 500,
-        "responseBodyPreview": "Mock webhook failed.",
-        "errorMessage": "Feishu webhook returned HTTP 500."
-      },
-      "metadata": {
-        "digestId": "digest-2026-05-25",
-        "digestDate": "2026-05-25",
-        "channelId": "delivery-channel-5c150f01-8f4f-4125-99f3-093f280116ce",
-        "channelType": "feishu_webhook",
-        "status": "failed",
-        "message": "Feishu webhook returned HTTP 500."
-      },
-      "createdAt": "2026-06-02T00:14:04.707Z"
     }
   ]
 }
