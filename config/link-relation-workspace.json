@@ -1,0 +1,41 @@
+{
+  "updatedAt": "2026-07-19T03:52:57.762Z",
+  "relations": [
+    {
+      "id": "rel-ws-5740623d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "总参数与激活参数的区别是评估这个模型部署成本的前提。"
+    },
+    {
+      "id": "rel-ws-82b2af93",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "600GB 级模型只能云端/集群部署，延伸出与端侧小模型的分工问题。"
+    },
+    {
+      "id": "rel-ws-24d26d03",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "是否替代闭源 API 要靠自家负载上的评估回答。"
+    },
+    {
+      "id": "rel-ws-e0328a45",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "两档显存需求可直接代入容量规划公式。"
+    }
+  ]
+}
