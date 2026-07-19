@@ -1,6 +1,243 @@
 {
-  "updatedAt": "2026-07-19T03:25:55.893Z",
+  "updatedAt": "2026-07-19T03:52:57.774Z",
   "events": [
+    {
+      "id": "workflow-event-5ab6cc53-21d9-4f9a-b4e9-d7ebe4d4b970",
+      "entityType": "link_relation",
+      "entityId": "technology:tech-mcp",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T03:52:57.774Z"
+    },
+    {
+      "id": "workflow-event-2339f116-51f5-42f6-8d6b-45c528e6c1cc",
+      "entityType": "link_relation",
+      "entityId": "technology:tech-mcp",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T03:52:57.732Z"
+    },
+    {
+      "id": "workflow-event-54f1fd0e-794e-4c0a-8050-c660742807ae",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T03:52:18.253Z"
+    },
+    {
+      "id": "workflow-event-d83957f3-71c9-4e8b-8f3a-0962d9828fe9",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "slug": "thinkingmachines-inkling",
+        "title": {
+          "original": "Welcome Inkling by Thinking Machines",
+          "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
+        },
+        "summary": {
+          "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
+          "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
+        },
+        "content": {
+          "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
+          "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
+        },
+        "type": "model",
+        "publishDate": "2026-07-15",
+        "sourceName": "Hugging Face Blog",
+        "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Thinking Machines",
+        "publisherType": "startup",
+        "importanceLevel": "critical",
+        "status": "published",
+        "tags": [
+          "tag-frontier-models",
+          "tag-multimodal",
+          "tag-inference"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-ws-c761533e"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-a9e80194",
+          "skill-model-evaluation"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为关键重要性。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T03:24:47.832Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
+        "whoShouldCare": [
+          "模型选型与技术决策者",
+          "推理平台与 MLOps 工程师",
+          "多模态应用开发者"
+        ],
+        "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
+        "impactAreas": [
+          "开源旗舰模型格局",
+          "多模态应用开发",
+          "自托管推理容量规划"
+        ],
+        "learningPath": [
+          "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
+          "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
+          "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
+          "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
+        },
+        "relatedSkillExplanations": {
+          "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
+          "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
+        },
+        "followUpQuestions": [
+          "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
+          "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
+          "1M 上下文在真实长文档任务中的有效利用率是多少？"
+        ],
+        "readingDifficulty": "advanced",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "createdAt": "2026-07-19T03:20:48.051Z",
+        "updatedAt": "2026-07-19T03:24:47.832Z",
+        "editorialNotes": [
+          "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "slug": "thinkingmachines-inkling",
+        "title": {
+          "original": "Welcome Inkling by Thinking Machines",
+          "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
+        },
+        "summary": {
+          "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
+          "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
+        },
+        "content": {
+          "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
+          "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
+        },
+        "type": "model",
+        "publishDate": "2026-07-15",
+        "sourceName": "Hugging Face Blog",
+        "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Thinking Machines",
+        "publisherType": "startup",
+        "importanceLevel": "critical",
+        "status": "published",
+        "tags": [
+          "tag-multimodal",
+          "tag-inference",
+          "tag-frontier-models"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-model-sizing",
+          "knowledge-ws-c761533e"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-ws-a9e80194"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为关键重要性。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T03:52:18.040Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
+        "whoShouldCare": [
+          "模型选型与技术决策者",
+          "推理平台与 MLOps 工程师",
+          "多模态应用开发者"
+        ],
+        "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
+        "impactAreas": [
+          "开源旗舰模型格局",
+          "多模态应用开发",
+          "自托管推理容量规划"
+        ],
+        "learningPath": [
+          "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
+          "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
+          "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
+          "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
+        },
+        "relatedSkillExplanations": {
+          "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
+          "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
+        },
+        "followUpQuestions": [
+          "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
+          "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
+          "1M 上下文在真实长文档任务中的有效利用率是多少？"
+        ],
+        "readingDifficulty": "advanced",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "createdAt": "2026-07-19T03:20:48.051Z",
+        "updatedAt": "2026-07-19T03:52:18.040Z",
+        "editorialNotes": [
+          "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+        ]
+      },
+      "metadata": {
+        "slug": "thinkingmachines-inkling",
+        "status": "published"
+      },
+      "createdAt": "2026-07-19T03:52:18.056Z"
+    },
     {
       "id": "workflow-event-8474de65-7745-4ff3-b9e9-5fb9663ca26f",
       "entityType": "daily_digest",
@@ -37631,429 +37868,6 @@
         "version": "technology-explanation-v1"
       },
       "createdAt": "2026-07-05T10:30:02.554Z"
-    },
-    {
-      "id": "workflow-event-3635242f-58bc-45a5-b516-d780e578ed7a",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "自动化产品简报",
-          "AI 工具标准简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "published",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-mcp",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "自动化产品简报",
-          "AI 工具标准简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.705Z",
-        "publishedAt": "2026-07-04T20:20:18.705Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-07-04T20:20:18.718Z"
-    },
-    {
-      "id": "workflow-event-ec8ffcbe-b34a-4c60-8fdd-4189a34d9536",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.generated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "边缘 AI 实地笔记",
-          "自动化产品简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.652Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp",
-          "tech-rag-evals",
-          "tech-agent-workbenches",
-          "tech-browser-agents"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge",
-          "tech-mcp",
-          "tech-rag-evals",
-          "tech-agent-workbenches"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-model-evaluation",
-          "skill-scope-pilots",
-          "skill-retrieval-tuning",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-system-design",
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-rag-basics"
-        ],
-        "sourceNames": [
-          "边缘 AI 实地笔记",
-          "检索质量摘要",
-          "智能体平台评测",
-          "自动化产品简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.677Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ],
-        "lastRegeneratedAt": "2026-07-04T20:20:18.677Z"
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "preserveManualAdjustments": true
-      },
-      "createdAt": "2026-07-04T20:20:18.689Z"
-    },
-    {
-      "id": "workflow-event-a8ba8c43-c9c7-4b47-8423-3a0da6143196",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "边缘 AI 实地笔记",
-          "自动化产品简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.627Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "边缘 AI 实地笔记",
-          "自动化产品简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.652Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "tech-slm-edge",
-        "action": "move_up"
-      },
-      "createdAt": "2026-07-04T20:20:18.664Z"
-    },
-    {
-      "id": "workflow-event-de4de569-ce76-4038-b79f-a96a1e5681e9",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "边缘 AI 实地笔记",
-          "自动化产品简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.599Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp"
-        ],
-        "watchTechnologyIds": [
-          "tech-browser-agents"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "excludedTechnologyIds": [
-          "tech-mcp"
-        ],
-        "pinnedTechnologyIds": [
-          "tech-slm-edge"
-        ],
-        "orderedTechnologyIds": [
-          "tech-browser-agents",
-          "tech-slm-edge"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "sourceNames": [
-          "边缘 AI 实地笔记",
-          "自动化产品简报"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-04T20:20:18.627Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "tech-slm-edge",
-        "action": "pin"
-      },
-      "createdAt": "2026-07-04T20:20:18.640Z"
     }
   ]
 }
