@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T03:52:57.762Z",
+  "updatedAt": "2026-07-19T04:00:59.304Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -36,6 +36,591 @@
       "toType": "skill",
       "relationType": "requires",
       "note": "两档显存需求可直接代入容量规划公式。"
+    },
+    {
+      "id": "rel-ws-6f6c7a19",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "soul/skills/config 三分解剖印证了工作流设计的解耦原则。"
+    },
+    {
+      "id": "rel-ws-17d32608",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "确定性 CLI 工具层是工具集成模式的生产级范本。"
+    },
+    {
+      "id": "rel-ws-a34feb4e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "整套架构建立在推理与行动分离的工具使用思想上。"
+    },
+    {
+      "id": "rel-ws-2385994f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "借助活数据与专家加权评分表落地评估闭环。"
+    },
+    {
+      "id": "rel-ws-374c37e0",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "fromType": "technology",
+      "toId": "skill-ws-1a0da8a9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "为语音交互设计提供比厂商演示更真实的模型参照系。"
+    },
+    {
+      "id": "rel-ws-aee4967e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "把模型评估延伸到副语言理解等主观声学维度。"
+    },
+    {
+      "id": "rel-ws-efd2c52f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "以百万级人工评分为金标准，是评估闭环思想的大规模实例。"
+    },
+    {
+      "id": "rel-ws-84f87211",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "评测维度之外，语音体验还取决于延迟权衡这另一半。"
+    },
+    {
+      "id": "rel-ws-ee35d13e",
+      "fromId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "把评估从平均表现延伸到对抗性最坏情况。"
+    },
+    {
+      "id": "rel-ws-31f3f665",
+      "fromId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "智能体设计必须把注入攻击面当作一等约束。"
+    },
+    {
+      "id": "rel-ws-690fe08a",
+      "fromId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "自博弈红队本质是全自动化的评估闭环。"
+    },
+    {
+      "id": "rel-ws-2ccbb8c0",
+      "fromId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "失败归因与修复优先级判断仍需人在回路。"
+    },
+    {
+      "id": "rel-ws-f1bee9a0",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "把本地运行时当智能体工作台用，前提是会设计工作流。"
+    },
+    {
+      "id": "rel-ws-4c48e99a",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "本地工具接入需要规范的封装与权责边界。"
+    },
+    {
+      "id": "rel-ws-4856bc1d",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "智能体工作台的核心机制仍是工具使用与函数调用。"
+    },
+    {
+      "id": "rel-ws-10fe99f0",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "本地能跑什么模型，取决于规模与约束的匹配直觉。"
+    },
+    {
+      "id": "rel-ws-bf4a642d",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "升级决策要靠吞吐/延迟/显存的前后对比支撑。"
+    },
+    {
+      "id": "rel-ws-8ad2f205",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "先在非关键流量试点新引擎，再决定全量切换。"
+    },
+    {
+      "id": "rel-ws-f510dbe4",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "执行引擎升级改变了同一张卡的服务上限。"
+    },
+    {
+      "id": "rel-ws-5d8c404d",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "灰度到默认的迁移路径印证了系统级组件替换的权衡。"
+    },
+    {
+      "id": "rel-ws-1a13a592",
+      "fromId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "builds-on",
+      "note": "长时程办公智能体建立在多步工作流设计之上。"
+    },
+    {
+      "id": "rel-ws-9559f7f5",
+      "fromId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "引入办公智能体需要明确的试点范围界定。"
+    },
+    {
+      "id": "rel-ws-602de7a7",
+      "fromId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "办公任务的执行仍以工具调用为基本机制。"
+    },
+    {
+      "id": "rel-ws-28713b86",
+      "fromId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "影响客户与对外沟通的输出需要人工检查点。"
+    },
+    {
+      "id": "rel-ws-3f1eeb44",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "是否切换旗舰模型要靠自家负载上的评估回答。"
+    },
+    {
+      "id": "rel-ws-c6449671",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "新旗舰适合从小范围高价值场景开始验证。"
+    },
+    {
+      "id": "rel-ws-79e44df8",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "模型选型概念解释了「单位算力智能密度」主张的意义。"
+    },
+    {
+      "id": "rel-ws-ac1b474f",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "声称的代际提升需要评估闭环来持续验证。"
+    },
+    {
+      "id": "rel-ws-b52bad75",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "开放数据直接支撑智能体开发与微调流程。"
+    },
+    {
+      "id": "rel-ws-dac269bd",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "数据配方的效果要借助评估手段验证。"
+    },
+    {
+      "id": "rel-ws-9b0a65df",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "智能体训练数据围绕工具调用轨迹构建。"
+    },
+    {
+      "id": "rel-ws-06397671",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "数据质量迭代依赖评估闭环反馈。"
+    },
+    {
+      "id": "rel-ws-9d4d2e6d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "免移植路径的性能结论要在目标模型上实测。"
+    },
+    {
+      "id": "rel-ws-4e77eaf4",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "免移植后端大幅降低了新架构的接入成本。"
+    },
+    {
+      "id": "rel-ws-b3cf97cb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "后端与模型实现之间的稳定契约让免移植成为可能。"
+    },
+    {
+      "id": "rel-ws-9439c327",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "原生速度意味着通用后端不再以延迟为代价。"
+    },
+    {
+      "id": "rel-ws-12372314",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "本地运行时适合小范围试点端侧场景。"
+    },
+    {
+      "id": "rel-ws-99f012a3",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "本地模型接入业务仍需规范的工具封装。"
+    },
+    {
+      "id": "rel-ws-9666ec5d",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "端侧部署的核心问题是模型规模与硬件约束匹配。"
+    },
+    {
+      "id": "rel-ws-fe1189a6",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "本地推理的价值之一正是消除网络延迟。"
+    },
+    {
+      "id": "rel-ws-9ffe98a9",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "实时语音模型的表现要在真实声学环境下评估。"
+    },
+    {
+      "id": "rel-ws-56d180ac",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "语音场景适合从单一高频交互开始试点。"
+    },
+    {
+      "id": "rel-ws-0c100257",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "实时语音交互的成立条件就是延迟被压到感知阈值内。"
+    },
+    {
+      "id": "rel-ws-2d744304",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "语音输出直接面向用户，需要人工审查兜底。"
+    },
+    {
+      "id": "rel-ws-b7dc0e06",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "版本跟进决策依赖标准化的前后基准对比。"
+    },
+    {
+      "id": "rel-ws-1b5b3470",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "量化模型先行的灰度策略适合试点验证。"
+    },
+    {
+      "id": "rel-ws-e6a387b2",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "量化支持扩大了同等硬件可服务的模型范围。"
+    },
+    {
+      "id": "rel-ws-6764f996",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "以量化模型为试点的渐进迁移印证了系统设计权衡。"
+    },
+    {
+      "id": "rel-ws-a9fa7b8f",
+      "fromId": "skill-ws-a9e80194",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "以 vLLM 大版本升级为容量重估的实操案例。"
+    },
+    {
+      "id": "rel-ws-8d8780b2",
+      "fromId": "skill-ws-a9e80194",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "免移植后端改变了架构支持与容量的换算关系。"
+    },
+    {
+      "id": "rel-ws-aa0f141c",
+      "fromId": "skill-ws-a9e80194",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "本地运行时是容量规划在端侧的对照场景。"
+    },
+    {
+      "id": "rel-ws-c94467ea",
+      "fromId": "skill-ws-a9e80194",
+      "fromType": "skill",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "延迟目标是容量估算公式的直接输入。"
+    },
+    {
+      "id": "rel-ws-c993fe76",
+      "fromId": "skill-ws-a9e80194",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "显存与并发估算以模型规模直觉为前提。"
+    },
+    {
+      "id": "rel-ws-2718997c",
+      "fromId": "skill-ws-1a0da8a9",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "以 GPT-Live 为目标平台的交互设计实践。"
+    },
+    {
+      "id": "rel-ws-82d38c6a",
+      "fromId": "skill-ws-1a0da8a9",
+      "fromType": "skill",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "对话节奏与打断处理以延迟理解为前提。"
+    },
+    {
+      "id": "rel-ws-c47e898d",
+      "fromId": "skill-ws-1a0da8a9",
+      "fromType": "skill",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "失败兜底设计借助人在回路的检查点思想。"
+    },
+    {
+      "id": "rel-ws-61e05cd6",
+      "fromId": "knowledge-model-sizing",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "explains",
+      "note": "选型约束解释了评估应该测什么、在什么条件下测。"
+    },
+    {
+      "id": "rel-ws-9e79651f",
+      "fromId": "knowledge-latency-tradeoffs",
+      "fromType": "knowledge",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "延迟约束帮助划定哪些场景适合先行试点。"
+    },
+    {
+      "id": "rel-ws-611a1de8",
+      "fromId": "knowledge-ws-818b7bb3",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "数据配方概念解释了 Nemotron 开放数据的价值所在。"
+    },
+    {
+      "id": "rel-ws-e537245f",
+      "fromId": "knowledge-ws-818b7bb3",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "智能密度提升的背后是训练数据配方的迭代。"
+    },
+    {
+      "id": "rel-ws-24787a25",
+      "fromId": "knowledge-ws-818b7bb3",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "数据配方的效果必须靠系统化评估验证。"
+    },
+    {
+      "id": "rel-ws-3b729338",
+      "fromId": "knowledge-ws-c761533e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释本地智能体工作台在混合架构中的位置。"
+    },
+    {
+      "id": "rel-ws-b45f9061",
+      "fromId": "knowledge-ws-c761533e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释本地运行时承担哪类请求、何时回退云端。"
+    },
+    {
+      "id": "rel-ws-c5e72334",
+      "fromId": "knowledge-ws-c761533e",
+      "fromType": "knowledge",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "混合路由落地需要规范的接口与工具封装。"
+    },
+    {
+      "id": "rel-ws-60494962",
+      "fromId": "knowledge-ws-c761533e",
+      "fromType": "knowledge",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "智能体工作流是混合推理架构的典型负载。"
     }
   ]
 }
