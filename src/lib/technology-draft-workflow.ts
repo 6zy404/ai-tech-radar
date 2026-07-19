@@ -194,7 +194,12 @@ export function updateTechnologyWorkspaceRecord(
   );
   const nextRecordWithoutRanking: TechnologyWorkspaceRecord = {
     ...existingRecord,
-    slug: normalizeSlug(updates.slug, nextTitle.original),
+    // A partial update without a slug keeps the existing slug — never
+    // silently regenerate a public URL from the title.
+    slug:
+      updates.slug !== undefined
+        ? normalizeSlug(updates.slug, nextTitle.original)
+        : existingRecord.slug,
     title: nextTitle,
     summary: nextSummary,
     content: nextContent,
