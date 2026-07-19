@@ -1,5 +1,20 @@
 # Next Task
 
+> Update 2026-07-19 (latest, same session): **All 65 untyped relations
+> typed** (`3b89a10`) — the first real content round through LinkRelation
+> v1, right after it shipped. Enumerated every content-graph edge still
+> falling back to generic 关联 (extracted from `/network`'s RSC payload;
+> note the payload double-escapes quotes and renders absent notes as
+> `"$undefined"`): 65 of 119 edges — the 12 workspace-published
+> technology signals (4 links each), the four 07-16 workspace
+> skill/knowledge entries, and two untyped seed skill↔knowledge pairs
+> (模型选型↔模型评估, 延迟权衡↔试点范围). Wrote type + note for each via
+> `PUT /api/workspace/relations` (18 batches). The whole graph now
+> carries explicit semantic types; re-scan shows zero untyped edges, and
+> detail pills / skill pages / `/network` edge labels spot-checked.
+> **Next actual step**: none predefined — candidates are more content
+> growth or the next daily editorial round.
+
 > Update 2026-07-19 (later, same session): **LinkRelation v1 shipped** —
 > typed relation editing, the one item Skill/Knowledge workspace editing
 > v0 explicitly deferred. Owner confirmed three scope decisions upfront
