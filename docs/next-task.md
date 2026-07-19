@@ -1,5 +1,32 @@
 # Next Task
 
+> Update 2026-07-19: **Editorial round run** (`2114a6f`), per
+> `docs/editorial-round-playbook.md`. Dispositioned all 9 undecided
+> candidates (effective status resolved through
+> `candidate-review-state.json` — the raw snapshot showed 22 but 13 were
+> decided in earlier rounds): **4 converted + published** — Inkling
+> (Thinking Machines 开源 1T 参数 / 41B 激活多模态 MoE，critical，当日头条,
+> `thinkingmachines-inkling`), GPT-Red (OpenAI 自博弈自动红队, `gpt-red`),
+> Real World VoiceEQ (Hume AI 语音「人性质量」基准, `real-world-voiceeq`),
+> Shippy 工程复盘 (Ai2，signal 级, `ai2-shippy-agent-lessons`); **1
+> reviewed-not-selected** — IBM 模型路由文（观点型，无发布工件）; **4
+> rejected** — Ollama v0.32.1-rc0（预发布 RC）、OpenAI 政策文、AI 投资管理与
+> 销售案例两篇营销文。All four signals passed the publish gate with zero
+> blocking errors and reference the new workspace skill/knowledge entries
+> (VoiceEQ ↔ 实时语音交互设计, Inkling ↔ 推理服务容量规划 / 混合推理架构).
+> **2026-07-19 digest published**: Inkling pinned as lead, stale GPT-Live
+> excluded (covered in earlier digests), Shippy manually added, editorial
+> summary themed 「开源追平与安全补课」. Public surfaces verified (4 detail
+> pages, digest/today + by-date, news 已收录 links, feed.json, search,
+> timeline) — no internal-field leaks, zero console errors, typecheck
+> clean. Verification note: a raw-HTML grep for `candidate-` prefixes
+> false-positives on every technology page because public technology ids
+> legitimately embed their source-candidate id (e.g. the compare widget's
+> option values) — scan for truly internal strings (`rawPayload`,
+> `importStatus`, `priorityScore`, editorial-note text) instead. Published
+> signal pool 9→13. **Next actual step**: none predefined — candidates
+> remain LinkRelation v1, more content growth, or the next daily round.
+
 > Update 2026-07-16 (later, same session): **Dark-mode contrast
 > completion round shipped**, owner-reported (界面文字与背景颜色相近看不清).
 > A both-scheme WCAG contrast scan traced it to the 2026-07-15 dark round
