@@ -1,6 +1,21 @@
 # Next Task
 
-> Update 2026-07-19 (latest, same session): **Second content round + a
+> Update 2026-07-19 (latest, same session): **Third content round** — two
+> more knowledge entries authored and published through the workspace
+> APIs with full typed relations, zero publish-gate warnings:
+> 「对抗性评估与红队方法」(`adversarial-evaluation-red-teaming`, explains
+> GPT-Red, supports the new agent-security skill, extends 模型与输出评估)
+> and 「副语言信号与语音交互」(`paralinguistics-voice-interaction`,
+> explains VoiceEQ and GPT-Live, supports 实时语音交互设计). Reverse
+> related-ids added on three technology records and two skill records —
+> all partial PATCHes preserved their slugs, confirming the
+> slug-preservation fix from the previous round. Knowledge pool 13→15.
+> Note: the dev server had died between rounds (ECONNREFUSED) — the
+> script failed cleanly on its first request with no partial writes;
+> restarted via preview_start and re-ran. **Next actual step**: none
+> predefined — more content growth or the next daily editorial round.
+
+> Update 2026-07-19 (earlier, same session): **Second content round + a
 > real bug fix.** Two new entries authored and published through the
 > workspace APIs with full typed relations, zero publish-gate warnings:
 > 技能「智能体安全与提示注入防御」(`agent-security-injection-defense`,

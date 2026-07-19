@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T04:05:12.616Z",
+  "updatedAt": "2026-07-19T05:04:42.495Z",
   "records": [
     {
       "id": "skill-ws-a9e80194",
@@ -28,30 +28,6 @@
       "updatedAt": "2026-07-16T03:16:30.331Z"
     },
     {
-      "id": "skill-ws-1a0da8a9",
-      "title": "实时语音交互设计",
-      "slug": "realtime-voice-interaction-design",
-      "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
-      "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
-      "skillType": "product",
-      "heatLevel": "emerging",
-      "learningCost": "medium",
-      "tags": [
-        "tag-multimodal",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-latency-tradeoffs",
-        "knowledge-human-loop"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.431Z",
-      "updatedAt": "2026-07-16T03:16:30.417Z"
-    },
-    {
       "id": "skill-ws-c183c9b9",
       "title": "智能体安全与提示注入防御",
       "slug": "agent-security-injection-defense",
@@ -72,11 +48,37 @@
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
         "knowledge-human-loop",
-        "knowledge-evaluation-loops"
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3"
       ],
       "status": "published",
       "createdAt": "2026-07-19T04:05:11.800Z",
-      "updatedAt": "2026-07-19T04:05:12.615Z"
+      "updatedAt": "2026-07-19T05:04:42.437Z"
+    },
+    {
+      "id": "skill-ws-1a0da8a9",
+      "title": "实时语音交互设计",
+      "slug": "realtime-voice-interaction-design",
+      "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+      "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+      "skillType": "product",
+      "heatLevel": "emerging",
+      "learningCost": "medium",
+      "tags": [
+        "tag-multimodal",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-human-loop",
+        "knowledge-ws-8c99b19c"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.431Z",
+      "updatedAt": "2026-07-19T05:04:42.495Z"
     }
   ]
 }

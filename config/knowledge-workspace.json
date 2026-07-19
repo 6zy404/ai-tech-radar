@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T04:05:13.614Z",
+  "updatedAt": "2026-07-19T05:04:40.897Z",
   "records": [
     {
       "id": "knowledge-ws-818b7bb3",
@@ -71,6 +71,52 @@
       "status": "published",
       "createdAt": "2026-07-19T04:05:12.947Z",
       "updatedAt": "2026-07-19T04:05:13.614Z"
+    },
+    {
+      "id": "knowledge-ws-89b98df3",
+      "title": "对抗性评估与红队方法",
+      "slug": "adversarial-evaluation-red-teaming",
+      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-c183c9b9",
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T05:04:39.934Z",
+      "updatedAt": "2026-07-19T05:04:40.759Z"
+    },
+    {
+      "id": "knowledge-ws-8c99b19c",
+      "title": "副语言信号与语音交互",
+      "slug": "paralinguistics-voice-interaction",
+      "summary": "语气、停顿、情绪、说话人身份——这些转写文本里不存在的信息层，是语音交互与文字交互的本质差异，也是当前语音模型「会说不会听」差距的成因。",
+      "content": "副语言（paralinguistics）指语音中承载意义但不进入文字转写的信号层：语调起伏、语速与停顿、犹豫和重音、情绪色彩、说话人身份与状态。同一句「行吧」，平调是同意，拖长是勉强，急促是不耐烦——文字层面完全相同，交流意义截然不同。人类对话的很大一部分信息走这条通道，这正是「语音交互」不能简化为「语音转文字再处理」的原因。\n\n对语音 AI 而言，副语言暴露了生成与理解的不对称：合成侧进展快（现代语音模型已能生成带情绪、有节奏感的语音），理解侧却普遍薄弱——模型听得懂词，听不懂犹豫背后的迟疑或语气里的不满。Hume AI 的 Real World VoiceEQ 基准把这层差距量化了出来：跨 40 多个模型的系统性结论是「会说不会听」，且传统以转写准确率为中心的评测完全测不到这层。\n\n对产品设计的直接推论有三条：第一，打断与轮替设计不能只依赖静音检测，语义与语气上的「说完了」信号同样重要；第二，情绪响应要谨慎——检测不准时假装共情比不共情更伤体验；第三，评估语音产品必须包含真实声学环境（口音、噪声、情绪化表达）下的人工评分，因为副语言判断恰恰是目前 AI 评审与人类一致性最弱的地方。",
+      "category": "product-thinking",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-multimodal",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-1a0da8a9"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T05:04:40.801Z",
+      "updatedAt": "2026-07-19T05:04:40.897Z"
     }
   ]
 }

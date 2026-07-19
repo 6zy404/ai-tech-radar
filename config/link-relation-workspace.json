@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T04:05:13.032Z",
+  "updatedAt": "2026-07-19T05:04:40.846Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -711,6 +711,60 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "路由质量差异意味着同规格 MoE 表现可以悬殊，评估不可省。"
+    },
+    {
+      "id": "rel-ws-4cc1eebc",
+      "fromId": "knowledge-ws-89b98df3",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释 GPT-Red 自博弈红队的方法论根源与所处层次。"
+    },
+    {
+      "id": "rel-ws-a7339d59",
+      "fromId": "knowledge-ws-89b98df3",
+      "fromType": "knowledge",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "为注入测试集的设计与回归提供方法框架。"
+    },
+    {
+      "id": "rel-ws-d6415400",
+      "fromId": "knowledge-ws-89b98df3",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "把「测平均表现」的评估延伸到「找最坏失败」。"
+    },
+    {
+      "id": "rel-ws-0bfc961f",
+      "fromId": "knowledge-ws-8c99b19c",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释 VoiceEQ 评测维度背后的语言学概念。"
+    },
+    {
+      "id": "rel-ws-f709f63f",
+      "fromId": "knowledge-ws-8c99b19c",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释实时语音模型「会说不会听」差距的成因。"
+    },
+    {
+      "id": "rel-ws-8fa95d51",
+      "fromId": "knowledge-ws-8c99b19c",
+      "fromType": "knowledge",
+      "toId": "skill-ws-1a0da8a9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "副语言理解水平决定打断处理与情绪响应设计的上限。"
     }
   ]
 }
