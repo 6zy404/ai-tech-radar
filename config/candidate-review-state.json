@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T00:51:56.002Z",
+  "updatedAt": "2026-07-19T03:20:48.302Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -168,6 +168,46 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-14T00:51:56.002Z",
       "convertedTechnologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-19T03:20:47.368Z"
+    },
+    "candidate-rss-https-openai-com-index-advancing-ai-safety-through-state-and-federal-action": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-19T03:20:47.456Z"
+    },
+    "candidate-rss-https-openai-com-index-managing-ai-investments-in-agentic-era": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-19T03:20:47.491Z"
+    },
+    "candidate-rss-https-openai-com-academy-codex-for-work-how-sales-teams-use-codex": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-19T03:20:47.529Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-ibm-research-model-routing-is-simple-until-it-isnt": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-19T03:20:47.564Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-19T03:20:48.052Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling"
+    },
+    "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-19T03:20:48.157Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-19T03:20:48.229Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-19T03:20:48.302Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog"
     }
   }
 }

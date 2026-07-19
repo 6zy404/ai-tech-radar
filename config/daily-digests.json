@@ -1,6 +1,63 @@
 {
-  "updatedAt": "2026-07-15T09:30:22.553Z",
+  "updatedAt": "2026-07-19T03:25:55.881Z",
   "digests": [
+    {
+      "id": "digest-2026-07-19",
+      "date": "2026-07-19",
+      "status": "published",
+      "title": "每日技术简报 - 2026-07-19",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 2 个来源。",
+      "editorialSummary": "今天的主线是「开源追平与安全补课」。Thinking Machines 开源万亿参数多模态模型 Inkling，第一次让开源权重同时具备旗舰级的参数规模、原生多模态与 1M 上下文——但 600GB 起步的显存需求提醒我们：权重开放不等于部署门槛消失。另一侧，OpenAI 的 GPT-Red 用自博弈把红队测试变成持续自动回路，直指智能体时代最尖锐的提示注入问题；Hume AI 的 VoiceEQ 基准则揭示语音模型普遍「会说不会听」。加上 Ai2 罕见的高风险场景智能体工程复盘，四条信号共同指向：能力竞赛之外，评估、安全与工程可靠性正在成为新的分水岭。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog"
+      ],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-1a0da8a9",
+        "skill-ws-a9e80194"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-c761533e"
+      ],
+      "sourceNames": [
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-07-19T12:00:00.000Z",
+      "updatedAt": "2026-07-19T03:25:55.881Z",
+      "publishedAt": "2026-07-19T03:25:55.881Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：处置 9 条候选（4 发布 / 1 评审不选 / 4 拒绝）。",
+        "排除 GPT-Live（07-08 旧信号，已在往期简报覆盖）；手动补入 Shippy 工程复盘（signal 级，Ranking 默认排除）；置顶 Inkling 为当日头条。",
+        "IBM 模型路由文标记 reviewed 不转正：观点型内容，无发布工件。"
+      ]
+    },
     {
       "id": "digest-2026-07-15",
       "date": "2026-07-15",
