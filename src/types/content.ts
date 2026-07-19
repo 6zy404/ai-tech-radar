@@ -777,7 +777,7 @@ export interface LinkRelation {
   toId: string;
   toType: ContentKind;
   relationType: RelationType;
-  note: string;
+  note?: string;
 }
 
 export interface RelationListItem {

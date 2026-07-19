@@ -155,6 +155,11 @@ The safe public mapping is still explicit:
   `getAllKnowledge`: draft records are filtered from every public surface,
   and the merged items carry no workspace-only fields (`status`, origin,
   and timestamps stay behind the workspace boundary)
+- link relation overrides (`config/link-relation-workspace.json`) carry only
+  the same public fields the seed `LinkRelation` entries already expose
+  (pair, relation type, note) and reach public pages through the merged
+  read in `getAllLinkRelations`; the editing surface
+  (`PUT /api/workspace/relations`) stays behind the workspace boundary
 - delivery channels, delivery logs, schedules, task-runner records, and workflow events are workspace-only
 
 `npm run validate:persistence` provides a lightweight consistency and isolation check for local workflow data. `npm run validate:database` repeats the critical reference and public-field checks against both JSON and SQLite driver modes.

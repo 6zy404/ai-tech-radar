@@ -22,6 +22,9 @@ Responsibilities:
 - edit draft title, summary, content, tags, source metadata, related knowledge, and related skills
 - create and edit skill / knowledge entries (workspace overrides of the
   bundled seeds plus new entries, with a draft/published status flow)
+- edit the typed relation (relation type + note) on any related-content
+  link from the skill, knowledge, and technology draft editors
+  (LinkRelation v1; copy-on-write overrides of the seed relations)
 - run Publish Quality Gate v0
 - preview user-facing output before publishing
 - publish or archive technology records

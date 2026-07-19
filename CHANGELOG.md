@@ -12,6 +12,46 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## LinkRelation v1 (typed relation editing)
+
+- **Typed relation editing across all three workspace editors** —
+  2026-07-19, owner-chosen as the next initiative after the same-day
+  editorial round, closing the one item Skill/Knowledge workspace editing
+  v0 explicitly deferred. Scope confirmed upfront via a form mockup and
+  three decisions: all three workspaces (skill, knowledge, **and** the
+  technology draft editor — the four signals published earlier the same
+  day were exactly the "every relation renders as generic 关联" pain
+  case), copy-on-write over the 56 seed relations in
+  `src/data/relations.ts` (seed file stays read-only), and both
+  `relationType` and `note` editable. Implementation: new
+  `src/lib/link-relation-workflow.ts` — `config/link-relation-workspace.json`
+  overlay store keyed by **unordered pair** (an override wins over the
+  seed for the same pair regardless of `from`/`to` direction), pure cores
+  (`applyLinkRelationOverlay`, `findRelationIn`, `planLinkRelationSync`)
+  with 13 vitest tests, and a sync rule that keeps the store minimal: a
+  value equal to the seed removes the override (clean revert), the
+  generic default (`related-to`, no note) with no seed entry is never
+  persisted, and pairs not mentioned in a save are left untouched (so
+  edits from the other side of a shared pair survive). `LinkRelation.note`
+  became optional to support type-only overrides. `content.ts`'s
+  `findRelationBetween`, `buildRelationItems` (previously
+  direction-sensitive; now unordered like everything else), and
+  `getContentGraph` (single merged read instead of per-edge lookups) all
+  read the merged view, so edits flow to detail-page pills and 附注 notes,
+  `RelationshipGraph` tooltips, `/network` edge labels, and topic hubs
+  with no component changes. New `PUT /api/workspace/relations` (batch
+  upsert per source entity, under the existing token boundary),
+  `link_relation.updated` workflow events, and a shared
+  `RelationCheckboxItem` component: each related-content checkbox unfolds
+  a relation-type select (七种档案语汇) plus note input via CSS `:has`
+  while checked — forms stay fully uncontrolled, and the new-entry forms
+  keep plain checkboxes (relations become editable after first save).
+  Live-verified end to end: the Inkling draft's four relations set to
+  必备/延伸/借助 with notes through the real form (store written, public
+  detail pills + notes and `/network` edge types confirmed), and a seed
+  pair override → revert round-trip leaving the store empty. Verified
+  with typecheck, lint, format, and vitest 90/90.
+
 ## Dark-mode contrast completion round
 
 - **Site-wide contrast fixes, dark mode completed** — 2026-07-16,

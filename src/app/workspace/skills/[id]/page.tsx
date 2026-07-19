@@ -6,6 +6,7 @@ import { PublishReadinessPanel } from "@/components/publish-readiness-panel";
 import { SkillWorkspaceForm } from "@/components/skill-workspace-form";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { getAllKnowledge, getAllTags, getAllTechnologies } from "@/lib/content";
+import { buildRelationDefaults } from "@/lib/link-relation-workflow";
 import {
   getSkillPublishReadiness,
   getSkillWorkspaceEntryById
@@ -41,6 +42,19 @@ export default async function WorkspaceSkillDetailPage({ params }: PageProps) {
     id: knowledge.id,
     title: knowledge.title
   }));
+  const relationDefaults = buildRelationDefaults(
+    { id: entry.item.id, type: "skill" },
+    [
+      ...technologyOptions.map((option) => ({
+        id: option.id,
+        type: "technology" as const
+      })),
+      ...knowledgeOptions.map((option) => ({
+        id: option.id,
+        type: "knowledge" as const
+      }))
+    ]
+  );
 
   return (
     <WorkspacePageShell
@@ -83,6 +97,7 @@ export default async function WorkspaceSkillDetailPage({ params }: PageProps) {
           tagOptions={getAllTags()}
           technologyOptions={technologyOptions}
           knowledgeOptions={knowledgeOptions}
+          relationDefaults={relationDefaults}
         />
       </section>
     </WorkspacePageShell>
