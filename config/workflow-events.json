@@ -1,6 +1,204 @@
 {
-  "updatedAt": "2026-07-19T03:52:57.774Z",
+  "updatedAt": "2026-07-19T04:00:59.318Z",
   "events": [
+    {
+      "id": "workflow-event-5d805ed1-6f5a-4632-a817-32687592829e",
+      "entityType": "link_relation",
+      "entityId": "knowledge:knowledge-ws-c761533e",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.318Z"
+    },
+    {
+      "id": "workflow-event-8ef26987-12ce-4fd7-a896-2c0943ef4f54",
+      "entityType": "link_relation",
+      "entityId": "knowledge:knowledge-ws-818b7bb3",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.276Z"
+    },
+    {
+      "id": "workflow-event-a290b973-8b00-488e-a19a-77505e907d82",
+      "entityType": "link_relation",
+      "entityId": "knowledge:knowledge-latency-tradeoffs",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.233Z"
+    },
+    {
+      "id": "workflow-event-045f0d92-30d8-4df6-a552-ce01c67fb89b",
+      "entityType": "link_relation",
+      "entityId": "knowledge:knowledge-model-sizing",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.190Z"
+    },
+    {
+      "id": "workflow-event-dae0b028-ed0c-40d6-9350-fed4ada52f78",
+      "entityType": "link_relation",
+      "entityId": "skill:skill-ws-1a0da8a9",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.138Z"
+    },
+    {
+      "id": "workflow-event-792eb437-31f9-4bf1-a465-6990c11c4d5f",
+      "entityType": "link_relation",
+      "entityId": "skill:skill-ws-a9e80194",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.090Z"
+    },
+    {
+      "id": "workflow-event-b91568b9-fd17-4d4c-90b5-dea6f1ec4407",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:59.046Z"
+    },
+    {
+      "id": "workflow-event-ded82da5-183a-47d7-bf9f-c58e957d7a32",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.999Z"
+    },
+    {
+      "id": "workflow-event-2417b136-6e89-418c-b83c-9091e089d70e",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.950Z"
+    },
+    {
+      "id": "workflow-event-e8aed955-85e8-4fab-a2b7-35b090f5fa61",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.862Z"
+    },
+    {
+      "id": "workflow-event-3abc924d-b2f4-43be-bdd2-8d3e49d19dc7",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.795Z"
+    },
+    {
+      "id": "workflow-event-ae95e3ee-0043-4845-8ece-bf14f41868df",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.646Z"
+    },
+    {
+      "id": "workflow-event-77064cf9-6879-47e8-bfa2-565eaf9e8223",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.601Z"
+    },
+    {
+      "id": "workflow-event-712a18e2-a9d5-4f3a-b61d-84620f5040e1",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.554Z"
+    },
+    {
+      "id": "workflow-event-f3d824be-85c4-497f-88d7-33d109d64446",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.500Z"
+    },
+    {
+      "id": "workflow-event-d2b8a146-960d-4ab7-aabd-0acd7e23ca40",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.434Z"
+    },
+    {
+      "id": "workflow-event-3686f24e-c118-4d01-aa4f-4310115c7b21",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.386Z"
+    },
+    {
+      "id": "workflow-event-6c4337d9-72fb-44af-9a07-9d1233c8b998",
+      "entityType": "link_relation",
+      "entityId": "technology:draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T04:00:58.321Z"
+    },
     {
       "id": "workflow-event-5ab6cc53-21d9-4f9a-b4e9-d7ebe4d4b970",
       "entityType": "link_relation",
@@ -36583,1291 +36781,6 @@
         "date": "2026-07-09"
       },
       "createdAt": "2026-07-09T12:32:56.517Z"
-    },
-    {
-      "id": "workflow-event-325168e4-875c-478f-accd-6bc63eff1502",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-09",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:56.437Z",
-        "lastRegeneratedAt": "2026-07-09T12:32:56.437Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:56.475Z",
-        "lastRegeneratedAt": "2026-07-09T12:32:56.437Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "metadata": {
-        "date": "2026-07-09"
-      },
-      "createdAt": "2026-07-09T12:32:56.491Z"
-    },
-    {
-      "id": "workflow-event-086a6149-bafb-4d62-8dcc-b52dbc8fab70",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-09",
-      "action": "digest.generated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:22.511Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:56.437Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ],
-        "lastRegeneratedAt": "2026-07-09T12:32:56.437Z"
-      },
-      "metadata": {
-        "date": "2026-07-09",
-        "preserveManualAdjustments": true
-      },
-      "createdAt": "2026-07-09T12:32:56.460Z"
-    },
-    {
-      "id": "workflow-event-3954ba0c-96a5-431f-9dd8-185ae2e27cb0",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-09",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:22.471Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "今天最值得注意的信号是 OpenAI 发布新一代实时语音模型 GPT-Live：语音正在成为有独立模型代际的产品线，而不再是文字模型的附属输入输出。简报同时保留了近期值得跟踪的其他已发布信号。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:22.511Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "metadata": {
-        "date": "2026-07-09"
-      },
-      "createdAt": "2026-07-09T12:32:22.527Z"
-    },
-    {
-      "id": "workflow-event-1fb420ad-418c-4378-886d-9193ea9ab50a",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-09",
-      "action": "digest.generated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "digest-2026-07-09",
-        "date": "2026-07-09",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-09",
-        "summary": "1 item(s) need immediate attention. 0 item(s) are worth tracking. 1 source(s) are represented",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-07-09T12:00:00.000Z",
-        "updatedAt": "2026-07-09T12:32:22.471Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "metadata": {
-        "date": "2026-07-09",
-        "preserveManualAdjustments": false
-      },
-      "createdAt": "2026-07-09T12:32:22.494Z"
-    },
-    {
-      "id": "workflow-event-91f11d4d-dbc1-40d6-85c6-6df701fcc138",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "slug": "gpt-live",
-        "title": {
-          "original": "Introducing GPT-Live",
-          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
-        },
-        "summary": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
-        },
-        "content": {
-          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
-          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
-        },
-        "type": "model",
-        "publishDate": "2026-07-08",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "important",
-        "status": "draft",
-        "tags": [
-          "frontier-model",
-          "multimodal",
-          "voice"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-latency-tradeoffs",
-          "knowledge-human-loop"
-        ],
-        "relatedSkillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 100,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Editorial importance is marked important.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T12:31:13.633Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
-        "whoShouldCare": [
-          "语音产品工程师",
-          "对话式 AI 产品经理",
-          "多模态应用开发者"
-        ],
-        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
-        "impactAreas": [
-          "语音助手",
-          "客服与外呼",
-          "多模态应用",
-          "无障碍交互"
-        ],
-        "learningPath": [
-          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
-          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
-          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
-          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
-          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
-        },
-        "relatedSkillExplanations": {
-          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
-          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
-        },
-        "followUpQuestions": [
-          "GPT-Live 是否会开放 API，定价和配额如何？",
-          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
-          "哪些现有的文字交互场景值得优先升级为语音？"
-        ],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "createdAt": "2026-07-09T12:31:13.569Z",
-        "updatedAt": "2026-07-09T12:31:13.633Z",
-        "editorialNotes": [
-          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "slug": "gpt-live",
-        "title": {
-          "original": "Introducing GPT-Live",
-          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
-        },
-        "summary": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
-        },
-        "content": {
-          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
-          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
-        },
-        "type": "model",
-        "publishDate": "2026-07-08",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "important",
-        "status": "published",
-        "tags": [
-          "frontier-model",
-          "multimodal",
-          "voice"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-latency-tradeoffs",
-          "knowledge-human-loop"
-        ],
-        "relatedSkillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 100,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Editorial importance is marked important.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T12:31:13.665Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
-        "whoShouldCare": [
-          "语音产品工程师",
-          "对话式 AI 产品经理",
-          "多模态应用开发者"
-        ],
-        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
-        "impactAreas": [
-          "语音助手",
-          "客服与外呼",
-          "多模态应用",
-          "无障碍交互"
-        ],
-        "learningPath": [
-          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
-          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
-          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
-          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
-          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
-        },
-        "relatedSkillExplanations": {
-          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
-          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
-        },
-        "followUpQuestions": [
-          "GPT-Live 是否会开放 API，定价和配额如何？",
-          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
-          "哪些现有的文字交互场景值得优先升级为语音？"
-        ],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "createdAt": "2026-07-09T12:31:13.569Z",
-        "updatedAt": "2026-07-09T12:31:13.665Z",
-        "editorialNotes": [
-          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "gpt-live"
-      },
-      "createdAt": "2026-07-09T12:31:13.676Z"
-    },
-    {
-      "id": "workflow-event-60296847-23ab-437e-804b-1382ae5f876d",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "slug": "draft-introducing-gpt-live",
-        "title": {
-          "original": "Introducing GPT-Live",
-          "en": "Introducing GPT-Live"
-        },
-        "summary": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "en": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice."
-        },
-        "content": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "en": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice."
-        },
-        "type": "model",
-        "publishDate": "2026-07-08",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-multimodal",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T12:31:13.570Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "createdAt": "2026-07-09T12:31:13.569Z",
-        "updatedAt": "2026-07-09T12:31:13.569Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-openai-com-index-introducing-gpt-live.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "slug": "gpt-live",
-        "title": {
-          "original": "Introducing GPT-Live",
-          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
-        },
-        "summary": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
-        },
-        "content": {
-          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
-          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
-        },
-        "type": "model",
-        "publishDate": "2026-07-08",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "important",
-        "status": "draft",
-        "tags": [
-          "frontier-model",
-          "multimodal",
-          "voice"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-latency-tradeoffs",
-          "knowledge-human-loop"
-        ],
-        "relatedSkillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 100,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Editorial importance is marked important.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T12:31:13.633Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
-        "whoShouldCare": [
-          "语音产品工程师",
-          "对话式 AI 产品经理",
-          "多模态应用开发者"
-        ],
-        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
-        "impactAreas": [
-          "语音助手",
-          "客服与外呼",
-          "多模态应用",
-          "无障碍交互"
-        ],
-        "learningPath": [
-          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
-          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
-          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
-          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
-          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
-        },
-        "relatedSkillExplanations": {
-          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
-          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
-        },
-        "followUpQuestions": [
-          "GPT-Live 是否会开放 API，定价和配额如何？",
-          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
-          "哪些现有的文字交互场景值得优先升级为语音？"
-        ],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "createdAt": "2026-07-09T12:31:13.569Z",
-        "updatedAt": "2026-07-09T12:31:13.633Z",
-        "editorialNotes": [
-          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
-        ]
-      },
-      "metadata": {
-        "slug": "gpt-live",
-        "status": "draft"
-      },
-      "createdAt": "2026-07-09T12:31:13.652Z"
-    },
-    {
-      "id": "workflow-event-ff10848f-df80-4689-9740-8121e5388217",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "slug": "draft-introducing-gpt-live",
-        "title": {
-          "original": "Introducing GPT-Live",
-          "en": "Introducing GPT-Live"
-        },
-        "summary": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "en": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice."
-        },
-        "content": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "en": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice."
-        },
-        "type": "model",
-        "publishDate": "2026-07-08",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-multimodal",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T12:31:13.570Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "createdAt": "2026-07-09T12:31:13.569Z",
-        "updatedAt": "2026-07-09T12:31:13.569Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-openai-com-index-introducing-gpt-live.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live"
-      },
-      "createdAt": "2026-07-09T12:31:13.614Z"
-    },
-    {
-      "id": "workflow-event-039c33b1-c1df-4de5-b8c2-3ef7a8647e1e",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "sourceType": "rss-feed",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "originalTitle": "Introducing GPT-Live",
-        "originalSummary": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-        "originalContent": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-        "originalLanguage": "en",
-        "publishDate": "2026-07-08",
-        "publisherName": "OpenAI",
-        "normalizedType": "model",
-        "tags": [
-          "frontier-model",
-          "product",
-          "multimodal"
-        ],
-        "importStatus": "new",
-        "relatedCandidateIds": [],
-        "rawPayload": {
-          "sourceId": "source-openai-news",
-          "feedTitle": "OpenAI News",
-          "feedUrl": "https://openai.com/news/rss.xml",
-          "item": {
-            "title": "Introducing GPT-Live",
-            "description": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-            "link": "https://openai.com/index/introducing-gpt-live",
-            "guid": {
-              "#text": "https://openai.com/index/introducing-gpt-live",
-              "isPermaLink": "true"
-            },
-            "category": "Product",
-            "pubDate": "Wed, 08 Jul 2026 00:00:00 GMT"
-          },
-          "externalSourceType": "rss",
-          "importedAt": "2026-07-09T12:28:20.790Z",
-          "importRunId": "import-run-2026-07-09t12-28-08-322z"
-        },
-        "sourceId": "source-openai-news",
-        "importedAt": "2026-07-09T12:28:20.790Z",
-        "importRunId": "import-run-2026-07-09t12-28-08-322z"
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "slug": "draft-introducing-gpt-live",
-        "title": {
-          "original": "Introducing GPT-Live",
-          "en": "Introducing GPT-Live"
-        },
-        "summary": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "en": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice."
-        },
-        "content": {
-          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-          "en": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice."
-        },
-        "type": "model",
-        "publishDate": "2026-07-08",
-        "sourceName": "OpenAI News",
-        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-multimodal",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T12:31:13.570Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "createdAt": "2026-07-09T12:31:13.569Z",
-        "updatedAt": "2026-07-09T12:31:13.569Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-openai-com-index-introducing-gpt-live.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-        "markedCandidateIds": [
-          "candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ]
-      },
-      "createdAt": "2026-07-09T12:31:13.588Z"
-    },
-    {
-      "id": "workflow-event-645b329f-ca2f-413f-8715-1478ec369ac8",
-      "entityType": "source",
-      "entityId": "source-vllm-releases",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-vllm-releases",
-        "name": "vLLM Releases",
-        "type": "atom",
-        "url": "https://github.com/vllm-project/vllm/releases.atom",
-        "enabled": true,
-        "description": "vLLM high-throughput LLM inference engine release feed.",
-        "language": "en",
-        "publisherName": "vLLM Project",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "inference",
-          "serving"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-07-09T12:28:08.320Z",
-        "updatedAt": "2026-07-09T12:28:08.320Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-vllm-releases",
-        "name": "vLLM Releases",
-        "type": "atom",
-        "url": "https://github.com/vllm-project/vllm/releases.atom",
-        "enabled": true,
-        "description": "vLLM high-throughput LLM inference engine release feed.",
-        "language": "en",
-        "publisherName": "vLLM Project",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "inference",
-          "serving"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "success",
-        "lastImportCount": 4,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 4,
-        "createdAt": "2026-07-09T12:28:08.320Z",
-        "updatedAt": "2026-07-09T12:28:23.966Z",
-        "maxItems": 4,
-        "lastFetchedAt": "2026-07-09T12:28:23.966Z",
-        "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "lastSuccessfulImportAt": "2026-07-09T12:28:23.966Z"
-      },
-      "metadata": {
-        "status": "success",
-        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "importCount": 4,
-        "candidatesCreated": 4
-      },
-      "createdAt": "2026-07-09T12:28:23.985Z"
-    },
-    {
-      "id": "workflow-event-dcd27afe-1a61-4672-9ea8-613e32774df8",
-      "entityType": "source",
-      "entityId": "source-openai-news",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-openai-news",
-        "name": "OpenAI News",
-        "type": "rss",
-        "url": "https://openai.com/news/rss.xml",
-        "enabled": true,
-        "description": "OpenAI official news feed.",
-        "language": "en",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "defaultTags": [
-          "frontier-model"
-        ],
-        "defaultNormalizedType": "model",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-07-09T12:28:08.321Z",
-        "updatedAt": "2026-07-09T12:28:08.321Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-openai-news",
-        "name": "OpenAI News",
-        "type": "rss",
-        "url": "https://openai.com/news/rss.xml",
-        "enabled": true,
-        "description": "OpenAI official news feed.",
-        "language": "en",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "defaultTags": [
-          "frontier-model"
-        ],
-        "defaultNormalizedType": "model",
-        "lastImportStatus": "success",
-        "lastImportCount": 4,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 4,
-        "createdAt": "2026-07-09T12:28:08.321Z",
-        "updatedAt": "2026-07-09T12:28:22.394Z",
-        "maxItems": 4,
-        "lastFetchedAt": "2026-07-09T12:28:22.394Z",
-        "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "lastSuccessfulImportAt": "2026-07-09T12:28:22.394Z"
-      },
-      "metadata": {
-        "status": "success",
-        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "importCount": 4,
-        "candidatesCreated": 4
-      },
-      "createdAt": "2026-07-09T12:28:22.411Z"
-    },
-    {
-      "id": "workflow-event-91724bb6-130a-40e6-8501-edb6df90e124",
-      "entityType": "source",
-      "entityId": "source-ollama-releases",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-ollama-releases",
-        "name": "Ollama Releases",
-        "type": "atom",
-        "url": "https://github.com/ollama/ollama/releases.atom",
-        "enabled": true,
-        "description": "Ollama local LLM runtime release feed.",
-        "language": "en",
-        "publisherName": "Ollama",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "local-inference",
-          "open-source"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-07-09T12:28:08.320Z",
-        "updatedAt": "2026-07-09T12:28:08.320Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-ollama-releases",
-        "name": "Ollama Releases",
-        "type": "atom",
-        "url": "https://github.com/ollama/ollama/releases.atom",
-        "enabled": true,
-        "description": "Ollama local LLM runtime release feed.",
-        "language": "en",
-        "publisherName": "Ollama",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "local-inference",
-          "open-source"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "success",
-        "lastImportCount": 4,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 4,
-        "createdAt": "2026-07-09T12:28:08.320Z",
-        "updatedAt": "2026-07-09T12:28:20.768Z",
-        "maxItems": 4,
-        "lastFetchedAt": "2026-07-09T12:28:20.768Z",
-        "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "lastSuccessfulImportAt": "2026-07-09T12:28:20.768Z"
-      },
-      "metadata": {
-        "status": "success",
-        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "importCount": 4,
-        "candidatesCreated": 4
-      },
-      "createdAt": "2026-07-09T12:28:20.778Z"
-    },
-    {
-      "id": "workflow-event-1618ab2d-2109-4a96-babe-f47218f9df65",
-      "entityType": "source",
-      "entityId": "source-mcp-servers-releases",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-mcp-servers-releases",
-        "name": "MCP Servers Releases",
-        "type": "atom",
-        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
-        "enabled": true,
-        "description": "Model Context Protocol reference servers release feed.",
-        "language": "en",
-        "publisherName": "modelcontextprotocol",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "mcp",
-          "agent"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-07-09T12:28:08.321Z",
-        "updatedAt": "2026-07-09T12:28:08.321Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-mcp-servers-releases",
-        "name": "MCP Servers Releases",
-        "type": "atom",
-        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
-        "enabled": true,
-        "description": "Model Context Protocol reference servers release feed.",
-        "language": "en",
-        "publisherName": "modelcontextprotocol",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "mcp",
-          "agent"
-        ],
-        "defaultNormalizedType": "tool",
-        "lastImportStatus": "success",
-        "lastImportCount": 4,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 4,
-        "createdAt": "2026-07-09T12:28:08.321Z",
-        "updatedAt": "2026-07-09T12:28:19.727Z",
-        "maxItems": 4,
-        "lastFetchedAt": "2026-07-09T12:28:19.727Z",
-        "lastImportMessage": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "lastSuccessfulImportAt": "2026-07-09T12:28:19.727Z"
-      },
-      "metadata": {
-        "status": "success",
-        "message": "Imported 4 new candidate(s); skipped 0 duplicate or existing candidate(s).",
-        "importCount": 4,
-        "candidatesCreated": 4
-      },
-      "createdAt": "2026-07-09T12:28:19.741Z"
-    },
-    {
-      "id": "workflow-event-df4a5fe6-3154-4ad2-80a5-f93635b48392",
-      "entityType": "source",
-      "entityId": "source-hugging-face-blog",
-      "action": "source.imported",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "source-hugging-face-blog",
-        "name": "Hugging Face Blog",
-        "type": "rss",
-        "url": "https://huggingface.co/blog/feed.xml",
-        "enabled": true,
-        "description": "Hugging Face official blog feed.",
-        "language": "en",
-        "publisherName": "Hugging Face",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "open-source",
-          "model"
-        ],
-        "defaultNormalizedType": "unknown",
-        "lastImportStatus": "never_run",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 0,
-        "totalImportedCount": 0,
-        "createdAt": "2026-07-09T12:28:08.321Z",
-        "updatedAt": "2026-07-09T12:28:08.321Z",
-        "maxItems": 4
-      },
-      "afterSnapshot": {
-        "id": "source-hugging-face-blog",
-        "name": "Hugging Face Blog",
-        "type": "rss",
-        "url": "https://huggingface.co/blog/feed.xml",
-        "enabled": true,
-        "description": "Hugging Face official blog feed.",
-        "language": "en",
-        "publisherName": "Hugging Face",
-        "publisherType": "open-source-community",
-        "defaultTags": [
-          "open-source",
-          "model"
-        ],
-        "defaultNormalizedType": "unknown",
-        "lastImportStatus": "failed",
-        "lastImportCount": 0,
-        "consecutiveFailureCount": 1,
-        "totalImportedCount": 0,
-        "createdAt": "2026-07-09T12:28:08.321Z",
-        "updatedAt": "2026-07-09T12:28:18.898Z",
-        "maxItems": 4,
-        "lastErrorMessage": "fetch failed",
-        "lastFetchedAt": "2026-07-09T12:28:18.898Z",
-        "lastImportMessage": "fetch failed"
-      },
-      "metadata": {
-        "status": "failed",
-        "message": "fetch failed",
-        "importCount": 0,
-        "candidatesCreated": 0
-      },
-      "createdAt": "2026-07-09T12:28:18.921Z"
-    },
-    {
-      "id": "workflow-event-7ddb8977-4cee-4537-9370-21dd4e618556",
-      "entityType": "technology_learning_path",
-      "entityId": "tech-mcp",
-      "action": "technology_learning_path.generated",
-      "actorType": "system",
-      "metadata": {
-        "generationMode": "mock_llm",
-        "providerName": "mock",
-        "modelName": "mock-technology-learning-path-v0",
-        "promptVersionId": "prompt-technology-learning-path-v1",
-        "outputValidationStatus": "valid"
-      },
-      "createdAt": "2026-07-05T22:56:36.132Z"
-    },
-    {
-      "id": "workflow-event-37f56f91-2922-431a-9bda-7feced0a83db",
-      "entityType": "technology_learning_path",
-      "entityId": "tech-mcp",
-      "action": "technology_learning_path.generated",
-      "actorType": "system",
-      "metadata": {
-        "generationMode": "mock_llm",
-        "providerName": "mock",
-        "modelName": "mock-technology-learning-path-v0",
-        "promptVersionId": "prompt-technology-learning-path-v1",
-        "outputValidationStatus": "valid"
-      },
-      "createdAt": "2026-07-05T22:55:51.323Z"
-    },
-    {
-      "id": "workflow-event-8f18a1fc-7d54-4ab8-a48f-37693aacc8c4",
-      "entityType": "prompt_version",
-      "entityId": "prompt-technology-learning-path-v1",
-      "action": "prompt_version.created",
-      "actorType": "system",
-      "afterSnapshot": {
-        "id": "prompt-technology-learning-path-v1",
-        "name": "Technology learning path structured JSON",
-        "purpose": "technology_learning_path",
-        "version": "technology-learning-path-v1",
-        "status": "active"
-      },
-      "metadata": {
-        "purpose": "technology_learning_path",
-        "version": "technology-learning-path-v1"
-      },
-      "createdAt": "2026-07-05T22:55:51.301Z"
-    },
-    {
-      "id": "workflow-event-4070402c-536f-4a2f-b986-e48529a504a8",
-      "entityType": "technology_explanation",
-      "entityId": "tech-mcp::beginner",
-      "action": "technology_explanation.generated",
-      "actorType": "system",
-      "metadata": {
-        "generationMode": "mock_llm",
-        "providerName": "mock",
-        "modelName": "mock-technology-explanation-v0",
-        "promptVersionId": "prompt-technology-explanation-v1",
-        "outputValidationStatus": "valid"
-      },
-      "createdAt": "2026-07-05T10:30:02.577Z"
-    },
-    {
-      "id": "workflow-event-a264b1b8-2d51-4708-a3b0-22661a44e181",
-      "entityType": "prompt_version",
-      "entityId": "prompt-technology-explanation-v1",
-      "action": "prompt_version.created",
-      "actorType": "system",
-      "afterSnapshot": {
-        "id": "prompt-technology-explanation-v1",
-        "name": "Technology explanation structured JSON",
-        "purpose": "technology_explanation",
-        "version": "technology-explanation-v1",
-        "status": "active"
-      },
-      "metadata": {
-        "purpose": "technology_explanation",
-        "version": "technology-explanation-v1"
-      },
-      "createdAt": "2026-07-05T10:30:02.554Z"
     }
   ]
 }
