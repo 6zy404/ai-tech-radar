@@ -12,6 +12,20 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Partial-update slug preservation fix
+
+- **`updateTechnologyWorkspaceRecord` no longer regenerates the slug on
+  partial updates** — 2026-07-19, found live during the same-day content
+  round: a PATCH that omitted `slug` fell through
+  `normalizeSlug(undefined, title.original)` and silently rebuilt the slug
+  from the **original (English) title**, breaking the public URL of every
+  record touched by a partial API update (the workspace edit form always
+  sends `slug`, so the bug never surfaced through the UI). Five published
+  signals had their slugs clobbered and restored during verification. Fix:
+  an absent `slug` now keeps the existing value; an explicit `slug` still
+  normalizes with title fallback. Verified with a partial-PATCH round-trip
+  (slug preserved), typecheck, lint, format, and vitest 90/90.
+
 ## LinkRelation v1 (typed relation editing)
 
 - **Typed relation editing across all three workspace editors** —
