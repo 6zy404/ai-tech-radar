@@ -1,6 +1,388 @@
 {
-  "updatedAt": "2026-07-14T00:53:54.232Z",
+  "updatedAt": "2026-07-19T03:24:47.958Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "slug": "ai2-shippy-agent-lessons",
+      "title": {
+        "original": "What building Shippy taught us about building agents",
+        "zh": "Shippy 复盘：Ai2 高风险场景智能体的四条工程经验与三件开源工件"
+      },
+      "summary": {
+        "original": "Ai2's Skylight team shares engineering lessons from Shippy, a maritime-domain-awareness agent serving analysts in 70+ countries, and open-sources the OpenClaw agent framework, the Harbor evaluation framework and the Mothership hosting platform.",
+        "zh": "Ai2 Skylight 团队复盘海事态势感知智能体 Shippy 的工程实践：智能体三分解剖（soul/skills/config）、确定性 CLI 工具层、按会话隔离的沙箱部署、专家加权评分的活数据评估，并开源了 OpenClaw（智能体框架）、Harbor（评估框架）与 Mothership（托管平台）三件工件。"
+      },
+      "content": {
+        "original": "Shippy is an AI agent built by Ai2's Skylight team for real-time maritime domain awareness, assisting analysts across 70+ countries in high-stakes operational decisions. The writeup distills four lessons: separate an agent into soul (system prompt), skills (markdown-documented capabilities) and config; talk to APIs through a purpose-built deterministic CLI rather than raw calls; isolate each user session in its own sandboxed Kubernetes deployment; and evaluate on live data with expert-weighted rubrics instead of static benchmarks. Released artifacts: the OpenClaw agent framework, the Harbor evaluation framework with a Shippy plugin, the Mothership hosting platform, and the agent-skills markdown spec.",
+        "zh": "Shippy 是 Ai2 Skylight 团队为实时海事态势感知构建的智能体，服务 70 多个国家的分析人员做高风险业务决策——错误回答可能浪费执法资源甚至危及人员安全，这决定了它的工程取向：可靠性优先于能力上限。\n\n复盘提炼出四条经验。第一，把智能体拆成 soul（定义边界的系统提示）、skills（用 markdown 文档化的能力）与 config（运行时配置）三层，各自独立版本化，改动无需重建整体。第二，模型不直接拼裸 API 调用，而是通过专门构建的确定性 CLI 与后端交互——分页错误、畸形查询这类隐蔽 bug 在工具层就被消化，且每一层可独立测试。第三，Mothership 平台按用户会话分配独立的 Kubernetes 沙箱部署，在数百个政府合作方之间做数据隔离的同时支撑多步分析。第四，评估不用静态基准，而是在活数据上由领域专家定义加权评分表，真实捕捉工具选择与护栏遵守情况。\n\n随文开源三件工件：OpenClaw（智能体框架）、Harbor（带 Shippy 插件的评估框架）、Mothership（通用智能体托管平台），外加与 Claude Code、Codex 通用的 agent-skills markdown 规范。对正在把智能体推向生产环境的团队，这是一份罕见的「高风险场景」一手工程记录。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ai2",
+      "publisherType": "research-lab",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-19T03:24:47.958Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产级智能体的公开工程复盘本就稀少，高风险场景（错误决策有真实代价）的更是罕见。四条经验——三分解剖、确定性工具层、会话级沙箱、专家评分的活数据评估——每一条都指向同一个主题：智能体可靠性来自工程结构，不是模型能力。",
+      "whoShouldCare": [
+        "把智能体推向生产环境的工程团队",
+        "智能体平台与基础设施建设者",
+        "关注智能体评估方法的从业者"
+      ],
+      "technicalContext": "「模型通过确定性 CLI 而非裸 API 与系统交互」是近期智能体工程的收敛趋势：把不可靠性关进模型与工具的边界之内，工具层用传统软件工程的确定性来兜底。agent-skills 的 markdown 规范与 Claude Code、Codex 通用，也印证了智能体能力描述格式正在跨厂商标准化。",
+      "impactAreas": [
+        "智能体工程实践",
+        "智能体评估方法",
+        "多租户智能体部署"
+      ],
+      "learningPath": [
+        "对照 soul/skills/config 三分法审视自己的智能体：提示、能力、配置是否已经解耦",
+        "把最容易出错的一个 API 调用包成确定性 CLI 工具，对比错误率变化",
+        "参照 Harbor 的思路，为自己的智能体定义一份领域专家加权的评分表"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "Shippy 的确定性 CLI 层是工具使用概念的工程化范本：模型负责决策，工具负责正确执行。",
+        "knowledge-evaluation-loops": "活数据 + 专家加权评分表替代静态基准，是评估闭环思想在智能体场景的落地形态。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "soul/skills/config 三分解剖可以直接当作智能体工作流设计的检查清单使用。",
+        "skill-tool-integration": "「裸 API 调用 → 专用确定性 CLI」正是工具集成模式要解决的核心问题：接口的可靠性边界画在哪里。"
+      },
+      "followUpQuestions": [
+        "OpenClaw 与现有主流智能体框架相比的差异化设计是什么？",
+        "会话级 Kubernetes 沙箱的成本与冷启动延迟在什么量级？",
+        "agent-skills 规范会不会成为跨厂商的事实标准？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "createdAt": "2026-07-19T03:20:48.302Z",
+      "updatedAt": "2026-07-19T03:24:47.958Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "slug": "real-world-voiceeq",
+      "title": {
+        "original": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+        "zh": "Real World VoiceEQ：衡量语音 AI「人性质量」的评测基准"
+      },
+      "summary": {
+        "original": "Hume AI launches Real World VoiceEQ, a benchmark evaluating the human quality of voice interaction across 40+ models, 15+ dimensions and 60+ metrics, grounded in over 1 million human ratings.",
+        "zh": "Hume AI 发布 Real World VoiceEQ：一套衡量语音交互「人性质量」的评测基准，覆盖 40+ 语音模型、15+ 评测维度、60+ 指标，横跨 ASR/TTS/语音对话/语音理解四大类，底层是 100 万+ 条跨人群、跨声学环境的人工评分。"
+      },
+      "content": {
+        "original": "Real World VoiceEQ evaluates whether voice systems can recognize, produce and respond to the acoustic elements transcripts omit — tone, emotion, speaker identity, context. Built by Hume AI on their Kairos evaluation platform, it tests 40+ voice models across ASR, TTS, speech-to-speech and speech understanding, grounded in over 1 million human ratings. Key findings: no single best voice model exists; models speak well but often fail to truly listen to paralinguistic cues; traditional benchmarks overestimate real-world performance with accents, noise and emotion; and human raters remain essential for subjective acoustic judgments.",
+        "zh": "Real World VoiceEQ 想回答的问题是：语音 AI 能否识别、生成并回应那些「转写文本里不存在」的声学信息——语气、情绪、说话人身份与语境。这正是语音交互与文本交互的本质差异，也是现有以转写准确率为中心的评测长期忽略的一层。\n\n基准由 Hume AI 基于其 Kairos 评测平台构建：覆盖 40 余个语音模型，横跨 ASR（识别）、TTS（合成）、S2S（语音对话）与语音理解四大类，15+ 维度、60+ 指标，底层是 100 万条以上、跨人群与声学环境采集的人工评分。\n\n几条关键发现值得记住：其一，不存在单一「最强语音模型」，能力进步高度专门化；其二，模型普遍「会说不会听」——生成质量领先，但对犹豫、语气等副语言线索的理解薄弱；其三，传统基准显著高估了真实环境（口音、噪声、情绪化表达）下的表现；其四，在主观声学判断上，AI 评审与人类的一致性明显弱于客观任务——人工评分在这个领域仍不可替代。对正在选型语音模型的团队，这套基准提供了比厂商演示更接近真实场景的参照系。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hume AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-1a0da8a9",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-19T03:24:47.915Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "语音正成为 AI 产品的主流交互形态（GPT-Live 是最新例证），但「听起来像人」和「听得懂人」是两回事。VoiceEQ 第一次把副语言理解、真实声学环境这些维度系统性地放进评测，直接影响语音模型选型的判断依据。",
+      "whoShouldCare": [
+        "语音产品的设计与技术负责人",
+        "语音模型选型决策者",
+        "评测与质量团队"
+      ],
+      "technicalContext": "语音评测的难点在于主观性：同一段合成语音的「自然度」没有客观标准答案。VoiceEQ 的做法是用大规模、跨人群的人工评分做基底，同时诚实报告了 AI 评审在主观声学判断上与人类一致性偏弱——这本身就是对「LLM-as-judge 万能」的一次有数据的反驳。",
+      "impactAreas": [
+        "语音 AI 产品评测",
+        "语音模型选型",
+        "人机语音交互设计"
+      ],
+      "learningPath": [
+        "先分清语音评测的四个层次：识别准确、合成自然、对话流畅、副语言理解",
+        "浏览 VoiceEQ 的维度设计，对照自己产品的语音场景找出关键维度",
+        "在真实用户声学环境（口音、噪声）下复测候选模型，验证厂商指标的水分"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "VoiceEQ 展示了评估闭环在高主观性领域的形态：人工评分做金标准，AI 评审只在客观维度上辅助扩量。",
+        "knowledge-latency-tradeoffs": "语音交互的体验由「反应快」与「听得懂」共同决定，延迟权衡是解读语音评测结果时不可缺的另一半。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-1a0da8a9": "实时语音交互设计需要回答「选哪个语音模型、为什么」，VoiceEQ 的维度体系正是这个决策的参照框架。",
+        "skill-model-evaluation": "「基准高估真实表现」的发现再次验证：评估必须落到自己的真实场景，而不是转引榜单结论。"
+      },
+      "followUpQuestions": [
+        "VoiceEQ 的评分数据和维度定义是否开放，能否用于自建评测？",
+        "GPT-Live 等最新实时语音模型在副语言理解维度上的表现如何？",
+        "跨语言（尤其中文）场景下这套基准的覆盖程度怎样？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "createdAt": "2026-07-19T03:20:48.229Z",
+      "updatedAt": "2026-07-19T03:24:47.915Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "slug": "gpt-red",
+      "title": {
+        "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
+        "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
+      },
+      "summary": {
+        "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
+        "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
+      },
+      "content": {
+        "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
+        "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-15",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-19T03:24:47.879Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
+      "whoShouldCare": [
+        "智能体产品的安全负责人",
+        "模型安全与对齐研究者",
+        "把 LLM 接入外部工具的工程团队"
+      ],
+      "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
+      "impactAreas": [
+        "智能体安全",
+        "模型对齐方法",
+        "AI 红队实践"
+      ],
+      "learningPath": [
+        "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
+        "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
+        "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
+        "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
+        "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
+      },
+      "followUpQuestions": [
+        "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
+        "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
+        "外部团队能否用开源模型复现类似的攻防自博弈回路？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "createdAt": "2026-07-19T03:20:48.157Z",
+      "updatedAt": "2026-07-19T03:24:47.879Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "slug": "thinkingmachines-inkling",
+      "title": {
+        "original": "Welcome Inkling by Thinking Machines",
+        "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
+      },
+      "summary": {
+        "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
+        "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
+      },
+      "content": {
+        "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
+        "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Thinking Machines",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-multimodal",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-19T03:24:47.832Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
+      "whoShouldCare": [
+        "模型选型与技术决策者",
+        "推理平台与 MLOps 工程师",
+        "多模态应用开发者"
+      ],
+      "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
+      "impactAreas": [
+        "开源旗舰模型格局",
+        "多模态应用开发",
+        "自托管推理容量规划"
+      ],
+      "learningPath": [
+        "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
+        "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
+        "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
+        "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
+        "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
+      },
+      "followUpQuestions": [
+        "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
+        "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
+        "1M 上下文在真实长文档任务中的有效利用率是多少？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "createdAt": "2026-07-19T03:20:48.051Z",
+      "updatedAt": "2026-07-19T03:24:47.832Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
       "slug": "ollama-v0-32-0",
