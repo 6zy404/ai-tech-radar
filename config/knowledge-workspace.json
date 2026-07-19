@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T03:16:31.060Z",
+  "updatedAt": "2026-07-19T04:05:13.614Z",
   "records": [
     {
       "id": "knowledge-ws-818b7bb3",
@@ -47,6 +47,30 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.762Z",
       "updatedAt": "2026-07-16T03:16:31.059Z"
+    },
+    {
+      "id": "knowledge-ws-36346103",
+      "title": "混合专家模型（MoE）架构",
+      "slug": "moe-architecture",
+      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
+      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:12.947Z",
+      "updatedAt": "2026-07-19T04:05:13.614Z"
     }
   ]
 }

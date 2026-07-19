@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T03:16:30.417Z",
+  "updatedAt": "2026-07-19T04:05:12.616Z",
   "records": [
     {
       "id": "skill-ws-a9e80194",
@@ -50,6 +50,33 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.431Z",
       "updatedAt": "2026-07-16T03:16:30.417Z"
+    },
+    {
+      "id": "skill-ws-c183c9b9",
+      "title": "智能体安全与提示注入防御",
+      "slug": "agent-security-injection-defense",
+      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:11.800Z",
+      "updatedAt": "2026-07-19T04:05:12.615Z"
     }
   ]
 }
