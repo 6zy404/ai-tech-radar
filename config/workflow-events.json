@@ -1,6 +1,941 @@
 {
-  "updatedAt": "2026-07-19T04:07:36.007Z",
+  "updatedAt": "2026-07-19T05:04:42.510Z",
   "events": [
+    {
+      "id": "workflow-event-ce84a7c3-e79e-4df1-8d04-fd15074b9ed1",
+      "entityType": "skill",
+      "entityId": "skill-ws-1a0da8a9",
+      "action": "skill.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-1a0da8a9",
+        "title": "实时语音交互设计",
+        "slug": "realtime-voice-interaction-design",
+        "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+        "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+        "skillType": "product",
+        "heatLevel": "emerging",
+        "learningCost": "medium",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-16T03:16:15.431Z",
+        "updatedAt": "2026-07-16T03:16:30.417Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-1a0da8a9",
+        "title": "实时语音交互设计",
+        "slug": "realtime-voice-interaction-design",
+        "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+        "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+        "skillType": "product",
+        "heatLevel": "emerging",
+        "learningCost": "medium",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop",
+          "knowledge-ws-8c99b19c"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-16T03:16:15.431Z",
+        "updatedAt": "2026-07-19T05:04:42.495Z"
+      },
+      "createdAt": "2026-07-19T05:04:42.510Z"
+    },
+    {
+      "id": "workflow-event-3fda5b85-a532-47c5-839d-f2fd07ec7f77",
+      "entityType": "skill",
+      "entityId": "skill-ws-c183c9b9",
+      "action": "skill.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "skill-ws-c183c9b9",
+        "title": "智能体安全与提示注入防御",
+        "slug": "agent-security-injection-defense",
+        "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+        "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+        "skillType": "engineering",
+        "heatLevel": "hot",
+        "learningCost": "medium",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+          "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use",
+          "knowledge-human-loop",
+          "knowledge-evaluation-loops"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-19T04:05:11.800Z",
+        "updatedAt": "2026-07-19T04:05:12.615Z"
+      },
+      "afterSnapshot": {
+        "id": "skill-ws-c183c9b9",
+        "title": "智能体安全与提示注入防御",
+        "slug": "agent-security-injection-defense",
+        "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+        "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+        "skillType": "engineering",
+        "heatLevel": "hot",
+        "learningCost": "medium",
+        "tags": [
+          "tag-ai-agents",
+          "tag-workflow"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+          "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-tool-use",
+          "knowledge-human-loop",
+          "knowledge-evaluation-loops",
+          "knowledge-ws-89b98df3"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-19T04:05:11.800Z",
+        "updatedAt": "2026-07-19T05:04:42.437Z"
+      },
+      "createdAt": "2026-07-19T05:04:42.457Z"
+    },
+    {
+      "id": "workflow-event-930401ed-1302-4b93-b90b-52927b05c32c",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "slug": "introducing-gpt-live",
+        "title": {
+          "original": "Introducing GPT-Live",
+          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
+        },
+        "summary": {
+          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
+        },
+        "content": {
+          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
+          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
+        },
+        "type": "model",
+        "publishDate": "2026-07-08",
+        "sourceName": "OpenAI News",
+        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-multimodal"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "Title is complete.",
+            "Summary is complete.",
+            "Content is complete.",
+            "Tags are available.",
+            "Related knowledge is linked.",
+            "Related skills are linked.",
+            "Publisher is identified.",
+            "Signal is recent.",
+            "Editorial importance is marked important.",
+            "Publisher type is a strong technology signal source."
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-09T14:35:01.353Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
+        "whoShouldCare": [
+          "语音产品工程师",
+          "对话式 AI 产品经理",
+          "多模态应用开发者"
+        ],
+        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
+        "impactAreas": [
+          "语音助手",
+          "客服与外呼",
+          "多模态应用",
+          "无障碍交互"
+        ],
+        "learningPath": [
+          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
+          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
+          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
+          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
+          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
+          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
+        },
+        "followUpQuestions": [
+          "GPT-Live 是否会开放 API，定价和配额如何？",
+          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
+          "哪些现有的文字交互场景值得优先升级为语音？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "createdAt": "2026-07-09T12:31:13.569Z",
+        "updatedAt": "2026-07-09T14:35:01.353Z",
+        "editorialNotes": [
+          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "slug": "introducing-gpt-live",
+        "title": {
+          "original": "Introducing GPT-Live",
+          "zh": "GPT-Live：OpenAI 新一代实时语音模型"
+        },
+        "summary": {
+          "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+          "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
+        },
+        "content": {
+          "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
+          "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
+        },
+        "type": "model",
+        "publishDate": "2026-07-08",
+        "sourceName": "OpenAI News",
+        "sourceUrl": "https://openai.com/index/introducing-gpt-live",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-multimodal"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-latency-tradeoffs",
+          "knowledge-human-loop",
+          "knowledge-ws-8c99b19c"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-scope-pilots"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。",
+            "发布方类型属于强技术信号来源。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T05:04:41.714Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
+        "whoShouldCare": [
+          "语音产品工程师",
+          "对话式 AI 产品经理",
+          "多模态应用开发者"
+        ],
+        "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
+        "impactAreas": [
+          "语音助手",
+          "客服与外呼",
+          "多模态应用",
+          "无障碍交互"
+        ],
+        "learningPath": [
+          "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
+          "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
+          "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
+          "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
+          "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
+          "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
+        },
+        "followUpQuestions": [
+          "GPT-Live 是否会开放 API，定价和配额如何？",
+          "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
+          "哪些现有的文字交互场景值得优先升级为语音？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "createdAt": "2026-07-09T12:31:13.569Z",
+        "updatedAt": "2026-07-19T05:04:41.714Z",
+        "editorialNotes": [
+          "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
+        ]
+      },
+      "metadata": {
+        "slug": "introducing-gpt-live",
+        "status": "published"
+      },
+      "createdAt": "2026-07-19T05:04:41.736Z"
+    },
+    {
+      "id": "workflow-event-0ff663aa-a09c-4d6a-b509-e9b611bd3125",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+        "slug": "real-world-voiceeq",
+        "title": {
+          "original": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+          "zh": "Real World VoiceEQ：衡量语音 AI「人性质量」的评测基准"
+        },
+        "summary": {
+          "original": "Hume AI launches Real World VoiceEQ, a benchmark evaluating the human quality of voice interaction across 40+ models, 15+ dimensions and 60+ metrics, grounded in over 1 million human ratings.",
+          "zh": "Hume AI 发布 Real World VoiceEQ：一套衡量语音交互「人性质量」的评测基准，覆盖 40+ 语音模型、15+ 评测维度、60+ 指标，横跨 ASR/TTS/语音对话/语音理解四大类，底层是 100 万+ 条跨人群、跨声学环境的人工评分。"
+        },
+        "content": {
+          "original": "Real World VoiceEQ evaluates whether voice systems can recognize, produce and respond to the acoustic elements transcripts omit — tone, emotion, speaker identity, context. Built by Hume AI on their Kairos evaluation platform, it tests 40+ voice models across ASR, TTS, speech-to-speech and speech understanding, grounded in over 1 million human ratings. Key findings: no single best voice model exists; models speak well but often fail to truly listen to paralinguistic cues; traditional benchmarks overestimate real-world performance with accents, noise and emotion; and human raters remain essential for subjective acoustic judgments.",
+          "zh": "Real World VoiceEQ 想回答的问题是：语音 AI 能否识别、生成并回应那些「转写文本里不存在」的声学信息——语气、情绪、说话人身份与语境。这正是语音交互与文本交互的本质差异，也是现有以转写准确率为中心的评测长期忽略的一层。\n\n基准由 Hume AI 基于其 Kairos 评测平台构建：覆盖 40 余个语音模型，横跨 ASR（识别）、TTS（合成）、S2S（语音对话）与语音理解四大类，15+ 维度、60+ 指标，底层是 100 万条以上、跨人群与声学环境采集的人工评分。\n\n几条关键发现值得记住：其一，不存在单一「最强语音模型」，能力进步高度专门化；其二，模型普遍「会说不会听」——生成质量领先，但对犹豫、语气等副语言线索的理解薄弱；其三，传统基准显著高估了真实环境（口音、噪声、情绪化表达）下的表现；其四，在主观声学判断上，AI 评审与人类的一致性明显弱于客观任务——人工评分在这个领域仍不可替代。对正在选型语音模型的团队，这套基准提供了比厂商演示更接近真实场景的参照系。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-15",
+        "sourceName": "Hugging Face Blog",
+        "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Hume AI",
+        "publisherType": "startup",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-1a0da8a9",
+          "skill-model-evaluation"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T03:24:47.915Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "语音正成为 AI 产品的主流交互形态（GPT-Live 是最新例证），但「听起来像人」和「听得懂人」是两回事。VoiceEQ 第一次把副语言理解、真实声学环境这些维度系统性地放进评测，直接影响语音模型选型的判断依据。",
+        "whoShouldCare": [
+          "语音产品的设计与技术负责人",
+          "语音模型选型决策者",
+          "评测与质量团队"
+        ],
+        "technicalContext": "语音评测的难点在于主观性：同一段合成语音的「自然度」没有客观标准答案。VoiceEQ 的做法是用大规模、跨人群的人工评分做基底，同时诚实报告了 AI 评审在主观声学判断上与人类一致性偏弱——这本身就是对「LLM-as-judge 万能」的一次有数据的反驳。",
+        "impactAreas": [
+          "语音 AI 产品评测",
+          "语音模型选型",
+          "人机语音交互设计"
+        ],
+        "learningPath": [
+          "先分清语音评测的四个层次：识别准确、合成自然、对话流畅、副语言理解",
+          "浏览 VoiceEQ 的维度设计，对照自己产品的语音场景找出关键维度",
+          "在真实用户声学环境（口音、噪声）下复测候选模型，验证厂商指标的水分"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-evaluation-loops": "VoiceEQ 展示了评估闭环在高主观性领域的形态：人工评分做金标准，AI 评审只在客观维度上辅助扩量。",
+          "knowledge-latency-tradeoffs": "语音交互的体验由「反应快」与「听得懂」共同决定，延迟权衡是解读语音评测结果时不可缺的另一半。"
+        },
+        "relatedSkillExplanations": {
+          "skill-ws-1a0da8a9": "实时语音交互设计需要回答「选哪个语音模型、为什么」，VoiceEQ 的维度体系正是这个决策的参照框架。",
+          "skill-model-evaluation": "「基准高估真实表现」的发现再次验证：评估必须落到自己的真实场景，而不是转引榜单结论。"
+        },
+        "followUpQuestions": [
+          "VoiceEQ 的评分数据和维度定义是否开放，能否用于自建评测？",
+          "GPT-Live 等最新实时语音模型在副语言理解维度上的表现如何？",
+          "跨语言（尤其中文）场景下这套基准的覆盖程度怎样？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+        "createdAt": "2026-07-19T03:20:48.229Z",
+        "updatedAt": "2026-07-19T03:24:47.915Z",
+        "editorialNotes": [
+          "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+        "slug": "real-world-voiceeq",
+        "title": {
+          "original": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+          "zh": "Real World VoiceEQ：衡量语音 AI「人性质量」的评测基准"
+        },
+        "summary": {
+          "original": "Hume AI launches Real World VoiceEQ, a benchmark evaluating the human quality of voice interaction across 40+ models, 15+ dimensions and 60+ metrics, grounded in over 1 million human ratings.",
+          "zh": "Hume AI 发布 Real World VoiceEQ：一套衡量语音交互「人性质量」的评测基准，覆盖 40+ 语音模型、15+ 评测维度、60+ 指标，横跨 ASR/TTS/语音对话/语音理解四大类，底层是 100 万+ 条跨人群、跨声学环境的人工评分。"
+        },
+        "content": {
+          "original": "Real World VoiceEQ evaluates whether voice systems can recognize, produce and respond to the acoustic elements transcripts omit — tone, emotion, speaker identity, context. Built by Hume AI on their Kairos evaluation platform, it tests 40+ voice models across ASR, TTS, speech-to-speech and speech understanding, grounded in over 1 million human ratings. Key findings: no single best voice model exists; models speak well but often fail to truly listen to paralinguistic cues; traditional benchmarks overestimate real-world performance with accents, noise and emotion; and human raters remain essential for subjective acoustic judgments.",
+          "zh": "Real World VoiceEQ 想回答的问题是：语音 AI 能否识别、生成并回应那些「转写文本里不存在」的声学信息——语气、情绪、说话人身份与语境。这正是语音交互与文本交互的本质差异，也是现有以转写准确率为中心的评测长期忽略的一层。\n\n基准由 Hume AI 基于其 Kairos 评测平台构建：覆盖 40 余个语音模型，横跨 ASR（识别）、TTS（合成）、S2S（语音对话）与语音理解四大类，15+ 维度、60+ 指标，底层是 100 万条以上、跨人群与声学环境采集的人工评分。\n\n几条关键发现值得记住：其一，不存在单一「最强语音模型」，能力进步高度专门化；其二，模型普遍「会说不会听」——生成质量领先，但对犹豫、语气等副语言线索的理解薄弱；其三，传统基准显著高估了真实环境（口音、噪声、情绪化表达）下的表现；其四，在主观声学判断上，AI 评审与人类的一致性明显弱于客观任务——人工评分在这个领域仍不可替代。对正在选型语音模型的团队，这套基准提供了比厂商演示更接近真实场景的参照系。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-15",
+        "sourceName": "Hugging Face Blog",
+        "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "Hume AI",
+        "publisherType": "startup",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-latency-tradeoffs",
+          "knowledge-ws-8c99b19c"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-1a0da8a9",
+          "skill-model-evaluation"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 99,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T05:04:41.660Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "语音正成为 AI 产品的主流交互形态（GPT-Live 是最新例证），但「听起来像人」和「听得懂人」是两回事。VoiceEQ 第一次把副语言理解、真实声学环境这些维度系统性地放进评测，直接影响语音模型选型的判断依据。",
+        "whoShouldCare": [
+          "语音产品的设计与技术负责人",
+          "语音模型选型决策者",
+          "评测与质量团队"
+        ],
+        "technicalContext": "语音评测的难点在于主观性：同一段合成语音的「自然度」没有客观标准答案。VoiceEQ 的做法是用大规模、跨人群的人工评分做基底，同时诚实报告了 AI 评审在主观声学判断上与人类一致性偏弱——这本身就是对「LLM-as-judge 万能」的一次有数据的反驳。",
+        "impactAreas": [
+          "语音 AI 产品评测",
+          "语音模型选型",
+          "人机语音交互设计"
+        ],
+        "learningPath": [
+          "先分清语音评测的四个层次：识别准确、合成自然、对话流畅、副语言理解",
+          "浏览 VoiceEQ 的维度设计，对照自己产品的语音场景找出关键维度",
+          "在真实用户声学环境（口音、噪声）下复测候选模型，验证厂商指标的水分"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-evaluation-loops": "VoiceEQ 展示了评估闭环在高主观性领域的形态：人工评分做金标准，AI 评审只在客观维度上辅助扩量。",
+          "knowledge-latency-tradeoffs": "语音交互的体验由「反应快」与「听得懂」共同决定，延迟权衡是解读语音评测结果时不可缺的另一半。"
+        },
+        "relatedSkillExplanations": {
+          "skill-ws-1a0da8a9": "实时语音交互设计需要回答「选哪个语音模型、为什么」，VoiceEQ 的维度体系正是这个决策的参照框架。",
+          "skill-model-evaluation": "「基准高估真实表现」的发现再次验证：评估必须落到自己的真实场景，而不是转引榜单结论。"
+        },
+        "followUpQuestions": [
+          "VoiceEQ 的评分数据和维度定义是否开放，能否用于自建评测？",
+          "GPT-Live 等最新实时语音模型在副语言理解维度上的表现如何？",
+          "跨语言（尤其中文）场景下这套基准的覆盖程度怎样？"
+        ],
+        "readingDifficulty": "intermediate",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+        "createdAt": "2026-07-19T03:20:48.229Z",
+        "updatedAt": "2026-07-19T05:04:41.660Z",
+        "editorialNotes": [
+          "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+        ]
+      },
+      "metadata": {
+        "slug": "real-world-voiceeq",
+        "status": "published"
+      },
+      "createdAt": "2026-07-19T05:04:41.673Z"
+    },
+    {
+      "id": "workflow-event-c805a341-1f7b-4ad2-92bc-61b5853aa0b1",
+      "entityType": "technology_draft",
+      "entityId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "action": "draft.updated",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "slug": "gpt-red",
+        "title": {
+          "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
+          "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
+        },
+        "summary": {
+          "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
+          "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
+        },
+        "content": {
+          "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
+          "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-15",
+        "sourceName": "OpenAI News",
+        "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-frontier-models",
+          "tag-ai-agents"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-human-loop"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-agent-design",
+          "skill-ws-c183c9b9"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。",
+            "发布方类型属于强技术信号来源。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T04:07:35.993Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
+        "whoShouldCare": [
+          "智能体产品的安全负责人",
+          "模型安全与对齐研究者",
+          "把 LLM 接入外部工具的工程团队"
+        ],
+        "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
+        "impactAreas": [
+          "智能体安全",
+          "模型对齐方法",
+          "AI 红队实践"
+        ],
+        "learningPath": [
+          "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
+          "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
+          "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
+          "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
+          "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
+        },
+        "followUpQuestions": [
+          "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
+          "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
+          "外部团队能否用开源模型复现类似的攻防自博弈回路？"
+        ],
+        "readingDifficulty": "advanced",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "createdAt": "2026-07-19T03:20:48.157Z",
+        "updatedAt": "2026-07-19T04:07:35.993Z",
+        "editorialNotes": [
+          "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
+        ]
+      },
+      "afterSnapshot": {
+        "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "slug": "gpt-red",
+        "title": {
+          "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
+          "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
+        },
+        "summary": {
+          "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
+          "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
+        },
+        "content": {
+          "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
+          "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
+        },
+        "type": "tool",
+        "publishDate": "2026-07-15",
+        "sourceName": "OpenAI News",
+        "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+        "sourceLanguage": "en",
+        "translationStatus": "done",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "importanceLevel": "important",
+        "status": "published",
+        "tags": [
+          "tag-frontier-models",
+          "tag-ai-agents"
+        ],
+        "relatedKnowledgeIds": [
+          "knowledge-evaluation-loops",
+          "knowledge-human-loop",
+          "knowledge-ws-89b98df3"
+        ],
+        "relatedSkillIds": [
+          "skill-model-evaluation",
+          "skill-agent-design",
+          "skill-ws-c183c9b9"
+        ],
+        "sourceReferences": [],
+        "priority": {
+          "priorityLevel": "high_priority",
+          "priorityScore": 100,
+          "priorityReasons": [
+            "标题完整。",
+            "摘要完整。",
+            "正文完整。",
+            "已配置标签。",
+            "已关联背景知识。",
+            "已关联技能。",
+            "发布方明确。",
+            "信号发布时间很近。",
+            "编辑标记为重要。",
+            "发布方类型属于强技术信号来源。"
+          ],
+          "priorityWarnings": [],
+          "rankingUpdatedAt": "2026-07-19T05:04:41.604Z",
+          "rankingSource": "rule_based"
+        },
+        "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
+        "whoShouldCare": [
+          "智能体产品的安全负责人",
+          "模型安全与对齐研究者",
+          "把 LLM 接入外部工具的工程团队"
+        ],
+        "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
+        "impactAreas": [
+          "智能体安全",
+          "模型对齐方法",
+          "AI 红队实践"
+        ],
+        "learningPath": [
+          "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
+          "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
+          "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
+        ],
+        "relatedKnowledgeExplanations": {
+          "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
+          "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
+        },
+        "relatedSkillExplanations": {
+          "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
+          "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
+        },
+        "followUpQuestions": [
+          "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
+          "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
+          "外部团队能否用开源模型复现类似的攻防自博弈回路？"
+        ],
+        "readingDifficulty": "advanced",
+        "intelligenceStatus": "reviewed",
+        "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "createdAt": "2026-07-19T03:20:48.157Z",
+        "updatedAt": "2026-07-19T05:04:41.604Z",
+        "editorialNotes": [
+          "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
+        ]
+      },
+      "metadata": {
+        "slug": "gpt-red",
+        "status": "published"
+      },
+      "createdAt": "2026-07-19T05:04:41.621Z"
+    },
+    {
+      "id": "workflow-event-a05b96e1-6062-4ef4-8072-18fb32bde7a5",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-8c99b19c",
+      "action": "knowledge.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "knowledge-ws-8c99b19c",
+        "title": "副语言信号与语音交互",
+        "slug": "paralinguistics-voice-interaction",
+        "summary": "语气、停顿、情绪、说话人身份——这些转写文本里不存在的信息层，是语音交互与文字交互的本质差异，也是当前语音模型「会说不会听」差距的成因。",
+        "content": "副语言（paralinguistics）指语音中承载意义但不进入文字转写的信号层：语调起伏、语速与停顿、犹豫和重音、情绪色彩、说话人身份与状态。同一句「行吧」，平调是同意，拖长是勉强，急促是不耐烦——文字层面完全相同，交流意义截然不同。人类对话的很大一部分信息走这条通道，这正是「语音交互」不能简化为「语音转文字再处理」的原因。\n\n对语音 AI 而言，副语言暴露了生成与理解的不对称：合成侧进展快（现代语音模型已能生成带情绪、有节奏感的语音），理解侧却普遍薄弱——模型听得懂词，听不懂犹豫背后的迟疑或语气里的不满。Hume AI 的 Real World VoiceEQ 基准把这层差距量化了出来：跨 40 多个模型的系统性结论是「会说不会听」，且传统以转写准确率为中心的评测完全测不到这层。\n\n对产品设计的直接推论有三条：第一，打断与轮替设计不能只依赖静音检测，语义与语气上的「说完了」信号同样重要；第二，情绪响应要谨慎——检测不准时假装共情比不共情更伤体验；第三，评估语音产品必须包含真实声学环境（口音、噪声、情绪化表达）下的人工评分，因为副语言判断恰恰是目前 AI 评审与人类一致性最弱的地方。",
+        "category": "product-thinking",
+        "difficulty": "foundation",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-1a0da8a9"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-19T05:04:40.801Z",
+        "updatedAt": "2026-07-19T05:04:40.801Z"
+      },
+      "afterSnapshot": {
+        "id": "knowledge-ws-8c99b19c",
+        "title": "副语言信号与语音交互",
+        "slug": "paralinguistics-voice-interaction",
+        "summary": "语气、停顿、情绪、说话人身份——这些转写文本里不存在的信息层，是语音交互与文字交互的本质差异，也是当前语音模型「会说不会听」差距的成因。",
+        "content": "副语言（paralinguistics）指语音中承载意义但不进入文字转写的信号层：语调起伏、语速与停顿、犹豫和重音、情绪色彩、说话人身份与状态。同一句「行吧」，平调是同意，拖长是勉强，急促是不耐烦——文字层面完全相同，交流意义截然不同。人类对话的很大一部分信息走这条通道，这正是「语音交互」不能简化为「语音转文字再处理」的原因。\n\n对语音 AI 而言，副语言暴露了生成与理解的不对称：合成侧进展快（现代语音模型已能生成带情绪、有节奏感的语音），理解侧却普遍薄弱——模型听得懂词，听不懂犹豫背后的迟疑或语气里的不满。Hume AI 的 Real World VoiceEQ 基准把这层差距量化了出来：跨 40 多个模型的系统性结论是「会说不会听」，且传统以转写准确率为中心的评测完全测不到这层。\n\n对产品设计的直接推论有三条：第一，打断与轮替设计不能只依赖静音检测，语义与语气上的「说完了」信号同样重要；第二，情绪响应要谨慎——检测不准时假装共情比不共情更伤体验；第三，评估语音产品必须包含真实声学环境（口音、噪声、情绪化表达）下的人工评分，因为副语言判断恰恰是目前 AI 评审与人类一致性最弱的地方。",
+        "category": "product-thinking",
+        "difficulty": "foundation",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-1a0da8a9"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-19T05:04:40.801Z",
+        "updatedAt": "2026-07-19T05:04:40.897Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-19T05:04:40.908Z"
+    },
+    {
+      "id": "workflow-event-25b0fde4-1afe-4169-9a72-cfece6a486e7",
+      "entityType": "link_relation",
+      "entityId": "knowledge:knowledge-ws-8c99b19c",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T05:04:40.860Z"
+    },
+    {
+      "id": "workflow-event-6a228dfa-6ca3-4874-b4fa-55b29fc396e8",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-8c99b19c",
+      "action": "knowledge.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "knowledge-ws-8c99b19c",
+        "title": "副语言信号与语音交互",
+        "slug": "paralinguistics-voice-interaction",
+        "summary": "语气、停顿、情绪、说话人身份——这些转写文本里不存在的信息层，是语音交互与文字交互的本质差异，也是当前语音模型「会说不会听」差距的成因。",
+        "content": "副语言（paralinguistics）指语音中承载意义但不进入文字转写的信号层：语调起伏、语速与停顿、犹豫和重音、情绪色彩、说话人身份与状态。同一句「行吧」，平调是同意，拖长是勉强，急促是不耐烦——文字层面完全相同，交流意义截然不同。人类对话的很大一部分信息走这条通道，这正是「语音交互」不能简化为「语音转文字再处理」的原因。\n\n对语音 AI 而言，副语言暴露了生成与理解的不对称：合成侧进展快（现代语音模型已能生成带情绪、有节奏感的语音），理解侧却普遍薄弱——模型听得懂词，听不懂犹豫背后的迟疑或语气里的不满。Hume AI 的 Real World VoiceEQ 基准把这层差距量化了出来：跨 40 多个模型的系统性结论是「会说不会听」，且传统以转写准确率为中心的评测完全测不到这层。\n\n对产品设计的直接推论有三条：第一，打断与轮替设计不能只依赖静音检测，语义与语气上的「说完了」信号同样重要；第二，情绪响应要谨慎——检测不准时假装共情比不共情更伤体验；第三，评估语音产品必须包含真实声学环境（口音、噪声、情绪化表达）下的人工评分，因为副语言判断恰恰是目前 AI 评审与人类一致性最弱的地方。",
+        "category": "product-thinking",
+        "difficulty": "foundation",
+        "tags": [
+          "tag-multimodal",
+          "tag-product-strategy"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-1a0da8a9"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-19T05:04:40.801Z",
+        "updatedAt": "2026-07-19T05:04:40.801Z"
+      },
+      "createdAt": "2026-07-19T05:04:40.813Z"
+    },
+    {
+      "id": "workflow-event-bc1ef4de-176c-483c-bdaf-6b8c6cec5248",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-89b98df3",
+      "action": "knowledge.published",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "knowledge-ws-89b98df3",
+        "title": "对抗性评估与红队方法",
+        "slug": "adversarial-evaluation-red-teaming",
+        "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+        "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+        "category": "machine-learning",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-ai-agents",
+          "tag-frontier-models"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-c183c9b9",
+          "skill-model-evaluation"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-19T05:04:39.934Z",
+        "updatedAt": "2026-07-19T05:04:39.934Z"
+      },
+      "afterSnapshot": {
+        "id": "knowledge-ws-89b98df3",
+        "title": "对抗性评估与红队方法",
+        "slug": "adversarial-evaluation-red-teaming",
+        "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+        "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+        "category": "machine-learning",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-ai-agents",
+          "tag-frontier-models"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-c183c9b9",
+          "skill-model-evaluation"
+        ],
+        "status": "published",
+        "createdAt": "2026-07-19T05:04:39.934Z",
+        "updatedAt": "2026-07-19T05:04:40.759Z"
+      },
+      "metadata": {
+        "status": "published"
+      },
+      "createdAt": "2026-07-19T05:04:40.771Z"
+    },
+    {
+      "id": "workflow-event-81fedc80-8a28-478a-897f-5cc826082d52",
+      "entityType": "link_relation",
+      "entityId": "knowledge:knowledge-ws-89b98df3",
+      "action": "link_relation.updated",
+      "actorType": "workspace_user",
+      "metadata": {
+        "changedPairKeys": "[redacted]"
+      },
+      "createdAt": "2026-07-19T05:04:40.195Z"
+    },
+    {
+      "id": "workflow-event-de8af5a5-6ea9-4755-9827-3da6e4d00da2",
+      "entityType": "knowledge",
+      "entityId": "knowledge-ws-89b98df3",
+      "action": "knowledge.created",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "knowledge-ws-89b98df3",
+        "title": "对抗性评估与红队方法",
+        "slug": "adversarial-evaluation-red-teaming",
+        "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+        "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+        "category": "machine-learning",
+        "difficulty": "intermediate",
+        "tags": [
+          "tag-ai-agents",
+          "tag-frontier-models"
+        ],
+        "relatedTechnologyIds": [
+          "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+        ],
+        "relatedSkillIds": [
+          "skill-ws-c183c9b9",
+          "skill-model-evaluation"
+        ],
+        "status": "draft",
+        "createdAt": "2026-07-19T05:04:39.934Z",
+        "updatedAt": "2026-07-19T05:04:39.934Z"
+      },
+      "createdAt": "2026-07-19T05:04:39.949Z"
+    },
     {
       "id": "workflow-event-151719d3-f707-4f8c-bbbd-67fcc58990e2",
       "entityType": "technology_draft",
@@ -36764,1062 +37699,6 @@
         "nextStatus": "rejected"
       },
       "createdAt": "2026-07-09T13:59:16.562Z"
-    },
-    {
-      "id": "workflow-event-0fd3e27a-9b6e-48cd-b583-9dedf42d53a2",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc1",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.531Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.541Z"
-    },
-    {
-      "id": "workflow-event-4c2206dc-fcd8-4357-89b6-ca44f91c2d77",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc2",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.509Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.520Z"
-    },
-    {
-      "id": "workflow-event-39172576-63c5-4633-8652-71fdeffc88fc",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc1",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.486Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.497Z"
-    },
-    {
-      "id": "workflow-event-4748c693-9c9f-40e3-bee4-e16a0f3bc7d8",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc2",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.461Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.472Z"
-    },
-    {
-      "id": "workflow-event-ebaf016b-d93d-4bd3-96a1-d10d15b3c150",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc3",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.438Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.449Z"
-    },
-    {
-      "id": "workflow-event-189b6078-e2dd-4e52-88ee-e06533195da8",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "slug": "ollama",
-        "title": {
-          "original": "Ollama v0.31.2",
-          "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
-        },
-        "summary": {
-          "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
-          "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
-        },
-        "content": {
-          "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
-          "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
-        },
-        "type": "tool",
-        "publishDate": "2026-07-08",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "github-actions[bot]",
-        "publisherType": "open-source-community",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "local-inference",
-          "open-source",
-          "edge"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-latency-tradeoffs"
-        ],
-        "relatedSkillIds": [
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.391Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
-        "whoShouldCare": [
-          "本地/端侧应用开发者",
-          "隐私敏感场景的团队",
-          "AI 工具链工程师"
-        ],
-        "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
-        "impactAreas": [
-          "本地开发工具",
-          "端侧 AI",
-          "隐私敏感应用"
-        ],
-        "learningPath": [
-          "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
-          "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
-          "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
-          "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
-          "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
-        },
-        "relatedSkillExplanations": {
-          "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
-          "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
-        },
-        "followUpQuestions": [
-          "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
-          "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
-          "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
-        ],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "createdAt": "2026-07-09T13:59:16.342Z",
-        "updatedAt": "2026-07-09T13:59:16.391Z",
-        "editorialNotes": [
-          "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "slug": "ollama",
-        "title": {
-          "original": "Ollama v0.31.2",
-          "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
-        },
-        "summary": {
-          "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
-          "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
-        },
-        "content": {
-          "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
-          "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
-        },
-        "type": "tool",
-        "publishDate": "2026-07-08",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "github-actions[bot]",
-        "publisherType": "open-source-community",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [
-          "local-inference",
-          "open-source",
-          "edge"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-latency-tradeoffs"
-        ],
-        "relatedSkillIds": [
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.415Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
-        "whoShouldCare": [
-          "本地/端侧应用开发者",
-          "隐私敏感场景的团队",
-          "AI 工具链工程师"
-        ],
-        "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
-        "impactAreas": [
-          "本地开发工具",
-          "端侧 AI",
-          "隐私敏感应用"
-        ],
-        "learningPath": [
-          "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
-          "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
-          "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
-          "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
-          "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
-        },
-        "relatedSkillExplanations": {
-          "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
-          "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
-        },
-        "followUpQuestions": [
-          "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
-          "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
-          "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
-        ],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "createdAt": "2026-07-09T13:59:16.342Z",
-        "updatedAt": "2026-07-09T13:59:16.415Z",
-        "editorialNotes": [
-          "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "ollama"
-      },
-      "createdAt": "2026-07-09T13:59:16.426Z"
-    },
-    {
-      "id": "workflow-event-40fcd8d2-a293-463e-b68f-96addddbac8e",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "slug": "draft-v0-31-2",
-        "title": {
-          "original": "v0.31.2",
-          "en": "v0.31.2"
-        },
-        "summary": {
-          "original": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…",
-          "en": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…"
-        },
-        "content": {
-          "original": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>",
-          "en": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>"
-        },
-        "type": "tool",
-        "publishDate": "2026-07-08",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "github-actions[bot]",
-        "publisherType": "open-source-community",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-multimodal",
-          "tag-on-device"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.342Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "createdAt": "2026-07-09T13:59:16.342Z",
-        "updatedAt": "2026-07-09T13:59:16.342Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "slug": "ollama",
-        "title": {
-          "original": "Ollama v0.31.2",
-          "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
-        },
-        "summary": {
-          "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
-          "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
-        },
-        "content": {
-          "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
-          "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
-        },
-        "type": "tool",
-        "publishDate": "2026-07-08",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "github-actions[bot]",
-        "publisherType": "open-source-community",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "local-inference",
-          "open-source",
-          "edge"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-latency-tradeoffs"
-        ],
-        "relatedSkillIds": [
-          "skill-scope-pilots",
-          "skill-tool-integration"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.391Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
-        "whoShouldCare": [
-          "本地/端侧应用开发者",
-          "隐私敏感场景的团队",
-          "AI 工具链工程师"
-        ],
-        "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
-        "impactAreas": [
-          "本地开发工具",
-          "端侧 AI",
-          "隐私敏感应用"
-        ],
-        "learningPath": [
-          "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
-          "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
-          "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
-          "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
-          "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
-        },
-        "relatedSkillExplanations": {
-          "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
-          "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
-        },
-        "followUpQuestions": [
-          "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
-          "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
-          "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
-        ],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "createdAt": "2026-07-09T13:59:16.342Z",
-        "updatedAt": "2026-07-09T13:59:16.391Z",
-        "editorialNotes": [
-          "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
-        ]
-      },
-      "metadata": {
-        "slug": "ollama",
-        "status": "draft"
-      },
-      "createdAt": "2026-07-09T13:59:16.402Z"
-    },
-    {
-      "id": "workflow-event-daab647d-9022-4d09-9e6f-5948cdcfee93",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "slug": "draft-v0-31-2",
-        "title": {
-          "original": "v0.31.2",
-          "en": "v0.31.2"
-        },
-        "summary": {
-          "original": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…",
-          "en": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…"
-        },
-        "content": {
-          "original": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>",
-          "en": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>"
-        },
-        "type": "tool",
-        "publishDate": "2026-07-08",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "github-actions[bot]",
-        "publisherType": "open-source-community",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-multimodal",
-          "tag-on-device"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.342Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "createdAt": "2026-07-09T13:59:16.342Z",
-        "updatedAt": "2026-07-09T13:59:16.342Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-      },
-      "createdAt": "2026-07-09T13:59:16.379Z"
-    },
-    {
-      "id": "workflow-event-ba93488e-3f10-4c6e-9a16-2fc0b392c671",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "sourceType": "rss-feed",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "originalTitle": "v0.31.2",
-        "originalSummary": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…",
-        "originalContent": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>",
-        "originalLanguage": "en",
-        "publishDate": "2026-07-08",
-        "publisherName": "github-actions[bot]",
-        "normalizedType": "tool",
-        "tags": [
-          "local-inference",
-          "open-source",
-          "multimodal"
-        ],
-        "importStatus": "new",
-        "relatedCandidateIds": [],
-        "rawPayload": {
-          "sourceId": "source-ollama-releases",
-          "feedTitle": "Release notes from ollama",
-          "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-          "entry": {
-            "id": "tag:github.com,2008:Repository/658928958/v0.31.2",
-            "updated": "2026-07-08T20:44:32Z",
-            "link": {
-              "rel": "alternate",
-              "type": "text/html",
-              "href": "https://github.com/ollama/ollama/releases/tag/v0.31.2"
-            },
-            "title": "v0.31.2",
-            "content": {
-              "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)&lt;/li&gt;\n&lt;li&gt;iGPU can now offload vision models with padding to fit available memory&lt;/li&gt;\n&lt;li&gt;Fixed structured output for thinking models when thinking is disabled&lt;/li&gt;\n&lt;li&gt;Hardened GGUF model creation&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;ollama launch&lt;/code&gt; for Claude Code now disables telemetry by default&lt;/li&gt;\n&lt;li&gt;Fixed loading models on paths with non-UTF-8 characters&lt;/li&gt;\n&lt;li&gt;Updated the MLX and llama.cpp engines&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;New Contributors&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/kevinpark1217/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/kevinpark1217&quot;&gt;@kevinpark1217&lt;/a&gt; made their first contribution in &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4761683278&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/16949&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/16949/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/16949&quot;&gt;#16949&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2&quot;&gt;&lt;tt&gt;v0.31.1...v0.31.2&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-              "type": "html"
-            },
-            "author": {
-              "name": "github-actions[bot]"
-            },
-            "media:thumbnail": {
-              "height": "30",
-              "width": "30",
-              "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-            }
-          },
-          "externalSourceType": "atom",
-          "importedAt": "2026-07-09T12:28:19.761Z",
-          "importRunId": "import-run-2026-07-09t12-28-08-322z"
-        },
-        "sourceId": "source-ollama-releases",
-        "importedAt": "2026-07-09T12:28:19.761Z",
-        "importRunId": "import-run-2026-07-09t12-28-08-322z"
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "slug": "draft-v0-31-2",
-        "title": {
-          "original": "v0.31.2",
-          "en": "v0.31.2"
-        },
-        "summary": {
-          "original": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…",
-          "en": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…"
-        },
-        "content": {
-          "original": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>",
-          "en": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>"
-        },
-        "type": "tool",
-        "publishDate": "2026-07-08",
-        "sourceName": "Ollama Releases",
-        "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "github-actions[bot]",
-        "publisherType": "open-source-community",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-multimodal",
-          "tag-on-device"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.342Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "createdAt": "2026-07-09T13:59:16.342Z",
-        "updatedAt": "2026-07-09T13:59:16.342Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "markedCandidateIds": [
-          "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ]
-      },
-      "createdAt": "2026-07-09T13:59:16.353Z"
-    },
-    {
-      "id": "workflow-event-07a4d4d3-0130-42d3-b555-6979d3996ff9",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "slug": "vllm",
-        "title": {
-          "original": "vLLM v0.24.0",
-          "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
-        },
-        "summary": {
-          "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
-          "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
-        },
-        "content": {
-          "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
-          "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
-        },
-        "type": "tool",
-        "publishDate": "2026-06-30",
-        "sourceName": "vLLM Releases",
-        "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "khluu",
-        "publisherType": "startup",
-        "importanceLevel": "important",
-        "status": "draft",
-        "tags": [
-          "inference",
-          "serving",
-          "open-source"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "relatedSkillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 99,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Editorial importance is marked important."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.271Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
-        "whoShouldCare": [
-          "推理平台工程师",
-          "需要私有化部署的团队",
-          "关注推理成本的架构师"
-        ],
-        "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
-        "impactAreas": [
-          "模型服务",
-          "推理成本优化",
-          "私有化部署"
-        ],
-        "learningPath": [
-          "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
-          "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
-          "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
-          "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
-          "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
-        },
-        "relatedSkillExplanations": {
-          "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
-          "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
-        },
-        "followUpQuestions": [
-          "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
-          "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
-          "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
-        ],
-        "readingDifficulty": "advanced",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "createdAt": "2026-07-09T13:59:16.219Z",
-        "updatedAt": "2026-07-09T13:59:16.271Z",
-        "editorialNotes": [
-          "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "slug": "vllm",
-        "title": {
-          "original": "vLLM v0.24.0",
-          "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
-        },
-        "summary": {
-          "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
-          "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
-        },
-        "content": {
-          "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
-          "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
-        },
-        "type": "tool",
-        "publishDate": "2026-06-30",
-        "sourceName": "vLLM Releases",
-        "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "khluu",
-        "publisherType": "startup",
-        "importanceLevel": "important",
-        "status": "published",
-        "tags": [
-          "inference",
-          "serving",
-          "open-source"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "relatedSkillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 99,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Editorial importance is marked important."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.297Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
-        "whoShouldCare": [
-          "推理平台工程师",
-          "需要私有化部署的团队",
-          "关注推理成本的架构师"
-        ],
-        "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
-        "impactAreas": [
-          "模型服务",
-          "推理成本优化",
-          "私有化部署"
-        ],
-        "learningPath": [
-          "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
-          "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
-          "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
-          "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
-          "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
-        },
-        "relatedSkillExplanations": {
-          "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
-          "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
-        },
-        "followUpQuestions": [
-          "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
-          "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
-          "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
-        ],
-        "readingDifficulty": "advanced",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "createdAt": "2026-07-09T13:59:16.219Z",
-        "updatedAt": "2026-07-09T13:59:16.297Z",
-        "editorialNotes": [
-          "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "vllm"
-      },
-      "createdAt": "2026-07-09T13:59:16.312Z"
-    },
-    {
-      "id": "workflow-event-9c9ad843-b6c8-4af9-b0a1-975ade4bd7d5",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "slug": "draft-v0-24-0",
-        "title": {
-          "original": "v0.24.0",
-          "en": "v0.24.0"
-        },
-        "summary": {
-          "original": "vLLM v0.24.0 Release Notes Highlights This release features 571 commits from 256 contributors (77 new)! MiniMax-M3 : Added support for the new MiniMax-M3 model ( #45381 ), with a fast follow-on of BF16/FP8 indexer via MSA ( #45892 ), MXFP4 support ( #45896 ),…",
-          "en": "vLLM v0.24.0 Release Notes Highlights This release features 571 commits from 256 contributors (77 new)! MiniMax-M3 : Added support for the new MiniMax-M3 model ( #45381 ), with a fast follow-on of BF16/FP8 indexer via MSA ( #45892 ), MXFP4 support ( #45896 ),…"
-        },
-        "content": {
-          "original": "<h1>vLLM v0.24.0 Release Notes</h1> <h2>Highlights</h2> <p>This release features 571 commits from 256 contributors (77 new)!</p> <ul> <li><strong>MiniMax-M3</strong>: Added support for the new <strong>MiniMax-M3</strong> model (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4647355834\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45381\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/45381/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/45381\">#45381</a>), with a fast follow-on of BF16/FP8 indexer via MSA (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4680019767\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45892\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/45892/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/45892\">#45892</a>), MXFP4 support (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4680317418\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45896\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/45896/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/45896\">#45896</a>), FP8 sparse GQA (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4669482520\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45744\" data-hove…",
-          "en": "<h1>vLLM v0.24.0 Release Notes</h1> <h2>Highlights</h2> <p>This release features 571 commits from 256 contributors (77 new)!</p> <ul> <li><strong>MiniMax-M3</strong>: Added support for the new <strong>MiniMax-M3</strong> model (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4647355834\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45381\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/45381/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/45381\">#45381</a>), with a fast follow-on of BF16/FP8 indexer via MSA (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4680019767\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45892\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/45892/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/45892\">#45892</a>), MXFP4 support (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4680317418\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45896\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/45896/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/45896\">#45896</a>), FP8 sparse GQA (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4669482520\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/45744\" data-hove…"
-        },
-        "type": "tool",
-        "publishDate": "2026-06-30",
-        "sourceName": "vLLM Releases",
-        "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "khluu",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-retrieval",
-          "tag-multimodal",
-          "tag-workflow",
-          "tag-on-device",
-          "tag-observability",
-          "tag-knowledge-graph"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.220Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "createdAt": "2026-07-09T13:59:16.219Z",
-        "updatedAt": "2026-07-09T13:59:16.219Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "slug": "vllm",
-        "title": {
-          "original": "vLLM v0.24.0",
-          "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
-        },
-        "summary": {
-          "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
-          "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
-        },
-        "content": {
-          "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
-          "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
-        },
-        "type": "tool",
-        "publishDate": "2026-06-30",
-        "sourceName": "vLLM Releases",
-        "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "khluu",
-        "publisherType": "startup",
-        "importanceLevel": "important",
-        "status": "draft",
-        "tags": [
-          "inference",
-          "serving",
-          "open-source"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-system-design"
-        ],
-        "relatedSkillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 99,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is recent.",
-            "Editorial importance is marked important."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T13:59:16.271Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
-        "whoShouldCare": [
-          "推理平台工程师",
-          "需要私有化部署的团队",
-          "关注推理成本的架构师"
-        ],
-        "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
-        "impactAreas": [
-          "模型服务",
-          "推理成本优化",
-          "私有化部署"
-        ],
-        "learningPath": [
-          "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
-          "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
-          "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
-          "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
-        ],
-        "relatedKnowledgeExplanations": {
-          "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
-          "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
-        },
-        "relatedSkillExplanations": {
-          "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
-          "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
-        },
-        "followUpQuestions": [
-          "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
-          "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
-          "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
-        ],
-        "readingDifficulty": "advanced",
-        "intelligenceStatus": "reviewed",
-        "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "createdAt": "2026-07-09T13:59:16.219Z",
-        "updatedAt": "2026-07-09T13:59:16.271Z",
-        "editorialNotes": [
-          "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
-        ]
-      },
-      "metadata": {
-        "slug": "vllm",
-        "status": "draft"
-      },
-      "createdAt": "2026-07-09T13:59:16.283Z"
     }
   ]
 }

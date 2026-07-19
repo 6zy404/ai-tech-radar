@@ -1,6 +1,200 @@
 {
-  "updatedAt": "2026-07-19T04:07:35.994Z",
+  "updatedAt": "2026-07-19T05:04:41.714Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "slug": "introducing-gpt-live",
+      "title": {
+        "original": "Introducing GPT-Live",
+        "zh": "GPT-Live：OpenAI 新一代实时语音模型"
+      },
+      "summary": {
+        "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
+        "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
+      },
+      "content": {
+        "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
+        "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-08",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/introducing-gpt-live",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-multimodal"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-human-loop",
+        "knowledge-ws-8c99b19c"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-19T05:04:41.714Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
+      "whoShouldCare": [
+        "语音产品工程师",
+        "对话式 AI 产品经理",
+        "多模态应用开发者"
+      ],
+      "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
+      "impactAreas": [
+        "语音助手",
+        "客服与外呼",
+        "多模态应用",
+        "无障碍交互"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
+        "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
+        "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
+        "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
+        "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
+        "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
+      },
+      "followUpQuestions": [
+        "GPT-Live 是否会开放 API，定价和配额如何？",
+        "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
+        "哪些现有的文字交互场景值得优先升级为语音？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "createdAt": "2026-07-09T12:31:13.569Z",
+      "updatedAt": "2026-07-19T05:04:41.714Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "slug": "real-world-voiceeq",
+      "title": {
+        "original": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+        "zh": "Real World VoiceEQ：衡量语音 AI「人性质量」的评测基准"
+      },
+      "summary": {
+        "original": "Hume AI launches Real World VoiceEQ, a benchmark evaluating the human quality of voice interaction across 40+ models, 15+ dimensions and 60+ metrics, grounded in over 1 million human ratings.",
+        "zh": "Hume AI 发布 Real World VoiceEQ：一套衡量语音交互「人性质量」的评测基准，覆盖 40+ 语音模型、15+ 评测维度、60+ 指标，横跨 ASR/TTS/语音对话/语音理解四大类，底层是 100 万+ 条跨人群、跨声学环境的人工评分。"
+      },
+      "content": {
+        "original": "Real World VoiceEQ evaluates whether voice systems can recognize, produce and respond to the acoustic elements transcripts omit — tone, emotion, speaker identity, context. Built by Hume AI on their Kairos evaluation platform, it tests 40+ voice models across ASR, TTS, speech-to-speech and speech understanding, grounded in over 1 million human ratings. Key findings: no single best voice model exists; models speak well but often fail to truly listen to paralinguistic cues; traditional benchmarks overestimate real-world performance with accents, noise and emotion; and human raters remain essential for subjective acoustic judgments.",
+        "zh": "Real World VoiceEQ 想回答的问题是：语音 AI 能否识别、生成并回应那些「转写文本里不存在」的声学信息——语气、情绪、说话人身份与语境。这正是语音交互与文本交互的本质差异，也是现有以转写准确率为中心的评测长期忽略的一层。\n\n基准由 Hume AI 基于其 Kairos 评测平台构建：覆盖 40 余个语音模型，横跨 ASR（识别）、TTS（合成）、S2S（语音对话）与语音理解四大类，15+ 维度、60+ 指标，底层是 100 万条以上、跨人群与声学环境采集的人工评分。\n\n几条关键发现值得记住：其一，不存在单一「最强语音模型」，能力进步高度专门化；其二，模型普遍「会说不会听」——生成质量领先，但对犹豫、语气等副语言线索的理解薄弱；其三，传统基准显著高估了真实环境（口音、噪声、情绪化表达）下的表现；其四，在主观声学判断上，AI 评审与人类的一致性明显弱于客观任务——人工评分在这个领域仍不可替代。对正在选型语音模型的团队，这套基准提供了比厂商演示更接近真实场景的参照系。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hume AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-8c99b19c"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-1a0da8a9",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-19T05:04:41.660Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "语音正成为 AI 产品的主流交互形态（GPT-Live 是最新例证），但「听起来像人」和「听得懂人」是两回事。VoiceEQ 第一次把副语言理解、真实声学环境这些维度系统性地放进评测，直接影响语音模型选型的判断依据。",
+      "whoShouldCare": [
+        "语音产品的设计与技术负责人",
+        "语音模型选型决策者",
+        "评测与质量团队"
+      ],
+      "technicalContext": "语音评测的难点在于主观性：同一段合成语音的「自然度」没有客观标准答案。VoiceEQ 的做法是用大规模、跨人群的人工评分做基底，同时诚实报告了 AI 评审在主观声学判断上与人类一致性偏弱——这本身就是对「LLM-as-judge 万能」的一次有数据的反驳。",
+      "impactAreas": [
+        "语音 AI 产品评测",
+        "语音模型选型",
+        "人机语音交互设计"
+      ],
+      "learningPath": [
+        "先分清语音评测的四个层次：识别准确、合成自然、对话流畅、副语言理解",
+        "浏览 VoiceEQ 的维度设计，对照自己产品的语音场景找出关键维度",
+        "在真实用户声学环境（口音、噪声）下复测候选模型，验证厂商指标的水分"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "VoiceEQ 展示了评估闭环在高主观性领域的形态：人工评分做金标准，AI 评审只在客观维度上辅助扩量。",
+        "knowledge-latency-tradeoffs": "语音交互的体验由「反应快」与「听得懂」共同决定，延迟权衡是解读语音评测结果时不可缺的另一半。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-1a0da8a9": "实时语音交互设计需要回答「选哪个语音模型、为什么」，VoiceEQ 的维度体系正是这个决策的参照框架。",
+        "skill-model-evaluation": "「基准高估真实表现」的发现再次验证：评估必须落到自己的真实场景，而不是转引榜单结论。"
+      },
+      "followUpQuestions": [
+        "VoiceEQ 的评分数据和维度定义是否开放，能否用于自建评测？",
+        "GPT-Live 等最新实时语音模型在副语言理解维度上的表现如何？",
+        "跨语言（尤其中文）场景下这套基准的覆盖程度怎样？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "createdAt": "2026-07-19T03:20:48.229Z",
+      "updatedAt": "2026-07-19T05:04:41.660Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
       "slug": "gpt-red",
@@ -32,7 +226,8 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
-        "knowledge-human-loop"
+        "knowledge-human-loop",
+        "knowledge-ws-89b98df3"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -56,7 +251,7 @@
           "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-19T04:07:35.993Z",
+        "rankingUpdatedAt": "2026-07-19T05:04:41.604Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
@@ -93,7 +288,7 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
       "createdAt": "2026-07-19T03:20:48.157Z",
-      "updatedAt": "2026-07-19T04:07:35.993Z",
+      "updatedAt": "2026-07-19T05:04:41.604Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
       ]
@@ -480,101 +675,6 @@
       "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "createdAt": "2026-07-19T03:20:48.051Z",
       "updatedAt": "2026-07-19T04:06:34.980Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
-      "slug": "real-world-voiceeq",
-      "title": {
-        "original": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
-        "zh": "Real World VoiceEQ：衡量语音 AI「人性质量」的评测基准"
-      },
-      "summary": {
-        "original": "Hume AI launches Real World VoiceEQ, a benchmark evaluating the human quality of voice interaction across 40+ models, 15+ dimensions and 60+ metrics, grounded in over 1 million human ratings.",
-        "zh": "Hume AI 发布 Real World VoiceEQ：一套衡量语音交互「人性质量」的评测基准，覆盖 40+ 语音模型、15+ 评测维度、60+ 指标，横跨 ASR/TTS/语音对话/语音理解四大类，底层是 100 万+ 条跨人群、跨声学环境的人工评分。"
-      },
-      "content": {
-        "original": "Real World VoiceEQ evaluates whether voice systems can recognize, produce and respond to the acoustic elements transcripts omit — tone, emotion, speaker identity, context. Built by Hume AI on their Kairos evaluation platform, it tests 40+ voice models across ASR, TTS, speech-to-speech and speech understanding, grounded in over 1 million human ratings. Key findings: no single best voice model exists; models speak well but often fail to truly listen to paralinguistic cues; traditional benchmarks overestimate real-world performance with accents, noise and emotion; and human raters remain essential for subjective acoustic judgments.",
-        "zh": "Real World VoiceEQ 想回答的问题是：语音 AI 能否识别、生成并回应那些「转写文本里不存在」的声学信息——语气、情绪、说话人身份与语境。这正是语音交互与文本交互的本质差异，也是现有以转写准确率为中心的评测长期忽略的一层。\n\n基准由 Hume AI 基于其 Kairos 评测平台构建：覆盖 40 余个语音模型，横跨 ASR（识别）、TTS（合成）、S2S（语音对话）与语音理解四大类，15+ 维度、60+ 指标，底层是 100 万条以上、跨人群与声学环境采集的人工评分。\n\n几条关键发现值得记住：其一，不存在单一「最强语音模型」，能力进步高度专门化；其二，模型普遍「会说不会听」——生成质量领先，但对犹豫、语气等副语言线索的理解薄弱；其三，传统基准显著高估了真实环境（口音、噪声、情绪化表达）下的表现；其四，在主观声学判断上，AI 评审与人类的一致性明显弱于客观任务——人工评分在这个领域仍不可替代。对正在选型语音模型的团队，这套基准提供了比厂商演示更接近真实场景的参照系。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-15",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Hume AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-multimodal",
-        "tag-product-strategy"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-1a0da8a9",
-        "skill-model-evaluation"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-19T03:24:47.915Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "语音正成为 AI 产品的主流交互形态（GPT-Live 是最新例证），但「听起来像人」和「听得懂人」是两回事。VoiceEQ 第一次把副语言理解、真实声学环境这些维度系统性地放进评测，直接影响语音模型选型的判断依据。",
-      "whoShouldCare": [
-        "语音产品的设计与技术负责人",
-        "语音模型选型决策者",
-        "评测与质量团队"
-      ],
-      "technicalContext": "语音评测的难点在于主观性：同一段合成语音的「自然度」没有客观标准答案。VoiceEQ 的做法是用大规模、跨人群的人工评分做基底，同时诚实报告了 AI 评审在主观声学判断上与人类一致性偏弱——这本身就是对「LLM-as-judge 万能」的一次有数据的反驳。",
-      "impactAreas": [
-        "语音 AI 产品评测",
-        "语音模型选型",
-        "人机语音交互设计"
-      ],
-      "learningPath": [
-        "先分清语音评测的四个层次：识别准确、合成自然、对话流畅、副语言理解",
-        "浏览 VoiceEQ 的维度设计，对照自己产品的语音场景找出关键维度",
-        "在真实用户声学环境（口音、噪声）下复测候选模型，验证厂商指标的水分"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-evaluation-loops": "VoiceEQ 展示了评估闭环在高主观性领域的形态：人工评分做金标准，AI 评审只在客观维度上辅助扩量。",
-        "knowledge-latency-tradeoffs": "语音交互的体验由「反应快」与「听得懂」共同决定，延迟权衡是解读语音评测结果时不可缺的另一半。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-1a0da8a9": "实时语音交互设计需要回答「选哪个语音模型、为什么」，VoiceEQ 的维度体系正是这个决策的参照框架。",
-        "skill-model-evaluation": "「基准高估真实表现」的发现再次验证：评估必须落到自己的真实场景，而不是转引榜单结论。"
-      },
-      "followUpQuestions": [
-        "VoiceEQ 的评分数据和维度定义是否开放，能否用于自建评测？",
-        "GPT-Live 等最新实时语音模型在副语言理解维度上的表现如何？",
-        "跨语言（尤其中文）场景下这套基准的覆盖程度怎样？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
-      "createdAt": "2026-07-19T03:20:48.229Z",
-      "updatedAt": "2026-07-19T03:24:47.915Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
       ]
@@ -1151,103 +1251,6 @@
       "updatedAt": "2026-07-09T14:35:01.391Z",
       "editorialNotes": [
         "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "slug": "introducing-gpt-live",
-      "title": {
-        "original": "Introducing GPT-Live",
-        "zh": "GPT-Live：OpenAI 新一代实时语音模型"
-      },
-      "summary": {
-        "original": "A new generation of voice models for natural human-AI interaction, now powering ChatGPT Voice.",
-        "zh": "OpenAI 发布新一代语音模型 GPT-Live，面向自然的人机语音交互，现已用于驱动 ChatGPT Voice。"
-      },
-      "content": {
-        "original": "OpenAI introduced GPT-Live, a new generation of voice models for natural human-AI interaction. According to the announcement, the models now power ChatGPT Voice.",
-        "zh": "OpenAI 发布了新一代语音模型 GPT-Live，目标是让人与 AI 的语音交互更加自然。官方公告确认，该模型已经开始驱动 ChatGPT Voice 的语音体验。\n\n对于关注语音交互方向的团队，这个信号值得注意的点在于：语音正在从“文字模型的附属输入输出方式”变成有独立模型代际的产品线。当语音模型单独迭代、并直接承载核心产品体验时，围绕它的延迟、打断处理和对话节奏等工程问题会成为独立的评估维度。\n\n公告本身信息有限，具体的模型规格、可用性范围和 API 形态需要以原始来源和后续文档为准。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-08",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/introducing-gpt-live",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-multimodal"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-latency-tradeoffs",
-        "knowledge-human-loop"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-scope-pilots"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "Title is complete.",
-          "Summary is complete.",
-          "Content is complete.",
-          "Tags are available.",
-          "Related knowledge is linked.",
-          "Related skills are linked.",
-          "Publisher is identified.",
-          "Signal is recent.",
-          "Editorial importance is marked important.",
-          "Publisher type is a strong technology signal source."
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-09T14:35:01.353Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "语音模型有了独立的代际迭代并直接驱动核心产品，说明实时语音交互正在成为大模型产品的一等公民，而不是文字模型的附属功能。",
-      "whoShouldCare": [
-        "语音产品工程师",
-        "对话式 AI 产品经理",
-        "多模态应用开发者"
-      ],
-      "technicalContext": "实时语音交互对延迟极其敏感：模型需要在极短时间内完成听、理解和回应，还要自然处理打断和重叠说话。把语音作为独立模型线迭代，通常意味着在这些实时性问题上做了针对性的工程化取舍。",
-      "impactAreas": [
-        "语音助手",
-        "客服与外呼",
-        "多模态应用",
-        "无障碍交互"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 GPT-Live 当前的可用范围和产品形态。",
-        "了解实时语音交互的延迟约束，理解「延迟与体验的权衡」这类背景概念。",
-        "在 ChatGPT Voice 中实际体验一次语音对话，记录打断、停顿和响应速度的表现。",
-        "评估自己产品里哪些交互场景值得从文字升级到语音，列出验证标准。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-latency-tradeoffs": "实时语音是延迟敏感度最高的 AI 交互形态，理解延迟与体验的权衡是评估这类模型的前提。",
-        "knowledge-human-loop": "语音交互中人的打断、纠正和确认就是最直接的人机协作回路，这个概念帮助理解语音产品的交互设计。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "语音模型的评估维度（延迟、自然度、打断处理）与文字模型很不一样，需要专门的评估方法。",
-        "skill-scope-pilots": "语音改造成本高，先用小范围试点验证哪些场景真正受益，再决定投入。"
-      },
-      "followUpQuestions": [
-        "GPT-Live 是否会开放 API，定价和配额如何？",
-        "它与现有实时语音方案（如开源语音运行时）在延迟和自然度上差距多大？",
-        "哪些现有的文字交互场景值得优先升级为语音？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-live",
-      "createdAt": "2026-07-09T12:31:13.569Z",
-      "updatedAt": "2026-07-09T14:35:01.353Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; source announcement is brief, content kept conservative pending more detail."
       ]
     },
     {
