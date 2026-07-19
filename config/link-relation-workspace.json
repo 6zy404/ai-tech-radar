@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T04:00:59.304Z",
+  "updatedAt": "2026-07-19T04:05:13.032Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -621,6 +621,96 @@
       "toType": "skill",
       "relationType": "uses",
       "note": "智能体工作流是混合推理架构的典型负载。"
+    },
+    {
+      "id": "rel-ws-f988f583",
+      "fromId": "skill-ws-c183c9b9",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "以 GPT-Red 的自博弈红队为对抗测试方法参照。"
+    },
+    {
+      "id": "rel-ws-1abb5eb2",
+      "fromId": "skill-ws-c183c9b9",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "Shippy 的会话级沙箱与确定性工具层是防御结构的公开范本。"
+    },
+    {
+      "id": "rel-ws-75c9e09d",
+      "fromId": "skill-ws-c183c9b9",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "办公智能体接入真实工作数据，正是这项技能的落地场景。"
+    },
+    {
+      "id": "rel-ws-3eca88f3",
+      "fromId": "skill-ws-c183c9b9",
+      "fromType": "skill",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "注入攻击面正来自工具使用打开的数据通道。"
+    },
+    {
+      "id": "rel-ws-3198d965",
+      "fromId": "skill-ws-c183c9b9",
+      "fromType": "skill",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "高危操作的确认点设计以人在回路思想为前提。"
+    },
+    {
+      "id": "rel-ws-040d25a0",
+      "fromId": "skill-ws-c183c9b9",
+      "fromType": "skill",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "注入测试集纳入发布回归，是评估闭环的安全场景应用。"
+    },
+    {
+      "id": "rel-ws-d4ab98e1",
+      "fromId": "knowledge-ws-36346103",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释 Inkling「1T 总参 / 41B 激活」这组规格的真实含义。"
+    },
+    {
+      "id": "rel-ws-f3ba8042",
+      "fromId": "knowledge-ws-36346103",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "执行引擎对 MoE 的支持进度是这个概念的工程延伸问题。"
+    },
+    {
+      "id": "rel-ws-f5e3ec81",
+      "fromId": "knowledge-ws-36346103",
+      "fromType": "knowledge",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "explains",
+      "note": "解释容量规划中总参、激活算力与显存三者为何脱钩。"
+    },
+    {
+      "id": "rel-ws-d8b523b2",
+      "fromId": "knowledge-ws-36346103",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "路由质量差异意味着同规格 MoE 表现可以悬殊，评估不可省。"
     }
   ]
 }

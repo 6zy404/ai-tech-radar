@@ -1,6 +1,26 @@
 # Next Task
 
-> Update 2026-07-19 (latest, same session): **All 65 untyped relations
+> Update 2026-07-19 (latest, same session): **Second content round + a
+> real bug fix.** Two new entries authored and published through the
+> workspace APIs with full typed relations, zero publish-gate warnings:
+> 技能「智能体安全与提示注入防御」(`agent-security-injection-defense`,
+> anchored to GPT-Red / Shippy / ChatGPT Work) and 知识「混合专家模型
+> （MoE）架构」(`moe-architecture`, anchored to Inkling / vLLM v0.25.0).
+> Reverse related-ids added on five technology records so their detail
+> pages surface the new entries. Pools: skills 8→9, knowledge 12→13.
+> Adding those reverse ids exposed a real pre-existing bug:
+> `updateTechnologyWorkspaceRecord` regenerated the slug from the
+> **original English title** on any partial update that omitted `slug`
+> (the edit form always sends it, so the UI never hit this) — five
+> published signals' slugs were clobbered mid-round, restored, and the
+> workflow fixed to keep the existing slug when `slug` is absent (see
+> CHANGELOG → "Partial-update slug preservation fix"). Full gate re-run
+> green (typecheck / lint / format / vitest 90/90) plus live checks on
+> all five slugs, both new entry pages, search, and digest.
+> **Next actual step**: none predefined — more content growth or the next
+> daily editorial round.
+
+> Update 2026-07-19 (earlier, same session): **All 65 untyped relations
 > typed** (`3b89a10`) — the first real content round through LinkRelation
 > v1, right after it shipped. Enumerated every content-graph edge still
 > falling back to generic 关联 (extracted from `/network`'s RSC payload;
