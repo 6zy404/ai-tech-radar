@@ -10254,6 +10254,33 @@ a.tech-graph__node:hover {
   margin: 0;
 }
 
+.relation-checkbox-item__relation {
+  display: none;
+}
+
+.relation-checkbox-item:has(> label input:checked)
+  .relation-checkbox-item__relation {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  padding-left: 22px;
+}
+
+.relation-checkbox-item__relation select {
+  flex: 0 0 auto;
+  min-width: 84px;
+  font-size: 12px;
+  padding: 3px 6px;
+}
+
+.relation-checkbox-item__relation input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12px;
+  padding: 3px 8px;
+}
+
 .content-workspace-status-actions {
   align-items: center;
 }

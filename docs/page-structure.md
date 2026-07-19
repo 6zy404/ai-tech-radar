@@ -165,7 +165,7 @@ Purpose:
   - internal technology workspace detail
   - editorial notes
   - source candidate traceability
-  - draft editing for content, source metadata, tags, related content, and Content Intelligence fields
+  - draft editing for content, source metadata, tags, related content (with per-link relation type + note since LinkRelation v1), and Content Intelligence fields
   - Editorial Enrichment suggestion panel for rule-based, mock LLM, or optional LLM-assisted generation, current-vs-suggested comparison, apply, reject, and regenerate
   - ranking source, priority reasons, and priority warnings
   - publish readiness checks
@@ -189,7 +189,8 @@ Purpose:
   - skill / knowledge edit detail: status panel with confirm-gated
     publish / unpublish, the shared `PublishReadinessPanel`, and the edit
     form (title, slug, summary, content, per-kind attributes,
-    canonical-`TopicTag` checkbox picker, related-content pickers)
+    canonical-`TopicTag` checkbox picker, related-content pickers with
+    per-link relation type + note editing since LinkRelation v1)
   - editing a seed entry copies it into the workspace store
     (copy-on-write); the origin note explains that seed code files are
     never modified
@@ -486,6 +487,12 @@ Forbidden on public pages:
   - workspace-only create/edit forms with canonical-`TopicTag` checkbox
     pickers and related-content pickers; submit to the
     `/api/workspace/{skills,knowledge}` routes
+- `RelationCheckboxItem`
+  - workspace-only related-content checkbox shared by all three editors
+    (skill, knowledge, technology draft): while checked it unfolds a
+    relation-type select and note input (CSS `:has`, forms stay
+    uncontrolled); its helpers collect the values from FormData and sync
+    them to `PUT /api/workspace/relations` (LinkRelation v1)
 - `UserPageShell`
   - user-facing page framing for published content
 - `UserArticleLayout`

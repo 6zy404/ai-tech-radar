@@ -4,6 +4,13 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import type { FormEvent } from "react";
 
+import {
+  collectRelationTargets,
+  getRelationDefaultKey,
+  RelationCheckboxItem,
+  syncRelationTargets,
+  type RelationDefaultsMap
+} from "@/components/relation-checkbox-item";
 import type {
   KnowledgeItem,
   SkillItem,
@@ -16,6 +23,7 @@ interface TechnologyWorkspaceEditFormProps {
   tagOptions: TopicTag[];
   skillOptions: SkillItem[];
   knowledgeOptions: KnowledgeItem[];
+  relationDefaults?: RelationDefaultsMap;
 }
 
 function getFormValue(formData: FormData, name: string): string {
@@ -80,7 +88,8 @@ export function TechnologyWorkspaceEditForm({
   record,
   tagOptions,
   skillOptions,
-  knowledgeOptions
+  knowledgeOptions,
+  relationDefaults = {}
 }: TechnologyWorkspaceEditFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -158,6 +167,15 @@ export function TechnologyWorkspaceEditForm({
         if (!response.ok || !result.ok) {
           throw new Error(result.message || "草稿保存失败。");
         }
+
+        await syncRelationTargets(
+          record.id,
+          "technology",
+          collectRelationTargets(formData, [
+            { name: "relatedKnowledgeIds", targetType: "knowledge" },
+            { name: "relatedSkillIds", targetType: "skill" }
+          ])
+        );
 
         setMessage("草稿修改已保存。");
         router.refresh();
@@ -331,35 +349,39 @@ export function TechnologyWorkspaceEditForm({
 
       <div className="workspace-edit-form__grid workspace-edit-form__grid--two">
         <fieldset className="workspace-edit-form__fieldset">
-          <legend>关联知识</legend>
+          <legend>关联知识（勾选后可设置关系类型与备注）</legend>
           <div className="workspace-edit-form__checkbox-list">
             {knowledgeOptions.map((item) => (
-              <label key={item.id} className="workspace-checkbox">
-                <input
-                  type="checkbox"
-                  name="relatedKnowledgeIds"
-                  value={item.id}
-                  defaultChecked={record.relatedKnowledgeIds.includes(item.id)}
-                />
-                <span>{item.title}</span>
-              </label>
+              <RelationCheckboxItem
+                key={item.id}
+                name="relatedKnowledgeIds"
+                option={item}
+                defaultChecked={record.relatedKnowledgeIds.includes(item.id)}
+                checkboxClassName="workspace-checkbox"
+                targetType="knowledge"
+                relationDefault={
+                  relationDefaults[getRelationDefaultKey("knowledge", item.id)]
+                }
+              />
             ))}
           </div>
         </fieldset>
 
         <fieldset className="workspace-edit-form__fieldset">
-          <legend>关联技能</legend>
+          <legend>关联技能（勾选后可设置关系类型与备注）</legend>
           <div className="workspace-edit-form__checkbox-list">
             {skillOptions.map((item) => (
-              <label key={item.id} className="workspace-checkbox">
-                <input
-                  type="checkbox"
-                  name="relatedSkillIds"
-                  value={item.id}
-                  defaultChecked={record.relatedSkillIds.includes(item.id)}
-                />
-                <span>{item.title}</span>
-              </label>
+              <RelationCheckboxItem
+                key={item.id}
+                name="relatedSkillIds"
+                option={item}
+                defaultChecked={record.relatedSkillIds.includes(item.id)}
+                checkboxClassName="workspace-checkbox"
+                targetType="skill"
+                relationDefault={
+                  relationDefaults[getRelationDefaultKey("skill", item.id)]
+                }
+              />
             ))}
           </div>
         </fieldset>

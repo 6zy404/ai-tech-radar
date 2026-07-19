@@ -813,8 +813,9 @@ Stored in `config/skill-workspace.json` / `config/knowledge-workspace.json`
 Publishing runs a minimal gate: missing title/slug/summary and a duplicate
 slug (within the merged pool of the same kind) block; short content,
 missing or non-canonical tags, and missing related content warn. Status and
-edit transitions record `skill.*` / `knowledge.*` workflow events. v0 edits
-related-content id lists only; typed `LinkRelation` editing is deferred.
+edit transitions record `skill.*` / `knowledge.*` workflow events. v0
+edited related-content id lists only; LinkRelation v1 (2026-07-19) added
+typed relation editing on top — see the `LinkRelation` section below.
 
 ## TopicTag
 
@@ -834,12 +835,32 @@ Explicit typed relationship between content objects.
 - `toId`
 - `toType`
 - `relationType`
-- `note`
+- `note?` (optional since LinkRelation v1, to support type-only overrides)
 
 `findRelationBetween(aId, aType, bId, bType)` in `src/lib/content.ts` looks up
 the relation for an unordered pair regardless of which side `LinkRelation`
 records as `from`/`to`, falling back to `related-to` when no explicit entry
 exists for that pair.
+
+Since LinkRelation v1 (2026-07-19), relations are editable from the three
+workspace editors (skill, knowledge, technology draft). Edits live in
+`config/link-relation-workspace.json`
+(`src/lib/link-relation-workflow.ts`) as a **copy-on-write overlay keyed
+by unordered pair** over the read-only seed relations in
+`src/data/relations.ts`:
+
+- an override wins over the seed for the same pair, regardless of
+  direction; all public reads (`findRelationBetween`,
+  `buildRelationItems`, `getContentGraph`) go through the merged
+  `getAllLinkRelations()` view
+- setting a pair back to its seed value removes the override (clean
+  revert); the generic default (`related-to`, no note) is never persisted
+  for a pair with no seed entry
+- pairs not mentioned in a save are left untouched, so an override
+  written from the other side of a shared pair survives
+- edits record `link_relation.updated` workflow events; the API surface
+  is `PUT /api/workspace/relations` (batch per source entity) behind the
+  workspace boundary
 
 ## PublicNewsItem / PublicNewsDay (derived)
 
@@ -1119,6 +1140,7 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `technology-workspace.json`
 - `skill-workspace.json`
 - `knowledge-workspace.json`
+- `link-relation-workspace.json`
 - `duplicate-groups.json`
 - `daily-digests.json`
 - `delivery.json`
@@ -1139,6 +1161,9 @@ The file-level read/write mechanics are centralized in `src/lib/repositories/loc
 - `skill-workflow.ts` / `knowledge-workflow.ts`: skill and knowledge
   workspace records, seed copy-on-write overlay, publish gate, and the
   merged public read
+- `link-relation-workflow.ts`: link relation overrides (copy-on-write over
+  the seed relations, keyed by unordered pair) and the merged
+  `getAllLinkRelations` read
 - `candidate-workflow.ts`: imported candidates, review state, duplicate groups, and candidate → draft conversion
 - `technology-draft-workflow.ts`: technology workspace record CRUD, publish/archive status transitions, and publish readiness lookup
 - `digest-workflow.ts`: digest generation, editing, readiness, and status

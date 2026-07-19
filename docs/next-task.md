@@ -1,5 +1,31 @@
 # Next Task
 
+> Update 2026-07-19 (later, same session): **LinkRelation v1 shipped** —
+> typed relation editing, the one item Skill/Knowledge workspace editing
+> v0 explicitly deferred. Owner confirmed three scope decisions upfront
+> (after a form mockup): all three workspace editors including the
+> technology draft form, copy-on-write over the 56 seed relations, and
+> both relation type + note editable. New
+> `src/lib/link-relation-workflow.ts` (store
+> `config/link-relation-workspace.json`, **unordered-pair-keyed**
+> overlay; pure cores with 13 vitest tests; sync rule: seed-equal values
+> and empty generic defaults are never persisted, so reverts clean the
+> store), `PUT /api/workspace/relations`, shared `RelationCheckboxItem`
+> (relation select + note unfold via CSS `:has`, forms stay uncontrolled;
+> new-entry forms keep plain checkboxes until first save), and
+> `content.ts` reads converged on the merged `getAllLinkRelations()` view
+> (`findRelationBetween`, `buildRelationItems` — previously
+> direction-sensitive — and `getContentGraph`, now one merged read per
+> graph build). `LinkRelation.note` became optional. Live-verified: the
+> Inkling draft's four relations set to 必备/延伸/借助 + notes through the
+> real form, public detail pills/notes + `/network` edge types confirmed,
+> and a seed-pair override → revert round-trip leaving the store empty.
+> Verified with typecheck, lint, format, vitest 90/90, zero console
+> errors. Docs updated: README, CHANGELOG, data-model, page-structure,
+> project-spec, security-boundary. **Next actual step**: none predefined —
+> remaining candidates are more content growth (the new editors now
+> support full typed relations) or the next daily editorial round.
+
 > Update 2026-07-19: **Editorial round run** (`2114a6f`), per
 > `docs/editorial-round-playbook.md`. Dispositioned all 9 undecided
 > candidates (effective status resolved through

@@ -10,6 +10,7 @@ import {
   getKnowledgePublishReadiness,
   getKnowledgeWorkspaceEntryById
 } from "@/lib/knowledge-workflow";
+import { buildRelationDefaults } from "@/lib/link-relation-workflow";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 
 export const dynamic = "force-dynamic";
@@ -43,6 +44,19 @@ export default async function WorkspaceKnowledgeDetailPage({
     id: skill.id,
     title: skill.title
   }));
+  const relationDefaults = buildRelationDefaults(
+    { id: entry.item.id, type: "knowledge" },
+    [
+      ...technologyOptions.map((option) => ({
+        id: option.id,
+        type: "technology" as const
+      })),
+      ...skillOptions.map((option) => ({
+        id: option.id,
+        type: "skill" as const
+      }))
+    ]
+  );
 
   return (
     <WorkspacePageShell
@@ -88,6 +102,7 @@ export default async function WorkspaceKnowledgeDetailPage({
           tagOptions={getAllTags()}
           technologyOptions={technologyOptions}
           skillOptions={skillOptions}
+          relationDefaults={relationDefaults}
         />
       </section>
     </WorkspacePageShell>

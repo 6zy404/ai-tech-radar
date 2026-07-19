@@ -117,8 +117,18 @@ The product is split into two subsystems:
   missing or non-canonical tags, and missing relations as warnings). Public
   `getAllSkills` / `getAllKnowledge` serve the merged view with drafts
   filtered from every public surface (index/detail pages, content graph,
-  search, topic hubs). v0 edits related-content ids only; typed
-  `LinkRelation` editing is deferred.
+  search, topic hubs).
+- **Typed relation editing (LinkRelation v1)** — the related-content
+  checkboxes in all three workspace editors (skill, knowledge, and the
+  technology draft form) unfold a relation-type select (渊源/借助/释义/
+  必备/延伸/印证/关联) plus an optional note while checked. Edits are
+  stored as copy-on-write overrides of the read-only seed relations
+  (`config/link-relation-workspace.json`, keyed by unordered pair;
+  reverting to the seed value removes the override). The public relation
+  reads (`findRelationBetween`, detail-page pills and 附注 notes,
+  `RelationshipGraph` tooltips, `/network` edge labels, topic hubs) serve
+  the merged view via `PUT /api/workspace/relations` +
+  `src/lib/link-relation-workflow.ts`.
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   the month-grouped `/digest` archive index, `/feed.xml`, and `/feed.json`.
@@ -267,7 +277,8 @@ not a project failure.
 
 Runtime workflow state lives in `config/` as JSON (the default fallback store):
 imported candidates, candidate review state, external sources, technology
-workspace records, skill and knowledge workspace records, duplicate groups,
+workspace records, skill and knowledge workspace records, link relation
+overrides, duplicate groups,
 daily digests, delivery, scheduled delivery, scheduled import, task runner,
 workflow events, editorial enrichment suggestions, and prompt versions. Set
 `LOCAL_DATA_DIR` to point at a different local directory.

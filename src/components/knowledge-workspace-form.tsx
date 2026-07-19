@@ -3,6 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
+import {
+  collectRelationTargets,
+  getRelationDefaultKey,
+  RelationCheckboxItem,
+  syncRelationTargets,
+  type RelationDefaultsMap
+} from "@/components/relation-checkbox-item";
 import type {
   KnowledgeItem,
   KnowledgeWorkspaceRecord,
@@ -19,6 +26,7 @@ interface KnowledgeWorkspaceFormProps {
   tagOptions: TopicTag[];
   technologyOptions: RelatedOption[];
   skillOptions: RelatedOption[];
+  relationDefaults?: RelationDefaultsMap;
 }
 
 function getFormValue(formData: FormData, name: string): string {
@@ -36,7 +44,8 @@ export function KnowledgeWorkspaceForm({
   knowledge,
   tagOptions,
   technologyOptions,
-  skillOptions
+  skillOptions,
+  relationDefaults = {}
 }: KnowledgeWorkspaceFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -78,6 +87,17 @@ export function KnowledgeWorkspaceForm({
 
         if (!response.ok || !result.ok || !result.record) {
           throw new Error(result.message ?? "知识条目保存失败。");
+        }
+
+        if (isEditing) {
+          await syncRelationTargets(
+            result.record.id,
+            "knowledge",
+            collectRelationTargets(formData, [
+              { name: "relatedTechnologyIds", targetType: "technology" },
+              { name: "relatedSkillIds", targetType: "skill" }
+            ])
+          );
         }
 
         setMessage(isEditing ? "知识条目已保存。" : "知识草稿已创建。");
@@ -172,40 +192,74 @@ export function KnowledgeWorkspaceForm({
       </fieldset>
 
       <fieldset className="content-workspace-fieldset">
-        <legend>相关技术信号</legend>
+        <legend>
+          相关技术信号{isEditing ? "（勾选后可设置关系类型与备注）" : ""}
+        </legend>
         <div className="content-workspace-checkbox-grid">
-          {technologyOptions.map((option) => (
-            <label key={option.id} className="content-workspace-checkbox">
-              <input
-                type="checkbox"
+          {technologyOptions.map((option) =>
+            isEditing ? (
+              <RelationCheckboxItem
+                key={option.id}
                 name="relatedTechnologyIds"
-                value={option.id}
+                option={option}
                 defaultChecked={
                   knowledge?.relatedTechnologyIds.includes(option.id) ?? false
                 }
+                checkboxClassName="content-workspace-checkbox"
+                targetType="technology"
+                relationDefault={
+                  relationDefaults[
+                    getRelationDefaultKey("technology", option.id)
+                  ]
+                }
               />
-              <span>{option.title}</span>
-            </label>
-          ))}
+            ) : (
+              <label key={option.id} className="content-workspace-checkbox">
+                <input
+                  type="checkbox"
+                  name="relatedTechnologyIds"
+                  value={option.id}
+                  defaultChecked={false}
+                />
+                <span>{option.title}</span>
+              </label>
+            )
+          )}
         </div>
       </fieldset>
 
       <fieldset className="content-workspace-fieldset">
-        <legend>相关技能</legend>
+        <legend>
+          相关技能{isEditing ? "（勾选后可设置关系类型与备注）" : ""}
+        </legend>
         <div className="content-workspace-checkbox-grid">
-          {skillOptions.map((option) => (
-            <label key={option.id} className="content-workspace-checkbox">
-              <input
-                type="checkbox"
+          {skillOptions.map((option) =>
+            isEditing ? (
+              <RelationCheckboxItem
+                key={option.id}
                 name="relatedSkillIds"
-                value={option.id}
+                option={option}
                 defaultChecked={
                   knowledge?.relatedSkillIds.includes(option.id) ?? false
                 }
+                checkboxClassName="content-workspace-checkbox"
+                targetType="skill"
+                relationDefault={
+                  relationDefaults[getRelationDefaultKey("skill", option.id)]
+                }
               />
-              <span>{option.title}</span>
-            </label>
-          ))}
+            ) : (
+              <label key={option.id} className="content-workspace-checkbox">
+                <input
+                  type="checkbox"
+                  name="relatedSkillIds"
+                  value={option.id}
+                  defaultChecked={false}
+                />
+                <span>{option.title}</span>
+              </label>
+            )
+          )}
         </div>
       </fieldset>
 

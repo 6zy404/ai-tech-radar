@@ -9,6 +9,7 @@ import { WorkflowEventList } from "@/components/workflow-event-list";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
 import type { PublishReadinessResult } from "@/lib/publish-readiness";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
+import type { RelationDefaultsMap } from "@/lib/relation-defaults";
 import {
   getPriorityLevelClass,
   getPriorityLevelLabel,
@@ -31,6 +32,7 @@ interface TechnologyDraftDetailContentProps {
   readiness: PublishReadinessResult;
   workflowEvents: WorkflowEvent[];
   enrichmentSuggestions: EditorialEnrichmentSuggestion[];
+  relationDefaults?: RelationDefaultsMap;
 }
 
 function getDraftDisplayTitle(draft: TechnologyDraft): string {
@@ -64,7 +66,8 @@ export function TechnologyDraftDetailContent({
   knowledgeOptions,
   readiness,
   workflowEvents,
-  enrichmentSuggestions
+  enrichmentSuggestions,
+  relationDefaults
 }: TechnologyDraftDetailContentProps) {
   const ranking = evaluateTechnologyPriority(draft);
 
@@ -133,6 +136,7 @@ export function TechnologyDraftDetailContent({
             tagOptions={tagOptions}
             skillOptions={skillOptions}
             knowledgeOptions={knowledgeOptions}
+            relationDefaults={relationDefaults}
           />
         </section>
 

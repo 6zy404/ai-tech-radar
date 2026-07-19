@@ -1,5 +1,4 @@
 import { knowledgeItems } from "@/data/knowledge";
-import { linkRelations } from "@/data/relations";
 import { skillItems } from "@/data/skills";
 import { topicTags } from "@/data/tags";
 import {
@@ -24,6 +23,10 @@ import {
   readSqliteSkillItems
 } from "@/lib/repositories/sqlite-store";
 import { getMergedPublicKnowledge } from "@/lib/knowledge-workflow";
+import {
+  findRelationIn,
+  getAllLinkRelations
+} from "@/lib/link-relation-workflow";
 import { getMergedPublicSkills } from "@/lib/skill-workflow";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
@@ -234,12 +237,13 @@ export function buildRelationItems({
 
       const relation =
         fromId && fromType
-          ? linkRelations.find(
-              (item) =>
-                item.fromId === fromId &&
-                item.fromType === fromType &&
-                item.toId === targetId &&
-                item.toType === targetType
+          ? findRelationIn(
+              getAllLinkRelations(),
+              fromId,
+              fromType,
+              targetId,
+              targetType,
+              defaultRelationType
             )
           : undefined;
 
@@ -259,7 +263,7 @@ export function getRelationItemsFor(
   fromType: ContentKind,
   targetType: ContentKind
 ): RelationListItem[] {
-  return linkRelations
+  return getAllLinkRelations()
     .filter(
       (relation) =>
         relation.fromId === fromId &&
@@ -287,8 +291,9 @@ export function getRelationItemsFor(
 
 /**
  * Looks up the semantic relation between two content items regardless of
- * which side `linkRelations` records as `from`/`to`. Falls back to a generic
- * relation when no explicit LinkRelation entry exists for the pair.
+ * which side the relation records as `from`/`to`, reading the merged view of
+ * seed relations plus workspace overrides. Falls back to a generic relation
+ * when no entry exists for the pair.
  */
 export function findRelationBetween(
   aId: string,
@@ -297,22 +302,14 @@ export function findRelationBetween(
   bType: ContentKind,
   defaultRelationType: RelationType = "related-to"
 ): { relationType: RelationType; note?: string } {
-  const relation = linkRelations.find(
-    (item) =>
-      (item.fromId === aId &&
-        item.fromType === aType &&
-        item.toId === bId &&
-        item.toType === bType) ||
-      (item.fromId === bId &&
-        item.fromType === bType &&
-        item.toId === aId &&
-        item.toType === aType)
+  return findRelationIn(
+    getAllLinkRelations(),
+    aId,
+    aType,
+    bId,
+    bType,
+    defaultRelationType
   );
-
-  return {
-    relationType: relation?.relationType ?? defaultRelationType,
-    note: relation?.note
-  };
 }
 
 export interface ContentGraphNode {
@@ -367,6 +364,7 @@ export function getContentGraph(): ContentGraphData {
   ].filter((node): node is ContentGraphNode => Boolean(node));
 
   const kindById = new Map(nodes.map((node) => [node.id, node.kind]));
+  const allRelations = getAllLinkRelations();
   const seenPairs = new Set<string>();
   const edges: ContentGraphEdge[] = [];
 
@@ -391,7 +389,13 @@ export function getContentGraph(): ContentGraphData {
         continue;
       }
 
-      const relation = findRelationBetween(fromId, fromType, targetId, toType);
+      const relation = findRelationIn(
+        allRelations,
+        fromId,
+        fromType,
+        targetId,
+        toType
+      );
 
       edges.push({
         id: pairKey,

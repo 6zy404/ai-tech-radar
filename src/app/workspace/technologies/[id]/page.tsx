@@ -10,6 +10,7 @@ import {
 } from "@/lib/content";
 import { getTechnologyWorkspacePublishReadiness } from "@/lib/technology-draft-workflow";
 import { getEditorialEnrichmentSuggestionsForDraft } from "@/lib/editorial-enrichment-store";
+import { buildRelationDefaults } from "@/lib/link-relation-workflow";
 import { getWorkflowEventsForEntity } from "@/lib/workflow-events";
 
 interface WorkspaceTechnologyDetailPageProps {
@@ -28,6 +29,19 @@ export default async function WorkspaceTechnologyDetailPage({
     notFound();
   }
 
+  const skillOptions = getAllSkills();
+  const knowledgeOptions = getAllKnowledge();
+  const relationDefaults = buildRelationDefaults(
+    { id: record.id, type: "technology" },
+    [
+      ...knowledgeOptions.map((item) => ({
+        id: item.id,
+        type: "knowledge" as const
+      })),
+      ...skillOptions.map((item) => ({ id: item.id, type: "skill" as const }))
+    ]
+  );
+
   return (
     <WorkspacePageShell
       title="技术工作台详情"
@@ -37,8 +51,9 @@ export default async function WorkspaceTechnologyDetailPage({
       <TechnologyDraftDetailContent
         draft={record}
         tagOptions={getAllTags()}
-        skillOptions={getAllSkills()}
-        knowledgeOptions={getAllKnowledge()}
+        skillOptions={skillOptions}
+        knowledgeOptions={knowledgeOptions}
+        relationDefaults={relationDefaults}
         readiness={getTechnologyWorkspacePublishReadiness(record.id)}
         enrichmentSuggestions={getEditorialEnrichmentSuggestionsForDraft(
           record.id
