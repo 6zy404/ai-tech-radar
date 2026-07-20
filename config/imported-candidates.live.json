@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-16T00:05:05.821Z",
+  "syncedAt": "2026-07-20T00:05:34.192Z",
   "sources": [
     {
       "id": "source-hugging-face-blog",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-16T00:05:02.741Z"
+      "fetchedAt": "2026-07-20T00:05:03.610Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-16T00:05:05.818Z"
+      "fetchedAt": "2026-07-20T00:05:34.188Z"
     },
     {
       "id": "quality-failing-source",
@@ -69,19 +69,19 @@
   ],
   "candidates": [
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
       "sourceType": "rss-feed",
       "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
-      "originalTitle": "What building Shippy taught us about building agents",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/scale-diffusers-finetuning-nemo-automodel",
+      "originalTitle": "Fine-tune video and image models at scale with NVIDIA NeMo Automodel and 🤗 Diffusers",
       "originalLanguage": "en",
-      "publishDate": "2026-07-15",
+      "publishDate": "2026-07-17",
       "publisherName": "Hugging Face",
-      "normalizedType": "workflow",
+      "normalizedType": "model",
       "tags": [
         "open-source",
         "model",
-        "agents"
+        "multimodal"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
@@ -90,30 +90,71 @@
         "feedTitle": "HF Mirror - Blog",
         "feedUrl": "https://hf-mirror.com/blog/feed.xml",
         "item": {
-          "title": "What building Shippy taught us about building agents",
-          "pubDate": "Wed, 15 Jul 2026 17:29:41 GMT",
-          "link": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+          "title": "Fine-tune video and image models at scale with NVIDIA NeMo Automodel and 🤗 Diffusers",
+          "pubDate": "Fri, 17 Jul 2026 15:57:54 GMT",
+          "link": "https://hf-mirror.com/blog/nvidia/scale-diffusers-finetuning-nemo-automodel",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+            "#text": "https://hf-mirror.com/blog/nvidia/scale-diffusers-finetuning-nemo-automodel",
             "isPermaLink": "false"
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:02.147Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T00:05:03.080Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-16T00:05:02.147Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T00:05:03.080Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-ibm-research-model-routing-is-simple-until-it-isnt",
+      "id": "candidate-rss-https-openai-com-index-a-scorecard-for-the-ai-age",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/a-scorecard-for-the-ai-age",
+      "originalTitle": "A scorecard for the AI age",
+      "originalSummary": "Sarah Friar, CFO of OpenAI, introduces a practical AI scorecard to measure ROI through useful work, cost per successful task, dependability, and return on compute.",
+      "originalContent": "Sarah Friar, CFO of OpenAI, introduces a practical AI scorecard to measure ROI through useful work, cost per successful task, dependability, and return on compute.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-17",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "company"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "A scorecard for the AI age",
+          "description": "Sarah Friar, CFO of OpenAI, introduces a practical AI scorecard to measure ROI through useful work, cost per successful task, dependability, and return on compute. ",
+          "link": "https://openai.com/index/a-scorecard-for-the-ai-age",
+          "guid": {
+            "#text": "https://openai.com/index/a-scorecard-for-the-ai-age",
+            "isPermaLink": "true"
+          },
+          "category": "Company",
+          "pubDate": "Fri, 17 Jul 2026 10:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-20T00:05:33.162Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-20T00:05:33.162Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-newer-models-same-advantages",
       "sourceType": "rss-feed",
       "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/ibm-research/model-routing-is-simple-until-it-isnt",
-      "originalTitle": "Model Routing Is Simple. Until It Isn’t.",
+      "sourceUrl": "https://hf-mirror.com/blog/Dharma-AI/newer-models-same-advantages",
+      "originalTitle": "Newer Models, Same Advantage",
       "originalLanguage": "en",
-      "publishDate": "2026-07-15",
+      "publishDate": "2026-07-16",
       "publisherName": "Hugging Face",
       "normalizedType": "model",
       "tags": [
@@ -127,30 +168,30 @@
         "feedTitle": "HF Mirror - Blog",
         "feedUrl": "https://hf-mirror.com/blog/feed.xml",
         "item": {
-          "title": "Model Routing Is Simple. Until It Isn’t.",
-          "pubDate": "Wed, 15 Jul 2026 17:27:01 GMT",
-          "link": "https://hf-mirror.com/blog/ibm-research/model-routing-is-simple-until-it-isnt",
+          "title": "Newer Models, Same Advantage",
+          "pubDate": "Thu, 16 Jul 2026 11:49:48 GMT",
+          "link": "https://hf-mirror.com/blog/Dharma-AI/newer-models-same-advantages",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/ibm-research/model-routing-is-simple-until-it-isnt",
+            "#text": "https://hf-mirror.com/blog/Dharma-AI/newer-models-same-advantages",
             "isPermaLink": "false"
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:02.147Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T00:05:03.080Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-16T00:05:02.147Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T00:05:03.080Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "id": "candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
       "sourceType": "rss-feed",
       "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
-      "originalTitle": "Welcome Inkling by Thinking Machines",
+      "sourceUrl": "https://hf-mirror.com/blog/security-incident-july-2026",
+      "originalTitle": "Security incident disclosure — July 2026",
       "originalLanguage": "en",
-      "publishDate": "2026-07-15",
+      "publishDate": "2026-07-16",
       "publisherName": "Hugging Face",
       "normalizedType": "unknown",
       "tags": [
@@ -164,59 +205,104 @@
         "feedTitle": "HF Mirror - Blog",
         "feedUrl": "https://hf-mirror.com/blog/feed.xml",
         "item": {
-          "title": "Welcome Inkling by Thinking Machines",
-          "pubDate": "Wed, 15 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+          "title": "Security incident disclosure — July 2026",
+          "pubDate": "Thu, 16 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/security-incident-july-2026",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+            "#text": "https://hf-mirror.com/blog/security-incident-july-2026",
             "isPermaLink": "true"
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:02.147Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T00:05:03.080Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-16T00:05:02.147Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T00:05:03.080Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "id": "candidate-rss-https-openai-com-index-why-teens-deserve-access-safe-ai",
       "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/real-world-voiceeq",
-      "originalTitle": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/why-teens-deserve-access-safe-ai",
+      "originalTitle": "Why teens deserve access to safe AI",
+      "originalSummary": "Learn how OpenAI is making ChatGPT safer for teens with age-appropriate protections, learning tools, parental controls, and expert partnerships.",
+      "originalContent": "Learn how OpenAI is making ChatGPT safer for teens with age-appropriate protections, learning tools, parental controls, and expert partnerships.",
       "originalLanguage": "en",
-      "publishDate": "2026-07-15",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
+      "publishDate": "2026-07-16",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
       "tags": [
-        "open-source",
-        "model",
+        "frontier-model",
+        "safety"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "Why teens deserve access to safe AI",
+          "description": "Learn how OpenAI is making ChatGPT safer for teens with age-appropriate protections, learning tools, parental controls, and expert partnerships.",
+          "link": "https://openai.com/index/why-teens-deserve-access-safe-ai",
+          "guid": {
+            "#text": "https://openai.com/index/why-teens-deserve-access-safe-ai",
+            "isPermaLink": "true"
+          },
+          "category": "Safety",
+          "pubDate": "Thu, 16 Jul 2026 16:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-20T00:05:33.162Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-20T00:05:33.162Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-cars24",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/cars24",
+      "originalTitle": "How Cars24 scales conversations and builds faster with OpenAI",
+      "originalSummary": "Cars24 uses OpenAI-powered voice and chat agents to handle 1M+ monthly conversation minutes, recover 12% of lost leads, and bring agentic workflows to teams across the company.",
+      "originalContent": "Cars24 uses OpenAI-powered voice and chat agents to handle 1M+ monthly conversation minutes, recover 12% of lost leads, and bring agentic workflows to teams across the company.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-16",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "agents",
+        "workflow",
         "multimodal"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
         "item": {
-          "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
-          "pubDate": "Wed, 15 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/real-world-voiceeq",
+          "title": "How Cars24 scales conversations and builds faster with OpenAI",
+          "description": "Cars24 uses OpenAI-powered voice and chat agents to handle 1M+ monthly conversation minutes, recover 12% of lost leads, and bring agentic workflows to teams across the company.",
+          "link": "https://openai.com/index/cars24",
           "guid": {
-            "#text": "https://hf-mirror.com/blog/real-world-voiceeq",
+            "#text": "https://openai.com/index/cars24",
             "isPermaLink": "true"
-          }
+          },
+          "pubDate": "Thu, 16 Jul 2026 00:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:02.147Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T00:05:33.162Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
       },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-16T00:05:02.147Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-20T00:05:33.162Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1-rc0",
@@ -271,6 +357,44 @@
       "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+      "originalTitle": "What building Shippy taught us about building agents",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "Hugging Face",
+      "normalizedType": "workflow",
+      "tags": [
+        "open-source",
+        "model",
+        "agents"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "What building Shippy taught us about building agents",
+          "pubDate": "Wed, 15 Jul 2026 17:29:41 GMT",
+          "link": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-20T00:05:03.080Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-20T00:05:03.080Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
+    },
+    {
       "id": "candidate-rss-https-openai-com-index-advancing-ai-safety-through-state-and-federal-action",
       "sourceType": "rss-feed",
       "sourceName": "OpenAI News",
@@ -304,53 +428,12 @@
           "pubDate": "Wed, 15 Jul 2026 12:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:04.543Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T00:05:33.162Z",
+        "importRunId": "import-run-2026-07-20t00-05-03-061z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-07-16T00:05:04.543Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
-      "originalTitle": "GPT-Red: Unlocking Self-Improvement for Robustness",
-      "originalSummary": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness.",
-      "originalContent": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-15",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "safety"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "GPT-Red: Unlocking Self-Improvement for Robustness",
-          "description": "Explore GPT-Red, OpenAI’s automated red teaming system that uses self-play to improve AI safety, alignment, and prompt injection robustness.",
-          "link": "https://openai.com/index/unlocking-self-improvement-gpt-red",
-          "guid": {
-            "#text": "https://openai.com/index/unlocking-self-improvement-gpt-red",
-            "isPermaLink": "true"
-          },
-          "category": "Safety",
-          "pubDate": "Wed, 15 Jul 2026 10:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:04.543Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-16T00:05:04.543Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T00:05:33.162Z",
+      "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
@@ -404,90 +487,6 @@
       },
       "sourceId": "source-ollama-releases",
       "importedAt": "2026-07-16T00:05:03.572Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-managing-ai-investments-in-agentic-era",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/managing-ai-investments-in-agentic-era",
-      "originalTitle": "How to manage AI investments in the agentic era",
-      "originalSummary": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows.",
-      "originalContent": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-14",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "ai adoption",
-        "agents",
-        "workflow"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "How to manage AI investments in the agentic era",
-          "description": "Learn how enterprises can manage AI investments in the agentic era by measuring useful work per dollar, improving efficiency, and scaling high-value workflows.",
-          "link": "https://openai.com/index/managing-ai-investments-in-agentic-era",
-          "guid": {
-            "#text": "https://openai.com/index/managing-ai-investments-in-agentic-era",
-            "isPermaLink": "true"
-          },
-          "category": "AI Adoption",
-          "pubDate": "Tue, 14 Jul 2026 10:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:04.543Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-16T00:05:04.543Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-academy-codex-for-work-how-sales-teams-use-codex",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/academy/codex-for-work/how-sales-teams-use-codex",
-      "originalTitle": "How sales teams use ChatGPT Work",
-      "originalSummary": "See how sales teams can use ChatGPT Work to create pipeline briefs, meeting prep packets, forecast reviews, account plans, and stalled-deal diagnoses from real work inputs.",
-      "originalContent": "See how sales teams can use ChatGPT Work to create pipeline briefs, meeting prep packets, forecast reviews, account plans, and stalled-deal diagnoses from real work inputs.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-14",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "openai academy"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "How sales teams use ChatGPT Work",
-          "description": "See how sales teams can use ChatGPT Work to create pipeline briefs, meeting prep packets, forecast reviews, account plans, and stalled-deal diagnoses from real work inputs.",
-          "link": "https://openai.com/academy/codex-for-work/how-sales-teams-use-codex",
-          "guid": {
-            "#text": "https://openai.com/academy/codex-for-work/how-sales-teams-use-codex",
-            "isPermaLink": "true"
-          },
-          "category": "OpenAI Academy",
-          "pubDate": "Tue, 14 Jul 2026 00:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-16T00:05:04.543Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-16T00:05:04.543Z",
       "importRunId": "import-run-2026-07-16t00-05-02-141z"
     },
     {

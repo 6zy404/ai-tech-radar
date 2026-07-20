@@ -1,6 +1,368 @@
 {
-  "updatedAt": "2026-07-19T05:04:42.510Z",
+  "updatedAt": "2026-07-20T00:05:53.669Z",
   "events": [
+    {
+      "id": "workflow-event-f4547fb1-d42c-455c-bbd2-55f2f965beb4",
+      "entityType": "task_runner",
+      "entityId": "task-runner-f3773fbc-adf8-4a35-9f9a-793f72e0b369",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-f3773fbc-adf8-4a35-9f9a-793f72e0b369",
+        "mode": "run_once",
+        "startedAt": "2026-07-20T00:05:03.059Z",
+        "finishedAt": "2026-07-20T00:05:53.657Z",
+        "status": "partial",
+        "dueScheduleCount": 0,
+        "skippedScheduleCount": 0,
+        "successCount": 0,
+        "failedCount": 0,
+        "partialCount": 0,
+        "deliveryLogsCreated": 0,
+        "messages": [
+          "定时导入部分成功：5 个启用来源（成功 2，失败 3，部分 0），新增候选 6 条，跳过 2 条。",
+          "没有到期计划。"
+        ]
+      },
+      "metadata": {
+        "mode": "run_once",
+        "status": "partial",
+        "dueScheduleCount": 0,
+        "deliveryLogsCreated": 0
+      },
+      "createdAt": "2026-07-20T00:05:53.669Z"
+    },
+    {
+      "id": "workflow-event-994b16fd-4829-41d5-9497-4c23ecc84e83",
+      "entityType": "source",
+      "entityId": "source-vllm-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-vllm-releases",
+        "name": "vLLM Releases",
+        "type": "atom",
+        "url": "https://github.com/vllm-project/vllm/releases.atom",
+        "enabled": true,
+        "description": "vLLM high-throughput LLM inference engine release feed.",
+        "language": "en",
+        "publisherName": "vLLM Project",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "inference",
+          "serving"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-14T00:05:07.428Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-14T00:05:07.428Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:07.428Z"
+      },
+      "afterSnapshot": {
+        "id": "source-vllm-releases",
+        "name": "vLLM Releases",
+        "type": "atom",
+        "url": "https://github.com/vllm-project/vllm/releases.atom",
+        "enabled": true,
+        "description": "vLLM high-throughput LLM inference engine release feed.",
+        "language": "en",
+        "publisherName": "vLLM Project",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "inference",
+          "serving"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-20T00:05:53.629Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:53.629Z",
+        "lastImportMessage": "fetch failed",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:07.428Z",
+        "lastErrorMessage": "fetch failed"
+      },
+      "metadata": {
+        "status": "failed",
+        "message": "fetch failed",
+        "importCount": 0,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-20T00:05:53.643Z"
+    },
+    {
+      "id": "workflow-event-da9ab529-76e4-4614-a419-c33f2b1e4dc9",
+      "entityType": "source",
+      "entityId": "source-openai-news",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-openai-news",
+        "name": "OpenAI News",
+        "type": "rss",
+        "url": "https://openai.com/news/rss.xml",
+        "enabled": true,
+        "description": "OpenAI official news feed.",
+        "language": "en",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "frontier-model"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 15,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-16T00:05:05.824Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:05.824Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:05.824Z"
+      },
+      "afterSnapshot": {
+        "id": "source-openai-news",
+        "name": "OpenAI News",
+        "type": "rss",
+        "url": "https://openai.com/news/rss.xml",
+        "enabled": true,
+        "description": "OpenAI official news feed.",
+        "language": "en",
+        "publisherName": "OpenAI",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "frontier-model"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 18,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-20T00:05:34.194Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:34.194Z",
+        "lastImportMessage": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-20T00:05:34.194Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 3
+      },
+      "createdAt": "2026-07-20T00:05:34.206Z"
+    },
+    {
+      "id": "workflow-event-9147477c-0466-43b4-ace7-e3ed5ffd33fa",
+      "entityType": "source",
+      "entityId": "source-ollama-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-ollama-releases",
+        "name": "Ollama Releases",
+        "type": "atom",
+        "url": "https://github.com/ollama/ollama/releases.atom",
+        "enabled": true,
+        "description": "Ollama local LLM runtime release feed.",
+        "language": "en",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "local-inference",
+          "open-source"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 11,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-16T00:05:04.516Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:04.516Z",
+        "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:04.516Z"
+      },
+      "afterSnapshot": {
+        "id": "source-ollama-releases",
+        "name": "Ollama Releases",
+        "type": "atom",
+        "url": "https://github.com/ollama/ollama/releases.atom",
+        "enabled": true,
+        "description": "Ollama local LLM runtime release feed.",
+        "language": "en",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "local-inference",
+          "open-source"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 11,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-20T00:05:33.133Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:33.133Z",
+        "lastImportMessage": "fetch failed",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:04.516Z",
+        "lastErrorMessage": "fetch failed"
+      },
+      "metadata": {
+        "status": "failed",
+        "message": "fetch failed",
+        "importCount": 0,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-20T00:05:33.148Z"
+    },
+    {
+      "id": "workflow-event-c38d7408-2f1d-4125-b442-07860945331b",
+      "entityType": "source",
+      "entityId": "source-mcp-servers-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-16T00:05:03.544Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:03.544Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:03.544Z"
+      },
+      "afterSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-20T00:05:23.100Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:23.100Z",
+        "lastImportMessage": "fetch failed",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:03.544Z",
+        "lastErrorMessage": "fetch failed"
+      },
+      "metadata": {
+        "status": "failed",
+        "message": "fetch failed",
+        "importCount": 0,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-20T00:05:23.129Z"
+    },
+    {
+      "id": "workflow-event-3c3519a3-f047-4143-94a1-29d5002e85f1",
+      "entityType": "source",
+      "entityId": "source-hugging-face-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-16T00:05:02.746Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-16T00:05:02.746Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:02.746Z"
+      },
+      "afterSnapshot": {
+        "id": "source-hugging-face-blog",
+        "name": "Hugging Face Blog",
+        "type": "rss",
+        "url": "https://hf-mirror.com/blog/feed.xml",
+        "enabled": true,
+        "description": "Hugging Face official blog feed. 通过 hf-mirror.com 镜像访问（huggingface.co 在本机网络环境连接超时）。",
+        "language": "en",
+        "publisherName": "Hugging Face",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "open-source",
+          "model"
+        ],
+        "defaultNormalizedType": "unknown",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 12,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-20T00:05:03.614Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:03.614Z",
+        "lastImportMessage": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-20T00:05:03.614Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 3
+      },
+      "createdAt": "2026-07-20T00:05:03.642Z"
+    },
     {
       "id": "workflow-event-ce84a7c3-e79e-4df1-8d04-fd15074b9ed1",
       "entityType": "skill",
@@ -37609,96 +37971,6 @@
         "nextStatus": "reviewed"
       },
       "createdAt": "2026-07-09T13:59:16.692Z"
-    },
-    {
-      "id": "workflow-event-dc78ea28-2ceb-4e18-b39c-1aeb19d5016b",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-1-26",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "reviewed",
-        "reviewedAt": "2026-07-09T13:59:16.662Z"
-      },
-      "metadata": {
-        "nextStatus": "reviewed"
-      },
-      "createdAt": "2026-07-09T13:59:16.672Z"
-    },
-    {
-      "id": "workflow-event-fee30d51-61e4-4bb8-ba85-d65a1302aaff",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "reviewed",
-        "reviewedAt": "2026-07-09T13:59:16.641Z"
-      },
-      "metadata": {
-        "nextStatus": "reviewed"
-      },
-      "createdAt": "2026-07-09T13:59:16.650Z"
-    },
-    {
-      "id": "workflow-event-92dc05b0-aa04-45c2-b9fa-dee4a46e6785",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-openai-com-index-separating-signal-from-noise-coding-evaluations",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "reviewed",
-        "reviewedAt": "2026-07-09T13:59:16.617Z"
-      },
-      "metadata": {
-        "nextStatus": "reviewed"
-      },
-      "createdAt": "2026-07-09T13:59:16.629Z"
-    },
-    {
-      "id": "workflow-event-3fa266bc-5962-4fef-8342-f0bfe16d67ed",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-openai-com-index-k-12-educators-practical-skills",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.594Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.606Z"
-    },
-    {
-      "id": "workflow-event-6fecd8fb-6912-48aa-9bcd-4a4452217b07",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-openai-com-index-government-national-security-partnerships",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.573Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.583Z"
-    },
-    {
-      "id": "workflow-event-09272e34-ff3c-4bdc-8ab1-1dade47653a3",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2-rc0",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "rejected",
-        "reviewedAt": "2026-07-09T13:59:16.552Z"
-      },
-      "metadata": {
-        "nextStatus": "rejected"
-      },
-      "createdAt": "2026-07-09T13:59:16.562Z"
     }
   ]
 }
