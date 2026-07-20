@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-20T00:05:34.192Z",
+  "syncedAt": "2026-07-20T16:51:01.148Z",
   "sources": [
     {
       "id": "source-hugging-face-blog",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-16T00:05:03.540Z"
+      "fetchedAt": "2026-07-20T16:51:01.145Z"
     },
     {
       "id": "source-ollama-releases",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-16T00:05:04.511Z"
+      "fetchedAt": "2026-07-20T16:50:58.234Z"
     },
     {
       "id": "source-openai-news",
@@ -64,7 +64,7 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-14T00:05:07.424Z"
+      "fetchedAt": "2026-07-20T16:51:00.412Z"
     }
   ],
   "candidates": [
@@ -305,20 +305,22 @@
       "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1-rc0",
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.1-rc0",
-      "originalTitle": "v0.32.1-rc0",
-      "originalSummary": "cmd: put current working dir in the system prompt ( #17188 )",
-      "originalContent": "<p>cmd: put current working dir in the system prompt (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4887553796\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17188\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17188/hovercard\" href=\"https://github.com/ollama/ollama/pull/17188\">#17188</a>)</p>",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.1",
+      "originalTitle": "v0.32.1",
+      "originalSummary": "What's Changed Improved Gemma 4 tool calling and multi-turn reasoning, including more reliable tool-response continuations Fixed a recurrent MLX model cache leak that could increase memory use across requests, and improved cache snapshot performance MLX text…",
+      "originalContent": "<h2>What's Changed</h2> <ul> <li>Improved Gemma 4 tool calling and multi-turn reasoning, including more reliable tool-response continuations</li> <li>Fixed a recurrent MLX model cache leak that could increase memory use across requests, and improved cache snapshot performance</li> <li>MLX text model loading now respects <code>OLLAMA_LOAD_TIMEOUT</code></li> <li>Agent web search and fetch now tell users to run <code>ollama signin</code> when authentication is required</li> <li>The interactive agent now receives the current working directory for better project context</li> <li>Fixed <code>ollama launch</code> so choosing <strong>Pick another model</strong> for a deprecated model passed with <code>--model</code> opens the model picker</li> <li>Updated VS Code setup documentation for the official Ollama extension</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.32.0...v0.32.1-rc0\"><tt>v0.32.0...v0.32.1-rc0</tt></a></p>",
       "originalLanguage": "en",
-      "publishDate": "2026-07-15",
-      "publisherName": "ParthSareen",
+      "publishDate": "2026-07-16",
+      "publisherName": "github-actions[bot]",
       "normalizedType": "tool",
       "tags": [
         "local-inference",
-        "open-source"
+        "open-source",
+        "agents",
+        "retrieval"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
@@ -327,34 +329,32 @@
         "feedTitle": "Release notes from ollama",
         "feedUrl": "https://github.com/ollama/ollama/releases.atom",
         "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.32.1-rc0",
-          "updated": "2026-07-15T19:10:28Z",
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.1",
+          "updated": "2026-07-16T18:49:37Z",
           "link": {
             "rel": "alternate",
             "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.1-rc0"
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.1"
           },
-          "title": "v0.32.1-rc0",
+          "title": "v0.32.1",
           "content": {
-            "#text": "&lt;p&gt;cmd: put current working dir in the system prompt (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4887553796&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17188&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17188/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17188&quot;&gt;#17188&lt;/a&gt;)&lt;/p&gt;",
+            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Improved Gemma 4 tool calling and multi-turn reasoning, including more reliable tool-response continuations&lt;/li&gt;\n&lt;li&gt;Fixed a recurrent MLX model cache leak that could increase memory use across requests, and improved cache snapshot performance&lt;/li&gt;\n&lt;li&gt;MLX text model loading now respects &lt;code&gt;OLLAMA_LOAD_TIMEOUT&lt;/code&gt;&lt;/li&gt;\n&lt;li&gt;Agent web search and fetch now tell users to run &lt;code&gt;ollama signin&lt;/code&gt; when authentication is required&lt;/li&gt;\n&lt;li&gt;The interactive agent now receives the current working directory for better project context&lt;/li&gt;\n&lt;li&gt;Fixed &lt;code&gt;ollama launch&lt;/code&gt; so choosing &lt;strong&gt;Pick another model&lt;/strong&gt; for a deprecated model passed with &lt;code&gt;--model&lt;/code&gt; opens the model picker&lt;/li&gt;\n&lt;li&gt;Updated VS Code setup documentation for the official Ollama extension&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.32.0...v0.32.1-rc0&quot;&gt;&lt;tt&gt;v0.32.0...v0.32.1-rc0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
             "type": "html"
           },
           "author": {
-            "name": "ParthSareen"
+            "name": "github-actions[bot]"
           },
           "media:thumbnail": {
             "height": "30",
             "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/29360864?s=60&amp;v=4"
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:03.572Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T16:50:57.176Z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-16T00:05:03.572Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:50:57.176Z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
@@ -436,6 +436,56 @@
       "importRunId": "import-run-2026-07-20t00-05-03-061z"
     },
     {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1-rc0",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.1-rc0",
+      "originalTitle": "v0.32.1-rc0",
+      "originalSummary": "cmd: put current working dir in the system prompt ( #17188 )",
+      "originalContent": "<p>cmd: put current working dir in the system prompt (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4887553796\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17188\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17188/hovercard\" href=\"https://github.com/ollama/ollama/pull/17188\">#17188</a>)</p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-15",
+      "publisherName": "ParthSareen",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.1-rc0",
+          "updated": "2026-07-15T19:10:28Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.1-rc0"
+          },
+          "title": "v0.32.1-rc0",
+          "content": {
+            "#text": "&lt;p&gt;cmd: put current working dir in the system prompt (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4887553796&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17188&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17188/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17188&quot;&gt;#17188&lt;/a&gt;)&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "ParthSareen"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/u/29360864?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-20T16:50:57.176Z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-07-20T16:50:57.176Z"
+    },
+    {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
@@ -482,28 +532,27 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:03.572Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T16:50:57.176Z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-16T00:05:03.572Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:50:57.176Z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
       "sourceType": "rss-feed",
       "sourceName": "vLLM Releases",
       "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.25.1",
-      "originalTitle": "v0.25.1: [Bugfix] Guard mixed-dtype allreduce RMSNorm quant fusions (#48330)",
-      "originalSummary": "Signed-off-by: hcenteno hugo.centeno@estudiantat.upc.edu (cherry picked from commit 5f8e73c )",
-      "originalContent": "<p>Signed-off-by: hcenteno <a href=\"mailto:hugo.centeno@estudiantat.upc.edu\">hugo.centeno@estudiantat.upc.edu</a><br> (cherry picked from commit <a class=\"commit-link\" data-hovercard-type=\"commit\" data-hovercard-url=\"https://github.com/vllm-project/vllm/commit/5f8e73cb8b8d41f7a2a5168cddf5b772888fa991/hovercard\" href=\"https://github.com/vllm-project/vllm/commit/5f8e73cb8b8d41f7a2a5168cddf5b772888fa991\"><tt>5f8e73c</tt></a>)</p>",
+      "originalTitle": "v0.25.1",
+      "originalSummary": "vLLM v0.25.1 Highlights This release features 2 commits from 2 contributors (1 new)! v0.25.1 is a patch release containing two targeted bug fixes on top of v0.25.0. Bug Fixes Avoid blocking model launching when no system FFmpeg is available for TorchCodec ( #…",
+      "originalContent": "<h1>vLLM v0.25.1</h1> <h2>Highlights</h2> <p>This release features 2 commits from 2 contributors (1 new)!</p> <p>v0.25.1 is a patch release containing two targeted bug fixes on top of v0.25.0.</p> <h3>Bug Fixes</h3> <ul> <li><strong>Avoid blocking model launching when no system FFmpeg is available for TorchCodec</strong> (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4830103553\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/47888\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/47888/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/47888\">#47888</a>). Previously <code>import torchcodec</code> raised a <code>RuntimeError</code> at import time when system FFmpeg was missing, which blocked startup (e.g. <code>vllm serve Qwen/Qwen3-VL-2B-Instruct</code>) even when TorchCodec was not in use. The error is now deferred to runtime so it only surfaces if TorchCodec is actually needed.</li> <li><strong>Guard mixed-dtype allreduce RMSNorm quant fusions</strong> (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4861605008\" data-permission-text=\"Title is private\" data-url=\"https://github.com/vllm-project/vllm/issues/48330\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/vllm-project/vllm/pull/48330/hovercard\" href=\"https://github.com/vllm-project/vllm/pull/48330\">#48330</a>). The fused FlashInfer allreduce + RMSNorm + static-quantization patterns could match graphs where the activation and RMSNorm weight dtypes differ…",
       "originalLanguage": "en",
-      "publishDate": "2026-07-12",
-      "publisherName": "hugo-cen",
+      "publishDate": "2026-07-14",
+      "publisherName": "khluu",
       "normalizedType": "tool",
       "tags": [
         "inference",
-        "serving"
+        "serving",
+        "knowledge-graph"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
@@ -513,33 +562,31 @@
         "feedUrl": "https://github.com/vllm-project/vllm/releases.atom",
         "entry": {
           "id": "tag:github.com,2008:Repository/599547518/v0.25.1",
-          "updated": "2026-07-12T23:40:12Z",
+          "updated": "2026-07-14T08:58:07Z",
           "link": {
             "rel": "alternate",
             "type": "text/html",
             "href": "https://github.com/vllm-project/vllm/releases/tag/v0.25.1"
           },
-          "title": "v0.25.1: [Bugfix] Guard mixed-dtype allreduce RMSNorm quant fusions (#48330)",
+          "title": "v0.25.1",
           "content": {
-            "#text": "&lt;p&gt;Signed-off-by: hcenteno &lt;a href=&quot;mailto:hugo.centeno@estudiantat.upc.edu&quot;&gt;hugo.centeno@estudiantat.upc.edu&lt;/a&gt;&lt;br&gt;\n(cherry picked from commit &lt;a class=&quot;commit-link&quot; data-hovercard-type=&quot;commit&quot; data-hovercard-url=&quot;https://github.com/vllm-project/vllm/commit/5f8e73cb8b8d41f7a2a5168cddf5b772888fa991/hovercard&quot; href=&quot;https://github.com/vllm-project/vllm/commit/5f8e73cb8b8d41f7a2a5168cddf5b772888fa991&quot;&gt;&lt;tt&gt;5f8e73c&lt;/tt&gt;&lt;/a&gt;)&lt;/p&gt;",
+            "#text": "&lt;h1&gt;vLLM v0.25.1&lt;/h1&gt;\n&lt;h2&gt;Highlights&lt;/h2&gt;\n&lt;p&gt;This release features 2 commits from 2 contributors (1 new)!&lt;/p&gt;\n&lt;p&gt;v0.25.1 is a patch release containing two targeted bug fixes on top of v0.25.0.&lt;/p&gt;\n&lt;h3&gt;Bug Fixes&lt;/h3&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Avoid blocking model launching when no system FFmpeg is available for TorchCodec&lt;/strong&gt; (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4830103553&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/vllm-project/vllm/issues/47888&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/vllm-project/vllm/pull/47888/hovercard&quot; href=&quot;https://github.com/vllm-project/vllm/pull/47888&quot;&gt;#47888&lt;/a&gt;). Previously &lt;code&gt;import torchcodec&lt;/code&gt; raised a &lt;code&gt;RuntimeError&lt;/code&gt; at import time when system FFmpeg was missing, which blocked startup (e.g. &lt;code&gt;vllm serve Qwen/Qwen3-VL-2B-Instruct&lt;/code&gt;) even when TorchCodec was not in use. The error is now deferred to runtime so it only surfaces if TorchCodec is actually needed.&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;Guard mixed-dtype allreduce RMSNorm quant fusions&lt;/strong&gt; (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4861605008&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/vllm-project/vllm/issues/48330&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/vllm-project/vllm/pull/48330/hovercard&quot; href=&quot;https://github.com/vllm-project/vllm/pull/48330&quot;&gt;#48330&lt;/a&gt;). The fused FlashInfer allreduce + RMSNorm + static-quantization patterns could match graphs where the activation and RMSNorm weight dtypes differ (e.g. a BF16 residual stream with an FP32 Gemma/Qwen-style RMSNorm weight in NVFP4 models), corrupting the hidden state and producing garbage output such as repeated &lt;code&gt;!!!!!&lt;/code&gt; tokens. A dtype-match guard now routes incompatible mixed-dtype graphs to the safe path, while same-dtype models retain the full allreduce + RMSNorm + quant fusion.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;Contributors&lt;/h2&gt;\n&lt;p&gt;&lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/Isotr0py/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/Isotr0py&quot;&gt;@Isotr0py&lt;/a&gt;, &lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/hugo-cen/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/hugo-cen&quot;&gt;@hugo-cen&lt;/a&gt;&lt;/p&gt;\n&lt;h2&gt;New Contributors&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/hugo-cen/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/hugo-cen&quot;&gt;@hugo-cen&lt;/a&gt; made their first contribution in &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4861605008&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/vllm-project/vllm/issues/48330&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/vllm-project/vllm/pull/48330/hovercard&quot; href=&quot;https://github.com/vllm-project/vllm/pull/48330&quot;&gt;#48330&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;",
             "type": "html"
           },
           "author": {
-            "name": "hugo-cen"
+            "name": "khluu"
           },
           "media:thumbnail": {
             "height": "30",
             "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/133872718?s=60&amp;v=4"
+            "url": "https://avatars.githubusercontent.com/u/51931015?s=60&amp;v=4"
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:05.769Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-20T16:50:58.288Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-14T00:05:05.769Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-20T16:50:58.288Z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
@@ -591,64 +638,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:05.769Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-20T16:50:58.288Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-14T00:05:05.769Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
-      "sourceType": "rss-feed",
-      "sourceName": "MCP Servers Releases",
-      "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10",
-      "originalTitle": "Release 2026.7.10",
-      "originalSummary": "Release : v2026.7.10 Updated packages @modelcontextprotocol/server-filesystem@2026.7.10 mcp-server-time@2026.7.10 mcp-server-fetch@2026.7.10 mcp-server-git@2026.7.10",
-      "originalContent": "<h1>Release : v2026.7.10</h1> <h2>Updated packages</h2> <ul> <li>@modelcontextprotocol/server-filesystem@2026.7.10</li> <li>mcp-server-time@2026.7.10</li> <li>mcp-server-fetch@2026.7.10</li> <li>mcp-server-git@2026.7.10</li> </ul>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-10",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
-      "tags": [
-        "mcp",
-        "agent"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-mcp-servers-releases",
-        "feedTitle": "Release notes from servers",
-        "feedUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/890668799/2026.7.10",
-          "updated": "2026-07-10T03:39:07Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10"
-          },
-          "title": "Release 2026.7.10",
-          "content": {
-            "#text": "&lt;h1&gt;Release : v2026.7.10&lt;/h1&gt;\n&lt;h2&gt;Updated packages&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;@modelcontextprotocol/server-filesystem@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-time@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-fetch@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-git@2026.7.10&lt;/li&gt;\n&lt;/ul&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:02.776Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
-      },
-      "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-16T00:05:02.776Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:50:58.288Z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0-rc0",
@@ -696,12 +689,60 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:03.572Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T16:50:57.176Z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-16T00:05:03.572Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:50:57.176Z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
+      "sourceType": "rss-feed",
+      "sourceName": "MCP Servers Releases",
+      "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10",
+      "originalTitle": "Release 2026.7.10",
+      "originalSummary": "Release : v2026.7.10 Updated packages @modelcontextprotocol/server-filesystem@2026.7.10 mcp-server-time@2026.7.10 mcp-server-fetch@2026.7.10 mcp-server-git@2026.7.10",
+      "originalContent": "<h1>Release : v2026.7.10</h1> <h2>Updated packages</h2> <ul> <li>@modelcontextprotocol/server-filesystem@2026.7.10</li> <li>mcp-server-time@2026.7.10</li> <li>mcp-server-fetch@2026.7.10</li> <li>mcp-server-git@2026.7.10</li> </ul>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-10",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "mcp",
+        "agent"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-mcp-servers-releases",
+        "feedTitle": "Release notes from servers",
+        "feedUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/890668799/2026.7.10",
+          "updated": "2026-07-10T03:39:07Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10"
+          },
+          "title": "Release 2026.7.10",
+          "content": {
+            "#text": "&lt;h1&gt;Release : v2026.7.10&lt;/h1&gt;\n&lt;h2&gt;Updated packages&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;@modelcontextprotocol/server-filesystem@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-time@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-fetch@2026.7.10&lt;/li&gt;\n&lt;li&gt;mcp-server-git@2026.7.10&lt;/li&gt;\n&lt;/ul&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-07-20T16:51:00.461Z"
+      },
+      "sourceId": "source-mcp-servers-releases",
+      "importedAt": "2026-07-20T16:51:00.461Z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc3",
@@ -748,12 +789,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:05.769Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-20T16:50:58.288Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-14T00:05:05.769Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
+      "importedAt": "2026-07-20T16:50:58.288Z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0rc2",
@@ -801,65 +840,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-14T00:05:05.769Z",
-        "importRunId": "import-run-2026-07-14t00-05-02-256z"
+        "importedAt": "2026-07-20T16:50:58.288Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-07-14T00:05:05.769Z",
-      "importRunId": "import-run-2026-07-14t00-05-02-256z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-      "originalTitle": "v0.31.2",
-      "originalSummary": "What's Changed Enabled flash attention on older NVIDIA GPUs (compute capability 6.x) iGPU can now offload vision models with padding to fit available memory Fixed structured output for thinking models when thinking is disabled Hardened GGUF model creation oll…",
-      "originalContent": "<h2>What's Changed</h2> <ul> <li>Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)</li> <li>iGPU can now offload vision models with padding to fit available memory</li> <li>Fixed structured output for thinking models when thinking is disabled</li> <li>Hardened GGUF model creation</li> <li><code>ollama launch</code> for Claude Code now disables telemetry by default</li> <li>Fixed loading models on paths with non-UTF-8 characters</li> <li>Updated the MLX and llama.cpp engines</li> </ul> <h2>New Contributors</h2> <ul> <li><a class=\"user-mention notranslate\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/kevinpark1217/hovercard\" data-octo-click=\"hovercard-link-click\" data-octo-dimensions=\"link_type:self\" href=\"https://github.com/kevinpark1217\">@kevinpark1217</a> made their first contribution in <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4761683278\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/16949\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/16949/hovercard\" href=\"https://github.com/ollama/ollama/pull/16949\">#16949</a></li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2\"><tt>v0.31.1...v0.31.2</tt></a></p>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-08",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.31.2",
-          "updated": "2026-07-08T20:44:32Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.31.2"
-          },
-          "title": "v0.31.2",
-          "content": {
-            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Enabled flash attention on older NVIDIA GPUs (compute capability 6.x)&lt;/li&gt;\n&lt;li&gt;iGPU can now offload vision models with padding to fit available memory&lt;/li&gt;\n&lt;li&gt;Fixed structured output for thinking models when thinking is disabled&lt;/li&gt;\n&lt;li&gt;Hardened GGUF model creation&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;ollama launch&lt;/code&gt; for Claude Code now disables telemetry by default&lt;/li&gt;\n&lt;li&gt;Fixed loading models on paths with non-UTF-8 characters&lt;/li&gt;\n&lt;li&gt;Updated the MLX and llama.cpp engines&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;New Contributors&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a class=&quot;user-mention notranslate&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/users/kevinpark1217/hovercard&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;https://github.com/kevinpark1217&quot;&gt;@kevinpark1217&lt;/a&gt; made their first contribution in &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;4761683278&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/16949&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/16949/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/16949&quot;&gt;#16949&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.31.1...v0.31.2&quot;&gt;&lt;tt&gt;v0.31.1...v0.31.2&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:03.572Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-07-16T00:05:03.572Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:50:58.288Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -906,12 +890,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:02.776Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T16:51:00.461Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-16T00:05:02.776Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:51:00.461Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -958,12 +940,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:02.776Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T16:51:00.461Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-16T00:05:02.776Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:51:00.461Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -1010,12 +990,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-16T00:05:02.776Z",
-        "importRunId": "import-run-2026-07-16t00-05-02-141z"
+        "importedAt": "2026-07-20T16:51:00.461Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-16T00:05:02.776Z",
-      "importRunId": "import-run-2026-07-16t00-05-02-141z"
+      "importedAt": "2026-07-20T16:51:00.461Z"
     },
     {
       "id": "candidate-source-quality-failing-source-2026-05-30",

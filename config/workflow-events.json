@@ -1,6 +1,207 @@
 {
-  "updatedAt": "2026-07-20T14:17:24.393Z",
+  "updatedAt": "2026-07-20T16:51:01.161Z",
   "events": [
+    {
+      "id": "workflow-event-70bf65cc-33c7-42a8-8ae0-bcd2cd85b475",
+      "entityType": "source",
+      "entityId": "source-mcp-servers-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-20T00:05:23.100Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:23.100Z",
+        "lastImportMessage": "fetch failed",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:03.544Z",
+        "lastErrorMessage": "fetch failed"
+      },
+      "afterSnapshot": {
+        "id": "source-mcp-servers-releases",
+        "name": "MCP Servers Releases",
+        "type": "atom",
+        "url": "https://github.com/modelcontextprotocol/servers/releases.atom",
+        "enabled": true,
+        "description": "Model Context Protocol reference servers release feed.",
+        "language": "en",
+        "publisherName": "modelcontextprotocol",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "mcp",
+          "agent"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.321Z",
+        "updatedAt": "2026-07-20T16:51:01.149Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T16:51:01.149Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-20T16:51:01.149Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-20T16:51:01.161Z"
+    },
+    {
+      "id": "workflow-event-1726f2e4-342c-4910-b0ec-cf78279cf030",
+      "entityType": "source",
+      "entityId": "source-vllm-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-vllm-releases",
+        "name": "vLLM Releases",
+        "type": "atom",
+        "url": "https://github.com/vllm-project/vllm/releases.atom",
+        "enabled": true,
+        "description": "vLLM high-throughput LLM inference engine release feed.",
+        "language": "en",
+        "publisherName": "vLLM Project",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "inference",
+          "serving"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-20T00:05:53.629Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:53.629Z",
+        "lastImportMessage": "fetch failed",
+        "lastSuccessfulImportAt": "2026-07-14T00:05:07.428Z",
+        "lastErrorMessage": "fetch failed"
+      },
+      "afterSnapshot": {
+        "id": "source-vllm-releases",
+        "name": "vLLM Releases",
+        "type": "atom",
+        "url": "https://github.com/vllm-project/vllm/releases.atom",
+        "enabled": true,
+        "description": "vLLM high-throughput LLM inference engine release feed.",
+        "language": "en",
+        "publisherName": "vLLM Project",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "inference",
+          "serving"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 9,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-20T16:51:00.415Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T16:51:00.415Z",
+        "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-20T16:51:00.415Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 0
+      },
+      "createdAt": "2026-07-20T16:51:00.426Z"
+    },
+    {
+      "id": "workflow-event-497afdb5-e934-452b-b4fe-a00d96db712c",
+      "entityType": "source",
+      "entityId": "source-ollama-releases",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-ollama-releases",
+        "name": "Ollama Releases",
+        "type": "atom",
+        "url": "https://github.com/ollama/ollama/releases.atom",
+        "enabled": true,
+        "description": "Ollama local LLM runtime release feed.",
+        "language": "en",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "local-inference",
+          "open-source"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "failed",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 11,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-20T00:05:33.133Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T00:05:33.133Z",
+        "lastImportMessage": "fetch failed",
+        "lastSuccessfulImportAt": "2026-07-16T00:05:04.516Z",
+        "lastErrorMessage": "fetch failed"
+      },
+      "afterSnapshot": {
+        "id": "source-ollama-releases",
+        "name": "Ollama Releases",
+        "type": "atom",
+        "url": "https://github.com/ollama/ollama/releases.atom",
+        "enabled": true,
+        "description": "Ollama local LLM runtime release feed.",
+        "language": "en",
+        "publisherName": "Ollama",
+        "publisherType": "open-source-community",
+        "defaultTags": [
+          "local-inference",
+          "open-source"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 12,
+        "createdAt": "2026-07-09T12:28:08.320Z",
+        "updatedAt": "2026-07-20T16:50:58.238Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-20T16:50:58.238Z",
+        "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-20T16:50:58.238Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 1
+      },
+      "createdAt": "2026-07-20T16:50:58.254Z"
+    },
     {
       "id": "workflow-event-5400e9dc-90dc-4844-b2b0-82583558d061",
       "entityType": "skill",
@@ -37929,319 +38130,6 @@
         "action": "include"
       },
       "createdAt": "2026-07-09T14:26:37.260Z"
-    },
-    {
-      "id": "workflow-event-6221f6c6-d0eb-4f62-b663-b48a5f3b720f",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-latency-tradeoffs",
-          "knowledge-human-loop",
-          "knowledge-model-sizing"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T14:26:37.191Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T14:26:37.220Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "action": "exclude"
-      },
-      "createdAt": "2026-07-09T14:26:37.233Z"
-    },
-    {
-      "id": "workflow-event-e7a19277-e127-447f-9550-bd563e8473aa",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-05-23",
-        "summary": "2 item(s) are selected for editorial validation.",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-tool-integration",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-latency-tradeoffs",
-          "knowledge-human-loop"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-latency-tradeoffs",
-          "knowledge-human-loop",
-          "knowledge-model-sizing"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T14:26:37.191Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-07-09T14:26:37.205Z"
-    },
-    {
-      "id": "workflow-event-d8caabfa-bfd5-4d34-902e-b9cb1562263e",
-      "entityType": "technology_draft",
-      "entityId": "validation-warning-only-record",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T14:00:51.214Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T14:00:51.156Z",
-        "updatedAt": "2026-07-09T14:00:51.286Z",
-        "editorialNotes": []
-      },
-      "afterSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "watch",
-          "priorityScore": 57,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Tags are missing.",
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet.",
-            "Publisher is missing."
-          ],
-          "rankingUpdatedAt": "2026-07-09T14:00:51.331Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T14:00:51.156Z",
-        "updatedAt": "2026-07-09T14:00:51.331Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validation-warning-only-record"
-      },
-      "createdAt": "2026-07-09T14:00:51.344Z"
     }
   ]
 }
