@@ -12,6 +12,22 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Detail-page relation notes rendered for real
+
+- **Skill/knowledge detail pages now render the stored relation 附注** —
+  2026-07-21, found during the fourth content round: the 背景概念 cards on
+  `/skills/[slug]` and the 搭配技能 cards on `/knowledge/[slug]` hardcoded
+  a generic one-liner in `DossierCatalogNote`, even when the pair's
+  `LinkRelation` carried an editor-written note (both pages already looked
+  the notes up via `findRelationBetween` for the `RelationshipGraph`
+  tooltips — the card markup just never used them). Now the real note
+  renders when present, with the old generic sentence kept as the
+  fallback for untyped pairs. The technology detail page
+  (`DossierRelatedItemsSection`) already did this correctly and is
+  unchanged. Verified with typecheck, lint, format, vitest 90/90, and a
+  live pass (custom notes visible on both page kinds, zero console
+  errors).
+
 ## Partial-update slug preservation fix
 
 - **`updateTechnologyWorkspaceRecord` no longer regenerates the slug on
