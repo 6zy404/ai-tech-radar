@@ -22,12 +22,14 @@
 > 2026-07-20: HF NeMo Automodel finetuning, HF security incident
 > disclosure, HF "Newer Models Same Advantage", OpenAI scorecard /
 > teens / Cars24), committed separately as the import-state commit.
-> Known pre-existing UI limitation (flagged, not fixed): the
-> skill/knowledge detail pages hardcode a generic 附注 on related-item
-> cards instead of rendering the stored relation note (the technology
-> detail page renders notes correctly). **Next actual step**: the next
-> daily editorial round has material waiting — 6 undecided candidates
-> plus the 3 failed sources to check.
+> Known pre-existing UI limitation, **fixed in a follow-up commit the
+> same session** (owner-chosen): the skill/knowledge detail pages
+> hardcoded a generic 附注 on related-item cards instead of rendering
+> the stored relation note — now the real note renders with the generic
+> copy as fallback (see CHANGELOG → "Detail-page relation notes
+> rendered for real"). **Next actual step**: the next daily editorial
+> round has material waiting — 6 undecided candidates plus the 3 failed
+> sources to check.
 
 > Update 2026-07-19 (earlier): **Third content round** — two
 > more knowledge entries authored and published through the workspace

@@ -303,8 +303,8 @@ export default async function SkillDetailPage({
                         </h3>
                         <p>{knowledge.summary}</p>
                         <DossierCatalogNote>
-                          理解这个概念，能帮你在解读新技术信号时更好地运用这项
-                          技能。
+                          {knowledgeRelations[index].note ??
+                            "理解这个概念，能帮你在解读新技术信号时更好地运用这项技能。"}
                         </DossierCatalogNote>
                         {knowledgeTags.length > 0 ? (
                           <TagList tags={knowledgeTags} limit={2} />
