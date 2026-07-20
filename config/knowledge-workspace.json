@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T05:04:40.897Z",
+  "updatedAt": "2026-07-20T14:16:26.377Z",
   "records": [
     {
       "id": "knowledge-ws-818b7bb3",
@@ -117,6 +117,56 @@
       "status": "published",
       "createdAt": "2026-07-19T05:04:40.801Z",
       "updatedAt": "2026-07-19T05:04:40.897Z"
+    },
+    {
+      "id": "knowledge-ws-68963f7f",
+      "title": "推测解码与推理加速技术",
+      "slug": "speculative-decoding-inference-acceleration",
+      "summary": "自回归生成的逐 token 串行是大模型推理延迟的根源；推测解码、连续批处理与 KV 缓存管理从算法与系统两层，把同样的硬件榨出数倍吞吐。",
+      "content": "自回归模型每生成一个 token 都要完整走一遍前向计算，而解码阶段的瓶颈通常在显存带宽而非算力——权重反复搬运，算术单元大量空转。推测解码（speculative decoding）用一个小模型快速草拟若干候选 token，再让大模型一次前向并行验证，接受则一步产出多个 token，拒绝则回退重来；数学上可以保证输出分布与大模型逐 token 解码完全一致，加速是「免费」的。\n\n算法之外还有系统层的三板斧：连续批处理（continuous batching）让新请求随时插入正在运行的批次，而不是等整批结束；分页式 KV 缓存（vLLM 的 PagedAttention 一脉）把注意力缓存按块管理，消除显存碎片；算子融合与量化则进一步压低单步开销。vLLM v0.25.0 把 Model Runner V2 设为默认执行引擎、其 Transformers 后端达到原生速度，都说明这套优化正在从「专用推理引擎的独门绝技」下沉为通用基础设施；Ollama 则把同类技术带进本地设备，在消费级硬件上兑现可用的交互延迟。\n\n为什么值得懂：GPT-5.6 把「单位算力智能密度」当作主打指标，标志着前沿竞争已从单纯堆参数转向推理效率。读懂这一层，才能理解推理引擎版本说明里的吞吐数字从哪来、容量规划里的延迟预算怎么定、以及「更大的模型」与「更快的模型」之间的真实取舍。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.662Z",
+      "updatedAt": "2026-07-20T14:16:26.271Z"
+    },
+    {
+      "id": "knowledge-ws-a28a8a56",
+      "title": "长时程智能体的记忆与上下文管理",
+      "slug": "agent-memory-context-management",
+      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
+      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.755Z",
+      "updatedAt": "2026-07-20T14:16:26.376Z"
     }
   ]
 }

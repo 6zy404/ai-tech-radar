@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T05:04:40.846Z",
+  "updatedAt": "2026-07-20T14:16:25.238Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -765,6 +765,204 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "副语言理解水平决定打断处理与情绪响应设计的上限。"
+    },
+    {
+      "id": "rel-ws-cf3ab7fe",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "Shippy 复盘开源的评测与沙箱工件，是这项技能的生产级参照。"
+    },
+    {
+      "id": "rel-ws-105f46a2",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "requires",
+      "note": "长时程办公智能体把评测运维从可选项变成上线必备。"
+    },
+    {
+      "id": "rel-ws-169fbf28",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "Nemotron 开放数据可直接用作智能体评测的数据底座。"
+    },
+    {
+      "id": "rel-ws-c42b1d4c",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "自博弈红队把评测运维从人工用例延伸到自动化对抗。"
+    },
+    {
+      "id": "rel-ws-9c03792f",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "评估闭环是评测运维的方法论源头。"
+    },
+    {
+      "id": "rel-ws-ef88d064",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "对抗性评估提供失败案例的系统化生成方法。"
+    },
+    {
+      "id": "rel-ws-7178c952",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "失败归因的结论需要回流到团队学习闭环。"
+    },
+    {
+      "id": "rel-ws-69cba8af",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "追踪长时程任务离不开对记忆与上下文机制的可见性。"
+    },
+    {
+      "id": "rel-ws-e76aafc6",
+      "fromId": "knowledge-ws-68963f7f",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "Model Runner V2 是这批加速技术的工程集大成实现。"
+    },
+    {
+      "id": "rel-ws-0451f494",
+      "fromId": "knowledge-ws-68963f7f",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "解释了通用 Transformers 后端为何也能到达原生吞吐。"
+    },
+    {
+      "id": "rel-ws-ac64ae9f",
+      "fromId": "knowledge-ws-68963f7f",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "「单位算力智能密度」竞争的技术底层正是推理效率。"
+    },
+    {
+      "id": "rel-ws-770f86be",
+      "fromId": "knowledge-ws-68963f7f",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "本地运行时靠同一层加速原理在消费级硬件上压低延迟。"
+    },
+    {
+      "id": "rel-ws-f8ba3daa",
+      "fromId": "knowledge-ws-68963f7f",
+      "fromType": "knowledge",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "容量规划的吞吐与延迟估算以这层原理为基础。"
+    },
+    {
+      "id": "rel-ws-0ab4e5ed",
+      "fromId": "skill-ws-84837d46",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "开源万亿参数 MoE 权重是可直接定制的基座。"
+    },
+    {
+      "id": "rel-ws-e5536f59",
+      "fromId": "skill-ws-84837d46",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "Nemotron 开放数据是可复用的后训练数据配方范本。"
+    },
+    {
+      "id": "rel-ws-8670db94",
+      "fromId": "skill-ws-84837d46",
+      "fromType": "skill",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "后训练的数据配方直接决定微调上限。"
+    },
+    {
+      "id": "rel-ws-5fc2e08b",
+      "fromId": "skill-ws-84837d46",
+      "fromType": "skill",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "微调 MoE 基座必须理解专家路由与负载均衡。"
+    },
+    {
+      "id": "rel-ws-83a9c922",
+      "fromId": "skill-ws-84837d46",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "「是否微调」本身就是模型选型决策的一环。"
+    },
+    {
+      "id": "rel-ws-06da6b63",
+      "fromId": "knowledge-ws-a28a8a56",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "长时程办公任务的可行性建立在这套记忆体系之上。"
+    },
+    {
+      "id": "rel-ws-57b60317",
+      "fromId": "knowledge-ws-a28a8a56",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "Shippy 的会话状态管理是该问题的生产级案例。"
+    },
+    {
+      "id": "rel-ws-27adf311",
+      "fromId": "knowledge-ws-a28a8a56",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "本地工作台要在设备资源约束下实现同样的上下文管理。"
+    },
+    {
+      "id": "rel-ws-dac6616b",
+      "fromId": "knowledge-ws-a28a8a56",
+      "fromType": "knowledge",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "工作流设计里的状态划分直接落在记忆分层上。"
     }
   ]
 }

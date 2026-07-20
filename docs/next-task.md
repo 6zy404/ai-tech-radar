@@ -1,6 +1,35 @@
 # Next Task
 
-> Update 2026-07-19 (latest, same session): **Third content round** — two
+> Update 2026-07-20 (latest): **Fourth content round — the biggest yet:
+> 2 skills + 2 knowledge**, owner-selected from a gap analysis (all four
+> proposed options taken). Authored and published through the workspace
+> APIs with full typed relations + notes, zero publish-gate warnings:
+> 技能「智能体可观测性与评测运维」(`agent-observability-evaluation-ops`,
+> operations/hot — the first skill under tag-observability; anchored to
+> Shippy / ChatGPT Work / NVIDIA Nemotron / GPT-Red), 技能「模型微调与
+> 后训练定制」(`model-finetuning-post-training`, anchored to Inkling /
+> Nemotron, requires 合成数据 + MoE knowledge), 知识「推测解码与推理
+> 加速技术」(`speculative-decoding-inference-acceleration`, explains
+> both vLLM signals + GPT-5.6 + Ollama), 知识「长时程智能体的记忆与
+> 上下文管理」(`agent-memory-context-management`, explains ChatGPT
+> Work / Shippy / Ollama). 22 typed relation pairs written; reverse
+> related-ids added on 9 technology records + 2 skill records (incl. a
+> first copy-on-write override of seed `skill-agent-design`) — all
+> partial PATCHes preserved slugs. Pools: skills 9→11, knowledge 15→17.
+> Also this session: the 2026-07-20 scheduled import ran (partial: 2/5
+> sources ok, 3 GitHub-release sources failed — likely transient, worth
+> a look next round) and left **6 undecided candidates** (all
+> 2026-07-20: HF NeMo Automodel finetuning, HF security incident
+> disclosure, HF "Newer Models Same Advantage", OpenAI scorecard /
+> teens / Cars24), committed separately as the import-state commit.
+> Known pre-existing UI limitation (flagged, not fixed): the
+> skill/knowledge detail pages hardcode a generic 附注 on related-item
+> cards instead of rendering the stored relation note (the technology
+> detail page renders notes correctly). **Next actual step**: the next
+> daily editorial round has material waiting — 6 undecided candidates
+> plus the 3 failed sources to check.
+
+> Update 2026-07-19 (earlier): **Third content round** — two
 > more knowledge entries authored and published through the workspace
 > APIs with full typed relations, zero publish-gate warnings:
 > 「对抗性评估与红队方法」(`adversarial-evaluation-red-teaming`, explains
