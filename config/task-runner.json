@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-07-14T00:05:07.450Z",
+  "updatedAt": "2026-07-20T00:05:53.658Z",
   "runs": [
+    {
+      "id": "task-runner-f3773fbc-adf8-4a35-9f9a-793f72e0b369",
+      "mode": "run_once",
+      "startedAt": "2026-07-20T00:05:03.059Z",
+      "finishedAt": "2026-07-20T00:05:53.657Z",
+      "status": "partial",
+      "dueScheduleCount": 0,
+      "skippedScheduleCount": 0,
+      "successCount": 0,
+      "failedCount": 0,
+      "partialCount": 0,
+      "deliveryLogsCreated": 0,
+      "messages": [
+        "定时导入部分成功：5 个启用来源（成功 2，失败 3，部分 0），新增候选 6 条，跳过 2 条。",
+        "没有到期计划。"
+      ]
+    },
     {
       "id": "task-runner-0e99b2bf-4480-41e1-b586-6c65da3bf340",
       "mode": "run_once",
