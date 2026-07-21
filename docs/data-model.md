@@ -398,6 +398,38 @@ Scheduled import rules:
   (`PATCH /api/workspace/scheduled-import`); never rendered on user-facing
   pages
 
+## ScheduledDigestConfig
+
+Represents the workspace-only configuration for the task-runner scheduled
+daily digest **draft** generation. A structural sibling of
+`ScheduledImportConfig`, stored as a single object in
+`config/scheduled-digest.json` (`src/lib/scheduled-digest.ts`).
+
+- `enabled` (default `true`)
+- `scheduleTime`: simple `HH:mm` (default `08:00`, deliberately the same as
+  the import — in-pass code order guarantees the import runs first)
+- `timezone`: defaults to `Asia/Shanghai`
+- `nextRunAt?`: missing means "due on the next runner pass" (bootstrap)
+- `lastRunAt?`
+- `lastRunStatus`: `never_run | success | failed`
+- `lastRunMessage?`
+- `updatedAt`
+
+Scheduled digest rules:
+
+- the task runner generates today's digest draft when `enabled` and
+  `nextRunAt` is missing or in the past, then advances `nextRunAt` — this
+  doubles as same-day duplicate protection
+- when the day already has a digest (any status), the run **skips** without
+  touching it — unattended runs never modify a digest an editor may be
+  editing
+- only `status = draft` digests are ever created; publishing stays behind
+  the editorial gate, and a failed generation downgrades the runner pass to
+  `partial` while still advancing `nextRunAt`
+- generation is the existing `generateDailyDigest`; managed from
+  `/workspace/delivery/schedules` (`PATCH /api/workspace/scheduled-digest`);
+  never rendered on user-facing pages
+
 ## WorkflowEvent
 
 Represents a lightweight internal audit event for a workflow state transition or failure.
@@ -1146,6 +1178,7 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `delivery.json`
 - `scheduled-delivery.json`
 - `scheduled-import.json`
+- `scheduled-digest.json`
 - `task-runner.json`
 - `workflow-events.json`
 - `editorial-enrichment-suggestions.json`

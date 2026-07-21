@@ -5,6 +5,7 @@ import {
   ScheduledDeliveryActions
 } from "@/components/scheduled-delivery-actions";
 import { ScheduledDeliveryForm } from "@/components/scheduled-delivery-form";
+import { ScheduledDigestActions } from "@/components/scheduled-digest-actions";
 import { ScheduledImportActions } from "@/components/scheduled-import-actions";
 import { WorkflowEventList } from "@/components/workflow-event-list";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
@@ -14,6 +15,7 @@ import {
   getScheduledDeliveries,
   getScheduledDeliveryRuns
 } from "@/lib/scheduled-delivery-workflow";
+import { getScheduledDigestConfig } from "@/lib/scheduled-digest";
 import { getScheduledImportConfig } from "@/lib/scheduled-import";
 import { getLatestExternalSourceImportRun } from "@/lib/source-workflow";
 import { getLatestTaskRunnerRun } from "@/lib/task-runner";
@@ -76,6 +78,7 @@ export default function WorkspaceDeliverySchedulesPage() {
   const runs = getScheduledDeliveryRuns();
   const latestTaskRunnerRun = getLatestTaskRunnerRun();
   const scheduledImportConfig = getScheduledImportConfig();
+  const scheduledDigestConfig = getScheduledDigestConfig();
   const latestImportRun = getLatestExternalSourceImportRun();
   const now = Date.now();
   const enabledCount = schedules.filter((schedule) => schedule.enabled).length;
@@ -414,6 +417,62 @@ export default function WorkspaceDeliverySchedulesPage() {
           <ScheduledImportActions
             enabled={scheduledImportConfig.enabled}
             scheduleTime={scheduledImportConfig.scheduleTime}
+          />
+        </details>
+
+        <details className="schedule-support-panel" open>
+          <summary>定时简报草稿（每日自动生成）</summary>
+          <p>
+            任务运行器在检查到期计划的同时，按这里的时间每天自动生成一份简报草稿；当天已有简报时跳过。发布始终由编辑把关，不会自动发布。
+          </p>
+          <dl className="digest-delivery-list">
+            <div>
+              <dt>状态</dt>
+              <dd>
+                <WorkspaceStatusBadge
+                  label={scheduledDigestConfig.enabled ? "已启用" : "已停用"}
+                  tone={scheduledDigestConfig.enabled ? "success" : "neutral"}
+                />
+              </dd>
+            </div>
+            <div>
+              <dt>每日时间</dt>
+              <dd>
+                {scheduledDigestConfig.scheduleTime}（
+                {scheduledDigestConfig.timezone}）
+              </dd>
+            </div>
+            <div>
+              <dt>下次生成</dt>
+              <dd>
+                {scheduledDigestConfig.nextRunAt
+                  ? formatDateTime(scheduledDigestConfig.nextRunAt)
+                  : "下次任务运行器执行时立即生成"}
+              </dd>
+            </div>
+            <div>
+              <dt>最近生成</dt>
+              <dd>
+                {getRunStatusLabel(
+                  scheduledDigestConfig.lastRunStatus === "never_run"
+                    ? undefined
+                    : scheduledDigestConfig.lastRunStatus
+                )}{" "}
+                - {formatDateTime(scheduledDigestConfig.lastRunAt)}
+                {scheduledDigestConfig.lastRunMessage ? (
+                  <small className="delivery-log-message">
+                    {scheduledDigestConfig.lastRunMessage}
+                  </small>
+                ) : null}
+                <Link className="action-link" href="/workspace/digests">
+                  查看简报工作台
+                </Link>
+              </dd>
+            </div>
+          </dl>
+          <ScheduledDigestActions
+            enabled={scheduledDigestConfig.enabled}
+            scheduleTime={scheduledDigestConfig.scheduleTime}
           />
         </details>
 

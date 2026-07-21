@@ -137,6 +137,10 @@ The product is split into two subsystems:
 - **Daily Digest** — editorial workflow that generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   the month-grouped `/digest` archive index, `/feed.xml`, and `/feed.json`.
+  The task runner can also generate the day's digest **draft** automatically
+  (`config/scheduled-digest.json`, managed from
+  `/workspace/delivery/schedules`; skips when the day already has a digest,
+  never publishes — publishing stays editor-gated).
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
@@ -287,7 +291,8 @@ Runtime workflow state lives in `config/` as JSON (the default fallback store):
 imported candidates, candidate review state, external sources, technology
 workspace records, skill and knowledge workspace records, link relation
 overrides, duplicate groups,
-daily digests, delivery, scheduled delivery, scheduled import, task runner,
+daily digests, delivery, scheduled delivery, scheduled import, scheduled
+digest draft, task runner,
 workflow events, editorial enrichment suggestions, and prompt versions. Set
 `LOCAL_DATA_DIR` to point at a different local directory.
 

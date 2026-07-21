@@ -103,6 +103,16 @@ imports. The config is editable from `/workspace/delivery/schedules`
 `nextRunAt` moves to the next scheduled time, which also prevents same-day
 duplicate imports.
 
+### Scheduled digest draft (v0)
+
+The same pass then checks `config/scheduled-digest.json` and, when due,
+generates today's digest **draft** (`generateDailyDigest`) — skipping when
+the day already has a digest, and never publishing. Editable from the same
+schedules page (default `08:00` Asia/Shanghai — keep it no later than the
+daily task trigger time, since a later value would only be reached on the
+following day's pass; ordering inside a pass is import first, digest
+second by code, not by clock).
+
 ### Windows Task Scheduler (unattended daily runs)
 
 Register a daily task that calls the runner once (adjust the schedule time and

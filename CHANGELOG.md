@@ -12,6 +12,36 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Scheduled digest draft (task runner automation)
+
+- **The task runner now generates the day's digest draft automatically** —
+  2026-07-21, owner-selected from the product-proposal backlog ("定时简报
+  草稿"). A structural sibling of Scheduled Import v0: new
+  `src/lib/scheduled-digest.ts` (`ScheduledDigestConfig` in
+  `config/scheduled-digest.json`, same `nextRunAt`-advance timing model,
+  bootstrap "missing `nextRunAt` = due now", default 08:00
+  Asia/Shanghai). Each `tasks:run-once` / `tasks:watch` pass checks it
+  after the scheduled import and, when due, generates a `status = draft`
+  digest for today via the existing `generateDailyDigest` — **skipping
+  entirely when the day already has a digest** (unattended runs never
+  touch a digest an editor may be adjusting) and **never publishing**
+  (the editorial gate is unchanged; the editorial round becomes
+  edit-and-publish instead of generate-edit-publish). A failed generation
+  downgrades the runner pass to `partial` and still advances `nextRunAt`
+  so watch mode doesn't hot-loop the failure. Managed from
+  `/workspace/delivery/schedules` (new 定时简报草稿 panel +
+  `ScheduledDigestActions`, `PATCH /api/workspace/scheduled-digest`).
+  The default time deliberately matches the import's 08:00: in-pass code
+  order (import first, digest second) guarantees sequencing, and a later
+  time than the daily Task Scheduler trigger would degrade to
+  every-other-day generation. `validate:tasks` pins a disabled
+  scheduled-digest config during its runs (and asserts the skip message)
+  so validation never writes real digest stores. Verified with
+  typecheck, lint, format, vitest 90/90, `validate:tasks`, and an
+  isolated `LOCAL_DATA_DIR` functional pass covering all three branches
+  (generate → draft written + `nextRunAt` advanced; not-due skip;
+  already-exists skip).
+
 ## Topic-level RSS + follow transfer (P4 v0.3)
 
 - **Per-topic RSS feeds and cross-device follow transfer** — 2026-07-21,

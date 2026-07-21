@@ -235,6 +235,10 @@ Purpose:
   - shows the scheduled-import (定时导入) panel: enable/disable the task-runner
     daily source import, edit its daily time, and inspect its next/last run
     plus the latest batch import result
+  - shows the scheduled-digest (定时简报草稿) panel: enable/disable the
+    task-runner daily digest-draft generation, edit its daily time, and
+    inspect its next/last run; drafts only — the digest publish gate is
+    untouched, and days that already have a digest are skipped
   - keeps schedule configuration, schedule run logs, task-runner logs, and command-line runner details out of user-facing pages
 - `/workspace/operations`
   - workspace-only operations dashboard
@@ -625,6 +629,9 @@ Forbidden on public pages:
   - workspace-only schedule creation and editing form
 - `ScheduledDeliveryActions`
   - workspace-only schedule enable/disable and manual run controls
+- `ScheduledDigestActions`
+  - workspace-only enable/disable + daily-time controls for the task-runner
+    scheduled digest-draft generation (`PATCH /api/workspace/scheduled-digest`)
 - `ImportedCandidateReviewActions`
   - workspace-only action bar
 - `ExternalSourceBrowser`
