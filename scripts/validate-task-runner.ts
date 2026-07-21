@@ -36,6 +36,10 @@ const scheduledImportStorePath = path.join(
   configDirPath,
   "scheduled-import.json"
 );
+const scheduledDigestStorePath = path.join(
+  configDirPath,
+  "scheduled-digest.json"
+);
 const now = "2026-05-27T01:00:00.000Z";
 const dueTime = new Date("2099-05-27T01:05:00.000Z");
 const internalOnlyTerms = [
@@ -177,6 +181,7 @@ async function main() {
   const scheduleStoreBackup = backupFile(scheduleStorePath);
   const taskRunnerStoreBackup = backupFile(taskRunnerStorePath);
   const scheduledImportStoreBackup = backupFile(scheduledImportStorePath);
+  const scheduledDigestStoreBackup = backupFile(scheduledDigestStorePath);
 
   try {
     removeRuntimeStores();
@@ -189,6 +194,23 @@ async function main() {
         {
           enabled: false,
           scheduleTime: "08:00",
+          timezone: "Asia/Shanghai",
+          lastRunStatus: "never_run",
+          updatedAt: now
+        },
+        null,
+        2
+      ),
+      "utf8"
+    );
+
+    // 同理停用定时简报草稿，保证验证运行不会写入真实简报存储。
+    writeFileSync(
+      scheduledDigestStorePath,
+      JSON.stringify(
+        {
+          enabled: false,
+          scheduleTime: "08:30",
           timezone: "Asia/Shanghai",
           lastRunStatus: "never_run",
           updatedAt: now
@@ -226,6 +248,13 @@ async function main() {
       emptyRun.messages.some((message) => message.includes("定时导入已停用。")),
       true,
       "Disabled scheduled import should be reported and skipped."
+    );
+    assert.equal(
+      emptyRun.messages.some((message) =>
+        message.includes("定时简报草稿已停用。")
+      ),
+      true,
+      "Disabled scheduled digest draft should be reported and skipped."
     );
 
     removeRuntimeStores();
@@ -456,6 +485,7 @@ async function main() {
     restoreFile(scheduleStorePath, scheduleStoreBackup);
     restoreFile(taskRunnerStorePath, taskRunnerStoreBackup);
     restoreFile(scheduledImportStorePath, scheduledImportStoreBackup);
+    restoreFile(scheduledDigestStorePath, scheduledDigestStoreBackup);
   }
 }
 

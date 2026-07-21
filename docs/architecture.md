@@ -421,6 +421,11 @@ Object responsibilities:
 - `ScheduledImportConfig` (`src/lib/scheduled-import.ts`,
   `config/scheduled-import.json`) owns when the daily source import runs;
   `runBatchImportForEnabledSources` still owns the import itself.
+- `ScheduledDigestConfig` (`src/lib/scheduled-digest.ts`,
+  `config/scheduled-digest.json`) owns when the daily digest **draft** is
+  generated; `generateDailyDigest` still owns the generation itself. Runs
+  after the scheduled import in the same pass, skips when the day already
+  has a digest, and never publishes.
 
 Command entry points:
 

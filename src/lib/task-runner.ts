@@ -6,6 +6,11 @@ import {
   runScheduleById
 } from "@/lib/scheduled-delivery-workflow";
 import {
+  getScheduledDigestConfig,
+  isScheduledDigestDue,
+  runScheduledDigest
+} from "@/lib/scheduled-digest";
+import {
   buildScheduledImportMessage,
   getScheduledImportConfig,
   isScheduledImportDue,
@@ -270,6 +275,33 @@ export async function runScheduledDeliveryTask({
     );
   }
 
+  let digestOutcome: "none" | "failed" = "none";
+
+  const digestConfig = getScheduledDigestConfig();
+
+  if (isScheduledDigestDue(digestConfig, now)) {
+    try {
+      const digestResult = runScheduledDigest({ now });
+
+      messages.push(digestResult.message);
+
+      if (digestResult.status === "failed") {
+        digestOutcome = "failed";
+      }
+    } catch (error) {
+      digestOutcome = "failed";
+      messages.push(
+        `定时简报草稿生成失败：${
+          error instanceof Error ? error.message : "未知生成错误。"
+        }`
+      );
+    }
+  } else {
+    messages.push(
+      digestConfig.enabled ? "定时简报草稿未到期。" : "定时简报草稿已停用。"
+    );
+  }
+
   for (const schedule of dueSchedules) {
     try {
       const run = await runScheduleById(schedule.id, {
@@ -313,6 +345,10 @@ export async function runScheduledDeliveryTask({
   if (importOutcome === "failed") {
     status = status === "failed" ? "failed" : "partial";
   } else if (importOutcome === "partial" && status === "success") {
+    status = "partial";
+  }
+
+  if (digestOutcome === "failed" && status === "success") {
     status = "partial";
   }
 

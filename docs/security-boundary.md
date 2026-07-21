@@ -176,6 +176,8 @@ Task runner commands and audit summaries are internal-only:
 - `npm run tasks:watch`
 - `config/task-runner.json`
 - `config/scheduled-import.json` (scheduled daily source import configuration)
+- `config/scheduled-digest.json` (scheduled daily digest-draft generation
+  configuration)
 
 Public digest and technology pages must not display runner configuration or
 logs. The 全部快讯 fast lane shows imported content but never the import

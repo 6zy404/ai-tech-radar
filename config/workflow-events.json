@@ -1,6 +1,776 @@
 {
-  "updatedAt": "2026-07-21T03:22:09.844Z",
+  "updatedAt": "2026-07-21T04:35:31.733Z",
   "events": [
+    {
+      "id": "workflow-event-296e6cc2-beef-4bad-ad70-6119249f3bec",
+      "entityType": "task_runner",
+      "entityId": "task-runner-916f2788-f47b-4eb8-9df6-ea76dda2282b",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-916f2788-f47b-4eb8-9df6-ea76dda2282b",
+        "mode": "run_once",
+        "startedAt": "2099-05-27T01:05:00.000Z",
+        "finishedAt": "2026-07-21T04:35:31.721Z",
+        "status": "failed",
+        "dueScheduleCount": 1,
+        "skippedScheduleCount": 0,
+        "successCount": 0,
+        "failedCount": 1,
+        "partialCount": 0,
+        "deliveryLogsCreated": 0,
+        "messages": [
+          "定时导入已停用。",
+          "定时简报草稿已停用。",
+          "No published digest schedule: failed for 无简报; 没有匹配计划目标的简报。"
+        ]
+      },
+      "metadata": {
+        "mode": "run_once",
+        "status": "failed",
+        "dueScheduleCount": 1,
+        "deliveryLogsCreated": 0
+      },
+      "createdAt": "2026-07-21T04:35:31.733Z"
+    },
+    {
+      "id": "workflow-event-f7bd9b0a-c333-44e0-b0e0-4003d3b0f075",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-afc20ef6-a32b-4cc8-806d-b5b50602d186",
+      "action": "schedule.run_failed",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-afc20ef6-a32b-4cc8-806d-b5b50602d186",
+        "name": "No published digest schedule",
+        "enabled": true,
+        "digestTarget": "latest_published_digest",
+        "channelIds": [
+          "delivery-channel-d58b21ab-daef-43b3-9ee2-02a753d4fed7"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "never_run",
+        "createdAt": "2026-07-21T04:35:31.698Z",
+        "updatedAt": "2026-07-21T04:35:31.698Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-afc20ef6-a32b-4cc8-806d-b5b50602d186",
+        "name": "No published digest schedule",
+        "enabled": true,
+        "digestTarget": "latest_published_digest",
+        "channelIds": [
+          "delivery-channel-d58b21ab-daef-43b3-9ee2-02a753d4fed7"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.699Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "没有匹配计划目标的简报。",
+        "createdAt": "2026-07-21T04:35:31.698Z",
+        "updatedAt": "2026-07-21T04:35:31.699Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-84afd829-e410-4ce1-9429-d943f5b16991",
+        "status": "failed",
+        "triggerType": "scheduled",
+        "totalChannels": 1,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 0,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.710Z"
+    },
+    {
+      "id": "workflow-event-272fb870-9414-4a1f-a467-0f94b9aae16c",
+      "entityType": "task_runner",
+      "entityId": "task-runner-9ccf2b40-ffdb-49ed-bd0c-c4a76736627d",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-9ccf2b40-ffdb-49ed-bd0c-c4a76736627d",
+        "mode": "watch",
+        "startedAt": "2099-05-27T01:05:00.000Z",
+        "finishedAt": "2026-07-21T04:35:31.670Z",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "skippedScheduleCount": 1,
+        "successCount": 0,
+        "failedCount": 1,
+        "partialCount": 1,
+        "deliveryLogsCreated": 0,
+        "messages": [
+          "定时导入已停用。",
+          "定时简报草稿已停用。",
+          "Task runner draft schedule: failed for 简报 2026-05-28; 定时投递只能发送已发布的简报。",
+          "Task runner published schedule: partial for 简报 2026-05-27; 成功 0, 失败 0, 跳过 3"
+        ]
+      },
+      "metadata": {
+        "mode": "watch",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "deliveryLogsCreated": 0
+      },
+      "createdAt": "2026-07-21T04:35:31.681Z"
+    },
+    {
+      "id": "workflow-event-2a118498-c48b-40f0-8694-3443ac344e0b",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+      "action": "schedule.run",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.579Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 0, 失败 0, 跳过 3",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.579Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.645Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 0, 失败 0, 跳过 3",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.646Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-2d377584-ca94-4f91-ae26-dfee4469831b",
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "status": "partial",
+        "triggerType": "scheduled",
+        "totalChannels": 3,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 3,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.659Z"
+    },
+    {
+      "id": "workflow-event-168f6453-c9bc-4e6f-89f0-32eab3dc0f35",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+      "action": "schedule.run_failed",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.555Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.555Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.623Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.623Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-7fec6ead-8024-434c-9a03-927b2724bbd4",
+        "digestId": "digest-2026-05-28",
+        "digestDate": "2026-05-28",
+        "status": "failed",
+        "triggerType": "scheduled",
+        "totalChannels": 1,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 0,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.634Z"
+    },
+    {
+      "id": "workflow-event-33fec158-09a1-4ce5-be17-32e6ddcb725b",
+      "entityType": "task_runner",
+      "entityId": "task-runner-eacb3756-6b67-4a85-98e9-07c1991f5730",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-eacb3756-6b67-4a85-98e9-07c1991f5730",
+        "mode": "watch",
+        "startedAt": "2099-05-27T01:05:00.000Z",
+        "finishedAt": "2026-07-21T04:35:31.601Z",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "skippedScheduleCount": 1,
+        "successCount": 0,
+        "failedCount": 1,
+        "partialCount": 1,
+        "deliveryLogsCreated": 0,
+        "messages": [
+          "定时导入已停用。",
+          "定时简报草稿已停用。",
+          "Task runner draft schedule: failed for 简报 2026-05-28; 定时投递只能发送已发布的简报。",
+          "Task runner published schedule: partial for 简报 2026-05-27; 成功 0, 失败 0, 跳过 3"
+        ]
+      },
+      "metadata": {
+        "mode": "watch",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "deliveryLogsCreated": 0
+      },
+      "createdAt": "2026-07-21T04:35:31.612Z"
+    },
+    {
+      "id": "workflow-event-4d75c9e5-dac9-4903-812e-e090535556f4",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+      "action": "schedule.run",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.506Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 0, 失败 0, 跳过 3",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.507Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.579Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 0, 失败 0, 跳过 3",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.579Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-dad9e6fc-a9e8-4541-a103-259a5d989b23",
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "status": "partial",
+        "triggerType": "scheduled",
+        "totalChannels": 3,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 3,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.590Z"
+    },
+    {
+      "id": "workflow-event-004f466d-eca7-40fd-84e3-45e0789df20c",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+      "action": "schedule.run_failed",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.484Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.484Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.555Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.555Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-a40f0595-b53a-434e-9276-a0a54fbe3c97",
+        "digestId": "digest-2026-05-28",
+        "digestDate": "2026-05-28",
+        "status": "failed",
+        "triggerType": "scheduled",
+        "totalChannels": 1,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 0,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.568Z"
+    },
+    {
+      "id": "workflow-event-301ef0a3-80f8-400a-8a39-960d22f9769a",
+      "entityType": "task_runner",
+      "entityId": "task-runner-c42404c4-5415-4ad9-9a18-cbabca8fdc9c",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-c42404c4-5415-4ad9-9a18-cbabca8fdc9c",
+        "mode": "run_once",
+        "startedAt": "2099-05-27T01:05:00.000Z",
+        "finishedAt": "2026-07-21T04:35:31.530Z",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "skippedScheduleCount": 1,
+        "successCount": 0,
+        "failedCount": 1,
+        "partialCount": 1,
+        "deliveryLogsCreated": 0,
+        "messages": [
+          "定时导入已停用。",
+          "定时简报草稿已停用。",
+          "Task runner draft schedule: failed for 简报 2026-05-28; 定时投递只能发送已发布的简报。",
+          "Task runner published schedule: partial for 简报 2026-05-27; 成功 0, 失败 0, 跳过 3"
+        ]
+      },
+      "metadata": {
+        "mode": "run_once",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "deliveryLogsCreated": 0
+      },
+      "createdAt": "2026-07-21T04:35:31.542Z"
+    },
+    {
+      "id": "workflow-event-d6b3cbf9-77bb-45b3-84e6-d5b42ea2f34f",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+      "action": "schedule.run",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.439Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 1, 失败 1, 跳过 1",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.439Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.506Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 0, 失败 0, 跳过 3",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.507Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-036688ca-8467-4007-ae38-1c3928f89a31",
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "status": "partial",
+        "triggerType": "scheduled",
+        "totalChannels": 3,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 3,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.518Z"
+    },
+    {
+      "id": "workflow-event-48449424-1a77-4454-92be-1339e8a1b06f",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+      "action": "schedule.run_failed",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.352Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.352Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.484Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.484Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-337a97e3-a678-4ea6-96f9-133c90624140",
+        "digestId": "digest-2026-05-28",
+        "digestDate": "2026-05-28",
+        "status": "failed",
+        "triggerType": "scheduled",
+        "totalChannels": 1,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 0,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.494Z"
+    },
+    {
+      "id": "workflow-event-f71d294c-967e-47ec-b303-ef0a8aa7dda9",
+      "entityType": "task_runner",
+      "entityId": "task-runner-b5f80219-cea6-4d9c-8f26-10ff558a4ceb",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-b5f80219-cea6-4d9c-8f26-10ff558a4ceb",
+        "mode": "run_once",
+        "startedAt": "2099-05-27T01:05:00.000Z",
+        "finishedAt": "2026-07-21T04:35:31.461Z",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "skippedScheduleCount": 1,
+        "successCount": 0,
+        "failedCount": 1,
+        "partialCount": 1,
+        "deliveryLogsCreated": 2,
+        "messages": [
+          "定时导入已停用。",
+          "定时简报草稿已停用。",
+          "Task runner draft schedule: failed for 简报 2026-05-28; 定时投递只能发送已发布的简报。",
+          "Task runner published schedule: partial for 简报 2026-05-27; 成功 1, 失败 1, 跳过 1"
+        ]
+      },
+      "metadata": {
+        "mode": "run_once",
+        "status": "partial",
+        "dueScheduleCount": 2,
+        "deliveryLogsCreated": 2
+      },
+      "createdAt": "2026-07-21T04:35:31.472Z"
+    },
+    {
+      "id": "workflow-event-29503f0c-b229-468f-a0c9-921548e28e17",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+      "action": "schedule.run",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "never_run",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.351Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-89fbb876-4be6-4c1e-8afc-202bb6c9d05f",
+        "name": "Task runner published schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-27",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+          "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+          "delivery-channel-12171ed6-e110-4398-a099-a43c2c85b2aa"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.439Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "partial",
+        "lastRunMessage": "成功 1, 失败 1, 跳过 1",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.439Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-f5a6643d-d23a-4ad6-9974-d89b280a973c",
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "status": "partial",
+        "triggerType": "scheduled",
+        "totalChannels": 3,
+        "successfulChannels": 1,
+        "failedChannels": 1,
+        "skippedChannels": 1,
+        "deliveryLogIds": [
+          "delivery-run-23fccc8f-4438-4ca9-afda-b06c3c608b4c",
+          "delivery-run-80bbfce4-3e42-4126-924b-819cb6d37e47"
+        ]
+      },
+      "createdAt": "2026-07-21T04:35:31.450Z"
+    },
+    {
+      "id": "workflow-event-04cf8d30-e4bc-492d-b03b-5724ad55034b",
+      "entityType": "delivery_run",
+      "entityId": "delivery-run-80bbfce4-3e42-4126-924b-819cb6d37e47",
+      "action": "delivery.failed",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "delivery-run-80bbfce4-3e42-4126-924b-819cb6d37e47",
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "channelId": "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+        "channelName": "Task runner failed webhook",
+        "channelType": "feishu_webhook",
+        "status": "failed",
+        "startedAt": "2026-07-21T04:35:31.408Z",
+        "requestPayloadPreview": "Task runner validation 2026-05-27\n日期：2026-05-27\n\nEditor-approved public summary for task runner validation.\n\n今日立即关注：\n1. NeMo Automodel 接入 Diffusers：任意扩散模型的规模化分布式微调\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：Hugging Face Blog · 2026-07-17\n2. Hugging Face 安全事件披露：首例自主智能体驱动的生产入侵\n   多个信号同时成立，建议优先评估这条技术变化。\n   来源：Hugging Face Blog · 2026-07-16\n\n值得跟踪：\n暂无值得跟踪内容。\n\n阅读全文：http://localhost:3000/digest/2026-05-27",
+        "finishedAt": "2026-07-21T04:35:31.409Z",
+        "responseStatus": 500,
+        "responseBodyPreview": "Mock webhook failed.",
+        "errorMessage": "Feishu webhook returned HTTP 500."
+      },
+      "metadata": {
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "channelId": "delivery-channel-b5c1ab38-17e0-4866-9961-4a0991492a4a",
+        "channelType": "feishu_webhook",
+        "status": "failed",
+        "message": "Feishu webhook returned HTTP 500."
+      },
+      "createdAt": "2026-07-21T04:35:31.425Z"
+    },
+    {
+      "id": "workflow-event-d20d962f-39a3-408f-a7fc-776c945729c4",
+      "entityType": "delivery_run",
+      "entityId": "delivery-run-23fccc8f-4438-4ca9-afda-b06c3c608b4c",
+      "action": "delivery.sent",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "id": "delivery-run-23fccc8f-4438-4ca9-afda-b06c3c608b4c",
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "channelId": "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+        "channelName": "Task runner success webhook",
+        "channelType": "webhook",
+        "status": "success",
+        "startedAt": "2026-07-21T04:35:31.378Z",
+        "requestPayloadPreview": "{\n  \"type\": \"daily_digest\",\n  \"digestDate\": \"2026-05-27\",\n  \"title\": \"Task runner validation 2026-05-27\",\n  \"summary\": \"Editor-approved public summary for task runner validation.\",\n  \"digestUrl\": \"http://localhost:3000/digest/2026-05-27\",\n  \"highPriorityItems\": [\n    {\n      \"title\": \"NeMo Automodel 接入 Diffusers：任意扩散模型的规模化分布式微调\",\n      \"summary\": \"NVIDIA 与 Hugging Face 联合发布 NeMo Automodel 与 Diffusers 的集成：Hub 上任意 Diffusers 格式的扩散模型（FLUX、Wan、HunyuanVideo 等）无需权重转换、无需改写模型即可进行生产级分布式微调，从单卡平滑扩展到数百 GPU，Apache 2.0 开源。\",\n      \"url\": \"http://localhost:3000/technologies/nemo-automodel-diffusers-finetuning\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"Hugging Face Blog\",\n      \"publishDate\": \"2026-07-17\",\n      \"tags\": [\n        \"tag-multimodal\",\n        \"tag-frontier-models\"\n      ]\n    },\n    {\n      \"title\": \"Hugging Face 安全事件披露：首例自主智能体驱动的生产入侵\",\n      \"summary\": \"Hugging Face 披露 7 月生产基础设施入侵事件：攻击端到端由自主 AI 智能体系统驱动——恶意数据集利用数据处理管线的两条代码执行路径攻入处理节点，收割云与集群凭证并在周末横向渗透多个内部集群；防守方同样主要靠 AI 完成检测与取证。公开模型、数据集与软件供应链经验证未被篡改。\",\n      \"url\": \"http://localhost:3000/technologies/hf-security-incident-agentic-intrusion\",\n      \"priorityLevel\": \"high_priority\",\n      \"reason\": \"多个信号同时成立，建议优先评估这条技术变化。\",\n      \"sourceName\": \"Hugging Face Blog\",\n      \"publishDate\": \"2026-07-16\",\n      \"tags\": [\n        \"tag-ai-agents\",\n        \"tag-observability\"\n      ]\n    }\n  ],\n  \"watchItems\": [],\n  \"skillNames\": [\n    \"模型微调与后训练定制\",\n    \"智能体安全与提示注入防御\",\n    \"智能体可观测性与评测运维\"\n  ],\n  \"knowledgeNames\": [\n    \"合成数据与数据配方\",\n    \"对抗性评估与红队方法\"\n  ],\n  \"sourceNames\": [\n    \"Hug...",
+        "finishedAt": "2026-07-21T04:35:31.381Z",
+        "responseStatus": 200,
+        "responseBodyPreview": "Mock webhook accepted."
+      },
+      "metadata": {
+        "digestId": "digest-2026-05-27",
+        "digestDate": "2026-05-27",
+        "channelId": "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c",
+        "channelType": "webhook",
+        "status": "success",
+        "message": "投递成功。"
+      },
+      "createdAt": "2026-07-21T04:35:31.395Z"
+    },
+    {
+      "id": "workflow-event-6580ad36-4d51-4cb3-bbf5-5810fdd8a76b",
+      "entityType": "scheduled_delivery",
+      "entityId": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+      "action": "schedule.run_failed",
+      "actorType": "task_runner",
+      "beforeSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "never_run",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.351Z"
+      },
+      "afterSnapshot": {
+        "id": "delivery-schedule-c2d3c757-bccd-4d97-9908-abca07dac57d",
+        "name": "Task runner draft schedule",
+        "enabled": true,
+        "digestTarget": "digest_by_date",
+        "digestDate": "2026-05-28",
+        "channelIds": [
+          "delivery-channel-19ec3a2e-d3dc-4571-bf66-43db58629c7c"
+        ],
+        "scheduleTime": "09:00",
+        "timezone": "Asia/Shanghai",
+        "lastRunAt": "2026-07-21T04:35:31.352Z",
+        "nextRunAt": "2026-07-22T01:00:00.000Z",
+        "lastRunStatus": "failed",
+        "lastRunMessage": "定时投递只能发送已发布的简报。",
+        "createdAt": "2026-07-21T04:35:31.351Z",
+        "updatedAt": "2026-07-21T04:35:31.352Z"
+      },
+      "metadata": {
+        "runId": "scheduled-delivery-run-88f008c2-581c-492e-bac5-7bb65a860bcd",
+        "digestId": "digest-2026-05-28",
+        "digestDate": "2026-05-28",
+        "status": "failed",
+        "triggerType": "scheduled",
+        "totalChannels": 1,
+        "successfulChannels": 0,
+        "failedChannels": 0,
+        "skippedChannels": 0,
+        "deliveryLogIds": []
+      },
+      "createdAt": "2026-07-21T04:35:31.364Z"
+    },
+    {
+      "id": "workflow-event-2534004e-87dc-4333-928c-9dce65592d87",
+      "entityType": "task_runner",
+      "entityId": "task-runner-3b6d6aa4-81eb-4b57-955c-cf9c57892014",
+      "action": "task_runner.run",
+      "actorType": "task_runner",
+      "afterSnapshot": {
+        "id": "task-runner-3b6d6aa4-81eb-4b57-955c-cf9c57892014",
+        "mode": "run_once",
+        "startedAt": "2000-01-01T00:00:00.000Z",
+        "finishedAt": "2026-07-21T04:35:31.317Z",
+        "status": "success",
+        "dueScheduleCount": 0,
+        "skippedScheduleCount": 0,
+        "successCount": 0,
+        "failedCount": 0,
+        "partialCount": 0,
+        "deliveryLogsCreated": 0,
+        "messages": [
+          "定时导入已停用。",
+          "定时简报草稿已停用。",
+          "没有到期计划。"
+        ]
+      },
+      "metadata": {
+        "mode": "run_once",
+        "status": "success",
+        "dueScheduleCount": 0,
+        "deliveryLogsCreated": 0
+      },
+      "createdAt": "2026-07-21T04:35:31.335Z"
+    },
     {
       "id": "workflow-event-654751e4-444e-43e8-92d9-648d7c812308",
       "entityType": "candidate",
@@ -36191,1713 +36961,6 @@
         "action": "pin"
       },
       "createdAt": "2026-07-09T21:14:42.180Z"
-    },
-    {
-      "id": "workflow-event-e80185f8-d2eb-4101-b9b7-6cd5b6c951e8",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-model-sizing"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:14:42.112Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:14:42.136Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "action": "include"
-      },
-      "createdAt": "2026-07-09T21:14:42.154Z"
-    },
-    {
-      "id": "workflow-event-127462cf-030a-4cf9-80c1-2aa38d175fe8",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:14:42.086Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-model-sizing"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:14:42.112Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "action": "exclude"
-      },
-      "createdAt": "2026-07-09T21:14:42.124Z"
-    },
-    {
-      "id": "workflow-event-7894b11e-9f94-4fba-9e4a-e463db0c3e46",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-05-23",
-        "summary": "2 item(s) are selected for editorial validation.",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-tool-use",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:14:42.086Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-07-09T21:14:42.099Z"
-    },
-    {
-      "id": "workflow-event-7441cb05-d473-4939-8391-1d4167b9632f",
-      "entityType": "technology_draft",
-      "entityId": "draft-ranking-duplicate-a",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "ranking-validation-draft",
-        "title": {
-          "original": "Ranking validation draft"
-        },
-        "summary": {
-          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
-        },
-        "content": {
-          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 97,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:14:30.579Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-07-09T21:14:30.530Z",
-        "updatedAt": "2026-07-09T21:14:30.579Z",
-        "editorialNotes": [
-          "Ranking validation completed."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "ranking-validation-draft",
-        "title": {
-          "original": "Ranking validation draft"
-        },
-        "summary": {
-          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
-        },
-        "content": {
-          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 97,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:14:30.602Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-07-09T21:14:30.530Z",
-        "updatedAt": "2026-07-09T21:14:30.602Z",
-        "editorialNotes": [
-          "Ranking validation completed."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "ranking-validation-draft"
-      },
-      "createdAt": "2026-07-09T21:14:30.611Z"
-    },
-    {
-      "id": "workflow-event-3d7ba551-e627-4036-a9d0-11cd5299d002",
-      "entityType": "technology_draft",
-      "entityId": "draft-ranking-duplicate-a",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
-        "title": {
-          "original": "Shared ranking duplicate event reaches release",
-          "en": "Shared ranking duplicate event reaches release"
-        },
-        "summary": {
-          "original": "A complete ranking validation candidate with enough context for priority triage.",
-          "en": "A complete ranking validation candidate with enough context for priority triage."
-        },
-        "content": {
-          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:14:30.530Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-07-09T21:14:30.530Z",
-        "updatedAt": "2026-07-09T21:14:30.530Z",
-        "editorialNotes": [
-          "Generated from imported candidate ranking-duplicate-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "ranking-validation-draft",
-        "title": {
-          "original": "Ranking validation draft"
-        },
-        "summary": {
-          "original": "A publishable ranking validation draft generated from a resolved duplicate group."
-        },
-        "content": {
-          "original": "This ranking validation draft verifies that priority information remains compatible with candidate conversion, draft editing, publish readiness, and user-facing display."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 97,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:14:30.579Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-07-09T21:14:30.530Z",
-        "updatedAt": "2026-07-09T21:14:30.579Z",
-        "editorialNotes": [
-          "Ranking validation completed."
-        ]
-      },
-      "metadata": {
-        "slug": "ranking-validation-draft",
-        "status": "draft"
-      },
-      "createdAt": "2026-07-09T21:14:30.591Z"
-    },
-    {
-      "id": "workflow-event-a60832c3-b06f-4fcd-95c6-33444aeb2452",
-      "entityType": "technology_draft",
-      "entityId": "draft-ranking-duplicate-a",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
-        "title": {
-          "original": "Shared ranking duplicate event reaches release",
-          "en": "Shared ranking duplicate event reaches release"
-        },
-        "summary": {
-          "original": "A complete ranking validation candidate with enough context for priority triage.",
-          "en": "A complete ranking validation candidate with enough context for priority triage."
-        },
-        "content": {
-          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:14:30.530Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-07-09T21:14:30.530Z",
-        "updatedAt": "2026-07-09T21:14:30.530Z",
-        "editorialNotes": [
-          "Generated from imported candidate ranking-duplicate-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "ranking-duplicate-a"
-      },
-      "createdAt": "2026-07-09T21:14:30.566Z"
-    },
-    {
-      "id": "workflow-event-80d79dfa-e0cd-45e6-8742-d22faf55e258",
-      "entityType": "candidate",
-      "entityId": "ranking-duplicate-a",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "ranking-duplicate-a",
-        "sourceId": "ranking-duplicate-source",
-        "sourceType": "rss-feed",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "originalTitle": "Shared ranking duplicate event reaches release",
-        "originalSummary": "A complete ranking validation candidate with enough context for priority triage.",
-        "originalContent": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-        "originalLanguage": "en",
-        "publishDate": "2026-05-20",
-        "publisherName": "Ranking Publisher",
-        "normalizedType": "tool",
-        "tags": [
-          "ranking",
-          "validation"
-        ],
-        "importStatus": "new",
-        "relatedCandidateIds": [
-          "ranking-duplicate-b"
-        ],
-        "rawPayload": {
-          "sourceId": "ranking-duplicate-source"
-        },
-        "duplicateGroupId": "dup-5stp1x"
-      },
-      "afterSnapshot": {
-        "id": "draft-ranking-duplicate-a",
-        "slug": "draft-shared-ranking-duplicate-event-reaches-release",
-        "title": {
-          "original": "Shared ranking duplicate event reaches release",
-          "en": "Shared ranking duplicate event reaches release"
-        },
-        "summary": {
-          "original": "A complete ranking validation candidate with enough context for priority triage.",
-          "en": "A complete ranking validation candidate with enough context for priority triage."
-        },
-        "content": {
-          "original": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers.",
-          "en": "A complete ranking validation body that includes enough detail to avoid quality blocking issues and demonstrate rule-based priority calculation for reviewers."
-        },
-        "type": "tool",
-        "publishDate": "2026-05-20",
-        "sourceName": "Ranking Duplicate Source",
-        "sourceUrl": "https://example.com/shared-ranking-event",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "Ranking Publisher",
-        "publisherType": "startup",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [
-          {
-            "candidateId": "ranking-duplicate-b",
-            "sourceType": "rss-feed",
-            "sourceName": "Ranking Duplicate Source",
-            "sourceUrl": "https://example.com/shared-ranking-event",
-            "publisherName": "Ranking Publisher",
-            "publishDate": "2026-05-20"
-          }
-        ],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 87,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Multiple sources reference the same technology event.",
-            "Signal is still reasonably recent."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:14:30.530Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "ranking-duplicate-a",
-        "createdAt": "2026-07-09T21:14:30.530Z",
-        "updatedAt": "2026-07-09T21:14:30.530Z",
-        "editorialNotes": [
-          "Generated from imported candidate ranking-duplicate-a.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-ranking-duplicate-a",
-        "duplicateGroupId": "dup-5stp1x",
-        "markedCandidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ]
-      },
-      "createdAt": "2026-07-09T21:14:30.543Z"
-    },
-    {
-      "id": "workflow-event-42a60275-e57a-4008-b086-76c2e4aec59d",
-      "entityType": "duplicate_group",
-      "entityId": "dup-5stp1x",
-      "action": "duplicate_group.resolved",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "dup-5stp1x",
-        "candidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ],
-        "primaryCandidateId": "ranking-duplicate-a",
-        "status": "open",
-        "reasons": [
-          "same_source_url"
-        ],
-        "createdAt": "2026-07-09T21:14:30.501Z",
-        "updatedAt": "2026-07-09T21:14:30.501Z"
-      },
-      "afterSnapshot": {
-        "id": "dup-5stp1x",
-        "candidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ],
-        "primaryCandidateId": "ranking-duplicate-a",
-        "status": "resolved",
-        "reasons": [
-          "same_source_url"
-        ],
-        "createdAt": "2026-07-09T21:14:30.501Z",
-        "updatedAt": "2026-07-09T21:14:30.501Z"
-      },
-      "metadata": {
-        "candidateIds": [
-          "ranking-duplicate-a",
-          "ranking-duplicate-b"
-        ],
-        "primaryCandidateId": "ranking-duplicate-a"
-      },
-      "createdAt": "2026-07-09T21:14:30.514Z"
-    },
-    {
-      "id": "workflow-event-38af9cd7-3119-49cc-a810-78d0a4165930",
-      "entityType": "technology_draft",
-      "entityId": "validation-warning-only-record",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.588Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.653Z",
-        "editorialNotes": []
-      },
-      "afterSnapshot": {
-        "id": "validation-warning-only-record",
-        "slug": "validation-warning-only-record",
-        "title": {
-          "original": "Validation warning-only record"
-        },
-        "summary": {
-          "original": "Short summary."
-        },
-        "content": {
-          "original": "Short content."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "Validation Source",
-        "sourceUrl": "https://example.com/validation-warning-only-record",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "watch",
-          "priorityScore": 57,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Tags are missing.",
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet.",
-            "Publisher is missing."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.695Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.695Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validation-warning-only-record"
-      },
-      "createdAt": "2026-07-09T21:03:58.706Z"
-    },
-    {
-      "id": "workflow-event-fae54114-ae66-470a-b4e3-2bebc3b4a1f3",
-      "entityType": "technology_draft",
-      "entityId": "validation-duplicate-slug-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-duplicate-slug-record",
-        "slug": "model-context-protocol",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/validation-duplicate-slug",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.588Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.653Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "blockingErrors": [
-          "duplicate-slug"
-        ]
-      },
-      "createdAt": "2026-07-09T21:03:58.685Z"
-    },
-    {
-      "id": "workflow-event-215e0485-83de-4b14-9174-bf8f30253d4e",
-      "entityType": "technology_draft",
-      "entityId": "validation-incomplete-record",
-      "action": "draft.publish_failed",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "validation-incomplete-record",
-        "slug": "",
-        "title": {
-          "original": ""
-        },
-        "summary": {
-          "original": ""
-        },
-        "content": {
-          "original": ""
-        },
-        "type": "workflow",
-        "publishDate": "",
-        "sourceName": "",
-        "sourceUrl": "not-a-url",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.588Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.653Z",
-        "editorialNotes": []
-      },
-      "metadata": {
-        "blockingErrors": [
-          "missing-title",
-          "missing-summary",
-          "missing-slug",
-          "missing-source-name",
-          "invalid-source-url",
-          "invalid-publish-date",
-          "missing-content"
-        ]
-      },
-      "createdAt": "2026-07-09T21:03:58.664Z"
-    },
-    {
-      "id": "workflow-event-d915cf2f-b047-48ce-9e94-156f01d6f003",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "draft.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.588Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.588Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "published",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.631Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.631Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "status": "published",
-        "slug": "validated-workspace-draft"
-      },
-      "createdAt": "2026-07-09T21:03:58.641Z"
-    },
-    {
-      "id": "workflow-event-4f2a0c1a-49df-4be0-8ffe-d838b6f6018a",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "importStatus": "converted",
-        "reviewedAt": "2026-07-09T21:03:58.541Z",
-        "convertedTechnologyId": "draft-candidate-rss-openai-rss-responses-tools"
-      },
-      "afterSnapshot": {
-        "importStatus": "converted",
-        "reviewedAt": "2026-07-09T21:03:58.610Z",
-        "convertedTechnologyId": "draft-candidate-rss-openai-rss-responses-tools"
-      },
-      "metadata": {
-        "nextStatus": "converted"
-      },
-      "createdAt": "2026-07-09T21:03:58.619Z"
-    },
-    {
-      "id": "workflow-event-7271ac84-e508-4502-a4d2-5423fc5dfa74",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "draft.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.541Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.540Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "validated-workspace-draft",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API validation edit",
-          "zh": "Validation translated title"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface. validation edit",
-          "zh": "Validation translated summary"
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows. validation edit",
-          "zh": "Validation translated content"
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "done",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-workflow"
-        ],
-        "relatedKnowledgeIds": [
-          "knowledge-tool-use"
-        ],
-        "relatedSkillIds": [
-          "skill-agent-design"
-        ],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 93,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Related knowledge is linked.",
-            "Related skills are linked.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.588Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.588Z",
-        "editorialNotes": [
-          "Validation edit saved."
-        ]
-      },
-      "metadata": {
-        "slug": "validated-workspace-draft",
-        "status": "draft"
-      },
-      "createdAt": "2026-07-09T21:03:58.599Z"
-    },
-    {
-      "id": "workflow-event-8563561c-badc-487f-a901-4fde9d7169b5",
-      "entityType": "technology_draft",
-      "entityId": "draft-candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.541Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.540Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools"
-      },
-      "createdAt": "2026-07-09T21:03:58.575Z"
-    },
-    {
-      "id": "workflow-event-f7298a7a-a8ea-4d1b-9205-616a3f198873",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.converted_to_draft",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "candidate-rss-openai-rss-responses-tools",
-        "sourceId": "fallback-rss-openai-blog-rss",
-        "sourceType": "rss-feed",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "originalTitle": "New tools for building agent workflows in the Responses API",
-        "originalSummary": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-        "originalContent": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-        "originalLanguage": "en",
-        "publishDate": "2026-04-11",
-        "publisherName": "OpenAI",
-        "normalizedType": "workflow",
-        "tags": [
-          "agents",
-          "workflow",
-          "api"
-        ],
-        "importStatus": "reviewed",
-        "relatedCandidateIds": [],
-        "rawPayload": {
-          "sourceId": "fallback-rss-openai-blog-rss",
-          "feedTitle": "OpenAI Blog RSS",
-          "feedUrl": "https://example.com/openai-blog/rss",
-          "entry": {
-            "guid": "openai-rss-responses-tools",
-            "title": "New tools for building agent workflows in the Responses API",
-            "link": "https://example.com/openai-blog/responses-agent-tools",
-            "summary": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-            "content": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-            "isoDate": "2026-04-11",
-            "publisherName": "OpenAI",
-            "language": "en",
-            "categories": [
-              "agents",
-              "workflow",
-              "api"
-            ],
-            "normalizedTypeHint": "workflow",
-            "importStatus": "new"
-          }
-        },
-        "reviewedAt": "2026-07-09T21:03:58.512Z"
-      },
-      "afterSnapshot": {
-        "id": "draft-candidate-rss-openai-rss-responses-tools",
-        "slug": "draft-tools-building-agent-workflows-responses-api",
-        "title": {
-          "original": "New tools for building agent workflows in the Responses API",
-          "en": "New tools for building agent workflows in the Responses API"
-        },
-        "summary": {
-          "original": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface.",
-          "en": "A product-style update describing how tool orchestration, file search, and tracing can be combined in one workflow surface."
-        },
-        "content": {
-          "original": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows.",
-          "en": "The post positions agent tooling as an application layer rather than only a model release. It highlights why tracing, tool state, and iterative orchestration matter when teams move from demos to repeatable workflows."
-        },
-        "type": "workflow",
-        "publishDate": "2026-04-11",
-        "sourceName": "OpenAI Blog RSS",
-        "sourceUrl": "https://example.com/openai-blog/responses-agent-tools",
-        "sourceLanguage": "en",
-        "translationStatus": "pending",
-        "publisherName": "OpenAI",
-        "publisherType": "big-tech",
-        "importanceLevel": "signal",
-        "status": "draft",
-        "tags": [
-          "tag-ai-agents",
-          "tag-retrieval",
-          "tag-workflow",
-          "tag-product-strategy"
-        ],
-        "relatedKnowledgeIds": [],
-        "relatedSkillIds": [],
-        "sourceReferences": [],
-        "priority": {
-          "priorityLevel": "high_priority",
-          "priorityScore": 83,
-          "priorityReasons": [
-            "Title is complete.",
-            "Summary is complete.",
-            "Content is complete.",
-            "Tags are available.",
-            "Publisher is identified.",
-            "Signal is still reasonably recent.",
-            "Publisher type is a strong technology signal source."
-          ],
-          "priorityWarnings": [
-            "Related knowledge is not linked yet.",
-            "Related skills are not linked yet."
-          ],
-          "rankingUpdatedAt": "2026-07-09T21:03:58.541Z",
-          "rankingSource": "rule_based"
-        },
-        "whyItMatters": "",
-        "whoShouldCare": [],
-        "technicalContext": "",
-        "impactAreas": [],
-        "learningPath": [],
-        "relatedKnowledgeExplanations": {},
-        "relatedSkillExplanations": {},
-        "followUpQuestions": [],
-        "readingDifficulty": "intermediate",
-        "intelligenceStatus": "needs_enrichment",
-        "sourceCandidateId": "candidate-rss-openai-rss-responses-tools",
-        "createdAt": "2026-07-09T21:03:58.540Z",
-        "updatedAt": "2026-07-09T21:03:58.540Z",
-        "editorialNotes": [
-          "Generated from imported candidate candidate-rss-openai-rss-responses-tools.",
-          "Review normalized type, publisher type, and related links before publishing."
-        ]
-      },
-      "metadata": {
-        "draftId": "draft-candidate-rss-openai-rss-responses-tools",
-        "markedCandidateIds": [
-          "candidate-rss-openai-rss-responses-tools"
-        ]
-      },
-      "createdAt": "2026-07-09T21:03:58.554Z"
-    },
-    {
-      "id": "workflow-event-b70bd458-3560-4fe9-99a0-bbb5f9f531ad",
-      "entityType": "candidate",
-      "entityId": "candidate-rss-openai-rss-responses-tools",
-      "action": "candidate.status_updated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "importStatus": "reviewed",
-        "reviewedAt": "2026-07-09T21:03:58.512Z"
-      },
-      "metadata": {
-        "nextStatus": "reviewed"
-      },
-      "createdAt": "2026-07-09T21:03:58.524Z"
     }
   ]
 }

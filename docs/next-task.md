@@ -1,6 +1,30 @@
 # Next Task
 
-> Update 2026-07-21 (latest): **Topic-level RSS + follow transfer shipped
+> Update 2026-07-21 (latest): **Scheduled digest draft shipped** —
+> owner-selected proposal 5 from the backlog. The task runner now
+> generates today's digest draft automatically
+> (`src/lib/scheduled-digest.ts`, `config/scheduled-digest.json`, a
+> structural sibling of scheduled-import: same nextRunAt-advance model,
+> default 08:00 Asia/Shanghai, managed from a new 定时简报草稿 panel on
+> `/workspace/delivery/schedules` + `PATCH
+/api/workspace/scheduled-digest`). Key rules: skips when the day
+> already has a digest (never touches editor work), drafts only (publish
+> stays editor-gated), failed generation → runner pass `partial` with
+> `nextRunAt` still advanced (no watch-mode hot loop). Caveat learned
+> during design: the daily time must be ≤ the Windows Task Scheduler
+> trigger time (08:05) or generation degrades to every-other-day —
+> in-pass ordering (import → digest) is by code, not clock, so both
+> default to 08:00. `validate:tasks` pins a disabled config + asserts
+> the skip message. Verified: typecheck / lint / format / vitest 90/90 /
+> validate:tasks, isolated LOCAL_DATA_DIR pass covering generate /
+> not-due / already-exists branches, schedules-page panel live. From
+> tomorrow's 08:05 task on, the editorial round starts from an
+> already-generated draft. **Next actual step**: none predefined — the
+> backlog holds the next editorial round (16 new candidates), content
+> growth, weekly review page, round console, production-readiness
+> assessment, and the dev-server exit root cause.
+
+> Update 2026-07-21 (earlier): **Topic-level RSS + follow transfer shipped
 > (P4 v0.3)** — the zero-unseal outcome of the "追踪能力" gap discussion
 > (owner decision: no email subscription, no accounts; deepen tracking
 > inside the existing boundary; email is sequenced after production
