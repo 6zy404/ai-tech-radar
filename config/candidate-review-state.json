@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T03:20:48.302Z",
+  "updatedAt": "2026-07-21T02:11:42.612Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -208,6 +208,36 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-19T03:20:48.302Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog"
+    },
+    "candidate-rss-https-openai-com-index-why-teens-deserve-access-safe-ai": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T02:11:41.850Z"
+    },
+    "candidate-rss-https-openai-com-index-cars24": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T02:11:41.912Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T02:11:41.949Z"
+    },
+    "candidate-rss-https-openai-com-index-a-scorecard-for-the-ai-age": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T02:11:41.987Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-dharma-ai-newer-models-same-advantages": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T02:11:42.022Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-21T02:11:42.530Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-21T02:11:42.612Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
     }
   }
 }

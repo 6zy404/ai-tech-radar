@@ -1,6 +1,30 @@
 # Next Task
 
-> Update 2026-07-20 (latest): **Fourth content round — the biggest yet:
+> Update 2026-07-21 (latest): **Editorial round run**, per
+> `docs/editorial-round-playbook.md`. Dispositioned all 7 undecided
+> candidates: **2 converted + published** — Hugging Face 安全事件披露
+> (`hf-security-incident-agentic-intrusion`, critical, 当日头条：首例
+> 公开实证的自主智能体驱动生产入侵，锚定 agent-security /
+> agent-observability 技能与对抗性评估知识，关联 GPT-Red 与 Shippy) 和
+> NeMo Automodel × Diffusers 规模化微调
+> (`nemo-automodel-diffusers-finetuning`, important，锚定新建的
+> 模型微调技能与合成数据知识，关联 NVIDIA Nemotron 数据信号)；**2
+> reviewed-not-selected** — OpenAI CFO scorecard（观点型无工件，同 IBM
+> 路由文先例）、Dharma-AI OCR 复盘（社区自家模型，工件三个月前已发布）；
+> **3 rejected** — OpenAI teens 政策文、Cars24 营销案例、Ollama
+> v0.32.1（补丁版本，v0.32.0 信号已覆盖主线）。8 对类型化关系 + 附注
+> 写入；反向 related-ids 补到 3 技术 / 3 技能 / 2 知识记录（slug 全部
+> 保留）。**2026-07-21 简报已发布**：安全事件置顶为头条，GPT-Red 与
+> Inkling 作为 07-19 简报已覆盖信号排除，编辑摘要主题「攻与防的
+> 智能体化」；发布门槛零阻塞零警告。公开面验证 10 项全绿（详情页、
+> digest/today 头条、news 已收录链接、feed.json、search、timeline、
+> 反向关联页），无内部字段泄漏，console 零错误，typecheck 干净。
+> 发布信号池 13→15。候选池清零。注意：dev server 在轮前又一次自行
+> 退出（与 07-19 相同），preview_start 重启后脚本重跑即可，无部分
+> 写入。**Next actual step**: none predefined — more content growth,
+> the next daily round, or a new owner initiative.
+
+> Update 2026-07-20 (earlier): **Fourth content round — the biggest yet:
 > 2 skills + 2 knowledge**, owner-selected from a gap analysis (all four
 > proposed options taken). Authored and published through the workspace
 > APIs with full typed relations + notes, zero publish-gate warnings:

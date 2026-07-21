@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-20T14:16:25.238Z",
+  "updatedAt": "2026-07-21T02:11:43.526Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -963,6 +963,78 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "工作流设计里的状态划分直接落在记忆分层上。"
+    },
+    {
+      "id": "rel-ws-63828e3a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "入侵路径与该技能的威胁模型一一对应：不可信数据通道、爆炸半径、最小权限。"
+    },
+    {
+      "id": "rel-ws-c154f9a4",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "分钟级告警与 AI 驱动取证，是评测运维能力在安全响应里的实战形态。"
+    },
+    {
+      "id": "rel-ws-99673746",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "真实攻击与红队演练共享方法论，事件行为可直接转为对抗测试用例。"
+    },
+    {
+      "id": "rel-ws-4d42b11b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "攻击侧的自主智能体与 GPT-Red 的自动化红队互为镜像，印证同一趋势。"
+    },
+    {
+      "id": "rel-ws-54c0907f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "Shippy 的会话级沙箱与确定性工具层，正是抵御此类横向渗透的结构性防御范本。"
+    },
+    {
+      "id": "rel-ws-2119ddc5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "用好这套工具链的前提，是掌握数据配方与评测先行的后训练方法。"
+    },
+    {
+      "id": "rel-ws-74a98be2",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "fromType": "technology",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "预编码与 latent 缓存管线是数据配方工程在扩散训练里的具体形态。"
+    },
+    {
+      "id": "rel-ws-158f75c6",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一主张的两翼：开放数据供配方，Automodel 供训练基础设施。"
     }
   ]
 }

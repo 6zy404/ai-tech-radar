@@ -1,29 +1,6 @@
 {
-  "updatedAt": "2026-07-20T14:16:26.377Z",
+  "updatedAt": "2026-07-21T02:12:06.707Z",
   "records": [
-    {
-      "id": "knowledge-ws-818b7bb3",
-      "title": "合成数据与数据配方",
-      "slug": "synthetic-data-and-data-recipes",
-      "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
-      "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-frontier-models",
-        "tag-ai-agents"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.696Z",
-      "updatedAt": "2026-07-16T03:16:30.987Z"
-    },
     {
       "id": "knowledge-ws-c761533e",
       "title": "本地与云混合推理架构",
@@ -71,29 +48,6 @@
       "status": "published",
       "createdAt": "2026-07-19T04:05:12.947Z",
       "updatedAt": "2026-07-19T04:05:13.614Z"
-    },
-    {
-      "id": "knowledge-ws-89b98df3",
-      "title": "对抗性评估与红队方法",
-      "slug": "adversarial-evaluation-red-teaming",
-      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
-      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-frontier-models"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-c183c9b9",
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T05:04:39.934Z",
-      "updatedAt": "2026-07-19T05:04:40.759Z"
     },
     {
       "id": "knowledge-ws-8c99b19c",
@@ -167,6 +121,54 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.755Z",
       "updatedAt": "2026-07-20T14:16:26.376Z"
+    },
+    {
+      "id": "knowledge-ws-89b98df3",
+      "title": "对抗性评估与红队方法",
+      "slug": "adversarial-evaluation-red-teaming",
+      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-c183c9b9",
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T05:04:39.934Z",
+      "updatedAt": "2026-07-21T02:12:06.665Z"
+    },
+    {
+      "id": "knowledge-ws-818b7bb3",
+      "title": "合成数据与数据配方",
+      "slug": "synthetic-data-and-data-recipes",
+      "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
+      "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.696Z",
+      "updatedAt": "2026-07-21T02:12:06.707Z"
     }
   ]
 }
