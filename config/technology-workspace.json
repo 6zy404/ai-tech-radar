@@ -1,6 +1,486 @@
 {
-  "updatedAt": "2026-07-20T14:17:24.283Z",
+  "updatedAt": "2026-07-21T02:12:05.441Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "slug": "nvidia-open-data-for-agents",
+      "title": {
+        "original": "Data for Agents",
+        "zh": "NVIDIA Nemotron 开放数据：用合成数据支撑智能体开发"
+      },
+      "summary": {
+        "original": "NVIDIA argues that agentic AI needs open data — software engineering traces, tool-use failures, multi-step reasoning, retrieval, safety and user simulation — and that synthetic data is how it scales, backed by the Nemotron open dataset family.",
+        "zh": "NVIDIA 在 Hugging Face 发文阐述智能体时代的数据主张：真正的智能体能力来自工程轨迹、工具调用失败、多步推理、检索与用户模拟等数据，而合成数据是规模化的关键。Nemotron 系列开放数据集（Nemotron-CC、CC-MATH、Pretraining）是这一主张的落地。"
+      },
+      "content": {
+        "original": "NVIDIA lays out why agent capability is a data problem: recovering from broken API calls and unseen workflows requires traces of tool-use failures, multi-step reasoning, retrieval and user simulation. The Nemotron open data family (Nemotron-CC, Nemotron-CC-MATH, Nemotron Pretraining) shows synthetic data as the scaling path, with about 145 ICML papers citing Nemotron models and datasets.",
+        "zh": "NVIDIA 的核心论点是：智能体能力本质上是一个数据问题。一个无法从失败的 API 调用或没见过的工作流中恢复的「智能体」，只是带工具的自动补全。要跨过这道坎，需要软件工程轨迹、工具调用失败、多步推理、检索、安全、用户模拟等类型的数据——这正是 Nemotron 开放数据产品覆盖的范围。\n\n合成数据在其中扮演规模化引擎的角色：Nemotron-CC 用合成增强 Common Crawl 预训练语料，Nemotron-CC-MATH 用合成数学题提升推理能力，Nemotron Pretraining 则覆盖通用、代码、数学等数万亿 token。NVIDIA 援引 ICML 上约 145 篇引用 Nemotron 模型与数据集的论文来说明开放数据对研究生态的带动。\n\n文中还有一个对企业实用的角度：每家公司都有自己的「秘密」（独有的工作流、语料、客户模式），这些信号让 AI 有用，但不应该被直接暴露。合成数据提供了保留信号、隐藏底料的路径。更进一步，开放数据让智能体行为变得可检查、可解释——当模型会调用工具、执行工作流、跨系统行动时，开发者需要理解塑造这些行为的数据。对正在构建智能体的团队来说，这是一份值得对照自查的数据清单。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-08",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "NVIDIA",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-ws-84837d46"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-21T02:12:05.441Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「智能体做不好」重新定义为数据问题而不是模型问题，并给出了可操作的数据类型清单与合成数据方法。对智能体团队来说，这比又一个新框架更接近瓶颈本质。",
+      "whoShouldCare": [
+        "构建智能体产品的工程团队",
+        "负责训练/微调数据的算法工程师",
+        "关心数据合规与商业机密的技术负责人"
+      ],
+      "technicalContext": "智能体训练数据的关键类型：工具调用轨迹（含失败恢复）、多步推理链、检索行为、安全边界、用户模拟。合成数据管线在保留这些行为信号的同时避免暴露源数据，Nemotron 系列是当前最大的开放实现之一。",
+      "impactAreas": [
+        "智能体训练与微调",
+        "企业数据资产策略",
+        "开放数据研究生态"
+      ],
+      "learningPath": [
+        "对照文中的数据类型清单，盘点自己的智能体缺哪类训练/评估数据",
+        "浏览 Nemotron 开放数据集，理解合成数据的构造方式",
+        "为一个真实工作流构造小规模合成轨迹数据并验证效果"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "工具调用（尤其是失败与恢复）的轨迹数据是智能体与「带工具的自动补全」的分界线。",
+        "knowledge-evaluation-loops": "开放数据让行为可检查：评估闭环需要知道模型行为由什么数据塑造。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "设计智能体时应同步设计其数据来源：哪些行为需要哪类轨迹数据支撑。",
+        "skill-model-evaluation": "用真实世界（非基准）的失败案例评估智能体，是这篇文章隐含的评估方法论。"
+      },
+      "followUpQuestions": [
+        "你的智能体最常见的失败模式，有对应的训练数据吗？",
+        "合成数据在多大程度上能替代真实用户轨迹？",
+        "如何验证合成数据没有泄漏源数据中的敏感信息？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "createdAt": "2026-07-13T08:00:48.625Z",
+      "updatedAt": "2026-07-21T02:12:05.441Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 NVIDIA 在 Hugging Face 的博客（经 hf-mirror 镜像访问）编写。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "slug": "ai2-shippy-agent-lessons",
+      "title": {
+        "original": "What building Shippy taught us about building agents",
+        "zh": "Shippy 复盘：Ai2 高风险场景智能体的四条工程经验与三件开源工件"
+      },
+      "summary": {
+        "original": "Ai2's Skylight team shares engineering lessons from Shippy, a maritime-domain-awareness agent serving analysts in 70+ countries, and open-sources the OpenClaw agent framework, the Harbor evaluation framework and the Mothership hosting platform.",
+        "zh": "Ai2 Skylight 团队复盘海事态势感知智能体 Shippy 的工程实践：智能体三分解剖（soul/skills/config）、确定性 CLI 工具层、按会话隔离的沙箱部署、专家加权评分的活数据评估，并开源了 OpenClaw（智能体框架）、Harbor（评估框架）与 Mothership（托管平台）三件工件。"
+      },
+      "content": {
+        "original": "Shippy is an AI agent built by Ai2's Skylight team for real-time maritime domain awareness, assisting analysts across 70+ countries in high-stakes operational decisions. The writeup distills four lessons: separate an agent into soul (system prompt), skills (markdown-documented capabilities) and config; talk to APIs through a purpose-built deterministic CLI rather than raw calls; isolate each user session in its own sandboxed Kubernetes deployment; and evaluate on live data with expert-weighted rubrics instead of static benchmarks. Released artifacts: the OpenClaw agent framework, the Harbor evaluation framework with a Shippy plugin, the Mothership hosting platform, and the agent-skills markdown spec.",
+        "zh": "Shippy 是 Ai2 Skylight 团队为实时海事态势感知构建的智能体，服务 70 多个国家的分析人员做高风险业务决策——错误回答可能浪费执法资源甚至危及人员安全，这决定了它的工程取向：可靠性优先于能力上限。\n\n复盘提炼出四条经验。第一，把智能体拆成 soul（定义边界的系统提示）、skills（用 markdown 文档化的能力）与 config（运行时配置）三层，各自独立版本化，改动无需重建整体。第二，模型不直接拼裸 API 调用，而是通过专门构建的确定性 CLI 与后端交互——分页错误、畸形查询这类隐蔽 bug 在工具层就被消化，且每一层可独立测试。第三，Mothership 平台按用户会话分配独立的 Kubernetes 沙箱部署，在数百个政府合作方之间做数据隔离的同时支撑多步分析。第四，评估不用静态基准，而是在活数据上由领域专家定义加权评分表，真实捕捉工具选择与护栏遵守情况。\n\n随文开源三件工件：OpenClaw（智能体框架）、Harbor（带 Shippy 插件的评估框架）、Mothership（通用智能体托管平台），外加与 Claude Code、Codex 通用的 agent-skills markdown 规范。对正在把智能体推向生产环境的团队，这是一份罕见的「高风险场景」一手工程记录。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ai2",
+      "publisherType": "research-lab",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-a28a8a56"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-21T02:12:05.393Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产级智能体的公开工程复盘本就稀少，高风险场景（错误决策有真实代价）的更是罕见。四条经验——三分解剖、确定性工具层、会话级沙箱、专家评分的活数据评估——每一条都指向同一个主题：智能体可靠性来自工程结构，不是模型能力。",
+      "whoShouldCare": [
+        "把智能体推向生产环境的工程团队",
+        "智能体平台与基础设施建设者",
+        "关注智能体评估方法的从业者"
+      ],
+      "technicalContext": "「模型通过确定性 CLI 而非裸 API 与系统交互」是近期智能体工程的收敛趋势：把不可靠性关进模型与工具的边界之内，工具层用传统软件工程的确定性来兜底。agent-skills 的 markdown 规范与 Claude Code、Codex 通用，也印证了智能体能力描述格式正在跨厂商标准化。",
+      "impactAreas": [
+        "智能体工程实践",
+        "智能体评估方法",
+        "多租户智能体部署"
+      ],
+      "learningPath": [
+        "对照 soul/skills/config 三分法审视自己的智能体：提示、能力、配置是否已经解耦",
+        "把最容易出错的一个 API 调用包成确定性 CLI 工具，对比错误率变化",
+        "参照 Harbor 的思路，为自己的智能体定义一份领域专家加权的评分表"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "Shippy 的确定性 CLI 层是工具使用概念的工程化范本：模型负责决策，工具负责正确执行。",
+        "knowledge-evaluation-loops": "活数据 + 专家加权评分表替代静态基准，是评估闭环思想在智能体场景的落地形态。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "soul/skills/config 三分解剖可以直接当作智能体工作流设计的检查清单使用。",
+        "skill-tool-integration": "「裸 API 调用 → 专用确定性 CLI」正是工具集成模式要解决的核心问题：接口的可靠性边界画在哪里。"
+      },
+      "followUpQuestions": [
+        "OpenClaw 与现有主流智能体框架相比的差异化设计是什么？",
+        "会话级 Kubernetes 沙箱的成本与冷启动延迟在什么量级？",
+        "agent-skills 规范会不会成为跨厂商的事实标准？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "createdAt": "2026-07-19T03:20:48.302Z",
+      "updatedAt": "2026-07-21T02:12:05.393Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "slug": "gpt-red",
+      "title": {
+        "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
+        "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
+      },
+      "summary": {
+        "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
+        "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
+      },
+      "content": {
+        "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
+        "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-15",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop",
+        "knowledge-ws-89b98df3"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-21T02:12:05.344Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
+      "whoShouldCare": [
+        "智能体产品的安全负责人",
+        "模型安全与对齐研究者",
+        "把 LLM 接入外部工具的工程团队"
+      ],
+      "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
+      "impactAreas": [
+        "智能体安全",
+        "模型对齐方法",
+        "AI 红队实践"
+      ],
+      "learningPath": [
+        "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
+        "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
+        "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
+        "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
+        "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
+      },
+      "followUpQuestions": [
+        "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
+        "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
+        "外部团队能否用开源模型复现类似的攻防自博弈回路？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "createdAt": "2026-07-19T03:20:48.157Z",
+      "updatedAt": "2026-07-21T02:12:05.344Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "slug": "nemo-automodel-diffusers-finetuning",
+      "title": {
+        "original": "Fine-tune video and image models at scale with NVIDIA NeMo Automodel and Diffusers",
+        "zh": "NeMo Automodel 接入 Diffusers：任意扩散模型的规模化分布式微调"
+      },
+      "summary": {
+        "original": "NVIDIA and Hugging Face ship a NeMo Automodel integration that brings production-grade distributed diffusion training to any Diffusers-format model on the Hub — no checkpoint conversion, no model rewrites, scaling from one GPU to hundreds, Apache 2.0.",
+        "zh": "NVIDIA 与 Hugging Face 联合发布 NeMo Automodel 与 Diffusers 的集成：Hub 上任意 Diffusers 格式的扩散模型（FLUX、Wan、HunyuanVideo 等）无需权重转换、无需改写模型即可进行生产级分布式微调，从单卡平滑扩展到数百 GPU，Apache 2.0 开源。"
+      },
+      "content": {
+        "original": "NeMo Automodel is an open-source PyTorch DTensor-native training library that now integrates with Hugging Face Diffusers: any Diffusers-format diffusion model on the Hub can be fine-tuned with production-grade distributed training — memory-efficient sharding, latent caching, multi-resolution bucketing — with no checkpoint conversion and no model rewrites. The documented workflow covers dataset pre-encoding, launching training from existing YAML configs, and generating directly from the fine-tuned checkpoint, with LoRA examples included. Pythonic recipe APIs are announced as the next step.",
+        "zh": "NeMo Automodel 是 NVIDIA NeMo 家族中的开源训练库，PyTorch DTensor 原生。这次与 Hugging Face Diffusers 的集成解决的是扩散模型微调的老问题：过去每个新模型都要一套专属训练脚本与权重转换流程，而现在 Hub 上任意 Diffusers 格式的模型——FLUX.1-dev 文生图、Wan 2.1 与 HunyuanVideo 文生视频等——都能免转换、免改写地直接进入生产级分布式训练。\n\n工作流被压缩成三步：先对数据集做预编码（latent 缓存），再用现成的 YAML 配置启动训练，最后从微调后的 checkpoint 直接生成验证。底层能力包括内存高效分片、多分辨率 bucketing，以及从单卡到数百 GPU 的平滑扩展；LoRA 等轻量微调示例也随集成一并提供。整套集成以 Apache 2.0 开源，并已写入 Diffusers 官方训练文档。\n\n值得注意的是方向：训练基础设施正在走推理基础设施走过的路。vLLM 的 Transformers 通用后端让推理「格式即接口」，这次集成让训练也一样——模型格式本身成为训练系统的接口，新模型发布即可训练，无需基础设施团队逐个适配。NVIDIA 预告的下一步是 Pythonic recipe API，把配方（数据、超参、并行策略）进一步产品化。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-17",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/scale-diffusers-finetuning-nemo-automodel",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "NVIDIA",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-818b7bb3"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-84837d46"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-21T02:11:44.083Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "扩散模型的规模化微调此前基本是「自带训练基础设施团队」的特权。这次集成把生产级分布式训练变成 Hub 上人人可用的默认能力——训练门槛从算法与基础设施工程下移到数据工程，开源图像与视频模型的领域定制生态会因此明显加速。",
+      "whoShouldCare": [
+        "做图像与视频生成产品的团队",
+        "需要领域定制扩散模型的研究者",
+        "负责训练基础设施的 MLOps 工程师"
+      ],
+      "technicalContext": "DTensor 是 PyTorch 的原生分布式张量抽象，Automodel 以此实现内存高效分片而无需改写模型代码。配合 latent 缓存（把 VAE/文本编码器的输出预先算好存盘）与多分辨率 bucketing，训练吞吐与显存占用都可控。趋势上与 vLLM 通用后端同构：训练与推理基础设施都在从「每模型专用实现」走向「格式即接口」。",
+      "impactAreas": [
+        "多模态生成",
+        "训练基础设施",
+        "开源模型生态"
+      ],
+      "learningPath": [
+        "先跑通官方三步工作流：数据集预编码 → YAML 启动训练 → 从 checkpoint 生成验证",
+        "理解 latent 缓存与多分辨率 bucketing 各自解决什么瓶颈",
+        "对照「模型微调与后训练定制」技能的数据配方视角，设计自己的领域数据集与评测集"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-818b7bb3": "规模化微调的前提是数据管线工程：预编码、latent 缓存与多分辨率 bucketing 都是数据配方在扩散训练里的具体形态。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-84837d46": "这正是该技能的基础设施层落地：微调不再从写训练脚本开始，而是从选数据配方与 YAML 配置开始——工程重心进一步向数据侧转移。"
+      },
+      "followUpQuestions": [
+        "Pythonic recipe API 发布后，配方能否像模型一样在 Hub 上共享与复用？",
+        "视频模型微调的数据集规模与算力门槛实际降到了什么量级？",
+        "与其他扩散训练框架（如 diffusers 原生 examples、SimpleTuner）相比的性能与易用性差距？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "createdAt": "2026-07-21T02:11:42.611Z",
+      "updatedAt": "2026-07-21T02:11:44.083Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；NVIDIA 与 HF 联名发布，发布方记 NVIDIA（库的所有者），来源记 Hugging Face Blog。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "slug": "hf-security-incident-agentic-intrusion",
+      "title": {
+        "original": "Security incident disclosure — July 2026",
+        "zh": "Hugging Face 安全事件披露：首例自主智能体驱动的生产入侵"
+      },
+      "summary": {
+        "original": "Hugging Face discloses a production infrastructure intrusion driven end to end by an autonomous AI agent system — initial access via dataset code-execution paths, credential harvesting and lateral movement across internal clusters — detected and dissected largely with AI. Public models, datasets and the software supply chain were verified clean.",
+        "zh": "Hugging Face 披露 7 月生产基础设施入侵事件：攻击端到端由自主 AI 智能体系统驱动——恶意数据集利用数据处理管线的两条代码执行路径攻入处理节点，收割云与集群凭证并在周末横向渗透多个内部集群；防守方同样主要靠 AI 完成检测与取证。公开模型、数据集与软件供应链经验证未被篡改。"
+      },
+      "content": {
+        "original": "Hugging Face detected and responded to an intrusion into part of its production infrastructure, driven end to end by an autonomous AI agent system. Initial access came through the data-processing pipeline: a malicious dataset abused a remote-code dataset loader and a template injection in dataset configuration to run code on a processing worker, then escalated to node-level access, harvested cloud and cluster credentials, and moved laterally into several internal clusters over a weekend. The campaign executed many thousands of individual actions across a swarm of short-lived sandboxes with self-migrating command-and-control staged on public services. Hugging Face closed the root code-execution paths, rebuilt compromised nodes, rotated credentials, tightened cluster admission controls, and improved detection so high-severity signals page a responder in minutes. No tampering with public models, datasets, Spaces, or the software supply chain was found; assessment of partner/customer data impact continues.",
+        "zh": "Hugging Face 本周披露了一起对其生产基础设施的入侵事件，并明确指出：这次攻击端到端由一套自主 AI 智能体系统驱动——业界预测已久的「智能体攻击者」场景第一次有了大平台的公开实证。\n\n入侵路径从 AI 平台独有的暴露面开始：数据处理管线。一个恶意数据集利用了数据集处理中的两条代码执行路径（远程代码数据集加载器与数据集配置中的模板注入），在处理节点上获得执行权，随后提权到节点级访问、收割云与集群凭证，并在一个周末内横向渗透进多个内部集群。攻击的执行形态是真正的新元素：数千个独立动作由一群短生命周期沙箱并行执行，命令控制（C2）自迁移于公共服务之上，疑似构建在某个智能体安全研究框架之上（底层模型未知）——按「人类攻击者节奏」设计的检测窗口在这种速度面前失效。\n\n响应侧同样值得读：Hugging Face 关闭了作为初始入口的代码执行路径、重建被攻陷节点、轮换全部受影响凭证并启动更大范围的预防性轮换、收紧集群准入控制，并把高危告警改造成分钟级响应。取证与检测工作「主要由 AI 完成」——这也是防守方用 AI 对抗 AI 的第一个大型公开案例。经验证，公开的模型、数据集、Spaces 与软件供应链（容器镜像与发布包）未被篡改；对合作方与客户数据影响的评估仍在进行。\n\n披露文最后指出了核心的不对称问题：自主智能体把攻击的边际成本与速度压到了新的量级，而防守方必须同样借助 AI 才能跟上节奏。对任何暴露数据管线或代码执行面的平台，这份披露相当于一份提前送达的威胁模型更新。"
+      },
+      "type": "platform",
+      "publishDate": "2026-07-16",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/security-incident-july-2026",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-89b98df3"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-21T02:11:44.041Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "「智能体攻击者」从行业预测变成了带完整取证细节的公开实证：攻击的边际成本、速度与并行度从此换了量级。任何暴露数据管线或代码执行面的平台都需要按这个威胁模型重新审视防御与检测；同时它也是防守侧「用 AI 对抗 AI」的第一个大型公开案例——攻防两侧的智能体化是同一枚硬币。",
+      "whoShouldCare": [
+        "平台与基础设施安全团队",
+        "智能体产品与 MLOps 工程师",
+        "依赖第三方模型与数据集托管服务的团队"
+      ],
+      "technicalContext": "入侵没有依赖新型模型漏洞，而是经典攻击链（RCE → 提权 → 凭证收割 → 横向移动）被自主智能体自动化编排。真正的新元素在执行层：数千个动作由短生命周期沙箱群并行完成、C2 自迁移于公共服务之上，使传统按人类节奏设计的检测窗口失效。数据集即代码——数据处理管线因此成为 AI 平台独有的一等攻击面。",
+      "impactAreas": [
+        "平台安全",
+        "数据处理管线",
+        "软件供应链",
+        "智能体安全"
+      ],
+      "learningPath": [
+        "先理解数据管线为何是 AI 平台独有的攻击面：数据集可以携带代码与模板，处理即执行",
+        "对照 Shippy 的会话级沙箱与确定性工具层，理解「爆炸半径」的结构性防御设计",
+        "用对抗性评估的思路，把这次事件的攻击行为转写成自己管线的注入与 RCE 测试用例"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-89b98df3": "无授权的真实攻击与红队演练共享同一套方法论：这次事件的行为模式可以直接转化为对抗性测试用例，也印证了红队投入的现实必要性。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-c183c9b9": "这次入侵是该技能威胁模型的实战版本：不可信数据通道（恶意数据集）进入执行环境后爆炸半径失控——攻击面清点、最小权限与沙箱隔离正是针对这类路径的防御。",
+        "skill-ws-f741f122": "分钟级告警与 AI 驱动的取证让 Hugging Face 在一个周末的横向渗透后仍能快速定位与清除——这是轨迹追踪与失败归因能力在安全响应场景的直接应用。"
+      },
+      "followUpQuestions": [
+        "底层模型与智能体框架是否会被进一步披露或归因？",
+        "数据集动态加载的代码执行路径关闭后，Hub 生态的灵活性如何补偿？",
+        "「AI 检测 AI」的告警与取证流程是否会沉淀为可复用的开源工件？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "createdAt": "2026-07-21T02:11:42.529Z",
+      "updatedAt": "2026-07-21T02:11:44.040Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；披露文写作时客户数据影响评估仍在进行，该不确定性保留在正文表述中。"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "slug": "thinkingmachines-inkling",
@@ -489,202 +969,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-      "slug": "gpt-red",
-      "title": {
-        "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
-        "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
-      },
-      "summary": {
-        "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
-        "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
-      },
-      "content": {
-        "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
-        "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-15",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-ai-agents"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-human-loop",
-        "knowledge-ws-89b98df3"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-agent-design",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-20T14:17:23.998Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
-      "whoShouldCare": [
-        "智能体产品的安全负责人",
-        "模型安全与对齐研究者",
-        "把 LLM 接入外部工具的工程团队"
-      ],
-      "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
-      "impactAreas": [
-        "智能体安全",
-        "模型对齐方法",
-        "AI 红队实践"
-      ],
-      "learningPath": [
-        "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
-        "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
-        "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
-        "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
-        "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
-      },
-      "followUpQuestions": [
-        "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
-        "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
-        "外部团队能否用开源模型复现类似的攻防自博弈回路？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-      "createdAt": "2026-07-19T03:20:48.157Z",
-      "updatedAt": "2026-07-20T14:17:23.998Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-      "slug": "nvidia-open-data-for-agents",
-      "title": {
-        "original": "Data for Agents",
-        "zh": "NVIDIA Nemotron 开放数据：用合成数据支撑智能体开发"
-      },
-      "summary": {
-        "original": "NVIDIA argues that agentic AI needs open data — software engineering traces, tool-use failures, multi-step reasoning, retrieval, safety and user simulation — and that synthetic data is how it scales, backed by the Nemotron open dataset family.",
-        "zh": "NVIDIA 在 Hugging Face 发文阐述智能体时代的数据主张：真正的智能体能力来自工程轨迹、工具调用失败、多步推理、检索与用户模拟等数据，而合成数据是规模化的关键。Nemotron 系列开放数据集（Nemotron-CC、CC-MATH、Pretraining）是这一主张的落地。"
-      },
-      "content": {
-        "original": "NVIDIA lays out why agent capability is a data problem: recovering from broken API calls and unseen workflows requires traces of tool-use failures, multi-step reasoning, retrieval and user simulation. The Nemotron open data family (Nemotron-CC, Nemotron-CC-MATH, Nemotron Pretraining) shows synthetic data as the scaling path, with about 145 ICML papers citing Nemotron models and datasets.",
-        "zh": "NVIDIA 的核心论点是：智能体能力本质上是一个数据问题。一个无法从失败的 API 调用或没见过的工作流中恢复的「智能体」，只是带工具的自动补全。要跨过这道坎，需要软件工程轨迹、工具调用失败、多步推理、检索、安全、用户模拟等类型的数据——这正是 Nemotron 开放数据产品覆盖的范围。\n\n合成数据在其中扮演规模化引擎的角色：Nemotron-CC 用合成增强 Common Crawl 预训练语料，Nemotron-CC-MATH 用合成数学题提升推理能力，Nemotron Pretraining 则覆盖通用、代码、数学等数万亿 token。NVIDIA 援引 ICML 上约 145 篇引用 Nemotron 模型与数据集的论文来说明开放数据对研究生态的带动。\n\n文中还有一个对企业实用的角度：每家公司都有自己的「秘密」（独有的工作流、语料、客户模式），这些信号让 AI 有用，但不应该被直接暴露。合成数据提供了保留信号、隐藏底料的路径。更进一步，开放数据让智能体行为变得可检查、可解释——当模型会调用工具、执行工作流、跨系统行动时，开发者需要理解塑造这些行为的数据。对正在构建智能体的团队来说，这是一份值得对照自查的数据清单。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-08",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "NVIDIA",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-evaluation-loops"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-model-evaluation",
-        "skill-ws-f741f122",
-        "skill-ws-84837d46"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-20T14:17:23.943Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它把「智能体做不好」重新定义为数据问题而不是模型问题，并给出了可操作的数据类型清单与合成数据方法。对智能体团队来说，这比又一个新框架更接近瓶颈本质。",
-      "whoShouldCare": [
-        "构建智能体产品的工程团队",
-        "负责训练/微调数据的算法工程师",
-        "关心数据合规与商业机密的技术负责人"
-      ],
-      "technicalContext": "智能体训练数据的关键类型：工具调用轨迹（含失败恢复）、多步推理链、检索行为、安全边界、用户模拟。合成数据管线在保留这些行为信号的同时避免暴露源数据，Nemotron 系列是当前最大的开放实现之一。",
-      "impactAreas": [
-        "智能体训练与微调",
-        "企业数据资产策略",
-        "开放数据研究生态"
-      ],
-      "learningPath": [
-        "对照文中的数据类型清单，盘点自己的智能体缺哪类训练/评估数据",
-        "浏览 Nemotron 开放数据集，理解合成数据的构造方式",
-        "为一个真实工作流构造小规模合成轨迹数据并验证效果"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "工具调用（尤其是失败与恢复）的轨迹数据是智能体与「带工具的自动补全」的分界线。",
-        "knowledge-evaluation-loops": "开放数据让行为可检查：评估闭环需要知道模型行为由什么数据塑造。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "设计智能体时应同步设计其数据来源：哪些行为需要哪类轨迹数据支撑。",
-        "skill-model-evaluation": "用真实世界（非基准）的失败案例评估智能体，是这篇文章隐含的评估方法论。"
-      },
-      "followUpQuestions": [
-        "你的智能体最常见的失败模式，有对应的训练数据吗？",
-        "合成数据在多大程度上能替代真实用户轨迹？",
-        "如何验证合成数据没有泄漏源数据中的敏感信息？"
-      ],
-      "readingDifficulty": "beginner",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-      "createdAt": "2026-07-13T08:00:48.625Z",
-      "updatedAt": "2026-07-20T14:17:23.943Z",
-      "editorialNotes": [
-        "2026-07-13 内容轮：从定时导入候选转正；正文基于 NVIDIA 在 Hugging Face 的博客（经 hf-mirror 镜像访问）编写。"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
       "slug": "chatgpt-work",
       "title": {
@@ -782,104 +1066,6 @@
       "updatedAt": "2026-07-20T14:17:23.892Z",
       "editorialNotes": [
         "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-      "slug": "ai2-shippy-agent-lessons",
-      "title": {
-        "original": "What building Shippy taught us about building agents",
-        "zh": "Shippy 复盘：Ai2 高风险场景智能体的四条工程经验与三件开源工件"
-      },
-      "summary": {
-        "original": "Ai2's Skylight team shares engineering lessons from Shippy, a maritime-domain-awareness agent serving analysts in 70+ countries, and open-sources the OpenClaw agent framework, the Harbor evaluation framework and the Mothership hosting platform.",
-        "zh": "Ai2 Skylight 团队复盘海事态势感知智能体 Shippy 的工程实践：智能体三分解剖（soul/skills/config）、确定性 CLI 工具层、按会话隔离的沙箱部署、专家加权评分的活数据评估，并开源了 OpenClaw（智能体框架）、Harbor（评估框架）与 Mothership（托管平台）三件工件。"
-      },
-      "content": {
-        "original": "Shippy is an AI agent built by Ai2's Skylight team for real-time maritime domain awareness, assisting analysts across 70+ countries in high-stakes operational decisions. The writeup distills four lessons: separate an agent into soul (system prompt), skills (markdown-documented capabilities) and config; talk to APIs through a purpose-built deterministic CLI rather than raw calls; isolate each user session in its own sandboxed Kubernetes deployment; and evaluate on live data with expert-weighted rubrics instead of static benchmarks. Released artifacts: the OpenClaw agent framework, the Harbor evaluation framework with a Shippy plugin, the Mothership hosting platform, and the agent-skills markdown spec.",
-        "zh": "Shippy 是 Ai2 Skylight 团队为实时海事态势感知构建的智能体，服务 70 多个国家的分析人员做高风险业务决策——错误回答可能浪费执法资源甚至危及人员安全，这决定了它的工程取向：可靠性优先于能力上限。\n\n复盘提炼出四条经验。第一，把智能体拆成 soul（定义边界的系统提示）、skills（用 markdown 文档化的能力）与 config（运行时配置）三层，各自独立版本化，改动无需重建整体。第二，模型不直接拼裸 API 调用，而是通过专门构建的确定性 CLI 与后端交互——分页错误、畸形查询这类隐蔽 bug 在工具层就被消化，且每一层可独立测试。第三，Mothership 平台按用户会话分配独立的 Kubernetes 沙箱部署，在数百个政府合作方之间做数据隔离的同时支撑多步分析。第四，评估不用静态基准，而是在活数据上由领域专家定义加权评分表，真实捕捉工具选择与护栏遵守情况。\n\n随文开源三件工件：OpenClaw（智能体框架）、Harbor（带 Shippy 插件的评估框架）、Mothership（通用智能体托管平台），外加与 Claude Code、Codex 通用的 agent-skills markdown 规范。对正在把智能体推向生产环境的团队，这是一份罕见的「高风险场景」一手工程记录。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-15",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ai2",
-      "publisherType": "research-lab",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-a28a8a56"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-20T14:17:23.832Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产级智能体的公开工程复盘本就稀少，高风险场景（错误决策有真实代价）的更是罕见。四条经验——三分解剖、确定性工具层、会话级沙箱、专家评分的活数据评估——每一条都指向同一个主题：智能体可靠性来自工程结构，不是模型能力。",
-      "whoShouldCare": [
-        "把智能体推向生产环境的工程团队",
-        "智能体平台与基础设施建设者",
-        "关注智能体评估方法的从业者"
-      ],
-      "technicalContext": "「模型通过确定性 CLI 而非裸 API 与系统交互」是近期智能体工程的收敛趋势：把不可靠性关进模型与工具的边界之内，工具层用传统软件工程的确定性来兜底。agent-skills 的 markdown 规范与 Claude Code、Codex 通用，也印证了智能体能力描述格式正在跨厂商标准化。",
-      "impactAreas": [
-        "智能体工程实践",
-        "智能体评估方法",
-        "多租户智能体部署"
-      ],
-      "learningPath": [
-        "对照 soul/skills/config 三分法审视自己的智能体：提示、能力、配置是否已经解耦",
-        "把最容易出错的一个 API 调用包成确定性 CLI 工具，对比错误率变化",
-        "参照 Harbor 的思路，为自己的智能体定义一份领域专家加权的评分表"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "Shippy 的确定性 CLI 层是工具使用概念的工程化范本：模型负责决策，工具负责正确执行。",
-        "knowledge-evaluation-loops": "活数据 + 专家加权评分表替代静态基准，是评估闭环思想在智能体场景的落地形态。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "soul/skills/config 三分解剖可以直接当作智能体工作流设计的检查清单使用。",
-        "skill-tool-integration": "「裸 API 调用 → 专用确定性 CLI」正是工具集成模式要解决的核心问题：接口的可靠性边界画在哪里。"
-      },
-      "followUpQuestions": [
-        "OpenClaw 与现有主流智能体框架相比的差异化设计是什么？",
-        "会话级 Kubernetes 沙箱的成本与冷启动延迟在什么量级？",
-        "agent-skills 规范会不会成为跨厂商的事实标准？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-      "createdAt": "2026-07-19T03:20:48.302Z",
-      "updatedAt": "2026-07-20T14:17:23.832Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
       ]
     },
     {

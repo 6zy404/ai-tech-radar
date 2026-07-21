@@ -1,6 +1,51 @@
 {
-  "updatedAt": "2026-07-19T03:25:55.881Z",
+  "updatedAt": "2026-07-21T02:12:45.015Z",
   "digests": [
+    {
+      "id": "digest-2026-07-21",
+      "date": "2026-07-21",
+      "status": "published",
+      "title": "每日技术简报 - 2026-07-21",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 2 个来源。",
+      "editorialSummary": "今天的两条信号是同一个时代的两面。攻的一面：Hugging Face 披露了首例由自主 AI 智能体端到端驱动的生产基础设施入侵——「智能体攻击者」从行业预测变成公开实证，而防守方同样第一次主要靠 AI 完成检测与取证，攻防两侧的智能体化是同一枚硬币。建的一面：NVIDIA 与 Hugging Face 把任意 Diffusers 格式扩散模型的规模化分布式微调做成了免转换、免改写的开箱能力，训练基础设施正沿着推理走过的路走向「格式即接口」。能力下沉与威胁升级同步发生——这正是需要同时补安全工程与训练基建两门课的原因。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "skillIds": [
+        "skill-ws-84837d46",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "knowledgeIds": [
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-89b98df3"
+      ],
+      "sourceNames": [
+        "Hugging Face Blog"
+      ],
+      "generatedAt": "2026-07-21T12:00:00.000Z",
+      "updatedAt": "2026-07-21T02:12:45.015Z",
+      "publishedAt": "2026-07-21T02:12:45.015Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮：GPT-Red 与 Inkling 为 07-19 简报已覆盖信号，本期排除；HF 安全事件置顶为当日头条。"
+      ]
+    },
     {
       "id": "digest-2026-07-19",
       "date": "2026-07-19",

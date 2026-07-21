@@ -1,34 +1,6 @@
 {
-  "updatedAt": "2026-07-20T14:17:24.380Z",
+  "updatedAt": "2026-07-21T02:12:06.111Z",
   "records": [
-    {
-      "id": "skill-ws-c183c9b9",
-      "title": "智能体安全与提示注入防御",
-      "slug": "agent-security-injection-defense",
-      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
-      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T04:05:11.800Z",
-      "updatedAt": "2026-07-19T05:04:42.437Z"
-    },
     {
       "id": "skill-ws-1a0da8a9",
       "title": "实时语音交互设计",
@@ -53,62 +25,6 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.431Z",
       "updatedAt": "2026-07-19T05:04:42.495Z"
-    },
-    {
-      "id": "skill-ws-f741f122",
-      "title": "智能体可观测性与评测运维",
-      "slug": "agent-observability-evaluation-ops",
-      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
-      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
-      "skillType": "operations",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3",
-        "knowledge-feedback-loops",
-        "knowledge-ws-a28a8a56"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-07-20T14:16:25.742Z"
-    },
-    {
-      "id": "skill-ws-84837d46",
-      "title": "模型微调与后训练定制",
-      "slug": "model-finetuning-post-training",
-      "summary": "在开源权重上做监督微调、偏好对齐与蒸馏，把通用基座改造成领域模型——数据配方与评测把关比训练脚本本身更决定成败。",
-      "content": "Inkling 这类开源万亿参数 MoE 的出现，把「定制一个自己的模型」从大厂专利变成普通工程团队的可行选项。后训练（post-training）是一个谱系：监督微调（SFT）教模型领域格式与知识，偏好对齐（DPO / RLHF 一族）教模型「什么样的回答更好」，蒸馏则把大模型的能力压进部署成本可承受的小模型。三者常常组合使用，而不是三选一。\n\n实践的重心在数据而非算法：决定微调上限的是数据配方——各来源数据的配比、清洗与去污染规则、合成数据的生成与筛选策略。NVIDIA Nemotron 的开放数据集展示了工业级配方长什么样，也说明这层 know-how 正在从秘方变成可参照的公共工件。评测必须先行：没有独立于训练集的评测集，微调效果无从谈起。基座是 MoE 时还有额外功课——专家路由与负载均衡在微调中容易被破坏，需要针对性的稳定手段。\n\n判断掌握程度的标志：接到需求时能先回答「这个任务真的需要微调，还是提示工程或检索增强就够了」；训练前评测集已经就位；知道蒸馏后的部署成本如何反过来进入模型选型决策，而不是训练完才发现推理开销不可接受。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "high",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-818b7bb3",
-        "knowledge-ws-36346103",
-        "knowledge-model-sizing"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.711Z",
-      "updatedAt": "2026-07-20T14:16:26.323Z"
     },
     {
       "id": "skill-ws-a9e80194",
@@ -163,6 +79,93 @@
       "status": "published",
       "createdAt": "2026-07-20T14:17:24.380Z",
       "updatedAt": "2026-07-20T14:17:24.380Z"
+    },
+    {
+      "id": "skill-ws-c183c9b9",
+      "title": "智能体安全与提示注入防御",
+      "slug": "agent-security-injection-defense",
+      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:11.800Z",
+      "updatedAt": "2026-07-21T02:12:06.031Z"
+    },
+    {
+      "id": "skill-ws-f741f122",
+      "title": "智能体可观测性与评测运维",
+      "slug": "agent-observability-evaluation-ops",
+      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
+      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
+      "skillType": "operations",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3",
+        "knowledge-feedback-loops",
+        "knowledge-ws-a28a8a56"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.442Z",
+      "updatedAt": "2026-07-21T02:12:06.075Z"
+    },
+    {
+      "id": "skill-ws-84837d46",
+      "title": "模型微调与后训练定制",
+      "slug": "model-finetuning-post-training",
+      "summary": "在开源权重上做监督微调、偏好对齐与蒸馏，把通用基座改造成领域模型——数据配方与评测把关比训练脚本本身更决定成败。",
+      "content": "Inkling 这类开源万亿参数 MoE 的出现，把「定制一个自己的模型」从大厂专利变成普通工程团队的可行选项。后训练（post-training）是一个谱系：监督微调（SFT）教模型领域格式与知识，偏好对齐（DPO / RLHF 一族）教模型「什么样的回答更好」，蒸馏则把大模型的能力压进部署成本可承受的小模型。三者常常组合使用，而不是三选一。\n\n实践的重心在数据而非算法：决定微调上限的是数据配方——各来源数据的配比、清洗与去污染规则、合成数据的生成与筛选策略。NVIDIA Nemotron 的开放数据集展示了工业级配方长什么样，也说明这层 know-how 正在从秘方变成可参照的公共工件。评测必须先行：没有独立于训练集的评测集，微调效果无从谈起。基座是 MoE 时还有额外功课——专家路由与负载均衡在微调中容易被破坏，需要针对性的稳定手段。\n\n判断掌握程度的标志：接到需求时能先回答「这个任务真的需要微调，还是提示工程或检索增强就够了」；训练前评测集已经就位；知道蒸馏后的部署成本如何反过来进入模型选型决策，而不是训练完才发现推理开销不可接受。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-36346103",
+        "knowledge-model-sizing"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.711Z",
+      "updatedAt": "2026-07-21T02:12:06.111Z"
     }
   ]
 }
