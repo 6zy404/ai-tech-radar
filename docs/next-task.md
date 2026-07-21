@@ -1,6 +1,26 @@
 # Next Task
 
-> Update 2026-07-21 (latest): **Editorial round run**, per
+> Update 2026-07-21 (later, same session): **Source pool expanded 5→10**
+> (owner-selected direction "补内容宽度", all five reachable candidates
+> taken after a 12-feed reachability test — this machine's overseas
+> connectivity gates source choice; Anthropic has no public RSS, and
+> Meta / Mistral / LangChain / vLLM-blog feeds are unreachable or
+> dead). New sources: Google DeepMind Blog, Google AI Blog, Qwen Blog,
+> GitHub Blog AI, Simon Willison Blog (the cleaner `/atom/entries/`
+> full-post feed). All five imported successfully (default 4 items per
+> run; DeepMind's first attempt hit the same transient github-side
+> "fetch failed" and succeeded on retry). **Qwen caveat**: the
+> `qwenlm.github.io` feed works but is a stale mirror (newest post
+> 2025-09) and the new qwen.ai site exposes no feed — source kept
+> enabled for auto-recovery, its 4 stale 2025 candidates rejected.
+> Editorial candidate pool now holds **16 undecided** items from the
+> new sources (Kimi K3, GPT-5.6 family analysis, Nano Banana 2 Lite /
+> Gemini Omni Flash, GitHub agentic workflows, DeepMind bioresilience,
+> ...). **Next actual step**: a rich next editorial round — expect more
+> noise than the old 2-blog pool (marketing posts from Google/GitHub
+> feeds), so dispositions will need a firmer hand.
+
+> Update 2026-07-21 (earlier): **Editorial round run**, per
 > `docs/editorial-round-playbook.md`. Dispositioned all 7 undecided
 > candidates: **2 converted + published** — Hugging Face 安全事件披露
 > (`hf-security-incident-agentic-intrusion`, critical, 当日头条：首例

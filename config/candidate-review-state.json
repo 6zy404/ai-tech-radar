@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T02:11:42.612Z",
+  "updatedAt": "2026-07-21T03:22:09.832Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -238,6 +238,22 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-21T02:11:42.612Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+    },
+    "candidate-rss-https-qwenlm-github-io-blog-qwen3guard": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T03:22:09.698Z"
+    },
+    "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T03:22:09.744Z"
+    },
+    "candidate-rss-https-qwenlm-github-io-blog-qwen-image": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T03:22:09.783Z"
+    },
+    "candidate-rss-https-qwenlm-github-io-blog-gspo": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T03:22:09.832Z"
     }
   }
 }
