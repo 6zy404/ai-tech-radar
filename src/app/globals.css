@@ -8262,6 +8262,40 @@ a.tech-graph__node:hover {
   color: var(--muted);
 }
 
+.my-radar__feeds {
+  display: grid;
+  gap: 8px;
+}
+
+.my-radar__transfer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.my-radar__transfer button {
+  padding: 6px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.my-radar__transfer span {
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.my-radar__feeds-lede {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
 /* Personalized digest bar: followed-topic highlight + filter toggle. */
 .daily-digest-personal-bar {
   display: flex;
@@ -9106,6 +9140,11 @@ a.tech-graph__node:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.topic-hub-subscribe-hint {
+  font-size: var(--fs-label);
+  color: var(--muted);
 }
 
 .topic-hub-relation {

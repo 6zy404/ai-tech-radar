@@ -1,6 +1,26 @@
 # Next Task
 
-> Update 2026-07-21 (later, same session): **Source pool expanded 5→10**
+> Update 2026-07-21 (latest): **Topic-level RSS + follow transfer shipped
+> (P4 v0.3)** — the zero-unseal outcome of the "追踪能力" gap discussion
+> (owner decision: no email subscription, no accounts; deepen tracking
+> inside the existing boundary; email is sequenced after production
+> deployment if ever). New `/topics/[tagId]/feed.xml` (published signals
+> only, 404 for unknown/signal-less topics, `src/lib/topic-feed.ts`),
+> 订阅此话题 block on the topic hub, per-followed-topic feed links on the
+> 我关注的 view, and 导出关注/导入关注 (comma-separated 关注码 via
+> clipboard/prompt, canonical-id validation, merge on import). Docs
+> updated: README, CHANGELOG (P4 v0.3 entry), project-spec,
+> page-structure, security-boundary. Verified: typecheck / lint / format /
+> vitest 90/90, live feed XML (7 items, escaped), 404 case, both entry
+> points, zero console errors. Note: the Browser pane's screenshot tool
+> times out this session (page itself responsive; DOM checks used
+> instead). **Next actual step**: none predefined — the backlog holds the
+> next editorial round (16 new candidates), content growth, the three
+> product proposals (weekly review page / round console / scheduled digest
+> draft), the production-readiness assessment, and the dev-server
+> exit root cause.
+
+> Update 2026-07-21 (earlier, same session): **Source pool expanded 5→10**
 > (owner-selected direction "补内容宽度", all five reachable candidates
 > taken after a 12-feed reachability test — this machine's overseas
 > connectivity gates source choice; Anthropic has no public RSS, and

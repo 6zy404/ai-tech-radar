@@ -147,7 +147,7 @@ export function getDigestDeliveryFeed(
   };
 }
 
-function escapeXml(value: string): string {
+export function escapeXml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -156,7 +156,7 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;");
 }
 
-function formatRssDate(
+export function formatRssDate(
   value: string | undefined,
   fallbackDate: string
 ): string {

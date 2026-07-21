@@ -28,6 +28,10 @@ Public routes can be exposed:
   `FollowableTagList` chip links, not a global nav entry or index page —
   merges a tag's published technologies, skills, knowledge, and direct
   `getContentGraph()` neighbors; `notFound()` for an unknown or empty tag)
+- `/topics/[tagId]/feed.xml` (per-topic RSS of published technology
+  signals only — same published-content boundary as `/feed.xml`; imported
+  candidates, drafts, and internal fields never enter it; 404 for unknown
+  or signal-less topics)
 - `/search` (deterministic keyword search over published technology
   signals, skills, knowledge, and the news fast lane; matching covers only
   title / summary / tag display names, results are identical for everyone,
