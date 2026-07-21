@@ -91,6 +91,10 @@ Public pages:
   skills, knowledge, and direct content-graph neighbors into one page;
   reached only via `FollowableTagList` chip links (no index page, no global
   nav entry); `notFound()` for an unknown tag or one with no content
+- `/topics/[tagId]/feed.xml` — per-topic RSS 2.0 feed of the topic's
+  published technology signals only (no news fast-lane items); 404 for
+  unknown topics or topics with no published signals; linked from the
+  topic hub's 订阅此话题 block and the 我关注的 view's feed-link row
 - `/search` — site-wide keyword search over published signals, skills,
   knowledge, and the news fast lane (deterministic title/summary/tag
   matching; news results reuse the `src/lib/news.ts` sanitizing map)

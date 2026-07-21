@@ -435,6 +435,14 @@ Workspace deployment boundary:
     any of the three pools (`getTopicHub` in `src/lib/topic-hub.ts`)
   - published-content only; no internal fields, no new AI calls, no new
     persisted data — a pure derived view like `/network`'s content graph
+  - carries a 订阅此话题 block (when the topic has published signals)
+    linking the per-topic RSS feed
+- `/topics/[tagId]/feed.xml`
+  - per-topic RSS 2.0 feed (`renderTopicRssXml` in `src/lib/topic-feed.ts`)
+    of the topic's published technology signals only, newest first, with
+    bilingual-preferred titles/summaries linking to `/technologies/[slug]`
+  - 404 for unknown topics or topics with no published signals; news
+    fast-lane candidates never enter the feed
 
 ## User-facing public view model
 
@@ -555,6 +563,12 @@ Forbidden on public pages:
     (localStorage-backed via `src/lib/followed-tags.ts`), deterministic
     priority-grouped matching of published signals, per-item matched-topic
     explanation line, and guided empty states
+  - also renders a per-followed-topic RSS feed-link row (topics with at
+    least one published signal, via the dependency-free `topicFeedPath` in
+    `src/lib/feed-paths.ts`) and 导出关注 / 导入关注 follow-transfer
+    buttons (plain comma-separated 关注码 via clipboard/prompt, ids
+    validated against canonical tags on import, merged into the local
+    follow set)
 - `TechnologyLearningPathWidget`
   - user-facing, client-side AI learning-path trigger and result panel on the
     technology detail page: request a graph-grounded learning path from

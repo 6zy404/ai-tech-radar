@@ -91,7 +91,12 @@ The product is split into two subsystems:
   `/technologies?view=followed`. Public digest pages carry a personalized view
   (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
   "只看我关注的" toggle filters the signal sections client-side — the served
-  digest stays identical for everyone.
+  digest stays identical for everyone. Topic-level tracking without accounts
+  (P4 v0.3): every topic hub carries a 订阅此话题 block linking its per-topic
+  RSS feed (`/topics/[tagId]/feed.xml`, published signals only), the 我关注的
+  view lists feed links for followed topics, and followed-topic state can be
+  exported/imported as a plain comma-separated 关注码 for cross-device use —
+  still no accounts, no server-side profile.
 - **Topic timeline** — the 按话题 view on `/technologies?view=timeline`
   groups published technology signals by topic tag, each shown as a
   chronological (newest-first) list linking to its detail page.
@@ -158,6 +163,9 @@ Public, user-facing routes:
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/topics/[tagId]` — topic hub (reached via tag chip links, not a nav entry)
+- `/topics/[tagId]/feed.xml` — per-topic RSS feed of that topic's published
+  technology signals (404 for unknown topics or topics with no published
+  signals)
 - `/search`
 - `/feed.xml`, `/feed.json`
 - `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`

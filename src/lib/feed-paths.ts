@@ -3,3 +3,7 @@
 // filesystem access) into the client bundle.
 export const rssFeedPath = "/feed.xml";
 export const jsonFeedPath = "/feed.json";
+
+export function topicFeedPath(tagId: string): string {
+  return `/topics/${tagId}/feed.xml`;
+}

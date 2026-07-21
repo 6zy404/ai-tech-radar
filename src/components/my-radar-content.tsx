@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
+import { topicFeedPath } from "@/lib/feed-paths";
 import {
   followedTagsChangedEventName,
   readFollowedTagIds,
-  toggleFollowedTagId
+  toggleFollowedTagId,
+  writeFollowedTagIds
 } from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
@@ -40,6 +42,51 @@ const priorityGroups: { level: PriorityLevel; title: string; lede: string }[] =
 export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
   const [followedTagIds, setFollowedTagIds] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [transferMessage, setTransferMessage] = useState("");
+
+  const handleExportFollows = async () => {
+    const code = followedTagIds.join(",");
+
+    if (!code) {
+      setTransferMessage("还没有关注任何话题，无可导出。");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(code);
+      setTransferMessage(
+        "关注码已复制，在另一台设备上点「导入关注」粘贴即可。"
+      );
+    } catch {
+      window.prompt("复制这段关注码，在另一台设备上导入：", code);
+      setTransferMessage("");
+    }
+  };
+
+  const handleImportFollows = () => {
+    const raw = window.prompt("粘贴另一台设备导出的关注码：");
+
+    if (raw === null) {
+      return;
+    }
+
+    const knownTagIds = new Set(tags.map((tag) => tag.id));
+    const importedIds = raw
+      .split(",")
+      .map((item) => item.trim())
+      .filter((item) => knownTagIds.has(item));
+
+    if (importedIds.length === 0) {
+      setTransferMessage("关注码无效：没有识别出任何话题。");
+      return;
+    }
+
+    const merged = [...new Set([...followedTagIds, ...importedIds])];
+
+    writeFollowedTagIds(merged);
+    setFollowedTagIds(merged);
+    setTransferMessage(`已导入 ${importedIds.length} 个话题的关注。`);
+  };
 
   useEffect(() => {
     const syncFromStorage = () => setFollowedTagIds(readFollowedTagIds());
@@ -117,7 +164,40 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
             );
           })}
         </div>
+        <div className="my-radar__transfer">
+          <button type="button" onClick={handleExportFollows}>
+            导出关注
+          </button>
+          <button type="button" onClick={handleImportFollows}>
+            导入关注
+          </button>
+          {transferMessage ? <span>{transferMessage}</span> : null}
+        </div>
       </section>
+
+      {isLoaded && followedTagIds.length > 0 ? (
+        <section className="my-radar__feeds">
+          <p className="my-radar__feeds-lede">
+            话题订阅源：把链接加进任何 RSS
+            阅读器，新发布的信号会自动送达，换设备也不丢。
+          </p>
+          <div className="digest-feed-links">
+            {tags
+              .filter(
+                (tag) =>
+                  followedTagSet.has(tag.id) &&
+                  technologies.some((technology) =>
+                    technology.tags.includes(tag.id)
+                  )
+              )
+              .map((tag) => (
+                <Link key={tag.id} href={topicFeedPath(tag.id)}>
+                  {tag.name} RSS
+                </Link>
+              ))}
+          </div>
+        </section>
+      ) : null}
 
       {isLoaded && followedTagIds.length === 0 ? (
         <section className="empty-state empty-state--actionable">

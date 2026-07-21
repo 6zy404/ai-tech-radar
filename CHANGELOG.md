@@ -12,6 +12,31 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Topic-level RSS + follow transfer (P4 v0.3)
+
+- **Per-topic RSS feeds and cross-device follow transfer** — 2026-07-21,
+  owner-selected from the "追踪能力" gap discussion as the zero-unseal
+  option (email subscription and accounts stay excluded; this deepens the
+  keep-tracking loop within the existing no-accounts boundary). New public
+  route `/topics/[tagId]/feed.xml` (`renderTopicRssXml` in
+  `src/lib/topic-feed.ts`): an RSS 2.0 feed of the topic's **published
+  technology signals only** (newest first, bilingual-preferred titles and
+  summaries, no news fast-lane items), 404 for unknown topics or topics
+  with no published signals; `escapeXml` / `formatRssDate` are now exported
+  from `digest-delivery.ts` and reused, and the dependency-free
+  `topicFeedPath` helper lives in `feed-paths.ts` so the client component
+  can link it. Entry points: a 订阅此话题 block on `/topics/[tagId]`
+  (shown only when the topic has published signals) and, on the 我关注的
+  view, a feed-link row listing each followed topic that has at least one
+  published signal. Same view also gains follow transfer: 导出关注 copies
+  the followed-tag ids as a plain comma-separated 关注码 to the clipboard
+  (prompt fallback), 导入关注 accepts a pasted code, validates ids against
+  canonical tags, and merges them into the local follow set — cross-device
+  follows without accounts, matching the P4 localStorage-only boundary.
+  Verified with typecheck, lint, format, vitest 90/90, and a live pass
+  (feed XML valid and escaped for tag-inference with 7 items, unknown-tag
+  404, both entry points rendering, zero console errors).
+
 ## Detail-page relation notes rendered for real
 
 - **Skill/knowledge detail pages now render the stored relation 附注** —
