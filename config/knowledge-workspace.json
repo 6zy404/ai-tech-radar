@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T02:12:06.707Z",
+  "updatedAt": "2026-07-21T05:08:17.433Z",
   "records": [
     {
       "id": "knowledge-ws-c761533e",
@@ -98,31 +98,6 @@
       "updatedAt": "2026-07-20T14:16:26.271Z"
     },
     {
-      "id": "knowledge-ws-a28a8a56",
-      "title": "长时程智能体的记忆与上下文管理",
-      "slug": "agent-memory-context-management",
-      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
-      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-ws-f741f122"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.755Z",
-      "updatedAt": "2026-07-20T14:16:26.376Z"
-    },
-    {
       "id": "knowledge-ws-89b98df3",
       "title": "对抗性评估与红队方法",
       "slug": "adversarial-evaluation-red-teaming",
@@ -169,6 +144,102 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.696Z",
       "updatedAt": "2026-07-21T02:12:06.707Z"
+    },
+    {
+      "id": "knowledge-ws-a28a8a56",
+      "title": "长时程智能体的记忆与上下文管理",
+      "slug": "agent-memory-context-management",
+      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
+      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.755Z",
+      "updatedAt": "2026-07-21T05:08:17.304Z"
+    },
+    {
+      "id": "knowledge-model-sizing",
+      "title": "模型选型与约束匹配",
+      "slug": "model-sizing-and-constraint-matching",
+      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
+      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.347Z",
+      "updatedAt": "2026-07-21T05:08:17.347Z"
+    },
+    {
+      "id": "knowledge-tool-use",
+      "title": "工具使用与函数调用",
+      "slug": "tool-use-and-function-calling",
+      "summary": "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
+      "content": "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "draft-candidate-rss-https-github-blog-p-97467"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.389Z",
+      "updatedAt": "2026-07-21T05:08:17.389Z"
+    },
+    {
+      "id": "knowledge-api-contracts",
+      "title": "API 契约与接口边界",
+      "slug": "api-contracts-and-interface-boundaries",
+      "summary": "当 AI 系统调用工具、串联服务或交换结构化上下文时，稳定的契约至关重要。",
+      "content": "这个经典概念解释了为什么明确的输入和输出能提升可靠性。即便接口被包裹在智能体框架里，它依然适用。",
+      "category": "software-architecture",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.433Z",
+      "updatedAt": "2026-07-21T05:08:17.433Z"
     }
   ]
 }

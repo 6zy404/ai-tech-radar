@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T02:12:06.111Z",
+  "updatedAt": "2026-07-21T05:08:17.044Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -54,33 +54,6 @@
       "updatedAt": "2026-07-20T14:17:24.337Z"
     },
     {
-      "id": "skill-agent-design",
-      "title": "智能体工作流设计",
-      "slug": "agent-workflow-design",
-      "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
-      "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "high",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-browser-agents",
-        "tech-agent-workbenches"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-tool-use",
-        "knowledge-ws-a28a8a56"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:17:24.380Z",
-      "updatedAt": "2026-07-20T14:17:24.380Z"
-    },
-    {
       "id": "skill-ws-c183c9b9",
       "title": "智能体安全与提示注入防御",
       "slug": "agent-security-injection-defense",
@@ -110,37 +83,6 @@
       "updatedAt": "2026-07-21T02:12:06.031Z"
     },
     {
-      "id": "skill-ws-f741f122",
-      "title": "智能体可观测性与评测运维",
-      "slug": "agent-observability-evaluation-ops",
-      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
-      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
-      "skillType": "operations",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3",
-        "knowledge-feedback-loops",
-        "knowledge-ws-a28a8a56"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-07-21T02:12:06.075Z"
-    },
-    {
       "id": "skill-ws-84837d46",
       "title": "模型微调与后训练定制",
       "slug": "model-finetuning-post-training",
@@ -166,6 +108,121 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.711Z",
       "updatedAt": "2026-07-21T02:12:06.111Z"
+    },
+    {
+      "id": "skill-ws-f741f122",
+      "title": "智能体可观测性与评测运维",
+      "slug": "agent-observability-evaluation-ops",
+      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
+      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
+      "skillType": "operations",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-github-blog-p-97467"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3",
+        "knowledge-feedback-loops",
+        "knowledge-ws-a28a8a56"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.442Z",
+      "updatedAt": "2026-07-21T05:08:16.909Z"
+    },
+    {
+      "id": "skill-agent-design",
+      "title": "智能体工作流设计",
+      "slug": "agent-workflow-design",
+      "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
+      "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:17:24.380Z",
+      "updatedAt": "2026-07-21T05:08:16.956Z"
+    },
+    {
+      "id": "skill-tool-integration",
+      "title": "工具集成模式",
+      "slug": "tool-integration-patterns",
+      "summary": "以可维护的方式，把 AI 系统接入 API、浏览器、文档和内部工具。",
+      "content": "这项技能涵盖接口契约、错误处理和可审计性，处在产品想法与可上线落地之间。",
+      "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.002Z",
+      "updatedAt": "2026-07-21T05:08:17.002Z"
+    },
+    {
+      "id": "skill-model-evaluation",
+      "title": "模型与输出评估",
+      "slug": "model-and-output-evaluation",
+      "summary": "在上线前定义什么是好的输出，并用小而可复现的检查来衡量它。",
+      "content": "这项技能关注测试设计，而非追逐榜单。它能帮助团队判断哪些新的 AI 能力值得深入投入。",
+      "skillType": "analysis",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-observability",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-rag-evals",
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-feedback-loops"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.044Z",
+      "updatedAt": "2026-07-21T05:08:17.044Z"
     }
   ]
 }

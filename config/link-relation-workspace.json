@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T02:11:43.526Z",
+  "updatedAt": "2026-07-21T05:07:30.143Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1035,6 +1035,141 @@
       "toType": "technology",
       "relationType": "extends",
       "note": "同一主张的两翼：开放数据供配方，Automodel 供训练基础设施。"
+    },
+    {
+      "id": "rel-ws-3af6e33b",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "开源万亿级前沿竞赛的两个里程碑，互相印证开放权重阵营的规模化路径。"
+    },
+    {
+      "id": "rel-ws-86a4fb82",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "单任务成本同档、token 效率同向优化——智能密度竞争的开源与闭源对照组。"
+    },
+    {
+      "id": "rel-ws-12ad3473",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "自报基准、第三方 Elo、民间鹈鹕测试三层证据的交叉解读，正是该技能的用武之地。"
+    },
+    {
+      "id": "rel-ws-35c663bd",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "单任务成本进入同一价格带后，选型决策从「谁更强」转向约束匹配。"
+    },
+    {
+      "id": "rel-ws-8f3ef366",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97467",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两篇生产级复盘共同指向：智能体可靠性来自工程结构与指令设计，不是模型能力。"
+    },
+    {
+      "id": "rel-ws-d5212c25",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97467",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "指令要围绕任务的实际认知过程设计——工作流设计的正反面教材同在一篇。"
+    },
+    {
+      "id": "rel-ws-efe15fc7",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97467",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "继承框架工具的隐含工作流假设，是工具集成模式要显式管理的漂移风险。"
+    },
+    {
+      "id": "rel-ws-ea7a34e5",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97467",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "回归基准让工具替换引发的性能退化被量化捕捉——评测运维是变更安全的前提。"
+    },
+    {
+      "id": "rel-ws-91d21db7",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97467",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "工具调用的效果取决于被引导的使用方式，而非工具本身。"
+    },
+    {
+      "id": "rel-ws-dbd45dec",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "fromType": "technology",
+      "toId": "tech-mcp",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "远程 MCP 直连让托管智能体访问私有工具端点——MCP 生态的又一个主流平台落点。"
+    },
+    {
+      "id": "rel-ws-df82578b",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "托管式长时程智能体正在成为大厂标配，两者是同一趋势的平台侧与产品侧。"
+    },
+    {
+      "id": "rel-ws-3c7173c6",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "MCP 接入把集成重心从搭通道转向设计契约与权限——用好平台的前提。"
+    },
+    {
+      "id": "rel-ws-077164b7",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "后台执行改变任务拆解的约束：按业务切分而非按连接寿命切分。"
+    },
+    {
+      "id": "rel-ws-4b0de5cf",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "后台执行与断线重连是长时程状态管理的平台化实现。"
+    },
+    {
+      "id": "rel-ws-5d6116ed",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "单端点 Interactions API 把推理、执行、工具折叠进一个契约面。"
     }
   ]
 }

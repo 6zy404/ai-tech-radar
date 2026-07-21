@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T03:22:09.832Z",
+  "updatedAt": "2026-07-21T05:07:29.300Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -254,6 +254,73 @@
     "candidate-rss-https-qwenlm-github-io-blog-gspo": {
       "importStatus": "rejected",
       "reviewedAt": "2026-07-21T03:22:09.832Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-connected-apps": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.175Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-workspace-gemini-omni-personal-avatars": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.221Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-google-images-25th-anniversary": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.260Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-empowering-indias-next-generation-of-innovators-with-atl-saathi": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.301Z"
+    },
+    "candidate-rss-https-github-blog-p-97349": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.339Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-7-sqlite-utils-4-atom-entries": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.383Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-google-deepmind-and-a24-announce-first-of-its-kind-research-partnership": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-21T05:07:28.427Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-our-approach-to-bioresilience": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T05:07:28.470Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-9-gpt-5-6-atom-entries": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T05:07:28.515Z"
+    },
+    "candidate-rss-https-github-blog-p-97282": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T05:07:28.555Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-5-sqlite-utils-fable-atom-entries": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T05:07:28.597Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-start-building-with-nano-banana-2-lite-and-gemini-omni-flash": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T05:07:28.642Z"
+    },
+    "candidate-rss-https-github-blog-p-97041": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-21T05:07:28.694Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-21T05:07:29.021Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries"
+    },
+    "candidate-rss-https-github-blog-p-97467": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-21T05:07:29.173Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-blog-p-97467"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-21T05:07:29.300Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
     }
   }
 }

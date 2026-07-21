@@ -1,6 +1,29 @@
 # Next Task
 
-> Update 2026-07-21 (latest): **Scheduled digest draft shipped** —
+> Update 2026-07-21 (latest): **Editorial round #2 — first pass over the
+> expanded source pool** (16 undecided candidates from the 5 new
+> sources). Dispositioned all 16: **3 converted + published** — Kimi K3
+> (`kimi-k3`, important：Moonshot 2.8T 旗舰、承诺 07-27 开放权重，源为
+> Simon Willison 深度分析，锚定 模型与输出评估 + 模型选型), Copilot
+> 代码审查复盘 (`copilot-code-review-tool-workflow-lessons`, signal：
+> 「更好的工具反而更差，指令才是关键」，与 Shippy 同类的负面结果工程
+> 复盘), Gemini API Managed Agents 扩展
+> (`gemini-managed-agents-background-mcp`, important：后台任务 + 远程
+> MCP 直连，接住 tech-mcp 图谱)；**6 reviewed** (bioresilience 方向
+> 声明、Willison GPT-5.6 分析已有一手信号、GitHub 文档案例、
+> sqlite-utils rc2 轶事、Nano Banana 2 Lite 与 harness 基准均时效已
+> 过)；**7 rejected**（Google 消费级公告 ×3、教育项目、DNS 教程、
+> sqlite-utils 4.0 非 AI 信号、A24 合作）。新源信噪比确认：16 条中
+> 3 条可发布（19%）——比旧两源池噪声更高，营销类为主，处置从严即可。
+> 13 对类型化关系写入；反向 ids 补到 4 技术 + 4 技能 + 4 知识记录，
+> 其中 **skill-tool-integration / skill-model-evaluation /
+> knowledge-model-sizing / knowledge-tool-use / knowledge-api-contracts
+> 五个种子首次 copy-on-write 覆盖**。今日简报（已发布）未回改——三条
+> 新信号将进入明早 08:05 自动生成的简报草稿。信号池 15→18。候选池
+> 清零。**Next actual step**: 明早自动草稿生成后的编辑轮只需
+> edit-and-publish；其余 backlog 见下条。
+
+> Update 2026-07-21 (earlier): **Scheduled digest draft shipped** —
 > owner-selected proposal 5 from the backlog. The task runner now
 > generates today's digest draft automatically
 > (`src/lib/scheduled-digest.ts`, `config/scheduled-digest.json`, a
