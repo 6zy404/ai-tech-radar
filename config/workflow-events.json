@@ -1,6 +1,435 @@
 {
-  "updatedAt": "2026-07-21T02:12:45.028Z",
+  "updatedAt": "2026-07-21T03:22:09.844Z",
   "events": [
+    {
+      "id": "workflow-event-654751e4-444e-43e8-92d9-648d7c812308",
+      "entityType": "candidate",
+      "entityId": "candidate-rss-https-qwenlm-github-io-blog-gspo",
+      "action": "candidate.status_updated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "importStatus": "rejected",
+        "reviewedAt": "2026-07-21T03:22:09.832Z"
+      },
+      "metadata": {
+        "nextStatus": "rejected"
+      },
+      "createdAt": "2026-07-21T03:22:09.844Z"
+    },
+    {
+      "id": "workflow-event-a2642e8b-b7fe-4390-afb3-7c7f5014a57c",
+      "entityType": "candidate",
+      "entityId": "candidate-rss-https-qwenlm-github-io-blog-qwen-image",
+      "action": "candidate.status_updated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "importStatus": "rejected",
+        "reviewedAt": "2026-07-21T03:22:09.783Z"
+      },
+      "metadata": {
+        "nextStatus": "rejected"
+      },
+      "createdAt": "2026-07-21T03:22:09.802Z"
+    },
+    {
+      "id": "workflow-event-356bf760-be15-4731-ab16-f6a900a41ce2",
+      "entityType": "candidate",
+      "entityId": "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit",
+      "action": "candidate.status_updated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "importStatus": "rejected",
+        "reviewedAt": "2026-07-21T03:22:09.744Z"
+      },
+      "metadata": {
+        "nextStatus": "rejected"
+      },
+      "createdAt": "2026-07-21T03:22:09.756Z"
+    },
+    {
+      "id": "workflow-event-946e2ffb-3fab-40bf-ba7f-202bd0363a78",
+      "entityType": "candidate",
+      "entityId": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
+      "action": "candidate.status_updated",
+      "actorType": "workspace_user",
+      "afterSnapshot": {
+        "importStatus": "rejected",
+        "reviewedAt": "2026-07-21T03:22:09.698Z"
+      },
+      "metadata": {
+        "nextStatus": "rejected"
+      },
+      "createdAt": "2026-07-21T03:22:09.713Z"
+    },
+    {
+      "id": "workflow-event-67b1b178-a3c2-42bc-9931-3a3d70bf8a9c",
+      "entityType": "source",
+      "entityId": "source-google-deepmind-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-google-deepmind-blog",
+        "name": "Google DeepMind Blog",
+        "type": "rss",
+        "url": "https://deepmind.google/blog/rss.xml",
+        "enabled": true,
+        "description": "Google DeepMind official blog: frontier research and Gemini releases.",
+        "language": "en",
+        "publisherName": "Google DeepMind",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "partial",
+        "lastImportCount": 1,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 1,
+        "createdAt": "2026-07-21T03:20:23.722Z",
+        "updatedAt": "2026-07-21T03:20:34.894Z",
+        "maxItems": 4,
+        "lastErrorMessage": "实时导入失败；已使用本地回退。fetch failed",
+        "lastFetchedAt": "2026-07-21T03:20:34.894Z",
+        "lastImportMessage": "实时导入失败；已使用本地回退。fetch failed"
+      },
+      "afterSnapshot": {
+        "id": "source-google-deepmind-blog",
+        "name": "Google DeepMind Blog",
+        "type": "rss",
+        "url": "https://deepmind.google/blog/rss.xml",
+        "enabled": true,
+        "description": "Google DeepMind official blog: frontier research and Gemini releases.",
+        "language": "en",
+        "publisherName": "Google DeepMind",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 5,
+        "createdAt": "2026-07-21T03:20:23.722Z",
+        "updatedAt": "2026-07-21T03:20:55.648Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-21T03:20:55.648Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-21T03:20:55.648Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-21T03:20:55.659Z"
+    },
+    {
+      "id": "workflow-event-062818b7-b4c2-4fe1-ac59-7cbcd9025549",
+      "entityType": "source",
+      "entityId": "source-simon-willison-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-simon-willison-blog",
+        "name": "Simon Willison Blog",
+        "type": "atom",
+        "url": "https://simonwillison.net/atom/entries/",
+        "enabled": true,
+        "description": "High-signal independent blog on LLM tooling and agents (full entries feed).",
+        "language": "en",
+        "publisherName": "Simon Willison",
+        "publisherType": "media",
+        "defaultTags": [
+          "tag-ai-agents"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "never_run",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 0,
+        "createdAt": "2026-07-21T03:20:23.776Z",
+        "updatedAt": "2026-07-21T03:20:23.776Z",
+        "maxItems": 4
+      },
+      "afterSnapshot": {
+        "id": "source-simon-willison-blog",
+        "name": "Simon Willison Blog",
+        "type": "atom",
+        "url": "https://simonwillison.net/atom/entries/",
+        "enabled": true,
+        "description": "High-signal independent blog on LLM tooling and agents (full entries feed).",
+        "language": "en",
+        "publisherName": "Simon Willison",
+        "publisherType": "media",
+        "defaultTags": [
+          "tag-ai-agents"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 4,
+        "createdAt": "2026-07-21T03:20:23.776Z",
+        "updatedAt": "2026-07-21T03:20:38.863Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-21T03:20:38.863Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-21T03:20:38.863Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-21T03:20:38.878Z"
+    },
+    {
+      "id": "workflow-event-7952cdf7-b685-42c8-9b71-0a12f778794a",
+      "entityType": "source",
+      "entityId": "source-github-blog-ai",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-github-blog-ai",
+        "name": "GitHub Blog AI",
+        "type": "rss",
+        "url": "https://github.blog/ai-and-ml/feed/",
+        "enabled": true,
+        "description": "GitHub engineering blog, AI & ML category.",
+        "language": "en",
+        "publisherName": "GitHub",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-ai-agents"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "never_run",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 0,
+        "createdAt": "2026-07-21T03:20:23.765Z",
+        "updatedAt": "2026-07-21T03:20:23.765Z",
+        "maxItems": 4
+      },
+      "afterSnapshot": {
+        "id": "source-github-blog-ai",
+        "name": "GitHub Blog AI",
+        "type": "rss",
+        "url": "https://github.blog/ai-and-ml/feed/",
+        "enabled": true,
+        "description": "GitHub engineering blog, AI & ML category.",
+        "language": "en",
+        "publisherName": "GitHub",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-ai-agents"
+        ],
+        "defaultNormalizedType": "tool",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 4,
+        "createdAt": "2026-07-21T03:20:23.765Z",
+        "updatedAt": "2026-07-21T03:20:37.951Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-21T03:20:37.951Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-21T03:20:37.951Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-21T03:20:37.962Z"
+    },
+    {
+      "id": "workflow-event-7ee2530b-70c1-41b3-966d-11194491fefe",
+      "entityType": "source",
+      "entityId": "source-qwen-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-qwen-blog",
+        "name": "Qwen Blog",
+        "type": "rss",
+        "url": "https://qwenlm.github.io/blog/index.xml",
+        "enabled": true,
+        "description": "Qwen team blog: open-weight frontier model releases.",
+        "language": "en",
+        "publisherName": "Qwen (Alibaba)",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "never_run",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 0,
+        "createdAt": "2026-07-21T03:20:23.754Z",
+        "updatedAt": "2026-07-21T03:20:23.754Z",
+        "maxItems": 4
+      },
+      "afterSnapshot": {
+        "id": "source-qwen-blog",
+        "name": "Qwen Blog",
+        "type": "rss",
+        "url": "https://qwenlm.github.io/blog/index.xml",
+        "enabled": true,
+        "description": "Qwen team blog: open-weight frontier model releases.",
+        "language": "en",
+        "publisherName": "Qwen (Alibaba)",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 4,
+        "createdAt": "2026-07-21T03:20:23.754Z",
+        "updatedAt": "2026-07-21T03:20:37.313Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-21T03:20:37.313Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-21T03:20:37.313Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-21T03:20:37.326Z"
+    },
+    {
+      "id": "workflow-event-37de729d-f7d5-40cd-bf19-c347c2dc647d",
+      "entityType": "source",
+      "entityId": "source-google-ai-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-google-ai-blog",
+        "name": "Google AI Blog",
+        "type": "rss",
+        "url": "https://blog.google/technology/ai/rss/",
+        "enabled": true,
+        "description": "Google official AI product and model announcements.",
+        "language": "en",
+        "publisherName": "Google",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "never_run",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 0,
+        "createdAt": "2026-07-21T03:20:23.739Z",
+        "updatedAt": "2026-07-21T03:20:23.739Z",
+        "maxItems": 4
+      },
+      "afterSnapshot": {
+        "id": "source-google-ai-blog",
+        "name": "Google AI Blog",
+        "type": "rss",
+        "url": "https://blog.google/technology/ai/rss/",
+        "enabled": true,
+        "description": "Google official AI product and model announcements.",
+        "language": "en",
+        "publisherName": "Google",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "success",
+        "lastImportCount": 4,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 4,
+        "createdAt": "2026-07-21T03:20:23.739Z",
+        "updatedAt": "2026-07-21T03:20:36.804Z",
+        "maxItems": 4,
+        "lastFetchedAt": "2026-07-21T03:20:36.804Z",
+        "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "lastSuccessfulImportAt": "2026-07-21T03:20:36.804Z"
+      },
+      "metadata": {
+        "status": "success",
+        "message": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+        "importCount": 4,
+        "candidatesCreated": 4
+      },
+      "createdAt": "2026-07-21T03:20:36.817Z"
+    },
+    {
+      "id": "workflow-event-17e565d3-e539-4493-8628-17b0b0ee8b51",
+      "entityType": "source",
+      "entityId": "source-google-deepmind-blog",
+      "action": "source.imported",
+      "actorType": "workspace_user",
+      "beforeSnapshot": {
+        "id": "source-google-deepmind-blog",
+        "name": "Google DeepMind Blog",
+        "type": "rss",
+        "url": "https://deepmind.google/blog/rss.xml",
+        "enabled": true,
+        "description": "Google DeepMind official blog: frontier research and Gemini releases.",
+        "language": "en",
+        "publisherName": "Google DeepMind",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "never_run",
+        "lastImportCount": 0,
+        "consecutiveFailureCount": 0,
+        "totalImportedCount": 0,
+        "createdAt": "2026-07-21T03:20:23.722Z",
+        "updatedAt": "2026-07-21T03:20:23.722Z",
+        "maxItems": 4
+      },
+      "afterSnapshot": {
+        "id": "source-google-deepmind-blog",
+        "name": "Google DeepMind Blog",
+        "type": "rss",
+        "url": "https://deepmind.google/blog/rss.xml",
+        "enabled": true,
+        "description": "Google DeepMind official blog: frontier research and Gemini releases.",
+        "language": "en",
+        "publisherName": "Google DeepMind",
+        "publisherType": "big-tech",
+        "defaultTags": [
+          "tag-frontier-models"
+        ],
+        "defaultNormalizedType": "model",
+        "lastImportStatus": "partial",
+        "lastImportCount": 1,
+        "consecutiveFailureCount": 1,
+        "totalImportedCount": 1,
+        "createdAt": "2026-07-21T03:20:23.722Z",
+        "updatedAt": "2026-07-21T03:20:34.894Z",
+        "maxItems": 4,
+        "lastErrorMessage": "实时导入失败；已使用本地回退。fetch failed",
+        "lastFetchedAt": "2026-07-21T03:20:34.894Z",
+        "lastImportMessage": "实时导入失败；已使用本地回退。fetch failed"
+      },
+      "metadata": {
+        "status": "partial",
+        "message": "实时导入失败；已使用本地回退。fetch failed",
+        "importCount": 1,
+        "candidatesCreated": 1
+      },
+      "createdAt": "2026-07-21T03:20:34.910Z"
+    },
     {
       "id": "workflow-event-f8b78eb1-fef4-4f9c-b381-6f3ba402765c",
       "entityType": "daily_digest",
@@ -37469,973 +37898,6 @@
         "nextStatus": "reviewed"
       },
       "createdAt": "2026-07-09T21:03:58.524Z"
-    },
-    {
-      "id": "workflow-event-4f71ee24-85f1-4b15-8948-32388a17acbd",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "published",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.949Z",
-        "publishedAt": "2026-07-09T21:03:57.949Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-07-09T21:03:57.958Z"
-    },
-    {
-      "id": "workflow-event-9f99e1e1-970e-4e54-adad-cd23521e28e1",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.generated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.908Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "tech-mcp",
-          "tech-rag-evals",
-          "tech-agent-workbenches",
-          "tech-browser-agents"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-          "tech-mcp",
-          "tech-rag-evals",
-          "tech-agent-workbenches",
-          "tech-browser-agents"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-tool-integration",
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-retrieval-tuning"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-system-design",
-          "knowledge-api-contracts",
-          "knowledge-human-loop",
-          "knowledge-latency-tradeoffs",
-          "knowledge-model-sizing",
-          "knowledge-rag-basics",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "检索质量摘要",
-          "智能体平台评测",
-          "自动化产品简报",
-          "AI 工具标准简报",
-          "Ollama Releases"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.928Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ],
-        "lastRegeneratedAt": "2026-07-09T21:03:57.928Z"
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "preserveManualAdjustments": true
-      },
-      "createdAt": "2026-07-09T21:03:57.938Z"
-    },
-    {
-      "id": "workflow-event-77efa7f9-bf77-427b-91ff-b37d9bc2b1f9",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.887Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.908Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "action": "move_up"
-      },
-      "createdAt": "2026-07-09T21:03:57.918Z"
-    },
-    {
-      "id": "workflow-event-fd180235-aeb0-49f7-8ff1-933a7233a659",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.864Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.887Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "action": "pin"
-      },
-      "createdAt": "2026-07-09T21:03:57.897Z"
-    },
-    {
-      "id": "workflow-event-84cc5a3c-ec60-4511-a4af-05e7c8cfa5e1",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-model-sizing"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.840Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-          "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-tool-integration"
-        ],
-        "knowledgeIds": [
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs"
-        ],
-        "sourceNames": [
-          "Ollama Releases",
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.864Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "action": "include"
-      },
-      "createdAt": "2026-07-09T21:03:57.875Z"
-    },
-    {
-      "id": "workflow-event-cf9998a8-b0c6-4b70-b382-08a682f3ee08",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.815Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-model-evaluation",
-          "skill-scope-pilots"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-model-sizing"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.840Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23",
-        "technologyId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "action": "exclude"
-      },
-      "createdAt": "2026-07-09T21:03:57.851Z"
-    },
-    {
-      "id": "workflow-event-35bd633f-e6d2-42d9-a94f-a85d3a334685",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-05-23",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-05-23",
-        "summary": "2 item(s) are selected for editorial validation.",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-agent-design",
-          "skill-scope-pilots",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-tool-use",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-05-23T12:00:00.000Z",
-        "editorialNotes": [
-          "Validation seed digest."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-05-23",
-        "date": "2026-05-23",
-        "status": "draft",
-        "title": "Edited Daily Digest",
-        "summary": "Edited generated summary.",
-        "editorialSummary": "Editor-written public summary.",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
-        ],
-        "watchTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-agent-design",
-          "skill-model-evaluation"
-        ],
-        "knowledgeIds": [
-          "knowledge-evaluation-loops",
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News"
-        ],
-        "generatedAt": "2026-05-23T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:57.815Z",
-        "editorialNotes": [
-          "Manual editorial note."
-        ]
-      },
-      "metadata": {
-        "date": "2026-05-23"
-      },
-      "createdAt": "2026-07-09T21:03:57.827Z"
-    },
-    {
-      "id": "workflow-event-53ad5f36-a606-4ddb-9fd4-216bd5237e2f",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-10",
-      "action": "digest.published",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-07-10",
-        "date": "2026-07-10",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-10",
-        "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
-        "editorialSummary": "今天的两条信号都来自 OpenAI，但指向两个不同的判断维度：GPT-5.6 把旗舰模型的竞争轴从能力上限转向单位 token 的智能密度与单位成本性能，并且发布即成为 Microsoft 365 Copilot 的首选模型；ChatGPT Work 则把智能体推向「长时程数字同事」的产品形态——跨应用执行、连续数小时工作、以交付物为完成标准。一个关乎你为什么该重估模型选型，一个关乎团队评估 AI 的标准正在从回答质量转向任务完成率。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-agent-design"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News",
-          "vLLM Releases"
-        ],
-        "generatedAt": "2026-07-10T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:02:52.617Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-07-10",
-        "date": "2026-07-10",
-        "status": "published",
-        "title": "Daily Technology Digest - 2026-07-10",
-        "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
-        "editorialSummary": "今天的两条信号都来自 OpenAI，但指向两个不同的判断维度：GPT-5.6 把旗舰模型的竞争轴从能力上限转向单位 token 的智能密度与单位成本性能，并且发布即成为 Microsoft 365 Copilot 的首选模型；ChatGPT Work 则把智能体推向「长时程数字同事」的产品形态——跨应用执行、连续数小时工作、以交付物为完成标准。一个关乎你为什么该重估模型选型，一个关乎团队评估 AI 的标准正在从回答质量转向任务完成率。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-agent-design"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News",
-          "vLLM Releases"
-        ],
-        "generatedAt": "2026-07-10T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:03:29.905Z",
-        "publishedAt": "2026-07-09T21:03:29.905Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "metadata": {
-        "date": "2026-07-10"
-      },
-      "createdAt": "2026-07-09T21:03:29.919Z"
-    },
-    {
-      "id": "workflow-event-9bfea28e-7b3b-46b4-a972-9dc1b628bc4f",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-10",
-      "action": "digest.updated",
-      "actorType": "workspace_user",
-      "beforeSnapshot": {
-        "id": "digest-2026-07-10",
-        "date": "2026-07-10",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-10",
-        "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-agent-design"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News",
-          "vLLM Releases"
-        ],
-        "generatedAt": "2026-07-10T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:02:52.580Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "afterSnapshot": {
-        "id": "digest-2026-07-10",
-        "date": "2026-07-10",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-10",
-        "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
-        "editorialSummary": "今天的两条信号都来自 OpenAI，但指向两个不同的判断维度：GPT-5.6 把旗舰模型的竞争轴从能力上限转向单位 token 的智能密度与单位成本性能，并且发布即成为 Microsoft 365 Copilot 的首选模型；ChatGPT Work 则把智能体推向「长时程数字同事」的产品形态——跨应用执行、连续数小时工作、以交付物为完成标准。一个关乎你为什么该重估模型选型，一个关乎团队评估 AI 的标准正在从回答质量转向任务完成率。",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-agent-design"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News",
-          "vLLM Releases"
-        ],
-        "generatedAt": "2026-07-10T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:02:52.617Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "metadata": {
-        "date": "2026-07-10"
-      },
-      "createdAt": "2026-07-09T21:02:52.628Z"
-    },
-    {
-      "id": "workflow-event-e430886b-c58e-4486-8d9e-19a8a489ff4a",
-      "entityType": "daily_digest",
-      "entityId": "digest-2026-07-10",
-      "action": "digest.generated",
-      "actorType": "workspace_user",
-      "afterSnapshot": {
-        "id": "digest-2026-07-10",
-        "date": "2026-07-10",
-        "status": "draft",
-        "title": "Daily Technology Digest - 2026-07-10",
-        "summary": "4 item(s) need immediate attention. 0 item(s) are worth tracking. 2 source(s) are represented",
-        "editorialSummary": "",
-        "highPriorityTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "watchTechnologyIds": [],
-        "manuallyAddedTechnologyIds": [],
-        "excludedTechnologyIds": [],
-        "pinnedTechnologyIds": [],
-        "orderedTechnologyIds": [
-          "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
-          "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-          "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-          "draft-candidate-rss-https-openai-com-index-gpt-5-6"
-        ],
-        "skillIds": [
-          "skill-scope-pilots",
-          "skill-model-evaluation",
-          "skill-agent-design"
-        ],
-        "knowledgeIds": [
-          "knowledge-human-loop",
-          "knowledge-model-sizing",
-          "knowledge-evaluation-loops",
-          "knowledge-latency-tradeoffs",
-          "knowledge-system-design",
-          "knowledge-tool-use"
-        ],
-        "sourceNames": [
-          "OpenAI News",
-          "vLLM Releases"
-        ],
-        "generatedAt": "2026-07-10T12:00:00.000Z",
-        "updatedAt": "2026-07-09T21:02:52.580Z",
-        "editorialNotes": [
-          "Generated from published TechnologyItem records using Ranking v0 priority levels.",
-          "Low-priority items are excluded by default in Daily Digest v0."
-        ]
-      },
-      "metadata": {
-        "date": "2026-07-10",
-        "preserveManualAdjustments": false
-      },
-      "createdAt": "2026-07-09T21:02:52.602Z"
     }
   ]
 }

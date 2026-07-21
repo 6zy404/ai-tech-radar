@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-20T16:51:01.149Z",
+  "updatedAt": "2026-07-21T03:20:55.648Z",
   "sources": [
     {
       "id": "quality-good-source",
@@ -180,6 +180,131 @@
       "lastFetchedAt": "2026-07-20T00:05:34.194Z",
       "lastImportMessage": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-07-20T00:05:34.194Z"
+    },
+    {
+      "id": "source-google-deepmind-blog",
+      "name": "Google DeepMind Blog",
+      "type": "rss",
+      "url": "https://deepmind.google/blog/rss.xml",
+      "enabled": true,
+      "description": "Google DeepMind official blog: frontier research and Gemini releases.",
+      "language": "en",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "defaultTags": [
+        "tag-frontier-models"
+      ],
+      "defaultNormalizedType": "model",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 5,
+      "createdAt": "2026-07-21T03:20:23.722Z",
+      "updatedAt": "2026-07-21T03:20:55.648Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-21T03:20:55.648Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-21T03:20:55.648Z"
+    },
+    {
+      "id": "source-google-ai-blog",
+      "name": "Google AI Blog",
+      "type": "rss",
+      "url": "https://blog.google/technology/ai/rss/",
+      "enabled": true,
+      "description": "Google official AI product and model announcements.",
+      "language": "en",
+      "publisherName": "Google",
+      "publisherType": "big-tech",
+      "defaultTags": [
+        "tag-frontier-models"
+      ],
+      "defaultNormalizedType": "model",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-21T03:20:23.739Z",
+      "updatedAt": "2026-07-21T03:20:36.804Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-21T03:20:36.804Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-21T03:20:36.804Z"
+    },
+    {
+      "id": "source-qwen-blog",
+      "name": "Qwen Blog",
+      "type": "rss",
+      "url": "https://qwenlm.github.io/blog/index.xml",
+      "enabled": true,
+      "description": "Qwen team blog: open-weight frontier model releases.",
+      "language": "en",
+      "publisherName": "Qwen (Alibaba)",
+      "publisherType": "big-tech",
+      "defaultTags": [
+        "tag-frontier-models"
+      ],
+      "defaultNormalizedType": "model",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-21T03:20:23.754Z",
+      "updatedAt": "2026-07-21T03:20:37.313Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-21T03:20:37.313Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-21T03:20:37.313Z"
+    },
+    {
+      "id": "source-github-blog-ai",
+      "name": "GitHub Blog AI",
+      "type": "rss",
+      "url": "https://github.blog/ai-and-ml/feed/",
+      "enabled": true,
+      "description": "GitHub engineering blog, AI & ML category.",
+      "language": "en",
+      "publisherName": "GitHub",
+      "publisherType": "big-tech",
+      "defaultTags": [
+        "tag-ai-agents"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-21T03:20:23.765Z",
+      "updatedAt": "2026-07-21T03:20:37.951Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-21T03:20:37.951Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-21T03:20:37.951Z"
+    },
+    {
+      "id": "source-simon-willison-blog",
+      "name": "Simon Willison Blog",
+      "type": "atom",
+      "url": "https://simonwillison.net/atom/entries/",
+      "enabled": true,
+      "description": "High-signal independent blog on LLM tooling and agents (full entries feed).",
+      "language": "en",
+      "publisherName": "Simon Willison",
+      "publisherType": "media",
+      "defaultTags": [
+        "tag-ai-agents"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 4,
+      "createdAt": "2026-07-21T03:20:23.776Z",
+      "updatedAt": "2026-07-21T03:20:38.863Z",
+      "maxItems": 4,
+      "lastFetchedAt": "2026-07-21T03:20:38.863Z",
+      "lastImportMessage": "导入 4 条新候选；跳过 0 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-21T03:20:38.863Z"
     }
   ],
   "importRuns": []
