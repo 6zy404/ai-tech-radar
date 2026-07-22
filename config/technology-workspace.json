@@ -1,6 +1,219 @@
 {
-  "updatedAt": "2026-07-21T05:08:16.653Z",
+  "updatedAt": "2026-07-22T09:39:03.672Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "slug": "gemini-flash-cyber",
+      "title": {
+        "original": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+        "zh": "Google Gemini Flash Cyber：面向漏洞发现与修复的轻量安全模型"
+      },
+      "summary": {
+        "original": "We're introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber. Flash Cyber is a lightweight cybersecurity model to find and patch vulnerabilities.",
+        "zh": "Google DeepMind 发布新一批 Gemini Flash 模型，其中 Flash Cyber 是一个专注网络安全的轻量模型，用于自动发现并修复代码中的漏洞；同批还有 3.6 Flash 与 3.5 Flash-Lite 两个通用轻量层级。"
+      },
+      "content": {
+        "original": "Google DeepMind introduces a new batch of Gemini Flash models. The notable one is Gemini 3.5 Flash Cyber, a lightweight, security-focused model built to find and patch vulnerabilities; the batch also includes the general-purpose Gemini 3.6 Flash and 3.5 Flash-Lite tiers.",
+        "zh": "这批发布里通用的 3.6 Flash 与 3.5 Flash-Lite 是常规的轻量层级更新，真正的看点是 Flash Cyber：一个安全专用的轻量模型，把「发现漏洞 + 给出修复」直接做进模型能力。它的信号意义在于方向——把安全能力做成低延迟、低成本的专用模型，而不是让通用大模型顺带做安全，正好呼应本周攻防两侧都在智能体化的主题。需要注意的是官方公告本身较薄，真实能力边界与误报率仍需在自己的代码库上评测后再下判断。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-21",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber/",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-89b98df3",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-c183c9b9"
+      ],
+      "sourceReferences": [
+        {
+          "candidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
+          "sourceType": "rss-feed",
+          "sourceName": "Google DeepMind Blog",
+          "sourceUrl": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
+          "publisherName": "Google DeepMind",
+          "publishDate": "2026-07-17"
+        }
+      ],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "多个来源指向同一技术事件。",
+          "信号发布时间很近。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-22T09:39:03.672Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "把「找漏洞 + 修漏洞」做成一个安全专用的轻量模型，代表了一个方向：安全能力被产品化为低延迟、低成本的专用模型，而不是通用大模型的附带功能。这与本周攻防智能体化的主线相互印证。",
+      "whoShouldCare": [
+        "安全工程与 DevSecOps 团队",
+        "平台工程团队",
+        "在做模型选型、关注专用轻量模型的团队"
+      ],
+      "technicalContext": "Flash 层级意味着低延迟、低成本、可高频调用；安全专用则意味着在漏洞相关数据上做过针对性训练/对齐。轻量 + 专用的组合适合嵌进 CI / 代码审查这类高频流程，但也更依赖在真实代码库上的评测来确认能力边界与误报率。",
+      "impactAreas": [
+        "漏洞发现与修复自动化",
+        "安全工程流程",
+        "轻量模型选型",
+        "攻防能力评估"
+      ],
+      "learningPath": [
+        "阅读官方公告，确认 Flash Cyber 声称的能力范围与可用形态，注意公告较薄、需自行验证。",
+        "复习「模型选型与约束匹配」：判断轻量专用模型适合嵌入哪些高频安全流程。",
+        "用「对抗性评估与红队方法」在自己的代码库上评测其漏洞发现率与误报率。",
+        "结合「智能体安全与提示注入防御」，设计把它接入 CI / 代码审查时的把关点。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-89b98df3": "安全专用模型的真实价值必须靠对抗性评估与红队在自己的代码库上验证，而不是采信公告。",
+        "knowledge-model-sizing": "轻量 / 专用是一种约束匹配：判断它适合嵌入哪些高频流程，靠的是模型选型的方法。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "公告较薄，能力边界与误报率都要靠模型与输出评估在真实场景上确认后再下判断。",
+        "skill-ws-c183c9b9": "把安全模型接入 CI / 代码审查会引入新的攻击面与把关需求，需要安全与注入防御的视角。"
+      },
+      "followUpQuestions": [
+        "Flash Cyber 在真实代码库上的漏洞发现率与误报率如何，能否达到可自动化的门槛？",
+        "它给出的「修复」是否可直接采用，还是仍需人工审查后再合入？",
+        "把它嵌进 CI / 代码审查流程时，权限和把关点应如何设计？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "createdAt": "2026-07-22T09:31:58.152Z",
+      "updatedAt": "2026-07-22T09:39:03.672Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "slug": "openai-long-horizon-safety",
+      "title": {
+        "original": "Safety and alignment in an era of long-horizon models",
+        "zh": "OpenAI：长时程模型时代的安全与对齐实践"
+      },
+      "summary": {
+        "original": "OpenAI shares lessons from deploying long-running AI models, highlighting new safety risks, observed failures, and improved safeguards through iterative deployment.",
+        "zh": "OpenAI 复盘部署长时程模型（可连续自主运行、跨多步完成任务）的经验：这类模型带来了哪些新的安全风险、实际观测到的失败模式，以及如何通过迭代式（小步放量 + 持续观测）部署逐步建立防护。"
+      },
+      "content": {
+        "original": "OpenAI shares lessons from deploying long-running, multi-step models: the new safety risks that emerge as models act autonomously for longer, concrete failure modes observed in deployment, and the safeguards built up through iterative, staged rollout rather than a single launch.",
+        "zh": "随着模型从「一问一答」走向能连续自主运行数小时、跨多步骤完成任务，安全问题的性质也变了：错误会沿着长链条累积、失败模式更难预判、单点审查不再够用。OpenAI 在这篇复盘里把重点放在三件事——长时程自主带来的新风险类别、在真实部署中实际观测到的失败案例，以及他们采用的应对办法：不是一次性上线，而是迭代式、小范围逐步放量，配合持续观测,把「发现问题—收紧防护」做成闭环。它的价值不在某个新模型，而在把长时程安全从抽象担忧变成一套可操作的部署纪律。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-20",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/safety-alignment-long-horizon-models",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-89b98df3",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-ws-c183c9b9",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-22T09:39:03.600Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "长时程、可自主运行的模型正在成为主流形态，而它们的失败方式和一次性问答完全不同：错误累积、难以预判、单点审查失效。这篇把长时程安全从抽象担忧落成一套可执行的部署纪律，是做智能体产品的团队现在就该补的一课。",
+      "whoShouldCare": [
+        "做智能体或自主执行类产品的团队",
+        "安全与对齐工程师",
+        "负责生产部署与可观测性的平台团队"
+      ],
+      "technicalContext": "长时程 = 模型连续多步自主执行，单步的小偏差会沿链条放大；迭代式部署 = 不一次性全量上线，而是小范围放量、持续观测、按观测到的失败逐步收紧防护，把安全做成闭环而非一次性检查。",
+      "impactAreas": [
+        "智能体产品安全",
+        "模型对齐与评测",
+        "生产部署策略",
+        "可观测性建设"
+      ],
+      "learningPath": [
+        "阅读官方复盘原文，梳理它列出的新风险类别与实际观测到的失败模式。",
+        "复习「长时程智能体的记忆与上下文管理」：理解错误为何会沿多步链条累积。",
+        "结合「对抗性评估与红队方法」，设计能提前暴露长链条失败的评测。",
+        "把「智能体可观测性与评测运维」落到一次真实部署：小范围放量 + 观测 + 按失败收紧防护。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "长时程模型的风险核心在于状态与上下文跨多步累积，理解记忆与上下文管理才能判断错误会在哪里放大。",
+        "knowledge-ws-89b98df3": "长链条失败往往要靠对抗性评估与红队提前逼出来，而不是等生产环境暴露。",
+        "knowledge-human-loop": "连续自主执行放大了错误累积，审查点该放在哪里是这类系统可用性的关键设计。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "迭代式部署要靠可观测性与评测运维支撑：没有观测就没法把失败转化为收紧防护的信号。",
+        "skill-ws-c183c9b9": "长时程自主执行扩大了提示注入与越权的攻击面，安全与注入防御是必备能力。",
+        "skill-model-evaluation": "判断防护是否真的收紧、失败率是否下降，需要模型与输出评估的方法支撑。"
+      },
+      "followUpQuestions": [
+        "长时程任务中途跑偏时，如何回滚已经执行的动作、如何界定人工介入点？",
+        "哪些失败模式只有在连续运行数小时后才暴露，评测该如何覆盖它们？",
+        "迭代式放量的节奏和收紧防护的触发条件应该如何设定？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "createdAt": "2026-07-22T09:31:25.441Z",
+      "updatedAt": "2026-07-22T09:39:03.600Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
       "slug": "chatgpt-work",

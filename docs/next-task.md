@@ -1,6 +1,30 @@
 # Next Task
 
-> Update 2026-07-22 (latest): **dev-server "exits before a round" root cause —
+> Update 2026-07-22 (latest): **Editorial round run** (owner had me run the
+> full round autonomously after a plain-language walkthrough — they weren't
+> familiar with the round concept). Dispositioned all **10 undecided
+> candidates** from the 07-22 import: **2 converted + published** — OpenAI
+> 长时程模型安全与对齐 (`openai-long-horizon-safety`, important, 锚定
+> 长时程记忆 / 对抗性评估 / 人在回路 知识 + 可观测性运维 / 安全注入防御 /
+> 模型评估 技能) 和 Google Gemini Flash Cyber 安全向轻量模型
+> (`gemini-flash-cyber`, signal, borderline-thin, 锚定 对抗性评估 / 模型选型 +
+> 模型评估 / 安全注入防御); **3 reviewed-not-selected** — OpenAI×HF 安全事件
+> 后续（与已发 HF 入侵信号重叠）、Claude Code fireside chat（访谈无工件）、
+> Cosmos 3 Edge（HF 镜像源 title-only 导入，无正文可写）; **5 rejected** —
+> canvases how-to、Grabette 机器人数据（偏赛道）、ChatGPT 小企业营销、董事会
+> 人事、Gemini 3.5 Flash Cyber 窄版（dup-181nhlv 并入 3.6 广义版）。解决 1 个
+> 重复组（dup-181nhlv 主候选改为广义 Gemini 公告）。**2026-07-22 简报已发布**：
+> 主题「安全能力的模型化」，长时程安全置顶为头条，Gemini Flash Cyber 次条；
+> 已在 07-21 简报领衔的 HF 入侵事件 + NeMo 微调**排除**以避免重复，编辑摘要
+> 就位；发布门槛零阻塞。公开面 8 项验证全绿（两张详情页、digest/today 双条 +
+> 排除生效、digest/weekly 本周由空转为 2 条、无内部字段泄漏、console 零错误）。
+> **一个自己引入并当场修复的 bug**：`whoShouldCare` 是 `string[]` 不是
+> string，且首次用 `curl -d` 传中文被 shell 编码弄成乱码——改用 UTF-8 文件
+> `--data-binary` 重发后公开页 mojibake 归零（Step 8 验证抓到的）。发布信号池
+> +2。候选池清零。**Next actual step**: none predefined — 下一轮编辑轮或内容
+> 扩充。
+
+> Update 2026-07-22 (earlier): **dev-server "exits before a round" root cause —
 > diagnosed + mitigated.** Investigation (evidence in this session): it is **not
 > a crash and not killed by any script/hook** — `grep scripts/** src/**` found
 > only graceful `process.exitCode` + the task runner's own SIGTERM handler;
