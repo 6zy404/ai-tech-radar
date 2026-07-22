@@ -339,8 +339,8 @@ relevant file under [`docs/`](docs/): `project-spec`, `architecture`,
 `data-model`, `page-structure`, `design-system`, `security-boundary`,
 `deployment`, `persistence-plan`, `database-migration`, `workflow-hardening`,
 `content-intelligence`, `editorial-enrichment`, `llm-provider`, `prompt-quality`,
-`operations`, `workspace-actions`, `editorial-round-playbook`, `decisions`,
-`progress`, and `next-task`.
+`operations`, `workspace-actions`, `editorial-round-playbook`,
+`production-readiness`, `decisions`, `progress`, and `next-task`.
 
 ## Intentionally not implemented yet
 

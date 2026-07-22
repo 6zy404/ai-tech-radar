@@ -1,6 +1,30 @@
 # Next Task
 
-> Update 2026-07-22 (latest): **Editorial round console shipped
+> Update 2026-07-22 (latest): **Production-readiness assessment written**
+> (`docs/production-readiness.md`) — owner-selected from the backlog, scoped to
+> a **controlled single-operator go-live** (public read-only site + token-locked
+> workspace + local storage). Read-only assessment, no code changed. Evidence
+> gathered live: `npm run build` **passes** (all routes compile incl. the two
+> new ones); workspace guard covers all internal prefixes and fails **closed**
+> when enabled-but-unconfigured with a constant-time token compare. Verdict:
+> close to go-live but **4 blocking config/data-hygiene items** first — (B1)
+> workspace protection is **off by default** (`WORKSPACE_ACCESS_ENABLED=false`
+> in `.env.example`; `isWorkspaceAccessEnabled` false unless set) so a deploy
+> without it is fully open; (B2) all 18 `config/*.json` stores are git-tracked,
+> so a real delivery endpoint/token would be committed (only `mock://` today —
+> latent, not active); (B3) committed demo/validation fixtures would ship as
+> real content/channels; (B4) `NEXT_PUBLIC_SITE_URL` defaults to localhost and
+> propagates into feeds/digest links. Plus 4 important items (public LLM routes
+> unthrottled — moot under the default mock provider; JSON store no
+> locking/backup + concurrent task-runner writes; no CSP/HSTS; Node not
+> pinned though `node:sqlite` needs ≥22.5). Full write-up incl. a confirmed-good
+> list, out-of-scope items, and an ordered go-live checklist in
+> `docs/production-readiness.md`; indexed in README's doc list. **Next actual
+> step**: none predefined — remaining backlog is dev-server 退出根因, content
+> growth, and the next editorial round; or act on the go-live checklist (that
+> would be config/ops work, largely outside this repo).
+
+> Update 2026-07-22 (earlier): **Editorial round console shipped
 > (`/workspace/editorial-round`)** — owner-selected from the backlog, scope
 > locked via `AskUserQuestion` + a depth-comparison mockup (orchestration
 > console vs. full inline workbench) + a layout mockup: **A) orchestration
