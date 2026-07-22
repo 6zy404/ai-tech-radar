@@ -1,5 +1,33 @@
 # Next Task
 
+> Update 2026-07-22 (latest): **Weekly review page shipped
+> (`/digest/weekly`)** — owner-selected from the backlog ("周回顾页"), scope
+> locked upfront via `AskUserQuestion` + a mockup + a low_priority-tail
+> comparison diagram (route `/digest/weekly`, natural week Mon–Sun + past-week
+> archive, priority grouping, **no low_priority** — option B). A public,
+> time-boxed sibling of the daily digest and a **pure derived view** (no new
+> persisted data, no AI): new `src/lib/weekly-review.ts`
+> (`getWeeklyReview(weekKey?)` + `getWeeklyReviewArchive`) buckets published
+> signals into natural weeks (UTC math over the plain `YYYY-MM-DD` publish
+> dates), classifies each with the same `evaluateTechnologyPriority` the rest
+> of the site uses, and groups into 立即关注 / 值得跟踪. Two routes:
+> `/digest/weekly` (current week + four-number summary + empty state + folded
+> archive) and `/digest/weekly/[week]` (canonical Monday key, `notFound()` for
+> non-canonical/empty). Shared `WeeklyReviewContent` component, dossier styling
+> (`.weekly-review-*` CSS on `--dossier-*` tokens), cross-links only (本周回顾
+> on `/digest` + the digest 订阅简报 block — no nav entry). Verified: typecheck
+> / lint / format / vitest 96/96 (6 new tests) + live pass (populated week = 8
+> cards + archive; current week empty state; non-canonical key 404; both
+> cross-links; dossier tokens resolve; no 375px overflow; zero console errors).
+> Data note found live: signals carry their **source** publish dates, so the
+> current calendar week is often empty while past weeks are full; also
+> `evaluateTechnologyPriority` classifies nearly all complete+important
+> published signals as `high_priority`, so 值得跟踪 is usually 0 — both are
+> real data characteristics, not bugs. Docs updated: README, CHANGELOG,
+> project-spec, page-structure, security-boundary. **Next actual step**: none
+> predefined — remaining backlog is 编辑轮控制台, 生产化评估, dev-server 退出
+> 根因, content growth, and the next editorial round.
+
 > Update 2026-07-21 (latest): **Editorial round #2 — first pass over the
 > expanded source pool** (16 undecided candidates from the 5 new
 > sources). Dispositioned all 16: **3 converted + published** — Kimi K3

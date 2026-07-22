@@ -69,9 +69,14 @@ export default function DigestArchivePage() {
       sectionLabel="简报归档"
       className="digest-archive-page dossier"
       actions={
-        <Link href="/digest/today" className="action-link">
-          阅读最新一期
-        </Link>
+        <>
+          <Link href="/digest/weekly" className="action-link">
+            本周回顾
+          </Link>
+          <Link href="/digest/today" className="action-link">
+            阅读最新一期
+          </Link>
+        </>
       }
     >
       {archiveMonths.length > 0 ? (

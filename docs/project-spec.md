@@ -69,6 +69,15 @@ Public pages:
   title/summary/date/counts only)
 - `/digest/today`
 - `/digest/[date]`
+- `/digest/weekly` — public weekly review: published technology signals
+  bucketed into the current natural week (Monday–Sunday) and grouped by the
+  deterministic Ranking v0 priority levels (立即关注 / 值得跟踪; low-priority
+  excluded), with a past-week archive folded in. Pure derived view
+  (`getWeeklyReview` in `src/lib/weekly-review.ts`), no new persisted data,
+  no AI. Reached via 本周回顾 cross-links only (no nav entry)
+- `/digest/weekly/[week]` — a specific past/other natural week keyed by its
+  canonical Monday date (`YYYY-MM-DD`); `notFound()` for a non-canonical key
+  or a week with no shown signals
 - `/technologies` — four views via `?view=`:
   - default (精选) — curated published technology list
   - `news` (全部快讯) — auto-aggregated news fast lane (sanitized imported

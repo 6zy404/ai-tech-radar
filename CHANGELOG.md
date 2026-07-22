@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Weekly review page (`/digest/weekly`)
+
+- **Public weekly review shipped** — 2026-07-22, owner-selected from the
+  product-proposal backlog ("周回顾页"). A public, time-boxed sibling of the
+  Daily Digest and a pure derived view like `/network` and the digest archive:
+  new `src/lib/weekly-review.ts` (`getWeeklyReview(weekKey?)` +
+  `getWeeklyReviewArchive`) persists nothing and calls no LLM. It buckets
+  published technology signals into natural weeks (Monday–Sunday, computed in
+  UTC from the plain `YYYY-MM-DD` publish dates), classifies each with the same
+  deterministic `evaluateTechnologyPriority` the rest of the public product
+  uses, and groups them into 立即关注 (`high_priority`) / 值得跟踪 (`watch`)
+  — `low_priority` is excluded, matching the digest's default (owner-chosen
+  after a side-by-side comparison mockup of the two tail layouts). Two routes:
+  `/digest/weekly` (current week, with a four-number summary — 本周信号 /
+  立即关注 / 值得跟踪 / 覆盖主题 — an empty state for a quiet week, and the
+  past-week archive folded into the bottom) and `/digest/weekly/[week]`
+  (a specific week keyed by its canonical Monday date, e.g.
+  `/digest/weekly/2026-07-13`; `notFound()` for a non-canonical/non-Monday
+  key, an invalid date, or a week with no shown signals). Both render through
+  the shared server component `WeeklyReviewContent` in dossier styling
+  (`DossierCard` / `DossierStampTag`, a new `.weekly-review-*` CSS block on the
+  existing `--dossier-*` tokens). Discoverability is by cross-link only (no new
+  nav entry, consistent with the nav-minimalism direction): a 本周回顾 link on
+  the `/digest` archive page and in the public digest pages' 订阅简报 block.
+  Scope confirmed upfront via an `AskUserQuestion` round and a mockup (route
+  `/digest/weekly`; natural week + archive; priority grouping; no low_priority
+  tail). Verified with typecheck, lint, format, vitest 96/96 (6 new tests
+  covering week bucketing, low-priority exclusion, newest-first sort,
+  canonical-key resolution, and archive grouping/exclusion), and a live pass
+  (populated week renders 8 signal cards + archive; current week shows the
+  empty state; non-canonical key 404s; both cross-links wired; dossier tokens
+  resolve; no horizontal overflow at 375px; zero console errors).
+
 ## Scheduled digest draft (task runner automation)
 
 - **The task runner now generates the day's digest draft automatically** —
