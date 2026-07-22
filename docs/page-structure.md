@@ -17,6 +17,7 @@ Workspace action hierarchy and button-copy rules are documented in
 
 Used by:
 
+- `/workspace/editorial-round`
 - `/workspace/candidates`
 - `/workspace/technologies`
 - `/workspace/skills`
@@ -104,6 +105,20 @@ Purpose:
   - shows a compact operations summary for system health, attention-required count, failed deliveries, failed sources, and latest task-runner state
   - shows recent import, technology workspace, digest, delivery, and scheduled delivery activity when local records exist
   - uses a dark grouped workspace rail on desktop so internal modules are clearly separated from public product navigation
+- `/workspace/editorial-round`
+  - workspace-only editorial-round orchestration console
+  - collapses the recurring loop in `docs/editorial-round-playbook.md` onto one
+    page: a round summary (待决 / 待发布草稿 / 简报 counts), a derived
+    five-phase step tracker (处置候选 / 补内容·发布 / 生成简报 / 发布简报 /
+    公开面核对, statuses done / current / todo / blocked), undecided candidates
+    with inline 转为草稿 / 拒绝, an open-duplicate-group block notice, drafts
+    awaiting publish with a per-draft publish-readiness summary + inline 发布,
+    today's digest with inline 生成 / 发布 and a soft "publish everything first"
+    hint, and a public-surface verify link checklist
+  - pure read state (`getEditorialRoundState` in `src/lib/editorial-round.ts`),
+    no new persisted data; the inline actions reuse the existing
+    candidate/technology/digest API routes (no editor duplicated), so 写内容 /
+    简报编辑判断 / 候选详情 still link out to the existing workspace pages
 - `/workspace/sources`
   - internal source management list
   - batch import entry for enabled sources
@@ -627,6 +642,13 @@ Forbidden on public pages:
     bar, per-item 命中关注 lines, and the 只看我关注的 client-side filter on
     top of the same public-safe props (follows read from localStorage via
     `src/lib/followed-tags.ts`)
+- `editorial-round-actions` (`CandidateRoundActions` / `DraftPublishAction` /
+  `DigestRoundActions`)
+  - workspace-only client action components used by the editorial-round
+    console: inline 转为草稿 / 拒绝 (candidate), 发布 (draft), and 生成 / 发布
+    (digest), each with a confirm prompt and 409 publish-gate readiness
+    surfaced inline; all reuse the existing candidate/technology/digest API
+    routes (no new endpoints)
 - `WeeklyReviewContent`
   - user-facing server component shared by `/digest/weekly` and
     `/digest/weekly/[week]`: renders the four-number week summary, the

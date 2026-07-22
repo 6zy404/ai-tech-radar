@@ -8,6 +8,15 @@ companion to the high-level lifecycle already described in
 _what stages exist_; this document says _what to actually do, in order,
 every round_.
 
+The `/workspace/editorial-round` console (shipped 2026-07-22) surfaces this
+whole loop on one page — a step tracker plus the undecided candidates, drafts
+awaiting publish, and today's digest, each with the inline action described
+below — so a round can be driven from there without hopping between
+`/workspace/candidates`, `/duplicates`, `/technologies`, and `/digests`. The
+heavy editing (writing a draft's zh content, the digest's editorial summary)
+still links out to the existing editors. This playbook remains the detailed
+reference for _what each step actually does_.
+
 Every step here can be done through the `/workspace/*` UI. This playbook also
 gives the equivalent API call for each step, because that is the faster path
 when running the round from a terminal/automation context rather than
