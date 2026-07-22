@@ -141,6 +141,17 @@ The product is split into two subsystems:
   (`config/scheduled-digest.json`, managed from
   `/workspace/delivery/schedules`; skips when the day already has a digest,
   never publishes — publishing stays editor-gated).
+- **Weekly review (`/digest/weekly`)** — a public, time-boxed sibling of the
+  daily digest: a pure derived view (`getWeeklyReview` in
+  `src/lib/weekly-review.ts`, no new persisted data, no AI) that buckets
+  published technology signals into natural weeks (Monday–Sunday), classifies
+  each with the same deterministic Ranking v0 the rest of the product uses,
+  and groups them into 立即关注 / 值得跟踪 (low-priority excluded, matching
+  the digest). `/digest/weekly` is the current week (with an empty state and
+  the past-week archive folded in); `/digest/weekly/[week]` is a specific week
+  keyed by its Monday date (`notFound()` for a non-canonical key or a week
+  with no signals). Reached via 本周回顾 links on `/digest` and the public
+  digest pages — no new nav entry.
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
@@ -163,7 +174,8 @@ Public, user-facing routes:
 
 - `/`, `/technologies` (精选/全部快讯/按话题/我关注的 four views via `?view=`),
   `/technologies/[slug]`
-- `/digest` (archive), `/digest/today`, `/digest/[date]`
+- `/digest` (archive), `/digest/today`, `/digest/[date]`,
+  `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
 - `/topics/[tagId]` — topic hub (reached via tag chip links, not a nav entry)

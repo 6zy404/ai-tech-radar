@@ -8630,6 +8630,163 @@ a.tech-graph__node:hover {
   text-underline-offset: 3px;
 }
 
+/* Public weekly review: /digest/weekly (+ /digest/weekly/[week]). */
+.weekly-review {
+  display: grid;
+  gap: 22px;
+}
+
+.weekly-review__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.weekly-review-stat {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 10px;
+  background: var(--dossier-surface);
+}
+
+.weekly-review-stat__label {
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.weekly-review-stat__value {
+  color: var(--dossier-ink);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.weekly-review-group {
+  display: grid;
+  gap: 12px;
+}
+
+.weekly-review-group__heading,
+.weekly-review-archive__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border-bottom: 1px solid var(--dossier-line);
+  padding-bottom: 6px;
+}
+
+.weekly-review-group__heading h2,
+.weekly-review-archive__heading h2 {
+  margin: 0;
+  color: var(--dossier-ink);
+  font-size: var(--fs-section);
+  letter-spacing: -0.03em;
+}
+
+.weekly-review-group__heading span,
+.weekly-review-archive__heading span {
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.weekly-review-group__lede {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.weekly-review-group__list {
+  display: grid;
+  gap: 12px;
+}
+
+.weekly-review-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px;
+}
+
+.weekly-review-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.weekly-review-card__date {
+  color: var(--dossier-accent);
+  font-weight: 800;
+}
+
+.weekly-review-card h3 {
+  margin: 0;
+  font-size: var(--fs-card-title);
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.weekly-review-card h3 a:hover {
+  color: var(--dossier-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.weekly-review-card p {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+
+.weekly-review-archive {
+  display: grid;
+  gap: 12px;
+}
+
+.weekly-review-archive__list {
+  display: grid;
+  gap: 8px;
+}
+
+.weekly-review-archive__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 10px;
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+  text-decoration: none;
+}
+
+.weekly-review-archive__row:hover {
+  border-color: var(--dossier-accent);
+}
+
+.weekly-review-archive__range {
+  font-weight: 800;
+}
+
+.weekly-review-archive__counts {
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+@media (max-width: 640px) {
+  .weekly-review__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* Public topic timeline: /timeline page. */
 .timeline-topic {
   display: grid;

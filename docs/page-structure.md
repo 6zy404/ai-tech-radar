@@ -344,6 +344,26 @@ Workspace deployment boundary:
   - uses the same public-copy sanitizers as the digest pages; never renders
     draft/archived digests, editorial notes, or manual adjustment ids
   - linked from the 订阅简报 section on public digest pages (往期简报归档)
+  - carries a 本周回顾 action link to `/digest/weekly`
+- `/digest/weekly`
+  - user-facing weekly review (本周回顾): a time-boxed sibling of the daily
+    digest, not a nav entry — reached via 本周回顾 cross-links on `/digest`
+    and the public digest pages' 订阅简报 block
+  - renders the current natural week (Monday–Sunday): a four-number summary
+    (本周信号 / 立即关注 / 值得跟踪 / 覆盖主题), published technology signals
+    grouped by the deterministic Ranking v0 levels 立即关注 (`high_priority`)
+    and 值得跟踪 (`watch`) — `low_priority` excluded, matching the digest — a
+    guided empty state for a quiet week, and the past-week archive folded in
+  - pure derived view (`getWeeklyReview` / `getWeeklyReviewArchive` in
+    `src/lib/weekly-review.ts`), rendered by the shared `WeeklyReviewContent`
+    component in dossier styling; no new persisted data, no AI, no internal
+    fields
+- `/digest/weekly/[week]`
+  - a specific past/other natural week keyed by its canonical Monday date
+    (`YYYY-MM-DD`, e.g. `/digest/weekly/2026-07-13`); same layout as
+    `/digest/weekly` plus a 回到本周回顾 link
+  - `notFound()` for a non-canonical (non-Monday) key, an invalid date, or a
+    week with no shown signals
 - `/digest/today`
   - user-facing daily digest entry point
   - shows today's published digest when available
@@ -607,6 +627,13 @@ Forbidden on public pages:
     bar, per-item 命中关注 lines, and the 只看我关注的 client-side filter on
     top of the same public-safe props (follows read from localStorage via
     `src/lib/followed-tags.ts`)
+- `WeeklyReviewContent`
+  - user-facing server component shared by `/digest/weekly` and
+    `/digest/weekly/[week]`: renders the four-number week summary, the
+    priority-grouped signal cards (`DossierCard` / `DossierStampTag`), the
+    quiet-week empty state, and the 往期周回顾 archive list; consumes the
+    pure-derived `WeeklyReviewData` + `WeeklyReviewArchiveEntry[]` from
+    `src/lib/weekly-review.ts` (no internal fields)
 - `DailyDigestWorkspaceCard`
   - workspace-only digest list record
 - `DailyDigestWorkspaceDetail`

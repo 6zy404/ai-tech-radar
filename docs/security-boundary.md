@@ -19,6 +19,10 @@ Public routes can be exposed:
   and section counts, never editorial notes or manual adjustment ids)
 - `/digest/today`
 - `/digest/[date]`
+- `/digest/weekly` and `/digest/weekly/[week]` (public weekly review — a
+  pure derived view over published technology signals, same published-content
+  boundary as the digest; no persisted data, no AI, no internal fields;
+  `/digest/weekly/[week]` 404s for a non-canonical key or a signal-less week)
 - `/skills`
 - `/skills/[slug]`
 - `/knowledge`

@@ -584,6 +584,7 @@ export function DailyDigestContent({
           <div className="digest-feed-links">
             <Link href={rssFeedPath}>RSS 订阅源</Link>
             <Link href={jsonFeedPath}>JSON 订阅源</Link>
+            <Link href="/digest/weekly">本周回顾</Link>
             <Link href="/digest">往期简报归档</Link>
           </div>
         </section>
