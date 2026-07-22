@@ -1,6 +1,26 @@
 # Next Task
 
-> Update 2026-07-22 (latest): **Go-live checklist — in-repo items landed.**
+> Update 2026-07-22 (latest): **dev-server "exits before a round" root cause —
+> diagnosed + mitigated.** Investigation (evidence in this session): it is **not
+> a crash and not killed by any script/hook** — `grep scripts/** src/**` found
+> only graceful `process.exitCode` + the task runner's own SIGTERM handler;
+> `.claude/settings.local.json` has no Stop hook; "no partial writes on restart"
+> rules out a mid-`writeFileSync` crash. **Primary root cause: the preview
+> `next dev` process is session/lifecycle-scoped and does not persist across
+> sessions/idle**, so a new session starts with no server → first request
+> `ECONNREFUSED` until `preview_start` is re-run. **Secondary amplifier:**
+> `autoPort: true` in `.claude/launch.json` silently binds 3001+ when 3000 is
+> held (confirmed live: bound 3000 when free). Both are environmental; app code
+> needs no change. Mitigation **A applied** (owner-chosen): a "Step 0 —
+> preflight" added to `docs/editorial-round-playbook.md` — always `preview_start`
+> and use the returned port, treat `ECONNREFUSED` as "not running, restart",
+> and optionally set `LOCAL_DATA_DIR` outside the tree (removes the file-watcher
+> vector + aligns with production-readiness B2). Not chosen: `autoPort:false`
+> (local `.claude/` config, not committed). **Next actual step**: none
+> predefined — the only remaining backlog item is content growth / the next
+> editorial round.
+
+> Update 2026-07-22 (earlier): **Go-live checklist — in-repo items landed.**
 > Owner-selected follow-up to the production-readiness assessment: apply the
 > checklist parts that are code/config (not operator/ops actions). Done: **I3**
 > — `next.config.ts` emits a `default-src 'self'` CSP + HSTS **in production

@@ -34,6 +34,36 @@ are interchangeable — pick whichever is convenient for a given round.
   candidate review state persists between rounds so nothing gets processed
   twice.
 
+## Step 0 — Make sure the local dev server is running (preflight)
+
+Rounds are driven against the running app (the workspace UI and the API
+routes), so the dev server must be up first. A recurring gotcha (seen
+2026-07-19 and 2026-07-21): the first request of a round fails with
+`ECONNREFUSED` even though nothing is wrong with the app.
+
+Root cause (investigated 2026-07-22): the preview `next dev` process is
+**session/lifecycle-scoped and does not persist** across sessions or long idle
+gaps — so at the start of a new session there is simply **no server running
+yet**, not a crash. (Confirmed: no repo script or harness hook kills the server;
+restarts always come up clean with no partial writes.) A secondary amplifier is
+`autoPort: true` in `.claude/launch.json`: if port 3000 is already held when the
+server starts, it silently binds 3001+, so anything assuming 3000 sees a
+"dead" server that is really a port mismatch.
+
+Do this at the start of every round:
+
+- Start the server with `preview_start` (config name `dev`) and **use the port
+  it returns** — never hard-code `3000`.
+- If a request returns `ECONNREFUSED`, the server just isn't running: restart it
+  with `preview_start` and re-run. State is safe to re-run — candidate review
+  state persists and the stores are only written on completed actions, so there
+  are no partial writes to clean up.
+- Optional, removes the file-watcher failure vector and aligns with the
+  production data-externalization recommendation
+  (`docs/production-readiness.md` → B2): point `LOCAL_DATA_DIR` at a directory
+  **outside the project tree** for local runs, so the round's rapid
+  `config/*.json` writes are not seen by the dev file watcher.
+
 ## Step 1 — Find candidates that still need a decision
 
 A candidate needs a decision when its **effective** `importStatus` is `new`.
