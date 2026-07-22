@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const workspaceNavItems = [
   { href: "/workspace", label: "总览", group: "控制台" },
+  { href: "/workspace/editorial-round", label: "编辑轮", group: "控制台" },
   { href: "/workspace/sources", label: "来源", group: "内容" },
   { href: "/workspace/candidates", label: "候选", group: "内容" },
   { href: "/workspace/duplicates", label: "重复组", group: "内容" },

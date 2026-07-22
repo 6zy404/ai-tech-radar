@@ -12,6 +12,45 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round console (`/workspace/editorial-round`)
+
+- **Workspace editorial-round console shipped** — 2026-07-22, owner-selected
+  from the product-proposal backlog ("编辑轮控制台"). Scope confirmed upfront
+  via an `AskUserQuestion` round plus a depth-comparison mockup
+  (orchestration console vs. full inline workbench) and a layout mockup:
+  **A) orchestration console** (not a full inline workbench), **nav + dashboard
+  entry**, **safe transitions inline**. It collapses the recurring loop in
+  `docs/editorial-round-playbook.md` onto one page without duplicating any
+  editor. New `src/lib/editorial-round.ts` (`getEditorialRoundState`) is a pure
+  read aggregation over the existing workflow getters — undecided candidates
+  (effective `importStatus === "new"`, newest-first), open duplicate-group
+  count, technology drafts awaiting publish (each with its
+  `getTechnologyWorkspacePublishReadiness` blocking/warning summary,
+  blocking-first), and today's digest — plus a derived five-phase step tracker
+  (处置候选 / 补内容·发布 / 生成简报 / 发布简报 / 公开面核对) whose statuses
+  (done / current / todo / blocked) fall out of that state; it owns no new
+  persisted data and performs no mutations. The page
+  (`src/app/workspace/editorial-round/page.tsx`) renders the summary, tracker,
+  and grouped sections; the inline actions live in the client component
+  `src/components/editorial-round-actions.tsx` (`CandidateRoundActions`,
+  `DraftPublishAction`, `DigestRoundActions`) which reuse the existing
+  `/api/candidates/[id]/{status,convert}`,
+  `/api/workspace/technologies/[id]/status`,
+  `/api/workspace/digests/generate`, and `/api/workspace/digests/[date]/status`
+  routes (confirm prompts, 409 publish-gate readiness surfaced inline). An
+  open-duplicate-group notice warns that grouped candidates can't convert
+  standalone; a soft hint discourages generating the digest while candidates or
+  drafts remain. A 编辑轮 entry was added to `WorkspaceNav` (控制台 group) and a
+  打开编辑轮 card to the `/workspace` dashboard; new `.editorial-round-*` CSS on
+  the workspace tokens. Verified with typecheck, lint, format, vitest 101/101
+  (5 new tests covering candidate filtering/sorting, dup-block step, draft
+  readiness ordering, and digest step derivation), and a live workspace pass
+  (real round state: 10 undecided, 3 open dup groups → candidate step blocked,
+  today's digest draft → generate step done; nav + dashboard entries; no
+  horizontal overflow at 375px; zero console errors). The inline mutations were
+  not fired during verification — they reuse pre-existing, unit-covered
+  endpoints and firing them would be making the owner's editorial decisions.
+
 ## Weekly review page (`/digest/weekly`)
 
 - **Public weekly review shipped** — 2026-07-22, owner-selected from the

@@ -101,6 +101,12 @@ Each step links to the responsible workspace module. The dashboard also shows re
 All `/workspace/*` pages share a workspace-only second-level navigation:
 
 - Overview
+- Editorial round (`/workspace/editorial-round`) — orchestration console that
+  collapses the recurring editorial-round loop (candidates → publish → digest →
+  verify) onto one page; pure read state (`getEditorialRoundState` in
+  `src/lib/editorial-round.ts`) with inline actions that reuse the existing
+  candidate/technology/digest API routes (no editor duplicated). See
+  `docs/editorial-round-playbook.md` for the underlying step-by-step flow.
 - Sources
 - Candidates
 - Duplicates

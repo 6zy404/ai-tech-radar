@@ -1,6 +1,33 @@
 # Next Task
 
-> Update 2026-07-22 (latest): **Weekly review page shipped
+> Update 2026-07-22 (latest): **Editorial round console shipped
+> (`/workspace/editorial-round`)** — owner-selected from the backlog, scope
+> locked via `AskUserQuestion` + a depth-comparison mockup (orchestration
+> console vs. full inline workbench) + a layout mockup: **A) orchestration
+> console**, **nav + dashboard entry**, **safe transitions inline**. Collapses
+> the `editorial-round-playbook` loop onto one page without duplicating any
+> editor. New `src/lib/editorial-round.ts` (`getEditorialRoundState`) is a pure
+> read aggregation over existing getters — undecided candidates (effective
+> `importStatus === "new"`), open dup-group count, drafts awaiting publish
+> (each with its `getTechnologyWorkspacePublishReadiness` summary,
+> blocking-first), today's digest — plus a derived five-phase step tracker
+> (done/current/todo/blocked). Page + `editorial-round-actions.tsx` client
+> component (`CandidateRoundActions` / `DraftPublishAction` /
+> `DigestRoundActions`) reuse the existing candidate/technology/digest API
+> routes (confirm + 409 readiness inline); no new endpoints, no new persisted
+> data. Nav entry (`WorkspaceNav` 控制台 group) + dashboard card +
+> `.editorial-round-*` CSS. Verified: typecheck / lint / format / vitest
+> 101/101 (5 new) + live workspace pass (real state: 10 undecided, 3 open dup
+> groups → candidate step blocked, digest draft → generate done; nav +
+> dashboard entries; no 375px overflow; zero console errors). Inline mutations
+> were **not** fired in verification — they reuse pre-existing unit-covered
+> endpoints, and firing them would be making the owner's editorial decisions.
+> Docs updated: README, CHANGELOG, architecture, page-structure, next-task.
+> **Next actual step**: none predefined — remaining backlog is 生产化评估,
+> dev-server 退出根因, content growth, and the next editorial round (which the
+> new console now streamlines).
+
+> Update 2026-07-22 (earlier): **Weekly review page shipped
 > (`/digest/weekly`)** — owner-selected from the backlog ("周回顾页"), scope
 > locked upfront via `AskUserQuestion` + a mockup + a low_priority-tail
 > comparison diagram (route `/digest/weekly`, natural week Mon–Sun + past-week

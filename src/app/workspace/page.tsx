@@ -285,6 +285,11 @@ export default function WorkspaceHomePage() {
 
   const primaryActions = [
     {
+      label: "打开编辑轮",
+      href: "/workspace/editorial-round",
+      description: "把今日待办收拢到一页：处置候选、发布、简报。"
+    },
+    {
       label: "导入已启用来源",
       href: "/workspace/sources",
       description: "运行批量导入。"

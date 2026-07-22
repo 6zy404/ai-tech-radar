@@ -157,6 +157,16 @@ The product is split into two subsystems:
   also runs the scheduled daily source import (see
   [`docs/deployment.md`](docs/deployment.md) for Windows Task Scheduler
   setup).
+- **Editorial round console (`/workspace/editorial-round`)** — a workspace-only
+  orchestration page that collapses the recurring editorial-round loop (see
+  [`docs/editorial-round-playbook.md`](docs/editorial-round-playbook.md)) onto
+  one screen: a round summary, a step tracker, undecided candidates (with
+  inline 转为草稿 / 拒绝), an open-duplicate-group block notice, drafts awaiting
+  publish (with per-draft publish-readiness summary + inline 发布), today's
+  digest (inline 生成 / 发布, soft "publish everything first" hint), and a
+  public-surface verify checklist. Pure read state (`getEditorialRoundState`
+  in `src/lib/editorial-round.ts`); the inline actions reuse the existing
+  candidate/technology/digest API routes, so no editor is duplicated.
 - **Operations** — a workspace operations dashboard, a `WorkflowEvent` audit log,
   and per-subsystem `validate:*` checks.
 - **Persistence** — local JSON by default, with an optional SQLite driver.
