@@ -1,6 +1,20 @@
 {
-  "updatedAt": "2026-07-09T20:58:31.312Z",
+  "updatedAt": "2026-07-22T09:31:57.951Z",
   "groups": [
+    {
+      "id": "dup-181nhlv",
+      "candidateIds": [
+        "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
+        "candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber"
+      ],
+      "primaryCandidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "status": "resolved",
+      "reasons": [
+        "same_publisher_near_date"
+      ],
+      "createdAt": "2026-07-22T09:31:57.939Z",
+      "updatedAt": "2026-07-22T09:31:57.951Z"
+    },
     {
       "id": "dup-5pdjur",
       "candidateIds": [
