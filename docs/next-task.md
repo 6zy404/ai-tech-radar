@@ -1,6 +1,29 @@
 # Next Task
 
-> Update 2026-07-22 (latest): **Production-readiness assessment written**
+> Update 2026-07-22 (latest): **Go-live checklist — in-repo items landed.**
+> Owner-selected follow-up to the production-readiness assessment: apply the
+> checklist parts that are code/config (not operator/ops actions). Done: **I3**
+> — `next.config.ts` emits a `default-src 'self'` CSP + HSTS **in production
+> only** (dev keeps baseline so HMR works; the check resolves inside
+> `headers()` and bakes into the build manifest — a module-load-time check
+> misses it); **I4** — `package.json` `engines.node` pinned `>=22.5.0`
+> (`node:sqlite` floor); **B2 (git half)** — `config/delivery.json`,
+> `workflow-events.json`, `task-runner.json`, and the three `technology-*.json`
+> LLM caches are now git-ignored + untracked (18→13 tracked config stores), so
+> a real delivery endpoint/token can't be committed; content/config/editorial
+> stores stay tracked (seed a deploy). Verified: typecheck / lint / format /
+> `npm run build`, plus a real `next start` pass — CSP + HSTS present on public
+> routes and a localStorage client component
+> (`/technologies?view=followed`) hydrates + toggles with **zero CSP
+> violations** (the key risk: `'unsafe-inline'` is needed for Next's inline
+> hydration; nonce-based script-src is the stricter follow-up). Still open **by
+> design** (operator/ops, not code): B1 workspace token, B3 data reset, B4 site
+> URL, I1 LLM rate limiting, I2 backups — all in `docs/production-readiness.md`
+> (updated with ✓ Addressed markers). **Next actual step**: none predefined —
+> remaining backlog is dev-server 退出根因 and content growth / next editorial
+> round.
+
+> Update 2026-07-22 (earlier): **Production-readiness assessment written**
 > (`docs/production-readiness.md`) — owner-selected from the backlog, scoped to
 > a **controlled single-operator go-live** (public read-only site + token-locked
 > workspace + local storage). Read-only assessment, no code changed. Evidence

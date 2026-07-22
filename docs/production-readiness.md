@@ -28,6 +28,18 @@ code. None of them require new features for this target.
 | Important (should fix / decide) | 4     | hardening + durability           |
 | Out of scope for this target    | —     | accounts, RBAC, prod DB, scaling |
 
+> **In-repo follow-up landed 2026-07-22** (same session as this report): the
+> parts of the checklist that are code/config changes rather than operator/ops
+> actions were applied — **I3** (production CSP + HSTS added and verified),
+> **I4** (Node `engines` pinned to `>=22.5.0`), and the **git-tracking half of
+> B2** (the runtime/secret/cache stores `config/delivery.json`,
+> `workflow-events.json`, `task-runner.json`, and the three
+> `technology-*.json` LLM caches are now git-ignored, so a real delivery
+> endpoint/token can no longer be committed). The remaining items are operator
+> actions at deploy time (B1 token, B3 data reset, B4 site URL) or an ops
+> decision (I1 rate limiting, I2 backups); they stay open by design and are
+> marked ✓ Addressed inline below where code landed.
+
 ## Blocking gaps — must be handled before the app is reachable
 
 ### B1. Workspace protection is OFF by default (fail-open)
@@ -71,6 +83,12 @@ only via env (that one is correctly kept out of the stores).
   committed"), and `docs/security-boundary.md` → "Delivery Secrets" calls for a
   secret store; this gap is that guidance not yet being enforced by
   `.gitignore`.
+- ✓ Addressed (git-tracking half, 2026-07-22): `config/delivery.json` plus the
+  runtime/cache stores `workflow-events.json`, `task-runner.json`, and the
+  three `technology-*.json` LLM caches are now git-ignored and untracked
+  (still written locally). Content/config/editorial-state stores stay tracked
+  because they seed a deploy. Fully externalizing live data via
+  `LOCAL_DATA_DIR` remains the production pattern (operator choice).
 
 ### B3. Committed stores contain demo/validation fixtures that would ship as real content
 
@@ -138,6 +156,15 @@ be editing through the UI — two concurrent writers to unlocked JSON.
   origin (the public pages load no third-party scripts, so a fairly strict
   `default-src 'self'` with the needed `style-src` is feasible). Low effort,
   meaningfully raises the floor.
+- ✓ Addressed (2026-07-22): `next.config.ts` now emits, **in production builds
+  only** (dev keeps the baseline so HMR/React Refresh still work), a
+  `default-src 'self'` CSP (with `'unsafe-inline'` for Next's own inline
+  bootstrap/hydration scripts and React inline-style attributes) plus
+  `Strict-Transport-Security: max-age=63072000; includeSubDomains`. Verified
+  against a real `next start`: headers present, and a client-interactive page
+  hydrates, reads/writes localStorage, and toggles state with zero CSP
+  violations. Nonce-based `script-src` (dropping `'unsafe-inline'`) is the
+  stricter follow-up.
 
 ### I4. Node runtime not pinned
 
@@ -147,6 +174,8 @@ Node ≥ 22.5. A deploy on an older Node silently breaks SQLite mode.
 
 - Action: pin `engines.node` (e.g. `>=22.5`) and pin the deploy runtime, or
   stay on the JSON driver and document the Node floor.
+- ✓ Addressed (2026-07-22): `package.json` now declares
+  `"engines": { "node": ">=22.5.0" }`. Pin the deploy runtime to match.
 
 ## Operational readiness (single operator)
 
