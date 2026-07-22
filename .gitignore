@@ -25,6 +25,18 @@ yarn-error.log*
 pnpm-debug.log*
 config/task-runner-cron.log
 
+# Runtime-only local stores: a delivery config that would hold real webhook
+# endpoints/tokens once configured (keep it out of git — see
+# docs/production-readiness.md -> B2), an append-only audit log, the task-runner
+# summary, and regenerable LLM result caches. Content/config/editorial-state
+# stores under config/ stay tracked because they seed a deployment.
+config/delivery.json
+config/workflow-events.json
+config/task-runner.json
+config/technology-comparisons.json
+config/technology-explanations.json
+config/technology-learning-paths.json
+
 # OS files
 .DS_Store
 

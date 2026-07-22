@@ -12,6 +12,32 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Production hardening (go-live checklist, in-repo items)
+
+- **CSP + HSTS, pinned Node, and untracked runtime/secret stores** —
+  2026-07-22, the code/config half of the production-readiness assessment's
+  go-live checklist (see `docs/production-readiness.md`; the operator-action
+  items — workspace token, data reset, site URL — stay open by design).
+  `next.config.ts` now emits a `Content-Security-Policy` (`default-src 'self'`,
+  with `'unsafe-inline'` for Next's own inline bootstrap/hydration scripts and
+  React inline-style attributes) and `Strict-Transport-Security`
+  (`max-age=63072000; includeSubDomains`) **in production builds only** — dev
+  keeps the baseline headers so `next dev` HMR / React Refresh (which need
+  `'unsafe-eval'` + a websocket) still work; the branch resolves inside
+  `headers()` and is baked into the build's routes manifest. Verified against a
+  real `next start`: both headers present on public routes, and a
+  client-interactive page (`/technologies?view=followed`) hydrates, reads and
+  writes localStorage, and toggles state with zero CSP violations.
+  `package.json` gained `"engines": { "node": ">=22.5.0" }` (the SQLite driver's
+  `node:sqlite` needs ≥ 22.5). Six runtime/secret/cache stores are now
+  git-ignored and untracked — `config/delivery.json` (the one that would hold a
+  real webhook endpoint/token once configured), `workflow-events.json`,
+  `task-runner.json`, and the three `technology-*.json` LLM result caches — so
+  a real delivery secret can no longer be committed; content, config, and
+  editorial-state stores stay tracked because they seed a deployment. Verified
+  with typecheck, lint, format, `npm run build`, and the live `next start` CSP
+  pass above.
+
 ## Editorial round console (`/workspace/editorial-round`)
 
 - **Workspace editorial-round console shipped** — 2026-07-22, owner-selected
