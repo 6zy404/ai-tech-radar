@@ -12,6 +12,26 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Content round — quantization knowledge + build-vs-buy skill
+
+- **知识「模型量化与数值精度」and 技能「AI 工具链选型与自建边界评估」
+  published** — 2026-07-27, gap analysis over the 23 published signals right
+  after that day's editorial round. Quantization had **no entry at all**
+  despite being the substance of several signals — the MoE entry covers
+  routing and the speculative-decoding entry covers decode, but nothing
+  covered which layers tolerate low-bit storage, why mixed per-expert
+  precision breaks decoding, or how quantization interacts with speculative
+  decoding and graph capture. The build-vs-buy skill captures the reusable
+  decision line the Copilot-vs-raw-API signal introduced (decide which layer
+  you must own, _then_ compare price) and pairs with the existing
+  「模型选型与约束匹配」knowledge. Both published through the workspace APIs
+  with **zero publish-gate warnings**, 10 typed relations with notes, and
+  reverse `relatedKnowledgeIds` / `relatedSkillIds` on 6 technology records
+  (all slugs preserved). Pools: skills 12→13, knowledge 17→18. Verified with a
+  9-check public pass (detail pages, indexes, technology detail back-links,
+  `/network`, `/search`, the topic hub) plus zero console errors and no 375px
+  overflow.
+
 ## Demo/validation fixture purge (go-live checklist B3)
 
 - **The live stores no longer carry demo data that would ship as real

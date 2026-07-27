@@ -1,49 +1,48 @@
 {
-  "updatedAt": "2026-07-27T02:26:43.948Z",
+  "updatedAt": "2026-07-27T02:43:26.578Z",
   "records": [
     {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "slug": "vllm-v0-26-0",
+      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "slug": "gemini-managed-agents-background-mcp",
       "title": {
-        "original": "vLLM v0.26.0",
-        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
-        "en": "vLLM v0.26.0"
+        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
+        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
       },
       "summary": {
-        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
-        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
+        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
       },
       "content": {
-        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
-        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
+        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
       },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
+      "type": "platform",
+      "publishDate": "2026-07-07",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
       "sourceLanguage": "en",
       "translationStatus": "done",
-      "publisherName": "vLLM Project",
-      "publisherType": "open-source-community",
+      "publisherName": "Google",
+      "publisherType": "big-tech",
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-ai-agents",
+        "tag-workflow"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f",
-        "knowledge-model-sizing"
+        "knowledge-ws-a28a8a56",
+        "knowledge-api-contracts"
       ],
       "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation"
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-2152c7f1"
       ],
       "sourceReferences": [],
       "priority": {
         "priorityLevel": "high_priority",
-        "priorityScore": 99,
+        "priorityScore": 100,
         "priorityReasons": [
           "标题完整。",
           "摘要完整。",
@@ -53,57 +52,150 @@
           "已关联技能。",
           "发布方明确。",
           "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:26:43.947Z",
+        "rankingUpdatedAt": "2026-07-27T02:43:26.578Z",
         "rankingSource": "rule_based"
       },
-      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
+      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
       "whoShouldCare": [
-        "自建或自运维推理服务的平台团队",
-        "需要在本地评估新开源模型的算法与评测团队",
-        "关注 MoE 与推测解码落地成本的架构师"
+        "构建生产级智能体的开发团队",
+        "评估 MCP 生态与工具接入方案的架构师",
+        "对比各家智能体平台能力的技术选型者"
       ],
-      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
+      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
       "impactAreas": [
-        "推理服务容量规划",
-        "开源模型选型周期",
-        "MoE 架构的部署成本",
-        "解码吞吐优化"
+        "智能体平台",
+        "MCP 生态",
+        "开发者工具"
       ],
       "learningPath": [
-        "先理解 MoE 架构为什么让图捕获和量化变复杂",
-        "再看推测解码如何用草稿模型换解码吞吐",
-        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
+        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
+        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
+        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
       ],
       "relatedKnowledgeExplanations": {
-        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
-        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
-        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
+        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
+        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
       },
       "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
-        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
+        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
+        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
       },
       "followUpQuestions": [
-        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
-        "MTP=1 推测解码对长上下文任务的加速比是多少？",
-        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
+        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
+        "后台任务的时长上限、计费模型与并发配额是什么？",
+        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
       ],
-      "readingDifficulty": "advanced",
+      "readingDifficulty": "intermediate",
       "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "createdAt": "2026-07-27T01:43:12.721Z",
-      "updatedAt": "2026-07-27T02:26:43.947Z",
+      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "createdAt": "2026-07-21T05:07:29.299Z",
+      "updatedAt": "2026-07-27T02:43:26.578Z",
       "editorialNotes": [
-        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
-        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
+        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
       ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
-      ]
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-github-blog-p-97467",
+      "slug": "copilot-code-review-tool-workflow-lessons",
+      "title": {
+        "original": "Better tools made Copilot code review worse. Here's how we actually improved it.",
+        "zh": "Copilot 代码审查复盘：更好的工具让智能体更差，指令才是关键"
+      },
+      "summary": {
+        "original": "GitHub swapped Copilot code review's custom exploration tools for the better-maintained shared CLI tools (grep, glob, view) expecting a clean upgrade — and got higher cost and fewer caught issues. The tools weren't the problem; the instructions were. Rewriting them around how a reviewer actually reads a pull request flipped the regression into ~20% lower review cost at the same quality.",
+        "zh": "GitHub 把 Copilot 代码审查的专用代码探索工具换成维护更好的共享 CLI 工具（grep/glob/view），预期是干净的升级——结果基准显示审查成本更高、抓到的问题更少。问题不在工具，在指令：按「审查者实际读 PR 的方式」重写工作流指令后，退化翻转为审查成本降低约 20%、质量不变。"
+      },
+      "content": {
+        "original": "When GitHub migrated Copilot code review from its own code exploration tools to the shared Unix-style tools that power Copilot CLI (grep, glob, view), benchmarks showed higher review cost and fewer issues caught — despite the new tools being better maintained. The diagnosis: the instructions, inherited from the old tool layer's design (SWE-agent-style repository navigation), no longer matched the new tools or the task. Rewriting the workflow instructions around how a reviewer actually reads a pull request — anchored on pull request evidence — flipped the regression into roughly 20% lower average review cost while maintaining review quality. The broader lesson: when you build on an agent framework you inherit its tools and their implicit workflows, and as your use case drifts they can quietly start working against you.",
+        "zh": "GitHub 给 Copilot 代码审查换工具的初衷很合理：原有的专用代码探索工具层（源自 SWE-agent 式仓库导航的设计）虽然能用，但只服务这一个场景；换成驱动 Copilot CLI 的共享 Unix 风格工具（grep、glob、view）应该是次干净的升级。结果基准测试给出了反直觉的答案——审查成本更高，抓到的问题更少。\n\n诊断结论是这次复盘的核心：工具没有问题，指令有问题。旧指令是围绕旧工具层的行为写的，直接搬到新工具上，智能体的探索方式就和「审查一个 PR」这件事错了位。团队按照人类审查者实际读 PR 的方式——以 PR 证据为锚点组织探索——重写了工作流指令，退化翻转为胜利：平均审查成本降低约 20%，审查质量保持不变。\n\n这篇复盘的通用教训对任何智能体团队都成立：构建在智能体框架之上时，你继承的不只是工具，还有工具隐含的工作流假设；当你的场景与工具的设计初衷漂移得足够远，它们会安静地开始拖后腿。工具替换必须连同指令一起重写，且需要回归基准来暴露这类退化——没有基准，这次退化可能根本不会被发现。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-10",
+      "sourceName": "GitHub Blog",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "GitHub",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T02:43:26.524Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产级智能体的负面结果复盘比成功案例稀缺得多。「更好的工具让效果更差」直指一个普遍盲区：工具与指令是耦合的整体，替换其一必须重写另一——而且没有回归基准，这类退化会被安静地上线。",
+      "whoShouldCare": [
+        "在智能体框架上构建产品的工程团队",
+        "维护智能体工具层的平台工程师",
+        "负责智能体评测基准的工程师"
+      ],
+      "technicalContext": "智能体的行为由「工具能力 × 指令假设」共同决定：工具定义能做什么，指令定义怎么探索。继承自框架的工具带着隐含的工作流设计（这里是 SWE-agent 式仓库导航），当任务从「解决 issue」漂移到「审查 PR」，同一套探索模式就从助力变成开销。以任务的原生证据（PR diff）为锚点重写指令，是把通用工具重新对齐到具体任务的正确杠杆。",
+      "impactAreas": [
+        "智能体工程",
+        "开发者工具",
+        "评测基准"
+      ],
+      "learningPath": [
+        "读原文，注意「换工具前后」的基准对比是怎么设计的",
+        "对照 Shippy 复盘的「确定性工具层」经验，理解工具层设计的两种取舍",
+        "为自己的智能体产品建立一个最小回归基准，再做下一次工具或提示词变更"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "工具调用的效果不取决于工具本身，而取决于模型被引导的使用方式——这篇复盘是该概念最好的生产级注脚。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "工作流设计的反面教材与正面修复同在一篇：指令必须围绕任务的实际认知过程（审查者怎么读 PR）设计，而不是围绕工具能力清单。",
+        "skill-tool-integration": "「继承框架工具」的漂移风险正是工具集成模式要管理的核心：工具的隐含工作流假设需要被显式识别和重新对齐。",
+        "skill-ws-f741f122": "没有回归基准，这次退化不会被发现——评测运维是工具替换能安全进行的前提。"
+      },
+      "followUpQuestions": [
+        "重写后的审查指令是否会开源或沉淀为可复用模式？",
+        "20% 成本降低在不同模型上是否稳定成立？",
+        "同样的「工具×指令错位」诊断方法能否用于其他智能体场景？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-blog-p-97467",
+      "createdAt": "2026-07-21T05:07:29.172Z",
+      "updatedAt": "2026-07-27T02:43:26.524Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：GitHub 工程复盘，与 Shippy 复盘同类的负面结果分享；sourceUrl 为按 GitHub Blog 惯例的规范化地址（feed 提供的是 ?p= 短链）。"
+      ],
+      "relatedTechnologyIds": []
     },
     {
       "id": "draft-candidate-rss-https-github-blog-p-97686",
@@ -144,11 +236,12 @@
       "relatedSkillIds": [
         "skill-tool-integration",
         "skill-agent-design",
-        "skill-ws-f741f122"
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
       ],
       "sourceReferences": [],
       "priority": {
-        "priorityLevel": "high_priority",
+        "priorityLevel": "watch",
         "priorityScore": 97,
         "priorityReasons": [
           "标题完整。",
@@ -159,10 +252,11 @@
           "已关联技能。",
           "发布方明确。",
           "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
           "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T01:46:17.327Z",
+        "rankingUpdatedAt": "2026-07-27T02:43:26.470Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "当模型这一层的价差被抹平，「自建还是采购」的决策依据就必须换成「哪一层工作是你要自己拥有的」。这篇给出的分法可以直接搬到任何智能体平台的采购评估里。",
@@ -202,9 +296,216 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-github-blog-p-97686",
       "createdAt": "2026-07-27T01:43:12.969Z",
-      "updatedAt": "2026-07-27T01:46:17.327Z",
+      "updatedAt": "2026-07-27T02:43:26.470Z",
       "editorialNotes": [
         "2026-07-27 轮：与 07-10 已发布的 Copilot 代码审查复盘同源，两条共同构成「模型之外的工程层才是差异所在」这一主题。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "slug": "ollama-v0-32-0",
+      "title": {
+        "original": "Ollama v0.32.0",
+        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+      },
+      "summary": {
+        "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+      },
+      "content": {
+        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-14",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T02:43:26.413Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+      "whoShouldCare": [
+        "本地/端侧应用开发者",
+        "AI 工具链与开发者体验工程师",
+        "评估智能体工作流落地的团队"
+      ],
+      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+      "impactAreas": [
+        "开发者工具",
+        "端侧 AI",
+        "智能体工作流"
+      ],
+      "learningPath": [
+        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+      },
+      "followUpQuestions": [
+        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "createdAt": "2026-07-14T00:51:56.001Z",
+      "updatedAt": "2026-07-27T02:43:26.413Z",
+      "editorialNotes": [
+        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "slug": "vllm-v0-26-0",
+      "title": {
+        "original": "vLLM v0.26.0",
+        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
+        "en": "vLLM v0.26.0"
+      },
+      "summary": {
+        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
+        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
+      },
+      "content": {
+        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
+        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T02:43:26.360Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
+      "whoShouldCare": [
+        "自建或自运维推理服务的平台团队",
+        "需要在本地评估新开源模型的算法与评测团队",
+        "关注 MoE 与推测解码落地成本的架构师"
+      ],
+      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
+      "impactAreas": [
+        "推理服务容量规划",
+        "开源模型选型周期",
+        "MoE 架构的部署成本",
+        "解码吞吐优化"
+      ],
+      "learningPath": [
+        "先理解 MoE 架构为什么让图捕获和量化变复杂",
+        "再看推测解码如何用草稿模型换解码吞吐",
+        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
+        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
+        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
+        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
+      },
+      "followUpQuestions": [
+        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
+        "MTP=1 推测解码对长上下文任务的加速比是多少？",
+        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "createdAt": "2026-07-27T01:43:12.721Z",
+      "updatedAt": "2026-07-27T02:43:26.360Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
+        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
       ]
     },
     {
@@ -240,14 +541,15 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-68963f7f",
         "knowledge-ws-36346103",
-        "knowledge-ws-c761533e"
+        "knowledge-ws-c761533e",
+        "knowledge-ws-34da6116"
       ],
       "relatedSkillIds": [
         "skill-ws-a9e80194"
       ],
       "sourceReferences": [],
       "priority": {
-        "priorityLevel": "high_priority",
+        "priorityLevel": "watch",
         "priorityScore": 93,
         "priorityReasons": [
           "标题完整。",
@@ -257,10 +559,11 @@
           "已关联背景知识。",
           "已关联技能。",
           "发布方明确。",
-          "信号发布时间很近。"
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T01:46:17.283Z",
+        "rankingUpdatedAt": "2026-07-27T02:43:26.208Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
@@ -297,10 +600,11 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "createdAt": "2026-07-27T01:43:12.851Z",
-      "updatedAt": "2026-07-27T01:46:17.283Z",
+      "updatedAt": "2026-07-27T02:43:26.208Z",
       "editorialNotes": [
         "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
-      ]
+      ],
+      "relatedTechnologyIds": []
     },
     {
       "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
@@ -911,197 +1215,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "slug": "gemini-managed-agents-background-mcp",
-      "title": {
-        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
-        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
-      },
-      "summary": {
-        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
-      },
-      "content": {
-        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
-      },
-      "type": "platform",
-      "publishDate": "2026-07-07",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Google",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:07:30.473Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
-      "whoShouldCare": [
-        "构建生产级智能体的开发团队",
-        "评估 MCP 生态与工具接入方案的架构师",
-        "对比各家智能体平台能力的技术选型者"
-      ],
-      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
-      "impactAreas": [
-        "智能体平台",
-        "MCP 生态",
-        "开发者工具"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
-        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
-        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
-        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
-        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
-      },
-      "followUpQuestions": [
-        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
-        "后台任务的时长上限、计费模型与并发配额是什么？",
-        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "createdAt": "2026-07-21T05:07:29.299Z",
-      "updatedAt": "2026-07-21T05:07:30.473Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-blog-p-97467",
-      "slug": "copilot-code-review-tool-workflow-lessons",
-      "title": {
-        "original": "Better tools made Copilot code review worse. Here's how we actually improved it.",
-        "zh": "Copilot 代码审查复盘：更好的工具让智能体更差，指令才是关键"
-      },
-      "summary": {
-        "original": "GitHub swapped Copilot code review's custom exploration tools for the better-maintained shared CLI tools (grep, glob, view) expecting a clean upgrade — and got higher cost and fewer caught issues. The tools weren't the problem; the instructions were. Rewriting them around how a reviewer actually reads a pull request flipped the regression into ~20% lower review cost at the same quality.",
-        "zh": "GitHub 把 Copilot 代码审查的专用代码探索工具换成维护更好的共享 CLI 工具（grep/glob/view），预期是干净的升级——结果基准显示审查成本更高、抓到的问题更少。问题不在工具，在指令：按「审查者实际读 PR 的方式」重写工作流指令后，退化翻转为审查成本降低约 20%、质量不变。"
-      },
-      "content": {
-        "original": "When GitHub migrated Copilot code review from its own code exploration tools to the shared Unix-style tools that power Copilot CLI (grep, glob, view), benchmarks showed higher review cost and fewer issues caught — despite the new tools being better maintained. The diagnosis: the instructions, inherited from the old tool layer's design (SWE-agent-style repository navigation), no longer matched the new tools or the task. Rewriting the workflow instructions around how a reviewer actually reads a pull request — anchored on pull request evidence — flipped the regression into roughly 20% lower average review cost while maintaining review quality. The broader lesson: when you build on an agent framework you inherit its tools and their implicit workflows, and as your use case drifts they can quietly start working against you.",
-        "zh": "GitHub 给 Copilot 代码审查换工具的初衷很合理：原有的专用代码探索工具层（源自 SWE-agent 式仓库导航的设计）虽然能用，但只服务这一个场景；换成驱动 Copilot CLI 的共享 Unix 风格工具（grep、glob、view）应该是次干净的升级。结果基准测试给出了反直觉的答案——审查成本更高，抓到的问题更少。\n\n诊断结论是这次复盘的核心：工具没有问题，指令有问题。旧指令是围绕旧工具层的行为写的，直接搬到新工具上，智能体的探索方式就和「审查一个 PR」这件事错了位。团队按照人类审查者实际读 PR 的方式——以 PR 证据为锚点组织探索——重写了工作流指令，退化翻转为胜利：平均审查成本降低约 20%，审查质量保持不变。\n\n这篇复盘的通用教训对任何智能体团队都成立：构建在智能体框架之上时，你继承的不只是工具，还有工具隐含的工作流假设；当你的场景与工具的设计初衷漂移得足够远，它们会安静地开始拖后腿。工具替换必须连同指令一起重写，且需要回归基准来暴露这类退化——没有基准，这次退化可能根本不会被发现。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-10",
-      "sourceName": "GitHub Blog",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "GitHub",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:07:30.421Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产级智能体的负面结果复盘比成功案例稀缺得多。「更好的工具让效果更差」直指一个普遍盲区：工具与指令是耦合的整体，替换其一必须重写另一——而且没有回归基准，这类退化会被安静地上线。",
-      "whoShouldCare": [
-        "在智能体框架上构建产品的工程团队",
-        "维护智能体工具层的平台工程师",
-        "负责智能体评测基准的工程师"
-      ],
-      "technicalContext": "智能体的行为由「工具能力 × 指令假设」共同决定：工具定义能做什么，指令定义怎么探索。继承自框架的工具带着隐含的工作流设计（这里是 SWE-agent 式仓库导航），当任务从「解决 issue」漂移到「审查 PR」，同一套探索模式就从助力变成开销。以任务的原生证据（PR diff）为锚点重写指令，是把通用工具重新对齐到具体任务的正确杠杆。",
-      "impactAreas": [
-        "智能体工程",
-        "开发者工具",
-        "评测基准"
-      ],
-      "learningPath": [
-        "读原文，注意「换工具前后」的基准对比是怎么设计的",
-        "对照 Shippy 复盘的「确定性工具层」经验，理解工具层设计的两种取舍",
-        "为自己的智能体产品建立一个最小回归基准，再做下一次工具或提示词变更"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "工具调用的效果不取决于工具本身，而取决于模型被引导的使用方式——这篇复盘是该概念最好的生产级注脚。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "工作流设计的反面教材与正面修复同在一篇：指令必须围绕任务的实际认知过程（审查者怎么读 PR）设计，而不是围绕工具能力清单。",
-        "skill-tool-integration": "「继承框架工具」的漂移风险正是工具集成模式要管理的核心：工具的隐含工作流假设需要被显式识别和重新对齐。",
-        "skill-ws-f741f122": "没有回归基准，这次退化不会被发现——评测运维是工具替换能安全进行的前提。"
-      },
-      "followUpQuestions": [
-        "重写后的审查指令是否会开源或沉淀为可复用模式？",
-        "20% 成本降低在不同模型上是否稳定成立？",
-        "同样的「工具×指令错位」诊断方法能否用于其他智能体场景？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-blog-p-97467",
-      "createdAt": "2026-07-21T05:07:29.172Z",
-      "updatedAt": "2026-07-21T05:07:30.421Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：GitHub 工程复盘，与 Shippy 复盘同类的负面结果分享；sourceUrl 为按 GitHub Blog 惯例的规范化地址（feed 提供的是 ?p= 短链）。"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
       "slug": "kimi-k3",
       "title": {
@@ -1572,105 +1685,6 @@
       "updatedAt": "2026-07-21T02:11:44.040Z",
       "editorialNotes": [
         "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；披露文写作时客户数据影响评估仍在进行，该不确定性保留在正文表述中。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-      "slug": "ollama-v0-32-0",
-      "title": {
-        "original": "Ollama v0.32.0",
-        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
-      },
-      "summary": {
-        "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
-        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
-      },
-      "content": {
-        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
-        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-14",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ollama",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-a28a8a56"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-20T14:17:24.221Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
-      "whoShouldCare": [
-        "本地/端侧应用开发者",
-        "AI 工具链与开发者体验工程师",
-        "评估智能体工作流落地的团队"
-      ],
-      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
-      "impactAreas": [
-        "开发者工具",
-        "端侧 AI",
-        "智能体工作流"
-      ],
-      "learningPath": [
-        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
-        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
-        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
-        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
-        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
-        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
-      },
-      "followUpQuestions": [
-        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
-        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
-        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-      "createdAt": "2026-07-14T00:51:56.001Z",
-      "updatedAt": "2026-07-20T14:17:24.221Z",
-      "editorialNotes": [
-        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
       ]
     },
     {

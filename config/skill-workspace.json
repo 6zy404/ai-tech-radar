@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T01:48:19.274Z",
+  "updatedAt": "2026-07-27T02:42:47.948Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -229,6 +229,34 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.442Z",
       "updatedAt": "2026-07-27T01:48:19.273Z"
+    },
+    {
+      "id": "skill-ws-2152c7f1",
+      "title": "AI 工具链选型与自建边界评估",
+      "slug": "ai-toolchain-build-vs-buy",
+      "summary": "在「自己搭一套」和「买现成的」之间划线：先判断哪一层工作是你必须拥有的，再比价格——顺序反过来就会买错。",
+      "content": "当模型这一层的价差被抹平（供应商按同样的 API 费率计费），采购决策就不再是比单价，而是**划分系统边界**。\n\n可操作的做法是把一个具体任务拆成两栏：\n\n- **模型调用**：提示词、上下文组装、模型选择、输出解析。\n- **外壳（harness）**：任务上下文的接入（工单、diff、仓库）、可执行命令的白名单、组织策略与权限、日志与评测、用量与计费控制。\n\n然后逐项问：这一项如果自己做，是不是我的竞争力？如果答案是否，它就是集成成本，而集成成本几乎总是被低估——它不随模型能力提升而变便宜。\n\n三个常见的判断失误：\n\n1. **只比 token 单价。** 价格是结论不是前提；外壳的年化人力成本通常远大于 token 支出。\n2. **低估控制面。** 命令白名单、组织策略、审计这类要求往往是合规硬约束，自建方案要从零补齐。\n3. **忽略迁移成本。** 自建外壳如果和某个供应商的接口耦合，换模型时的迁移成本要提前算进来。\n\n这项能力和「模型选型与约束匹配」是一对：后者决定用哪个模型，前者决定模型之外的那一层归谁。",
+      "skillType": "product",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow",
+        "tag-ai-agents"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-model-sizing",
+        "knowledge-api-contracts"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T02:42:33.891Z",
+      "updatedAt": "2026-07-27T02:42:47.947Z"
     }
   ]
 }
