@@ -53,6 +53,155 @@ If `WORKSPACE_ACCESS_ENABLED=true` but `WORKSPACE_ACCESS_TOKEN` is empty, protec
 
 This is a deployment guardrail, not a production permission system.
 
+### The middleware must live at `src/middleware.ts`
+
+The guard is implemented in `src/middleware.ts`. **The location is
+load-bearing**: this project keeps its App Router under `src/`, and Next only
+looks for middleware at `src/middleware.ts` in that layout. A copy at the
+repository root is ignored **silently** — the build prints no error, no
+warning, and `.next/server/middleware-manifest.json` simply comes out with an
+empty `"middleware": {}`.
+
+That is exactly how this shipped: the file sat at the repository root from the
+start, so the workspace guard never ran in any mode until the 2026-07-27
+go-live drill requested `/workspace` with protection enabled and got `200`.
+Reading the middleware source proves nothing — it was correct the whole time.
+`npm run validate:deployment` now asserts the file's location, and the fastest
+manual check is:
+
+```bash
+npm run build
+# expect a "ƒ Middleware" line in the route table, and a non-empty
+# "middleware" object in .next/server/middleware-manifest.json
+```
+
+Never verify workspace protection by reading code alone. Request a protected
+route without a token against a real `next start` and confirm the `401`.
+
+## Go-live runbook (single operator, one server)
+
+The target this runbook assumes: one always-on Linux server, one Node process,
+public pages open to everyone, workspace locked behind the shared token.
+
+**Why this shape.** The app writes its runtime state to `config/*.json`
+(candidates, drafts, digests, relation overrides, schedule state), so it needs
+a persistent disk and exactly one writer. That rules out serverless platforms,
+where the filesystem is read-only and non-persistent — edits would report
+success and vanish. It also runs daily scheduled work, so the machine has to
+stay up. Three constraints follow from the code and are not negotiable at this
+stage:
+
+- **Single instance only.** The JSON store has no multi-writer locking, so a
+  second process (or a second replica) will clobber the first.
+- **The rate limiter is in-process memory.** With one instance the configured
+  budget is the real budget; with several, each keeps its own counters.
+- **The task runner writes the same files you edit by hand.** Avoid editing in
+  the workspace during the minute the daily job fires.
+
+### 1. Prerequisites
+
+- A server with Node ≥ 22.5 (`package.json` pins this; `node:sqlite` needs it)
+- A domain with DNS pointing at the server
+- A reverse proxy that terminates TLS (Caddy issues and renews certificates
+  with no extra configuration)
+- A strong random token, generated and stored by the operator:
+  `openssl rand -base64 32`
+
+### 2. Build with the real site URL
+
+`NEXT_PUBLIC_SITE_URL` carries the `NEXT_PUBLIC_` prefix, so Next **inlines it
+at build time**. Setting it only at runtime leaves `localhost:3000` baked into
+every feed item and digest share link:
+
+```bash
+export NEXT_PUBLIC_SITE_URL=https://radar.example.com
+npm ci
+npm run build
+```
+
+The build needs no network access to any font or asset CDN — the Google Fonts
+dependency was removed on 2026-07-27 precisely so the build cannot fail on a
+restricted network.
+
+### 3. Run it under systemd
+
+```ini
+# /etc/systemd/system/ai-tech-radar.service
+[Unit]
+Description=AI Tech Radar
+After=network.target
+
+[Service]
+Type=simple
+User=radar
+WorkingDirectory=/srv/ai-tech-radar
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=NEXT_PUBLIC_SITE_URL=https://radar.example.com
+Environment=WORKSPACE_ACCESS_ENABLED=true
+EnvironmentFile=/etc/ai-tech-radar.env
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Keep `WORKSPACE_ACCESS_TOKEN=...` in `/etc/ai-tech-radar.env` with mode `0600`,
+owned by root — not in the unit file, which is world-readable.
+
+### 4. Terminate TLS
+
+```caddyfile
+# /etc/caddy/Caddyfile
+radar.example.com {
+  reverse_proxy 127.0.0.1:3000
+}
+```
+
+Caddy obtains and renews the certificate on its own. The app already sends CSP
+and HSTS in production builds, so the proxy does not need to add them.
+
+### 5. Replace the Windows task with cron
+
+```cron
+5 8 * * * cd /srv/ai-tech-radar && /usr/bin/npm run tasks:run-once >> /var/log/ai-tech-radar-tasks.log 2>&1
+```
+
+Unlike Windows Task Scheduler, cron has no "skip if on battery" or "never catch
+up a missed run" defaults to disarm — but it also does not catch up a missed
+run, so a server that was down over the scheduled minute simply misses that
+day. The scheduled digest draft is always generated for _today_, so a missed
+day is never backfilled.
+
+### 6. Back up the state directory
+
+```bash
+# daily, before the task runner window
+tar czf "/var/backups/radar-$(date +%F).tar.gz" -C /srv/ai-tech-radar config
+```
+
+Send the archive off the machine (object storage, another host, or a private
+repository). `config/` is the entire product state — losing it loses every
+published signal, digest, and relation edit.
+
+### 7. Verify before opening traffic
+
+Run these against the real server, not a dev build:
+
+```bash
+curl -o /dev/null -w '%{http_code}\n' https://radar.example.com/            # 200
+curl -o /dev/null -w '%{http_code}\n' https://radar.example.com/workspace   # 401
+curl -o /dev/null -w '%{http_code}\n' \
+  -H "x-workspace-access-token: $TOKEN" https://radar.example.com/workspace # 200
+curl -s https://radar.example.com/feed.xml | grep -c localhost              # 0
+curl -sI https://radar.example.com/ | grep -i -e content-security -e strict-transport
+```
+
+A `200` on `/workspace` without a token means the guard is not running — see
+the middleware-location section above before going any further.
+
 ## Environment Variables
 
 - `NEXT_PUBLIC_SITE_URL`: public base URL used for digest links and feeds.

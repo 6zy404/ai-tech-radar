@@ -1,6 +1,41 @@
 # Next Task
 
-> Update 2026-07-27 (latest): **信号演进线 + 新增「续作」关系类型.**
+> Update 2026-07-27 (latest): **上线演练 —— 抓到工作台保护从未生效.**
+> owner 选的是「两件都做」：先本机演练、再把验证过的步骤写成手册。演练当场
+> 抓到两个真问题，都已修复。
+> **① 工作台访问保护从写下来就没运行过.** 生产构建 + `WORKSPACE_ACCESS_ENABLED=true`
+>
+> - 配好令牌的情况下，`GET /workspace` 返回 **200**。根因：本项目 App Router
+>   在 `src/` 下，这种布局 Next **只查找 `src/middleware.ts`**；放在仓库根目录的
+>   `middleware.ts` 会被**静默忽略**——不报错、不警告，只是
+>   `.next/server/middleware-manifest.json` 里 `"middleware": {}` 是空的。守卫
+>   逻辑本身一直是对的（所以 07-22 那份读代码写出的评估结论「机制健全」并没
+>   错），但它从未被执行过。`git mv middleware.ts src/middleware.ts` 修复，重建后
+>   路由表出现 `ƒ Middleware`、5 条 matcher 全部就位。`validate:deployment` 新增
+>   `assertMiddlewareIsInDiscoverableLocation`，并**实测把文件移回根目录会立刻
+>   报错**。复验：`/workspace` 及所有内部前缀无令牌 401、带令牌 200（header /
+>   Bearer / Basic 三种形式都可），`/api/workspace/*` 返回 JSON 401，开启但未配置
+>   令牌返回 503，公开面全不受影响。
+>   **这条的教训要记住：读代码不算证据。** 任何安全声明都必须真的发请求验证。
+>   **② 生产构建卡在 Google Fonts.** `npm run build` 可复现失败
+>   （`Failed to fetch 'Inter'`，`fonts.googleapis.com` 从本机超时不可达）。
+>   Inter 只是 `--font-sans` 的第一项、且只取 latin 子集——中文站的汉字从来不由
+>   它渲染。owner 选择直接去掉，构建从此零外网依赖。
+>   **③ `docs/deployment.md` 新增「Go-live runbook」**：单机形态（反向代理 /
+>   systemd / cron 取代 Windows 任务计划 / `config/` 备份）、为什么必须是这个
+>   形态（应用写本地 JSON，无服务器平台会静默丢弃所有编辑）、代码决定的三条硬
+>   约束（只能单实例、限流器是进程内内存态、定时任务与手工编辑会并发写同一批
+>   文件），以及一份 `curl` 放量前核对清单。另记下 `NEXT_PUBLIC_SITE_URL` 的坑：
+>   它在**构建期**被内联，只在运行时设置会让 feed 里烙上 `localhost:3000`
+>   ——演练里按正确做法构建后，feed 链接确实是配置的域名。
+>   验证：typecheck / lint / format / vitest 127/127 / `validate:deployment` /
+>   `validate:workspace-boundary` 全绿。
+>   **下一步**：真正上线要你先准备**服务器 + 域名**（手册第 1 节列了完整条件
+>   清单），令牌请你自己用 `openssl rand -base64 32` 生成保管——演练用的是一次性
+>   假令牌，不能带到线上。在那之前可做的：明早 08:05 后的编辑轮、内容扩充
+>   （「端侧 AI」5 信号 0 技能）、方案 B 内容缺口看板、方案 C 已读/稍后读。
+
+> Update 2026-07-27 (earlier, same session): **信号演进线 + 新增「续作」关系类型.**
 > owner 定的方向是**公开面优先**（「优先展示给大众的内容，现在的重点是先发布，
 > 后台的内容后面可以慢慢改」），并明确工作台最终要与用户端切开——所以工作台侧的
 > 「内容缺口看板」提案押后。范围三问已锁定：**先 A 再 go-live** / **只用显式

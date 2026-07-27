@@ -12,6 +12,52 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Go-live drill — the workspace guard was never running
+
+- **`src/middleware.ts` was at the repository root, so Next never loaded it**
+  — 2026-07-27, found by actually running a production build with protection
+  enabled instead of reading the code. With `WORKSPACE_ACCESS_ENABLED=true`
+  and a token configured, `GET /workspace` returned **`200`**. Root cause:
+  this project keeps its App Router under `src/`, and in that layout Next
+  only looks for `src/middleware.ts`; a root-level `middleware.ts` is ignored
+  **silently** — no error, no warning, just `"middleware": {}` in
+  `.next/server/middleware-manifest.json`. The guard's logic was correct the
+  whole time (that is why the 2026-07-22 readiness assessment, written from
+  the source, concluded it was sound), but it had never executed in any mode
+  since it was written. Fixed by `git mv middleware.ts src/middleware.ts`;
+  the rebuild shows a `ƒ Middleware` route-table line and all five matchers
+  in the manifest. `validate:deployment` gained
+  `assertMiddlewareIsInDiscoverableLocation`, which was confirmed to
+  reproduce the failure when the file is moved back. Re-verified live against
+  `next start`: `/workspace`, `/workspace/sources`,
+  `/workspace/editorial-round`, `/api/workspace/*`, `/api/candidates/*`, and
+  the legacy `/technologies/drafts/*` redirect all return `401` without a
+  token and work with it (header, Bearer, and Basic-password forms);
+  enabled-but-unconfigured returns `503`; public routes, the public AI route,
+  `/digest/weekly`, and the per-topic feed are untouched.
+- **The production build no longer depends on Google Fonts** — same drill.
+  `npm run build` failed reproducibly with
+  `Failed to fetch 'Inter' from Google Fonts` (`ECONNRESET`;
+  `fonts.googleapis.com` is unreachable from this machine), which blocked the
+  drill outright and made every future build hostage to network conditions.
+  Inter was only the first entry of the `--font-sans` stack and was loaded
+  with `subsets: ["latin"]` on a Chinese-language site, so CJK glyphs never
+  came from it. Removed `next/font/google` from `src/app/layout.tsx` and
+  `var(--font-inter)` from the stack; latin glyphs now come from the platform
+  UI font already listed as the fallback. The build has zero external
+  fetches.
+- **`docs/deployment.md` gained a go-live runbook** — the single-server
+  shape (reverse proxy, systemd unit, cron replacing Windows Task Scheduler,
+  a backup of `config/`), why it has to be that shape (the app writes its
+  state to local JSON, so serverless would silently discard every edit), the
+  three constraints that follow from the code (single instance only, the
+  in-process rate limiter, the task runner racing hand edits), and a
+  `curl`-based pre-traffic verification list. Includes the
+  `NEXT_PUBLIC_SITE_URL` trap: it is inlined at **build** time, so setting it
+  only at runtime leaves `localhost:3000` baked into every feed link —
+  confirmed in the drill, where the feed correctly carried the configured
+  origin after building with it set.
+
 ## Version evolution line + `supersedes` relation type
 
 - **A reader landing on a superseded release now finds out before reading it**
