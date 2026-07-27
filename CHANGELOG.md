@@ -12,6 +12,48 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Technology-to-technology relation editing + round triage flags
+
+- **Published signals can finally be linked to each other, and undecided
+  candidates carry their quality flags on the round console** — 2026-07-27,
+  same session as the ranking/digest fix, from gaps hit while running that
+  day's editorial round.
+  `relatedTechnologyIds` was missing from `TechnologyWorkspaceRecordUpdate`,
+  so it existed **only on the bundled seed data**: none of the 23
+  workspace-published signals could be linked to another, and the 相关技术
+  section on their detail pages was permanently empty (vLLM v0.26.0 could not
+  point at the Inkling signal whose support stack it ships). The field is now
+  in the update type, the `PATCH /api/workspace/technologies/[id]` parser, and
+  the draft edit form as a third `RelationCheckboxItem` group, so
+  technology↔technology links get the same relation type + note editing
+  (LinkRelation v1) as knowledge and skills. The workflow drops a
+  self-reference — it would render as a self-edge on `/network` — and the
+  picker offers **published** technologies only, since a link to an
+  unpublished draft would be a dead node. Verified end to end by linking
+  `vllm-v0-26-0` → Inkling (印证) and → v0.25.0 (延伸) with notes: stored,
+  self-reference dropped, slug preserved, and both rendering on the public
+  detail page and `/network`.
+  Separately, a new `prerelease_version` candidate quality flag matches a
+  pre-release marker on a version-looking token (`v0.32.5-rc0`, `v0.26.0rc1`,
+  `v1.0.0-beta.2`) — the single biggest class of round noise, 4 of 16
+  candidates on 2026-07-27 and at least one in each of the three prior rounds.
+  The first regex draft was rejected during verification for missing
+  `v0.26.0rc1` (marker glued straight onto the digits) and false-positiving on
+  prose like "Preview: …", so the match now requires the version context.
+  `/workspace/editorial-round` renders each undecided candidate's
+  review-blocking flags, so a round triages from one screen instead of opening
+  every candidate — which is also the practical answer to the Hugging Face
+  blog feed carrying **no `<description>` at all** (confirmed by fetching the
+  feed directly; the official host is unreachable from this machine, so it is
+  a source-data limitation, not a parser bug or a mirror artifact — those items
+  simply surface as 缺少摘要 / 缺少正文 now). Review-readiness-only flags
+  (`ready_for_review` / `not_convertible`) are deliberately excluded — they say
+  nothing about whether an item is worth publishing. Verified with typecheck,
+  lint, format, vitest 108/108 (1 new test), and a live pass (form renders 30
+  technology options with self excluded and 2 pre-checked; flags render as
+  "内容过短 预发布版本" on a briefly reopened candidate, restored afterwards;
+  zero console errors).
+
 ## Ranking banding + digest fresh-first selection
 
 - **Editorial banding replaces score-only priority levels, and digest

@@ -111,8 +111,16 @@ Flag values:
 - `missing_tags`
 - `possible_duplicate`
 - `too_short`
+- `prerelease_version`
 - `ready_for_review`
 - `not_convertible`
+
+`prerelease_version` (added 2026-07-27) fires when the title carries a
+pre-release marker on a version-looking token (`v0.32.5-rc0`, `v0.26.0rc1`,
+`v1.0.0-beta.2`). Release feeds publish these alongside — and usually days
+before — the matching stable tag, and every editorial round so far has
+rejected them by hand. The flag only makes the batch visible; the reject/keep
+judgment stays with the editor.
 
 These flags appear only in workspace candidate review surfaces.
 
@@ -784,7 +792,14 @@ Represents the internal workspace version of a technology record.
 
 This object is used in the Internal Workspace so draft records, published records, and archived records can all be managed in one place.
 
-The workspace detail page can edit the user-facing fields on this record before publication. The editable surface is intentionally limited to content, source metadata, tags, related knowledge, related skills, Content Intelligence fields, and editorial notes.
+The workspace detail page can edit the user-facing fields on this record before publication. The editable surface is intentionally limited to content, source metadata, tags, related knowledge, related skills, related technologies, Content Intelligence fields, and editorial notes.
+
+`relatedTechnologyIds` became editable on 2026-07-27; before that it existed
+only on the bundled seed data, so no two workspace-published signals could
+ever be linked to each other. The workflow drops a self-reference (which would
+render as a self-edge on `/network`), and the picker offers published
+technologies only — a link to an unpublished draft would render as a dead
+node.
 
 The workspace detail page also edits Content Intelligence fields. Missing explanation fields produce publish warnings because they reduce user-facing understanding quality, but they are not blocking errors in v1.
 

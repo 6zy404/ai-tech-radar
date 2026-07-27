@@ -23,6 +23,12 @@ interface TechnologyWorkspaceEditFormProps {
   tagOptions: TopicTag[];
   skillOptions: SkillItem[];
   knowledgeOptions: KnowledgeItem[];
+  /**
+   * Published technologies this record can link to, excluding itself. Plain
+   * `{ id, title }` rather than `TechnologyItem` because the title has already
+   * been resolved through the bilingual preference on the server.
+   */
+  technologyOptions: { id: string; title: string }[];
   relationDefaults?: RelationDefaultsMap;
 }
 
@@ -89,6 +95,7 @@ export function TechnologyWorkspaceEditForm({
   tagOptions,
   skillOptions,
   knowledgeOptions,
+  technologyOptions,
   relationDefaults = {}
 }: TechnologyWorkspaceEditFormProps) {
   const router = useRouter();
@@ -139,6 +146,10 @@ export function TechnologyWorkspaceEditForm({
                 "relatedKnowledgeIds"
               ),
               relatedSkillIds: getFormValues(formData, "relatedSkillIds"),
+              relatedTechnologyIds: getFormValues(
+                formData,
+                "relatedTechnologyIds"
+              ),
               editorialNotes: getEditorialNotes(formData),
               whyItMatters: getFormValue(formData, "whyItMatters"),
               whoShouldCare: getLineList(formData, "whoShouldCare"),
@@ -173,7 +184,8 @@ export function TechnologyWorkspaceEditForm({
           "technology",
           collectRelationTargets(formData, [
             { name: "relatedKnowledgeIds", targetType: "knowledge" },
-            { name: "relatedSkillIds", targetType: "skill" }
+            { name: "relatedSkillIds", targetType: "skill" },
+            { name: "relatedTechnologyIds", targetType: "technology" }
           ])
         );
 
@@ -386,6 +398,33 @@ export function TechnologyWorkspaceEditForm({
           </div>
         </fieldset>
       </div>
+
+      <fieldset className="workspace-edit-form__fieldset">
+        <legend>关联技术（勾选后可设置关系类型与备注）</legend>
+        {technologyOptions.length === 0 ? (
+          <p className="workspace-edit-form__hint">
+            目前没有其他已发布的技术信号可以关联。
+          </p>
+        ) : (
+          <div className="workspace-edit-form__checkbox-list">
+            {technologyOptions.map((item) => (
+              <RelationCheckboxItem
+                key={item.id}
+                name="relatedTechnologyIds"
+                option={item}
+                defaultChecked={(record.relatedTechnologyIds ?? []).includes(
+                  item.id
+                )}
+                checkboxClassName="workspace-checkbox"
+                targetType="technology"
+                relationDefault={
+                  relationDefaults[getRelationDefaultKey("technology", item.id)]
+                }
+              />
+            ))}
+          </div>
+        )}
+      </fieldset>
 
       <fieldset className="workspace-edit-form__fieldset workspace-edit-form__fieldset--intelligence">
         <legend>内容智能</legend>

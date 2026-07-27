@@ -8,7 +8,13 @@ import {
   getTechnologyDrafts,
   getTechnologyWorkspacePublishReadiness
 } from "@/lib/technology-draft-workflow";
-import type { DailyDigestStatus } from "@/types/content";
+import { evaluateCandidateQuality } from "@/lib/quality-signals";
+import type { CandidateQualityFlag, DailyDigestStatus } from "@/types/content";
+
+const reviewOnlyQualityFlags = new Set<CandidateQualityFlag>([
+  "ready_for_review",
+  "not_convertible"
+]);
 
 /**
  * Editorial-round orchestration state — the read side of the "编辑轮控制台"
@@ -25,6 +31,14 @@ export interface EditorialRoundCandidate {
   title: string;
   sourceName: string;
   publishDate: string;
+  /**
+   * Review-blocking quality flags, so a round can triage the batch from this
+   * one list instead of opening every candidate detail page to discover that
+   * (say) a feed item carries no body text. Flags that only describe review
+   * readiness (`ready_for_review` / `not_convertible`) are left out — they say
+   * nothing about whether the item is worth publishing.
+   */
+  qualityFlags: CandidateQualityFlag[];
 }
 
 export interface EditorialRoundDraft {
@@ -155,7 +169,10 @@ export function getEditorialRoundState(): EditorialRoundState {
       id: candidate.id,
       title: candidate.originalTitle,
       sourceName: candidate.sourceName,
-      publishDate: candidate.publishDate
+      publishDate: candidate.publishDate,
+      qualityFlags: evaluateCandidateQuality(candidate).flags.filter(
+        (flag) => !reviewOnlyQualityFlags.has(flag)
+      )
     }))
     .sort((left, right) => right.publishDate.localeCompare(left.publishDate));
 

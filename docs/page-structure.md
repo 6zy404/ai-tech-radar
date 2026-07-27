@@ -111,7 +111,11 @@ Purpose:
     page: a round summary (待决 / 待发布草稿 / 简报 counts), a derived
     five-phase step tracker (处置候选 / 补内容·发布 / 生成简报 / 发布简报 /
     公开面核对, statuses done / current / todo / blocked), undecided candidates
-    with inline 转为草稿 / 拒绝, an open-duplicate-group block notice, drafts
+    with inline 转为草稿 / 拒绝 and their review-blocking quality flags
+    (缺少摘要 / 缺少正文 / 预发布版本 …, added 2026-07-27 so a round can triage
+    the batch without opening each candidate detail page; the
+    review-readiness-only flags are deliberately left off), an
+    open-duplicate-group block notice, drafts
     awaiting publish with a per-draft publish-readiness summary + inline 发布,
     today's digest with inline 生成 / 发布 and a soft "publish everything first"
     hint, and a public-surface verify link checklist
@@ -180,7 +184,7 @@ Purpose:
   - internal technology workspace detail
   - editorial notes
   - source candidate traceability
-  - draft editing for content, source metadata, tags, related content (with per-link relation type + note since LinkRelation v1), and Content Intelligence fields
+  - draft editing for content, source metadata, tags, related content — knowledge, skills, and (since 2026-07-27) other **published technologies**, each with per-link relation type + note since LinkRelation v1 — and Content Intelligence fields
   - Editorial Enrichment suggestion panel for rule-based, mock LLM, or optional LLM-assisted generation, current-vs-suggested comparison, apply, reject, and regenerate
   - ranking source, priority reasons, and priority warnings
   - publish readiness checks

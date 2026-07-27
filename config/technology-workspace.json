@@ -1,6 +1,110 @@
 {
-  "updatedAt": "2026-07-27T01:46:17.327Z",
+  "updatedAt": "2026-07-27T02:26:43.948Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "slug": "vllm-v0-26-0",
+      "title": {
+        "original": "vLLM v0.26.0",
+        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
+        "en": "vLLM v0.26.0"
+      },
+      "summary": {
+        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
+        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
+      },
+      "content": {
+        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
+        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T02:26:43.947Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
+      "whoShouldCare": [
+        "自建或自运维推理服务的平台团队",
+        "需要在本地评估新开源模型的算法与评测团队",
+        "关注 MoE 与推测解码落地成本的架构师"
+      ],
+      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
+      "impactAreas": [
+        "推理服务容量规划",
+        "开源模型选型周期",
+        "MoE 架构的部署成本",
+        "解码吞吐优化"
+      ],
+      "learningPath": [
+        "先理解 MoE 架构为什么让图捕获和量化变复杂",
+        "再看推测解码如何用草稿模型换解码吞吐",
+        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
+        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
+        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
+        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
+      },
+      "followUpQuestions": [
+        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
+        "MTP=1 推测解码对长上下文任务的加速比是多少？",
+        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "createdAt": "2026-07-27T01:43:12.721Z",
+      "updatedAt": "2026-07-27T02:26:43.947Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
+        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-github-blog-p-97686",
       "slug": "copilot-vs-raw-api-access",
@@ -196,106 +300,6 @@
       "updatedAt": "2026-07-27T01:46:17.283Z",
       "editorialNotes": [
         "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "slug": "vllm-v0-26-0",
-      "title": {
-        "original": "vLLM v0.26.0",
-        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
-        "en": "vLLM v0.26.0"
-      },
-      "summary": {
-        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
-        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
-      },
-      "content": {
-        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
-        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "vLLM Project",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f",
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T01:46:17.232Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
-      "whoShouldCare": [
-        "自建或自运维推理服务的平台团队",
-        "需要在本地评估新开源模型的算法与评测团队",
-        "关注 MoE 与推测解码落地成本的架构师"
-      ],
-      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
-      "impactAreas": [
-        "推理服务容量规划",
-        "开源模型选型周期",
-        "MoE 架构的部署成本",
-        "解码吞吐优化"
-      ],
-      "learningPath": [
-        "先理解 MoE 架构为什么让图捕获和量化变复杂",
-        "再看推测解码如何用草稿模型换解码吞吐",
-        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
-        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
-        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
-        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
-      },
-      "followUpQuestions": [
-        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
-        "MTP=1 推测解码对长上下文任务的加速比是多少？",
-        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "createdAt": "2026-07-27T01:43:12.721Z",
-      "updatedAt": "2026-07-27T01:46:17.232Z",
-      "editorialNotes": [
-        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
-        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
       ]
     },
     {
