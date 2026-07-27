@@ -119,7 +119,7 @@ behind the workspace boundary.
 
 ## Minimal Access Protection
 
-`middleware.ts` protects workspace/internal paths when:
+`src/middleware.ts` protects workspace/internal paths when:
 
 ```bash
 WORKSPACE_ACCESS_ENABLED=true
@@ -224,7 +224,7 @@ The current local JSON and SQLite stores may contain workspace-only suggestion m
 `POST /api/technologies/compare` was the first public route that calls the LLM
 provider directly; `POST /api/technologies/explain` and
 `POST /api/technologies/learning-path` follow the identical discipline. All
-three are intentionally left outside `middleware.ts`'s protected path prefixes
+three are intentionally left outside `src/middleware.ts`'s protected path prefixes
 rather than gated behind `WORKSPACE_ACCESS_TOKEN`, because:
 
 - they only ever operate on technologies already returned by `getAllTechnologies()`,
