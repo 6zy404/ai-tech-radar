@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildDailyDigestFromTechnologies,
+  collectCarriedTechnologyIds,
   getSelectedDigestTechnologyIds
 } from "@/lib/digest-workflow";
 import { makeTechnologyItem } from "@/lib/test-factories";
@@ -135,5 +136,98 @@ describe("buildDailyDigestFromTechnologies (generation)", () => {
     expect(digest.orderedTechnologyIds).not.toContain("draftone");
     expect(digest.highPriorityTechnologyIds).not.toContain("draftone");
     expect(digest.watchTechnologyIds).not.toContain("draftone");
+  });
+
+  it("puts never-carried signals ahead of ones a published digest already used", () => {
+    const carriedItem = makeTechnologyItem({
+      id: "carriedone",
+      slug: "carriedone",
+      status: "published",
+      importanceLevel: "critical",
+      publishDate: "2026-05-30"
+    });
+    const freshItem = makeTechnologyItem({
+      id: "freshone",
+      slug: "freshone",
+      status: "published",
+      importanceLevel: "critical",
+      publishDate: "2026-05-10"
+    });
+
+    const withoutCarry = buildDailyDigestFromTechnologies(
+      [carriedItem, freshItem],
+      "2026-06-01",
+      { now: NOW, maxHighPriorityItems: 1 }
+    );
+    const withCarry = buildDailyDigestFromTechnologies(
+      [carriedItem, freshItem],
+      "2026-06-01",
+      {
+        now: NOW,
+        maxHighPriorityItems: 1,
+        carriedTechnologyIds: ["carriedone"]
+      }
+    );
+
+    // Without the carry list the newer item wins on recency ordering.
+    expect(withoutCarry.highPriorityTechnologyIds).toEqual(["carriedone"]);
+    // With it, the never-carried item takes the single slot instead.
+    expect(withCarry.highPriorityTechnologyIds).toEqual(["freshone"]);
+  });
+
+  it("falls back to already-carried signals instead of producing an empty digest", () => {
+    const onlyItem = makeTechnologyItem({
+      id: "onlyone",
+      slug: "onlyone",
+      status: "published",
+      importanceLevel: "critical",
+      publishDate: "2026-05-20"
+    });
+
+    const digest = buildDailyDigestFromTechnologies([onlyItem], "2026-06-01", {
+      now: NOW,
+      carriedTechnologyIds: ["onlyone"]
+    });
+
+    expect(digest.highPriorityTechnologyIds).toEqual(["onlyone"]);
+  });
+});
+
+describe("collectCarriedTechnologyIds", () => {
+  it("collects ids from published digests only, honouring exclusions and the excluded date", () => {
+    const digests: DailyDigest[] = [
+      makeDigest({
+        date: "2026-05-30",
+        status: "published",
+        highPriorityTechnologyIds: ["a", "b"],
+        excludedTechnologyIds: ["b"]
+      }),
+      makeDigest({
+        date: "2026-05-31",
+        status: "published",
+        manuallyAddedTechnologyIds: ["c"]
+      }),
+      makeDigest({
+        date: "2026-05-29",
+        status: "draft",
+        highPriorityTechnologyIds: ["d"]
+      }),
+      makeDigest({
+        date: "2026-06-01",
+        status: "published",
+        highPriorityTechnologyIds: ["e"]
+      })
+    ];
+
+    const ids = collectCarriedTechnologyIds(digests, "2026-06-01");
+
+    expect(ids).toContain("a");
+    expect(ids).toContain("c");
+    // excluded inside its own digest
+    expect(ids).not.toContain("b");
+    // draft digests are not public, so they do not count as carried
+    expect(ids).not.toContain("d");
+    // the digest being regenerated must not exclude its own items
+    expect(ids).not.toContain("e");
   });
 });

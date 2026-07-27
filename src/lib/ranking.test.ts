@@ -39,6 +39,51 @@ describe("evaluateTechnologyPriority", () => {
     expect(ranking.priorityWarnings).toContain("缺少摘要。");
   });
 
+  it("keeps a critical technology in high priority even when it is stale", () => {
+    const technology = makeTechnologyItem({
+      importanceLevel: "critical",
+      publishDate: "2026-01-05"
+    });
+
+    const ranking = evaluateTechnologyPriority(technology, { now: NOW });
+
+    expect(ranking.priorityLevel).toBe("high_priority");
+  });
+
+  it("demotes an important technology to watch once it leaves the freshness window", () => {
+    const fresh = evaluateTechnologyPriority(
+      makeTechnologyItem({
+        importanceLevel: "important",
+        publishDate: "2026-05-20"
+      }),
+      { now: NOW }
+    );
+    const stale = evaluateTechnologyPriority(
+      makeTechnologyItem({
+        importanceLevel: "important",
+        publishDate: "2026-03-20"
+      }),
+      { now: NOW }
+    );
+
+    expect(fresh.priorityLevel).toBe("high_priority");
+    expect(stale.priorityLevel).toBe("watch");
+    // The demotion is editorial banding, not a scoring collapse.
+    expect(stale.priorityScore).toBeGreaterThanOrEqual(45);
+  });
+
+  it("keeps a complete signal-level technology in watch no matter how fresh or high-scoring", () => {
+    const technology = makeTechnologyItem({
+      importanceLevel: "signal",
+      publishDate: "2026-05-31"
+    });
+
+    const ranking = evaluateTechnologyPriority(technology, { now: NOW });
+
+    expect(ranking.priorityScore).toBeGreaterThanOrEqual(75);
+    expect(ranking.priorityLevel).toBe("watch");
+  });
+
   it("returns a manual override unchanged instead of recomputing", () => {
     const manualRanking: TechnologyPriorityRanking = {
       priorityLevel: "watch",

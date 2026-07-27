@@ -131,6 +131,13 @@ Ranking v0 is deterministic and explainable. It uses source quality, candidate q
 
 `priorityScore` is mainly for internal review and validation. User-facing pages should emphasize `priorityLevel` and short product copy rather than score details.
 
+Since 2026-07-27, `priorityLevel` for **published technology records** is
+banded by the editor's `importanceLevel` (`critical` → high; `important` →
+high within 30 days, else watch; `signal` → watch), with `priorityScore`
+demoted to the within-band ordering key and still able to force
+`low_priority` for records under 45. Imported candidates keep the original
+score thresholds. See `docs/architecture.md` → "Ranking v0".
+
 ## DailyDigest
 
 Represents a generated and editor-controlled daily brief built from published `TechnologyItem` records.

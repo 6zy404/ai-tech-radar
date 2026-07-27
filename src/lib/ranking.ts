@@ -2,6 +2,7 @@ import { evaluateCandidateQuality } from "@/lib/quality-signals";
 import type {
   CandidateQualitySignals,
   DuplicateGroupStatus,
+  ImportanceLevel,
   ImportedCandidate,
   PriorityLevel,
   SourceQualityMetrics,
@@ -23,6 +24,25 @@ interface ScoreState {
   reasons: string[];
   warnings: string[];
 }
+
+/**
+ * Editorial banding input for published technology records.
+ *
+ * `priorityScore` measures record completeness, and every record that clears
+ * the editorial workflow ends up in the 80-100 band — which is why the old
+ * score-only thresholds classified all 31 published signals as
+ * `high_priority` and left `watch` permanently empty (measured 2026-07-27).
+ * The band is therefore driven by the editor's own `importanceLevel`, with
+ * recency able to demote but never promote. The score is kept as the
+ * within-band ordering key.
+ */
+interface EditorialBandInput {
+  importanceLevel: ImportanceLevel;
+  ageInDays: number | undefined;
+}
+
+/** An `important` signal older than this drops from 立即关注 to 值得跟踪. */
+const importantFreshnessWindowDays = 30;
 
 const blockingQualityFlags = new Set([
   "missing_summary",
@@ -283,26 +303,46 @@ function applyRecency(
 
 function determinePriorityLevel(
   score: number,
-  warnings: string[]
+  warnings: string[],
+  editorialBand?: EditorialBandInput
 ): PriorityLevel {
   const hasSevereWarning = warnings.some((warning) =>
     /poor|invalid|missing|duplicate still|multiple quality/i.test(warning)
   );
 
-  if (score >= 75 && !hasSevereWarning) {
-    return "high_priority";
+  if (score < 45) {
+    return "low_priority";
   }
 
-  if (score >= 45) {
+  // Imported candidates have no editorial importance yet, so they keep the
+  // original score-threshold banding.
+  if (!editorialBand) {
+    return score >= 75 && !hasSevereWarning ? "high_priority" : "watch";
+  }
+
+  if (hasSevereWarning) {
     return "watch";
   }
 
-  return "low_priority";
+  if (editorialBand.importanceLevel === "critical") {
+    return "high_priority";
+  }
+
+  if (editorialBand.importanceLevel === "important") {
+    return editorialBand.ageInDays !== undefined &&
+      editorialBand.ageInDays <= importantFreshnessWindowDays
+      ? "high_priority"
+      : "watch";
+  }
+
+  return "watch";
 }
 
 function buildRanking(
   state: ScoreState,
-  options: Pick<RankingOptions, "existingRanking" | "now">
+  options: Pick<RankingOptions, "existingRanking" | "now"> & {
+    editorialBand?: EditorialBandInput;
+  }
 ): TechnologyPriorityRanking {
   if (options.existingRanking?.rankingSource === "manual_override") {
     return options.existingRanking;
@@ -313,7 +353,11 @@ function buildRanking(
   const priorityReasons = Array.from(new Set(state.reasons));
 
   return {
-    priorityLevel: determinePriorityLevel(priorityScore, priorityWarnings),
+    priorityLevel: determinePriorityLevel(
+      priorityScore,
+      priorityWarnings,
+      options.editorialBand
+    ),
     priorityScore,
     priorityReasons:
       priorityReasons.length > 0
@@ -389,12 +433,22 @@ export function evaluateTechnologyPriority(
   );
   applyRecency(state, technology.publishDate, undefined, now);
 
+  const ageInDays = getAgeInDays(technology.publishDate, now);
+  const isFresh =
+    ageInDays !== undefined && ageInDays <= importantFreshnessWindowDays;
+
   if (technology.importanceLevel === "critical") {
     state.score += 10;
-    state.reasons.push("编辑标记为关键重要性。");
+    state.reasons.push("编辑标记为关键重要性，直接归入立即关注。");
   } else if (technology.importanceLevel === "important") {
     state.score += 6;
-    state.reasons.push("编辑标记为重要。");
+    state.reasons.push(
+      isFresh
+        ? `编辑标记为重要，且发布于 ${importantFreshnessWindowDays} 天内，归入立即关注。`
+        : `编辑标记为重要，但已超出 ${importantFreshnessWindowDays} 天窗口，降为值得跟踪。`
+    );
+  } else {
+    state.reasons.push("编辑标记为一般信号，归入值得跟踪。");
   }
 
   if (
@@ -407,6 +461,10 @@ export function evaluateTechnologyPriority(
 
   return buildRanking(state, {
     existingRanking: technology.priority ?? options.existingRanking,
-    now
+    now,
+    editorialBand: {
+      importanceLevel: technology.importanceLevel,
+      ageInDays
+    }
   });
 }
