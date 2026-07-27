@@ -123,7 +123,45 @@ schtasks /Create /TN "ai-tech-radar-tasks" /SC DAILY /ST 08:05 `
   /TR "cmd /c cd /d C:\Users\Administrator\ai-tech-radar && npm run tasks:run-once >> config\task-runner-cron.log 2>&1"
 ```
 
-Notes:
+`schtasks /Create` leaves three defaults that make the task skip a day
+**silently**, with nothing recorded anywhere — the task simply never fires, so
+`config/task-runner.json` shows a gap and the task's own `Last Result` still
+reads `0` from whenever it last succeeded. This was measured on the owner's
+machine on 2026-07-28: only 6 of the previous 15 days had a runner pass
+(2026-07-15…07-19, 07-21, and 07-24…07-26 were all missed). Fix the defaults
+right after creating the task:
+
+```powershell
+$s = New-ScheduledTaskSettingsSet -StartWhenAvailable `
+       -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries `
+       -ExecutionTimeLimit (New-TimeSpan -Hours 72) `
+       -MultipleInstances IgnoreNew
+Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Settings $s
+```
+
+- `StartWhenAvailable` — without it, a start missed because the machine was
+  off, asleep, or busy is **never made up**. This is the single most important
+  one.
+- `AllowStartIfOnBatteries` / `DontStopIfGoingOnBatteries` — the defaults
+  refuse to start (and kill a running task) on battery power.
+- `ExecutionTimeLimit` and `MultipleInstances` are only repeated because
+  `New-ScheduledTaskSettingsSet` builds a **complete** settings object: any
+  value left out is reset to its default, not preserved.
+- Deliberately **not** enabled: `WakeToRun`. It would wake a sleeping machine
+  at the trigger time — a machine-behavior decision for the operator, not a
+  project default.
+
+Verify with
+`(Get-ScheduledTask -TaskName "ai-tech-radar-tasks").Settings | Select-Object StartWhenAvailable, DisallowStartIfOnBatteries, StopIfGoingOnBatteries`
+(expect `True / False / False`). To roll back, run the same command with
+`-DisallowStartIfOnBatteries -StopIfGoingOnBatteries` and without
+`-StartWhenAvailable`.
+
+What this does **not** do: catch-up runs fire **once**, not once per missed
+day, and a missed day's digest draft is never backfilled — the scheduled
+digest always generates _today's_ draft.
+
+Other notes:
 
 - Schedule the Windows task a few minutes **after** the configured import time
   so the run is already due when the runner starts.

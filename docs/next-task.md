@@ -21,15 +21,20 @@
 > `LOCAL_DATA_DIR` + `SQLITE_DATABASE_PATH` 的 sqlite 往返（技能新建→草稿不入
 > 公开池→发布→可见；关系类型+附注落库；定时配置改动跨读写保留；对比缓存同键
 > 命中），隔离目录最终只有 `.sqlite` 一个文件，证明没有回落到 JSON。
-> **同时查清（未动手）**：Task Scheduler 并非漏触发——任务本身健康
-> （`Last Result: 0`，下次 07-28 08:05），但 `StartWhenAvailable=False`
-> （错过永不补跑）+ `DisallowStartIfOnBatteries=True` + `WakeToRun=False`，
-> 所以关机/睡眠/电池时当天静默跳过；实际漏跑的是 07-15~~07-19、07-21、
-> 07-24~~07-26 共 9 天，不止记录里的 3 天。改 3 个设置即可（一条
-> `Set-ScheduledTask`，不动代码），待你点头。
-> **剩余 backlog**：Task Scheduler 设置（运维）、go-live B1 令牌 / B4 站点 URL /
-> I2 备份（部署时的运维动作）、I1 公开 LLM 路由限流（代码，mock provider 下不
-> 紧急）、下一轮编辑轮（07-28 08:05 新候选到达后）。
+> **同一会话第二项：Task Scheduler 漏跑已修**（运维动作，owner 确认后执行）。
+> 并非漏触发——任务本身健康（`Last Result: 0`，触发器与动作完好），是
+> `schtasks /Create` 的三个默认值在静默跳过：`StartWhenAvailable=False`
+> （错过永不补跑）、`DisallowStartIfOnBatteries=True`、
+> `StopIfGoingOnBatteries=True`。实测前 15 天里只有 6 天真正跑过（07-15 至
+> 07-19、07-21、07-24 至 07-26 共 9 天漏掉，不止记录里的 3 天）。已用一条
+> `Set-ScheduledTask` 改为 `True / False / False` 并复读验证；**未开
+> `WakeToRun`**（会唤醒休眠机器，属机器行为决定，owner 明确不开）。触发器与
+> 动作未受影响（下次 07-28 08:05）。两点预期要记住：补跑**只补一次**不回溯
+> 多天，且漏掉那天的简报草稿永远不会补——定时简报生成的始终是「当天」。完整
+> 命令、验证与回滚已写进 `docs/deployment.md` 的 Windows Task Scheduler 一节。
+> **剩余 backlog**：go-live B1 令牌 / B4 站点 URL / I2 备份（部署时的运维
+> 动作）、I1 公开 LLM 路由限流（代码，mock provider 下不紧急）、下一轮编辑轮
+> （07-28 08:05 新候选到达后）。
 
 > Update 2026-07-27: **Editorial round run — 07-23 至 07-27 合并轮.**
 > 上一会话之后定时任务继续跑了两次（07-23、07-27；07-24/25/26 无记录，Windows
