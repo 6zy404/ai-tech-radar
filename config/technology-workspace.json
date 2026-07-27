@@ -1,44 +1,43 @@
 {
-  "updatedAt": "2026-07-27T08:07:43.455Z",
+  "updatedAt": "2026-07-27T09:23:47.280Z",
   "records": [
     {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "slug": "ollama-v0-32-4",
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "slug": "ollama-v0-31-2",
       "title": {
-        "original": "Ollama v0.32.4",
-        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
-        "en": "Ollama v0.32.4"
+        "original": "Ollama v0.31.2",
+        "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
       },
       "summary": {
-        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
-        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。"
+        "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
+        "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
       },
       "content": {
-        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
-        "zh": "## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
+        "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
+        "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
       },
       "type": "tool",
-      "publishDate": "2026-07-25",
+      "publishDate": "2026-07-08",
       "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
       "sourceLanguage": "en",
       "translationStatus": "done",
-      "publisherName": "Ollama",
+      "publisherName": "github-actions[bot]",
       "publisherType": "open-source-community",
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "tag-on-device",
-        "tag-inference"
+        "tag-inference",
+        "tag-on-device"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-36346103",
-        "knowledge-ws-c761533e",
-        "knowledge-ws-34da6116"
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs"
       ],
       "relatedSkillIds": [
-        "skill-ws-a9e80194"
+        "skill-scope-pilots",
+        "skill-tool-integration",
+        "skill-ws-d7c9d1d8"
       ],
       "sourceReferences": [],
       "priority": {
@@ -56,46 +55,47 @@
           "编辑标记为一般信号，归入值得跟踪。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T08:07:43.455Z",
+        "rankingUpdatedAt": "2026-07-27T09:23:47.280Z",
         "rankingSource": "rule_based"
       },
-      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
+      "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
       "whoShouldCare": [
-        "在 Apple 芯片上做本地推理的开发者",
-        "评估端侧部署可行性的架构师",
-        "关注推测解码实际收益的性能工程师"
+        "本地/端侧应用开发者",
+        "隐私敏感场景的团队",
+        "AI 工具链工程师"
       ],
-      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
+      "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
       "impactAreas": [
-        "端侧推理性能",
-        "MoE 量化路径",
-        "推测解码收益",
-        "Apple 芯片部署"
+        "本地开发工具",
+        "端侧 AI",
+        "隐私敏感应用"
       ],
       "learningPath": [
-        "先弄清 MoE 的专家路由与逐专家量化",
-        "再理解推测解码里草稿模型的开销从哪来",
-        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
+        "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
+        "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
+        "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
+        "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
       ],
       "relatedKnowledgeExplanations": {
-        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
-        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
-        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
+        "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
+        "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
       },
       "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
+        "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
+        "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
       },
       "followUpQuestions": [
-        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
-        "统一内存架构下，混合专家精度的最佳组合是什么？"
+        "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
+        "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
+        "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
       ],
       "readingDifficulty": "intermediate",
       "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "createdAt": "2026-07-27T01:43:12.851Z",
-      "updatedAt": "2026-07-27T08:07:43.455Z",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "createdAt": "2026-07-09T13:59:16.342Z",
+      "updatedAt": "2026-07-27T09:23:47.280Z",
       "editorialNotes": [
-        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
+        "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
@@ -140,7 +140,8 @@
       ],
       "relatedSkillIds": [
         "skill-agent-design",
-        "skill-tool-integration"
+        "skill-tool-integration",
+        "skill-ws-d7c9d1d8"
       ],
       "sourceReferences": [],
       "priority": {
@@ -158,7 +159,7 @@
           "编辑标记为重要，且发布于 30 天内，归入立即关注。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T08:07:43.405Z",
+        "rankingUpdatedAt": "2026-07-27T09:23:47.206Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
@@ -196,7 +197,7 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
       "createdAt": "2026-07-14T00:51:56.001Z",
-      "updatedAt": "2026-07-27T08:07:43.405Z",
+      "updatedAt": "2026-07-27T09:23:47.206Z",
       "editorialNotes": [
         "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
       ],
@@ -206,41 +207,44 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "slug": "ollama-v0-31-2",
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "slug": "ollama-v0-32-4",
       "title": {
-        "original": "Ollama v0.31.2",
-        "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
+        "original": "Ollama v0.32.4",
+        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
+        "en": "Ollama v0.32.4"
       },
       "summary": {
-        "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
-        "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
+        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
+        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。"
       },
       "content": {
-        "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
-        "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
+        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
+        "zh": "## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
       },
       "type": "tool",
-      "publishDate": "2026-07-08",
+      "publishDate": "2026-07-25",
       "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
       "sourceLanguage": "en",
       "translationStatus": "done",
-      "publisherName": "github-actions[bot]",
+      "publisherName": "Ollama",
       "publisherType": "open-source-community",
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-on-device"
+        "tag-on-device",
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs"
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-36346103",
+        "knowledge-ws-c761533e",
+        "knowledge-ws-34da6116"
       ],
       "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-tool-integration"
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8"
       ],
       "sourceReferences": [],
       "priority": {
@@ -258,47 +262,46 @@
           "编辑标记为一般信号，归入值得跟踪。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T08:07:43.360Z",
+        "rankingUpdatedAt": "2026-07-27T09:23:47.128Z",
         "rankingSource": "rule_based"
       },
-      "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
+      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
       "whoShouldCare": [
-        "本地/端侧应用开发者",
-        "隐私敏感场景的团队",
-        "AI 工具链工程师"
+        "在 Apple 芯片上做本地推理的开发者",
+        "评估端侧部署可行性的架构师",
+        "关注推测解码实际收益的性能工程师"
       ],
-      "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
+      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
       "impactAreas": [
-        "本地开发工具",
-        "端侧 AI",
-        "隐私敏感应用"
+        "端侧推理性能",
+        "MoE 量化路径",
+        "推测解码收益",
+        "Apple 芯片部署"
       ],
       "learningPath": [
-        "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
-        "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
-        "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
-        "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
+        "先弄清 MoE 的专家路由与逐专家量化",
+        "再理解推测解码里草稿模型的开销从哪来",
+        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
       ],
       "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
-        "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
+        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
+        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
+        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
       },
       "relatedSkillExplanations": {
-        "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
-        "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
+        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
       },
       "followUpQuestions": [
-        "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
-        "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
-        "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
+        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
+        "统一内存架构下，混合专家精度的最佳组合是什么？"
       ],
       "readingDifficulty": "intermediate",
       "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "createdAt": "2026-07-09T13:59:16.342Z",
-      "updatedAt": "2026-07-27T08:07:43.360Z",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "createdAt": "2026-07-27T01:43:12.851Z",
+      "updatedAt": "2026-07-27T09:23:47.128Z",
       "editorialNotes": [
-        "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
+        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"

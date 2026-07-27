@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Content round — on-device deployment skill (the empty action layer)
+
+- **技能「端侧模型部署与硬件适配」published** — 2026-07-27, from a topic
+  coverage scan run before writing anything. The scan found one lopsided
+  topic: 端侧 AI carried **5 published signals and 5 knowledge entries but
+  zero skills** — a reader landing on Ollama v0.32.4 (Apple GPU via MLX,
+  speculative-decoding draft-head quantization, the Qwen3 MoE mixed-precision
+  decode fix) got background concepts and no answer to "what do I practise".
+  Two candidates were compared before picking: this one, and a
+  「本地优先的数据边界」product skill that was **rejected for real overlap**
+  with the 07-27 「AI 工具链选型与自建边界评估」 skill — both would have
+  restated the same "which layer do you own" decision line.
+  The skill is deliberately bounded to a single machine — quantization tier,
+  runtime path (llama.cpp / MLX / CUDA), offload + context length, and
+  acceptance measured as **first-token latency + steady-state tokens/s on the
+  target device** — and hands off explicitly to 「推理服务容量规划」 the
+  moment the question becomes serving many people, which is why it does not
+  overlap any of the existing 13 skills. Published through the workspace APIs
+  with **zero blocking errors and zero warnings**, 9 typed relations with
+  notes (4 技术 印证, 量化/选型 必备, 推测解码 借助, 混合推理 延伸, 延迟权衡
+  印证), and reverse `relatedSkillIds` on 3 technology records + 5 knowledge
+  entries — the last of which, `knowledge-latency-tradeoffs`, is a **first
+  copy-on-write override** of that seed entry. Skills 13→14.
+  **One asymmetry found and deliberately not "fixed"**: the seed technology
+  `tech-slm-edge` (端侧小语言模型) cannot carry a reverse id, because seed
+  **technologies** have no copy-on-write overlay the way seed skills and
+  knowledge do. The content-graph edge exists either way (edges dedupe from
+  either side), so `/network` and the skill page both connect the pair; only
+  that one seed signal's own 相关技能 list omits the skill. Editing
+  `src/data/technologies.ts` would fix the list but would make bundled seed
+  code reference a runtime-generated `skill-ws-*` id — the exact
+  seed-to-runtime coupling that produced the 2026-07-28 sqlite parity
+  failure — so it was left alone and recorded here instead.
+  Verified: typecheck, vitest 127/127, `validate:persistence`,
+  `validate:database` (its overlay-parity check confirms the new skill in
+  both drivers), plus a live public pass — skill detail (9 relations with
+  their real notes and 印证/必备/借助/延伸 pills), 3 signal pages, 2 knowledge
+  pages, the topic hub, `/network` (9 new edges parsed out of the payload,
+  including the `tech-slm-edge` one), search, zero console errors, no
+  overflow at 375px.
+
 ## Go-live drill — the workspace guard was never running
 
 - **`src/middleware.ts` was at the repository root, so Next never loaded it**
