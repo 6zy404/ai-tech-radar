@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T01:48:18.568Z",
+  "updatedAt": "2026-07-27T02:42:47.415Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -272,6 +272,30 @@
       "status": "published",
       "createdAt": "2026-07-27T01:48:18.567Z",
       "updatedAt": "2026-07-27T01:48:18.567Z"
+    },
+    {
+      "id": "knowledge-ws-34da6116",
+      "title": "模型量化与数值精度",
+      "slug": "model-quantization-numeric-precision",
+      "summary": "把权重和激活从高精度压到低比特，是让大模型跑进有限显存的主要手段；代价是精度损失，而损失落在哪一层决定了它是无感还是灾难。",
+      "content": "量化的基本动作很简单：用更少的比特存同一个数。真正难的是决定**哪些部分可以被压、压到多少**。\n\n三件事值得先弄清楚：\n\n**1. 不是所有层都一样敏感。** 注意力的输出投影、归一化参数、路由器（router）和输出头（output head）对精度远比中间的前馈层敏感。实践中常见的做法是把这些留在较高精度，其余压到 4-bit 或 8-bit——所以你会在发布说明里反复看到「保留输出头精度」「router 保持原精度」这类描述。\n\n**2. 混合精度会带来一致性问题。** MoE 架构允许每个专家单独存储，于是不同专家用不同量化类型是完全可能的。这在服务器端是省显存的常规手段，但一旦解码路径没有处理好精度不一致，表现就是输出异常或性能塌陷，而不是一个干净的报错。\n\n**3. 量化会和其他优化互相影响。** 推测解码里草稿模型的开销直接决定净收益，如果草稿的输出头没有按请求精度量化，省下来的时间会被重新吃掉。图捕获、注意力核的选择也都和数据类型绑定。\n\n判断一条量化相关的信号是否重要，可以问三个问题：它动的是哪一层？精度损失有没有被量化评估（而不是只给个速度数字）？它和现有的推理路径（推测解码、图捕获、并行切分）是否兼容？",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-inference",
+        "tag-on-device"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T02:42:33.541Z",
+      "updatedAt": "2026-07-27T02:42:47.414Z"
     }
   ]
 }

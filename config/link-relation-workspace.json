@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T02:26:44.332Z",
+  "updatedAt": "2026-07-27T02:43:25.935Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1323,6 +1323,96 @@
       "toType": "technology",
       "relationType": "extends",
       "note": "承接 v0.25.0 的 Model Runner V2 默认化，继续往架构适配走。"
+    },
+    {
+      "id": "rel-ws-ea6506fe",
+      "fromId": "knowledge-ws-34da6116",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "草稿输出头量化与专家精度不一致的解码修复，都是这条概念的直接实例。"
+    },
+    {
+      "id": "rel-ws-5d77d600",
+      "fromId": "knowledge-ws-34da6116",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "新架构的适配同时要处理量化路径，才谈得上完整支持栈。"
+    },
+    {
+      "id": "rel-ws-d3452f7e",
+      "fromId": "knowledge-ws-34da6116",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "端侧运行时的可用性上限，很大程度由量化质量决定。"
+    },
+    {
+      "id": "rel-ws-34a290e1",
+      "fromId": "knowledge-ws-34da6116",
+      "fromType": "knowledge",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "显存与吞吐的测算必须以实际量化配置为前提。"
+    },
+    {
+      "id": "rel-ws-3be446d7",
+      "fromId": "skill-ws-2152c7f1",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-97686",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "这篇把「你要拥有哪一层」写成了可直接套用的决策线。"
+    },
+    {
+      "id": "rel-ws-1fcd525b",
+      "fromId": "skill-ws-2152c7f1",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "反面案例：工具更好但指令没跟上，外壳的价值不会自动兑现。"
+    },
+    {
+      "id": "rel-ws-02f52644",
+      "fromId": "skill-ws-2152c7f1",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "托管智能体是「买外壳」的一种具体形态，可作为自建方案的对照。"
+    },
+    {
+      "id": "rel-ws-a97bd8d0",
+      "fromId": "skill-ws-2152c7f1",
+      "fromType": "skill",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "整个判断就是一次系统边界划分练习。"
+    },
+    {
+      "id": "rel-ws-5b95e2f4",
+      "fromId": "skill-ws-2152c7f1",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "决定用哪个模型，和决定模型之外那一层归谁，是配套的两步。"
+    },
+    {
+      "id": "rel-ws-7cfc239e",
+      "fromId": "skill-ws-2152c7f1",
+      "fromType": "skill",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "直连 API 就意味着契约与版本边界的责任回到自己身上。"
     }
   ]
 }

@@ -36,7 +36,63 @@ agentic-intrusion` 同一事件，不发第二条信号）；**10 条拒绝** �
 > 按 ranking 取前 4」，不是「今天新增的」，所以每轮都必须靠 exclude + include
 >
 > - pin 做编辑判断 —— 这与 07-19 / 07-21 / 07-22 三轮的做法一致。
->   **Next actual step**: none predefined —— 下一轮编辑轮或内容扩充。
+
+> Update 2026-07-27 (same session, after the round): **owner picked all three
+> follow-ups surfaced by the round's diagnosis.** Four more commits.
+>
+> **① `50f691a` Ranking 分档 + 简报未收录优先.** 先量化诊断（31 条已发布信号
+> 全量实测）确认两个耦合缺陷：`priorityScore` 衡量的是**记录完整度**，任何走完
+> 编辑流程的信号都会落在 80–100，于是 **31/31 全是 high_priority**，watch 与
+> low_priority 永远取不到（周回顾页的「值得跟踪」从来是空的）；而且分数和编辑
+> 自己标的 `importanceLevel` 几乎不相关（一条 signal 得 100，两条 critical 得
+> 90）。同时简报生成是「90 天窗口内按分数取前 4」，导致连续四轮都要手工排除
+> 上一期内容，且 **9 条已发布信号从未进过任何简报**。修法（各自只改流水线
+> 最后一步）：`ranking.ts` 改由 `importanceLevel` 决定档位、时效**只降不升**
+> （critical → high 恒定；important → 30 天内 high、否则 watch；signal →
+> watch；<45 分仍落 low）；`digest-workflow.ts` 新增
+> `collectCarriedTechnologyIds` + `carriedTechnologyIds` 选项，已被已发布简报
+> 收录的信号在各档内排最后，信号耗尽时自动回填所以不会出空简报。实测：档位
+> 31/0/0 → **15 high / 16 watch**，周回顾页真正分成两段（2 + 3 张卡）。
+> **注意一个数据特性**：那 9 条未收录里有 6 条是四月的种子信号，落在简报的
+> 90 天回溯窗口外，因此不会（也不该）进日报。
+>
+> **② `b11d7b9` 技术↔技术关系可编辑 + 轮次分诊标记.** `relatedTechnologyIds`
+> 此前**不在** `TechnologyWorkspaceRecordUpdate` 里，只存在于种子数据——23 条
+> 工作台发布的信号之间一条互链都建不出来，「相关技术」区块恒空。现已接入
+> update 类型、PATCH 路由与草稿表单（第三组 `RelationCheckboxItem`，同样支持
+> 关系类型 + 附注）；工作流会丢弃自引用（否则 `/network` 上会画出自环），
+> 选择器只列**已发布**技术（链到未发布草稿会是死节点）。另新增
+> `prerelease_version` 候选质量标记（`v0.32.5-rc0` / `v0.26.0rc1` /
+> `v1.0.0-beta.2`），**第一版正则在验证时被否掉**——漏掉 `v0.26.0rc1`（标记
+> 直接粘在数字上）又把 `Preview: …` 这类散文标题误标，改成必须带版本号上下文
+> 才通过；`/workspace/editorial-round` 现在直接显示每条待决候选的质量标记。
+> 这也是 **Hugging Face 博客源正文为空的实际答案**：直连抓取确认该 feed
+> **本身就没有 `<description>`**（官方域名本机不可达），不是解析 bug 也不是
+> 镜像问题，换源解决不了——那些条目现在会直接显示「缺少摘要 / 缺少正文」。
+>
+> **③ `a56cc95` 演示/验证 fixture 清理（go-live B3 收尾）.** 动手前先取证：
+> 5 月那份 `2026-05-23`「Delivery integration validation」简报是 **published**
+> 且确实出现在 `/digest`、两个 feed 和它自己的页面上——公开文案消毒器藏掉的
+> 是措辞，不是记录。清掉 3 份 5 月验证简报、2 个 `quality-*-source` 假源及其
+> 候选与评审状态、2 条遗留验证草稿、3 个「Validation …」投递渠道与 1 条孤儿
+> 投递日志。可以安全删除的依据：用到这些 fixture 的两个验证脚本
+> （`validate:quality` / `validate:editorial-enrichment`）都是自建 fixture 且
+> 在 `finally` 里备份还原真实 store，磁盘上这些是更早期遗留。`validate:persistence`
+> 抓到了第一遍漏掉的一个引用。**`validate:database` 失败但与本次无关**——已在
+> 清理前的提交上复现：SQLite driver 只 seed `src/data` 静态内容，凡是关联了
+> 工作台新建技能/知识的信号在 sqlite 模式下都缺行，已单独开任务跟踪。
+>
+> **④ 内容扩充：知识「模型量化与数值精度」
+> (`model-quantization-numeric-precision`) + 技能「AI 工具链选型与自建边界
+> 评估」(`ai-toolchain-build-vs-buy`)**，均零发布警告，10 对类型化关系 + 附注，
+> 反向 ids 补到 6 条技术记录（slug 全部保留）。缺口来自本轮三条新信号：量化
+> 此前完全没有条目（MoE 讲路由、推测解码讲解码，量化没人讲），而「你要拥有
+> 哪一层」是 Copilot 那条信号引入的可复用决策线。技能 12→13、知识 17→18。
+>
+> **Next actual step**: none predefined。已知待办：sqlite seed 缺工作台内容
+> （已开任务）、Task Scheduler 07-24/25/26 漏触发（运维，需在机器上查）、
+> go-live 剩余项均为 operator/ops 动作（B1 令牌、B4 站点 URL、I1 限流、
+> I2 备份）。
 
 > Update 2026-07-22 (earlier): **Editorial round run** (owner had me run the
 > full round autonomously after a plain-language walkthrough — they weren't
