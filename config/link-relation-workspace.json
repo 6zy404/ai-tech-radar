@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T10:19:26.882Z",
+  "updatedAt": "2026-07-27T16:56:42.503Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1593,6 +1593,69 @@
       "toType": "knowledge",
       "relationType": "extends",
       "note": "训练数据的 token 总量要连数据配方一起读，单看规模说明不了质量。"
+    },
+    {
+      "id": "rel-ws-e4d5cf9b",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "Inkling 原生吃文本、图像与音频，但「能吃图」不等于「读得对」——这项技能决定送进去的那张图是不是白给的。"
+    },
+    {
+      "id": "rel-ws-b3fff4f9",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "tech-multimodal-copilots",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "截图是编码助手最常见的输入，也是最容易糊掉的输入：裁剪与指代做不好，助手会自信地改错地方。"
+    },
+    {
+      "id": "rel-ws-5903e683",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "tech-browser-agents",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "浏览器代理靠「看页面」决定下一步，安静的视觉误读会一路传导成错误的点击。"
+    },
+    {
+      "id": "rel-ws-25d6e205",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "原生视觉还是退回 OCR、结构化数据，本质上是一次约束匹配决策，不是偏好问题。"
+    },
+    {
+      "id": "rel-ws-71d3a147",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "一张高分辨率截图可能吃掉数千视觉 token，同时把首响应延迟顶上去——代价要按 token 估。"
+    },
+    {
+      "id": "rel-ws-fe09f340",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "反事实图与复述核验是评估闭环落到视觉任务上的具体形态：改一个数字，看输出跟不跟着变。"
+    },
+    {
+      "id": "rel-ws-1a51bf83",
+      "fromId": "skill-ws-b47fabd1",
+      "fromType": "skill",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "视觉误读不会报错，只会答错，所以人该在哪一环复核，要按失败的安静程度来安排。"
     }
   ]
 }

@@ -12,6 +12,58 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Content round — visual input skill (the multimodal gap, minus the voice half)
+
+- **技能「视觉输入的组织与核验」published** — 2026-07-28, from a re-run of
+  the same topic coverage scan over the full merged pool (31 published
+  signals, 15 skills, 18 knowledge). 多模态 came out as the widest remaining
+  mismatch — **7 signals against 2 skills** — but the raw count hid the real
+  shape: of those 7, **three are voice** (GPT-Live, Real World VoiceEQ, the
+  seed voice runtime) and are already served by 「实时语音交互设计」 plus the
+  副语言信号 knowledge entry. The genuinely unserved half is **visual input**:
+  Inkling accepts images natively, the seed multimodal coding copilots run on
+  screenshots, and browser agents decide their next click by looking at the
+  page — and nothing on the site told a reader how to feed a model an image
+  well, or how to check it actually read it.
+  The skill covers the input side (crop and resolution — small UI text blurs
+  first once an image becomes visual tokens; numbering and textual anchors
+  instead of "上图" when passing several images; and when **not** to use
+  native vision at all — dense text and table figures are cheaper and more
+  accurate through OCR or the structured source) and then the half that
+  matters more: **verification**, because a visual failure is silent — the
+  model describes a button that isn't there in exactly the tone it uses when
+  correct. Three reproducible checks: make the model restate what it sees
+  (position / count / reading) before answering, keep counterfactual images
+  (change one digit, remove one control) and see whether the output follows,
+  and diff reading-type tasks against an OCR baseline. A closing paragraph
+  draws the boundary in prose against 「模型与输出评估」 (designing the eval
+  system), 「实时语音交互设计」 (turn-taking and barge-in), and
+  「模型微调与后训练定制」 (training the vision model) — the same hand-off
+  discipline the on-device and frontier-release skills use.
+  Published with **zero blocking errors and zero warnings**, 7 typed
+  relations with notes (3 技术 印证, 模型选型 必备, 延迟权衡 借助, 评估闭环
+  借助, 人在回路 延伸), and reverse `relatedSkillIds` on 1 technology record
+  - 4 knowledge entries (`knowledge-human-loop` is a **first copy-on-write
+    override** of that seed entry). Skills 15→16; 多模态 goes 2→3.
+    **One candidate rejected with evidence**: a diffusion / generative-visual
+    finetuning skill, dropped after reading 「模型微调与后训练定制」's actual
+    body — it already covers the SFT / preference-alignment / distillation
+    spectrum and puts the weight on data recipes, so the new skill would have
+    restated it for one signal (the NeMo Automodel × Diffusers release). The
+    coverage count alone would have hidden that, exactly as with the
+    inference-engine candidate the day before.
+    **The known seed asymmetry applies again**: two of the three anchor
+    signals (`tech-multimodal-copilots`, `tech-browser-agents`) are seed
+    technologies, which have no copy-on-write overlay, so they cannot carry a
+    reverse id. All 7 graph edges exist either way (edges dedupe from either
+    side) and were confirmed in the `/network` payload; only those two seed
+    pages' own 相关技能 lists omit the skill.
+    Verified: typecheck, vitest 127/127, `validate:persistence`,
+    `validate:database`, plus a live public pass (skill detail with all 7
+    relations and their real notes, the Inkling signal page, 4 knowledge
+    pages, the topic hub, `/skills`, search, and the 7 `/network` edges),
+    zero console errors, no 375px overflow.
+
 ## Content round — frontier release reading skill
 
 - **技能「旗舰模型发布解读与换代判断」published** — 2026-07-27, same day,
