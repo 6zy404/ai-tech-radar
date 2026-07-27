@@ -1,6 +1,413 @@
 {
-  "updatedAt": "2026-07-27T09:23:47.280Z",
+  "updatedAt": "2026-07-27T10:19:53.301Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "slug": "gemini-flash-cyber",
+      "title": {
+        "original": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+        "zh": "Google Gemini Flash Cyber：面向漏洞发现与修复的轻量安全模型"
+      },
+      "summary": {
+        "original": "We're introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber. Flash Cyber is a lightweight cybersecurity model to find and patch vulnerabilities.",
+        "zh": "Google DeepMind 发布新一批 Gemini Flash 模型，其中 Flash Cyber 是一个专注网络安全的轻量模型，用于自动发现并修复代码中的漏洞；同批还有 3.6 Flash 与 3.5 Flash-Lite 两个通用轻量层级。"
+      },
+      "content": {
+        "original": "Google DeepMind introduces a new batch of Gemini Flash models. The notable one is Gemini 3.5 Flash Cyber, a lightweight, security-focused model built to find and patch vulnerabilities; the batch also includes the general-purpose Gemini 3.6 Flash and 3.5 Flash-Lite tiers.",
+        "zh": "这批发布里通用的 3.6 Flash 与 3.5 Flash-Lite 是常规的轻量层级更新，真正的看点是 Flash Cyber：一个安全专用的轻量模型，把「发现漏洞 + 给出修复」直接做进模型能力。它的信号意义在于方向——把安全能力做成低延迟、低成本的专用模型，而不是让通用大模型顺带做安全，正好呼应本周攻防两侧都在智能体化的主题。需要注意的是官方公告本身较薄，真实能力边界与误报率仍需在自己的代码库上评测后再下判断。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-21",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber/",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-89b98df3",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [
+        {
+          "candidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
+          "sourceType": "rss-feed",
+          "sourceName": "Google DeepMind Blog",
+          "sourceUrl": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
+          "publisherName": "Google DeepMind",
+          "publishDate": "2026-07-17"
+        }
+      ],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "多个来源指向同一技术事件。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T10:19:53.301Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "把「找漏洞 + 修漏洞」做成一个安全专用的轻量模型，代表了一个方向：安全能力被产品化为低延迟、低成本的专用模型，而不是通用大模型的附带功能。这与本周攻防智能体化的主线相互印证。",
+      "whoShouldCare": [
+        "安全工程与 DevSecOps 团队",
+        "平台工程团队",
+        "在做模型选型、关注专用轻量模型的团队"
+      ],
+      "technicalContext": "Flash 层级意味着低延迟、低成本、可高频调用；安全专用则意味着在漏洞相关数据上做过针对性训练/对齐。轻量 + 专用的组合适合嵌进 CI / 代码审查这类高频流程，但也更依赖在真实代码库上的评测来确认能力边界与误报率。",
+      "impactAreas": [
+        "漏洞发现与修复自动化",
+        "安全工程流程",
+        "轻量模型选型",
+        "攻防能力评估"
+      ],
+      "learningPath": [
+        "阅读官方公告，确认 Flash Cyber 声称的能力范围与可用形态，注意公告较薄、需自行验证。",
+        "复习「模型选型与约束匹配」：判断轻量专用模型适合嵌入哪些高频安全流程。",
+        "用「对抗性评估与红队方法」在自己的代码库上评测其漏洞发现率与误报率。",
+        "结合「智能体安全与提示注入防御」，设计把它接入 CI / 代码审查时的把关点。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-89b98df3": "安全专用模型的真实价值必须靠对抗性评估与红队在自己的代码库上验证，而不是采信公告。",
+        "knowledge-model-sizing": "轻量 / 专用是一种约束匹配：判断它适合嵌入哪些高频流程，靠的是模型选型的方法。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "公告较薄，能力边界与误报率都要靠模型与输出评估在真实场景上确认后再下判断。",
+        "skill-ws-c183c9b9": "把安全模型接入 CI / 代码审查会引入新的攻击面与把关需求，需要安全与注入防御的视角。"
+      },
+      "followUpQuestions": [
+        "Flash Cyber 在真实代码库上的漏洞发现率与误报率如何，能否达到可自动化的门槛？",
+        "它给出的「修复」是否可直接采用，还是仍需人工审查后再合入？",
+        "把它嵌进 CI / 代码审查流程时，权限和把关点应如何设计？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "createdAt": "2026-07-22T09:31:58.152Z",
+      "updatedAt": "2026-07-27T10:19:53.301Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "slug": "thinkingmachines-inkling",
+      "title": {
+        "original": "Welcome Inkling by Thinking Machines",
+        "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
+      },
+      "summary": {
+        "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
+        "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
+      },
+      "content": {
+        "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
+        "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Thinking Machines",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-c761533e",
+        "knowledge-ws-36346103"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-a9e80194",
+        "skill-ws-84837d46",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T10:19:53.221Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
+      "whoShouldCare": [
+        "模型选型与技术决策者",
+        "推理平台与 MLOps 工程师",
+        "多模态应用开发者"
+      ],
+      "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
+      "impactAreas": [
+        "开源旗舰模型格局",
+        "多模态应用开发",
+        "自托管推理容量规划"
+      ],
+      "learningPath": [
+        "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
+        "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
+        "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
+        "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
+        "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
+      },
+      "followUpQuestions": [
+        "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
+        "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
+        "1M 上下文在真实长文档任务中的有效利用率是多少？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "createdAt": "2026-07-19T03:20:48.051Z",
+      "updatedAt": "2026-07-27T10:19:53.221Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "slug": "kimi-k3",
+      "title": {
+        "original": "Kimi K3, and what we can still learn from the pelican benchmark",
+        "zh": "Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重"
+      },
+      "summary": {
+        "original": "Moonshot AI announces Kimi K3, a 2.8-trillion-parameter flagship with an open-weight release promised by July 27 — the first 'open 3T-class' model. Third-party evaluation (Artificial Analysis) puts it behind only Claude Fable 5 on long-horizon knowledge work, at a cost per task comparable to GPT-5.6 Sol.",
+        "zh": "Moonshot AI 发布 Kimi K3：2.8 万亿参数旗舰，承诺 7 月 27 日前开放权重——将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。第三方评测（Artificial Analysis）显示其长时程知识工作 Elo 仅次于 Claude Fable 5，单任务成本与 GPT-5.6 Sol 同档、约为 Opus 4.8 的一半。"
+      },
+      "content": {
+        "original": "Moonshot AI announced Kimi K3, described as their most capable model to date at 2.8 trillion parameters, available via their website and API with an open-weight release promised by July 27, 2026 — which would make it the first 'open 3T-class' model, taking the scale crown from DeepSeek's 1.6T v4 Pro. Self-reported benchmarks have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high while losing to Claude Fable 5 and GPT-5.6 Sol. Artificial Analysis reports a long-horizon knowledge-work Elo of 1547 (+732 over K2.6, behind only Claude Fable 5), cost per task of $0.94 (similar to GPT-5.6 Sol's $1.04, about half of Opus 4.8's $1.80, higher than open-weight peers), and 21% fewer output tokens than K2.6. The model also now leads Arena.ai's Frontend Code arena.",
+        "zh": "Moonshot AI（月之暗面）发布 Kimi K3，称其为迄今最强模型：2.8 万亿参数，已通过官网与 API 提供，并承诺在 2026 年 7 月 27 日前开放权重——届时它将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。自报基准显示 K3 大多超过 Claude Opus 4.8 max 与 GPT-5.5 high，弱于 Claude Fable 5 与 GPT-5.6 Sol。\n\n更有信息量的是第三方数据。Artificial Analysis 的评测报告给出三个关键点：长时程知识工作评测 Elo 达 1547，比上一代 K2.6 提升 732 分，仅次于 Claude Fable 5；单任务成本 $0.94，与 GPT-5.6 Sol（$1.04）同档，约为 Opus 4.8（$1.80）的一半，但高于其他开放权重模型；输出 token 用量比 K2.6 减少 21%——「智能密度」竞争同样在开源阵营发生。该模型还登顶了 Arena.ai 的 Frontend Code 竞技场。\n\n原文作者 Simon Willison 借这次发布重申了他的「鹈鹕骑车基准」的价值：在官方基准普遍被针对性优化的当下，简单、意外、难以刷分的民间测试反而保留了独立的信息量。对模型选型者而言，这次发布的实际意义是：若开放权重如期兑现，闭源与开源旗舰的能力差距将进一步收窄，而单任务成本已经站到了同一价格带。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-16",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Moonshot AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T10:19:53.147Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源权重前沿竞赛可能迎来新王座：若 7 月 27 日如约开放权重，K3 将是首个「3T 级」开放模型，且单任务成本已与 GPT-5.6 Sol 同档。闭源与开源的能力差距进一步收窄，「模型选型的默认答案」需要重新计算——尤其对可以自托管的团队。",
+      "whoShouldCare": [
+        "负责模型选型与成本核算的团队",
+        "关注开放权重生态的研究者与自托管用户",
+        "评测与基准工程师"
+      ],
+      "technicalContext": "读这类发布要区分三层证据：厂商自报基准（普遍被针对性优化）、第三方系统评测（Artificial Analysis 的长时程 Elo 与单任务成本）、以及难以刷分的民间测试（Willison 的鹈鹕骑车基准）。K3 的输出 token 用量下降 21% 说明前沿竞争的重心正从纯能力转向单位算力与单位成本的智能密度——与 GPT-5.6 的主打方向相同。官方尚未详述架构细节（如是否 MoE、激活参数量）。",
+      "impactAreas": [
+        "开源模型生态",
+        "模型选型",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先读「模型选型与约束匹配」，理解单任务成本比每 token 价格更接近真实决策变量",
+        "对照 Inkling（开源万亿 MoE）理解开放权重阵营的规模化路径",
+        "用一个自己领域的小评测集交叉验证自报基准与第三方数据"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "单任务成本 $0.94 与 GPT-5.6 Sol 同档——模型选型的约束匹配正在从「谁更强」转向「同价位谁更合适」。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "K3 的发布是该技能的典型练习场：自报基准、第三方 Elo、民间鹈鹕测试三层证据需要交叉解读，而不是读一张官方对比表。"
+      },
+      "followUpQuestions": [
+        "开放权重是否在 7 月 27 日如期兑现？采用什么许可证？",
+        "架构细节（是否 MoE、激活参数量）公布后，自托管的真实算力门槛是多少？",
+        "开放后第三方复测能否复现自报与 Artificial Analysis 的结果？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "createdAt": "2026-07-21T05:07:29.020Z",
+      "updatedAt": "2026-07-27T10:19:53.147Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：来源为第三方深度分析（Simon Willison），Moonshot 官方发布页为一手出处；开放权重承诺日期 2026-07-27 待验证，正文明确标注了自报与第三方数据的边界。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "slug": "gpt-5-6",
+      "title": {
+        "original": "GPT-5.6: Frontier intelligence that scales with your ambition",
+        "zh": "GPT-5.6：OpenAI 新一代旗舰模型，主打单位算力智能密度"
+      },
+      "summary": {
+        "original": "OpenAI's newest frontier model promises more intelligence from every token, stronger performance per dollar, and more capability on demand.",
+        "zh": "OpenAI 发布新一代旗舰模型 GPT-5.6，强调每个 token 提供更多智能、更强的单位成本性能与按需扩展的能力，发布同期即成为 Microsoft 365 Copilot 的首选模型。"
+      },
+      "content": {
+        "original": "OpenAI introduced GPT-5.6, a frontier model update framed around efficiency: more intelligence from every token, stronger performance per dollar, and more capability on demand for hard work. In a companion announcement, Microsoft named GPT-5.6 the preferred model in Microsoft 365 Copilot across Word, Excel, PowerPoint, Chat, and Cowork.",
+        "zh": "OpenAI 发布了新一代旗舰模型 GPT-5.6。与以往强调能力上限不同，这次官方叙事的重心是效率：每个 token 提供更多智能、更强的单位成本性能，以及为高难度任务按需扩展的能力。\n\n值得注意的是发布节奏：同期的配套公告确认，GPT-5.6 已成为 Microsoft 365 Copilot 在 Word、Excel、PowerPoint、Chat 与 Cowork 中的首选模型。旗舰模型的代际更新正在以更短的路径进入主流办公场景——发布即大规模落地，而不是先经历一轮开发者试用期。\n\n对做模型选型的团队来说，这个信号提示竞争轴的变化：当各家旗舰能力趋近时，「单位 token 的智能密度」和「单位成本的性能」正在成为新的比较维度。官方公告未给出完整的规格与基准细节，具体提升幅度需要以原始来源和后续文档为准。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/gpt-5-6",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-68963f7f"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T10:19:53.067Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "旗舰模型的竞争叙事正从「能力更强」转向「单位 token 智能密度与单位成本性能」，这直接改变选型和成本测算的方式；发布即成为 Microsoft 365 Copilot 首选模型，也说明代际更新进入主流生产场景的路径正在缩短。",
+      "whoShouldCare": [
+        "AI 应用开发者",
+        "平台与基础设施负责人",
+        "AI 产品经理"
+      ],
+      "technicalContext": "「每个 token 更多智能」意味着同样预算下可以换取更少的 token 消耗或更高的输出质量，因此选型比较需要把 token 效率、延迟和价格放在一起看，而不是只看基准分数。每一代旗舰模型的宣称提升，都应在自己的任务评估集上重新验证。",
+      "impactAreas": [
+        "通用助手与办公套件",
+        "开发者 API 应用",
+        "企业级 AI 集成",
+        "模型选型与成本"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 GPT-5.6 的定位、可用范围和与上一代的宣称差异。",
+        "复习「模型选型与约束匹配」：把任务需求、模型规格与成本约束放在一个框架里比较。",
+        "在自己的评估集上对比新旧模型：同样任务下的质量、token 消耗和延迟各变化多少。",
+        "如果收益明确，先在一个低风险场景做迁移试点，再决定是否全面切换。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "旗舰模型换代后，「任务-模型-成本」的匹配关系需要重估，这个概念提供了重估的框架。",
+        "knowledge-evaluation-loops": "官方宣称的性能提升需要用自己的评估闭环验证，而不是直接采信发布文案。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "用自己的任务集对比新旧模型的质量、成本与延迟，是判断是否值得迁移的唯一可靠方法。",
+        "skill-scope-pilots": "模型换代迁移应先在小范围试点验证收益与回归风险，再决定推广节奏。"
+      },
+      "followUpQuestions": [
+        "GPT-5.6 的 API 定价与配额如何，相对 GPT-5.5 的单位成本变化多大？",
+        "「按需扩展的能力」具体是什么产品形态（推理档位、上下文规格还是工具能力）？",
+        "官方是否提供旧版本的迁移指引和弃用时间表？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-gpt-5-6",
+      "createdAt": "2026-07-09T20:58:31.343Z",
+      "updatedAt": "2026-07-27T10:19:53.067Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; announcement copy is high-level, content kept conservative pending specs and pricing.",
+        "Companion M365 Copilot adoption announcement folded in as context (its candidate marked reviewed, not published separately)."
+      ],
+      "relatedTechnologyIds": []
+    },
     {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
       "slug": "ollama-v0-31-2",
@@ -912,115 +1319,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
-      "slug": "gemini-flash-cyber",
-      "title": {
-        "original": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
-        "zh": "Google Gemini Flash Cyber：面向漏洞发现与修复的轻量安全模型"
-      },
-      "summary": {
-        "original": "We're introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber. Flash Cyber is a lightweight cybersecurity model to find and patch vulnerabilities.",
-        "zh": "Google DeepMind 发布新一批 Gemini Flash 模型，其中 Flash Cyber 是一个专注网络安全的轻量模型，用于自动发现并修复代码中的漏洞；同批还有 3.6 Flash 与 3.5 Flash-Lite 两个通用轻量层级。"
-      },
-      "content": {
-        "original": "Google DeepMind introduces a new batch of Gemini Flash models. The notable one is Gemini 3.5 Flash Cyber, a lightweight, security-focused model built to find and patch vulnerabilities; the batch also includes the general-purpose Gemini 3.6 Flash and 3.5 Flash-Lite tiers.",
-        "zh": "这批发布里通用的 3.6 Flash 与 3.5 Flash-Lite 是常规的轻量层级更新，真正的看点是 Flash Cyber：一个安全专用的轻量模型，把「发现漏洞 + 给出修复」直接做进模型能力。它的信号意义在于方向——把安全能力做成低延迟、低成本的专用模型，而不是让通用大模型顺带做安全，正好呼应本周攻防两侧都在智能体化的主题。需要注意的是官方公告本身较薄，真实能力边界与误报率仍需在自己的代码库上评测后再下判断。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-21",
-      "sourceName": "Google DeepMind Blog",
-      "sourceUrl": "https://deepmind.google/blog/introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber/",
-      "sourceLanguage": "en",
-      "translationStatus": "pending",
-      "publisherName": "Google DeepMind",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-89b98df3",
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-c183c9b9"
-      ],
-      "sourceReferences": [
-        {
-          "candidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
-          "sourceType": "rss-feed",
-          "sourceName": "Google DeepMind Blog",
-          "sourceUrl": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
-          "publisherName": "Google DeepMind",
-          "publishDate": "2026-07-17"
-        }
-      ],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "多个来源指向同一技术事件。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-22T09:39:03.672Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "把「找漏洞 + 修漏洞」做成一个安全专用的轻量模型，代表了一个方向：安全能力被产品化为低延迟、低成本的专用模型，而不是通用大模型的附带功能。这与本周攻防智能体化的主线相互印证。",
-      "whoShouldCare": [
-        "安全工程与 DevSecOps 团队",
-        "平台工程团队",
-        "在做模型选型、关注专用轻量模型的团队"
-      ],
-      "technicalContext": "Flash 层级意味着低延迟、低成本、可高频调用；安全专用则意味着在漏洞相关数据上做过针对性训练/对齐。轻量 + 专用的组合适合嵌进 CI / 代码审查这类高频流程，但也更依赖在真实代码库上的评测来确认能力边界与误报率。",
-      "impactAreas": [
-        "漏洞发现与修复自动化",
-        "安全工程流程",
-        "轻量模型选型",
-        "攻防能力评估"
-      ],
-      "learningPath": [
-        "阅读官方公告，确认 Flash Cyber 声称的能力范围与可用形态，注意公告较薄、需自行验证。",
-        "复习「模型选型与约束匹配」：判断轻量专用模型适合嵌入哪些高频安全流程。",
-        "用「对抗性评估与红队方法」在自己的代码库上评测其漏洞发现率与误报率。",
-        "结合「智能体安全与提示注入防御」，设计把它接入 CI / 代码审查时的把关点。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-89b98df3": "安全专用模型的真实价值必须靠对抗性评估与红队在自己的代码库上验证，而不是采信公告。",
-        "knowledge-model-sizing": "轻量 / 专用是一种约束匹配：判断它适合嵌入哪些高频流程，靠的是模型选型的方法。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "公告较薄，能力边界与误报率都要靠模型与输出评估在真实场景上确认后再下判断。",
-        "skill-ws-c183c9b9": "把安全模型接入 CI / 代码审查会引入新的攻击面与把关需求，需要安全与注入防御的视角。"
-      },
-      "followUpQuestions": [
-        "Flash Cyber 在真实代码库上的漏洞发现率与误报率如何，能否达到可自动化的门槛？",
-        "它给出的「修复」是否可直接采用，还是仍需人工审查后再合入？",
-        "把它嵌进 CI / 代码审查流程时，权限和把关点应如何设计？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
-      "createdAt": "2026-07-22T09:31:58.152Z",
-      "updatedAt": "2026-07-22T09:39:03.672Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
       "slug": "openai-long-horizon-safety",
       "title": {
@@ -1320,294 +1618,6 @@
       "updatedAt": "2026-07-21T05:08:16.608Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-      "slug": "gpt-5-6",
-      "title": {
-        "original": "GPT-5.6: Frontier intelligence that scales with your ambition",
-        "zh": "GPT-5.6：OpenAI 新一代旗舰模型，主打单位算力智能密度"
-      },
-      "summary": {
-        "original": "OpenAI's newest frontier model promises more intelligence from every token, stronger performance per dollar, and more capability on demand.",
-        "zh": "OpenAI 发布新一代旗舰模型 GPT-5.6，强调每个 token 提供更多智能、更强的单位成本性能与按需扩展的能力，发布同期即成为 Microsoft 365 Copilot 的首选模型。"
-      },
-      "content": {
-        "original": "OpenAI introduced GPT-5.6, a frontier model update framed around efficiency: more intelligence from every token, stronger performance per dollar, and more capability on demand for hard work. In a companion announcement, Microsoft named GPT-5.6 the preferred model in Microsoft 365 Copilot across Word, Excel, PowerPoint, Chat, and Cowork.",
-        "zh": "OpenAI 发布了新一代旗舰模型 GPT-5.6。与以往强调能力上限不同，这次官方叙事的重心是效率：每个 token 提供更多智能、更强的单位成本性能，以及为高难度任务按需扩展的能力。\n\n值得注意的是发布节奏：同期的配套公告确认，GPT-5.6 已成为 Microsoft 365 Copilot 在 Word、Excel、PowerPoint、Chat 与 Cowork 中的首选模型。旗舰模型的代际更新正在以更短的路径进入主流办公场景——发布即大规模落地，而不是先经历一轮开发者试用期。\n\n对做模型选型的团队来说，这个信号提示竞争轴的变化：当各家旗舰能力趋近时，「单位 token 的智能密度」和「单位成本的性能」正在成为新的比较维度。官方公告未给出完整的规格与基准细节，具体提升幅度需要以原始来源和后续文档为准。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-09",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/gpt-5-6",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-68963f7f"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-scope-pilots"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:08:16.562Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "旗舰模型的竞争叙事正从「能力更强」转向「单位 token 智能密度与单位成本性能」，这直接改变选型和成本测算的方式；发布即成为 Microsoft 365 Copilot 首选模型，也说明代际更新进入主流生产场景的路径正在缩短。",
-      "whoShouldCare": [
-        "AI 应用开发者",
-        "平台与基础设施负责人",
-        "AI 产品经理"
-      ],
-      "technicalContext": "「每个 token 更多智能」意味着同样预算下可以换取更少的 token 消耗或更高的输出质量，因此选型比较需要把 token 效率、延迟和价格放在一起看，而不是只看基准分数。每一代旗舰模型的宣称提升，都应在自己的任务评估集上重新验证。",
-      "impactAreas": [
-        "通用助手与办公套件",
-        "开发者 API 应用",
-        "企业级 AI 集成",
-        "模型选型与成本"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 GPT-5.6 的定位、可用范围和与上一代的宣称差异。",
-        "复习「模型选型与约束匹配」：把任务需求、模型规格与成本约束放在一个框架里比较。",
-        "在自己的评估集上对比新旧模型：同样任务下的质量、token 消耗和延迟各变化多少。",
-        "如果收益明确，先在一个低风险场景做迁移试点，再决定是否全面切换。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "旗舰模型换代后，「任务-模型-成本」的匹配关系需要重估，这个概念提供了重估的框架。",
-        "knowledge-evaluation-loops": "官方宣称的性能提升需要用自己的评估闭环验证，而不是直接采信发布文案。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "用自己的任务集对比新旧模型的质量、成本与延迟，是判断是否值得迁移的唯一可靠方法。",
-        "skill-scope-pilots": "模型换代迁移应先在小范围试点验证收益与回归风险，再决定推广节奏。"
-      },
-      "followUpQuestions": [
-        "GPT-5.6 的 API 定价与配额如何，相对 GPT-5.5 的单位成本变化多大？",
-        "「按需扩展的能力」具体是什么产品形态（推理档位、上下文规格还是工具能力）？",
-        "官方是否提供旧版本的迁移指引和弃用时间表？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-gpt-5-6",
-      "createdAt": "2026-07-09T20:58:31.343Z",
-      "updatedAt": "2026-07-21T05:08:16.562Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; announcement copy is high-level, content kept conservative pending specs and pricing.",
-        "Companion M365 Copilot adoption announcement folded in as context (its candidate marked reviewed, not published separately)."
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-      "slug": "thinkingmachines-inkling",
-      "title": {
-        "original": "Welcome Inkling by Thinking Machines",
-        "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
-      },
-      "summary": {
-        "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
-        "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
-      },
-      "content": {
-        "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
-        "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-15",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Thinking Machines",
-      "publisherType": "startup",
-      "importanceLevel": "critical",
-      "status": "published",
-      "tags": [
-        "tag-multimodal",
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-c761533e",
-        "knowledge-ws-36346103"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-a9e80194",
-        "skill-ws-84837d46"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为关键重要性。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:08:16.503Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
-      "whoShouldCare": [
-        "模型选型与技术决策者",
-        "推理平台与 MLOps 工程师",
-        "多模态应用开发者"
-      ],
-      "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
-      "impactAreas": [
-        "开源旗舰模型格局",
-        "多模态应用开发",
-        "自托管推理容量规划"
-      ],
-      "learningPath": [
-        "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
-        "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
-        "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
-        "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
-        "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
-      },
-      "followUpQuestions": [
-        "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
-        "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
-        "1M 上下文在真实长文档任务中的有效利用率是多少？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-      "createdAt": "2026-07-19T03:20:48.051Z",
-      "updatedAt": "2026-07-21T05:08:16.503Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "slug": "kimi-k3",
-      "title": {
-        "original": "Kimi K3, and what we can still learn from the pelican benchmark",
-        "zh": "Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重"
-      },
-      "summary": {
-        "original": "Moonshot AI announces Kimi K3, a 2.8-trillion-parameter flagship with an open-weight release promised by July 27 — the first 'open 3T-class' model. Third-party evaluation (Artificial Analysis) puts it behind only Claude Fable 5 on long-horizon knowledge work, at a cost per task comparable to GPT-5.6 Sol.",
-        "zh": "Moonshot AI 发布 Kimi K3：2.8 万亿参数旗舰，承诺 7 月 27 日前开放权重——将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。第三方评测（Artificial Analysis）显示其长时程知识工作 Elo 仅次于 Claude Fable 5，单任务成本与 GPT-5.6 Sol 同档、约为 Opus 4.8 的一半。"
-      },
-      "content": {
-        "original": "Moonshot AI announced Kimi K3, described as their most capable model to date at 2.8 trillion parameters, available via their website and API with an open-weight release promised by July 27, 2026 — which would make it the first 'open 3T-class' model, taking the scale crown from DeepSeek's 1.6T v4 Pro. Self-reported benchmarks have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high while losing to Claude Fable 5 and GPT-5.6 Sol. Artificial Analysis reports a long-horizon knowledge-work Elo of 1547 (+732 over K2.6, behind only Claude Fable 5), cost per task of $0.94 (similar to GPT-5.6 Sol's $1.04, about half of Opus 4.8's $1.80, higher than open-weight peers), and 21% fewer output tokens than K2.6. The model also now leads Arena.ai's Frontend Code arena.",
-        "zh": "Moonshot AI（月之暗面）发布 Kimi K3，称其为迄今最强模型：2.8 万亿参数，已通过官网与 API 提供，并承诺在 2026 年 7 月 27 日前开放权重——届时它将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。自报基准显示 K3 大多超过 Claude Opus 4.8 max 与 GPT-5.5 high，弱于 Claude Fable 5 与 GPT-5.6 Sol。\n\n更有信息量的是第三方数据。Artificial Analysis 的评测报告给出三个关键点：长时程知识工作评测 Elo 达 1547，比上一代 K2.6 提升 732 分，仅次于 Claude Fable 5；单任务成本 $0.94，与 GPT-5.6 Sol（$1.04）同档，约为 Opus 4.8（$1.80）的一半，但高于其他开放权重模型；输出 token 用量比 K2.6 减少 21%——「智能密度」竞争同样在开源阵营发生。该模型还登顶了 Arena.ai 的 Frontend Code 竞技场。\n\n原文作者 Simon Willison 借这次发布重申了他的「鹈鹕骑车基准」的价值：在官方基准普遍被针对性优化的当下，简单、意外、难以刷分的民间测试反而保留了独立的信息量。对模型选型者而言，这次发布的实际意义是：若开放权重如期兑现，闭源与开源旗舰的能力差距将进一步收窄，而单任务成本已经站到了同一价格带。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-16",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Moonshot AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:07:30.376Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源权重前沿竞赛可能迎来新王座：若 7 月 27 日如约开放权重，K3 将是首个「3T 级」开放模型，且单任务成本已与 GPT-5.6 Sol 同档。闭源与开源的能力差距进一步收窄，「模型选型的默认答案」需要重新计算——尤其对可以自托管的团队。",
-      "whoShouldCare": [
-        "负责模型选型与成本核算的团队",
-        "关注开放权重生态的研究者与自托管用户",
-        "评测与基准工程师"
-      ],
-      "technicalContext": "读这类发布要区分三层证据：厂商自报基准（普遍被针对性优化）、第三方系统评测（Artificial Analysis 的长时程 Elo 与单任务成本）、以及难以刷分的民间测试（Willison 的鹈鹕骑车基准）。K3 的输出 token 用量下降 21% 说明前沿竞争的重心正从纯能力转向单位算力与单位成本的智能密度——与 GPT-5.6 的主打方向相同。官方尚未详述架构细节（如是否 MoE、激活参数量）。",
-      "impactAreas": [
-        "开源模型生态",
-        "模型选型",
-        "推理成本"
-      ],
-      "learningPath": [
-        "先读「模型选型与约束匹配」，理解单任务成本比每 token 价格更接近真实决策变量",
-        "对照 Inkling（开源万亿 MoE）理解开放权重阵营的规模化路径",
-        "用一个自己领域的小评测集交叉验证自报基准与第三方数据"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "单任务成本 $0.94 与 GPT-5.6 Sol 同档——模型选型的约束匹配正在从「谁更强」转向「同价位谁更合适」。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "K3 的发布是该技能的典型练习场：自报基准、第三方 Elo、民间鹈鹕测试三层证据需要交叉解读，而不是读一张官方对比表。"
-      },
-      "followUpQuestions": [
-        "开放权重是否在 7 月 27 日如期兑现？采用什么许可证？",
-        "架构细节（是否 MoE、激活参数量）公布后，自托管的真实算力门槛是多少？",
-        "开放后第三方复测能否复现自报与 Artificial Analysis 的结果？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "createdAt": "2026-07-21T05:07:29.020Z",
-      "updatedAt": "2026-07-21T05:07:30.376Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：来源为第三方深度分析（Simon Willison），Moonshot 官方发布页为一手出处；开放权重承诺日期 2026-07-27 待验证，正文明确标注了自报与第三方数据的边界。"
       ]
     },
     {

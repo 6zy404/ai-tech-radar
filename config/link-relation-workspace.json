@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T09:22:57.109Z",
+  "updatedAt": "2026-07-27T10:19:26.882Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1521,6 +1521,78 @@
       "toType": "knowledge",
       "relationType": "supports",
       "note": "首 token 延迟与稳态吞吐这两个验收口径，出处就是交互系统的延迟预算。"
+    },
+    {
+      "id": "rel-ws-b8e3a9d9",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "「单位算力的智能密度」正是那类没有公开口径、只能当方向信号读的复合指标。"
+    },
+    {
+      "id": "rel-ws-69799e37",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "承诺开放权重与真的可用之间隔着许可条款和放出时间，这条信号是现成的练习题。"
+    },
+    {
+      "id": "rel-ws-4627edf8",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "1 万亿总参数 / 41B 激活，是「参数量必须换算才能比」最直接的例子。"
+    },
+    {
+      "id": "rel-ws-386e3de1",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同批发布多个规格时，要先分清哪个是给你的任务用的，再谈换不换。"
+    },
+    {
+      "id": "rel-ws-dbaa83bc",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "不懂 MoE 的总参数与激活参数之分，公告里最大的那个数字就会读错。"
+    },
+    {
+      "id": "rel-ws-c832d25c",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "换不换的判断，本质上是把新公告重新代入一次自己的约束条件。"
+    },
+    {
+      "id": "rel-ws-77ebdf02",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "换代必须重跑评测，没有闭环就只是换了个感觉。"
+    },
+    {
+      "id": "rel-ws-dd471498",
+      "fromId": "skill-ws-dddaf80c",
+      "fromType": "skill",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "训练数据的 token 总量要连数据配方一起读，单看规模说明不了质量。"
     }
   ]
 }

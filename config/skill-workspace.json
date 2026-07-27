@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T09:23:10.435Z",
+  "updatedAt": "2026-07-27T10:19:27.383Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -287,6 +287,35 @@
       "status": "published",
       "createdAt": "2026-07-27T09:22:20.958Z",
       "updatedAt": "2026-07-27T09:23:10.434Z"
+    },
+    {
+      "id": "skill-ws-dddaf80c",
+      "title": "旗舰模型发布解读与换代判断",
+      "slug": "frontier-release-reading-and-switching",
+      "summary": "面对一份新旗舰模型公告，分清哪些数字可比、哪些是话术，并判断这次值不值得换——换代的成本大多不在模型本身。",
+      "content": "每隔几周就有一份「最强模型」公告。要从里面提取出决策信息，先把公告里的数字分成三类。\n\n**可以直接横着比的**：上下文长度、每百万 token 的价格、开放权重的许可条款、以及第三方独立评测（如 Artificial Analysis）的分数。这些有统一口径。\n\n**要先换算才能比的**：参数量。MoE 模型会报两个数——总参数和激活参数。Inkling 的约 1 万亿总参数里每次只激活 41B，Kimi K3 的 2.8 万亿同理。拿总参数去和稠密模型比大小没有意义，真正决定推理成本的是激活参数。同理，训练数据的 token 规模要连数据配方一起看，单看总量说明不了质量。\n\n**基本不可比的**：厂商自定义的复合指标。GPT-5.6 主打「单位算力的智能密度」，方向可能是对的，但没有公开口径，不能当选型依据，只能当作「这家在优化哪个方向」的信号。\n\n什么时候才真该换？三个条件至少满足一个：\n\n1. 现在的模型在**某个具体任务上稳定失败**，且已经排除了提示词和上下文的问题。\n2. **成本结构发生数量级变化**，不是便宜一两成。\n3. 出现了你**确实需要**的新能力——更长上下文、原生多模态输入、或者开放权重让你能自托管。\n\n「榜单排名变了」不是换代理由。\n\n换代真正的开销通常不在模型本身，而在这四项：\n\n- **提示词要重调。** 不同模型对指令的敏感度不同，原样搬过去经常退化。\n- **评测要重跑。** 不重跑就不知道换完是变好还是变差，只是换了个感觉。\n- **成本要重算。** 单价降了不等于账单降了——输出长度、重试率、上下文填充量都会变。\n- **上下游要回归。** 工具调用格式、输出解析、超时设置都可能要跟着改。\n\n遇到「开放权重」的公告，还要多看一步：宣布开源和真的能用之间有距离——权重哪天真放出来、许可允不允许商用、能不能用它的输出去训练别的模型，各家写法差别很大。承诺本身不是可用性。\n\n这项技能和「模型与输出评估」分工清楚：那一条讲**怎么设计你自己的检查**，这一条讲**怎么读别人的公告、决定要不要换**。实际用起来是先后关系——先用这条判断值不值得试，再用那条验证试的结果。",
+      "skillType": "analysis",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-frontier-models",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-818b7bb3"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T10:18:51.664Z",
+      "updatedAt": "2026-07-27T10:19:27.382Z"
     }
   ]
 }
