@@ -23,6 +23,14 @@ interface BuildDailyDigestOptions {
   lookbackDays?: number;
   maxHighPriorityItems?: number;
   maxWatchItems?: number;
+  /**
+   * Technology ids that a previously published digest already carried. They
+   * are sorted last inside each priority bucket ("fresh first"), so a signal
+   * that has never appeared in a digest wins the limited slots. Selection
+   * still falls back to these once the never-carried pool runs out, so a quiet
+   * day never produces an empty digest.
+   */
+  carriedTechnologyIds?: readonly string[];
 }
 
 interface DigestReadinessOptions {
@@ -280,6 +288,7 @@ export function buildDailyDigestFromTechnologies(
 ): DailyDigest {
   const now = options.now ?? new Date(`${date}T12:00:00.000Z`);
   const lookbackDays = options.lookbackDays ?? defaultLookbackDays;
+  const carriedTechnologyIds = new Set(options.carriedTechnologyIds ?? []);
   const rankedTechnologies = technologies
     .filter((technology) =>
       isPublishedTechnologyEligible(technology, now, lookbackDays)
@@ -288,9 +297,17 @@ export function buildDailyDigestFromTechnologies(
       technology,
       ranking: evaluateTechnologyPriority(technology, { now })
     }))
-    .sort((left, right) =>
-      sortTechnologiesForDigest(left.technology, right.technology, now)
-    );
+    .sort((left, right) => {
+      const carriedDelta =
+        (carriedTechnologyIds.has(left.technology.id) ? 1 : 0) -
+        (carriedTechnologyIds.has(right.technology.id) ? 1 : 0);
+
+      if (carriedDelta !== 0) {
+        return carriedDelta;
+      }
+
+      return sortTechnologiesForDigest(left.technology, right.technology, now);
+    });
   const highPriorityTechnologies = rankedTechnologies
     .filter((item) => item.ranking.priorityLevel === "high_priority")
     .slice(0, options.maxHighPriorityItems ?? defaultMaxHighPriorityItems)
@@ -351,13 +368,41 @@ export function buildDailyDigestFromTechnologies(
   };
 }
 
+export function collectCarriedTechnologyIds(
+  digests: DailyDigest[],
+  excludeDate?: string
+): string[] {
+  const carried = new Set<string>();
+
+  for (const digest of digests) {
+    if (digest.status !== "published" || digest.date === excludeDate) {
+      continue;
+    }
+
+    for (const id of [
+      ...digest.highPriorityTechnologyIds,
+      ...digest.watchTechnologyIds,
+      ...digest.manuallyAddedTechnologyIds
+    ]) {
+      if (!digest.excludedTechnologyIds.includes(id)) {
+        carried.add(id);
+      }
+    }
+  }
+
+  return Array.from(carried);
+}
+
 export function generateDailyDigest(date = getTodayDateString()): DailyDigest {
   const regeneratedAt = new Date().toISOString();
+  const store = readDailyDigestStore();
   const nextDigest = buildDailyDigestFromTechnologies(
     getAllTechnologies(),
-    date
+    date,
+    {
+      carriedTechnologyIds: collectCarriedTechnologyIds(store.digests, date)
+    }
   );
-  const store = readDailyDigestStore();
   const existingDigest = store.digests.find((digest) => digest.date === date);
   const preserveManualAdjustments =
     existingDigest && isDigestManuallyAdjusted(existingDigest);

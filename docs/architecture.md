@@ -243,7 +243,28 @@ Ranking inputs:
 - publish/import recency
 - publisher and source metadata
 
-The ranking helper produces `priorityReasons` and `priorityWarnings` so reviewers can understand why a record was classified. `rankingSource` currently supports `rule_based` and `manual_override`; the manual override data shape exists, but the editing UI is intentionally deferred.
+For **published technology records**, the final band is resolved from the
+editor's `importanceLevel`, with recency able to demote but never promote
+(changed 2026-07-27 — see `CHANGELOG.md` → "Ranking banding + digest
+fresh-first selection" for the measurement that motivated it):
+
+- `critical` → `high_priority`, regardless of age
+- `important` → `high_priority` within 30 days of publication, otherwise `watch`
+- `signal` → `watch`
+- any record scoring under 45 (missing summary/content, invalid URL or date)
+  → `low_priority`, and a severe warning caps an otherwise-eligible record at
+  `watch`
+
+`priorityScore` is still computed exactly as before and is still the ordering
+key **inside** a band; it is no longer the band boundary itself. The reason it
+cannot be: the score measures record completeness, so every signal that clears
+the editorial workflow lands in the 80-100 range, which made all 31 published
+signals `high_priority` and left `watch`/`low_priority` unreachable.
+
+Imported candidates have no editorial `importanceLevel` yet, so they keep the
+original score thresholds (`>= 75` high, `>= 45` watch).
+
+The ranking helper produces `priorityReasons` and `priorityWarnings` so reviewers can understand why a record was classified, including which banding rule applied. `rankingSource` currently supports `rule_based` and `manual_override`; the manual override data shape exists, but the editing UI is intentionally deferred.
 
 Internal Workspace pages show priority level, ranking source, reasons, and warnings for candidates and technology records. User-facing pages show a productized priority label and short explanation without exposing quality flags, source health details, duplicate group internals, or raw score details.
 
@@ -316,6 +337,12 @@ Digest generation rules:
 - place `high_priority` items in the immediate-attention section
 - place `watch` items in the worth-tracking section
 - exclude `low_priority` items by default
+- prefer signals that **no published digest has carried yet**: within each
+  priority bucket, already-carried signals sort last, so never-carried ones
+  take the limited slots first. Selection falls back to carried signals once
+  the never-carried pool is exhausted, so a quiet day still produces a
+  non-empty digest (`collectCarriedTechnologyIds` +
+  `BuildDailyDigestOptions.carriedTechnologyIds`, added 2026-07-27)
 - aggregate related skill IDs and knowledge IDs from selected items
 - aggregate public source names from selected items
 

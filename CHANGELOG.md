@@ -12,6 +12,50 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Ranking banding + digest fresh-first selection
+
+- **Editorial banding replaces score-only priority levels, and digest
+  generation stops repeating itself** — 2026-07-27, owner-selected after a
+  measured diagnosis during that day's editorial round. Two coupled defects
+  were confirmed with real numbers over the 31 published signals:
+  (1) **`priorityLevel` had collapsed** — every published signal scored 80-100
+  and landed in `high_priority`, leaving `watch` and `low_priority`
+  permanently empty (so `/digest/weekly`'s 值得跟踪 section never had
+  content). `priorityScore` measures record _completeness_, which any signal
+  that clears the editorial workflow maxes out, and it barely correlated with
+  the editor's own `importanceLevel` — a `signal` scored 100 while two
+  `critical` records scored 90. (2) **Digest generation was structurally
+  repetitive** — `buildDailyDigestFromTechnologies` takes the top 4 by score
+  inside a 90-day window, so the same high scorers won every day (four
+  consecutive rounds had to hand-exclude the previous digest's items) while
+  **9 published signals had never appeared in any digest at all**, including
+  `kimi-k3`, `gemini-managed-agents-background-mcp`, and
+  `copilot-code-review-tool-workflow-lessons`.
+  Fixes, both scoped to the last step of their pipeline: `ranking.ts` now
+  resolves the band from the editor's `importanceLevel` with recency able to
+  **demote but never promote** — `critical` → `high_priority` always,
+  `important` → `high_priority` within 30 days else `watch`, `signal` →
+  `watch`, and anything scoring under 45 (broken/incomplete records) still
+  falls to `low_priority`. `priorityScore` is unchanged and keeps its job as
+  the within-band ordering key; `priorityReasons` now states which rule
+  applied. Imported candidates have no editorial importance yet, so they keep
+  the original score thresholds. `digest-workflow.ts` gained
+  `collectCarriedTechnologyIds` plus a `carriedTechnologyIds` build option:
+  signals a published digest already carried sort **last inside each priority
+  bucket**, so never-carried signals take the limited slots first, with
+  automatic fallback to carried ones so a quiet day never generates an empty
+  digest. Measured after the change: levels went 31/0/0 → **15 high / 16
+  watch**, `/digest/weekly` renders a real two-section split (2 + 3 cards
+  where 值得跟踪 was previously always empty), and a hypothetical next-day
+  generation leads with the two never-carried in-window signals instead of
+  four repeats. (The other 6 never-carried signals are April seed items
+  outside the digest's 90-day window — correctly excluded from a _daily_
+  digest.) Verified with typecheck, lint, format, vitest 107/107 (6 new tests
+  covering critical-never-demoted, important freshness demotion,
+  signal-stays-watch, fresh-first ordering, empty-digest fallback, and
+  `collectCarriedTechnologyIds` exclusion rules), `validate:ranking`,
+  `validate:digest`, and a live pass with zero console errors.
+
 ## Production hardening (go-live checklist, in-repo items)
 
 - **CSP + HSTS, pinned Node, and untracked runtime/secret stores** —
