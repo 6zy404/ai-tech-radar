@@ -1265,6 +1265,22 @@ Schema v0 tables:
 - `task_runs`
 - `workflow_events`
 - `editorial_enrichment_suggestions`
+- `prompt_versions`
+- `skill_workspace_records`
+- `knowledge_workspace_records`
+- `link_relation_overrides`
+- `runtime_configs`
+- `technology_comparisons`
+- `technology_explanations`
+- `technology_learning_paths`
+
+The last seven were added 2026-07-28. Until then the six newer JSON stores
+(skill/knowledge workspace, link relation overrides, the two schedule configs,
+and the three AI result caches) had no SQLite adapter at all, so in
+`PERSISTENCE_DRIVER=sqlite` mode reads silently returned an empty overlay and
+writes threw. `runtime_configs` is the one table that is not per-domain: the
+two schedule configs are single objects rather than record lists, so they are
+stored as one row each keyed by JSON filename.
 
 Each table keeps a full JSON `payload` plus key query columns such as `id`, `status`, `slug`, `sourceId`, `sourceUrl`, `publishDate`, `enabled`, `createdAt`, and `updatedAt`.
 

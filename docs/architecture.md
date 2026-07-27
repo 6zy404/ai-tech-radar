@@ -583,6 +583,12 @@ SQLite schema v0 covers:
 - `delivery_channels`, `delivery_logs`
 - `scheduled_deliveries`, `scheduled_delivery_runs`
 - `task_runs`
+- `skill_workspace_records`, `knowledge_workspace_records`,
+  `link_relation_overrides` (added 2026-07-28 — the workspace content overlays
+  had no SQLite adapter, so sqlite mode served the seed pools only)
+- `runtime_configs` (single-object schedule configs, keyed by JSON filename),
+  `technology_comparisons`, `technology_explanations`,
+  `technology_learning_paths`
 
 This v0 stores each domain object as a JSON payload plus key columns and indexes. That keeps the migration small while making future Postgres/Supabase tables and indexes explicit.
 

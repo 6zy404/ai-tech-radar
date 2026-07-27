@@ -1,6 +1,37 @@
 # Next Task
 
-> Update 2026-07-27 (latest): **Editorial round run — 07-23 至 07-27 合并轮.**
+> Update 2026-07-28 (latest): **SQLite 驱动补齐六个缺失适配器.** 上一会话遗留的
+> `validate:database` 失败已修，且根因比记录里写的更严重：不是「seed 缺工作台
+> 内容」，而是 **6 个 store 根本没有 SQLite 适配器**
+> （`skill-workspace.json` / `knowledge-workspace.json` /
+> `link-relation-workspace.json` / `scheduled-import.json` /
+> `scheduled-digest.json` / 三份 `technology-*.json` AI 缓存）。两个方向失败
+> 方式不同：读走 `default: return fallbackValue` **静默返回空**（sqlite 模式下
+> 13 条技能 / 18 条知识的工作台覆盖整体消失、关系退回种子、`nextRunAt` 每次读
+> 都丢失、AI 缓存永不命中），写走 `default: throw` **直接崩**（sqlite 模式下
+> 保存技能/知识/关系/定时配置全部失败）。修法：5 个新 repository 文件（其中
+> `sqlite-runtime-config-store.ts` 用一张按文件名索引的 `runtime_configs` 表
+> 承载两份单对象配置，`sqlite-technology-ai-cache-store.ts` 承载三份 AI 缓存）、
+> 7 张新表 + 索引、两处 dispatch、`migrateJsonStoresToSqlite` 及其两个调用方。
+> 迁移时**不写**缺失的单对象配置，避免把「从未配置过」固化成一行。
+> `validate:database` 新增两道闸：表清单断言 + `validateWorkspaceOverlayParity`
+> （两个驱动必须返回相同的技能/知识 id 集合）——正是这条能在 07-16 当时就抓住
+> 漂移。验证：先复现失败断言，再 typecheck / lint / format / vitest 108/108 /
+> validate:database·persistence·tasks·digest 全绿，外加隔离
+> `LOCAL_DATA_DIR` + `SQLITE_DATABASE_PATH` 的 sqlite 往返（技能新建→草稿不入
+> 公开池→发布→可见；关系类型+附注落库；定时配置改动跨读写保留；对比缓存同键
+> 命中），隔离目录最终只有 `.sqlite` 一个文件，证明没有回落到 JSON。
+> **同时查清（未动手）**：Task Scheduler 并非漏触发——任务本身健康
+> （`Last Result: 0`，下次 07-28 08:05），但 `StartWhenAvailable=False`
+> （错过永不补跑）+ `DisallowStartIfOnBatteries=True` + `WakeToRun=False`，
+> 所以关机/睡眠/电池时当天静默跳过；实际漏跑的是 07-15~~07-19、07-21、
+> 07-24~~07-26 共 9 天，不止记录里的 3 天。改 3 个设置即可（一条
+> `Set-ScheduledTask`，不动代码），待你点头。
+> **剩余 backlog**：Task Scheduler 设置（运维）、go-live B1 令牌 / B4 站点 URL /
+> I2 备份（部署时的运维动作）、I1 公开 LLM 路由限流（代码，mock provider 下不
+> 紧急）、下一轮编辑轮（07-28 08:05 新候选到达后）。
+
+> Update 2026-07-27: **Editorial round run — 07-23 至 07-27 合并轮.**
 > 上一会话之后定时任务继续跑了两次（07-23、07-27；07-24/25/26 无记录，Windows
 > Task Scheduler 疑似漏触发，值得单独看一眼），积压 **16 条待决候选** + **两份
 > 未发布简报草稿**。全部处置完毕：**3 条转草稿并发布** —— vLLM v0.26.0

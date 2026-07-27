@@ -48,15 +48,45 @@ import {
   writeImportedCandidateSnapshot
 } from "@/lib/repositories/sqlite-imported-candidate-store";
 import {
+  readKnowledgeWorkspaceStore,
+  writeKnowledgeWorkspaceStore,
+  type KnowledgeWorkspaceStore
+} from "@/lib/repositories/sqlite-knowledge-workspace-store";
+import {
+  readLinkRelationWorkspaceStore,
+  writeLinkRelationWorkspaceStore,
+  type LinkRelationWorkspaceStore
+} from "@/lib/repositories/sqlite-link-relation-store";
+import {
   readPromptVersionStore,
   writePromptVersionStore,
   type PromptVersionStore
 } from "@/lib/repositories/sqlite-prompt-version-store";
 import {
+  readRuntimeConfig,
+  writeRuntimeConfig
+} from "@/lib/repositories/sqlite-runtime-config-store";
+import {
   readScheduledDeliveryStore,
   writeScheduledDeliveryStore,
   type ScheduledDeliveryStore
 } from "@/lib/repositories/sqlite-scheduled-delivery-store";
+import {
+  readSkillWorkspaceStore,
+  writeSkillWorkspaceStore,
+  type SkillWorkspaceStore
+} from "@/lib/repositories/sqlite-skill-workspace-store";
+import {
+  readTechnologyComparisonStore,
+  readTechnologyExplanationStore,
+  readTechnologyLearningPathStore,
+  writeTechnologyComparisonStore,
+  writeTechnologyExplanationStore,
+  writeTechnologyLearningPathStore,
+  type TechnologyComparisonStore,
+  type TechnologyExplanationStore,
+  type TechnologyLearningPathStore
+} from "@/lib/repositories/sqlite-technology-ai-cache-store";
 import {
   readTaskRunnerStore,
   writeTaskRunnerStore,
@@ -94,6 +124,11 @@ interface SqliteStoreMigrationSummary {
   workflowEvents: number;
   editorialEnrichmentSuggestions: number;
   promptVersions: number;
+  skillWorkspaceRecords: number;
+  knowledgeWorkspaceRecords: number;
+  linkRelationOverrides: number;
+  runtimeConfigs: number;
+  technologyAiCacheRecords: number;
   skipped: number;
   errors: number;
 }
@@ -127,7 +162,14 @@ const schemaTableNames = [
   "task_runs",
   "workflow_events",
   "editorial_enrichment_suggestions",
-  "prompt_versions"
+  "prompt_versions",
+  "skill_workspace_records",
+  "knowledge_workspace_records",
+  "link_relation_overrides",
+  "runtime_configs",
+  "technology_comparisons",
+  "technology_explanations",
+  "technology_learning_paths"
 ] as const;
 
 export function getPersistenceDriver(): "json" | "sqlite" {
@@ -236,6 +278,21 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
         return readEditorialEnrichmentSuggestionStore(database) as T;
       case "prompt-versions.json":
         return readPromptVersionStore(database) as T;
+      case "skill-workspace.json":
+        return readSkillWorkspaceStore(database) as T;
+      case "knowledge-workspace.json":
+        return readKnowledgeWorkspaceStore(database) as T;
+      case "link-relation-workspace.json":
+        return readLinkRelationWorkspaceStore(database) as T;
+      case "scheduled-import.json":
+      case "scheduled-digest.json":
+        return readRuntimeConfig<T>(database, fileName, fallbackValue);
+      case "technology-comparisons.json":
+        return readTechnologyComparisonStore(database) as T;
+      case "technology-explanations.json":
+        return readTechnologyExplanationStore(database) as T;
+      case "technology-learning-paths.json":
+        return readTechnologyLearningPathStore(database) as T;
       default:
         return fallbackValue;
     }
@@ -301,6 +358,43 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
         case "prompt-versions.json":
           writePromptVersionStore(database, value as PromptVersionStore);
           break;
+        case "skill-workspace.json":
+          writeSkillWorkspaceStore(database, value as SkillWorkspaceStore);
+          break;
+        case "knowledge-workspace.json":
+          writeKnowledgeWorkspaceStore(
+            database,
+            value as KnowledgeWorkspaceStore
+          );
+          break;
+        case "link-relation-workspace.json":
+          writeLinkRelationWorkspaceStore(
+            database,
+            value as LinkRelationWorkspaceStore
+          );
+          break;
+        case "scheduled-import.json":
+        case "scheduled-digest.json":
+          writeRuntimeConfig(database, fileName, value);
+          break;
+        case "technology-comparisons.json":
+          writeTechnologyComparisonStore(
+            database,
+            value as TechnologyComparisonStore
+          );
+          break;
+        case "technology-explanations.json":
+          writeTechnologyExplanationStore(
+            database,
+            value as TechnologyExplanationStore
+          );
+          break;
+        case "technology-learning-paths.json":
+          writeTechnologyLearningPathStore(
+            database,
+            value as TechnologyLearningPathStore
+          );
+          break;
         default:
           throw new Error(`No SQLite adapter exists for ${fileName}.`);
       }
@@ -323,6 +417,14 @@ export function migrateJsonStoresToSqlite(stores: {
   workflowEvents?: WorkflowEventStore;
   editorialEnrichmentSuggestions?: EditorialEnrichmentSuggestionStore;
   promptVersions?: PromptVersionStore;
+  skillWorkspace?: SkillWorkspaceStore;
+  knowledgeWorkspace?: KnowledgeWorkspaceStore;
+  linkRelationWorkspace?: LinkRelationWorkspaceStore;
+  scheduledImport?: unknown;
+  scheduledDigest?: unknown;
+  technologyComparisons?: TechnologyComparisonStore;
+  technologyExplanations?: TechnologyExplanationStore;
+  technologyLearningPaths?: TechnologyLearningPathStore;
 }): SqliteStoreMigrationSummary {
   const database = openSqliteDatabase();
   const summary: SqliteStoreMigrationSummary = {
@@ -336,6 +438,11 @@ export function migrateJsonStoresToSqlite(stores: {
     workflowEvents: 0,
     editorialEnrichmentSuggestions: 0,
     promptVersions: 0,
+    skillWorkspaceRecords: 0,
+    knowledgeWorkspaceRecords: 0,
+    linkRelationOverrides: 0,
+    runtimeConfigs: 0,
+    technologyAiCacheRecords: 0,
     skipped: 0,
     errors: 0
   };
@@ -369,6 +476,61 @@ export function migrateJsonStoresToSqlite(stores: {
           promptVersions: []
         }
       );
+      writeSkillWorkspaceStore(
+        database,
+        stores.skillWorkspace ?? { updatedAt: getTimestamp(), records: [] }
+      );
+      writeKnowledgeWorkspaceStore(
+        database,
+        stores.knowledgeWorkspace ?? { updatedAt: getTimestamp(), records: [] }
+      );
+      writeLinkRelationWorkspaceStore(
+        database,
+        stores.linkRelationWorkspace ?? {
+          updatedAt: getTimestamp(),
+          relations: []
+        }
+      );
+
+      // 单对象配置缺失时不写默认值：留空让读路径回落到调用方的默认配置，
+      // 避免把一份「从未配置过」的定时任务固化成 sqlite 里的真实记录。
+      if (stores.scheduledImport) {
+        writeRuntimeConfig(
+          database,
+          "scheduled-import.json",
+          stores.scheduledImport
+        );
+      }
+
+      if (stores.scheduledDigest) {
+        writeRuntimeConfig(
+          database,
+          "scheduled-digest.json",
+          stores.scheduledDigest
+        );
+      }
+
+      writeTechnologyComparisonStore(
+        database,
+        stores.technologyComparisons ?? {
+          updatedAt: getTimestamp(),
+          comparisons: []
+        }
+      );
+      writeTechnologyExplanationStore(
+        database,
+        stores.technologyExplanations ?? {
+          updatedAt: getTimestamp(),
+          explanations: []
+        }
+      );
+      writeTechnologyLearningPathStore(
+        database,
+        stores.technologyLearningPaths ?? {
+          updatedAt: getTimestamp(),
+          learningPaths: []
+        }
+      );
       seedStaticContent(database);
     });
 
@@ -385,6 +547,23 @@ export function migrateJsonStoresToSqlite(stores: {
       "editorial_enrichment_suggestions"
     );
     summary.promptVersions = getTableCount(database, "prompt_versions");
+    summary.skillWorkspaceRecords = getTableCount(
+      database,
+      "skill_workspace_records"
+    );
+    summary.knowledgeWorkspaceRecords = getTableCount(
+      database,
+      "knowledge_workspace_records"
+    );
+    summary.linkRelationOverrides = getTableCount(
+      database,
+      "link_relation_overrides"
+    );
+    summary.runtimeConfigs = getTableCount(database, "runtime_configs");
+    summary.technologyAiCacheRecords =
+      getTableCount(database, "technology_comparisons") +
+      getTableCount(database, "technology_explanations") +
+      getTableCount(database, "technology_learning_paths");
 
     return summary;
   } catch {
@@ -612,6 +791,73 @@ function initializeSqliteSchema(database: SqliteDatabase): void {
       payload TEXT NOT NULL
     );
     CREATE INDEX IF NOT EXISTS idx_prompt_versions_purpose_status ON prompt_versions(purpose, status);
+
+    CREATE TABLE IF NOT EXISTS skill_workspace_records (
+      id TEXT PRIMARY KEY,
+      slug TEXT NOT NULL,
+      status TEXT NOT NULL,
+      createdAt TEXT NOT NULL,
+      updatedAt TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_skill_workspace_status ON skill_workspace_records(status);
+    CREATE INDEX IF NOT EXISTS idx_skill_workspace_slug ON skill_workspace_records(slug);
+
+    CREATE TABLE IF NOT EXISTS knowledge_workspace_records (
+      id TEXT PRIMARY KEY,
+      slug TEXT NOT NULL,
+      status TEXT NOT NULL,
+      createdAt TEXT NOT NULL,
+      updatedAt TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_knowledge_workspace_status ON knowledge_workspace_records(status);
+    CREATE INDEX IF NOT EXISTS idx_knowledge_workspace_slug ON knowledge_workspace_records(slug);
+
+    CREATE TABLE IF NOT EXISTS link_relation_overrides (
+      id TEXT PRIMARY KEY,
+      fromId TEXT NOT NULL,
+      fromType TEXT NOT NULL,
+      toId TEXT NOT NULL,
+      toType TEXT NOT NULL,
+      relationType TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_link_relation_overrides_pair ON link_relation_overrides(fromId, toId);
+
+    CREATE TABLE IF NOT EXISTS runtime_configs (
+      name TEXT PRIMARY KEY,
+      updatedAt TEXT,
+      payload TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS technology_comparisons (
+      id TEXT PRIMARY KEY,
+      pairKey TEXT NOT NULL,
+      technologyIdA TEXT NOT NULL,
+      technologyIdB TEXT NOT NULL,
+      updatedAt TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_technology_comparisons_pairKey ON technology_comparisons(pairKey);
+
+    CREATE TABLE IF NOT EXISTS technology_explanations (
+      id TEXT PRIMARY KEY,
+      cacheKey TEXT NOT NULL,
+      technologyId TEXT NOT NULL,
+      audienceLevel TEXT NOT NULL,
+      updatedAt TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_technology_explanations_cacheKey ON technology_explanations(cacheKey);
+
+    CREATE TABLE IF NOT EXISTS technology_learning_paths (
+      id TEXT PRIMARY KEY,
+      technologyId TEXT NOT NULL,
+      updatedAt TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_technology_learning_paths_technologyId ON technology_learning_paths(technologyId);
   `);
 }
 
