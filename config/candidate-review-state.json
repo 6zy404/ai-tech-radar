@@ -1,25 +1,6 @@
 {
   "updatedAt": "2026-07-27T02:33:02.502Z",
   "items": {
-    "quality-converted": {
-      "importStatus": "converted",
-      "reviewedAt": "2026-05-20T10:00:00.000Z",
-      "convertedTechnologyId": "quality-tech-draft"
-    },
-    "quality-rejected": {
-      "importStatus": "rejected",
-      "reviewedAt": "2026-05-20T10:00:00.000Z"
-    },
-    "candidate-source-quality-failing-source-2026-05-30": {
-      "importStatus": "rejected",
-      "reviewedAt": "2026-07-09T20:57:53.354Z",
-      "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
-    },
-    "candidate-source-quality-good-source-2026-05-30": {
-      "importStatus": "rejected",
-      "reviewedAt": "2026-07-09T20:57:53.374Z",
-      "convertedTechnologyId": "draft-candidate-source-quality-failing-source-2026-05-30"
-    },
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
       "reviewedAt": "2026-07-09T12:31:13.570Z",
