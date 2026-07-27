@@ -1,6 +1,303 @@
 {
-  "updatedAt": "2026-07-22T09:39:03.672Z",
+  "updatedAt": "2026-07-27T01:46:17.327Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-github-blog-p-97686",
+      "slug": "copilot-vs-raw-api-access",
+      "title": {
+        "original": "Copilot vs. raw API access: What are you actually paying for?",
+        "zh": "Copilot 与裸 API：为编码智能体的「外壳」付费，到底买到了什么",
+        "en": "Copilot vs. raw API access: What are you actually paying for?"
+      },
+      "summary": {
+        "original": "GitHub argues the choice between Copilot and raw model API access comes down to which layer of the system you need to own: the model call, or the workflow, policy, and harness around it.",
+        "zh": "GitHub 在 Copilot 改为按列表 API 费率计费之后，正面回答了「既然能直接调 API，为什么还要付 Copilot」——答案是你要自己拥有哪一层：模型调用本身，还是围绕它的编辑器、仓库、终端、组织策略与计费控制这一整套外壳。"
+      },
+      "content": {
+        "original": "The question is: why pay for GitHub Copilot when the same models are available through an API? The answer depends on what work you need to own. Copilot plans include a monthly allocation of GitHub AI Credits; metered usage is calculated from input, output, and cached tokens at the listed rate. Raw API access and Copilot address different layers. Take a maintenance task: from a GitHub Issue, inspect the repository, change files, run the test suite in the terminal, and open a pull request. The model call is one step; the surrounding system needs the issue, the diff, repository instructions, permitted commands, and organization policies.",
+        "zh": "## 一个被反复问到的问题\n\n「同样的模型我自己调 API 就行，为什么要为 Copilot 付费？」GitHub 把计费改成按列表 API 费率计算之后，这个问题变得更尖锐了——因为模型这一层的价差被明确抹平了。\n\n## 作者给出的分法：你要拥有哪一层\n\n文章的回答不是「Copilot 更便宜」，而是把问题重述为**你需要自己拥有哪一层工作**：\n\n- 如果你在做的是产品功能，需要自己的提示词、检索、路由、日志、安全模型和计费控制——那就该直连 API，这些都是你要自己拥有的东西；\n- 如果你要的是「从一个 Issue 走到一个已评审的 PR」，而编辑器、仓库、终端、组织策略都已经接好——那你买的不是模型，是这套已经连通的外壳。\n\n作者用一个常见的维护任务把这层说透：开发者从 Issue 出发，读仓库、改文件、在终端跑测试、开 PR 交评审。**模型调用只是其中一步**。周边系统需要的是 Issue 上下文、diff、仓库指令、允许执行的命令白名单和组织策略——这些既不是模型能力，也不能靠更好的提示词补上。\n\n计费方式的调整让这条分界更容易看清：代码补全和 Next Edit Suggestions 仍包含在付费计划里，而 AI Credits 用于更消耗资源的对话与智能体任务。\n\n## 为什么把它当信号收录\n\n这不是一篇产品营销稿能覆盖的判断。它给出的是一条**可复用的采购与自建决策线**：先问哪一层是你的核心工作，再决定买外壳还是买 token。对任何在评估「自建智能体平台 vs 采购现成工具」的团队，这条线比价格表更有用。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-22",
+      "sourceName": "GitHub Blog AI",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "GitHub",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-model-sizing",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T01:46:17.327Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "当模型这一层的价差被抹平，「自建还是采购」的决策依据就必须换成「哪一层工作是你要自己拥有的」。这篇给出的分法可以直接搬到任何智能体平台的采购评估里。",
+      "whoShouldCare": [
+        "在评估自建智能体平台与采购现成工具的技术负责人",
+        "负责研发工具链选型与预算的工程管理者",
+        "设计智能体工作流与权限边界的架构师"
+      ],
+      "technicalContext": "编码智能体的价值分布在两层：模型调用，以及围绕它的 harness——Issue 上下文、diff、仓库指令、命令白名单、组织策略与计费控制。前者可替换，后者是集成成本，通常被严重低估。",
+      "impactAreas": [
+        "研发工具链选型",
+        "智能体平台自建与采购决策",
+        "组织级策略与权限边界",
+        "AI 使用成本核算"
+      ],
+      "learningPath": [
+        "先把自己团队的智能体任务拆成「模型调用」与「周边集成」两栏",
+        "再逐项判断哪一栏是你的核心竞争力、必须自己拥有",
+        "最后才比较价格——价格是结论，不是前提"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "直连 API 意味着你要自己承担契约、版本与错误边界的全部责任，这是「外壳」成本里最容易被低估的一块。",
+        "knowledge-model-sizing": "模型层价差被抹平后，选型的约束条件从价格转向工作流适配度。",
+        "knowledge-system-design": "文章的核心其实是一次系统边界划分练习：哪一层自己拥有，哪一层外包。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "「外壳」的主体就是工具集成——编辑器、仓库、终端、策略系统的连通成本。",
+        "skill-agent-design": "从 Issue 到已评审 PR 的这条链路，正是智能体工作流设计要处理的对象。",
+        "skill-ws-f741f122": "自建外壳意味着日志、评测与运维也要自己扛，这部分成本应计入决策。"
+      },
+      "followUpQuestions": [
+        "把「外壳」自建一遍，团队真实的年化成本是多少？",
+        "组织策略与命令白名单这类控制面，采购方案能满足合规要求吗？",
+        "如果模型供应商更换，自建外壳的迁移成本有多高？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-blog-p-97686",
+      "createdAt": "2026-07-27T01:43:12.969Z",
+      "updatedAt": "2026-07-27T01:46:17.327Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-10 已发布的 Copilot 代码审查复盘同源，两条共同构成「模型之外的工程层才是差异所在」这一主题。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "slug": "ollama-v0-32-4",
+      "title": {
+        "original": "Ollama v0.32.4",
+        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
+        "en": "Ollama v0.32.4"
+      },
+      "summary": {
+        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
+        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。"
+      },
+      "content": {
+        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
+        "zh": "## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-36346103",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T01:46:17.283Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
+      "whoShouldCare": [
+        "在 Apple 芯片上做本地推理的开发者",
+        "评估端侧部署可行性的架构师",
+        "关注推测解码实际收益的性能工程师"
+      ],
+      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
+      "impactAreas": [
+        "端侧推理性能",
+        "MoE 量化路径",
+        "推测解码收益",
+        "Apple 芯片部署"
+      ],
+      "learningPath": [
+        "先弄清 MoE 的专家路由与逐专家量化",
+        "再理解推测解码里草稿模型的开销从哪来",
+        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
+        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
+        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
+      },
+      "followUpQuestions": [
+        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
+        "统一内存架构下，混合专家精度的最佳组合是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "createdAt": "2026-07-27T01:43:12.851Z",
+      "updatedAt": "2026-07-27T01:46:17.283Z",
+      "editorialNotes": [
+        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "slug": "vllm-v0-26-0",
+      "title": {
+        "original": "vLLM v0.26.0",
+        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
+        "en": "vLLM v0.26.0"
+      },
+      "summary": {
+        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
+        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
+      },
+      "content": {
+        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
+        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T01:46:17.232Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
+      "whoShouldCare": [
+        "自建或自运维推理服务的平台团队",
+        "需要在本地评估新开源模型的算法与评测团队",
+        "关注 MoE 与推测解码落地成本的架构师"
+      ],
+      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
+      "impactAreas": [
+        "推理服务容量规划",
+        "开源模型选型周期",
+        "MoE 架构的部署成本",
+        "解码吞吐优化"
+      ],
+      "learningPath": [
+        "先理解 MoE 架构为什么让图捕获和量化变复杂",
+        "再看推测解码如何用草稿模型换解码吞吐",
+        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
+        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
+        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
+        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
+      },
+      "followUpQuestions": [
+        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
+        "MTP=1 推测解码对长上下文任务的加速比是多少？",
+        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "createdAt": "2026-07-27T01:43:12.721Z",
+      "updatedAt": "2026-07-27T01:46:17.232Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
+        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
       "slug": "gemini-flash-cyber",
