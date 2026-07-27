@@ -82,6 +82,17 @@ SQLite tables created in v0:
 - `editorial_enrichment_suggestions`
 - `prompt_versions`
 
+Added 2026-07-28, closing the driver drift described in "Driver parity" below:
+
+- `skill_workspace_records`
+- `knowledge_workspace_records`
+- `link_relation_overrides`
+- `runtime_configs` (single-object configs keyed by JSON filename:
+  `scheduled-import.json`, `scheduled-digest.json`)
+- `technology_comparisons`
+- `technology_explanations`
+- `technology_learning_paths`
+
 The schema intentionally stores each domain record as a JSON payload plus key query columns such as `id`, `status`, `slug`, `sourceId`, `sourceUrl`, `publishDate`, `enabled`, `createdAt`, and `updatedAt`.
 
 This avoids over-normalizing the prototype while still making the future Postgres/Supabase migration path clear.
@@ -112,15 +123,40 @@ Current repository files:
 - `src/lib/repositories/sqlite-primitives.ts` — the `SqliteDatabase` type and
   generic per-table helpers (`selectPayloads`, `clearTables`, `getTableCount`,
   `runSqliteTransaction`, `getTimestamp`) shared by every domain store below.
-- Twelve `src/lib/repositories/sqlite-<domain>-store.ts` files (one per
+- Seventeen `src/lib/repositories/sqlite-<domain>-store.ts` files (one per
   `readSqliteJsonStore`/`writeSqliteJsonStore` switch case — external source,
   imported candidate, candidate review state, duplicate group, technology
   workspace, daily digest, delivery, scheduled delivery, task runner,
-  workflow event, editorial enrichment, prompt version), each owning the
-  read/write SQL and row-mapping for exactly one JSON store filename's SQLite
-  equivalent. `sqlite-store.ts` imports each pair and calls it from the
-  dispatch table; no domain file imports another, and none import
-  `sqlite-store.ts` back.
+  workflow event, editorial enrichment, prompt version, skill workspace,
+  knowledge workspace, link relation, runtime config, and technology AI
+  cache), each owning the read/write SQL and row-mapping for exactly one JSON
+  store filename's SQLite equivalent. `sqlite-store.ts` imports each pair and
+  calls it from the dispatch table; no domain file imports another, and none
+  import `sqlite-store.ts` back. Two files cover more than one filename by
+  design: `sqlite-runtime-config-store.ts` serves both single-object schedule
+  configs from one key-value table, and `sqlite-technology-ai-cache-store.ts`
+  owns the three public AI result caches (one table each, different cache
+  keys).
+
+## Driver parity
+
+Every store the JSON driver can write must have a SQLite adapter. Between
+2026-07-16 and 2026-07-28 six stores did not, and the failure was silent in
+one direction and loud in the other: `readSqliteJsonStore` fell through to
+`default: return fallbackValue`, so skill/knowledge workspace records and
+relation overrides simply vanished in `PERSISTENCE_DRIVER=sqlite` (the
+copy-on-write overlay read as empty, the schedule configs reset to defaults on
+every read, and the AI caches never hit), while `writeSqliteJsonStore` threw
+`No SQLite adapter exists for <file>` on any save. `npm run validate:database`
+now guards both halves: the schema assertion lists every table, and
+`validateWorkspaceOverlayParity` asserts the two drivers serve identical skill
+and knowledge id sets.
+
+When a new local JSON store is added, add its SQLite adapter, its table to the
+schema and `schemaTableNames`, its case to both dispatch switches, its entry
+in `migrateJsonStoresToSqlite` (plus the two callers, `scripts/db-migrate-json.ts`
+and `scripts/validate-database.ts`), and its table name to the validator's
+expected list — in the same change.
 
 Workflow modules still own business behavior:
 

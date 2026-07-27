@@ -15,10 +15,16 @@ import type {
   ExternalSource,
   ImportRun,
   ImportedCandidateSnapshot,
+  KnowledgeWorkspaceRecord,
+  LinkRelation,
   PromptVersion,
   ScheduledDelivery,
   ScheduledDeliveryRun,
+  SkillWorkspaceRecord,
   TaskRunnerRun,
+  TechnologyComparisonRecord,
+  TechnologyExplanationRecord,
+  TechnologyLearningPathRecord,
   TechnologyWorkspaceRecord,
   WorkflowEvent
 } from "../src/types/content";
@@ -105,7 +111,33 @@ const summary = migrateJsonStoresToSqlite({
   promptVersions: readStore("prompt-versions.json", {
     updatedAt: now,
     promptVersions: [] as PromptVersion[]
-  } satisfies PromptVersionStore)
+  } satisfies PromptVersionStore),
+  skillWorkspace: readStore("skill-workspace.json", {
+    updatedAt: now,
+    records: [] as SkillWorkspaceRecord[]
+  }),
+  knowledgeWorkspace: readStore("knowledge-workspace.json", {
+    updatedAt: now,
+    records: [] as KnowledgeWorkspaceRecord[]
+  }),
+  linkRelationWorkspace: readStore("link-relation-workspace.json", {
+    updatedAt: now,
+    relations: [] as LinkRelation[]
+  }),
+  scheduledImport: readStore<unknown>("scheduled-import.json", undefined),
+  scheduledDigest: readStore<unknown>("scheduled-digest.json", undefined),
+  technologyComparisons: readStore("technology-comparisons.json", {
+    updatedAt: now,
+    comparisons: [] as TechnologyComparisonRecord[]
+  }),
+  technologyExplanations: readStore("technology-explanations.json", {
+    updatedAt: now,
+    explanations: [] as TechnologyExplanationRecord[]
+  }),
+  technologyLearningPaths: readStore("technology-learning-paths.json", {
+    updatedAt: now,
+    learningPaths: [] as TechnologyLearningPathRecord[]
+  })
 });
 
 console.log(`JSON stores migrated into SQLite at ${getSqliteDatabasePath()}`);

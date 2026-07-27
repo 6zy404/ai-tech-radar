@@ -44,10 +44,16 @@ import type {
   ExternalSource,
   ImportRun,
   ImportedCandidateSnapshot,
+  KnowledgeWorkspaceRecord,
+  LinkRelation,
   PromptVersion,
   ScheduledDelivery,
   ScheduledDeliveryRun,
+  SkillWorkspaceRecord,
   TaskRunnerRun,
+  TechnologyComparisonRecord,
+  TechnologyExplanationRecord,
+  TechnologyLearningPathRecord,
   TechnologyWorkspaceRecord,
   WorkflowEvent
 } from "../src/types/content";
@@ -156,7 +162,33 @@ function migrateCurrentJsonStores() {
     promptVersions: readStore("prompt-versions.json", {
       updatedAt: now,
       promptVersions: [] as PromptVersion[]
-    } satisfies PromptVersionStore)
+    } satisfies PromptVersionStore),
+    skillWorkspace: readStore("skill-workspace.json", {
+      updatedAt: now,
+      records: [] as SkillWorkspaceRecord[]
+    }),
+    knowledgeWorkspace: readStore("knowledge-workspace.json", {
+      updatedAt: now,
+      records: [] as KnowledgeWorkspaceRecord[]
+    }),
+    linkRelationWorkspace: readStore("link-relation-workspace.json", {
+      updatedAt: now,
+      relations: [] as LinkRelation[]
+    }),
+    scheduledImport: readStore<unknown>("scheduled-import.json", undefined),
+    scheduledDigest: readStore<unknown>("scheduled-digest.json", undefined),
+    technologyComparisons: readStore("technology-comparisons.json", {
+      updatedAt: now,
+      comparisons: [] as TechnologyComparisonRecord[]
+    }),
+    technologyExplanations: readStore("technology-explanations.json", {
+      updatedAt: now,
+      explanations: [] as TechnologyExplanationRecord[]
+    }),
+    technologyLearningPaths: readStore("technology-learning-paths.json", {
+      updatedAt: now,
+      learningPaths: [] as TechnologyLearningPathRecord[]
+    })
   });
 }
 
@@ -192,7 +224,14 @@ function validateSchema() {
     "task_runs",
     "workflow_events",
     "editorial_enrichment_suggestions",
-    "prompt_versions"
+    "prompt_versions",
+    "skill_workspace_records",
+    "knowledge_workspace_records",
+    "link_relation_overrides",
+    "runtime_configs",
+    "technology_comparisons",
+    "technology_explanations",
+    "technology_learning_paths"
   ]) {
     assert.equal(
       tableNames.has(expectedTableName),
@@ -376,10 +415,48 @@ assert.ok(
 );
 assert.ok(readSqliteSkillItems().length > 0, "Skill items should be seeded.");
 
+/**
+ * 两个驱动必须服务同一份内容池。技能/知识工作台（2026-07-16）和关系覆盖
+ * （LinkRelation v1）落地时没有同步补 SQLite 适配器，读路径静默返回空 overlay，
+ * 于是 sqlite 模式下工作台新建的条目整体消失 —— 这条断言把那类漂移钉死。
+ */
+function validateWorkspaceOverlayParity() {
+  process.env.PERSISTENCE_DRIVER = "json";
+  const jsonSkillIds = getAllSkills()
+    .map((item) => item.id)
+    .sort();
+  const jsonKnowledgeIds = getAllKnowledge()
+    .map((item) => item.id)
+    .sort();
+
+  process.env.PERSISTENCE_DRIVER = "sqlite";
+  const sqliteSkillIds = getAllSkills()
+    .map((item) => item.id)
+    .sort();
+  const sqliteKnowledgeIds = getAllKnowledge()
+    .map((item) => item.id)
+    .sort();
+
+  assert.deepEqual(
+    sqliteSkillIds,
+    jsonSkillIds,
+    "sqlite driver should serve the same skill pool as the json driver."
+  );
+  assert.deepEqual(
+    sqliteKnowledgeIds,
+    jsonKnowledgeIds,
+    "sqlite driver should serve the same knowledge pool as the json driver."
+  );
+}
+
 process.env.PERSISTENCE_DRIVER = "sqlite";
 validateDriverData("sqlite driver");
 
 process.env.PERSISTENCE_DRIVER = "json";
 validateDriverData("json driver");
+
+validateWorkspaceOverlayParity();
+
+process.env.PERSISTENCE_DRIVER = "json";
 
 console.log("Database validation passed.");

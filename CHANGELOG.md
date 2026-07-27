@@ -12,6 +12,52 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## SQLite driver parity (six missing store adapters)
+
+- **`PERSISTENCE_DRIVER=sqlite` stopped losing every workspace-created
+  skill, knowledge entry, and relation override** — 2026-07-28, fixing the
+  `validate:database` failure tracked since the 2026-07-27 fixture purge. The
+  diagnosis went further than the tracked note ("the driver only seeds
+  `src/data` statics"): **six stores had no SQLite adapter at all**, and the
+  two halves of the dispatch failed differently.
+  `readSqliteJsonStore` fell through to `default: return fallbackValue`, so in
+  sqlite mode `skill-workspace.json`, `knowledge-workspace.json`, and
+  `link-relation-workspace.json` read as empty (the copy-on-write overlay
+  vanished — 13 skills and 18 knowledge entries dropped back to the seed
+  pools, and the typed relations reverted to seed defaults), the two schedule
+  configs (`scheduled-import.json`, `scheduled-digest.json`) reset to their
+  defaults on every read (so `nextRunAt` never persisted — the task runner
+  would have treated the import as due on every pass), and the three public AI
+  result caches never hit (every compare/explain/learning-path request would
+  re-call the provider). `writeSqliteJsonStore` was the loud half: its
+  `default` branch throws, so saving a skill, knowledge entry, relation, or
+  schedule change in sqlite mode crashed outright.
+  Fix: five new repository files following the existing per-domain pattern
+  (`sqlite-skill-workspace-store.ts`, `sqlite-knowledge-workspace-store.ts`,
+  `sqlite-link-relation-store.ts`, `sqlite-runtime-config-store.ts`,
+  `sqlite-technology-ai-cache-store.ts` — the last two each cover more than
+  one filename by design: the schedule configs are single objects, not record
+  lists, so they share one `runtime_configs` key-value table, and the three AI
+  caches are structural siblings), seven new schema tables with their key
+  columns and indexes, both dispatch switches, and the new stores threaded
+  through `migrateJsonStoresToSqlite` plus its two callers
+  (`scripts/db-migrate-json.ts`, `scripts/validate-database.ts`). A missing
+  single-object config is deliberately **not** written during migration, so a
+  never-configured schedule keeps falling back to its default instead of being
+  frozen into a row. `validate:database` now also asserts the new tables exist
+  and — the regression guard that would have caught this in the first place —
+  that both drivers serve identical skill and knowledge id sets
+  (`validateWorkspaceOverlayParity`). Verified: the failing assertion
+  reproduced first (`technology … references missing knowledge
+knowledge-ws-36346103`), then typecheck, lint, format, vitest 108/108,
+  `validate:database` / `persistence` / `tasks` / `digest` green, plus an
+  isolated `LOCAL_DATA_DIR` + `SQLITE_DATABASE_PATH` round-trip in sqlite mode
+  covering all four previously broken paths (skill create → draft hidden from
+  the public pool → publish → visible; relation type + note persisted; a
+  schedule config change surviving a re-read; a comparison cache hit on the
+  same pair key) — the isolated directory ended up holding only the `.sqlite`
+  file, confirming nothing fell back to JSON.
+
 ## Content round — quantization knowledge + build-vs-buy skill
 
 - **知识「模型量化与数值精度」and 技能「AI 工具链选型与自建边界评估」
