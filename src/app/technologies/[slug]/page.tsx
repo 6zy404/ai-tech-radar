@@ -8,6 +8,7 @@ import {
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";
+import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 
 interface TechnologyDetailPageProps {
@@ -70,6 +71,7 @@ export default async function TechnologyDetailPage({
         relatedSkills={relatedSkills}
         relatedKnowledge={relatedKnowledge}
         compareCandidates={compareCandidates}
+        evolutionChain={getTechnologyEvolutionChain(technology.id)}
       />
     </UserPageShell>
   );

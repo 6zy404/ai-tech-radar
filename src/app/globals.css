@@ -6479,6 +6479,72 @@ body {
   overflow-wrap: anywhere;
 }
 
+.technology-evolution__list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.technology-evolution__step {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--surface);
+}
+
+.technology-evolution__step--current {
+  border-color: var(--accent);
+}
+
+.technology-evolution__date {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.technology-evolution__title {
+  flex: 1 1 12rem;
+  color: var(--user-ink);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+a.technology-evolution__title {
+  color: var(--accent);
+}
+
+.technology-evolution__marks {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.technology-evolution__mark {
+  border-radius: 999px;
+  padding: 2px 9px;
+  background: rgba(15, 118, 110, 0.11);
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.technology-evolution__mark--latest {
+  background: rgba(180, 83, 9, 0.12);
+  color: var(--label-amber);
+}
+
+.technology-evolution__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
 .technology-detail-chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -9726,6 +9792,49 @@ a.tech-graph__node:hover {
 
 .dossier .technology-detail-impact > span {
   color: var(--dossier-muted);
+}
+
+/* -- version evolution line -- */
+.dossier .technology-evolution__step {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+}
+
+.dossier .technology-evolution__step--current {
+  border-color: var(--dossier-accent);
+}
+
+.dossier .technology-evolution__date,
+.dossier .technology-evolution__note {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .technology-evolution__note {
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .technology-evolution__title {
+  color: var(--dossier-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+}
+
+.dossier a.technology-evolution__title {
+  color: var(--dossier-accent);
+}
+
+.dossier .technology-evolution__mark {
+  background: transparent;
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .technology-evolution__mark--latest {
+  border-color: var(--dossier-stamp);
+  color: var(--dossier-stamp);
 }
 
 /* -- source reference / reference panels (aside) -- */

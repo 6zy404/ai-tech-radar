@@ -14,6 +14,7 @@ const relationTypes: RelationType[] = [
   "explains",
   "requires",
   "extends",
+  "supersedes",
   "supports",
   "related-to"
 ];

@@ -1,6 +1,38 @@
 # Next Task
 
-> Update 2026-07-27 (latest): **公开 AI 路由限流落地（go-live 清单 I1）.**
+> Update 2026-07-27 (latest): **信号演进线 + 新增「续作」关系类型.**
+> owner 定的方向是**公开面优先**（「优先展示给大众的内容，现在的重点是先发布，
+> 后台的内容后面可以慢慢改」），并明确工作台最终要与用户端切开——所以工作台侧的
+> 「内容缺口看板」提案押后。范围三问已锁定：**先 A 再 go-live** / **只用显式
+> 关系不推导** / **只加详情页区块**。
+> 先量化取证：31 条已发布信号里 **6 条属于两条版本序列**（vLLM v0.24.0 →
+> v0.25.0 → v0.26.0，Ollama v0.31.2 → v0.32.0 → v0.32.4），**彼此零链接**，
+> 落在 v0.24.0 页面的读者完全不知道后面还有两版。
+> **动手前的扫描推翻了原定实现**：本来打算直接用 `extends`（延伸），但全库 4 条
+> 技术↔技术 `extends` 里只有 1 条是真正的版本承接，另外 3 条是主题延伸（HF 安全
+> 事件指向 Shippy 作为防御范本、NeMo Automodel 与 NVIDIA 开放数据是「同一主张的
+> 两翼」）——直接渲染「已有后续」会把 4 条里的 3 条标错。已就此单独问过 owner，
+> 选定**新增第八种关系类型 `supersedes`（续作）**，延伸继续表示「顺着往下读」。
+> 实现：`src/lib/technology-evolution.ts`（纯核心 `buildTechnologyEvolutionChain`
+>
+> - `getTechnologyEvolutionChain`）**按无向图传递遍历** `supersedes` 连通分量
+>   ——本仓库关系一律按无序对存储，from/to 方向不可信，所以顺序取 `publishDate`
+>   升序、同日以 slug 兜底。未知/未发布目标、自引用、长度不足 2 的链一律丢弃，
+>   因此其余 25 条信号该区块直接不渲染。附注挂在较新一侧，读作「这一版承接了
+>   什么」。`TechnologyEvolutionLine` 渲染为详情页第一块，带 当前 / 最新 标记，
+>   CSS 同时覆盖通用 token 与 `--dossier-*`。
+>   内容：两条版本线已通过真实工作台 API 链好（4 对 `supersedes` + 附注，5 条
+>   记录补了反向 `relatedTechnologyIds`，让 `/network` 与「相关技术」和新区块一致）。
+>   验证：typecheck / lint / format / vitest **127/127**（新增 10 条），实跑
+>   v0.24.0（已有后续 · 后面 2 条 · 链接可跳）、v0.26.0（最新 · 显示附注）、
+>   Ollama v0.32.0（中间步 · 当前+最新标记）、Shippy 页**正确地没有该区块且保留
+>   延伸标签**、`/network` 图例自动出现「续作」、强制 320px 列宽无溢出、console
+>   零错误。
+>   **下一步（owner 已定）**：**go-live**。剩余 B1 工作台令牌 / B4 站点 URL /
+>   I2 备份——三项都需要先确定部署目标（部署到哪台机器/域名、谁能访问工作台、
+>   备份放哪），否则只能停在文档层面。
+
+> Update 2026-07-27 (earlier, same session): **公开 AI 路由限流落地（go-live 清单 I1）.**
 > owner 从 backlog 里选的，也是**仓库内最后一项 go-live 前置代码欠账**——做完
 > 之后 go-live 清单只剩部署机上的运维动作（B1 令牌 / B4 站点 URL / I2 备份）。
 > 三条公开 AI 路由（compare / explain / learning-path）此前唯一的成本护栏是

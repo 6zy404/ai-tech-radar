@@ -892,6 +892,19 @@ Explicit typed relationship between content objects.
 - `relationType`
 - `note?` (optional since LinkRelation v1, to support type-only overrides)
 
+`RelationType` has eight values, rendered with the archival-register labels in
+`getRelationTypeLabel`: `builds-on` 渊源, `uses` 借助, `explains` 释义,
+`requires` 必备, `extends` 延伸, `supersedes` 续作, `supports` 印证,
+`related-to` 关联.
+
+`supersedes` 续作 was added 2026-07-27 for the technology evolution line and
+means one specific thing: **B is the later release of the same line as A**.
+It exists because `extends` 延伸 had already been used for thematic follow-ups
+("顺着这条往下读") — of the four technology↔technology `extends` edges at the
+time, only one was an actual version succession, so reading `extends` as
+succession would have mislabelled three real relations. Keep the two apart:
+延伸 is "read this next", 续作 is "this one replaced it".
+
 `findRelationBetween(aId, aType, bId, bType)` in `src/lib/content.ts` looks up
 the relation for an unordered pair regardless of which side `LinkRelation`
 records as `from`/`to`, falling back to `related-to` when no explicit entry
@@ -990,6 +1003,30 @@ sourceName }` shape via the same bilingual title/summary helpers
   every node connected by an edge to any technology/skill/knowledge above,
   excluding nodes already in one of those three lists, each carrying its
   edge's `relationType`/`note`
+
+## TechnologyEvolutionChain (derived)
+
+Represents the version line rendered on `/technologies/[slug]` — a pure
+derived view computed by `getTechnologyEvolutionChain(technologyId)` in
+`src/lib/technology-evolution.ts`, not a persisted entity.
+
+- `steps`: `{ id, slug, title, publishDate, isCurrent, note? }[]`
+- `currentIndex`: where the current technology sits in `steps`
+- `laterCount`: how many steps come after it
+
+Build rules:
+
+- only `supersedes` relations between two **published** technologies are
+  considered; every other relation type is ignored
+- the component is walked transitively and treated as **undirected** — the
+  stored `from`/`to` direction is not trusted (relations are keyed by unordered
+  pair project-wide), so `steps` is ordered by `publishDate` ascending, with
+  the slug as a stable tie-breaker
+- self-references and edges pointing at an unknown/unpublished technology are
+  dropped; a chain of fewer than two technologies returns `undefined` (the page
+  renders no section at all)
+- a relation `note` is attached to the **newer** side of its pair, so it reads
+  as "what this release carried forward"
 
 Returns `undefined` (page renders `notFound()`) when the tag id doesn't
 exist or none of the three pools has a match — mirroring `/timeline`'s

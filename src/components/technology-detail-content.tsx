@@ -14,6 +14,7 @@ import { TagList } from "@/components/tag-list";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
 import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
 import { TechnologyLearningPathWidget } from "@/components/technology-learning-path-widget";
+import { TechnologyEvolutionLine } from "@/components/technology-evolution-line";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
 import {
@@ -27,6 +28,7 @@ import {
   getTechnologyWhyItMatters
 } from "@/lib/content-intelligence";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
+import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 import {
   getPriorityLevelLabel,
   getPriorityUserSummary
@@ -55,6 +57,7 @@ interface TechnologyDetailContentProps {
   relatedSkills: RelationListItem[];
   relatedKnowledge: RelationListItem[];
   compareCandidates: { id: string; title: string; href: string }[];
+  evolutionChain?: TechnologyEvolutionChain;
 }
 
 export function TechnologyDetailContent({
@@ -63,7 +66,8 @@ export function TechnologyDetailContent({
   relatedTechnologies,
   relatedSkills,
   relatedKnowledge,
-  compareCandidates
+  compareCandidates,
+  evolutionChain
 }: TechnologyDetailContentProps) {
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
@@ -217,6 +221,10 @@ export function TechnologyDetailContent({
         </>
       }
     >
+      {evolutionChain ? (
+        <TechnologyEvolutionLine chain={evolutionChain} />
+      ) : null}
+
       {whyItMatters ? (
         <section className="user-article-section technology-detail-section">
           <p className="technology-detail-section__eyebrow">为什么是现在</p>

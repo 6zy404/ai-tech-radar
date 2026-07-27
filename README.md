@@ -53,6 +53,13 @@ The product is split into two subsystems:
   force-directed layout, search-highlight, a category filter, hover-over-edge
   relation labels, draggable nodes, and click-to-focus exploration of any
   node's direct connections.
+- **Version evolution line** — a 版本脉络 section on the technology detail page
+  showing where the signal you are reading sits in its release line. Built only
+  from explicit `supersedes` (续作) relations between published technologies —
+  no heuristic — ordered by publish date and marked 当前 / 最新; an older
+  release leads with "这条信号已有后续" and names the latest one. Pure derived
+  view (`getTechnologyEvolutionChain` in `src/lib/technology-evolution.ts`),
+  no new persisted data. Signals outside a release line render nothing.
 - **Topic hub (`/topics/[tagId]`)** — a per-topic drill-down page merging what
   `/network`, the 按话题 view, and `/search` each show in fragments for one
   topic tag: the tag's published technology signals, tagged skills, tagged
@@ -126,7 +133,7 @@ The product is split into two subsystems:
 - **Typed relation editing (LinkRelation v1)** — the related-content
   checkboxes in all three workspace editors (skill, knowledge, and the
   technology draft form) unfold a relation-type select (渊源/借助/释义/
-  必备/延伸/印证/关联) plus an optional note while checked. Edits are
+  必备/延伸/续作/印证/关联) plus an optional note while checked. Edits are
   stored as copy-on-write overrides of the read-only seed relations
   (`config/link-relation-workspace.json`, keyed by unordered pair;
   reverting to the seed value removes the override). The public relation

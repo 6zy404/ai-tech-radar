@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Version evolution line + `supersedes` relation type
+
+- **A reader landing on a superseded release now finds out before reading it**
+  — 2026-07-27, owner-selected as the public-facing follow-up ("优先展示给大众
+  的内容"). Measured first: of 31 published signals, **6 belong to two release
+  lines** (vLLM v0.24.0 → v0.25.0 → v0.26.0, Ollama v0.31.2 → v0.32.0 →
+  v0.32.4) and **none of them linked to each other**, so `/technologies/
+vllm-v0-24-0` gave no hint that two newer releases existed.
+  The owner chose explicit editor-marked relations over a
+  source-plus-version-number heuristic. Scanning the data before building
+  killed the obvious implementation: `extends` (延伸) looked like the right
+  type, but of the 4 technology↔technology `extends` edges only **1** was an
+  actual version succession — the other 3 were thematic follow-ups (the HF
+  security incident pointing at Shippy as a defence model, NeMo Automodel and
+  NVIDIA open data as "同一主张的两翼"), so rendering "已有后续" from `extends`
+  would have mislabelled 3 of 4 real relations. Fixed by adding an eighth
+  `RelationType`, `supersedes` (续作), leaving 延伸 to mean "read this next".
+  New `src/lib/technology-evolution.ts` (`buildTechnologyEvolutionChain` pure
+  core + `getTechnologyEvolutionChain`) walks the `supersedes` component
+  **transitively and undirected** — relations are keyed by unordered pair
+  project-wide, so the stored from/to direction is not trusted and the line is
+  ordered by `publishDate` with the slug as a stable tie-breaker. Unknown or
+  unpublished targets, self-references, and chains shorter than two are
+  dropped, so the section simply does not render for the other 25 signals. The
+  succession note attaches to the newer side of its pair, reading as "what this
+  release carried forward". New `TechnologyEvolutionLine` renders it as the
+  first block on `/technologies/[slug]` with 当前 / 最新 marks and a
+  `.technology-evolution-*` CSS block on both the generic and `--dossier-*`
+  token sets. Content: the two release lines were linked through the real
+  workspace APIs (4 `supersedes` pairs with notes, reverse
+  `relatedTechnologyIds` on 5 records so `/network` and 相关技术 agree with the
+  new section). Verified: typecheck, lint, format, vitest 127/127 (10 new tests
+  covering direction-independent ordering, transitive walking, the
+  non-`supersedes` types being ignored, cross-kind edges, unknown targets,
+  self-references, note placement, and the same-date tie-break), plus a live
+  pass — v0.24.0 shows "已有后续" with 2 later releases and links out, v0.26.0
+  shows the line with its note and no later count, Ollama v0.32.0 renders
+  correctly as a middle step, the Shippy-linked signal correctly shows **no**
+  section and keeps its 延伸 label, `/network`'s data-derived legend picked up
+  续作 on its own, no overflow at a forced 320px column, zero console errors.
+
 ## Public AI route rate limiting (go-live checklist I1)
 
 - **The three public LLM routes are no longer uncapped** — 2026-07-27, the

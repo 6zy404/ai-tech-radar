@@ -177,6 +177,7 @@ export type RelationType =
   | "explains"
   | "requires"
   | "extends"
+  | "supersedes"
   | "supports"
   | "related-to";
 

@@ -343,6 +343,14 @@ Workspace deployment boundary:
     does not show internal quality, reviewer, delivery, or source data
 - `/technologies/[slug]`
   - user-facing published technology detail
+  - a 版本脉络 evolution-line section as the first content block, rendered only
+    when the signal is part of a `supersedes` chain (`TechnologyEvolutionLine`,
+    fed by `getTechnologyEvolutionChain`): the full line ordered oldest-first
+    with 当前 / 最新 marks, links to the other releases, and the succession note
+    for the current step. On an older release the heading reads 这条信号已有后续
+    and names the latest one — the point of the section is that a reader landing
+    on a superseded release finds out before reading it. Signals with no
+    succession relation render nothing here
   - bilingual content reading
   - source name, publish date, and original link without making long URLs dominate the page
   - productized priority label and short explanation
@@ -630,6 +638,10 @@ Forbidden on public pages:
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it
     is still shared with the home page and the 我关注的 view's
     `MyRadarContent`)
+- `TechnologyEvolutionLine`
+  - user-facing 版本脉络 section on the technology detail page; consumes the
+    derived `TechnologyEvolutionChain` (no internal fields, no new persisted
+    data) and renders nothing when the signal has no `supersedes` chain
 - `DossierRelatedItemsSection`
   - user-facing dossier-styled rendering of the technology detail page's
     相关技术/相关技能/相关知识 sections, showing each connection's note
