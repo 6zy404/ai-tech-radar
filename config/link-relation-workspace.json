@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T05:07:30.143Z",
+  "updatedAt": "2026-07-27T01:47:00.825Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1170,6 +1170,141 @@
       "toType": "knowledge",
       "relationType": "builds-on",
       "note": "单端点 Interactions API 把推理、执行、工具折叠进一个契约面。"
+    },
+    {
+      "id": "rel-ws-974ec7fd",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径都由动态路由结构决定。"
+    },
+    {
+      "id": "rel-ws-648963db",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "MTP=1 推测解码是本次发布的性能主线，收益上限取决于草稿与验证的开销比。"
+    },
+    {
+      "id": "rel-ws-7b64b062",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "把「推理引擎是否已适配」补进选型约束，而不只看参数量与价格。"
+    },
+    {
+      "id": "rel-ws-0a32bb12",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "新的注意力核与推测解码路径改变吞吐与显存模型，容量需要重新测算。"
+    },
+    {
+      "id": "rel-ws-8dfa1168",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "适配完成后评估瓶颈从「能不能跑」回到「跑得好不好」。"
+    },
+    {
+      "id": "rel-ws-735d3109",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "草稿模型输出头的量化精度直接决定推测解码剩下多少净收益。"
+    },
+    {
+      "id": "rel-ws-33ae4ecd",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "Qwen3 专家量化精度不一致的解码问题，根源在 MoE 的逐专家存储。"
+    },
+    {
+      "id": "rel-ws-7a14561c",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "端侧性能每改善一步，本地与云之间的任务切分边界就移动一次。"
+    },
+    {
+      "id": "rel-ws-9d1f6f61",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "统一内存架构下的容量规划不能照搬服务器端显存模型。"
+    },
+    {
+      "id": "rel-ws-e03f4df5",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97686",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "整篇文章本质是一次系统边界划分：哪一层自己拥有，哪一层外包。"
+    },
+    {
+      "id": "rel-ws-b8189c52",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97686",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "直连 API 意味着契约、版本与错误边界的责任全部回到自己身上。"
+    },
+    {
+      "id": "rel-ws-dd374bf3",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97686",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "模型层价差被抹平后，选型约束从价格转向工作流适配度。"
+    },
+    {
+      "id": "rel-ws-35f8a209",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97686",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "「外壳」的主体就是集成成本：编辑器、仓库、终端、策略系统的连通。"
+    },
+    {
+      "id": "rel-ws-fa0dc469",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97686",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "从 Issue 到已评审 PR 的链路，正是智能体工作流设计的对象。"
+    },
+    {
+      "id": "rel-ws-acf914e7",
+      "fromId": "draft-candidate-rss-https-github-blog-p-97686",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "自建外壳意味着日志、评测与运维成本也要计入决策。"
     }
   ]
 }

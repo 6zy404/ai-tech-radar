@@ -178,6 +178,16 @@ digest for today already exists, regeneration refreshes the generated
 sections while preserving any manual pins/exclusions/ordering already made
 (see [`docs/data-model.md`](data-model.md) → "DailyDigest").
 
+**Generation is not "today's new signals."** `buildDailyDigestFromTechnologies`
+selects the **top 4 high-priority items inside a 90-day lookback window**,
+ranked by priority level → priority score → publish date. With ~20 published
+signals in the pool, the same few high-scoring items win every day, so a
+freshly generated digest usually repeats the previous one and does **not**
+contain the signals published minutes earlier in this round. That is expected,
+not a bug: Step 6 is where the round's editorial judgment actually happens —
+exclude what the last digest already carried, `include` today's new signals,
+and `pin` the lead. Every round since 2026-07-19 has done exactly this.
+
 ## Step 6 — Apply editorial judgment to the digest
 
 Optional but recommended for the day's clear headline item:
@@ -234,3 +244,18 @@ for the full forbidden-field list.
   so a late publish never makes it into the digest without a manual add.
 - Skipping Step 8 and finding out via a user report that a leftover raw
   English title or an internal field made it onto a public page.
+
+## API gotchas (hit for real during rounds)
+
+- `PATCH /api/workspace/digests/{date}` expects `editorialNotes` as a **single
+  newline-delimited string**, not an array — passing an array returns
+  `500 value.split is not a function` (2026-07-27).
+- The skill/knowledge PATCH route segments are asymmetric:
+  `/api/workspace/skills/{id}` but `/api/workspace/knowledge/{id}` (**no
+  trailing `s`**). Guessing `knowledges` returns Next's HTML 404 page, which
+  looks like a JSON parse error rather than a routing mistake (2026-07-27).
+- `relatedTechnologyIds` is **not** editable through
+  `PATCH /api/workspace/technologies/{id}` — it isn't in
+  `TechnologyWorkspaceRecordUpdate`. Technology↔technology links therefore
+  can't be created from a round; connect new signals through shared skills /
+  knowledge (and their typed relations) instead.

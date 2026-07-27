@@ -1,6 +1,117 @@
 {
-  "updatedAt": "2026-07-22T09:37:56.650Z",
+  "updatedAt": "2026-07-27T01:50:33.025Z",
   "digests": [
+    {
+      "id": "digest-2026-07-27",
+      "date": "2026-07-27",
+      "status": "published",
+      "title": "每日技术简报 - 2026-07-27",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+      "editorialSummary": "今天三条信号都不在模型本身，而在模型外面那一层。vLLM v0.26.0 用十天左右把 Inkling 这样的万亿参数开源模型接进了完整推理栈——基础建模、分段 CUDA Graph、注意力核、推测解码一次配齐，开源权重到「真正能测」的间隔正在肉眼可见地缩短。Ollama v0.32.4 是同一件事的端侧版本：草稿模型输出头的量化、专家精度不一致的解码修复，都是把推测解码和 MoE 在本地跑顺的最后几厘米。而 GitHub 那篇「Copilot 与裸 API」把这层工作明码标价了——当模型调用的价差被抹平，真正要决策的是编辑器、仓库、终端、组织策略这套外壳你要不要自己拥有。三条放在一起，回答的是同一个问题：模型之外，你还得自己造多少东西。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "skillIds": [
+        "skill-ws-a9e80194",
+        "skill-agent-design",
+        "skill-model-evaluation",
+        "skill-tool-integration",
+        "skill-ws-f741f122"
+      ],
+      "knowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-api-contracts",
+        "knowledge-system-design",
+        "knowledge-ws-c761533e"
+      ],
+      "sourceNames": [
+        "GitHub Blog AI",
+        "Ollama Releases",
+        "vLLM Releases"
+      ],
+      "generatedAt": "2026-07-27T12:00:00.000Z",
+      "updatedAt": "2026-07-27T01:50:33.024Z",
+      "lastRegeneratedAt": "2026-07-27T01:48:38.000Z",
+      "publishedAt": "2026-07-27T01:50:33.024Z",
+      "editorialNotes": [
+        "本期为 07-23 至 07-27 的合并轮：07-23 自动生成的草稿与本期内容重复，已归档。",
+        "Gemini Flash Cyber / 长时程安全 / NeMo 微调 / HF 安全事件均已由 07-21、07-22 简报覆盖，本期排除。",
+        "16 条待决候选处置：3 条转草稿并发布，3 条 reviewed（两条 hf-mirror title-only 无正文，一条与已发 HF 入侵信号重叠），10 条拒绝（预发布与补丁版本、公关与消费级公告）。"
+      ]
+    },
+    {
+      "id": "digest-2026-07-23",
+      "date": "2026-07-23",
+      "status": "archived",
+      "title": "每日技术简报 - 2026-07-23",
+      "summary": "今日 4 条立即关注，0 条值得跟踪，覆盖 3 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "watchTechnologyIds": [],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "skillIds": [
+        "skill-ws-c183c9b9",
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-ws-84837d46"
+      ],
+      "knowledgeIds": [
+        "knowledge-ws-89b98df3",
+        "knowledge-human-loop",
+        "knowledge-model-sizing",
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-a28a8a56"
+      ],
+      "sourceNames": [
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-07-23T12:00:00.000Z",
+      "updatedAt": "2026-07-27T01:50:32.970Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
     {
       "id": "digest-2026-07-22",
       "date": "2026-07-22",

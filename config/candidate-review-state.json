@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-22T09:31:58.154Z",
+  "updatedAt": "2026-07-27T01:43:12.970Z",
   "items": {
     "quality-converted": {
       "importStatus": "converted",
@@ -364,6 +364,73 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-22T09:31:58.154Z",
       "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:03.816Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:03.865Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:03.906Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:03.949Z"
+    },
+    "candidate-rss-https-openai-com-index-health-in-chatgpt": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:03.987Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-platforms-android-galaxy-unpacked-2026": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:04.026Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:04.069Z"
+    },
+    "candidate-rss-https-openai-com-index-building-ai-infrastructure-with-the-effingham-county-community": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:04.109Z"
+    },
+    "candidate-rss-https-openai-com-index-how-news-organizations-are-using-ai": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:04.147Z"
+    },
+    "candidate-rss-https-openai-com-index-advancing-the-next-era-of-national-science": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-27T01:43:04.193Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nunchaku-diffusers": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-27T01:43:04.231Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-state-of-simulation-for-physical-ai": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-27T01:43:04.268Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-22-openai-cyberattack-atom-entries": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-27T01:43:04.307Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-27T01:43:12.723Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-27T01:43:12.852Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+    },
+    "candidate-rss-https-github-blog-p-97686": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-27T01:43:12.970Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-blog-p-97686"
     }
   }
 }

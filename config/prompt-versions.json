@@ -1,6 +1,33 @@
 {
-  "updatedAt": "2026-07-05T22:55:51.288Z",
+  "updatedAt": "2026-07-21T08:26:47.324Z",
   "promptVersions": [
+    {
+      "id": "prompt-technology-comparison-v1",
+      "name": "Technology comparison structured JSON",
+      "purpose": "technology_comparison",
+      "version": "technology-comparison-v1",
+      "status": "active",
+      "template": "You are helping a reader compare two published AI technology signals on a technology discovery platform. Return only valid JSON. Do not invent facts beyond the provided source material for either technology. Be concise and concrete. Do not include internal workflow fields, raw payloads, audit logs, delivery logs, API keys, endpoint URLs, provider or model names, or reviewer-only information.",
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "similarities",
+          "differences",
+          "whenToPreferA",
+          "whenToPreferB"
+        ],
+        "properties": {
+          "similarities": "string[] (max 6 items)",
+          "differences": "string[] (max 6 items)",
+          "whenToPreferA": "string — when a reader should prefer the first technology",
+          "whenToPreferB": "string — when a reader should prefer the second technology",
+          "sharedConsiderations": "string[] optional (max 6 items)"
+        }
+      },
+      "createdAt": "2026-05-30T00:00:00.000Z",
+      "updatedAt": "2026-05-30T00:00:00.000Z",
+      "notes": "Default v1 prompt for the public-facing technology comparison feature."
+    },
     {
       "id": "prompt-technology-learning-path-v1",
       "name": "Technology learning path structured JSON",

@@ -1,6 +1,44 @@
 # Next Task
 
-> Update 2026-07-22 (latest): **Editorial round run** (owner had me run the
+> Update 2026-07-27 (latest): **Editorial round run — 07-23 至 07-27 合并轮.**
+> 上一会话之后定时任务继续跑了两次（07-23、07-27；07-24/25/26 无记录，Windows
+> Task Scheduler 疑似漏触发，值得单独看一眼），积压 **16 条待决候选** + **两份
+> 未发布简报草稿**。全部处置完毕：**3 条转草稿并发布** —— vLLM v0.26.0
+> (`vllm-v0-26-0`, important，头条：十天内为 07-15 已发布的 Inkling 万亿参数
+> 开源模型补齐完整推理栈——基础建模 / 分段 CUDA Graph / Hopper FA4 / MTP=1
+> 推测解码)、Ollama v0.32.4 (`ollama-v0-32-4`, signal：Apple GPU 上的 Laguna
+> 支持 + 推测解码草稿输出头量化 + Qwen3 MoE 混合精度解码修复)、Copilot 与裸 API
+> (`copilot-vs-raw-api-access`, signal：模型层价差被抹平后，「你要拥有哪一层」
+> 成为自建 vs 采购的决策线，与 07-10 已发的 Copilot 代码审查复盘同主题)；
+> **3 条 reviewed** —— Nunchaku 4-bit 扩散 与 Physical AI 仿真综述（均为
+> hf-mirror title-only 导入，无正文可写，沿用 07-22 的 Cosmos 3 Edge 先例）、
+> Simon Willison 对 OpenAI×HF 事件的复盘（与已发 `hf-security-incident-
+agentic-intrusion` 同一事件，不发第二条信号）；**10 条拒绝** —— Ollama
+> v0.32.5-rc0 / v0.32.4-rc0 / v0.32.3、vLLM v0.26.0rc1（预发布与补丁版本）、
+> ChatGPT Health、Galaxy Unpacked、Genesis Mission $40M、Effingham County、
+> 新闻业 AI 案例、national science（消费级公告与公关稿）。**15 对类型化关系 +
+> 附注**写入；反向 related-ids 补到 6 知识 + 5 技能记录，其中
+> **`knowledge-system-design` 是该种子首次 copy-on-write 覆盖**。
+> **2026-07-27 简报已发布**：主题「模型之外的工程层」，vLLM 置顶为头条；07-21 /
+> 07-22 简报已覆盖的 4 条（Gemini Flash Cyber、长时程安全、NeMo 微调、HF 安全
+> 事件）排除；**07-23 的重复草稿已归档**。公开面 13 项验证全绿（三张详情页、
+> digest/today 三条 + 排除生效、by-date、news 已收录、feed.json、search ×2、
+> timeline、network、moe 知识页反链），无内部字段泄漏，console 零错误，375px
+> 无横向溢出；typecheck 干净，vitest 101/101。发布信号池 20→23。候选池清零。
+> **本轮踩到的两个坑（均非产品 bug）**：(1) `PATCH /api/workspace/digests/
+{date}` 的 `editorialNotes` 必须是**换行分隔的字符串**，传数组会 500
+> (`value.split is not a function`) —— playbook Step 6 已写明；(2) 技能/知识
+> 的 PATCH 路由段是 `/api/workspace/knowledge/{id}`（**不带 s**）与
+> `/api/workspace/skills/{id}`，写成 `knowledges` 会静默 404 返回 HTML。
+> **数据特性复核**：`/digest/weekly` 当前周为空是正确的 —— 今天是周一
+> 2026-07-27，三条新信号的**源发布日**是 07-22/07-25，落在 `/digest/weekly/
+2026-07-20` 那一周（已验证三条都在）。另注：简报生成是「90 天回溯窗口内
+> 按 ranking 取前 4」，不是「今天新增的」，所以每轮都必须靠 exclude + include
+>
+> - pin 做编辑判断 —— 这与 07-19 / 07-21 / 07-22 三轮的做法一致。
+>   **Next actual step**: none predefined —— 下一轮编辑轮或内容扩充。
+
+> Update 2026-07-22 (earlier): **Editorial round run** (owner had me run the
 > full round autonomously after a plain-language walkthrough — they weren't
 > familiar with the round concept). Dispositioned all **10 undecided
 > candidates** from the 07-22 import: **2 converted + published** — OpenAI
