@@ -103,6 +103,26 @@ the workspace would present fake delivery channels as if real.
 - Action: reset the live stores to a clean state before go-live (purge demo
   channels/runs, validation digests, and stale candidates), or point
   `LOCAL_DATA_DIR` at a fresh directory and re-import real sources.
+- ✓ Addressed (2026-07-27): the live stores were purged. Confirmed first that
+  the fixture digest `2026-05-23` ("Delivery integration validation") was
+  genuinely reachable on `/digest`, `/feed.xml`, `/feed.json`, and its own
+  page — the sanitizer hid the wording, not the record. Removed: 3 May
+  validation digests (one of them **published**), the 2 disabled
+  `quality-*-source` fake sources and their 2 imported candidates + review
+  state, the 2 leftover validation technology drafts
+  (`editorial-enrichment-draft`, `draft-candidate-source-quality-failing-…`),
+  and 3 "Validation …" delivery channels plus the orphaned delivery run.
+  Safe to delete because both validators that use these fixtures
+  (`validate:quality`, `validate:editorial-enrichment`) build them fresh and
+  back up/restore the real stores in a `finally` — the on-disk copies were
+  leftovers from before that discipline. `validate:persistence` caught one
+  reference this pass missed (a `DeliveryRun` still pointing at the deleted
+  digest), which is exactly what it exists for. Re-verified: the removed
+  digest now 404s, no fixture strings on any public or workspace surface, and
+  16 `validate:*` scripts pass. `validate:database` fails, but **pre-existing
+  and unrelated** — the SQLite driver seeds only `src/data` statics, so a
+  signal linked to a workspace-created skill/knowledge entry has no matching
+  row in sqlite mode (confirmed failing at the pre-cleanup commit).
 
 ### B4. `NEXT_PUBLIC_SITE_URL` must be set to the real origin
 
@@ -219,7 +239,8 @@ public-scale or multi-user deployment.
    verify `/workspace` is `401` without it (B1).
 2. Move live data out of git or `.gitignore` the live stores; keep only seed
    fixtures tracked (B2).
-3. Reset/purge demo & validation fixtures from the live stores (B3).
+3. ~~Reset/purge demo & validation fixtures from the live stores (B3).~~ Done
+   2026-07-27 — see B3.
 4. Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin; check `/feed.xml` (B4).
 5. Keep `LLM_PROVIDER=mock`, or add a rate limiter before any real key (I1).
 6. Put the app behind HTTPS; add HSTS + a `default-src 'self'` CSP (I3).

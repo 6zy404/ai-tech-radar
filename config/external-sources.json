@@ -2,57 +2,6 @@
   "updatedAt": "2026-07-27T00:05:12.758Z",
   "sources": [
     {
-      "id": "quality-good-source",
-      "name": "Quality Good Source",
-      "type": "rss",
-      "url": "https://example.com/quality-good.xml",
-      "enabled": false,
-      "description": "Quality validation source.",
-      "language": "en",
-      "publisherName": "Quality Publisher",
-      "publisherType": "media",
-      "defaultTags": [
-        "quality",
-        "validation"
-      ],
-      "defaultNormalizedType": "tool",
-      "lastFetchedAt": "2026-05-30T17:11:45.665Z",
-      "lastImportStatus": "partial",
-      "lastImportMessage": "Live import failed; local fallback used. fetch failed",
-      "lastImportCount": 1,
-      "consecutiveFailureCount": 2,
-      "totalImportedCount": 5,
-      "lastSuccessfulImportAt": "2026-05-20T10:00:00.000Z",
-      "createdAt": "2026-05-01T00:00:00.000Z",
-      "updatedAt": "2026-07-09T12:28:08.311Z",
-      "lastErrorMessage": "Live import failed; local fallback used. fetch failed"
-    },
-    {
-      "id": "quality-failing-source",
-      "name": "Quality Failing Source",
-      "type": "rss",
-      "url": "https://example.com/quality-failing.xml",
-      "enabled": false,
-      "description": "Quality validation source.",
-      "language": "en",
-      "publisherName": "Quality Publisher",
-      "publisherType": "media",
-      "defaultTags": [
-        "quality",
-        "validation"
-      ],
-      "defaultNormalizedType": "tool",
-      "lastFetchedAt": "2026-05-30T17:11:35.449Z",
-      "lastImportStatus": "partial",
-      "lastImportMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-      "lastImportCount": 1,
-      "lastErrorMessage": "Live import failed; local fallback used. Request failed with 404 for https://example.com/quality-failing.xml",
-      "consecutiveFailureCount": 4,
-      "totalImportedCount": 2,
-      "createdAt": "2026-05-01T00:00:00.000Z",
-      "updatedAt": "2026-07-09T12:28:08.312Z"
-    },
-    {
       "id": "source-ollama-releases",
       "name": "Ollama Releases",
       "type": "atom",

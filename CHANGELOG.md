@@ -12,6 +12,33 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Demo/validation fixture purge (go-live checklist B3)
+
+- **The live stores no longer carry demo data that would ship as real
+  content** — 2026-07-27, closing the last in-repo item of the
+  production-readiness checklist (`docs/production-readiness.md` → B3). The
+  finding was confirmed before acting: the fixture digest `2026-05-23`
+  ("Delivery integration validation") was **published**, and genuinely
+  reachable on `/digest`, `/feed.xml`, `/feed.json`, and its own page — the
+  public-copy sanitizer hid the validation wording, not the record itself.
+  Removed: 3 May validation digests, the 2 disabled `quality-*-source` fake
+  sources with their 2 imported candidates and review-state entries, the 2
+  leftover validation technology drafts (`editorial-enrichment-draft`,
+  `draft-candidate-source-quality-failing-source-2026-05-30`), and 3
+  "Validation …" delivery channels plus one orphaned delivery run. Deleting
+  them is safe because the two validators that use these fixtures
+  (`validate:quality`, `validate:editorial-enrichment`) construct them fresh
+  and back up/restore the real stores in a `finally` block — the on-disk
+  copies were leftovers from before that discipline. `validate:persistence`
+  caught the one reference the first pass missed (a `DeliveryRun` still
+  pointing at the deleted digest). Verified: the removed digest now 404s, no
+  fixture string appears on any public or workspace surface, and 16
+  `validate:*` scripts pass. `validate:database` fails, but **pre-existing and
+  unrelated** (confirmed by re-running it at the pre-cleanup commit): the
+  SQLite driver seeds only the `src/data` statics, so a published signal
+  linked to a workspace-created skill/knowledge entry has no matching row in
+  sqlite mode — tracked separately.
+
 ## Technology-to-technology relation editing + round triage flags
 
 - **Published signals can finally be linked to each other, and undecided
