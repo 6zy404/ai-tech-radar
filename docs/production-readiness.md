@@ -57,10 +57,27 @@ delete, or send deliveries.
   verify a request to `/workspace` without the token returns `401` and with it
   returns `200`.
 - Good news, once enabled: the guard fails **closed** when enabled but
-  unconfigured (`middleware.ts:43` → `503`), the token compare is
+  unconfigured (`src/middleware.ts:43` → `503`), the token compare is
   constant-time (`safeEqual`, `workspace-access.ts:40`), and Bearer / Basic /
   `x-workspace-access-token` are all accepted. The mechanism is sound; the
   default is the risk.
+- ⚠️ **The mechanism was sound and still never ran** (found 2026-07-27, fixed
+  the same day). This assessment was written from the source, which was
+  correct — but the file lived at the repository root, and a project with its
+  App Router under `src/` only loads `src/middleware.ts`. Next ignores the
+  root copy **silently**: no error, no warning, just an empty
+  `"middleware": {}` in `.next/server/middleware-manifest.json`. A go-live
+  drill with `WORKSPACE_ACCESS_ENABLED=true` and a token configured returned
+  `200` on `/workspace`. Moving the file to `src/middleware.ts` fixed it;
+  `validate:deployment` now asserts the location, and re-running that
+  assertion against the old path reproduces the failure. **Lesson for every
+  future security claim in this document: reading the code is not evidence.**
+- Verified live 2026-07-27 against a real `next start` production build:
+  `/workspace` and every internal prefix return `401` without a token and
+  `200` with it (header, Bearer, and Basic password forms all accepted);
+  `/api/workspace/*` returns the `401` as JSON; enabled-but-unconfigured
+  returns `503`; public routes, the public AI route, the weekly review, and
+  the per-topic feed are unaffected.
 - Residual: this is a single shared token, not per-user auth or session
   management — acceptable for one operator, but rotate it if it leaks and
   always terminate TLS in front of it (the token travels in a header).
@@ -248,7 +265,10 @@ public-scale or multi-user deployment.
 ## Go-live checklist (ordered)
 
 1. Set `WORKSPACE_ACCESS_ENABLED=true` + a strong `WORKSPACE_ACCESS_TOKEN`;
-   verify `/workspace` is `401` without it (B1).
+   verify `/workspace` is `401` without it (B1). Verify it by **requesting the
+   route**, not by reading the middleware — that is how the inert-guard bug
+   above went unnoticed. Full step-by-step server setup:
+   `docs/deployment.md` → "Go-live runbook".
 2. Move live data out of git or `.gitignore` the live stores; keep only seed
    fixtures tracked (B2).
 3. ~~Reset/purge demo & validation fixtures from the live stores (B3).~~ Done

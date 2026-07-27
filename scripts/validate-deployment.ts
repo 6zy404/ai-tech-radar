@@ -44,6 +44,34 @@ const internalOnlyTerms = [
   "WORKSPACE_ACCESS_TOKEN"
 ];
 
+/**
+ * The workspace guard only runs if Next actually loads the middleware, and a
+ * project with a `src` directory only looks for `src/middleware.ts`. A copy at
+ * the repository root is ignored **silently** — no error, no warning — which is
+ * how the guard shipped inert until the 2026-07-27 go-live drill hit
+ * `/workspace` and got a 200. Reading the middleware source proves nothing;
+ * only its location does.
+ */
+function assertMiddlewareIsInDiscoverableLocation() {
+  const usesSrcDirectory = existsSync(path.join(process.cwd(), "src", "app"));
+
+  assert.equal(
+    usesSrcDirectory,
+    true,
+    "Expected an App Router project under src/."
+  );
+  assert.equal(
+    existsSync(path.join(process.cwd(), "src", "middleware.ts")),
+    true,
+    "src/middleware.ts is missing: the workspace access guard would never run."
+  );
+  assert.equal(
+    existsSync(path.join(process.cwd(), "middleware.ts")),
+    false,
+    "middleware.ts at the repository root is ignored when the app lives in src/. Move it to src/middleware.ts."
+  );
+}
+
 function buildHeaders(value: string): Headers {
   return new Headers({
     Authorization: value
@@ -282,6 +310,7 @@ function main() {
   assertNoInternalTerms(renderDigestRssXml(), "Public RSS feed");
   assertPublicSourceDoesNotUseInternalTerms();
   assertClientBuildDoesNotContainWorkspaceSecret();
+  assertMiddlewareIsInDiscoverableLocation();
 
   console.log("Deployment readiness validation passed.");
 }

@@ -511,7 +511,7 @@ Internal workspace and mutation routes:
 - legacy `/candidates/*`
 - legacy `/technologies/drafts/*`
 
-`middleware.ts` can protect internal routes with a single environment-token boundary:
+`src/middleware.ts` can protect internal routes with a single environment-token boundary (the path matters — see `docs/deployment.md` → "The middleware must live at `src/middleware.ts`"):
 
 - `WORKSPACE_ACCESS_ENABLED=true`
 - `WORKSPACE_ACCESS_TOKEN=<strong token>`
