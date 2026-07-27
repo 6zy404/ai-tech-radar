@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T10:19:54.072Z",
+  "updatedAt": "2026-07-27T16:57:16.104Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -226,30 +226,6 @@
       "updatedAt": "2026-07-27T09:24:01.700Z"
     },
     {
-      "id": "knowledge-latency-tradeoffs",
-      "title": "交互系统中的延迟权衡",
-      "slug": "latency-tradeoffs-in-interactive-systems",
-      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
-      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-multimodal"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "tech-voice-runtime"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-ws-d7c9d1d8"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:24:01.841Z",
-      "updatedAt": "2026-07-27T09:24:01.841Z"
-    },
-    {
       "id": "knowledge-ws-36346103",
       "title": "混合专家模型（MoE）架构",
       "slug": "moe-architecture",
@@ -277,33 +253,6 @@
       "updatedAt": "2026-07-27T10:19:53.842Z"
     },
     {
-      "id": "knowledge-model-sizing",
-      "title": "模型选型与约束匹配",
-      "slug": "model-sizing-and-constraint-matching",
-      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
-      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-dddaf80c"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.347Z",
-      "updatedAt": "2026-07-27T10:19:53.927Z"
-    },
-    {
       "id": "knowledge-ws-818b7bb3",
       "title": "合成数据与数据配方",
       "slug": "synthetic-data-and-data-recipes",
@@ -329,6 +278,59 @@
       "updatedAt": "2026-07-27T10:19:53.997Z"
     },
     {
+      "id": "knowledge-model-sizing",
+      "title": "模型选型与约束匹配",
+      "slug": "model-sizing-and-constraint-matching",
+      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
+      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-dddaf80c",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.347Z",
+      "updatedAt": "2026-07-27T16:57:15.812Z"
+    },
+    {
+      "id": "knowledge-latency-tradeoffs",
+      "title": "交互系统中的延迟权衡",
+      "slug": "latency-tradeoffs-in-interactive-systems",
+      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
+      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-multimodal"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "tech-voice-runtime"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:24:01.841Z",
+      "updatedAt": "2026-07-27T16:57:15.919Z"
+    },
+    {
       "id": "knowledge-evaluation-loops",
       "title": "评估闭环",
       "slug": "evaluation-loops",
@@ -345,11 +347,37 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-dddaf80c"
+        "skill-ws-dddaf80c",
+        "skill-ws-b47fabd1"
       ],
       "status": "published",
       "createdAt": "2026-07-27T10:19:54.071Z",
-      "updatedAt": "2026-07-27T10:19:54.071Z"
+      "updatedAt": "2026-07-27T16:57:16.007Z"
+    },
+    {
+      "id": "knowledge-human-loop",
+      "title": "人在回路的审查",
+      "slug": "human-in-the-loop-review",
+      "summary": "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
+      "content": "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
+      "category": "operations",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-voice-runtime"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-communication-ai",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T16:57:16.103Z",
+      "updatedAt": "2026-07-27T16:57:16.103Z"
     }
   ]
 }
