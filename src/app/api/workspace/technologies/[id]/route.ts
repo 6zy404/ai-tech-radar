@@ -144,6 +144,7 @@ export async function PATCH(request: Request, context: RouteContext) {
       tags: getStringArray(body.tags),
       relatedKnowledgeIds: getStringArray(body.relatedKnowledgeIds),
       relatedSkillIds: getStringArray(body.relatedSkillIds),
+      relatedTechnologyIds: getStringArray(body.relatedTechnologyIds),
       editorialNotes: getStringArray(body.editorialNotes),
       whyItMatters: getString(body.whyItMatters),
       whoShouldCare: getStringArray(body.whoShouldCare),

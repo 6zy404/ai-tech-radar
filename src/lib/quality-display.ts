@@ -38,6 +38,7 @@ export function getCandidateQualityFlagLabel(
     missing_tags: "缺标签",
     possible_duplicate: "疑似重复",
     too_short: "内容过短",
+    prerelease_version: "预发布版本",
     ready_for_review: "可审核",
     not_convertible: "转换受阻"
   };

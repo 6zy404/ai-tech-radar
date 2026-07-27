@@ -6,8 +6,10 @@ import {
   getAllKnowledge,
   getAllSkills,
   getAllTags,
+  getAllTechnologies,
   getTechnologyWorkspaceRecordById
 } from "@/lib/content";
+import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import { getTechnologyWorkspacePublishReadiness } from "@/lib/technology-draft-workflow";
 import { getEditorialEnrichmentSuggestionsForDraft } from "@/lib/editorial-enrichment-store";
 import { buildRelationDefaults } from "@/lib/link-relation-workflow";
@@ -31,6 +33,14 @@ export default async function WorkspaceTechnologyDetailPage({
 
   const skillOptions = getAllSkills();
   const knowledgeOptions = getAllKnowledge();
+  // Only published technologies can be linked: a link to an unpublished draft
+  // would render as a dead node on /network and the detail-page graph.
+  const technologyOptions = getAllTechnologies()
+    .filter((item) => item.id !== record.id)
+    .map((item) => ({
+      id: item.id,
+      title: getPreferredTechnologyTitle(item)
+    }));
   const relationDefaults = buildRelationDefaults(
     { id: record.id, type: "technology" },
     [
@@ -38,7 +48,11 @@ export default async function WorkspaceTechnologyDetailPage({
         id: item.id,
         type: "knowledge" as const
       })),
-      ...skillOptions.map((item) => ({ id: item.id, type: "skill" as const }))
+      ...skillOptions.map((item) => ({ id: item.id, type: "skill" as const })),
+      ...technologyOptions.map((item) => ({
+        id: item.id,
+        type: "technology" as const
+      }))
     ]
   );
 
@@ -53,6 +67,7 @@ export default async function WorkspaceTechnologyDetailPage({
         tagOptions={getAllTags()}
         skillOptions={skillOptions}
         knowledgeOptions={knowledgeOptions}
+        technologyOptions={technologyOptions}
         relationDefaults={relationDefaults}
         readiness={getTechnologyWorkspacePublishReadiness(record.id)}
         enrichmentSuggestions={getEditorialEnrichmentSuggestionsForDraft(

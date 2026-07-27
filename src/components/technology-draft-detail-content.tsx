@@ -29,6 +29,7 @@ interface TechnologyDraftDetailContentProps {
   tagOptions: TopicTag[];
   skillOptions: SkillItem[];
   knowledgeOptions: KnowledgeItem[];
+  technologyOptions: { id: string; title: string }[];
   readiness: PublishReadinessResult;
   workflowEvents: WorkflowEvent[];
   enrichmentSuggestions: EditorialEnrichmentSuggestion[];
@@ -64,6 +65,7 @@ export function TechnologyDraftDetailContent({
   tagOptions,
   skillOptions,
   knowledgeOptions,
+  technologyOptions,
   readiness,
   workflowEvents,
   enrichmentSuggestions,
@@ -136,6 +138,7 @@ export function TechnologyDraftDetailContent({
             tagOptions={tagOptions}
             skillOptions={skillOptions}
             knowledgeOptions={knowledgeOptions}
+            technologyOptions={technologyOptions}
             relationDefaults={relationDefaults}
           />
         </section>

@@ -129,6 +129,44 @@ describe("getEditorialRoundState — candidates", () => {
     expect(state.undecidedCandidates.map((c) => c.id)).toEqual(["new", "old"]);
   });
 
+  it("surfaces review-blocking quality flags but not review-readiness ones", () => {
+    getImportedCandidatesMock.mockReturnValue([
+      makeImportedCandidate({
+        id: "prerelease",
+        originalTitle: "v0.32.5-rc0",
+        importStatus: "new",
+        publishDate: "2026-07-21"
+      }),
+      makeImportedCandidate({
+        id: "titleonly",
+        originalTitle: "Bringing Nunchaku 4-bit Diffusion Inference",
+        originalSummary: "",
+        originalContent: "",
+        importStatus: "new",
+        publishDate: "2026-07-20"
+      }),
+      makeImportedCandidate({
+        id: "stable",
+        originalTitle: "v0.32.4",
+        importStatus: "new",
+        publishDate: "2026-07-19"
+      })
+    ]);
+
+    const { undecidedCandidates } = getEditorialRoundState();
+    const [prerelease, titleOnly, stable] = undecidedCandidates;
+
+    expect(prerelease.qualityFlags).toContain("prerelease_version");
+    expect(titleOnly.qualityFlags).toContain("missing_summary");
+    expect(titleOnly.qualityFlags).toContain("missing_content");
+    // A stable release tag from the same feed must stay unflagged.
+    expect(stable.qualityFlags).not.toContain("prerelease_version");
+    // Review-readiness flags say nothing about whether an item is worth
+    // publishing, so they stay off the round list.
+    expect(prerelease.qualityFlags).not.toContain("ready_for_review");
+    expect(titleOnly.qualityFlags).not.toContain("not_convertible");
+  });
+
   it("marks the candidate step blocked when an open duplicate group exists", () => {
     getImportedCandidatesMock.mockReturnValue([
       makeImportedCandidate({ id: "a", importStatus: "new" })

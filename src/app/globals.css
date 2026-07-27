@@ -827,6 +827,22 @@ p {
   color: #a16207;
 }
 
+.editorial-round-row__flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.editorial-round-row__flag {
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.03);
+}
+
 .editorial-round-row__actions {
   display: flex;
   align-items: center;

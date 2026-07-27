@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T01:47:00.825Z",
+  "updatedAt": "2026-07-27T02:26:44.332Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1305,6 +1305,24 @@
       "toType": "skill",
       "relationType": "extends",
       "note": "自建外壳意味着日志、评测与运维成本也要计入决策。"
+    },
+    {
+      "id": "rel-ws-2202f3d9",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "v0.26.0 的头号亮点就是为 Inkling 提供完整推理支持栈。"
+    },
+    {
+      "id": "rel-ws-3c6ce682",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "承接 v0.25.0 的 Model Runner V2 默认化，继续往架构适配走。"
     }
   ]
 }

@@ -48,6 +48,7 @@ export interface TechnologyWorkspaceRecordUpdate {
   tags?: string[];
   relatedKnowledgeIds?: string[];
   relatedSkillIds?: string[];
+  relatedTechnologyIds?: string[];
   editorialNotes?: string[];
   whyItMatters?: string;
   whoShouldCare?: string[];
@@ -232,6 +233,13 @@ export function updateTechnologyWorkspaceRecord(
     relatedSkillIds:
       normalizeStringList(updates.relatedSkillIds) ??
       existingRecord.relatedSkillIds,
+    // Technology-to-technology links. A record must never reference itself,
+    // which would render as a self-edge on /network and the detail-page graph.
+    relatedTechnologyIds: (
+      normalizeStringList(updates.relatedTechnologyIds) ??
+      existingRecord.relatedTechnologyIds ??
+      []
+    ).filter((id) => id !== existingRecord.id),
     editorialNotes:
       normalizeStringList(updates.editorialNotes) ??
       existingRecord.editorialNotes,

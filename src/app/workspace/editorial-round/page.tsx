@@ -10,6 +10,7 @@ import {
   getDigestStatusLabel,
   getEditorialRoundState
 } from "@/lib/editorial-round";
+import { getCandidateQualityFlagLabel } from "@/lib/quality-display";
 
 export const dynamic = "force-dynamic";
 
@@ -103,6 +104,18 @@ export default function EditorialRoundPage() {
                     <span className="editorial-round-row__meta">
                       {candidate.sourceName} · {candidate.publishDate}
                     </span>
+                    {candidate.qualityFlags.length > 0 ? (
+                      <span className="editorial-round-row__flags">
+                        {candidate.qualityFlags.map((flag) => (
+                          <span
+                            key={flag}
+                            className="editorial-round-row__flag"
+                          >
+                            {getCandidateQualityFlagLabel(flag)}
+                          </span>
+                        ))}
+                      </span>
+                    ) : null}
                   </div>
                   <div className="editorial-round-row__actions">
                     <CandidateRoundActions candidateId={candidate.id} />

@@ -55,6 +55,27 @@ function isCandidateTooShort(candidate: ImportedCandidate): boolean {
   );
 }
 
+/**
+ * Release-candidate / pre-release version tags (`v1.2.3-rc0`, `-alpha.1`,
+ * `-beta`, `-preview`). Release feeds publish these alongside — and usually
+ * days before — the matching stable tag, and every editorial round so far has
+ * rejected them by hand: 4 of the 16 undecided candidates on 2026-07-27, and
+ * at least one in each of the three rounds before it. Flagging them keeps the
+ * judgment with the editor while making the batch obvious at a glance.
+ */
+function isPrereleaseVersion(candidate: ImportedCandidate): boolean {
+  const title = candidate.originalTitle?.trim() ?? "";
+
+  // The marker must sit on a version-looking token (`v0.26.0rc1`,
+  // `v0.32.5-rc0`, `v1.0.0-beta.2`). Matching a bare keyword would flag prose
+  // titles such as "Preview: ..." or "Dev tools ...", and release feeds glue
+  // the marker straight onto the digits often enough that a leading separator
+  // cannot be required either.
+  return /\bv?\d+(?:\.\d+)+[.\-_]?(?:rc|alpha|beta|preview|dev|nightly)[.\-_]?\d*\b/i.test(
+    title
+  );
+}
+
 function hasCandidatePublisher(candidate: ImportedCandidate): boolean {
   if (!isPresent(candidate.publisherName)) {
     return false;
@@ -145,6 +166,7 @@ export function evaluateCandidateQuality(
   const hasTags = candidate.tags.length > 0;
   const isDuplicate = isCandidateDuplicate(candidate);
   const isTooShort = isCandidateTooShort(candidate);
+  const isPrerelease = isPrereleaseVersion(candidate);
   const isConvertible =
     Boolean(options.canConvert) &&
     hasTitle &&
@@ -191,6 +213,10 @@ export function evaluateCandidateQuality(
     flags.push("too_short");
   }
 
+  if (isPrerelease) {
+    flags.push("prerelease_version");
+  }
+
   if (isConvertible) {
     flags.push("ready_for_review");
   } else if (options.canConvert === false) {
@@ -207,6 +233,7 @@ export function evaluateCandidateQuality(
     hasTags,
     isDuplicate,
     isTooShort,
+    isPrerelease,
     isConvertible,
     flags
   };
