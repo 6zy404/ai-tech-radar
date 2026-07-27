@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T08:07:43.754Z",
+  "updatedAt": "2026-07-27T09:22:57.109Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1440,6 +1440,87 @@
       "toType": "technology",
       "relationType": "supersedes",
       "note": "延续 v0.32.0 的智能体入口，重点回到执行层：Apple GPU 的 Laguna 支持、草稿模型输出头量化与 Qwen3 MoE 解码修复。"
+    },
+    {
+      "id": "rel-ws-0d24563b",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "这一版把「整个模型一个量化档位」证伪了：草稿输出头要单独定精度，MoE 专家精度不一致会直接坏解码。"
+    },
+    {
+      "id": "rel-ws-620c2a39",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "本地运行时转成智能体入口后，部署要多养一份常驻进程的资源预算。"
+    },
+    {
+      "id": "rel-ws-285b1766",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "GPU 卸载的稳健性是这条能力线最基础的一环，也是最容易被跳过的一环。"
+    },
+    {
+      "id": "rel-ws-7a248793",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "tech-slm-edge",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "小模型是端侧的主力形态，它把「装得下」变成默认，剩下的全是适配问题。"
+    },
+    {
+      "id": "rel-ws-ec1f36ca",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "权重、KV cache、草稿输出头各自能压到几 bit，是这项能力的第一道计算。"
+    },
+    {
+      "id": "rel-ws-16a0e7ab",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "先按设备约束把模型选对，再谈怎么部署——顺序反过来就是白折腾。"
+    },
+    {
+      "id": "rel-ws-dd4704f6",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "推测解码能换来吞吐，但草稿模型自身的显存与精度开销要一并计入预算。"
+    },
+    {
+      "id": "rel-ws-8cbb8df0",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "单机跑不动时的下一步：决定把哪一部分推理放回云端。"
+    },
+    {
+      "id": "rel-ws-23af4fb0",
+      "fromId": "skill-ws-d7c9d1d8",
+      "fromType": "skill",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "首 token 延迟与稳态吞吐这两个验收口径，出处就是交互系统的延迟预算。"
     }
   ]
 }

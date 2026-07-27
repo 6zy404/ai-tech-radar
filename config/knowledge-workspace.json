@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T02:42:47.415Z",
+  "updatedAt": "2026-07-27T09:24:01.841Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -150,83 +150,6 @@
       "updatedAt": "2026-07-27T01:48:18.351Z"
     },
     {
-      "id": "knowledge-ws-68963f7f",
-      "title": "推测解码与推理加速技术",
-      "slug": "speculative-decoding-inference-acceleration",
-      "summary": "自回归生成的逐 token 串行是大模型推理延迟的根源；推测解码、连续批处理与 KV 缓存管理从算法与系统两层，把同样的硬件榨出数倍吞吐。",
-      "content": "自回归模型每生成一个 token 都要完整走一遍前向计算，而解码阶段的瓶颈通常在显存带宽而非算力——权重反复搬运，算术单元大量空转。推测解码（speculative decoding）用一个小模型快速草拟若干候选 token，再让大模型一次前向并行验证，接受则一步产出多个 token，拒绝则回退重来；数学上可以保证输出分布与大模型逐 token 解码完全一致，加速是「免费」的。\n\n算法之外还有系统层的三板斧：连续批处理（continuous batching）让新请求随时插入正在运行的批次，而不是等整批结束；分页式 KV 缓存（vLLM 的 PagedAttention 一脉）把注意力缓存按块管理，消除显存碎片；算子融合与量化则进一步压低单步开销。vLLM v0.25.0 把 Model Runner V2 设为默认执行引擎、其 Transformers 后端达到原生速度，都说明这套优化正在从「专用推理引擎的独门绝技」下沉为通用基础设施；Ollama 则把同类技术带进本地设备，在消费级硬件上兑现可用的交互延迟。\n\n为什么值得懂：GPT-5.6 把「单位算力智能密度」当作主打指标，标志着前沿竞争已从单纯堆参数转向推理效率。读懂这一层，才能理解推理引擎版本说明里的吞吐数字从哪来、容量规划里的延迟预算怎么定、以及「更大的模型」与「更快的模型」之间的真实取舍。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.662Z",
-      "updatedAt": "2026-07-27T01:48:18.401Z"
-    },
-    {
-      "id": "knowledge-ws-c761533e",
-      "title": "本地与云混合推理架构",
-      "slug": "local-cloud-hybrid-inference",
-      "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
-      "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.762Z",
-      "updatedAt": "2026-07-27T01:48:18.442Z"
-    },
-    {
-      "id": "knowledge-model-sizing",
-      "title": "模型选型与约束匹配",
-      "slug": "model-sizing-and-constraint-matching",
-      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
-      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.347Z",
-      "updatedAt": "2026-07-27T01:48:18.489Z"
-    },
-    {
       "id": "knowledge-api-contracts",
       "title": "API 契约与接口边界",
       "slug": "api-contracts-and-interface-boundaries",
@@ -291,11 +214,116 @@
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
       ],
       "relatedSkillIds": [
-        "skill-ws-a9e80194"
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8"
       ],
       "status": "published",
       "createdAt": "2026-07-27T02:42:33.541Z",
-      "updatedAt": "2026-07-27T02:42:47.414Z"
+      "updatedAt": "2026-07-27T09:24:01.553Z"
+    },
+    {
+      "id": "knowledge-ws-68963f7f",
+      "title": "推测解码与推理加速技术",
+      "slug": "speculative-decoding-inference-acceleration",
+      "summary": "自回归生成的逐 token 串行是大模型推理延迟的根源；推测解码、连续批处理与 KV 缓存管理从算法与系统两层，把同样的硬件榨出数倍吞吐。",
+      "content": "自回归模型每生成一个 token 都要完整走一遍前向计算，而解码阶段的瓶颈通常在显存带宽而非算力——权重反复搬运，算术单元大量空转。推测解码（speculative decoding）用一个小模型快速草拟若干候选 token，再让大模型一次前向并行验证，接受则一步产出多个 token，拒绝则回退重来；数学上可以保证输出分布与大模型逐 token 解码完全一致，加速是「免费」的。\n\n算法之外还有系统层的三板斧：连续批处理（continuous batching）让新请求随时插入正在运行的批次，而不是等整批结束；分页式 KV 缓存（vLLM 的 PagedAttention 一脉）把注意力缓存按块管理，消除显存碎片；算子融合与量化则进一步压低单步开销。vLLM v0.25.0 把 Model Runner V2 设为默认执行引擎、其 Transformers 后端达到原生速度，都说明这套优化正在从「专用推理引擎的独门绝技」下沉为通用基础设施；Ollama 则把同类技术带进本地设备，在消费级硬件上兑现可用的交互延迟。\n\n为什么值得懂：GPT-5.6 把「单位算力智能密度」当作主打指标，标志着前沿竞争已从单纯堆参数转向推理效率。读懂这一层，才能理解推理引擎版本说明里的吞吐数字从哪来、容量规划里的延迟预算怎么定、以及「更大的模型」与「更快的模型」之间的真实取舍。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.662Z",
+      "updatedAt": "2026-07-27T09:24:01.630Z"
+    },
+    {
+      "id": "knowledge-ws-c761533e",
+      "title": "本地与云混合推理架构",
+      "slug": "local-cloud-hybrid-inference",
+      "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
+      "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-d7c9d1d8"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.762Z",
+      "updatedAt": "2026-07-27T09:24:01.700Z"
+    },
+    {
+      "id": "knowledge-model-sizing",
+      "title": "模型选型与约束匹配",
+      "slug": "model-sizing-and-constraint-matching",
+      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
+      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-d7c9d1d8"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.347Z",
+      "updatedAt": "2026-07-27T09:24:01.772Z"
+    },
+    {
+      "id": "knowledge-latency-tradeoffs",
+      "title": "交互系统中的延迟权衡",
+      "slug": "latency-tradeoffs-in-interactive-systems",
+      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
+      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-multimodal"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "tech-voice-runtime"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-ws-d7c9d1d8"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:24:01.841Z",
+      "updatedAt": "2026-07-27T09:24:01.841Z"
     }
   ]
 }
