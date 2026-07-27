@@ -1,8 +1,24 @@
 import { NextResponse } from "next/server";
 
+import {
+  checkPublicAiRateLimit,
+  publicAiRateLimitMessage
+} from "@/lib/public-ai-rate-limit";
 import { generateOrGetTechnologyLearningPath } from "@/lib/technology-learning-path";
 
 export async function POST(request: Request) {
+  const rateLimit = checkPublicAiRateLimit(request, "learning-path");
+
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: publicAiRateLimitMessage },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rateLimit.retryAfterSeconds) }
+      }
+    );
+  }
+
   let body: unknown;
 
   try {

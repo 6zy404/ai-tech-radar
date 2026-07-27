@@ -196,8 +196,10 @@ Public, user-facing routes:
 - `/feed.xml`, `/feed.json`
 - `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
 - `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
-  `POST /api/technologies/learning-path` — public, unprotected by design
-  (they only operate on already-published technology content); see
+  `POST /api/technologies/learning-path` — public, unauthenticated by design
+  (they only operate on already-published technology content), but rate
+  limited per client per route (default 10/minute and 40/hour, override with
+  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`); see
   [`docs/security-boundary.md`](docs/security-boundary.md) for the boundary
   reasoning.
 

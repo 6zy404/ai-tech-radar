@@ -113,8 +113,10 @@ Public pages:
 Public API routes:
 
 - `POST /api/technologies/compare` — generates or returns a cached AI
-  comparison between two published technologies. Unprotected by design (see
-  `docs/security-boundary.md`); never returns provider/model/prompt-version
+  comparison between two published technologies. Unauthenticated by design
+  (see `docs/security-boundary.md`) but rate limited per client per route
+  (`429` + `Retry-After` once the budget is spent, checked before any parsing,
+  cache lookup, or provider call); never returns provider/model/prompt-version
   metadata.
 - `POST /api/technologies/explain` — generates or returns a cached AI
   explanation of one published technology tailored to a reader-selected

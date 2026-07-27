@@ -1,6 +1,41 @@
 # Next Task
 
-> Update 2026-07-28 (latest): **SQLite 驱动补齐六个缺失适配器.** 上一会话遗留的
+> Update 2026-07-27 (latest): **公开 AI 路由限流落地（go-live 清单 I1）.**
+> owner 从 backlog 里选的，也是**仓库内最后一项 go-live 前置代码欠账**——做完
+> 之后 go-live 清单只剩部署机上的运维动作（B1 令牌 / B4 站点 URL / I2 备份）。
+> 三条公开 AI 路由（compare / explain / learning-path）此前唯一的成本护栏是
+> **按 key 的结果缓存**：只要请求的是没算过的技术对 / 阅读水平 / 技术，每次都
+> 会真调一次 provider，速率上完全不设防。mock provider 下无害，配上真实
+> `LLM_API_KEY` 就是敞开的成本口子。
+> 新增 `src/lib/rate-limit.ts`（与框架无关的滑动窗口限流器：一个限流器可挂多条
+> 规则、用插入序 `Map` 让超出跟踪上限时的淘汰变成从队首走一遍、**被拒绝的请求
+> 不记账**——所以被挡住之后继续猛打不会把恢复时间越推越远）与
+> `src/lib/public-ai-rate-limit.ts`（策略层：每客户端**每路由** 10 次/分 +
+> 40 次/小时，桶键 `routeId:clientKey`，所以打爆 compare 不影响 explain；可用
+> `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR` 覆盖）。
+> 检查放在每条路由的**第一行**——早于 body 解析、早于缓存查询，因此也早于任何
+> provider 调用——超限返回 `429` + `Retry-After`，响应体只有一句中文，不泄漏
+> provider / 配额 / 客户端信息。三个阅读端组件**无需改动**：它们本来就渲染
+> `payload.error`，429 文案直接显示在原来的错误位。
+> **诚实的边界**（已写进 security-boundary）：限流器是进程内内存态（多实例部署
+> 会把预算翻倍），客户端标识取自 `x-forwarded-for` / `x-real-ip`，可被轮换；
+> 前面没有反向代理时所有调用方共用一个桶——这仍然能封住 provider 调用总量。
+> 它是**成本护栏，不是防滥用**，代理/平台层限流仍留在 gap 列表里。
+> 验证：typecheck / lint / format / vitest **117/117**（新增 9 条，覆盖窗口
+> 滑动、被拒不记账、多规则时恢复由较长窗口决定、按 key 隔离、上限淘汰），外加
+> 对 `next dev` 的实跑——compare 连打 12 次得到 10×`400` 后第 11 次 `429`
+> 且 `Retry-After: 60`；换客户端 IP、换另外两条路由均不受影响（桶独立）；
+> explain 组件仍能正常生成结果并渲染免责声明；耗尽后点按钮，429 文案出现在
+> 组件错误位，console 零错误。
+> **剩余 backlog**：go-live B1 令牌 / B4 站点 URL / I2 备份（部署时的运维
+> 动作，需要先定部署目标）、下一轮编辑轮（明早 08:05 定时导入后有料）、
+> 内容扩充。**仓库内已无已知代码欠账。**
+> **日期勘误**：下面那条标着「2026-07-28」的条目实际是**同一天（07-27）**写的
+> ——机器时钟与 `git log` 都显示 `c103ca3` / `97b6033` 提交于 2026-07-27 上午。
+> 本条按真实日期记 07-27，所以时间线上「07-27 最新」压在「07-28 更早」之上，
+> 不是排序错误。
+
+> Update 2026-07-28 (earlier): **SQLite 驱动补齐六个缺失适配器.** 上一会话遗留的
 > `validate:database` 失败已修，且根因比记录里写的更严重：不是「seed 缺工作台
 > 内容」，而是 **6 个 store 根本没有 SQLite 适配器**
 > （`skill-workspace.json` / `knowledge-workspace.json` /

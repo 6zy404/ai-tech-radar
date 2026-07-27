@@ -69,6 +69,12 @@ This is a deployment guardrail, not a production permission system.
 - `LLM_BASE_URL`: optional OpenAI-compatible base URL.
 - `LLM_MODEL`: optional model name.
 - `LLM_TIMEOUT_MS`: optional provider request timeout.
+- `PUBLIC_AI_RATE_LIMIT_PER_MINUTE`: optional per-client, per-route request
+  budget for the three public AI routes; defaults to `10`.
+- `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: the same budget over an hour; defaults to
+  `40`. Both are enforced in-process (see `docs/security-boundary.md` →
+  "Public LLM Feature Boundary"); review them before configuring a real-cost
+  provider, and keep a proxy/platform limit for anything abuse-shaped.
 
 Do not commit real webhook tokens or LLM API keys. Neither local JSON nor the local SQLite file should be treated as a production secret store.
 
