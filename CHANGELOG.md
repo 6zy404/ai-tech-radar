@@ -20,7 +20,7 @@ For per-topic deep dives, see the `docs/` directory.
   contrast, had 3 signals against 4 skills). Seven of those eight signals are
   some form of "vendor shipped a new model" — GPT-5.6, Kimi K3 (2.8T,
   open-weight promise), Inkling (1T total / 41B active MoE), the Gemini Flash
-  batch — and the site had no answer for what a reader should *do* with them.
+  batch — and the site had no answer for what a reader should _do_ with them.
   The skill sorts a release announcement's numbers into three buckets —
   directly comparable (context length, price per million tokens, licence
   terms, third-party benchmarks), comparable only after conversion (MoE total
@@ -30,29 +30,29 @@ For per-topic deep dives, see the `docs/` directory.
   conditions that actually justify switching and the four costs that dominate
   a switch (prompt retuning, eval re-runs, recomputed cost model, downstream
   regression). A closing paragraph draws the boundary against
-  「模型与输出评估」 in the prose (that one is *designing your own checks*,
-  this one is *reading someone else's announcement and deciding*), the same
+  「模型与输出评估」 in the prose (that one is _designing your own checks_,
+  this one is _reading someone else's announcement and deciding_), the same
   hand-off discipline the on-device skill uses with 「推理服务容量规划」.
   Published with **zero blocking errors and zero warnings**, 8 typed
   relations with notes, and reverse `relatedSkillIds` on 4 technology records
-  + 4 knowledge entries (`knowledge-evaluation-loops` is a **first
-  copy-on-write override** of that seed entry). Skills 14→15; 前沿模型 goes
-  1→2.
-  Two candidates were rejected before writing: an open-weight
-  licence/compliance skill (only 2–3 signals, and honest output would be a
-  checklist rather than usable guidance) and — earlier the same session — an
-  inference-engine upgrade skill, dropped after reading
-  「推理服务容量规划」's actual body, which already covers exactly that
-  ("判断一次推理栈升级或模型更换对自托管服务意味着什么", naming the vLLM
-  Model Runner V2 generation switch). The coverage count alone would have
-  hidden that.
-  Verified: typecheck, vitest 127/127, `validate:persistence`,
-  `validate:database`, plus a 13-point live public pass (skill detail with
-  its notes and boundary paragraph, all 4 signal pages, 2 knowledge pages,
-  the topic hub, search, `/network`), zero console errors, no 375px overflow.
-  The dev server died mid-round — the known session-scoped `next dev`
-  behaviour from `docs/editorial-round-playbook.md` Step 0 — and the store
-  was confirmed to hold **no partial write** before retrying.
+  - 4 knowledge entries (`knowledge-evaluation-loops` is a **first
+    copy-on-write override** of that seed entry). Skills 14→15; 前沿模型 goes
+    1→2.
+    Two candidates were rejected before writing: an open-weight
+    licence/compliance skill (only 2–3 signals, and honest output would be a
+    checklist rather than usable guidance) and — earlier the same session — an
+    inference-engine upgrade skill, dropped after reading
+    「推理服务容量规划」's actual body, which already covers exactly that
+    ("判断一次推理栈升级或模型更换对自托管服务意味着什么", naming the vLLM
+    Model Runner V2 generation switch). The coverage count alone would have
+    hidden that.
+    Verified: typecheck, vitest 127/127, `validate:persistence`,
+    `validate:database`, plus a 13-point live public pass (skill detail with
+    its notes and boundary paragraph, all 4 signal pages, 2 knowledge pages,
+    the topic hub, search, `/network`), zero console errors, no 375px overflow.
+    The dev server died mid-round — the known session-scoped `next dev`
+    behaviour from `docs/editorial-round-playbook.md` Step 0 — and the store
+    was confirmed to hold **no partial write** before retrying.
 
 ## Content round — on-device deployment skill (the empty action layer)
 
