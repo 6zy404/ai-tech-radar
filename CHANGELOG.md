@@ -12,6 +12,44 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Public AI route rate limiting (go-live checklist I1)
+
+- **The three public LLM routes are no longer uncapped** — 2026-07-27, the
+  last in-repo item of the production-readiness checklist
+  (`docs/production-readiness.md` → I1). `POST /api/technologies/compare`,
+  `/explain`, and `/learning-path` are unauthenticated by design (they only
+  read already-published content), and until now the **only** cost control was
+  the per-key result cache: a caller walking through new technology pairs,
+  reader levels, or technologies triggered one provider call each, with
+  nothing bounding the rate. Harmless under the default mock provider, an open
+  cost vector the moment a real `LLM_API_KEY` is configured.
+  New `src/lib/rate-limit.ts` is a framework-free sliding-window limiter
+  (multiple rules per limiter, insertion-ordered `Map` so key eviction past a
+  tracking cap is a front-of-map walk, and — the detail that matters — a
+  **rejected attempt is not recorded**, so hammering while blocked cannot push
+  the recovery time further out). `src/lib/public-ai-rate-limit.ts` owns the
+  policy: 10 requests/minute + 40/hour per client **per route**
+  (`routeId:clientKey` buckets, so exhausting compare leaves explain usable),
+  overridable via `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` /
+  `PUBLIC_AI_RATE_LIMIT_PER_HOUR`. The check is each route's **first**
+  statement — before body parsing, before the cache lookup, therefore before
+  any provider call — and returns `429` with `Retry-After` and a generic
+  Chinese message that leaks no provider, quota, or client detail. The three
+  reader widgets needed no change: they already render `payload.error`, so the
+  message surfaces in place. Documented honestly as a **cost guardrail, not
+  bot protection**: the limiter is in-memory/per-process (a multi-instance
+  deploy multiplies the budget) and the client key comes from
+  `x-forwarded-for` / `x-real-ip`, which a caller can rotate — with no proxy
+  in front every caller shares one bucket, which still caps total provider
+  calls. Verified: typecheck, lint, format, vitest 117/117 (9 new tests
+  covering window sliding, the no-credit-for-rejected rule, multi-rule
+  recovery governed by the longer window, per-key isolation, and cap
+  eviction), plus a live pass against `next dev` — 10 × `400` then `429` with
+  `Retry-After: 60` on the 11th, a different client IP and the other two
+  routes each unaffected (separate buckets), the explain widget still
+  rendering a real generated result with its disclaimer, and the `429` message
+  rendering in the widget's error slot with zero console errors.
+
 ## SQLite driver parity (six missing store adapters)
 
 - **`PERSISTENCE_DRIVER=sqlite` stopped losing every workspace-created

@@ -639,6 +639,7 @@ Deployment configuration is not persisted as content. It is read from environmen
 - `LOCAL_DATA_DIR`: local JSON workflow directory; defaults to `./config`.
 - `TASK_RUNNER_INTERVAL_SECONDS`: default interval for `npm run tasks:watch`.
 - `DELIVERY_WEBHOOK_ENDPOINT` and `FEISHU_WEBHOOK_ENDPOINT`: optional operator references only; real channel endpoints are managed in the Internal Workspace.
+- `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: optional per-client, per-route request budgets for the three public AI routes (defaults 10 / 40). Not persisted state; the limiter's windows live in process memory only.
 
 The workspace token and delivery endpoint secrets are not user-facing data fields and must not be rendered into public pages or public feeds.
 

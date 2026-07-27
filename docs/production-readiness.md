@@ -36,9 +36,9 @@ code. None of them require new features for this target.
 > `workflow-events.json`, `task-runner.json`, and the three
 > `technology-*.json` LLM caches are now git-ignored, so a real delivery
 > endpoint/token can no longer be committed). The remaining items are operator
-> actions at deploy time (B1 token, B3 data reset, B4 site URL) or an ops
-> decision (I1 rate limiting, I2 backups); they stay open by design and are
-> marked ✓ Addressed inline below where code landed.
+> actions at deploy time (B1 token, B4 site URL) or an ops decision (I2 backups);
+> they stay open by design and are marked ✓ Addressed inline below where code
+> landed. I1 (public LLM route rate limiting) landed as code on 2026-07-27.
 
 ## Blocking gaps — must be handled before the app is reachable
 
@@ -150,6 +150,18 @@ public, uncapped cost/abuse vector — the only bound is the per-key result cach
 - Decision for this target: keep the mock provider for go-live (recommended),
   **or** add basic rate limiting / a reverse-proxy limit before configuring a
   real provider. Do not ship a real key without a limiter.
+- ✓ Addressed (2026-07-27): all three routes now run a per-client sliding-window
+  limiter before any parsing, cache lookup, or provider call
+  (`src/lib/rate-limit.ts` + `src/lib/public-ai-rate-limit.ts`), returning `429`
+  with `Retry-After` when the budget is spent. Defaults are 10 requests/minute
+  and 40/hour per client **per route**, overridable with
+  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`. Two
+  honest limits of this implementation: it is in-memory and per-process (a
+  multi-instance deploy multiplies the effective budget), and the client key
+  comes from `x-forwarded-for` / `x-real-ip`, which a determined caller can
+  rotate — with no proxy in front, every caller shares one bucket, which still
+  caps total provider calls. It is a cost guardrail, not bot protection; a
+  reverse-proxy or platform limit is still the right layer for the latter.
 
 ### I2. Persistence durability: no locking, no backup, concurrent writers
 
@@ -242,7 +254,10 @@ public-scale or multi-user deployment.
 3. ~~Reset/purge demo & validation fixtures from the live stores (B3).~~ Done
    2026-07-27 — see B3.
 4. Set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin; check `/feed.xml` (B4).
-5. Keep `LLM_PROVIDER=mock`, or add a rate limiter before any real key (I1).
+5. ~~Keep `LLM_PROVIDER=mock`, or add a rate limiter before any real key
+   (I1).~~ Done 2026-07-27 — the routes are limited by default; before
+   configuring a real key, review the per-minute/per-hour budgets for the
+   expected traffic (see I1).
 6. Put the app behind HTTPS; add HSTS + a `default-src 'self'` CSP (I3).
 7. Pin the Node runtime (≥ 22.5 if using SQLite) (I4).
 8. Set up a daily backup of `LOCAL_DATA_DIR` / the `.sqlite` file (I2).

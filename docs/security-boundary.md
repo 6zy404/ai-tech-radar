@@ -253,13 +253,30 @@ rather than gated behind `WORKSPACE_ACCESS_TOKEN`, because:
   `disclaimer` field, and the client widgets render it in the same paint as
   the result so unlabeled AI content is never visible.
 
-Production-grade rate limiting for these routes is not implemented (see
-"public LLM route rate limiting" below) — the per-key cache is the only cost
-control in this prototype. The combined cache space remains bounded:
-technology pairs (compare), published technologies × 3 levels (explain), and
-published technologies × 1 (learning path). This is acceptable for a
-local-first, mock-provider-by-default prototype but must be revisited before
-any real-cost LLM provider is configured for a publicly reachable deployment.
+Two cost controls apply, in this order:
+
+1. **Rate limit** (added 2026-07-27, `src/lib/rate-limit.ts` +
+   `src/lib/public-ai-rate-limit.ts`). Each of the three routes runs a
+   per-client sliding-window check as its **first** statement — before body
+   parsing, before the cache lookup, and therefore before any provider call —
+   and returns `429` with a `Retry-After` header once the budget is spent.
+   Defaults: 10 requests per minute and 40 per hour, per client **per route**
+   (buckets are keyed `routeId:clientKey`, so exhausting compare does not block
+   explain). Override with `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` /
+   `PUBLIC_AI_RATE_LIMIT_PER_HOUR`. The `429` body carries only a generic
+   Chinese message; it leaks no provider, quota, or client detail.
+2. **Per-key result cache**, unchanged. The combined cache space remains
+   bounded: technology pairs (compare), published technologies × 3 levels
+   (explain), and published technologies × 1 (learning path).
+
+What the limiter deliberately does **not** claim to be: it is in-memory and
+per-process (a multi-instance deployment multiplies the effective budget), and
+the client key is derived from `x-forwarded-for` / `x-real-ip`, which a caller
+can rotate — with no proxy in front, every caller shares a single bucket, which
+still caps total provider calls per window. It is a cost guardrail, not bot
+protection; deployment-level rate limiting stays on the gap list below. Before
+configuring a real-cost provider for a publicly reachable deployment, review the
+budgets against expected traffic rather than assuming the defaults fit.
 
 ## Remaining Production Gaps
 
@@ -269,8 +286,10 @@ any real-cost LLM provider is configured for a publicly reachable deployment.
 - secure secret storage
 - provider credential rotation and secret vault integration
 - CSRF protections for authenticated browser mutation flows
-- deployment-level rate limiting and bot protection
-- public LLM route rate limiting (currently bounded only by per-pair caching, see "Public LLM Feature Boundary" above)
+- deployment-level rate limiting and bot protection (the public LLM routes now
+  carry an in-process per-client limiter — see "Public LLM Feature Boundary"
+  above — but a shared, spoof-resistant limit still belongs at the proxy or
+  platform layer)
 - production observability and alerting
 - database-backed referential integrity and transactions
 - production database migrations and encrypted credential storage
