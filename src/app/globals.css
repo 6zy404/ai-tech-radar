@@ -15,9 +15,11 @@
   --user-ink: #172026;
   --label-amber: #8a5a12;
   /* User-facing typographic scale (typography only; applied under .user-shell) */
+  /* No webfont: the build must not depend on fetching from Google Fonts.
+     Latin glyphs come from the platform UI font, CJK from the Han fallbacks. */
   --font-sans:
-    var(--font-inter), "PingFang SC", "Microsoft YaHei", "Source Han Sans SC",
-    system-ui, -apple-system, "Segoe UI", sans-serif;
+    "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", system-ui,
+    -apple-system, "Segoe UI", sans-serif;
   --fs-display: 44px;
   --fs-h1: 30px;
   --fs-section: 22px;
