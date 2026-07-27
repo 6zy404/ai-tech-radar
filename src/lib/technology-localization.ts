@@ -285,6 +285,7 @@ export function getRelationTypeLabel(
     explains: "释义",
     requires: "必备",
     extends: "延伸",
+    supersedes: "续作",
     supports: "印证",
     "related-to": "关联"
   };

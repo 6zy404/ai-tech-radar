@@ -17,6 +17,7 @@ const relationTypeOrder: RelationType[] = [
   "uses",
   "explains",
   "extends",
+  "supersedes",
   "supports",
   "related-to"
 ];
