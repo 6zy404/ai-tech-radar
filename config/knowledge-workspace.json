@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T09:24:01.841Z",
+  "updatedAt": "2026-07-27T10:19:54.072Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -47,30 +47,6 @@
       "status": "published",
       "createdAt": "2026-07-19T05:04:39.934Z",
       "updatedAt": "2026-07-21T02:12:06.665Z"
-    },
-    {
-      "id": "knowledge-ws-818b7bb3",
-      "title": "合成数据与数据配方",
-      "slug": "synthetic-data-and-data-recipes",
-      "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
-      "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-frontier-models",
-        "tag-ai-agents"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.696Z",
-      "updatedAt": "2026-07-21T02:12:06.707Z"
     },
     {
       "id": "knowledge-ws-a28a8a56",
@@ -122,32 +98,6 @@
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.389Z",
       "updatedAt": "2026-07-21T05:08:17.389Z"
-    },
-    {
-      "id": "knowledge-ws-36346103",
-      "title": "混合专家模型（MoE）架构",
-      "slug": "moe-architecture",
-      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
-      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T04:05:12.947Z",
-      "updatedAt": "2026-07-27T01:48:18.351Z"
     },
     {
       "id": "knowledge-api-contracts",
@@ -276,32 +226,6 @@
       "updatedAt": "2026-07-27T09:24:01.700Z"
     },
     {
-      "id": "knowledge-model-sizing",
-      "title": "模型选型与约束匹配",
-      "slug": "model-sizing-and-constraint-matching",
-      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
-      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-d7c9d1d8"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.347Z",
-      "updatedAt": "2026-07-27T09:24:01.772Z"
-    },
-    {
       "id": "knowledge-latency-tradeoffs",
       "title": "交互系统中的延迟权衡",
       "slug": "latency-tradeoffs-in-interactive-systems",
@@ -324,6 +248,108 @@
       "status": "published",
       "createdAt": "2026-07-27T09:24:01.841Z",
       "updatedAt": "2026-07-27T09:24:01.841Z"
+    },
+    {
+      "id": "knowledge-ws-36346103",
+      "title": "混合专家模型（MoE）架构",
+      "slug": "moe-architecture",
+      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
+      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:12.947Z",
+      "updatedAt": "2026-07-27T10:19:53.842Z"
+    },
+    {
+      "id": "knowledge-model-sizing",
+      "title": "模型选型与约束匹配",
+      "slug": "model-sizing-and-constraint-matching",
+      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
+      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-dddaf80c"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.347Z",
+      "updatedAt": "2026-07-27T10:19:53.927Z"
+    },
+    {
+      "id": "knowledge-ws-818b7bb3",
+      "title": "合成数据与数据配方",
+      "slug": "synthetic-data-and-data-recipes",
+      "summary": "为什么新一代模型的能力越来越取决于「数据是怎么配出来的」，以及合成数据在其中扮演的角色与风险。",
+      "content": "预训练语料的自然供给接近见顶之后，前沿模型的差异越来越来自数据配方：用什么比例混合网页、代码、数学与对话数据，哪些环节用模型生成的合成数据补足。智能体能力尤其如此——工具调用失败的轨迹、多步推理过程、检索与用户模拟这类数据在自然语料中几乎不存在，只能靠工程化合成（NVIDIA 的 Nemotron 开放数据集就是这一主张的公开落地）。理解这一层有两个实际意义：评估一个新模型时，数据配方的公开程度比参数量更能说明它的能力边界与复现性；使用合成数据时要警惕分布收窄与自我强化——用模型生成的数据训练模型，错误模式会被放大，所以配方里通常要保留真实数据锚点和独立的评估集。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.696Z",
+      "updatedAt": "2026-07-27T10:19:53.997Z"
+    },
+    {
+      "id": "knowledge-evaluation-loops",
+      "title": "评估闭环",
+      "slug": "evaluation-loops",
+      "summary": "一种经典的运营习惯：定义预期结果、观察失败、不断收紧闭环。",
+      "content": "评估闭环并非 AI 独有，而这恰恰是它重要的原因。这个概念帮助团队避免把新模型的行为当成无法理解的魔法。",
+      "category": "operations",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-observability"
+      ],
+      "relatedTechnologyIds": [
+        "tech-rag-evals",
+        "tech-agent-workbenches"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T10:19:54.071Z",
+      "updatedAt": "2026-07-27T10:19:54.071Z"
     }
   ]
 }
