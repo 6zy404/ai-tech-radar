@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T02:43:25.935Z",
+  "updatedAt": "2026-07-27T08:07:43.754Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1317,11 +1317,11 @@
     },
     {
       "id": "rel-ws-3c6ce682",
-      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
       "fromType": "technology",
-      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
       "toType": "technology",
-      "relationType": "extends",
+      "relationType": "supersedes",
       "note": "承接 v0.25.0 的 Model Runner V2 默认化，继续往架构适配走。"
     },
     {
@@ -1413,6 +1413,33 @@
       "toType": "knowledge",
       "relationType": "extends",
       "note": "直连 API 就意味着契约与版本边界的责任回到自己身上。"
+    },
+    {
+      "id": "rel-ws-3dbbfe04",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "承接 v0.24.0 稳定版：Model Runner V2 从量化模型扩到所有稠密模型，推理执行栈完成代际切换。"
+    },
+    {
+      "id": "rel-ws-7e17ab6a",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "从 v0.31.2 收尾的运行时稳健性，跨到「直接运行即进入交互式智能体」的形态转型。"
+    },
+    {
+      "id": "rel-ws-d1548426",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "延续 v0.32.0 的智能体入口，重点回到执行层：Apple GPU 的 Laguna 支持、草稿模型输出头量化与 Qwen3 MoE 解码修复。"
     }
   ]
 }

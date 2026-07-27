@@ -1,6 +1,507 @@
 {
-  "updatedAt": "2026-07-27T02:43:26.578Z",
+  "updatedAt": "2026-07-27T08:07:43.455Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "slug": "ollama-v0-32-4",
+      "title": {
+        "original": "Ollama v0.32.4",
+        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
+        "en": "Ollama v0.32.4"
+      },
+      "summary": {
+        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
+        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。"
+      },
+      "content": {
+        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
+        "zh": "## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-36346103",
+        "knowledge-ws-c761533e",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T08:07:43.455Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
+      "whoShouldCare": [
+        "在 Apple 芯片上做本地推理的开发者",
+        "评估端侧部署可行性的架构师",
+        "关注推测解码实际收益的性能工程师"
+      ],
+      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
+      "impactAreas": [
+        "端侧推理性能",
+        "MoE 量化路径",
+        "推测解码收益",
+        "Apple 芯片部署"
+      ],
+      "learningPath": [
+        "先弄清 MoE 的专家路由与逐专家量化",
+        "再理解推测解码里草稿模型的开销从哪来",
+        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
+        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
+        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
+      },
+      "followUpQuestions": [
+        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
+        "统一内存架构下，混合专家精度的最佳组合是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "createdAt": "2026-07-27T01:43:12.851Z",
+      "updatedAt": "2026-07-27T08:07:43.455Z",
+      "editorialNotes": [
+        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "slug": "ollama-v0-32-0",
+      "title": {
+        "original": "Ollama v0.32.0",
+        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+      },
+      "summary": {
+        "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+      },
+      "content": {
+        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-14",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T08:07:43.405Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+      "whoShouldCare": [
+        "本地/端侧应用开发者",
+        "AI 工具链与开发者体验工程师",
+        "评估智能体工作流落地的团队"
+      ],
+      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+      "impactAreas": [
+        "开发者工具",
+        "端侧 AI",
+        "智能体工作流"
+      ],
+      "learningPath": [
+        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+      },
+      "followUpQuestions": [
+        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "createdAt": "2026-07-14T00:51:56.001Z",
+      "updatedAt": "2026-07-27T08:07:43.405Z",
+      "editorialNotes": [
+        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "slug": "ollama-v0-31-2",
+      "title": {
+        "original": "Ollama v0.31.2",
+        "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
+      },
+      "summary": {
+        "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
+        "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
+      },
+      "content": {
+        "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
+        "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-08",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "github-actions[bot]",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-on-device"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T08:07:43.360Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
+      "whoShouldCare": [
+        "本地/端侧应用开发者",
+        "隐私敏感场景的团队",
+        "AI 工具链工程师"
+      ],
+      "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
+      "impactAreas": [
+        "本地开发工具",
+        "端侧 AI",
+        "隐私敏感应用"
+      ],
+      "learningPath": [
+        "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
+        "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
+        "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
+        "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
+        "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
+      },
+      "relatedSkillExplanations": {
+        "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
+        "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
+      },
+      "followUpQuestions": [
+        "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
+        "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
+        "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+      "createdAt": "2026-07-09T13:59:16.342Z",
+      "updatedAt": "2026-07-27T08:07:43.360Z",
+      "editorialNotes": [
+        "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "slug": "vllm-v0-25-0",
+      "title": {
+        "original": "vLLM v0.25.0",
+        "zh": "vLLM v0.25.0：Model Runner V2 成为默认执行引擎的大版本"
+      },
+      "summary": {
+        "original": "vLLM v0.25.0 ships 558 commits from 232 contributors. Model Runner V2 becomes the default for all dense models, building on the quantized-model support introduced in the previous release.",
+        "zh": "vLLM 发布 v0.25.0：558 个提交、232 位贡献者参与的大版本。Model Runner V2 正式成为所有稠密模型的默认执行引擎，在上一版本量化模型支持的基础上完成了推理执行栈的代际切换。"
+      },
+      "content": {
+        "original": "vLLM v0.25.0 makes Model Runner V2 the default for all dense models, marking the completion of a major execution-stack transition that started with quantized-model support in v0.24. The release aggregates 558 commits from 232 contributors (64 new).",
+        "zh": "vLLM v0.25.0 是推理执行栈切换的收官版本：Model Runner V2（MRv2）正式成为所有稠密模型的默认执行引擎。这次发布汇集了 558 个提交、232 位贡献者（其中 64 位是新贡献者），延续了上一个版本（v0.24.0）打下的量化模型支持基础。\n\n对使用者来说，这是一次「默认值变更」级别的升级：过去需要显式开启的新执行引擎，现在开箱即用。执行引擎决定了批处理调度、KV 缓存管理和算子路径，直接影响吞吐与延迟表现，因此升级前后值得用自己的真实负载做一轮基准对比，而不是只看官方数字。\n\n结合同期 Hugging Face 宣布 Transformers 后端在 vLLM 中达到原生速度，可以看到开源推理生态正在收敛：vLLM 负责极致的服务优化，模型实现层则越来越多地交给标准化的建模库。对自建推理服务的团队而言，vLLM 的大版本节奏（v0.24 → v0.25 两个月内完成执行栈切换）本身就是一个值得跟踪的信号。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-11",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.25.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-system-design",
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T08:07:43.316Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理引擎的默认执行栈切换会直接改变吞吐、延迟和 GPU 成本曲线。vLLM 是目前自建大模型服务最主流的开源选择，它的大版本升级几乎影响所有自托管推理团队。",
+      "whoShouldCare": [
+        "推理平台与服务工程师",
+        "关注 GPU 成本的 MLOps 负责人",
+        "自托管开源模型的技术团队"
+      ],
+      "technicalContext": "Model Runner V2 是 vLLM 重写的模型执行层，负责调度、KV 缓存与算子路径。v0.24 先以量化模型为试点，v0.25 将其推广为全部稠密模型的默认值——这是典型的「灰度到默认」的执行栈迁移路径。",
+      "impactAreas": [
+        "自托管模型推理服务",
+        "GPU 成本与容量规划",
+        "开源推理生态标准化"
+      ],
+      "learningPath": [
+        "先理解推理引擎在服务栈中的位置：模型实现、执行引擎、服务编排各自负责什么",
+        "用官方文档跑通 vLLM 的基本部署，观察吞吐与显存占用",
+        "在自己的真实负载上对比 v0.24 与 v0.25 的表现，验证默认值变更的影响"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "执行引擎升级改变了同一张卡能服务的模型规模与并发上限，模型规模直觉是评估这次升级收益的基础。",
+        "knowledge-system-design": "MRv2 的灰度到默认路径是系统级组件迁移的典型案例：先在子集验证，再切换默认值。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "版本升级前后的基准对比（吞吐、P99 延迟、显存）是判断是否跟进的直接依据。",
+        "skill-scope-pilots": "对生产推理服务，先在非关键流量上试点新版本，再决定全量升级。"
+      },
+      "followUpQuestions": [
+        "MRv2 对 MoE 与多模态模型的支持进度如何？",
+        "你的负载在 v0.25 上的吞吐/延迟变化是多少？",
+        "Transformers 后端与原生实现在你的目标模型上还有差距吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "createdAt": "2026-07-13T08:00:47.504Z",
+      "updatedAt": "2026-07-27T08:07:43.316Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 GitHub release notes 编写。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "slug": "vllm-v0-24-0",
+      "title": {
+        "original": "vLLM v0.24.0",
+        "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
+      },
+      "summary": {
+        "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
+        "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
+      },
+      "content": {
+        "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
+        "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-06-30",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "khluu",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-27T08:07:43.261Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
+      "whoShouldCare": [
+        "推理平台工程师",
+        "需要私有化部署的团队",
+        "关注推理成本的架构师"
+      ],
+      "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
+      "impactAreas": [
+        "模型服务",
+        "推理成本优化",
+        "私有化部署"
+      ],
+      "learningPath": [
+        "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
+        "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
+        "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
+        "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
+        "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
+        "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
+      },
+      "followUpQuestions": [
+        "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
+        "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
+        "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+      "createdAt": "2026-07-09T13:59:16.219Z",
+      "updatedAt": "2026-07-27T08:07:43.261Z",
+      "editorialNotes": [
+        "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "slug": "gemini-managed-agents-background-mcp",
@@ -303,107 +804,6 @@
       "relatedTechnologyIds": []
     },
     {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-      "slug": "ollama-v0-32-0",
-      "title": {
-        "original": "Ollama v0.32.0",
-        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
-      },
-      "summary": {
-        "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
-        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
-      },
-      "content": {
-        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
-        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-14",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ollama",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:43:26.413Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
-      "whoShouldCare": [
-        "本地/端侧应用开发者",
-        "AI 工具链与开发者体验工程师",
-        "评估智能体工作流落地的团队"
-      ],
-      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
-      "impactAreas": [
-        "开发者工具",
-        "端侧 AI",
-        "智能体工作流"
-      ],
-      "learningPath": [
-        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
-        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
-        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
-        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
-        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
-        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
-      },
-      "followUpQuestions": [
-        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
-        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
-        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-      "createdAt": "2026-07-14T00:51:56.001Z",
-      "updatedAt": "2026-07-27T02:43:26.413Z",
-      "editorialNotes": [
-        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
       "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
       "slug": "vllm-v0-26-0",
       "title": {
@@ -507,104 +907,6 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
       ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "slug": "ollama-v0-32-4",
-      "title": {
-        "original": "Ollama v0.32.4",
-        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
-        "en": "Ollama v0.32.4"
-      },
-      "summary": {
-        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
-        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。"
-      },
-      "content": {
-        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
-        "zh": "## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ollama",
-      "publisherType": "open-source-community",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-36346103",
-        "knowledge-ws-c761533e",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 93,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:43:26.208Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
-      "whoShouldCare": [
-        "在 Apple 芯片上做本地推理的开发者",
-        "评估端侧部署可行性的架构师",
-        "关注推测解码实际收益的性能工程师"
-      ],
-      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
-      "impactAreas": [
-        "端侧推理性能",
-        "MoE 量化路径",
-        "推测解码收益",
-        "Apple 芯片部署"
-      ],
-      "learningPath": [
-        "先弄清 MoE 的专家路由与逐专家量化",
-        "再理解推测解码里草稿模型的开销从哪来",
-        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
-        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
-        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
-      },
-      "followUpQuestions": [
-        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
-        "统一内存架构下，混合专家精度的最佳组合是什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "createdAt": "2026-07-27T01:43:12.851Z",
-      "updatedAt": "2026-07-27T02:43:26.208Z",
-      "editorialNotes": [
-        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
-      ],
-      "relatedTechnologyIds": []
     },
     {
       "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
@@ -1783,102 +2085,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-      "slug": "vllm-v0-25-0",
-      "title": {
-        "original": "vLLM v0.25.0",
-        "zh": "vLLM v0.25.0：Model Runner V2 成为默认执行引擎的大版本"
-      },
-      "summary": {
-        "original": "vLLM v0.25.0 ships 558 commits from 232 contributors. Model Runner V2 becomes the default for all dense models, building on the quantized-model support introduced in the previous release.",
-        "zh": "vLLM 发布 v0.25.0：558 个提交、232 位贡献者参与的大版本。Model Runner V2 正式成为所有稠密模型的默认执行引擎，在上一版本量化模型支持的基础上完成了推理执行栈的代际切换。"
-      },
-      "content": {
-        "original": "vLLM v0.25.0 makes Model Runner V2 the default for all dense models, marking the completion of a major execution-stack transition that started with quantized-model support in v0.24. The release aggregates 558 commits from 232 contributors (64 new).",
-        "zh": "vLLM v0.25.0 是推理执行栈切换的收官版本：Model Runner V2（MRv2）正式成为所有稠密模型的默认执行引擎。这次发布汇集了 558 个提交、232 位贡献者（其中 64 位是新贡献者），延续了上一个版本（v0.24.0）打下的量化模型支持基础。\n\n对使用者来说，这是一次「默认值变更」级别的升级：过去需要显式开启的新执行引擎，现在开箱即用。执行引擎决定了批处理调度、KV 缓存管理和算子路径，直接影响吞吐与延迟表现，因此升级前后值得用自己的真实负载做一轮基准对比，而不是只看官方数字。\n\n结合同期 Hugging Face 宣布 Transformers 后端在 vLLM 中达到原生速度，可以看到开源推理生态正在收敛：vLLM 负责极致的服务优化，模型实现层则越来越多地交给标准化的建模库。对自建推理服务的团队而言，vLLM 的大版本节奏（v0.24 → v0.25 两个月内完成执行栈切换）本身就是一个值得跟踪的信号。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-11",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.25.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "vLLM Project",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-system-design",
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-scope-pilots"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-20T14:17:24.046Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "推理引擎的默认执行栈切换会直接改变吞吐、延迟和 GPU 成本曲线。vLLM 是目前自建大模型服务最主流的开源选择，它的大版本升级几乎影响所有自托管推理团队。",
-      "whoShouldCare": [
-        "推理平台与服务工程师",
-        "关注 GPU 成本的 MLOps 负责人",
-        "自托管开源模型的技术团队"
-      ],
-      "technicalContext": "Model Runner V2 是 vLLM 重写的模型执行层，负责调度、KV 缓存与算子路径。v0.24 先以量化模型为试点，v0.25 将其推广为全部稠密模型的默认值——这是典型的「灰度到默认」的执行栈迁移路径。",
-      "impactAreas": [
-        "自托管模型推理服务",
-        "GPU 成本与容量规划",
-        "开源推理生态标准化"
-      ],
-      "learningPath": [
-        "先理解推理引擎在服务栈中的位置：模型实现、执行引擎、服务编排各自负责什么",
-        "用官方文档跑通 vLLM 的基本部署，观察吞吐与显存占用",
-        "在自己的真实负载上对比 v0.24 与 v0.25 的表现，验证默认值变更的影响"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "执行引擎升级改变了同一张卡能服务的模型规模与并发上限，模型规模直觉是评估这次升级收益的基础。",
-        "knowledge-system-design": "MRv2 的灰度到默认路径是系统级组件迁移的典型案例：先在子集验证，再切换默认值。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "版本升级前后的基准对比（吞吐、P99 延迟、显存）是判断是否跟进的直接依据。",
-        "skill-scope-pilots": "对生产推理服务，先在非关键流量上试点新版本，再决定全量升级。"
-      },
-      "followUpQuestions": [
-        "MRv2 对 MoE 与多模态模型的支持进度如何？",
-        "你的负载在 v0.25 上的吞吐/延迟变化是多少？",
-        "Transformers 后端与原生实现在你的目标模型上还有差距吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-      "createdAt": "2026-07-13T08:00:47.504Z",
-      "updatedAt": "2026-07-20T14:17:24.046Z",
-      "editorialNotes": [
-        "2026-07-13 内容轮：从定时导入候选转正；正文基于 GitHub release notes 编写。"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
       "slug": "introducing-gpt-live",
       "title": {
@@ -2070,196 +2276,6 @@
       "updatedAt": "2026-07-19T05:04:41.660Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "slug": "ollama-v0-31-2",
-      "title": {
-        "original": "Ollama v0.31.2",
-        "zh": "Ollama v0.31.2：本地大模型运行时发布稳定版"
-      },
-      "summary": {
-        "original": "Ollama, the local LLM runtime for running open models on personal and edge hardware, shipped stable release v0.31.2.",
-        "zh": "本地大模型运行时 Ollama 发布 v0.31.2 稳定版，近期迭代集中在 GPU 卸载与模型创建流程的稳健性上。"
-      },
-      "content": {
-        "original": "Ollama shipped stable release v0.31.2. The preceding release candidates focused on iGPU offload handling and hardening GGUF model-creation flows.",
-        "zh": "Ollama 发布了 v0.31.2 稳定版。Ollama 是把开源大模型跑在本地和端侧设备上的主流运行时，一条命令即可拉起模型，广泛用于本地开发、隐私敏感场景和离线环境。\n\n从本版本前的 rc 序列看，近期迭代集中在两个务实方向：集成显卡（iGPU）的模型卸载支持，以及 GGUF 模型创建流程的稳健性加固。这类改动不华丽，但直接决定本地推理在普通硬件上的可用性。\n\n对在评估本地推理方案的团队，Ollama 的易用性和 vLLM 的高吞吐代表两种不同定位：前者优先上手体验和端侧适配，后者优先服务端吞吐。具体版本变化请以原始版本说明为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-08",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.31.2",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "github-actions[bot]",
-      "publisherType": "open-source-community",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-on-device"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-tool-integration"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 93,
-        "priorityReasons": [
-          "Title is complete.",
-          "Summary is complete.",
-          "Content is complete.",
-          "Tags are available.",
-          "Related knowledge is linked.",
-          "Related skills are linked.",
-          "Publisher is identified.",
-          "Signal is recent."
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-09T14:35:01.415Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "本地推理运行时在持续打磨普通硬件上的可用性：iGPU 卸载和模型创建加固说明「在自己设备上跑模型」正在从极客玩法变成工程可依赖的选项。",
-      "whoShouldCare": [
-        "本地/端侧应用开发者",
-        "隐私敏感场景的团队",
-        "AI 工具链工程师"
-      ],
-      "technicalContext": "Ollama 封装了模型下载、量化格式（GGUF）加载和本地服务接口，让开源模型在消费级硬件可用。它的适用边界由设备内存与模型规模的匹配决定，与服务端高吞吐引擎是互补而非竞争关系。",
-      "impactAreas": [
-        "本地开发工具",
-        "端侧 AI",
-        "隐私敏感应用"
-      ],
-      "learningPath": [
-        "在自己的开发机上安装 Ollama 并拉起一个小模型，感受本地推理的真实延迟。",
-        "理解「模型选型与约束匹配」：设备内存决定了能跑什么规模的模型。",
-        "对照「交互系统中的延迟权衡」，判断哪些交互场景本地推理的延迟可以接受。",
-        "界定一个隐私敏感或离线场景做试点，验证本地方案的实际收益。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "本地推理最硬的约束就是设备内存与模型规模的匹配，选错规模体验会断崖式下降。",
-        "knowledge-latency-tradeoffs": "本地推理省去了网络往返但受限于本地算力，延迟结构与云端 API 完全不同。"
-      },
-      "relatedSkillExplanations": {
-        "skill-scope-pilots": "本地方案的收益高度依赖场景，先小范围试点隐私敏感或离线场景最容易验证价值。",
-        "skill-tool-integration": "把本地运行时接入现有工具链（IDE、CLI、内部服务）是发挥它价值的关键一步。"
-      },
-      "followUpQuestions": [
-        "iGPU 卸载支持覆盖哪些硬件，实际加速效果如何？",
-        "团队里哪些工作流对隐私或离线有硬要求，适合迁到本地推理？",
-        "本地模型的输出质量与云端 API 的差距在目标场景是否可接受？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-      "createdAt": "2026-07-09T13:59:16.342Z",
-      "updatedAt": "2026-07-09T14:35:01.415Z",
-      "editorialNotes": [
-        "Converted from Ollama releases atom candidate; v0.31.2 stable chosen, rc0-rc2 rejected as pre-release noise."
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-      "slug": "vllm-v0-24-0",
-      "title": {
-        "original": "vLLM v0.24.0",
-        "zh": "vLLM v0.24.0：开源高吞吐推理引擎发布新稳定版"
-      },
-      "summary": {
-        "original": "vLLM, the open-source high-throughput LLM inference and serving engine, shipped stable release v0.24.0 while the v0.25 release-candidate series is already in flight.",
-        "zh": "开源高吞吐大模型推理引擎 vLLM 发布 v0.24.0 稳定版，同期 v0.25 的候选版本序列也在快速推进，项目迭代节奏持续走高。"
-      },
-      "content": {
-        "original": "vLLM shipped stable release v0.24.0. The project's v0.25 release-candidate series is already in progress, showing a fast iteration cadence on the open-source inference engine.",
-        "zh": "vLLM 发布了 v0.24.0 稳定版。vLLM 是目前自托管大模型推理领域使用最广的开源引擎之一，以 PagedAttention 显存管理和连续批处理著称，被大量团队用于私有化部署和推理成本优化。\n\n值得注意的不只是这个版本本身：同期 v0.25 的 rc 序列（rc1–rc3）已经在快速推进，说明项目仍处于高速迭代期。对已经在生产环境使用 vLLM 的团队，升级前应阅读版本说明确认兼容性变化；对正在选型自托管推理方案的团队，这个迭代节奏本身就是评估项目活跃度的信号。\n\n具体的性能改动、支持的模型架构变化和破坏性变更，请以原始版本说明为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-06-30",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.24.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "khluu",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-scope-pilots"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "Title is complete.",
-          "Summary is complete.",
-          "Content is complete.",
-          "Tags are available.",
-          "Related knowledge is linked.",
-          "Related skills are linked.",
-          "Publisher is identified.",
-          "Signal is recent.",
-          "Editorial importance is marked important."
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-09T14:35:01.391Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "自托管推理的事实标准级引擎保持高频迭代：稳定版与下一版 rc 并行推进，意味着私有化部署的性能与成本基线还在持续被刷新。",
-      "whoShouldCare": [
-        "推理平台工程师",
-        "需要私有化部署的团队",
-        "关注推理成本的架构师"
-      ],
-      "technicalContext": "vLLM 以 PagedAttention 显存分页和连续批处理实现高吞吐推理，是自托管场景的主流选择。高频版本迭代带来性能红利的同时，也要求使用方在升级前确认模型支持范围和接口兼容性。",
-      "impactAreas": [
-        "模型服务",
-        "推理成本优化",
-        "私有化部署"
-      ],
-      "learningPath": [
-        "阅读 v0.24.0 版本说明，确认与当前使用版本之间的兼容性变化。",
-        "理解「模型选型与约束匹配」：自托管引擎的收益取决于模型规模与硬件的匹配。",
-        "在非生产环境用自己的真实流量特征做一次吞吐与延迟基准测试。",
-        "对比托管 API 与自托管的综合成本，界定值得迁移的场景范围。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "自托管推理的第一个决策就是模型规模与硬件约束的匹配，vLLM 的价值大小直接取决于这个匹配做得好不好。",
-        "knowledge-system-design": "把推理引擎放进生产架构涉及吞吐、显存、容错的系统性权衡，这是评估 vLLM 部署方案的基础。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "升级推理引擎前后需要可复现的评估基准，否则性能变化无从判断。",
-        "skill-scope-pilots": "自托管迁移成本高，先用小范围试点验证吞吐和运维复杂度，再决定推广范围。"
-      },
-      "followUpQuestions": [
-        "v0.24.0 相对上一稳定版的关键性能或兼容性变化是什么？",
-        "v0.25 rc 序列引入了哪些值得提前关注的新能力？",
-        "自己的负载特征下，vLLM 相对托管 API 的成本拐点在哪里？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-      "createdAt": "2026-07-09T13:59:16.219Z",
-      "updatedAt": "2026-07-09T14:35:01.391Z",
-      "editorialNotes": [
-        "Converted from vLLM releases atom candidate; v0.24.0 chosen over the v0.25 rc series (pre-release candidates rejected)."
       ]
     }
   ]
