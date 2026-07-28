@@ -12,6 +12,51 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Content round — model-to-engine support paths
+
+- **技能「模型与推理引擎的支持路径」published** — 2026-07-28,
+  owner-selected from the planning note written earlier the same session. That
+  note had just shown the raw "推理与部署" gap does **not** hold (5 of its 11
+  signals also carry 前沿模型, 3 also carry 端侧 AI, and the 2 exclusive ones
+  are vLLM upgrades that 推理服务容量规划 already names). What survived the
+  overlap test was a different question, visible in the signal bodies rather
+  than the counts: once you have decided to adopt a new model, **can your
+  self-hosted stack actually run it, by which path, and how long until
+  production**.
+- **The skill's core move is treating "supported" as four levels, not a
+  boolean** — 能加载 (reference implementation, a fraction of native speed) →
+  有原生建模 → 有性能路径 → 有正确性保障. Each level is anchored in a real
+  signal: vLLM v0.26.0's Inkling stack is the anatomy of level 3 (基础建模 /
+  分段 CUDA Graph / Hopper FA4 / MTP 推测解码), and level 4 is where Ollama
+  v0.32.4 fell — it shipped day-one Laguna support carrying an MLX defect that
+  degraded NVFP4 output quality until v0.32.5, **the correction published to
+  that signal earlier in this same session**. Then three paths with different
+  costs (wait for native support; `--model-impl transformers` across 450+
+  architectures, minus the linear-attention exceptions; switch engines), and
+  three numbers that must land before go-live — VRAM by weights + KV cache
+  rather than parameter count (Inkling: 1T total but ~2TB BF16 / ~600GB
+  NVFP4), a correctness baseline diffed against a reference implementation,
+  and the gap between a promised open-weights date and an actual usable one
+  (Kimi K3).
+- **Boundaries written into the prose**, the same hand-off discipline the
+  on-device and frontier-release skills use: 旗舰模型发布解读与换代判断 answers
+  **该不该换**, this one answers **换得了吗、多久换得了、跑得对不对**,
+  推理服务容量规划 takes over once it runs correctly, and 端侧模型部署与硬件适配
+  owns the single-machine case.
+  Published with **zero blocking errors and zero warnings**, 10 typed relations
+  with notes (4 印证, 2 必备, 1 借助, 1 渊源, 2 关联), and reverse
+  `relatedSkillIds` on 6 technology records + 4 knowledge entries — all already
+  in the workspace store, so no new copy-on-write override was needed. Skills
+  12→13. This is also the first entry published since `ContentBody` shipped, so
+  its `##` sections, ordered/bulleted lists and bold runs are the first
+  editorial body to render as real structure rather than a Markdown-source
+  blob. Verified: typecheck, vitest 171/171, `validate:persistence`,
+  `validate:database`, plus a live pass — the skill page renders 11 blocks with
+  4 headings and all four relation-type pills at 13.32:1 contrast, all 6
+  technology pages and all 4 knowledge pages carry the reverse link, and the
+  skill appears on `/skills`, `/search`, `/network`, and the topic hub, with no
+  literal Markdown, no overflow, and zero console errors.
+
 ## `intelligenceStatus` stripped from the public technology shape
 
 - **An editorial workflow state was riding along in every public payload** —

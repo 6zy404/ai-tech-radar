@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T16:57:16.104Z",
+  "updatedAt": "2026-07-28T12:54:54.862Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -147,59 +147,6 @@
       "updatedAt": "2026-07-27T01:48:18.567Z"
     },
     {
-      "id": "knowledge-ws-34da6116",
-      "title": "模型量化与数值精度",
-      "slug": "model-quantization-numeric-precision",
-      "summary": "把权重和激活从高精度压到低比特，是让大模型跑进有限显存的主要手段；代价是精度损失，而损失落在哪一层决定了它是无感还是灾难。",
-      "content": "量化的基本动作很简单：用更少的比特存同一个数。真正难的是决定**哪些部分可以被压、压到多少**。\n\n三件事值得先弄清楚：\n\n**1. 不是所有层都一样敏感。** 注意力的输出投影、归一化参数、路由器（router）和输出头（output head）对精度远比中间的前馈层敏感。实践中常见的做法是把这些留在较高精度，其余压到 4-bit 或 8-bit——所以你会在发布说明里反复看到「保留输出头精度」「router 保持原精度」这类描述。\n\n**2. 混合精度会带来一致性问题。** MoE 架构允许每个专家单独存储，于是不同专家用不同量化类型是完全可能的。这在服务器端是省显存的常规手段，但一旦解码路径没有处理好精度不一致，表现就是输出异常或性能塌陷，而不是一个干净的报错。\n\n**3. 量化会和其他优化互相影响。** 推测解码里草稿模型的开销直接决定净收益，如果草稿的输出头没有按请求精度量化，省下来的时间会被重新吃掉。图捕获、注意力核的选择也都和数据类型绑定。\n\n判断一条量化相关的信号是否重要，可以问三个问题：它动的是哪一层？精度损失有没有被量化评估（而不是只给个速度数字）？它和现有的推理路径（推测解码、图捕获、并行切分）是否兼容？",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-inference",
-        "tag-on-device"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-ws-d7c9d1d8"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T02:42:33.541Z",
-      "updatedAt": "2026-07-27T09:24:01.553Z"
-    },
-    {
-      "id": "knowledge-ws-68963f7f",
-      "title": "推测解码与推理加速技术",
-      "slug": "speculative-decoding-inference-acceleration",
-      "summary": "自回归生成的逐 token 串行是大模型推理延迟的根源；推测解码、连续批处理与 KV 缓存管理从算法与系统两层，把同样的硬件榨出数倍吞吐。",
-      "content": "自回归模型每生成一个 token 都要完整走一遍前向计算，而解码阶段的瓶颈通常在显存带宽而非算力——权重反复搬运，算术单元大量空转。推测解码（speculative decoding）用一个小模型快速草拟若干候选 token，再让大模型一次前向并行验证，接受则一步产出多个 token，拒绝则回退重来；数学上可以保证输出分布与大模型逐 token 解码完全一致，加速是「免费」的。\n\n算法之外还有系统层的三板斧：连续批处理（continuous batching）让新请求随时插入正在运行的批次，而不是等整批结束；分页式 KV 缓存（vLLM 的 PagedAttention 一脉）把注意力缓存按块管理，消除显存碎片；算子融合与量化则进一步压低单步开销。vLLM v0.25.0 把 Model Runner V2 设为默认执行引擎、其 Transformers 后端达到原生速度，都说明这套优化正在从「专用推理引擎的独门绝技」下沉为通用基础设施；Ollama 则把同类技术带进本地设备，在消费级硬件上兑现可用的交互延迟。\n\n为什么值得懂：GPT-5.6 把「单位算力智能密度」当作主打指标，标志着前沿竞争已从单纯堆参数转向推理效率。读懂这一层，才能理解推理引擎版本说明里的吞吐数字从哪来、容量规划里的延迟预算怎么定、以及「更大的模型」与「更快的模型」之间的真实取舍。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-ws-d7c9d1d8"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.662Z",
-      "updatedAt": "2026-07-27T09:24:01.630Z"
-    },
-    {
       "id": "knowledge-ws-c761533e",
       "title": "本地与云混合推理架构",
       "slug": "local-cloud-hybrid-inference",
@@ -226,33 +173,6 @@
       "updatedAt": "2026-07-27T09:24:01.700Z"
     },
     {
-      "id": "knowledge-ws-36346103",
-      "title": "混合专家模型（MoE）架构",
-      "slug": "moe-architecture",
-      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
-      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation",
-        "skill-ws-dddaf80c"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T04:05:12.947Z",
-      "updatedAt": "2026-07-27T10:19:53.842Z"
-    },
-    {
       "id": "knowledge-ws-818b7bb3",
       "title": "合成数据与数据配方",
       "slug": "synthetic-data-and-data-recipes",
@@ -276,34 +196,6 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.696Z",
       "updatedAt": "2026-07-27T10:19:53.997Z"
-    },
-    {
-      "id": "knowledge-model-sizing",
-      "title": "模型选型与约束匹配",
-      "slug": "model-sizing-and-constraint-matching",
-      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
-      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.347Z",
-      "updatedAt": "2026-07-27T16:57:15.812Z"
     },
     {
       "id": "knowledge-latency-tradeoffs",
@@ -378,6 +270,118 @@
       "status": "published",
       "createdAt": "2026-07-27T16:57:16.103Z",
       "updatedAt": "2026-07-27T16:57:16.103Z"
+    },
+    {
+      "id": "knowledge-ws-36346103",
+      "title": "混合专家模型（MoE）架构",
+      "slug": "moe-architecture",
+      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
+      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:12.947Z",
+      "updatedAt": "2026-07-28T12:54:54.516Z"
+    },
+    {
+      "id": "knowledge-ws-34da6116",
+      "title": "模型量化与数值精度",
+      "slug": "model-quantization-numeric-precision",
+      "summary": "把权重和激活从高精度压到低比特，是让大模型跑进有限显存的主要手段；代价是精度损失，而损失落在哪一层决定了它是无感还是灾难。",
+      "content": "量化的基本动作很简单：用更少的比特存同一个数。真正难的是决定**哪些部分可以被压、压到多少**。\n\n三件事值得先弄清楚：\n\n**1. 不是所有层都一样敏感。** 注意力的输出投影、归一化参数、路由器（router）和输出头（output head）对精度远比中间的前馈层敏感。实践中常见的做法是把这些留在较高精度，其余压到 4-bit 或 8-bit——所以你会在发布说明里反复看到「保留输出头精度」「router 保持原精度」这类描述。\n\n**2. 混合精度会带来一致性问题。** MoE 架构允许每个专家单独存储，于是不同专家用不同量化类型是完全可能的。这在服务器端是省显存的常规手段，但一旦解码路径没有处理好精度不一致，表现就是输出异常或性能塌陷，而不是一个干净的报错。\n\n**3. 量化会和其他优化互相影响。** 推测解码里草稿模型的开销直接决定净收益，如果草稿的输出头没有按请求精度量化，省下来的时间会被重新吃掉。图捕获、注意力核的选择也都和数据类型绑定。\n\n判断一条量化相关的信号是否重要，可以问三个问题：它动的是哪一层？精度损失有没有被量化评估（而不是只给个速度数字）？它和现有的推理路径（推测解码、图捕获、并行切分）是否兼容？",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-inference",
+        "tag-on-device"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T02:42:33.541Z",
+      "updatedAt": "2026-07-28T12:54:54.618Z"
+    },
+    {
+      "id": "knowledge-ws-68963f7f",
+      "title": "推测解码与推理加速技术",
+      "slug": "speculative-decoding-inference-acceleration",
+      "summary": "自回归生成的逐 token 串行是大模型推理延迟的根源；推测解码、连续批处理与 KV 缓存管理从算法与系统两层，把同样的硬件榨出数倍吞吐。",
+      "content": "自回归模型每生成一个 token 都要完整走一遍前向计算，而解码阶段的瓶颈通常在显存带宽而非算力——权重反复搬运，算术单元大量空转。推测解码（speculative decoding）用一个小模型快速草拟若干候选 token，再让大模型一次前向并行验证，接受则一步产出多个 token，拒绝则回退重来；数学上可以保证输出分布与大模型逐 token 解码完全一致，加速是「免费」的。\n\n算法之外还有系统层的三板斧：连续批处理（continuous batching）让新请求随时插入正在运行的批次，而不是等整批结束；分页式 KV 缓存（vLLM 的 PagedAttention 一脉）把注意力缓存按块管理，消除显存碎片；算子融合与量化则进一步压低单步开销。vLLM v0.25.0 把 Model Runner V2 设为默认执行引擎、其 Transformers 后端达到原生速度，都说明这套优化正在从「专用推理引擎的独门绝技」下沉为通用基础设施；Ollama 则把同类技术带进本地设备，在消费级硬件上兑现可用的交互延迟。\n\n为什么值得懂：GPT-5.6 把「单位算力智能密度」当作主打指标，标志着前沿竞争已从单纯堆参数转向推理效率。读懂这一层，才能理解推理引擎版本说明里的吞吐数字从哪来、容量规划里的延迟预算怎么定、以及「更大的模型」与「更快的模型」之间的真实取舍。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.662Z",
+      "updatedAt": "2026-07-28T12:54:54.724Z"
+    },
+    {
+      "id": "knowledge-model-sizing",
+      "title": "模型选型与约束匹配",
+      "slug": "model-sizing-and-constraint-matching",
+      "summary": "根据延迟、隐私、成本和任务复杂度来选择模型规模，而不是只看名气。",
+      "content": "这个概念帮助团队理解：在边缘或高并发场景下，较小的模型为何可能在策略上更优。它是做本地模型决策的有用视角。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-dddaf80c",
+        "skill-ws-b47fabd1",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.347Z",
+      "updatedAt": "2026-07-28T12:54:54.861Z"
     }
   ]
 }
