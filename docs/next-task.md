@@ -1,6 +1,42 @@
 # Next Task
 
-> Update 2026-07-28 (latest, same session): **导入重试 + 一个被我自己推翻的
+> Update 2026-07-28 (latest): **两条候选清空 —— 外加发现「正文字段从来没被渲染过」.**
+> **① vLLM v0.26.1rc0 已拒**：预发布 tag，正文是一条 CI 测试参考值修正，站内
+> 第 5 次同类处置（v0.26.0rc1 / v0.32.5-rc0 / v0.32.4-rc0 / v0.32.3 在先）。
+> **② Ollama v0.32.5 —— 上个会话记的「值得发」被推翻**。读实际正文才发现它
+> 的**全部内容只有一行**：「修复 MLX Metal 的一个 bug，会降低 NVFP4 模型的
+> 输出质量，Laguna 受影响最明显」。这与 07-27 刚以「补丁版本」为由拒掉 v0.32.3
+> 自相矛盾。但真正有价值的信息不是「又出了一版」，而是：**它修的正是本站
+> 07-25 发布的 `ollama-v0-32-4` 那条信号的头条功能**（正文第 1 条改动就是
+> 「MLX 引擎支持 Laguna」）——照着我们的推荐去 Apple GPU 上跑 Laguna 的读者，
+> 会撞上输出质量缺陷。owner 选定方案 C：**候选标记 reviewed（不新增技术
+> 条目），改为更正已发布的 v0.32.4**。注意 `reviewed` 的候选仍出现在
+> 「全部快讯」（只有 `rejected` 才隐藏），所以读者在快讯里仍看得到 v0.32.5
+> 存在，与详情页的更正互补。
+> **③ 本轮真正的发现：公开技术详情页从不渲染 `content` 字段。**
+> 更正先写进了 `content.zh`，公开面核对时发现**它和原有正文「三条改动」
+> 一起都不在页面上**。`grep` 确认 `src/components/technology-detail-content.tsx`
+> 里**零处引用 `content`**——详情页只渲染 summary + Content Intelligence
+> 那组字段（为什么重要 / 技术背景 / 谁该关注 / 学习路径 / 后续问题）。
+> 而 `src/lib/content.ts:135` 确实把 `content` 映射进了公开数据（在 RSC
+> 载荷里，不是泄漏，只是没渲染），`src/lib/ranking.ts:237` 拿它算完整度，
+> `technology-localization.ts` 拿它算「中文/原文」语言可用性指示器，
+> **发布门槛更是把「缺少正文」列为阻塞错误**。也就是说：每一轮编辑轮都在
+> 认真写一个读者永远看不到的字段，而工作流强制它必须存在。31 条已发布
+> 信号全部如此。**未修——这是产品决定，不是我能单方面定的**（要么让详情页
+> 渲染正文，要么承认它是工作台内部字段并放宽发布门槛）。
+> 临时处置：更正已改挂到 `summary.zh` 末尾（详情页 hero + 精选卡片 +
+> 简报 + feed 都会带上），完整版仍保留在 `content.zh` 里，等页面渲染正文
+> 后自动生效。
+> 验证：typecheck 干净、`validate:persistence` 通过；公开面实测更正出现在
+> `/technologies/ollama-v0-32-4` 与 `/technologies`，`/search?q=Laguna`
+> 能命中该信号，`/technologies?view=news` 仍列出 v0.32.5，六项内部字段
+> 扫描零泄漏，slug / 发布状态 / `title.en` / 原文摘要均未被 PATCH 冲掉。
+> **下一步**：候选池已清零，下批等 07-29 08:00。可做：正文渲染这个决定、
+> 代理支持（需你定是否加 undici 依赖）、去重盲区修复、推理与部署内容缺口；
+> go-live 三项仍卡在部署目标。
+
+> Update 2026-07-28 (earlier, same session): **导入重试 + 一个被我自己推翻的
 > 诊断.** owner 让查 08:05 那三个失败源（Ollama / vLLM / MCP Servers
 > Releases）。
 > **第一版诊断是错的，必须记下来**：`curl` 抓三个 feed 全通（两个首次 exit 35

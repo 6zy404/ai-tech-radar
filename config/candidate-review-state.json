@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T08:48:09.041Z",
+  "updatedAt": "2026-07-28T10:13:08.433Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -432,6 +432,14 @@
     "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams": {
       "importStatus": "reviewed",
       "reviewedAt": "2026-07-28T08:48:09.041Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-1rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-28T09:59:11.757Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-28T10:13:08.433Z"
     }
   }
 }
