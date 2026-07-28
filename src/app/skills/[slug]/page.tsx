@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ContentBody } from "@/components/content-body";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
@@ -193,7 +194,7 @@ export default async function SkillDetailPage({
           {skill.content ? (
             <section className="skill-detail-section skill-detail-section--lead">
               <h2>这项技能能帮你做什么</h2>
-              <p>{skill.content}</p>
+              <ContentBody body={skill.content} />
             </section>
           ) : null}
 

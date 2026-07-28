@@ -53,15 +53,18 @@ The product is split into two subsystems:
   force-directed layout, search-highlight, a category filter, hover-over-edge
   relation labels, draggable nodes, and click-to-focus exploration of any
   node's direct connections.
-- **Signal body** — a 信号正文 section on the technology detail page
-  rendering the record's `content` field (between 版本脉络 and 为什么重要),
-  read through the same localization helper as the title and summary so the
-  中文/原文 switch applies to it. The editorial bodies use only `##`
-  headings, `**bold**`, and ordered/bulleted lists, so `src/lib/technology-body.ts`
-  parses that subset by hand instead of adding a Markdown dependency;
-  `TechnologyBody` renders the blocks and the workspace draft detail page
-  reuses it. Until 2026-07-28 this field was written by every editorial
-  round, required by the publish gate, and never displayed anywhere public.
+- **Content bodies** — a shared `ContentBody` renderer for the long-form
+  body of a technology, skill, or knowledge record. The technology detail
+  page gained a 信号正文 section (between 版本脉络 and 为什么重要) read
+  through the same localization helper as the title and summary, so the
+  中文/原文 switch applies to the body too; the skill and knowledge detail
+  pages and the workspace draft panel render through the same component.
+  Editorial bodies use only `##` headings, `**bold**`, and ordered/bulleted
+  lists, so `src/lib/content-body.ts` parses that subset by hand instead of
+  adding a Markdown dependency. Until 2026-07-28 the technology body was
+  written by every editorial round, required by the publish gate, and never
+  displayed anywhere public, while skill and knowledge bodies rendered as a
+  single paragraph with their `**` markers visible.
 - **Version evolution line** — a 版本脉络 section on the technology detail page
   showing where the signal you are reading sits in its release line. Built only
   from explicit `supersedes` (续作) relations between published technologies —

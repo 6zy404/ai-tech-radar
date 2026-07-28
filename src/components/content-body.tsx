@@ -1,12 +1,9 @@
 import { Fragment, type ReactNode } from "react";
 
-import {
-  parseTechnologyBody,
-  splitTechnologyBodyInline
-} from "@/lib/technology-body";
+import { parseContentBody, splitContentBodyInline } from "@/lib/content-body";
 
 function renderInline(text: string): ReactNode {
-  return splitTechnologyBodyInline(text).map((segment, index) =>
+  return splitContentBodyInline(text).map((segment, index) =>
     segment.strong ? (
       <strong key={index}>{segment.text}</strong>
     ) : (
@@ -15,27 +12,25 @@ function renderInline(text: string): ReactNode {
   );
 }
 
-export function TechnologyBody({
+export function ContentBody({
   body,
   className
 }: {
   body: string;
   className?: string;
 }) {
-  const blocks = parseTechnologyBody(body);
+  const blocks = parseContentBody(body);
 
   if (blocks.length === 0) {
     return null;
   }
 
   return (
-    <div
-      className={className ? `technology-body ${className}` : "technology-body"}
-    >
+    <div className={className ? `content-body ${className}` : "content-body"}>
       {blocks.map((block, index) => {
         if (block.kind === "heading") {
           return (
-            <h3 key={index} className="technology-body__heading">
+            <h3 key={index} className="content-body__heading">
               {renderInline(block.text)}
             </h3>
           );
@@ -47,18 +42,18 @@ export function TechnologyBody({
           ));
 
           return block.ordered ? (
-            <ol key={index} className="technology-body__list">
+            <ol key={index} className="content-body__list">
               {items}
             </ol>
           ) : (
-            <ul key={index} className="technology-body__list">
+            <ul key={index} className="content-body__list">
               {items}
             </ul>
           );
         }
 
         return (
-          <p key={index} className="technology-body__paragraph">
+          <p key={index} className="content-body__paragraph">
             {renderInline(block.text)}
           </p>
         );

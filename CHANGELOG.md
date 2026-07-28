@@ -42,6 +42,23 @@ For per-topic deep dives, see the `docs/` directory.
   The workspace draft detail page, which had been dumping the raw body into
   a single `<p>` (so editors saw literal `##` and `**` too), now reuses the
   same component.
+- **An audit for the same failure elsewhere found it on skills and
+  knowledge** — the technology page turned out to be the _cheap_ half. Every
+  Content Intelligence field was checked empirically (probe each field's real
+  value against the served HTML, the method that found the original bug), and
+  all nine render. But `/skills/[slug]` and `/knowledge/[slug]` were dumping
+  their whole body into a single `<p>`, so 4 entries (3 skills + 1 knowledge)
+  displayed **literal `**` markers to readers** and every body rendered as one
+  undifferentiated blob with no paragraph breaks. Both pages now use the same
+  component, which was renamed `TechnologyBody` → **`ContentBody`**
+  (`src/lib/content-body.ts` / `src/components/content-body.tsx`, CSS
+  `.content-body*`) since it now serves technologies, skills, knowledge, and
+  the workspace draft panel. Measured on
+  `/skills/on-device-model-deployment`: one `<p>` with visible `**` became
+  6 correct blocks (P/P/OL/P/UL/P) and 10 `<strong>` elements, at 13.32:1
+  light and 11.53:1 dark — identical to the sibling paragraphs on the same
+  page. The seed skill and knowledge entries use no Markdown at all, so they
+  are unaffected.
 - **A unit test caught a bug the live page could not** — the first parser
   flushed the paragraph buffer before every plain line, so a paragraph
   wrapped across two source lines would split into two paragraphs. Every

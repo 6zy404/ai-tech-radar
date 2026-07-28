@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ContentBody } from "@/components/content-body";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
@@ -195,7 +196,7 @@ export default async function KnowledgeDetailPage({
           {knowledge.content ? (
             <section className="skill-detail-section skill-detail-section--lead">
               <h2>这个概念是什么意思</h2>
-              <p>{knowledge.content}</p>
+              <ContentBody body={knowledge.content} />
             </section>
           ) : null}
 

@@ -14,7 +14,7 @@ import { TagList } from "@/components/tag-list";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
 import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
 import { TechnologyLearningPathWidget } from "@/components/technology-learning-path-widget";
-import { TechnologyBody } from "@/components/technology-body";
+import { ContentBody } from "@/components/content-body";
 import { TechnologyEvolutionLine } from "@/components/technology-evolution-line";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
@@ -235,7 +235,7 @@ export function TechnologyDetailContent({
         <section className="user-article-section technology-detail-section">
           <p className="technology-detail-section__eyebrow">记录</p>
           <h2>信号正文</h2>
-          <TechnologyBody body={body} />
+          <ContentBody body={body} />
         </section>
       ) : null}
 
