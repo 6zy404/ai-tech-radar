@@ -442,7 +442,8 @@ Workspace deployment boundary:
   - does not show internal quality, reviewer, delivery, or source data
 - `/skills/[slug]`
   - user-facing skill detail
-  - explains what the skill helps readers do
+  - explains what the skill helps readers do, with the body rendered through
+    the shared `ContentBody` component
   - links to published technology signals where the skill is useful
   - links to background knowledge that makes the skill easier to apply
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
@@ -454,7 +455,8 @@ Workspace deployment boundary:
   - does not show internal quality, reviewer, delivery, or source data
 - `/knowledge/[slug]`
   - user-facing knowledge detail
-  - explains why the concept is foundational
+  - explains why the concept is foundational, with the body rendered through
+    the shared `ContentBody` component
   - links to published technology signals explained by the concept
   - links to skills that use the concept
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
@@ -659,14 +661,19 @@ Forbidden on public pages:
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it
     is still shared with the home page and the 我关注的 view's
     `MyRadarContent`)
-- `TechnologyBody`
-  - shared renderer for a technology record's `content` body, used by the
-    public 信号正文 section and by the workspace draft detail page's
-    记录正文 panel. Consumes the block list from `parseTechnologyBody`
-    (`src/lib/technology-body.ts`), a hand-written subset parser covering
-    only the four constructs the editorial bodies actually use — `##`
-    headings, `**bold**`, ordered and bulleted lists — so no Markdown
-    dependency was added. Unknown syntax degrades to plain paragraph text
+- `ContentBody`
+  - shared renderer for the long-form `content` body of a technology, skill,
+    or knowledge record. Used by the technology detail page's 信号正文
+    section, the skill detail page's 这项技能能帮你做什么 section, the
+    knowledge detail page's 这个概念是什么意思 section, and the workspace
+    draft detail page's 记录正文 panel. Consumes the block list from
+    `parseContentBody` (`src/lib/content-body.ts`), a hand-written subset
+    parser covering only the four constructs the editorial bodies actually
+    use — `##` headings, `**bold**`, ordered and bulleted lists — so no
+    Markdown dependency was added. Unknown syntax degrades to plain
+    paragraph text. Before 2026-07-28 the skill and knowledge pages rendered
+    their whole body inside one `<p>`, so Markdown markers were visible to
+    readers and paragraph breaks were lost
 - `TechnologyEvolutionLine`
   - user-facing 版本脉络 section on the technology detail page; consumes the
     derived `TechnologyEvolutionChain` (no internal fields, no new persisted

@@ -1,4 +1,4 @@
-export type TechnologyBodyBlock =
+export type ContentBodyBlock =
   | { kind: "heading"; text: string }
   | { kind: "paragraph"; text: string }
   | { kind: "list"; ordered: boolean; items: string[] };
@@ -9,8 +9,8 @@ const BULLETED_ITEM = /^[-*]\s+/;
 // The editorial bodies only ever use four constructs (## headings, **bold**,
 // and ordered / bulleted lists), so this stays a deliberate subset of Markdown
 // rather than a dependency. Anything else is preserved as plain paragraph text.
-export function parseTechnologyBody(body: string): TechnologyBodyBlock[] {
-  const blocks: TechnologyBodyBlock[] = [];
+export function parseContentBody(body: string): ContentBodyBlock[] {
+  const blocks: ContentBodyBlock[] = [];
   const list = { ordered: false, items: [] as string[] };
   let paragraphLines: string[] = [];
 
@@ -67,14 +67,14 @@ export function parseTechnologyBody(body: string): TechnologyBodyBlock[] {
   return blocks;
 }
 
-export type TechnologyBodyInlineSegment = {
+export type ContentBodyInlineSegment = {
   text: string;
   strong: boolean;
 };
 
-export function splitTechnologyBodyInline(
+export function splitContentBodyInline(
   text: string
-): TechnologyBodyInlineSegment[] {
+): ContentBodyInlineSegment[] {
   return text
     .split(/(\*\*[^*]+\*\*)/)
     .filter((part) => part.length > 0)
