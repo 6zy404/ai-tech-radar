@@ -464,28 +464,138 @@ function buildSourceRecord(
   };
 }
 
-async function fetchText(url: string): Promise<string> {
-  const response = await fetch(url, {
-    headers: requestHeaders,
-    cache: "no-store"
-  });
+/**
+ * A response status worth retrying. 5xx and 429 are the server telling us to
+ * come back; every other 4xx is a configuration problem (wrong URL, removed
+ * feed) that a retry only delays discovering.
+ */
+export function isRetryableStatus(status: number): boolean {
+  return status === 429 || status >= 500;
+}
 
-  if (!response.ok) {
-    throw new Error(`请求失败（HTTP ${response.status}）：${url}`);
+export interface ImportFetchSettings {
+  attempts: number;
+  timeoutMs: number;
+  retryDelayMs: number;
+}
+
+/**
+ * Import fetch policy. Defaults are deliberately small: this runs unattended
+ * once a day, so the goal is surviving a single transient handshake failure,
+ * not grinding against a source that is genuinely down.
+ */
+export function resolveImportFetchSettings(
+  env: Record<string, string | undefined> = process.env
+): ImportFetchSettings {
+  const readNumber = (
+    raw: string | undefined,
+    fallback: number,
+    max: number
+  ) => {
+    const parsed = Number(raw);
+
+    return Number.isFinite(parsed) && parsed > 0
+      ? Math.min(Math.floor(parsed), max)
+      : fallback;
+  };
+
+  return {
+    attempts: readNumber(env.IMPORT_FETCH_ATTEMPTS, 3, 5),
+    timeoutMs: readNumber(env.IMPORT_FETCH_TIMEOUT_MS, 20000, 120000),
+    retryDelayMs: readNumber(env.IMPORT_FETCH_RETRY_DELAY_MS, 800, 30000)
+  };
+}
+
+type FetchImpl = (url: string, init: RequestInit) => Promise<Response>;
+
+type FetchAttemptResult =
+  | { kind: "ok"; response: Response }
+  /** A configuration problem: retrying only delays finding out. */
+  | { kind: "fatal"; error: Error }
+  /** A transport failure, timeout, 429, or 5xx. */
+  | { kind: "retryable"; error: Error };
+
+async function attemptFetch(
+  url: string,
+  timeoutMs: number,
+  fetchImpl: FetchImpl
+): Promise<FetchAttemptResult> {
+  try {
+    const response = await fetchImpl(url, {
+      headers: requestHeaders,
+      cache: "no-store",
+      signal: AbortSignal.timeout(timeoutMs)
+    });
+
+    if (response.ok) {
+      return { kind: "ok", response };
+    }
+
+    const error = new Error(`请求失败（HTTP ${response.status}）：${url}`);
+
+    return isRetryableStatus(response.status)
+      ? { kind: "retryable", error }
+      : { kind: "fatal", error };
+  } catch (error) {
+    return {
+      kind: "retryable",
+      error: error instanceof Error ? error : new Error(String(error))
+    };
   }
+}
+
+/**
+ * Fetches a source URL, retrying transport failures and retryable statuses.
+ *
+ * Why this exists: the importer used to call `fetch` bare, so one transient
+ * TLS handshake failure lost that source's entire daily import until the next
+ * scheduled run — on 2026-07-28 that dropped three GitHub release feeds, one
+ * of which carried a stable release. Each attempt also carries an explicit
+ * timeout so a hung connection fails fast instead of stalling the run.
+ */
+export async function fetchWithRetry(
+  url: string,
+  options: { settings?: ImportFetchSettings; fetchImpl?: FetchImpl } = {}
+): Promise<Response> {
+  const settings = options.settings ?? resolveImportFetchSettings();
+  const fetchImpl = options.fetchImpl ?? fetch;
+  let lastError: Error | undefined;
+
+  for (let attempt = 1; attempt <= settings.attempts; attempt += 1) {
+    const result = await attemptFetch(url, settings.timeoutMs, fetchImpl);
+
+    if (result.kind === "ok") {
+      return result.response;
+    }
+
+    if (result.kind === "fatal") {
+      throw result.error;
+    }
+
+    lastError = result.error;
+
+    if (attempt < settings.attempts) {
+      await new Promise((resolve) =>
+        setTimeout(resolve, settings.retryDelayMs * attempt)
+      );
+    }
+  }
+
+  throw new Error(
+    `请求失败（重试 ${settings.attempts} 次后仍失败）：${
+      lastError?.message ?? url
+    }`
+  );
+}
+
+async function fetchText(url: string): Promise<string> {
+  const response = await fetchWithRetry(url);
 
   return response.text();
 }
 
 async function fetchJson<T>(url: string): Promise<T> {
-  const response = await fetch(url, {
-    headers: requestHeaders,
-    cache: "no-store"
-  });
-
-  if (!response.ok) {
-    throw new Error(`请求失败（HTTP ${response.status}）：${url}`);
-  }
+  const response = await fetchWithRetry(url);
 
   return response.json() as Promise<T>;
 }

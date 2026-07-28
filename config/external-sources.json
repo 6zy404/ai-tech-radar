@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T08:57:45.663Z",
+  "updatedAt": "2026-07-28T09:09:47.538Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -16,16 +16,17 @@
         "open-source"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "success",
-      "lastImportCount": 4,
-      "consecutiveFailureCount": 0,
-      "totalImportedCount": 21,
+      "lastImportStatus": "partial",
+      "lastImportCount": 1,
+      "consecutiveFailureCount": 1,
+      "totalImportedCount": 22,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-07-28T08:57:43.278Z",
+      "updatedAt": "2026-07-28T09:09:47.538Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-28T08:57:43.278Z",
-      "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-28T08:57:43.278Z"
+      "lastFetchedAt": "2026-07-28T09:09:47.538Z",
+      "lastImportMessage": "实时导入失败；已使用本地回退。请求失败（重试 3 次后仍失败）：fetch failed",
+      "lastSuccessfulImportAt": "2026-07-28T08:57:43.278Z",
+      "lastErrorMessage": "实时导入失败；已使用本地回退。请求失败（重试 3 次后仍失败）：fetch failed"
     },
     {
       "id": "source-vllm-releases",
@@ -68,16 +69,17 @@
         "agent"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "success",
-      "lastImportCount": 4,
-      "consecutiveFailureCount": 0,
-      "totalImportedCount": 9,
+      "lastImportStatus": "partial",
+      "lastImportCount": 1,
+      "consecutiveFailureCount": 1,
+      "totalImportedCount": 10,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-28T08:57:45.663Z",
+      "updatedAt": "2026-07-28T09:09:13.470Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-28T08:57:45.663Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-28T08:57:45.663Z"
+      "lastFetchedAt": "2026-07-28T09:09:13.470Z",
+      "lastImportMessage": "实时导入失败；已使用本地回退。请求失败（重试 3 次后仍失败）：fetch failed",
+      "lastSuccessfulImportAt": "2026-07-28T08:57:45.663Z",
+      "lastErrorMessage": "实时导入失败；已使用本地回退。请求失败（重试 3 次后仍失败）：fetch failed"
     },
     {
       "id": "source-hugging-face-blog",
