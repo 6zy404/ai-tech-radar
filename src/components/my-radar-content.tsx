@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
+import { SignalReadingActions } from "@/components/signal-reading-actions";
+import { useReadingState } from "@/components/use-reading-state";
 import { topicFeedPath } from "@/lib/feed-paths";
 import {
   followedTagsChangedEventName,
@@ -43,6 +45,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
   const [followedTagIds, setFollowedTagIds] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
+  const readingState = useReadingState();
 
   const handleExportFollows = async () => {
     const code = followedTagIds.join(",");
@@ -238,6 +241,19 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
                 <DossierTechnologyCard
                   technology={technology}
                   mode="zh"
+                  isRead={readingState.isRead(technology.id)}
+                  readingActions={
+                    <SignalReadingActions
+                      isRead={readingState.isRead(technology.id)}
+                      isSaved={readingState.isSaved(technology.id)}
+                      onToggleRead={() =>
+                        readingState.toggleRead(technology.id)
+                      }
+                      onToggleSaved={() =>
+                        readingState.toggleSaved(technology.id)
+                      }
+                    />
+                  }
                   tags={technology.tags
                     .map((tagId) => tags.find((tag) => tag.id === tagId))
                     .filter((tag): tag is TopicTag => Boolean(tag))}

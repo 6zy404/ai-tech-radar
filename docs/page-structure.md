@@ -341,6 +341,20 @@ Workspace deployment boundary:
     each matched item shows an explicit "命中关注：X" explanation line;
     guided empty states for "no follows yet" and "follows but no matches";
     does not show internal quality, reviewer, delivery, or source data
+  - 稍后读 (`?view=saved`, `SavedSignalsContent`): the signals the reader
+    marked 稍后读, most-recently-saved first; saved ids that no longer
+    resolve to a published signal are dropped instead of rendered as a dead
+    row; guided empty states for "nothing saved yet" and "saved but all
+    read"; marks live only in browser localStorage
+    (`src/lib/reading-state.ts`), so the served page is identical for
+    everyone
+  - reading marks (P4 v0.4) apply across the 精选 / 我关注的 / 稍后读 views:
+    each signal card carries a 稍后读 and a 已读 toggle
+    (`SignalReadingActions`), a read card recedes (transparent surface,
+    dashed border, muted title, 已读 stamp) and the shared
+    `ReadFilterToggle` offers 隐藏已读 once at least one signal is marked.
+    Marks are always explicit reader actions — opening a signal never marks
+    it read
 - `/technologies/[slug]`
   - user-facing published technology detail
   - a 版本脉络 evolution-line section as the first content block, rendered only

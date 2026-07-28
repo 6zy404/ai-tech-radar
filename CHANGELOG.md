@@ -12,6 +12,52 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Read / read-later marks (P4 v0.4)
+
+- **Readers can finally manage a 31-signal pool** — 2026-07-28,
+  owner-selected from the backlog and scoped upfront through a mockup plus
+  four confirmed decisions: **both marks** (已读 + 稍后读), **manual only**
+  (opening a signal never marks it read), a **fifth view tab** for the
+  read-later pile, and **dim-plus-hide-switch** rather than hiding read
+  signals outright. Until now a reader could follow topics but had no way to
+  say "read this" or "come back to this", so every visit re-presented the
+  whole list.
+  New `src/lib/reading-state.ts` owns the storage and the pure core
+  (`toggleIdInList`, `selectSavedTechnologies`, `applyReadFilter`,
+  `countReadTechnologies`) — same boundary as `followed-tags.ts`: two
+  localStorage keys, **no accounts, no server-side profile**, the served page
+  identical for everyone. `useReadingState` (`src/components/`) subscribes a
+  list to those marks through the same custom-event + `storage`-event pair
+  the followed-tag radar uses, so every view in the tab — and every open tab
+  — stays in sync. `SignalReadingActions` renders the per-card toggle pair
+  and `ReadFilterToggle` the "已读 N 条 / 隐藏已读" switch, which renders
+  **nothing** until the reader has marked something. `DossierTechnologyCard`
+  gained two optional props (`isRead`, `readingActions`) and stays
+  presentational — the state lives in the three list views that own it:
+  精选 (`TechnologyBrowser`), 我关注的 (`MyRadarContent`), and the new
+  稍后读 view (`SavedSignalsContent` on `/technologies?view=saved`),
+  most-recently-saved first, with saved ids that no longer resolve to a
+  published signal dropped rather than rendered as a dead row.
+  **One design decision was corrected during live verification**: the first
+  dimming rule recoloured the summary, catalog and source lines to
+  `--dossier-muted` — which measured as **zero visual change**, because those
+  lines were already muted. A read card now recedes through _surface_ (no
+  paper background, dashed border, no shadow) plus an explicit 已读 stamp,
+  and only the title drops ink→muted. Deliberately not lower text contrast:
+  measured 5.67:1 in light mode and 6.29:1 in dark, both above AA — repeating
+  the "half dark" mistake the 2026-07-16 contrast round had to undo was the
+  obvious trap here.
+  Verified: typecheck, lint, format, vitest 138/138 (11 new tests covering
+  toggle order and immutability, save ordering, unresolvable saved ids, the
+  hide filter emptying a list, and mark counting), plus a live pass —
+  marking, un-marking, persistence across reload, the hide switch filtering
+  31→30 with its label flipping, the read-later view filling and emptying
+  from its own card, the 我关注的 view carrying the same controls, both
+  colour schemes, and no 375px overflow (the 5-tab strip wraps), zero console
+  errors. The clicks were dispatched programmatically: the Browser pane's
+  screenshot tool times out this session, and coordinate clicks require a
+  prior screenshot.
+
 ## Content round — visual input skill (the multimodal gap, minus the voice half)
 
 - **技能「视觉输入的组织与核验」published** — 2026-07-28, from a re-run of
