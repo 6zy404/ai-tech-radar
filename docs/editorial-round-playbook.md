@@ -64,6 +64,17 @@ Do this at the start of every round:
   **outside the project tree** for local runs, so the round's rapid
   `config/*.json` writes are not seen by the dev file watcher.
 
+**Never run `npm run build` while the dev server is up** (hit for real
+2026-07-28). Both write to the same `.next` directory, and the production
+build leaves the running dev server in a state where **pages still return
+`200` but API routes return `500`** with a module-require error from
+`next/dist/server/require-hook`. That asymmetry is the confusing part: the
+workspace looks fine in the browser while every mutation silently fails, so a
+round can appear to save decisions that never landed. Recovery is just
+`preview_stop` + `preview_start`; nothing on disk is damaged. If a mutation
+returns an HTML error page instead of JSON, check this before suspecting the
+request.
+
 ## Step 1 — Find candidates that still need a decision
 
 A candidate needs a decision when its **effective** `importStatus` is `new`.

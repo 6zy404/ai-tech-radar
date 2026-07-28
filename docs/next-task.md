@@ -1,5 +1,15 @@
 # Next Task
 
+> Gotcha 2026-07-28: **不要在 dev server 运行时跑 `npm run build`.** 两者共用
+> 同一个 `.next` 目录，生产构建会把正在跑的 dev server 弄成一种很迷惑的状态：
+> **页面照常返回 `200`，但 API 路由返回 `500`**（`require-hook` 的模块加载
+> 错误）。本次就是这样——把一条候选临时改回待决去验证控制台标记后，还原那一步
+> 静默失败了，返回的是 HTML 错误页而不是 JSON。工作台在浏览器里看着完全正常，
+> 而所有写操作都在失败，一轮编辑可能看起来保存成功实则一条没落地。磁盘数据
+> 无损，`preview_stop` + `preview_start` 即可恢复。已写进 playbook Step 0。
+> 该候选状态已确认还原（rejected，待决数 0），并把仅时间戳的改动 checkout 掉，
+> 保留 08:48 这个真实决定时间。
+
 > Verification sweep 2026-07-28 (session close): **全仓核对通过，外加一个待你
 > 定的边界问题.**
 > **已核对通过**：`npm run build` 成功且路由表里有 `ƒ Middleware`（07-27 那个
