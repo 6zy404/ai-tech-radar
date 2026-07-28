@@ -12,6 +12,49 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Source import retry + the proxy finding
+
+- **One transient failure no longer costs a source its whole daily import** —
+  2026-07-28. The importer called `fetch` bare: no retry, no explicit
+  timeout. When the 08:05 scheduled run hit transport failures on the Ollama,
+  vLLM and MCP Servers release feeds, all three were simply marked failed
+  until the next day — and a re-run recovered the **Ollama v0.32.5 stable
+  release**, which would otherwise have aged out unseen.
+  `fetchWithRetry` in `src/lib/external-import.ts` now wraps both fetch
+  helpers: 3 attempts by default with a linear backoff and an explicit
+  20s per-attempt timeout (`IMPORT_FETCH_ATTEMPTS` /
+  `IMPORT_FETCH_TIMEOUT_MS` / `IMPORT_FETCH_RETRY_DELAY_MS`, all clamped).
+  Transport failures, timeouts, `429` and `5xx` retry; **any other `4xx`
+  fails immediately**, because a removed or misconfigured feed is a
+  configuration problem that a retry only delays discovering. Each attempt
+  returns a typed result rather than throwing, so the retry loop never uses
+  exceptions as control flow.
+- **The importer does not use a proxy, and that is the actual cause here** —
+  found while verifying the fix, and it corrects the first diagnosis. `curl`
+  reached all three feeds fine, which looked like transient proxy-side TLS
+  flakiness; but Node's global `fetch` (undici) **ignores `HTTPS_PROXY`**, so
+  the app was never using the proxy at all. A plain `node -e "fetch(...)"`
+  reproduces the failure exactly — `Connect Timeout Error (attempted address:
+github.com:443, timeout: 10000ms)` — on unmodified code. Retries therefore
+  help only against genuinely transient failures; when a host is reachable
+  _only_ via the proxy, every attempt takes the same blocked path. Making the
+  importer proxy-aware needs undici's `ProxyAgent`, i.e. a new dependency —
+  recorded in `docs/deployment.md` rather than decided unilaterally.
+- **A failed manual import destroys that source's candidate list** — the
+  other thing the investigation surfaced (documented in
+  `docs/editorial-round-playbook.md`). Manual imports fall back to a
+  placeholder candidate, and `mergeImportedCandidatesForSource` _replaces_
+  the source's snapshot entries, so a failed re-run left one
+  `fallback`-tagged placeholder where the recovered v0.32.5 candidate had
+  been. Nothing was lost permanently (the snapshot was restored from the
+  previous commit, and the feed still lists the release), but the scheduled
+  runner's `useFallbackOnFailure: false` is doing more work than it looks.
+  Verified: typecheck, lint, format, vitest 148/148 (10 new tests covering
+  the retryable-status rule, env parsing and clamping, transport-failure
+  recovery, retry exhaustion, the no-retry-on-404 rule, and the underlying
+  reason surviving into the final message), `validate:sources`,
+  `validate:persistence`.
+
 ## Read / read-later marks (P4 v0.4)
 
 - **Readers can finally manage a 31-signal pool** — 2026-07-28,

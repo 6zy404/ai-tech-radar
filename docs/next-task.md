@@ -1,6 +1,39 @@
 # Next Task
 
-> Update 2026-07-28 (latest, same session): **编辑轮 —— 零新增信号的一轮，
+> Update 2026-07-28 (latest, same session): **导入重试 + 一个被我自己推翻的
+> 诊断.** owner 让查 08:05 那三个失败源（Ollama / vLLM / MCP Servers
+> Releases）。
+> **第一版诊断是错的，必须记下来**：`curl` 抓三个 feed 全通（两个首次 exit 35
+> 卡在 5.00s、立即重试全部亚秒 200），于是我判断是本机代理首次握手抖动。
+> 后来用 `node -e "fetch(...)"` 一试才发现真相：**Node 的全局 fetch（undici）
+> 根本不读 `HTTPS_PROXY`**，应用一直在直连；直连 github.com 报
+> `Connect Timeout Error (attempted address: github.com:443, timeout: 10000ms)`，
+> **未改动的代码同样复现**。也就是说 curl 通 ≠ 应用通——两者走的根本不是同
+> 一条路。教训与 07-27「读代码不算证据」同源：**用与生产同一条代码路径去验证**。
+> **已做**：`src/lib/external-import.ts` 新增 `fetchWithRetry` 包住两个 fetch
+> 辅助函数——默认 3 次、线性退避、每次显式 20s 超时
+> （`IMPORT_FETCH_ATTEMPTS` / `IMPORT_FETCH_TIMEOUT_MS` /
+> `IMPORT_FETCH_RETRY_DELAY_MS`，均有上限）。传输失败 / 超时 / `429` / `5xx`
+> 重试；**其余 4xx 立即失败**，因为 feed 被删或配错属于配置问题，重试只会
+> 推迟发现。每次尝试返回类型化结果而不是抛异常，循环不拿异常当控制流。
+> 10 条单测（148/148 全绿）。
+> **诚实的边界**：重试只能救真正偶发的失败；当某主机只能经代理到达时，
+> 每次尝试都走同一条不通的路。让导入器支持代理需要 undici 的 `ProxyAgent`
+> ——**这是加依赖的决定，没有自作主张**，已写进 `docs/deployment.md`。
+> **我自己造成并已修复的一处副作用**：手工重跑导入时实时抓取失败会写入
+> **回退占位候选**，而 `mergeImportedCandidatesForSource` 是**替换**该源的
+> 全部候选而非追加——于是刚捞回的 `Ollama v0.32.5` 被一条占位符顶掉。已从
+> 上一个提交恢复快照（v0.32.5 回来了，两条 fallback 占位符消失），
+> `validate:persistence` 通过。定时任务不受影响（它用
+> `useFallbackOnFailure: false`）。已写进 playbook：**主机不通时不要重跑手工导入**。
+> **当前状态**：2 条待决候选（Ollama v0.32.5 稳定版——值得发；vLLM
+> v0.26.1rc0——按先例该拒）。三个源的健康仍是 partial/failed，会在下次连通
+> 时自愈。
+> **下一步**：发 v0.32.5（可与已发布的 v0.32.4 接成 supersedes 版本线）、
+> 代理支持要不要做（需你定是否加 undici 依赖）、推理与部署内容缺口、
+> 去重盲区修复；go-live 三项仍卡在部署目标。
+
+> Update 2026-07-28 (earlier, same session): **编辑轮 —— 零新增信号的一轮，
 > 简报改成「补课」.** 08:05 定时任务带来 5 条候选（导入 partial：10 源里
 > Ollama Releases / vLLM Releases / MCP Servers Releases 三个 GitHub release
 > 源 `fetch failed`，疑似本机网络，值得下轮再看一眼）。5 条**全部没转草稿**：

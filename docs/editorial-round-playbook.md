@@ -269,6 +269,27 @@ for the full forbidden-field list.
   file — bundled seed code referencing a runtime-generated `*-ws-*` id is the
   coupling that produced the 2026-07-28 sqlite parity failure.
 
+## Never re-run a manual import while the source is unreachable (2026-07-28)
+
+A manual single-source import (`POST /api/workspace/sources/{id}/import`, or
+the `Import` button) falls back to a **placeholder candidate** when the live
+fetch fails — and `mergeImportedCandidatesForSource` **replaces** that
+source's entries in the snapshot rather than appending to them. So a failed
+manual re-run does not just "not help": it wipes that source's real candidates
+out of the snapshot and leaves a single `fallback`-tagged placeholder in their
+place.
+
+This was hit for real: a recovered `Ollama v0.32.5` candidate was replaced by
+a placeholder when a later re-run failed. Nothing was permanently lost — the
+feed still lists the release, so the next successful import recreates it under
+the same deterministic id, and the snapshot was restored from the previous
+commit — but the queue had to be cleaned up by hand.
+
+Check connectivity first (a plain `node -e "fetch(url)"`, **not** `curl` —
+see `docs/deployment.md` on the proxy difference), and only re-run the import
+once the host actually answers. The scheduled runner is not affected: it
+imports with `useFallbackOnFailure: false`.
+
 ## Duplicate detection blind spot (found 2026-07-28)
 
 Duplicate detection only compares against candidates **currently in the

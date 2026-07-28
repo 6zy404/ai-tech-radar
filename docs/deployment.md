@@ -211,6 +211,25 @@ the middleware-location section above before going any further.
 - `PERSISTENCE_DRIVER`: `json` by default; set to `sqlite` after running database initialization and migration.
 - `SQLITE_DATABASE_PATH`: optional SQLite database path; defaults to `./config/ai-tech-radar.sqlite`.
 - `TASK_RUNNER_INTERVAL_SECONDS`: watch-loop interval for `npm run tasks:watch`.
+- `IMPORT_FETCH_ATTEMPTS`: source-fetch attempts before a source is marked
+  failed (default `3`, capped at `5`). Retries cover transport failures,
+  timeouts, `429`, and `5xx`; a `4xx` is treated as a configuration problem
+  and fails immediately.
+- `IMPORT_FETCH_TIMEOUT_MS`: per-attempt timeout (default `20000`, capped at
+  `120000`).
+- `IMPORT_FETCH_RETRY_DELAY_MS`: base backoff between attempts (default `800`,
+  multiplied by the attempt number).
+
+> **The importer does not use an HTTP proxy.** Node's global `fetch` (undici)
+> ignores `HTTP_PROXY` / `HTTPS_PROXY`, so the app always connects directly
+> even when the shell's `curl` reaches the same host through a proxy. On a
+> machine where a source host is only reachable via a proxy, every import of
+> that source will fail with `fetch failed` (undici's connect timeout is
+> ~10s), and retries will not help — they take the same blocked path. This
+> was diagnosed on 2026-07-28 against three `github.com` release feeds.
+> Making the importer proxy-aware needs an explicit dispatcher (the `undici`
+> package's `ProxyAgent`), which is a dependency decision, not a config one.
+
 - `DELIVERY_WEBHOOK_ENDPOINT`: optional operator reference for generic webhook setup.
 - `FEISHU_WEBHOOK_ENDPOINT`: optional operator reference for Feishu webhook setup.
 - `LLM_PROVIDER`: optional workspace editorial enrichment provider, `mock` or `openai_compatible`.
