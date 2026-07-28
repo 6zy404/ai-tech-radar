@@ -748,9 +748,23 @@ Represents formal technology content that can be shown to end users.
 - `relatedSkillExplanations?`
 - `followUpQuestions?`
 - `readingDifficulty?`: `beginner | intermediate | advanced`
-- `intelligenceStatus?`: `draft | reviewed | needs_enrichment`
+- `intelligenceStatus?`: `draft | reviewed | needs_enrichment` — **workspace
+  only**; stripped from the public shape (see below)
 
 This is the shape consumed by the user-facing technology pages.
+
+`intelligenceStatus` is the one field on this list that does **not** reach
+public pages. It is an editorial workflow state, not reader content: shipping
+it told readers which records the editors consider unfinished. No public
+surface ever read it, so it was stripped from the public mapping on
+2026-07-28, the same treatment `priority` received on 2026-07-10.
+`validate:ranking` asserts the absence (verified to fail when the field is put
+back). `translationStatus` and `publisherType` were checked in the same pass
+and deliberately **kept**: both are required fields of `TechnologyItem` rather
+than optional, and they describe the publisher and the availability of a
+translation rather than any editorial judgment about completeness. They are
+currently in the payload without being rendered, which is a rendering gap, not
+a boundary problem.
 
 `sourceReferences` is safe user-facing reference metadata only. It does not contain candidate IDs, duplicate group IDs, duplicate reasons, raw payloads, or review status.
 
@@ -1155,7 +1169,6 @@ User-facing fields:
 - `relatedSkillExplanations`
 - `followUpQuestions`
 - `readingDifficulty`
-- `intelligenceStatus`
 - `sourceReferences` without internal traceability fields
 - `sourceLanguage`
 - `translationStatus`

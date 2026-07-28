@@ -12,6 +12,34 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## `intelligenceStatus` stripped from the public technology shape
+
+- **An editorial workflow state was riding along in every public payload** —
+  2026-07-28, found by probing which public fields actually reach rendered
+  markup. `intelligenceStatus` (`draft` / `reviewed` / `needs_enrichment`) was
+  mapped into the public `TechnologyItem` and shipped in the RSC payload of
+  every technology detail page, while **no public surface read it** — so it
+  quietly told readers (and scrapers) which records the editors consider
+  unfinished. Stripped in `withoutTechnologyPriorityInternals`, the same helper
+  and the same reasoning as the 2026-07-10 `priority` removal.
+- **Two neighbouring fields were checked and deliberately kept** —
+  `translationStatus` and `publisherType` are in the payload unrendered too,
+  but both are **required** fields of `TechnologyItem` rather than optional
+  (removing them would change the type that `TechnologyWorkspaceRecord`
+  extends), and neither reveals editorial judgment: one describes the
+  publisher, the other whether a translation exists. That is a rendering gap,
+  not a boundary problem, so it stays on the backlog rather than being fixed by
+  reflex.
+- **The regression guard was verified by breaking it** — `intelligenceStatus`
+  was added to `validate:ranking`'s `internalOnlyFields`, and the first reverse
+  test **passed when it should have failed**: the assertion runs against a
+  record from the workspace→public mapping, while the line first removed lived
+  in the seed-item strip. Re-testing against the real mapping produced the
+  expected `Published item should not expose intelligenceStatus.` Verified:
+  typecheck, lint, format, vitest 171/171, `validate:ranking`, plus a live pass
+  — the field is gone from the detail pages (workspace-published and seed), the
+  list, the digest, and `/feed.json`, with every page still rendering.
+
 ## `already_published` candidate flag (closing the dedup blind spot)
 
 - **Duplicate detection could not see past its own snapshot** — 2026-07-28.

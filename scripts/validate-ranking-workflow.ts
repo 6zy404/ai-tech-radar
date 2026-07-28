@@ -67,7 +67,11 @@ const internalOnlyFields = [
   "candidateQuality",
   "qualityFlags",
   "sourceQuality",
-  "sourceQualityMetrics"
+  "sourceQualityMetrics",
+  // Editorial workflow state (draft / reviewed / needs_enrichment). No public
+  // surface reads it, and shipping it told readers which records the editors
+  // consider unfinished — stripped from the public shape 2026-07-28.
+  "intelligenceStatus"
 ] as const;
 
 function backupFile(filePath: string): string | undefined {
