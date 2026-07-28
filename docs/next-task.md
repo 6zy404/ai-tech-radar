@@ -1,6 +1,38 @@
 # Next Task
 
-> Update 2026-07-28 (latest, same session): **已读 / 稍后读上线（P4 v0.4）.**
+> Update 2026-07-28 (latest, same session): **编辑轮 —— 零新增信号的一轮，
+> 简报改成「补课」.** 08:05 定时任务带来 5 条候选（导入 partial：10 源里
+> Ollama Releases / vLLM Releases / MCP Servers Releases 三个 GitHub release
+> 源 `fetch failed`，疑似本机网络，值得下轮再看一眼）。5 条**全部没转草稿**：
+> **3 条拒绝** —— Copilot 新手教程（教程页）、OpenAI「AI 如何拓展工作内容」
+> （职场研究稿，无工件）、**Gemini 3.6 Flash 公告重复导入**；**2 条标记已看
+> 不选** —— GitHub「The harness is all you need」（与已发布的
+> `copilot-code-review-tool-workflow-lessons` 同一主张「指令 > 工具」，且是
+> 无工件的经验随笔）、NVIDIA Cosmos-H-Dreams（hf-mirror title-only 导入，
+> 无正文可写，沿用 07-22 Cosmos 3 Edge 先例）。
+> **发现一个真的去重盲区**（已写进 playbook）：去重只在**当前候选快照**内
+> 比对，而快照是滚动窗口（当日 40 条，评审状态 97 条）。那条 Gemini 公告
+> 07-21 以 `…gemini-36-flash…` 导入并已发布为 `gemini-flash-cyber`，07-28 又
+> 以 `…gemini-3-6-flash…`（连字符不同）回来——旧候选早已滚出快照，URL 规则与
+> 标题规则都无从触发，于是它看起来完全是新的。修复不在本轮范围，先记录 +
+> 给出人工核对办法。
+> **2026-07-28 简报已发布**，本轮的编辑判断全在这里：既然没有新信号，就把
+> 自动草稿的 10 条砍成**3 条从未进过任何简报的信号**（Kimi K3 置顶、Gemini
+> API 托管智能体、Copilot 代码审查复盘），其余 7 条（含昨天刚发的
+> copilot-vs-raw-api-access）全部排除。编辑摘要如实写明「今天没有新信号，
+> 这期是补课」，并把三条串成「权重层 / 运行层 / 指令层」。这也是 07-27
+> fresh-first 改动第一次真正发挥作用——那三条正是它顶上来的。
+> 验证：typecheck、`validate:digest`、`validate:persistence` 全绿；公开面
+> 逐项核对（digest/today 恰好 3 张卡且置顶项领先、7 条排除项均不出现、
+> feed.json / 归档 / by-date 200 / weekly 200、内部字段与编辑备注零泄漏、
+> console 零错误、无横向溢出）。一处**看似异常实为正确**：「Shippy 复盘」
+> 在页面上出现 1 次，但它在 Copilot 那条信号的 `learningPath` 正文里作为
+> 交叉引用，不是简报条目——已确认该 id 确实在排除表中。
+> **下一步**：候选池清零，下批等 07-29 08:00。可做：推理与部署内容缺口
+> （11 信号 3 技能，动笔前先读《推理服务容量规划》正文）、三个失败源排查、
+> 去重盲区修复（快照外的已发布 URL 比对）；go-live 三项仍卡在部署目标。
+
+> Update 2026-07-28 (earlier, same session): **已读 / 稍后读上线（P4 v0.4）.**
 > owner 从 backlog 选的方案 C。动手前先出草图 + 四问定范围，四条都按推荐定：
 > **两种标记**（已读 + 稍后读）、**只手动标**（打开详情页不自动标已读）、
 > **新增第五个视图页**（`?view=saved`）、**默认淡化 + 隐藏开关**（不是直接

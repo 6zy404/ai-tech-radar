@@ -254,8 +254,37 @@ for the full forbidden-field list.
   `/api/workspace/skills/{id}` but `/api/workspace/knowledge/{id}` (**no
   trailing `s`**). Guessing `knowledges` returns Next's HTML 404 page, which
   looks like a JSON parse error rather than a routing mistake (2026-07-27).
-- `relatedTechnologyIds` is **not** editable through
-  `PATCH /api/workspace/technologies/{id}` — it isn't in
-  `TechnologyWorkspaceRecordUpdate`. Technology↔technology links therefore
-  can't be created from a round; connect new signals through shared skills /
-  knowledge (and their typed relations) instead.
+- `relatedTechnologyIds` **is** editable through
+  `PATCH /api/workspace/technologies/{id}` since 2026-07-27 (it was added to
+  `TechnologyWorkspaceRecordUpdate` that day — this entry used to say the
+  opposite, and was stale from 2026-07-22). Self-references are dropped and
+  the picker offers published technologies only. Use `supersedes` (续作) for
+  an actual version succession and `extends` (延伸) for "read this next" —
+  mixing them mislabels the 版本脉络 section.
+- Seed **technologies** (`src/data/technologies.ts`) have no copy-on-write
+  overlay the way seed skills and knowledge do, so they cannot carry a
+  reverse id back to a workspace-created skill/knowledge entry. The graph
+  edge still exists (edges dedupe from either side), only that seed page's
+  own 相关技能 / 相关知识 list omits it. Don't "fix" this by editing the seed
+  file — bundled seed code referencing a runtime-generated `*-ws-*` id is the
+  coupling that produced the 2026-07-28 sqlite parity failure.
+
+## Duplicate detection blind spot (found 2026-07-28)
+
+Duplicate detection only compares against candidates **currently in the
+snapshot** (`imported-candidates.live.json`), which is a rolling window — on
+2026-07-28 it held 40 candidates while the review state held 97. So a source
+that re-publishes an item under a changed URL slug can re-enter the pool with
+no duplicate group at all, once its earlier twin has aged out of the snapshot.
+
+That is exactly what happened with the Gemini 3.6 Flash announcement: it was
+imported on 2026-07-21 as `…gemini-36-flash…`, converted, and published as
+`gemini-flash-cyber`; on 2026-07-28 the same announcement came back as
+`…gemini-3-6-flash…` (hyphenated differently) and looked brand new. Neither
+the URL rule nor the title rule could fire, because there was nothing left to
+compare against.
+
+Practical guard for a round: before converting a candidate that looks like a
+major vendor announcement, check whether a **published** signal already
+carries the same source URL modulo slug formatting — the review state and the
+technology workspace both outlive the snapshot window.

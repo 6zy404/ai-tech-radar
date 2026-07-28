@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-07-28T00:07:41.850Z",
+  "updatedAt": "2026-07-28T08:50:14.098Z",
   "digests": [
     {
       "id": "digest-2026-07-28",
       "date": "2026-07-28",
-      "status": "draft",
+      "status": "published",
       "title": "每日技术简报 - 2026-07-28",
       "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 7 个来源。",
-      "editorialSummary": "",
+      "editorialSummary": "今天没有新信号：进来的五条里，两条是入门教程和职场研究稿，一条是三周前那则 Gemini 公告换了链接又被抓了一次，剩下两条没有正文可写。所以这期做的是补课——把三条一直没排上位置的信号放出来，它们恰好是「把模型变成能用的系统」的三层。Kimi K3 是权重那一层：2.8 万亿参数的旗舰，承诺月内开放权重，决定你有没有资格把模型握在自己手里。Gemini API 的托管智能体扩展是运行那一层：后台任务加远程 MCP 直连，意味着智能体不必再守着一个对话窗口活着。而 GitHub 那篇 Copilot 代码审查复盘是最容易被跳过、却最便宜的一层：他们把探索工具换成维护更好的通用 CLI，基准反而变差，真正把结果扳回来的是按「审查者实际怎么读 PR」重写指令——审查成本降了两成。三条连起来是同一句话：拿到权重、跑起来之后，决定成败的往往是最不像技术的那一层。",
       "highPriorityTechnologyIds": [
         "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
@@ -23,54 +23,50 @@
         "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
       ],
       "manuallyAddedTechnologyIds": [],
-      "excludedTechnologyIds": [],
-      "pinnedTechnologyIds": [],
-      "orderedTechnologyIds": [
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "excludedTechnologyIds": [
         "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
         "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
-        "draft-candidate-rss-https-github-blog-p-97467",
         "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
         "draft-candidate-rss-https-github-blog-p-97686",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
         "draft-candidate-rss-https-openai-com-index-gpt-5-6",
         "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
       ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-blog-p-97467"
+      ],
       "skillIds": [
         "skill-agent-design",
-        "skill-ws-f741f122",
-        "skill-model-evaluation",
         "skill-tool-integration",
-        "skill-ws-c183c9b9",
         "skill-ws-2152c7f1",
+        "skill-model-evaluation",
         "skill-ws-dddaf80c",
-        "skill-scope-pilots"
+        "skill-ws-f741f122"
       ],
       "knowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-a28a8a56",
-        "knowledge-tool-use",
         "knowledge-api-contracts",
-        "knowledge-evaluation-loops",
-        "knowledge-human-loop",
-        "knowledge-ws-89b98df3",
-        "knowledge-system-design"
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56"
       ],
       "sourceNames": [
         "GitHub Blog",
-        "GitHub Blog AI",
         "Google AI Blog",
-        "Google DeepMind Blog",
-        "Hugging Face Blog",
-        "OpenAI News",
         "Simon Willison Blog"
       ],
       "generatedAt": "2026-07-28T12:00:00.000Z",
-      "updatedAt": "2026-07-28T00:07:41.846Z",
+      "updatedAt": "2026-07-28T08:50:14.098Z",
+      "publishedAt": "2026-07-28T08:50:14.098Z",
       "editorialNotes": [
-        "由已发布技术记录按 Ranking v0 优先级生成。",
-        "Daily Digest v0 默认排除低优先级条目。"
+        "本轮无新增信号：5 条候选全部拒绝或标记为已看不选。",
+        "本期刻意只保留从未进过任何简报的 3 条信号，其余 7 条（含昨日已发的 copilot-vs-raw-api-access）全部排除。",
+        "Kimi K3 置顶为头条。",
+        "发现一处去重盲区：Gemini 公告以变更后的 URL 段被重新导入，未能与已转换的旧候选归组——旧候选已滚出快照窗口，去重只在当前候选池内比对。"
       ]
     },
     {

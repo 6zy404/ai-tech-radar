@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T02:33:02.502Z",
+  "updatedAt": "2026-07-28T08:48:09.041Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -412,6 +412,26 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-27T01:43:12.970Z",
       "convertedTechnologyId": "draft-candidate-rss-https-github-blog-p-97686"
+    },
+    "candidate-rss-https-github-blog-p-97758": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-28T08:48:08.712Z"
+    },
+    "candidate-rss-https-openai-com-index-how-ai-is-expanding-what-people-do-at-work": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-28T08:48:08.814Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-28T08:48:08.888Z"
+    },
+    "candidate-rss-https-github-blog-p-97740": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-28T08:48:08.967Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-28T08:48:09.041Z"
     }
   }
 }
