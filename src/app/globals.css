@@ -6977,20 +6977,12 @@ a.technology-evolution__title {
   gap: 40px;
 }
 
+/* The digest hero now renders through .user-article-hero, the same primitive
+   /technologies/[slug] uses, so everything below is a single-column tweak on
+   top of it rather than a second, competing hero definition. */
 .daily-digest-brief-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(24px, 5vw, 56px);
-  align-items: end;
-  padding: clamp(34px, 7vw, 58px);
-  border: 1px solid rgba(8, 127, 115, 0.24);
-  border-radius: var(--radius-page);
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    rgba(217, 243, 239, 0.66) 100%
-  );
-  box-shadow: var(--shadow-soft);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
 }
 
 .daily-digest-brief-header__copy {
@@ -6999,13 +6991,16 @@ a.technology-evolution__title {
   min-width: 0;
 }
 
+/* Sizing, balance and colour all come from .user-article-hero h1 now; only
+   the wider measure is digest-specific, since a digest title carries a date. */
 .daily-digest-brief-header h1 {
-  max-width: 760px;
-  margin: 0;
-  color: var(--user-ink);
-  font-size: clamp(2.5rem, 5.4vw, 3rem);
-  letter-spacing: -0.055em;
-  line-height: 0.98;
+  max-width: min(24ch, 100%);
+}
+
+/* Keeps a run that contains legal break opportunities (a `YYYY-MM-DD` date's
+   hyphens) on one line. See renderTitleWithUnbreakableDates. */
+.nowrap-run {
+  white-space: nowrap;
 }
 
 .daily-digest-brief-header__subtitle {
@@ -7028,33 +7023,23 @@ a.technology-evolution__title {
   line-height: 1.55;
 }
 
+/* One inline meta row under the title, mirroring
+   .technology-detail-hero__meta. It used to be a bordered 174px box in the
+   hero's right column, which left that column three-quarters empty. */
 .daily-digest-meta-strip {
-  display: grid;
-  gap: 12px;
-  min-width: 174px;
-  padding: 22px;
-  border: 1px solid rgba(8, 127, 115, 0.16);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.82);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 14px;
   color: #475569;
 }
 
+/* No own colour: the row inherits the container's, which the dossier scope
+   maps to --dossier-muted. The previous hardcoded #64748b measured 4.4:1 on
+   the dossier paper surface once this stopped being a white inset box. */
 .daily-digest-meta-strip span {
-  display: block;
-  color: #64748b;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.daily-digest-meta-strip strong {
-  display: block;
-  margin-top: 2px;
-  color: var(--user-ink);
-  font-size: 1.55rem;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
 }
 
 .daily-digest-summary-panel {
@@ -7201,9 +7186,13 @@ a.technology-evolution__title {
   margin: 0;
 }
 
+/* Audience ("适合 …") is supporting metadata, not a heading. It carried
+   font-weight 800 until 2026-07-29, which made it louder than the card title
+   it sat under. Duplicate declarations of this selector live at ~6859/6864 and
+   in the grouped rule above; they are folded together in a separate cleanup. */
 .digest-technology-card__audience {
   color: var(--accent);
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .digest-technology-card__context {
@@ -7303,20 +7292,22 @@ a.technology-evolution__title {
 }
 
 .digest-source-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
 }
 
+/* These render as full DossierCards (title + publisher line + link), not as
+   inline pills. They kept `border-radius: 999px` from the pre-dossier pill
+   design until 2026-07-29, which turned every 253x177 card into an ellipse. */
 .digest-source-chip {
   max-width: 100%;
-  padding: 7px 11px;
+  padding: 16px;
   border: 1px solid rgba(8, 127, 115, 0.18);
-  border-radius: 999px;
+  border-radius: 2px;
   color: #475569;
   background: #ffffff;
-  font-size: 0.78rem;
-  font-weight: 800;
+  font-size: 0.86rem;
   overflow-wrap: anywhere;
 }
 
