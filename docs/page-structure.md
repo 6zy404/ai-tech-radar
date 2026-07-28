@@ -373,7 +373,14 @@ Workspace deployment boundary:
     `content` at all, even though the publish gate treats a missing body as
     a blocking error
   - bilingual content reading
-  - source name, publish date, and original link without making long URLs dominate the page
+  - source name, publisher name, publisher type, publish date, and original
+    link without making long URLs dominate the page. The publisher type
+    (大型科技公司 / 创业公司 / 研究实验室 / 开源社区 / 媒体) renders as a
+    hairline chip inside the source row on both `SourceReference` instances —
+    the aside panel and the 来源参考 block at the foot of the article — so a
+    reader can tell a vendor announcement from an open-source release before
+    reading. Added 2026-07-29; the chip is a classification, which is why it
+    is set apart from the publisher _name_ sitting beside it
   - productized priority label and short explanation
   - Content Intelligence modules for why it matters, who should care, technical context, impact areas, reading difficulty, learning path, and follow-up questions
   - tags; the 主题标签 reference panel renders follow-toggle chips
@@ -594,7 +601,11 @@ Forbidden on public pages:
   - each chip also renders a small "查看专题" link to `/topics/[tagId]`
     alongside the follow toggle — the only entry point into the topic hub
 - `SourceReference`
-  - user-facing original source reference section
+  - user-facing original source reference section; the optional
+    `publisherTypeLabel` prop adds the publisher-type chip to the meta row
+    (used by both instances on the technology detail page, absent everywhere
+    else). The meta row is `flex-wrap`, so the chip wraps rather than
+    overflowing on a narrow aside
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`

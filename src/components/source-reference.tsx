@@ -3,6 +3,7 @@ interface SourceReferenceProps {
   sourceName: string;
   sourceUrl: string;
   publisherName?: string;
+  publisherTypeLabel?: string;
   publishDate?: string;
   linkLabel?: string;
   showUrl?: boolean;
@@ -13,6 +14,7 @@ export function SourceReference({
   sourceName,
   sourceUrl,
   publisherName,
+  publisherTypeLabel,
   publishDate,
   linkLabel = "打开原始来源",
   showUrl = false
@@ -23,6 +25,11 @@ export function SourceReference({
       <h2>{sourceName}</h2>
       <div className="source-reference__meta">
         {publisherName ? <span>{publisherName}</span> : null}
+        {publisherTypeLabel ? (
+          <span className="source-reference__publisher-type">
+            {publisherTypeLabel}
+          </span>
+        ) : null}
         {publishDate ? <span>{publishDate}</span> : null}
       </div>
       <a href={sourceUrl} target="_blank" rel="noreferrer">
