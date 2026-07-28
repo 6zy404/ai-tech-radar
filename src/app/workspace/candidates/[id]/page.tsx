@@ -9,10 +9,12 @@ import {
   getImportedCandidateById
 } from "@/lib/candidate-workflow";
 import {
+  buildPublishedSignalFingerprints,
   evaluateCandidateQuality,
   evaluateSourceQuality
 } from "@/lib/quality-signals";
 import { evaluateImportedCandidatePriority } from "@/lib/ranking";
+import { getPublishedTechnologyWorkspaceRecords } from "@/lib/technology-draft-workflow";
 import {
   getExternalSourceById,
   getExternalSourceImportRuns
@@ -41,7 +43,10 @@ export default async function WorkspaceCandidateDetailPage({
   }
 
   const candidateQuality = evaluateCandidateQuality(candidate, {
-    canConvert: getCandidateDraftConversionReadiness(candidate.id).canConvert
+    canConvert: getCandidateDraftConversionReadiness(candidate.id).canConvert,
+    publishedSignals: buildPublishedSignalFingerprints(
+      getPublishedTechnologyWorkspaceRecords()
+    )
   });
   const duplicateGroup = candidate.duplicateGroupId
     ? duplicateGroups.find((group) => group.id === candidate.duplicateGroupId)

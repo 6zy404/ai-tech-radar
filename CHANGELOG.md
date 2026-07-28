@@ -12,6 +12,46 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## `already_published` candidate flag (closing the dedup blind spot)
+
+- **Duplicate detection could not see past its own snapshot** — 2026-07-28.
+  The rules compare a candidate only against `imported-candidates.live.json`,
+  which is a rolling window (40 entries while the review state held 97), so an
+  announcement re-published under a changed URL slug re-enters the pool with no
+  duplicate group once its earlier twin has aged out. That is exactly how the
+  Gemini 3.6 Flash announcement — already published here as
+  `gemini-flash-cyber` — came back on 07-28 looking brand new. The playbook's
+  only guard was a manual check.
+- **The published pool outlives that window, so the check now runs against
+  it** — a new `already_published` (已发布过) candidate quality flag fires when
+  a candidate matches a published signal by normalized source URL **or** by
+  title token similarity ≥ 0.8, reusing the existing deterministic comparison
+  helpers (`normalizeUrlForComparison`, `calculateTokenSimilarity`, both
+  exported from `candidate-duplicate-rules.ts` rather than reimplemented).
+  Additive only, the same shape as the 07-27 `prerelease_version` flag: it
+  renders on `/workspace/candidates` and the editorial-round console and
+  changes **nothing** about import, conversion, or ranking.
+- **The threshold was measured, not guessed** — running the rule over the real
+  40-candidate pool first showed genuine re-publications at 0.8 and 1.0 and the
+  next-highest unrelated candidate at 0.3, with **nothing in between**, so 0.8
+  sits inside a wide gap. The same measurement caught two things a guess would
+  have missed: all four exact-URL matches were candidates matching **the signal
+  they were themselves converted into** (traceability, not duplication — now
+  skipped via `convertedTechnologyId`), and the flag would otherwise feed
+  `ranking.ts`'s `flags.length >= 4` penalty, whose "候选存在多项质量问题"
+  warning would misdescribe it — so that count now excludes this flag, leaving
+  `prerelease_version` behaviour untouched.
+- **A unit test fixture was wrong before the code was** — the flagship test
+  failed at first because the fixture invented a shortened published title
+  (0.75 similarity) instead of the real one. The real candidate title is
+  byte-identical to the published record's `title.original`, differing only in
+  URL hyphenation. Fixtures now mirror the real records. Verified: typecheck,
+  lint, format, vitest **171/171** (11 new tests covering URL matching,
+  tracking-parameter normalization, the slug-variant case, the exact-threshold
+  sibling, the converted-signal exemption, and the recorded latin-token
+  limitation), plus a live pass — the workspace candidate list renders exactly
+  one 已发布过 pill, on the Gemini re-import, matching the measurement.
+
 ## Signal body rendering (the field nobody could read)
 
 - **The technology detail page never rendered `content` at all** —

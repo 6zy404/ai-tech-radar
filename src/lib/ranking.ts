@@ -172,9 +172,16 @@ function applyCandidateQuality(
     }
   }
 
+  // "already_published" says the same announcement is already on the site, not
+  // that this record is defective, so it must not push a candidate over the
+  // multiple-problems threshold — that penalty's warning would misdescribe it.
+  const recordDefectFlagCount = candidateQuality.flags.filter(
+    (flag) => flag !== "already_published"
+  ).length;
+
   if (
     candidateQuality.flags.some((flag) => blockingQualityFlags.has(flag)) ||
-    candidateQuality.flags.length >= 4
+    recordDefectFlagCount >= 4
   ) {
     state.score -= 8;
     state.warnings.push("候选存在多项质量问题。");

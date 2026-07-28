@@ -141,6 +141,7 @@ export type CandidateQualityFlag =
   | "possible_duplicate"
   | "too_short"
   | "prerelease_version"
+  | "already_published"
   | "ready_for_review"
   | "not_convertible";
 
@@ -519,6 +520,7 @@ export interface CandidateQualitySignals {
   isDuplicate: boolean;
   isTooShort: boolean;
   isPrerelease: boolean;
+  isAlreadyPublished: boolean;
   isConvertible: boolean;
   flags: CandidateQualityFlag[];
 }

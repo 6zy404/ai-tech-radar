@@ -112,6 +112,7 @@ Flag values:
 - `possible_duplicate`
 - `too_short`
 - `prerelease_version`
+- `already_published`
 - `ready_for_review`
 - `not_convertible`
 
@@ -121,6 +122,29 @@ pre-release marker on a version-looking token (`v0.32.5-rc0`, `v0.26.0rc1`,
 before — the matching stable tag, and every editorial round so far has
 rejected them by hand. The flag only makes the batch visible; the reject/keep
 judgment stays with the editor.
+
+`already_published` (added 2026-07-28) fires when the same announcement is
+already on the site. It exists because duplicate detection compares only
+against the **rolling candidate snapshot**, so an item re-published under a
+changed URL slug re-enters the pool looking brand new once its earlier twin
+has aged out (see `docs/editorial-round-playbook.md` → "Duplicate detection
+blind spot"). The published pool outlives that window, so the check runs
+against it: a candidate matches on a normalized source URL, or on a title
+token similarity of **0.8 or above** against any of the published record's
+localized titles. Two deliberate boundaries: the signal a candidate was itself
+converted into is skipped (that match is traceability, not duplication), and
+the flag is excluded from `ranking.ts`'s multiple-problems penalty, because it
+describes the site's existing coverage rather than a defect in the record.
+The threshold was measured, not guessed — over the real 40-candidate pool the
+genuine re-publications scored 0.8 and 1.0 while the next-highest unrelated
+candidate scored 0.3. Known limitation: comparison tokens are latin-only, so
+two different all-Chinese titles can never match; imported candidates come
+from English-language feeds, so this costs nothing today.
+
+The check needs published signals passed in
+(`evaluateCandidateQuality(candidate, { publishedSignals })`, built with
+`buildPublishedSignalFingerprints`). Callers that omit them — `ranking.ts`,
+`operations-metrics.ts` — simply never see the flag.
 
 These flags appear only in workspace candidate review surfaces.
 

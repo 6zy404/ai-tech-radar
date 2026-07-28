@@ -112,7 +112,7 @@ Purpose:
     five-phase step tracker (处置候选 / 补内容·发布 / 生成简报 / 发布简报 /
     公开面核对, statuses done / current / todo / blocked), undecided candidates
     with inline 转为草稿 / 拒绝 and their review-blocking quality flags
-    (缺少摘要 / 缺少正文 / 预发布版本 …, added 2026-07-27 so a round can triage
+    (缺少摘要 / 缺少正文 / 预发布版本 / 已发布过 …, added 2026-07-27 so a round can triage
     the batch without opening each candidate detail page; the
     review-readiness-only flags are deliberately left off), an
     open-duplicate-group block notice, drafts

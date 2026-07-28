@@ -39,6 +39,7 @@ export function getCandidateQualityFlagLabel(
     possible_duplicate: "疑似重复",
     too_short: "内容过短",
     prerelease_version: "预发布版本",
+    already_published: "已发布过",
     ready_for_review: "可审核",
     not_convertible: "转换受阻"
   };
@@ -53,7 +54,11 @@ export function getCandidateQualityFlagClass(
     return "info-pill info-pill--success";
   }
 
-  if (flag === "not_convertible" || flag === "possible_duplicate") {
+  if (
+    flag === "not_convertible" ||
+    flag === "possible_duplicate" ||
+    flag === "already_published"
+  ) {
     return "info-pill info-pill--warning";
   }
 

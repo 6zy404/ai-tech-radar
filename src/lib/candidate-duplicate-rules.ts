@@ -9,7 +9,7 @@ export function dedupeDuplicateReasons(
   return Array.from(new Set(reasons));
 }
 
-function normalizeUrlForComparison(url: string): string {
+export function normalizeUrlForComparison(url: string): string {
   try {
     const parsedUrl = new URL(url);
 
@@ -154,7 +154,7 @@ function buildTitleTokenSet(title: string): Set<string> {
   );
 }
 
-function calculateTokenSimilarity(
+export function calculateTokenSimilarity(
   leftTitle: string,
   rightTitle: string
 ): number {
