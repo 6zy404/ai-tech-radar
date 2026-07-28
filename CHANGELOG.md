@@ -12,6 +12,49 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A failed import no longer destroys the source's candidate snapshot
+
+- **The fallback placeholder was replacing real candidates, not joining them**
+  — 2026-07-29, fixing the data-loss path recorded in
+  `docs/editorial-round-playbook.md` on 07-28. A manual single-source import
+  falls back to one synthetic `fallback`-tagged candidate when the live fetch
+  fails, and `mergeImportedCandidatesForSource` replaced that source's entries
+  wholesale — so a failed re-run traded every real candidate the source had for
+  the placeholder. It cost a recovered `Ollama v0.32.5` candidate for real, and
+  the snapshot had to be restored from the previous commit.
+- **Only the failure path changed.** The success path still replaces, and that
+  is deliberate: a live feed is the current truth, and the snapshot is a
+  rolling window whose entries age out while `candidate-review-state.json`
+  keeps every decision (40 snapshot candidates against 104 review entries on
+  the day this was fixed). What is wrong is trading real rows for a synthetic
+  one _because the fetch failed_. `mergeImportedCandidatesForSource` gained a
+  `preserveExistingCandidates` option, passed only from the fallback branch of
+  `runImportForSource`.
+- **Repeated failures do not stack placeholders.** The placeholder id embeds
+  the date, so a second failure on another day would otherwise add a
+  near-identical row; every placeholder carries the source's own feed URL
+  rather than an item URL, so the merge skips an incoming candidate whose id
+  **or** source URL already exists for that source. The source record's
+  `itemCount` is recomputed in this branch too, since the caller sized it from
+  the incoming batch alone.
+- **The merge rules moved into a pure core** — `buildMergedCandidateSnapshot`
+  takes the snapshot, the record, the batch and a `syncedAt` and returns the
+  next snapshot with no file I/O and no clock of its own;
+  `mergeImportedCandidatesForSource` is now the thin read/write wrapper. Same
+  pure-core-plus-wrapper shape as `reading-state.ts` and
+  `link-relation-workflow.ts`.
+- **Verified by reproducing the loss first.** An isolated `LOCAL_DATA_DIR`
+  probe seeded a source with two real candidates and ran a real import against
+  an unreachable host: on the reverted code the snapshot came back holding
+  **only** `['candidate-source-probe-source-2026-07-28']` — both real
+  candidates gone, exactly the 07-28 incident — and on the fixed code it holds
+  both plus one placeholder, with `itemCount` 3. Also: typecheck, lint, format,
+  vitest **181/181** (10 new tests covering the replace default, preservation,
+  the same-feed-URL placeholder skip, id collision, other sources staying
+  untouched, `itemCount` in both modes, sort order and input immutability), and
+  `validate:sources` / `candidates` / `persistence` / `tasks` / `duplicates` /
+  `quality`.
+
 ## Publisher type rendered, translation status corrected
 
 - **The remaining payload-without-render gap was closed unevenly, because the

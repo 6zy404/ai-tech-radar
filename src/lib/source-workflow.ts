@@ -812,7 +812,11 @@ export async function runImportForSource(
         `实时导入失败；已使用本地回退。${message}`
       );
 
-      mergeImportedCandidatesForSource(sourceRecord, fallbackCandidates);
+      // A failed import must not cost the source the candidates an earlier
+      // successful run captured; the placeholder is appended, not swapped in.
+      mergeImportedCandidatesForSource(sourceRecord, fallbackCandidates, {
+        preserveExistingCandidates: true
+      });
 
       const updatedSource = updateSourceImportState(
         source.id,

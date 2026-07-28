@@ -280,26 +280,31 @@ for the full forbidden-field list.
   file — bundled seed code referencing a runtime-generated `*-ws-*` id is the
   coupling that produced the 2026-07-28 sqlite parity failure.
 
-## Never re-run a manual import while the source is unreachable (2026-07-28)
+## Re-running a manual import against an unreachable source (fixed 2026-07-29)
 
 A manual single-source import (`POST /api/workspace/sources/{id}/import`, or
 the `Import` button) falls back to a **placeholder candidate** when the live
-fetch fails — and `mergeImportedCandidatesForSource` **replaces** that
-source's entries in the snapshot rather than appending to them. So a failed
-manual re-run does not just "not help": it wipes that source's real candidates
-out of the snapshot and leaves a single `fallback`-tagged placeholder in their
-place.
+fetch fails. Until 2026-07-29 `mergeImportedCandidatesForSource` **replaced**
+that source's entries in the snapshot, so a failed manual re-run did not just
+"not help": it wiped that source's real candidates and left a single
+`fallback`-tagged placeholder in their place. This was hit for real — a
+recovered `Ollama v0.32.5` candidate was replaced by a placeholder when a
+later re-run failed, and the snapshot had to be restored from the previous
+commit.
 
-This was hit for real: a recovered `Ollama v0.32.5` candidate was replaced by
-a placeholder when a later re-run failed. Nothing was permanently lost — the
-feed still lists the release, so the next successful import recreates it under
-the same deterministic id, and the snapshot was restored from the previous
-commit — but the queue had to be cleaned up by hand.
+**Fixed**: the fallback path now merges with `preserveExistingCandidates`, so
+the placeholder is appended and nothing already captured is dropped. The
+success path still replaces, deliberately — a live feed is the current truth,
+and the snapshot is a rolling window whose entries age out while
+`candidate-review-state.json` keeps every decision. Repeated failures do not
+stack placeholders: they all carry the source's own feed URL, so the merge
+skips a second one.
 
-Check connectivity first (a plain `node -e "fetch(url)"`, **not** `curl` —
-see `docs/deployment.md` on the proxy difference), and only re-run the import
-once the host actually answers. The scheduled runner is not affected: it
-imports with `useFallbackOnFailure: false`.
+Still worth checking connectivity first (a plain `node -e "fetch(url)"`,
+**not** `curl` — see `docs/deployment.md` on the proxy difference), because a
+re-run against an unreachable host still costs the source a `partial` health
+status and adds a placeholder row to triage. The scheduled runner is not
+affected either way: it imports with `useFallbackOnFailure: false`.
 
 ## Duplicate detection blind spot (found 2026-07-28)
 

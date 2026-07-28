@@ -1,6 +1,33 @@
 # Next Task
 
-> Update 2026-07-29 (latest): **公开面渲染缺口已收尾 —— 但取证把推荐翻转了.**
+> Update 2026-07-29 (latest, same session): **失败的导入不再毁掉候选快照.**
+> 修的是 07-28 记在 playbook 里的那条数据丢失路径。手工单源导入在实时抓取失败
+> 时会写一条 `fallback` 占位候选，而 `mergeImportedCandidatesForSource` 是
+> **整体替换**该源的条目——于是一次失败的重跑，等于拿该源全部真实候选换来一条
+> 占位符。上次真的因此丢过刚捞回的 `Ollama v0.32.5`，只能从上一个提交恢复快照。
+> **只改失败那条路径**。成功路径**仍然是替换**，这是刻意的：实时 feed 就是当前
+> 真相，快照本来就是滚动窗口、旧条目自然滚出去，而每一个处置决定都留在
+> `candidate-review-state.json` 里（修复当天：快照 40 条，评审状态 104 条）。
+> 错的是「因为抓取失败」而拿真实数据换合成数据。
+> **重复失败不会堆占位符**：占位符 id 里带日期，换一天会生成新 id；但所有占位符
+> 都带**源自己的 feed URL**（不是条目 URL），所以合并时按 id **或** sourceUrl
+> 命中即跳过。该分支还会重算 `itemCount`，因为调用方是按传入批次算的。
+> **顺手把合并规则抽成纯核心**：`buildMergedCandidateSnapshot` 收快照 / 源记录 /
+> 批次 / `syncedAt`，返回新快照，无文件 IO、无自带时钟；原函数退化成读写外壳。
+> 与 `reading-state.ts`、`link-relation-workflow.ts` 同一形状。
+> **验证方式是先把丢失复现出来**：用隔离 `LOCAL_DATA_DIR` 造一个带 2 条真实候选
+> 的源，对不可达主机跑真实导入——**回退到旧代码后快照只剩**
+> `['candidate-source-probe-source-2026-07-28']`（两条真实候选全没了，正是 07-28
+> 那次事故），换回修复后则两条都在、外加 1 条占位符、`itemCount` 为 3。
+> 另：typecheck / lint / format / vitest **181/181**（新增 10 条，覆盖默认替换、
+> 保留、同 feed URL 占位符跳过、id 撞车、其他源不受影响、两种模式下的
+> `itemCount`、排序与入参不可变），`validate:sources · candidates · persistence ·
+tasks · duplicates · quality` 全绿。
+> **过程记录**：第一次"弄坏它"验证用 python 改文件**静默失败了**（退出码 49），
+> 探针照常通过——差点据此得出"测试没用"的错误结论。改用 node 改写后才真的复现。
+> 教训与 07-27 同源：**验证工具本身也要验证它确实生效了**。
+
+> Update 2026-07-29 (earlier, same session): **公开面渲染缺口已收尾 —— 但取证把推荐翻转了.**
 > owner 选了「公开面渲染缺口」，我的原计划是把 `translationStatus` 做成
 > 「已翻译 / 原文」提示。**先量后做，结论反了**：
 > **① 那个字段本身是错的。** 31 条已发布信号里 **6 条**写着 `pending`，而标题、
