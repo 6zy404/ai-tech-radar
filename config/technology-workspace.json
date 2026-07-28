@@ -1,6 +1,100 @@
 {
-  "updatedAt": "2026-07-28T10:15:12.633Z",
+  "updatedAt": "2026-07-28T12:54:53.798Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "slug": "kimi-k3",
+      "title": {
+        "original": "Kimi K3, and what we can still learn from the pelican benchmark",
+        "zh": "Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重"
+      },
+      "summary": {
+        "original": "Moonshot AI announces Kimi K3, a 2.8-trillion-parameter flagship with an open-weight release promised by July 27 — the first 'open 3T-class' model. Third-party evaluation (Artificial Analysis) puts it behind only Claude Fable 5 on long-horizon knowledge work, at a cost per task comparable to GPT-5.6 Sol.",
+        "zh": "Moonshot AI 发布 Kimi K3：2.8 万亿参数旗舰，承诺 7 月 27 日前开放权重——将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。第三方评测（Artificial Analysis）显示其长时程知识工作 Elo 仅次于 Claude Fable 5，单任务成本与 GPT-5.6 Sol 同档、约为 Opus 4.8 的一半。"
+      },
+      "content": {
+        "original": "Moonshot AI announced Kimi K3, described as their most capable model to date at 2.8 trillion parameters, available via their website and API with an open-weight release promised by July 27, 2026 — which would make it the first 'open 3T-class' model, taking the scale crown from DeepSeek's 1.6T v4 Pro. Self-reported benchmarks have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high while losing to Claude Fable 5 and GPT-5.6 Sol. Artificial Analysis reports a long-horizon knowledge-work Elo of 1547 (+732 over K2.6, behind only Claude Fable 5), cost per task of $0.94 (similar to GPT-5.6 Sol's $1.04, about half of Opus 4.8's $1.80, higher than open-weight peers), and 21% fewer output tokens than K2.6. The model also now leads Arena.ai's Frontend Code arena.",
+        "zh": "Moonshot AI（月之暗面）发布 Kimi K3，称其为迄今最强模型：2.8 万亿参数，已通过官网与 API 提供，并承诺在 2026 年 7 月 27 日前开放权重——届时它将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。自报基准显示 K3 大多超过 Claude Opus 4.8 max 与 GPT-5.5 high，弱于 Claude Fable 5 与 GPT-5.6 Sol。\n\n更有信息量的是第三方数据。Artificial Analysis 的评测报告给出三个关键点：长时程知识工作评测 Elo 达 1547，比上一代 K2.6 提升 732 分，仅次于 Claude Fable 5；单任务成本 $0.94，与 GPT-5.6 Sol（$1.04）同档，约为 Opus 4.8（$1.80）的一半，但高于其他开放权重模型；输出 token 用量比 K2.6 减少 21%——「智能密度」竞争同样在开源阵营发生。该模型还登顶了 Arena.ai 的 Frontend Code 竞技场。\n\n原文作者 Simon Willison 借这次发布重申了他的「鹈鹕骑车基准」的价值：在官方基准普遍被针对性优化的当下，简单、意外、难以刷分的民间测试反而保留了独立的信息量。对模型选型者而言，这次发布的实际意义是：若开放权重如期兑现，闭源与开源旗舰的能力差距将进一步收窄，而单任务成本已经站到了同一价格带。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-16",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Moonshot AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-28T12:54:53.798Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源权重前沿竞赛可能迎来新王座：若 7 月 27 日如约开放权重，K3 将是首个「3T 级」开放模型，且单任务成本已与 GPT-5.6 Sol 同档。闭源与开源的能力差距进一步收窄，「模型选型的默认答案」需要重新计算——尤其对可以自托管的团队。",
+      "whoShouldCare": [
+        "负责模型选型与成本核算的团队",
+        "关注开放权重生态的研究者与自托管用户",
+        "评测与基准工程师"
+      ],
+      "technicalContext": "读这类发布要区分三层证据：厂商自报基准（普遍被针对性优化）、第三方系统评测（Artificial Analysis 的长时程 Elo 与单任务成本）、以及难以刷分的民间测试（Willison 的鹈鹕骑车基准）。K3 的输出 token 用量下降 21% 说明前沿竞争的重心正从纯能力转向单位算力与单位成本的智能密度——与 GPT-5.6 的主打方向相同。官方尚未详述架构细节（如是否 MoE、激活参数量）。",
+      "impactAreas": [
+        "开源模型生态",
+        "模型选型",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先读「模型选型与约束匹配」，理解单任务成本比每 token 价格更接近真实决策变量",
+        "对照 Inkling（开源万亿 MoE）理解开放权重阵营的规模化路径",
+        "用一个自己领域的小评测集交叉验证自报基准与第三方数据"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "单任务成本 $0.94 与 GPT-5.6 Sol 同档——模型选型的约束匹配正在从「谁更强」转向「同价位谁更合适」。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "K3 的发布是该技能的典型练习场：自报基准、第三方 Elo、民间鹈鹕测试三层证据需要交叉解读，而不是读一张官方对比表。"
+      },
+      "followUpQuestions": [
+        "开放权重是否在 7 月 27 日如期兑现？采用什么许可证？",
+        "架构细节（是否 MoE、激活参数量）公布后，自托管的真实算力门槛是多少？",
+        "开放后第三方复测能否复现自报与 Artificial Analysis 的结果？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "createdAt": "2026-07-21T05:07:29.020Z",
+      "updatedAt": "2026-07-28T12:54:53.798Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：来源为第三方深度分析（Simon Willison），Moonshot 官方发布页为一手出处；开放权重承诺日期 2026-07-27 待验证，正文明确标注了自报与第三方数据的边界。"
+      ],
+      "relatedTechnologyIds": []
+    },
     {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "slug": "ollama-v0-32-4",
@@ -39,7 +133,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-a9e80194",
-        "skill-ws-d7c9d1d8"
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a"
       ],
       "sourceReferences": [],
       "priority": {
@@ -57,7 +152,7 @@
           "编辑标记为一般信号，归入值得跟踪。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-28T10:15:12.633Z",
+        "rankingUpdatedAt": "2026-07-28T12:54:53.695Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
@@ -94,7 +189,7 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "createdAt": "2026-07-27T01:43:12.851Z",
-      "updatedAt": "2026-07-28T10:15:12.633Z",
+      "updatedAt": "2026-07-28T12:54:53.695Z",
       "editorialNotes": [
         "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。",
         "2026-07-28 轮：v0.32.5 标记为已看不选（正文仅一行 MLX Metal 修复，同 v0.32.3 的补丁先例），改为在本条正文顶部补更正段——因为它修的是本条头条的 MLX Laguna 路径。同批次 vLLM v0.26.1rc0 按预发布规则拒绝。"
@@ -143,7 +238,8 @@
         "skill-ws-a9e80194",
         "skill-ws-84837d46",
         "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-ws-7796779a"
       ],
       "sourceReferences": [],
       "priority": {
@@ -161,7 +257,7 @@
           "编辑标记为关键重要性，直接归入立即关注。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T16:57:30.466Z",
+        "rankingUpdatedAt": "2026-07-28T12:54:53.591Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
@@ -198,9 +294,314 @@
       "intelligenceStatus": "reviewed",
       "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "createdAt": "2026-07-19T03:20:48.051Z",
-      "updatedAt": "2026-07-27T16:57:30.466Z",
+      "updatedAt": "2026-07-28T12:54:53.591Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "slug": "vllm-v0-25-0",
+      "title": {
+        "original": "vLLM v0.25.0",
+        "zh": "vLLM v0.25.0：Model Runner V2 成为默认执行引擎的大版本"
+      },
+      "summary": {
+        "original": "vLLM v0.25.0 ships 558 commits from 232 contributors. Model Runner V2 becomes the default for all dense models, building on the quantized-model support introduced in the previous release.",
+        "zh": "vLLM 发布 v0.25.0：558 个提交、232 位贡献者参与的大版本。Model Runner V2 正式成为所有稠密模型的默认执行引擎，在上一版本量化模型支持的基础上完成了推理执行栈的代际切换。"
+      },
+      "content": {
+        "original": "vLLM v0.25.0 makes Model Runner V2 the default for all dense models, marking the completion of a major execution-stack transition that started with quantized-model support in v0.24. The release aggregates 558 commits from 232 contributors (64 new).",
+        "zh": "vLLM v0.25.0 是推理执行栈切换的收官版本：Model Runner V2（MRv2）正式成为所有稠密模型的默认执行引擎。这次发布汇集了 558 个提交、232 位贡献者（其中 64 位是新贡献者），延续了上一个版本（v0.24.0）打下的量化模型支持基础。\n\n对使用者来说，这是一次「默认值变更」级别的升级：过去需要显式开启的新执行引擎，现在开箱即用。执行引擎决定了批处理调度、KV 缓存管理和算子路径，直接影响吞吐与延迟表现，因此升级前后值得用自己的真实负载做一轮基准对比，而不是只看官方数字。\n\n结合同期 Hugging Face 宣布 Transformers 后端在 vLLM 中达到原生速度，可以看到开源推理生态正在收敛：vLLM 负责极致的服务优化，模型实现层则越来越多地交给标准化的建模库。对自建推理服务的团队而言，vLLM 的大版本节奏（v0.24 → v0.25 两个月内完成执行栈切换）本身就是一个值得跟踪的信号。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-11",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.25.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-system-design",
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-28T12:54:53.476Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理引擎的默认执行栈切换会直接改变吞吐、延迟和 GPU 成本曲线。vLLM 是目前自建大模型服务最主流的开源选择，它的大版本升级几乎影响所有自托管推理团队。",
+      "whoShouldCare": [
+        "推理平台与服务工程师",
+        "关注 GPU 成本的 MLOps 负责人",
+        "自托管开源模型的技术团队"
+      ],
+      "technicalContext": "Model Runner V2 是 vLLM 重写的模型执行层，负责调度、KV 缓存与算子路径。v0.24 先以量化模型为试点，v0.25 将其推广为全部稠密模型的默认值——这是典型的「灰度到默认」的执行栈迁移路径。",
+      "impactAreas": [
+        "自托管模型推理服务",
+        "GPU 成本与容量规划",
+        "开源推理生态标准化"
+      ],
+      "learningPath": [
+        "先理解推理引擎在服务栈中的位置：模型实现、执行引擎、服务编排各自负责什么",
+        "用官方文档跑通 vLLM 的基本部署，观察吞吐与显存占用",
+        "在自己的真实负载上对比 v0.24 与 v0.25 的表现，验证默认值变更的影响"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "执行引擎升级改变了同一张卡能服务的模型规模与并发上限，模型规模直觉是评估这次升级收益的基础。",
+        "knowledge-system-design": "MRv2 的灰度到默认路径是系统级组件迁移的典型案例：先在子集验证，再切换默认值。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "版本升级前后的基准对比（吞吐、P99 延迟、显存）是判断是否跟进的直接依据。",
+        "skill-scope-pilots": "对生产推理服务，先在非关键流量上试点新版本，再决定全量升级。"
+      },
+      "followUpQuestions": [
+        "MRv2 对 MoE 与多模态模型的支持进度如何？",
+        "你的负载在 v0.25 上的吞吐/延迟变化是多少？",
+        "Transformers 后端与原生实现在你的目标模型上还有差距吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "createdAt": "2026-07-13T08:00:47.504Z",
+      "updatedAt": "2026-07-28T12:54:53.476Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 GitHub release notes 编写。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "slug": "vllm-v0-26-0",
+      "title": {
+        "original": "vLLM v0.26.0",
+        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
+        "en": "vLLM v0.26.0"
+      },
+      "summary": {
+        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
+        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
+      },
+      "content": {
+        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
+        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-28T12:54:53.369Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
+      "whoShouldCare": [
+        "自建或自运维推理服务的平台团队",
+        "需要在本地评估新开源模型的算法与评测团队",
+        "关注 MoE 与推测解码落地成本的架构师"
+      ],
+      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
+      "impactAreas": [
+        "推理服务容量规划",
+        "开源模型选型周期",
+        "MoE 架构的部署成本",
+        "解码吞吐优化"
+      ],
+      "learningPath": [
+        "先理解 MoE 架构为什么让图捕获和量化变复杂",
+        "再看推测解码如何用草稿模型换解码吞吐",
+        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
+        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
+        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
+        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
+      },
+      "followUpQuestions": [
+        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
+        "MTP=1 推测解码对长上下文任务的加速比是多少？",
+        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "createdAt": "2026-07-27T01:43:12.721Z",
+      "updatedAt": "2026-07-28T12:54:53.369Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
+        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "slug": "vllm-transformers-native-backend",
+      "title": {
+        "original": "Native-speed vLLM transformers modeling backend",
+        "zh": "vLLM 的 Transformers 后端达到原生速度：450+ 架构免移植高性能推理"
+      },
+      "summary": {
+        "original": "The transformers modeling backend in vLLM now meets or beats vLLM's hand-written native implementations across dense and MoE Qwen3 models. Model authors get ultra-fast vLLM inference from their transformers implementation with a single --model-impl transformers flag.",
+        "zh": "Hugging Face 与 vLLM 宣布：vLLM 中的 Transformers 建模后端在 Qwen3 4B/32B 稠密模型和 235B FP8 MoE 上全面追平甚至反超 vLLM 手写原生实现。模型作者只需一个 --model-impl transformers 开关，就能让 Transformers 实现直接获得 vLLM 级推理性能，无需移植。"
+      },
+      "content": {
+        "original": "Hugging Face benchmarked the transformers modeling backend against vLLM native implementations across three Qwen3 models (4B dense single GPU, 32B dense tensor-parallel, 235B FP8 MoE on 8xH100). The backend now meets or beats native throughput in all three, composing with the usual parallelism options.",
+        "zh": "Transformers 库支持 450 多种模型架构，长期扮演着「参考建模库」的角色：模型作者先在 Transformers 里实现，再由 vLLM、SGLang、MLX、llama.cpp 等推理框架逐个移植。去年 vLLM 集成了 Transformers 作为建模后端，让模型无需移植即可运行——但性能一直落后于手写原生实现。\n\n这次的更新改变了这一点。Hugging Face 在三个差异很大的 Qwen3 模型上做了头对头对比：单卡 4B 稠密模型、张量并行的 32B 稠密模型、以及 8×H100 上数据并行 + 专家并行的 235B FP8 MoE。结果是 Transformers 后端在全部三档上追平或反超原生实现。使用方式只是一个开关（--model-impl transformers），与现有并行配置完全兼容；目前的例外是线性注意力类模型（官方表示即将支持）。\n\n这件事的生态意义大于单点性能：模型实现只需写一次 Transformers 版本，就能同时获得可读的参考实现和生产级推理性能，「参考实现 vs 高性能实现」的二选一正在消失。对推理团队来说，新架构模型的可用时间差（Transformers 先可用、vLLM 原生实现晚数周）也随之消失。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-08",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "startup",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-68963f7f"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-tool-integration",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-28T12:54:53.257Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它消除了「参考实现」与「高性能实现」之间的移植成本：新模型在 Transformers 里实现一次，就能立即以 vLLM 级性能上线。这会显著缩短新架构从发布到可生产部署的时间差。",
+      "whoShouldCare": [
+        "跟进新模型架构的推理工程师",
+        "维护自有模型实现的模型作者",
+        "评估推理框架选型的平台团队"
+      ],
+      "technicalContext": "Transformers 提供建模代码（前向计算与权重定义），vLLM 提供连续批处理、自定义注意力内核等服务优化，两者通过 --model-impl 契约组合。基准对比在相同服务配置下只切换代码路径（native / transformers before / after）。",
+      "impactAreas": [
+        "新模型的上线周期",
+        "推理框架选型",
+        "开源建模库生态分工"
+      ],
+      "learningPath": [
+        "理解建模库与推理引擎的分工：模型实现、执行优化分别在哪一层",
+        "用 --model-impl transformers 与原生实现各跑一次相同负载，对比吞吐",
+        "跟踪线性注意力等尚未支持的架构类型的进展"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "--model-impl 是典型的接口契约：只要 Transformers 实现符合约定，vLLM 的优化就自动生效。",
+        "knowledge-latency-tradeoffs": "后端切换是否影响你的延迟分布，需要用真实负载验证而不是只看吞吐峰值。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "头对头基准（相同配置、只换代码路径）是这类「性能追平」声明的标准验证方法。",
+        "skill-tool-integration": "一个开关接入的集成方式值得学习：不改变现有服务编排，只切换实现层。"
+      },
+      "followUpQuestions": [
+        "你在用的模型架构是否在 450+ 支持列表里？",
+        "线性注意力模型的支持何时落地？",
+        "SGLang、MLX 等其他推理框架会跟进类似的后端模式吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "createdAt": "2026-07-13T08:00:48.467Z",
+      "updatedAt": "2026-07-28T12:54:53.257Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 Hugging Face 博客（经 hf-mirror 镜像访问）编写。"
       ],
       "relatedTechnologyIds": []
     },
@@ -313,99 +714,6 @@
       "editorialNotes": [
         "Generated from imported candidate candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber.",
         "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "slug": "kimi-k3",
-      "title": {
-        "original": "Kimi K3, and what we can still learn from the pelican benchmark",
-        "zh": "Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重"
-      },
-      "summary": {
-        "original": "Moonshot AI announces Kimi K3, a 2.8-trillion-parameter flagship with an open-weight release promised by July 27 — the first 'open 3T-class' model. Third-party evaluation (Artificial Analysis) puts it behind only Claude Fable 5 on long-horizon knowledge work, at a cost per task comparable to GPT-5.6 Sol.",
-        "zh": "Moonshot AI 发布 Kimi K3：2.8 万亿参数旗舰，承诺 7 月 27 日前开放权重——将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。第三方评测（Artificial Analysis）显示其长时程知识工作 Elo 仅次于 Claude Fable 5，单任务成本与 GPT-5.6 Sol 同档、约为 Opus 4.8 的一半。"
-      },
-      "content": {
-        "original": "Moonshot AI announced Kimi K3, described as their most capable model to date at 2.8 trillion parameters, available via their website and API with an open-weight release promised by July 27, 2026 — which would make it the first 'open 3T-class' model, taking the scale crown from DeepSeek's 1.6T v4 Pro. Self-reported benchmarks have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high while losing to Claude Fable 5 and GPT-5.6 Sol. Artificial Analysis reports a long-horizon knowledge-work Elo of 1547 (+732 over K2.6, behind only Claude Fable 5), cost per task of $0.94 (similar to GPT-5.6 Sol's $1.04, about half of Opus 4.8's $1.80, higher than open-weight peers), and 21% fewer output tokens than K2.6. The model also now leads Arena.ai's Frontend Code arena.",
-        "zh": "Moonshot AI（月之暗面）发布 Kimi K3，称其为迄今最强模型：2.8 万亿参数，已通过官网与 API 提供，并承诺在 2026 年 7 月 27 日前开放权重——届时它将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。自报基准显示 K3 大多超过 Claude Opus 4.8 max 与 GPT-5.5 high，弱于 Claude Fable 5 与 GPT-5.6 Sol。\n\n更有信息量的是第三方数据。Artificial Analysis 的评测报告给出三个关键点：长时程知识工作评测 Elo 达 1547，比上一代 K2.6 提升 732 分，仅次于 Claude Fable 5；单任务成本 $0.94，与 GPT-5.6 Sol（$1.04）同档，约为 Opus 4.8（$1.80）的一半，但高于其他开放权重模型；输出 token 用量比 K2.6 减少 21%——「智能密度」竞争同样在开源阵营发生。该模型还登顶了 Arena.ai 的 Frontend Code 竞技场。\n\n原文作者 Simon Willison 借这次发布重申了他的「鹈鹕骑车基准」的价值：在官方基准普遍被针对性优化的当下，简单、意外、难以刷分的民间测试反而保留了独立的信息量。对模型选型者而言，这次发布的实际意义是：若开放权重如期兑现，闭源与开源旗舰的能力差距将进一步收窄，而单任务成本已经站到了同一价格带。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-16",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Moonshot AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-dddaf80c"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T10:19:53.147Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源权重前沿竞赛可能迎来新王座：若 7 月 27 日如约开放权重，K3 将是首个「3T 级」开放模型，且单任务成本已与 GPT-5.6 Sol 同档。闭源与开源的能力差距进一步收窄，「模型选型的默认答案」需要重新计算——尤其对可以自托管的团队。",
-      "whoShouldCare": [
-        "负责模型选型与成本核算的团队",
-        "关注开放权重生态的研究者与自托管用户",
-        "评测与基准工程师"
-      ],
-      "technicalContext": "读这类发布要区分三层证据：厂商自报基准（普遍被针对性优化）、第三方系统评测（Artificial Analysis 的长时程 Elo 与单任务成本）、以及难以刷分的民间测试（Willison 的鹈鹕骑车基准）。K3 的输出 token 用量下降 21% 说明前沿竞争的重心正从纯能力转向单位算力与单位成本的智能密度——与 GPT-5.6 的主打方向相同。官方尚未详述架构细节（如是否 MoE、激活参数量）。",
-      "impactAreas": [
-        "开源模型生态",
-        "模型选型",
-        "推理成本"
-      ],
-      "learningPath": [
-        "先读「模型选型与约束匹配」，理解单任务成本比每 token 价格更接近真实决策变量",
-        "对照 Inkling（开源万亿 MoE）理解开放权重阵营的规模化路径",
-        "用一个自己领域的小评测集交叉验证自报基准与第三方数据"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "单任务成本 $0.94 与 GPT-5.6 Sol 同档——模型选型的约束匹配正在从「谁更强」转向「同价位谁更合适」。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "K3 的发布是该技能的典型练习场：自报基准、第三方 Elo、民间鹈鹕测试三层证据需要交叉解读，而不是读一张官方对比表。"
-      },
-      "followUpQuestions": [
-        "开放权重是否在 7 月 27 日如期兑现？采用什么许可证？",
-        "架构细节（是否 MoE、激活参数量）公布后，自托管的真实算力门槛是多少？",
-        "开放后第三方复测能否复现自报与 Artificial Analysis 的结果？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "createdAt": "2026-07-21T05:07:29.020Z",
-      "updatedAt": "2026-07-27T10:19:53.147Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：来源为第三方深度分析（Simon Willison），Moonshot 官方发布页为一手出处；开放权重承诺日期 2026-07-27 待验证，正文明确标注了自报与第三方数据的边界。"
       ],
       "relatedTechnologyIds": []
     },
@@ -714,106 +1022,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-      "slug": "vllm-v0-25-0",
-      "title": {
-        "original": "vLLM v0.25.0",
-        "zh": "vLLM v0.25.0：Model Runner V2 成为默认执行引擎的大版本"
-      },
-      "summary": {
-        "original": "vLLM v0.25.0 ships 558 commits from 232 contributors. Model Runner V2 becomes the default for all dense models, building on the quantized-model support introduced in the previous release.",
-        "zh": "vLLM 发布 v0.25.0：558 个提交、232 位贡献者参与的大版本。Model Runner V2 正式成为所有稠密模型的默认执行引擎，在上一版本量化模型支持的基础上完成了推理执行栈的代际切换。"
-      },
-      "content": {
-        "original": "vLLM v0.25.0 makes Model Runner V2 the default for all dense models, marking the completion of a major execution-stack transition that started with quantized-model support in v0.24. The release aggregates 558 commits from 232 contributors (64 new).",
-        "zh": "vLLM v0.25.0 是推理执行栈切换的收官版本：Model Runner V2（MRv2）正式成为所有稠密模型的默认执行引擎。这次发布汇集了 558 个提交、232 位贡献者（其中 64 位是新贡献者），延续了上一个版本（v0.24.0）打下的量化模型支持基础。\n\n对使用者来说，这是一次「默认值变更」级别的升级：过去需要显式开启的新执行引擎，现在开箱即用。执行引擎决定了批处理调度、KV 缓存管理和算子路径，直接影响吞吐与延迟表现，因此升级前后值得用自己的真实负载做一轮基准对比，而不是只看官方数字。\n\n结合同期 Hugging Face 宣布 Transformers 后端在 vLLM 中达到原生速度，可以看到开源推理生态正在收敛：vLLM 负责极致的服务优化，模型实现层则越来越多地交给标准化的建模库。对自建推理服务的团队而言，vLLM 的大版本节奏（v0.24 → v0.25 两个月内完成执行栈切换）本身就是一个值得跟踪的信号。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-11",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.25.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "vLLM Project",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-system-design",
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-scope-pilots"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T08:07:43.316Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "推理引擎的默认执行栈切换会直接改变吞吐、延迟和 GPU 成本曲线。vLLM 是目前自建大模型服务最主流的开源选择，它的大版本升级几乎影响所有自托管推理团队。",
-      "whoShouldCare": [
-        "推理平台与服务工程师",
-        "关注 GPU 成本的 MLOps 负责人",
-        "自托管开源模型的技术团队"
-      ],
-      "technicalContext": "Model Runner V2 是 vLLM 重写的模型执行层，负责调度、KV 缓存与算子路径。v0.24 先以量化模型为试点，v0.25 将其推广为全部稠密模型的默认值——这是典型的「灰度到默认」的执行栈迁移路径。",
-      "impactAreas": [
-        "自托管模型推理服务",
-        "GPU 成本与容量规划",
-        "开源推理生态标准化"
-      ],
-      "learningPath": [
-        "先理解推理引擎在服务栈中的位置：模型实现、执行引擎、服务编排各自负责什么",
-        "用官方文档跑通 vLLM 的基本部署，观察吞吐与显存占用",
-        "在自己的真实负载上对比 v0.24 与 v0.25 的表现，验证默认值变更的影响"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "执行引擎升级改变了同一张卡能服务的模型规模与并发上限，模型规模直觉是评估这次升级收益的基础。",
-        "knowledge-system-design": "MRv2 的灰度到默认路径是系统级组件迁移的典型案例：先在子集验证，再切换默认值。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "版本升级前后的基准对比（吞吐、P99 延迟、显存）是判断是否跟进的直接依据。",
-        "skill-scope-pilots": "对生产推理服务，先在非关键流量上试点新版本，再决定全量升级。"
-      },
-      "followUpQuestions": [
-        "MRv2 对 MoE 与多模态模型的支持进度如何？",
-        "你的负载在 v0.25 上的吞吐/延迟变化是多少？",
-        "Transformers 后端与原生实现在你的目标模型上还有差距吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-      "createdAt": "2026-07-13T08:00:47.504Z",
-      "updatedAt": "2026-07-27T08:07:43.316Z",
-      "editorialNotes": [
-        "2026-07-13 内容轮：从定时导入候选转正；正文基于 GitHub release notes 编写。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
       ]
     },
     {
@@ -1214,111 +1422,6 @@
         "2026-07-27 轮：与 07-10 已发布的 Copilot 代码审查复盘同源，两条共同构成「模型之外的工程层才是差异所在」这一主题。"
       ],
       "relatedTechnologyIds": []
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "slug": "vllm-v0-26-0",
-      "title": {
-        "original": "vLLM v0.26.0",
-        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
-        "en": "vLLM v0.26.0"
-      },
-      "summary": {
-        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
-        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
-      },
-      "content": {
-        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
-        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "vLLM Project",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f",
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:43:26.360Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
-      "whoShouldCare": [
-        "自建或自运维推理服务的平台团队",
-        "需要在本地评估新开源模型的算法与评测团队",
-        "关注 MoE 与推测解码落地成本的架构师"
-      ],
-      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
-      "impactAreas": [
-        "推理服务容量规划",
-        "开源模型选型周期",
-        "MoE 架构的部署成本",
-        "解码吞吐优化"
-      ],
-      "learningPath": [
-        "先理解 MoE 架构为什么让图捕获和量化变复杂",
-        "再看推测解码如何用草稿模型换解码吞吐",
-        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
-        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
-        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
-        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
-      },
-      "followUpQuestions": [
-        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
-        "MTP=1 推测解码对长上下文任务的加速比是多少？",
-        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "createdAt": "2026-07-27T01:43:12.721Z",
-      "updatedAt": "2026-07-27T02:43:26.360Z",
-      "editorialNotes": [
-        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
-        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
-      ]
     },
     {
       "id": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
@@ -2002,101 +2105,6 @@
       "updatedAt": "2026-07-21T02:11:44.040Z",
       "editorialNotes": [
         "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；披露文写作时客户数据影响评估仍在进行，该不确定性保留在正文表述中。"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-      "slug": "vllm-transformers-native-backend",
-      "title": {
-        "original": "Native-speed vLLM transformers modeling backend",
-        "zh": "vLLM 的 Transformers 后端达到原生速度：450+ 架构免移植高性能推理"
-      },
-      "summary": {
-        "original": "The transformers modeling backend in vLLM now meets or beats vLLM's hand-written native implementations across dense and MoE Qwen3 models. Model authors get ultra-fast vLLM inference from their transformers implementation with a single --model-impl transformers flag.",
-        "zh": "Hugging Face 与 vLLM 宣布：vLLM 中的 Transformers 建模后端在 Qwen3 4B/32B 稠密模型和 235B FP8 MoE 上全面追平甚至反超 vLLM 手写原生实现。模型作者只需一个 --model-impl transformers 开关，就能让 Transformers 实现直接获得 vLLM 级推理性能，无需移植。"
-      },
-      "content": {
-        "original": "Hugging Face benchmarked the transformers modeling backend against vLLM native implementations across three Qwen3 models (4B dense single GPU, 32B dense tensor-parallel, 235B FP8 MoE on 8xH100). The backend now meets or beats native throughput in all three, composing with the usual parallelism options.",
-        "zh": "Transformers 库支持 450 多种模型架构，长期扮演着「参考建模库」的角色：模型作者先在 Transformers 里实现，再由 vLLM、SGLang、MLX、llama.cpp 等推理框架逐个移植。去年 vLLM 集成了 Transformers 作为建模后端，让模型无需移植即可运行——但性能一直落后于手写原生实现。\n\n这次的更新改变了这一点。Hugging Face 在三个差异很大的 Qwen3 模型上做了头对头对比：单卡 4B 稠密模型、张量并行的 32B 稠密模型、以及 8×H100 上数据并行 + 专家并行的 235B FP8 MoE。结果是 Transformers 后端在全部三档上追平或反超原生实现。使用方式只是一个开关（--model-impl transformers），与现有并行配置完全兼容；目前的例外是线性注意力类模型（官方表示即将支持）。\n\n这件事的生态意义大于单点性能：模型实现只需写一次 Transformers 版本，就能同时获得可读的参考实现和生产级推理性能，「参考实现 vs 高性能实现」的二选一正在消失。对推理团队来说，新架构模型的可用时间差（Transformers 先可用、vLLM 原生实现晚数周）也随之消失。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-08",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/native-speed-vllm-transformers-backend",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Hugging Face",
-      "publisherType": "startup",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-latency-tradeoffs",
-        "knowledge-ws-68963f7f"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-tool-integration"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 93,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-20T14:17:24.090Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它消除了「参考实现」与「高性能实现」之间的移植成本：新模型在 Transformers 里实现一次，就能立即以 vLLM 级性能上线。这会显著缩短新架构从发布到可生产部署的时间差。",
-      "whoShouldCare": [
-        "跟进新模型架构的推理工程师",
-        "维护自有模型实现的模型作者",
-        "评估推理框架选型的平台团队"
-      ],
-      "technicalContext": "Transformers 提供建模代码（前向计算与权重定义），vLLM 提供连续批处理、自定义注意力内核等服务优化，两者通过 --model-impl 契约组合。基准对比在相同服务配置下只切换代码路径（native / transformers before / after）。",
-      "impactAreas": [
-        "新模型的上线周期",
-        "推理框架选型",
-        "开源建模库生态分工"
-      ],
-      "learningPath": [
-        "理解建模库与推理引擎的分工：模型实现、执行优化分别在哪一层",
-        "用 --model-impl transformers 与原生实现各跑一次相同负载，对比吞吐",
-        "跟踪线性注意力等尚未支持的架构类型的进展"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "--model-impl 是典型的接口契约：只要 Transformers 实现符合约定，vLLM 的优化就自动生效。",
-        "knowledge-latency-tradeoffs": "后端切换是否影响你的延迟分布，需要用真实负载验证而不是只看吞吐峰值。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "头对头基准（相同配置、只换代码路径）是这类「性能追平」声明的标准验证方法。",
-        "skill-tool-integration": "一个开关接入的集成方式值得学习：不改变现有服务编排，只切换实现层。"
-      },
-      "followUpQuestions": [
-        "你在用的模型架构是否在 450+ 支持列表里？",
-        "线性注意力模型的支持何时落地？",
-        "SGLang、MLX 等其他推理框架会跟进类似的后端模式吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-      "createdAt": "2026-07-13T08:00:48.467Z",
-      "updatedAt": "2026-07-20T14:17:24.090Z",
-      "editorialNotes": [
-        "2026-07-13 内容轮：从定时导入候选转正；正文基于 Hugging Face 博客（经 hf-mirror 镜像访问）编写。"
       ]
     },
     {

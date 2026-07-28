@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T16:56:42.503Z",
+  "updatedAt": "2026-07-28T12:53:29.868Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1656,6 +1656,96 @@
       "toType": "knowledge",
       "relationType": "extends",
       "note": "视觉误读不会报错，只会答错，所以人该在哪一环复核，要按失败的安静程度来安排。"
+    },
+    {
+      "id": "rel-ws-e918964d",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "Transformers 后端把「可用时间差」压到接近零，是这条技能里最短的一条路径——前提是架构不在例外名单里。"
+    },
+    {
+      "id": "rel-ws-af05f154",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "为 Inkling 补齐的四层支持栈，正好是「有性能路径」这一级的完整解剖：建模、图捕获、注意力核、推测解码。"
+    },
+    {
+      "id": "rel-ws-209ed33e",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "执行引擎代际切换会改变吞吐与延迟曲线，是判断「同一版本号下支持级别是否变了」的典型场景。"
+    },
+    {
+      "id": "rel-ws-66ced315",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "发布当天获五个框架支持，但 BF16 约 2TB、NVFP4 约 600GB——「已支持」与「你跑得起」是两个问题。"
+    },
+    {
+      "id": "rel-ws-36d8c884",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "当天支持 Laguna，却带着降低 NVFP4 输出质量的缺陷直到 v0.32.5 才修——这是「能跑起来 ≠ 跑得对」最直接的证据。"
+    },
+    {
+      "id": "rel-ws-b77cbefc",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "承诺的开放权重日期不等于可用日期；权重落地之前，它对自托管团队的价值是零。"
+    },
+    {
+      "id": "rel-ws-d9ccef35",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "总参数与激活参数脱钩，是读懂「为什么 1 万亿参数仍要 600GB 起步」的前提。"
+    },
+    {
+      "id": "rel-ws-1684ff92",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "量化格式决定显存门槛，也决定正确性基线要盯哪一层——MLX 那条缺陷就落在量化路径上。"
+    },
+    {
+      "id": "rel-ws-807547e0",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "推测解码属于「有性能路径」那一级的组成部分，不是所有引擎对新架构都会同时补上。"
+    },
+    {
+      "id": "rel-ws-36a4eac6",
+      "fromId": "skill-ws-7796779a",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "选型给出约束，这条技能负责确认这些约束在你的引擎上真的能被满足。"
     }
   ]
 }
