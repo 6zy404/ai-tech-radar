@@ -12,6 +12,69 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The daily digest page rejoins the house style
+
+- **Owner-reported, and the reflection matters more than the fix** —
+  2026-07-29. The owner pointed at `/digest/today` and said its UI was
+  obviously wrong. It was, in six separate ways, and none of them was subtle.
+  The reason none had ever been flagged is recorded as a rule in `AGENTS.md`
+  ("Visual verification rule"): every past round verified only the thing that
+  round added, and DOM inspection was repeatedly accepted as a substitute for
+  looking at the page. **An ellipse has perfectly normal DOM and passing
+  contrast** — only a screenshot shows it.
+- **The hero had forked from the shared primitive.** Public detail pages use
+  `user-article-hero` (`/technologies/[slug]`); this page hand-rolled
+  `daily-digest-brief-header`, a `507.5px | 174px` grid whose narrow column
+  held four counts and sat three-quarters empty beside 522px of prose. Both
+  routes already passed `showHeader={false}` and then threw the
+  `title`/`description` props away. The hero now renders through
+  `user-article-hero` as one column, with the counts as an inline meta row
+  mirroring `.technology-detail-hero__meta`.
+- **The title broke mid-date** — `每日技术简报 - 2026-07-` / `28` — because a
+  hyphen is a legal break opportunity. Public hero headings are pinned to
+  `--fs-display` with `!important`, so shrinking the type for one page would
+  have broken the shared scale; instead `renderTitleWithUnbreakableDates`
+  keeps `YYYY-MM-DD` runs on one line without changing a character of the
+  title.
+- **`今日概览` was a constant.** The panel rendered a sentence hardcoded in the
+  component, identical on every digest, while the real editorial summary sat
+  in the hero — one page, two summaries, one of them zero-information. The
+  panel now carries the editorial summary and is skipped when there is none.
+- **Three more, each a leftover of the 2026-07-14 dossier migration:**
+  `.digest-source-chip` kept `border-radius: 999px` from its pre-dossier pill
+  design after the migration turned it into a full `DossierCard`, rendering
+  every 253×177 source card as an **ellipse** (the same round added a colour
+  rule for that class — so it was looked at, and only the colour was
+  adjusted); `.digest-technology-card__audience` carried `font-weight: 800`,
+  making the "适合 …" line louder than the card title above it; and
+  `值得跟踪` used a one-column grid against `今日立即关注`'s two, so identical
+  cards rendered at two widths on one page, with the P4 match line sitting
+  outside each card as a stray floating label.
+- **A regression was caught by measuring, not by looking.** Moving the counts
+  out of their white inset box dropped the meta row to **4.4:1** in light
+  mode — 0.1 under AA. It now inherits `--dossier-muted` and measures 5.87
+  light / 5.42 dark; every other changed element measures 5.19–13.32.
+- **The CSS cleanup shipped as its own commit, verified by diff rather than by
+  eye.** 251 lines: 10 digest classes with no remaining JSX reference, and 18
+  top-level rules whose every declaration is redeclared later by an identical
+  selector (rules involving `!important` excluded, since order alone does not
+  decide there). Computed values for 27 properties plus bounding boxes were
+  captured for every digest-classed element on `/digest/today` (79),
+  `/digest` (44), and `/workspace/digests/[date]` (27), then recaptured with
+  the cleanup stashed — **150 elements, zero differences**. The harness was
+  proven both ways: an injected `border-radius: 999px` was detected (3 hits),
+  and the stashed revert was confirmed active by finding the 16 removed rule
+  instances back in the loaded stylesheets.
+- Verified: typecheck, lint, format, vitest 181/181, `validate:digest` /
+  `persistence` / `workspace-boundary` / `ranking`, plus a live pass in both
+  colour schemes with zero console errors and no horizontal overflow at 390px.
+  **Known and deliberately not fixed:** at 390px the date needs 260px against
+  244px of measure, so it reaches 16px into the hero's 22px padding. That is
+  `--fs-display: 44px` having no mobile step — a site-wide type-scale gap that
+  this page merely exposes, and changing it would move every public hero.
+  15 digest selectors also still carry partially-overriding duplicate
+  declarations, which need per-rule reasoning rather than a provable rule.
+
 ## A failed import no longer destroys the source's candidate snapshot
 
 - **The fallback placeholder was replacing real candidates, not joining them**
