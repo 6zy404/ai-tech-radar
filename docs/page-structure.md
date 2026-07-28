@@ -365,6 +365,13 @@ Workspace deployment boundary:
     and names the latest one — the point of the section is that a reader landing
     on a superseded release finds out before reading it. Signals with no
     succession relation render nothing here
+  - a 信号正文 section (after 版本脉络, before 为什么重要) rendering the
+    record's `content` field through `TechnologyBody`; resolved with the same
+    `getLocalizedTechnologyText` helper as the title and summary, so the
+    中文/原文 switch applies to the body as well. Renders nothing when the
+    body is empty. Added 2026-07-28 — before that the page never rendered
+    `content` at all, even though the publish gate treats a missing body as
+    a blocking error
   - bilingual content reading
   - source name, publish date, and original link without making long URLs dominate the page
   - productized priority label and short explanation
@@ -652,6 +659,14 @@ Forbidden on public pages:
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it
     is still shared with the home page and the 我关注的 view's
     `MyRadarContent`)
+- `TechnologyBody`
+  - shared renderer for a technology record's `content` body, used by the
+    public 信号正文 section and by the workspace draft detail page's
+    记录正文 panel. Consumes the block list from `parseTechnologyBody`
+    (`src/lib/technology-body.ts`), a hand-written subset parser covering
+    only the four constructs the editorial bodies actually use — `##`
+    headings, `**bold**`, ordered and bulleted lists — so no Markdown
+    dependency was added. Unknown syntax degrades to plain paragraph text
 - `TechnologyEvolutionLine`
   - user-facing 版本脉络 section on the technology detail page; consumes the
     derived `TechnologyEvolutionChain` (no internal fields, no new persisted
