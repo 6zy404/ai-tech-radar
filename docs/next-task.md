@@ -1,5 +1,27 @@
 # Next Task
 
+> Verification sweep 2026-07-28 (session close): **全仓核对通过，外加一个待你
+> 定的边界问题.**
+> **已核对通过**：`npm run build` 成功且路由表里有 `ƒ Middleware`（07-27 那个
+> 「守卫从未生效」的修复仍在）；**22 个 `validate:*` 脚本全绿**；vitest
+> 171/171；typecheck / lint / format 干净；工作区无残留改动（验证脚本的
+> fixture 都正确回滚了）。
+> **路由与边界的实证核对**：文档里声称的 **30 条公开路由逐条真实请求**，含
+> 404 用例（未知信号 / 非周一的周回顾 key / 未知话题及其 feed）与三个重定向
+> （`/news` `/timeline` `/radar` 均落在正确的 `?view=`），**全部符合声明，零
+> 偏差**。再对 14 个公开面扫描 16 个禁止字段（`rawPayload` / `importStatus` /
+> `priorityScore` / `endpointUrl` / `LLM_API_KEY` 等），**零泄漏**。
+> **待你定的一件事（未改）**：`intelligenceStatus`（`needs_enrichment`）、
+> `translationStatus`（`pending`）、`publisherType` 三个字段**进了客户端 RSC
+> 载荷但从不渲染**——与 2026-07-10 把 `priority` 移出公开映射时的情形完全同
+> 一类。其中 `intelligenceStatus` 是**编辑工作流状态**，等于对外告诉读者
+> 「编辑认为这条还需要补充」。但 `docs/data-model.md` 明确把这三个列在
+> user-facing 字段里，所以移除等于**改公开契约**，不是我该单方面决定的，
+> 记在这里等你判断。三种选择：①照 07-10 的先例从 `toUserFacingTechnologyItem`
+> 里摘掉（载荷更瘦、边界更干净）；②保留但在文档里写明「仅供未来渲染，当前
+> 不显示」；③真的把其中某个渲染出来（例如阅读难度已经渲染了，
+> `translationStatus` 也可以做成「已翻译/原文」提示）。
+
 > Planning note 2026-07-28: **「推理与部署内容缺口」经核实并不成立（只分析，
 > 未写未发）.** backlog 里长期挂着「推理与部署 11 信号 3 技能」这一条，本次
 > 按前两轮的教训先取证再下结论，结论是**这个缺口是多标签重复计数撑出来的**。
