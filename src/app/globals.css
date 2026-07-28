@@ -3301,10 +3301,15 @@ p {
   gap: 28px;
 }
 
+/* These were invisible layout grids until the 2026-07-14 dossier migration
+   gave them a background and a border (see `.dossier .daily-digest-section`),
+   turning them into cards without giving them any inside spacing — so their
+   headings and cards sat flush against the drawn border. */
 .daily-digest-section,
 .digest-reference-section {
   display: grid;
   gap: 16px;
+  padding: 20px;
 }
 
 .digest-technology-card {
@@ -6817,13 +6822,16 @@ a.technology-evolution__title {
   letter-spacing: 0.04em;
 }
 
+/* Designed as a top-ruled divider (`padding: 18px 0 0` + `border-top`), then
+   wrapped in a full border by the dossier scope — which exposed the zero
+   left/right/bottom padding as three flush edges. It is a card now, so it is
+   padded like one. */
 .daily-digest-summary-panel {
   display: grid;
   grid-template-columns: minmax(160px, 0.28fr) minmax(0, 1fr);
   gap: 18px;
   align-items: start;
-  padding: 18px 0 0;
-  border-top: 1px solid rgba(8, 127, 115, 0.16);
+  padding: 20px;
 }
 
 .daily-digest-summary-panel h2,
@@ -7062,12 +7070,12 @@ a.technology-evolution__title {
   overflow-wrap: anywhere;
 }
 
+/* The `border: 0` / `border-radius: 0` / transparent background here never
+   won: `.dossier .daily-digest-section` is more specific and re-adds the card
+   skin. Rather than keep declarations that lose, this is a card like its
+   siblings. */
 .daily-digest-feeds {
-  padding: 18px 0 0;
-  border: 0;
-  border-top: 1px solid rgba(15, 118, 110, 0.12);
-  border-radius: 0;
-  background: transparent;
+  padding: 20px;
 }
 
 .digest-feed-links a {
