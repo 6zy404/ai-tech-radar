@@ -1034,3 +1034,59 @@ dim target values confirmed via forced-animation-completion after ruling
 out the tab-visibility artifact, relation legend renders all 7 relation
 types actually present in the real data, zero console errors on a fresh
 tab).
+
+### Digest page rejoins the detail-page hero (2026-07-29)
+
+Owner-reported: `/digest/today` had visibly drifted out of the system. The
+underlying cause was structural rather than cosmetic — **the page had its own
+hero primitive**.
+
+Public pages use two hero primitives, and the split is deliberate:
+
+- **List pages** (`/technologies`, `/skills`, `/knowledge`, `/digest`) use the
+  shared `PageHeader` → `.user-page-header`, rendered by `UserPageShell`.
+- **Detail pages** (`/technologies/[slug]`, and now the digest pages) pass
+  `showHeader={false}` and render `.user-article-hero` as the first content
+  block, per `docs/page-structure.md` → "User-facing Detail Page".
+
+The digest pages did the first half of that (they passed `showHeader={false}`,
+and threw the `title`/`description` props away) but then hand-rolled
+`daily-digest-brief-header` instead of using `.user-article-hero` — a
+`minmax(0,1fr) auto` grid that resolved to `507.5px | 174px`, with the narrow
+column holding four counts and standing three-quarters empty beside 522px of
+prose. It also redefined the h1 at a smaller step, skipping
+`.user-article-hero h1`'s `text-wrap: balance` / `overflow-wrap: anywhere`.
+
+`daily-digest-brief-header` is now a two-line modifier on top of
+`.user-article-hero` (single column, `align-items: start`, a wider `24ch`
+measure because a digest title carries a date). The counts moved to an inline
+row under the title, matching `.technology-detail-hero__meta`.
+
+Three related fixes in the same round, all leftovers of the 2026-07-14 dossier
+migration, which swapped `<div>`s for `DossierCard`s **without removing the
+CSS the old markup needed**:
+
+- `.digest-source-chip` kept `border-radius: 999px` from its pill era, so every
+  253×177 source card rendered as an ellipse. Note that the 2026-07-14 round
+  _did_ add `.dossier .digest-source-chip p/h3` colour rules — the class was
+  looked at, and only its colour was adjusted.
+- `.digest-technology-card__audience` kept `font-weight: 800`, out-shouting the
+  card title.
+- `值得跟踪` used a one-column grid against `今日立即关注`'s two.
+
+**Typography-scale gap surfaced, not fixed.** `--fs-display` is a flat `44px`
+with no mobile step, and all public hero h1s are pinned to it with
+`!important`. The digest is the only page whose title contains an unbreakable
+10-character run (`YYYY-MM-DD`), so at 390px the date needs 260px against
+244px of measure and reaches 16px into the hero's 22px padding. Keeping the
+date on one line (`renderTitleWithUnbreakableDates` + `.nowrap-run`) is
+strictly better than splitting it at a hyphen, but the real fix is a
+responsive step on `--fs-display`, which would move every public hero and is
+therefore an owner decision.
+
+**Contrast note.** Moving the counts out of their white inset box put them on
+the dossier paper surface, where the hardcoded `#64748b` measured **4.4:1** —
+0.1 under AA. They now inherit `--dossier-muted` (5.87 light / 5.42 dark).
+This is the same failure mode as the 2026-07-16 round: a colour that was fine
+against one surface silently fails against another, and only measurement
+catches it.

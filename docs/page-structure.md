@@ -425,7 +425,19 @@ Workspace deployment boundary:
   - otherwise shows the latest published digest, or a public empty state when no digest has been published yet
 - `/digest/[date]`
   - user-facing published digest for a specific date
+  - the hero renders through `user-article-hero`, the same primitive
+    `/technologies/[slug]` uses, so both public detail pages read as one
+    family: eyebrow (`每日简报 · 第 <date> 号`), title, an inline meta row of
+    counts, and the preview notice. Until 2026-07-29 this page hand-rolled a
+    two-column header whose 174px right column held only the counts — see
+    `CHANGELOG.md` → "The daily digest page rejoins the house style"
+  - `今日概览` carries the digest's **editorial summary** and is omitted when
+    there is none; before 2026-07-29 it rendered a sentence hardcoded in the
+    component, identical on every digest, while the real summary sat in the
+    hero
   - shows immediate-attention technologies, worth-tracking technologies, Content Intelligence why-watch snippets, related skills, related knowledge, and source names
+  - both signal sections (`今日立即关注` / `值得跟踪`) use the same two-column
+    grid, and the P4 命中关注 line renders **inside** its card
   - links to public RSS and JSON feed surfaces without making feeds dominate the reading page
   - personalized view (P4 v0.2, shared with `/digest/today` via
     `DailyDigestContent`): items matching the reader's followed topics carry a

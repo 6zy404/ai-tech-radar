@@ -110,3 +110,31 @@ Default continuation rules:
   Playwright validation is run by the user locally.
 - Default verification is `npm run typecheck` unless the task asks for a
   different command.
+
+## Visual verification rule
+
+After any change that renders, **screenshot the affected page top to bottom
+and look at it** — not only the element the change touched.
+
+This exists because of a real failure. The daily digest page shipped for
+months with source cards rendered as ellipses (`border-radius: 999px` left on
+a pill after the 2026-07-14 dossier migration turned it into a full card), a
+title splitting mid-date, two different grids for the same card on one page,
+and a hardcoded "今日概览" sentence identical on every digest. None of it was
+caught, because every round verified only what that round added, and DOM
+inspection was repeatedly treated as an equivalent substitute for looking. It
+is not: an ellipse has perfectly normal DOM and passing contrast.
+
+Concretely:
+
+- Read-outs from `read_page`, computed styles, and contrast math verify the
+  element under test. They cannot see layout, proportion, or shape.
+- When the screenshot tool is unavailable, say so in the write-up instead of
+  silently downgrading to DOM checks.
+- Structural CSS/JSX cleanups should be verified by capturing computed styles
+  before and after and diffing them, and the diff harness itself must be
+  proven to fire (inject a deliberate change and confirm it is detected).
+- Any page that is a sibling of another (both public detail pages, both
+  workspace list pages) must use the shared primitive, not its own copy. When
+  starting work on a page, check its hero/header against the sibling page's
+  first.
