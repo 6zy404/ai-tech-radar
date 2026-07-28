@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { DetailInfoCard } from "@/components/detail-info-card";
 import { PublishReadinessPanel } from "@/components/publish-readiness-panel";
+import { TechnologyBody } from "@/components/technology-body";
 import { TechnologyEditorialEnrichmentPanel } from "@/components/technology-editorial-enrichment-panel";
 import { TechnologyWorkspaceActions } from "@/components/technology-workspace-actions";
 import { TechnologyWorkspaceEditForm } from "@/components/technology-workspace-edit-form";
@@ -114,9 +115,7 @@ export function TechnologyDraftDetailContent({
 
         <section className="section-panel technology-detail-panel__content">
           <h2>记录正文</h2>
-          <p className="detail-copy">
-            {draft.content.zh ?? draft.content.original}
-          </p>
+          <TechnologyBody body={draft.content.zh ?? draft.content.original} />
         </section>
 
         <section className="section-panel">

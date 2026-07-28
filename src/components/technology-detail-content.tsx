@@ -14,6 +14,7 @@ import { TagList } from "@/components/tag-list";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
 import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
 import { TechnologyLearningPathWidget } from "@/components/technology-learning-path-widget";
+import { TechnologyBody } from "@/components/technology-body";
 import { TechnologyEvolutionLine } from "@/components/technology-evolution-line";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
@@ -92,6 +93,11 @@ export function TechnologyDetailContent({
   );
   const priorityLabel = getPriorityLevelLabel(ranking.priorityLevel, mode);
   const prioritySummary = getPriorityUserSummary(ranking, mode);
+  const body = getLocalizedTechnologyText(
+    technology.content,
+    mode,
+    technology.sourceLanguage
+  ).trim();
   const whyItMatters = getTechnologyWhyItMatters(technology, prioritySummary);
   const technicalContext = technology.technicalContext?.trim();
   const audienceItems = getTechnologyAudience(technology);
@@ -223,6 +229,14 @@ export function TechnologyDetailContent({
     >
       {evolutionChain ? (
         <TechnologyEvolutionLine chain={evolutionChain} />
+      ) : null}
+
+      {body ? (
+        <section className="user-article-section technology-detail-section">
+          <p className="technology-detail-section__eyebrow">记录</p>
+          <h2>信号正文</h2>
+          <TechnologyBody body={body} />
+        </section>
       ) : null}
 
       {whyItMatters ? (

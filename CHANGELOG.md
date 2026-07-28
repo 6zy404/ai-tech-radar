@@ -12,6 +12,52 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Signal body rendering (the field nobody could read)
+
+- **The technology detail page never rendered `content` at all** —
+  2026-07-28, found while verifying a correction written into that field.
+  `src/components/technology-detail-content.tsx` had **zero references** to
+  `technology.content`: the page showed the summary plus the Content
+  Intelligence fields (为什么重要 / 技术背景 / 谁该关注 / 学习路径 /
+  后续问题) and nothing else. Meanwhile a **missing body is a blocking
+  publish error**, `src/lib/ranking.ts` scores it for record completeness,
+  `technology-localization.ts` derives the 中文/原文 switch from it, and
+  `src/lib/content.ts` maps it into the public shape — so all 31 published
+  signals carried a body (23 workspace ones averaging 475 characters) that
+  was **shipped in the client RSC payload of every detail page and never
+  displayed**. The same class as the 2026-07-10 `priority` payload
+  hardening, except here the honest fix was the opposite direction: render
+  it, because the writing already existed and was better than the bullet
+  lists around it.
+- **Rendered as a 信号正文 section, with a hand-written Markdown subset** —
+  the section sits between 版本脉络 and 为什么重要, and reads through the
+  same `getLocalizedTechnologyText` the title and summary use, so the
+  中文/原文 switch finally changes the body too instead of only the header.
+  Surveying all 23 bodies first showed the editorial writing uses exactly
+  **four constructs** — `##` headings, `**bold**`, ordered and bulleted
+  lists — with 20 of 23 being plain paragraphs, so `src/lib/technology-body.ts`
+  is a deliberate ~60-line subset parser rather than a new dependency
+  (matching the hand-written force-directed graph and rate limiter). The
+  parser splits blocks; `src/components/technology-body.tsx` renders them.
+  The workspace draft detail page, which had been dumping the raw body into
+  a single `<p>` (so editors saw literal `##` and `**` too), now reuses the
+  same component.
+- **A unit test caught a bug the live page could not** — the first parser
+  flushed the paragraph buffer before every plain line, so a paragraph
+  wrapped across two source lines would split into two paragraphs. Every
+  real body writes one paragraph per line separated by blank lines, so the
+  rendered pages looked perfect; only `parseTechnologyBody("前半句，\n后半句。")`
+  exposed it. Verified: typecheck, lint, format, vitest **160/160** (12 new
+  tests covering paragraph joining, `##`-only heading recognition, list
+  grouping and marker switches, the flushed-array reuse hazard, and inline
+  bold splitting), `validate:publishing` / `ranking` / `persistence` /
+  `workspace-boundary` / `content-intelligence`, plus a live pass — six
+  signal pages including a seed technology and the shortest body, zero
+  literal Markdown left in the output, dark mode measured at **11.53:1**
+  (identical to the neighbouring section, well above AA), no horizontal
+  overflow, zero console errors. Not verified: a true 375px viewport — the
+  Browser pane in this session would not size below 642px.
+
 ## Source import retry + the proxy finding
 
 - **One transient failure no longer costs a source its whole daily import** —
