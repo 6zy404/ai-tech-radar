@@ -7,12 +7,13 @@ This document defines the current safety boundary between public product pages a
 Public routes can be exposed:
 
 - `/`
-- `/technologies` (four views via `?view=`: 精选 default, 全部快讯 — the
+- `/technologies` (five views via `?view=`: 精选 default, 全部快讯 — the
   auto-aggregated news fast lane, see "News Fast Lane Boundary" below for
-  the exact candidate-field allowlist — 按话题, and 我关注的 — follows are
-  browser-localStorage only, the route serves the same published content to
-  everyone and holds no per-reader server state; `/news`, `/timeline`, and
-  `/radar` redirect here to the matching view)
+  the exact candidate-field allowlist — 按话题, 我关注的, and 稍后读 —
+  followed topics and reading marks (已读 / 稍后读) are browser-localStorage
+  only, the route serves the same published content to everyone and holds no
+  per-reader server state; `/news`, `/timeline`, and `/radar` redirect here
+  to the matching view)
 - `/technologies/[slug]`
 - `/digest` (archive index; renders only published digests through the same
   public-copy sanitizers as the digest pages — date, public title/summary,

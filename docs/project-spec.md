@@ -432,6 +432,15 @@ deliberately minimal and keeps every existing boundary intact:
   the digest unchanged apart from one hint line linking to
   `/technologies?view=followed`. Same
   localStorage-only boundary.
+- Reading marks (v0.4, 2026-07-28): readers mark published signals 已读 or
+  稍后读 from the signal cards in the 精选 / 我关注的 / 稍后读 views, hide
+  read signals with a 隐藏已读 switch, and revisit what they saved on
+  `/technologies?view=saved` (most-recently-saved first). Both marks are
+  explicit reader actions — opening a signal never marks it read — and live
+  only in browser localStorage (`src/lib/reading-state.ts`, two keys). No
+  accounts, no server-side profile, no AI: the served page is identical for
+  everyone and the marks resolve client-side, the same boundary as the
+  followed-topic radar.
 
 ## Current non-goals
 

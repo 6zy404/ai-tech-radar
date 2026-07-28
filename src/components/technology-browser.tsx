@@ -5,9 +5,13 @@ import { useDeferredValue, useState } from "react";
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierSearchInput } from "@/components/dossier-search-input";
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
+import { ReadFilterToggle } from "@/components/read-filter-toggle";
+import { SignalReadingActions } from "@/components/signal-reading-actions";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
+import { useReadingState } from "@/components/use-reading-state";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
+import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
 import {
   getTechnologySearchText,
   getTechnologySwitchLabel,
@@ -36,9 +40,12 @@ export function TechnologyBrowser({
   const [typeFilter, setTypeFilter] = useState("");
   const [tagFilter, setTagFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
+  const [hideRead, setHideRead] = useState(false);
   const deferredSearchText = useDeferredValue(searchText);
+  const { readIds, isRead, isSaved, toggleRead, toggleSaved } =
+    useReadingState();
 
-  const filteredTechnologies = technologies.filter((item) => {
+  const matchedTechnologies = technologies.filter((item) => {
     const priority = evaluateTechnologyPriority(item).priorityLevel;
     const matchesSearch =
       deferredSearchText.length === 0 ||
@@ -51,6 +58,13 @@ export function TechnologyBrowser({
 
     return matchesSearch && matchesType && matchesTag && matchesPriority;
   });
+
+  const readCount = countReadTechnologies(matchedTechnologies, readIds);
+  const filteredTechnologies = applyReadFilter(
+    matchedTechnologies,
+    readIds,
+    hideRead
+  );
 
   const typeOptions = [
     { value: "", label: "全部类型" },
@@ -117,12 +131,27 @@ export function TechnologyBrowser({
         />
       </div>
 
+      <ReadFilterToggle
+        readCount={readCount}
+        hideRead={hideRead}
+        onToggle={() => setHideRead((current) => !current)}
+      />
+
       <div className="dossier-technology-list">
         {filteredTechnologies.map((item) => (
           <DossierTechnologyCard
             key={item.id}
             technology={item}
             mode={mode}
+            isRead={isRead(item.id)}
+            readingActions={
+              <SignalReadingActions
+                isRead={isRead(item.id)}
+                isSaved={isSaved(item.id)}
+                onToggleRead={() => toggleRead(item.id)}
+                onToggleSaved={() => toggleSaved(item.id)}
+              />
+            }
             tags={item.tags
               .map((tagId) => tags.find((tag) => tag.id === tagId))
               .filter((tag): tag is TopicTag => Boolean(tag))}
@@ -132,8 +161,17 @@ export function TechnologyBrowser({
 
       {filteredTechnologies.length === 0 ? (
         <div className="dossier-empty-state">
-          <strong>暂无技术信号。</strong>
-          <p>试着清除筛选条件，查看已发布的信号。</p>
+          {hideRead && matchedTechnologies.length > 0 ? (
+            <>
+              <strong>这一批信号你都读过了。</strong>
+              <p>关掉「隐藏已读」可以重新看到它们。</p>
+            </>
+          ) : (
+            <>
+              <strong>暂无技术信号。</strong>
+              <p>试着清除筛选条件，查看已发布的信号。</p>
+            </>
+          )}
         </div>
       ) : null}
     </div>

@@ -103,7 +103,14 @@ The product is split into two subsystems:
   RSS feed (`/topics/[tagId]/feed.xml`, published signals only), the 我关注的
   view lists feed links for followed topics, and followed-topic state can be
   exported/imported as a plain comma-separated 关注码 for cross-device use —
-  still no accounts, no server-side profile.
+  still no accounts, no server-side profile. Reading marks (P4 v0.4): every
+  signal card in the 精选 / 我关注的 / 稍后读 views carries a 稍后读 and a
+  已读 toggle, read cards recede (no paper, dashed border, 已读 stamp) and
+  can be hidden with a 隐藏已读 switch, and the new 稍后读 view
+  (`/technologies?view=saved`) lists what the reader saved, most recent
+  first. Marks are manual — opening a signal never marks it read — and live
+  only in browser localStorage (`src/lib/reading-state.ts`), so the served
+  page stays identical for everyone.
 - **Topic timeline** — the 按话题 view on `/technologies?view=timeline`
   groups published technology signals by topic tag, each shown as a
   chronological (newest-first) list linking to its detail page.
@@ -189,7 +196,8 @@ reading storage directly.
 
 Public, user-facing routes:
 
-- `/`, `/technologies` (精选/全部快讯/按话题/我关注的 four views via `?view=`),
+- `/`, `/technologies` (精选/全部快讯/按话题/我关注的/稍后读 five views via
+  `?view=`),
   `/technologies/[slug]`
 - `/digest` (archive), `/digest/today`, `/digest/[date]`,
   `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)

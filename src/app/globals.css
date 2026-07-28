@@ -9715,6 +9715,100 @@ a.tech-graph__node:hover {
   border-color: var(--dossier-line);
 }
 
+/* -- reading state: read / read-later marks (P4 v0.4) --
+   A read card recedes through surface and weight, not through lower text
+   contrast: the title drops from ink to muted (both already pass), the
+   card loses its raised paper and shadow, and an explicit 已读 stamp does
+   the actual signalling. Dimming text further would repeat the mistake the
+   dark-mode contrast round had to undo. */
+.dossier-technology-card--read {
+  background: transparent;
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.dossier-technology-card--read .dossier-technology-card__title a {
+  color: var(--dossier-muted);
+  font-weight: 500;
+}
+
+.dossier-technology-card__read-stamp {
+  color: var(--dossier-muted);
+  border-style: dashed;
+}
+
+.signal-reading-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--dossier-line);
+}
+
+.signal-reading-actions__button {
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--dossier-muted);
+  cursor: pointer;
+}
+
+.signal-reading-actions__button:hover {
+  border-color: var(--dossier-accent);
+  color: var(--dossier-accent);
+}
+
+.signal-reading-actions__button--active {
+  border-color: var(--dossier-accent);
+  color: var(--dossier-accent);
+  font-weight: 700;
+}
+
+.read-filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.read-filter-toggle__count {
+  font-size: 12.5px;
+  color: var(--dossier-muted);
+}
+
+.read-filter-toggle__button {
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12.5px;
+  padding: 5px 12px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--dossier-ink);
+  cursor: pointer;
+}
+
+.read-filter-toggle__button:hover,
+.read-filter-toggle__button--active {
+  border-color: var(--dossier-accent);
+  color: var(--dossier-accent);
+}
+
+.saved-signals {
+  display: grid;
+  gap: 4px;
+}
+
+.saved-signals__lede {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--dossier-muted);
+}
+
 /* -- language switch -- */
 .dossier .technology-language-switch__label {
   color: var(--dossier-muted);

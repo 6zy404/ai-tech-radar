@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
@@ -24,6 +25,10 @@ interface DossierTechnologyCardProps {
   tags: TopicTag[];
   mode: TechnologyContentMode;
   context?: TechnologyContentContext;
+  /** Dims the card once the reader marked the signal read (P4 v0.4). */
+  isRead?: boolean;
+  /** The 稍后读 / 已读 toggles; omitted on surfaces without reading state. */
+  readingActions?: ReactNode;
 }
 
 /**
@@ -36,7 +41,9 @@ export function DossierTechnologyCard({
   technology,
   tags,
   mode,
-  context = "preview"
+  context = "preview",
+  isRead = false,
+  readingActions
 }: DossierTechnologyCardProps) {
   const effectiveMode = getEffectiveTechnologyMode(technology, mode, context);
   const title = getLocalizedTechnologyText(
@@ -65,12 +72,21 @@ export function DossierTechnologyCard({
     .slice(0, 4);
 
   return (
-    <DossierCard className="dossier-technology-card">
+    <DossierCard
+      className={`dossier-technology-card${
+        isRead ? " dossier-technology-card--read" : ""
+      }`}
+    >
       <div className="dossier-technology-card__topline">
         <span className="dossier-technology-card__catalog">
           {getTechnologyTypeLabel(technology.type, effectiveMode)} · 第{" "}
           {technology.publishDate} 号
         </span>
+        {isRead ? (
+          <DossierStampTag className="dossier-technology-card__read-stamp">
+            已读
+          </DossierStampTag>
+        ) : null}
         <DossierStampTag>
           {getPriorityLevelLabel(ranking.priorityLevel, effectiveMode)}
         </DossierStampTag>
@@ -107,6 +123,8 @@ export function DossierTechnologyCard({
           查看信号 →
         </Link>
       </div>
+
+      {readingActions}
     </DossierCard>
   );
 }
