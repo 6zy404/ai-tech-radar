@@ -152,7 +152,7 @@ When `PERSISTENCE_DRIVER=sqlite`, the same boundary applies to `config/ai-tech-r
 
 The safe public mapping is still explicit:
 
-- published workspace technology records are converted to safe `TechnologyItem` shape before public rendering; the public shape carries no `priority` ranking object (score, raw reasons, warnings, and ranking source are internal-only), so ranking internals never enter the RSC payload of client components — public surfaces derive the productized priority level on demand via `evaluateTechnologyPriority`
+- published workspace technology records are converted to safe `TechnologyItem` shape before public rendering; the public shape carries no `priority` ranking object (score, raw reasons, warnings, and ranking source are internal-only), so ranking internals never enter the RSC payload of client components — public surfaces derive the productized priority level on demand via `evaluateTechnologyPriority`. The same mapping also strips `intelligenceStatus` (added 2026-07-28): it is an editorial workflow state (`draft` / `reviewed` / `needs_enrichment`) that no public surface reads, and shipping it told readers which records the editors consider unfinished. `validate:ranking` asserts both absences
 - published digest feed data is derived from published digest and published technology fields only
 - digest pages render through a public-safe `PublicDigestView`
   (`toPublicDigestView` in `src/lib/digest-view.ts`), so internal digest

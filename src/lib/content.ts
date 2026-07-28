@@ -165,20 +165,26 @@ export function toUserFacingTechnologyItem(
       ...(item.relatedSkillExplanations ?? {})
     },
     followUpQuestions: [...(item.followUpQuestions ?? [])],
-    readingDifficulty: item.readingDifficulty,
-    intelligenceStatus: item.intelligenceStatus
+    readingDifficulty: item.readingDifficulty
   };
 }
 
-// Public technology items intentionally carry no `priority` object: the full
-// ranking (score, raw reasons, warnings) is internal-only per
-// docs/security-boundary.md, and every public surface derives the productized
-// priority level on demand via evaluateTechnologyPriority. Stripping it here
-// keeps ranking internals out of RSC payloads for client components.
+// Public technology items intentionally carry neither the `priority` object
+// nor `intelligenceStatus`. The full ranking (score, raw reasons, warnings) is
+// internal-only per docs/security-boundary.md, and every public surface derives
+// the productized priority level on demand via evaluateTechnologyPriority.
+// `intelligenceStatus` is an editorial workflow state (draft / reviewed /
+// needs_enrichment) that no public surface reads — shipping it told readers
+// which records the editors consider unfinished. Stripping both here keeps them
+// out of the RSC payloads of client components.
 function withoutTechnologyPriorityInternals(
   item: TechnologyItem
 ): TechnologyItem {
-  const { priority: _priority, ...publicItem } = item;
+  const {
+    priority: _priority,
+    intelligenceStatus: _intelligenceStatus,
+    ...publicItem
+  } = item;
 
   return publicItem;
 }

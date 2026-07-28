@@ -1,5 +1,25 @@
 # Next Task
 
+> Update 2026-07-28 (latest): **载荷字段收尾已完成 —— 但只摘了该摘的那一个.**
+> owner 选了这一项后（人不在电脑前，按证据自行判断）。三个字段查下来性质并不
+> 相同，**没有一刀切**：
+> **① `intelligenceStatus` 已摘除**。它是编辑工作流状态
+> （`draft` / `reviewed` / `needs_enrichment`），公开侧**唯一引用就是映射本身**
+> ——等于对外告诉读者「编辑认为这条还没做完」。它又恰好是**可选**字段，所以能
+> 像 07-10 处理 `priority` 一样干净摘掉，就用同一个
+> `withoutTechnologyPriorityInternals`。
+> **② `translationStatus` / `publisherType` 刻意保留**。两者是
+> `TechnologyItem` 的**必填**字段（摘掉要改类型，波及 `TechnologyWorkspaceRecord`），
+> 而且描述的是「发布方是谁」「有没有译文」，不含任何编辑判断。它们确实在载荷里
+> 却不渲染，但那是**渲染缺口，不是边界问题**——留在 backlog，不做条件反射式修复。
+> **③ 回归闸门是"弄坏它"验证过的**。往 `validate:ranking` 的 `internalOnlyFields`
+> 里加了该字段后，**第一次反向测试竟然通过了**——因为断言跑的是工作台映射产出的
+> 记录，而我最初移除的那行属于种子条目的剥离函数。改成对真实映射注入才复现出
+> `Published item should not expose intelligenceStatus.`，闸门这才算数。
+> 验证：typecheck / lint / format / vitest 171/171 / `validate:ranking`，
+> 外加实跑——工作台发布页、种子信号页、列表、简报、`/feed.json` 均已无该字段，
+> 且全部照常渲染。
+
 > Gotcha 2026-07-28: **不要在 dev server 运行时跑 `npm run build`.** 两者共用
 > 同一个 `.next` 目录，生产构建会把正在跑的 dev server 弄成一种很迷惑的状态：
 > **页面照常返回 `200`，但 API 路由返回 `500`**（`require-hook` 的模块加载
