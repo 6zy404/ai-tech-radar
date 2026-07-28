@@ -1,6 +1,108 @@
 {
-  "updatedAt": "2026-07-27T16:57:30.466Z",
+  "updatedAt": "2026-07-28T10:15:12.633Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "slug": "ollama-v0-32-4",
+      "title": {
+        "original": "Ollama v0.32.4",
+        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
+        "en": "Ollama v0.32.4"
+      },
+      "summary": {
+        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
+        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。注意：本版的 MLX Laguna 路径存在会降低 NVFP4 模型输出质量的缺陷，已在两天后的 v0.32.5 修复——要在 Apple GPU 上跑 Laguna 请直接用 v0.32.5。"
+      },
+      "content": {
+        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
+        "zh": "## 更正（2026-07-28）\n\n下面第 1 条改动——MLX 引擎支持 Laguna——在本版中是带缺陷发布的：MLX 的 Metal 后端存在一个 bug，会让 NVFP4 精度的模型输出质量下降，其中 Laguna 受影响最明显。官方在两天后的 **v0.32.5** 中修复了它，那一版除此之外没有任何其他改动。\n\n所以：**要在 Apple GPU 上跑 Laguna，请直接用 v0.32.5，不要停在本版。** 本站没有把 v0.32.5 单独收录为一条技术信号——它是一次单点修复，不构成新的技术信号；但它修的正是本条信号的头条功能，所以更正写在这里。\n## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-36346103",
+        "knowledge-ws-c761533e",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-07-28T10:15:12.633Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
+      "whoShouldCare": [
+        "在 Apple 芯片上做本地推理的开发者",
+        "评估端侧部署可行性的架构师",
+        "关注推测解码实际收益的性能工程师"
+      ],
+      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
+      "impactAreas": [
+        "端侧推理性能",
+        "MoE 量化路径",
+        "推测解码收益",
+        "Apple 芯片部署"
+      ],
+      "learningPath": [
+        "先弄清 MoE 的专家路由与逐专家量化",
+        "再理解推测解码里草稿模型的开销从哪来",
+        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
+        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
+        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
+      },
+      "followUpQuestions": [
+        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
+        "统一内存架构下，混合专家精度的最佳组合是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "createdAt": "2026-07-27T01:43:12.851Z",
+      "updatedAt": "2026-07-28T10:15:12.633Z",
+      "editorialNotes": [
+        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。",
+        "2026-07-28 轮：v0.32.5 标记为已看不选（正文仅一行 MLX Metal 修复，同 v0.32.3 的补丁先例），改为在本条正文顶部补更正段——因为它修的是本条头条的 MLX Laguna 路径。同批次 vLLM v0.26.1rc0 按预发布规则拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "slug": "thinkingmachines-inkling",
@@ -612,107 +714,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "slug": "ollama-v0-32-4",
-      "title": {
-        "original": "Ollama v0.32.4",
-        "zh": "Ollama v0.32.4：Apple GPU 上的 Laguna 支持与推测解码草稿量化",
-        "en": "Ollama v0.32.4"
-      },
-      "summary": {
-        "original": "Ollama v0.32.4 adds Laguna support on Apple GPUs via the MLX engine, quantizes speculative-decoding draft output heads at the requested type, and fixes Qwen3 MoE decoding for differently-quantized experts.",
-        "zh": "Ollama v0.32.4 通过 MLX 引擎为 Apple GPU 增加 Laguna 模型支持，让推测解码的草稿模型输出头按指定精度量化，并修复了 Qwen3 MoE 在专家量化精度不一致时的解码问题，打包的 gate/up 投影在 M5 Max 上提速约 4–9%。"
-      },
-      "content": {
-        "original": "What's Changed: Support Laguna on Apple GPUs via the MLX engine. Quantize draft-model output heads at the requested type when creating speculative-decoding drafts. Fixed Qwen3 MoE decoding for differently-quantized experts, plus faster packed gate/up projection (~4-9% on M5 Max).",
-        "zh": "## 三条改动\n\nv0.32.4 是一次内容不多但都落在同一条主线上的版本：\n\n1. **MLX 引擎支持 Laguna**，把这一模型家族带到 Apple GPU 上运行；\n2. **推测解码的草稿模型输出头按请求精度量化**——此前草稿模型的输出头可能保留在更高精度上，浪费了推测解码本该带来的显存与带宽收益；\n3. **修复 Qwen3 MoE 在专家量化精度不一致时的解码**，同时把打包的 gate/up 投影做了加速，官方给出的数据是在 M5 Max 上约 4–9%。\n\n## 主线是什么\n\n三条改动指向同一件事：**端侧运行 MoE 模型的量化路径正在被逐条打磨**。MoE 的每个专家可以用不同精度存储，这在服务器端是节省显存的常规手段，但到了统一内存的 Apple 芯片上，量化不一致会直接反映为解码错误或性能塌陷。草稿模型输出头的量化同理——推测解码本身就是拿精度换吞吐，如果草稿这一侧没量化干净，收益会被吃掉一大块。\n\n## 与前一版本的关系\n\n本站已收录 Ollama v0.32.0「本地运行时转型智能体工作台」这一更大的方向性信号。v0.32.4 不改变方向，但它显示这条路线的底座——端侧推理性能——仍在持续投入，而不是在功能层铺开后就停在原地。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ollama",
-      "publisherType": "open-source-community",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-36346103",
-        "knowledge-ws-c761533e",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-ws-d7c9d1d8"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 93,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T09:23:47.128Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧跑 MoE 模型的瓶颈已经从「能不能加载」转移到「量化路径干不干净」。这一版把草稿模型输出头量化和专家精度不一致两个坑同时补上，是本地推理走向可用的具体一步。",
-      "whoShouldCare": [
-        "在 Apple 芯片上做本地推理的开发者",
-        "评估端侧部署可行性的架构师",
-        "关注推测解码实际收益的性能工程师"
-      ],
-      "technicalContext": "MoE 允许不同专家使用不同量化精度，混合精度在统一内存架构上更容易触发解码错误。推测解码的收益取决于草稿模型的开销，草稿输出头若未按请求精度量化，会削弱吞吐收益。",
-      "impactAreas": [
-        "端侧推理性能",
-        "MoE 量化路径",
-        "推测解码收益",
-        "Apple 芯片部署"
-      ],
-      "learningPath": [
-        "先弄清 MoE 的专家路由与逐专家量化",
-        "再理解推测解码里草稿模型的开销从哪来",
-        "最后在自己的机器上实测 4–9% 这类数字是否可复现"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-68963f7f": "草稿模型输出头的量化直接决定推测解码能留下多少净收益。",
-        "knowledge-ws-36346103": "Qwen3 的专家量化精度不一致问题，根源在 MoE 的逐专家存储结构。",
-        "knowledge-ws-c761533e": "端侧推理性能的每一步改善，都会改变本地与云之间的任务切分边界。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "端侧容量规划要按统一内存和量化精度重新算，而不是照搬服务器端的显存模型。"
-      },
-      "followUpQuestions": [
-        "推测解码草稿量化后的实际加速比，在长上下文下还能保持吗？",
-        "统一内存架构下，混合专家精度的最佳组合是什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-      "createdAt": "2026-07-27T01:43:12.851Z",
-      "updatedAt": "2026-07-27T09:23:47.128Z",
-      "editorialNotes": [
-        "2026-07-27 轮：同批次的 v0.32.5-rc0 / v0.32.4-rc0 按预发布规则拒绝，v0.32.3 作为补丁版本拒绝，本条作为该周期的代表性稳定版收录。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
       ]
     },
     {
