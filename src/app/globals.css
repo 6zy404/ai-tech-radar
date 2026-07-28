@@ -3307,15 +3307,6 @@ p {
   gap: 16px;
 }
 
-.digest-technology-list {
-  display: grid;
-  gap: 16px;
-}
-
-.digest-technology-list--featured {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .digest-technology-card {
   display: grid;
   gap: 14px;
@@ -3327,11 +3318,6 @@ p {
   box-shadow: 0 12px 34px rgba(31, 41, 51, 0.06);
 }
 
-.digest-technology-card--compact {
-  padding: 18px;
-}
-
-.digest-technology-card__header,
 .digest-workspace-technology__header {
   display: flex;
   flex-wrap: wrap;
@@ -3346,7 +3332,6 @@ p {
 }
 
 .digest-technology-card h3,
-.digest-reference-card h3,
 .digest-workspace-technology h3 {
   margin: 0;
   color: var(--user-ink);
@@ -3356,63 +3341,16 @@ p {
 }
 
 .digest-technology-card h3 a,
-.digest-reference-card h3 a,
 .digest-workspace-technology h3 a {
   color: inherit;
   text-decoration: none;
 }
 
 .digest-technology-card p,
-.digest-reference-card p,
 .digest-workspace-technology p {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
-}
-
-.digest-technology-card__reason {
-  display: grid;
-  gap: 5px;
-  padding: 12px 14px;
-  border-left: 4px solid rgba(15, 118, 110, 0.42);
-  border-radius: 14px;
-  background: rgba(15, 118, 110, 0.07);
-}
-
-.digest-technology-card__reason span {
-  color: var(--label-amber);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.digest-technology-card__context {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.digest-technology-card__context span {
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: rgba(15, 118, 110, 0.08);
-  color: var(--accent);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.digest-reference-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.digest-reference-card {
-  padding: 18px;
-  border: 1px solid rgba(15, 118, 110, 0.12);
-  border-radius: 20px;
-  background: rgba(255, 253, 248, 0.82);
 }
 
 .daily-digest-sources {
@@ -3420,19 +3358,6 @@ p {
   border: 1px solid rgba(15, 118, 110, 0.1);
   border-radius: 22px;
   background: rgba(255, 253, 248, 0.72);
-}
-
-.daily-digest-delivery-links {
-  padding: 18px 20px;
-  border: 1px solid rgba(15, 118, 110, 0.1);
-  border-radius: 22px;
-  background: rgba(255, 253, 248, 0.6);
-}
-
-.digest-delivery-link-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .digest-workspace-actions {
@@ -4459,14 +4384,6 @@ body {
   top: 86px;
 }
 
-.digest-technology-list--featured {
-  gap: 14px;
-}
-
-.digest-technology-card {
-  padding: 20px;
-}
-
 .source-row {
   grid-template-columns: minmax(0, 1.15fr) minmax(180px, 0.7fr) minmax(
       230px,
@@ -4597,7 +4514,6 @@ body {
   .user-article-hero,
   .content-intelligence-grid,
   .digest-technology-list--featured,
-  .digest-reference-grid,
   .candidate-detail-columns,
   .candidate-review-layout,
   .workspace-shell .candidate-review-layout,
@@ -4897,7 +4813,6 @@ body {
 .home-signal-card,
 .foundation-card,
 .digest-technology-card,
-.digest-reference-card,
 .user-article-section,
 .user-related-section,
 .source-reference,
@@ -4942,24 +4857,10 @@ body {
 }
 
 .user-shell .technology-card__context-row span,
-.digest-technology-card__context span,
 .home-signal-card__footer span {
   border: 0;
   background: rgba(8, 127, 115, 0.08);
   color: var(--ui-teal-strong);
-}
-
-.digest-technology-list--featured {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.digest-technology-card {
-  padding: 18px;
-}
-
-.digest-technology-card__reason {
-  border-left-color: rgba(8, 127, 115, 0.45);
-  background: rgba(8, 127, 115, 0.06);
 }
 
 .workspace-shell {
@@ -6814,12 +6715,6 @@ a.technology-evolution__title {
 }
 
 /* User-facing digest reading template v0 */
-.daily-digest-reading {
-  max-width: min(1120px, 100%);
-  margin: 0 auto;
-  gap: 34px;
-}
-
 .daily-digest-summary {
   padding: 20px 22px;
   border: 1px solid rgba(15, 118, 110, 0.1);
@@ -6830,29 +6725,11 @@ a.technology-evolution__title {
 .digest-technology-card__topline,
 .digest-technology-card__badges,
 .digest-technology-card__footer,
-.digest-technology-card__context,
 .digest-feed-links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-}
-
-.digest-technology-card__topline,
-.digest-technology-card__footer {
-  justify-content: space-between;
-}
-
-.digest-technology-card__source {
-  color: var(--muted);
-  font-size: 0.86rem;
-  line-height: 1.4;
-}
-
-.digest-technology-card__body {
-  display: grid;
-  gap: 10px;
-  min-width: 0;
 }
 
 .digest-technology-card__summary,
@@ -6861,102 +6738,8 @@ a.technology-evolution__title {
   line-height: 1.7;
 }
 
-.digest-technology-card__audience {
-  color: var(--accent);
-  font-weight: 800;
-}
-
-.digest-technology-card__open {
-  white-space: nowrap;
-}
-
-.digest-reference-card {
-  display: grid;
-  gap: 14px;
-}
-
-.digest-reference-card .action-link {
-  justify-self: start;
-}
-
-.digest-source-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.digest-source-card {
-  display: grid;
-  gap: 8px;
-  min-width: 0;
-  padding: 16px;
-  border: 1px solid rgba(15, 118, 110, 0.1);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.digest-source-card h3,
-.digest-source-card p {
-  margin: 0;
-}
-
-.digest-source-card h3 {
-  color: var(--user-ink);
-  font-size: 1rem;
-}
-
-.digest-source-card p {
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.daily-digest-feeds {
-  padding: 22px;
-  border: 1px solid rgba(15, 118, 110, 0.1);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.68);
-}
-
-.digest-feed-links a {
-  color: var(--accent);
-  font-weight: 800;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.daily-digest-empty {
-  max-width: min(900px, 100%);
-  margin: 0 auto;
-  padding: clamp(34px, 6vw, 64px);
-  border: 1px solid rgba(15, 118, 110, 0.16);
-  border-radius: 28px;
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(99, 230, 216, 0.16),
-      transparent 34%
-    ),
-    rgba(255, 255, 255, 0.72);
-}
-
-.daily-digest-empty h1 {
-  margin: 0;
-  color: var(--user-ink);
-  font-size: clamp(2.4rem, 6vw, 4.4rem);
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-}
-
-.daily-digest-empty p {
-  max-width: 640px;
-  color: #475569;
-  font-size: 1.04rem;
-  line-height: 1.75;
-}
-
 @media (max-width: 920px) {
   .digest-technology-list--featured,
-  .digest-reference-grid,
   .digest-source-list {
     grid-template-columns: 1fr;
   }
@@ -7001,14 +6784,6 @@ a.technology-evolution__title {
    hyphens) on one line. See renderTitleWithUnbreakableDates. */
 .nowrap-run {
   white-space: nowrap;
-}
-
-.daily-digest-brief-header__subtitle {
-  max-width: 720px;
-  margin: 0;
-  color: #475569;
-  font-size: 1rem;
-  line-height: 1.75;
 }
 
 .daily-digest-brief-header__notice {
@@ -7140,7 +6915,6 @@ a.technology-evolution__title {
 .digest-technology-card__topline,
 .digest-technology-card__badges,
 .digest-technology-card__footer,
-.digest-technology-card__context,
 .digest-feed-links,
 .digest-technology-card__actions,
 .digest-technology-card__meta-line {
@@ -7175,7 +6949,6 @@ a.technology-evolution__title {
 
 .digest-technology-card__summary,
 .digest-technology-card__audience,
-.digest-technology-card__source,
 .digest-technology-card__meta-line {
   color: #475569;
   font-size: 0.94rem;
@@ -7193,28 +6966,6 @@ a.technology-evolution__title {
 .digest-technology-card__audience {
   color: var(--accent);
   font-weight: 400;
-}
-
-.digest-technology-card__context {
-  align-items: flex-start;
-  margin-top: 2px;
-  padding: 14px 15px;
-  border-left: 3px solid rgba(15, 118, 110, 0.45);
-  border-radius: 14px;
-  background: rgba(240, 253, 250, 0.64);
-}
-
-.digest-technology-card__context .eyebrow {
-  margin: 0 0 2px;
-  font-size: 0.68rem;
-}
-
-.digest-technology-card__context p {
-  width: 100%;
-  margin: 0;
-  color: #475569;
-  font-size: 0.94rem;
-  line-height: 1.65;
 }
 
 .digest-technology-card__footer {
@@ -7360,7 +7111,6 @@ a.technology-evolution__title {
 @media (max-width: 920px) {
   .daily-digest-brief-header,
   .digest-technology-list--featured,
-  .digest-reference-grid,
   .digest-source-list,
   .digest-reference-list,
   .daily-digest-summary-panel,
@@ -10372,7 +10122,6 @@ a.tech-graph__node:hover {
   letter-spacing: 0;
 }
 
-.dossier .daily-digest-brief-header__subtitle,
 .dossier .daily-digest-summary-panel p,
 .dossier .daily-digest-section__header p {
   color: var(--dossier-muted);
