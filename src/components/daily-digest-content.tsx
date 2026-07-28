@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
@@ -47,6 +47,12 @@ interface DigestTechnologyCardProps {
   technology: TechnologyItem;
   tags: TopicTag[];
   compact?: boolean;
+  /**
+   * Names of the reader's followed topics this signal matched (P4). Rendered
+   * inside the card; before 2026-07-29 it was a sibling paragraph above the
+   * card, which read as a stray section label floating over the grid.
+   */
+  matchedTagNames?: string[];
 }
 
 interface DigestSourceReference extends TechnologySourceReference {
@@ -102,6 +108,27 @@ function getAudienceLine(audience: string[]): string | undefined {
   return `适合 ${visibleAudience.join("、")}`;
 }
 
+/**
+ * Renders a digest title with any `YYYY-MM-DD` run kept on one line.
+ *
+ * The title text is not modified — only its line-breaking. A hyphen is a
+ * legal break opportunity, so `每日技术简报 - 2026-07-28` was breaking as
+ * `…2026-07-` / `28` once the heading wrapped. Public hero headings are pinned
+ * to `--fs-display` with `!important`, so shrinking the type for this one page
+ * would break the shared typography scale instead.
+ */
+function renderTitleWithUnbreakableDates(title: string): ReactNode[] {
+  return title.split(/(\d{4}-\d{2}-\d{2})/).map((part, index) =>
+    /^\d{4}-\d{2}-\d{2}$/.test(part) ? (
+      <span key={index} className="nowrap-run">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
+
 function getDigestSourceReferences(
   digest: PublicDigestView,
   technologies: TechnologyItem[]
@@ -148,7 +175,8 @@ function getDigestSourceReferences(
 function DigestTechnologyCard({
   technology,
   tags,
-  compact = false
+  compact = false,
+  matchedTagNames = []
 }: DigestTechnologyCardProps) {
   const mode: TechnologyContentMode = "zh";
   const effectiveMode = getEffectiveTechnologyMode(
@@ -199,6 +227,11 @@ function DigestTechnologyCard({
       </div>
 
       <div className="digest-technology-card__body">
+        {matchedTagNames.length > 0 ? (
+          <p className="my-radar__match-line digest-technology-card__match">
+            命中关注：{matchedTagNames.join("、")}
+          </p>
+        ) : null}
         <h3>
           <Link href={`/technologies/${technology.slug}`}>{title}</Link>
         </h3>
@@ -408,30 +441,31 @@ export function DailyDigestContent({
 
   return (
     <div className="daily-digest daily-digest-reading dossier">
-      <section className="daily-digest-brief-header">
-        <div className="daily-digest-brief-header__copy">
-          <p className="eyebrow user-eyebrow">每日简报 · {digest.date}</p>
-          <h1>{publicTitle}</h1>
-          <p className="daily-digest-brief-header__subtitle">{publicSummary}</p>
+      {/* Same hero primitive as /technologies/[slug] (user-article-hero), so
+          the two public detail pages read as one family. Before 2026-07-29
+          this page hand-rolled a two-column header whose narrow right column
+          held only the four counts. */}
+      <section className="user-article-hero daily-digest-brief-header">
+        <div className="user-article-hero__copy daily-digest-brief-header__copy">
+          <p className="eyebrow user-eyebrow">每日简报 · 第 {digest.date} 号</p>
+          <h1>{renderTitleWithUnbreakableDates(publicTitle)}</h1>
+          <div className="daily-digest-meta-strip" aria-label="简报摘要">
+            <span>{highPriorityTechnologies.length} 条立即关注</span>
+            <span>{watchTechnologies.length} 条值得跟踪</span>
+            <span>{sourceCount} 个来源</span>
+          </div>
           {previewNotice ? (
             <p className="daily-digest-brief-header__notice">{previewNotice}</p>
           ) : null}
         </div>
-        <div className="daily-digest-meta-strip" aria-label="简报摘要">
-          <span>{digest.date}</span>
-          <span>{highPriorityTechnologies.length} 条立即关注</span>
-          <span>{watchTechnologies.length} 条值得跟踪</span>
-          <span>{sourceCount} 个来源</span>
-        </div>
       </section>
 
-      <section className="daily-digest-summary-panel">
-        <p className="eyebrow user-eyebrow">今日概览</p>
-        <p>
-          这份简报整理了最值得优先关注的已发布信号、值得跟踪的变化，
-          以及让今天的技术动向更易理解的技能与背景知识。
-        </p>
-      </section>
+      {publicSummary ? (
+        <section className="daily-digest-summary-panel">
+          <p className="eyebrow user-eyebrow">今日概览</p>
+          <p>{publicSummary}</p>
+        </section>
+      ) : null}
 
       {isLoaded ? (
         hasFollows ? (
@@ -474,21 +508,16 @@ export function DailyDigestContent({
           </div>
           {visibleHighPriorityTechnologies.length > 0 ? (
             <div className="digest-technology-list digest-technology-list--featured">
-              {visibleHighPriorityTechnologies.map((technology) => {
-                const matchedTags = getMatchedTags(technology);
-
-                return (
-                  <div key={technology.id} className="my-radar__item">
-                    {matchedTags.length > 0 ? (
-                      <p className="my-radar__match-line">
-                        命中关注：
-                        {matchedTags.map((tag) => tag.name).join("、")}
-                      </p>
-                    ) : null}
-                    <DigestTechnologyCard technology={technology} tags={tags} />
-                  </div>
-                );
-              })}
+              {visibleHighPriorityTechnologies.map((technology) => (
+                <DigestTechnologyCard
+                  key={technology.id}
+                  technology={technology}
+                  tags={tags}
+                  matchedTagNames={getMatchedTags(technology).map(
+                    (tag) => tag.name
+                  )}
+                />
+              ))}
             </div>
           ) : (
             <p className="empty-state">本期简报未选入需要立即关注的信号。</p>
@@ -502,27 +531,22 @@ export function DailyDigestContent({
             <h2>值得跟踪</h2>
             <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
           </div>
+          {/* Same two-column grid as 今日立即关注 above. Until 2026-07-29 this
+              list was single-column, so identical cards rendered at two
+              different widths on one page. */}
           {visibleWatchTechnologies.length > 0 ? (
-            <div className="digest-technology-list">
-              {visibleWatchTechnologies.map((technology) => {
-                const matchedTags = getMatchedTags(technology);
-
-                return (
-                  <div key={technology.id} className="my-radar__item">
-                    {matchedTags.length > 0 ? (
-                      <p className="my-radar__match-line">
-                        命中关注：
-                        {matchedTags.map((tag) => tag.name).join("、")}
-                      </p>
-                    ) : null}
-                    <DigestTechnologyCard
-                      technology={technology}
-                      tags={tags}
-                      compact
-                    />
-                  </div>
-                );
-              })}
+            <div className="digest-technology-list digest-technology-list--featured">
+              {visibleWatchTechnologies.map((technology) => (
+                <DigestTechnologyCard
+                  key={technology.id}
+                  technology={technology}
+                  tags={tags}
+                  compact
+                  matchedTagNames={getMatchedTags(technology).map(
+                    (tag) => tag.name
+                  )}
+                />
+              ))}
             </div>
           ) : (
             <p className="empty-state">本期简报未选入值得跟踪的条目。</p>
