@@ -1,3 +1,7 @@
+import {
+  calculateTokenSimilarity,
+  normalizeUrlForComparison
+} from "@/lib/candidate-duplicate-rules";
 import type {
   CandidateQualityFlag,
   CandidateQualitySignals,
@@ -8,8 +12,70 @@ import type {
   SourceQualityMetrics
 } from "@/types/content";
 
+// A candidate is compared against these to decide whether the same
+// announcement has already been published. Only the fields the comparison
+// needs, so callers do not have to hand over whole workspace records.
+export interface PublishedSignalFingerprint {
+  id: string;
+  sourceUrl: string;
+  titles: string[];
+}
+
 interface CandidateQualityOptions {
   canConvert?: boolean;
+  publishedSignals?: PublishedSignalFingerprint[];
+}
+
+export function buildPublishedSignalFingerprints(
+  technologies: {
+    id: string;
+    sourceUrl: string;
+    title: { original: string; zh?: string; en?: string };
+  }[]
+): PublishedSignalFingerprint[] {
+  return technologies.map((technology) => ({
+    id: technology.id,
+    sourceUrl: technology.sourceUrl,
+    titles: [
+      technology.title.original,
+      technology.title.zh,
+      technology.title.en
+    ].filter((title): title is string => Boolean(title?.trim()))
+  }));
+}
+
+// Measured against the real pool on 2026-07-28: genuine re-publications of an
+// already-published announcement score 0.8 and 1.0, while the next-highest
+// unrelated candidate scores 0.3, so the threshold sits inside a wide gap
+// rather than on a guess.
+const ALREADY_PUBLISHED_TITLE_SIMILARITY = 0.8;
+
+function isAlreadyPublishedSignal(
+  candidate: ImportedCandidate,
+  publishedSignals: PublishedSignalFingerprint[]
+): boolean {
+  const candidateUrl = normalizeUrlForComparison(candidate.sourceUrl ?? "");
+
+  return publishedSignals.some((signal) => {
+    // A converted candidate always matches the signal it produced; that is
+    // traceability, not a duplicate.
+    if (signal.id === candidate.convertedTechnologyId) {
+      return false;
+    }
+
+    if (
+      candidateUrl.length > 0 &&
+      normalizeUrlForComparison(signal.sourceUrl) === candidateUrl
+    ) {
+      return true;
+    }
+
+    return signal.titles.some(
+      (title) =>
+        calculateTokenSimilarity(candidate.originalTitle, title) >=
+        ALREADY_PUBLISHED_TITLE_SIMILARITY
+    );
+  });
 }
 
 function isPresent(value: string | undefined): boolean {
@@ -167,6 +233,10 @@ export function evaluateCandidateQuality(
   const isDuplicate = isCandidateDuplicate(candidate);
   const isTooShort = isCandidateTooShort(candidate);
   const isPrerelease = isPrereleaseVersion(candidate);
+  const isAlreadyPublished = isAlreadyPublishedSignal(
+    candidate,
+    options.publishedSignals ?? []
+  );
   const isConvertible =
     Boolean(options.canConvert) &&
     hasTitle &&
@@ -217,6 +287,10 @@ export function evaluateCandidateQuality(
     flags.push("prerelease_version");
   }
 
+  if (isAlreadyPublished) {
+    flags.push("already_published");
+  }
+
   if (isConvertible) {
     flags.push("ready_for_review");
   } else if (options.canConvert === false) {
@@ -234,6 +308,7 @@ export function evaluateCandidateQuality(
     isDuplicate,
     isTooShort,
     isPrerelease,
+    isAlreadyPublished,
     isConvertible,
     flags
   };

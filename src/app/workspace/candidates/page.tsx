@@ -4,8 +4,12 @@ import {
   getCandidateDraftConversionReadiness,
   getCandidateWorkflowData
 } from "@/lib/candidate-workflow";
-import { evaluateCandidateQuality } from "@/lib/quality-signals";
+import {
+  buildPublishedSignalFingerprints,
+  evaluateCandidateQuality
+} from "@/lib/quality-signals";
 import { evaluateImportedCandidatePriority } from "@/lib/ranking";
+import { getPublishedTechnologyWorkspaceRecords } from "@/lib/technology-draft-workflow";
 import {
   getExternalSourceImportRuns,
   getExternalSources
@@ -23,6 +27,9 @@ export default function WorkspaceCandidatesPage() {
     candidates,
     getExternalSourceImportRuns()
   );
+  const publishedSignals = buildPublishedSignalFingerprints(
+    getPublishedTechnologyWorkspaceRecords()
+  );
   const candidateQualityById = Object.fromEntries(
     candidates.map((candidate) => {
       const readiness = getCandidateDraftConversionReadiness(candidate.id);
@@ -30,7 +37,8 @@ export default function WorkspaceCandidatesPage() {
       return [
         candidate.id,
         evaluateCandidateQuality(candidate, {
-          canConvert: readiness.canConvert
+          canConvert: readiness.canConvert,
+          publishedSignals
         })
       ];
     })

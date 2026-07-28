@@ -5,10 +5,14 @@ import {
 import { getTodayDateString } from "@/lib/digest-store";
 import { getDailyDigestByDate } from "@/lib/digest-workflow";
 import {
+  getPublishedTechnologyWorkspaceRecords,
   getTechnologyDrafts,
   getTechnologyWorkspacePublishReadiness
 } from "@/lib/technology-draft-workflow";
-import { evaluateCandidateQuality } from "@/lib/quality-signals";
+import {
+  buildPublishedSignalFingerprints,
+  evaluateCandidateQuality
+} from "@/lib/quality-signals";
 import type { CandidateQualityFlag, DailyDigestStatus } from "@/types/content";
 
 const reviewOnlyQualityFlags = new Set<CandidateQualityFlag>([
@@ -163,6 +167,14 @@ function buildSteps(input: {
 export function getEditorialRoundState(): EditorialRoundState {
   const today = getTodayDateString();
 
+  // Duplicate detection only compares against the rolling candidate snapshot,
+  // so an announcement re-published under a changed URL slug looks brand new
+  // once its earlier twin has aged out. The published pool outlives that
+  // window, which is what makes the 已发布过 flag worth computing here.
+  const publishedSignals = buildPublishedSignalFingerprints(
+    getPublishedTechnologyWorkspaceRecords()
+  );
+
   const undecidedCandidates: EditorialRoundCandidate[] = getImportedCandidates()
     .filter((candidate) => candidate.importStatus === "new")
     .map((candidate) => ({
@@ -170,9 +182,9 @@ export function getEditorialRoundState(): EditorialRoundState {
       title: candidate.originalTitle,
       sourceName: candidate.sourceName,
       publishDate: candidate.publishDate,
-      qualityFlags: evaluateCandidateQuality(candidate).flags.filter(
-        (flag) => !reviewOnlyQualityFlags.has(flag)
-      )
+      qualityFlags: evaluateCandidateQuality(candidate, {
+        publishedSignals
+      }).flags.filter((flag) => !reviewOnlyQualityFlags.has(flag))
     }))
     .sort((left, right) => right.publishDate.localeCompare(left.publishDate));
 

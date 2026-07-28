@@ -309,3 +309,14 @@ Practical guard for a round: before converting a candidate that looks like a
 major vendor announcement, check whether a **published** signal already
 carries the same source URL modulo slug formatting — the review state and the
 technology workspace both outlive the snapshot window.
+
+**Since 2026-07-28 this check runs for you.** The `already_published`
+(已发布过) candidate quality flag compares each candidate against the
+published pool by normalized source URL _and_ by title similarity, and renders
+on `/workspace/candidates` and the editorial-round console alongside the other
+review flags. Re-checked against the real pool, it flags exactly the Gemini
+re-import described above and nothing else. It is a review aid only — it does
+not block conversion and does not change ranking — so the keep/reject call is
+still yours. It cannot match two different all-Chinese titles (comparison
+tokens are latin-only), so a Chinese-language source would still need the
+manual check.

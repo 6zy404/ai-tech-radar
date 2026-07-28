@@ -28,10 +28,12 @@ const { getDailyDigestByDateMock } = vi.hoisted(() => ({
   getDailyDigestByDateMock: vi.fn<(date: string) => DailyDigest | undefined>()
 }));
 
-const { getTechnologyDraftsMock, getReadinessMock } = vi.hoisted(() => ({
-  getTechnologyDraftsMock: vi.fn<() => TechnologyWorkspaceRecord[]>(),
-  getReadinessMock: vi.fn<(id: string) => PublishReadinessResult>()
-}));
+const { getTechnologyDraftsMock, getReadinessMock, getPublishedRecordsMock } =
+  vi.hoisted(() => ({
+    getTechnologyDraftsMock: vi.fn<() => TechnologyWorkspaceRecord[]>(),
+    getReadinessMock: vi.fn<(id: string) => PublishReadinessResult>(),
+    getPublishedRecordsMock: vi.fn<() => TechnologyWorkspaceRecord[]>()
+  }));
 
 vi.mock("@/lib/candidate-workflow", () => ({
   getImportedCandidates: getImportedCandidatesMock,
@@ -48,7 +50,8 @@ vi.mock("@/lib/digest-workflow", () => ({
 
 vi.mock("@/lib/technology-draft-workflow", () => ({
   getTechnologyDrafts: getTechnologyDraftsMock,
-  getTechnologyWorkspacePublishReadiness: getReadinessMock
+  getTechnologyWorkspacePublishReadiness: getReadinessMock,
+  getPublishedTechnologyWorkspaceRecords: getPublishedRecordsMock
 }));
 
 function readiness(blocking: number, warning: number): PublishReadinessResult {
@@ -97,6 +100,7 @@ beforeEach(() => {
   getImportedCandidatesMock.mockReturnValue([]);
   getDuplicateGroupsMock.mockReturnValue([]);
   getTechnologyDraftsMock.mockReturnValue([]);
+  getPublishedRecordsMock.mockReturnValue([]);
   getDailyDigestByDateMock.mockReturnValue(undefined);
   getReadinessMock.mockReturnValue(readiness(0, 0));
 });
