@@ -84,6 +84,26 @@ This object belongs to the Internal Workspace only.
 
 `sourceId`, `sourceName`, `sourceType`, `sourceUrl`, `importedAt`, and `importRunId` preserve traceability back to the configured `ExternalSource` and the batch import run when one exists.
 
+`imported-candidates.live.json` is a **rolling window**, not an archive: a
+successful import replaces that source's entries with what the feed currently
+returns, so older items age out (40 candidates in the snapshot against 104
+review entries on 2026-07-29). Every disposition survives independently in
+`candidate-review-state.json`, which is why the window can be lossy — and why
+duplicate detection, which only sees the window, needed the separate
+`already_published` check.
+
+A **failed** import is the one case where replacing is wrong. It falls back to
+a single synthetic `fallback`-tagged placeholder, and until 2026-07-29 that
+placeholder replaced the source's real candidates (it cost a recovered
+`Ollama v0.32.5` candidate for real). `mergeImportedCandidatesForSource` now
+takes `preserveExistingCandidates`, passed only from that branch, so the
+placeholder is appended instead. Placeholders all carry the source's own feed
+URL rather than an item URL, so repeated failures cannot stack them — the merge
+skips an incoming candidate whose id or source URL already belongs to the
+source. The merge rules themselves live in the pure
+`buildMergedCandidateSnapshot`, which takes a snapshot and a `syncedAt` and
+returns the next snapshot with no file I/O.
+
 ## CandidateQualitySignals
 
 Computed Internal Workspace signals for an imported candidate. These are review aids, not ranking or recommendation features.

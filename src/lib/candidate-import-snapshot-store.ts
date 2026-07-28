@@ -184,32 +184,115 @@ export function getImportedCandidateSourceId(
   return undefined;
 }
 
-export function mergeImportedCandidatesForSource(
+export interface MergeImportedCandidatesOptions {
+  /**
+   * Keep the candidates a previous run already captured for this source and
+   * only append the ones that are genuinely new.
+   *
+   * The default (replace) is right for a successful live import: the feed is
+   * the current truth, and the snapshot is a rolling window whose entries age
+   * out while `candidate-review-state.json` keeps every decision. It is wrong
+   * for a *failed* import that falls back to a placeholder, because a replace
+   * there discards real candidates in exchange for one synthetic row — which
+   * is how a manual re-run destroyed the recovered Ollama v0.32.5 candidate on
+   * 2026-07-28.
+   */
+  preserveExistingCandidates?: boolean;
+}
+
+function withSourceId(
+  candidate: ImportedCandidate,
+  sourceId: string
+): ImportedCandidate {
+  return {
+    ...candidate,
+    sourceId,
+    relatedCandidateIds: Array.isArray(candidate.relatedCandidateIds)
+      ? [...candidate.relatedCandidateIds]
+      : []
+  };
+}
+
+/**
+ * Pure core of {@link mergeImportedCandidatesForSource}: no file I/O and no
+ * clock of its own, so the merge rules can be unit tested directly.
+ */
+export function buildMergedCandidateSnapshot(
+  snapshot: ImportedCandidateSnapshot,
   sourceRecord: ImportedCandidateSourceRecord,
-  importedCandidates: ImportedCandidate[]
+  importedCandidates: ImportedCandidate[],
+  syncedAt: string,
+  options: MergeImportedCandidatesOptions = {}
 ): ImportedCandidateSnapshot {
-  const snapshot = readImportedCandidateSnapshot();
+  const belongsToSource = (candidate: ImportedCandidate) =>
+    getImportedCandidateSourceId(candidate) === sourceRecord.id;
+  const otherSourceCandidates = snapshot.candidates.filter(
+    (candidate) => !belongsToSource(candidate)
+  );
+  const existingForSource = snapshot.candidates.filter(belongsToSource);
+
+  let candidatesForSource: ImportedCandidate[];
+  let nextSourceRecord = sourceRecord;
+
+  if (options.preserveExistingCandidates) {
+    // A placeholder always carries the source's own feed URL, so a second
+    // failure on another day would otherwise stack a near-identical row.
+    const seenIds = new Set(existingForSource.map((candidate) => candidate.id));
+    const seenUrls = new Set(
+      existingForSource
+        .map((candidate) => candidate.sourceUrl)
+        .filter((url): url is string => Boolean(url))
+    );
+    const additions = importedCandidates.filter(
+      (candidate) =>
+        !seenIds.has(candidate.id) &&
+        !(candidate.sourceUrl && seenUrls.has(candidate.sourceUrl))
+    );
+
+    candidatesForSource = [
+      ...existingForSource,
+      ...additions.map((candidate) => withSourceId(candidate, sourceRecord.id))
+    ];
+    // The caller sized the record from the incoming batch alone, which no
+    // longer describes what the source holds once nothing was dropped.
+    nextSourceRecord = {
+      ...sourceRecord,
+      itemCount: candidatesForSource.length
+    };
+  } else {
+    candidatesForSource = importedCandidates.map((candidate) =>
+      withSourceId(candidate, sourceRecord.id)
+    );
+  }
+
   const nextCandidates = [
-    ...snapshot.candidates.filter(
-      (candidate) => getImportedCandidateSourceId(candidate) !== sourceRecord.id
-    ),
-    ...importedCandidates.map((candidate) => ({
-      ...candidate,
-      sourceId: sourceRecord.id,
-      relatedCandidateIds: Array.isArray(candidate.relatedCandidateIds)
-        ? [...candidate.relatedCandidateIds]
-        : []
-    }))
+    ...otherSourceCandidates,
+    ...candidatesForSource
   ].sort((left, right) => right.publishDate.localeCompare(left.publishDate));
   const nextSources = [
     ...snapshot.sources.filter((source) => source.id !== sourceRecord.id),
-    sourceRecord
+    nextSourceRecord
   ].sort((left, right) => left.sourceName.localeCompare(right.sourceName));
-  const nextSnapshot = {
-    syncedAt: new Date().toISOString(),
+
+  return {
+    syncedAt,
     sources: nextSources,
     candidates: nextCandidates
   };
+}
+
+export function mergeImportedCandidatesForSource(
+  sourceRecord: ImportedCandidateSourceRecord,
+  importedCandidates: ImportedCandidate[],
+  options: MergeImportedCandidatesOptions = {}
+): ImportedCandidateSnapshot {
+  const nextSnapshot = buildMergedCandidateSnapshot(
+    readImportedCandidateSnapshot(),
+    sourceRecord,
+    importedCandidates,
+    new Date().toISOString(),
+    options
+  );
 
   writeImportedCandidateSnapshot(nextSnapshot);
 
