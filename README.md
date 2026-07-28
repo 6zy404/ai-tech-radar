@@ -65,6 +65,16 @@ The product is split into two subsystems:
   written by every editorial round, required by the publish gate, and never
   displayed anywhere public, while skill and knowledge bodies rendered as a
   single paragraph with their `**` markers visible.
+- **Publisher type on the signal page** — the technology detail page's source
+  row carries the publisher's _type_ (大型科技公司 / 创业公司 / 研究实验室 /
+  开源社区 / 媒体) as a hairline chip beside the publisher name, on both the
+  aside panel and the foot-of-article 来源参考 block, so a reader can tell a
+  vendor announcement from an open-source release before reading. Added
+  2026-07-29 by connecting the already-written `getPublisherTypeLabel` and one
+  optional `SourceReference` prop. `translationStatus` was measured in the same
+  pass and deliberately **not** rendered: the derived translation coverage is
+  `full` for all 31 published signals, so any badge would be a constant — see
+  `docs/data-model.md` → `TechnologyItem`.
 - **Version evolution line** — a 版本脉络 section on the technology detail page
   showing where the signal you are reading sits in its release line. Built only
   from explicit `supersedes` (续作) relations between published technologies —

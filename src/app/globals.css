@@ -3268,6 +3268,15 @@ p {
   font-size: 0.88rem;
 }
 
+/* the publisher *type* is a classification, not another name — a hairline
+   chip keeps it from reading as part of the publisher name beside it */
+.source-reference__publisher-type {
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+
 .source-reference a {
   display: inline-flex;
   margin-top: 14px;
@@ -10000,6 +10009,10 @@ a.tech-graph__node:hover {
 
 .dossier .source-reference__meta {
   color: var(--dossier-muted);
+}
+
+.dossier .source-reference__publisher-type {
+  border-color: var(--dossier-line);
 }
 
 .dossier .source-reference a {

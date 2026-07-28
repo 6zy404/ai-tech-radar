@@ -37,6 +37,7 @@ import {
 import {
   getEffectiveTechnologyMode,
   getLocalizedTechnologyText,
+  getPublisherTypeLabel,
   getRelationTypeLabel,
   getTechnologyDefaultMode,
   getTechnologyDetailCopy,
@@ -92,6 +93,10 @@ export function TechnologyDetailContent({
     technology.sourceLanguage
   );
   const priorityLabel = getPriorityLevelLabel(ranking.priorityLevel, mode);
+  const publisherTypeLabel = getPublisherTypeLabel(
+    technology.publisherType,
+    mode
+  );
   const prioritySummary = getPriorityUserSummary(ranking, mode);
   const body = getLocalizedTechnologyText(
     technology.content,
@@ -201,6 +206,7 @@ export function TechnologyDetailContent({
             sourceName={technology.sourceName}
             sourceUrl={technology.sourceUrl}
             publisherName={technology.publisherName}
+            publisherTypeLabel={publisherTypeLabel}
             publishDate={technology.publishDate}
             linkLabel={copy.sourceLinkLabel}
           />
@@ -364,6 +370,7 @@ export function TechnologyDetailContent({
         sourceName={technology.sourceName}
         sourceUrl={technology.sourceUrl}
         publisherName={technology.publisherName}
+        publisherTypeLabel={publisherTypeLabel}
         publishDate={technology.publishDate}
         linkLabel={copy.sourceLinkLabel}
         showUrl

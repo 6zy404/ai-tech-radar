@@ -12,6 +12,60 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Publisher type rendered, translation status corrected
+
+- **The remaining payload-without-render gap was closed unevenly, because the
+  two fields turned out not to be the same kind of thing** — 2026-07-29,
+  owner-selected as the "公开面渲染缺口" item left open by the 07-28 sweep.
+  The plan going in was to surface `translationStatus` as a 已翻译 / 原文 hint;
+  measuring the real data reversed it.
+- **`translationStatus` had drifted, and its truthful replacement carries no
+  information** — two measurements, both against the 31 published signals.
+  First, the stored field said `pending` on **6 of 31** records that in fact
+  carry a complete Chinese title, summary, and body (`gemini-flash-cyber`,
+  `openai-long-horizon-safety`, and 4 seed records) — editors had simply not
+  flipped the field at publish time, so rendering it would have printed a false
+  claim on a fifth of the site. Second, the honest alternative — the existing
+  derived `getTechnologyTranslationCoverage`, which reads the content actually
+  present rather than the stored flag — returns `full` for **all 31**, so a
+  badge built on it would repeat one identical sentence on every page. That is
+  decoration with no signal, which is exactly why the 2026-07-15 dossier round
+  rejected content-kind card spines. No language badge shipped; the 6 stale
+  values were corrected instead (4 seed records edited in place, 2 workspace
+  records through the real `PATCH` route — verified field-by-field against the
+  previous commit to confirm nothing but `translationStatus`, the recomputed
+  `priority` timestamp, and `updatedAt` changed, with both slugs and both
+  priority bands preserved).
+- **`publisherType` shipped instead, because its distribution is real** —
+  big-tech 12 / startup 9 / open-source-community 6 / research-lab 2 / media 2
+  across the same 31 signals, and "vendor announcement vs. open-source release
+  vs. research lab" genuinely changes how a reader weighs a claim. It renders
+  as a hairline chip inside the source row rather than as a fifth aside panel,
+  on both `SourceReference` instances (the aside and the foot-of-article 来源参考
+  block). The chip is set apart from the publisher _name_ next to it precisely
+  because it is a classification, not another name.
+- **Nothing new was written for it — three pieces were already built and never
+  wired**: `getPublisherTypeLabel` (full Chinese label map, zero call sites),
+  the `TechnologyLanguageIndicators` component, and the `languageStateLabel` /
+  `publisherTitle` copy keys. Only the first is now connected;
+  `TechnologyLanguageIndicators` is deliberately left unwired and documented as
+  the leftover of the rejected direction, since a genuinely partial translation
+  would make it useful again. `SourceReference` gained one optional prop, so
+  every other caller is untouched, and the `.source-reference__publisher-type`
+  rule is 5 lines on existing tokens (`--line`, `--dossier-line`), so dark mode
+  needed no new value.
+- Verified: typecheck, lint, format, vitest 171/171, `validate:ranking` /
+  `publishing` / `persistence` / `workspace-boundary` / `content-intelligence`,
+  plus a live pass — the chip renders on 5 signals across 4 distinct publisher
+  types (2 per page, aside + foot), the payload now reads `translationStatus:
+"done"` where it read `"pending"`, no 待翻译 string reaches any page, contrast
+  measures **5.87 / 6.35 light** and **5.42 dark** (all above AA), the meta row
+  wraps to two lines at a forced 240px aside instead of overflowing, the
+  workspace preview route renders it dossier-scoped, 9 public routes still
+  return 200, and the console is clean. In `原文` mode the chip shows the raw
+  enum (`open-source-community`) — consistent with the hero's type line, which
+  has always done the same, and deliberately not "fixed" in this scope.
+
 ## Content round — model-to-engine support paths
 
 - **技能「模型与推理引擎的支持路径」published** — 2026-07-28,
