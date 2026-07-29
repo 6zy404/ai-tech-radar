@@ -94,6 +94,15 @@ Purpose:
 - avoid raw payload, review status, source health, and duplicate workflow data
 - omit the generic page header so the article hero is the first meaningful content block
 
+All four share one geometry, not merely one look (2026-07-29): the hero spans
+the full measure, and the reading column plus its aside sit underneath it. At
+1440px every one of them renders those three parts on the same four edges —
+272 / 860 / 888 / 1168. Until this date `/skills/[slug]` and `/knowledge/[slug]`
+placed the hero **inside** the reading column, so the aside stood level with the
+title and the pages ran 50px wider than `/technologies/[slug]`; their visual
+properties had matched the whole time, which is why it went unnoticed. See
+`docs/design-system.md` → "One skeleton for every public detail page".
+
 ## Internal Workspace routes
 
 - `/workspace`

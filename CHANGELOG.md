@@ -12,6 +12,60 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Second site-wide sweep — the three defects a detector cannot find
+
+- **Every reader-facing page was screenshotted and looked at, in both colour
+  schemes** — 2026-07-29, owner-requested after the first sweep. 25 routes ×
+  2 schemes = 50 full-page captures at 1440px, each opened and read, with 1:1
+  crops for anything suspicious. The Browser pane's screenshot tool timed out
+  again (twice, 30s each), so this ran through Playwright against the locally
+  installed Chrome — stated here rather than silently downgraded to DOM checks,
+  per the `AGENTS.md` visual verification rule.
+- **The two detectors from the first sweep found nothing, and that is the
+  point.** Both were re-proven to fire (an injected border-with-no-padding was
+  caught 4 times, an injected overflow 8 times) and then returned **zero hits
+  across all 20 public routes**. Every defect below was found by looking.
+- **13 findings, 3 fixed this round.** The full screening, with a screenshot
+  per finding, went to the owner before any code changed; the owner picked the
+  three severe ones.
+- **A whole block of copy was invisible in dark mode.**
+  `.empty-state--actionable` hardcodes a near-white fill, so after the
+  2026-07-16 dark round turned its text light, the heading measured **1.19:1**,
+  the body 2.52:1 and the link 2.82:1 against a 4.5:1 bar. Seven public
+  surfaces render it. Now scoped-dark: 11.53 / 5.42 / 4.84, light untouched.
+  **This is the 2026-07-16 lesson recurring verbatim** — a colour that is fine
+  on one surface fails on another, and only measurement catches it.
+- **The search page's submit button was browser-default chrome** — a square,
+  hairline box 12px shorter than the pill beside it, the only unstyled control
+  on the public site, and invisible to both detectors because its DOM and its
+  contrast are both fine. It now reuses `.action-button--primary`, verified
+  value-by-value against the home hero's button rather than by eye.
+- **Four sibling detail pages, three different measures.** The skill and
+  knowledge pages kept the hero inside the reading column, so the aside stood
+  level with the title; hero 618 vs 896, column 618 vs 588, aside 300 vs 280.
+  The **skin was already identical** — same fill, radius, padding and h1 size —
+  so this was the skin-vs-box-model split in its third form. All four pages now
+  render on the same four edges (272 / 860 / 888 / 1168), with no overflow at
+  seven widths and the 980px collapse intact.
+- **One finding was withdrawn after measuring, and one after re-measuring.**
+  The view tabs looked like their unselected state out-shouted the selected one;
+  sampling the colours showed the hierarchy was correct and the muted brown had
+  read as accent in a downscaled screenshot. Worse, a **claimed 82px step on the
+  digest page reached the owner's confirmation sketch before it was checked** —
+  it came from comparing a padded container's border box against its own child.
+  Every digest block, hero included, sits at 272/896. The correction led the
+  verification write-up rather than being quietly dropped.
+- Verified: typecheck, lint, format, both detectors re-proven and clean, 7
+  viewport widths, and contrast re-measured in both schemes.
+- **Still open from this sweep (10 findings):** the home page's two bottom
+  columns start 116px apart; the aside runs out at a quarter of the page on all
+  three detail pages; the home news rows are white cards on a paper page; the
+  `/network` controls float exactly as `/technologies`' did before the last
+  round fixed them; the digest overview reserves a 200px empty label column;
+  plus five consistency items (three hero gradients, a background band under
+  short pages, stretched category chips, three empty-state components, three
+  ways of showing a count).
+
 ## Site-wide visual sweep — five more defects, four of them structural
 
 - **Everything here was found by looking, after the digest round proved that
