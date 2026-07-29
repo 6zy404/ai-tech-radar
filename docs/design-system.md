@@ -1225,3 +1225,32 @@ confirmation sketch before it was checked**: it came from comparing a padded
 container's border box against its own child, and every digest block including
 the hero in fact sits at 272/896. Eyeballing a screenshot generates a
 hypothesis; it does not close one.
+
+### A full-page screenshot flattens sticky positioning (2026-07-29, second sweep)
+
+The sweep reported that the aside on all three aside-bearing detail pages "runs
+out a quarter of the way down, leaving 73–85% of the right column empty". It was
+read off the full-page captures, and it was wrong: those asides have carried
+`position: sticky` since they were written. Scroll-testing all three confirmed
+they stay pinned 86–96px below the viewport top for the entire page, releasing
+only where their column ends.
+
+A full-page capture renders the document at its static layout, so a sticky
+element appears exactly once, at its unscrolled position. **An "empty column"
+below a sticky element is therefore a known false positive of this method.**
+When a full-page screenshot suggests a scroll-dependent defect — sticky headers,
+sticky asides, scroll-triggered reveals, anything with `position: fixed` — drive
+the page and sample the geometry at several scroll offsets before writing it up.
+
+This is the third claim this sweep produced and then withdrew, and the three
+have a shared shape worth naming:
+
+| claim                       | how it was produced                       | how it fell           |
+| --------------------------- | ----------------------------------------- | --------------------- |
+| tab hierarchy inverted      | read off a downscaled screenshot          | sampled the colours   |
+| digest hero 82px narrower   | compared two numbers from different boxes | measured the siblings |
+| aside leaves the page empty | read off a flattened capture              | scrolled the page     |
+
+Looking at a screenshot is how you **generate** a hypothesis about layout. It is
+not how you close one. Every finding that survived to a commit in this round was
+confirmed with a number first.

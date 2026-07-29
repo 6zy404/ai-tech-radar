@@ -25,9 +25,9 @@ For per-topic deep dives, see the `docs/` directory.
   point.** Both were re-proven to fire (an injected border-with-no-padding was
   caught 4 times, an injected overflow 8 times) and then returned **zero hits
   across all 20 public routes**. Every defect below was found by looking.
-- **13 findings, 3 fixed this round.** The full screening, with a screenshot
-  per finding, went to the owner before any code changed; the owner picked the
-  three severe ones.
+- **13 findings, 7 fixed, 1 withdrawn, 5 open.** The full screening, with a
+  screenshot per finding, went to the owner before any code changed; the owner
+  picked the three severe ones, then the five alignment ones.
 - **A whole block of copy was invisible in dark mode.**
   `.empty-state--actionable` hardcodes a near-white fill, so after the
   2026-07-16 dark round turned its text light, the heading measured **1.19:1**,
@@ -47,6 +47,26 @@ For per-topic deep dives, see the `docs/` directory.
   so this was the skin-vs-box-model split in its third form. All four pages now
   render on the same four edges (272 / 860 / 888 / 1168), with no overflow at
   seven widths and the 980px collapse intact.
+- **Four alignment defects, all CSS-only, all measured before and after.** The
+  home page's 技能 and 知识 columns started **116px apart** — both are grid
+  items stretched to the taller one's height, and `align-content: normal` then
+  spread that height across the shorter column's own rows, sinking its first
+  card while the headings stayed level. The home news rows were **pure white on
+  a paper page**, the one card type the 2026-07-14 migration could not convert
+  (they need `target="_blank"`, which `DossierRegisterRow` cannot express).
+  `/network`'s controls floated between two bordered blocks — **exactly what
+  the first sweep fixed on `/technologies`**, on a page that round did not
+  cover, which is what fixing page by page costs. And the digest's 今日概览
+  reserved a **183px empty label column** beside a nine-line paragraph, the same
+  near-empty fixed column the first sweep removed from the digest hero.
+- **A third claim was withdrawn — and this one indicts the method.** "The aside
+  runs out a quarter of the way down, leaving 73–85% of the right side empty"
+  was read off the full-page screenshots. The asides have carried
+  `position: sticky` all along, and scroll-testing all three pages showed them
+  pinned at 86/96px from the top through the entire page, releasing only at the
+  column's end. **A full-page capture flattens sticky positioning into its
+  static position**, so "empty column" in such a capture is a known false
+  positive — now recorded in `docs/design-system.md` beside the two detectors.
 - **One finding was withdrawn after measuring, and one after re-measuring.**
   The view tabs looked like their unselected state out-shouted the selected one;
   sampling the colours showed the hierarchy was correct and the muted brown had
@@ -57,14 +77,12 @@ For per-topic deep dives, see the `docs/` directory.
   verification write-up rather than being quietly dropped.
 - Verified: typecheck, lint, format, both detectors re-proven and clean, 7
   viewport widths, and contrast re-measured in both schemes.
-- **Still open from this sweep (10 findings):** the home page's two bottom
-  columns start 116px apart; the aside runs out at a quarter of the page on all
-  three detail pages; the home news rows are white cards on a paper page; the
-  `/network` controls float exactly as `/technologies`' did before the last
-  round fixed them; the digest overview reserves a 200px empty label column;
-  plus five consistency items (three hero gradients, a background band under
-  short pages, stretched category chips, three empty-state components, three
-  ways of showing a count).
+- **Still open from this sweep (5 consistency findings):** three different hero
+  gradients across same-tier list pages; a 200–280px background band exposed
+  under short pages; category chips stretched to the full card width; three
+  empty-state components with three looks (the root cause of the dark-mode
+  failure above, of which only the failing instance was fixed); and three
+  different ways of presenting a count.
 
 ## Site-wide visual sweep — five more defects, four of them structural
 
