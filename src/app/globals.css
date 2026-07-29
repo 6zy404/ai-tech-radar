@@ -3105,6 +3105,15 @@ p {
   min-width: 0;
 }
 
+/* The columns already opt out of `min-width: auto`, but their children did not:
+   a grid item sizes to its content's min-content width unless told otherwise,
+   so one wide child (a `<select>` sized to its longest option) pushed every
+   section past the reading column and under the aside. */
+.user-article-layout__main > *,
+.user-article-layout__aside > * {
+  min-width: 0;
+}
+
 .user-article-layout__main {
   max-width: 780px;
 }
@@ -6543,10 +6552,20 @@ a.technology-evolution__title {
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+  min-width: 0;
 }
 
+/* A native `<select>` sizes itself to its widest option, and the options here
+   are full technology titles — it rendered 558px inside a 487px column and
+   dragged the whole reading column with it. `max-width: 100%` alone cannot
+   fix that: the grid track is sized *from* this element's min-content, so
+   100% resolves back to the same 558px. `min-width: 0` is what actually drops
+   its min-content contribution to zero; `flex-basis` then gives it a
+   preferred size it is free to shrink below. */
 .technology-compare-widget__select {
-  min-width: 220px;
+  flex: 1 1 220px;
+  min-width: 0;
+  max-width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
