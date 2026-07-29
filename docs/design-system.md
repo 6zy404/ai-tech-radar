@@ -1090,3 +1090,54 @@ the dossier paper surface, where the hardcoded `#64748b` measured **4.4:1** —
 This is the same failure mode as the 2026-07-16 round: a colour that was fine
 against one surface silently fails against another, and only measurement
 catches it.
+
+### Site-wide visual sweep (2026-07-29, same day)
+
+Two reusable detectors came out of this round. Both were **proven to fire
+before their clean results were trusted** — the discipline that the same day's
+`AGENTS.md` "Visual verification rule" now requires.
+
+**Flush-edge detector.** Flags any element that draws a full border or a
+filled background yet has a side with under 4px of padding. It found the
+worst-looking defect of the day: the 2026-07-14 dossier migration applied
+`background` + `border` + `border-radius` to five digest containers in one
+rule, but three of them had never carried padding, because until that moment
+they were invisible layout grids. **A skin and a box model are separate
+decisions — adding the first without revisiting the second is how a layout
+wrapper becomes a card with text welded to its border.** When adding a
+surface to an existing element, check its padding in the same edit.
+
+**Content-overflow detector.** Flags an element painted past its parent's
+content box. It found a 105px overflow on all 31 technology detail pages,
+traced to a native `<select>` whose options are full technology titles.
+
+The general rule that came out of it: **`min-width: 0` on a grid or flex
+column is not enough — its children need it too.** A grid item defaults to
+`min-width: auto`, so it refuses to shrink below its content's min-content
+width, and one wide descendant re-widens the column its parent carefully
+constrained. `.user-article-layout__main > *` and `__aside > *` now carry the
+guard. Note also that `max-width: 100%` cannot break this cycle when the
+track is being sized _from_ the element's own min-content contribution — the
+percentage just resolves back to the oversized track.
+
+### Chinese line breaking: what CSS can and cannot do (2026-07-29)
+
+Measured in Chrome 148 against a Japanese and a Chinese control string:
+`word-break: auto-phrase` **changes Japanese line breaks and leaves Chinese
+byte-identical**. The feature works; it has no Chinese segmentation. Do not
+reach for it here again.
+
+What does work is `Intl.Segmenter('zh-CN', { granularity: 'word' })`, which
+runs on the server, so `src/lib/cjk-line-break.ts` produces final markup at
+render time and headings never reflow after hydration. It reduces mid-word
+breaks; it does not eliminate them — the ICU dictionary keeps 旗舰 / 关注 /
+参数 / 承诺 together but splits 权重 / 智能体 / 轻量 / 付费. Those gaps are
+asserted in `cjk-line-break.test.ts` so a future improvement surfaces as a
+failing expectation instead of passing unnoticed.
+
+**Rejected after measuring, not before:** making `--fs-display` responsive
+(`clamp(28px, 4.2vw, 44px)`) produced **identical** breaks at 1600px, 1014px
+and 768px and made the detail title _worse_ at 390px — three lines became
+five, newly splitting 参数 and 承诺. `--fs-display` still has no mobile step,
+which is a real gap (it is why a digest date reaches 16px into the hero's
+padding at 390px), but fixing word-splitting is not what it does.

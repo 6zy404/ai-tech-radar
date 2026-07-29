@@ -12,6 +12,66 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Site-wide visual sweep — five more defects, four of them structural
+
+- **Everything here was found by looking, after the digest round proved that
+  checking only what you just touched misses the obvious** — 2026-07-29, same
+  session. Two detectors were written and, critically, **each was proven to
+  fire before its clean results were believed**: one flags a container that
+  draws a border or fill but has no inside spacing, one flags content painted
+  past its parent's content box.
+- **Four containers had a border drawn and no padding** (owner-reported, and
+  the most visible defect of the whole day). `.daily-digest-section` and
+  `.digest-reference-section` were pure layout grids — `display: grid;
+gap: 16px`, no padding, because nothing was ever meant to see them — until
+  the 2026-07-14 dossier migration gave five containers a background, border
+  and radius in one rule. Only two of the five had ever had padding. So
+  今日立即关注 / 值得跟踪 / 值得关注的技能 / 背景知识 rendered their headings
+  and cards flush against all four edges, and 今日概览 (a top-ruled divider,
+  `padding: 18px 0 0`) showed three flush edges once wrapped in a full border.
+  `.daily-digest-feeds` set `border: 0` / `background: transparent`, none of
+  which ever won against the more specific dossier rule. All four now use the
+  20px that 来源参考 — the one section that looked right — already used.
+  **Pre-existing, not introduced by the same day's digest commits** (checked
+  against `268feb7`).
+- **Every technology detail page overflowed its reading column by 105px.** A
+  native `<select>` sizes to its widest option, and the compare widget's
+  options are full technology titles — it rendered **558px inside a 487px
+  column**. `.user-article-layout__main` sets `min-width: 0` but its children
+  did not, so each section sized to that min-content and dragged its siblings
+  along; body text ran under the aside panel. `max-width: 100%` cannot fix it
+  (the track is sized _from_ that min-content, so 100% resolves back to
+  558px); `min-width: 0` plus `flex: 1 1 220px` is what works. Verified at
+  seven widths: spilling text runs **16 → 0** at every one.
+- **A read card looked broken rather than read.** `background: transparent`
+  let the page's grid pattern through, so a read card read as "failed to load"
+  beside an unread card's solid paper. It now keeps a surface pulled toward
+  the page ground; text measures 5.44 light / 5.19 dark, zero failures.
+- **The `/technologies` controls floated between two bordered blocks**, so the
+  page read as hero / gap / cards; they are one panel now. **The home digest
+  card's two counts sat in a fixed `minmax(150px, 220px)` column** — the same
+  near-empty column removed from the digest hero — and are now an inline meta
+  row.
+- **Chinese headings split words across lines** (首页 「发现值得关 / 注」,
+  detail 「…参数旗 / 舰」). `word-break: auto-phrase` was measured against a
+  Japanese and a Chinese control: it **changes Japanese and leaves Chinese
+  byte-identical**, so `src/lib/cjk-line-break.ts` segments with
+  `Intl.Segmenter('zh-CN')` on the server and marks word runs unbreakable.
+  The alternative — a responsive `--fs-display` — was **implemented, measured
+  and reverted**: identical breaks at 1600/1014/768px and _worse_ at 390px
+  (3 lines → 5, newly splitting 参数 and 承诺). Honest limit, pinned in tests
+  rather than glossed: 13 of 16 signal titles now break cleanly; 复盘, 智能体
+  and 主打 still split, because the ICU dictionary splits them.
+- Verified: typecheck, lint, format, vitest **188/188** (7 new, confirmed to
+  fail when segmentation is disabled), both detectors re-run clean across the
+  touched pages, and live checks in light and dark.
+- **Two of the session's own tools were wrong before the code was**: the
+  contrast harness could not parse `color-mix`'s `color(srgb 0 0 0)` output
+  (0-1 channels, not 0-255) and reported a false 2.44:1 failure; and a Python
+  heredoc used to patch files failed silently, exactly as recorded on the same
+  day. Both were caught by sanity-checking the tool before trusting its
+  output.
+
 ## The daily digest page rejoins the house style
 
 - **Owner-reported, and the reflection matters more than the fix** —
