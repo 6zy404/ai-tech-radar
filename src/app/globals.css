@@ -10681,6 +10681,19 @@ a.tech-graph__node:hover {
     color: var(--dossier-ink);
   }
 
+  /* `.empty-state--actionable` hardcodes a near-white fill and a slate
+     dashed border, so in dark mode it rendered as a bright slab whose
+     (token-driven, therefore light) text sat on a light ground: the
+     heading measured 1.19:1, the body 2.52:1 and the link 2.82:1 against
+     a 4.5:1 bar. Same failure mode as the 2026-07-16 round — a colour
+     that is fine on one surface silently fails on another. Scoped to
+     `.dossier` so the deliberately light Internal Workspace, which uses
+     the same class on three pages, is untouched. */
+  .dossier .empty-state--actionable {
+    border-color: var(--dossier-line);
+    background: var(--dossier-surface);
+  }
+
   /* The Internal Workspace keeps its light design by design; in dark
      mode the (unconditionally dark) body used to show through behind
      its unpanelled chrome — breadcrumbs, section headings, eyebrows —
