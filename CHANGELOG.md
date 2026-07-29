@@ -25,9 +25,9 @@ For per-topic deep dives, see the `docs/` directory.
   point.** Both were re-proven to fire (an injected border-with-no-padding was
   caught 4 times, an injected overflow 8 times) and then returned **zero hits
   across all 20 public routes**. Every defect below was found by looking.
-- **13 findings, 7 fixed, 1 withdrawn, 5 open.** The full screening, with a
-  screenshot per finding, went to the owner before any code changed; the owner
-  picked the three severe ones, then the five alignment ones.
+- **13 findings, 12 fixed, 1 withdrawn.** The full screening, with a screenshot
+  per finding, went to the owner before any code changed; the owner then picked
+  the batches in severity order.
 - **A whole block of copy was invisible in dark mode.**
   `.empty-state--actionable` hardcodes a near-white fill, so after the
   2026-07-16 dark round turned its text light, the heading measured **1.19:1**,
@@ -77,12 +77,24 @@ For per-topic deep dives, see the `docs/` directory.
   verification write-up rather than being quietly dropped.
 - Verified: typecheck, lint, format, both detectors re-proven and clean, 7
   viewport widths, and contrast re-measured in both schemes.
-- **Still open from this sweep (5 consistency findings):** three different hero
-  gradients across same-tier list pages; a 200–280px background band exposed
-  under short pages; category chips stretched to the full card width; three
-  empty-state components with three looks (the root cause of the dark-mode
-  failure above, of which only the failing instance was fixed); and three
-  different ways of presenting a count.
+- **The five consistency findings closed the sweep.** `/technologies` had its
+  own hero surface — a radial gradient and a 28px radius against the linear
+  gradient and 26px the other seven list pages share; it inherits now. Short
+  pages ended above the fold and exposed the body gradient as a hard-edged band
+  (277px on `/search`), so the content area reaches the viewport bottom —
+  `100dvh`, and the nav measures exactly 61px at every height tested. A stamp
+  tag was stretched to **446px around two characters** on the home cards, where
+  the same component is 70px on a signal card. The dark-mode empty-state fix was
+  completed rather than left as a patch: both public empty-state components now
+  draw from the same tokens in both schemes, so the hardcoded fill that caused
+  the 1.19:1 failure is gone in light too. And three pages presented a count
+  three ways — two of them in the near-empty fixed column the first sweep had
+  already removed twice; all three are captions now.
+- **The detector caught a leftover the edit missed.** After the count line was
+  rebuilt it fired on it — a _third_ dossier rule for that class, shadowed by
+  neither of the two that were edited, still painting a background. The
+  screenshot from the same pass shows the grey band it would have shipped.
+- **Sweep closed: 13 findings, 12 fixed, 1 withdrawn**, across 9 commits.
 
 ## Site-wide visual sweep — five more defects, four of them structural
 
