@@ -137,7 +137,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             aria-label="搜索关键词"
           />
         </div>
-        <button type="submit" className="action-link">
+        <button type="submit" className="action-button action-button--primary">
           搜索
         </button>
       </form>
