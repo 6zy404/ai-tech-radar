@@ -137,8 +137,15 @@ p {
   font-size: 0.84rem;
 }
 
+/* A page whose content is shorter than the viewport ended above the fold, and
+   the body gradient showed below it as a band with a hard edge across the full
+   window — 277px on `/search` before a query, 204px on an empty 稍后读. The
+   content area now reaches the bottom of the viewport, so the page ends where
+   the window does. `100dvh` rather than `100vh` so a mobile browser's
+   retracting toolbar does not reintroduce the gap. */
 .main-content {
   width: min(1180px, calc(100% - 32px));
+  min-height: calc(100dvh - var(--top-nav-height, 61px));
   margin: 0 auto;
   padding: 32px 0 72px;
 }
@@ -2168,6 +2175,13 @@ p {
   gap: 14px;
   min-width: 0;
   padding: 20px;
+}
+
+/* A stamp tag is a chip: it should hug its label, the way the same component
+   does on every signal card (70px there). As a grid item it stretched to the
+   card's full width instead — 446px of chip around two characters. */
+.foundation-card > .dossier-stamp-tag {
+  justify-self: start;
 }
 
 .home-signal-card__meta {
@@ -4405,24 +4419,16 @@ body {
     );
 }
 
+/* This page carried its own hero surface — a radial gradient off the top-right
+   corner, a 28px radius and a heavier shadow — against the linear gradient and
+   26px radius the other seven list pages share. Same tier, two different
+   treatments, and `/technologies` is the one a reader reaches most often. The
+   overrides that describe this page's *proportions* stay; the ones that
+   redecorate the surface are gone, so it inherits the shared look. */
 .technology-list-page .user-page-header {
   width: min(1040px, 100%);
   margin-inline: auto;
   padding: 54px 48px;
-  border: 1px solid rgba(15, 118, 110, 0.16);
-  border-radius: 28px;
-  background:
-    radial-gradient(
-      circle at 82% 16%,
-      rgba(45, 212, 191, 0.22),
-      transparent 36%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.96),
-      rgba(236, 253, 245, 0.72)
-    );
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
 }
 
 .technology-list-page .user-page-header h1 {
@@ -10179,6 +10185,25 @@ a.tech-graph__node:hover {
   text-decoration-color: var(--dossier-stamp);
 }
 
+/* Public pages carry two empty-state components: `.dossier-empty-state`, which
+   is drawn from tokens, and `.empty-state--actionable`, which hardcoded a
+   near-white fill and a slate border. That hardcoding is what made the dark
+   scheme unreadable (1.19:1 on the heading) — the first fix patched only dark,
+   which left the same latent hazard in light. Routing both through the same
+   tokens removes the class of bug rather than the instance, and makes the two
+   read as one component in both schemes. Scoped to `.dossier`, so the
+   deliberately light Internal Workspace — which uses this class on three
+   pages — keeps its own look. */
+.dossier .empty-state--actionable {
+  border-color: var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-muted);
+}
+
+.dossier .empty-state--actionable strong {
+  color: var(--dossier-ink);
+}
+
 /* -- digest archive index -- */
 .dossier .digest-archive-month h2 {
   font-family: Georgia, "Songti SC", "STSong", serif;
@@ -10737,19 +10762,6 @@ a.tech-graph__node:hover {
   .dossier .news-card__tags span {
     background: rgba(111, 160, 144, 0.14);
     color: var(--dossier-ink);
-  }
-
-  /* `.empty-state--actionable` hardcodes a near-white fill and a slate
-     dashed border, so in dark mode it rendered as a bright slab whose
-     (token-driven, therefore light) text sat on a light ground: the
-     heading measured 1.19:1, the body 2.52:1 and the link 2.82:1 against
-     a 4.5:1 bar. Same failure mode as the 2026-07-16 round — a colour
-     that is fine on one surface silently fails on another. Scoped to
-     `.dossier` so the deliberately light Internal Workspace, which uses
-     the same class on three pages, is untouched. */
-  .dossier .empty-state--actionable {
-    border-color: var(--dossier-line);
-    background: var(--dossier-surface);
   }
 
   /* The Internal Workspace keeps its light design by design; in dark
