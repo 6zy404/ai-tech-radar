@@ -202,14 +202,17 @@ export default function HomePage() {
               浏览技术信号
             </Link>
           </div>
-        </div>
-        <div className="product-home-hero__stats">
-          <strong>{technologies.length}</strong>
-          <span>已发布技术信号</span>
-          <strong>{getAllSkills().length}</strong>
-          <span>理解与应用技能</span>
-          <strong>{getAllKnowledge().length}</strong>
-          <span>背景知识概念</span>
+          <p className="product-home-hero__stats">
+            <span>
+              <strong>{technologies.length}</strong> 条已发布技术信号
+            </span>
+            <span>
+              <strong>{getAllSkills().length}</strong> 项理解与应用技能
+            </span>
+            <span>
+              <strong>{getAllKnowledge().length}</strong> 个背景知识概念
+            </span>
+          </p>
         </div>
       </section>
 

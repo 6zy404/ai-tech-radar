@@ -2021,9 +2021,7 @@ p {
 
 .product-home-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(230px, 300px);
   gap: 28px;
-  align-items: stretch;
   padding: 38px;
   border: 1px solid rgba(15, 118, 110, 0.16);
   border-radius: 32px;
@@ -2068,21 +2066,23 @@ p {
   align-items: center;
 }
 
+/* These three counts used to sit in a white inset box in a fixed 190–250px
+   column beside the headline — the third and fourth appearance of a pattern the
+   first sweep already removed twice (from the digest hero and the home digest
+   card). A count is a caption, not a panel: it now reads as one line under the
+   headline, matching `.technology-detail-hero__meta`. */
 .product-home-hero__stats {
-  display: grid;
-  align-content: center;
-  gap: 8px;
-  padding: 24px;
-  border: 1px solid rgba(15, 118, 110, 0.12);
-  border-radius: 24px;
-  background: rgba(255, 253, 248, 0.78);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 18px 0 0;
   color: var(--muted);
+  font-size: 0.93rem;
 }
 
 .product-home-hero__stats strong {
   color: var(--accent);
-  font-size: 2.25rem;
-  line-height: 1;
+  font-weight: 700;
 }
 
 .product-home-digest,
@@ -4337,7 +4337,6 @@ body {
 }
 
 .product-home-hero {
-  grid-template-columns: minmax(0, 1fr) minmax(190px, 250px);
   padding: 34px;
   border-radius: 24px;
   background:
@@ -4357,11 +4356,6 @@ body {
 .product-home-hero__copy h1 {
   max-width: 18ch;
   font-size: clamp(2.25rem, 5.4vw, 4.8rem);
-}
-
-.product-home-hero__stats {
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.84);
 }
 
 .user-shell .search-filter-bar,
@@ -7224,9 +7218,7 @@ a.technology-evolution__title {
 
 .skills-library-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
   gap: clamp(20px, 3vw, 32px);
-  align-items: start;
   margin-top: 28px;
   padding: clamp(22px, 3.5vw, 30px);
   border: 1px solid rgba(8, 127, 115, 0.24);
@@ -7265,28 +7257,26 @@ a.technology-evolution__title {
   line-height: 1.75;
 }
 
+/* Was a 2×2 white inset box in a fixed 280px column — the same "counts in a
+   panel" pattern removed from the digest hero, the home digest card and now the
+   home hero. A count is a caption: one wrapping line under the intro copy. */
 .skills-library-stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 16px;
-  align-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
   margin: 0;
-  padding: 18px 20px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.78);
 }
 
 .skills-library-stats div {
-  display: grid;
-  gap: 2px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
 }
 
 .skills-library-stats dt {
   color: var(--skills-ink);
-  font-size: 1.7rem;
-  line-height: 1.05;
-  font-weight: 850;
-  letter-spacing: -0.05em;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .skills-library-stats dd {
@@ -7759,10 +7749,6 @@ a.technology-evolution__title {
     grid-template-columns: 1fr;
   }
 
-  .skills-library-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .skill-detail-aside {
     position: static;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7807,10 +7793,6 @@ a.technology-evolution__title {
   .skills-library-intro h2,
   .skill-detail-hero h1 {
     font-size: clamp(2rem, 12vw, 2.45rem);
-  }
-
-  .skills-library-stats {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -10063,11 +10045,12 @@ a.tech-graph__node:hover {
 }
 
 .dossier .skills-library-stats {
-  background: var(--dossier-ground);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
 }
 
 .dossier .skills-library-stats dt {
-  color: var(--dossier-ink);
+  color: var(--dossier-stamp);
 }
 
 .dossier .skills-library-stats dd {
@@ -10384,7 +10367,9 @@ a.tech-graph__node:hover {
 }
 
 .dossier .product-home-hero__stats {
-  background: var(--dossier-ground);
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
 }
 
 .dossier .product-home-hero__stats strong {
