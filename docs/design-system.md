@@ -1141,3 +1141,87 @@ and 768px and made the detail title _worse_ at 390px — three lines became
 five, newly splitting 参数 and 承诺. `--fs-display` still has no mobile step,
 which is a real gap (it is why a digest date reaches 16px into the hero's
 padding at 390px), but fixing word-splitting is not what it does.
+
+### One skeleton for every public detail page (2026-07-29, second sweep)
+
+The four public detail pages — `/technologies/[slug]`, `/skills/[slug]`,
+`/knowledge/[slug]` and the digest pages — now share one geometry, not just one
+skin:
+
+```
+hero            full measure
+body            reading column | aside
+```
+
+Measured at 1440px, all four render their hero, reading column and aside on the
+same four edges: **272 / 860 / 888 / 1168**.
+
+Before this round the skill and knowledge pages placed the hero **inside** the
+reading column, so the aside stood level with the title, and the layout used its
+own `min(1120px, 100% - 32px)` container. Their hero was 618 against the
+technology page's 896, their column 618 against 588, their aside 300 against 280. Every visual property already matched — the same paper fill, 2px radius,
+32px padding and 44px `h1` — which is exactly why this was easy to miss:
+
+> **The skin and the box model are separate decisions.** This is the third form
+> the same split has taken (digest sections given a surface but never padding;
+> the digest hero given the shared look but not the shared box; now the skill
+> hero given the shared look while living in the wrong slot). When a page is
+> said to "use the shared primitive", check its measured geometry, not its
+> declarations.
+
+The hero had to move in JSX — CSS alone cannot lift a grid item out of its
+column — so the fix added `.skill-detail-layout__body` and carried across the
+`min-width: 0` guard from `.user-article-layout__body`, since the new column has
+the same hazard.
+
+**Known and unfixed:** the aside runs out at roughly a quarter of the page on
+all three aside-bearing detail pages, leaving 73–85% of the right side empty.
+Sharing one skeleton turns that into a single decision instead of three.
+
+### Colours that are fine on one surface (2026-07-29, second sweep)
+
+`.empty-state--actionable` hardcodes a near-white fill and a slate dashed
+border. When the 2026-07-16 round redeclared the text tokens for dark mode, the
+fill stayed white and the text went light: **1.19:1** for the heading, 2.52:1
+for the body, 2.82:1 for the link. Seven public surfaces render this component.
+
+This is the same failure the 2026-07-16 round was itself written to fix,
+recurring in a component that round did not touch. The durable form of the rule:
+
+> A hardcoded colour is a promise about the surface underneath it. Any round
+> that changes surfaces must re-measure every hardcoded colour, not only the
+> tokens.
+
+Fixed by redeclaring the fill and border inside the dark block, scoped to
+`.dossier` so the deliberately light Internal Workspace — which uses the same
+class on three pages — is untouched. After: 11.53 / 5.42 / 4.84 dark, light
+unchanged.
+
+**Related, still open:** the site has three empty-state components
+(`.empty-state`, `.empty-state--actionable`, `.dossier-empty-state`) with three
+different looks. Only the failing one was fixed; unifying them would remove the
+class of bug rather than the instance.
+
+### What a detector cannot find (2026-07-29, second sweep)
+
+The two detectors from the first sweep were re-proven to fire and then returned
+**zero hits across 20 public routes** — while a full look-at-every-page pass
+found 13 defects. The three that were fixed illustrate the gap precisely:
+
+- an **unstyled button** has valid DOM, passing contrast and no overflow;
+- a **dark-mode colour failure** needs the colour pair computed, not the markup
+  inspected;
+- a **geometry mismatch between sibling pages** is invisible on any single page
+  and only appears when two pages are compared.
+
+A detector encodes a defect you have already met. Screenshots are how you meet
+the next one.
+
+**Two claims were withdrawn in this round, both after measuring.** The view-tab
+strip appeared to invert its selected/unselected hierarchy — sampling showed it
+correct, and a muted brown had read as accent in a downscaled screenshot. More
+seriously, a claimed 82px step on the digest page **reached the owner's
+confirmation sketch before it was checked**: it came from comparing a padded
+container's border box against its own child, and every digest block including
+the hero in fact sits at 272/896. Eyeballing a screenshot generates a
+hypothesis; it does not close one.
