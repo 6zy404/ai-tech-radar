@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-28T08:57:45.661Z",
+  "syncedAt": "2026-07-29T00:06:06.830Z",
   "sources": [
     {
       "id": "source-github-blog-ai",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://github.blog/ai-and-ml/feed/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:05:03.615Z"
+      "fetchedAt": "2026-07-29T00:05:03.168Z"
     },
     {
       "id": "source-google-ai-blog",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://blog.google/technology/ai/rss/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:05:06.006Z"
+      "fetchedAt": "2026-07-29T00:05:16.891Z"
     },
     {
       "id": "source-google-deepmind-blog",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://deepmind.google/blog/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:05:07.522Z"
+      "fetchedAt": "2026-07-29T00:05:18.574Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:05:08.011Z"
+      "fetchedAt": "2026-07-29T00:05:20.321Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -44,7 +44,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T08:57:45.657Z"
+      "fetchedAt": "2026-07-29T00:05:21.175Z"
     },
     {
       "id": "source-ollama-releases",
@@ -62,7 +62,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:06:30.117Z"
+      "fetchedAt": "2026-07-29T00:06:05.380Z"
     },
     {
       "id": "source-qwen-blog",
@@ -71,7 +71,7 @@
       "sourceUrl": "https://qwenlm.github.io/blog/index.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:06:30.616Z"
+      "fetchedAt": "2026-07-29T00:06:05.872Z"
     },
     {
       "id": "source-simon-willison-blog",
@@ -80,7 +80,7 @@
       "sourceUrl": "https://simonwillison.net/atom/entries/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-28T00:06:31.463Z"
+      "fetchedAt": "2026-07-29T00:06:06.825Z"
     },
     {
       "id": "source-vllm-releases",
@@ -94,174 +94,229 @@
   ],
   "candidates": [
     {
-      "id": "candidate-rss-https-github-blog-p-97740",
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api-3-6-flash-hooks",
       "sourceType": "rss-feed",
-      "sourceName": "GitHub Blog AI",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/",
-      "originalTitle": "The harness is all you need (mostly)",
-      "originalSummary": "A practical GitHub Copilot workflow for prototyping, planning, implementing, and reviewing software without chasing every new AI tool. The post The harness is all you need (mostly) appeared first on The GitHub Blog .",
-      "originalContent": "If you&rsquo;re feeling overwhelmed by AI right now, you&rsquo;re not alone. Every day it seems there is a new tool, new MCP, new model, new skill, new workflow, new feature, new social post that is some form of &ldquo;Hey look! I have completely figured out AI with this one weird prompt.&rdquo; I&hellip;don&rsquo;t believe you. I work with AI every single day, and what I&rsquo;m finding is that less is way more. It&rsquo;s not about what I install or configure or trick the agent into doing that makes any real difference. That stuff is interesting, but at the end of the day it feels like gimmicks. I see the biggest gains in my productivity from how I use the harness and how well I understand it. So in this post, I&rsquo;m sharing you a simple workflow that you can use to drastically improve your effectiveness with AI just by using existing features of GitHub Copilot . No weird prompts. No skill everyone else seems to know about. Just the harness. The harness is all you need&mdash;mostly. Disclaimers I&rsquo;m using the term &ldquo;harness&rdquo; interchangeably with &ldquo;GitHub Copilot.&rdquo; The point of this post is to keep things simple, so just know that GitHub Copilot is an agent harness. I don&rsquo;t mean to insinuate that you won&rsquo;t ever need any skills or MCPs or instructions or custom agents, etc. In fact, those things will become quite important as you progress and need to define complex workflows and automate things for your teams. In fact, I use a few throughout this blog post! What I am pointing out here is that you do not need any of those things to…",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+      "originalTitle": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/unnamed_2_vNnOv20.max-600x600.format-webp.webp\">We’re announcing even more new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents.",
+      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/unnamed_2_vNnOv20.max-600x600.format-webp.webp\">We’re announcing even more new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents.",
       "originalLanguage": "en",
-      "publishDate": "2026-07-27",
-      "publisherName": "Burke Holland",
-      "normalizedType": "tool",
+      "publishDate": "2026-07-28",
+      "publisherName": "[object Object],[object Object]",
+      "normalizedType": "model",
       "tags": [
-        "tag-ai-agents",
-        "ai & ml",
-        "github copilot",
+        "tag-frontier-models",
+        "developer tools",
+        "ai",
         "agents",
-        "workflow",
-        "multimodal",
-        "on-device"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-github-blog-ai",
-        "feedTitle": "The latest on AI & ML - The GitHub Blog",
-        "feedUrl": "https://github.blog/ai-and-ml/feed/",
-        "item": {
-          "title": "The harness is all you need (mostly)",
-          "link": "https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/",
-          "dc:creator": "Burke Holland",
-          "pubDate": "Mon, 27 Jul 2026 18:00:00 +0000",
-          "category": [
-            "AI & ML",
-            "GitHub Copilot"
-          ],
-          "guid": {
-            "#text": "https://github.blog/?p=97740",
-            "isPermaLink": "false"
-          },
-          "description": "<p>A practical GitHub Copilot workflow for prototyping, planning, implementing, and reviewing software without chasing every new AI tool.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/\">The harness is all you need (mostly)</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">If you&rsquo;re feeling overwhelmed by AI right now, you&rsquo;re not alone.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Every day it seems there is a new tool, new MCP, new model, new skill, new workflow, new feature, new social post that is some form of &ldquo;Hey look! I have completely figured out AI with this one weird prompt.&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">I&hellip;don&rsquo;t believe you.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I work with AI every single day, and what I&rsquo;m finding is that less is way more. It&rsquo;s not about what I install or configure or trick the agent into doing that makes any real difference. That stuff is interesting, but at the end of the day it feels like gimmicks.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I see the biggest gains in my productivity from how I use the harness and how well I understand it.</p>\n\n\n\n<p class=\"wp-block-paragraph\">So in this post, I&rsquo;m sharing you a simple workflow that you can use to drastically improve your effectiveness with AI just by using existing features of <a href=\"https://github.com/features/copilot\">GitHub Copilot</a>. No weird prompts. No skill everyone else seems to know about. Just the harness. The harness is all you need&mdash;mostly.</p>\n\n\n\n<aside data-color-mode=\"light\" data-dark-theme=\"dark\" data-light-theme=\"light_dimmed\" class=\"wp-block-group post-aside--large p-4 p-md-6 is-style-light-dimmed has-global-padding is-layout-constrained wp-block-group-is-layout-constrained is-style-light-dimmed--1\" style=\"border-top-width:4px\">\n<h2 id=\"h-disclaimers\" class=\"wp-block-heading h5-mktg gh-aside-title is-typography-preset-h5\" style=\"margin-top:0\">Disclaimers</h2>\n\n\n\n<p class=\"wp-block-paragraph\">I&rsquo;m using the term &ldquo;harness&rdquo; interchangeably with &ldquo;GitHub Copilot.&rdquo; The point of this post is to keep things simple, so just know that GitHub Copilot is an agent harness.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I don&rsquo;t mean to insinuate that you won&rsquo;t ever need any skills or MCPs or instructions or custom agents, etc. In fact, those things will become quite important as you progress and need to define complex workflows and automate things for your teams. In fact, I use a few throughout this blog post!</p>\n\n\n\n<p class=\"wp-block-paragraph\">What I am pointing out here is that you do not need any of those things to be highly successful with AI.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Also, there is a lot of slop out there. If you don&rsquo;t believe that, ask the agent to create a skill to do anything at all. It will happily oblige. Whether or not that generated skill actually works, it can be easily published to any number of skill or MCP registries.</p>\n</aside>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"1-pick-a-tool-any-tool\">1. Pick a tool, any tool</h2>\n\n\n\n<p class=\"wp-block-paragraph\">This is an obvious one, right? Pick a tool! It&rsquo;s so easy!</p>\n\n\n\n<p class=\"wp-block-paragraph\">But even within the GitHub Copilot family, there are a lot of options. These include the <a href=\"https://docs.github.com/copilot/github-copilot-in-the-cli\">CLI</a>, the new <a href=\"https://docs.github.com/copilot/concepts/agents/github-copilot-app\">GitHub Copilot app</a>, <a href=\"https://code.visualstudio.com/\">VS Code</a>, <a href=\"https://visualstudio.microsoft.com/\">Visual Studio</a>, and <a href=\"https://www.jetbrains.com/\">JetBrains</a>, just to name a few.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The good news is that these experiences are increasingly being centralized on the same harness. The details can differ by tool, but the core workflow is consistent. Learn the harness once, use it everywhere.</p>\n\n\n\n<p class=\"wp-block-paragraph\">That said, I do believe that learning the harness is key, and the best way to learn it is to be as close to it as possible. So if you are just starting out, I&rsquo;d recommend beginning with the GitHub Copilot CLI. It&rsquo;s a terminal interface, which means it&rsquo;s just text. There isn&rsquo;t much UI to learn. You enter a prompt. The agent does things. But the interaction is more direct, immediate, and, frankly, very satisfying.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For this demonstration, I&rsquo;ll be using the new <a href=\"https://github.com/features/copilot/app\">GitHub Copilot app</a>. But the harness that app uses is the exact same thing you&rsquo;ll be using if you are using the GitHub Copilot CLI, Visual Studio Code and many other places you can find GitHub Copilot.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"2-turn-on-yolo-mode\">2. Turn on YOLO mode</h2>\n\n\n\n<p class=\"wp-block-paragraph\">YOLO mode is also known as &ldquo;<a href=\"https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools\">Allow All</a>.&rdquo; This lets the agent execute any command without asking permission. This can vary depending on the tool you are using, but for most it is simply an <code>/allow-all</code> command in the chat. Otherwise, the agent is going to stop and wait for your approval every single time it needs to do some work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Agents need autonomy for you to see an increase in productivity. If you have to approve everything the agent does, you might as well just do it yourself. Besides, that&rsquo;s a miserable user experience. Nobody wants to be relegated to sitting at a desk pressing the &ldquo;Approve&rdquo; button all day. And pressing &ldquo;Approve&rdquo; over and over just trains you not to read what you are being asked to approve, which defeats the purpose.</p>\n\n\n\n<p class=\"wp-block-paragraph\">You want to be safe with agents, though. <a href=\"https://x.com/mattshumer_/status/2075666403596612010\">Bad things happen to good people</a>. When using YOLO mode, you don&rsquo;t want to run the agent on your local machine. This is especially true when you are using them at work&mdash;data is private on your organization&rsquo;s systems, and mistakes can be costly.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Fortunately there are a bunch of options for running agents in sandboxes. An easy one to get started with is <a href=\"https://docs.github.com/codespaces/overview\">GitHub Codespaces</a> or <a href=\"https://containers.dev\">development containers</a>.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"3-start-with-a-prototype\">3. Start with a prototype</h2>\n\n\n\n<p class=\"wp-block-paragraph\">One of the most magical things about AI is that you can easily prototype anything and everything up front. Historically, this was not the case. Prototyping was a full phase of a project, and were often a luxury. Now, you can make one with a prompt.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Let&rsquo;s look at a few examples.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Let&rsquo;s say we want to build a date picker web component. That seems straighforward, but it&rsquo;s actually quite complex. Think of all the different things you might want to do with it.</p>\n\n\n\n<ul class=\"wp-block-list\">\n<li>How do you navigate within the component?</li>\n\n\n\n<li>What does the selected date look like?</li>\n\n\n\n<li>What does a selected range look like?</li>\n\n\n\n<li>How does the user navigate between days, months, and years?</li>\n</ul>\n\n\n\n<p class=\"wp-block-paragraph\">Start with a simple prototype and get several variations. I usually start with something like this:</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>Give me 20 mocks for a date picker web component. Put them all in an HTML file so I can compare.</code></pre>\n<a href=\"https://github.com/copilot?prompt=Give%20me%2020%20mocks%20for%20a%20date%20picker%20web%20component.%20Put%20them%20all%20in%20an%20HTML%20file%20so%20I%20can%20compare.&amp;utm_source=github-blog&amp;utm_medium=blog&amp;utm_campaign=organic-blog-copilot-button\" class=\"code-copilot-btn\" aria-label=\"Open in Copilot\" target=\"_blank\" rel=\"noopener noreferrer\"><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" class=\"octicon octicon-copilot\"><path d=\"M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z\"></path><path d=\"M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z\"></path></svg></a><clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"Give me 20 mocks for a date picker web component. Put them all in an HTML file so I can compare.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" fetchpriority=\"high\" decoding=\"async\" height=\"760\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/prototype.png?resize=1024%2C760\" alt=\"Twenty date picker prototypes generated in a single HTML file.\" class=\"wp-image-97742\" srcset=\"https://github.blog/wp-content/uploads/2026/07/prototype.png?w=2033 2033w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=1536 1536w\" sizes=\"(max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">In this case, the AI generated a bunch of different layouts, but one of them is a mock where it starts with the year view. That&rsquo;s interesting. I would like my date picker to enable the user to zoom out to the year, then into the month, and finally to the day. These are the kinds of things you don&rsquo;t consider until you see them.</p>\n\n\n\n<p class=\"wp-block-paragraph\">As humans, we process sensory-rich models like images, shapes, and tangible layouts much faster than dense text. Creating low-effort prototypes early on helps make complex concepts immediately intuitive.</p>\n\n\n\n<p class=\"wp-block-paragraph\">And this applies to non-visual tasks as well.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For instance, if I want to add a new API endpoint, I&rsquo;ll still create a visual prototype to understand the requirements and constraints before diving into the implementation.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>Create a visual mockup of the API for this project. Add five options for how we could handle a new API endpoint that allows the user to download their analytics data.</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"Create a visual mockup of the API for this project. Add five options for how we could handle a new API endpoint that allows the user to download their analytics data.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" decoding=\"async\" height=\"760\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?resize=1024%2C760\" alt=\"A Mermaid diagram comparing approaches for an analytics export API endpoint.\" class=\"wp-image-97743\" srcset=\"https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=2033 2033w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=1536 1536w\" sizes=\"(max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">Since the GitHub Copilot app supports <a href=\"https://docs.github.com/copilot/tutorials/copilot-cookbook/communicate-effectively/creating-diagrams\">Mermaid diagrams</a>, the agent renders this as Markdown, mapping out five different ways we could implement this API endpoint.</p>\n\n\n\n<p class=\"wp-block-paragraph\">When working with agents, it&rsquo;s easy to forget that everything is nuanced. Prototyping helps uncover the nuances up front, so you avoid spending valuable time and tokens on rework.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I recommend using a medium-sized model, such as GPT 5.6 Terra or Claude Sonnet, on medium reasoning for most work. I also recommend you stick with whatever model you choose here for the duration of this particular feature, bug, or enhancement. Prompt caching will save you tokens. As long as you don&rsquo;t switch to a different model or reasoning level, your previous chats remain cached with the model, giving you a discount on future requests.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"4-plan-methodically\">4. Plan methodically</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Now that you know what you actually want versus what you initially thought you wanted, it&rsquo;s time to plan out the implementation.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Switch to plan mode in GitHub Copilot without starting a new session.</p>\n\n\n\n<p class=\"wp-block-paragraph\">&ldquo;/plan Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">That&rsquo;s a pretty vague prompt, and you&rsquo;ll likely have more context for the model than I do here, but this is just a demonstration. If you don&rsquo;t have more context, it&rsquo;s OK. That&rsquo;s exactly what this step is for.</p>\n\n\n\n<p class=\"wp-block-paragraph\">In theory, you can get a model to one-shot anything if you compose the perfect prompt with the perfect context in the perfect order. In theory.</p>\n\n\n\n<p class=\"wp-block-paragraph\">But none of us can do that. Planning helps you get closer to that ideal, though, by asking all of the questions that you would need to answer yourself along the way if you were to build this out by hand:</p>\n\n\n\n<ul class=\"wp-block-list\">\n<li>Can the start and end date be the same?</li>\n\n\n\n<li>Are partial selections valid?</li>\n\n\n\n<li>Should users be able to clear the date?</li>\n\n\n\n<li>Should &ldquo;today&rdquo; always be a visible option?</li>\n\n\n\n<li>Is manual entry allowed?</li>\n\n\n\n<li>What format is the date stored in?</li>\n\n\n\n<li>Should pasting in dates be allowed?</li>\n</ul>\n\n\n\n<p class=\"wp-block-paragraph\">The list goes on and on. You cannot possibly think of all of these edge cases, but the model can help you identify many of them.</p>\n\n\n\n<p class=\"wp-block-paragraph\">You can make plan mode even more aggressive in the sheer number of questions and edge cases it asks about by installing the <a href=\"https://www.skills.sh/mattpocock/skills/grill-me\">&ldquo;grill-me&rdquo;</a> skill from Matt Pocock.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>/plan /grill-me Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.</code></pre>\n<a href=\"https://github.com/copilot?prompt=%2Fplan%20%2Fgrill-me%20Build%20a%20date%20picker%20web%20component.%20I%20want%20the%20user%20to%20be%20able%20to%20zoom%20in%20and%20out%20of%20years%2C%20months%2C%20and%20days.&amp;utm_source=github-blog&amp;utm_medium=blog&amp;utm_campaign=organic-blog-copilot-button\" class=\"code-copilot-btn\" aria-label=\"Open in Copilot\" target=\"_blank\" rel=\"noopener noreferrer\"><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" class=\"octicon octicon-copilot\"><path d=\"M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z\"></path><path d=\"M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z\"></path></svg></a><clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"/plan /grill-me Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">This planning step is critical. The point is not for you to just accept every suggestion from the AI. If you do that, you are negating the value of this planning process. The point is for you to deeply engage with the problem and guide the model. This is where your expertise comes into play.</p>\n\n\n\n<p class=\"wp-block-paragraph\">You can also ask the model questions back. In the screenshot below, it asks me about &ldquo;non-contiguous dates.&rdquo; I&rsquo;m pretty sure I know what the model means here, but I&rsquo;m going to ask for clarification so we&rsquo;re on the same page.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" decoding=\"async\" height=\"545\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/planmode.png?resize=1024%2C545\" alt=\"GitHub Copilot plan mode asking clarifying questions about a date picker.\" class=\"wp-image-97744\" srcset=\"https://github.blog/wp-content/uploads/2026/07/planmode.png?w=1387 1387w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=800 800w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=400 400w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=1032 1032w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=516 516w\" sizes=\"(max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">The planning process will keep going even if you interrupt to ask clarifying questions, etc.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"5-implement-with-autopilot\">5. Implement with Autopilot</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Once the plan is finished, GitHub Copilot will likely prompt you to switch to <a href=\"https://docs.github.com/copilot/concepts/agents/copilot-cli/autopilot\">Autopilot</a> and start implementing the plan.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" loading=\"lazy\" decoding=\"async\" height=\"698\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/autopilot.png?resize=1024%2C698\" alt=\"GitHub Copilot Autopilot implementing a plan.\" class=\"wp-image-97745\" srcset=\"https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=1251 1251w, https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=1024 1024w\" sizes=\"auto, (max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">Autopilot is a built-in loop. It forces the model to continue working by ensuring that it has actually done what it said it would do&mdash;which in this case is completing every item in the plan.</p>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub Copilot will automatically act as an orchestrator during this phase. If it needs to read files in the codebase, it will use the &ldquo;Explore&rdquo; subagent with a small model. If it deems an action relatively complex, it will likely choose the &ldquo;General Purpose&rdquo; subagent with a larger model. While you can get fine-grained control over orchestration in GitHub Copilot with <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/create-custom-agents-for-cli\">custom agents</a> and <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions\">instructions</a>, you don&rsquo;t need to do anything special to get the advantages of subagents and multimodel workflows. This works out of the box, even if you did not know that any of these things existed.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"6-human-review-and-iteration\">6. Human review and iteration</h2>\n\n\n\n<p class=\"wp-block-paragraph\">This is where you get your dopamine hit. You get to see what the AI has created.</p>\n\n\n\n<p class=\"wp-block-paragraph\">But it&rsquo;s likely that you won&rsquo;t get exactly what you wanted. That&rsquo;s normal and expected. The model cannot read your mind, and it is error-prone. Iterate with the model until you get what you actually want. Whether that&rsquo;s just code or an improved UI, this is the part where your taste will decide the quality of the final product.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For instance, here&rsquo;s the date picker that GitHub Copilot gave me.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" loading=\"lazy\" decoding=\"async\" height=\"907\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?resize=1024%2C907\" alt=\"Initial date picker result. It shows 12 boxes with years to select from 2018-2029.\" class=\"wp-image-97746\" srcset=\"https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=1047 1047w, https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=1024 1024w\" sizes=\"auto, (max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">Already I can see it has some issues:</p>\n\n\n\n<ul class=\"wp-block-list\">\n<li>Animations are inconsistent</li>\n\n\n\n<li>Text is unreadable when hovering over a selected date because of color contrast</li>\n\n\n\n<li>It doesn&rsquo;t need to say &ldquo;12 YEARS&rdquo; at the top.</li>\n\n\n\n<li>When I click &ldquo;Today&rdquo;, it doesn&rsquo;t take me to the day if I&rsquo;m in the month or year view.</li>\n</ul>\n\n\n\n<p class=\"wp-block-paragraph\">Also, I don&rsquo;t <em>love</em> the design. It looks a little too much like it was created by AI&mdash;because it was!</p>\n\n\n\n<p class=\"wp-block-paragraph\">So here we&rsquo;re just in follow-up mode. I&rsquo;m going to use a CSS framework I created called <a href=\"https://burkeholland.github.io/postrboard-design\">Postrboard</a>. I add it as a skill that just points to the CSS and tells the agent how to use it. You can feel free to install it yourself if you&rsquo;d like to use it, or you can pick any other CSS framework out there that you like. Giving the model some design guidance is quite helpful, and often a CSS framework is all you need.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>ok - we don't need a landing page here - just the component, output and settings panel in a minimal setting. Use the /postboard skill for the design and colors.</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"ok - we don't need a landing page here - just the component, output and settings panel in a minimal setting. Use the /postboard skill for the design and colors.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">For the date picker, when I click on the day, it tries to zoom in, but can&rsquo;t because there is nothing to zoom to. There should be no zoom there.</p>\n\n\n\n<p class=\"wp-block-paragraph\">It doesn&rsquo;t need to say &ldquo;Zoom Out&rdquo; at the top</p>\n\n\n\n<p class=\"wp-block-paragraph\">When I mouse over a month or year that contains the selected day, I cannot read the hover text.</p>\n\n\n\n<p class=\"wp-block-paragraph\">When I click &ldquo;Today&rdquo; it should take me to that day view, even if I&rsquo;m on the month or the year.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The months don&rsquo;t need numbers under them and they don&rsquo;t need to be in boxes</p>\n\n\n\n<p class=\"wp-block-paragraph\">Same goes for years. And it doesn&rsquo;t need to say &ldquo;12 years&rdquo; at the top.&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">Notice how conversational this is. Don&rsquo;t overthink it. When you&rsquo;re fixing a bunch of small things like this, just give it to the model. If you&rsquo;ve got the context, you&rsquo;ve got the prompt.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The most important thing is not to settle for AI output that is &ldquo;good enough.&rdquo; Insist on quality. Be ruthless about it. That part is still your responsibility, and knowing what a quality result is from something that isn&rsquo;t is the value that you bring. No AI will ever replace your human touch and creativity.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Here&rsquo;s what my final date picker looks like. Scroll to the end of this post to see it in action.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" loading=\"lazy\" decoding=\"async\" height=\"710\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/datepicker.png?resize=1024%2C710\" alt=\"Final date picker result. It shows a monthly calendar on the left and a view settings on the right.\" class=\"wp-image-97747\" srcset=\"https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=1545 1545w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=1536 1536w\" sizes=\"auto, (max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"7-rubber-duck-the-result\">7. Rubber duck the result</h2>\n\n\n\n<p class=\"wp-block-paragraph\">After you&rsquo;ve iterated and are happy with what you&rsquo;ve created, it&rsquo;s time to do a final review.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Request a <a href=\"https://docs.github.com/en/copilot/concepts/agents/copilot-cli/rubber-duck\">Rubber Duck review</a> from GitHub Copilot. You can do this just by asking for it:</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>Perform a rubber duck review on this date picker component implementation</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"Perform a rubber duck review on this date picker component implementation\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">In a Rubber Duck review, GitHub Copilot will request a review from a model of a different AI family. For instance, since I was using GPT 5.6 Terra, it requested a review from Sonnet. Different models were trained on different data, so they have different blind spots. A Rubber Duck review helps identify potential issues that might be missed by a single model.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Note that you can use this at any point in this workflow. You can rubber duck prototypes. You can rubber duck plans. It all just depends on if you want a second AI review on something.</p>\n\n\n\n<p class=\"wp-block-paragraph\">And if you want to take this a step further, you can combine rubber duck with Autopilot to get the models to work together in a loop to improve the final result.</p>\n\n\n\n<p class=\"wp-block-paragraph\">&ldquo;/autopilot rubber duck this date picker implementation. When you have the result, review it carefully and make any necessary adjustments. Repeat the rubber duck review until both you and the reviewing model agree that the only items that remain have diminishing returns.&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">After this step, you will have an even more refined result than before and will have likely identified many extra edge cases. This step does cost more tokens, but you are really battle-hardening the code. Think of it as an investment in your future self who won&rsquo;t have to deal with these issues because you caught them now.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"8-profit\">8. Profit</h2>\n\n\n\n<p class=\"wp-block-paragraph\">At this point, you&rsquo;re ready to stage and commit, or move on to the next feature you want to add along with this pull request.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I&rsquo;d recommend starting a new chat session for anything you do next that doesn&rsquo;t have to do with this date picker. You can think of chat sessions as being topical; if you start to diverge too much from the main topic, it&rsquo;s probably time for a new session.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Here&rsquo;s the final result from my workflow building the date picker for this post.</p>\n\n\n\n<figure class=\"wp-block-video\"><video height=\"1080\" style=\"aspect-ratio: 1520 / 1080;\" width=\"1520\" controls poster=\"https://github.blog/wp-content/uploads/2026/07/Screenshot-2026-07-24-at-11.31.41-AM.png\" src=\"https://github.blog/wp-content/uploads/2026/07/datepicker.mp4\"></video></figure>\n\n\n\n<p class=\"wp-block-paragraph\">I realize that this is a bit of a contrived example, but can we all just pause for a moment and marvel at what we&rsquo;re able to pull off with AI now? Building a date picker used to be one of the hardest things you could try to do. Just ask any of the heroes out there who have built them.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"things-dont-have-to-be-complicated\">Things don&rsquo;t have to be complicated</h2>\n\n\n\n<p class=\"wp-block-paragraph\">This simple workflow will be enough for most people. The simplicity also helps you multitask. It&rsquo;s easier to reason about what agent is in what state and what you were doing last when you keep things simple. Your context window is limited too.</p>\n\n\n\n<p class=\"wp-block-paragraph\">There is so much happening in the AI space right now. There is no upper limit on the things that you can build and experiment with. You can add MCP servers, skills, instructions, and custom agents. You can set up workflows and loops, create agents that prompt agents, and stand up entire virtual dev teams.</p>\n\n\n\n<p class=\"wp-block-paragraph\">But keep in mind that nobody really knows what they are doing right now. We&rsquo;re all figuring this out as we go. A lot of what is today&rsquo;s magical incantation for AI will be tomorrow&rsquo;s anti-pattern.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Just focus on getting a repeatable, high-quality result in the simplest way that you can. Learn the harness and you&rsquo;ll be just fine.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\"><a href=\"https://github.com/features/copilot\">Try GitHub Copilot &gt;</a></p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/\">The harness is all you need (mostly)</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "post-id": {
-            "#text": 97740,
-            "xmlns": "com-wordpress:feed-additions:1"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:02.883Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-07-28T00:05:02.883Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
-      "id": "candidate-rss-https-github-blog-p-97758",
-      "sourceType": "rss-feed",
-      "sourceName": "GitHub Blog AI",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/",
-      "originalTitle": "GitHub Copilot app for Beginners: Getting started",
-      "originalSummary": "New to the GitHub Copilot app? Learn how to start projects, work with AI agents, explore canvases, and streamline your development workflow. The post GitHub Copilot app for Beginners: Getting started appeared first on The GitHub Blog .",
-      "originalContent": "AI coding tools often begin with a chat window. While that works for quick questions or generating code, real software development rarely happens in a straight line. One minute you&rsquo;re fixing a bug, the next you&rsquo;re reviewing a pull request, digging into an unfamiliar part of the codebase, or exploring a new idea. The GitHub Copilot app is designed for that kind of workflow. Instead of treating AI as a single conversation, it gives you a workspace where you can manage multiple agent sessions, switch between tasks without losing momentum, and work with AI agents across the different parts of your workflow. Your work starts with a project Agent sessions are connected to a project, giving each session the repository context needed for a specific task. From the GitHub Copilot app home screen, you can choose a project you&rsquo;ve worked with before or add a new one from GitHub or your local machine. Once a project is selected, you can start a session with the codebase, files, and tools needed to begin working on a task. For example, you might want to add a breadcrumb navigation component to an existing application. Instead of manually searching through files to find the right place to make the change, you can describe the update you want to make. The session can examine the project, identify relevant files, make the changes, and run tests to help validate the work. By starting each session with the project already connected, you can spend more time working and less time preparing your environment. Keep multiple threads moving Once you&rsquo;ve selected a project and…",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-27",
-      "publisherName": "Christopher Harrison",
-      "normalizedType": "tool",
-      "tags": [
-        "tag-ai-agents",
-        "ai & ml",
-        "github copilot",
-        "github copilot app",
-        "github copilot app for beginners",
-        "agents",
-        "workflow",
-        "observability",
         "retrieval",
-        "multimodal",
-        "on-device"
+        "multimodal"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-github-blog-ai",
-        "feedTitle": "The latest on AI & ML - The GitHub Blog",
-        "feedUrl": "https://github.blog/ai-and-ml/feed/",
+        "sourceId": "source-google-ai-blog",
+        "feedTitle": "AI",
+        "feedUrl": "https://blog.google/technology/ai/rss/",
         "item": {
-          "title": "GitHub Copilot app for Beginners: Getting started",
-          "link": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/",
-          "dc:creator": "Christopher Harrison",
-          "pubDate": "Mon, 27 Jul 2026 16:00:00 +0000",
-          "category": [
-            "AI & ML",
-            "GitHub Copilot",
-            "GitHub Copilot app",
-            "GitHub Copilot app for Beginners"
-          ],
-          "guid": {
-            "#text": "https://github.blog/?p=97758",
-            "isPermaLink": "false"
+          "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "media:content": {
+            "height": "540",
+            "medium": "image",
+            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/unnamed_2_vNnOv20.max-600x600.format-webp.webp",
+            "width": "540"
           },
-          "description": "<p>New to the GitHub Copilot app? Learn how to start projects, work with AI agents, explore canvases, and streamline your development workflow.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/\">GitHub Copilot app for Beginners: Getting started</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">AI coding tools often begin with a chat window. While that works for quick questions or generating code, real software development rarely happens in a straight line. One minute you&rsquo;re fixing a bug, the next you&rsquo;re reviewing a pull request, digging into an unfamiliar part of the codebase, or exploring a new idea.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The <a href=\"https://github.com/features/ai/github-app?utm_source=blog-app-for-beginners-1&amp;utm_medium=blog&amp;utm_campaign=github-copilot-app-ga-2026\">GitHub Copilot app</a> is designed for that kind of workflow. Instead of treating AI as a single conversation, it gives you a workspace where you can manage multiple agent sessions, switch between tasks without losing momentum, and work with AI agents across the different parts of your workflow.</p>\n\n\n\n<h2 id=\"h-your-work-starts-with-a-project\" class=\"wp-block-heading\">Your work starts with a project</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Agent sessions are connected to a project, giving each session the repository context needed for a specific task.</p>\n\n\n\n<p class=\"wp-block-paragraph\">From the GitHub Copilot app home screen, you can choose a project you&rsquo;ve worked with before or add a new one from GitHub or your local machine. Once a project is selected, you can start a session with the codebase, files, and tools needed to begin working on a task.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For example, you might want to add a breadcrumb navigation component to an existing application. Instead of manually searching through files to find the right place to make the change, you can describe the update you want to make. The session can examine the project, identify relevant files, make the changes, and run tests to help validate the work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">By starting each session with the project already connected, you can spend more time working and less time preparing your environment.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"keep-multiple-threads-moving\">Keep multiple threads moving</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Once you&rsquo;ve selected a project and started an agent session, you can create additional sessions for other questions, ideas, or tasks without interrupting your existing work. <strong>Quick Chat</strong> lets you start a new conversation from the Copilot app home screen. Each conversation can focus on a different area of work, giving you a dedicated space to explore ideas, ask questions, or work through changes.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For example, you can open a <strong>Quick Chat</strong> session to ask Copilot about Copilot, such as how worktrees function in the app, while another agent session continues working on a project update. You can also use <strong>Quick Chat</strong> to investigate how your codebase works, explore potential approaches, or gather context before deciding how to move forward.</p>\n\n\n\n<p class=\"wp-block-paragraph\">When you return to your original session, you can pick up where you left off, review the changes, and make any updates needed to move the task forward.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Multiple sessions let you follow different threads of work without losing track of where each task stands.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"make-your-work-interactive-with-canvas\">Make your work interactive with canvas</h2>\n\n\n\n<p class=\"wp-block-paragraph\">When working on a UI change, seeing the result can be just as important as reviewing the code behind it. The GitHub Copilot app lets you open a browser canvas directly within your workflow, giving you a way to preview your application and make changes based on what you see.</p>\n\n\n\n<p class=\"wp-block-paragraph\">A canvas is a shared, interactive space built around work artifacts, such as a plan, a kanban board, a checklist, or a running application. It provides a visual representation of your work alongside your conversation, so you can move beyond a text-based view of the task.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Rather than opening a new terminal and launching a separate browser, you can create a browser canvas in the GitHub Copilot app using the <code>/create-canvas</code> slash command.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For example, after asking Copilot to update a UI component, you can create a canvas with: <code>/create-canvas Open this app in a browser canvas</code></p>\n\n\n\n<p class=\"wp-block-paragraph\">This opens your application in a canvas where you can preview the result. If something needs adjusting, you can <strong>Enable Canvas Dev Mode</strong> and use <strong>Pick &amp; Polish</strong> to select elements directly in the canvas and use them as context for your next request. You can point to a specific part of the page, request an update, and continue refining the result.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"keep-work-moving-with-agent-merge\">Keep work moving with Agent Merge</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Once your changes are ready, the next step is creating a pull request and moving through the standard CI and review process. Agent Merge helps extend that workflow beyond the initial code change by monitoring the pull request and assisting with tasks that come up during review.</p>\n\n\n\n<p class=\"wp-block-paragraph\">To start an Agent Merge workflow, open the pull request options in the Copilot app and select <strong>Agent Merge</strong>. From there, you can choose which actions Agent Merge can take, such as addressing review feedback, helping resolve CI failures, or handling merge conflicts.</p>\n\n\n\n<p class=\"wp-block-paragraph\">After <strong>Agent Merge</strong> is enabled, it monitors the pull request as it moves through the review and CI process. If issues come up, it can help address requested changes and prepare the pull request for merge. Once the required checks have passed, you can choose to merge the pull request.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"start-exploring-the-copilot-app\">Start exploring the Copilot app</h2>\n\n\n\n<p class=\"wp-block-paragraph\">The Copilot app brings together the different parts of your development workflow in one place. Start with a project. From there, you can create separate sessions for different threads of work, create a canvas to visualize and refine your work, and keep changes moving through the pull request process with <strong>Agent Merge</strong>.</p>\n\n\n\n<p class=\"wp-block-paragraph\">There&rsquo;s more to explore, including additional ways to customize and extend your workflow. The best way to learn the GitHub Copilot app is to try it yourself.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\">Have a task that&rsquo;s been sitting in your backlog? Try it with the <a href=\"https://github.com/features/ai/github-app?utm_source=blog-app-for-beginners-1&amp;utm_medium=blog&amp;utm_campaign=github-copilot-app-ga-2026\">GitHub Copilot app</a> and see how you can explore, build, and ship with AI agents.</p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/\">GitHub Copilot app for Beginners: Getting started</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "post-id": {
-            "#text": 97758,
-            "xmlns": "com-wordpress:feed-additions:1"
-          }
+          "media:description": "Managed Agents Gemini 3.6 Flash, Hooks and Triggers",
+          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/unnamed_2_vNnOv20.max-600x600.format-webp.webp\"&gt;We’re announcing even more new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents.",
+          "pubDate": "Tue, 28 Jul 2026 16:00:00 +0000",
+          "guid": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+          "category": [
+            "Developer tools",
+            "AI"
+          ],
+          "og": {
+            "type": "article",
+            "title": "Gemini API Managed Agents: 3.6 Flash, hooks, and more",
+            "description": "We’re announcing even more new capabilities in Managed Agents in Gemini API so developers can build reliable, production-ready agents.",
+            "site_name": "Google",
+            "url": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api-3-6-flash-hooks/",
+            "xmlns:og": "http://ogp.me/ns#"
+          },
+          "author": [
+            {
+              "name": "Philipp Schmid",
+              "title": "Member of the Technical Staff",
+              "department": "Google DeepMind",
+              "company": "",
+              "xmlns:author": "http://www.w3.org/2005/Atom"
+            },
+            {
+              "name": "Mariano Cocirio",
+              "title": "Product Manager",
+              "department": "Google DeepMind",
+              "company": "",
+              "xmlns:author": "http://www.w3.org/2005/Atom"
+            }
+          ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:02.883Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:03.203Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
-      "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-07-28T00:05:02.883Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "sourceId": "source-google-ai-blog",
+      "importedAt": "2026-07-29T00:05:03.203Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams",
+      "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-ai-mode-real-world-tips",
       "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nvidia/cosmos-h-dreams",
-      "originalTitle": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+      "originalTitle": "5 ways AI Mode in Search helps you enjoy the real world",
+      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AI_Mode_real_world.max-600x600.format-webp.webp\">It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether you want to book…",
+      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AI_Mode_real_world.max-600x600.format-webp.webp\">It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether you want to book concert tickets or find the perf…",
       "originalLanguage": "en",
-      "publishDate": "2026-07-27",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
+      "publishDate": "2026-07-28",
+      "publisherName": "Google AI Blog",
+      "normalizedType": "model",
       "tags": [
-        "open-source",
-        "model"
+        "tag-frontier-models",
+        "search",
+        "ai",
+        "retrieval",
+        "multimodal"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "sourceId": "source-google-ai-blog",
+        "feedTitle": "AI",
+        "feedUrl": "https://blog.google/technology/ai/rss/",
         "item": {
-          "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
-          "pubDate": "Mon, 27 Jul 2026 09:32:20 GMT",
-          "link": "https://hf-mirror.com/blog/nvidia/cosmos-h-dreams",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/nvidia/cosmos-h-dreams",
-            "isPermaLink": "false"
+          "title": "5 ways AI Mode in Search helps you enjoy the real world",
+          "link": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+          "media:content": {
+            "height": "540",
+            "medium": "image",
+            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AI_Mode_real_world.max-600x600.format-webp.webp",
+            "width": "540"
+          },
+          "media:description": "Illustration of a black magnifying glass in a white circle on green grass surrounded by items related to fun activities like tennis and games",
+          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/AI_Mode_real_world.max-600x600.format-webp.webp\"&gt;It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether you want to book concert tickets or find the perf…",
+          "pubDate": "Tue, 28 Jul 2026 13:00:00 +0000",
+          "guid": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+          "category": [
+            "Search",
+            "AI"
+          ],
+          "og": {
+            "type": "article",
+            "title": "5 ways AI Mode in Search helps you enjoy the real world",
+            "description": "It might sound counterintuitive, but Search's AI tools can actually help you make the most of your time offline whether you want to book concert tickets or find the perfect hiking boots.",
+            "site_name": "Google",
+            "url": "https://blog.google/products-and-platforms/products/search/ai-mode-real-world-tips/",
+            "xmlns:og": "http://ogp.me/ns#"
+          },
+          "author": {
+            "name": "News from Google Team",
+            "title": "",
+            "department": "",
+            "company": "",
+            "xmlns:author": "http://www.w3.org/2005/Atom"
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:07.562Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:03.203Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-28T00:05:07.562Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "sourceId": "source-google-ai-blog",
+      "importedAt": "2026-07-29T00:05:03.203Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
-      "id": "candidate-rss-https-openai-com-index-how-ai-is-expanding-what-people-do-at-work",
+      "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-dinner-party-hosting-tips",
+      "sourceType": "rss-feed",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+      "originalTitle": "5 ways to host the ultimate dinner party with Google Search",
+      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp\">These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
+      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp\">These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-28",
+      "publisherName": "Google AI Blog",
+      "normalizedType": "model",
+      "tags": [
+        "tag-frontier-models",
+        "search",
+        "ai",
+        "retrieval",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-google-ai-blog",
+        "feedTitle": "AI",
+        "feedUrl": "https://blog.google/technology/ai/rss/",
+        "item": {
+          "title": "5 ways to host the ultimate dinner party with Google Search",
+          "link": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+          "media:content": {
+            "height": "540",
+            "medium": "image",
+            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp",
+            "width": "540"
+          },
+          "media:description": "An illustrated black magnifying glass with a sparkle in a white circle surrounded by a dinner party tablescape",
+          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp\"&gt;These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
+          "pubDate": "Tue, 28 Jul 2026 13:00:00 +0000",
+          "guid": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+          "category": [
+            "Search",
+            "AI"
+          ],
+          "og": {
+            "type": "article",
+            "title": "5 ways to host the ultimate dinner party with Google Search",
+            "description": "These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
+            "site_name": "Google",
+            "url": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
+            "xmlns:og": "http://ogp.me/ns#"
+          },
+          "author": {
+            "name": "News from Google Team",
+            "title": "",
+            "department": "",
+            "company": "",
+            "xmlns:author": "http://www.w3.org/2005/Atom"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:05:03.203Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-google-ai-blog",
+      "importedAt": "2026-07-29T00:05:03.203Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-scientific-computing-agentic-ai",
       "sourceType": "rss-feed",
       "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
-      "originalTitle": "How AI is expanding what people do at work",
-      "originalSummary": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
-      "originalContent": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
+      "sourceUrl": "https://openai.com/index/scientific-computing-agentic-ai",
+      "originalTitle": "Scientific computing in the age of agentic AI",
+      "originalSummary": "A new field report shows how scientists use AI coding agents to modernize scientific computing, accelerating software development and discovery in genomics and beyond.",
+      "originalContent": "A new field report shows how scientists use AI coding agents to modernize scientific computing, accelerating software development and discovery in genomics and beyond.",
       "originalLanguage": "en",
-      "publishDate": "2026-07-27",
+      "publishDate": "2026-07-28",
       "publisherName": "OpenAI",
       "normalizedType": "model",
       "tags": [
         "frontier-model",
-        "company",
-        "retrieval"
+        "publication",
+        "agents"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
@@ -270,23 +325,23 @@
         "feedTitle": "OpenAI News",
         "feedUrl": "https://openai.com/news/rss.xml",
         "item": {
-          "title": "How AI is expanding what people do at work",
-          "description": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
-          "link": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+          "title": "Scientific computing in the age of agentic AI",
+          "description": "A new field report shows how scientists use AI coding agents to modernize scientific computing, accelerating software development and discovery in genomics and beyond.",
+          "link": "https://openai.com/index/scientific-computing-agentic-ai",
           "guid": {
-            "#text": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+            "#text": "https://openai.com/index/scientific-computing-agentic-ai",
             "isPermaLink": "true"
           },
-          "category": "Company",
-          "pubDate": "Mon, 27 Jul 2026 03:30:00 GMT"
+          "category": "Publication",
+          "pubDate": "Tue, 28 Jul 2026 17:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:29.238Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:04.234Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-07-28T00:06:29.238Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:04.234Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5",
@@ -444,6 +499,201 @@
       "importedAt": "2026-07-28T08:57:43.358Z"
     },
     {
+      "id": "candidate-rss-https-github-blog-p-97740",
+      "sourceType": "rss-feed",
+      "sourceName": "GitHub Blog AI",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/",
+      "originalTitle": "The harness is all you need (mostly)",
+      "originalSummary": "A practical GitHub Copilot workflow for prototyping, planning, implementing, and reviewing software without chasing every new AI tool. The post The harness is all you need (mostly) appeared first on The GitHub Blog .",
+      "originalContent": "If you&rsquo;re feeling overwhelmed by AI right now, you&rsquo;re not alone. Every day it seems there is a new tool, new MCP, new model, new skill, new workflow, new feature, new social post that is some form of &ldquo;Hey look! I have completely figured out AI with this one weird prompt.&rdquo; I&hellip;don&rsquo;t believe you. I work with AI every single day, and what I&rsquo;m finding is that less is way more. It&rsquo;s not about what I install or configure or trick the agent into doing that makes any real difference. That stuff is interesting, but at the end of the day it feels like gimmicks. I see the biggest gains in my productivity from how I use the harness and how well I understand it. So in this post, I&rsquo;m sharing you a simple workflow that you can use to drastically improve your effectiveness with AI just by using existing features of GitHub Copilot . No weird prompts. No skill everyone else seems to know about. Just the harness. The harness is all you need&mdash;mostly. Disclaimers I&rsquo;m using the term &ldquo;harness&rdquo; interchangeably with &ldquo;GitHub Copilot.&rdquo; The point of this post is to keep things simple, so just know that GitHub Copilot is an agent harness. I don&rsquo;t mean to insinuate that you won&rsquo;t ever need any skills or MCPs or instructions or custom agents, etc. In fact, those things will become quite important as you progress and need to define complex workflows and automate things for your teams. In fact, I use a few throughout this blog post! What I am pointing out here is that you do not need any of those things to…",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-27",
+      "publisherName": "Burke Holland",
+      "normalizedType": "tool",
+      "tags": [
+        "tag-ai-agents",
+        "ai & ml",
+        "github copilot",
+        "agents",
+        "workflow",
+        "multimodal",
+        "on-device"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-github-blog-ai",
+        "feedTitle": "The latest on AI & ML - The GitHub Blog",
+        "feedUrl": "https://github.blog/ai-and-ml/feed/",
+        "item": {
+          "title": "The harness is all you need (mostly)",
+          "link": "https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/",
+          "dc:creator": "Burke Holland",
+          "pubDate": "Mon, 27 Jul 2026 18:00:00 +0000",
+          "category": [
+            "AI & ML",
+            "GitHub Copilot"
+          ],
+          "guid": {
+            "#text": "https://github.blog/?p=97740",
+            "isPermaLink": "false"
+          },
+          "description": "<p>A practical GitHub Copilot workflow for prototyping, planning, implementing, and reviewing software without chasing every new AI tool.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/\">The harness is all you need (mostly)</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">If you&rsquo;re feeling overwhelmed by AI right now, you&rsquo;re not alone.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Every day it seems there is a new tool, new MCP, new model, new skill, new workflow, new feature, new social post that is some form of &ldquo;Hey look! I have completely figured out AI with this one weird prompt.&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">I&hellip;don&rsquo;t believe you.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I work with AI every single day, and what I&rsquo;m finding is that less is way more. It&rsquo;s not about what I install or configure or trick the agent into doing that makes any real difference. That stuff is interesting, but at the end of the day it feels like gimmicks.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I see the biggest gains in my productivity from how I use the harness and how well I understand it.</p>\n\n\n\n<p class=\"wp-block-paragraph\">So in this post, I&rsquo;m sharing you a simple workflow that you can use to drastically improve your effectiveness with AI just by using existing features of <a href=\"https://github.com/features/copilot\">GitHub Copilot</a>. No weird prompts. No skill everyone else seems to know about. Just the harness. The harness is all you need&mdash;mostly.</p>\n\n\n\n<aside data-color-mode=\"light\" data-dark-theme=\"dark\" data-light-theme=\"light_dimmed\" class=\"wp-block-group post-aside--large p-4 p-md-6 is-style-light-dimmed has-global-padding is-layout-constrained wp-block-group-is-layout-constrained is-style-light-dimmed--1\" style=\"border-top-width:4px\">\n<h2 id=\"h-disclaimers\" class=\"wp-block-heading h5-mktg gh-aside-title is-typography-preset-h5\" style=\"margin-top:0\">Disclaimers</h2>\n\n\n\n<p class=\"wp-block-paragraph\">I&rsquo;m using the term &ldquo;harness&rdquo; interchangeably with &ldquo;GitHub Copilot.&rdquo; The point of this post is to keep things simple, so just know that GitHub Copilot is an agent harness.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I don&rsquo;t mean to insinuate that you won&rsquo;t ever need any skills or MCPs or instructions or custom agents, etc. In fact, those things will become quite important as you progress and need to define complex workflows and automate things for your teams. In fact, I use a few throughout this blog post!</p>\n\n\n\n<p class=\"wp-block-paragraph\">What I am pointing out here is that you do not need any of those things to be highly successful with AI.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Also, there is a lot of slop out there. If you don&rsquo;t believe that, ask the agent to create a skill to do anything at all. It will happily oblige. Whether or not that generated skill actually works, it can be easily published to any number of skill or MCP registries.</p>\n</aside>\n\n\n\n<h2 id=\"h-1-pick-a-tool-any-tool\" class=\"wp-block-heading\">1. Pick a tool, any tool</h2>\n\n\n\n<p class=\"wp-block-paragraph\">This is an obvious one, right? Pick a tool! It&rsquo;s so easy!</p>\n\n\n\n<p class=\"wp-block-paragraph\">But even within the GitHub Copilot family, there are a lot of options. These include the <a href=\"https://docs.github.com/copilot/github-copilot-in-the-cli\">CLI</a>, the new <a href=\"https://docs.github.com/copilot/concepts/agents/github-copilot-app\">GitHub Copilot app</a>, <a href=\"https://code.visualstudio.com/\">VS Code</a>, <a href=\"https://visualstudio.microsoft.com/\">Visual Studio</a>, and <a href=\"https://www.jetbrains.com/\">JetBrains</a>, just to name a few.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The good news is that these experiences are increasingly being centralized on the same harness. The details can differ by tool, but the core workflow is consistent. Learn the harness once, use it everywhere.</p>\n\n\n\n<p class=\"wp-block-paragraph\">That said, I do believe that learning the harness is key, and the best way to learn it is to be as close to it as possible. So if you are just starting out, I&rsquo;d recommend beginning with the GitHub Copilot CLI. It&rsquo;s a terminal interface, which means it&rsquo;s just text. There isn&rsquo;t much UI to learn. You enter a prompt. The agent does things. But the interaction is more direct, immediate, and, frankly, very satisfying.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For this demonstration, I&rsquo;ll be using the new <a href=\"https://github.com/features/ai/github-app\">GitHub Copilot app</a>. But the harness that app uses is the exact same thing you&rsquo;ll be using if you are using the GitHub Copilot CLI, Visual Studio Code and many other places you can find GitHub Copilot.</p>\n\n\n\n<h2 id=\"h-2-turn-on-yolo-mode\" class=\"wp-block-heading\">2. Turn on YOLO mode</h2>\n\n\n\n<p class=\"wp-block-paragraph\">YOLO mode is also known as &ldquo;<a href=\"https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools\">Allow All</a>.&rdquo; This lets the agent execute any command without asking permission. This can vary depending on the tool you are using, but for most it is simply an <code>/allow-all</code> command in the chat. Otherwise, the agent is going to stop and wait for your approval every single time it needs to do some work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Agents need autonomy for you to see an increase in productivity. If you have to approve everything the agent does, you might as well just do it yourself. Besides, that&rsquo;s a miserable user experience. Nobody wants to be relegated to sitting at a desk pressing the &ldquo;Approve&rdquo; button all day. And pressing &ldquo;Approve&rdquo; over and over just trains you not to read what you are being asked to approve, which defeats the purpose.</p>\n\n\n\n<p class=\"wp-block-paragraph\">You want to be safe with agents, though. <a href=\"https://x.com/mattshumer_/status/2075666403596612010\">Bad things happen to good people</a>. When using YOLO mode, you don&rsquo;t want to run the agent on your local machine. This is especially true when you are using them at work&mdash;data is private on your organization&rsquo;s systems, and mistakes can be costly.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Fortunately there are a bunch of options for running agents in sandboxes. An easy one to get started with is <a href=\"https://docs.github.com/codespaces/overview\">GitHub Codespaces</a> or <a href=\"https://containers.dev\">development containers</a>.</p>\n\n\n\n<h2 id=\"h-3-start-with-a-prototype\" class=\"wp-block-heading\">3. Start with a prototype</h2>\n\n\n\n<p class=\"wp-block-paragraph\">One of the most magical things about AI is that you can easily prototype anything and everything up front. Historically, this was not the case. Prototyping was a full phase of a project, and were often a luxury. Now, you can make one with a prompt.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Let&rsquo;s look at a few examples.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Let&rsquo;s say we want to build a date picker web component. That seems straightforward, but it&rsquo;s actually quite complex. Think of all the different things you might want to do with it.</p>\n\n\n\n<ul class=\"wp-block-list\">\n<li>How do you navigate within the component?</li>\n\n\n\n<li>What does the selected date look like?</li>\n\n\n\n<li>What does a selected range look like?</li>\n\n\n\n<li>How does the user navigate between days, months, and years?</li>\n</ul>\n\n\n\n<p class=\"wp-block-paragraph\">Start with a simple prototype and get several variations. I usually start with something like this:</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>Give me 20 mocks for a date picker web component. Put them all in an HTML file so I can compare.</code></pre>\n<a href=\"https://github.com/copilot?prompt=Give%20me%2020%20mocks%20for%20a%20date%20picker%20web%20component.%20Put%20them%20all%20in%20an%20HTML%20file%20so%20I%20can%20compare.&amp;utm_source=github-blog&amp;utm_medium=blog&amp;utm_campaign=organic-blog-copilot-button\" class=\"code-copilot-btn\" aria-label=\"Open in Copilot\" target=\"_blank\" rel=\"noopener noreferrer\"><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" class=\"octicon octicon-copilot\"><path d=\"M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z\"></path><path d=\"M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z\"></path></svg></a><clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"Give me 20 mocks for a date picker web component. Put them all in an HTML file so I can compare.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" fetchpriority=\"high\" decoding=\"async\" height=\"760\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/prototype.png?resize=1024%2C760\" alt=\"Twenty date picker prototypes generated in a single HTML file.\" class=\"wp-image-97742\" srcset=\"https://github.blog/wp-content/uploads/2026/07/prototype.png?w=2033 2033w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/prototype.png?w=1536 1536w\" sizes=\"(max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">In this case, the AI generated a bunch of different layouts, but one of them is a mock where it starts with the year view. That&rsquo;s interesting. I would like my date picker to enable the user to zoom out to the year, then into the month, and finally to the day. These are the kinds of things you don&rsquo;t consider until you see them.</p>\n\n\n\n<p class=\"wp-block-paragraph\">As humans, we process sensory-rich models like images, shapes, and tangible layouts much faster than dense text. Creating low-effort prototypes early on helps make complex concepts immediately intuitive.</p>\n\n\n\n<p class=\"wp-block-paragraph\">And this applies to non-visual tasks as well.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For instance, if I want to add a new API endpoint, I&rsquo;ll still create a visual prototype to understand the requirements and constraints before diving into the implementation.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>Create a visual mockup of the API for this project. Add five options for how we could handle a new API endpoint that allows the user to download their analytics data.</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"Create a visual mockup of the API for this project. Add five options for how we could handle a new API endpoint that allows the user to download their analytics data.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" decoding=\"async\" height=\"760\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?resize=1024%2C760\" alt=\"A Mermaid diagram comparing approaches for an analytics export API endpoint.\" class=\"wp-image-97743\" srcset=\"https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=2033 2033w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/mermaid-1-1.png?w=1536 1536w\" sizes=\"(max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">Since the GitHub Copilot app supports <a href=\"https://docs.github.com/copilot/tutorials/copilot-cookbook/communicate-effectively/creating-diagrams\">Mermaid diagrams</a>, the agent renders this as Markdown, mapping out five different ways we could implement this API endpoint.</p>\n\n\n\n<p class=\"wp-block-paragraph\">When working with agents, it&rsquo;s easy to forget that everything is nuanced. Prototyping helps uncover the nuances up front, so you avoid spending valuable time and tokens on rework.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I recommend using a medium-sized model, such as GPT 5.6 Terra or Claude Sonnet, on medium reasoning for most work. I also recommend you stick with whatever model you choose here for the duration of this particular feature, bug, or enhancement. Prompt caching will save you tokens. As long as you don&rsquo;t switch to a different model or reasoning level, your previous chats remain cached with the model, giving you a discount on future requests.</p>\n\n\n\n<h2 id=\"h-4-plan-methodically\" class=\"wp-block-heading\">4. Plan methodically</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Now that you know what you actually want versus what you initially thought you wanted, it&rsquo;s time to plan out the implementation.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Switch to plan mode in GitHub Copilot without starting a new session.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>/plan Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"/plan Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">That&rsquo;s a pretty vague prompt, and you&rsquo;ll likely have more context for the model than I do here, but this is just a demonstration. If you don&rsquo;t have more context, it&rsquo;s OK. That&rsquo;s exactly what this step is for.</p>\n\n\n\n<p class=\"wp-block-paragraph\">In theory, you can get a model to one-shot anything if you compose the perfect prompt with the perfect context in the perfect order. In theory.</p>\n\n\n\n<p class=\"wp-block-paragraph\">But none of us can do that. Planning helps you get closer to that ideal, though, by asking all of the questions that you would need to answer yourself along the way if you were to build this out by hand:</p>\n\n\n\n<ul class=\"wp-block-list\">\n<li>Can the start and end date be the same?</li>\n\n\n\n<li>Are partial selections valid?</li>\n\n\n\n<li>Should users be able to clear the date?</li>\n\n\n\n<li>Should &ldquo;today&rdquo; always be a visible option?</li>\n\n\n\n<li>Is manual entry allowed?</li>\n\n\n\n<li>What format is the date stored in?</li>\n\n\n\n<li>Should pasting in dates be allowed?</li>\n</ul>\n\n\n\n<p class=\"wp-block-paragraph\">The list goes on and on. You cannot possibly think of all of these edge cases, but the model can help you identify many of them.</p>\n\n\n\n<p class=\"wp-block-paragraph\">You can make plan mode even more aggressive in the sheer number of questions and edge cases it asks about by installing the <a href=\"https://www.skills.sh/mattpocock/skills/grill-me\">&ldquo;grill-me&rdquo;</a> skill from Matt Pocock.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>/plan /grill-me Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.</code></pre>\n<a href=\"https://github.com/copilot?prompt=%2Fplan%20%2Fgrill-me%20Build%20a%20date%20picker%20web%20component.%20I%20want%20the%20user%20to%20be%20able%20to%20zoom%20in%20and%20out%20of%20years%2C%20months%2C%20and%20days.&amp;utm_source=github-blog&amp;utm_medium=blog&amp;utm_campaign=organic-blog-copilot-button\" class=\"code-copilot-btn\" aria-label=\"Open in Copilot\" target=\"_blank\" rel=\"noopener noreferrer\"><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewbox=\"0 0 16 16\" class=\"octicon octicon-copilot\"><path d=\"M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z\"></path><path d=\"M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z\"></path></svg></a><clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"/plan /grill-me Build a date picker web component. I want the user to be able to zoom in and out of years, months, and days.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">This planning step is critical. The point is not for you to just accept every suggestion from the AI. If you do that, you are negating the value of this planning process. The point is for you to deeply engage with the problem and guide the model. This is where your expertise comes into play.</p>\n\n\n\n<p class=\"wp-block-paragraph\">You can also ask the model questions back. In the screenshot below, it asks me about &ldquo;non-contiguous dates.&rdquo; I&rsquo;m pretty sure I know what the model means here, but I&rsquo;m going to ask for clarification so we&rsquo;re on the same page.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" decoding=\"async\" height=\"545\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/planmode.png?resize=1024%2C545\" alt=\"GitHub Copilot plan mode asking clarifying questions about a date picker.\" class=\"wp-image-97744\" srcset=\"https://github.blog/wp-content/uploads/2026/07/planmode.png?w=1387 1387w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=800 800w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=400 400w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=1032 1032w, https://github.blog/wp-content/uploads/2026/07/planmode.png?w=516 516w\" sizes=\"(max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">The planning process will keep going even if you interrupt to ask clarifying questions, etc.</p>\n\n\n\n<h2 id=\"h-5-implement-with-autopilot\" class=\"wp-block-heading\">5. Implement with Autopilot</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Once the plan is finished, GitHub Copilot will likely prompt you to switch to <a href=\"https://docs.github.com/copilot/concepts/agents/copilot-cli/autopilot\">Autopilot</a> and start implementing the plan.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" loading=\"lazy\" decoding=\"async\" height=\"698\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/autopilot.png?resize=1024%2C698\" alt=\"GitHub Copilot Autopilot implementing a plan.\" class=\"wp-image-97745\" srcset=\"https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=1251 1251w, https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/autopilot.png?w=1024 1024w\" sizes=\"auto, (max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">Autopilot is a built-in loop. It forces the model to continue working by ensuring that it has actually done what it said it would do&mdash;which in this case is completing every item in the plan.</p>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub Copilot will automatically act as an orchestrator during this phase. If it needs to read files in the codebase, it will use the &ldquo;Explore&rdquo; subagent with a small model. If it deems an action relatively complex, it will likely choose the &ldquo;General Purpose&rdquo; subagent with a larger model. While you can get fine-grained control over orchestration in GitHub Copilot with <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/create-custom-agents-for-cli\">custom agents</a> and <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions\">instructions</a>, you don&rsquo;t need to do anything special to get the advantages of subagents and multimodel workflows. This works out of the box, even if you did not know that any of these things existed.</p>\n\n\n\n<h2 id=\"h-6-human-review-and-iteration\" class=\"wp-block-heading\">6. Human review and iteration</h2>\n\n\n\n<p class=\"wp-block-paragraph\">This is where you get your dopamine hit. You get to see what the AI has created.</p>\n\n\n\n<p class=\"wp-block-paragraph\">But it&rsquo;s likely that you won&rsquo;t get exactly what you wanted. That&rsquo;s normal and expected. The model cannot read your mind, and it is error-prone. Iterate with the model until you get what you actually want. Whether that&rsquo;s just code or an improved UI, this is the part where your taste will decide the quality of the final product.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For instance, here&rsquo;s the date picker that GitHub Copilot gave me.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" loading=\"lazy\" decoding=\"async\" height=\"907\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?resize=1024%2C907\" alt=\"Initial date picker result. It shows 12 boxes with years to select from 2018-2029.\" class=\"wp-image-97746\" srcset=\"https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=1047 1047w, https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/datepicker-initial.png?w=1024 1024w\" sizes=\"auto, (max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<p class=\"wp-block-paragraph\">Already I can see it has some issues:</p>\n\n\n\n<ul class=\"wp-block-list\">\n<li>Animations are inconsistent</li>\n\n\n\n<li>Text is unreadable when hovering over a selected date because of color contrast</li>\n\n\n\n<li>It doesn&rsquo;t need to say &ldquo;12 YEARS&rdquo; at the top.</li>\n\n\n\n<li>When I click &ldquo;Today&rdquo;, it doesn&rsquo;t take me to the day if I&rsquo;m in the month or year view.</li>\n</ul>\n\n\n\n<p class=\"wp-block-paragraph\">Also, I don&rsquo;t <em>love</em> the design. It looks a little too much like it was created by AI&mdash;because it was!</p>\n\n\n\n<p class=\"wp-block-paragraph\">So here we&rsquo;re just in follow-up mode. I&rsquo;m going to use a CSS framework I created called <a href=\"https://burkeholland.github.io/postrboard-design\">Postrboard</a>. I add it as a skill that just points to the CSS and tells the agent how to use it. You can feel free to install it yourself if you&rsquo;d like to use it, or you can pick any other CSS framework out there that you like. Giving the model some design guidance is quite helpful, and often a CSS framework is all you need.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>ok - we don't need a landing page here - just the component, output and settings panel in a minimal setting. Use the /postboard skill for the design and colors.\n\nFor the date picker, when I click on the day, it tries to zoom in, but can't because there is nothing to zoom to. There should be no zoom there.\n\nIt doesn't need to say \"Zoom Out\" at the top\n\nWhen I mouse over a month or year that contains the selected day, I cannot read the hover text.\n\nWhen I click \"Today\" it should take me to that day view, even if I'm on the month or the year.\n\nThe months don't need numbers under them and they don't need to be in boxes\n\nSame goes for years. And it doesn't need to say \"12 years\" at the top.\"</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"ok - we don't need a landing page here - just the component, output and settings panel in a minimal setting. Use the /postboard skill for the design and colors.\n\nFor the date picker, when I click on the day, it tries to zoom in, but can't because there is nothing to zoom to. There should be no zoom there.\n\nIt doesn't need to say &quot;Zoom Out&quot; at the top\n\nWhen I mouse over a month or year that contains the selected day, I cannot read the hover text.\n\nWhen I click &quot;Today&quot; it should take me to that day view, even if I'm on the month or the year.\n\nThe months don't need numbers under them and they don't need to be in boxes\n\nSame goes for years. And it doesn't need to say &quot;12 years&quot; at the top.&quot;\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">Notice how conversational this is. Don&rsquo;t overthink it. When you&rsquo;re fixing a bunch of small things like this, just give it to the model. If you&rsquo;ve got the context, you&rsquo;ve got the prompt.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The most important thing is not to settle for AI output that is &ldquo;good enough.&rdquo; Insist on quality. Be ruthless about it. That part is still your responsibility, and knowing what a quality result is from something that isn&rsquo;t is the value that you bring. No AI will ever replace your human touch and creativity.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Here&rsquo;s what my final date picker looks like. Scroll to the end of this post to see it in action.</p>\n\n\n\n<figure class=\"wp-block-image size-large\"><img data-recalc-dims=\"1\" loading=\"lazy\" decoding=\"async\" height=\"710\" width=\"1024\" src=\"https://github.blog/wp-content/uploads/2026/07/datepicker.png?resize=1024%2C710\" alt=\"Final date picker result. It shows a monthly calendar on the left and a view settings on the right.\" class=\"wp-image-97747\" srcset=\"https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=1545 1545w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=300 300w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=768 768w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=1024 1024w, https://github.blog/wp-content/uploads/2026/07/datepicker.png?w=1536 1536w\" sizes=\"auto, (max-width: 1000px) 100vw, 1000px\" /></figure>\n\n\n\n<h2 id=\"h-7-rubber-duck-the-result\" class=\"wp-block-heading\">7. Rubber duck the result</h2>\n\n\n\n<p class=\"wp-block-paragraph\">After you&rsquo;ve iterated and are happy with what you&rsquo;ve created, it&rsquo;s time to do a final review.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Request a <a href=\"https://docs.github.com/copilot/concepts/agents/copilot-cli/rubber-duck\">Rubber Duck review</a> from GitHub Copilot. You can do this just by asking for it:</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>Perform a rubber duck review on this date picker component implementation</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"Perform a rubber duck review on this date picker component implementation\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">In a Rubber Duck review, GitHub Copilot will request a review from a model of a different AI family. For instance, since I was using GPT 5.6 Terra, it requested a review from Sonnet. Different models were trained on different data, so they have different blind spots. A Rubber Duck review helps identify potential issues that might be missed by a single model.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Note that you can use this at any point in this workflow. You can rubber duck prototypes. You can rubber duck plans. It all just depends on if you want a second AI review on something.</p>\n\n\n\n<p class=\"wp-block-paragraph\">And if you want to take this a step further, you can combine rubber duck with Autopilot to get the models to work together in a loop to improve the final result.</p>\n\n\n<div class=\"wp-block-code-wrapper\">\n<pre class=\"wp-block-code language-plaintext\"><code>/autopilot rubber duck this date picker implementation. When you have the result, review it carefully and make any necessary adjustments. Repeat the rubber duck review until both you and the reviewing model agree that the only items that remain have diminishing returns.</code></pre>\n<clipboard-copy aria-label=\"Copy\" class=\"code-copy-btn\" data-copy-feedback=\"Copied!\" value=\"/autopilot rubber duck this date picker implementation. When you have the result, review it carefully and make any necessary adjustments. Repeat the rubber duck review until both you and the reviewing model agree that the only items that remain have diminishing returns.\" tabindex=\"0\" role=\"button\"><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-copy js-clipboard-copy-icon\"><path d=\"M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z\"></path><path d=\"M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z\"></path></svg><svg aria-hidden=\"true\" height=\"16\" viewbox=\"0 0 16 16\" version=\"1.1\" width=\"16\" class=\"octicon octicon-check js-clipboard-check-icon\"><path d=\"M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z\"></path></svg></clipboard-copy></div>\n\n\n<p class=\"wp-block-paragraph\">After this step, you will have an even more refined result than before and will have likely identified many extra edge cases. This step does cost more tokens, but you are really battle-hardening the code. Think of it as an investment in your future self who won&rsquo;t have to deal with these issues because you caught them now.</p>\n\n\n\n<h2 id=\"h-8-profit\" class=\"wp-block-heading\">8. Profit</h2>\n\n\n\n<p class=\"wp-block-paragraph\">At this point, you&rsquo;re ready to stage and commit, or move on to the next feature you want to add along with this pull request.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I&rsquo;d recommend starting a new chat session for anything you do next that doesn&rsquo;t have to do with this date picker. You can think of chat sessions as being topical; if you start to diverge too much from the main topic, it&rsquo;s probably time for a new session.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Here&rsquo;s the final result from my workflow building the date picker for this post.</p>\n\n\n\n<figure class=\"wp-block-video\"><video height=\"1080\" style=\"aspect-ratio: 1520 / 1080;\" width=\"1520\" controls poster=\"https://github.blog/wp-content/uploads/2026/07/Screenshot-2026-07-24-at-11.31.41-AM.png\" src=\"https://github.blog/wp-content/uploads/2026/07/datepicker.mp4\"></video></figure>\n\n\n\n<p class=\"wp-block-paragraph\">I realize that this is a bit of a contrived example, but can we all just pause for a moment and marvel at what we&rsquo;re able to pull off with AI now? Building a date picker used to be one of the hardest things you could try to do. Just ask any of the heroes out there who have built them.</p>\n\n\n\n<h2 id=\"h-things-don-t-have-to-be-complicated\" class=\"wp-block-heading\">Things don&rsquo;t have to be complicated</h2>\n\n\n\n<p class=\"wp-block-paragraph\">This simple workflow will be enough for most people. The simplicity also helps you multitask. It&rsquo;s easier to reason about what agent is in what state and what you were doing last when you keep things simple. Your context window is limited too.</p>\n\n\n\n<p class=\"wp-block-paragraph\">There is so much happening in the AI space right now. There is no upper limit on the things that you can build and experiment with. You can add MCP servers, skills, instructions, and custom agents. You can set up workflows and loops, create agents that prompt agents, and stand up entire virtual dev teams.</p>\n\n\n\n<p class=\"wp-block-paragraph\">But keep in mind that nobody really knows what they are doing right now. We&rsquo;re all figuring this out as we go. A lot of what is today&rsquo;s magical incantation for AI will be tomorrow&rsquo;s anti-pattern.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Just focus on getting a repeatable, high-quality result in the simplest way that you can. Learn the harness and you&rsquo;ll be just fine.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\"><a href=\"https://github.com/features/copilot\">Try GitHub Copilot &gt;</a></p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/\">The harness is all you need (mostly)</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "post-id": {
+            "#text": 97740,
+            "xmlns": "com-wordpress:feed-additions:1"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:05:02.506Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-github-blog-ai",
+      "importedAt": "2026-07-29T00:05:02.506Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-97758",
+      "sourceType": "rss-feed",
+      "sourceName": "GitHub Blog AI",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/",
+      "originalTitle": "GitHub Copilot app for Beginners: Getting started",
+      "originalSummary": "New to the GitHub Copilot app? Learn how to start projects, work with AI agents, explore canvases, and streamline your development workflow. The post GitHub Copilot app for Beginners: Getting started appeared first on The GitHub Blog .",
+      "originalContent": "AI coding tools often begin with a chat window. While that works for quick questions or generating code, real software development rarely happens in a straight line. One minute you&rsquo;re fixing a bug, the next you&rsquo;re reviewing a pull request, digging into an unfamiliar part of the codebase, or exploring a new idea. The GitHub Copilot app is designed for that kind of workflow. Instead of treating AI as a single conversation, it gives you a workspace where you can manage multiple agent sessions, switch between tasks without losing momentum, and work with AI agents across the different parts of your workflow. Your work starts with a project Agent sessions are connected to a project, giving each session the repository context needed for a specific task. From the GitHub Copilot app home screen, you can choose a project you&rsquo;ve worked with before or add a new one from GitHub or your local machine. Once a project is selected, you can start a session with the codebase, files, and tools needed to begin working on a task. For example, you might want to add a breadcrumb navigation component to an existing application. Instead of manually searching through files to find the right place to make the change, you can describe the update you want to make. The session can examine the project, identify relevant files, make the changes, and run tests to help validate the work. By starting each session with the project already connected, you can spend more time working and less time preparing your environment. Keep multiple threads moving Once you&rsquo;ve selected a project and…",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-27",
+      "publisherName": "Christopher Harrison",
+      "normalizedType": "tool",
+      "tags": [
+        "tag-ai-agents",
+        "ai & ml",
+        "github copilot",
+        "github copilot app",
+        "github copilot app for beginners",
+        "agents",
+        "workflow",
+        "observability",
+        "retrieval",
+        "multimodal",
+        "on-device"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-github-blog-ai",
+        "feedTitle": "The latest on AI & ML - The GitHub Blog",
+        "feedUrl": "https://github.blog/ai-and-ml/feed/",
+        "item": {
+          "title": "GitHub Copilot app for Beginners: Getting started",
+          "link": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/",
+          "dc:creator": "Christopher Harrison",
+          "pubDate": "Mon, 27 Jul 2026 16:00:00 +0000",
+          "category": [
+            "AI & ML",
+            "GitHub Copilot",
+            "GitHub Copilot app",
+            "GitHub Copilot app for Beginners"
+          ],
+          "guid": {
+            "#text": "https://github.blog/?p=97758",
+            "isPermaLink": "false"
+          },
+          "description": "<p>New to the GitHub Copilot app? Learn how to start projects, work with AI agents, explore canvases, and streamline your development workflow.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/\">GitHub Copilot app for Beginners: Getting started</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">AI coding tools often begin with a chat window. While that works for quick questions or generating code, real software development rarely happens in a straight line. One minute you&rsquo;re fixing a bug, the next you&rsquo;re reviewing a pull request, digging into an unfamiliar part of the codebase, or exploring a new idea.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The <a href=\"https://github.com/features/ai/github-app?utm_source=blog-app-for-beginners-1&amp;utm_medium=blog&amp;utm_campaign=github-copilot-app-ga-2026\">GitHub Copilot app</a> is designed for that kind of workflow. Instead of treating AI as a single conversation, it gives you a workspace where you can manage multiple agent sessions, switch between tasks without losing momentum, and work with AI agents across the different parts of your workflow.</p>\n\n\n\n<h2 id=\"h-your-work-starts-with-a-project\" class=\"wp-block-heading\">Your work starts with a project</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Agent sessions are connected to a project, giving each session the repository context needed for a specific task.</p>\n\n\n\n<p class=\"wp-block-paragraph\">From the GitHub Copilot app home screen, you can choose a project you&rsquo;ve worked with before or add a new one from GitHub or your local machine. Once a project is selected, you can start a session with the codebase, files, and tools needed to begin working on a task.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For example, you might want to add a breadcrumb navigation component to an existing application. Instead of manually searching through files to find the right place to make the change, you can describe the update you want to make. The session can examine the project, identify relevant files, make the changes, and run tests to help validate the work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">By starting each session with the project already connected, you can spend more time working and less time preparing your environment.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"keep-multiple-threads-moving\">Keep multiple threads moving</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Once you&rsquo;ve selected a project and started an agent session, you can create additional sessions for other questions, ideas, or tasks without interrupting your existing work. <strong>Quick Chat</strong> lets you start a new conversation from the Copilot app home screen. Each conversation can focus on a different area of work, giving you a dedicated space to explore ideas, ask questions, or work through changes.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For example, you can open a <strong>Quick Chat</strong> session to ask Copilot about Copilot, such as how worktrees function in the app, while another agent session continues working on a project update. You can also use <strong>Quick Chat</strong> to investigate how your codebase works, explore potential approaches, or gather context before deciding how to move forward.</p>\n\n\n\n<p class=\"wp-block-paragraph\">When you return to your original session, you can pick up where you left off, review the changes, and make any updates needed to move the task forward.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Multiple sessions let you follow different threads of work without losing track of where each task stands.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"make-your-work-interactive-with-canvas\">Make your work interactive with canvas</h2>\n\n\n\n<p class=\"wp-block-paragraph\">When working on a UI change, seeing the result can be just as important as reviewing the code behind it. The GitHub Copilot app lets you open a browser canvas directly within your workflow, giving you a way to preview your application and make changes based on what you see.</p>\n\n\n\n<p class=\"wp-block-paragraph\">A canvas is a shared, interactive space built around work artifacts, such as a plan, a kanban board, a checklist, or a running application. It provides a visual representation of your work alongside your conversation, so you can move beyond a text-based view of the task.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Rather than opening a new terminal and launching a separate browser, you can create a browser canvas in the GitHub Copilot app using the <code>/create-canvas</code> slash command.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For example, after asking Copilot to update a UI component, you can create a canvas with: <code>/create-canvas Open this app in a browser canvas</code></p>\n\n\n\n<p class=\"wp-block-paragraph\">This opens your application in a canvas where you can preview the result. If something needs adjusting, you can <strong>Enable Canvas Dev Mode</strong> and use <strong>Pick &amp; Polish</strong> to select elements directly in the canvas and use them as context for your next request. You can point to a specific part of the page, request an update, and continue refining the result.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"keep-work-moving-with-agent-merge\">Keep work moving with Agent Merge</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Once your changes are ready, the next step is creating a pull request and moving through the standard CI and review process. Agent Merge helps extend that workflow beyond the initial code change by monitoring the pull request and assisting with tasks that come up during review.</p>\n\n\n\n<p class=\"wp-block-paragraph\">To start an Agent Merge workflow, open the pull request options in the Copilot app and select <strong>Agent Merge</strong>. From there, you can choose which actions Agent Merge can take, such as addressing review feedback, helping resolve CI failures, or handling merge conflicts.</p>\n\n\n\n<p class=\"wp-block-paragraph\">After <strong>Agent Merge</strong> is enabled, it monitors the pull request as it moves through the review and CI process. If issues come up, it can help address requested changes and prepare the pull request for merge. Once the required checks have passed, you can choose to merge the pull request.</p>\n\n\n\n<h2 class=\"wp-block-heading\" id=\"start-exploring-the-copilot-app\">Start exploring the Copilot app</h2>\n\n\n\n<p class=\"wp-block-paragraph\">The Copilot app brings together the different parts of your development workflow in one place. Start with a project. From there, you can create separate sessions for different threads of work, create a canvas to visualize and refine your work, and keep changes moving through the pull request process with <strong>Agent Merge</strong>.</p>\n\n\n\n<p class=\"wp-block-paragraph\">There&rsquo;s more to explore, including additional ways to customize and extend your workflow. The best way to learn the GitHub Copilot app is to try it yourself.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\">Have a task that&rsquo;s been sitting in your backlog? Try it with the <a href=\"https://github.com/features/ai/github-app?utm_source=blog-app-for-beginners-1&amp;utm_medium=blog&amp;utm_campaign=github-copilot-app-ga-2026\">GitHub Copilot app</a> and see how you can explore, build, and ship with AI agents.</p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/\">GitHub Copilot app for Beginners: Getting started</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "post-id": {
+            "#text": 97758,
+            "xmlns": "com-wordpress:feed-additions:1"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:05:02.506Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-github-blog-ai",
+      "importedAt": "2026-07-29T00:05:02.506Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/cosmos-h-dreams",
+      "originalTitle": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-27",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
+          "pubDate": "Mon, 27 Jul 2026 09:32:20 GMT",
+          "link": "https://hf-mirror.com/blog/nvidia/cosmos-h-dreams",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/nvidia/cosmos-h-dreams",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:05:18.607Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-29T00:05:18.607Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-how-ai-is-expanding-what-people-do-at-work",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+      "originalTitle": "How AI is expanding what people do at work",
+      "originalSummary": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
+      "originalContent": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-27",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "company",
+        "retrieval"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "How AI is expanding what people do at work",
+          "description": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries.",
+          "link": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+          "guid": {
+            "#text": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+            "isPermaLink": "true"
+          },
+          "category": "Company",
+          "pubDate": "Mon, 27 Jul 2026 03:30:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:06:04.234Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-29T00:06:04.234Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+    },
+    {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5-rc0",
       "sourceType": "rss-feed",
       "sourceName": "Ollama Releases",
@@ -596,84 +846,6 @@
       "importedAt": "2026-07-28T08:57:42.312Z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-nunchaku-diffusers",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nunchaku-diffusers",
-      "originalTitle": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-23",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
-          "pubDate": "Thu, 23 Jul 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/nunchaku-diffusers",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/nunchaku-diffusers",
-            "isPermaLink": "true"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:07.562Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-28T00:05:07.562Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-health-in-chatgpt",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/health-in-chatgpt",
-      "originalTitle": "Launching Health in ChatGPT",
-      "originalSummary": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
-      "originalContent": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-23",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "product"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Launching Health in ChatGPT ",
-          "description": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
-          "link": "https://openai.com/index/health-in-chatgpt",
-          "guid": {
-            "#text": "https://openai.com/index/health-in-chatgpt",
-            "isPermaLink": "true"
-          },
-          "category": "Product",
-          "pubDate": "Thu, 23 Jul 2026 00:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:29.238Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-28T00:06:29.238Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0rc1",
       "sourceType": "rss-feed",
       "sourceName": "vLLM Releases",
@@ -722,6 +894,84 @@
       },
       "sourceId": "source-vllm-releases",
       "importedAt": "2026-07-28T08:57:43.358Z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nunchaku-diffusers",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nunchaku-diffusers",
+      "originalTitle": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-23",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
+          "pubDate": "Thu, 23 Jul 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/nunchaku-diffusers",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/nunchaku-diffusers",
+            "isPermaLink": "true"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:05:18.607Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-07-29T00:05:18.607Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-health-in-chatgpt",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/health-in-chatgpt",
+      "originalTitle": "Launching Health in ChatGPT",
+      "originalSummary": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
+      "originalContent": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-23",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "product"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "Launching Health in ChatGPT ",
+          "description": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health.",
+          "link": "https://openai.com/index/health-in-chatgpt",
+          "guid": {
+            "#text": "https://openai.com/index/health-in-chatgpt",
+            "isPermaLink": "true"
+          },
+          "category": "Product",
+          "pubDate": "Thu, 23 Jul 2026 00:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-07-29T00:06:04.234Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-07-29T00:06:04.234Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97686",
@@ -776,12 +1026,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:02.883Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:02.506Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-07-28T00:05:02.883Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:02.506Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-platforms-android-galaxy-unpacked-2026",
@@ -846,12 +1096,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:03.675Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:03.203Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-28T00:05:03.675Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:03.203Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission",
@@ -882,12 +1132,12 @@
           "guid": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:06.043Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:16.930Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-28T00:05:06.043Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:16.930Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-building-ai-infrastructure-with-the-effingham-county-community",
@@ -923,54 +1173,12 @@
           "pubDate": "Wed, 22 Jul 2026 13:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:29.238Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:04.234Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-07-28T00:06:29.238Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-how-news-organizations-are-using-ai",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/how-news-organizations-are-using-ai",
-      "originalTitle": "How news organizations are using AI to advance their vital missions",
-      "originalSummary": "News organizations are using AI to strengthen reporting, grow audiences, and improve business operations, with OpenAI tools supporting journalists and publishers worldwide.",
-      "originalContent": "News organizations are using AI to strengthen reporting, grow audiences, and improve business operations, with OpenAI tools supporting journalists and publishers worldwide.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-22",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "company",
-        "workflow"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "How news organizations are using AI to advance their vital missions",
-          "description": "News organizations are using AI to strengthen reporting, grow audiences, and improve business operations, with OpenAI tools supporting journalists and publishers worldwide.",
-          "link": "https://openai.com/index/how-news-organizations-are-using-ai",
-          "guid": {
-            "#text": "https://openai.com/index/how-news-organizations-are-using-ai",
-            "isPermaLink": "true"
-          },
-          "category": "Company",
-          "pubDate": "Wed, 22 Jul 2026 13:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:29.238Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-07-28T00:06:29.238Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:04.234Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-22-openai-cyberattack-atom-entries",
@@ -996,6 +1204,7 @@
         "anthropic",
         "paper-review",
         "ai-security-research",
+        "openai-hugging-face-incident",
         "agents",
         "observability",
         "retrieval",
@@ -1050,16 +1259,19 @@
             },
             {
               "term": "ai-security-research"
+            },
+            {
+              "term": "openai-hugging-face-incident"
             }
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T00:06:30.653Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.902Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-07-28T00:06:30.653Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.902Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97611",
@@ -1114,12 +1326,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:02.883Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:02.506Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-07-28T00:05:02.883Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:02.506Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber",
@@ -1150,12 +1362,12 @@
           "guid": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:06.043Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:16.930Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-28T00:05:06.043Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:16.930Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-grabette",
@@ -1187,12 +1399,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:07.562Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:18.607Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-28T00:05:07.562Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:18.607Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-21-cat-and-thariq-atom-entries",
@@ -1279,12 +1491,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T00:06:30.653Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.902Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-07-28T00:06:30.653Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.902Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
@@ -1322,155 +1534,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:06.043Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:16.930Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-28T00:05:06.043Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
-      "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-connected-apps",
-      "sourceType": "rss-feed",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/products-and-platforms/products/search/connected-apps/",
-      "originalTitle": "Connect more of your apps to Search",
-      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ConnectedAppshero.max-600x600.format-webp.webp\">You’ll be able to securely link and interact with your go-to services directly in AI Mode.",
-      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ConnectedAppshero.max-600x600.format-webp.webp\">You’ll be able to securely link and interact with your go-to services directly in AI Mode.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-16",
-      "publisherName": "[object Object],[object Object]",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models",
-        "search",
-        "ai",
-        "retrieval",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-ai-blog",
-        "feedTitle": "AI",
-        "feedUrl": "https://blog.google/technology/ai/rss/",
-        "item": {
-          "title": "Connect more of your apps to Search",
-          "link": "https://blog.google/products-and-platforms/products/search/connected-apps/",
-          "media:content": {
-            "height": "540",
-            "medium": "image",
-            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ConnectedAppshero.max-600x600.format-webp.webp",
-            "width": "540"
-          },
-          "media:description": "Connected apps rendering",
-          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ConnectedAppshero.max-600x600.format-webp.webp\"&gt;You’ll be able to securely link and interact with your go-to services directly in AI Mode.",
-          "pubDate": "Thu, 16 Jul 2026 16:00:00 +0000",
-          "guid": "https://blog.google/products-and-platforms/products/search/connected-apps/",
-          "category": [
-            "Search",
-            "AI"
-          ],
-          "og": {
-            "type": "article",
-            "title": "Connect more of your apps to Search",
-            "description": "You’ll be able to securely link and interact with your go-to services directly in AI Mode.",
-            "site_name": "Google",
-            "url": "https://blog.google/products-and-platforms/products/search/connected-apps/",
-            "xmlns:og": "http://ogp.me/ns#"
-          },
-          "author": [
-            {
-              "name": "Chips Mistry",
-              "title": "Senior Product Manager",
-              "department": "Search",
-              "company": "",
-              "xmlns:author": "http://www.w3.org/2005/Atom"
-            },
-            {
-              "name": "Biharck Araújo",
-              "title": "Engineering Lead",
-              "department": "Search",
-              "company": "",
-              "xmlns:author": "http://www.w3.org/2005/Atom"
-            }
-          ]
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:03.675Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-28T00:05:03.675Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
-      "id": "candidate-rss-https-blog-google-products-and-platforms-products-workspace-gemini-omni-personal-avatars",
-      "sourceType": "rss-feed",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
-      "originalTitle": "Create, edit and star in videos with two Google Vids updates",
-      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/omni-blog-header_OarEe2t.max-600x600.format-webp.webp\">Gemini Omni and personal avatars in Google Vids make video creation easier than ever.",
-      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/omni-blog-header_OarEe2t.max-600x600.format-webp.webp\">Gemini Omni and personal avatars in Google Vids make video creation easier than ever.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-16",
-      "publisherName": "Google AI Blog",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models",
-        "google workspace",
-        "google one",
-        "ai",
-        "retrieval",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-ai-blog",
-        "feedTitle": "AI",
-        "feedUrl": "https://blog.google/technology/ai/rss/",
-        "item": {
-          "title": "Create, edit and star in videos with two Google Vids updates",
-          "link": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
-          "media:content": {
-            "height": "540",
-            "medium": "image",
-            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/omni-blog-header_OarEe2t.max-600x600.format-webp.webp",
-            "width": "540"
-          },
-          "media:description": "Text \"Gemini Omni and Personal Avatars in Google Vids\" surrounded by various images",
-          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/omni-blog-header_OarEe2t.max-600x600.format-webp.webp\"&gt;Gemini Omni and personal avatars in Google Vids make video creation easier than ever.",
-          "pubDate": "Thu, 16 Jul 2026 16:00:00 +0000",
-          "guid": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
-          "category": [
-            "Google Workspace",
-            "Google One",
-            "AI"
-          ],
-          "og": {
-            "type": "article",
-            "title": "Create, edit and star in videos with two Google Vids updates",
-            "description": "Gemini Omni and personal avatars in Google Vids make video creation easier than ever.",
-            "site_name": "Google",
-            "url": "https://blog.google/products-and-platforms/products/workspace/gemini-omni-personal-avatars/",
-            "xmlns:og": "http://ogp.me/ns#"
-          },
-          "author": {
-            "name": "Justin Luk",
-            "title": "Product Manager",
-            "department": "",
-            "company": "",
-            "xmlns:author": "http://www.w3.org/2005/Atom"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:03.675Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-28T00:05:03.675Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:16.930Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-our-approach-to-bioresilience",
@@ -1508,12 +1577,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:06.043Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:16.930Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-28T00:05:06.043Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:16.930Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-newer-models-same-advantages",
@@ -1545,12 +1614,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:07.562Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:05:18.607Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-07-28T00:05:07.562Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:05:18.607Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
@@ -1636,78 +1705,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T00:06:30.653Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.902Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-07-28T00:06:30.653Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
-    },
-    {
-      "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-google-images-25th-anniversary",
-      "sourceType": "rss-feed",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
-      "originalTitle": "Celebrating 25 years of visual search innovation",
-      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Images_25th_hero.max-600x600.format-webp.webp\">Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual content.",
-      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Images_25th_hero.max-600x600.format-webp.webp\">Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual content.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-14",
-      "publisherName": "Google AI Blog",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models",
-        "search",
-        "ai",
-        "retrieval",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-ai-blog",
-        "feedTitle": "AI",
-        "feedUrl": "https://blog.google/technology/ai/rss/",
-        "item": {
-          "title": "Celebrating 25 years of visual search innovation",
-          "link": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
-          "media:content": {
-            "height": "540",
-            "medium": "image",
-            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Images_25th_hero.max-600x600.format-webp.webp",
-            "width": "540"
-          },
-          "media:description": "Google Images logo surrounded by illustrations of people searching for different images",
-          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Images_25th_hero.max-600x600.format-webp.webp\"&gt;Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual content.",
-          "pubDate": "Tue, 14 Jul 2026 16:00:00 +0000",
-          "guid": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
-          "category": [
-            "Search",
-            "AI"
-          ],
-          "og": {
-            "type": "article",
-            "title": "Celebrating 25 years of visual search innovation",
-            "description": "Google Images is turning 25. Here’s a look back at some major milestones — and new ways to explore and create visual content.",
-            "site_name": "Google",
-            "url": "https://blog.google/products-and-platforms/products/search/google-images-25th-anniversary/",
-            "xmlns:og": "http://ogp.me/ns#"
-          },
-          "author": {
-            "name": "Brad Kellett",
-            "title": "Senior Engineering Director",
-            "department": "Search",
-            "company": "",
-            "xmlns:author": "http://www.w3.org/2005/Atom"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:05:03.675Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
-      },
-      "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-28T00:05:03.675Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.902Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
@@ -1805,10 +1808,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T08:57:45.153Z"
+        "importedAt": "2026-07-29T00:05:20.354Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-28T08:57:45.153Z"
+      "importedAt": "2026-07-29T00:05:20.354Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-9-gpt-5-6-atom-entries",
@@ -1891,12 +1896,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T00:06:30.653Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.902Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-07-28T00:06:30.653Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.902Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -1943,10 +1948,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T08:57:45.153Z"
+        "importedAt": "2026-07-29T00:05:20.354Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-28T08:57:45.153Z"
+      "importedAt": "2026-07-29T00:05:20.354Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -1993,10 +2000,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T08:57:45.153Z"
+        "importedAt": "2026-07-29T00:05:20.354Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-28T08:57:45.153Z"
+      "importedAt": "2026-07-29T00:05:20.354Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -2043,10 +2052,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-07-28T08:57:45.153Z"
+        "importedAt": "2026-07-29T00:05:20.354Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-07-28T08:57:45.153Z"
+      "importedAt": "2026-07-29T00:05:20.354Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
@@ -2077,12 +2088,12 @@
           "description": "Tech Report GitHub Hugging Face ModelScope DISCORD\nIntroduction We are excited to introduce Qwen3Guard, the first safety guardrail model in the Qwen family. Built upon the powerful Qwen3 foundation models and fine-tuned specifically for safety classificatoin, Qwen3Guard ensures responsible AI interactions by delivering precise safety detection for both prompts and responses, complete with risk levels and categorized classifications for accurate moderation.\nQwen3Guard achieves state-of-the-art performance on major safety benchmarks, demonstrating strong capabilities in both prompt and response classification tasks across English, Chinese, and multilingual environments."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:30.156Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.413Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-07-28T00:06:30.156Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.413Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit",
@@ -2114,12 +2125,12 @@
           "description": "QWEN CHAT GITHUB HUGGING FACE MODELSCOPE DISCORD\nWe are excited to introduce Qwen-Image-Edit, the image editing version of Qwen-Image. Built upon our 20B Qwen-Image model, Qwen-Image-Edit successfully extends Qwen-Image&amp;rsquo;s unique text rendering capabilities to image editing tasks, enabling precise text editing. Furthermore, Qwen-Image-Edit simultaneously feeds the input image into Qwen2.5-VL (for visual semantic control) and the VAE Encoder (for visual appearance control), achieving capabilities in both semantic and appearance editing."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:30.156Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.413Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-07-28T00:06:30.156Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.413Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image",
@@ -2153,12 +2164,12 @@
           "description": "GITHUB HUGGING FACE MODELSCOPE DEMO DISCORD\nWe are thrilled to release Qwen-Image, a 20B MMDiT image foundation model that achieves significant advances in complex text rendering and precise image editing. To try the latest model, feel free to visit Qwen Chat and choose “Image Generation”.\nThe key features include:\nSuperior Text Rendering: Qwen-Image excels at complex text rendering, including multi-line layouts, paragraph-level semantics, and fine-grained details. It supports both alphabetic languages (e."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:30.156Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.413Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-07-28T00:06:30.156Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.413Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-gspo",
@@ -2189,12 +2200,12 @@
           "description": "PAPER DISCORD\nIntroduction Reinforcement Learning (RL) has emerged as a pivotal paradigm for scaling language models and enhancing their deep reasoning and problem-solving capabilities. To scale RL, the foremost prerequisite is maintaining stable and robust training dynamics. However, we observe that existing RL algorithms (such as GRPO) exhibit severe instability issues during long training and lead to irreversible model collapse, hindering further performance improvements with increased compute.\nTo enable successful RL scaling, we propose the Group Sequence Policy Optimization (GSPO) algorithm."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-28T00:06:30.156Z",
-        "importRunId": "import-run-2026-07-28t00-05-02-876z"
+        "importedAt": "2026-07-29T00:06:05.413Z",
+        "importRunId": "import-run-2026-07-29t00-05-02-500z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-07-28T00:06:30.156Z",
-      "importRunId": "import-run-2026-07-28t00-05-02-876z"
+      "importedAt": "2026-07-29T00:06:05.413Z",
+      "importRunId": "import-run-2026-07-29t00-05-02-500z"
     }
   ]
 }
