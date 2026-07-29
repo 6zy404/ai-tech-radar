@@ -4,6 +4,7 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TagList } from "@/components/tag-list";
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   getReadingDifficultyLabel,
@@ -186,7 +187,9 @@ export default function HomePage() {
       <section className="product-home-hero">
         <div className="product-home-hero__copy">
           <p className="eyebrow user-eyebrow">AI 技术发现</p>
-          <h1>发现值得关注的 AI 技术</h1>
+          <h1>
+            <UnbreakableTitle text="发现值得关注的 AI 技术" />
+          </h1>
           <p>一条清晰的阅读路径，帮你理解它为何重要、掌握所需背景。</p>
           <div className="product-home-hero__actions">
             <Link
