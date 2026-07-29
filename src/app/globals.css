@@ -7490,13 +7490,33 @@ a.technology-evolution__title {
 }
 
 /* User-facing skill detail */
+/* Public detail pages share one skeleton (docs/page-structure.md → "User-facing
+   Detail Page"): the hero spans the full measure, and the reading column plus
+   its aside sit underneath. The skill and knowledge pages had the hero as the
+   first child of the reading column instead, so the aside stood shoulder to
+   shoulder with the title and the whole page ran 50px wider than
+   `/technologies/[slug]`. The skin was already identical — only the box was
+   not, which is the same skin-vs-box-model split the 2026-07-29 sweep found on
+   the digest sections. Widths mirror `.user-article-layout__body`. */
 .skill-detail-layout {
   display: grid;
-  grid-template-columns: minmax(0, 760px) minmax(240px, 300px);
+  gap: 28px;
+  width: min(896px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.skill-detail-layout__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 280px);
   gap: 28px;
   align-items: start;
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto;
+}
+
+/* A grid item defaults to `min-width: auto`, so one wide descendant re-widens
+   the column its parent constrained — the guard the sweep added to the
+   technology article layout, applied to its new sibling. */
+.skill-detail-layout__body > * > * {
+  min-width: 0;
 }
 
 .skill-detail-main {
@@ -7720,7 +7740,7 @@ a.technology-evolution__title {
 @media (max-width: 980px) {
   .skills-library-intro,
   .skills-library-section__header,
-  .skill-detail-layout {
+  .skill-detail-layout__body {
     grid-template-columns: 1fr;
   }
 

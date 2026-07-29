@@ -175,204 +175,206 @@ export default async function KnowledgeDetailPage({
       className="skill-detail-page knowledge-detail-page dossier"
     >
       <div className="skill-detail-layout">
-        <main className="skill-detail-main">
-          <section className="skill-detail-hero">
-            <p className="skill-detail-kicker">
+        <section className="skill-detail-hero">
+          <p className="skill-detail-kicker">
+            {categoryLabels[knowledge.category]}
+          </p>
+          <h1>{knowledge.title}</h1>
+          <p>{knowledge.summary}</p>
+          <div className="skill-detail-hero__meta">
+            <DossierStampTag>
               {categoryLabels[knowledge.category]}
-            </p>
-            <h1>{knowledge.title}</h1>
-            <p>{knowledge.summary}</p>
-            <div className="skill-detail-hero__meta">
-              <DossierStampTag>
-                {categoryLabels[knowledge.category]}
-              </DossierStampTag>
-              <DossierStampTag className="dossier-stamp-tag--muted">
-                {difficultyLabels[knowledge.difficulty]}
-              </DossierStampTag>
-            </div>
-            {tags.length > 0 ? <TagList tags={tags} limit={4} /> : null}
-          </section>
+            </DossierStampTag>
+            <DossierStampTag className="dossier-stamp-tag--muted">
+              {difficultyLabels[knowledge.difficulty]}
+            </DossierStampTag>
+          </div>
+          {tags.length > 0 ? <TagList tags={tags} limit={4} /> : null}
+        </section>
 
-          {knowledge.content ? (
-            <section className="skill-detail-section skill-detail-section--lead">
-              <h2>这个概念是什么意思</h2>
-              <ContentBody body={knowledge.content} />
-            </section>
-          ) : null}
+        <div className="skill-detail-layout__body">
+          <main className="skill-detail-main">
+            {knowledge.content ? (
+              <section className="skill-detail-section skill-detail-section--lead">
+                <h2>这个概念是什么意思</h2>
+                <ContentBody body={knowledge.content} />
+              </section>
+            ) : null}
 
-          <section className="skill-detail-section">
-            <h2>这个概念为何重要</h2>
-            <p>{getConceptMatter(knowledge.category)}</p>
-          </section>
-
-          <RelationshipGraph
-            centerTitle={knowledge.title}
-            nodes={graphNodes}
-            sectionClassName="skill-detail-section"
-            hint="这个概念相邻的技术信号与相关技能，点击节点可继续探索。"
-          />
-
-          {relatedTechnologies.length > 0 ? (
             <section className="skill-detail-section">
-              <div className="skill-detail-section__header">
-                <div>
-                  <p>可解释</p>
-                  <h2>这个概念能解释的技术信号</h2>
-                </div>
-              </div>
-              <div className="skill-detail-related-list">
-                {relatedTechnologies.map((technology, index) => {
-                  const technologyTags = getTagsByIds(technology.tags);
+              <h2>这个概念为何重要</h2>
+              <p>{getConceptMatter(knowledge.category)}</p>
+            </section>
 
-                  return (
-                    <DossierCard
-                      className="skill-detail-related-card"
-                      key={technology.id}
-                    >
-                      <div>
-                        <div className="skill-detail-related-card__toprow">
-                          <p className="skill-detail-related-card__meta">
-                            {technology.sourceName} · {technology.publishDate}
-                          </p>
-                          <DossierStampTag>
-                            {getRelationTypeLabel(
-                              technologyRelations[index].relationType,
-                              "zh"
-                            )}
-                          </DossierStampTag>
+            <RelationshipGraph
+              centerTitle={knowledge.title}
+              nodes={graphNodes}
+              sectionClassName="skill-detail-section"
+              hint="这个概念相邻的技术信号与相关技能，点击节点可继续探索。"
+            />
+
+            {relatedTechnologies.length > 0 ? (
+              <section className="skill-detail-section">
+                <div className="skill-detail-section__header">
+                  <div>
+                    <p>可解释</p>
+                    <h2>这个概念能解释的技术信号</h2>
+                  </div>
+                </div>
+                <div className="skill-detail-related-list">
+                  {relatedTechnologies.map((technology, index) => {
+                    const technologyTags = getTagsByIds(technology.tags);
+
+                    return (
+                      <DossierCard
+                        className="skill-detail-related-card"
+                        key={technology.id}
+                      >
+                        <div>
+                          <div className="skill-detail-related-card__toprow">
+                            <p className="skill-detail-related-card__meta">
+                              {technology.sourceName} · {technology.publishDate}
+                            </p>
+                            <DossierStampTag>
+                              {getRelationTypeLabel(
+                                technologyRelations[index].relationType,
+                                "zh"
+                              )}
+                            </DossierStampTag>
+                          </div>
+                          <h3>
+                            <Link href={`/technologies/${technology.slug}`}>
+                              {getPreferredTechnologyTitle(technology)}
+                            </Link>
+                          </h3>
+                          <p>{getPreferredTechnologySummary(technology)}</p>
+                          {technology.whyItMatters ? (
+                            <DossierCatalogNote label="这个概念在这里如何体现">
+                              {technology.whyItMatters}
+                            </DossierCatalogNote>
+                          ) : null}
+                          {technologyTags.length > 0 ? (
+                            <TagList tags={technologyTags} limit={2} />
+                          ) : null}
                         </div>
-                        <h3>
-                          <Link href={`/technologies/${technology.slug}`}>
-                            {getPreferredTechnologyTitle(technology)}
-                          </Link>
-                        </h3>
-                        <p>{getPreferredTechnologySummary(technology)}</p>
-                        {technology.whyItMatters ? (
-                          <DossierCatalogNote label="这个概念在这里如何体现">
-                            {technology.whyItMatters}
+                        <Link
+                          className="skill-detail-related-card__link"
+                          href={`/technologies/${technology.slug}`}
+                        >
+                          查看相关信号
+                        </Link>
+                      </DossierCard>
+                    );
+                  })}
+                </div>
+              </section>
+            ) : null}
+
+            {relatedSkills.length > 0 ? (
+              <section className="skill-detail-section">
+                <div className="skill-detail-section__header">
+                  <div>
+                    <p>搭配技能</p>
+                    <h2>使用这个概念的技能</h2>
+                  </div>
+                </div>
+                <div className="skill-detail-related-list">
+                  {relatedSkills.map((skill, index) => {
+                    const skillTags = getTagsByIds(skill.tags);
+
+                    return (
+                      <DossierCard
+                        className="skill-detail-related-card skill-detail-related-card--knowledge"
+                        key={skill.id}
+                      >
+                        <div>
+                          <div className="skill-detail-related-card__toprow">
+                            <p className="skill-detail-related-card__meta">
+                              {skillTypeLabels[skill.skillType]} ·{" "}
+                              {heatLabels[skill.heatLevel]}
+                            </p>
+                            <DossierStampTag>
+                              {getRelationTypeLabel(
+                                skillRelations[index].relationType,
+                                "zh"
+                              )}
+                            </DossierStampTag>
+                          </div>
+                          <h3>
+                            <Link href={`/skills/${skill.slug}`}>
+                              {skill.title}
+                            </Link>
+                          </h3>
+                          <p>{skill.summary}</p>
+                          <DossierCatalogNote>
+                            {skillRelations[index].note ??
+                              "有了这个概念，这项技能会更容易练习和应用。"}
                           </DossierCatalogNote>
-                        ) : null}
-                        {technologyTags.length > 0 ? (
-                          <TagList tags={technologyTags} limit={2} />
-                        ) : null}
-                      </div>
-                      <Link
-                        className="skill-detail-related-card__link"
-                        href={`/technologies/${technology.slug}`}
-                      >
-                        查看相关信号
-                      </Link>
-                    </DossierCard>
-                  );
-                })}
-              </div>
-            </section>
-          ) : null}
-
-          {relatedSkills.length > 0 ? (
-            <section className="skill-detail-section">
-              <div className="skill-detail-section__header">
-                <div>
-                  <p>搭配技能</p>
-                  <h2>使用这个概念的技能</h2>
-                </div>
-              </div>
-              <div className="skill-detail-related-list">
-                {relatedSkills.map((skill, index) => {
-                  const skillTags = getTagsByIds(skill.tags);
-
-                  return (
-                    <DossierCard
-                      className="skill-detail-related-card skill-detail-related-card--knowledge"
-                      key={skill.id}
-                    >
-                      <div>
-                        <div className="skill-detail-related-card__toprow">
-                          <p className="skill-detail-related-card__meta">
-                            {skillTypeLabels[skill.skillType]} ·{" "}
-                            {heatLabels[skill.heatLevel]}
-                          </p>
-                          <DossierStampTag>
-                            {getRelationTypeLabel(
-                              skillRelations[index].relationType,
-                              "zh"
-                            )}
-                          </DossierStampTag>
+                          {skillTags.length > 0 ? (
+                            <TagList tags={skillTags} limit={2} />
+                          ) : null}
                         </div>
-                        <h3>
-                          <Link href={`/skills/${skill.slug}`}>
-                            {skill.title}
-                          </Link>
-                        </h3>
-                        <p>{skill.summary}</p>
-                        <DossierCatalogNote>
-                          {skillRelations[index].note ??
-                            "有了这个概念，这项技能会更容易练习和应用。"}
-                        </DossierCatalogNote>
-                        {skillTags.length > 0 ? (
-                          <TagList tags={skillTags} limit={2} />
-                        ) : null}
-                      </div>
-                      <Link
-                        className="skill-detail-related-card__link"
-                        href={`/skills/${skill.slug}`}
-                      >
-                        查看技能
-                      </Link>
-                    </DossierCard>
-                  );
-                })}
-              </div>
+                        <Link
+                          className="skill-detail-related-card__link"
+                          href={`/skills/${skill.slug}`}
+                        >
+                          查看技能
+                        </Link>
+                      </DossierCard>
+                    );
+                  })}
+                </div>
+              </section>
+            ) : null}
+
+            <section className="skill-detail-section">
+              <h2>如何继续学习</h2>
+              <ol className="skill-detail-steps">
+                {learningSteps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
             </section>
-          ) : null}
+          </main>
 
-          <section className="skill-detail-section">
-            <h2>如何继续学习</h2>
-            <ol className="skill-detail-steps">
-              {learningSteps.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
-          </section>
-        </main>
-
-        <aside className="skill-detail-aside" aria-label="知识概览">
-          <section className="skill-detail-aside-card">
-            <p className="skill-detail-kicker">知识档案</p>
-            <dl className="skill-detail-profile">
-              <div>
-                <dt>类别</dt>
-                <dd>{categoryLabels[knowledge.category]}</dd>
-              </div>
-              <div>
-                <dt>难度</dt>
-                <dd>{difficultyLabels[knowledge.difficulty]}</dd>
-              </div>
-              <div>
-                <dt>技术信号</dt>
-                <dd>{relatedTechnologies.length}</dd>
-              </div>
-              <div>
-                <dt>关联技能</dt>
-                <dd>{relatedSkills.length}</dd>
-              </div>
-            </dl>
-          </section>
-
-          {tags.length > 0 ? (
+          <aside className="skill-detail-aside" aria-label="知识概览">
             <section className="skill-detail-aside-card">
-              <p className="skill-detail-kicker">主题</p>
-              <FollowableTagList tags={tags} />
+              <p className="skill-detail-kicker">知识档案</p>
+              <dl className="skill-detail-profile">
+                <div>
+                  <dt>类别</dt>
+                  <dd>{categoryLabels[knowledge.category]}</dd>
+                </div>
+                <div>
+                  <dt>难度</dt>
+                  <dd>{difficultyLabels[knowledge.difficulty]}</dd>
+                </div>
+                <div>
+                  <dt>技术信号</dt>
+                  <dd>{relatedTechnologies.length}</dd>
+                </div>
+                <div>
+                  <dt>关联技能</dt>
+                  <dd>{relatedSkills.length}</dd>
+                </div>
+              </dl>
             </section>
-          ) : null}
 
-          <section className="skill-detail-aside-card">
-            <p className="skill-detail-kicker">阅读路径</p>
-            <p>
-              先从概念开始，打开一条相关信号，再用关联技能决定接下来评估什么。
-            </p>
-          </section>
-        </aside>
+            {tags.length > 0 ? (
+              <section className="skill-detail-aside-card">
+                <p className="skill-detail-kicker">主题</p>
+                <FollowableTagList tags={tags} />
+              </section>
+            ) : null}
+
+            <section className="skill-detail-aside-card">
+              <p className="skill-detail-kicker">阅读路径</p>
+              <p>
+                先从概念开始，打开一条相关信号，再用关联技能决定接下来评估什么。
+              </p>
+            </section>
+          </aside>
+        </div>
       </div>
     </UserPageShell>
   );
