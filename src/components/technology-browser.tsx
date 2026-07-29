@@ -91,51 +91,57 @@ export function TechnologyBrowser({
 
   return (
     <div className="dossier-technology-browser">
-      <DossierSearchInput
-        value={searchText}
-        onChange={setSearchText}
-        placeholder="搜索标题、摘要或来源"
-      />
+      {/* Search, filters, the result count and the read filter are one control
+          surface. They used to sit loose on the page background between two
+          bordered blocks (the hero and the card grid), which read as a gap in
+          the page rather than as a group. */}
+      <div className="dossier-technology-browser__controls">
+        <DossierSearchInput
+          value={searchText}
+          onChange={setSearchText}
+          placeholder="搜索标题、摘要或来源"
+        />
 
-      <div className="dossier-technology-browser__filters">
-        <DossierCategoryChips
-          options={typeOptions}
-          active={typeFilter}
-          onChange={setTypeFilter}
-        />
-        <DossierCategoryChips
-          options={tagOptions}
-          active={tagFilter}
-          onChange={setTagFilter}
-        />
-        <DossierCategoryChips
-          options={priorityOptions}
-          active={priorityFilter}
-          onChange={setPriorityFilter}
-        />
-      </div>
-
-      <div className="dossier-technology-browser__toolbar">
-        <div>
-          <strong>{filteredTechnologies.length} 条技术信号</strong>
-          <p>
-            仅展示已发布信号。当理由、关注人群和来源符合你接下来想了解的内容时，
-            再打开对应条目。
-          </p>
+        <div className="dossier-technology-browser__filters">
+          <DossierCategoryChips
+            options={typeOptions}
+            active={typeFilter}
+            onChange={setTypeFilter}
+          />
+          <DossierCategoryChips
+            options={tagOptions}
+            active={tagFilter}
+            onChange={setTagFilter}
+          />
+          <DossierCategoryChips
+            options={priorityOptions}
+            active={priorityFilter}
+            onChange={setPriorityFilter}
+          />
         </div>
-        <TechnologyLanguageSwitch
-          mode={mode}
-          onChange={setMode}
-          label={getTechnologySwitchLabel("list")}
-          compact
+
+        <div className="dossier-technology-browser__toolbar">
+          <div>
+            <strong>{filteredTechnologies.length} 条技术信号</strong>
+            <p>
+              仅展示已发布信号。当理由、关注人群和来源符合你接下来想了解的内容时，
+              再打开对应条目。
+            </p>
+          </div>
+          <TechnologyLanguageSwitch
+            mode={mode}
+            onChange={setMode}
+            label={getTechnologySwitchLabel("list")}
+            compact
+          />
+        </div>
+
+        <ReadFilterToggle
+          readCount={readCount}
+          hideRead={hideRead}
+          onToggle={() => setHideRead((current) => !current)}
         />
       </div>
-
-      <ReadFilterToggle
-        readCount={readCount}
-        hideRead={hideRead}
-        onToggle={() => setHideRead((current) => !current)}
-      />
 
       <div className="dossier-technology-list">
         {filteredTechnologies.map((item) => (

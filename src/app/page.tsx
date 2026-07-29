@@ -220,23 +220,24 @@ export default function HomePage() {
             打开简报
           </Link>
         </div>
+        {/* One column: the two counts used to sit in a fixed 150-220px right
+            column of their own, which left most of that column empty — the
+            same shape removed from the digest hero. */}
         {latestDigest && digestData ? (
           <DossierCard className="home-digest-card">
-            <div>
-              <span>{latestDigest.date}</span>
-              <h3>
-                <Link href={`/digest/${latestDigest.date}`}>
-                  {getPublicDigestTitle(latestDigest)}
-                </Link>
-              </h3>
-              <p>{getPublicDigestSummary(latestDigest)}</p>
-            </div>
+            <span>{latestDigest.date}</span>
+            <h3>
+              <Link href={`/digest/${latestDigest.date}`}>
+                {getPublicDigestTitle(latestDigest)}
+              </Link>
+            </h3>
             <div className="home-digest-card__stats">
-              <strong>{digestData.highPriorityTechnologies.length}</strong>
-              <span>立即关注</span>
-              <strong>{digestData.watchTechnologies.length}</strong>
-              <span>值得跟踪</span>
+              <span>
+                {digestData.highPriorityTechnologies.length} 条立即关注
+              </span>
+              <span>{digestData.watchTechnologies.length} 条值得跟踪</span>
             </div>
+            <p>{getPublicDigestSummary(latestDigest)}</p>
           </DossierCard>
         ) : (
           <div className="empty-state empty-state--actionable">
