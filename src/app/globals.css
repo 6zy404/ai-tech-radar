@@ -2079,9 +2079,15 @@ p {
 }
 
 .product-home-digest,
+/* The two panels are grid items, so they stretch to the taller one's height;
+   with `align-content: normal` that extra height was then distributed among
+   their own auto rows, pushing the shorter column's first card 116px below its
+   neighbour's while their headings stayed level. Cards should hang from the
+   heading and leave the ragged edge at the bottom. */
 .home-discovery-panel {
   display: grid;
   gap: 18px;
+  align-content: start;
 }
 
 .home-digest-card {
@@ -2207,6 +2213,7 @@ p {
 .foundation-card-list {
   display: grid;
   gap: 12px;
+  align-content: start;
 }
 
 .foundation-card small {
@@ -6838,11 +6845,13 @@ a.technology-evolution__title {
    wrapped in a full border by the dossier scope — which exposed the zero
    left/right/bottom padding as three flush edges. It is a card now, so it is
    padded like one. */
+/* Every other block on the digest page puts its heading above its content; this
+   one reserved a 183px label column beside a nine-line paragraph, so the left
+   third of the panel stood empty — the same near-empty fixed column removed
+   from the digest hero and the home digest card in the first sweep. */
 .daily-digest-summary-panel {
   display: grid;
-  grid-template-columns: minmax(160px, 0.28fr) minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
+  gap: 10px;
   padding: 20px;
 }
 
@@ -8029,6 +8038,18 @@ a.tech-graph__node:hover {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
+}
+
+/* `/technologies` had exactly this problem — a search field and filter chips
+   floating between the hero card and the content card, so the page read as
+   hero / gap / content — and the first sweep collected them into one panel.
+   `/network` was not in that round's scope; it is the same fix, reusing the
+   surface `.dossier-technology-browser__controls` already defines. */
+.dossier .content-network__controls {
+  padding: 20px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  background: var(--dossier-surface);
 }
 
 .content-network__body {
@@ -10393,8 +10414,13 @@ a.tech-graph__node:hover {
   border-top: 1px solid var(--dossier-line);
 }
 
+/* The 2026-07-14 dossier migration moved every card onto the paper surface but
+   left these rows on `#fff`, because they keep their pre-migration markup (they
+   need `target="_blank"`, which `DossierRegisterRow` cannot express). A pure
+   white block on a paper page reads as a different module bolted on. */
 .dossier .home-news-row {
   border-bottom: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
 }
 
 .dossier .home-news-row__source {
