@@ -11,6 +11,7 @@ import {
 import { FollowableTagList } from "@/components/followable-tag-list";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { TechnologyCompareWidget } from "@/components/technology-compare-widget";
 import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
 import { TechnologyLearningPathWidget } from "@/components/technology-learning-path-widget";
@@ -178,7 +179,9 @@ export function TechnologyDetailContent({
               />
             </div>
 
-            <h1>{title}</h1>
+            <h1>
+              <UnbreakableTitle text={title} />
+            </h1>
             <p className="user-article-hero__summary">{summary}</p>
 
             <div className="technology-detail-hero__meta">
