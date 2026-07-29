@@ -2086,8 +2086,7 @@ p {
 
 .home-digest-card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(150px, 220px);
-  gap: 20px;
+  gap: 8px;
   padding: 24px;
 }
 
@@ -2118,19 +2117,13 @@ p {
   color: var(--muted);
 }
 
+/* An inline meta row under the title, matching the digest page's own
+   `.daily-digest-meta-strip`, instead of a tinted box in its own column. */
 .home-digest-card__stats {
-  display: grid;
-  align-content: center;
-  gap: 6px;
-  padding: 16px;
-  border-radius: 18px;
-  background: rgba(15, 118, 110, 0.07);
-}
-
-.home-digest-card__stats strong {
-  color: var(--user-ink);
-  font-size: 1.9rem;
-  line-height: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 2px 0 4px;
 }
 
 .home-signal-grid,
@@ -9318,6 +9311,18 @@ a.tech-graph__node:hover {
   gap: 18px;
 }
 
+/* One control surface between the hero and the card grid. Without it the
+   search box, filter chips, result count and read filter sat loose on the
+   page background, so the page read as hero / gap / cards. */
+.dossier-technology-browser__controls {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  background: var(--dossier-surface);
+}
+
 .dossier-technology-browser__filters {
   display: grid;
   gap: 8px;
@@ -9533,8 +9538,17 @@ a.tech-graph__node:hover {
    card loses its raised paper and shadow, and an explicit 已读 stamp does
    the actual signalling. Dimming text further would repeat the mistake the
    dark-mode contrast round had to undo. */
+/* `background: transparent` (until 2026-07-29) let the page's grid pattern
+   show straight through, so a read card read as "failed to load" rather than
+   "already read" — especially next to an unread card's solid paper. It keeps
+   a surface now, just one pulled toward the page ground, so the card is still
+   obviously a card. */
 .dossier-technology-card--read {
-  background: transparent;
+  background: color-mix(
+    in srgb,
+    var(--dossier-surface) 45%,
+    var(--dossier-ground)
+  );
   border-style: dashed;
   box-shadow: none;
 }
@@ -10331,12 +10345,10 @@ a.tech-graph__node:hover {
   font-family: system-ui, "PingFang SC", sans-serif;
 }
 
+/* The tinted fill belonged to the old boxed stat column; as an inline meta
+   row it would paint a band across the card. */
 .dossier .home-digest-card__stats {
-  background: var(--dossier-ground);
-}
-
-.dossier .home-digest-card__stats strong {
-  color: var(--dossier-stamp);
+  color: var(--dossier-muted);
 }
 
 .dossier .home-signal-card__footer span {
