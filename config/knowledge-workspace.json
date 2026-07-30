@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T12:54:54.862Z",
+  "updatedAt": "2026-07-30T08:36:53.556Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -23,30 +23,6 @@
       "status": "published",
       "createdAt": "2026-07-19T05:04:40.801Z",
       "updatedAt": "2026-07-19T05:04:40.897Z"
-    },
-    {
-      "id": "knowledge-ws-89b98df3",
-      "title": "对抗性评估与红队方法",
-      "slug": "adversarial-evaluation-red-teaming",
-      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
-      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-frontier-models"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-c183c9b9",
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T05:04:39.934Z",
-      "updatedAt": "2026-07-21T02:12:06.665Z"
     },
     {
       "id": "knowledge-ws-a28a8a56",
@@ -198,31 +174,6 @@
       "updatedAt": "2026-07-27T10:19:53.997Z"
     },
     {
-      "id": "knowledge-latency-tradeoffs",
-      "title": "交互系统中的延迟权衡",
-      "slug": "latency-tradeoffs-in-interactive-systems",
-      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
-      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-multimodal"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "tech-voice-runtime"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:24:01.841Z",
-      "updatedAt": "2026-07-27T16:57:15.919Z"
-    },
-    {
       "id": "knowledge-evaluation-loops",
       "title": "评估闭环",
       "slug": "evaluation-loops",
@@ -245,31 +196,6 @@
       "status": "published",
       "createdAt": "2026-07-27T10:19:54.071Z",
       "updatedAt": "2026-07-27T16:57:16.007Z"
-    },
-    {
-      "id": "knowledge-human-loop",
-      "title": "人在回路的审查",
-      "slug": "human-in-the-loop-review",
-      "summary": "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
-      "content": "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
-      "category": "operations",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-voice-runtime"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-communication-ai",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T16:57:16.103Z",
-      "updatedAt": "2026-07-27T16:57:16.103Z"
     },
     {
       "id": "knowledge-ws-36346103",
@@ -355,6 +281,57 @@
       "updatedAt": "2026-07-28T12:54:54.724Z"
     },
     {
+      "id": "knowledge-ws-89b98df3",
+      "title": "对抗性评估与红队方法",
+      "slug": "adversarial-evaluation-red-teaming",
+      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-c183c9b9",
+        "skill-model-evaluation"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T05:04:39.934Z",
+      "updatedAt": "2026-07-30T08:36:53.403Z"
+    },
+    {
+      "id": "knowledge-human-loop",
+      "title": "人在回路的审查",
+      "slug": "human-in-the-loop-review",
+      "summary": "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
+      "content": "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
+      "category": "operations",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-communication-ai",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T16:57:16.103Z",
+      "updatedAt": "2026-07-30T08:36:53.462Z"
+    },
+    {
       "id": "knowledge-model-sizing",
       "title": "模型选型与约束匹配",
       "slug": "model-sizing-and-constraint-matching",
@@ -370,7 +347,8 @@
         "tech-slm-edge",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-blog-p-97686"
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -381,7 +359,33 @@
       ],
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.347Z",
-      "updatedAt": "2026-07-28T12:54:54.861Z"
+      "updatedAt": "2026-07-30T08:36:53.508Z"
+    },
+    {
+      "id": "knowledge-latency-tradeoffs",
+      "title": "交互系统中的延迟权衡",
+      "slug": "latency-tradeoffs-in-interactive-systems",
+      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
+      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-multimodal"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:24:01.841Z",
+      "updatedAt": "2026-07-30T08:36:53.556Z"
     }
   ]
 }

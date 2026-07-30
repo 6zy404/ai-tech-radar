@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T10:13:08.433Z",
+  "updatedAt": "2026-07-30T08:31:01.941Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -440,6 +440,48 @@
     "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5": {
       "importStatus": "reviewed",
       "reviewedAt": "2026-07-28T10:13:08.433Z"
+    },
+    "candidate-rss-https-openai-com-index-chatgpt-for-academic-researchers": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-30T08:30:28.618Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-ai-mode-real-world-tips": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-30T08:30:28.699Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-dinner-party-hosting-tips": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-07-30T08:30:28.772Z"
+    },
+    "candidate-rss-https-openai-com-index-gpt-5-6-frontier-intelligence-efficiency": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-30T08:30:43.463Z"
+    },
+    "candidate-rss-https-openai-com-index-how-two-settings-tripled-our-arc-agi-3-scores": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-30T08:30:43.538Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api-3-6-flash-hooks": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-30T08:30:43.608Z"
+    },
+    "candidate-rss-https-openai-com-index-scientific-computing-agentic-ai": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-30T08:30:43.680Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-allenai-olmoearth-infrastructure": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-07-30T08:30:43.754Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-30T08:31:01.722Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-07-30T08:31:01.941Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
     }
   }
 }

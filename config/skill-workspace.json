@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T12:53:53.506Z",
+  "updatedAt": "2026-07-30T08:36:31.047Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -27,35 +27,6 @@
       "updatedAt": "2026-07-19T05:04:42.495Z"
     },
     {
-      "id": "skill-ws-c183c9b9",
-      "title": "智能体安全与提示注入防御",
-      "slug": "agent-security-injection-defense",
-      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
-      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T04:05:11.800Z",
-      "updatedAt": "2026-07-21T02:12:06.031Z"
-    },
-    {
       "id": "skill-ws-84837d46",
       "title": "模型微调与后训练定制",
       "slug": "model-finetuning-post-training",
@@ -81,35 +52,6 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.711Z",
       "updatedAt": "2026-07-21T02:12:06.111Z"
-    },
-    {
-      "id": "skill-ws-a9e80194",
-      "title": "推理服务容量规划",
-      "slug": "inference-capacity-planning",
-      "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
-      "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
-      "skillType": "analysis",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-inference",
-        "tag-observability"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-latency-tradeoffs",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.362Z",
-      "updatedAt": "2026-07-27T01:48:19.103Z"
     },
     {
       "id": "skill-model-evaluation",
@@ -198,39 +140,6 @@
       "updatedAt": "2026-07-27T01:48:19.235Z"
     },
     {
-      "id": "skill-ws-f741f122",
-      "title": "智能体可观测性与评测运维",
-      "slug": "agent-observability-evaluation-ops",
-      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
-      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
-      "skillType": "operations",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3",
-        "knowledge-feedback-loops",
-        "knowledge-ws-a28a8a56"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-07-27T01:48:19.273Z"
-    },
-    {
       "id": "skill-ws-2152c7f1",
       "title": "AI 工具链选型与自建边界评估",
       "slug": "ai-toolchain-build-vs-buy",
@@ -257,36 +166,6 @@
       "status": "published",
       "createdAt": "2026-07-27T02:42:33.891Z",
       "updatedAt": "2026-07-27T02:42:47.947Z"
-    },
-    {
-      "id": "skill-ws-d7c9d1d8",
-      "title": "端侧模型部署与硬件适配",
-      "slug": "on-device-model-deployment",
-      "summary": "判断一台具体的机器能不能跑、跑得值不值：定量化档位、选运行时、配卸载与上下文，最后用首 token 延迟和稳态吞吐验收——而不是看参数量猜。",
-      "content": "端侧部署的第一个判断不是「这个模型好不好」，而是**这台机器的内存带宽和显存够不够**。参数量只决定权重占多大，真正决定体验的是每生成一个 token 要把多少字节从内存搬到计算单元。\n\n按顺序定下四个量，顺序反过来就会返工：\n\n1. **量化档位**。先看权重压到几 bit 还不塌，再决定 KV cache 和推测解码的草稿输出头要不要单独定精度。Ollama v0.32.4 修的正是 MoE 专家精度不一致导致的解码问题——「整个模型一个档位」这种想法在混合结构上已经不成立。\n2. **运行时**。llama.cpp / MLX / vLLM 各自吃不同的硬件路径：Apple 芯片上要走 MLX 才拿得到 GPU，消费级 N 卡走 CUDA，纯 CPU 只能靠小模型和低比特硬扛。运行时选错，再好的芯片也是闲着。\n3. **卸载与上下文**。放不下就得决定哪几层留在显存、上下文开多长。上下文长度直接吃 KV cache，它常常比权重更早把显存打满。\n4. **验收指标**。用**首 token 延迟**和**稳态 tokens/s** 两个数收尾，并且必须在目标设备上实测：同一份模型在 M5 Max 和一台四年前的笔记本上是两个产品。\n\n三个常见误判：\n\n- **拿「跑起来了」当「跑得动」。** 交换到磁盘也能出字，但每秒一个 token 的助手没人会用第二次。\n- **只测短提示。** 长上下文下显存占用和延迟都是另一条曲线，短提示的漂亮数字骗不了真实使用。\n- **把端侧当成免费。** 省下的是 API 费用，换来的是分发、升级和一堆设备型号的适配成本——这笔账要和「本地与云混合推理架构」一起算。\n\n这项能力的边界很清楚：它止于单机。一旦要为多人同时提供服务，问题就变成排队、批处理和副本数，交给「推理服务容量规划」。",
-      "skillType": "engineering",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "tech-slm-edge"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-34da6116",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-c761533e",
-        "knowledge-latency-tradeoffs"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:22:20.958Z",
-      "updatedAt": "2026-07-27T09:23:10.434Z"
     },
     {
       "id": "skill-ws-dddaf80c",
@@ -346,6 +225,131 @@
       "updatedAt": "2026-07-27T16:56:43.156Z"
     },
     {
+      "id": "skill-ws-c183c9b9",
+      "title": "智能体安全与提示注入防御",
+      "slug": "agent-security-injection-defense",
+      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:11.800Z",
+      "updatedAt": "2026-07-30T08:36:30.856Z"
+    },
+    {
+      "id": "skill-ws-f741f122",
+      "title": "智能体可观测性与评测运维",
+      "slug": "agent-observability-evaluation-ops",
+      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
+      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
+      "skillType": "operations",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-github-blog-p-97686"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3",
+        "knowledge-feedback-loops",
+        "knowledge-ws-a28a8a56"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.442Z",
+      "updatedAt": "2026-07-30T08:36:30.909Z"
+    },
+    {
+      "id": "skill-ws-d7c9d1d8",
+      "title": "端侧模型部署与硬件适配",
+      "slug": "on-device-model-deployment",
+      "summary": "判断一台具体的机器能不能跑、跑得值不值：定量化档位、选运行时、配卸载与上下文，最后用首 token 延迟和稳态吞吐验收——而不是看参数量猜。",
+      "content": "端侧部署的第一个判断不是「这个模型好不好」，而是**这台机器的内存带宽和显存够不够**。参数量只决定权重占多大，真正决定体验的是每生成一个 token 要把多少字节从内存搬到计算单元。\n\n按顺序定下四个量，顺序反过来就会返工：\n\n1. **量化档位**。先看权重压到几 bit 还不塌，再决定 KV cache 和推测解码的草稿输出头要不要单独定精度。Ollama v0.32.4 修的正是 MoE 专家精度不一致导致的解码问题——「整个模型一个档位」这种想法在混合结构上已经不成立。\n2. **运行时**。llama.cpp / MLX / vLLM 各自吃不同的硬件路径：Apple 芯片上要走 MLX 才拿得到 GPU，消费级 N 卡走 CUDA，纯 CPU 只能靠小模型和低比特硬扛。运行时选错，再好的芯片也是闲着。\n3. **卸载与上下文**。放不下就得决定哪几层留在显存、上下文开多长。上下文长度直接吃 KV cache，它常常比权重更早把显存打满。\n4. **验收指标**。用**首 token 延迟**和**稳态 tokens/s** 两个数收尾，并且必须在目标设备上实测：同一份模型在 M5 Max 和一台四年前的笔记本上是两个产品。\n\n三个常见误判：\n\n- **拿「跑起来了」当「跑得动」。** 交换到磁盘也能出字，但每秒一个 token 的助手没人会用第二次。\n- **只测短提示。** 长上下文下显存占用和延迟都是另一条曲线，短提示的漂亮数字骗不了真实使用。\n- **把端侧当成免费。** 省下的是 API 费用，换来的是分发、升级和一堆设备型号的适配成本——这笔账要和「本地与云混合推理架构」一起算。\n\n这项能力的边界很清楚：它止于单机。一旦要为多人同时提供服务，问题就变成排队、批处理和副本数，交给「推理服务容量规划」。",
+      "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "tech-slm-edge"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-34da6116",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-c761533e",
+        "knowledge-latency-tradeoffs"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:22:20.958Z",
+      "updatedAt": "2026-07-30T08:36:30.956Z"
+    },
+    {
+      "id": "skill-ws-a9e80194",
+      "title": "推理服务容量规划",
+      "slug": "inference-capacity-planning",
+      "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
+      "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+      "skillType": "analysis",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-inference",
+        "tag-observability"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.362Z",
+      "updatedAt": "2026-07-30T08:36:30.999Z"
+    },
+    {
       "id": "skill-ws-7796779a",
       "title": "模型与推理引擎的支持路径",
       "slug": "model-engine-support-paths",
@@ -359,6 +363,7 @@
         "tag-frontier-models"
       ],
       "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
         "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
@@ -374,7 +379,7 @@
       ],
       "status": "published",
       "createdAt": "2026-07-28T12:52:47.144Z",
-      "updatedAt": "2026-07-28T12:53:53.505Z"
+      "updatedAt": "2026-07-30T08:36:31.047Z"
     }
   ]
 }
