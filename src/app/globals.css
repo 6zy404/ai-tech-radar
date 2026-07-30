@@ -7234,7 +7234,6 @@ a.technology-evolution__title {
   box-shadow: var(--shadow-soft);
 }
 
-.skills-library-kicker,
 .skill-detail-kicker {
   margin: 0 0 10px;
   color: #08786f;
@@ -7242,15 +7241,6 @@ a.technology-evolution__title {
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-}
-
-.skills-library-intro h2 {
-  max-width: 720px;
-  margin: 0;
-  color: var(--skills-ink);
-  font-size: clamp(2.25rem, 5.6vw, 4.25rem);
-  letter-spacing: -0.07em;
-  line-height: 0.96;
 }
 
 /* The sentence is the whole block now, so it owns no separation of its own —
@@ -7791,7 +7781,6 @@ a.technology-evolution__title {
     padding: 16px 18px;
   }
 
-  .skills-library-intro h2,
   .skill-detail-hero h1 {
     font-size: clamp(2rem, 12vw, 2.45rem);
   }
@@ -10038,7 +10027,6 @@ a.tech-graph__node:hover {
    above -- nothing new needed for those here.
    ============================================================ */
 
-.dossier .skills-library-kicker,
 .dossier .skill-detail-kicker {
   color: var(--dossier-stamp);
   font-family: ui-monospace, monospace;
@@ -10052,7 +10040,6 @@ a.tech-graph__node:hover {
   box-shadow: none;
 }
 
-.dossier .skills-library-intro h2,
 .dossier .skill-detail-hero h1 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   color: var(--dossier-ink);
