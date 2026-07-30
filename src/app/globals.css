@@ -2052,7 +2052,10 @@ p {
   text-wrap: balance;
 }
 
-.product-home-hero__copy p {
+/* The hero's own description. The eyebrow above it is a <p> in the same
+   container, so an unqualified `p` here outranks .eyebrow (0,1,1 over 0,1,0)
+   and repaints it as body copy. */
+.product-home-hero__copy p:not(.eyebrow) {
   max-width: 760px;
   margin: 0;
   color: var(--muted);
@@ -7556,19 +7559,11 @@ a.technology-evolution__title {
   gap: 10px;
 }
 
-.skill-detail-hero__meta span {
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.06);
-  padding: 7px 11px;
-  color: #40546a;
-  font-size: 0.82rem;
-  font-weight: 750;
-}
-
-.skill-detail-hero__meta span:first-child {
-  background: var(--skills-accent-soft);
-  color: #00796f;
-}
+/* Both children of this row are DossierStampTag. These rules predate that
+   component and used to style raw spans; left in place they beat it on
+   specificity, so the same tag rendered 13.12px/750 in teal here and
+   10.5px/400 in the stamp colour on the ten other pages that use it —
+   including the technology detail page this one is a sibling of. */
 
 .skill-detail-section {
   padding: 24px;
@@ -7912,6 +7907,16 @@ a.technology-evolution__title {
    ============================================================ */
 .tech-graph__hint {
   color: var(--muted);
+}
+
+/* The graph sits inside a different section on each page that hosts it
+   (.user-article-section on the technology detail page, .skill-detail-section
+   on the skill and knowledge ones), and each of those styles its own
+   paragraphs with a `container p` rule that outranks a lone class. So the same
+   component took its colour from whichever page it was on. Qualified with its
+   own wrapper, it wins on all three. */
+.dossier .tech-graph .tech-graph__hint {
+  color: var(--dossier-muted);
 }
 
 .tech-graph__canvas {
@@ -10099,8 +10104,11 @@ a.tech-graph__node:hover {
   color: var(--dossier-ink);
 }
 
+/* The section's own body copy carries no class. Its two classed siblings —
+   the section eyebrow and the graph hint — are shared components with their
+   own rules, and an unqualified `> p` here outranks both. */
 .dossier .skill-library-card__summary,
-.dossier .skill-detail-section > p {
+.dossier .skill-detail-section > p:not([class]) {
   color: var(--dossier-ink);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
@@ -10374,7 +10382,7 @@ a.tech-graph__node:hover {
   letter-spacing: 0;
 }
 
-.dossier .product-home-hero__copy p {
+.dossier .product-home-hero__copy p:not(.eyebrow) {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
@@ -10697,7 +10705,7 @@ a.tech-graph__node:hover {
     color: #7fb2e5;
   }
 
-  .dossier .tech-graph__hint {
+  .dossier .tech-graph .tech-graph__hint {
     color: var(--dossier-muted);
   }
 
@@ -10710,7 +10718,7 @@ a.tech-graph__node:hover {
   .dossier .technology-compare-widget__block p,
   .dossier .technology-compare-widget__block ul,
   .dossier .skill-library-card__summary,
-  .dossier .skill-detail-section > p,
+  .dossier .skill-detail-section > p:not([class]),
   .dossier .skill-detail-steps,
   .dossier .skill-detail-related-card p {
     color: var(--dossier-ink);
@@ -10718,7 +10726,6 @@ a.tech-graph__node:hover {
 
   .dossier .skill-library-card__outcome p,
   .dossier .skill-detail-related-card__note p,
-  .dossier .skill-detail-hero__meta span,
   .dossier .skill-detail-aside-card p:not(.skill-detail-kicker),
   .dossier .skill-detail-profile dt {
     color: var(--dossier-muted);
@@ -10739,8 +10746,7 @@ a.tech-graph__node:hover {
 
   /* Accent pills sit on an accent-tinted ground, so accent-colored text
      stays too close; use ink on the tint instead. */
-  .dossier .skill-library-card__meta span:first-child,
-  .dossier .skill-detail-hero__meta span:first-child {
+  .dossier .skill-library-card__meta span:first-child {
     color: var(--dossier-ink);
   }
 
