@@ -7664,16 +7664,6 @@ a.technology-evolution__title {
   white-space: nowrap;
 }
 
-.skill-detail-steps {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding-left: 1.2rem;
-  color: #34465b;
-  font-size: 1rem;
-  line-height: 1.65;
-}
-
 .skill-detail-aside {
   position: sticky;
   top: 96px;
@@ -10719,7 +10709,6 @@ a.tech-graph__node:hover {
   .dossier .technology-compare-widget__block ul,
   .dossier .skill-library-card__summary,
   .dossier .skill-detail-section > p:not([class]),
-  .dossier .skill-detail-steps,
   .dossier .skill-detail-related-card p {
     color: var(--dossier-ink);
   }
