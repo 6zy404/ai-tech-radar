@@ -62,13 +62,25 @@ For per-topic deep dives, see the `docs/` directory.
   so the stats rows stay.
 - Verified: typecheck, lint, format, vitest 188/188, plus a live pass over the
   nine list routes — zero content painted outside its parent, no horizontal
-  overflow at 1600/1440/1180/1024/900/768/640/390. **Not verified by looking:**
-  the Browser pane's screenshot tool was unavailable for this session (the pane
-  is not displayed, so the page composites no frames), stated here rather than
-  quietly downgraded to DOM checks per the `AGENTS.md` visual verification rule.
-  Known and unfixed: at ≤640px the skills/knowledge title still sits 4px off its
-  content, and `.skills-library-guide`'s rules are now unreachable but left in
-  place, since this repo removes dead CSS in its own commit with a
+  overflow at 1600/1440/1180/1024/900/768/640/390.
+- **Then the pages were looked at, and the look found two more defects after
+  every one of those numbers had come back clean.** The Browser pane's
+  screenshot tool was unavailable all session (the pane is not displayed, so
+  the page composites no frames), so this ran through Playwright against the
+  local Chrome, owner-authorized — stated rather than quietly downgraded to DOM
+  checks, per the `AGENTS.md` visual verification rule. (1) **A stray space
+  inside Chinese prose**: JSX joins a wrapped text line to the next with a
+  space, invisible in English and a gap mid-sentence in Chinese —
+  每个概念都会说明 它澄清了什么. A scan of every `.tsx` file found three, all
+  now single-line. (2) **A supporting line louder than its title**: the rule
+  styling the eyebrow above a group title (weight 850, uppercase, stamp colour)
+  also landed on the group's description, a bare `<p>` in the same container,
+  making it heavier than the 700-weight ink title beside it — the **third**
+  shipping of this exact inversion. Scoped to `.eyebrow`; the description now
+  measures weight 400 in `--dossier-muted`.
+- Known and unfixed: at ≤640px the skills/knowledge title still sits 4px off
+  its content, and `.skills-library-guide`'s rules are now unreachable but left
+  in place, since this repo removes dead CSS in its own commit with a
   computed-style diff.
 
 ## Second site-wide sweep — the three defects a detector cannot find

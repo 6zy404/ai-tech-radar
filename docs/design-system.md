@@ -1327,3 +1327,37 @@ content (a 13px line) is shorter than the control. The curated view's row did
 not, because the language switch already sets that height — so it does not have
 one. A rule that does no work is a rule that lies about why it is there, and
 this file has already paid for one of those.
+
+### What the first look found after the numbers were already clean (2026-07-30)
+
+The page-top round above was verified entirely by measurement — geometry,
+computed styles, zero-spill and zero-overflow checks across eight widths — and
+all of it passed. The screenshots were taken afterwards, and found two defects
+that none of those checks can express.
+
+**A stray space inside Chinese prose.** JSX joins a wrapped text line to the
+next with a single space. In English that is exactly what you want; in Chinese
+it is a gap in the middle of a sentence — 每个概念都会说明 它澄清了什么. The
+element's DOM is correct, its contrast is correct, its box is correct, and it
+reads wrong. Scanning every `.tsx` file for a line ending in a CJK character
+followed by a line starting with one found three: two page intros and the
+saved-signals empty state. The fix is to keep the sentence on one source line;
+Prettier will not re-wrap it, because Chinese gives it no break opportunity.
+**Worth re-running that scan whenever Chinese copy is added** — the defect is
+invisible in review and free to introduce.
+
+**A supporting line louder than the title it supports.**
+`.skills-library-section__header p` was written for the eyebrow above a group
+title (weight 850, uppercase, wide tracking, stamp colour). The group's
+description is a bare `<p>` in the same container, so it collected all of it
+and rendered heavier and more saturated than the 700-weight ink title beside
+it. This is the third time this exact inversion has shipped — the digest's
+适合 line at weight 800 above its card title (2026-07-29) was the second — and
+all three came from a rule aimed at one element landing on a sibling that
+happens to use the same tag. **When a rule targets a bare tag inside a named
+container, check what else that container can hold.**
+
+Neither defect can be found by a detector: one is whitespace that every layout
+check treats as legal, the other is a hierarchy judgment between two elements
+that individually measure fine. The sweep's slogan holds — a detector encodes
+the defects you have already met.
