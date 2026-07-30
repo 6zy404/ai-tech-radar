@@ -12,6 +12,56 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Site-wide sweep — four shared components that changed shape per page
+
+- **A detector was written for the defect the day had already produced three
+  times** — 2026-07-30, owner-selected after the page-top round. It visits all
+  18 reader routes and, for every class, records the computed style it
+  resolves to on each page; a class with more than one answer is a shared
+  component being repainted by its surroundings. **Five classes came back
+  divergent, four of them the same bug.**
+- **The bug, in one sentence: a rule written for one element in a container
+  also matches a sibling that happens to share its tag, and outranks that
+  sibling's own component rule.** `.dossier .product-home-hero__copy p`
+  (0,2,1) over `.dossier .eyebrow` (0,2,0), so all six eyebrows on the home
+  page rendered grey system-ui against stamp mono on the other 15 routes.
+  `.dossier .skill-detail-section > p` over both the section eyebrow and the
+  graph hint on the skill and knowledge detail pages. And
+  `.skill-detail-hero__meta span`, written before `DossierStampTag` existed,
+  over the component itself — **13.12px/750 in teal on those two pages against
+  10.5px/400 in the stamp colour on the ten others**. The container rules are
+  now qualified to describe what they were written for; the two pre-component
+  chip rules are deleted along with the two dark-mode patches that existed
+  only to correct them.
+- **The fifth needed a different fix, and checking first is why.** The graph
+  hint took its colour from whichever section hosted it —
+  `.user-article-section` on the technology detail page, `.skill-detail-section`
+  on the other two — which is exactly why those two pages disagreed. Excluding
+  classed paragraphs there would have caught **four other paragraph types**
+  living in the same section, so the hint is qualified with its own wrapper
+  instead and wins on all three pages without either container rule being
+  touched.
+- **Two of the session's own tools were wrong before the code was, again.** A
+  second detector — "a bordered container holding too little" — reported 33 / 19
+  / 13 hits and reported **exactly the same numbers with a defect injected**,
+  so it was measuring normal cards; its output was discarded rather than
+  reported. And the rule-matching probe used to find the winning selector
+  scanned **1 rule** on its first run (a stray `return` inside its loop) and
+  reported "no rule matches", which would have been read as "the CSS is fine".
+  Both were caught by sanity-checking the tool before trusting it.
+- Verified with the detector that found them: **divergent classes 5 → 0** across
+  18 routes, zero horizontal overflow on any of them, contrast on the changed
+  elements 5.87–7.08 light and 5.19–5.42 dark. The skill detail page now
+  resolves to the same values as the technology detail page it is a sibling
+  of, element for element. Plus typecheck, lint, format, vitest 188/188.
+- **Screened and not yet fixed (owner's call):** three blocks of copy that
+  explain how to use the site rather than saying anything about the record —
+  「如何使用这项技能」on every skill detail page (four steps, byte-identical
+  across pages but for the section name in the first clause), 「如何继续学习」
+  on every knowledge detail page, and 「为什么需要这项技能」, a whole section
+  holding one sentence keyed by skill type. Same class as the 阅读路径 cards
+  the page-top round removed from the index pages.
+
 ## Closing out the page-top round — three leftovers, four commits
 
 - **All three items the previous round left open are done** — 2026-07-30,
