@@ -7344,13 +7344,28 @@ a.technology-evolution__title {
   border-bottom: 1px solid var(--skills-line);
 }
 
-.skills-library-section__header p {
+/* Written for the eyebrow above the group title. The group's description is a
+   bare <p> in the same container, so it was picking these up too and rendering
+   at weight 850 in a stamp colour — louder than the 700-weight title beside
+   it, which is the same inversion the digest's 适合 line had. Scoped to the
+   eyebrow; the description reads as body copy below. */
+.skills-library-section__header .eyebrow {
   margin: 0 0 6px;
   color: #7a6335;
   font-size: 0.72rem;
   font-weight: 850;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.skills-library-section__header > p {
+  margin: 0;
+  color: var(--skills-muted);
+  font-size: 0.96rem;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .skills-library-section__header h2 {
@@ -10101,9 +10116,14 @@ a.tech-graph__node:hover {
   border-bottom: 1px solid var(--dossier-line);
 }
 
-.dossier .skills-library-section__header p {
+.dossier .skills-library-section__header .eyebrow {
   color: var(--dossier-stamp);
   font-family: ui-monospace, monospace;
+}
+
+.dossier .skills-library-section__header > p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
 }
 
 .dossier .skills-library-section__header h2 {

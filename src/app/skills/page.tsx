@@ -146,9 +146,10 @@ export default function SkillsPage() {
             <div className="skills-library-intro__copy">
               <p className="skills-library-kicker">如何使用这个技能库</p>
               <h2>技能把快速变化的技术信号连接到可落地的评估。</h2>
+              {/* One line on purpose: JSX joins wrapped text lines with a
+                  space, which lands in the middle of a Chinese sentence. */}
               <p>
-                先从与你角色匹配的技能开始，再打开关联的技术信号和背景概念，
-                理解这一变化在哪里重要。
+                先从与你角色匹配的技能开始，再打开关联的技术信号和背景概念，理解这一变化在哪里重要。
               </p>
             </div>
             <dl className="skills-library-stats" aria-label="技能概览">

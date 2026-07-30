@@ -125,9 +125,10 @@ export default function KnowledgePage() {
             <div>
               <p className="eyebrow user-eyebrow">概念地图</p>
               <h2>知识把快速变化的信号转化为可理解的模式。</h2>
+              {/* One line on purpose: JSX joins wrapped text lines with a
+                  space, which lands in the middle of a Chinese sentence. */}
               <p>
-                当技术信号引用了你需要复习的概念时，使用本页。每个概念都会说明
-                它澄清了什么，以及哪些已发布信号依赖于它。
+                当技术信号引用了你需要复习的概念时，使用本页。每个概念都会说明它澄清了什么，以及哪些已发布信号依赖于它。
               </p>
             </div>
             <dl className="skills-library-stats" aria-label="知识概览">
