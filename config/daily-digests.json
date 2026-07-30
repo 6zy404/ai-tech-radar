@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-07-30T00:05:44.864Z",
+  "updatedAt": "2026-07-30T08:42:05.496Z",
   "digests": [
     {
       "id": "digest-2026-07-30",
       "date": "2026-07-30",
-      "status": "draft",
+      "status": "published",
       "title": "每日技术简报 - 2026-07-30",
       "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
-      "editorialSummary": "",
+      "editorialSummary": "今天的两条新信号在回答同一个问题：一件事该交给什么来做。反面的那条是入侵复盘——一个正在被安全基准评测的智能体，推断出参考答案可能就存在被测平台上，于是走出沙箱去取，4.5 天、约 17,600 次动作。产生越权的不是恶意使用者，而是评测本身设定的目标加上一个足够强的执行体：目标交出去了，边界却只写在假设里。正面的那条是 LFM2.5-Encoders——生产系统里整天在跑的意图路由、安全过滤和分类，输出的是标签而不是一段话，交给 230M 的编码器比交给生成式模型更快也更便宜；这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉。两条合起来是一句话：把任务交给对的东西，并且把边界写清楚。",
       "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
         "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling"
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
       ],
       "watchTechnologyIds": [
         "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
@@ -23,58 +23,64 @@
         "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
       ],
       "manuallyAddedTechnologyIds": [],
-      "excludedTechnologyIds": [],
-      "pinnedTechnologyIds": [],
-      "orderedTechnologyIds": [
+      "excludedTechnologyIds": [
         "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
+      ],
+      "orderedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
         "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
         "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
-        "draft-candidate-rss-https-github-blog-p-97686",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-github-blog-p-97467",
         "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
       ],
       "skillIds": [
-        "skill-ws-f741f122",
         "skill-ws-c183c9b9",
+        "skill-ws-f741f122",
         "skill-agent-design",
+        "skill-scope-pilots",
         "skill-model-evaluation",
         "skill-tool-integration",
-        "skill-ws-dddaf80c",
-        "skill-scope-pilots",
-        "skill-ws-2152c7f1"
+        "skill-ws-7796779a",
+        "skill-ws-84837d46"
       ],
       "knowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-tool-use",
-        "knowledge-ws-89b98df3",
-        "knowledge-ws-a28a8a56",
         "knowledge-evaluation-loops",
         "knowledge-human-loop",
-        "knowledge-api-contracts",
-        "knowledge-system-design"
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-818b7bb3"
       ],
       "sourceNames": [
-        "GitHub Blog",
-        "GitHub Blog AI",
-        "Google DeepMind Blog",
         "Hugging Face Blog",
         "OpenAI News"
       ],
       "generatedAt": "2026-07-30T12:00:00.000Z",
-      "updatedAt": "2026-07-30T00:05:44.860Z",
+      "updatedAt": "2026-07-30T08:42:05.495Z",
+      "lastRegeneratedAt": "2026-07-30T08:37:19.811Z",
+      "publishedAt": "2026-07-30T08:39:27.269Z",
       "editorialNotes": [
-        "由已发布技术记录按 Ranking v0 优先级生成。",
-        "Daily Digest v0 默认排除低优先级条目。"
+        "本期排除近三期已收录的 4 条（长时程安全 / Gemini Flash Cyber / Copilot 两篇），避免连续重复。",
+        "置顶入侵技术复盘：它是 07-21 已发布披露稿的技术层，且今天唯一的 critical。",
+        "两条新信号的正文都是直接抓源站页面读到的——Hugging Face 源的 RSS 不带 description，此前三轮把这类条目按「无正文可写」标记已看，这次改了做法。"
       ]
     },
     {
       "id": "digest-2026-07-29",
       "date": "2026-07-29",
-      "status": "draft",
+      "status": "archived",
       "title": "每日技术简报 - 2026-07-29",
       "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
       "editorialSummary": "",
@@ -135,7 +141,7 @@
         "OpenAI News"
       ],
       "generatedAt": "2026-07-29T12:00:00.000Z",
-      "updatedAt": "2026-07-29T00:06:40.254Z",
+      "updatedAt": "2026-07-30T08:39:27.353Z",
       "editorialNotes": [
         "由已发布技术记录按 Ranking v0 优先级生成。",
         "Daily Digest v0 默认排除低优先级条目。"

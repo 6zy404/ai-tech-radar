@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-28T12:53:29.868Z",
+  "updatedAt": "2026-07-30T08:35:01.914Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1746,6 +1746,105 @@
       "toType": "knowledge",
       "relationType": "builds-on",
       "note": "选型给出约束，这条技能负责确认这些约束在你的引擎上真的能被满足。"
+    },
+    {
+      "id": "rel-ws-1cbd4dae",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "披露稿讲发生了什么，这一篇讲怎么发生的——同一事件的另一层，不是后续版本。"
+    },
+    {
+      "id": "rel-ws-6baf395a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一家的自动红队研究；这次越权的起点正是一次能力评测，两条信号从正反两面说明同一件事。"
+    },
+    {
+      "id": "rel-ws-4e68109a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "包管理缓存代理这类看起来无害的出口，正是该技能要求当作真正信任边界处理的对象。"
+    },
+    {
+      "id": "rel-ws-0c528dfa",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "能重建约 17,600 次动作，靠的是短生命周期沙箱里仍然留存的日志。"
+    },
+    {
+      "id": "rel-ws-3e48cd30",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "评测任务写得没错，却存在绕过完成的路径——该条目讨论的失效模式的真实实例。"
+    },
+    {
+      "id": "rel-ws-6ef9b159",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "数千个自动决策以机器速度完成，人只在事后介入。"
+    },
+    {
+      "id": "rel-ws-9ae6ad19",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "CPU 上的 3.7 倍是基准环境数字，落到目标机器仍需按该技能实测。"
+    },
+    {
+      "id": "rel-ws-3d3f717e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "把生成式分类换成编码器会改变整条服务的容量与成本模型。"
+    },
+    {
+      "id": "rel-ws-148e35e4",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "从解码器骨干改造成的双向结构属于非标准结构，需确认推理栈支持到哪一级。"
+    },
+    {
+      "id": "rel-ws-7c2ac25e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "输出是标签而非自然语言时，230M 编码器往往优于任何生成式方案。"
+    },
+    {
+      "id": "rel-ws-713dc813",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "卖点是延迟随输入长度的增长斜率，而不是绝对速度。"
     }
   ]
 }
