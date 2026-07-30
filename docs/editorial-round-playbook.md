@@ -272,6 +272,14 @@ for the full forbidden-field list.
   the picker offers published technologies only. Use `supersedes` (续作) for
   an actual version succession and `extends` (延伸) for "read this next" —
   mixing them mislabels the 版本脉络 section.
+- **A `PATCH` replaces an array field; it does not merge into it.** Adding one
+  reverse id with
+  `PATCH /api/workspace/skills/{id} {"relatedTechnologyIds":["<new>"]}` wipes
+  every id already there. Hit for real on 2026-07-30: five skills lost **26**
+  related-technology ids in one pass, caught only because the round diffed the
+  store against `HEAD` afterwards. Always read the current array first and send
+  the union — and diff `config/*.json` against the previous commit before
+  committing a round, since nothing in the API surfaces the loss.
 - Seed **technologies** (`src/data/technologies.ts`) have no copy-on-write
   overlay the way seed skills and knowledge do, so they cannot carry a
   reverse id back to a workspace-created skill/knowledge entry. The graph
@@ -325,6 +333,25 @@ Practical guard for a round: before converting a candidate that looks like a
 major vendor announcement, check whether a **published** signal already
 carries the same source URL modulo slug formatting — the review state and the
 technology workspace both outlive the snapshot window.
+
+## A feed with no `<description>` is not a source with no content (2026-07-30)
+
+The Hugging Face blog feed carries no `<description>`, so its candidates arrive
+with an empty summary and body. Three consecutive rounds read that as "nothing
+to write from" and marked those items reviewed — including, on 2026-07-28, a
+technical incident timeline and an open model release.
+
+The pages themselves are fetchable. A plain
+`node -e "fetch(url).then(r => r.text())"` against the article URL returns 200
+and the full body. Two of those previously-skipped items were published on
+2026-07-30 after reading the real articles.
+
+So before marking a title-only candidate reviewed, **fetch the page**. Two
+caveats worth knowing so the attempt is cheap: `openai.com` returns 403 to a
+plain fetch (bot protection), and `blog.google` is unreachable from this
+machine — for those two, thin really is thin, and the honest disposition is
+still reviewed. Do not write a signal from a one-line RSS summary; what you
+would produce is your inference, not the source's evidence.
 
 **Since 2026-07-28 this check runs for you.** The `already_published`
 (已发布过) candidate quality flag compares each candidate against the
