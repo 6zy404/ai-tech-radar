@@ -96,32 +96,6 @@ function getRelatedKnowledge(
   );
 }
 
-function getSkillSignalExplanation(skill: SkillItem): string {
-  switch (skill.skillType) {
-    case "engineering":
-      return "用这项技能判断信号能否成为可维护的产品或工程能力。";
-    case "analysis":
-      return "用这项技能检视证据、失败模式，以及信号是否值得真正测试。";
-    case "product":
-      return "用这项技能决定信号该成为产品押注、小型实验，还是观察项。";
-    case "operations":
-      return "用这项技能在采用前理解上线、可观测性和可靠性方面的影响。";
-    case "communication":
-      return "用这项技能把信号解释得足够清楚，以支撑跨职能决策。";
-    default:
-      return "用这项技能在更多背景下解读信号，少一些猜测。";
-  }
-}
-
-function getSkillUseSteps(skill: SkillItem): string[] {
-  return [
-    `先从「${skillTypeLabels[skill.skillType]}」的视角进入，读一遍简短说明。`,
-    "打开一条相关技术信号，找出它带来的具体变化。",
-    "用背景知识链接补齐那些被默认却未必解释清楚的概念。",
-    "判断这个信号是值得现在测试、持续跟踪，还是仅作了解。"
-  ];
-}
-
 export default async function SkillDetailPage({
   params
 }: SkillDetailPageProps) {
@@ -198,11 +172,6 @@ export default async function SkillDetailPage({
                 <ContentBody body={skill.content} />
               </section>
             ) : null}
-
-            <section className="skill-detail-section">
-              <h2>解读 AI 信号，为什么需要这项技能</h2>
-              <p>{getSkillSignalExplanation(skill)}</p>
-            </section>
 
             <RelationshipGraph
               centerTitle={skill.title}
@@ -324,15 +293,6 @@ export default async function SkillDetailPage({
                 </div>
               </section>
             ) : null}
-
-            <section className="skill-detail-section">
-              <h2>如何使用这项技能</h2>
-              <ol className="skill-detail-steps">
-                {getSkillUseSteps(skill).map((step) => (
-                  <li key={step}>{step}</li>
-                ))}
-              </ol>
-            </section>
           </main>
 
           <aside className="skill-detail-aside" aria-label="技能概览">
