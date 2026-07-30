@@ -120,27 +120,28 @@ export function TechnologyBrowser({
           />
         </div>
 
+        {/* The read filter lives on this row rather than on one of its own.
+            It renders nothing until the reader has marked something, so on its
+            own row it appeared out of nowhere and pushed the whole card grid
+            down by its height plus its margin. This row is always present, and
+            its min-height covers the control, so the switch turns up in place
+            and nothing below it moves. */}
         <div className="dossier-technology-browser__toolbar">
-          <div>
-            <strong>{filteredTechnologies.length} 条技术信号</strong>
-            <p>
-              仅展示已发布信号。当理由、关注人群和来源符合你接下来想了解的内容时，
-              再打开对应条目。
-            </p>
+          <strong>{filteredTechnologies.length} 条技术信号</strong>
+          <div className="dossier-technology-browser__toolbar-controls">
+            <ReadFilterToggle
+              readCount={readCount}
+              hideRead={hideRead}
+              onToggle={() => setHideRead((current) => !current)}
+            />
+            <TechnologyLanguageSwitch
+              mode={mode}
+              onChange={setMode}
+              label={getTechnologySwitchLabel("list")}
+              compact
+            />
           </div>
-          <TechnologyLanguageSwitch
-            mode={mode}
-            onChange={setMode}
-            label={getTechnologySwitchLabel("list")}
-            compact
-          />
         </div>
-
-        <ReadFilterToggle
-          readCount={readCount}
-          hideRead={hideRead}
-          onToggle={() => setHideRead((current) => !current)}
-        />
       </div>
 
       <div className="dossier-technology-list">

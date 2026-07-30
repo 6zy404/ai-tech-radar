@@ -7203,9 +7203,13 @@ a.technology-evolution__title {
   --skills-accent-soft: rgba(55, 214, 198, 0.14);
 }
 
+/* Centred like the sections under it. While the header was a panel the 16px
+   offset read as a wider band; once it is a rule, its title has to start on
+   the same edge as the first card. */
 .skills-library-page .page-header,
 .skills-library-page .user-page-header {
-  max-width: min(1040px, calc(100% - 32px));
+  width: min(1040px, calc(100% - 32px));
+  margin-inline: auto;
 }
 
 .skills-library-intro,
@@ -9295,8 +9299,23 @@ a.tech-graph__node:hover {
   }
 }
 
+/* A list page's header is a label saying which page you are on, not an object
+   worth a frame. It had kept the pre-dossier panel — a mint gradient, a teal
+   border, a 26px radius and a shadow — because the 2026-07-14 migration
+   converted its two siblings (`.product-home-hero`, `.user-article-hero`) and
+   missed this one. Converting it to match them was the obvious fix and the
+   wrong one: the panel is the reason every list page opens with a bordered box
+   restating its own title. It is a rule now, so the title sits on the page and
+   lines up with the content under it. Detail-page and home heroes keep their
+   panel — those hold the source, publisher and priority copy, which is
+   content. */
 .dossier .user-page-header {
+  padding: 4px 0 18px;
+  border: 0;
   border-bottom: 1px solid var(--dossier-line);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .dossier .user-page-header h1 {
@@ -9385,12 +9404,11 @@ a.tech-graph__node:hover {
   color: var(--dossier-accent);
 }
 
-.dossier-technology-browser__toolbar p {
-  margin: 4px 0 0;
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-  font-size: 13px;
-  max-width: 60ch;
+.dossier-technology-browser__toolbar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
 }
 
 .dossier-technology-list {
@@ -9637,10 +9655,7 @@ a.tech-graph__node:hover {
 .read-filter-toggle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 14px;
 }
 
 .read-filter-toggle__count {
@@ -9670,8 +9685,18 @@ a.tech-graph__node:hover {
   gap: 4px;
 }
 
+.saved-signals__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  margin-bottom: 12px;
+}
+
 .saved-signals__lede {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 13px;
   color: var(--dossier-muted);
 }
@@ -10629,11 +10654,10 @@ a.tech-graph__node:hover {
      Each override below maps a measured WCAG failure back onto the
      dossier tokens; see docs/design-system.md for the audit notes. */
 
-  /* Page headers: the per-page light "paper" gradients stay in light
-     mode only; in dark the header sits directly on the dark ground. */
-  .dossier .user-page-header {
-    background: none;
-  }
+  /* The page-header override that used to live here dropped the light
+     gradient in dark mode and nothing else, so the teal border and the 26px
+     radius stayed on a dark ground — dark was half-converted. The header
+     carries no panel in either scheme now, so no override is needed. */
 
   /* Technology detail aside: a higher-specificity light background won
      over the dossier surface override. */
