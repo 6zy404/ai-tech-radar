@@ -12,6 +12,65 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Slimming the top of a page — and an argument from precedent, rejected
+
+- **Owner-reported, three complaints in one message** — 2026-07-30: the
+  「隐藏已读」switch makes the page jump, the strip at the top of the
+  technology / knowledge pages does not match the rest of the site, and the
+  whole site carries too much decorative copy. Scope was settled with a
+  before/after mockup and three decisions: **report-head** for the page top,
+  **the nine list pages only** this round, and **all three fixes together**.
+- **The header defect was a missed selector, not a taste difference.** One
+  pre-dossier rule paints three headers together; the 2026-07-14 migration
+  wrote `.dossier` overrides for the home hero and the article hero and none
+  for `.user-page-header`, so the list pages kept a mint gradient, a teal
+  border, a 26px radius and a shadow while everything under them was paper and
+  hairlines. Dark mode was half-converted: an override dropped the gradient and
+  left the teal border and the 26px corner on a dark ground.
+- **The obvious fix was rejected, and the reasoning is the entry.** The first
+  proposal was to give the header the paper panel its two siblings already
+  carried — the same "converge on the shared primitive" move that fixed four
+  earlier defects. The owner refused the premise: 「它们已经是目标状态了是老的
+  目标 … 没有必要用前朝的剑斩今朝的官」. Consistency with what exists is an
+  argument from precedent, and here the precedent _was_ the complaint — the
+  panel is why every list page opened with a bordered box restating its own
+  title. What shipped separates the two kinds of page top: a **list** header is
+  a label (eyebrow + title over a hairline), a **detail/home** hero is an
+  object (it holds source, publisher type, priority copy, digest counts) and
+  keeps its panel, re-measured unchanged.
+- **Two numbers came out of it.** The panel's padding had been indenting the
+  title **33px** past the content beneath it; all nine list routes now put
+  title, eyebrow and first content block on one left edge, header height
+  **191 → 148px**. And `/skills` / `/knowledge` had sat **16px** off their own
+  content because the header used `max-width` where the sections use a definite
+  `width` + `margin-inline: auto` — under `.user-shell { display: grid }` an
+  auto inline margin on a `max-width` item shrinks it to fit and centres it,
+  which the first attempt proved by moving the title to 416px and 509px.
+- **The read filter shares a row that already exists.** It renders nothing
+  until the reader marks a signal, so on its own row it inserted 41px and
+  pushed the grid down. Keeping it always visible would have restored the
+  defect the null-render was avoiding; reserving space would have left a blank
+  row. It now sits in the curated view's toolbar and the saved view's lede row:
+  grid top holds at **647px / 434px, 0px shift**, row heights unchanged. The
+  saved row needed a `min-height`; the curated row did not (its language switch
+  already sets the height) **and therefore does not have one**.
+- **Decorative copy: two blocks and a paragraph removed.** The 阅读路径 cards on
+  `/skills` and `/knowledge` (three headings + three sentences each, explaining
+  how to use the site rather than saying anything about the content) and the
+  curated toolbar's two-line explanation. The rule applied: copy that restates
+  the title is decoration, copy carrying a number or a state is information —
+  so the stats rows stay.
+- Verified: typecheck, lint, format, vitest 188/188, plus a live pass over the
+  nine list routes — zero content painted outside its parent, no horizontal
+  overflow at 1600/1440/1180/1024/900/768/640/390. **Not verified by looking:**
+  the Browser pane's screenshot tool was unavailable for this session (the pane
+  is not displayed, so the page composites no frames), stated here rather than
+  quietly downgraded to DOM checks per the `AGENTS.md` visual verification rule.
+  Known and unfixed: at ≤640px the skills/knowledge title still sits 4px off its
+  content, and `.skills-library-guide`'s rules are now unreachable but left in
+  place, since this repo removes dead CSS in its own commit with a
+  computed-style diff.
+
 ## Second site-wide sweep — the three defects a detector cannot find
 
 - **Every reader-facing page was screenshotted and looked at, in both colour

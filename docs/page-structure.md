@@ -76,6 +76,17 @@ Purpose:
 - keep source, publish date, language availability, and tags visible
 - avoid internal fields and reviewer actions
 
+The page top of a list page is a **label, not a panel** (2026-07-30): an
+eyebrow and a title over a hairline rule, sitting on the page ground, with the
+title on the same left edge as the first content block below it. This is
+deliberately _not_ the treatment the detail pages and the home page use — their
+hero keeps its paper panel because it holds the article's source, publisher
+type, priority copy and digest counts, which is content. A list header's only
+information is its title. Until 2026-07-30 the list header still carried the
+pre-dossier panel (mint gradient, teal border, 26px radius, shadow) because the
+2026-07-14 migration converted its two siblings and missed it; see
+`docs/design-system.md` → "A page header is a label, not an object".
+
 ### User-facing Detail Page
 
 Used by:
@@ -363,7 +374,10 @@ Workspace deployment boundary:
     dashed border, muted title, 已读 stamp) and the shared
     `ReadFilterToggle` offers 隐藏已读 once at least one signal is marked.
     Marks are always explicit reader actions — opening a signal never marks
-    it read
+    it read. The switch renders on a row that is already present — the
+    curated view's count/language toolbar and the saved view's lede line —
+    rather than on one of its own, so appearing after the reader's first mark
+    does not move the card grid (2026-07-30)
 - `/technologies/[slug]`
   - user-facing published technology detail
   - a 版本脉络 evolution-line section as the first content block, rendered only

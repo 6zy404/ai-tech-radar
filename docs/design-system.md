@@ -1254,3 +1254,76 @@ have a shared shape worth naming:
 Looking at a screenshot is how you **generate** a hypothesis about layout. It is
 not how you close one. Every finding that survived to a commit in this round was
 confirmed with a number first.
+
+### A page header is a label, not an object (2026-07-30)
+
+Owner-reported, in the same breath as "整个网站修饰性的文字太多了": the strip at
+the top of the technology / knowledge / skills pages did not look like the rest
+of the site.
+
+It didn't, and the cause was a missed selector rather than a taste difference.
+One pre-dossier rule styles three headers together — `.user-page-header`,
+`.product-home-hero`, `.user-article-hero` — as a mint-gradient panel with a
+teal border, a 26px radius and a shadow. The 2026-07-14 migration wrote
+`.dossier` overrides for the home hero and the article hero (paper fill,
+hairline border, 2px radius, no shadow) and wrote none for the list-page
+header, which only ever got its title font, description colour and eyebrow
+colour restyled. So one selector kept the old paint, on the eight or nine pages
+a reader lands on most.
+
+**The obvious fix was wrong, and that is the entry worth keeping.** The first
+proposal was to give the list header the same paper panel its two siblings
+already had — argued from consistency, which is how the four earlier
+shared-primitive defects were fixed. The owner rejected the reasoning outright:
+"它们已经是目标状态了是老的目标 … 没有必要用前朝的剑斩今朝的官." Converging on
+what already exists is an argument from precedent, not from correctness. It
+smuggles in the assumption that the earlier decision is not up for review — and
+here the earlier decision was itself the complaint, because the panel is why
+every list page opened with a bordered box restating its own title.
+
+What shipped instead separates the two kinds of page top:
+
+- **A list page's header is a label** — it says which page you are on. Its only
+  information is the title; the eyebrow and the description restate it. It is
+  now an eyebrow and a title over a hairline rule, sitting on the page ground.
+- **A detail page's and the home page's hero is an object** — it holds the
+  article's source, publisher type, priority copy, digest counts, preview
+  notice. Those are content, and stripping the panel would scatter them with no
+  container. They keep their panel and were re-measured unchanged.
+
+Two measurements that came out of it:
+
+- The panel's padding had been indenting the title 33px past the content below
+  it on every list page; as a rule, the title, the eyebrow and the first block
+  under them share one left edge on all nine routes (header height 191 → 148px).
+- `/skills` and `/knowledge` sat 16px off their own content because their header
+  used `max-width` while their sections use a definite `width` plus
+  `margin-inline: auto`. Under `.user-shell { display: grid }`, an auto inline
+  margin on a `max-width` item makes it shrink to fit and centre — the first
+  attempt to fix the alignment moved the title to 416px and 509px instead of
+  240px. `width` is what makes a grid item both definite and centred.
+
+Dark mode had been half-converted here: an override dropped the gradient and
+left the teal border and the 26px radius on a dark ground. Neither scheme draws
+a panel now, so that override is gone.
+
+### A control that appears must not move what is under it (2026-07-30)
+
+`ReadFilterToggle` renders nothing until the reader has marked a signal — a
+deliberate choice, so a first-time reader is not shown a control for a state
+they do not have. On its own row that choice cost a jump: marking the first
+signal inserted a 41px row and pushed the whole card grid down.
+
+Keeping the control permanently visible would have traded one defect for the
+one the null-render was avoiding. Reserving empty space would have left a blank
+row. The fix is to put it on a row that is **already there** — the toolbar
+carrying the signal count and the language switch, and the lede line in the
+saved view — so the control turns up inside a stable box. Measured by seeding a
+read mark and reloading: the grid top holds at 647px (curated) and 434px
+(saved), 0px shift, row heights unchanged.
+
+The saved view's row needed a `min-height` to stay stable, because its own
+content (a 13px line) is shorter than the control. The curated view's row did
+not, because the language switch already sets that height — so it does not have
+one. A rule that does no work is a rule that lies about why it is there, and
+this file has already paid for one of those.
