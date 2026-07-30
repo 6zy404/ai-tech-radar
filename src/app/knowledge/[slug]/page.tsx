@@ -99,24 +99,6 @@ function getConceptMatter(category: KnowledgeCategory): string {
   return categoryCopy[category];
 }
 
-function getLearningSteps(difficulty: DifficultyLevel): string[] {
-  const sharedSteps = [
-    "在打开相关技术信号之前，先读一遍概念摘要。",
-    "打开一条关联信号，找出概念在产品或工程变化中出现的位置。",
-    "把概念与一项相关技能搭配，决定接下来评估什么。"
-  ];
-
-  if (difficulty === "advanced") {
-    return [...sharedSteps, "用这个概念比较更长期的架构、数据或战略权衡。"];
-  }
-
-  if (difficulty === "intermediate") {
-    return [...sharedSteps, "用这个概念比较实现选择及其运维后果。"];
-  }
-
-  return sharedSteps;
-}
-
 export function generateStaticParams() {
   return getAllKnowledge().map((item) => ({ slug: item.slug }));
 }
@@ -136,7 +118,6 @@ export default async function KnowledgeDetailPage({
   const tags = getTagsByIds(knowledge.tags);
   const relatedTechnologies = getRelatedTechnologies(knowledge, technologies);
   const relatedSkills = getRelatedSkills(knowledge, skills);
-  const learningSteps = getLearningSteps(knowledge.difficulty);
   const technologyRelations = relatedTechnologies.map((technology) =>
     findRelationBetween(knowledge.id, "knowledge", technology.id, "technology")
   );
@@ -326,15 +307,6 @@ export default async function KnowledgeDetailPage({
                 </div>
               </section>
             ) : null}
-
-            <section className="skill-detail-section">
-              <h2>如何继续学习</h2>
-              <ol className="skill-detail-steps">
-                {learningSteps.map((step) => (
-                  <li key={step}>{step}</li>
-                ))}
-              </ol>
-            </section>
           </main>
 
           <aside className="skill-detail-aside" aria-label="知识概览">
