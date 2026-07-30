@@ -175,10 +175,10 @@ export default function SkillsPage() {
               <section className="skills-library-section" key={section.id}>
                 <div className="skills-library-section__header">
                   <div>
-                    <p>技能方向</p>
+                    <p className="eyebrow user-eyebrow">技能方向</p>
                     <h2>{section.title}</h2>
                   </div>
-                  <span>{section.focus}</span>
+                  <p>{section.focus}</p>
                 </div>
 
                 <div className="skills-library-card-grid">
