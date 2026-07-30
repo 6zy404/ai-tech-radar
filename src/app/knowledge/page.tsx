@@ -123,8 +123,6 @@ export default function KnowledgePage() {
         <>
           <section className="skills-library-intro">
             <div>
-              <p className="eyebrow user-eyebrow">概念地图</p>
-              <h2>知识把快速变化的信号转化为可理解的模式。</h2>
               {/* One line on purpose: JSX joins wrapped text lines with a
                   space, which lands in the middle of a Chinese sentence. */}
               <p>
