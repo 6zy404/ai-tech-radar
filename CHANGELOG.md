@@ -54,13 +54,24 @@ For per-topic deep dives, see the `docs/` directory.
   elements 5.87–7.08 light and 5.19–5.42 dark. The skill detail page now
   resolves to the same values as the technology detail page it is a sibling
   of, element for element. Plus typecheck, lint, format, vitest 188/188.
-- **Screened and not yet fixed (owner's call):** three blocks of copy that
-  explain how to use the site rather than saying anything about the record —
-  「如何使用这项技能」on every skill detail page (four steps, byte-identical
-  across pages but for the section name in the first clause), 「如何继续学习」
-  on every knowledge detail page, and 「为什么需要这项技能」, a whole section
-  holding one sentence keyed by skill type. Same class as the 阅读路径 cards
-  the page-top round removed from the index pages.
+- **The three blocks of template copy went too**, owner-picked after the
+  screening. 「如何使用这项技能」 rendered four steps at the foot of every
+  skill detail page, byte-identical across pages but for the group name
+  substituted into the first clause; 「如何继续学习」 did the same on every
+  knowledge detail page; and 「为什么需要这项技能」 was a section heading over
+  one sentence keyed by skill type, so every skill of the same type carried
+  the same one — the shape of the card note removed from the index earlier the
+  same day. None of the three said anything about the record the reader had
+  just opened. Skill detail page **5561 → 5213px**; both pages are content
+  sections only now. `.skill-detail-steps` followed in its own diffed commit
+  (393 and 222 elements, zero differences).
+- **One of the same kind was left in place on purpose.**
+  `/knowledge/[slug]` still carries 「这个概念为何重要」, category-keyed
+  generic copy indistinguishable in kind from what was just removed. It was
+  not in the screening the owner picked from, and deleting reader-facing copy
+  is their call — "its sibling lost one so this should too" is an argument
+  from symmetry, which is the shape of reasoning the page-top round was
+  explicitly told not to use.
 
 ## Closing out the page-top round — three leftovers, four commits
 

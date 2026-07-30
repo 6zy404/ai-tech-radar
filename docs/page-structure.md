@@ -494,6 +494,11 @@ Workspace deployment boundary:
   - user-facing skill detail
   - explains what the skill helps readers do, with the body rendered through
     the shared `ContentBody` component
+  - every section on the page is about this skill. Two template sections — a
+    four-step 如何使用这项技能 and a one-sentence 为什么需要这项技能 keyed by
+    skill type — were removed on 2026-07-30 because they explained the site
+    rather than the record; `/knowledge/[slug]` lost its 如何继续学习 in the
+    same pass
   - links to published technology signals where the skill is useful
   - links to background knowledge that makes the skill easier to apply
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
