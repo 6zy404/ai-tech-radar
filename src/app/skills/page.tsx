@@ -144,8 +144,6 @@ export default function SkillsPage() {
         <>
           <section className="skills-library-intro">
             <div className="skills-library-intro__copy">
-              <p className="skills-library-kicker">如何使用这个技能库</p>
-              <h2>技能把快速变化的技术信号连接到可落地的评估。</h2>
               {/* One line on purpose: JSX joins wrapped text lines with a
                   space, which lands in the middle of a Chinese sentence. */}
               <p>

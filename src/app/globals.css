@@ -7253,8 +7253,12 @@ a.technology-evolution__title {
   line-height: 0.96;
 }
 
+/* The sentence is the whole block now, so it owns no separation of its own —
+   the browser's default paragraph margin was there to clear the heading above
+   it and became 32px of dangling space once that heading went. */
 .skills-library-intro p {
   max-width: 680px;
+  margin: 0;
   color: var(--skills-muted);
   font-size: 1rem;
   line-height: 1.75;
