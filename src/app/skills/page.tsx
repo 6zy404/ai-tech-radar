@@ -171,21 +171,6 @@ export default function SkillsPage() {
             </dl>
           </section>
 
-          <section className="skills-library-guide" aria-label="阅读路径">
-            <article>
-              <h3>选一项技能</h3>
-              <p>选择你判断技术信号时所需的能力。</p>
-            </article>
-            <article>
-              <h3>打开一个信号</h3>
-              <p>把关联的已发布信号当作具体示例。</p>
-            </article>
-            <article>
-              <h3>补齐背景</h3>
-              <p>当信号依赖更早的概念时，使用知识链接。</p>
-            </article>
-          </section>
-
           <div className="skills-library-groups">
             {groupedSkills.map((section) => (
               <section className="skills-library-section" key={section.id}>

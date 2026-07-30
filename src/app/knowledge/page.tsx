@@ -150,21 +150,6 @@ export default function KnowledgePage() {
             </dl>
           </section>
 
-          <section className="skills-library-guide" aria-label="阅读路径">
-            <article>
-              <h3>从概念开始</h3>
-              <p>打开信号前，先复习背景概念。</p>
-            </article>
-            <article>
-              <h3>打开相关信号</h3>
-              <p>看看这个概念出现在哪些已发布的 AI 变化中。</p>
-            </article>
-            <article>
-              <h3>搭配技能</h3>
-              <p>用关联技能评估或应用该概念。</p>
-            </article>
-          </section>
-
           <div className="skills-library-groups">
             {groupedKnowledge.map((section) => (
               <section key={section.id} className="skills-library-section">
