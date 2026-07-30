@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-29T00:06:40.252Z",
+  "updatedAt": "2026-07-30T00:05:44.858Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -16,17 +16,16 @@
         "open-source"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "failed",
-      "lastImportCount": 0,
-      "consecutiveFailureCount": 2,
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
       "totalImportedCount": 22,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-07-29T00:06:04.210Z",
+      "updatedAt": "2026-07-30T00:05:41.063Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:06:04.210Z",
-      "lastImportMessage": "请求失败（重试 3 次后仍失败）：fetch failed",
-      "lastSuccessfulImportAt": "2026-07-28T08:57:43.278Z",
-      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed"
+      "lastFetchedAt": "2026-07-30T00:05:41.063Z",
+      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-30T00:05:41.063Z"
     },
     {
       "id": "source-vllm-releases",
@@ -43,17 +42,16 @@
         "serving"
       ],
       "defaultNormalizedType": "tool",
-      "lastImportStatus": "failed",
-      "lastImportCount": 0,
-      "consecutiveFailureCount": 1,
+      "lastImportStatus": "success",
+      "lastImportCount": 4,
+      "consecutiveFailureCount": 0,
       "totalImportedCount": 12,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-07-29T00:06:40.221Z",
+      "updatedAt": "2026-07-30T00:05:44.837Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:06:40.221Z",
-      "lastImportMessage": "请求失败（重试 3 次后仍失败）：fetch failed",
-      "lastSuccessfulImportAt": "2026-07-28T08:57:45.074Z",
-      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed"
+      "lastFetchedAt": "2026-07-30T00:05:44.837Z",
+      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-30T00:05:44.837Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -75,11 +73,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 10,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-29T00:05:21.183Z",
+      "updatedAt": "2026-07-30T00:05:40.105Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:05:21.183Z",
+      "lastFetchedAt": "2026-07-30T00:05:40.105Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:05:21.183Z"
+      "lastSuccessfulImportAt": "2026-07-30T00:05:40.105Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -99,13 +97,13 @@
       "lastImportStatus": "success",
       "lastImportCount": 4,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 17,
+      "totalImportedCount": 20,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-29T00:05:20.328Z",
+      "updatedAt": "2026-07-30T00:05:39.246Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:05:20.328Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:05:20.328Z"
+      "lastFetchedAt": "2026-07-30T00:05:39.246Z",
+      "lastImportMessage": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-30T00:05:39.246Z"
     },
     {
       "id": "source-openai-news",
@@ -124,13 +122,13 @@
       "lastImportStatus": "success",
       "lastImportCount": 4,
       "consecutiveFailureCount": 0,
-      "totalImportedCount": 29,
+      "totalImportedCount": 32,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-07-29T00:06:05.388Z",
+      "updatedAt": "2026-07-30T00:05:41.992Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:06:05.388Z",
-      "lastImportMessage": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:06:05.388Z"
+      "lastFetchedAt": "2026-07-30T00:05:41.992Z",
+      "lastImportMessage": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-30T00:05:41.992Z"
     },
     {
       "id": "source-google-deepmind-blog",
@@ -146,16 +144,17 @@
         "tag-frontier-models"
       ],
       "defaultNormalizedType": "model",
-      "lastImportStatus": "success",
-      "lastImportCount": 4,
-      "consecutiveFailureCount": 0,
+      "lastImportStatus": "failed",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 1,
       "totalImportedCount": 9,
       "createdAt": "2026-07-21T03:20:23.722Z",
-      "updatedAt": "2026-07-29T00:05:18.582Z",
+      "updatedAt": "2026-07-30T00:05:38.733Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:05:18.582Z",
-      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:05:18.582Z"
+      "lastFetchedAt": "2026-07-30T00:05:38.733Z",
+      "lastImportMessage": "请求失败（重试 3 次后仍失败）：fetch failed",
+      "lastSuccessfulImportAt": "2026-07-29T00:05:18.582Z",
+      "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed"
     },
     {
       "id": "source-google-ai-blog",
@@ -176,11 +175,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 8,
       "createdAt": "2026-07-21T03:20:23.739Z",
-      "updatedAt": "2026-07-29T00:05:16.900Z",
+      "updatedAt": "2026-07-30T00:05:05.044Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:05:16.900Z",
-      "lastImportMessage": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:05:16.900Z"
+      "lastFetchedAt": "2026-07-30T00:05:05.044Z",
+      "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+      "lastSuccessfulImportAt": "2026-07-30T00:05:05.044Z"
     },
     {
       "id": "source-qwen-blog",
@@ -201,11 +200,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 4,
       "createdAt": "2026-07-21T03:20:23.754Z",
-      "updatedAt": "2026-07-29T00:06:05.879Z",
+      "updatedAt": "2026-07-30T00:05:42.500Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:06:05.879Z",
+      "lastFetchedAt": "2026-07-30T00:05:42.500Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:06:05.879Z"
+      "lastSuccessfulImportAt": "2026-07-30T00:05:42.500Z"
     },
     {
       "id": "source-github-blog-ai",
@@ -226,11 +225,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 8,
       "createdAt": "2026-07-21T03:20:23.765Z",
-      "updatedAt": "2026-07-29T00:05:03.176Z",
+      "updatedAt": "2026-07-30T00:05:03.543Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:05:03.176Z",
+      "lastFetchedAt": "2026-07-30T00:05:03.543Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:05:03.176Z"
+      "lastSuccessfulImportAt": "2026-07-30T00:05:03.543Z"
     },
     {
       "id": "source-simon-willison-blog",
@@ -251,37 +250,37 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 6,
       "createdAt": "2026-07-21T03:20:23.776Z",
-      "updatedAt": "2026-07-29T00:06:06.832Z",
+      "updatedAt": "2026-07-30T00:05:43.438Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-07-29T00:06:06.832Z",
+      "lastFetchedAt": "2026-07-30T00:05:43.438Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-07-29T00:06:06.832Z"
+      "lastSuccessfulImportAt": "2026-07-30T00:05:43.438Z"
     }
   ],
   "latestImportRun": {
-    "id": "import-run-2026-07-29t00-05-02-500z",
-    "startedAt": "2026-07-29T00:05:02.500Z",
-    "finishedAt": "2026-07-29T00:06:40.252Z",
+    "id": "import-run-2026-07-30t00-05-02-878z",
+    "startedAt": "2026-07-30T00:05:02.878Z",
+    "finishedAt": "2026-07-30T00:05:44.857Z",
     "status": "partial",
     "totalSources": 10,
     "enabledSources": 10,
     "skippedSources": 0,
-    "successfulSources": 8,
-    "failedSources": 2,
+    "successfulSources": 9,
+    "failedSources": 1,
     "partialSources": 0,
-    "totalCandidatesCreated": 4,
-    "totalCandidatesSkipped": 28,
+    "totalCandidatesCreated": 6,
+    "totalCandidatesSkipped": 30,
     "messages": [
       "GitHub Blog AI: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "Google AI Blog: 导入 3 条新候选；跳过 1 条重复或已存在的候选。",
-      "Google DeepMind Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "Hugging Face Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+      "Google AI Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+      "Google DeepMind Blog: 请求失败（重试 3 次后仍失败）：fetch failed",
+      "Hugging Face Blog: 导入 3 条新候选；跳过 1 条重复或已存在的候选。",
       "MCP Servers Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "Ollama Releases: 请求失败（重试 3 次后仍失败）：fetch failed",
-      "OpenAI News: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+      "Ollama Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+      "OpenAI News: 导入 3 条新候选；跳过 1 条重复或已存在的候选。",
       "Qwen Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "Simon Willison Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "vLLM Releases: 请求失败（重试 3 次后仍失败）：fetch failed"
+      "vLLM Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。"
     ],
     "sourceResults": [
       {
@@ -297,28 +296,28 @@
         "sourceId": "source-google-ai-blog",
         "sourceName": "Google AI Blog",
         "status": "success",
-        "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
-        "candidateCount": 4,
-        "candidatesCreated": 3,
-        "candidatesSkipped": 1
-      },
-      {
-        "sourceId": "source-google-deepmind-blog",
-        "sourceName": "Google DeepMind Blog",
-        "status": "success",
         "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
         "candidateCount": 4,
         "candidatesCreated": 0,
         "candidatesSkipped": 4
+      },
+      {
+        "sourceId": "source-google-deepmind-blog",
+        "sourceName": "Google DeepMind Blog",
+        "status": "failed",
+        "message": "请求失败（重试 3 次后仍失败）：fetch failed",
+        "candidateCount": 0,
+        "candidatesCreated": 0,
+        "candidatesSkipped": 0
       },
       {
         "sourceId": "source-hugging-face-blog",
         "sourceName": "Hugging Face Blog",
         "status": "success",
-        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
         "candidateCount": 4,
-        "candidatesCreated": 0,
-        "candidatesSkipped": 4
+        "candidatesCreated": 3,
+        "candidatesSkipped": 1
       },
       {
         "sourceId": "source-mcp-servers-releases",
@@ -332,20 +331,20 @@
       {
         "sourceId": "source-ollama-releases",
         "sourceName": "Ollama Releases",
-        "status": "failed",
-        "message": "请求失败（重试 3 次后仍失败）：fetch failed",
-        "candidateCount": 0,
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "candidateCount": 4,
         "candidatesCreated": 0,
-        "candidatesSkipped": 0
+        "candidatesSkipped": 4
       },
       {
         "sourceId": "source-openai-news",
         "sourceName": "OpenAI News",
         "status": "success",
-        "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
         "candidateCount": 4,
-        "candidatesCreated": 1,
-        "candidatesSkipped": 3
+        "candidatesCreated": 3,
+        "candidatesSkipped": 1
       },
       {
         "sourceId": "source-qwen-blog",
@@ -368,39 +367,39 @@
       {
         "sourceId": "source-vllm-releases",
         "sourceName": "vLLM Releases",
-        "status": "failed",
-        "message": "请求失败（重试 3 次后仍失败）：fetch failed",
-        "candidateCount": 0,
+        "status": "success",
+        "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "candidateCount": 4,
         "candidatesCreated": 0,
-        "candidatesSkipped": 0
+        "candidatesSkipped": 4
       }
     ]
   },
   "importRuns": [
     {
-      "id": "import-run-2026-07-29t00-05-02-500z",
-      "startedAt": "2026-07-29T00:05:02.500Z",
-      "finishedAt": "2026-07-29T00:06:40.252Z",
+      "id": "import-run-2026-07-30t00-05-02-878z",
+      "startedAt": "2026-07-30T00:05:02.878Z",
+      "finishedAt": "2026-07-30T00:05:44.857Z",
       "status": "partial",
       "totalSources": 10,
       "enabledSources": 10,
       "skippedSources": 0,
-      "successfulSources": 8,
-      "failedSources": 2,
+      "successfulSources": 9,
+      "failedSources": 1,
       "partialSources": 0,
-      "totalCandidatesCreated": 4,
-      "totalCandidatesSkipped": 28,
+      "totalCandidatesCreated": 6,
+      "totalCandidatesSkipped": 30,
       "messages": [
         "GitHub Blog AI: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "Google AI Blog: 导入 3 条新候选；跳过 1 条重复或已存在的候选。",
-        "Google DeepMind Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "Hugging Face Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "Google AI Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "Google DeepMind Blog: 请求失败（重试 3 次后仍失败）：fetch failed",
+        "Hugging Face Blog: 导入 3 条新候选；跳过 1 条重复或已存在的候选。",
         "MCP Servers Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "Ollama Releases: 请求失败（重试 3 次后仍失败）：fetch failed",
-        "OpenAI News: 导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+        "Ollama Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+        "OpenAI News: 导入 3 条新候选；跳过 1 条重复或已存在的候选。",
         "Qwen Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
         "Simon Willison Blog: 导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-        "vLLM Releases: 请求失败（重试 3 次后仍失败）：fetch failed"
+        "vLLM Releases: 导入 0 条新候选；跳过 4 条重复或已存在的候选。"
       ],
       "sourceResults": [
         {
@@ -416,28 +415,28 @@
           "sourceId": "source-google-ai-blog",
           "sourceName": "Google AI Blog",
           "status": "success",
-          "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
-          "candidateCount": 4,
-          "candidatesCreated": 3,
-          "candidatesSkipped": 1
-        },
-        {
-          "sourceId": "source-google-deepmind-blog",
-          "sourceName": "Google DeepMind Blog",
-          "status": "success",
           "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
           "candidateCount": 4,
           "candidatesCreated": 0,
           "candidatesSkipped": 4
+        },
+        {
+          "sourceId": "source-google-deepmind-blog",
+          "sourceName": "Google DeepMind Blog",
+          "status": "failed",
+          "message": "请求失败（重试 3 次后仍失败）：fetch failed",
+          "candidateCount": 0,
+          "candidatesCreated": 0,
+          "candidatesSkipped": 0
         },
         {
           "sourceId": "source-hugging-face-blog",
           "sourceName": "Hugging Face Blog",
           "status": "success",
-          "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+          "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
           "candidateCount": 4,
-          "candidatesCreated": 0,
-          "candidatesSkipped": 4
+          "candidatesCreated": 3,
+          "candidatesSkipped": 1
         },
         {
           "sourceId": "source-mcp-servers-releases",
@@ -451,20 +450,20 @@
         {
           "sourceId": "source-ollama-releases",
           "sourceName": "Ollama Releases",
-          "status": "failed",
-          "message": "请求失败（重试 3 次后仍失败）：fetch failed",
-          "candidateCount": 0,
+          "status": "success",
+          "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+          "candidateCount": 4,
           "candidatesCreated": 0,
-          "candidatesSkipped": 0
+          "candidatesSkipped": 4
         },
         {
           "sourceId": "source-openai-news",
           "sourceName": "OpenAI News",
           "status": "success",
-          "message": "导入 1 条新候选；跳过 3 条重复或已存在的候选。",
+          "message": "导入 3 条新候选；跳过 1 条重复或已存在的候选。",
           "candidateCount": 4,
-          "candidatesCreated": 1,
-          "candidatesSkipped": 3
+          "candidatesCreated": 3,
+          "candidatesSkipped": 1
         },
         {
           "sourceId": "source-qwen-blog",
@@ -487,11 +486,11 @@
         {
           "sourceId": "source-vllm-releases",
           "sourceName": "vLLM Releases",
-          "status": "failed",
-          "message": "请求失败（重试 3 次后仍失败）：fetch failed",
-          "candidateCount": 0,
+          "status": "success",
+          "message": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
+          "candidateCount": 4,
           "candidatesCreated": 0,
-          "candidatesSkipped": 0
+          "candidatesSkipped": 4
         }
       ]
     }
