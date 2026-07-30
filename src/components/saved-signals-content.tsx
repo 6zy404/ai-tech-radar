@@ -60,10 +60,11 @@ export function SavedSignalsContent({
       <div className="saved-signals">
         <div className="dossier-empty-state">
           <strong>你的稍后读还是空的。</strong>
+          {/* The two sentences are one line on purpose: JSX joins wrapped text
+              lines with a space, which lands inside Chinese prose. */}
           <p>
             在<Link href="/technologies">「精选」</Link>
-            里看到想回头细读的信号，点一下「稍后读」，它就会攒到这里。
-            标记只保存在这台设备的浏览器里。
+            里看到想回头细读的信号，点一下「稍后读」，它就会攒到这里。标记只保存在这台设备的浏览器里。
           </p>
         </div>
       </div>
