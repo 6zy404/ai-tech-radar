@@ -7213,7 +7213,6 @@ a.technology-evolution__title {
 }
 
 .skills-library-intro,
-.skills-library-guide,
 .skills-library-groups,
 .skills-library-empty {
   width: min(1040px, calc(100% - 32px));
@@ -7290,14 +7289,6 @@ a.technology-evolution__title {
   line-height: 1.35;
 }
 
-.skills-library-guide {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 24px;
-}
-
-.skills-library-guide article,
 .skill-library-card,
 .skill-detail-section,
 .skill-detail-aside-card {
@@ -7305,23 +7296,6 @@ a.technology-evolution__title {
   border-radius: var(--radius-card);
   background: #ffffff;
   box-shadow: var(--shadow-card);
-}
-
-.skills-library-guide article {
-  padding: 20px;
-}
-
-.skills-library-guide h3 {
-  margin: 8px 0 6px;
-  color: var(--skills-ink);
-  font-size: 1.05rem;
-}
-
-.skills-library-guide p {
-  margin: 0;
-  color: var(--skills-muted);
-  font-size: 0.92rem;
-  line-height: 1.55;
 }
 
 .skills-library-groups {
@@ -7775,14 +7749,12 @@ a.technology-evolution__title {
 }
 
 @media (max-width: 760px) {
-  .skills-library-guide,
   .skills-library-card-grid,
   .skill-detail-aside {
     grid-template-columns: 1fr;
   }
 
   .skills-library-intro,
-  .skills-library-guide,
   .skills-library-groups,
   .skills-library-empty,
   .skill-detail-layout {
@@ -7903,7 +7875,6 @@ a.technology-evolution__title {
 .user-shell .foundation-card,
 .user-shell .digest-technology-card,
 .user-shell .skill-library-card,
-.user-shell .skills-library-guide article,
 .user-shell .user-article-section,
 .user-shell .user-related-section,
 .user-shell .source-reference,
@@ -10097,7 +10068,6 @@ a.tech-graph__node:hover {
   color: var(--dossier-muted);
 }
 
-.dossier .skills-library-guide article,
 .dossier .skill-detail-section,
 .dossier .skill-detail-aside-card {
   background: var(--dossier-surface);
@@ -10106,7 +10076,6 @@ a.tech-graph__node:hover {
   box-shadow: none;
 }
 
-.dossier .skills-library-guide h3,
 .dossier .skill-detail-section h2 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   color: var(--dossier-ink);
