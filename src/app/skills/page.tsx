@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
-import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
@@ -88,23 +87,6 @@ function getRelatedKnowledge(
   return knowledgeItems.filter((knowledge) =>
     skill.relatedKnowledgeIds.includes(knowledge.id)
   );
-}
-
-function getSkillOutcome(skill: SkillItem): string {
-  switch (skill.skillType) {
-    case "engineering":
-      return "帮助你判断一项新的 AI 能力在构建、集成和维护上是否切实可行。";
-    case "analysis":
-      return "帮助你评估证据、失败模式，以及信号是否已经可以测试。";
-    case "product":
-      return "帮助你把技术变化转化为范围明确的产品决策。";
-    case "operations":
-      return "帮助你判断上线、监控、可靠性和运维风险。";
-    case "communication":
-      return "帮助你解释变化，并在团队间协调落地。";
-    default:
-      return "帮助你在更多背景下解读技术信号，少一些猜测。";
-  }
 }
 
 export default function SkillsPage() {
@@ -214,9 +196,6 @@ export default function SkillsPage() {
                         <p className="skill-library-card__summary">
                           {skill.summary}
                         </p>
-                        <DossierCatalogNote label="帮助你判断">
-                          {getSkillOutcome(skill)}
-                        </DossierCatalogNote>
                         <RelationDensity
                           items={[
                             { n: relatedTechnologies.length, label: "技术" },

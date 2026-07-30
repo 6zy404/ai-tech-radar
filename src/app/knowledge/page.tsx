@@ -75,12 +75,15 @@ function getRelatedSkillCount(
 }
 
 function getKnowledgeOutcome(item: KnowledgeItem): string {
+  // The card renders these under a 帮助你理解 label, so they read as its
+  // object. They each used to open with 帮助你… of their own, which printed
+  // 帮助你理解帮助你理解… on the two that matched.
   const categoryOutcomes: Record<KnowledgeCategory, string> = {
-    "machine-learning": "帮助你判断模型行为、评估的局限，以及实际约束。",
-    "software-architecture": "帮助你识别接口边界、系统权衡和集成风险。",
-    data: "帮助你理解检索、时效、可信度和数据流方面的假设。",
-    "product-thinking": "帮助你把技术变化转化为有范围的产品与落地决策。",
-    operations: "帮助你思考评审闭环、可观测性和上线纪律。"
+    "machine-learning": "模型行为、评估的局限，以及实际约束。",
+    "software-architecture": "接口边界、系统权衡和集成风险。",
+    data: "检索、时效、可信度和数据流方面的假设。",
+    "product-thinking": "技术变化如何转化为有范围的产品与落地决策。",
+    operations: "评审闭环、可观测性和上线纪律。"
   };
 
   return categoryOutcomes[item.category];
