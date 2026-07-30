@@ -60,13 +60,48 @@ For per-topic deep dives, see the `docs/` directory.
   **479 differences**, every one of them reflow. Injecting the probe as a
   `<style>` element rather than a CSSOM rule had a milder version of the same
   fault — the new node shifted every element index, inflating 16 real hits to 482. Fix the measurement condition before the number means anything.
-- **Not done this round, stated rather than glossed:** the Browser pane's
-  screenshot tool was unavailable again (the pane is not displayed, so the page
-  composites no frames), so nothing here was verified by looking. Every number
-  above is a measurement, and the last two rounds are precisely the evidence
-  that measurements come back clean while a defect is sitting on the page.
 - Verified: typecheck, lint, format, vitest 188/188, structure read back on
   both pages, no horizontal overflow at any width tested, console clean.
+- **Then the pages were looked at, and every number above had already been
+  green.** The Browser pane's screenshot tool was unavailable again (the pane
+  is not displayed, so the page composites no frames), so this ran through
+  Playwright against the local Chrome, owner-authorized — stated rather than
+  quietly downgraded to DOM checks. 8 full-page captures (both pages ×
+  desktop light / desktop dark / 760px / 390px) plus element-level crops.
+  **Four findings, all confirmed with numbers before anything was changed,
+  all four fixed.**
+- **The previous round's own fix had taken the styling off its intended
+  target.** `/skills` writes its group label as a bare `<p>` and `/knowledge`
+  as `.eyebrow`, so when 76bf8f9 narrowed
+  `.skills-library-section__header p` to `.eyebrow` — correctly, because the
+  knowledge _description_ was picking up the loud styling — the skills label
+  lost it too. Measured: **16px/400 Georgia ink** against the sibling page's
+  **13px/850 stamp mono**, i.e. indistinguishable from body text on one page
+  and a proper eyebrow on the other. The rule was right; one of the two pages
+  was not marked up for it. Both now measure identically, element for element.
+- **A card line that was the section heading, said again.** The skills card
+  note is a function of `skillType` and the sections **are** `skillType`, so
+  every card in a section carried the same sentence — **7 cards / 1 distinct**
+  in 工程落地, 4/1, 3/1 — while restating the section description directly
+  above the grid. Removed. On `/knowledge` the same line is keyed by category
+  against difficulty-based sections, so it genuinely varies (5/4, 12/3) and
+  was kept — but each sentence opened with a 帮助你… of its own under a
+  帮助你理解 label, so two of five printed **帮助你理解帮助你理解…**. Card
+  479 → 405px, page **12% shorter**, stutter 4 → 0.
+- **The panel outlived what it was built to hold.** With the slogan gone the
+  intro block was 48px of content inside 92px of padding and gap — a bordered
+  box around two lines, which is the shape this whole round set out to remove,
+  one level down. It is the page's lede now, on the page ground. **Three
+  separate rules were painting that surface** (the base rule, a `.dossier`
+  override with higher specificity, and the typography pass's shared "hero /
+  large intro panels" padding), so the first two edits changed nothing
+  visible — a surface can be drawn from more than one place.
+- **None of the four is visible to a detector, and none was visible in the
+  measurements.** A label styled as body text, a sentence repeated seven
+  times, a stutter across a label boundary, and a box with correct padding
+  around too little content all have perfectly normal DOM and passing
+  contrast. Re-verified after: typecheck, lint, format, vitest 188/188, dark
+  mode 6.02–6.29 across the changed text roles, zero overflow at four widths.
 
 ## Editorial round — the source we had been writing off
 
