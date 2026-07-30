@@ -78,7 +78,9 @@ Purpose:
 
 The page top of a list page is a **label, not a panel** (2026-07-30): an
 eyebrow and a title over a hairline rule, sitting on the page ground, with the
-title on the same left edge as the first content block below it. This is
+title on the same left edge as the first content block below it — at **every**
+width, including below 760px, where the header and its content used to resolve
+to two different width expressions and the title sat 4px outside the first card. This is
 deliberately _not_ the treatment the detail pages and the home page use — their
 hero keeps its paper panel because it holds the article's source, publisher
 type, priority copy and digest counts, which is content. A list header's only
@@ -479,6 +481,12 @@ Workspace deployment boundary:
   - excludes internal workflow fields
 - `/skills`
   - user-facing skill index
+  - the page top carries exactly three things before the cards: the header
+    label (eyebrow + title + one-line description), one sentence saying how to
+    use the page, and the stats row. A slogan restating the header description
+    sat between them until 2026-07-30 — see `CHANGELOG.md` → "Closing out the
+    page-top round" for the rule that removed it. `/knowledge` is built the
+    same way and shares its CSS
   - presents skills as practical abilities for evaluating new AI technology signals
   - shows skill type, heat, learning cost, related published technology examples, and public tags
   - does not show internal quality, reviewer, delivery, or source data

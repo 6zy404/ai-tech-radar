@@ -12,6 +12,62 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Closing out the page-top round — three leftovers, four commits
+
+- **All three items the previous round left open are done** — 2026-07-30,
+  owner-selected. Two were mechanical; the third was a judgment call about
+  which sentence to delete, so it went to the owner as a four-way comparison
+  before any code changed.
+- **The 4px offset is a 760px problem, not the ≤640px the last round wrote
+  down.** Two rules set the list header's width on `/skills` and `/knowledge`.
+  The wide one pairs the header with the content blocks at
+  `min(1040px, 100% - 32px)`; the 760px one re-narrows everything to
+  `min(100% - 24px, 1040px)` and **listed the content blocks only**. Eight
+  pixels of extra width, halved by the auto inline margin, is the 4px — so the
+  title sat outside the first card it is supposed to line up with on every
+  viewport under 760px, not just the narrow end where it was noticed. The
+  header selectors now sit in both lists. Measured at 760 / 560 / 390 / 320px:
+  offset **4 → 0**, width gap **8 → 0**; above the breakpoint nothing moved,
+  which is the point.
+- **The sentence that restated the page title is gone.** Each page opened with
+  four pieces of prose before the first card — title, header description,
+  slogan, usage sentence — and the slogan said what the description had just
+  said (`用这些实用技能判断…` against `技能把技术信号连接到可落地的评估`, and
+  the same pairing on `/knowledge`). That is exactly the rule the previous
+  round wrote: copy that restates the title is decoration, copy carrying a
+  number or a state is information. The slogan and its label go; the header
+  description, the usage sentence and the stats row stay. The paragraph's
+  browser-default margin went with it — it existed to clear the heading above
+  it and would have left 32px of space around a single line. First card moves
+  up **99px** on `/skills` (762 → 663) and **95px** on `/knowledge` (751 →
+  656). Dark mode re-measured at 5.42 / 6.29, both above AA.
+- **Measuring it turned up a fourth instance of the same inversion.** The two
+  sibling pages wrote that label differently — **16px/800** on `/skills`
+  against **13px/700** on `/knowledge` — so the skills one was heavier than the
+  22px/700 heading it introduced. Same shape as the three shipped before it,
+  resolved here by the label no longer existing.
+- **Both dead-CSS batches shipped as their own commits, verified by diff.** The
+  `.skills-library-guide` rules left over from the deleted 阅读路径 cards (four
+  whole rules, five selectors dropped from grouped rules), and then the rules
+  the slogan deletion left behind. Computed values for 40 properties plus the
+  bounding box, every element on `/skills`, `/knowledge` and a skill detail
+  page — **1746 elements, zero differences** on the first batch, zero on the
+  second. Proven both ways each time: a probe rule injected through CSSOM was
+  detected and left zero residual, and with the cleanup stashed the removed
+  rules were confirmed back in the loaded stylesheets.
+- **The harness lied once, and the reason is worth keeping.** An unpinned
+  viewport drifted **1265px → 1264.8px** between captures and the diff reported
+  **479 differences**, every one of them reflow. Injecting the probe as a
+  `<style>` element rather than a CSSOM rule had a milder version of the same
+  fault — the new node shifted every element index, inflating 16 real hits to 482. Fix the measurement condition before the number means anything.
+- **Not done this round, stated rather than glossed:** the Browser pane's
+  screenshot tool was unavailable again (the pane is not displayed, so the page
+  composites no frames), so nothing here was verified by looking. Every number
+  above is a measurement, and the last two rounds are precisely the evidence
+  that measurements come back clean while a defect is sitting on the page.
+- Verified: typecheck, lint, format, vitest 188/188, structure read back on
+  both pages, no horizontal overflow at any width tested, console clean.
+
 ## Editorial round — the source we had been writing off
 
 - **Two signals published, three rejected, five reviewed** — 2026-07-30, over
