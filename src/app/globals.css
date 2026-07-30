@@ -7754,6 +7754,12 @@ a.technology-evolution__title {
     grid-template-columns: 1fr;
   }
 
+  /* The header has to narrow with the content, not just alongside it. The
+     wide rule pairs them at `100% - 32px`; this one used to list the content
+     blocks only, so below 760px the header stayed 8px wider and its title
+     sat 4px outside the first card it is supposed to line up with. */
+  .skills-library-page .page-header,
+  .skills-library-page .user-page-header,
   .skills-library-intro,
   .skills-library-groups,
   .skills-library-empty,
