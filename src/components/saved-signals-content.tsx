@@ -72,15 +72,20 @@ export function SavedSignalsContent({
 
   return (
     <div className="saved-signals">
-      <p className="saved-signals__lede">
-        已攒下 {savedTechnologies.length} 条信号，最近保存的排在前面。
-      </p>
+      {/* Same reason as the curated view's toolbar: the read filter shares an
+          always-present row instead of owning one, so marking the first signal
+          read does not push the list down. */}
+      <div className="saved-signals__toolbar">
+        <p className="saved-signals__lede">
+          已攒下 {savedTechnologies.length} 条信号，最近保存的排在前面。
+        </p>
 
-      <ReadFilterToggle
-        readCount={readCount}
-        hideRead={hideRead}
-        onToggle={() => setHideRead((current) => !current)}
-      />
+        <ReadFilterToggle
+          readCount={readCount}
+          hideRead={hideRead}
+          onToggle={() => setHideRead((current) => !current)}
+        />
+      </div>
 
       <div className="dossier-technology-list">
         {shownTechnologies.map((item) => (
