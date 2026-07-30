@@ -7219,19 +7219,20 @@ a.technology-evolution__title {
   margin-inline: auto;
 }
 
+/* Once the slogan came out this held one sentence and one row of counts —
+   48px of content inside 92px of padding and gap. A panel earns its border
+   by holding something; this is the page's lede line, so it sits on the page
+   ground like the header above it, per "a list page top is a label, not a
+   panel". */
 .skills-library-intro {
   display: grid;
-  gap: clamp(20px, 3vw, 32px);
-  margin-top: 28px;
-  padding: clamp(22px, 3.5vw, 30px);
-  border: 1px solid rgba(8, 127, 115, 0.24);
-  border-radius: var(--radius-page);
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    rgba(217, 243, 239, 0.66) 100%
-  );
-  box-shadow: var(--shadow-soft);
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
 .skill-detail-kicker {
@@ -7902,7 +7903,6 @@ a.technology-evolution__title {
 .user-shell .product-home-hero,
 .user-shell .user-article-hero,
 .user-shell .daily-digest-brief-header,
-.user-shell .skills-library-intro,
 .user-shell .skill-detail-hero {
   padding: var(--space-panel);
 }
@@ -10032,7 +10032,9 @@ a.tech-graph__node:hover {
   font-family: ui-monospace, monospace;
 }
 
-.dossier .skills-library-intro,
+/* .skills-library-intro is deliberately not here: it is a list page's lede
+   line and sits on the page ground. A detail-page hero holds the record's own
+   material, so it keeps its panel. */
 .dossier .skill-detail-hero {
   background: var(--dossier-surface);
   border: 1px solid var(--dossier-line);
