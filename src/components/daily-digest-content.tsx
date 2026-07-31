@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TagList } from "@/components/tag-list";
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { compactText } from "@/lib/compact-text";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
 import type { PublicDigestView } from "@/lib/digest-view";
@@ -97,27 +98,6 @@ function getAudienceLine(audience: string[]): string | undefined {
   }
 
   return `适合 ${visibleAudience.join("、")}`;
-}
-
-/**
- * Renders a digest title with any `YYYY-MM-DD` run kept on one line.
- *
- * The title text is not modified — only its line-breaking. A hyphen is a
- * legal break opportunity, so `每日技术简报 - 2026-07-28` was breaking as
- * `…2026-07-` / `28` once the heading wrapped. Public hero headings are pinned
- * to `--fs-display` with `!important`, so shrinking the type for this one page
- * would break the shared typography scale instead.
- */
-function renderTitleWithUnbreakableDates(title: string): ReactNode[] {
-  return title.split(/(\d{4}-\d{2}-\d{2})/).map((part, index) =>
-    /^\d{4}-\d{2}-\d{2}$/.test(part) ? (
-      <span key={index} className="nowrap-run">
-        {part}
-      </span>
-    ) : (
-      part
-    )
-  );
 }
 
 function getDigestSourceReferences(
@@ -458,7 +438,9 @@ export function DailyDigestContent({
       <section className="user-article-hero daily-digest-brief-header">
         <div className="user-article-hero__copy daily-digest-brief-header__copy">
           <p className="eyebrow user-eyebrow">每日简报 · 第 {digest.date} 号</p>
-          <h1>{renderTitleWithUnbreakableDates(publicTitle)}</h1>
+          <h1>
+            <UnbreakableTitle text={publicTitle} />
+          </h1>
           <div className="daily-digest-meta-strip" aria-label="简报摘要">
             <span>{highPriorityTechnologies.length} 条立即关注</span>
             <span>{watchTechnologies.length} 条值得跟踪</span>

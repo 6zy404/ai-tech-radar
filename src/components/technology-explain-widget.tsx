@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import type {
   TechnologyExplanationAudienceLevel,
   TechnologyExplanationFields,
@@ -69,7 +70,9 @@ export function TechnologyExplainWidget({
   return (
     <section className="user-article-section technology-detail-section technology-compare-widget technology-explain-widget">
       <p className="technology-detail-section__eyebrow">按你的水平解读</p>
-      <h2>让 AI 按你的水平解读这个信号</h2>
+      <h2>
+        <UnbreakableTitle text="让 AI 按你的水平解读这个信号" />
+      </h2>
       <p className="technology-detail-section__lede">
         选择你的经验水平，AI 会现场生成一份为这个水平定制的解读。
       </p>
