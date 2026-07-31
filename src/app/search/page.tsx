@@ -185,14 +185,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             </Link>
           </div>
         )
-      ) : (
-        <div className="empty-state">
-          <strong>输入关键词开始搜索。</strong>
-          <p>
-            搜索会覆盖已发布的技术信号、技能、知识，以及最近的自动聚合快讯。
-          </p>
-        </div>
-      )}
+      ) : null}
     </UserPageShell>
   );
 }

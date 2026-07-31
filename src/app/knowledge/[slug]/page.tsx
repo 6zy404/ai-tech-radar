@@ -83,22 +83,6 @@ function getRelatedSkills(
   return skills.filter((skill) => knowledge.relatedSkillIds.includes(skill.id));
 }
 
-function getConceptMatter(category: KnowledgeCategory): string {
-  const categoryCopy: Record<KnowledgeCategory, string> = {
-    "machine-learning":
-      "在判断新的 AI 信号之前，这个概念帮助读者区分模型行为、评估局限和实际约束。",
-    "software-architecture":
-      "这个概念帮助读者看清新工具或平台变化背后的接口边界与系统权衡。",
-    data: "这个概念帮助读者理解检索、时效、可信度和数据流动如何塑造 AI 产品质量。",
-    "product-thinking":
-      "这个概念帮助读者把技术变化转化为落地选择、范围决策和产品风险。",
-    operations:
-      "这个概念帮助读者理解当 AI 系统触达真实用户时的评审闭环、故障可见性和上线纪律。"
-  };
-
-  return categoryCopy[category];
-}
-
 export function generateStaticParams() {
   return getAllKnowledge().map((item) => ({ slug: item.slug }));
 }
@@ -181,11 +165,6 @@ export default async function KnowledgeDetailPage({
                 <ContentBody body={knowledge.content} />
               </section>
             ) : null}
-
-            <section className="skill-detail-section">
-              <h2>这个概念为何重要</h2>
-              <p>{getConceptMatter(knowledge.category)}</p>
-            </section>
 
             <RelationshipGraph
               centerTitle={knowledge.title}

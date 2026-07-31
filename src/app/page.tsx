@@ -264,9 +264,9 @@ export default function HomePage() {
             <p className="eyebrow user-eyebrow">优先技术信号</p>
             <h2>现在最值得关注</h2>
           </div>
-          <p>
-            这些已发布条目结合来源、优先级和解释字段，帮助读者快速判断下一步该看什么。
-          </p>
+          <Link href="/technologies" className="action-link">
+            查看全部信号
+          </Link>
         </div>
         {prioritySignals.length > 0 ? (
           <div className="home-signal-grid">
