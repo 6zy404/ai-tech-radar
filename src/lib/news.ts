@@ -2,6 +2,7 @@ import {
   getDuplicateGroups,
   getImportedCandidates
 } from "@/lib/candidate-workflow";
+import { compactText } from "@/lib/compact-text";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
 import { getTodayDateString } from "@/lib/digest-store";
 import type { DuplicateGroup, ImportedCandidate } from "@/types/content";
@@ -94,11 +95,7 @@ function truncateSummary(value: string | undefined): string | undefined {
     return undefined;
   }
 
-  if (trimmed.length <= maxSummaryLength) {
-    return trimmed;
-  }
-
-  return `${trimmed.slice(0, maxSummaryLength).trimEnd()}…`;
+  return compactText(trimmed, maxSummaryLength);
 }
 
 function getPublicTagNames(tags: string[]): string[] {

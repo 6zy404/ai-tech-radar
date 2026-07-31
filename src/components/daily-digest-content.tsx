@@ -7,6 +7,7 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TagList } from "@/components/tag-list";
+import { compactText } from "@/lib/compact-text";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
 import type { PublicDigestView } from "@/lib/digest-view";
 import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
@@ -86,16 +87,6 @@ function getTechnologyTags(
   return technology.tags
     .map((tagId) => tags.find((tag) => tag.id === tagId))
     .filter((tag): tag is TopicTag => Boolean(tag));
-}
-
-function compactText(value: string, maxLength: number): string {
-  const trimmed = value.trim();
-
-  if (trimmed.length <= maxLength) {
-    return trimmed;
-  }
-
-  return `${trimmed.slice(0, maxLength - 3).trimEnd()}...`;
 }
 
 function getAudienceLine(audience: string[]): string | undefined {
@@ -202,7 +193,8 @@ function DigestTechnologyCard({
   );
   const whyItMatters = compactText(
     intelligence.whyItMatters ?? priorityReasonCopy[ranking.priorityLevel],
-    compact ? 130 : 180
+    compact ? 130 : 180,
+    "..."
   );
   const audienceLine = getAudienceLine(intelligence.audience);
   const difficulty = technology.readingDifficulty
@@ -236,7 +228,7 @@ function DigestTechnologyCard({
           <Link href={`/technologies/${technology.slug}`}>{title}</Link>
         </h3>
         <p className="digest-technology-card__summary">
-          {compactText(summary, compact ? 140 : 190)}
+          {compactText(summary, compact ? 140 : 190, "...")}
         </p>
         <DossierCatalogNote label="为什么重要">
           {whyItMatters}
