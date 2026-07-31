@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Narrow-screen sweep — the widths nothing had ever been checked at
+
+- **390px and 768px got their first visual pass** — 2026-08-01,
+  owner-selected. The horizontal-overflow detector was proven to fire
+  (**216 hits with a wide element injected**) and then returned **zero across
+  18 reader routes at both widths** — nothing is painted off-screen. All three
+  findings came from looking; two of them were then written as detectors that
+  can be re-run.
+- **A rail drawn once across a strip assumes the strip never wraps.** The five
+  view tabs wrap to two rows at 390px, and the rail lives on the strip's bottom
+  edge — so the selected tab sat on row one with its rail **40px** below it
+  (768px and 1440px: 0). The rail is per tab now, so every row carries its own
+  by construction; measured 0 at 390 / 640 / 768 / 1440. Stated rather than
+  buried: the rail used to span the full 978px content width and now ends where
+  the tabs end.
+- **A tool built for two headings was doing the work of two headings.** The
+  Chinese word segmentation written on 2026-07-29 was wired to the home hero
+  and the technology detail hero and nowhere else, so **51 headings broke
+  mid-word** across 13 routes × 3 widths — 每日技|术简报 on the digest hero,
+  衡|量语音 and 更|好的工具 and 远|程 MCP on the signal cards, 模型部|署与硬件 on
+  a skill page. Simulating the segmentation on every public heading **before
+  writing any code** returned 51 → 1, which is what justified doing it at the
+  component level rather than case by case; wiring it for real returned
+  **51 → 0**. The digest's local date-only helper is deleted with it — the
+  shared one already keeps `YYYY-MM-DD` together, so it is a strict superset.
+- **Verified at 390 / 768 / 1440 across 16 routes**: all 200, zero horizontal
+  overflow, and **zero console and page errors** — that last one matters
+  because the digest is a client component, so the segmentation now runs on
+  both sides of hydration. Plus typecheck, lint, format, vitest 198/198.
+- **Left unfixed, and it is the largest number of the round**: `--fs-display`
+  is still 44px at 390px, so the technology detail page's title takes **6 lines
+  / 330px** — more than a third of an 844px viewport is one heading. Changing
+  it moves every public hero, so the scale step is the owner's call.
+- **One process note worth keeping: the detector was right and the reading of
+  it was wrong.** Its first run was piped through `tail -40`, which cut the
+  head of the output; the digest hero was missing from what remained, so it was
+  briefly diagnosed as a detector blind spot and a script was written to find
+  out why. There was nothing to find. The sweeps keep recording tools that fail
+  before the code does — this is the same failure one step later, in the
+  reading rather than the instrument.
+
 ## Looking at the five pages the sweeps never opened
 
 - **The five reader pages that had never been screenshotted got their pass** —
