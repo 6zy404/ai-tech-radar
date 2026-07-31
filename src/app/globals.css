@@ -10235,8 +10235,14 @@ a.tech-graph__node:hover {
   letter-spacing: 0;
 }
 
-.dossier .daily-digest-summary-panel p,
-.dossier .daily-digest-section__header p {
+/* The section's own description paragraph — the one with no class of its own.
+   Unqualified, this also matched the `.eyebrow` sitting in the same container
+   and outranked the eyebrow's own rule, so 今日概览 rendered muted system-ui
+   while every other eyebrow on the site is stamp mono. Only the summary panel
+   holds a classed paragraph today; the header selector is qualified with it so
+   the pair states what it is for. */
+.dossier .daily-digest-summary-panel p:not([class]),
+.dossier .daily-digest-section__header p:not([class]) {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
@@ -10318,8 +10324,10 @@ a.tech-graph__node:hover {
   letter-spacing: 0;
 }
 
-.dossier .my-radar__manager-copy p,
-.dossier .my-radar__group-header p {
+/* Same shape as the digest summary panel above: this is the block's own lede,
+   not the `.eyebrow` that shares the container. */
+.dossier .my-radar__manager-copy p:not([class]),
+.dossier .my-radar__group-header p:not([class]) {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
@@ -10393,7 +10401,10 @@ a.tech-graph__node:hover {
   letter-spacing: 0;
 }
 
-.dossier .section-heading p {
+/* The section header's own description, not the `.eyebrow` above the title —
+   five of the home page's six eyebrows were rendering as body copy because of
+   this. */
+.dossier .section-heading p:not([class]) {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
