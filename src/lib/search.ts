@@ -4,6 +4,7 @@ import {
   getAllTags,
   getAllTechnologies
 } from "@/lib/content";
+import { compactText } from "@/lib/compact-text";
 import { getPublicNewsItems, type PublicNewsItem } from "@/lib/news";
 import {
   getPreferredTechnologySummary,
@@ -68,11 +69,7 @@ function truncateSummary(value: string | undefined): string | undefined {
     return undefined;
   }
 
-  if (trimmed.length <= maxSummaryLength) {
-    return trimmed;
-  }
-
-  return `${trimmed.slice(0, maxSummaryLength).trimEnd()}…`;
+  return compactText(trimmed, maxSummaryLength);
 }
 
 function getTagDisplayNames(tagIds: string[]): string[] {
