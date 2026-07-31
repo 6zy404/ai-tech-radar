@@ -140,7 +140,19 @@ function getDigestSourceReferences(
           ];
 
     for (const reference of technologyReferences) {
-      const key = reference.sourceUrl || reference.sourceName;
+      // Keyed by the organisation the card is about, not by the article URL.
+      // Keyed by URL, two signals from the same publisher on the same day
+      // produced two cards that were identical character for character.
+      const key = reference.publisherName || reference.sourceName;
+      const existing = references.get(key);
+
+      if (
+        existing &&
+        (existing.publishDate ?? "") >= (reference.publishDate ?? "")
+      ) {
+        continue;
+      }
+
       references.set(key, {
         id: key,
         ...reference
@@ -335,9 +347,15 @@ function DigestSourceReferences({
         <div className="digest-source-list">
           {references.map((reference) => (
             <DossierCard key={reference.id} className="digest-source-chip">
-              <h3>{reference.sourceName}</h3>
+              {/* The publisher leads: the feed name repeated across four cards
+                  while the organisation that distinguished them sat in the
+                  subtitle. */}
+              <h3>{reference.publisherName || reference.sourceName}</h3>
               <p>
-                {[reference.publisherName, reference.publishDate]
+                {[
+                  reference.publisherName ? reference.sourceName : undefined,
+                  reference.publishDate
+                ]
                   .filter(Boolean)
                   .join(" - ") || "公开来源"}
               </p>
