@@ -12,6 +12,88 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Looking at the five pages the sweeps never opened
+
+- **The five reader pages that had never been screenshotted got their pass** —
+  2026-08-01, owner-selected: home, the technology list, the digest, the
+  relationship network, and search, at 1440px in both colour schemes. The
+  Browser pane's screenshot tool was unavailable again (the pane is not
+  displayed, so the page composites no frames), so this ran through Playwright
+  against the local Chrome, owner-authorized — stated rather than quietly
+  downgraded to DOM checks. **Seven findings, every one confirmed with a number
+  before anything changed; three more were withdrawn when the number disagreed.**
+  The owner picked the three defects; the four copy findings were left for them
+  to decide separately.
+- **The bug the 07-30 sweep fixed four times was still live in three more
+  places, and the detector could not see it.** A rule written for a container's
+  own description paragraph also matches the `.eyebrow` in that container and
+  outranks the eyebrow's rule — `.dossier .section-heading p` (0,2,1),
+  `.dossier .daily-digest-summary-panel p` and
+  `.dossier .my-radar__manager-copy p` all beating `.dossier .eyebrow` (0,2,0).
+  Five of the home page's six eyebrows, 今日概览 on the digest and 关注话题 on
+  the followed view rendered as muted system-ui body copy while the other 28
+  eyebrows on the site rendered stamp mono. **Off-style eyebrows 7 → 0** across
+  18 routes; descriptions unchanged; changed elements 6.15–7.08 light and
+  5.19–6.02 dark.
+- **Why the sweep missed it is the entry.** The detector asks whether a class
+  resolves to the same value on every page, sampling **one element per class per
+  page**. The home page's first eyebrow in DOM order is the hero's, which is
+  correct — so the home page agreed with the other 15 routes and the class
+  reported one answer. The divergence was **inside a single page**, which that
+  question cannot ask. A detector encodes the shape of a defect you have already
+  met, including the shape of the comparison you made when you met it.
+- **A tab strip was adding a gap the page already provided.** `.user-shell` is a
+  grid with a 30px row gap; the view tab strip carried its own 18px margin on
+  top, so the content sat 48px below the tabs while every other block pair on
+  that page — and on `/search` and `/network` — sat at 30. All five views now
+  read 30/30. **What was not fixed, because it is a design call rather than a
+  defect:** the strip's rail is `1px solid var(--dossier-line)` =
+  rgb(201,197,178) and the page ground's grid pattern is drawn with 1px
+  rgb(201,197,178) lines at a 44px pitch — the same colour and weight, so the
+  rail is indistinguishable from the background it lies on and the active tab
+  reads as sitting on an arbitrary grid line. The obvious alternative was
+  measured and rejected: the five views' first blocks are a filled panel, an
+  outlined notice, a bare container, a filled panel and an empty state, so
+  attaching the tab to the content would land correctly on two and wrong on
+  three.
+- **Three byte-identical copies of one helper were cutting summaries inside a
+  word.** The digest cards, the news fast lane and the search page each sliced
+  at a raw character index — fine often enough in English, and in Chinese, which
+  has no spaces, it lands wherever the count runs out: the digest shipped
+  `…文本分类，这些任...` with 任务 split in half, search shipped
+  `…llama.cpp、Uns…`. New `src/lib/compact-text.ts` backs the cut off to the last
+  clause boundary, then to the last word boundary `Intl.Segmenter` reports (the
+  same mechanism `cjk-line-break.ts` uses), then to the raw index, and only takes
+  a boundary that keeps 60% of the budget. Measuring the result turned up the
+  same defect one level down — a latin `.` between two digits is a decimal point,
+  and cutting there turned `Apache 2.0` into `Apache 2`. **All 12 truncated
+  endings on the three public surfaces now land on a boundary; zero mid-word
+  cuts.** Three further raw truncations were checked and left alone: two render
+  only in the workspace, and the third caps the stored candidate summary at 260
+  characters before the public 220-character cut, so its edge never reaches a
+  reader.
+- **Two of the round's own tests passed either way and were rewritten.** The
+  clause-boundary and dangling-separator tests asserted what the output must
+  _not_ contain, and the raw cut happened not to produce those strings — so both
+  passed with the boundary logic disabled. Rewritten against exact expected
+  strings, the injection now fails 3 of 10. Same shape as the sweeps before it:
+  verify the instrument before believing the reading.
+- **Three claims were withdrawn after measuring, all read off downscaled
+  full-page captures**: a 7px offset between the title and the content on
+  `/network` (every block on all five pages measures 231..1209), uneven heights
+  in the home page's three priority cards (all three are 862px with the same
+  top), and unaligned first cards in the home page's skills and knowledge
+  columns (both at 2397 — the 07-29 fix is intact).
+- Verified: typecheck, lint, format, vitest **198/198** (10 new), zero
+  horizontal overflow on every page and view touched, both colour schemes.
+- **Left for the owner**: four copy findings from the same screening — the
+  search page says the same thing three times before the first query, the
+  network page's operating instructions are written twice, the home page's
+  priority section carries an explanation of how the site works where its three
+  sibling sections carry a link, and the digest's 来源参考 renders 6 cards with
+  2 distinct titles of which one pair is byte-identical, with the distinguishing
+  publisher demoted to the subtitle.
+
 ## Site-wide sweep — four shared components that changed shape per page
 
 - **A detector was written for the defect the day had already produced three
