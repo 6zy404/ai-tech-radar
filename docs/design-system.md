@@ -1226,6 +1226,33 @@ container's border box against its own child, and every digest block including
 the hero in fact sits at 272/896. Eyeballing a screenshot generates a
 hypothesis; it does not close one.
 
+### The cross-page detector samples one element per class (2026-08-01)
+
+The 2026-07-30 sweep's detector asks: **does this class resolve to the same
+computed style on every page?** It answers that by visiting each route and
+recording, per class, the style it finds — one element per class per page. That
+question found four shared components being repainted by their surroundings, and
+it structurally cannot find a fifth kind, which the 08-01 look then found by
+eye:
+
+`.eyebrow` on the home page had **two answers at once**. The hero's eyebrow
+rendered correctly in stamp mono; the five section eyebrows below it rendered
+muted system-ui, because `.dossier .section-heading p` (0,2,1) — written for the
+section's own classless description paragraph — also matched them and outranked
+`.dossier .eyebrow` (0,2,0). The detector sampled the home page's first eyebrow
+in DOM order, which is the hero's and is correct, so the home page **agreed**
+with the other 15 routes and the class reported a single answer. Seven eyebrows
+across three routes were wrong and the sweep came back clean.
+
+The divergence was inside one page, and "is this class the same across pages" is
+not a question that can see it. A detector that samples every element per class
+and compares within the page as well would catch this family; until one exists,
+treat a clean cross-page result as evidence about pages, not about elements.
+
+Same lesson as the sweep that preceded it, one turn of the screw further: a
+detector encodes the shape of a defect you have already met, **including the
+shape of the comparison you made when you met it**.
+
 ### A full-page screenshot flattens sticky positioning (2026-07-29, second sweep)
 
 The sweep reported that the aside on all three aside-bearing detail pages "runs
