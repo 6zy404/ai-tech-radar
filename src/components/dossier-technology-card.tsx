@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import {
   getReadingDifficultyLabel,
   getTechnologyAudience,
@@ -93,7 +94,9 @@ export function DossierTechnologyCard({
       </div>
 
       <h2 className="dossier-technology-card__title">
-        <Link href={`/technologies/${technology.slug}`}>{title}</Link>
+        <Link href={`/technologies/${technology.slug}`}>
+          <UnbreakableTitle text={title} />
+        </Link>
       </h2>
       <p className="dossier-technology-card__summary">{summary}</p>
 

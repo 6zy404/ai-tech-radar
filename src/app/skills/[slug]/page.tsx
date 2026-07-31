@@ -12,6 +12,7 @@ import {
 import { FollowableTagList } from "@/components/followable-tag-list";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import {
   findRelationBetween,
   getAllKnowledge,
@@ -153,7 +154,9 @@ export default async function SkillDetailPage({
           <p className="skill-detail-kicker">
             {skillTypeLabels[skill.skillType]}
           </p>
-          <h1>{skill.title}</h1>
+          <h1>
+            <UnbreakableTitle text={skill.title} />
+          </h1>
           <p>{skill.summary}</p>
           <div className="skill-detail-hero__meta">
             <DossierStampTag>{heatLabels[skill.heatLevel]}</DossierStampTag>

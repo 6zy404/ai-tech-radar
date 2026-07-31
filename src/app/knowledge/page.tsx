@@ -5,6 +5,7 @@ import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
+import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   getAllKnowledge,
@@ -194,7 +195,7 @@ export default function KnowledgePage() {
                         </div>
                         <h2>
                           <Link href={`/knowledge/${item.slug}`}>
-                            {item.title}
+                            <UnbreakableTitle text={item.title} />
                           </Link>
                         </h2>
                         <p>{item.summary}</p>
