@@ -86,13 +86,43 @@ For per-topic deep dives, see the `docs/` directory.
   columns (both at 2397 — the 07-29 fix is intact).
 - Verified: typecheck, lint, format, vitest **198/198** (10 new), zero
   horizontal overflow on every page and view touched, both colour schemes.
-- **Left for the owner**: four copy findings from the same screening — the
-  search page says the same thing three times before the first query, the
-  network page's operating instructions are written twice, the home page's
-  priority section carries an explanation of how the site works where its three
-  sibling sections carry a link, and the digest's 来源参考 renders 6 cards with
-  2 distinct titles of which one pair is byte-identical, with the distinguishing
-  publisher demoted to the subtitle.
+- **Then the owner took all five copy findings, and they shipped the same
+  day.** Each went to them as a current-vs-proposed comparison first; deleting
+  reader-facing copy is their call, not a judgment to make while measuring.
+  - **The search page held four sentences before the first query and three of
+    them were the same sentence** — the placeholder said 「输入关键词，如：…」,
+    the empty-state heading said 「输入关键词开始搜索。」, and the empty-state
+    body restated the page description almost word for word. The empty state is
+    gone; content block **389 → 309px**.
+  - **The network page explained its own controls twice**, once under the title
+    and once in the legend panel — both saying click a node for its
+    connections, drag to rearrange, search. The description keeps what only it
+    can say; the instructions stay next to the controls. 1223 → 1199px.
+  - **The home page's priority section was the only one of four with no way out
+    of it**, and the slot where its three siblings carry a link (打开简报 /
+    查看全部快讯 / 查看技能) held an explanation of how the site works instead.
+    It carries 查看全部信号 now — the sentence goes and the missing exit
+    arrives.
+  - **「这个概念为何重要」 followed 「为什么需要这项技能」 out.** A whole section
+    over one sentence keyed by category: **18 knowledge pages rendered 5
+    distinct sentences, two of them covering 6 pages each**, and none said
+    anything about the concept the reader had opened. Pages measure 123–147px
+    shorter. This closes the batch the 07-30 round deliberately left one item
+    short of, and it closed the right way — the owner chose it, rather than
+    symmetry with its sibling page deciding it.
+  - **The digest's source cards named the feed, not the organisation.** Four
+    cards all titled "Hugging Face Blog" while what told them apart — Hugging
+    Face, Liquid AI, NVIDIA, Ai2 — sat in the small grey line below, and two
+    OpenAI cards were identical character for character because the references
+    were keyed by article URL rather than by publisher. Across all 11 published
+    digests: **cards 40 → 36, identical duplicates 2 → 0, distinct card titles
+    27 → 36** — every card in every digest is now distinct from its neighbours,
+    and all 36 still carry both a publisher and a feed name.
+  - Verified per change: typecheck, lint, format, vitest 198/198,
+    `validate:digest`, every touched route at 200 with the removed strings
+    absent, zero horizontal overflow, zero console errors, both colour schemes.
+    Every class the deleted markup used is still referenced elsewhere, so no
+    dead-CSS sweep follows this one.
 
 ## Site-wide sweep — four shared components that changed shape per page
 

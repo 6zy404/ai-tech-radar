@@ -512,6 +512,11 @@ Workspace deployment boundary:
   - user-facing knowledge detail
   - explains why the concept is foundational, with the body rendered through
     the shared `ContentBody` component
+  - like its skill sibling, every section is about this concept. The last
+    template section, 「这个概念为何重要」 — a whole heading over one sentence
+    keyed by category, so 18 pages rendered 5 sentences with two of them
+    covering 6 pages each — was removed on 2026-08-01, closing out the batch
+    that took 如何继续学习 on 07-30
   - links to published technology signals explained by the concept
   - links to skills that use the concept
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
@@ -548,7 +553,10 @@ Workspace deployment boundary:
     content type with counts
   - news results reuse the `src/lib/news.ts` public mapping (`PublicNewsItem`)
     and the news group always carries the fixed 自动聚合 disclaimer
-  - guided empty states for "no query yet" and "no matches"
+  - a guided empty state for "no matches". Before the first query the page is
+    the header, the description and the search box — the "no query yet" empty
+    state was removed on 2026-08-01 because its heading repeated the input's
+    placeholder and its body repeated the page description
   - does not show internal quality, reviewer, delivery, or source data
 - `/topics/[tagId]`
   - user-facing topic hub: a drill-down destination, not a global nav entry
