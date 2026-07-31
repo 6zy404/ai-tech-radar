@@ -8,7 +8,7 @@ export default function NetworkPage() {
   return (
     <UserPageShell
       title="关系网络总览"
-      description="一次看清全部已发布技术、技能和背景知识之间的连接，点击任意节点探索它的邻域，也可以搜索、按类型筛选或拖动节点重新摆放。"
+      description="一次看清全部已发布技术、技能和背景知识之间的连接。"
       sectionLabel="关系网络"
       className="network-page dossier"
     >
