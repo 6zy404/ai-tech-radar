@@ -9318,19 +9318,21 @@ a.tech-graph__node:hover {
 /* No margin of its own: `.user-shell` is a grid with a 30px row gap, so an
    extra 18px here put the content 48px below the tabs while every other pair
    of blocks on the page sits at 30. */
+/* The rail is drawn per tab, not once across the strip. Drawn on the strip it
+   sits at the strip's bottom edge, so as soon as the tabs wrap — five of them
+   do at 390px — the selected tab is left on the first row with its rail 40px
+   below it. Per tab, every row carries its own rail by construction. `gap: 0`
+   is what keeps that rail continuous; the spacing moves into the padding. */
 .technology-view-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  border-bottom: 1px solid var(--dossier-line);
 }
 
 .technology-view-tab {
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: 1px solid transparent;
-  border-bottom: none;
+  border-bottom-color: var(--dossier-line);
   border-radius: 8px 8px 0 0;
-  margin-bottom: -1px;
   color: var(--dossier-muted);
   font-size: 13px;
   font-family: system-ui, "PingFang SC", sans-serif;
@@ -9342,6 +9344,7 @@ a.tech-graph__node:hover {
 
 .technology-view-tab--active {
   border-color: var(--dossier-line);
+  border-bottom-color: transparent;
   background: var(--dossier-surface);
   color: var(--dossier-ink);
   font-weight: 500;
