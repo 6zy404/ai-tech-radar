@@ -9315,11 +9315,13 @@ a.tech-graph__node:hover {
 }
 
 /* -- technology view tabs (/technologies: 精选/全部快讯/按话题/我关注的) -- */
+/* No margin of its own: `.user-shell` is a grid with a 30px row gap, so an
+   extra 18px here put the content 48px below the tabs while every other pair
+   of blocks on the page sits at 30. */
 .technology-view-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 18px;
   border-bottom: 1px solid var(--dossier-line);
 }
 
