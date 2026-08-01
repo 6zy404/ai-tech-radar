@@ -81,21 +81,55 @@ describe("parseContentBody", () => {
 describe("splitContentBodyInline", () => {
   it("splits bold runs out of surrounding text", () => {
     expect(splitContentBodyInline("前 **重点** 后")).toEqual([
-      { text: "前 ", strong: false },
-      { text: "重点", strong: true },
-      { text: " 后", strong: false }
+      { text: "前 ", kind: "text" },
+      { text: "重点", kind: "strong" },
+      { text: " 后", kind: "text" }
     ]);
   });
 
   it("leaves text with no markers as a single plain segment", () => {
     expect(splitContentBodyInline("没有标记")).toEqual([
-      { text: "没有标记", strong: false }
+      { text: "没有标记", kind: "text" }
     ]);
   });
 
   it("drops the empty segments a leading marker would produce", () => {
     expect(splitContentBodyInline("**开头加粗**")).toEqual([
-      { text: "开头加粗", strong: true }
+      { text: "开头加粗", kind: "strong" }
+    ]);
+  });
+
+  it("splits inline code out of surrounding text", () => {
+    expect(splitContentBodyInline("调用 `server/discover` 即可")).toEqual([
+      { text: "调用 ", kind: "text" },
+      { text: "server/discover", kind: "code" },
+      { text: " 即可", kind: "text" }
+    ]);
+  });
+
+  it("handles bold and code in the same line", () => {
+    expect(splitContentBodyInline("**握手**没了：`initialize`")).toEqual([
+      { text: "握手", kind: "strong" },
+      { text: "没了：", kind: "text" },
+      { text: "initialize", kind: "code" }
+    ]);
+  });
+
+  it("keeps a lone backtick as plain text", () => {
+    expect(splitContentBodyInline("价格是 5` 每米")).toEqual([
+      { text: "价格是 5` 每米", kind: "text" }
+    ]);
+  });
+
+  it("keeps an empty pair as plain text rather than an empty code run", () => {
+    expect(splitContentBodyInline("空 `` 对")).toEqual([
+      { text: "空 `` 对", kind: "text" }
+    ]);
+  });
+
+  it("does not treat a run of asterisks as bold", () => {
+    expect(splitContentBodyInline("**** 分隔")).toEqual([
+      { text: "**** 分隔", kind: "text" }
     ]);
   });
 });
