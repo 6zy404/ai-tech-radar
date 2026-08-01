@@ -315,7 +315,7 @@ p {
 }
 
 .workspace-breadcrumbs__separator {
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .workspace-dashboard {
@@ -517,7 +517,7 @@ p {
 .workspace-operations-summary__card span,
 .operations-metric span {
   display: block;
-  color: #64748b;
+  color: #55617a;
   font-size: 0.82rem;
   font-weight: 850;
   letter-spacing: 0.06em;
@@ -538,7 +538,7 @@ p {
 .operations-metric small {
   display: block;
   margin-top: 8px;
-  color: #64748b;
+  color: #55617a;
   line-height: 1.45;
 }
 
@@ -978,7 +978,7 @@ p {
 
 .info-pill--warning {
   background: rgba(180, 83, 9, 0.12);
-  color: #b45309;
+  color: #92400e;
 }
 
 .info-pill--success {
@@ -2863,7 +2863,7 @@ p {
 
 .status-badge--rejected {
   background: rgba(180, 83, 9, 0.14);
-  color: #b45309;
+  color: #92400e;
 }
 
 .status-badge--success {
@@ -2873,7 +2873,7 @@ p {
 
 .status-badge--warning {
   background: rgba(217, 119, 6, 0.14);
-  color: #b45309;
+  color: #92400e;
 }
 
 .status-badge--danger {
@@ -3646,9 +3646,13 @@ p {
   border-color: rgba(180, 83, 9, 0.2);
 }
 
-.operations-attention-item span,
-.operations-compact-row span,
-.operations-event-card__header span {
+/* The row's own kicker span, not the `.status-badge` that shares the row.
+   Unqualified, this repainted the badge slate — so a `--danger` badge rendered
+   red in one place and slate in another, and dropped to 4.10 doing it. The only
+   classed spans inside these containers are the badges. */
+.operations-attention-item span:not([class]),
+.operations-compact-row span:not([class]),
+.operations-event-card__header span:not([class]) {
   color: #64748b;
   font-size: 0.78rem;
   font-weight: 850;
