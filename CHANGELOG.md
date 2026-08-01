@@ -12,6 +12,45 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The workspace gets its first visual sweep
+
+- **Twenty workspace routes had never been screenshotted** — 2026-08-02,
+  owner-selected. Captured at 1440px and 390px with the overflow detector
+  proven to fire first (20 hits injected). At 1440 the workspace is clean:
+  **zero overflow, zero console errors, all 20 routes 200.** Three findings at
+  390px; the owner took two.
+- **The source table clipped five of its seven columns on a phone and could not
+  be scrolled to them.** The wrapper is named `…-table-scroll` and carries
+  `overflow-x: auto`, but the table inside had `min-width: 0`, so it shrank to
+  the wrapper and then clipped its own rows with the `overflow: hidden` it needs
+  for its rounded corners. The wrapper had nothing left to scroll — `scrollWidth`
+  equalled `clientWidth`, and `scrollLeft = 999` read back **0**. Import,
+  disable, edit and detail were all unreachable. `min-width: min-content` fixes
+  it; **`max-content` was tried first and was worse** — it sizes to the longest
+  description, pushing the table to 2961px and making the desktop layout scroll
+  where it never had. Measured at six widths: 1440/1600 unchanged at 1028px with
+  no scroll, 390/640/768/1024 scrollable at 966px with the actions reachable.
+- **One of 17 workspace breadcrumbs showed a raw route segment.**
+  `/workspace/editorial-round` rendered `editorial-round` where the other 16
+  render a Chinese label — the console shipped 2026-07-22 and the label map was
+  never given its entry.
+- **Two of the detector's three hits were false positives, and that is the
+  method note.** `/workspace/delivery` and `/workspace/operations/events` put
+  their wide content in a container that genuinely scrolls. **Painted past the
+  viewport is not the same as unreachable**; the distinguishing evidence was not
+  geometry but the wrapper's `scrollWidth`/`clientWidth` pair. Recorded in
+  `docs/design-system.md`.
+- **The contrast harness was wrong before the code was, again.** It first read a
+  translucent `rgba(…, 0.12)` fill as the background and reported a false 1.00;
+  compositing by alpha onto the first opaque layer gives the real numbers. Same
+  family as the `color-mix` misparse on 2026-07-29.
+- **Left unfixed, owner's call:** 7 text roles across the workspace miss AA at
+  82 instances — the breadcrumb separator at 2.56, status badges at 4.10/4.14,
+  info pills at 4.26, two more at 4.46. All but the separator are marginal, the
+  same shape as the three values nudged one step on 2026-07-16. Light and dark
+  measure identically, which confirms the dark board added that round still
+  works.
+
 ## Editorial round — a protocol rewrote itself for how people were using it
 
 - **Seven candidates, one signal** — 2026-08-01. **MCP 2.0** published as
