@@ -69,18 +69,29 @@ export function parseContentBody(body: string): ContentBodyBlock[] {
 
 export type ContentBodyInlineSegment = {
   text: string;
-  strong: boolean;
+  kind: "text" | "strong" | "code";
 };
+
+// `**bold**` and `` `code` ``. Inline code was added 2026-08-02, after a
+// published signal shipped its backticks to readers verbatim: the MCP 2.0 body
+// names protocol methods and HTTP headers, and there was no way to write one.
+const INLINE_TOKEN = /(\*\*[^*]+\*\*|`[^`]+`)/;
 
 export function splitContentBodyInline(
   text: string
 ): ContentBodyInlineSegment[] {
   return text
-    .split(/(\*\*[^*]+\*\*)/)
+    .split(INLINE_TOKEN)
     .filter((part) => part.length > 0)
-    .map((part) =>
-      part.startsWith("**") && part.endsWith("**")
-        ? { text: part.slice(2, -2), strong: true }
-        : { text: part, strong: false }
-    );
+    .map((part) => {
+      if (part.length > 4 && part.startsWith("**") && part.endsWith("**")) {
+        return { text: part.slice(2, -2), kind: "strong" as const };
+      }
+
+      if (part.length > 2 && part.startsWith("`") && part.endsWith("`")) {
+        return { text: part.slice(1, -1), kind: "code" as const };
+      }
+
+      return { text: part, kind: "text" as const };
+    });
 }

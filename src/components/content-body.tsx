@@ -3,13 +3,21 @@ import { Fragment, type ReactNode } from "react";
 import { parseContentBody, splitContentBodyInline } from "@/lib/content-body";
 
 function renderInline(text: string): ReactNode {
-  return splitContentBodyInline(text).map((segment, index) =>
-    segment.strong ? (
-      <strong key={index}>{segment.text}</strong>
-    ) : (
-      <Fragment key={index}>{segment.text}</Fragment>
-    )
-  );
+  return splitContentBodyInline(text).map((segment, index) => {
+    if (segment.kind === "strong") {
+      return <strong key={index}>{segment.text}</strong>;
+    }
+
+    if (segment.kind === "code") {
+      return (
+        <code key={index} className="content-body__code">
+          {segment.text}
+        </code>
+      );
+    }
+
+    return <Fragment key={index}>{segment.text}</Fragment>;
+  });
 }
 
 export function ContentBody({

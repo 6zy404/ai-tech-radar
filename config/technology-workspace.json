@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T15:55:34.663Z",
+  "updatedAt": "2026-08-01T19:14:43.164Z",
   "records": [
     {
       "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
@@ -14,7 +14,7 @@
       },
       "content": {
         "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
-        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** initialize / initialized 这对交换和 Mcp-Session-Id 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 server/discover，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（Mcp-Method、Mcp-Name），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
+        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
       },
       "type": "protocol",
       "publishDate": "2026-07-31",
@@ -56,7 +56,7 @@
           "编辑标记为关键重要性，直接归入立即关注。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-01T15:55:34.663Z",
+        "rankingUpdatedAt": "2026-08-01T19:14:43.164Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
@@ -91,7 +91,7 @@
       "intelligenceStatus": "needs_enrichment",
       "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
       "createdAt": "2026-08-01T15:40:23.257Z",
-      "updatedAt": "2026-08-01T15:55:34.663Z",
+      "updatedAt": "2026-08-01T19:14:43.164Z",
       "editorialNotes": [
         "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
         "Review normalized type, publisher type, and related links before publishing."
