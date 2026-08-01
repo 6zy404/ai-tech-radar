@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T08:36:31.047Z",
+  "updatedAt": "2026-08-01T15:46:13.961Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -79,65 +79,6 @@
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.044Z",
       "updatedAt": "2026-07-27T01:48:19.148Z"
-    },
-    {
-      "id": "skill-tool-integration",
-      "title": "工具集成模式",
-      "slug": "tool-integration-patterns",
-      "summary": "以可维护的方式，把 AI 系统接入 API、浏览器、文档和内部工具。",
-      "content": "这项技能涵盖接口契约、错误处理和可审计性，处在产品想法与可上线落地之间。",
-      "skillType": "engineering",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.002Z",
-      "updatedAt": "2026-07-27T01:48:19.191Z"
-    },
-    {
-      "id": "skill-agent-design",
-      "title": "智能体工作流设计",
-      "slug": "agent-workflow-design",
-      "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
-      "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "high",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-browser-agents",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-tool-use",
-        "knowledge-ws-a28a8a56"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:17:24.380Z",
-      "updatedAt": "2026-07-27T01:48:19.235Z"
     },
     {
       "id": "skill-ws-2152c7f1",
@@ -223,36 +164,6 @@
       "status": "published",
       "createdAt": "2026-07-27T16:56:11.358Z",
       "updatedAt": "2026-07-27T16:56:43.156Z"
-    },
-    {
-      "id": "skill-ws-c183c9b9",
-      "title": "智能体安全与提示注入防御",
-      "slug": "agent-security-injection-defense",
-      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
-      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T04:05:11.800Z",
-      "updatedAt": "2026-07-30T08:36:30.856Z"
     },
     {
       "id": "skill-ws-f741f122",
@@ -380,6 +291,98 @@
       "status": "published",
       "createdAt": "2026-07-28T12:52:47.144Z",
       "updatedAt": "2026-07-30T08:36:31.047Z"
+    },
+    {
+      "id": "skill-tool-integration",
+      "title": "工具集成模式",
+      "slug": "tool-integration-patterns",
+      "summary": "以可维护的方式，把 AI 系统接入 API、浏览器、文档和内部工具。",
+      "content": "这项技能涵盖接口契约、错误处理和可审计性，处在产品想法与可上线落地之间。",
+      "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.002Z",
+      "updatedAt": "2026-08-01T15:46:13.813Z"
+    },
+    {
+      "id": "skill-agent-design",
+      "title": "智能体工作流设计",
+      "slug": "agent-workflow-design",
+      "summary": "设计多步骤 AI 流程，在规划、工具调用与审查之间划清边界。",
+      "content": "这项技能强调任务拆解、护栏设计和回退方案。当团队从单条提示词转向更长链路的任务流程时，它就变得重要。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:17:24.380Z",
+      "updatedAt": "2026-08-01T15:46:13.885Z"
+    },
+    {
+      "id": "skill-ws-c183c9b9",
+      "title": "智能体安全与提示注入防御",
+      "slug": "agent-security-injection-defense",
+      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:11.800Z",
+      "updatedAt": "2026-08-01T15:46:13.960Z"
     }
   ]
 }

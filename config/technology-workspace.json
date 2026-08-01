@@ -1,6 +1,206 @@
 {
-  "updatedAt": "2026-07-30T08:35:20.185Z",
+  "updatedAt": "2026-08-01T15:55:34.663Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "slug": "mcp-2-0-stateless-spec",
+      "title": {
+        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
+        "zh": "MCP 2.0：协议核心改为无状态"
+      },
+      "summary": {
+        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
+        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
+      },
+      "content": {
+        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
+        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** initialize / initialized 这对交换和 Mcp-Session-Id 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 server/discover，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（Mcp-Method、Mcp-Name），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
+      },
+      "type": "protocol",
+      "publishDate": "2026-07-31",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "Simon Willison",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-c183c9b9"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-01T15:55:34.663Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
+      "whoShouldCare": [
+        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
+        "在网关或 API 层做路由与鉴权的基础设施工程师",
+        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
+      ],
+      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
+      "impactAreas": [
+        "智能体工具接入",
+        "推理服务部署",
+        "网关与鉴权"
+      ],
+      "learningPath": [],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
+        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
+        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
+        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
+        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
+      },
+      "followUpQuestions": [
+        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
+        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
+        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "createdAt": "2026-08-01T15:40:23.257Z",
+      "updatedAt": "2026-08-01T15:55:34.663Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "slug": "gemini-managed-agents-background-mcp",
+      "title": {
+        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
+        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
+      },
+      "summary": {
+        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
+      },
+      "content": {
+        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
+      },
+      "type": "platform",
+      "publishDate": "2026-07-07",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-01T15:46:14.272Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
+      "whoShouldCare": [
+        "构建生产级智能体的开发团队",
+        "评估 MCP 生态与工具接入方案的架构师",
+        "对比各家智能体平台能力的技术选型者"
+      ],
+      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
+      "impactAreas": [
+        "智能体平台",
+        "MCP 生态",
+        "开发者工具"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
+        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
+        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
+        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
+        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
+      },
+      "followUpQuestions": [
+        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
+        "后台任务的时长上限、计费模型与并发配额是什么？",
+        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "createdAt": "2026-07-21T05:07:29.299Z",
+      "updatedAt": "2026-08-01T15:46:14.272Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
       "slug": "gpt-red",
@@ -1627,104 +1827,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
       ]
-    },
-    {
-      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "slug": "gemini-managed-agents-background-mcp",
-      "title": {
-        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
-        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
-      },
-      "summary": {
-        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
-      },
-      "content": {
-        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
-      },
-      "type": "platform",
-      "publishDate": "2026-07-07",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Google",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:43:26.578Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
-      "whoShouldCare": [
-        "构建生产级智能体的开发团队",
-        "评估 MCP 生态与工具接入方案的架构师",
-        "对比各家智能体平台能力的技术选型者"
-      ],
-      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
-      "impactAreas": [
-        "智能体平台",
-        "MCP 生态",
-        "开发者工具"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
-        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
-        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
-        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
-        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
-      },
-      "followUpQuestions": [
-        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
-        "后台任务的时长上限、计费模型与并发配额是什么？",
-        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "createdAt": "2026-07-21T05:07:29.299Z",
-      "updatedAt": "2026-07-27T02:43:26.578Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
-      ],
-      "relatedTechnologyIds": []
     },
     {
       "id": "draft-candidate-rss-https-github-blog-p-97467",
