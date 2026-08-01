@@ -5648,8 +5648,14 @@ body {
   border-radius: 12px;
 }
 
+/* `min-content` is what lets the wrapper above actually scroll. With
+   `min-width: 0` the table shrank to the wrapper and then clipped its own rows
+   with the `overflow: hidden` it needs for the rounded corners — so at 390px
+   five of the seven columns, the import and edit actions among them, were cut
+   off with no way to reach them. `max-content` would overcorrect: it sizes to
+   the longest description and makes the desktop layout scroll too. */
 .source-console-table {
-  min-width: 0;
+  min-width: min-content;
   overflow: hidden;
   border: 1px solid var(--delivery-console-border);
   border-radius: 12px;
