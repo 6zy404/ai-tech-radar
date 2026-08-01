@@ -1226,6 +1226,23 @@ container's border box against its own child, and every digest block including
 the hero in fact sits at 272/896. Eyeballing a screenshot generates a
 hypothesis; it does not close one.
 
+### An overflow detector cannot tell clipped from scrollable (2026-08-02)
+
+The narrow-width overflow detector flags any element painted past the viewport.
+On the workspace at 390px it reported 685 such elements across three routes, and
+**two of the three were false positives**: `/workspace/delivery` and
+`/workspace/operations/events` put their wide content inside a container with
+`overflow-x: auto`, so it scrolls and every column is reachable. Only
+`/workspace/sources` was a defect, and the thing that distinguished it was not
+the painted geometry but two numbers on the wrapper — `scrollWidth` equal to
+`clientWidth`, and `scrollLeft` reading back 0 after being set past the end.
+
+**Painted past the viewport is not the same as unreachable.** Before writing up
+an overflow hit, check whether some ancestor scrolls: compare its `scrollWidth`
+against its `clientWidth`, and try to scroll it. A container built to scroll can
+still be defeated by a child that clips — which is exactly what an
+`overflow: hidden` on a rounded-corner table did here.
+
 ### The cross-page detector samples one element per class (2026-08-01)
 
 The 2026-07-30 sweep's detector asks: **does this class resolve to the same
