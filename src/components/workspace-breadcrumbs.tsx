@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const moduleLabels: Record<string, string> = {
+  "editorial-round": "编辑轮",
   sources: "来源",
   candidates: "候选",
   duplicates: "重复组",
