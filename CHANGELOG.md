@@ -12,6 +12,28 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The content body learns the construct a signal needed the day before
+
+- **`ContentBody` renders inline code** — 2026-08-02. The parser covered `##`
+  headings, `**bold**` and lists, so when the MCP 2.0 signal published on 08-01
+  named protocol methods and HTTP headers, its backticks **reached readers
+  verbatim**. That round rewrote the body without them, because a content round
+  is not the place to add a renderer feature; this is the feature.
+- `splitContentBodyInline` returns a `kind` of `text` / `strong` / `code`
+  instead of a `strong` boolean — one call site, and three cases read better as
+  a discriminant than as a second flag. A lone backtick and an empty pair both
+  stay plain text, so a price written as ``5` `` does not open a code run.
+- The MCP body has its backticks back: **6 inline spans**, monospace on a
+  hairline chip, **11.56 contrast light and 13.37 dark**, no horizontal
+  overflow, and the other four `ContentBody` surfaces render unchanged with no
+  literal marker anywhere.
+- Verified: typecheck, lint, format, vitest **203/203** (5 new). The two tests
+  that encode the new construct were confirmed to fail with the code branch
+  removed — **the first attempt at that injection silently did nothing**
+  (shell escaping ate the replacement) and reported a pass, so it was redone
+  through a real edit. Same lesson as the sweeps: prove the instrument fired
+  before believing what it says.
+
 ## The workspace gets its first visual sweep
 
 - **Twenty workspace routes had never been screenshotted** — 2026-08-02,

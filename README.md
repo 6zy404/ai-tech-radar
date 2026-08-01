@@ -59,9 +59,11 @@ The product is split into two subsystems:
   through the same localization helper as the title and summary, so the
   中文/原文 switch applies to the body too; the skill and knowledge detail
   pages and the workspace draft panel render through the same component.
-  Editorial bodies use only `##` headings, `**bold**`, and ordered/bulleted
-  lists, so `src/lib/content-body.ts` parses that subset by hand instead of
-  adding a Markdown dependency. Until 2026-07-28 the technology body was
+  Editorial bodies use only `##` headings, `**bold**`, inline `` `code` `` and
+  ordered/bulleted lists, so `src/lib/content-body.ts` parses that subset by
+  hand instead of adding a Markdown dependency. Inline code was added
+  2026-08-02, after the MCP 2.0 signal shipped its backticks to readers
+  verbatim for want of it. Until 2026-07-28 the technology body was
   written by every editorial round, required by the publish gate, and never
   displayed anywhere public, while skill and knowledge bodies rendered as a
   single paragraph with their `**` markers visible.
