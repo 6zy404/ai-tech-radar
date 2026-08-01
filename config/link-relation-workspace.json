@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T08:35:01.914Z",
+  "updatedAt": "2026-08-01T15:47:52.902Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1845,6 +1845,78 @@
       "toType": "knowledge",
       "relationType": "explains",
       "note": "卖点是延迟随输入长度的增长斜率，而不是绝对速度。"
+    },
+    {
+      "id": "rel-ws-ff1a92fb",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "无状态化就是把会话里的状态挪回每个请求，接口边界因此重画。"
+    },
+    {
+      "id": "rel-ws-d71e8725",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "这一版改的是工具调用怎么送达，不是调用本身。"
+    },
+    {
+      "id": "rel-ws-21ef8bbf",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "用每请求的冗余信息换实例无关，是教科书式的权衡。"
+    },
+    {
+      "id": "rel-ws-e9d69aec",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "握手没了，能力协商要改成逐请求携带。"
+    },
+    {
+      "id": "rel-ws-73512abd",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "依赖常开双向流的采样与征询环节要改成多轮往返。"
+    },
+    {
+      "id": "rel-ws-e15403bd",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "签发方校验与客户端元数据文档是这一版的鉴权收紧点。"
+    },
+    {
+      "id": "rel-ws-e9e70306",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "tech-mcp",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一个协议的新版规范；先读协议本身，再看这一版改了什么。"
+    },
+    {
+      "id": "rel-ws-1b74b719",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "那条信号里的远程 MCP 接入，正是这一版要服务的部署形态。"
     }
   ]
 }

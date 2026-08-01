@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T08:36:53.556Z",
+  "updatedAt": "2026-08-01T15:46:13.095Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -49,78 +49,6 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.755Z",
       "updatedAt": "2026-07-21T05:08:17.304Z"
-    },
-    {
-      "id": "knowledge-tool-use",
-      "title": "工具使用与函数调用",
-      "slug": "tool-use-and-function-calling",
-      "summary": "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
-      "content": "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
-        "draft-candidate-rss-https-github-blog-p-97467"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.389Z",
-      "updatedAt": "2026-07-21T05:08:17.389Z"
-    },
-    {
-      "id": "knowledge-api-contracts",
-      "title": "API 契约与接口边界",
-      "slug": "api-contracts-and-interface-boundaries",
-      "summary": "当 AI 系统调用工具、串联服务或交换结构化上下文时，稳定的契约至关重要。",
-      "content": "这个经典概念解释了为什么明确的输入和输出能提升可靠性。即便接口被包裹在智能体框架里，它依然适用。",
-      "category": "software-architecture",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.433Z",
-      "updatedAt": "2026-07-27T01:48:18.528Z"
-    },
-    {
-      "id": "knowledge-system-design",
-      "title": "系统设计的权衡",
-      "slug": "system-design-tradeoffs",
-      "summary": "当产品由 AI 驱动时，延迟、可靠性、成本和可控性这些权衡依然适用。",
-      "content": "这个概念把经典架构思维与新的智能体平台连接起来，帮助读者思考：哪些应由工作流自己掌控，哪些应交给平台去抽象。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-workflow",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97686"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T01:48:18.567Z",
-      "updatedAt": "2026-07-27T01:48:18.567Z"
     },
     {
       "id": "knowledge-ws-c761533e",
@@ -386,6 +314,81 @@
       "status": "published",
       "createdAt": "2026-07-27T09:24:01.841Z",
       "updatedAt": "2026-07-30T08:36:53.556Z"
+    },
+    {
+      "id": "knowledge-api-contracts",
+      "title": "API 契约与接口边界",
+      "slug": "api-contracts-and-interface-boundaries",
+      "summary": "当 AI 系统调用工具、串联服务或交换结构化上下文时，稳定的契约至关重要。",
+      "content": "这个经典概念解释了为什么明确的输入和输出能提升可靠性。即便接口被包裹在智能体框架里，它依然适用。",
+      "category": "software-architecture",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.433Z",
+      "updatedAt": "2026-08-01T15:46:12.940Z"
+    },
+    {
+      "id": "knowledge-tool-use",
+      "title": "工具使用与函数调用",
+      "slug": "tool-use-and-function-calling",
+      "summary": "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
+      "content": "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.389Z",
+      "updatedAt": "2026-08-01T15:46:13.020Z"
+    },
+    {
+      "id": "knowledge-system-design",
+      "title": "系统设计的权衡",
+      "slug": "system-design-tradeoffs",
+      "summary": "当产品由 AI 驱动时，延迟、可靠性、成本和可控性这些权衡依然适用。",
+      "content": "这个概念把经典架构思维与新的智能体平台连接起来，帮助读者思考：哪些应由工作流自己掌控，哪些应交给平台去抽象。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T01:48:18.567Z",
+      "updatedAt": "2026-08-01T15:46:13.095Z"
     }
   ]
 }

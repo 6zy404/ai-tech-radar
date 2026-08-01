@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T08:31:01.941Z",
+  "updatedAt": "2026-08-01T15:40:23.259Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -482,6 +482,35 @@
       "importStatus": "converted",
       "reviewedAt": "2026-07-30T08:31:01.941Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
+    },
+    "candidate-rss-https-openai-com-index-advancing-responsible-ai-across-europe": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-01T15:39:55.495Z"
+    },
+    "candidate-rss-https-openai-com-index-building-abundant-intelligence": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-01T15:39:55.588Z"
+    },
+    "candidate-rss-https-openai-com-index-unive": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-01T15:39:55.662Z"
+    },
+    "candidate-rss-https-openai-com-index-disrupting-malicious-uses-of-ai-criminal-scam-operation": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-01T15:39:55.735Z"
+    },
+    "candidate-rss-https-github-blog-p-97813": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-01T15:39:55.808Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-01T15:39:55.885Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-01T15:40:23.259Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
     }
   }
 }
