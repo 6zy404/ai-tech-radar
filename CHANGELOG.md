@@ -12,6 +12,57 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — a protocol rewrote itself for how people were using it
+
+- **Seven candidates, one signal** — 2026-08-01. **MCP 2.0** published as
+  `critical`: the 2026-07-28 specification turns MCP from a bidirectional
+  stateful protocol into a stateless request/response one. The
+  initialize/initialized exchange and the session-id header are retired, every
+  request carries its own protocol version and capabilities, and any request
+  can therefore land on any instance behind a plain round-robin load balancer
+  with no shared storage. Method and tool names move into HTTP headers so a
+  gateway can route and authorize without parsing a body; sampling and
+  elicitation move to multi round-trip requests instead of a permanently open
+  stream; list responses become cacheable with a deterministic order;
+  authorization is hardened; deprecations get a twelve-month minimum window.
+  **A deployment-shape change rather than a feature addition — which is why it
+  is critical and not important.**
+- **The candidate was an analysis; the facts came from the spec.** Simon
+  Willison's post is what the importer caught, and the announcement it points
+  at was fetched and read directly before anything was written. His angle is
+  kept in the body because no count can show it: MCP lost ground to Skills in
+  2025 because an agent with a terminal and curl did most of the same work more
+  flexibly, and the reason to come back is not that the protocol got stronger
+  but that MCP tools stay auditable and small enough for a laptop model to
+  drive.
+- **Three rejected, three reviewed** — and one of the three is a limit, not a
+  judgment: OpenAI's scam-disruption report could not be read at all, because
+  `openai.com` still returns 403 to a direct fetch and the feed carries a
+  single sentence. Writing that up would have been inference presented as
+  evidence. The GPU-utilization essay and the Copilot walkthrough are argument
+  and narrative with no artifact, the same call as the 07-21 routing essay.
+- **The digest carries two items, and that is the round's editorial judgment.**
+  Every one of the other 25 published signals had already been carried by an
+  earlier digest, so there was no catching up available: the lead is the new
+  signal, and the second is the Gemini remote-MCP integration — the deployment
+  shape this revision exists to serve. The nine repeats the generator selected
+  were excluded.
+- **Two defects were found by looking at the published page, after every check
+  had passed.** The hero title split 服务|器 — the ICU dictionary limitation
+  recorded on 2026-07-29, fixed by rewording the title rather than working
+  around the segmenter — and inline backticks rendered **literally to readers**,
+  because `ContentBody` supports headings, bold and lists and not inline code.
+  The body stopped using syntax the renderer does not have; the renderer was
+  left alone, because this was a content round.
+- Reverse ids were added to 3 knowledge entries, 3 skills and 1 signal with
+  read-then-union, and `config/*.json` was diffed against `HEAD` per record
+  afterwards: **zero arrays lost an entry** (the 07-30 round lost 26 ids to a
+  `PATCH` that replaces rather than merges).
+- Verified: 10 public surfaces carrying the signal, zero internal-field hits,
+  zero console errors, zero mid-word heading breaks site-wide, typecheck,
+  vitest 198/198, and `validate:digest` / `persistence` / `ranking` /
+  `workspace-boundary` / `publishing`.
+
 ## Narrow-screen sweep — the widths nothing had ever been checked at
 
 - **390px and 768px got their first visual pass** — 2026-08-01,
