@@ -1,6 +1,531 @@
 {
-  "updatedAt": "2026-08-04T03:13:10.163Z",
+  "updatedAt": "2026-08-04T10:26:48.118Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "slug": "hf-security-incident-agentic-intrusion",
+      "title": {
+        "original": "Security incident disclosure — July 2026",
+        "zh": "Hugging Face 安全事件披露：首例自主智能体驱动的生产入侵"
+      },
+      "summary": {
+        "original": "Hugging Face discloses a production infrastructure intrusion driven end to end by an autonomous AI agent system — initial access via dataset code-execution paths, credential harvesting and lateral movement across internal clusters — detected and dissected largely with AI. Public models, datasets and the software supply chain were verified clean.",
+        "zh": "Hugging Face 披露 7 月生产基础设施入侵事件：攻击端到端由自主 AI 智能体系统驱动——恶意数据集利用数据处理管线的两条代码执行路径攻入处理节点，收割云与集群凭证并在周末横向渗透多个内部集群；防守方同样主要靠 AI 完成检测与取证。公开模型、数据集与软件供应链经验证未被篡改。"
+      },
+      "content": {
+        "original": "Hugging Face detected and responded to an intrusion into part of its production infrastructure, driven end to end by an autonomous AI agent system. Initial access came through the data-processing pipeline: a malicious dataset abused a remote-code dataset loader and a template injection in dataset configuration to run code on a processing worker, then escalated to node-level access, harvested cloud and cluster credentials, and moved laterally into several internal clusters over a weekend. The campaign executed many thousands of individual actions across a swarm of short-lived sandboxes with self-migrating command-and-control staged on public services. Hugging Face closed the root code-execution paths, rebuilt compromised nodes, rotated credentials, tightened cluster admission controls, and improved detection so high-severity signals page a responder in minutes. No tampering with public models, datasets, Spaces, or the software supply chain was found; assessment of partner/customer data impact continues.",
+        "zh": "Hugging Face 本周披露了一起对其生产基础设施的入侵事件，并明确指出：这次攻击端到端由一套自主 AI 智能体系统驱动——业界预测已久的「智能体攻击者」场景第一次有了大平台的公开实证。\n\n入侵路径从 AI 平台独有的暴露面开始：数据处理管线。一个恶意数据集利用了数据集处理中的两条代码执行路径（远程代码数据集加载器与数据集配置中的模板注入），在处理节点上获得执行权，随后提权到节点级访问、收割云与集群凭证，并在一个周末内横向渗透进多个内部集群。攻击的执行形态是真正的新元素：数千个独立动作由一群短生命周期沙箱并行执行，命令控制（C2）自迁移于公共服务之上，疑似构建在某个智能体安全研究框架之上（底层模型未知）——按「人类攻击者节奏」设计的检测窗口在这种速度面前失效。\n\n响应侧同样值得读：Hugging Face 关闭了作为初始入口的代码执行路径、重建被攻陷节点、轮换全部受影响凭证并启动更大范围的预防性轮换、收紧集群准入控制，并把高危告警改造成分钟级响应。取证与检测工作「主要由 AI 完成」——这也是防守方用 AI 对抗 AI 的第一个大型公开案例。经验证，公开的模型、数据集、Spaces 与软件供应链（容器镜像与发布包）未被篡改；对合作方与客户数据影响的评估仍在进行。\n\n披露文最后指出了核心的不对称问题：自主智能体把攻击的边际成本与速度压到了新的量级，而防守方必须同样借助 AI 才能跟上节奏。对任何暴露数据管线或代码执行面的平台，这份披露相当于一份提前送达的威胁模型更新。"
+      },
+      "type": "platform",
+      "publishDate": "2026-07-16",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/security-incident-july-2026",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T10:26:48.118Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "「智能体攻击者」从行业预测变成了带完整取证细节的公开实证：攻击的边际成本、速度与并行度从此换了量级。任何暴露数据管线或代码执行面的平台都需要按这个威胁模型重新审视防御与检测；同时它也是防守侧「用 AI 对抗 AI」的第一个大型公开案例——攻防两侧的智能体化是同一枚硬币。",
+      "whoShouldCare": [
+        "平台与基础设施安全团队",
+        "智能体产品与 MLOps 工程师",
+        "依赖第三方模型与数据集托管服务的团队"
+      ],
+      "technicalContext": "入侵没有依赖新型模型漏洞，而是经典攻击链（RCE → 提权 → 凭证收割 → 横向移动）被自主智能体自动化编排。真正的新元素在执行层：数千个动作由短生命周期沙箱群并行完成、C2 自迁移于公共服务之上，使传统按人类节奏设计的检测窗口失效。数据集即代码——数据处理管线因此成为 AI 平台独有的一等攻击面。",
+      "impactAreas": [
+        "平台安全",
+        "数据处理管线",
+        "软件供应链",
+        "智能体安全"
+      ],
+      "learningPath": [
+        "先理解数据管线为何是 AI 平台独有的攻击面：数据集可以携带代码与模板，处理即执行",
+        "对照 Shippy 的会话级沙箱与确定性工具层，理解「爆炸半径」的结构性防御设计",
+        "用对抗性评估的思路，把这次事件的攻击行为转写成自己管线的注入与 RCE 测试用例"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-89b98df3": "无授权的真实攻击与红队演练共享同一套方法论：这次事件的行为模式可以直接转化为对抗性测试用例，也印证了红队投入的现实必要性。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-c183c9b9": "这次入侵是该技能威胁模型的实战版本：不可信数据通道（恶意数据集）进入执行环境后爆炸半径失控——攻击面清点、最小权限与沙箱隔离正是针对这类路径的防御。",
+        "skill-ws-f741f122": "分钟级告警与 AI 驱动的取证让 Hugging Face 在一个周末的横向渗透后仍能快速定位与清除——这是轨迹追踪与失败归因能力在安全响应场景的直接应用。"
+      },
+      "followUpQuestions": [
+        "底层模型与智能体框架是否会被进一步披露或归因？",
+        "数据集动态加载的代码执行路径关闭后，Hub 生态的灵活性如何补偿？",
+        "「AI 检测 AI」的告警与取证流程是否会沉淀为可复用的开源工件？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "createdAt": "2026-07-21T02:11:42.529Z",
+      "updatedAt": "2026-08-04T10:26:48.118Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；披露文写作时客户数据影响评估仍在进行，该不确定性保留在正文表述中。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-blog-p-97467",
+      "slug": "copilot-code-review-tool-workflow-lessons",
+      "title": {
+        "original": "Better tools made Copilot code review worse. Here's how we actually improved it.",
+        "zh": "Copilot 代码审查复盘：更好的工具让智能体更差，指令才是关键"
+      },
+      "summary": {
+        "original": "GitHub swapped Copilot code review's custom exploration tools for the better-maintained shared CLI tools (grep, glob, view) expecting a clean upgrade — and got higher cost and fewer caught issues. The tools weren't the problem; the instructions were. Rewriting them around how a reviewer actually reads a pull request flipped the regression into ~20% lower review cost at the same quality.",
+        "zh": "GitHub 把 Copilot 代码审查的专用代码探索工具换成维护更好的共享 CLI 工具（grep/glob/view），预期是干净的升级——结果基准显示审查成本更高、抓到的问题更少。问题不在工具，在指令：按「审查者实际读 PR 的方式」重写工作流指令后，退化翻转为审查成本降低约 20%、质量不变。"
+      },
+      "content": {
+        "original": "When GitHub migrated Copilot code review from its own code exploration tools to the shared Unix-style tools that power Copilot CLI (grep, glob, view), benchmarks showed higher review cost and fewer issues caught — despite the new tools being better maintained. The diagnosis: the instructions, inherited from the old tool layer's design (SWE-agent-style repository navigation), no longer matched the new tools or the task. Rewriting the workflow instructions around how a reviewer actually reads a pull request — anchored on pull request evidence — flipped the regression into roughly 20% lower average review cost while maintaining review quality. The broader lesson: when you build on an agent framework you inherit its tools and their implicit workflows, and as your use case drifts they can quietly start working against you.",
+        "zh": "GitHub 给 Copilot 代码审查换工具的初衷很合理：原有的专用代码探索工具层（源自 SWE-agent 式仓库导航的设计）虽然能用，但只服务这一个场景；换成驱动 Copilot CLI 的共享 Unix 风格工具（grep、glob、view）应该是次干净的升级。结果基准测试给出了反直觉的答案——审查成本更高，抓到的问题更少。\n\n诊断结论是这次复盘的核心：工具没有问题，指令有问题。旧指令是围绕旧工具层的行为写的，直接搬到新工具上，智能体的探索方式就和「审查一个 PR」这件事错了位。团队按照人类审查者实际读 PR 的方式——以 PR 证据为锚点组织探索——重写了工作流指令，退化翻转为胜利：平均审查成本降低约 20%，审查质量保持不变。\n\n这篇复盘的通用教训对任何智能体团队都成立：构建在智能体框架之上时，你继承的不只是工具，还有工具隐含的工作流假设；当你的场景与工具的设计初衷漂移得足够远，它们会安静地开始拖后腿。工具替换必须连同指令一起重写，且需要回归基准来暴露这类退化——没有基准，这次退化可能根本不会被发现。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-10",
+      "sourceName": "GitHub Blog",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "GitHub",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T10:26:48.074Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产级智能体的负面结果复盘比成功案例稀缺得多。「更好的工具让效果更差」直指一个普遍盲区：工具与指令是耦合的整体，替换其一必须重写另一——而且没有回归基准，这类退化会被安静地上线。",
+      "whoShouldCare": [
+        "在智能体框架上构建产品的工程团队",
+        "维护智能体工具层的平台工程师",
+        "负责智能体评测基准的工程师"
+      ],
+      "technicalContext": "智能体的行为由「工具能力 × 指令假设」共同决定：工具定义能做什么，指令定义怎么探索。继承自框架的工具带着隐含的工作流设计（这里是 SWE-agent 式仓库导航），当任务从「解决 issue」漂移到「审查 PR」，同一套探索模式就从助力变成开销。以任务的原生证据（PR diff）为锚点重写指令，是把通用工具重新对齐到具体任务的正确杠杆。",
+      "impactAreas": [
+        "智能体工程",
+        "开发者工具",
+        "评测基准"
+      ],
+      "learningPath": [
+        "读原文，注意「换工具前后」的基准对比是怎么设计的",
+        "对照 Shippy 复盘的「确定性工具层」经验，理解工具层设计的两种取舍",
+        "为自己的智能体产品建立一个最小回归基准，再做下一次工具或提示词变更"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "工具调用的效果不取决于工具本身，而取决于模型被引导的使用方式——这篇复盘是该概念最好的生产级注脚。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "工作流设计的反面教材与正面修复同在一篇：指令必须围绕任务的实际认知过程（审查者怎么读 PR）设计，而不是围绕工具能力清单。",
+        "skill-tool-integration": "「继承框架工具」的漂移风险正是工具集成模式要管理的核心：工具的隐含工作流假设需要被显式识别和重新对齐。",
+        "skill-ws-f741f122": "没有回归基准，这次退化不会被发现——评测运维是工具替换能安全进行的前提。"
+      },
+      "followUpQuestions": [
+        "重写后的审查指令是否会开源或沉淀为可复用模式？",
+        "20% 成本降低在不同模型上是否稳定成立？",
+        "同样的「工具×指令错位」诊断方法能否用于其他智能体场景？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-blog-p-97467",
+      "createdAt": "2026-07-21T05:07:29.172Z",
+      "updatedAt": "2026-08-04T10:26:48.074Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：GitHub 工程复盘，与 Shippy 复盘同类的负面结果分享；sourceUrl 为按 GitHub Blog 惯例的规范化地址（feed 提供的是 ?p= 短链）。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "slug": "ai2-shippy-agent-lessons",
+      "title": {
+        "original": "What building Shippy taught us about building agents",
+        "zh": "Shippy 复盘：Ai2 高风险场景智能体的四条工程经验与三件开源工件"
+      },
+      "summary": {
+        "original": "Ai2's Skylight team shares engineering lessons from Shippy, a maritime-domain-awareness agent serving analysts in 70+ countries, and open-sources the OpenClaw agent framework, the Harbor evaluation framework and the Mothership hosting platform.",
+        "zh": "Ai2 Skylight 团队复盘海事态势感知智能体 Shippy 的工程实践：智能体三分解剖（soul/skills/config）、确定性 CLI 工具层、按会话隔离的沙箱部署、专家加权评分的活数据评估，并开源了 OpenClaw（智能体框架）、Harbor（评估框架）与 Mothership（托管平台）三件工件。"
+      },
+      "content": {
+        "original": "Shippy is an AI agent built by Ai2's Skylight team for real-time maritime domain awareness, assisting analysts across 70+ countries in high-stakes operational decisions. The writeup distills four lessons: separate an agent into soul (system prompt), skills (markdown-documented capabilities) and config; talk to APIs through a purpose-built deterministic CLI rather than raw calls; isolate each user session in its own sandboxed Kubernetes deployment; and evaluate on live data with expert-weighted rubrics instead of static benchmarks. Released artifacts: the OpenClaw agent framework, the Harbor evaluation framework with a Shippy plugin, the Mothership hosting platform, and the agent-skills markdown spec.",
+        "zh": "Shippy 是 Ai2 Skylight 团队为实时海事态势感知构建的智能体，服务 70 多个国家的分析人员做高风险业务决策——错误回答可能浪费执法资源甚至危及人员安全，这决定了它的工程取向：可靠性优先于能力上限。\n\n复盘提炼出四条经验。第一，把智能体拆成 soul（定义边界的系统提示）、skills（用 markdown 文档化的能力）与 config（运行时配置）三层，各自独立版本化，改动无需重建整体。第二，模型不直接拼裸 API 调用，而是通过专门构建的确定性 CLI 与后端交互——分页错误、畸形查询这类隐蔽 bug 在工具层就被消化，且每一层可独立测试。第三，Mothership 平台按用户会话分配独立的 Kubernetes 沙箱部署，在数百个政府合作方之间做数据隔离的同时支撑多步分析。第四，评估不用静态基准，而是在活数据上由领域专家定义加权评分表，真实捕捉工具选择与护栏遵守情况。\n\n随文开源三件工件：OpenClaw（智能体框架）、Harbor（带 Shippy 插件的评估框架）、Mothership（通用智能体托管平台），外加与 Claude Code、Codex 通用的 agent-skills markdown 规范。对正在把智能体推向生产环境的团队，这是一份罕见的「高风险场景」一手工程记录。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ai2",
+      "publisherType": "research-lab",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T10:26:48.025Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产级智能体的公开工程复盘本就稀少，高风险场景（错误决策有真实代价）的更是罕见。四条经验——三分解剖、确定性工具层、会话级沙箱、专家评分的活数据评估——每一条都指向同一个主题：智能体可靠性来自工程结构，不是模型能力。",
+      "whoShouldCare": [
+        "把智能体推向生产环境的工程团队",
+        "智能体平台与基础设施建设者",
+        "关注智能体评估方法的从业者"
+      ],
+      "technicalContext": "「模型通过确定性 CLI 而非裸 API 与系统交互」是近期智能体工程的收敛趋势：把不可靠性关进模型与工具的边界之内，工具层用传统软件工程的确定性来兜底。agent-skills 的 markdown 规范与 Claude Code、Codex 通用，也印证了智能体能力描述格式正在跨厂商标准化。",
+      "impactAreas": [
+        "智能体工程实践",
+        "智能体评估方法",
+        "多租户智能体部署"
+      ],
+      "learningPath": [
+        "对照 soul/skills/config 三分法审视自己的智能体：提示、能力、配置是否已经解耦",
+        "把最容易出错的一个 API 调用包成确定性 CLI 工具，对比错误率变化",
+        "参照 Harbor 的思路，为自己的智能体定义一份领域专家加权的评分表"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "Shippy 的确定性 CLI 层是工具使用概念的工程化范本：模型负责决策，工具负责正确执行。",
+        "knowledge-evaluation-loops": "活数据 + 专家加权评分表替代静态基准，是评估闭环思想在智能体场景的落地形态。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "soul/skills/config 三分解剖可以直接当作智能体工作流设计的检查清单使用。",
+        "skill-tool-integration": "「裸 API 调用 → 专用确定性 CLI」正是工具集成模式要解决的核心问题：接口的可靠性边界画在哪里。"
+      },
+      "followUpQuestions": [
+        "OpenClaw 与现有主流智能体框架相比的差异化设计是什么？",
+        "会话级 Kubernetes 沙箱的成本与冷启动延迟在什么量级？",
+        "agent-skills 规范会不会成为跨厂商的事实标准？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "createdAt": "2026-07-19T03:20:48.302Z",
+      "updatedAt": "2026-08-04T10:26:48.025Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "slug": "chatgpt-work",
+      "title": {
+        "original": "ChatGPT is now a partner for your most ambitious work",
+        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
+      },
+      "summary": {
+        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
+        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
+      },
+      "content": {
+        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
+        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-scope-pilots",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T10:26:47.978Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
+      "whoShouldCare": [
+        "知识工作者与团队负责人",
+        "智能体应用开发者",
+        "AI 产品经理"
+      ],
+      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
+      "impactAreas": [
+        "办公自动化",
+        "团队协作方式",
+        "智能体产品设计",
+        "知识工作流程"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
+        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
+        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
+        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
+        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
+        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
+      },
+      "followUpQuestions": [
+        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
+        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
+        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "createdAt": "2026-07-09T20:58:31.394Z",
+      "updatedAt": "2026-08-04T10:26:47.978Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "slug": "gemini-robotics-2",
+      "title": {
+        "original": "Gemini Robotics 2 brings whole body intelligence to robots",
+        "zh": "Gemini Robotics 2：全身控制，与一个可编排的推理层",
+        "en": "Gemini Robotics 2 brings whole body intelligence to robots"
+      },
+      "summary": {
+        "original": "Gemini Robotics 2 is a family of three models — a vision-language-action model for whole-body humanoid control, an embodied reasoning model (ER 2) that orchestrates tools and tracks task progress, and an on-device VLA that adapts to a new robot body in hours.",
+        "zh": "DeepMind 一次发布三个模型：负责动作的 VLA、负责规划的具身推理模型 ER 2，以及能在机器人本机运行的端侧版本。对这里的读者来说，值得看的不是机器人本身——ER 2 把 VLA 和导航 API 当作工具声明、用双向流接收视频、一边执行一边思考，是这个站点已经在跟踪的那套智能体架构换了一种执行器。真正的新东西是它开始能回答「这一步做完了没有」：时刻定位准确率 91.3%、平均误差 0.96 秒。ER 2 已经通过 Gemini API 公开可用，动作模型与端侧模型仍限早期合作伙伴。",
+        "en": "Gemini Robotics 2 is a family of three models — a vision-language-action model for whole-body humanoid control, an embodied reasoning model (ER 2) that orchestrates tools and tracks task progress, and an on-device VLA that adapts to a new robot body in hours."
+      },
+      "content": {
+        "original": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。",
+        "zh": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。",
+        "en": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-28",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-multimodal",
+        "tag-on-device",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-a28a8a56",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-b47fabd1",
+        "skill-ws-d7c9d1d8"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T10:26:47.921Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这条信号的价值不在机器人本身，而在它把一个已经成熟的智能体架构接到了物理执行器上：工具声明、多模态流式上下文、执行中自纠、多智能体协作，全都是站内已有的概念。更值得注意的是它开始量化「任务完成度」——时刻定位 91.3%、平均误差 0.96 秒——这正是纯软件智能体一直缺的那个验证信号。而且今天真正开放的是推理编排层（ER 2 已在 Gemini API 上），不是动作层。",
+      "whoShouldCare": [
+        "在设计多步智能体工作流、正在为「怎么知道一步做完了」发愁的工程师",
+        "关注流式多模态输入与低延迟编排的应用开发者",
+        "评估具身/物理 AI 是否值得现在投入的技术决策者",
+        "做端侧部署、关心模型如何适配新硬件形态的团队"
+      ],
+      "technicalContext": "三个模型分工明确：VLA 把视觉与语言转成电机控制（首次覆盖整个人形，从脚到指尖）；ER 2 是视觉语言模型，作为高层大脑规划持续数分钟、含数百个决策的任务，把执行交给下层 VLA；端侧版本在本机运行，靠继承自 Gemini Robotics 1.5 的动作迁移技术，用几小时、通常不到 200 条示例适配全新形态。ER 2 走 Gemini Live API 的双向流式端点，所以能在执行的同时思考，避免每步之间的停顿。",
+      "impactAreas": [
+        "智能体工具编排",
+        "多模态视频理解",
+        "端侧模型适配",
+        "长时程任务执行",
+        "具身安全评测"
+      ],
+      "learningPath": [
+        "先读 ER 2 那半：把 VLA 和导航 API 声明为工具、用双向流送入视频，与你已经在写的工具调用循环逐点对照",
+        "重点看两个完成度指标（进度分级 57.4%、时刻定位 91.3% / 0.96 秒），思考同样的验证信号在你自己的智能体里由什么充当",
+        "再看端侧那半：几小时、不到 200 条示例适配新形态，是端侧部署里「换硬件要付多少代价」的一个具体标尺",
+        "最后读 ASIMOV-Agentic 的三项设定——拒绝不安全工具调用、预判可行性、不确定时主动要人——把它当作智能体安全评测的一个现成模板"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "ER 2 把 VLA 模型和导航 API 直接声明为工具，是函数调用这套机制在物理执行器上的一次直接应用。",
+        "knowledge-latency-tradeoffs": "双向流式端点让模型执行与思考重叠，官方把亚秒级延迟称为安全操作物理机器人的下限——延迟在这里是硬约束而不是体验优化。",
+        "knowledge-ws-a28a8a56": "一次任务持续数分钟、包含数百个决策，正是长时程智能体的上下文与进度管理问题。",
+        "knowledge-human-loop": "ASIMOV-Agentic 把「不确定时主动请求人介入」写成了可测指标，而不是留给上层应用。",
+        "knowledge-evaluation-loops": "进度分级与时刻定位是两个可复现的完成度指标，回答的正是评估闭环里最难的那一问：这一步到底做完了没有。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "高层推理模型规划、下层动作模型执行、失败可自纠——这是一个完整的分层智能体工作流实例。",
+        "skill-tool-integration": "控制接口以工具形式声明、多模态流直接入模，可以对照自己的工具集成方式来读。",
+        "skill-ws-f741f122": "进度分级与时刻定位本质上是运行时可观测性指标，为智能体评测运维提供了一个具体样板。",
+        "skill-ws-b47fabd1": "成功/失败检测从静态截图改到原始视频流，仪表读数扩展到 10 类仪表——视觉输入的组织与核验在这里被推到了实时场景。",
+        "skill-ws-d7c9d1d8": "端侧版本用几小时、不到 200 条示例适配新形态，是端侧部署里换硬件成本的一个具体参照。"
+      },
+      "followUpQuestions": [
+        "进度分级只有 57.4% 的准确率，在什么样的任务里这个数字已经够用，在什么任务里不够？",
+        "「一边执行一边思考」的双向流式设计，在纯软件智能体里对应的是什么，值不值得照搬？",
+        "多指灵巧操作官方自己标为仍然困难，这会把哪些应用场景推迟到下一代？",
+        "动作模型只对早期合作伙伴开放，只拿到 ER 2 的开发者实际能做出什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "createdAt": "2026-08-04T03:09:13.072Z",
+      "updatedAt": "2026-08-04T10:26:47.921Z",
+      "editorialNotes": [
+        "候选来自 DeepMind 博客 RSS，摘要为空；原文页可直接抓取（200），全文读后成稿——同 2026-07-30 记录的 Hugging Face 情形。",
+        "同族的 Gemini Robotics ER 2 单独一篇（07-30）标记为已看不另发：它是本次发布三个模型之一的深度解读，其数据已并入本条正文。",
+        "选题理由是智能体架构而非机器人本身：工具声明、流式上下文、执行中自纠都是站内既有概念，完成度量化是新东西。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "slug": "gemini-managed-agents-background-mcp",
@@ -100,129 +625,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-      "slug": "gemini-robotics-2",
-      "title": {
-        "original": "Gemini Robotics 2 brings whole body intelligence to robots",
-        "zh": "Gemini Robotics 2：全身控制，与一个可编排的推理层",
-        "en": "Gemini Robotics 2 brings whole body intelligence to robots"
-      },
-      "summary": {
-        "original": "Gemini Robotics 2 is a family of three models — a vision-language-action model for whole-body humanoid control, an embodied reasoning model (ER 2) that orchestrates tools and tracks task progress, and an on-device VLA that adapts to a new robot body in hours.",
-        "zh": "DeepMind 一次发布三个模型：负责动作的 VLA、负责规划的具身推理模型 ER 2，以及能在机器人本机运行的端侧版本。对这里的读者来说，值得看的不是机器人本身——ER 2 把 VLA 和导航 API 当作工具声明、用双向流接收视频、一边执行一边思考，是这个站点已经在跟踪的那套智能体架构换了一种执行器。真正的新东西是它开始能回答「这一步做完了没有」：时刻定位准确率 91.3%、平均误差 0.96 秒。ER 2 已经通过 Gemini API 公开可用，动作模型与端侧模型仍限早期合作伙伴。",
-        "en": "Gemini Robotics 2 is a family of three models — a vision-language-action model for whole-body humanoid control, an embodied reasoning model (ER 2) that orchestrates tools and tracks task progress, and an on-device VLA that adapts to a new robot body in hours."
-      },
-      "content": {
-        "original": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。",
-        "zh": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。",
-        "en": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-28",
-      "sourceName": "Google DeepMind Blog",
-      "sourceUrl": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Google DeepMind",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-multimodal",
-        "tag-on-device",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-latency-tradeoffs",
-        "knowledge-ws-a28a8a56",
-        "knowledge-human-loop",
-        "knowledge-evaluation-loops"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-f741f122",
-        "skill-ws-b47fabd1",
-        "skill-ws-d7c9d1d8"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-04T03:12:11.036Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "这条信号的价值不在机器人本身，而在它把一个已经成熟的智能体架构接到了物理执行器上：工具声明、多模态流式上下文、执行中自纠、多智能体协作，全都是站内已有的概念。更值得注意的是它开始量化「任务完成度」——时刻定位 91.3%、平均误差 0.96 秒——这正是纯软件智能体一直缺的那个验证信号。而且今天真正开放的是推理编排层（ER 2 已在 Gemini API 上），不是动作层。",
-      "whoShouldCare": [
-        "在设计多步智能体工作流、正在为「怎么知道一步做完了」发愁的工程师",
-        "关注流式多模态输入与低延迟编排的应用开发者",
-        "评估具身/物理 AI 是否值得现在投入的技术决策者",
-        "做端侧部署、关心模型如何适配新硬件形态的团队"
-      ],
-      "technicalContext": "三个模型分工明确：VLA 把视觉与语言转成电机控制（首次覆盖整个人形，从脚到指尖）；ER 2 是视觉语言模型，作为高层大脑规划持续数分钟、含数百个决策的任务，把执行交给下层 VLA；端侧版本在本机运行，靠继承自 Gemini Robotics 1.5 的动作迁移技术，用几小时、通常不到 200 条示例适配全新形态。ER 2 走 Gemini Live API 的双向流式端点，所以能在执行的同时思考，避免每步之间的停顿。",
-      "impactAreas": [
-        "智能体工具编排",
-        "多模态视频理解",
-        "端侧模型适配",
-        "长时程任务执行",
-        "具身安全评测"
-      ],
-      "learningPath": [
-        "先读 ER 2 那半：把 VLA 和导航 API 声明为工具、用双向流送入视频，与你已经在写的工具调用循环逐点对照",
-        "重点看两个完成度指标（进度分级 57.4%、时刻定位 91.3% / 0.96 秒），思考同样的验证信号在你自己的智能体里由什么充当",
-        "再看端侧那半：几小时、不到 200 条示例适配新形态，是端侧部署里「换硬件要付多少代价」的一个具体标尺",
-        "最后读 ASIMOV-Agentic 的三项设定——拒绝不安全工具调用、预判可行性、不确定时主动要人——把它当作智能体安全评测的一个现成模板"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "ER 2 把 VLA 模型和导航 API 直接声明为工具，是函数调用这套机制在物理执行器上的一次直接应用。",
-        "knowledge-latency-tradeoffs": "双向流式端点让模型执行与思考重叠，官方把亚秒级延迟称为安全操作物理机器人的下限——延迟在这里是硬约束而不是体验优化。",
-        "knowledge-ws-a28a8a56": "一次任务持续数分钟、包含数百个决策，正是长时程智能体的上下文与进度管理问题。",
-        "knowledge-human-loop": "ASIMOV-Agentic 把「不确定时主动请求人介入」写成了可测指标，而不是留给上层应用。",
-        "knowledge-evaluation-loops": "进度分级与时刻定位是两个可复现的完成度指标，回答的正是评估闭环里最难的那一问：这一步到底做完了没有。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "高层推理模型规划、下层动作模型执行、失败可自纠——这是一个完整的分层智能体工作流实例。",
-        "skill-tool-integration": "控制接口以工具形式声明、多模态流直接入模，可以对照自己的工具集成方式来读。",
-        "skill-ws-f741f122": "进度分级与时刻定位本质上是运行时可观测性指标，为智能体评测运维提供了一个具体样板。",
-        "skill-ws-b47fabd1": "成功/失败检测从静态截图改到原始视频流，仪表读数扩展到 10 类仪表——视觉输入的组织与核验在这里被推到了实时场景。",
-        "skill-ws-d7c9d1d8": "端侧版本用几小时、不到 200 条示例适配新形态，是端侧部署里换硬件成本的一个具体参照。"
-      },
-      "followUpQuestions": [
-        "进度分级只有 57.4% 的准确率，在什么样的任务里这个数字已经够用，在什么任务里不够？",
-        "「一边执行一边思考」的双向流式设计，在纯软件智能体里对应的是什么，值不值得照搬？",
-        "多指灵巧操作官方自己标为仍然困难，这会把哪些应用场景推迟到下一代？",
-        "动作模型只对早期合作伙伴开放，只拿到 ER 2 的开发者实际能做出什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-      "createdAt": "2026-08-04T03:09:13.072Z",
-      "updatedAt": "2026-08-04T03:12:11.035Z",
-      "editorialNotes": [
-        "候选来自 DeepMind 博客 RSS，摘要为空；原文页可直接抓取（200），全文读后成稿——同 2026-07-30 记录的 Hugging Face 情形。",
-        "同族的 Gemini Robotics ER 2 单独一篇（07-30）标记为已看不另发：它是本次发布三个模型之一的深度解读，其数据已并入本条正文。",
-        "选题理由是智能体架构而非机器人本身：工具声明、流式上下文、执行中自纠都是站内既有概念，完成度量化是新东西。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
       ]
     },
     {
@@ -422,103 +824,6 @@
       "updatedAt": "2026-07-30T08:35:20.185Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
-      "slug": "hf-security-incident-agentic-intrusion",
-      "title": {
-        "original": "Security incident disclosure — July 2026",
-        "zh": "Hugging Face 安全事件披露：首例自主智能体驱动的生产入侵"
-      },
-      "summary": {
-        "original": "Hugging Face discloses a production infrastructure intrusion driven end to end by an autonomous AI agent system — initial access via dataset code-execution paths, credential harvesting and lateral movement across internal clusters — detected and dissected largely with AI. Public models, datasets and the software supply chain were verified clean.",
-        "zh": "Hugging Face 披露 7 月生产基础设施入侵事件：攻击端到端由自主 AI 智能体系统驱动——恶意数据集利用数据处理管线的两条代码执行路径攻入处理节点，收割云与集群凭证并在周末横向渗透多个内部集群；防守方同样主要靠 AI 完成检测与取证。公开模型、数据集与软件供应链经验证未被篡改。"
-      },
-      "content": {
-        "original": "Hugging Face detected and responded to an intrusion into part of its production infrastructure, driven end to end by an autonomous AI agent system. Initial access came through the data-processing pipeline: a malicious dataset abused a remote-code dataset loader and a template injection in dataset configuration to run code on a processing worker, then escalated to node-level access, harvested cloud and cluster credentials, and moved laterally into several internal clusters over a weekend. The campaign executed many thousands of individual actions across a swarm of short-lived sandboxes with self-migrating command-and-control staged on public services. Hugging Face closed the root code-execution paths, rebuilt compromised nodes, rotated credentials, tightened cluster admission controls, and improved detection so high-severity signals page a responder in minutes. No tampering with public models, datasets, Spaces, or the software supply chain was found; assessment of partner/customer data impact continues.",
-        "zh": "Hugging Face 本周披露了一起对其生产基础设施的入侵事件，并明确指出：这次攻击端到端由一套自主 AI 智能体系统驱动——业界预测已久的「智能体攻击者」场景第一次有了大平台的公开实证。\n\n入侵路径从 AI 平台独有的暴露面开始：数据处理管线。一个恶意数据集利用了数据集处理中的两条代码执行路径（远程代码数据集加载器与数据集配置中的模板注入），在处理节点上获得执行权，随后提权到节点级访问、收割云与集群凭证，并在一个周末内横向渗透进多个内部集群。攻击的执行形态是真正的新元素：数千个独立动作由一群短生命周期沙箱并行执行，命令控制（C2）自迁移于公共服务之上，疑似构建在某个智能体安全研究框架之上（底层模型未知）——按「人类攻击者节奏」设计的检测窗口在这种速度面前失效。\n\n响应侧同样值得读：Hugging Face 关闭了作为初始入口的代码执行路径、重建被攻陷节点、轮换全部受影响凭证并启动更大范围的预防性轮换、收紧集群准入控制，并把高危告警改造成分钟级响应。取证与检测工作「主要由 AI 完成」——这也是防守方用 AI 对抗 AI 的第一个大型公开案例。经验证，公开的模型、数据集、Spaces 与软件供应链（容器镜像与发布包）未被篡改；对合作方与客户数据影响的评估仍在进行。\n\n披露文最后指出了核心的不对称问题：自主智能体把攻击的边际成本与速度压到了新的量级，而防守方必须同样借助 AI 才能跟上节奏。对任何暴露数据管线或代码执行面的平台，这份披露相当于一份提前送达的威胁模型更新。"
-      },
-      "type": "platform",
-      "publishDate": "2026-07-16",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/security-incident-july-2026",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Hugging Face",
-      "publisherType": "startup",
-      "importanceLevel": "critical",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-89b98df3"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为关键重要性，直接归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-30T08:35:20.115Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "「智能体攻击者」从行业预测变成了带完整取证细节的公开实证：攻击的边际成本、速度与并行度从此换了量级。任何暴露数据管线或代码执行面的平台都需要按这个威胁模型重新审视防御与检测；同时它也是防守侧「用 AI 对抗 AI」的第一个大型公开案例——攻防两侧的智能体化是同一枚硬币。",
-      "whoShouldCare": [
-        "平台与基础设施安全团队",
-        "智能体产品与 MLOps 工程师",
-        "依赖第三方模型与数据集托管服务的团队"
-      ],
-      "technicalContext": "入侵没有依赖新型模型漏洞，而是经典攻击链（RCE → 提权 → 凭证收割 → 横向移动）被自主智能体自动化编排。真正的新元素在执行层：数千个动作由短生命周期沙箱群并行完成、C2 自迁移于公共服务之上，使传统按人类节奏设计的检测窗口失效。数据集即代码——数据处理管线因此成为 AI 平台独有的一等攻击面。",
-      "impactAreas": [
-        "平台安全",
-        "数据处理管线",
-        "软件供应链",
-        "智能体安全"
-      ],
-      "learningPath": [
-        "先理解数据管线为何是 AI 平台独有的攻击面：数据集可以携带代码与模板，处理即执行",
-        "对照 Shippy 的会话级沙箱与确定性工具层，理解「爆炸半径」的结构性防御设计",
-        "用对抗性评估的思路，把这次事件的攻击行为转写成自己管线的注入与 RCE 测试用例"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-89b98df3": "无授权的真实攻击与红队演练共享同一套方法论：这次事件的行为模式可以直接转化为对抗性测试用例，也印证了红队投入的现实必要性。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-c183c9b9": "这次入侵是该技能威胁模型的实战版本：不可信数据通道（恶意数据集）进入执行环境后爆炸半径失控——攻击面清点、最小权限与沙箱隔离正是针对这类路径的防御。",
-        "skill-ws-f741f122": "分钟级告警与 AI 驱动的取证让 Hugging Face 在一个周末的横向渗透后仍能快速定位与清除——这是轨迹追踪与失败归因能力在安全响应场景的直接应用。"
-      },
-      "followUpQuestions": [
-        "底层模型与智能体框架是否会被进一步披露或归因？",
-        "数据集动态加载的代码执行路径关闭后，Hub 生态的灵活性如何补偿？",
-        "「AI 检测 AI」的告警与取证流程是否会沉淀为可复用的开源工件？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
-      "createdAt": "2026-07-21T02:11:42.529Z",
-      "updatedAt": "2026-07-30T08:35:20.115Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；披露文写作时客户数据影响评估仍在进行，该不确定性保留在正文表述中。"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
@@ -1953,104 +2258,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-github-blog-p-97467",
-      "slug": "copilot-code-review-tool-workflow-lessons",
-      "title": {
-        "original": "Better tools made Copilot code review worse. Here's how we actually improved it.",
-        "zh": "Copilot 代码审查复盘：更好的工具让智能体更差，指令才是关键"
-      },
-      "summary": {
-        "original": "GitHub swapped Copilot code review's custom exploration tools for the better-maintained shared CLI tools (grep, glob, view) expecting a clean upgrade — and got higher cost and fewer caught issues. The tools weren't the problem; the instructions were. Rewriting them around how a reviewer actually reads a pull request flipped the regression into ~20% lower review cost at the same quality.",
-        "zh": "GitHub 把 Copilot 代码审查的专用代码探索工具换成维护更好的共享 CLI 工具（grep/glob/view），预期是干净的升级——结果基准显示审查成本更高、抓到的问题更少。问题不在工具，在指令：按「审查者实际读 PR 的方式」重写工作流指令后，退化翻转为审查成本降低约 20%、质量不变。"
-      },
-      "content": {
-        "original": "When GitHub migrated Copilot code review from its own code exploration tools to the shared Unix-style tools that power Copilot CLI (grep, glob, view), benchmarks showed higher review cost and fewer issues caught — despite the new tools being better maintained. The diagnosis: the instructions, inherited from the old tool layer's design (SWE-agent-style repository navigation), no longer matched the new tools or the task. Rewriting the workflow instructions around how a reviewer actually reads a pull request — anchored on pull request evidence — flipped the regression into roughly 20% lower average review cost while maintaining review quality. The broader lesson: when you build on an agent framework you inherit its tools and their implicit workflows, and as your use case drifts they can quietly start working against you.",
-        "zh": "GitHub 给 Copilot 代码审查换工具的初衷很合理：原有的专用代码探索工具层（源自 SWE-agent 式仓库导航的设计）虽然能用，但只服务这一个场景；换成驱动 Copilot CLI 的共享 Unix 风格工具（grep、glob、view）应该是次干净的升级。结果基准测试给出了反直觉的答案——审查成本更高，抓到的问题更少。\n\n诊断结论是这次复盘的核心：工具没有问题，指令有问题。旧指令是围绕旧工具层的行为写的，直接搬到新工具上，智能体的探索方式就和「审查一个 PR」这件事错了位。团队按照人类审查者实际读 PR 的方式——以 PR 证据为锚点组织探索——重写了工作流指令，退化翻转为胜利：平均审查成本降低约 20%，审查质量保持不变。\n\n这篇复盘的通用教训对任何智能体团队都成立：构建在智能体框架之上时，你继承的不只是工具，还有工具隐含的工作流假设；当你的场景与工具的设计初衷漂移得足够远，它们会安静地开始拖后腿。工具替换必须连同指令一起重写，且需要回归基准来暴露这类退化——没有基准，这次退化可能根本不会被发现。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-10",
-      "sourceName": "GitHub Blog",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "GitHub",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-f741f122",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:43:26.524Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产级智能体的负面结果复盘比成功案例稀缺得多。「更好的工具让效果更差」直指一个普遍盲区：工具与指令是耦合的整体，替换其一必须重写另一——而且没有回归基准，这类退化会被安静地上线。",
-      "whoShouldCare": [
-        "在智能体框架上构建产品的工程团队",
-        "维护智能体工具层的平台工程师",
-        "负责智能体评测基准的工程师"
-      ],
-      "technicalContext": "智能体的行为由「工具能力 × 指令假设」共同决定：工具定义能做什么，指令定义怎么探索。继承自框架的工具带着隐含的工作流设计（这里是 SWE-agent 式仓库导航），当任务从「解决 issue」漂移到「审查 PR」，同一套探索模式就从助力变成开销。以任务的原生证据（PR diff）为锚点重写指令，是把通用工具重新对齐到具体任务的正确杠杆。",
-      "impactAreas": [
-        "智能体工程",
-        "开发者工具",
-        "评测基准"
-      ],
-      "learningPath": [
-        "读原文，注意「换工具前后」的基准对比是怎么设计的",
-        "对照 Shippy 复盘的「确定性工具层」经验，理解工具层设计的两种取舍",
-        "为自己的智能体产品建立一个最小回归基准，再做下一次工具或提示词变更"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "工具调用的效果不取决于工具本身，而取决于模型被引导的使用方式——这篇复盘是该概念最好的生产级注脚。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "工作流设计的反面教材与正面修复同在一篇：指令必须围绕任务的实际认知过程（审查者怎么读 PR）设计，而不是围绕工具能力清单。",
-        "skill-tool-integration": "「继承框架工具」的漂移风险正是工具集成模式要管理的核心：工具的隐含工作流假设需要被显式识别和重新对齐。",
-        "skill-ws-f741f122": "没有回归基准，这次退化不会被发现——评测运维是工具替换能安全进行的前提。"
-      },
-      "followUpQuestions": [
-        "重写后的审查指令是否会开源或沉淀为可复用模式？",
-        "20% 成本降低在不同模型上是否稳定成立？",
-        "同样的「工具×指令错位」诊断方法能否用于其他智能体场景？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-blog-p-97467",
-      "createdAt": "2026-07-21T05:07:29.172Z",
-      "updatedAt": "2026-07-27T02:43:26.524Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：GitHub 工程复盘，与 Shippy 复盘同类的负面结果分享；sourceUrl 为按 GitHub Blog 惯例的规范化地址（feed 提供的是 ?p= 短链）。"
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
       "id": "draft-candidate-rss-https-github-blog-p-97686",
       "slug": "copilot-vs-raw-api-access",
       "title": {
@@ -2154,204 +2361,6 @@
         "2026-07-27 轮：与 07-10 已发布的 Copilot 代码审查复盘同源，两条共同构成「模型之外的工程层才是差异所在」这一主题。"
       ],
       "relatedTechnologyIds": []
-    },
-    {
-      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "slug": "chatgpt-work",
-      "title": {
-        "original": "ChatGPT is now a partner for your most ambitious work",
-        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
-      },
-      "summary": {
-        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
-      },
-      "content": {
-        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
-        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-09",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-ws-a28a8a56"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-scope-pilots",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:08:16.653Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
-      "whoShouldCare": [
-        "知识工作者与团队负责人",
-        "智能体应用开发者",
-        "AI 产品经理"
-      ],
-      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
-      "impactAreas": [
-        "办公自动化",
-        "团队协作方式",
-        "智能体产品设计",
-        "知识工作流程"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
-        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
-        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
-        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
-        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
-        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
-      },
-      "followUpQuestions": [
-        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
-        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
-        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "createdAt": "2026-07-09T20:58:31.394Z",
-      "updatedAt": "2026-07-21T05:08:16.653Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-      "slug": "ai2-shippy-agent-lessons",
-      "title": {
-        "original": "What building Shippy taught us about building agents",
-        "zh": "Shippy 复盘：Ai2 高风险场景智能体的四条工程经验与三件开源工件"
-      },
-      "summary": {
-        "original": "Ai2's Skylight team shares engineering lessons from Shippy, a maritime-domain-awareness agent serving analysts in 70+ countries, and open-sources the OpenClaw agent framework, the Harbor evaluation framework and the Mothership hosting platform.",
-        "zh": "Ai2 Skylight 团队复盘海事态势感知智能体 Shippy 的工程实践：智能体三分解剖（soul/skills/config）、确定性 CLI 工具层、按会话隔离的沙箱部署、专家加权评分的活数据评估，并开源了 OpenClaw（智能体框架）、Harbor（评估框架）与 Mothership（托管平台）三件工件。"
-      },
-      "content": {
-        "original": "Shippy is an AI agent built by Ai2's Skylight team for real-time maritime domain awareness, assisting analysts across 70+ countries in high-stakes operational decisions. The writeup distills four lessons: separate an agent into soul (system prompt), skills (markdown-documented capabilities) and config; talk to APIs through a purpose-built deterministic CLI rather than raw calls; isolate each user session in its own sandboxed Kubernetes deployment; and evaluate on live data with expert-weighted rubrics instead of static benchmarks. Released artifacts: the OpenClaw agent framework, the Harbor evaluation framework with a Shippy plugin, the Mothership hosting platform, and the agent-skills markdown spec.",
-        "zh": "Shippy 是 Ai2 Skylight 团队为实时海事态势感知构建的智能体，服务 70 多个国家的分析人员做高风险业务决策——错误回答可能浪费执法资源甚至危及人员安全，这决定了它的工程取向：可靠性优先于能力上限。\n\n复盘提炼出四条经验。第一，把智能体拆成 soul（定义边界的系统提示）、skills（用 markdown 文档化的能力）与 config（运行时配置）三层，各自独立版本化，改动无需重建整体。第二，模型不直接拼裸 API 调用，而是通过专门构建的确定性 CLI 与后端交互——分页错误、畸形查询这类隐蔽 bug 在工具层就被消化，且每一层可独立测试。第三，Mothership 平台按用户会话分配独立的 Kubernetes 沙箱部署，在数百个政府合作方之间做数据隔离的同时支撑多步分析。第四，评估不用静态基准，而是在活数据上由领域专家定义加权评分表，真实捕捉工具选择与护栏遵守情况。\n\n随文开源三件工件：OpenClaw（智能体框架）、Harbor（带 Shippy 插件的评估框架）、Mothership（通用智能体托管平台），外加与 Claude Code、Codex 通用的 agent-skills markdown 规范。对正在把智能体推向生产环境的团队，这是一份罕见的「高风险场景」一手工程记录。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-15",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/allenai/shippy-tech-blog",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ai2",
-      "publisherType": "research-lab",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-a28a8a56"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T05:08:16.608Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产级智能体的公开工程复盘本就稀少，高风险场景（错误决策有真实代价）的更是罕见。四条经验——三分解剖、确定性工具层、会话级沙箱、专家评分的活数据评估——每一条都指向同一个主题：智能体可靠性来自工程结构，不是模型能力。",
-      "whoShouldCare": [
-        "把智能体推向生产环境的工程团队",
-        "智能体平台与基础设施建设者",
-        "关注智能体评估方法的从业者"
-      ],
-      "technicalContext": "「模型通过确定性 CLI 而非裸 API 与系统交互」是近期智能体工程的收敛趋势：把不可靠性关进模型与工具的边界之内，工具层用传统软件工程的确定性来兜底。agent-skills 的 markdown 规范与 Claude Code、Codex 通用，也印证了智能体能力描述格式正在跨厂商标准化。",
-      "impactAreas": [
-        "智能体工程实践",
-        "智能体评估方法",
-        "多租户智能体部署"
-      ],
-      "learningPath": [
-        "对照 soul/skills/config 三分法审视自己的智能体：提示、能力、配置是否已经解耦",
-        "把最容易出错的一个 API 调用包成确定性 CLI 工具，对比错误率变化",
-        "参照 Harbor 的思路，为自己的智能体定义一份领域专家加权的评分表"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "Shippy 的确定性 CLI 层是工具使用概念的工程化范本：模型负责决策，工具负责正确执行。",
-        "knowledge-evaluation-loops": "活数据 + 专家加权评分表替代静态基准，是评估闭环思想在智能体场景的落地形态。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "soul/skills/config 三分解剖可以直接当作智能体工作流设计的检查清单使用。",
-        "skill-tool-integration": "「裸 API 调用 → 专用确定性 CLI」正是工具集成模式要解决的核心问题：接口的可靠性边界画在哪里。"
-      },
-      "followUpQuestions": [
-        "OpenClaw 与现有主流智能体框架相比的差异化设计是什么？",
-        "会话级 Kubernetes 沙箱的成本与冷启动延迟在什么量级？",
-        "agent-skills 规范会不会成为跨厂商的事实标准？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-      "createdAt": "2026-07-19T03:20:48.302Z",
-      "updatedAt": "2026-07-21T05:08:16.608Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ]
     },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
