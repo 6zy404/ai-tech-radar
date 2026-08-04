@@ -1494,3 +1494,60 @@ Only then does "4698 elements, 0 differences" mean the removal changed nothing.
 This is the 2026-07-30 lesson in its third form: **fix the measurement
 condition before the number means anything** — and confirm the instrument fires
 in the direction you expect, not merely that it produces a number.
+
+## The site mark (2026-08-04)
+
+The site had no favicon at all, so every page load logged a `/favicon.ico` 404
+— recorded as a minor unfixed item by the visual round earlier the same day,
+then closed.
+
+The mark is **印章**: a stamp-red rounded square holding a paper-coloured ring
+and centre dot. It reuses the dossier tokens rather than introducing colour —
+`#8a3b2a` is `--dossier-stamp` and `#f8f6ee` is `--dossier-surface` — and it
+picks the metaphor the product already uses everywhere else, since
+`DossierStampTag` is how this site labels a record. Two directions were mocked
+up against it and rejected on legibility: an archival card (paper ground, ink
+border, two rule lines) and a radar dial (ink ground, two sweep rings, one
+blip). Both carry more strokes than a 16px raster can hold, and 16px is the
+only size a browser tab ever renders.
+
+Two files, both under `src/app/` as Next file conventions:
+
+- `icon.svg` — served at `/icon.svg`, emitted as
+  `<link rel="icon" type="image/svg+xml" sizes="any">`, and what every current
+  browser actually uses.
+- `favicon.ico` — 16 / 32 / 48px PNG-in-ICO entries. It exists because a
+  browser that ignores the link tags still requests `/favicon.ico` from the
+  root, which is the request that was producing the 404.
+
+### The ring is 3 units wide because 2 disappears at 16px
+
+The obvious stroke width is the one that looks right in the mockup. Measured
+instead, by decoding each ICO entry and naming every colour band down its
+centre column:
+
+| ring width | 16px centre column                              |
+| ---------- | ----------------------------------------------- |
+| 2          | no fully opaque paper pixel — ring is all blend |
+| 2.5        | no fully opaque paper pixel                     |
+| 3          | `stamp x3 \| paper x1 \| blend \| stamp …`      |
+
+At 2 units the ring survives at 32px and above and dissolves into
+antialiasing at exactly the size that matters. 3 is the threshold where a
+16px entry keeps one solid paper pixel; at 32px the centre column comes out
+with **no blend pixels at all** (`stamp6 | paper3 | stamp4 | paper6 | …`).
+`icon.svg` carries the same 3 so the two files do not drift.
+
+### The binary has a source
+
+`.ico` is a binary format, so a committed blob with no generator is a mark
+nobody can change without editing bytes. `scripts/generate-favicon.mjs`
+(`npm run gen:favicon`) rasterises the same constants with 4×4 supersampling
+and writes the file; re-running it reproduces the committed bytes exactly.
+
+It prints the centre-column bands for each entry rather than asserting one
+sampled pixel — the first version of that check sampled a coordinate that was
+**outside** the ring and reported "no ring" for a correct image. Naming every
+band makes a geometry change visible instead of letting a misplaced probe
+pass or fail for the wrong reason. Same lesson as the section above, one
+level down.
