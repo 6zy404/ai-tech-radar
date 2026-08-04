@@ -12,6 +12,55 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The entry that looked redundant and measurably was not
+
+- **知识「评估闭环」 kept and rewritten** (52 → 1189 chars) — 2026-08-05,
+  after the previous round deliberately refused to queue it. It sat at the top
+  of the stub list (13 inbound) but looked like it might have been absorbed by
+  the same day's rewrite of 模型与输出评估 and the new 完成判定与验收信号, and
+  "does this still need to exist" is a judgment call rather than a writing
+  task, so it went to the owner with the boundary measured first.
+- **The measurement reversed the hunch.** It is pointed at by 8 signals and —
+  the number that decided it — **5 different skills**: 模型与输出评估,
+  旗舰模型发布解读与换代判断, 智能体安全与提示注入防御, 视觉输入的组织与核验,
+  智能体可观测性与评测运维. Merging it into 模型与输出评估 would leave the other
+  four pointing at a _skill_ instead of a concept, which inverts the split this
+  product is built on. **It looked redundant because it was 52 characters, not
+  because it had no place.**
+- **The three practices divide by when they run**, and that boundary was
+  already written into all three bodies the day before: before launch
+  (模型与输出评估), mid-task (完成判定与验收信号), after the run
+  (智能体可观测性与评测运维). This entry is the shape underneath all of them.
+- The body owns the concept rather than restating any practice: the four steps
+  and the fact that **only the fourth makes it a loop** — an evaluation that
+  ran and changed nothing is a report, so the test for whether a team has a
+  loop is what the last evaluation changed, not whether they run evaluations.
+  Then why step 1 is the expensive one (Real World VoiceEQ spent a million
+  human ratings there, while observing and comparing are cheap), that loops
+  nest — Gemini Robotics 2's completion-judging ability is itself measured at
+  57.4%, and GPT-Red's self-play makes the loop generate its own next inputs —
+  and the three ways a loop breaks (no baseline, the ruler changed, nobody owns
+  step 4).
+- **A second loop entry was measured in the same pass and left alone.**
+  知识「反馈闭环与团队学习」 has **1** inbound signal against 评估闭环's 8, and
+  their signal sets overlap by **zero** — they are genuinely different things
+  (team learning cadence versus evaluation), but its evidence base is thin
+  enough to deserve its own decision rather than being swept along.
+- Verified: 16 blocks, 5 headings, ordered and bulleted lists, 12 bold runs,
+  zero literal markers, all six neighbouring entries named, 10 public routes at
+  200, zero horizontal overflow at 375px with the detector proven to fire, zero
+  console errors, typecheck, lint, format, vitest 203/203, and
+  `validate:persistence` / `database` / `workspace-boundary`.
+- **The diff checker was sloppy and it showed.** Comparing `content` field to
+  field reported every technology record as changed, because a technology's
+  body is a localized object rather than a string, so `!==` compares references
+  and `.length` is `undefined`. Re-run as a serialized per-record comparison:
+  **exactly one record changed.** Worth recording because the noisy version
+  still printed "NO LOSSES" — a check can be right about its headline and wrong
+  in a way that would hide the next real change.
+- **Left**: 11 seed stubs, led by 人在回路的审查 (13 inbound / 50 chars) and
+  AI 试点范围界定 (12 / 37).
+
 ## Content round, continued — the two skills every agent signal points at
 
 - **The two highest-traffic stubs are gone** — 2026-08-04, owner-selected
