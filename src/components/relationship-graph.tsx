@@ -28,6 +28,19 @@ const CENTER_Y = VIEW_H / 2;
 const RADIUS_X = 37;
 const RADIUS_Y = 26;
 
+// `Math.sin`/`Math.cos` are not required to be bit-identical across engines, so
+// Node's V8 and the browser's can disagree in the last binary digit — enough for
+// React to report a hydration mismatch on the coordinates this component renders
+// into the markup. Measured: of 1..20 nodes, counts 11, 12, 14, 17, 19 and 20
+// disagree. Rounding to a fixed precision makes both sides emit the same string;
+// at four decimals in a 100x64 viewBox that is well below one device pixel.
+// Same failure the /network force-directed graph hit on 2026-07-15.
+const COORDINATE_PRECISION = 4;
+
+function stablePosition(value: number): number {
+  return Number(value.toFixed(COORDINATE_PRECISION));
+}
+
 const kindLabel: Record<RelationshipGraphNode["kind"], string> = {
   technology: "技术",
   skill: "技能",
@@ -49,8 +62,8 @@ export function RelationshipGraph({
     const angle = -Math.PI / 2 + (2 * Math.PI * index) / nodes.length;
     return {
       ...node,
-      x: CENTER_X + RADIUS_X * Math.cos(angle),
-      y: CENTER_Y + RADIUS_Y * Math.sin(angle)
+      x: stablePosition(CENTER_X + RADIUS_X * Math.cos(angle)),
+      y: stablePosition(CENTER_Y + RADIUS_Y * Math.sin(angle))
     };
   });
 
