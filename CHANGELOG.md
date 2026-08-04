@@ -12,6 +12,74 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — the same agent stack, with actuators for tools
+
+- **Six candidates, one signal** — 2026-08-04. **Gemini Robotics 2** published
+  as `important`: three models in one release — a vision-language-action model
+  that controls a full humanoid from feet to fingertips, an embodied reasoning
+  model (**ER 2**), and an on-device VLA that adapts to a new robot body in a
+  few hours and typically under 200 examples. The half that earns the signal is
+  ER 2, and the reason is not robotics: it **declares VLA models and navigation
+  APIs as tools**, takes video over a bidirectional stream, and thinks while it
+  acts — the agent architecture this site already tracks, with actuators in
+  place of software tools.
+- **The new thing is that it starts to answer "is this step done".** Progress
+  classification over five completion bands scores **57.4%**; moment-finding —
+  locating the exact frame where a critical event happens — scores **91.3%**
+  with a **0.96s** mean absolute error at 4× the execution speed of much larger
+  models. That is the verification signal purely-software agents have never
+  had. Only the reasoning layer is public today (Gemini API / AI Studio); the
+  action and on-device models are early-access, which makes the one open piece
+  also the one that matters most to a non-robotics reader.
+- **DeepMind's blog is fetchable, and its feed carries no summary** — the same
+  shape as the Hugging Face finding on 2026-07-30, on a source nobody had tried.
+  Two of the three DeepMind candidates arrived with an **empty** summary and
+  body; the article pages return 200 and the full text. Both robotics candidates
+  were read in full before either was dispositioned. `openai.com` still returns
+  403, so the three OpenAI candidates — including a technical companion to the
+  already-published GPT-Live signal — stayed at one RSS sentence and were
+  reviewed rather than written up.
+- **Two rejected, three reviewed.** A telco customer case study and a consumer
+  music model whose entire announcement is four "improved X" bullets with no
+  number and no artifact. The sibling **Gemini Robotics ER 2** post is marked
+  reviewed rather than published as a second signal: it is a deep dive on one of
+  the three models announced two days earlier, and its numbers are in the
+  signal's body.
+- **The digest carries two items, and that is the round's judgment.** All 25
+  other published signals had already been carried, so there was no catching up
+  available. The lead is the new signal; the second is Ai2's Shippy
+  retrospective, which asks the same question — how does an agent know it did
+  the right thing — and answers it with human-written checks instead of
+  model-native metrics. Deliberately **not** the Gemini managed-agents signal,
+  which was 08-01's second item. The unedited 2026-08-03 draft is archived.
+- **A latent hydration bug surfaced because a page finally had 11 relations.**
+  `RelationshipGraph` places its spokes with `Math.cos`/`Math.sin`, which are
+  not required to be bit-identical across engines. Hashing the emitted strings
+  in Node and Chrome for node counts 1..20 showed **6 counts disagree** (11, 12,
+  14, 17, 19, 20) — and every published signal until today had **10 relations or
+  fewer**. Rounding both coordinates to four decimals makes the two engines emit
+  the same string (re-hashed: 20/20 identical, console empty in a fresh tab); in
+  a 100×64 viewBox that is well under one device pixel. **Exactly the failure
+  `/network` hit on 2026-07-15**, still living in the older sibling component
+  that round did not touch.
+- 10 reverse ids added with read-then-union, 11 typed relations written, and
+  `config/*.json` diffed against `HEAD` per record afterwards: **zero arrays
+  lost an entry**, with the checker proven to fire on an injected value.
+- Verified: 16 public routes at 200, zero hits on a 10-string internal-field
+  scan, pinned lead first, all 8 excluded items absent, typecheck, lint, format,
+  vitest 203/203, and `validate:digest` / `persistence` / `ranking` /
+  `workspace-boundary` / `publishing`.
+- **Three of the first verification failures were the check being wrong, not the
+  page.** A raw-HTML scan for `**` matched the RSC payload rather than rendered
+  text; the pinned-lead assertion matched "Shippy" inside the editorial summary
+  — **the same false failure recorded on 2026-07-30**. The signal's absence from
+  the news fast lane is real and correct: the window is 7 days and the
+  candidate's publish date is one day outside it.
+- **Not done, and stated rather than downgraded:** the page was never looked at.
+  The Browser pane's screenshot tool was unavailable all session (the pane is
+  not displayed, so the page composites no frames), and `AGENTS.md` forbids
+  running Playwright without an explicit request.
+
 ## The content body learns the construct a signal needed the day before
 
 - **`ContentBody` renders inline code** — 2026-08-02. The parser covered `##`

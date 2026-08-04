@@ -353,6 +353,27 @@ machine — for those two, thin really is thin, and the honest disposition is
 still reviewed. Do not write a signal from a one-line RSS summary; what you
 would produce is your inference, not the source's evidence.
 
+**`deepmind.google` is fetchable; `blog.google` is not (2026-08-04).** The same
+rule caught a second source. The DeepMind blog feed also ships items with an
+empty `<description>`, and this repo's notes only ever recorded `blog.google` as
+unreachable — a different host. A plain fetch of a `deepmind.google/blog/…`
+article returns **200 with the full body**, so two title-only candidates that
+looked unwritable were read in full and one of them became that day's signal.
+The current per-source picture, all measured rather than assumed:
+
+| host                | plain `fetch`  | practical consequence                 |
+| ------------------- | -------------- | ------------------------------------- |
+| `hf-mirror.com`     | 200            | read the page, never the feed summary |
+| `deepmind.google`   | 200            | same                                  |
+| `github.blog`       | 200            | same                                  |
+| `simonwillison.net` | 200            | same                                  |
+| `openai.com`        | **403**        | one RSS sentence is all there is      |
+| `blog.google`       | `fetch failed` | same                                  |
+
+All six were measured together on 2026-08-04 with a plain
+`node -e "fetch(url)"`; re-measure rather than trusting the table if a source
+suddenly looks thin.
+
 **Since 2026-07-28 this check runs for you.** The `already_published`
 (已发布过) candidate quality flag compares each candidate against the
 published pool by normalized source URL _and_ by title similarity, and renders
