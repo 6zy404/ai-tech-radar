@@ -306,6 +306,7 @@ npm run lint:fix         # ESLint with autofix
 npm run format:check     # Prettier check (no writes)
 npm run format           # Prettier write
 npm run sync:candidates  # refresh imported candidates from live sources
+npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 
 # persistence / task runner
 npm run db:init
