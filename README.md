@@ -48,7 +48,8 @@ The product is split into two subsystems:
   review loop.
 - **Knowledge relationship network** — every technology/skill/knowledge cross-
   reference carries an explicit, Chinese-labelled relation type; a small
-  per-item relationship graph is walkable on all three detail pages, and
+  per-item relationship view — the current item, then its neighbours grouped
+  by kind — is walkable on all three detail pages, and
   `/network` renders the full graph in one view with a hand-written
   force-directed layout, search-highlight, a category filter, hover-over-edge
   relation labels, draggable nodes, and click-to-focus exploration of any

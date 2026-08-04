@@ -12,6 +12,90 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Looking at the signal page the round before never opened
+
+- **The page published on 2026-08-04 got its visual pass the same day**,
+  owner-selected — the round that published it closed by stating plainly that
+  it had never been looked at. The Browser pane's screenshot tool was
+  unavailable again (the pane is not displayed, so the page composites no
+  frames), so this ran through Playwright against the local Chrome,
+  owner-authorized. 36 captures: 1440 and 390, light and dark, sliced at **1:1
+  viewport height** rather than downscaled full-page images — the 2026-08-01
+  round withdrew three findings that came from reading downscaled captures.
+  **Two defects, one claim withdrawn.**
+- **What was already right, since a verification write-up that only lists
+  defects is misleading**: the hero, the body's headings/bold/lists with no
+  literal markers, the publisher-type chip, the sticky aside, the related cards
+  with their real notes, the source reference — plus 16 public routes at 200,
+  zero horizontal overflow and zero page errors at both widths and both
+  schemes.
+- **The relation stamp was being squeezed by the title beside it.** The card
+  head is a flex row and the stamp had no `flex-shrink`, so a wrapping title
+  took its width: the same 印证 rendered **48×26 beside a one-line title and
+  45×42 — 印 above 证 — beside a two-line one, on the same page**. Measured
+  across 15 routes at both widths: **34** short relation labels wrapped, on
+  four signal pages. A second cause on the card chips row: `align-items`
+  defaulted to stretch, so the same 基础 chip was 48×26 on one `/knowledge`
+  card and 48×35 on its neighbour. Mirror image of the 2026-07-29 finding where
+  the same component was **stretched** to 446px around two characters.
+- **The first version of that fix was a regression I introduced, caught by
+  measuring.** Giving the chips `flex-shrink: 0` too sized the grid track from
+  their max-content width and pushed `/technologies` to a **448px document on a
+  390px viewport — 470 elements painted off-screen**, the same mechanism as the
+  2026-07-29 compare-widget `<select>`. Confirmed as mine by stashing the
+  change (baseline: 0 overflow, 390px document), then narrowed to the row that
+  actually needed it. Detector proven to fire first (injected squeeze: 102
+  hits), then **34 → 0**, with short-stamp heights collapsing to 24/26 and no
+  42 or 35 left anywhere.
+- **The per-item relationship graph had outgrown its ring** — the round's real
+  finding, and not one page's problem. Nodes sat on a **fixed radius that never
+  grew with the node count** while each box was sized by its own label: 6
+  overlapping node pairs at 1440px on the 11-relation page (plus a node painted
+  25px above the canvas, over the hint paragraph), and at 390px **every signal
+  page tested overlapped, including one with 5 relations**. Five published
+  signals carry more than 8 relations. Same defect `/network` fixed on
+  2026-07-15, still living in the older sibling component — the **second such
+  find in two days**, after the hydration bug fixed on 08-03.
+- **The owner picked grouping after seeing all three candidates rendered
+  against the real page.** Neighbours now group by kind (技术 / 技能 / 知识,
+  each labelled with its count): **0 overlaps and 0 nodes outside the section**
+  at 1440 light, 1440 dark and 390, across all three host pages. The bigger
+  ring was rejected on its numbers (it pushed 6 nodes outside the canvas at
+  1440 and still left 5 overlaps at 390) and `/network`'s dot nodes on their
+  meaning (0/0, but the resting state is 11 anonymous circles, and a phone has
+  no hover). Retiring the ring also retires its trigonometry — and with it the
+  cross-engine hydration hazard fixed one commit earlier, since no computed
+  coordinates remain in the markup.
+- **Two knock-on decisions, both forced by measurement**: the chips stopped
+  repeating the kind the group heading already states, which meant moving the
+  kind colour to the group label — on public pages the per-chip label was the
+  only thing carrying it, because `.dossier .tech-graph__node` overrides the
+  per-kind border (contrast 5.06–6.03 light, 4.84–6.40 dark). And both new
+  labels are `<div>`, not `<p>`: `.user-shell p` pins every paragraph to
+  `var(--fs-body)` with `!important`, so the first version shipped the group
+  label as **16px body copy**.
+- **One claim withdrawn.** The hero title breaking as `Gemini Robotics` /
+  `2：全身控制，与` with 148px unused on line one looked like a defect. The
+  numbers say the browser is right: `Gemini Robotics 2：` is 459px and fits the
+  524px measure, but a line may not end on a fullwidth colon, so the next
+  candidate is `Gemini Robotics 2：全身` at **547px** — which does not. Both
+  numbers explain the observed break exactly. No change.
+- **The dead-CSS removal shipped as its own commit, and its harness was wrong
+  twice first.** 46 lines (the canvas, the connector `<svg>`, the per-chip kind
+  label and their dark overrides). Verified by computed-style diff: **4698
+  elements, zero differences**. Getting there needed two corrections —
+  `/network`'s force-directed layout is not reproducible between loads and
+  produced **964 differences between two captures of identical code**, exactly
+  the count the probe had produced, so the probe had proven nothing; and the
+  first probe rule was inserted above the rule it meant to override and lost on
+  source order, reporting 0. With `/network` dropped the noise floor is 0 and
+  the probe shows 132.
+- Verified per commit: typecheck, lint, format, vitest 203/203,
+  `validate:persistence` / `workspace-boundary`, 16 public routes at 200 with
+  zero horizontal overflow at 1440 light, 1440 dark and 390.
+- **Minor, unfixed and stated rather than quietly dropped**: the site has no
+  favicon, so every page load logs one `/favicon.ico` 404.
+
 ## Editorial round — the same agent stack, with actuators for tools
 
 - **Six candidates, one signal** — 2026-08-04. **Gemini Robotics 2** published
