@@ -676,10 +676,20 @@ Forbidden on public pages:
 - `RelatedItemsSection`
   - user-facing wrapper for related skills and knowledge inside the article layout
 - `RelationshipGraph`
-  - shared per-item relationship visualization rendered on the technology,
-    skill, and knowledge detail pages: the current item at the centre with its
-    directly related technologies/skills/knowledge as clickable, colour-coded,
-    tooltip-labelled spokes
+  - shared per-item relationship view rendered on the technology, skill, and
+    knowledge detail pages: the current item as a banner, then its directly
+    related items grouped by kind (技术 / 技能 / 知识, each group labelled with
+    its count) as clickable, tooltip-labelled chips. The kind colour rides on
+    the group label, not on each chip — `.dossier .tech-graph__node` overrides
+    the per-kind border, so the per-chip label used to be the only thing
+    carrying it, and repeating the kind under a heading that already states it
+    is the repetition this project keeps removing
+  - it was a ring until 2026-08-04: nodes sat on a fixed radius that never grew
+    with the node count while each node box was sized by its own label, so the
+    layout collapsed on items with many relations (6 overlapping pairs at
+    1440px with 11 relations, plus a node painted over the hint text; at 390px
+    every signal page tested overlapped, including one with 5 relations). See
+    `docs/design-system.md` → "The ring that could not grow"
 - `RelationDensity`
   - shared "关联 · N 技术 · N 技能 …" density line used by all three index cards
 - `ContentNetworkGraph`

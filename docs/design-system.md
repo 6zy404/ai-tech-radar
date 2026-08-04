@@ -1405,3 +1405,92 @@ Neither defect can be found by a detector: one is whitespace that every layout
 check treats as legal, the other is a hierarchy judgment between two elements
 that individually measure fine. The sweep's slogan holds — a detector encodes
 the defects you have already met.
+
+## The ring that could not grow (2026-08-04)
+
+The per-item `RelationshipGraph` — the small "在技术网络中的位置" block on the
+technology, skill and knowledge detail pages — placed every neighbour on a ring
+of **fixed radius** (`RADIUS_X * cos(angle)`), while each node box was sized by
+its own label. Nothing in that arrangement accounts for how many neighbours
+there are, so the layout degrades continuously as an item accumulates
+relations, and there is no threshold at which it fails loudly.
+
+Measured across the published signals, counting overlapping node pairs:
+
+| relations | 1440px | 390px |
+| --------- | ------ | ----- |
+| 5         | 0      | 2     |
+| 7         | 0      | 6     |
+| 8         | 0      | 8     |
+| 9         | 2      | 10    |
+| 10        | 5      | 11    |
+| 11        | 6      | 14    |
+
+At 1440px it survived to 8 spokes and broke past that; **at 390px every signal
+page tested overlapped**, and 3–5 nodes per page were painted outside the
+canvas entirely. On the worst page a node sat 25px above the canvas's own top
+edge, overlapping the section's hint paragraph by 132×11px. Five published
+signals carry more than 8 relations and twelve carry more than 6, so this was
+never one page's problem.
+
+This is the same defect `/network` fixed on 2026-07-15 (44 overlapping label
+pairs → dot nodes), still living in the older sibling component that round did
+not touch — **the second such find in two days**, after the cross-engine
+hydration bug fixed on 2026-08-03. When a defect is fixed in one of two
+components that do the same job, check the other one in the same round.
+
+### Why grouping, and not a bigger ring
+
+Three candidates were implemented against the real page with real data and
+measured, rather than argued:
+
+|                 | 1440 overlaps / outside | 390 overlaps / outside | height       |
+| --------------- | ----------------------- | ---------------------- | ------------ |
+| ring (current)  | 6 / 1                   | 11 / 5                 | —            |
+| bigger ring     | 0 / **6**               | **5** / **9**          | +220px       |
+| dot nodes       | 0 / 0                   | 0 / 0                  | unchanged    |
+| grouped by kind | 0 / 0                   | 0 / 0                  | +92 / +355px |
+
+The bigger ring fixes the symptom it is aimed at and creates a worse one: the
+enlarged boxes leave the canvas, and at 390px it does not even fix the
+overlaps. Dot nodes measure perfectly and answer the wrong question — on
+`/network` they work because that page has 33 nodes plus search and selection,
+whereas a per-item block exists precisely to **name** a handful of neighbours,
+and its resting state would become 11 anonymous circles. A phone has no hover
+at all, and 390px is where this component was most broken.
+
+Grouping by kind is 0/0 at both widths **by construction** rather than by
+tuning, which is the property the ring never had.
+
+### Two traps this fix walked into, both already documented in the file
+
+1. **A `<p>` cannot be a small label under `.user-shell`.** The typography
+   scale pins `.user-shell p` to `var(--fs-body)` with `!important`, so the
+   group label first shipped as 16px body copy. Qualifying the selector did not
+   help; the element became a `<div>`. The same applies to any future label:
+   check the tag, not just the specificity.
+2. **The container-`p` hazard.** `.dossier .user-article-section p` (0,2,1)
+   outranks a lone component class, which is why `.tech-graph__hint` already
+   carries a qualified selector. Both new label rules were written qualified
+   from the start for that reason.
+
+### The diff harness was wrong twice before its reading meant anything
+
+The dead-CSS removal was verified by capturing 40 computed properties plus the
+bounding box for every element on the three host pages at 1440 light, 1440 dark
+and 390, then diffing. Getting a trustworthy number took two corrections:
+
+- **`/network` is not reproducible between loads.** Its force-directed layout
+  settles differently each time, so two captures of _identical_ code differed
+  in **964** places — the same count the injected probe produced, meaning the
+  probe had proven nothing at all. With `/network` dropped from the route list
+  the noise floor is 0 across 4698 elements.
+- **A probe must win on source order.** The first probe rule was inserted above
+  `.tech-graph__node`'s own rule and was silently overridden, so the harness
+  reported 0 differences and looked broken. Moved below it, the probe shows up
+  as 132 differences.
+
+Only then does "4698 elements, 0 differences" mean the removal changed nothing.
+This is the 2026-07-30 lesson in its third form: **fix the measurement
+condition before the number means anything** — and confirm the instrument fires
+in the direction you expect, not merely that it produces a number.
