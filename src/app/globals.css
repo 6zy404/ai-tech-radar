@@ -7948,14 +7948,42 @@ a.technology-evolution__title {
   stroke-width: 1.5;
 }
 
+.tech-graph__map {
+  margin-top: 14px;
+}
+
+.tech-graph__group {
+  margin-top: 12px;
+}
+
+/* Rendered as a <div>, not a <p>: `.user-shell p` pins every paragraph to
+   var(--fs-body) with !important (the 2026 typography-scale step), so a <p>
+   here cannot be a small label at all — the first version of this rule shipped
+   the group label as 16px body copy on every public page. The wrapper is kept
+   in the selector for the container-`p` hazard documented at __hint below. */
+.tech-graph__group-label,
+.dossier .tech-graph .tech-graph__group-label {
+  margin: 0 0 6px;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.tech-graph__group-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .tech-graph__node {
-  position: absolute;
-  transform: translate(-50%, -50%);
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1px;
-  max-width: 132px;
+  max-width: 100%;
   padding: 6px 12px;
   border-radius: 14px;
   background: #ffffff;
@@ -7963,8 +7991,7 @@ a.technology-evolution__title {
   box-shadow: var(--shadow-card);
   color: var(--user-ink);
   font-size: var(--fs-label);
-  line-height: 1.3;
-  text-align: center;
+  line-height: 1.35;
 }
 
 .tech-graph__node-kind {
@@ -7975,8 +8002,8 @@ a.technology-evolution__title {
 }
 
 .tech-graph__node--center {
-  z-index: 2;
-  max-width: 156px;
+  display: block;
+  max-width: 100%;
   background: var(--accent);
   border-color: var(--accent);
   color: #ffffff;
@@ -7985,13 +8012,14 @@ a.technology-evolution__title {
 }
 
 a.tech-graph__node {
+  text-decoration: none;
   transition:
     transform 140ms ease,
     border-color 140ms ease;
 }
 
 a.tech-graph__node:hover {
-  transform: translate(-50%, -50%) scale(1.04);
+  transform: translateY(-1px);
 }
 
 .tech-graph__node--technology {
@@ -8015,6 +8043,24 @@ a.tech-graph__node:hover {
 }
 
 .tech-graph__node--knowledge .tech-graph__node-kind {
+  color: #185fa5;
+}
+
+/* The kind colour now rides on the group label. Qualified with the component's
+   own wrapper for the same reason .tech-graph__hint is: every host section
+   styles its paragraphs with a `container p` rule that outranks a lone class. */
+.tech-graph__group-label--technology,
+.dossier .tech-graph .tech-graph__group-label--technology {
+  color: var(--accent);
+}
+
+.tech-graph__group-label--skill,
+.dossier .tech-graph .tech-graph__group-label--skill {
+  color: var(--label-amber);
+}
+
+.tech-graph__group-label--knowledge,
+.dossier .tech-graph .tech-graph__group-label--knowledge {
   color: #185fa5;
 }
 
@@ -10754,6 +10800,10 @@ a.tech-graph__node:hover {
   }
 
   .dossier .tech-graph__node--knowledge .tech-graph__node-kind {
+    color: #7fb2e5;
+  }
+
+  .dossier .tech-graph .tech-graph__group-label--knowledge {
     color: #7fb2e5;
   }
 
