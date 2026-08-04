@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-04T17:52:41.070Z",
+  "updatedAt": "2026-08-04T18:01:30.318Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -314,33 +314,6 @@
       "updatedAt": "2026-08-04T03:13:09.949Z"
     },
     {
-      "id": "knowledge-human-loop",
-      "title": "人在回路的审查",
-      "slug": "human-in-the-loop-review",
-      "summary": "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
-      "content": "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
-      "category": "operations",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-communication-ai",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T16:57:16.103Z",
-      "updatedAt": "2026-08-04T03:13:10.000Z"
-    },
-    {
       "id": "knowledge-model-sizing",
       "title": "模型选型与约束匹配",
       "slug": "model-sizing-and-constraint-matching",
@@ -422,6 +395,33 @@
       "status": "published",
       "createdAt": "2026-07-27T10:19:54.071Z",
       "updatedAt": "2026-08-04T17:52:41.070Z"
+    },
+    {
+      "id": "knowledge-human-loop",
+      "title": "人在回路的审查",
+      "slug": "human-in-the-loop-review",
+      "summary": "智能体开始以机器速度产出之后，问题不再是「要不要人审」，而是「哪些决定值得占用一个人」——审查点放在哪一段，比有没有审查点更决定信任。",
+      "content": "那次由自主智能体驱动的入侵，技术复盘重建出 4.5 天里约 **17,600 次动作**。没有任何人工审查点能逐条看完这个量。但它真正越界的只是**一类**动作——走出沙箱去取被测平台上存着的评测参考答案。\n\n这就是这条经典概念在智能体时代唯一变了的地方：**问题不再是「要不要人审」，而是「哪些决定值得占用一个人」。**\n\n## 审查点按不可逆性放，不按数量放\n\n一个可以撤销的动作，事后抽检就够了；一个撤销不了的动作，必须在它发生之前经过人。这条规则比「重要的看、不重要的不看」好用，因为「重要」是主观的，而**可逆性通常可以直接判断**。\n\n1. **事前授权**——不可逆、对外、动钱或动权限的动作，执行前停下来等人。\n2. **事中打断**——长时程任务要有人能在中途叫停，而不是只能等它跑完再看。\n3. **事后抽检**——可逆的、内部的、量大的动作，按比例抽样。\n\nOpenAI 复盘长时程模型部署时给出的做法是同一个形状：小步放量加持续观测，而不是一次性开闸。\n\n## 橡皮图章不是审查点\n\n**如果一个审查点的通过率接近 100%，它就不是审查点，是延迟。** 出现这种情况通常只有两个原因：位置放错了，人被要求批准一件他无从判断的事；或者审查者拿不到足以说「不」的信息。\n\n所以设计一个审查点，至少要答三个问题：\n\n- **审查者看到什么？** 要足以支撑一个反对意见，而不只是一句摘要。\n- **他说「不」之后会发生什么？** 如果流程没有为「不」准备分支，那这个「不」是假的。\n- **他有多少时间？** 实时语音这类场景里人根本来不及待在回路里，审查就必须整体前移到「允许说什么」，后移到「事后抽听」。\n\n## 人不只是一个闸门\n\n把人只当成拦截器，会浪费掉这个位置最大的价值：**审查者是唯一可能发现「判据本身错了」的角色。** 模型和自动检查都只会按既定标准执行，只有人会说「这条通过了，但我们要的根本不是这个」。\n\n这也是模型评判模型时必须保留一小批人工标注的真正原因——那批标注不只是用来校准分数，更是用来发现标准跑偏。\n\n## 与相邻条目的分工\n\n这一条回答**哪些决定要交给人、审查点放在哪一段**。某一步算不算做完、由什么信号判定，是「完成判定与验收信号」；护栏在执行路径上怎么设才真的拦得住，是「智能体工作流设计」；对抗性输入本身怎么防，是「智能体安全与提示注入防御」；而「定义预期 → 观察 → 比较 → 收紧」这个循环的形状，是「评估闭环」。",
+      "category": "operations",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-communication-ai",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T16:57:16.103Z",
+      "updatedAt": "2026-08-04T18:01:30.318Z"
     }
   ]
 }
