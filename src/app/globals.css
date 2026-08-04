@@ -7929,25 +7929,6 @@ a.technology-evolution__title {
   color: var(--dossier-muted);
 }
 
-.tech-graph__canvas {
-  position: relative;
-  min-height: 340px;
-  margin-top: 14px;
-}
-
-.tech-graph__lines {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.tech-graph__lines line {
-  stroke: rgba(8, 127, 115, 0.3);
-  stroke-width: 1.5;
-}
-
 .tech-graph__map {
   margin-top: 14px;
 }
@@ -7994,13 +7975,6 @@ a.technology-evolution__title {
   line-height: 1.35;
 }
 
-.tech-graph__node-kind {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  opacity: 0.85;
-}
-
 .tech-graph__node--center {
   display: block;
   max-width: 100%;
@@ -8026,24 +8000,12 @@ a.tech-graph__node:hover {
   border-color: rgba(8, 127, 115, 0.5);
 }
 
-.tech-graph__node--technology .tech-graph__node-kind {
-  color: var(--accent);
-}
-
 .tech-graph__node--skill {
   border-color: rgba(138, 90, 18, 0.45);
 }
 
-.tech-graph__node--skill .tech-graph__node-kind {
-  color: var(--label-amber);
-}
-
 .tech-graph__node--knowledge {
   border-color: rgba(24, 95, 165, 0.4);
-}
-
-.tech-graph__node--knowledge .tech-graph__node-kind {
-  color: #185fa5;
 }
 
 /* The kind colour now rides on the group label. Qualified with the component's
@@ -9973,10 +9935,6 @@ a.tech-graph__node:hover {
   color: var(--dossier-surface);
 }
 
-.dossier .tech-graph__lines line {
-  stroke: var(--dossier-line);
-}
-
 /* -- AI widgets (compare / explain / learning path) -- */
 .dossier .technology-compare-widget__select {
   border: 1px solid var(--dossier-line);
@@ -10797,10 +10755,6 @@ a.tech-graph__node:hover {
     background: var(--dossier-accent);
     border-color: var(--dossier-accent);
     color: #1e1f1a;
-  }
-
-  .dossier .tech-graph__node--knowledge .tech-graph__node-kind {
-    color: #7fb2e5;
   }
 
   .dossier .tech-graph .tech-graph__group-label--knowledge {
