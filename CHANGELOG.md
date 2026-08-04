@@ -12,6 +12,65 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Content round, continued — the two skills every agent signal points at
+
+- **The two highest-traffic stubs are gone** — 2026-08-04, owner-selected
+  straight after the scan that found them, so no new measurement was needed:
+  技能「智能体工作流设计」 (18 inbound references, **50 chars**) and
+  技能「工具集成模式」 (15 references, **36 chars**). 17 published signals carry
+  the AI 智能体 tag and these two are the base they all point at.
+- **智能体工作流设计** (50 → 1267 chars) opens on the sharpest evidence in the
+  pool: GitHub swapped Copilot code review onto better-maintained shared CLI
+  tools and the benchmark got **worse** — higher review cost, fewer issues
+  found — and what flipped it was rewriting the workflow instructions to match
+  how a reviewer actually reads a PR (~20% cheaper, same quality). So the entry
+  argues that **the shape of the flow decides usefulness, not the tool count**.
+  Then Shippy's three-layer split (soul / skills / config, versioned
+  separately, because boundaries change rarely and capabilities change often),
+  the three questions every hand-off must answer, and the test for whether a
+  guardrail exists at all — **if the model decides to cross the line, what
+  physically stops it?** A prompt that says "don't" is not a guardrail. Closes
+  on the ownership question the platforms moved: Gemini's managed agents take
+  execution, state and tool access server-side with one `background:true`, and
+  Ollama turned from a local runtime into an agent entry point.
+- **工具集成模式** (36 → 1300 chars) is built on Shippy's counter-intuitive
+  rule: the model does **not** assemble raw API calls, it goes through a
+  purpose-built deterministic CLI, so pagination errors and malformed queries
+  are absorbed at the tool layer and each layer stays independently testable.
+  The tool layer is a product to be designed, and **its job is to absorb mess
+  rather than forward it**. Then a usable test (can a tool's return value be
+  read without context? if not, the model cannot read it either), why a narrow
+  tool boundary is what makes a system auditable and small enough for a laptop
+  model — the reason to come back to MCP over handing an agent a shell — and
+  four MCP 2.0 changes that land directly on integration work, including the
+  one most often skipped: a deprecation policy with a **12-month minimum
+  window**, without which an integration can break on any given Tuesday.
+- Both bodies name their hand-offs explicitly rather than leaving the split
+  implicit: the flow's shape versus a single tool's wiring, with adversarial
+  input going to 智能体安全与提示注入防御, post-run attribution to
+  智能体可观测性与评测运维, and the "which layer do you own" decision to
+  AI 工具链选型与自建边界评估.
+- **Inline code finally earns its keep.** The construct added 2026-08-02 after
+  the MCP 2.0 signal shipped its backticks to readers verbatim now renders 4
+  spans across the two pages (`curl`, `Mcp-Method`, `Mcp-Name`,
+  `background:true`) in monospace.
+- Verified: both pages 18 / 17 blocks with 5 headings each, ordered and
+  bulleted lists, 11 / 9 bold runs, **zero literal markers**, every named
+  hand-off present, 13 public routes at 200, zero horizontal overflow at 375px
+  with the detector proven to fire, zero console errors, and a per-record diff
+  against `HEAD` showing **only the two bodies changed** — no array shrank, no
+  slug or status moved. Plus typecheck, lint, format, vitest 203/203, and
+  `validate:persistence` / `database` / `workspace-boundary`.
+- **Left measured and unfixed**: 12 seed stubs remain, led by 评估闭环 (13
+  inbound / 52 chars) and 人在回路的审查 (13 / 50). 评估闭环 is deliberately
+  not simply queued — after this day's rewrites of 模型与输出评估 and the new
+  完成判定与验收信号 it may no longer need to exist separately, which is a
+  judgment call rather than a writing task.
+- **Not looked at, same as the round before**: the Browser pane's screenshot
+  tool remained unavailable, and `AGENTS.md` forbids running Playwright without
+  an explicit request. Structure, inline-code fonts, overflow and console were
+  measured; the pages were not seen.
+
 ## Content round — half the pool turned out to be one sentence
 
 - **The round changed shape after the scan** — 2026-08-04, owner-selected, and
