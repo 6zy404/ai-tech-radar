@@ -19,27 +19,19 @@ interface RelationshipGraphProps {
   hint?: string;
 }
 
-// Coordinate space for the connector <svg>; HTML nodes are placed at the same
-// relative positions, so preserveAspectRatio="none" keeps lines and nodes aligned.
-const VIEW_W = 100;
-const VIEW_H = 64;
-const CENTER_X = VIEW_W / 2;
-const CENTER_Y = VIEW_H / 2;
-const RADIUS_X = 37;
-const RADIUS_Y = 26;
-
-// `Math.sin`/`Math.cos` are not required to be bit-identical across engines, so
-// Node's V8 and the browser's can disagree in the last binary digit — enough for
-// React to report a hydration mismatch on the coordinates this component renders
-// into the markup. Measured: of 1..20 nodes, counts 11, 12, 14, 17, 19 and 20
-// disagree. Rounding to a fixed precision makes both sides emit the same string;
-// at four decimals in a 100x64 viewBox that is well below one device pixel.
-// Same failure the /network force-directed graph hit on 2026-07-15.
-const COORDINATE_PRECISION = 4;
-
-function stablePosition(value: number): number {
-  return Number(value.toFixed(COORDINATE_PRECISION));
-}
+// Neighbours are grouped by kind rather than placed on a ring. The ring put
+// every node on a fixed radius that did not grow with the node count, while
+// each node box was sized by its own label, so the layout collapsed as soon as
+// an item had enough relations: measured 2026-08-04 on the published signals,
+// 6 overlapping node pairs at 1440px with 11 relations (and a node painted 25px
+// above the canvas, over the hint text), and at 390px every signal page tested
+// overlapped — including one with only 5 relations. Grouping is 0/0 at both
+// widths and needs no hover, which a phone does not have.
+//
+// This also retires the ring's trigonometry, and with it the cross-engine
+// hydration hazard recorded on 2026-08-03: there are no computed coordinates
+// in the markup left to disagree about.
+const kindOrder = ["technology", "skill", "knowledge"] as const;
 
 const kindLabel: Record<RelationshipGraphNode["kind"], string> = {
   technology: "技术",
@@ -58,69 +50,58 @@ export function RelationshipGraph({
     return null;
   }
 
-  const positioned = nodes.map((node, index) => {
-    const angle = -Math.PI / 2 + (2 * Math.PI * index) / nodes.length;
-    return {
-      ...node,
-      x: stablePosition(CENTER_X + RADIUS_X * Math.cos(angle)),
-      y: stablePosition(CENTER_Y + RADIUS_Y * Math.sin(angle))
-    };
-  });
+  const groups = kindOrder
+    .map((kind) => ({
+      kind,
+      label: kindLabel[kind],
+      items: nodes.filter((node) => node.kind === kind)
+    }))
+    .filter((group) => group.items.length > 0);
 
   return (
     <section className={`tech-graph ${sectionClassName}`.trim()}>
       <p className="technology-detail-section__eyebrow">关系网络</p>
       <h2>{heading}</h2>
       <p className="tech-graph__hint">{hint}</p>
-      <div className="tech-graph__canvas">
-        <svg
-          className="tech-graph__lines"
-          viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {positioned.map((node) => (
-            <line
-              key={`${node.href}-line`}
-              x1={CENTER_X}
-              y1={CENTER_Y}
-              x2={node.x}
-              y2={node.y}
-              vectorEffect="non-scaling-stroke"
-            />
-          ))}
-        </svg>
-        <span
-          className="tech-graph__node tech-graph__node--center"
-          style={{
-            left: `${(CENTER_X / VIEW_W) * 100}%`,
-            top: `${(CENTER_Y / VIEW_H) * 100}%`
-          }}
-        >
+      <div className="tech-graph__map">
+        {/* A <div>, not a <p>: every host section styles its own paragraphs
+            with a `container p` rule that outranks a lone class (see the
+            __hint comment below), and here that would repaint the centre
+            banner's text on top of its accent fill. */}
+        <div className="tech-graph__node tech-graph__node--center">
           {centerTitle}
-        </span>
-        {positioned.map((node) => (
-          <Link
-            key={node.href}
-            href={node.href}
-            className={`tech-graph__node tech-graph__node--${node.kind}`}
-            style={{
-              left: `${(node.x / VIEW_W) * 100}%`,
-              top: `${(node.y / VIEW_H) * 100}%`
-            }}
-            title={
-              node.relationLabel
-                ? node.note
-                  ? `${node.relationLabel}：${node.note}`
-                  : node.relationLabel
-                : undefined
-            }
-          >
-            <span className="tech-graph__node-kind">
-              {kindLabel[node.kind]}
-            </span>
-            {node.title}
-          </Link>
+        </div>
+        {groups.map((group) => (
+          <div className="tech-graph__group" key={group.kind}>
+            {/* The group states the kind, so the chips no longer repeat it —
+                on public pages the per-chip label was the only thing carrying
+                the kind colour, because `.dossier .tech-graph__node` overrides
+                the per-kind border. The colour moves here with it. */}
+            <div
+              className={`tech-graph__group-label tech-graph__group-label--${group.kind}`}
+            >
+              {group.label} · {group.items.length}
+            </div>
+            <ul className="tech-graph__group-list">
+              {group.items.map((node) => (
+                <li key={node.href}>
+                  <Link
+                    href={node.href}
+                    className={`tech-graph__node tech-graph__node--${node.kind}`}
+                    title={
+                      node.relationLabel
+                        ? node.note
+                          ? `${node.relationLabel}：${node.note}`
+                          : node.relationLabel
+                        : undefined
+                    }
+                  >
+                    {node.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </section>
