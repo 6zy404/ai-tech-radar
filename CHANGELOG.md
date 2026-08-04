@@ -12,6 +12,56 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Two more stubs, and the number that reframed one of them
+
+- **知识「人在回路的审查」 (50 → 1044) and 技能「AI 试点范围界定」 (37 → 1046)**
+  — 2026-08-05, the next two by inbound reference (13 and 12). Both carried a
+  real overlap risk, so the boundary was settled before either was written:
+  the review entry sits next to the previous day's 完成判定与验收信号 (which
+  lists human-written checks as one of three completion signals), and the pilot
+  skill sits next to AI 工具链选型与自建边界评估.
+- **人在回路的审查** opens on the number that reframes the whole concept: the
+  agent-driven intrusion reconstructed **~17,600 actions over 4.5 days**, a
+  volume no human checkpoint can read — but only **one class** of action
+  actually crossed the line. So the question stopped being "should a human
+  review this" and became **which decisions are worth a person's time**. The
+  rule the entry proposes is to place checkpoints by **irreversibility rather
+  than by importance**, because importance is subjective and reversibility is
+  usually decidable: authorize before irreversible or outward-facing actions,
+  interrupt during long runs, sample after reversible ones — the same shape as
+  OpenAI's staged-rollout-plus-observation account. Then the failure mode:
+  **a checkpoint approved ~100% of the time is not a checkpoint, it is a
+  delay**, and the three questions that tell you whether a reviewer can
+  actually say no. Closes on the point that treating the human as a gate wastes
+  the position — a reviewer is the only party who can notice that **the
+  criterion itself is wrong**, which is the real reason a model-judged pipeline
+  keeps a small human-labelled set.
+- **AI 试点范围界定** starts from "a pilot's product is a decision, not a
+  feature" and derives the scoping rules from it: a question that can be
+  falsified (there must be an outcome that makes you say no), criteria that
+  already exist (if you have to build the evaluation first, the pilot has not
+  started), and a bounded blast radius rather than a bounded budget. Then the
+  ordering rule worth keeping — **prefer use cases whose correct answers are
+  already in your history**, because those bring their own eval set free — the
+  separation of "exciting" from "your actual constraint" (realtime voice is
+  impressive; is latency what binds?), and the closing condition written before
+  the start. Ends on what a failed pilot must still deliver: **a written
+  reason, or the same idea comes back in six months with nobody remembering why
+  it was dropped.**
+- `skill-scope-pilots` is a **first copy-on-write override** of that seed
+  skill — it was not previously in the workspace store, so editing it copied it
+  in as `published`, matching the seed already being live.
+- Verified: 15 / 19 blocks, 4 / 6 headings, 13 / 11 bold runs, zero literal
+  markers, all eight named hand-offs present across the two pages, 11 public
+  routes at 200, zero horizontal overflow at 375px with the detector proven to
+  fire, zero console errors, typecheck, lint, format, vitest 203/203, and
+  `validate:persistence` / `database` / `workspace-boundary`. Serialized
+  per-record diff against `HEAD`: **technology records untouched**, one
+  knowledge record changed, one skill record added by the copy-on-write.
+- **Left**: 9 seed stubs, none above 12 inbound references — the long tail
+  starts here (工具使用与函数调用 12 / 54, 交互系统中的延迟权衡 12 / 49, then
+  8 and below).
+
 ## The entry that looked redundant and measurably was not
 
 - **知识「评估闭环」 kept and rewritten** (52 → 1189 chars) — 2026-08-05,
