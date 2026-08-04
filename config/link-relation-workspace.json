@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-04T03:13:10.358Z",
+  "updatedAt": "2026-08-04T10:26:48.517Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2016,6 +2016,78 @@
       "toType": "technology",
       "relationType": "extends",
       "note": "同一套 Gemini 智能体平台上的另一端：那条讲托管智能体与远程 MCP，这条讲执行器作为工具。"
+    },
+    {
+      "id": "rel-ws-f5376fe0",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "ER 2 把「这一步做完了没有」做成带数字的独立能力：进度分级 57.4%、时刻定位 91.3%。"
+    },
+    {
+      "id": "rel-ws-f0bf30e5",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "完成标准从「回答得好」变成「任务做完」，评估维度随之改变。"
+    },
+    {
+      "id": "rel-ws-19e7dd70",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "高风险场景里用确定性工具层加专家加权评分，把完成信号交给人写的检查。"
+    },
+    {
+      "id": "rel-ws-7c17f753",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "验收标准写在指令里而不在工具里——换上更好的工具反而让质量退化。"
+    },
+    {
+      "id": "rel-ws-6c55221d",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "反面证据：智能体只判断「是否推进目标」，没有「是否越界」这一类完成信号。"
+    },
+    {
+      "id": "rel-ws-1bb39220",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "那一条定义上线前什么叫好的输出；这一条判断任务进行中当前这一步算不算做完。"
+    },
+    {
+      "id": "rel-ws-254bb11a",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "轨迹回放要能定位「在哪一步失败」，前提是每一步先有明确的完成判据。"
+    },
+    {
+      "id": "rel-ws-7f2d6840",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "工作流每一步的交接点，本质上就是上一步的验收标准。"
     }
   ]
 }
