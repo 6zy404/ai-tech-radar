@@ -9575,6 +9575,7 @@ a.tech-graph__node:hover {
 .dossier-technology-card__chips {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 6px;
 }
 
@@ -10009,6 +10010,25 @@ a.tech-graph__node:hover {
 .dossier-related-section__topline h3 {
   margin: 0;
   font-size: 15.5px;
+}
+
+/*
+ * A stamp is a label, not a column: as a flex item it was shrinking to make
+ * room for a wrapping title, so the same 印证 rendered 48x26 beside a
+ * one-line title and 45x42 (印 above 证) beside a two-line one on the same
+ * page. The title still shrinks and wraps, so the row keeps its min-content
+ * width. Mirror image of the 2026-07-29 fix where the same component was
+ * stretched to 446px around two characters.
+ *
+ * Deliberately NOT applied to the card chips row: a chip there can carry a
+ * long tag name, and forbidding it to shrink sizes the grid track from its
+ * max-content width — measured at 390px, that pushed /technologies to a
+ * 448px document on a 390px viewport (470 elements painted off-screen), the
+ * same mechanism as the 2026-07-29 compare-widget <select>.
+ */
+.dossier-related-section__topline .dossier-stamp-tag {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .dossier-related-section__topline h3 a {
