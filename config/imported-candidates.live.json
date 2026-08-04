@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-01T00:06:19.969Z",
+  "syncedAt": "2026-08-04T03:05:31.099Z",
   "sources": [
     {
       "id": "source-github-blog-ai",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://github.blog/ai-and-ml/feed/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:05:03.724Z"
+      "fetchedAt": "2026-08-04T03:05:19.843Z"
     },
     {
       "id": "source-google-ai-blog",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://blog.google/technology/ai/rss/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-30T00:05:05.037Z"
+      "fetchedAt": "2026-08-04T03:05:21.659Z"
     },
     {
       "id": "source-google-deepmind-blog",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://deepmind.google/blog/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-07-29T00:05:18.574Z"
+      "fetchedAt": "2026-08-04T03:05:24.433Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:13.767Z"
+      "fetchedAt": "2026-08-04T03:05:25.193Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -44,7 +44,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:14.669Z"
+      "fetchedAt": "2026-08-04T03:05:26.053Z"
     },
     {
       "id": "source-ollama-releases",
@@ -53,7 +53,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:15.632Z"
+      "fetchedAt": "2026-08-04T03:05:26.983Z"
     },
     {
       "id": "source-openai-news",
@@ -62,7 +62,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:16.546Z"
+      "fetchedAt": "2026-08-04T03:05:27.895Z"
     },
     {
       "id": "source-qwen-blog",
@@ -71,7 +71,7 @@
       "sourceUrl": "https://qwenlm.github.io/blog/index.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:17.376Z"
+      "fetchedAt": "2026-08-04T03:05:28.586Z"
     },
     {
       "id": "source-simon-willison-blog",
@@ -80,7 +80,7 @@
       "sourceUrl": "https://simonwillison.net/atom/entries/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:18.387Z"
+      "fetchedAt": "2026-08-04T03:05:29.534Z"
     },
     {
       "id": "source-vllm-releases",
@@ -89,10 +89,133 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-01T00:06:19.964Z"
+      "fetchedAt": "2026-08-04T03:05:31.094Z"
     }
   ],
   "candidates": [
+    {
+      "id": "candidate-rss-https-openai-com-index-continuous-voice-interaction-with-gpt-live",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/continuous-voice-interaction-with-gpt-live",
+      "originalTitle": "How we built a realtime system for responsive voice AI in six months",
+      "originalSummary": "GPT-Live enables continuous voice interaction with AI, using a turnless speech model and low-latency architecture for faster, more natural conversations.",
+      "originalContent": "GPT-Live enables continuous voice interaction with AI, using a turnless speech model and low-latency architecture for faster, more natural conversations.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-03",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "engineering",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "How we built a realtime system for responsive voice AI in six months",
+          "description": "GPT-Live enables continuous voice interaction with AI, using a turnless speech model and low-latency architecture for faster, more natural conversations.",
+          "link": "https://openai.com/index/continuous-voice-interaction-with-gpt-live",
+          "guid": {
+            "#text": "https://openai.com/index/continuous-voice-interaction-with-gpt-live",
+            "isPermaLink": "true"
+          },
+          "category": "Engineering",
+          "pubDate": "Mon, 03 Aug 2026 07:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-04T03:05:27.014Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-08-04T03:05:27.014Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-circles",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/circles",
+      "originalTitle": "Circles powers telco personalization with OpenAI technology",
+      "originalSummary": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
+      "originalContent": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-03",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "Circles powers telco personalization with OpenAI technology",
+          "description": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
+          "link": "https://openai.com/index/circles",
+          "guid": {
+            "#text": "https://openai.com/index/circles",
+            "isPermaLink": "true"
+          },
+          "pubDate": "Mon, 03 Aug 2026 00:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-04T03:05:27.014Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-08-04T03:05:27.014Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-ten-advances-in-mathematics",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/ten-advances-in-mathematics",
+      "originalTitle": "Ten advances in mathematics and theoretical computer science",
+      "originalSummary": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity.",
+      "originalContent": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-01",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "publication",
+        "knowledge-graph"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "Ten advances in mathematics and theoretical computer science",
+          "description": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity.",
+          "link": "https://openai.com/index/ten-advances-in-mathematics",
+          "guid": {
+            "#text": "https://openai.com/index/ten-advances-in-mathematics",
+            "isPermaLink": "true"
+          },
+          "category": "Publication",
+          "pubDate": "Sat, 01 Aug 2026 00:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-04T03:05:27.014Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-08-04T03:05:27.014Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+    },
     {
       "id": "candidate-rss-https-openai-com-index-advancing-responsible-ai-across-europe",
       "sourceType": "rss-feed",
@@ -127,131 +250,12 @@
           "pubDate": "Fri, 31 Jul 2026 15:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:15.665Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:27.014Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-01T00:06:15.665Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-building-abundant-intelligence",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/building-abundant-intelligence",
-      "originalTitle": "Building abundant intelligence",
-      "originalSummary": "A full-stack approach to making advanced AI more capable, more affordable, and more widely useful.",
-      "originalContent": "A full-stack approach to making advanced AI more capable, more affordable, and more widely useful.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-31",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "company"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Building abundant intelligence",
-          "description": "A full-stack approach to making advanced AI more capable, more affordable, and more widely useful.",
-          "link": "https://openai.com/index/building-abundant-intelligence",
-          "guid": {
-            "#text": "https://openai.com/index/building-abundant-intelligence",
-            "isPermaLink": "true"
-          },
-          "category": "Company",
-          "pubDate": "Fri, 31 Jul 2026 15:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:15.665Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-08-01T00:06:15.665Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-unive",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/unive",
-      "originalTitle": "Univé builds an AI-ready workforce",
-      "originalSummary": "See how Univé built an AI-ready workforce with ChatGPT Enterprise by combining leadership, responsible governance, and employee-led innovation to transform work at scale.",
-      "originalContent": "See how Univé built an AI-ready workforce with ChatGPT Enterprise by combining leadership, responsible governance, and employee-led innovation to transform work at scale.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-31",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Univé builds an AI-ready workforce",
-          "description": "See how Univé built an AI-ready workforce with ChatGPT Enterprise by combining leadership, responsible governance, and employee-led innovation to transform work at scale.",
-          "link": "https://openai.com/index/unive",
-          "guid": {
-            "#text": "https://openai.com/index/unive",
-            "isPermaLink": "true"
-          },
-          "pubDate": "Fri, 31 Jul 2026 07:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:15.665Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-08-01T00:06:15.665Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-disrupting-malicious-uses-of-ai-criminal-scam-operation",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/disrupting-malicious-uses-of-ai-criminal-scam-operation",
-      "originalTitle": "Disrupting a Criminal Scam Operation",
-      "originalSummary": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes.",
-      "originalContent": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-31",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Disrupting a Criminal Scam Operation",
-          "description": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes.",
-          "link": "https://openai.com/index/disrupting-malicious-uses-of-ai-criminal-scam-operation",
-          "guid": {
-            "#text": "https://openai.com/index/disrupting-malicious-uses-of-ai-criminal-scam-operation",
-            "isPermaLink": "true"
-          },
-          "pubDate": "Fri, 31 Jul 2026 00:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:15.665Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-08-01T00:06:15.665Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:27.014Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
@@ -333,12 +337,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:17.405Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:28.617Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-01T00:06:17.405Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:28.617Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97813",
@@ -401,12 +405,49 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:05:02.026Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:18.574Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-01T00:05:02.026Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:18.574Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration",
+      "sourceType": "rss-feed",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
+      "originalTitle": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+      "originalSummary": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications.",
+      "originalContent": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications.",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-30",
+      "publisherName": "Google DeepMind",
+      "normalizedType": "model",
+      "tags": [
+        "tag-frontier-models",
+        "agents"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-google-deepmind-blog",
+        "feedTitle": "Google DeepMind News",
+        "feedUrl": "https://deepmind.google/blog/rss.xml",
+        "item": {
+          "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+          "link": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
+          "description": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications.",
+          "pubDate": "Thu, 30 Jul 2026 15:00:59 +0000",
+          "guid": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-04T03:05:21.690Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      },
+      "sourceId": "source-google-deepmind-blog",
+      "importedAt": "2026-08-04T03:05:21.690Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management",
@@ -438,12 +479,46 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:12.520Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:24.466Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-01T00:06:12.520Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:24.466Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control",
+      "sourceType": "rss-feed",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/",
+      "originalTitle": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-29",
+      "publisherName": "Google DeepMind",
+      "normalizedType": "model",
+      "tags": [
+        "tag-frontier-models"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-google-deepmind-blog",
+        "feedTitle": "Google DeepMind News",
+        "feedUrl": "https://deepmind.google/blog/rss.xml",
+        "item": {
+          "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+          "link": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/",
+          "description": "",
+          "pubDate": "Wed, 29 Jul 2026 16:02:10 +0000",
+          "guid": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-04T03:05:21.690Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      },
+      "sourceId": "source-google-deepmind-blog",
+      "importedAt": "2026-08-04T03:05:21.690Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api-3-6-flash-hooks",
@@ -514,12 +589,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-30T00:05:03.587Z",
-        "importRunId": "import-run-2026-07-30t00-05-02-878z"
+        "importedAt": "2026-08-04T03:05:19.881Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-30T00:05:03.587Z",
-      "importRunId": "import-run-2026-07-30t00-05-02-878z"
+      "importedAt": "2026-08-04T03:05:19.881Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-ai-mode-real-world-tips",
@@ -580,12 +655,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-30T00:05:03.587Z",
-        "importRunId": "import-run-2026-07-30t00-05-02-878z"
+        "importedAt": "2026-08-04T03:05:19.881Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-30T00:05:03.587Z",
-      "importRunId": "import-run-2026-07-30t00-05-02-878z"
+      "importedAt": "2026-08-04T03:05:19.881Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-dinner-party-hosting-tips",
@@ -646,12 +721,53 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-30T00:05:03.587Z",
-        "importRunId": "import-run-2026-07-30t00-05-02-878z"
+        "importedAt": "2026-08-04T03:05:19.881Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-30T00:05:03.587Z",
-      "importRunId": "import-run-2026-07-30t00-05-02-878z"
+      "importedAt": "2026-08-04T03:05:19.881Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "sourceType": "rss-feed",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+      "originalTitle": "Gemini Robotics 2 brings whole body intelligence to robots",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-28",
+      "publisherName": "Google DeepMind",
+      "normalizedType": "model",
+      "tags": [
+        "tag-frontier-models"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-google-deepmind-blog",
+        "feedTitle": "Google DeepMind News",
+        "feedUrl": "https://deepmind.google/blog/rss.xml",
+        "item": {
+          "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+          "link": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+          "description": "",
+          "pubDate": "Tue, 28 Jul 2026 13:21:37 +0000",
+          "guid": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+          "media:thumbnail": {
+            "url": "https://lh3.googleusercontent.com/VZ5KwQMxv9xBcQnYipsQB2EUj3oX1yvFYLktIamY8V2a76Y6ctEEuaLF59TuPdnaVn6OAMINDilqnuhju1O-AXc7QlOVmcogjskrWxS7xVQ1mc5S7g=w528-h297-n-nu-rw-lo"
+          },
+          "media:content": {
+            "medium": "image",
+            "url": "https://lh3.googleusercontent.com/VZ5KwQMxv9xBcQnYipsQB2EUj3oX1yvFYLktIamY8V2a76Y6ctEEuaLF59TuPdnaVn6OAMINDilqnuhju1O-AXc7QlOVmcogjskrWxS7xVQ1mc5S7g=w528-h297-n-nu-rw-lo"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-04T03:05:21.690Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      },
+      "sourceId": "source-google-deepmind-blog",
+      "importedAt": "2026-08-04T03:05:21.690Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-allenai-olmoearth-infrastructure",
@@ -683,12 +799,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:12.520Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:24.466Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-01T00:06:12.520Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:24.466Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
@@ -720,12 +836,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:12.520Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:24.466Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-01T00:06:12.520Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:24.466Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97740",
@@ -775,12 +891,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:05:02.026Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:18.574Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-01T00:05:02.026Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:18.574Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97758",
@@ -836,12 +952,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:05:02.026Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:18.574Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-01T00:05:02.026Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:18.574Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams",
@@ -873,12 +989,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:12.520Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:24.466Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-01T00:06:12.520Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:24.466Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5",
@@ -925,12 +1041,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:14.699Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:26.084Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-01T00:06:14.699Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:26.084Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-1rc0",
@@ -977,12 +1093,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:18.415Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:29.562Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-01T00:06:18.415Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:29.562Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
@@ -1034,12 +1150,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:18.415Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:29.562Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-01T00:06:18.415Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:29.562Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5-rc0",
@@ -1086,12 +1202,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:14.699Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:26.084Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-01T00:06:14.699Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:26.084Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
@@ -1138,12 +1254,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:14.699Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:26.084Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-01T00:06:14.699Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:26.084Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4-rc0",
@@ -1192,12 +1308,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:14.699Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:26.084Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-01T00:06:14.699Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:26.084Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0rc1",
@@ -1244,48 +1360,72 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:18.415Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:29.562Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-01T00:06:18.415Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:29.562Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
-      "id": "candidate-rss-https-deepmind-google-blog-accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission",
+      "id": "candidate-rss-https-github-blog-p-97686",
       "sourceType": "rss-feed",
-      "sourceName": "Google DeepMind Blog",
-      "sourceUrl": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/",
-      "originalTitle": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
-      "originalSummary": "Google commits $40M in AI tokens and credits for the Genesis Mission",
-      "originalContent": "Google commits $40M in AI tokens and credits for the Genesis Mission",
+      "sourceName": "GitHub Blog AI",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
+      "originalTitle": "Copilot vs. raw API access: What are you actually paying for?",
+      "originalSummary": "Copilot now bills usage at listed API rates. Compare direct model access with the coding workflow, policy, and harness work around it. The post Copilot vs. raw API access: What are you actually paying for? appeared first on The GitHub Blog .",
+      "originalContent": "I keep seeing this question: &ldquo;Why would I pay for GitHub Copilot when I can call the same models through an API?&rdquo; It&rsquo;s a fair question. The answer depends on what work you need to own. Are you building a product feature with your own prompts, retrieval, routing, logs, security model, and billing controls? Or are you trying to get from a GitHub Issue to a reviewed pull request with the editor, repository, terminal, and organization policies already connected? Cost is part of that equation. Copilot plans include a monthly allocation of GitHub AI Credits. Metered usage is calculated from input, output, and cached tokens at the listed rate for the selected model. Raw API access and Copilot address different layers of that system. The right choice follows the work you need to own. Copilot is development tooling around the model Now take a common maintenance task: a developer starts from a GitHub Issue, inspects the repository, changes the affected files, runs the test suite in the terminal, and opens a pull request for review. The model call is one step in that workflow. The surrounding system needs the issue, the diff, repository instructions, permitted commands, and the organization&rsquo;s policies. GitHub Copilot connects those surfaces across the editor, repository, pull request, issue, terminal, and organization controls. That is what the plan covers alongside model access. The billing change makes the split easier to see: code completions and Next Edit Suggestions remain included in paid plans, while AI Credits apply to more resource-intensive chat and…",
       "originalLanguage": "en",
       "publishDate": "2026-07-22",
-      "publisherName": "Google DeepMind",
-      "normalizedType": "model",
+      "publisherName": "Andrea Griffiths",
+      "normalizedType": "tool",
       "tags": [
-        "tag-frontier-models"
+        "tag-ai-agents",
+        "ai & ml",
+        "github copilot",
+        "ai credits",
+        "api",
+        "agents",
+        "workflow",
+        "observability",
+        "retrieval",
+        "on-device"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-google-deepmind-blog",
-        "feedTitle": "Google DeepMind News",
-        "feedUrl": "https://deepmind.google/blog/rss.xml",
+        "sourceId": "source-github-blog-ai",
+        "feedTitle": "The latest on AI & ML - The GitHub Blog",
+        "feedUrl": "https://github.blog/ai-and-ml/feed/",
         "item": {
-          "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
-          "link": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/",
-          "description": "Google commits $40M in AI tokens and credits for the Genesis Mission",
-          "pubDate": "Wed, 22 Jul 2026 13:38:54 +0000",
-          "guid": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/"
+          "title": "Copilot vs. raw API access: What are you actually paying for?",
+          "link": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
+          "dc:creator": "Andrea Griffiths",
+          "pubDate": "Wed, 22 Jul 2026 19:00:00 +0000",
+          "category": [
+            "AI & ML",
+            "GitHub Copilot",
+            "AI Credits",
+            "API"
+          ],
+          "guid": {
+            "#text": "https://github.blog/?p=97686",
+            "isPermaLink": "false"
+          },
+          "description": "<p>Copilot now bills usage at listed API rates. Compare direct model access with the coding workflow, policy, and harness work around it.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/\">Copilot vs. raw API access: What are you actually paying for?</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">I keep seeing this question: &ldquo;Why would I pay for GitHub Copilot when I can call the same models through an API?&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">It&rsquo;s a fair question. The answer depends on what work you need to own.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Are you building a product feature with your own prompts, retrieval, routing, logs, security model, and billing controls? Or are you trying to get from a GitHub Issue to a reviewed pull request with the editor, repository, terminal, and organization policies already connected?</p>\n\n\n\n<p class=\"wp-block-paragraph\">Cost is part of that equation. Copilot plans include a monthly allocation of GitHub AI Credits. Metered usage is calculated from input, output, and cached tokens at the listed rate for the selected model.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Raw API access and Copilot address different layers of that system. The right choice follows the work you need to own.</p>\n\n\n\n<h2 id=\"h-copilot-is-development-tooling-around-the-model\" class=\"wp-block-heading\">Copilot is development tooling around the model</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Now take a common maintenance task: a developer starts from a GitHub Issue, inspects the repository, changes the affected files, runs the test suite in the terminal, and opens a pull request for review. The model call is one step in that workflow. The surrounding system needs the issue, the diff, repository instructions, permitted commands, and the organization&rsquo;s policies.</p>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub Copilot connects those surfaces across the editor, repository, pull request, issue, terminal, and organization controls. That is what the plan covers alongside model access. The billing change makes the split easier to see: code completions and Next Edit Suggestions remain included in paid plans, while AI Credits apply to more resource-intensive chat and agentic work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Cost per task therefore depends on more than the listed token rate. Context selection, tool use, retries, and the path from an issue to a reviewed pull request all affect the number of tokens spent and whether the work finishes.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The same billing model gives buyers visibility. Organization plans &ldquo;pool&rdquo; AI Credits across the organization, and admins can set budgets and track usage in the billing dashboard. Adoption stays measurable instead of scattering across individual API keys and untracked scripts.</p>\n\n\n\n<aside data-color-mode=\"light\" data-dark-theme=\"dark\" data-light-theme=\"light_dimmed\" class=\"wp-block-group post-aside--large p-4 p-md-6 is-style-light-dimmed has-global-padding is-layout-constrained wp-block-group-is-layout-constrained is-style-light-dimmed--2\" style=\"border-top-width:4px\">\n<h2 id=\"h-the-harness-has-measurable-impact\" class=\"wp-block-heading h5-mktg gh-aside-title is-typography-preset-h5\" style=\"margin-top:0\">The harness has measurable impact</h2>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub&rsquo;s evaluation held the model, benchmark task, context window, reasoning effort, tool selection, and MCP servers constant while comparing Copilot CLI with model-vendor harnesses. Across SWE-bench Verified, SWE-bench Pro, SkillsBench, TerminalBench, and Win-Hill, Copilot reached task-resolution parity while using fewer tokens in most configurations. For TerminalBench 2.0, each agent-model configuration ran at least five times to measure cost and completion variance.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Read&nbsp;<a href=\"https://github.blog/ai-and-ml/github-copilot/evaluating-performance-and-efficiency-of-the-github-copilot-agentic-harness-across-models-and-tasks/\" target=\"_blank\" rel=\"noreferrer noopener\">the full agentic-harness evaluation across models and tasks</a>.&nbsp;</p>\n</aside>\n\n\n\n<h2 id=\"h-raw-api-access-is-for-systems-you-own\" class=\"wp-block-heading\">Raw API access is for systems you own</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Direct API access is the right foundation when you are building a product feature, an internal agent platform, an evaluation harness, or an automation pipeline. You control the prompts, retrieval, routing, retries, logs, security model, and billing.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Consider an internal agent that reads a tagged issue, retrieves company documentation, creates a change request in a separate system, and writes a complete audit record. That workflow needs its own data boundaries, event triggers, and approval points. An API gives the team the primitives to build those requirements into the product.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The engineering work is real. A production system needs to decide which repository files to retrieve, how to preserve instructions, when to retry a failed tool call, where to store traces, and which credentials an agent can use. Those are system design decisions made by developers. A model endpoint does not make them for you.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Agent SDKs sit between these layers. Handling orchestration, tool use, sessions and streaming, with some tradeoffs: some are tied to a single provider&rsquo;s API while others work across providers. GitHub ships this layer. The Copilot SDK exposes the same agent&rsquo;s runtime that powers the Copilot CLI, so you can embed a benchmarked, production tested harness instead of building one. Run it with your Copilot subscription or your own provider key.</p>\n\n\n\n<h2 id=\"h-byok-keeps-the-workflow-and-changes-the-bill\" class=\"wp-block-heading\">BYOK keeps the workflow and changes the bill</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Bring Your Own Key for Copilot, currently in public preview, lets developers make supported provider models available in Copilot Chat, Copilot CLI, and VS Code. Supported providers include Anthropic, AWS Bedrock, Google AI Studio, Microsoft Foundry, OpenAI, OpenAI-compatible providers, and xAI.</p>\n\n\n\n<p class=\"wp-block-paragraph\">BYOK models run through the same harness and the same integrations GitHub builds and maintains. Your provider takes over the token bill. GitHub still develops the tooling.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Model access is a policy decision either way. Copilot supports more than 20 models, and enterprise and organization admins choose which ones are enabled for their teams, whether GitHub-hosted or connected through BYOK.</p>\n\n\n\n<p class=\"wp-block-paragraph\">A team with an existing provider contract or committed cloud spend can keep that commercial relationship while developers use Copilot in their normal workflow. Copilot CLI also supports local and external BYOK models, including OpenAI-compatible endpoints, Azure OpenAI, Anthropic, and local Ollama models.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Check the current documentation on <a href=\"https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/use-your-own-api-keys\">using your own API keys with GitHub Copilot (enterprise)</a> and <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/use-byok-models\">using your own LLM models in Copilot CLI</a> before making purchasing or architecture decisions because BYOK is still in public preview.</p>\n\n\n\n<h2 id=\"h-choose-the-layer-you-need\" class=\"wp-block-heading\">Choose the layer you need</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Choose raw API access when you are building a system that requires custom behavior, integrations, and controls. Choose GitHub Copilot when the work is software development inside the tools and repositories where a team already writes, reviews, secures, and ships code.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Shipping software is the work around the code: issues, pull requests, reviews, checks, actions, and security. GitHub is where teams do that work. Copilot helps them move through it faster.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\">See what each&nbsp;<a href=\"https://github.com/features/copilot/plans\" target=\"_blank\" rel=\"noreferrer noopener\">Copilot plan includes and how AI Credits work</a>.</p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/\">Copilot vs. raw API access: What are you actually paying for?</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "post-id": {
+            "#text": 97686,
+            "xmlns": "com-wordpress:feed-additions:1"
+          }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-29T00:05:16.930Z",
-        "importRunId": "import-run-2026-07-29t00-05-02-500z"
+        "importedAt": "2026-08-04T03:05:18.574Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
-      "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-29T00:05:16.930Z",
-      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      "sourceId": "source-github-blog-ai",
+      "importedAt": "2026-08-04T03:05:18.574Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-platforms-android-galaxy-unpacked-2026",
@@ -1350,72 +1490,48 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-07-30T00:05:03.587Z",
-        "importRunId": "import-run-2026-07-30t00-05-02-878z"
+        "importedAt": "2026-08-04T03:05:19.881Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-07-30T00:05:03.587Z",
-      "importRunId": "import-run-2026-07-30t00-05-02-878z"
+      "importedAt": "2026-08-04T03:05:19.881Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
-      "id": "candidate-rss-https-github-blog-p-97686",
+      "id": "candidate-rss-https-deepmind-google-blog-accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission",
       "sourceType": "rss-feed",
-      "sourceName": "GitHub Blog AI",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
-      "originalTitle": "Copilot vs. raw API access: What are you actually paying for?",
-      "originalSummary": "Copilot now bills usage at listed API rates. Compare direct model access with the coding workflow, policy, and harness work around it. The post Copilot vs. raw API access: What are you actually paying for? appeared first on The GitHub Blog .",
-      "originalContent": "I keep seeing this question: &ldquo;Why would I pay for GitHub Copilot when I can call the same models through an API?&rdquo; It&rsquo;s a fair question. The answer depends on what work you need to own. Are you building a product feature with your own prompts, retrieval, routing, logs, security model, and billing controls? Or are you trying to get from a GitHub Issue to a reviewed pull request with the editor, repository, terminal, and organization policies already connected? Cost is part of that equation. Copilot plans include a monthly allocation of GitHub AI Credits. Metered usage is calculated from input, output, and cached tokens at the listed rate for the selected model. Raw API access and Copilot address different layers of that system. The right choice follows the work you need to own. Copilot is development tooling around the model Now take a common maintenance task: a developer starts from a GitHub Issue, inspects the repository, changes the affected files, runs the test suite in the terminal, and opens a pull request for review. The model call is one step in that workflow. The surrounding system needs the issue, the diff, repository instructions, permitted commands, and the organization&rsquo;s policies. GitHub Copilot connects those surfaces across the editor, repository, pull request, issue, terminal, and organization controls. That is what the plan covers alongside model access. The billing change makes the split easier to see: code completions and Next Edit Suggestions remain included in paid plans, while AI Credits apply to more resource-intensive chat and…",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/",
+      "originalTitle": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
+      "originalSummary": "Google commits $40M in AI tokens and credits for the Genesis Mission",
+      "originalContent": "Google commits $40M in AI tokens and credits for the Genesis Mission",
       "originalLanguage": "en",
       "publishDate": "2026-07-22",
-      "publisherName": "Andrea Griffiths",
-      "normalizedType": "tool",
+      "publisherName": "Google DeepMind",
+      "normalizedType": "model",
       "tags": [
-        "tag-ai-agents",
-        "ai & ml",
-        "github copilot",
-        "ai credits",
-        "api",
-        "agents",
-        "workflow",
-        "observability",
-        "retrieval",
-        "on-device"
+        "tag-frontier-models"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-github-blog-ai",
-        "feedTitle": "The latest on AI & ML - The GitHub Blog",
-        "feedUrl": "https://github.blog/ai-and-ml/feed/",
+        "sourceId": "source-google-deepmind-blog",
+        "feedTitle": "Google DeepMind News",
+        "feedUrl": "https://deepmind.google/blog/rss.xml",
         "item": {
-          "title": "Copilot vs. raw API access: What are you actually paying for?",
-          "link": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
-          "dc:creator": "Andrea Griffiths",
-          "pubDate": "Wed, 22 Jul 2026 19:00:00 +0000",
-          "category": [
-            "AI & ML",
-            "GitHub Copilot",
-            "AI Credits",
-            "API"
-          ],
-          "guid": {
-            "#text": "https://github.blog/?p=97686",
-            "isPermaLink": "false"
-          },
-          "description": "<p>Copilot now bills usage at listed API rates. Compare direct model access with the coding workflow, policy, and harness work around it.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/\">Copilot vs. raw API access: What are you actually paying for?</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">I keep seeing this question: &ldquo;Why would I pay for GitHub Copilot when I can call the same models through an API?&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">It&rsquo;s a fair question. The answer depends on what work you need to own.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Are you building a product feature with your own prompts, retrieval, routing, logs, security model, and billing controls? Or are you trying to get from a GitHub Issue to a reviewed pull request with the editor, repository, terminal, and organization policies already connected?</p>\n\n\n\n<p class=\"wp-block-paragraph\">Cost is part of that equation. Copilot plans include a monthly allocation of GitHub AI Credits. Metered usage is calculated from input, output, and cached tokens at the listed rate for the selected model.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Raw API access and Copilot address different layers of that system. The right choice follows the work you need to own.</p>\n\n\n\n<h2 id=\"h-copilot-is-development-tooling-around-the-model\" class=\"wp-block-heading\">Copilot is development tooling around the model</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Now take a common maintenance task: a developer starts from a GitHub Issue, inspects the repository, changes the affected files, runs the test suite in the terminal, and opens a pull request for review. The model call is one step in that workflow. The surrounding system needs the issue, the diff, repository instructions, permitted commands, and the organization&rsquo;s policies.</p>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub Copilot connects those surfaces across the editor, repository, pull request, issue, terminal, and organization controls. That is what the plan covers alongside model access. The billing change makes the split easier to see: code completions and Next Edit Suggestions remain included in paid plans, while AI Credits apply to more resource-intensive chat and agentic work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Cost per task therefore depends on more than the listed token rate. Context selection, tool use, retries, and the path from an issue to a reviewed pull request all affect the number of tokens spent and whether the work finishes.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The same billing model gives buyers visibility. Organization plans &ldquo;pool&rdquo; AI Credits across the organization, and admins can set budgets and track usage in the billing dashboard. Adoption stays measurable instead of scattering across individual API keys and untracked scripts.</p>\n\n\n\n<aside data-color-mode=\"light\" data-dark-theme=\"dark\" data-light-theme=\"light_dimmed\" class=\"wp-block-group post-aside--large p-4 p-md-6 is-style-light-dimmed has-global-padding is-layout-constrained wp-block-group-is-layout-constrained is-style-light-dimmed--2\" style=\"border-top-width:4px\">\n<h2 id=\"h-the-harness-has-measurable-impact\" class=\"wp-block-heading h5-mktg gh-aside-title is-typography-preset-h5\" style=\"margin-top:0\">The harness has measurable impact</h2>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub&rsquo;s evaluation held the model, benchmark task, context window, reasoning effort, tool selection, and MCP servers constant while comparing Copilot CLI with model-vendor harnesses. Across SWE-bench Verified, SWE-bench Pro, SkillsBench, TerminalBench, and Win-Hill, Copilot reached task-resolution parity while using fewer tokens in most configurations. For TerminalBench 2.0, each agent-model configuration ran at least five times to measure cost and completion variance.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Read&nbsp;<a href=\"https://github.blog/ai-and-ml/github-copilot/evaluating-performance-and-efficiency-of-the-github-copilot-agentic-harness-across-models-and-tasks/\" target=\"_blank\" rel=\"noreferrer noopener\">the full agentic-harness evaluation across models and tasks</a>.&nbsp;</p>\n</aside>\n\n\n\n<h2 id=\"h-raw-api-access-is-for-systems-you-own\" class=\"wp-block-heading\">Raw API access is for systems you own</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Direct API access is the right foundation when you are building a product feature, an internal agent platform, an evaluation harness, or an automation pipeline. You control the prompts, retrieval, routing, retries, logs, security model, and billing.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Consider an internal agent that reads a tagged issue, retrieves company documentation, creates a change request in a separate system, and writes a complete audit record. That workflow needs its own data boundaries, event triggers, and approval points. An API gives the team the primitives to build those requirements into the product.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The engineering work is real. A production system needs to decide which repository files to retrieve, how to preserve instructions, when to retry a failed tool call, where to store traces, and which credentials an agent can use. Those are system design decisions made by developers. A model endpoint does not make them for you.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Agent SDKs sit between these layers. Handling orchestration, tool use, sessions and streaming, with some tradeoffs: some are tied to a single provider&rsquo;s API while others work across providers. GitHub ships this layer. The Copilot SDK exposes the same agent&rsquo;s runtime that powers the Copilot CLI, so you can embed a benchmarked, production tested harness instead of building one. Run it with your Copilot subscription or your own provider key.</p>\n\n\n\n<h2 id=\"h-byok-keeps-the-workflow-and-changes-the-bill\" class=\"wp-block-heading\">BYOK keeps the workflow and changes the bill</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Bring Your Own Key for Copilot, currently in public preview, lets developers make supported provider models available in Copilot Chat, Copilot CLI, and VS Code. Supported providers include Anthropic, AWS Bedrock, Google AI Studio, Microsoft Foundry, OpenAI, OpenAI-compatible providers, and xAI.</p>\n\n\n\n<p class=\"wp-block-paragraph\">BYOK models run through the same harness and the same integrations GitHub builds and maintains. Your provider takes over the token bill. GitHub still develops the tooling.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Model access is a policy decision either way. Copilot supports more than 20 models, and enterprise and organization admins choose which ones are enabled for their teams, whether GitHub-hosted or connected through BYOK.</p>\n\n\n\n<p class=\"wp-block-paragraph\">A team with an existing provider contract or committed cloud spend can keep that commercial relationship while developers use Copilot in their normal workflow. Copilot CLI also supports local and external BYOK models, including OpenAI-compatible endpoints, Azure OpenAI, Anthropic, and local Ollama models.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Check the current documentation on <a href=\"https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/use-your-own-api-keys\">using your own API keys with GitHub Copilot (enterprise)</a> and <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/use-byok-models\">using your own LLM models in Copilot CLI</a> before making purchasing or architecture decisions because BYOK is still in public preview.</p>\n\n\n\n<h2 id=\"h-choose-the-layer-you-need\" class=\"wp-block-heading\">Choose the layer you need</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Choose raw API access when you are building a system that requires custom behavior, integrations, and controls. Choose GitHub Copilot when the work is software development inside the tools and repositories where a team already writes, reviews, secures, and ships code.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Shipping software is the work around the code: issues, pull requests, reviews, checks, actions, and security. GitHub is where teams do that work. Copilot helps them move through it faster.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\">See what each&nbsp;<a href=\"https://github.com/features/copilot/plans\" target=\"_blank\" rel=\"noreferrer noopener\">Copilot plan includes and how AI Credits work</a>.</p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/\">Copilot vs. raw API access: What are you actually paying for?</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "post-id": {
-            "#text": 97686,
-            "xmlns": "com-wordpress:feed-additions:1"
-          }
+          "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
+          "link": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/",
+          "description": "Google commits $40M in AI tokens and credits for the Genesis Mission",
+          "pubDate": "Wed, 22 Jul 2026 13:38:54 +0000",
+          "guid": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:05:02.026Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:21.690Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
-      "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-01T00:05:02.026Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "sourceId": "source-google-deepmind-blog",
+      "importedAt": "2026-08-04T03:05:21.690Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-22-openai-cyberattack-atom-entries",
@@ -1503,48 +1619,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:17.405Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:28.617Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-01T00:06:17.405Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
-    },
-    {
-      "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber",
-      "sourceType": "rss-feed",
-      "sourceName": "Google DeepMind Blog",
-      "sourceUrl": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/",
-      "originalTitle": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
-      "originalSummary": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber.",
-      "originalContent": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-21",
-      "publisherName": "Google DeepMind",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-deepmind-blog",
-        "feedTitle": "Google DeepMind News",
-        "feedUrl": "https://deepmind.google/blog/rss.xml",
-        "item": {
-          "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
-          "link": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/",
-          "description": "We’re introducing new Gemini models, including Gemini 3.6 Flash, 3.5 Flash-Lite and 3.5 Flash Cyber.",
-          "pubDate": "Tue, 21 Jul 2026 15:16:30 +0000",
-          "guid": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-29T00:05:16.930Z",
-        "importRunId": "import-run-2026-07-29t00-05-02-500z"
-      },
-      "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-29T00:05:16.930Z",
-      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      "importedAt": "2026-08-04T03:05:28.617Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-21-cat-and-thariq-atom-entries",
@@ -1631,98 +1711,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:17.405Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:28.617Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-01T00:06:17.405Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
-    },
-    {
-      "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
-      "sourceType": "rss-feed",
-      "sourceName": "Google DeepMind Blog",
-      "sourceUrl": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
-      "originalTitle": "Introducing Gemini 3.5 Flash Cyber",
-      "originalSummary": "Google introduces Gemini 3.5 Flash Cyber, a lightweight cybersecurity model to find and patch vulnerabilities.",
-      "originalContent": "Google introduces Gemini 3.5 Flash Cyber, a lightweight cybersecurity model to find and patch vulnerabilities.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-17",
-      "publisherName": "Google DeepMind",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-deepmind-blog",
-        "feedTitle": "Google DeepMind News",
-        "feedUrl": "https://deepmind.google/blog/rss.xml",
-        "item": {
-          "title": "Introducing Gemini 3.5 Flash Cyber",
-          "link": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
-          "description": "Google introduces Gemini 3.5 Flash Cyber, a lightweight cybersecurity model to find and patch vulnerabilities.",
-          "pubDate": "Fri, 17 Jul 2026 15:00:11 +0000",
-          "guid": "https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/",
-          "media:thumbnail": {
-            "url": "https://lh3.googleusercontent.com/esSD0-kSrZ8K07XxNkSKL3OGlcx1Cf3M-qiQut0q_vArHMiK2L1CpUIGVkjuQrhu_m0g8UMVflVQpDp7VFAJSubDdCjSXsPJPDeK-PUtaPbqA8W1=w528-h297-n-nu-rw-lo"
-          },
-          "media:content": {
-            "medium": "image",
-            "url": "https://lh3.googleusercontent.com/esSD0-kSrZ8K07XxNkSKL3OGlcx1Cf3M-qiQut0q_vArHMiK2L1CpUIGVkjuQrhu_m0g8UMVflVQpDp7VFAJSubDdCjSXsPJPDeK-PUtaPbqA8W1=w528-h297-n-nu-rw-lo"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-29T00:05:16.930Z",
-        "importRunId": "import-run-2026-07-29t00-05-02-500z"
-      },
-      "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-29T00:05:16.930Z",
-      "importRunId": "import-run-2026-07-29t00-05-02-500z"
-    },
-    {
-      "id": "candidate-rss-https-deepmind-google-blog-our-approach-to-bioresilience",
-      "sourceType": "rss-feed",
-      "sourceName": "Google DeepMind Blog",
-      "sourceUrl": "https://deepmind.google/blog/our-approach-to-bioresilience/",
-      "originalTitle": "Our approach to bioresilience",
-      "originalSummary": "Google DeepMind and Isomorphic Labs are sharing our joint approach to bioresilience and AI models.",
-      "originalContent": "Google DeepMind and Isomorphic Labs are sharing our joint approach to bioresilience and AI models.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-16",
-      "publisherName": "Google DeepMind",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-deepmind-blog",
-        "feedTitle": "Google DeepMind News",
-        "feedUrl": "https://deepmind.google/blog/rss.xml",
-        "item": {
-          "title": "Our approach to bioresilience",
-          "link": "https://deepmind.google/blog/our-approach-to-bioresilience/",
-          "description": "Google DeepMind and Isomorphic Labs are sharing our joint approach to bioresilience and AI models.",
-          "pubDate": "Thu, 16 Jul 2026 09:30:42 +0000",
-          "guid": "https://deepmind.google/blog/our-approach-to-bioresilience/",
-          "media:thumbnail": {
-            "url": "https://lh3.googleusercontent.com/ZRyQg91pjea8kXXaGSlnZIJF90-VwnKHSBxo22e2RedCvCCszsurR8W9NHw80e1V6HtWXccbU1MI27Rtjjf963rD673XgkWK7cZe_1ekfruPgdHHVEc=w528-h297-n-nu-rw-lo"
-          },
-          "media:content": {
-            "medium": "image",
-            "url": "https://lh3.googleusercontent.com/ZRyQg91pjea8kXXaGSlnZIJF90-VwnKHSBxo22e2RedCvCCszsurR8W9NHw80e1V6HtWXccbU1MI27Rtjjf963rD673XgkWK7cZe_1ekfruPgdHHVEc=w528-h297-n-nu-rw-lo"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-07-29T00:05:16.930Z",
-        "importRunId": "import-run-2026-07-29t00-05-02-500z"
-      },
-      "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-07-29T00:05:16.930Z",
-      "importRunId": "import-run-2026-07-29t00-05-02-500z"
+      "importedAt": "2026-08-04T03:05:28.617Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
@@ -1808,12 +1802,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:17.405Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:28.617Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-01T00:06:17.405Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:28.617Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
@@ -1861,12 +1855,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:18.415Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:29.562Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-01T00:06:18.415Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:29.562Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
@@ -1913,12 +1907,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:13.799Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:25.224Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-01T00:06:13.799Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:25.224Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -1965,12 +1959,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:13.799Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:25.224Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-01T00:06:13.799Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:25.224Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -2017,12 +2011,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:13.799Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:25.224Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-01T00:06:13.799Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:25.224Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -2069,12 +2063,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-01T00:06:13.799Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:25.224Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-01T00:06:13.799Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:25.224Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
@@ -2105,12 +2099,12 @@
           "description": "Tech Report GitHub Hugging Face ModelScope DISCORD\nIntroduction We are excited to introduce Qwen3Guard, the first safety guardrail model in the Qwen family. Built upon the powerful Qwen3 foundation models and fine-tuned specifically for safety classificatoin, Qwen3Guard ensures responsible AI interactions by delivering precise safety detection for both prompts and responses, complete with risk levels and categorized classifications for accurate moderation.\nQwen3Guard achieves state-of-the-art performance on major safety benchmarks, demonstrating strong capabilities in both prompt and response classification tasks across English, Chinese, and multilingual environments."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:16.575Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:27.924Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-01T00:06:16.575Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:27.924Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit",
@@ -2142,12 +2136,12 @@
           "description": "QWEN CHAT GITHUB HUGGING FACE MODELSCOPE DISCORD\nWe are excited to introduce Qwen-Image-Edit, the image editing version of Qwen-Image. Built upon our 20B Qwen-Image model, Qwen-Image-Edit successfully extends Qwen-Image&amp;rsquo;s unique text rendering capabilities to image editing tasks, enabling precise text editing. Furthermore, Qwen-Image-Edit simultaneously feeds the input image into Qwen2.5-VL (for visual semantic control) and the VAE Encoder (for visual appearance control), achieving capabilities in both semantic and appearance editing."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:16.575Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:27.924Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-01T00:06:16.575Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:27.924Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image",
@@ -2181,12 +2175,12 @@
           "description": "GITHUB HUGGING FACE MODELSCOPE DEMO DISCORD\nWe are thrilled to release Qwen-Image, a 20B MMDiT image foundation model that achieves significant advances in complex text rendering and precise image editing. To try the latest model, feel free to visit Qwen Chat and choose “Image Generation”.\nThe key features include:\nSuperior Text Rendering: Qwen-Image excels at complex text rendering, including multi-line layouts, paragraph-level semantics, and fine-grained details. It supports both alphabetic languages (e."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:16.575Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:27.924Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-01T00:06:16.575Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:27.924Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-gspo",
@@ -2217,12 +2211,12 @@
           "description": "PAPER DISCORD\nIntroduction Reinforcement Learning (RL) has emerged as a pivotal paradigm for scaling language models and enhancing their deep reasoning and problem-solving capabilities. To scale RL, the foremost prerequisite is maintaining stable and robust training dynamics. However, we observe that existing RL algorithms (such as GRPO) exhibit severe instability issues during long training and lead to irreversible model collapse, hindering further performance improvements with increased compute.\nTo enable successful RL scaling, we propose the Group Sequence Policy Optimization (GSPO) algorithm."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-01T00:06:16.575Z",
-        "importRunId": "import-run-2026-08-01t00-05-02-011z"
+        "importedAt": "2026-08-04T03:05:27.924Z",
+        "importRunId": "import-run-2026-08-04t03-05-18-568z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-01T00:06:16.575Z",
-      "importRunId": "import-run-2026-08-01t00-05-02-011z"
+      "importedAt": "2026-08-04T03:05:27.924Z",
+      "importRunId": "import-run-2026-08-04t03-05-18-568z"
     }
   ]
 }

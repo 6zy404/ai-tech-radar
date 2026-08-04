@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T15:40:23.259Z",
+  "updatedAt": "2026-08-04T03:09:13.074Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -511,6 +511,31 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-01T15:40:23.259Z",
       "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+    },
+    "candidate-rss-https-openai-com-index-circles": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-04T03:09:03.895Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-04T03:09:03.949Z"
+    },
+    "candidate-rss-https-openai-com-index-continuous-voice-interaction-with-gpt-live": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-04T03:09:03.992Z"
+    },
+    "candidate-rss-https-openai-com-index-ten-advances-in-mathematics": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-04T03:09:04.040Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-04T03:09:04.082Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-04T03:09:13.074Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
     }
   }
 }

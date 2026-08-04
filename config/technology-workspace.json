@@ -1,6 +1,230 @@
 {
-  "updatedAt": "2026-08-01T19:14:43.164Z",
+  "updatedAt": "2026-08-04T03:13:10.163Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "slug": "gemini-managed-agents-background-mcp",
+      "title": {
+        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
+        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
+      },
+      "summary": {
+        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
+      },
+      "content": {
+        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
+      },
+      "type": "platform",
+      "publishDate": "2026-07-07",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T03:13:10.163Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
+      "whoShouldCare": [
+        "构建生产级智能体的开发团队",
+        "评估 MCP 生态与工具接入方案的架构师",
+        "对比各家智能体平台能力的技术选型者"
+      ],
+      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
+      "impactAreas": [
+        "智能体平台",
+        "MCP 生态",
+        "开发者工具"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
+        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
+        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
+        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
+        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
+      },
+      "followUpQuestions": [
+        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
+        "后台任务的时长上限、计费模型与并发配额是什么？",
+        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "createdAt": "2026-07-21T05:07:29.299Z",
+      "updatedAt": "2026-08-04T03:13:10.163Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "slug": "gemini-robotics-2",
+      "title": {
+        "original": "Gemini Robotics 2 brings whole body intelligence to robots",
+        "zh": "Gemini Robotics 2：全身控制，与一个可编排的推理层",
+        "en": "Gemini Robotics 2 brings whole body intelligence to robots"
+      },
+      "summary": {
+        "original": "Gemini Robotics 2 is a family of three models — a vision-language-action model for whole-body humanoid control, an embodied reasoning model (ER 2) that orchestrates tools and tracks task progress, and an on-device VLA that adapts to a new robot body in hours.",
+        "zh": "DeepMind 一次发布三个模型：负责动作的 VLA、负责规划的具身推理模型 ER 2，以及能在机器人本机运行的端侧版本。对这里的读者来说，值得看的不是机器人本身——ER 2 把 VLA 和导航 API 当作工具声明、用双向流接收视频、一边执行一边思考，是这个站点已经在跟踪的那套智能体架构换了一种执行器。真正的新东西是它开始能回答「这一步做完了没有」：时刻定位准确率 91.3%、平均误差 0.96 秒。ER 2 已经通过 Gemini API 公开可用，动作模型与端侧模型仍限早期合作伙伴。",
+        "en": "Gemini Robotics 2 is a family of three models — a vision-language-action model for whole-body humanoid control, an embodied reasoning model (ER 2) that orchestrates tools and tracks task progress, and an on-device VLA that adapts to a new robot body in hours."
+      },
+      "content": {
+        "original": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。",
+        "zh": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。",
+        "en": "## 一次发布，三个模型\n\nDeepMind 把 Gemini Robotics 2 描述成「下一代可适应机器人的智能层」，它实际上由三个分工不同的模型组成：\n\n- **Gemini Robotics 2**：视觉-语言-动作模型（VLA），把视觉与语言输入转成电机控制。这一代第一次能控制**整个人形机器人**——从脚到指尖——而不只是桌面范围内的上半身，同时也支持双臂机器人。\n- **Gemini Robotics ER 2**：具身推理模型（VLM），充当机器人的高层大脑，与人对话、理解物理环境、规划持续数分钟、包含数百个决策的多步任务，并把电机执行交给下层的 VLA。\n- **Gemini Robotics On-Device 2**：为机器人本机运行优化的 VLA，在没有网络或不能容忍网络延迟的场景下工作。它继承了 Gemini Robotics 1.5 的动作迁移技术，适配一个全新的双臂形态**只需要几小时、通常不到 200 条示例**，即使新形态在外形、传感器和自由度上差异很大。\n\n## 为什么它读起来是一条智能体信号\n\nER 2 的工作方式，和这个站点已经在跟踪的那套智能体架构是同一套，只是工具换成了执行器：开发者把底层控制接口——VLA 模型、导航 API——**声明为工具**，把视频、音频、文本作为多模态流直接送进模型；模型走 Gemini Live API 的双向流式端点，因此可以**一边执行一边思考**，不必在每一步之间停下来重新规划。它也能原生调用 Google 搜索或任何用户自定义函数。\n\n官方给的演示是用 ER 2 编排 Boston Dynamics Spot 的导航与机械臂 API，代码在 GitHub 上公开。换句话说，读者手上那套关于工具声明、流式上下文、失败自纠的经验，在这里是直接可迁移的。\n\n## 真正的新东西：判断「这一步做完了没有」\n\n机器人最难的问题之一是知道任务何时结束。ER 2 在两项能力上给了可比的数字：\n\n1. **进度分级**——把视频流的每一帧归入五档完成度（0-20%、20-40%……80-100%），准确率 **57.4%**。这让机器人具备实时的处境感知，能在中途调整或重试失败的某一步，而不必推倒整个流程重来。\n2. **时刻定位**——找出关键事件发生的确切帧（例如什么时候该停止倒咖啡），准确率 **91.3%**，平均绝对误差 **0.96 秒**。官方声称它与体量大得多的模型接近，但只用其中一部分算力、执行速度是它们的 **4 倍**——而亚秒级延迟正是物理世界里安全操作的下限。\n\n空间理解也一并往前推了一档：成功/失败检测改为在**原始视频流**而不是静态截图上进行，因此能抓住执行中途的洒落、打滑与错位；仪表读数从圆形表盘扩展到数字显示、线性刻度、直尺和液体温度计，覆盖 10 类仪表。\n\n## 官方自己标出来的短板\n\n同一张多形态评测图里，DeepMind 写明：全身任务和夹爪类灵巧操作达到中到高的成功率，而**多指灵巧操作仍然困难**。那张图用的是同一个模型检查点跨三种形态——装 SharpaWave 手的 Apollo 2、装 Inspire 手的 Apollo 2、装 Robotiq 夹爪的 Franka Duo。所以「同一个模型驱动不同身体」这件事是真的，「手已经好用了」这件事还不是。\n\n## 可获得性分三档\n\n- ER 2：**已公开**，通过 Gemini API 与 Google AI Studio 面向开发者提供，Gemini Enterprise Agent Platform 上是私有预览。\n- VLA 与端侧模型：仅对早期合作伙伴开放。\n\n也就是说，今天真正能上手的是那个**推理与编排层**，而不是动作层——这恰好也是三个模型里与非机器人开发者关系最大的一个。\n\n## 安全被写成了可测的东西\n\n随这一代发布的还有 ASIMOV-Agentic 基准，衡量具身推理智能体三件事：能否**拒绝来自 VLA 的不安全工具调用**、能否预判一个任务在物理上是否可行、以及在不确定时能否主动请求人介入。ER 2 在安全指令遵循与人体接近两项基准上是 DeepMind 迄今最好的模型：有人靠近时能让人形机器人停下，区域清空后自主恢复。\n\n把「不确定时主动要人」写成基准指标，而不是留给上层应用去处理，是这次发布里值得单独记一笔的做法。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-28",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-multimodal",
+        "tag-on-device",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-a28a8a56",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-b47fabd1",
+        "skill-ws-d7c9d1d8"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-04T03:12:11.036Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这条信号的价值不在机器人本身，而在它把一个已经成熟的智能体架构接到了物理执行器上：工具声明、多模态流式上下文、执行中自纠、多智能体协作，全都是站内已有的概念。更值得注意的是它开始量化「任务完成度」——时刻定位 91.3%、平均误差 0.96 秒——这正是纯软件智能体一直缺的那个验证信号。而且今天真正开放的是推理编排层（ER 2 已在 Gemini API 上），不是动作层。",
+      "whoShouldCare": [
+        "在设计多步智能体工作流、正在为「怎么知道一步做完了」发愁的工程师",
+        "关注流式多模态输入与低延迟编排的应用开发者",
+        "评估具身/物理 AI 是否值得现在投入的技术决策者",
+        "做端侧部署、关心模型如何适配新硬件形态的团队"
+      ],
+      "technicalContext": "三个模型分工明确：VLA 把视觉与语言转成电机控制（首次覆盖整个人形，从脚到指尖）；ER 2 是视觉语言模型，作为高层大脑规划持续数分钟、含数百个决策的任务，把执行交给下层 VLA；端侧版本在本机运行，靠继承自 Gemini Robotics 1.5 的动作迁移技术，用几小时、通常不到 200 条示例适配全新形态。ER 2 走 Gemini Live API 的双向流式端点，所以能在执行的同时思考，避免每步之间的停顿。",
+      "impactAreas": [
+        "智能体工具编排",
+        "多模态视频理解",
+        "端侧模型适配",
+        "长时程任务执行",
+        "具身安全评测"
+      ],
+      "learningPath": [
+        "先读 ER 2 那半：把 VLA 和导航 API 声明为工具、用双向流送入视频，与你已经在写的工具调用循环逐点对照",
+        "重点看两个完成度指标（进度分级 57.4%、时刻定位 91.3% / 0.96 秒），思考同样的验证信号在你自己的智能体里由什么充当",
+        "再看端侧那半：几小时、不到 200 条示例适配新形态，是端侧部署里「换硬件要付多少代价」的一个具体标尺",
+        "最后读 ASIMOV-Agentic 的三项设定——拒绝不安全工具调用、预判可行性、不确定时主动要人——把它当作智能体安全评测的一个现成模板"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "ER 2 把 VLA 模型和导航 API 直接声明为工具，是函数调用这套机制在物理执行器上的一次直接应用。",
+        "knowledge-latency-tradeoffs": "双向流式端点让模型执行与思考重叠，官方把亚秒级延迟称为安全操作物理机器人的下限——延迟在这里是硬约束而不是体验优化。",
+        "knowledge-ws-a28a8a56": "一次任务持续数分钟、包含数百个决策，正是长时程智能体的上下文与进度管理问题。",
+        "knowledge-human-loop": "ASIMOV-Agentic 把「不确定时主动请求人介入」写成了可测指标，而不是留给上层应用。",
+        "knowledge-evaluation-loops": "进度分级与时刻定位是两个可复现的完成度指标，回答的正是评估闭环里最难的那一问：这一步到底做完了没有。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "高层推理模型规划、下层动作模型执行、失败可自纠——这是一个完整的分层智能体工作流实例。",
+        "skill-tool-integration": "控制接口以工具形式声明、多模态流直接入模，可以对照自己的工具集成方式来读。",
+        "skill-ws-f741f122": "进度分级与时刻定位本质上是运行时可观测性指标，为智能体评测运维提供了一个具体样板。",
+        "skill-ws-b47fabd1": "成功/失败检测从静态截图改到原始视频流，仪表读数扩展到 10 类仪表——视觉输入的组织与核验在这里被推到了实时场景。",
+        "skill-ws-d7c9d1d8": "端侧版本用几小时、不到 200 条示例适配新形态，是端侧部署里换硬件成本的一个具体参照。"
+      },
+      "followUpQuestions": [
+        "进度分级只有 57.4% 的准确率，在什么样的任务里这个数字已经够用，在什么任务里不够？",
+        "「一边执行一边思考」的双向流式设计，在纯软件智能体里对应的是什么，值不值得照搬？",
+        "多指灵巧操作官方自己标为仍然困难，这会把哪些应用场景推迟到下一代？",
+        "动作模型只对早期合作伙伴开放，只拿到 ER 2 的开发者实际能做出什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "createdAt": "2026-08-04T03:09:13.072Z",
+      "updatedAt": "2026-08-04T03:12:11.035Z",
+      "editorialNotes": [
+        "候选来自 DeepMind 博客 RSS，摘要为空；原文页可直接抓取（200），全文读后成稿——同 2026-07-30 记录的 Hugging Face 情形。",
+        "同族的 Gemini Robotics ER 2 单独一篇（07-30）标记为已看不另发：它是本次发布三个模型之一的深度解读，其数据已并入本条正文。",
+        "选题理由是智能体架构而非机器人本身：工具声明、流式上下文、执行中自纠都是站内既有概念，完成度量化是新东西。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
       "slug": "mcp-2-0-stateless-spec",
@@ -99,106 +323,6 @@
       "relatedTechnologyIds": [
         "tech-mcp",
         "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "slug": "gemini-managed-agents-background-mcp",
-      "title": {
-        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
-        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
-      },
-      "summary": {
-        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
-      },
-      "content": {
-        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
-      },
-      "type": "platform",
-      "publishDate": "2026-07-07",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Google",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-01T15:46:14.272Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
-      "whoShouldCare": [
-        "构建生产级智能体的开发团队",
-        "评估 MCP 生态与工具接入方案的架构师",
-        "对比各家智能体平台能力的技术选型者"
-      ],
-      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
-      "impactAreas": [
-        "智能体平台",
-        "MCP 生态",
-        "开发者工具"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
-        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
-        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
-        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
-        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
-      },
-      "followUpQuestions": [
-        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
-        "后台任务的时长上限、计费模型与并发配额是什么？",
-        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "createdAt": "2026-07-21T05:07:29.299Z",
-      "updatedAt": "2026-08-01T15:46:14.272Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
       ]
     },
     {

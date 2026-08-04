@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T15:46:13.095Z",
+  "updatedAt": "2026-08-04T03:13:10.042Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -23,32 +23,6 @@
       "status": "published",
       "createdAt": "2026-07-19T05:04:40.801Z",
       "updatedAt": "2026-07-19T05:04:40.897Z"
-    },
-    {
-      "id": "knowledge-ws-a28a8a56",
-      "title": "长时程智能体的记忆与上下文管理",
-      "slug": "agent-memory-context-management",
-      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
-      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-ws-f741f122"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.755Z",
-      "updatedAt": "2026-07-21T05:08:17.304Z"
     },
     {
       "id": "knowledge-ws-c761533e",
@@ -100,30 +74,6 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.696Z",
       "updatedAt": "2026-07-27T10:19:53.997Z"
-    },
-    {
-      "id": "knowledge-evaluation-loops",
-      "title": "评估闭环",
-      "slug": "evaluation-loops",
-      "summary": "一种经典的运营习惯：定义预期结果、观察失败、不断收紧闭环。",
-      "content": "评估闭环并非 AI 独有，而这恰恰是它重要的原因。这个概念帮助团队避免把新模型的行为当成无法理解的魔法。",
-      "category": "operations",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-observability"
-      ],
-      "relatedTechnologyIds": [
-        "tech-rag-evals",
-        "tech-agent-workbenches"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T10:19:54.071Z",
-      "updatedAt": "2026-07-27T16:57:16.007Z"
     },
     {
       "id": "knowledge-ws-36346103",
@@ -234,32 +184,6 @@
       "updatedAt": "2026-07-30T08:36:53.403Z"
     },
     {
-      "id": "knowledge-human-loop",
-      "title": "人在回路的审查",
-      "slug": "human-in-the-loop-review",
-      "summary": "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
-      "content": "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
-      "category": "operations",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-communication-ai",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T16:57:16.103Z",
-      "updatedAt": "2026-07-30T08:36:53.462Z"
-    },
-    {
       "id": "knowledge-model-sizing",
       "title": "模型选型与约束匹配",
       "slug": "model-sizing-and-constraint-matching",
@@ -290,32 +214,6 @@
       "updatedAt": "2026-07-30T08:36:53.508Z"
     },
     {
-      "id": "knowledge-latency-tradeoffs",
-      "title": "交互系统中的延迟权衡",
-      "slug": "latency-tradeoffs-in-interactive-systems",
-      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
-      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-multimodal"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:24:01.841Z",
-      "updatedAt": "2026-07-30T08:36:53.556Z"
-    },
-    {
       "id": "knowledge-api-contracts",
       "title": "API 契约与接口边界",
       "slug": "api-contracts-and-interface-boundaries",
@@ -338,32 +236,6 @@
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.433Z",
       "updatedAt": "2026-08-01T15:46:12.940Z"
-    },
-    {
-      "id": "knowledge-tool-use",
-      "title": "工具使用与函数调用",
-      "slug": "tool-use-and-function-calling",
-      "summary": "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
-      "content": "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.389Z",
-      "updatedAt": "2026-08-01T15:46:13.020Z"
     },
     {
       "id": "knowledge-system-design",
@@ -389,6 +261,139 @@
       "status": "published",
       "createdAt": "2026-07-27T01:48:18.567Z",
       "updatedAt": "2026-08-01T15:46:13.095Z"
+    },
+    {
+      "id": "knowledge-tool-use",
+      "title": "工具使用与函数调用",
+      "slug": "tool-use-and-function-calling",
+      "summary": "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
+      "content": "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.389Z",
+      "updatedAt": "2026-08-04T03:13:09.855Z"
+    },
+    {
+      "id": "knowledge-latency-tradeoffs",
+      "title": "交互系统中的延迟权衡",
+      "slug": "latency-tradeoffs-in-interactive-systems",
+      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
+      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-multimodal"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:24:01.841Z",
+      "updatedAt": "2026-08-04T03:13:09.902Z"
+    },
+    {
+      "id": "knowledge-ws-a28a8a56",
+      "title": "长时程智能体的记忆与上下文管理",
+      "slug": "agent-memory-context-management",
+      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
+      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.755Z",
+      "updatedAt": "2026-08-04T03:13:09.949Z"
+    },
+    {
+      "id": "knowledge-human-loop",
+      "title": "人在回路的审查",
+      "slug": "human-in-the-loop-review",
+      "summary": "当输出会影响客户、运营或对外沟通时，人工检查点仍然不可或缺。",
+      "content": "新工具可能自动化更多步骤，但审查设计仍决定信任。这个概念解释了如何把人的决策放在最能创造价值的位置。",
+      "category": "operations",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-communication-ai",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T16:57:16.103Z",
+      "updatedAt": "2026-08-04T03:13:10.000Z"
+    },
+    {
+      "id": "knowledge-evaluation-loops",
+      "title": "评估闭环",
+      "slug": "evaluation-loops",
+      "summary": "一种经典的运营习惯：定义预期结果、观察失败、不断收紧闭环。",
+      "content": "评估闭环并非 AI 独有，而这恰恰是它重要的原因。这个概念帮助团队避免把新模型的行为当成无法理解的魔法。",
+      "category": "operations",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-observability"
+      ],
+      "relatedTechnologyIds": [
+        "tech-rag-evals",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T10:19:54.071Z",
+      "updatedAt": "2026-08-04T03:13:10.042Z"
     }
   ]
 }

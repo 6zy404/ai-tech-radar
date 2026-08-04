@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T15:47:52.902Z",
+  "updatedAt": "2026-08-04T03:13:10.358Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1917,6 +1917,105 @@
       "toType": "technology",
       "relationType": "supports",
       "note": "那条信号里的远程 MCP 接入，正是这一版要服务的部署形态。"
+    },
+    {
+      "id": "rel-ws-469e667d",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "把 VLA 模型和导航 API 直接声明为工具，是函数调用机制在物理执行器上的一次直接应用。"
+    },
+    {
+      "id": "rel-ws-3625bff8",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "官方把亚秒级延迟称作安全操作物理机器人的下限——延迟在这里是硬约束，不是体验优化。"
+    },
+    {
+      "id": "rel-ws-9685d121",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "一次任务持续数分钟、包含数百个决策，正是长时程智能体的上下文与进度管理问题。"
+    },
+    {
+      "id": "rel-ws-384b589e",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "ASIMOV-Agentic 把「不确定时主动请求人介入」写成了可测指标，而不是留给上层应用。"
+    },
+    {
+      "id": "rel-ws-d317ff68",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "进度分级 57.4% 与时刻定位 91.3% 是两个可复现的完成度指标，回答的正是评估闭环里最难的一问。"
+    },
+    {
+      "id": "rel-ws-dee0643c",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "高层推理规划、下层动作执行、失败可自纠，是一个完整的分层智能体工作流实例。"
+    },
+    {
+      "id": "rel-ws-21fcd166",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "控制接口以工具形式声明、多模态流直接入模，可以对照自己的工具集成方式来读。"
+    },
+    {
+      "id": "rel-ws-848b995e",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "进度分级与时刻定位本质上是运行时可观测性指标，为智能体评测运维提供了一个具体样板。"
+    },
+    {
+      "id": "rel-ws-1bc4b969",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "成功/失败检测从静态截图改到原始视频流，仪表读数扩展到 10 类——视觉核验被推到了实时场景。"
+    },
+    {
+      "id": "rel-ws-49e42171",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "端侧版本用几小时、不到 200 条示例适配新形态，是换硬件成本的一个具体参照。"
+    },
+    {
+      "id": "rel-ws-b432b9a9",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一套 Gemini 智能体平台上的另一端：那条讲托管智能体与远程 MCP，这条讲执行器作为工具。"
     }
   ]
 }
