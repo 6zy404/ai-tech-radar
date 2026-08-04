@@ -12,6 +12,93 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Content round — half the pool turned out to be one sentence
+
+- **The round changed shape after the scan** — 2026-08-04, owner-selected, and
+  the scan was run before anything was written. What it found was not a missing
+  topic but that **16 of the 34 skill/knowledge entries have bodies of 36–56
+  characters** — one or two sentences — while the other 16 run a median of 509.
+  The short ones are all bundled seeds from the foundation phase; every
+  workspace-authored entry is full length.
+- **Ranked by inbound references, the split is worse than it sounds.** The most
+  referenced entry in the entire content graph — 技能「模型与输出评估」, pointed
+  at by **21** signals and cross-links — had a **43-character** body. Next:
+  模型选型与约束匹配 19 refs / 53 chars, 智能体工作流设计 18 / 50, 工具集成模式
+  15 / 36. A reader following relations out of the richest signal pages lands on
+  a single sentence.
+- **The gap that looked biggest was measured and rejected.** 端侧 AI shows 7
+  signals against 1 skill, the thinnest ratio on the board — but **not one of
+  those 7 signals is exclusive to it**; all seven carry other tags and are
+  already served by 端侧模型部署与硬件适配 and 模型与推理引擎的支持路径. Same
+  trap as the 2026-07-28 planning note recorded for 推理与部署, one tag over.
+- **Two seed entries rewritten, one new entry published**, owner's call to do
+  both halves.
+- **技能「模型与输出评估」** (43 → 995 chars) — the hard part is not running the
+  eval but writing down what "good" means before you look at the output. Opens
+  on Real World VoiceEQ: 40+ voice models, 15+ dimensions, 60+ metrics and over
+  a million human ratings, all to pin down one adjective. Then the test that
+  decides whether a published number is comparable at all — **has this ruler
+  measured anyone else?** — which separates Kimi K3's third-party Elo from
+  GPT-5.6's vendor-defined 单位算力智能密度. Plus three ways an eval lies to you
+  (only testing the success path, model-judges-model with no human anchor,
+  treating evaluation as a launch gate rather than a standing dashboard).
+- **知识「模型选型与约束匹配」** (53 → 902 chars) — which constraint bites first,
+  and the point that for a whole class of work a flagship is the wrong _shape_
+  rather than merely expensive: LFM2.5-Encoders at 230M/350M covers intent
+  routing, policy checks, PII and classification, where **the output is a label,
+  not a sentence**. Then why parameter count is not size (Inkling is ~1T total /
+  41B active, and the number that decides whether you can run it is neither —
+  BF16 ≈ 2TB, NVFP4 ≈ 600GB), why an announced open-weights date is not an
+  available one, and why "which size" and "which layer do you own" are two
+  halves of one decision.
+- **New: 知识「完成判定与验收信号」** — the question a long-horizon agent asks at
+  every step: **is this step done?** Getting it wrong quietly, by declaring
+  success and passing the error downstream, is the expensive direction. Three
+  signal sources in decreasing reliability — external world state, human-written
+  checks, the model's own judgment — and the news is that the third is becoming
+  measurable: Gemini Robotics 2's ER 2 scores **57.4%** on five-band progress
+  classification and **91.3%** with 0.96s mean error on moment-finding, as a
+  separately trained, separately evaluated capability. **57.4% is the point** —
+  it says plainly how far from trustworthy that tier still is. The Hugging Face
+  intrusion is the negative case: the agent had a judgment for "did this advance
+  the goal" and none for "was this out of bounds".
+- Published with **zero blocking errors and zero warnings**, 5 published signals
+  and 3 skills carrying reverse ids, and 8 typed relations with notes (5 印证,
+  2 必备, 1 延伸). Boundaries are written into all three bodies rather than left
+  implicit: 模型与输出评估 is before launch, 完成判定 is mid-task,
+  智能体可观测性与评测运维 is after the run, 长时程记忆 owns what carries forward.
+- Reverse ids were written read-then-union, and `config/*.json` diffed against
+  `HEAD` per record afterwards: **zero arrays shrank, zero slugs changed**, with
+  the checker proven to fire on an injected shrink.
+- Verified: all three pages render as real structure (14 / 14 / 16 blocks, 5
+  headings each, ordered and bulleted lists, 12 / 8 / 6 bold runs, **zero
+  literal markers**), 5 signal pages and both topic hubs carry the new entry,
+  `/network` holds the node plus 17 references, 13 public routes at 200, zero
+  horizontal overflow at 375px with the detector proven to fire, zero console
+  errors, typecheck, lint, format, vitest 203/203, and `validate:persistence` /
+  `database` / `workspace-boundary` / `ranking`.
+- **Three of the first verification failures were the check being wrong, not the
+  page** — the same pattern this log keeps recording. A bare scan for
+  `workspace` matched TopNav's 内部工作台 link, which is on every public page by
+  design. And a tag-stripper that replaced each tag with a space **split the
+  Chinese title into fragments**, because headings are emitted as several
+  `<span>`s by the 2026-08-01 word segmentation — so `/knowledge` and `/network`
+  were reported missing an entry they both contained. `/network` needed a
+  different check for a real reason: its dot nodes keep the title in
+  `aria-label`, visible only on hover, selection or a search match.
+- **And one of the fixes made a check pass for the wrong reason.** After the
+  stripper started returning an object, the literal-marker test was still
+  running a regex against it — stringified to `[object Object]`, so it could
+  never match and always passed. Rewritten and then proven to fire on injected
+  `**` and `##`.
+- **Left measured and unfixed**: 14 seed stubs remain, led by 智能体工作流设计
+  (18 inbound refs / 50 chars) and 工具集成模式 (15 / 36).
+- **Not looked at, and stated rather than glossed**: the Browser pane's
+  screenshot tool was unavailable again (the pane is not displayed, so the page
+  composites no frames), and `AGENTS.md` forbids running Playwright without an
+  explicit request. Structure, overflow and console were measured; the pages
+  were not seen.
+
 ## The site finally has a mark
 
 - **The `/favicon.ico` 404 the visual round wrote down as a minor unfixed item
