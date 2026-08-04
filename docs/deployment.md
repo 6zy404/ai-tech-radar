@@ -335,6 +335,57 @@ What this does **not** do: catch-up runs fire **once**, not once per missed
 day, and a missed day's digest draft is never backfilled — the scheduled
 digest always generates _today's_ draft.
 
+#### `StartWhenAvailable` did not survive contact with sleep (2026-08-04)
+
+The settings above were applied on 2026-07-28 and are still in place, and the
+task still skipped three of the next seven days: **07-31, 08-02 and 08-04**.
+The cause is not the task. On each of those mornings the machine was **asleep
+at 08:05** — on 08-04 the kernel power log shows a user-mode `SetSuspendState`
+at 01:20 and the session state climbing back out of low power only at
+**09:30** — and `WakeToRun` is deliberately off, so the trigger had no way to
+fire. The days it did run (07-29, 07-30, 08-01, 08-03) are exactly the days
+the machine was already awake.
+
+`StartWhenAvailable` should have made the run up shortly after the 09:30
+resume and did not: Windows recorded `NumberOfMissedRuns: 1` and moved
+`NextRunTime` straight to the following day. **Why it did not fire is not
+recoverable**, because the Task Scheduler history log ships disabled, so no
+per-attempt record exists. Enable it so the next occurrence leaves evidence:
+
+```powershell
+wevtutil sl Microsoft-Windows-TaskScheduler/Operational /e:true
+```
+
+The fix applied instead of `WakeToRun` is a **second trigger** that fires when
+the operator unlocks the machine — i.e. when they actually start using it —
+with a two-minute delay so the network is up after a resume:
+
+```powershell
+$task = Get-ScheduledTask -TaskName "ai-tech-radar-tasks"
+$class = Get-CimClass -ClassName MSFT_TaskSessionStateChangeTrigger `
+  -Namespace Root/Microsoft/Windows/TaskScheduler
+$unlock = New-CimInstance -CimClass $class -ClientOnly
+$unlock.StateChange = 8            # TASK_SESSION_UNLOCK
+$unlock.UserId = "$env:USERDOMAIN\$env:USERNAME"
+$unlock.Delay = "PT2M"
+$unlock.Enabled = $true
+Set-ScheduledTask -TaskName "ai-tech-radar-tasks" `
+  -Trigger @($task.Triggers[0], $unlock)
+```
+
+Unlock rather than logon, because resuming from sleep does not log the
+operator back on — it unlocks an existing session.
+
+**This cannot double-import, and that is a property of the app rather than of
+the trigger.** `scheduled-import.json` and `scheduled-digest.json` each carry a
+`nextRunAt` that the runner advances after a successful pass, so a second run
+on the same day reports `定时导入未到期` / `定时简报草稿未到期` and writes
+nothing. Verified by running `tasks:run-once` twice in one day: the second pass
+finished in under a millisecond having done exactly that.
+
+Roll back with
+`Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Trigger $task.Triggers[0]`.
+
 Other notes:
 
 - Schedule the Windows task a few minutes **after** the configured import time
