@@ -95,6 +95,20 @@ For per-topic deep dives, see the `docs/` directory.
   zero horizontal overflow at 1440 light, 1440 dark and 390.
 - **Minor, unfixed and stated rather than quietly dropped**: the site has no
   favicon, so every page load logs one `/favicon.ico` 404.
+- **`--fs-display` finally got a narrow-screen value** — the largest number
+  the sweeps had been carrying unfixed since 2026-08-01, closed the same day
+  once the owner scoped it: **one step to 36px below 640px, and deliberately
+  not a mobile type scale**, because this audience is not on phones and the
+  bar is "not absurd" rather than "designed for". At 44px the longest hero
+  title ran **6 lines / 330px** on an 844px viewport; 36px takes most heroes
+  from 3-4 lines to 2 (165–220px → 90px) and that one from 6 lines to 5
+  (330 → 225px). Measured against 34 / 32 / 30 and chosen over them because
+  the smaller candidates collide with `--fs-h1` at 30px and would flatten two
+  type tiers into one. **Desktop is untouched by measurement, not just by
+  intent**: the same computed-style harness reports **0 differences at 1440
+  light and 0 at 1440 dark**, with all 1118 differences confined to 390.
+  Boundary checked either side (641px still 44, 640px is 36), 13 routes at
+  200 with zero overflow at 641 / 640 / 390 / 320.
 
 ## Editorial round — the same agent stack, with actuators for tools
 
