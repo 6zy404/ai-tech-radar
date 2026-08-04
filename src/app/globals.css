@@ -7854,6 +7854,21 @@ a.technology-evolution__title {
   line-height: var(--lh-base) !important;
 }
 
+/* The display step had no narrow-screen value, so a 44px hero title ran to
+   6 lines / 330px at 390px — more than a third of an 844px viewport for one
+   heading. One step down, at the breakpoint this file already uses most, is
+   deliberately the whole fix: the audience is not on phones, so this is a
+   "not absurd" value rather than a mobile type scale. 36px was measured
+   against 34 / 32 / 30 — it takes most heroes from 3-4 lines to 2 and the
+   longest title from 6 lines to 5 (330px -> 225px), while staying clear of
+   --fs-h1 at 30px, which the smaller candidates collide with. Nothing at or
+   above 641px is touched. */
+@media (max-width: 640px) {
+  :root {
+    --fs-display: 36px;
+  }
+}
+
 /* Display tier: hero / page-title headings get the larger --fs-display step
    and a tighter heading line-height than the body. */
 .user-shell .product-home-hero h1,
