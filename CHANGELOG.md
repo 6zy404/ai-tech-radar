@@ -12,6 +12,53 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Looking at eleven pages the content rounds never opened
+
+- **The five content rounds all closed by stating they had never looked at the
+  pages** — 2026-08-05, owner-authorized, so this pass ran through Playwright
+  against the local Chrome (the Browser pane's screenshot tool is still
+  unavailable; Playwright's own Chromium is not installed on this machine, so
+  the run uses `channel: "chrome"` rather than downloading a browser). 11 pages
+  × 1440 light / 1440 dark / 390, **sliced at 1:1 viewport height** rather than
+  downscaled full-page images — the 2026-08-01 round withdrew three findings
+  that came from reading downscaled captures.
+- **What was already right, since a write-up that only lists defects is
+  misleading**: zero horizontal overflow and zero console errors in all three
+  configurations; every body rendering as real structure with no literal
+  markers; inline code in monospace on hairline chips; relation stamps holding
+  their own size (the 08-04 fix, confirmed visually on desktop and mobile);
+  dark mode readable with the same layout; and the 390px display step landing —
+  the longest title takes 4 lines with clean word breaks.
+- **The 11-relation graph is a free regression on yesterday's fix.** The new
+  signal carries exactly the count that broke the old fixed-radius ring, and
+  the grouped-by-kind replacement renders 技术·4 / 技能·3 / 知识·3 with no
+  overlap at either width.
+- **Two defects, both pre-existing, both the same family** — "says the same
+  thing twice", which this project has removed repeatedly:
+  - **The skill aside stuttered.** `<dt>学习成本</dt>` was paired with a value
+    from a map returning `学习成本中等`, so the row read **学习成本 /
+    学习成本中等** on all 16 skill pages. A second bare-value map now serves
+    the places where a label already says it; the standalone hero chip keeps
+    the full wording, because nothing next to it supplies the noun. Same shape
+    as the 帮助你理解帮助你理解 stutter fixed 2026-07-30.
+  - **The knowledge hero rendered its category twice.** The same expression
+    appeared as the kicker and again as the first stamp chip, eight lines
+    apart, on all 19 knowledge pages. The sibling skill hero puts type in the
+    kicker and heat/cost in the chips and never repeated — so removing the
+    duplicate chip also stops the two pages diverging. Difficulty stays; the
+    category is still in the aside profile.
+- **One of the two was over-reported before it was fixed.** The blast radius
+  first included the workspace skills list, because a grep matched the label
+  string there too — but that page's own map already returns bare 低/中/高.
+  Reading the file rather than trusting the grep corrected it from three
+  surfaces to two.
+- Verified across **every** skill and knowledge page, not just the ones this
+  session wrote: the 学习成本 row now resolves to 高 / 中等 / 低 with **zero**
+  stutters over 16 pages, every knowledge hero carries exactly **one** chip
+  with no kicker repeat over 19 pages, difficulty still renders, 38 routes at
+  200, plus typecheck, lint, format, vitest 203/203, `validate:persistence` /
+  `workspace-boundary`, and a re-capture of both templates.
+
 ## Editorial round — a CLI that grew into an agent framework
 
 - **Eight candidates, one signal** — 2026-08-05. The scheduled import ran
