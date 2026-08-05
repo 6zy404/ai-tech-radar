@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-04T03:05:31.099Z",
+  "syncedAt": "2026-08-05T00:05:15.288Z",
   "sources": [
     {
       "id": "source-github-blog-ai",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://github.blog/ai-and-ml/feed/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:19.843Z"
+      "fetchedAt": "2026-08-05T00:05:03.560Z"
     },
     {
       "id": "source-google-ai-blog",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://blog.google/technology/ai/rss/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:21.659Z"
+      "fetchedAt": "2026-08-05T00:05:05.690Z"
     },
     {
       "id": "source-google-deepmind-blog",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://deepmind.google/blog/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:24.433Z"
+      "fetchedAt": "2026-08-05T00:05:07.063Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:25.193Z"
+      "fetchedAt": "2026-08-05T00:05:07.711Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -44,7 +44,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:26.053Z"
+      "fetchedAt": "2026-08-05T00:05:08.492Z"
     },
     {
       "id": "source-ollama-releases",
@@ -53,7 +53,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:26.983Z"
+      "fetchedAt": "2026-08-05T00:05:10.643Z"
     },
     {
       "id": "source-openai-news",
@@ -62,7 +62,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:27.895Z"
+      "fetchedAt": "2026-08-05T00:05:11.612Z"
     },
     {
       "id": "source-qwen-blog",
@@ -71,7 +71,7 @@
       "sourceUrl": "https://qwenlm.github.io/blog/index.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:28.586Z"
+      "fetchedAt": "2026-08-05T00:05:12.063Z"
     },
     {
       "id": "source-simon-willison-blog",
@@ -80,7 +80,7 @@
       "sourceUrl": "https://simonwillison.net/atom/entries/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:29.534Z"
+      "fetchedAt": "2026-08-05T00:05:12.971Z"
     },
     {
       "id": "source-vllm-releases",
@@ -89,10 +89,486 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-04T03:05:31.094Z"
+      "fetchedAt": "2026-08-05T00:05:15.283Z"
     }
   ],
   "candidates": [
+    {
+      "id": "candidate-rss-https-github-blog-p-97698",
+      "sourceType": "rss-feed",
+      "sourceName": "GitHub Blog AI",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/how-the-github-legal-team-used-copilot-cli-to-streamline-their-workflows/",
+      "originalTitle": "How the GitHub legal team used Copilot CLI to streamline their workflows",
+      "originalSummary": "Learn how to build tools to simplify how you work—without writing a single line of code. The post How the GitHub legal team used Copilot CLI to streamline their workflows appeared first on The GitHub Blog .",
+      "originalContent": "Whether you are just starting out or are not in a technical role at all, you likely already have the skills you need to build your own tools. If you have ever thought &ldquo;I&rsquo;m not technical enough to build that,&rdquo; this post is for you. Let me introduce the team. We are lawyers, program managers, and business professionals&mdash;not engineers. A large part of our work is often repetitive, like reviewing the same kinds of contracts over and over or answering the same legal questions, and our prior guidance is frequently recycled. These are problems AI could help solve, but we lacked confidence in how to build the right tools. That is where GitHub Copilot CLI came in. We asked for what we wanted in plain language, plugged into our repos, and saw real changes fast. &ldquo;I could never code&rdquo; turned into &ldquo;I just built something,&rdquo; and that habit spread on its own until every one of us was building something. What follows are two real accounts of people who did exactly that. Plus, watch the videos for two additional stories. Why I built an internal drafting style guide The following is a first-person account from Ngandu Kasuku, Principal Product Counsel. I&rsquo;m a product attorney, but commercial work remains a sizable part of my practice. Around March or April, I found myself buried in partnership deals involving data, infrastructure, and product integrations. No two deals looked quite alike, so each new matter felt like starting over. I started using Copilot CLI to manage the surge, which helped, but also had some problems. Then, after seeing wh…",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "Bria Ford",
+      "normalizedType": "tool",
+      "tags": [
+        "tag-ai-agents",
+        "ai & ml",
+        "github copilot",
+        "github copilot cli",
+        "agents",
+        "workflow",
+        "observability",
+        "multimodal",
+        "on-device",
+        "knowledge-graph"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-github-blog-ai",
+        "feedTitle": "The latest on AI & ML - The GitHub Blog",
+        "feedUrl": "https://github.blog/ai-and-ml/feed/",
+        "item": {
+          "title": "How the GitHub legal team used Copilot CLI to streamline their workflows",
+          "link": "https://github.blog/ai-and-ml/github-copilot/how-the-github-legal-team-used-copilot-cli-to-streamline-their-workflows/",
+          "dc:creator": "Bria Ford",
+          "pubDate": "Tue, 04 Aug 2026 19:02:34 +0000",
+          "category": [
+            "AI & ML",
+            "GitHub Copilot",
+            "GitHub Copilot CLI"
+          ],
+          "guid": {
+            "#text": "https://github.blog/?p=97698",
+            "isPermaLink": "false"
+          },
+          "description": "<p>Learn how to build tools to simplify how you work—without writing a single line of code.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/how-the-github-legal-team-used-copilot-cli-to-streamline-their-workflows/\">How the GitHub legal team used Copilot CLI to streamline their workflows</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">Whether you are just starting out or are not in a technical role at all, you likely already have the skills you need to build your own tools. If you have ever thought &ldquo;I&rsquo;m not technical enough to build that,&rdquo; this post is for you.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Let me introduce the team. We are lawyers, program managers, and business professionals&mdash;not engineers. A large part of our work is often repetitive, like reviewing the same kinds of contracts over and over or answering the same legal questions, and our prior guidance is frequently recycled. These are problems AI could help solve, but we lacked confidence in how to build the right tools.</p>\n\n\n\n<p class=\"wp-block-paragraph\">That is where <a href=\"https://github.com/features/copilot/cli\">GitHub Copilot CLI</a> came in. We asked for what we wanted in plain language, plugged into our repos, and saw real changes fast. &ldquo;I could never code&rdquo; turned into &ldquo;I just built something,&rdquo; and that habit spread on its own until every one of us was building something.</p>\n\n\n\n<p class=\"wp-block-paragraph\">What follows are two real accounts of people who did exactly that. Plus, watch the videos for two additional stories.</p>\n\n\n\n<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n\n\t\t<div class=\"mod-vh position-relative\" style=\"height: 0; padding-bottom: calc((9 / 16)*100%);\">\n\t\t\t<iframe loading=\"lazy\" class=\"position-absolute top-0 left-0 width-full height-full\" src=\"https://www.youtube.com/embed/nzj0JOlyhOE?version=3&amp;rel=1&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;fs=1&amp;hl=en-US&amp;autohide=2&amp;wmode=transparent\" title=\"YouTube video player\" allow=\"accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" frameborder=\"0\"></iframe>\n\t\t</div>\n</div></figure>\n\n\n\n<h2 id=\"h-why-i-built-an-internal-drafting-style-guide\" class=\"wp-block-heading\">Why I built an internal drafting style guide</h2>\n\n\n\n<p class=\"wp-block-paragraph\"><em>The following is a first-person account from Ngandu Kasuku, Principal Product Counsel.</em></p>\n\n\n\n<p class=\"wp-block-paragraph\">I&rsquo;m a product attorney, but commercial work remains a sizable part of my practice. Around March or April, I found myself buried in partnership deals involving data, infrastructure, and product integrations. No two deals looked quite alike, so each new matter felt like starting over.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I started using Copilot CLI to manage the surge, which helped, but also had some problems. Then, after seeing what others had built with Copilot, I realized I wasn&rsquo;t thinking big enough. Instead of using AI for one task at a time, I could build something around the way I work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">So, I created a contract drafting tool using Copilot CLI. I called it <a href=\"https://github.com/nkasuku/terms-ai\">terms-ai</a>, which I admit isn&rsquo;t the most original name. I started by scaffolding the project and storing key documents in a repository. This gave me one place to organize and version the instructions, drafting resources, and workflows that guide the AI. That structure made the results more consistent and reduced the copying and pasting that had slowed me down when I was using a library of prompts.</p>\n\n\n\n<p class=\"wp-block-paragraph\">One of the tool&rsquo;s main features is an internal drafting style guide. Since my days as a commercial lawyer, I&rsquo;ve favored plain language. I never understood why contracts needed words like &ldquo;heretofore&rdquo; and &ldquo;therewith.&rdquo; When I discovered that an entire legal drafting movement shared this view, I used its principles as the foundation for my style guide.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I also built a library of agreements I had already completed. Now, when an existing partner sends over an addendum or a new agreement, the tool can draw on that earlier work. These agreements remain in an approved, access-controlled internal environment.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The tool and its general workflow are open source. The agreements and other sensitive information aren&rsquo;t part of the open source repository. Since I began using terms-ai, I&rsquo;ve cut my review and drafting time roughly in half. My provisions are more consistent across agreements, and the drafts reflect the plain style I prefer.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The tool still has a long way to go. But the biggest lesson wasn&rsquo;t that AI could help me draft faster. It was that I could use AI to build a tool around my own judgment, experience, and way of working.</p>\n\n\n\n<h2 id=\"h-how-i-built-legal-workflows-without-writing-traditional-code\" class=\"wp-block-heading\">How I built legal workflows without writing traditional code</h2>\n\n\n\n<p class=\"wp-block-paragraph\"><em>The following is a first-person account from Jesse Geraci, Online Safety Counsel.</em></p>\n\n\n\n<p class=\"wp-block-paragraph\">I started with a narrow problem. We needed to analyze source code quickly and accurately to evaluate DMCA (Digital Millennium Copyright Act) notices. The original project began as a set of GitHub Copilot instructions for recurring tasks like DMCA triage, comparing code, license checks, and circumvention review. We wanted to turn the messy, one-off prompt work that everyone was doing independently into something repeatable that a legal team could trust to gather the right facts and analyze the data consistently.</p>\n\n\n\n<p class=\"wp-block-paragraph\">I was surprised at how far I could go without engineering support. The core &ldquo;programming&rdquo; was plain-language files consisting of workflow instruction sets, policy reference materials, and templates for writing reports. Instead of writing source code, I was able to use my language crafting skills as a lawyer to build structured legal judgment into the workflow itself.</p>\n\n\n\n<p class=\"wp-block-paragraph\">It grew from there. We added different analysis modes for clients and lawyers (with faster outputs and escalation recommendations for clients, and deeper review and both-sides arguments for lawyers) and integrated external data sources. When I handed the workflow off to the team, they started using it right away and asked Copilot to do more.</p>\n\n\n\n<p class=\"wp-block-paragraph\">That foundation has since evolved into a full desktop app for running predefined legal workflows in a clean interface. Building the desktop app required writing some code (a lot of code, actually), but the core instructions used to customize workflows are easily edited and customized in the app using plain language.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The app we created has now expanded well beyond only code analysis for DMCA notices. It includes instructions for many in-house workflows like contract review, NDA triage, risk assessment, compliance checks, and response drafting. Under the hood, it can route work through reusable skills and agents (intake, playbook alignment, risk scoring, evidence verification, escalation routing, report assembly), but the important part is not technical complexity&mdash;it&rsquo;s that legal teams can still control behavior in readable Markdown.</p>\n\n\n\n<p class=\"wp-block-paragraph\">For me, the key lesson was that I don&rsquo;t need to wait for the perfect software vendor&mdash;or become a full-time developer myself&mdash;to build serious AI tooling. If you can clearly define your methodology, your standards, and your output format, GitHub Copilot makes it easy to operationalize that knowledge.</p>\n\n\n\n<p class=\"wp-block-paragraph\">My legal Copilot is not a replacement for legal judgment, and it shouldn&rsquo;t be treated that way. It&rsquo;s a structured decision-support system designed to keep human review central while making legal analysis more consistent, more transparent, and more scalable.</p>\n\n\n\n<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n\n\t\t<div class=\"mod-vh position-relative\" style=\"height: 0; padding-bottom: calc((9 / 16)*100%);\">\n\t\t\t<iframe loading=\"lazy\" class=\"position-absolute top-0 left-0 width-full height-full\" src=\"https://www.youtube.com/embed/-32wLbC973w?version=3&amp;rel=1&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;fs=1&amp;hl=en-US&amp;autohide=2&amp;wmode=transparent\" title=\"YouTube video player\" allow=\"accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" frameborder=\"0\"></iframe>\n\t\t</div>\n</div></figure>\n\n\n\n<p class=\"wp-block-paragraph\"><em>Check out the <a href=\"http://github.com/dvelton/eyeball\" target=\"_blank\" rel=\"noreferrer noopener\">eyeball tool</a> discussed in the video above.</em></p>\n\n\n\n<h2 id=\"h-take-this-with-you\" class=\"wp-block-heading\">Take this with you</h2>\n\n\n\n<p class=\"wp-block-paragraph\">If a team of lawyers and program managers can quickly build their way out of the hard days, so can you. </p>\n\n\n\n<p class=\"wp-block-paragraph\">Many jobs, even those not centered on traditional software development, have repetitive tasks that can be automated. Pick one thing that slows you down, open Copilot CLI, and ask it to help you build a fix.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\">Get started with <a href=\"https://github.com/features/copilot/cli\">GitHub Copilot CLI &gt;</a></p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/how-the-github-legal-team-used-copilot-cli-to-streamline-their-workflows/\">How the GitHub legal team used Copilot CLI to streamline their workflows</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
+          "post-id": {
+            "#text": 97698,
+            "xmlns": "com-wordpress:feed-additions:1"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-05T00:05:02.928Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-github-blog-ai",
+      "importedAt": "2026-08-05T00:05:02.928Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-ai-updates-july-2026",
+      "sourceType": "rss-feed",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+      "originalTitle": "The latest AI news we announced in July 2026",
+      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/July_AI_Recap_still.max-600x600.format-webp.webp\">Here are Google’s latest AI updates from July 2026",
+      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/July_AI_Recap_still.max-600x600.format-webp.webp\">Here are Google’s latest AI updates from July 2026",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "Google AI Blog",
+      "normalizedType": "model",
+      "tags": [
+        "tag-frontier-models",
+        "search",
+        "android",
+        "google deepmind",
+        "google workspace",
+        "google cloud",
+        "ai",
+        "gemini models",
+        "retrieval",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-google-ai-blog",
+        "feedTitle": "AI",
+        "feedUrl": "https://blog.google/technology/ai/rss/",
+        "item": {
+          "title": "The latest AI news we announced in July 2026",
+          "link": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+          "media:content": {
+            "height": "540",
+            "medium": "image",
+            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/July_AI_Recap_still.max-600x600.format-webp.webp",
+            "width": "540"
+          },
+          "media:description": "July AI recap header",
+          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/July_AI_Recap_still.max-600x600.format-webp.webp\"&gt;Here are Google’s latest AI updates from July 2026",
+          "pubDate": "Tue, 04 Aug 2026 13:00:00 +0000",
+          "guid": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+          "category": [
+            "Search",
+            "Android",
+            "Google DeepMind",
+            "Google Workspace",
+            "Google Cloud",
+            "AI",
+            "Gemini models"
+          ],
+          "og": {
+            "type": "article",
+            "title": "The latest AI news we announced in July 2026",
+            "description": "Here are Google’s latest AI updates from July 2026",
+            "site_name": "Google",
+            "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-july-2026/",
+            "xmlns:og": "http://ogp.me/ns#"
+          },
+          "author": {
+            "name": "News from Google Team",
+            "title": "",
+            "department": "",
+            "company": "",
+            "xmlns:author": "http://www.w3.org/2005/Atom"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-05T00:05:03.598Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-google-ai-blog",
+      "importedAt": "2026-08-05T00:05:03.598Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6-rc0",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6-rc0",
+      "originalTitle": "v0.32.6",
+      "originalSummary": "What's Changed Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model's MTP head for speculative decoding automatically /v1/chat/completions streaming now matches OpenAI's wire format: role only on the first chunk, finish_reason on its own chunk,…",
+      "originalContent": "<h2>What's Changed</h2> <ul> <li>Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model's MTP head for speculative decoding automatically</li> <li><code>/v1/chat/completions</code> streaming now matches OpenAI's wire format: <code>role</code> only on the first chunk, <code>finish_reason</code> on its own chunk,<br> and usage in a separate chunk with <code>stream_options.include_usage</code>.</li> <li>Truncated OpenAI responses now report <code>finish_reason: \"length\"</code> instead of <code>\"tool_calls\"</code>.</li> <li><code>ollama run kimi-k3</code> now offers <code>kimi-k3:cloud</code> for cloud-only models that publish no default tag, instead of failing.</li> <li>TUI fixes: pipe-delimited prose no longer renders as a table, Enter accepts the highlighted <code>@</code> file completion, and <code>/prompt</code><br> scrolling is no longer laggy.</li> <li>Experimental image generation has been temporarily removed. Continue using 0.32.5 for image generation support</li> <li>Updated the MLX and llama.cpp engines.</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.32.5...v0.32.6-rc0\"><tt>v0.32.5...v0.32.6-rc0</tt></a></p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.6-rc0",
+          "updated": "2026-08-04T18:49:20Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.6-rc0"
+          },
+          "title": "v0.32.6",
+          "content": {
+            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model&#39;s MTP head for speculative decoding automatically&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/v1/chat/completions&lt;/code&gt; streaming now matches OpenAI&#39;s wire format: &lt;code&gt;role&lt;/code&gt; only on the first chunk, &lt;code&gt;finish_reason&lt;/code&gt; on its own chunk,&lt;br&gt;\nand usage in a separate chunk with &lt;code&gt;stream_options.include_usage&lt;/code&gt;.&lt;/li&gt;\n&lt;li&gt;Truncated OpenAI responses now report &lt;code&gt;finish_reason: &quot;length&quot;&lt;/code&gt; instead of &lt;code&gt;&quot;tool_calls&quot;&lt;/code&gt;.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;ollama run kimi-k3&lt;/code&gt; now offers &lt;code&gt;kimi-k3:cloud&lt;/code&gt; for cloud-only models that publish no default tag, instead of failing.&lt;/li&gt;\n&lt;li&gt;TUI fixes: pipe-delimited prose no longer renders as a table, Enter accepts the highlighted &lt;code&gt;@&lt;/code&gt; file completion, and &lt;code&gt;/prompt&lt;/code&gt;&lt;br&gt;\nscrolling is no longer laggy.&lt;/li&gt;\n&lt;li&gt;Experimental image generation has been temporarily removed. Continue using 0.32.5 for image generation support&lt;/li&gt;\n&lt;li&gt;Updated the MLX and llama.cpp engines.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.32.5...v0.32.6-rc0&quot;&gt;&lt;tt&gt;v0.32.5...v0.32.6-rc0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-05T00:05:08.531Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-08-05T00:05:08.531Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-third-party-cyber-evaluations-involving-openai-models",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/third-party-cyber-evaluations-involving-openai-models",
+      "originalTitle": "Third-party cyber evaluations involving OpenAI models",
+      "originalSummary": "OpenAI explains recent third-party cybersecurity evaluation incidents and outlines new safeguards to strengthen AI model testing and evaluation.",
+      "originalContent": "OpenAI explains recent third-party cybersecurity evaluation incidents and outlines new safeguards to strengthen AI model testing and evaluation.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "security",
+        "observability"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "Third-party cyber evaluations involving OpenAI models",
+          "description": "OpenAI explains recent third-party cybersecurity evaluation incidents and outlines new safeguards to strengthen AI model testing and evaluation.",
+          "link": "https://openai.com/index/third-party-cyber-evaluations-involving-openai-models",
+          "guid": {
+            "#text": "https://openai.com/index/third-party-cyber-evaluations-involving-openai-models",
+            "isPermaLink": "true"
+          },
+          "category": "Security",
+          "pubDate": "Tue, 04 Aug 2026 19:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-05T00:05:10.676Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-08-05T00:05:10.676Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-learn-teach-chatgpt-work-codex",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/learn-teach-chatgpt-work-codex",
+      "originalTitle": "New ways to learn and teach with ChatGPT Work and Codex",
+      "originalSummary": "Explore new education plugins for ChatGPT Work and Codex that help K–12 teachers, college educators, and students learn, teach, research, and build.",
+      "originalContent": "Explore new education plugins for ChatGPT Work and Codex that help K–12 teachers, college educators, and students learn, teach, research, and build.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "product",
+        "retrieval"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "New ways to learn and teach with ChatGPT Work and Codex",
+          "description": "Explore new education plugins for ChatGPT Work and Codex that help K–12 teachers, college educators, and students learn, teach, research, and build.",
+          "link": "https://openai.com/index/learn-teach-chatgpt-work-codex",
+          "guid": {
+            "#text": "https://openai.com/index/learn-teach-chatgpt-work-codex",
+            "isPermaLink": "true"
+          },
+          "category": "Product",
+          "pubDate": "Tue, 04 Aug 2026 00:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-05T00:05:10.676Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-08-05T00:05:10.676Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "sourceType": "rss-feed",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/#atom-entries",
+      "originalTitle": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
+      "originalSummary": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-s…",
+      "originalContent": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the <code>llm-anthropic</code>, <code>llm-gemini</code>, and <code>llm-openrouter</code> plugins, each with substantial updates of their own.</p> <h4 id=\"headline-features-for-llm-cli-users\">Headline features for LLM CLI users</h4> <p>Running LLM against reasoning models now <strong>displays their reasoning traces</strong> to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add <code>-R/--hide-reasoning</code> to turn this off.</p> <p><img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &quot;think about the best thing about pelicans&quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly cleve…",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "Simon Willison",
+      "normalizedType": "tool",
+      "tags": [
+        "tag-ai-agents",
+        "projects",
+        "releases",
+        "ai",
+        "openai",
+        "generative-ai",
+        "llms",
+        "llm",
+        "anthropic",
+        "agents",
+        "observability",
+        "retrieval",
+        "multimodal",
+        "on-device",
+        "knowledge-graph"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-simon-willison-blog",
+        "feedTitle": "Simon Willison's Weblog: Entries",
+        "feedUrl": "https://simonwillison.net/atom/entries/",
+        "entry": {
+          "title": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
+          "link": {
+            "href": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/#atom-entries",
+            "rel": "alternate"
+          },
+          "published": "2026-08-04T23:58:24+00:00",
+          "updated": "2026-08-04T23:58:24+00:00",
+          "id": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/#atom-entries",
+          "summary": {
+            "#text": "&lt;p&gt;I released &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\"&gt;LLM 0.32&lt;/a&gt; this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the &lt;code&gt;llm-anthropic&lt;/code&gt;, &lt;code&gt;llm-gemini&lt;/code&gt;, and &lt;code&gt;llm-openrouter&lt;/code&gt; plugins, each with substantial updates of their own.&lt;/p&gt;\n&lt;h4 id=\"headline-features-for-llm-cli-users\"&gt;Headline features for LLM CLI users&lt;/h4&gt;\n&lt;p&gt;Running LLM against reasoning models now &lt;strong&gt;displays their reasoning traces&lt;/strong&gt; to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add &lt;code&gt;-R/--hide-reasoning&lt;/code&gt; to turn this off.&lt;/p&gt;\n&lt;p&gt;&lt;img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &amp;quot;think about the best thing about pelicans&amp;quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly clever.\" style=\"max-width: 100%;\" /&gt;&lt;/p&gt;\n&lt;p&gt;LLM includes support out-of-the-box for the &lt;strong&gt;GPT-5.6 model family&lt;/strong&gt;, and the new default model used with &lt;code&gt;llm \"prompt\"&lt;/code&gt; is now the inexpensive but capable &lt;strong&gt;GPT-5.6 Luna&lt;/strong&gt;.&lt;/p&gt;\n&lt;p&gt;LLM calls can now use &lt;strong&gt;server-side tools&lt;/strong&gt; from various providers. OpenAI provide &lt;a href=\"https://llm.datasette.io/en/stable/openai-models.html#code-interpreter\"&gt;a code execution environment&lt;/a&gt; as a server-side tool; LLM can now run prompts that benefit from that like so:&lt;/p&gt;\n&lt;div class=\"highlight highlight-source-shell\"&gt;&lt;pre&gt;llm --tool CodeInterpreter &lt;span class=\"pl-s\"&gt;&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;Show current python and SQLite versions&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;OpenAI also gets a &lt;a href=\"https://llm.datasette.io/en/stable/openai-models.html#web-search\"&gt;WebSearch&lt;/a&gt; tool.&lt;/p&gt;\n&lt;p&gt;The &lt;a href=\"https://github.com/simonw/llm-anthropic\"&gt;llm-anthropic&lt;/a&gt; plugin adds &lt;a href=\"https://github.com/simonw/llm-anthropic/blob/0.26/README.md#web-search\"&gt;WebSearch&lt;/a&gt;, &lt;a href=\"https://github.com/simonw/llm-anthropic/blob/0.26/README.md#web-fetch\"&gt;WebFetch&lt;/a&gt;, &lt;a href=\"https://github.com/simonw/llm-anthropic/blob/0.26/README.md#code-execution\"&gt;CodeExecution&lt;/a&gt;, and &lt;a href=\"https://github.com/simonw/llm-anthropic/blob/0.26/README.md#mcp-connector\"&gt;AnthropicMCP&lt;/a&gt;, which looks like this:&lt;/p&gt;\n&lt;div class=\"highlight highlight-source-shell\"&gt;&lt;pre&gt;llm -m claude-sonnet-5 -T &lt;span class=\"pl-s\"&gt;&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;AnthropicMCP(\"https://datasette.simonwillison.net/-/mcp\")&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;&lt;/span&gt; \\\n  &lt;span class=\"pl-s\"&gt;&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;how many rows in the blog_blogmark table?&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;That causes Anthropic to execute MCP calls against my new &lt;a href=\"https://simonwillison.net/2026/Jul/31/stateless-mcp/#datasette-mcp\"&gt;datasette-mcp&lt;/a&gt; plugin as part of a single request/response interaction with their API.&lt;/p&gt;\n&lt;p&gt;The new &lt;strong&gt;llm openai endpoint&lt;/strong&gt; command provides a tool for &lt;a href=\"https://llm.datasette.io/en/stable/other-models.html#run-against-an-endpoint-without-configuring-it\"&gt;executing prompts against &lt;em&gt;any&lt;/em&gt; OpenAI compatible endpoint&lt;/a&gt; as a one-liner. These aren't logged, which makes this a handy tool for running one-off prompts against anything that speaks the lingua franca of the LLM API world.&lt;/p&gt;\n&lt;p&gt;Here's how I use that to run prompts against Gemma 4 12B running in my localhost &lt;a href=\"https://lmstudio.ai\"&gt;LM Studio&lt;/a&gt; API, via &lt;code&gt;uvx&lt;/code&gt; (no LLM installation required) and mixing in the &lt;a href=\"https://github.com/simonw/llm-tools-quickjs\"&gt;llm-tools-quickjs&lt;/a&gt; tool plugin for good measure:&lt;/p&gt;\n&lt;div class=\"highlight highlight-source-shell\"&gt;&lt;pre&gt;uvx --with llm-tools-quickjs \\\n  llm openai endpoint http://localhost:1234/v1 -m google/gemma-4-12b \\\n  -T QuickJS &lt;span class=\"pl-s\"&gt;&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;Use QuickJS to multiply 3434 * 2434&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;&lt;/span&gt; --td&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;&lt;img src=\"https://static.simonwillison.net/static/2026/openai-endpoint-gemma.webp\" alt=\"Output reads Tool call: QuickJS_execute_javascript({'javascript': '3434 * 2434'})  8358356 The result of 3434 * 2434 is 8,358,356.\" style=\"max-width: 100%;\" /&gt;&lt;/p&gt;\n&lt;h4 id=\"new-features-in-the-python-api\"&gt;New features in the Python API&lt;/h4&gt;\n&lt;p&gt;LLM's Python API previously required you to create a conversation and then send messages to it one at a time. This was an abstraction over the true nature of LLMs, where each request carries a complete history of the messages that came before it. That abstraction started to get in the way for some more advanced cases, so the new release introduces a &lt;code&gt;model.prompt(messages=[])&lt;/code&gt; parameter that can be used like this:&lt;/p&gt;\n&lt;pre&gt;&lt;span class=\"pl-k\"&gt;import&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;llm&lt;/span&gt;\n&lt;span class=\"pl-k\"&gt;from&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;llm&lt;/span&gt; &lt;span class=\"pl-k\"&gt;import&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;user&lt;/span&gt;, &lt;span class=\"pl-s1\"&gt;assistant&lt;/span&gt;, &lt;span class=\"pl-s1\"&gt;system&lt;/span&gt;\n\n&lt;span class=\"pl-s1\"&gt;model&lt;/span&gt; &lt;span class=\"pl-c1\"&gt;=&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;llm&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;get_model&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;\"gpt-5.6-luna\"&lt;/span&gt;)\n\n&lt;span class=\"pl-s1\"&gt;response&lt;/span&gt; &lt;span class=\"pl-c1\"&gt;=&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;model&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;prompt&lt;/span&gt;(&lt;span class=\"pl-s1\"&gt;messages&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;=&lt;/span&gt;[\n    &lt;span class=\"pl-en\"&gt;system&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;\"You are a helpful pirate.\"&lt;/span&gt;),\n    &lt;span class=\"pl-en\"&gt;user&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;\"What is the capital of France?\"&lt;/span&gt;),\n    &lt;span class=\"pl-en\"&gt;assistant&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;\"Paris, matey.\"&lt;/span&gt;),\n    &lt;span class=\"pl-en\"&gt;user&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;\"And Germany?\"&lt;/span&gt;),\n])\n&lt;span class=\"pl-en\"&gt;print&lt;/span&gt;(&lt;span class=\"pl-s1\"&gt;response&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;text&lt;/span&gt;())&lt;/pre&gt;\n&lt;p&gt;LLM previously returned an iterable sequence of strings from each prompt. This worked great when models returned a string response, but failed to predict the weird shape that models would evolve towards. Today many models return a mix of reasoning text, output strings, tool calls, and even image attachments. With LLM 0.32 you can &lt;a href=\"https://llm.datasette.io/en/stable/python-api.html#structured-messages-and-streaming-events\"&gt;do this instead&lt;/a&gt;:&lt;/p&gt;\n&lt;pre&gt;&lt;span class=\"pl-k\"&gt;for&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;event&lt;/span&gt; &lt;span class=\"pl-c1\"&gt;in&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;model&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;prompt&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;\"Explain cats\"&lt;/span&gt;).&lt;span class=\"pl-c1\"&gt;stream_events&lt;/span&gt;():\n    &lt;span class=\"pl-k\"&gt;if&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;event&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;type&lt;/span&gt; &lt;span class=\"pl-c1\"&gt;==&lt;/span&gt; &lt;span class=\"pl-s\"&gt;\"reasoning\"&lt;/span&gt;:\n        &lt;span class=\"pl-en\"&gt;print&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;f\"[thinking] &lt;span class=\"pl-s1\"&gt;&lt;span class=\"pl-kos\"&gt;{&lt;/span&gt;&lt;span class=\"pl-s1\"&gt;event&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;chunk&lt;/span&gt;&lt;span class=\"pl-kos\"&gt;}&lt;/span&gt;&lt;/span&gt;\"&lt;/span&gt;, &lt;span class=\"pl-s1\"&gt;end&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;=&lt;/span&gt;&lt;span class=\"pl-s\"&gt;\"\"&lt;/span&gt;, &lt;span class=\"pl-s1\"&gt;flush&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;=&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;True&lt;/span&gt;)\n    &lt;span class=\"pl-k\"&gt;elif&lt;/span&gt; &lt;span class=\"pl-s1\"&gt;event&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;type&lt;/span&gt; &lt;span class=\"pl-c1\"&gt;==&lt;/span&gt; &lt;span class=\"pl-s\"&gt;\"text\"&lt;/span&gt;:\n        &lt;span class=\"pl-en\"&gt;print&lt;/span&gt;(&lt;span class=\"pl-s1\"&gt;event&lt;/span&gt;.&lt;span class=\"pl-c1\"&gt;chunk&lt;/span&gt;, &lt;span class=\"pl-s1\"&gt;end&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;=&lt;/span&gt;&lt;span class=\"pl-s\"&gt;\"\"&lt;/span&gt;, &lt;span class=\"pl-s1\"&gt;flush&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;=&lt;/span&gt;&lt;span class=\"pl-c1\"&gt;True&lt;/span&gt;)\n    &lt;span class=\"pl-k\"&gt;else&lt;/span&gt;:\n        &lt;span class=\"pl-en\"&gt;print&lt;/span&gt;(&lt;span class=\"pl-s\"&gt;f\"Other event: &lt;span class=\"pl-s1\"&gt;&lt;span class=\"pl-kos\"&gt;{&lt;/span&gt;&lt;span class=\"pl-s1\"&gt;event&lt;/span&gt;&lt;span class=\"pl-kos\"&gt;}&lt;/span&gt;&lt;/span&gt;\"&lt;/span&gt;)&lt;/pre&gt;\n&lt;p&gt;Combine these features and we can &lt;em&gt;finally&lt;/em&gt; provide a robust implementation of the semi-standard OpenAI chat completions API, which I've now released as the &lt;a href=\"https://github.com/simonw/llm-chat-completions-server\"&gt;llm-chat-completions-server&lt;/a&gt; plugin:&lt;/p&gt;\n&lt;div class=\"highlight highlight-source-shell\"&gt;&lt;pre&gt;llm install llm-chat-completions-server\nllm chat-completions-server --port 9000\n&lt;span class=\"pl-c\"&gt;&lt;span class=\"pl-c\"&gt;#&lt;/span&gt; Server is now running on http://127.0.0.1:9000/v1&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;Now you can run prompts against LLM via that server, using the new &lt;code&gt;llm openai endpoint&lt;/code&gt; command!&lt;/p&gt;\n&lt;div class=\"highlight highlight-source-shell\"&gt;&lt;pre&gt;llm openai endpoint http://127.0.0.1:9000/v1 &lt;span class=\"pl-s\"&gt;&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;hello&lt;span class=\"pl-pds\"&gt;'&lt;/span&gt;&lt;/span&gt; -m gpt-5.4-mini&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;The bigger challenge with that kind of API concerns logging. If we're going to support the pattern where the message sequence is appended to on every request, ideally we can avoid logging all of that duplicate JSON for every turn.&lt;/p&gt;\n&lt;p&gt;The solution is the new &lt;a href=\"https://llm.datasette.io/en/stable/logging.html#the-message-store\"&gt;content-addressable message store&lt;/a&gt;, modeled after Git. You can see the new schema for that &lt;a href=\"https://llm.datasette.io/en/stable/logging.html#sql-schema\"&gt;in the documentation&lt;/a&gt;, but the &lt;code&gt;llm logs&lt;/code&gt; and &lt;code&gt;llm logs --json&lt;/code&gt; commands have both been upgraded to convert that format back into something that's easy to consume.&lt;/p&gt;\n&lt;h4 id=\"and-the-rest\"&gt;And the rest&lt;/h4&gt;\n&lt;p&gt;There is a whole lot more in this release. The &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\"&gt;0.32 release notes&lt;/a&gt; are pretty comprehensive, and the notes for &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#rc2-2026-07-30\"&gt;0.32rc2&lt;/a&gt;, &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#rc1-2026-07-30\"&gt;0.32rc&lt;/a&gt;, &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#a3-2026-06-09\"&gt;0.32a3&lt;/a&gt;, &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#a2-2026-05-12\"&gt;0.32a2&lt;/a&gt;, and &lt;a href=\"https://llm.datasette.io/en/stable/changelog.html#a0-2026-04-28\"&gt;0.32a0&lt;/a&gt; should fill in any gaps.&lt;/p&gt;\n&lt;p&gt;Existing LLM plugins should all continue to work, but plugins that provide extra models will need to be upgraded to 0.32 in order to participate fully in the new streaming events system. There's a guide to implementing plugins with &lt;a href=\"https://llm.datasette.io/en/stable/plugins/advanced-model-plugins.html#structured-messages-and-streaming-events\"&gt;Structured messages and streaming events&lt;/a&gt; in the documentation.&lt;/p&gt;\n&lt;p&gt;I've updated some of my own plugins:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;\n&lt;a href=\"https://github.com/simonw/llm-anthropic/releases/tag/0.26\"&gt;llm-anthropic 0.26&lt;/a&gt; adds support for the Claude 5 family of models, plus &lt;code&gt;WebSearch&lt;/code&gt;, &lt;code&gt;WebFetch&lt;/code&gt;, &lt;code&gt;CodeExecution&lt;/code&gt;, and &lt;code&gt;AnthropicMCP&lt;/code&gt; server-side tools.&lt;/li&gt;\n&lt;li&gt;\n&lt;a href=\"https://github.com/simonw/llm-gemini\"&gt;llm-gemini&lt;/a&gt; and &lt;a href=\"https://github.com/simonw/llm-openrouter\"&gt;llm-openrouter&lt;/a&gt; and &lt;a href=\"https://github.com/simonw/llm-mistral\"&gt;llm-mistral&lt;/a&gt; are nearly there, releases coming soon.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h4 id=\"i-guess-llm-is-an-agent-framework-now\"&gt;I guess LLM is an agent framework now&lt;/h4&gt;\n&lt;p&gt;Quite a few of the lower-level tools changes in this release were driven by the needs of &lt;a href=\"https://agent.datasette.io/\"&gt;Datasette Agent&lt;/a&gt;. When I started work on LLM, the term \"agent\" had such a vague definition that I refused to use it. In &lt;a href=\"https://simonwillison.net/2025/Sep/18/agents/\"&gt;September 2025&lt;/a&gt; I came around to the idea that \"&lt;strong&gt;An LLM agent runs tools in a loop to achieve a goal&lt;/strong&gt;\" is well established enough now that I could stop avoiding the term entirely.&lt;/p&gt;\n&lt;p&gt;Tool chains can now &lt;a href=\"https://llm.datasette.io/en/stable/python-api.html#python-api-tools-pause\"&gt;pause for human approval&lt;/a&gt; and &lt;a href=\"https://llm.datasette.io/en/stable/python-api.html#python-api-tools-resume\"&gt;resume from a stored message history&lt;/a&gt; - both needed by Datasette Agent.&lt;/p&gt;\n&lt;p&gt;Looking at LLM today it's beginning to look very agent-shaped to me. There's something neat about having a CLI utility that can mix and match different tools from different sources with different models all as a one-liner, and that includes a Python library powerful enough to build systems like &lt;a href=\"https://agent.datasette.io/\"&gt;Datasette Agent&lt;/a&gt; and &lt;a href=\"https://github.com/simonw/llm-coding-agent\"&gt;llm-coding-agent&lt;/a&gt;.&lt;/p&gt;\n&lt;p&gt;Maybe the next version of LLM will bake the concept of an \"agent\" into the core library. I'm still trying to figure out what that would look like.&lt;/p&gt;&lt;p&gt;&lt;em&gt;You are only seeing the long-form articles from my blog. Subscribe to &lt;a href=\"https://simonwillison.net/atom/everything/\"&gt;/atom/everything/&lt;/a&gt; to get all of my posts, or take a look at my &lt;a href=\"https://simonwillison.net/about/#subscribe\"&gt;other subscription options&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;",
+            "type": "html"
+          },
+          "category": [
+            {
+              "term": "projects"
+            },
+            {
+              "term": "releases"
+            },
+            {
+              "term": "ai"
+            },
+            {
+              "term": "openai"
+            },
+            {
+              "term": "generative-ai"
+            },
+            {
+              "term": "llms"
+            },
+            {
+              "term": "llm"
+            },
+            {
+              "term": "anthropic"
+            }
+          ]
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-05T00:05:12.093Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-simon-willison-blog",
+      "importedAt": "2026-08-05T00:05:12.093Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-ai-agents-intensive-recap-2026",
+      "sourceType": "rss-feed",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+      "originalTitle": "Inside our 353,000-person vibe coding course",
+      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Vibe_coding_course_hero.max-600x600.format-webp.webp\">Kaggle’s AI Agents Intensive with Google brought learners together in a no-cost course to build and deploy the next frontier of AI.",
+      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Vibe_coding_course_hero.max-600x600.format-webp.webp\">Kaggle’s AI Agents Intensive with Google brought learners together in a no-cost course to build and deploy the next frontier of AI.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-03",
+      "publisherName": "[object Object],[object Object]",
+      "normalizedType": "model",
+      "tags": [
+        "tag-frontier-models",
+        "gemini models",
+        "google cloud",
+        "developer tools",
+        "ai",
+        "agents",
+        "retrieval",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-google-ai-blog",
+        "feedTitle": "AI",
+        "feedUrl": "https://blog.google/technology/ai/rss/",
+        "item": {
+          "title": "Inside our 353,000-person vibe coding course",
+          "link": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+          "media:content": {
+            "height": "540",
+            "medium": "image",
+            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Vibe_coding_course_hero.max-600x600.format-webp.webp",
+            "width": "540"
+          },
+          "media:description": "Illustrations of a laptop, an AI spark, messages, code, and a 3-D cube",
+          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Vibe_coding_course_hero.max-600x600.format-webp.webp\"&gt;Kaggle’s AI Agents Intensive with Google brought learners together in a no-cost course to build and deploy the next frontier of AI.",
+          "pubDate": "Mon, 03 Aug 2026 15:00:00 +0000",
+          "guid": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+          "category": [
+            "Gemini models",
+            "Google Cloud",
+            "Developer tools",
+            "AI"
+          ],
+          "og": {
+            "type": "article",
+            "title": "Inside our 353,000-person vibe coding course",
+            "description": "Kaggle’s AI Agents Intensive with Google brought learners together in a no-cost course to build and deploy the next frontier of AI.",
+            "site_name": "Google",
+            "url": "https://blog.google/innovation-and-ai/technology/developers-tools/ai-agents-intensive-recap-2026/",
+            "xmlns:og": "http://ogp.me/ns#"
+          },
+          "author": [
+            {
+              "name": "Anant Nawalgaria",
+              "title": "Group AI Product Manager, Founder of GenAI intensive",
+              "department": "",
+              "company": "",
+              "xmlns:author": "http://www.w3.org/2005/Atom"
+            },
+            {
+              "name": "Brenda Flynn",
+              "title": "Partnerships Lead",
+              "department": "Kaggle",
+              "company": "",
+              "xmlns:author": "http://www.w3.org/2005/Atom"
+            }
+          ]
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-05T00:05:03.598Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-google-ai-blog",
+      "importedAt": "2026-08-05T00:05:03.598Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-apple-is-getting-this-wrong",
+      "sourceType": "rss-feed",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/apple-is-getting-this-wrong",
+      "originalTitle": "Apple is getting this wrong",
+      "originalSummary": "OpenAI addresses Apple’s baseless lawsuit, corrects claims about its employees, and shares messages documenting what happened.",
+      "originalContent": "OpenAI addresses Apple’s baseless lawsuit, corrects claims about its employees, and shares messages documenting what happened.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-03",
+      "publisherName": "OpenAI",
+      "normalizedType": "model",
+      "tags": [
+        "frontier-model",
+        "company"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-openai-news",
+        "feedTitle": "OpenAI News",
+        "feedUrl": "https://openai.com/news/rss.xml",
+        "item": {
+          "title": "Apple is getting this wrong",
+          "description": "OpenAI addresses Apple’s baseless lawsuit, corrects claims about its employees, and shares messages documenting what happened.",
+          "link": "https://openai.com/index/apple-is-getting-this-wrong",
+          "guid": {
+            "#text": "https://openai.com/index/apple-is-getting-this-wrong",
+            "isPermaLink": "true"
+          },
+          "category": "Company",
+          "pubDate": "Mon, 03 Aug 2026 22:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-05T00:05:10.676Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
+      },
+      "sourceId": "source-openai-news",
+      "importedAt": "2026-08-05T00:05:10.676Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
+    },
     {
       "id": "candidate-rss-https-openai-com-index-continuous-voice-interaction-with-gpt-live",
       "sourceType": "rss-feed",
@@ -128,134 +604,12 @@
           "pubDate": "Mon, 03 Aug 2026 07:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.014Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:10.676Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-04T03:05:27.014Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-circles",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/circles",
-      "originalTitle": "Circles powers telco personalization with OpenAI technology",
-      "originalSummary": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
-      "originalContent": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
-      "originalLanguage": "en",
-      "publishDate": "2026-08-03",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Circles powers telco personalization with OpenAI technology",
-          "description": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
-          "link": "https://openai.com/index/circles",
-          "guid": {
-            "#text": "https://openai.com/index/circles",
-            "isPermaLink": "true"
-          },
-          "pubDate": "Mon, 03 Aug 2026 00:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.014Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-08-04T03:05:27.014Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-ten-advances-in-mathematics",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/ten-advances-in-mathematics",
-      "originalTitle": "Ten advances in mathematics and theoretical computer science",
-      "originalSummary": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity.",
-      "originalContent": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity.",
-      "originalLanguage": "en",
-      "publishDate": "2026-08-01",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "publication",
-        "knowledge-graph"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Ten advances in mathematics and theoretical computer science",
-          "description": "OpenAI shares new results on long-standing open problems in mathematics and theoretical computer science, including advances in geometry, cryptography, and complexity.",
-          "link": "https://openai.com/index/ten-advances-in-mathematics",
-          "guid": {
-            "#text": "https://openai.com/index/ten-advances-in-mathematics",
-            "isPermaLink": "true"
-          },
-          "category": "Publication",
-          "pubDate": "Sat, 01 Aug 2026 00:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.014Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-08-04T03:05:27.014Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-openai-com-index-advancing-responsible-ai-across-europe",
-      "sourceType": "rss-feed",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/advancing-responsible-ai-across-europe",
-      "originalTitle": "Advancing responsible AI across Europe",
-      "originalSummary": "OpenAI shares how its safety, security, transparency, and provenance practices support responsible AI governance in Europe. The work will continue as the EU AI Act advances.",
-      "originalContent": "OpenAI shares how its safety, security, transparency, and provenance practices support responsible AI governance in Europe. The work will continue as the EU AI Act advances.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-31",
-      "publisherName": "OpenAI",
-      "normalizedType": "model",
-      "tags": [
-        "frontier-model",
-        "global affairs"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-openai-news",
-        "feedTitle": "OpenAI News",
-        "feedUrl": "https://openai.com/news/rss.xml",
-        "item": {
-          "title": "Advancing responsible AI across Europe",
-          "description": "OpenAI shares how its safety, security, transparency, and provenance practices support responsible AI governance in Europe. The work will continue as the EU AI Act advances.",
-          "link": "https://openai.com/index/advancing-responsible-ai-across-europe",
-          "guid": {
-            "#text": "https://openai.com/index/advancing-responsible-ai-across-europe",
-            "isPermaLink": "true"
-          },
-          "category": "Global Affairs",
-          "pubDate": "Fri, 31 Jul 2026 15:00:00 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.014Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-openai-news",
-      "importedAt": "2026-08-04T03:05:27.014Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:10.676Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
@@ -337,12 +691,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:28.617Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:12.093Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-04T03:05:28.617Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:12.093Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97813",
@@ -405,12 +759,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:18.574Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:02.928Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-04T03:05:18.574Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:02.928Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration",
@@ -442,12 +796,12 @@
           "guid": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:21.690Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:05.723Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-04T03:05:21.690Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:05.723Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management",
@@ -479,12 +833,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:24.466Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.098Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-04T03:05:24.466Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.098Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control",
@@ -513,12 +867,12 @@
           "guid": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:21.690Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:05.723Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-04T03:05:21.690Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:05.723Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api-3-6-flash-hooks",
@@ -589,12 +943,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:19.881Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:03.598Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-04T03:05:19.881Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:03.598Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-ai-mode-real-world-tips",
@@ -655,78 +1009,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:19.881Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:03.598Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-04T03:05:19.881Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-dinner-party-hosting-tips",
-      "sourceType": "rss-feed",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
-      "originalTitle": "5 ways to host the ultimate dinner party with Google Search",
-      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp\">These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
-      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp\">These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-28",
-      "publisherName": "Google AI Blog",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models",
-        "search",
-        "ai",
-        "retrieval",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-ai-blog",
-        "feedTitle": "AI",
-        "feedUrl": "https://blog.google/technology/ai/rss/",
-        "item": {
-          "title": "5 ways to host the ultimate dinner party with Google Search",
-          "link": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
-          "media:content": {
-            "height": "540",
-            "medium": "image",
-            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp",
-            "width": "540"
-          },
-          "media:description": "An illustrated black magnifying glass with a sparkle in a white circle surrounded by a dinner party tablescape",
-          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Dinner_parties.max-600x600.format-webp.webp\"&gt;These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
-          "pubDate": "Tue, 28 Jul 2026 13:00:00 +0000",
-          "guid": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
-          "category": [
-            "Search",
-            "AI"
-          ],
-          "og": {
-            "type": "article",
-            "title": "5 ways to host the ultimate dinner party with Google Search",
-            "description": "These AI features can help you craft a menu, design a tablescape, and handle other party-planning tasks.",
-            "site_name": "Google",
-            "url": "https://blog.google/products-and-platforms/products/search/dinner-party-hosting-tips/",
-            "xmlns:og": "http://ogp.me/ns#"
-          },
-          "author": {
-            "name": "News from Google Team",
-            "title": "",
-            "department": "",
-            "company": "",
-            "xmlns:author": "http://www.w3.org/2005/Atom"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:19.881Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-04T03:05:19.881Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:03.598Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
@@ -762,12 +1050,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:21.690Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:05.723Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-04T03:05:21.690Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:05.723Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-allenai-olmoearth-infrastructure",
@@ -799,12 +1087,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:24.466Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.098Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-04T03:05:24.466Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.098Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
@@ -836,12 +1124,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:24.466Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.098Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-04T03:05:24.466Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.098Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97740",
@@ -891,12 +1179,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:18.574Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:02.928Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-04T03:05:18.574Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:02.928Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97758",
@@ -952,12 +1240,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:18.574Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:02.928Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-04T03:05:18.574Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:02.928Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams",
@@ -989,12 +1277,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:24.466Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.098Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-04T03:05:24.466Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.098Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5",
@@ -1041,12 +1329,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:26.084Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:08.531Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-04T03:05:26.084Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:08.531Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-1rc0",
@@ -1093,12 +1381,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:29.562Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:13.000Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-04T03:05:29.562Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:13.000Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
@@ -1150,12 +1438,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:29.562Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:13.000Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-04T03:05:29.562Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:13.000Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5-rc0",
@@ -1202,12 +1490,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:26.084Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:08.531Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-04T03:05:26.084Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:08.531Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
@@ -1254,66 +1542,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:26.084Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:08.531Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-04T03:05:26.084Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4-rc0",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.4-rc0",
-      "originalTitle": "v0.32.4-rc0: model: add Laguna MLX support (#17237)",
-      "originalSummary": "model: add Laguna MLX support Add Laguna XS 2, XS 2.1, and S 2.1 support to the MLX model and create paths. Read the source config to apply one quantization policy across dense and routed MoE layers. Keep the tied output head and router at source precision, q…",
-      "originalContent": "<ul> <li>model: add Laguna MLX support</li> </ul> <p>Add Laguna XS 2, XS 2.1, and S 2.1 support to the MLX model and create paths.</p> <p>Read the source config to apply one quantization policy across dense and routed MoE layers. Keep the tied output head and router at source precision, quantize supported attention and expert projections, selectively promote sensitive expert down projections, and emit per-tensor metadata for mixed quantization blobs.</p> <p>Correct dense expert loading, BF16 source-layout handling, expert global-scale shapes and dtypes, routing-score scaling, and mixed-precision expert dispatch. Gate/up and down projections select quantized or dense execution independently so promoted BF16 down projections do not force quantized gate/up weights through the dense fallback.</p> <p>Optimize the forward pass with compatible gate/up fusion, sorted standard GatherMM and GatherQMM operations for larger prefills, model-local mlx.Compile closures for elementwise MoE work, and cache-backed 512-token prefill chunks. This keeps the implementation on maintained MLX operations without custom kernels.</p> <p>Add focused tests for Laguna configuration variants, quantization policy and metadata, dense and routed expert loading, mixed-precision dispatch, compiled-versus-eager parity, fused projections, routing, and prefill chunking.</p> <ul> <li>review comments and S 2.1 performance fixes</li> </ul> <p>Address renderer/parser selection and mixed-precision expert quantization review feedback.</p> <p>Keep Laguna weights resident on Metal to prevent repeated paging of its larg…",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-25",
-      "publisherName": "dhiltgen",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source",
-        "workflow",
-        "on-device"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.32.4-rc0",
-          "updated": "2026-07-25T01:24:53Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.4-rc0"
-          },
-          "title": "v0.32.4-rc0: model: add Laguna MLX support (#17237)",
-          "content": {
-            "#text": "&lt;ul&gt;\n&lt;li&gt;model: add Laguna MLX support&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Add Laguna XS 2, XS 2.1, and S 2.1 support to the MLX model and create paths.&lt;/p&gt;\n&lt;p&gt;Read the source config to apply one quantization policy across dense and routed MoE layers. Keep the tied output head and router at source precision, quantize supported attention and expert projections, selectively promote sensitive expert down projections, and emit per-tensor metadata for mixed quantization blobs.&lt;/p&gt;\n&lt;p&gt;Correct dense expert loading, BF16 source-layout handling, expert global-scale shapes and dtypes, routing-score scaling, and mixed-precision expert dispatch. Gate/up and down projections select quantized or dense execution independently so promoted BF16 down projections do not force quantized gate/up weights through the dense fallback.&lt;/p&gt;\n&lt;p&gt;Optimize the forward pass with compatible gate/up fusion, sorted standard GatherMM and GatherQMM operations for larger prefills, model-local mlx.Compile closures for elementwise MoE work, and cache-backed 512-token prefill chunks. This keeps the implementation on maintained MLX operations without custom kernels.&lt;/p&gt;\n&lt;p&gt;Add focused tests for Laguna configuration variants, quantization policy and metadata, dense and routed expert loading, mixed-precision dispatch, compiled-versus-eager parity, fused projections, routing, and prefill chunking.&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;review comments and S 2.1 performance fixes&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;Address renderer/parser selection and mixed-precision expert quantization review feedback.&lt;/p&gt;\n&lt;p&gt;Keep Laguna weights resident on Metal to prevent repeated paging of its large, sparsely accessed expert buffers. Scope this policy to Laguna GPU execution.&lt;/p&gt;\n&lt;p&gt;Remove obsolete 512-token prefill chunking now that the runner&#39;s 2048-token path is faster.&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;\n&lt;p&gt;review comments addressed&lt;/p&gt;\n&lt;/li&gt;\n&lt;li&gt;\n&lt;p&gt;fix create&lt;/p&gt;\n&lt;/li&gt;\n&lt;/ul&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "dhiltgen"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/4033016?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:26.084Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-04T03:05:26.084Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:08.531Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0rc1",
@@ -1360,142 +1594,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:29.562Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:13.000Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-04T03:05:29.562Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-github-blog-p-97686",
-      "sourceType": "rss-feed",
-      "sourceName": "GitHub Blog AI",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
-      "originalTitle": "Copilot vs. raw API access: What are you actually paying for?",
-      "originalSummary": "Copilot now bills usage at listed API rates. Compare direct model access with the coding workflow, policy, and harness work around it. The post Copilot vs. raw API access: What are you actually paying for? appeared first on The GitHub Blog .",
-      "originalContent": "I keep seeing this question: &ldquo;Why would I pay for GitHub Copilot when I can call the same models through an API?&rdquo; It&rsquo;s a fair question. The answer depends on what work you need to own. Are you building a product feature with your own prompts, retrieval, routing, logs, security model, and billing controls? Or are you trying to get from a GitHub Issue to a reviewed pull request with the editor, repository, terminal, and organization policies already connected? Cost is part of that equation. Copilot plans include a monthly allocation of GitHub AI Credits. Metered usage is calculated from input, output, and cached tokens at the listed rate for the selected model. Raw API access and Copilot address different layers of that system. The right choice follows the work you need to own. Copilot is development tooling around the model Now take a common maintenance task: a developer starts from a GitHub Issue, inspects the repository, changes the affected files, runs the test suite in the terminal, and opens a pull request for review. The model call is one step in that workflow. The surrounding system needs the issue, the diff, repository instructions, permitted commands, and the organization&rsquo;s policies. GitHub Copilot connects those surfaces across the editor, repository, pull request, issue, terminal, and organization controls. That is what the plan covers alongside model access. The billing change makes the split easier to see: code completions and Next Edit Suggestions remain included in paid plans, while AI Credits apply to more resource-intensive chat and…",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-22",
-      "publisherName": "Andrea Griffiths",
-      "normalizedType": "tool",
-      "tags": [
-        "tag-ai-agents",
-        "ai & ml",
-        "github copilot",
-        "ai credits",
-        "api",
-        "agents",
-        "workflow",
-        "observability",
-        "retrieval",
-        "on-device"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-github-blog-ai",
-        "feedTitle": "The latest on AI & ML - The GitHub Blog",
-        "feedUrl": "https://github.blog/ai-and-ml/feed/",
-        "item": {
-          "title": "Copilot vs. raw API access: What are you actually paying for?",
-          "link": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
-          "dc:creator": "Andrea Griffiths",
-          "pubDate": "Wed, 22 Jul 2026 19:00:00 +0000",
-          "category": [
-            "AI & ML",
-            "GitHub Copilot",
-            "AI Credits",
-            "API"
-          ],
-          "guid": {
-            "#text": "https://github.blog/?p=97686",
-            "isPermaLink": "false"
-          },
-          "description": "<p>Copilot now bills usage at listed API rates. Compare direct model access with the coding workflow, policy, and harness work around it.</p>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/\">Copilot vs. raw API access: What are you actually paying for?</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "content:encoded": "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body><p class=\"wp-block-paragraph\">I keep seeing this question: &ldquo;Why would I pay for GitHub Copilot when I can call the same models through an API?&rdquo;</p>\n\n\n\n<p class=\"wp-block-paragraph\">It&rsquo;s a fair question. The answer depends on what work you need to own.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Are you building a product feature with your own prompts, retrieval, routing, logs, security model, and billing controls? Or are you trying to get from a GitHub Issue to a reviewed pull request with the editor, repository, terminal, and organization policies already connected?</p>\n\n\n\n<p class=\"wp-block-paragraph\">Cost is part of that equation. Copilot plans include a monthly allocation of GitHub AI Credits. Metered usage is calculated from input, output, and cached tokens at the listed rate for the selected model.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Raw API access and Copilot address different layers of that system. The right choice follows the work you need to own.</p>\n\n\n\n<h2 id=\"h-copilot-is-development-tooling-around-the-model\" class=\"wp-block-heading\">Copilot is development tooling around the model</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Now take a common maintenance task: a developer starts from a GitHub Issue, inspects the repository, changes the affected files, runs the test suite in the terminal, and opens a pull request for review. The model call is one step in that workflow. The surrounding system needs the issue, the diff, repository instructions, permitted commands, and the organization&rsquo;s policies.</p>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub Copilot connects those surfaces across the editor, repository, pull request, issue, terminal, and organization controls. That is what the plan covers alongside model access. The billing change makes the split easier to see: code completions and Next Edit Suggestions remain included in paid plans, while AI Credits apply to more resource-intensive chat and agentic work.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Cost per task therefore depends on more than the listed token rate. Context selection, tool use, retries, and the path from an issue to a reviewed pull request all affect the number of tokens spent and whether the work finishes.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The same billing model gives buyers visibility. Organization plans &ldquo;pool&rdquo; AI Credits across the organization, and admins can set budgets and track usage in the billing dashboard. Adoption stays measurable instead of scattering across individual API keys and untracked scripts.</p>\n\n\n\n<aside data-color-mode=\"light\" data-dark-theme=\"dark\" data-light-theme=\"light_dimmed\" class=\"wp-block-group post-aside--large p-4 p-md-6 is-style-light-dimmed has-global-padding is-layout-constrained wp-block-group-is-layout-constrained is-style-light-dimmed--2\" style=\"border-top-width:4px\">\n<h2 id=\"h-the-harness-has-measurable-impact\" class=\"wp-block-heading h5-mktg gh-aside-title is-typography-preset-h5\" style=\"margin-top:0\">The harness has measurable impact</h2>\n\n\n\n<p class=\"wp-block-paragraph\">GitHub&rsquo;s evaluation held the model, benchmark task, context window, reasoning effort, tool selection, and MCP servers constant while comparing Copilot CLI with model-vendor harnesses. Across SWE-bench Verified, SWE-bench Pro, SkillsBench, TerminalBench, and Win-Hill, Copilot reached task-resolution parity while using fewer tokens in most configurations. For TerminalBench 2.0, each agent-model configuration ran at least five times to measure cost and completion variance.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Read&nbsp;<a href=\"https://github.blog/ai-and-ml/github-copilot/evaluating-performance-and-efficiency-of-the-github-copilot-agentic-harness-across-models-and-tasks/\" target=\"_blank\" rel=\"noreferrer noopener\">the full agentic-harness evaluation across models and tasks</a>.&nbsp;</p>\n</aside>\n\n\n\n<h2 id=\"h-raw-api-access-is-for-systems-you-own\" class=\"wp-block-heading\">Raw API access is for systems you own</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Direct API access is the right foundation when you are building a product feature, an internal agent platform, an evaluation harness, or an automation pipeline. You control the prompts, retrieval, routing, retries, logs, security model, and billing.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Consider an internal agent that reads a tagged issue, retrieves company documentation, creates a change request in a separate system, and writes a complete audit record. That workflow needs its own data boundaries, event triggers, and approval points. An API gives the team the primitives to build those requirements into the product.</p>\n\n\n\n<p class=\"wp-block-paragraph\">The engineering work is real. A production system needs to decide which repository files to retrieve, how to preserve instructions, when to retry a failed tool call, where to store traces, and which credentials an agent can use. Those are system design decisions made by developers. A model endpoint does not make them for you.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Agent SDKs sit between these layers. Handling orchestration, tool use, sessions and streaming, with some tradeoffs: some are tied to a single provider&rsquo;s API while others work across providers. GitHub ships this layer. The Copilot SDK exposes the same agent&rsquo;s runtime that powers the Copilot CLI, so you can embed a benchmarked, production tested harness instead of building one. Run it with your Copilot subscription or your own provider key.</p>\n\n\n\n<h2 id=\"h-byok-keeps-the-workflow-and-changes-the-bill\" class=\"wp-block-heading\">BYOK keeps the workflow and changes the bill</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Bring Your Own Key for Copilot, currently in public preview, lets developers make supported provider models available in Copilot Chat, Copilot CLI, and VS Code. Supported providers include Anthropic, AWS Bedrock, Google AI Studio, Microsoft Foundry, OpenAI, OpenAI-compatible providers, and xAI.</p>\n\n\n\n<p class=\"wp-block-paragraph\">BYOK models run through the same harness and the same integrations GitHub builds and maintains. Your provider takes over the token bill. GitHub still develops the tooling.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Model access is a policy decision either way. Copilot supports more than 20 models, and enterprise and organization admins choose which ones are enabled for their teams, whether GitHub-hosted or connected through BYOK.</p>\n\n\n\n<p class=\"wp-block-paragraph\">A team with an existing provider contract or committed cloud spend can keep that commercial relationship while developers use Copilot in their normal workflow. Copilot CLI also supports local and external BYOK models, including OpenAI-compatible endpoints, Azure OpenAI, Anthropic, and local Ollama models.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Check the current documentation on <a href=\"https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/use-your-own-api-keys\">using your own API keys with GitHub Copilot (enterprise)</a> and <a href=\"https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/use-byok-models\">using your own LLM models in Copilot CLI</a> before making purchasing or architecture decisions because BYOK is still in public preview.</p>\n\n\n\n<h2 id=\"h-choose-the-layer-you-need\" class=\"wp-block-heading\">Choose the layer you need</h2>\n\n\n\n<p class=\"wp-block-paragraph\">Choose raw API access when you are building a system that requires custom behavior, integrations, and controls. Choose GitHub Copilot when the work is software development inside the tools and repositories where a team already writes, reviews, secures, and ships code.</p>\n\n\n\n<p class=\"wp-block-paragraph\">Shipping software is the work around the code: issues, pull requests, reviews, checks, actions, and security. GitHub is where teams do that work. Copilot helps them move through it faster.</p>\n\n\n\n<div class=\"wp-block-group post-content-cta has-global-padding is-layout-constrained wp-block-group-is-layout-constrained\">\n<p class=\"wp-block-paragraph\">See what each&nbsp;<a href=\"https://github.com/features/copilot/plans\" target=\"_blank\" rel=\"noreferrer noopener\">Copilot plan includes and how AI Credits work</a>.</p>\n</div>\n</body></html>\n<p>The post <a href=\"https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/\">Copilot vs. raw API access: What are you actually paying for?</a> appeared first on <a href=\"https://github.blog\">The GitHub Blog</a>.</p>\n",
-          "post-id": {
-            "#text": 97686,
-            "xmlns": "com-wordpress:feed-additions:1"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:18.574Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-04T03:05:18.574Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-blog-google-products-and-platforms-platforms-android-galaxy-unpacked-2026",
-      "sourceType": "rss-feed",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
-      "originalTitle": "3 Google updates from Galaxy Unpacked 2026",
-      "originalSummary": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Unpacked_hero.max-600x600.format-webp.webp\">We shared how Samsung users can boost productivity and get time back on new foldables, watches, and glasses coming soon.",
-      "originalContent": "<img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Unpacked_hero.max-600x600.format-webp.webp\">We shared how Samsung users can boost productivity and get time back on new foldables, watches, and glasses coming soon.",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-22",
-      "publisherName": "Google AI Blog",
-      "normalizedType": "model",
-      "tags": [
-        "tag-frontier-models",
-        "gemini app",
-        "android",
-        "gemini notebook",
-        "ai",
-        "retrieval",
-        "multimodal"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-google-ai-blog",
-        "feedTitle": "AI",
-        "feedUrl": "https://blog.google/technology/ai/rss/",
-        "item": {
-          "title": "3 Google updates from Galaxy Unpacked 2026",
-          "link": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
-          "media:content": {
-            "height": "540",
-            "medium": "image",
-            "url": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Unpacked_hero.max-600x600.format-webp.webp",
-            "width": "540"
-          },
-          "media:description": "Gentle Monster glasses, Warby Parker glasses, a prompt asking for the history behind a pictured building, and a prompt asking to book a table at a pictured restaurant",
-          "description": "&lt;img src=\"https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Unpacked_hero.max-600x600.format-webp.webp\"&gt;We shared how Samsung users can boost productivity and get time back on new foldables, watches, and glasses coming soon.",
-          "pubDate": "Wed, 22 Jul 2026 13:00:00 +0000",
-          "guid": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
-          "category": [
-            "Gemini App",
-            "Android",
-            "Gemini Notebook",
-            "AI"
-          ],
-          "og": {
-            "type": "article",
-            "title": "3 Google updates from Galaxy Unpacked 2026",
-            "description": "We shared how Samsung users can boost productivity and get time back on new foldables, watches, and glasses coming soon.",
-            "site_name": "Google",
-            "url": "https://blog.google/products-and-platforms/platforms/android/galaxy-unpacked-2026/",
-            "xmlns:og": "http://ogp.me/ns#"
-          },
-          "author": {
-            "name": "Menaka Shroff",
-            "title": "VP of Android Ecosystem Marketing",
-            "department": "",
-            "company": "",
-            "xmlns:author": "http://www.w3.org/2005/Atom"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:19.881Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-04T03:05:19.881Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:13.000Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission",
@@ -1526,12 +1630,12 @@
           "guid": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:21.690Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:05.723Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-04T03:05:21.690Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:05.723Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-22-openai-cyberattack-atom-entries",
@@ -1619,12 +1723,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:28.617Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:12.093Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-04T03:05:28.617Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:12.093Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-21-cat-and-thariq-atom-entries",
@@ -1711,103 +1815,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:28.617Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:12.093Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-04T03:05:28.617Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
-    },
-    {
-      "id": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "sourceType": "rss-feed",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/#atom-entries",
-      "originalTitle": "Kimi K3, and what we can still learn from the pelican benchmark",
-      "originalSummary": "<p>Chinese AI lab Moonshot AI <a href=\"https://www.kimi.com/blog/kimi-k3\">announced Kimi K3</a> this morning, describing it as their \"most capable model to date, with 2.8 trillion parameters\". It's currently available via their website and API, but an open we…",
-      "originalContent": "<p>Chinese AI lab Moonshot AI <a href=\"https://www.kimi.com/blog/kimi-k3\">announced Kimi K3</a> this morning, describing it as their \"most capable model to date, with 2.8 trillion parameters\". It's currently available via their website and API, but an open weight release is promised \"by July 27, 2026\".</p> <p>Moonshot are calling this the first \"open 3T-class model\" (I guess they're rounding 2.8 trillion up to 3 trillion), taking the crown from <a href=\"https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\">DeepSeek's 1.6T v4 Pro</a>. Their <a href=\"https://www.kimi.com/blog/kimi-k3#full-benchmark-table\">self-reported benchmarks</a> have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high, while losing out to Claude Fable 5 and GPT-5.6 Sol.</p> <p>A few highlights from the <a href=\"https://twitter.com/ArtificialAnlys/status/2077832874183860404\">Artificial Analysis report</a> on the model:</p> <ul> <li>\"On our private long-horizon knowledge work evaluation, Kimi K3 reaches an overall Elo of 1547, +732 points from Kimi K2.6 and behind only Claude Fable 5.\"</li> <li>\"Cost per task ($0.94) is similar to GPT-5.6 Sol ($1.04), ~1/2 the price of Opus 4.8 ($1.80) and higher than open weights peers\"</li> <li>\"Kimi K3’s token usage on the Artificial Analysis Intelligence Index decreased significantly, using 21% fewer output tokens than K2.6.\"</li> </ul> <p>The model is also now the <a href=\"https://twitter.com/arena/status/2077824029126504525\">leading model on Arena.ai's Frontend Code arena</a>, surpassing even Claude Fable 5.</p> <p>The new model is notable for the pricing: $3/milli…",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-16",
-      "publisherName": "Simon Willison",
-      "normalizedType": "tool",
-      "tags": [
-        "tag-ai-agents",
-        "ai",
-        "generative-ai",
-        "llms",
-        "llm-pricing",
-        "pelican-riding-a-bicycle",
-        "llm-release",
-        "ai-in-china",
-        "artificial-analysis",
-        "moonshot",
-        "kimi",
-        "agents",
-        "observability",
-        "retrieval",
-        "multimodal",
-        "on-device",
-        "knowledge-graph"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-simon-willison-blog",
-        "feedTitle": "Simon Willison's Weblog: Entries",
-        "feedUrl": "https://simonwillison.net/atom/entries/",
-        "entry": {
-          "title": "Kimi K3, and what we can still learn from the pelican benchmark",
-          "link": {
-            "href": "https://simonwillison.net/2026/Jul/16/kimi-k3/#atom-entries",
-            "rel": "alternate"
-          },
-          "published": "2026-07-16T20:19:30+00:00",
-          "updated": "2026-07-16T20:19:30+00:00",
-          "id": "https://simonwillison.net/2026/Jul/16/kimi-k3/#atom-entries",
-          "summary": {
-            "#text": "&lt;p&gt;Chinese AI lab Moonshot AI &lt;a href=\"https://www.kimi.com/blog/kimi-k3\"&gt;announced Kimi K3&lt;/a&gt; this morning, describing it as their \"most capable model to date, with 2.8 trillion parameters\". It's currently available via their website and API, but an open weight release is promised \"by July 27, 2026\".&lt;/p&gt;\n&lt;p&gt;Moonshot are calling this the first \"open 3T-class model\" (I guess they're rounding 2.8 trillion up to 3 trillion), taking the crown from &lt;a href=\"https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro\"&gt;DeepSeek's 1.6T v4 Pro&lt;/a&gt;. Their &lt;a href=\"https://www.kimi.com/blog/kimi-k3#full-benchmark-table\"&gt;self-reported benchmarks&lt;/a&gt; have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high, while losing out to Claude Fable 5 and GPT-5.6 Sol.&lt;/p&gt;\n&lt;p&gt;A few highlights from the &lt;a href=\"https://twitter.com/ArtificialAnlys/status/2077832874183860404\"&gt;Artificial Analysis report&lt;/a&gt; on the model:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;\"On our private long-horizon knowledge work evaluation, Kimi K3 reaches an overall Elo of 1547, +732 points from Kimi K2.6 and behind only Claude Fable 5.\"&lt;/li&gt;\n&lt;li&gt;\"Cost per task ($0.94) is similar to GPT-5.6 Sol ($1.04), ~1/2 the price of Opus 4.8 ($1.80) and higher than open weights peers\"&lt;/li&gt;\n&lt;li&gt;\"Kimi K3’s token usage on the Artificial Analysis Intelligence Index decreased significantly, using 21% fewer output tokens than K2.6.\"&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;The model is also now the &lt;a href=\"https://twitter.com/arena/status/2077824029126504525\"&gt;leading model on Arena.ai's Frontend Code arena&lt;/a&gt;, surpassing even Claude Fable 5.&lt;/p&gt;\n&lt;p&gt;The new model is notable for the pricing: $3/million input tokens and $15/million output tokens, putting it at the same level as Anthropic's Claude Sonnet series and making it the most expensive model released by a Chinese AI lab to date. This is a significant increase on their earlier models &lt;a href=\"https://platform.kimi.ai/docs/pricing/chat-k26\"&gt;such as Kimi K2.6&lt;/a&gt; at $0.95/$4. 2.8 trillion parameters is also more than twice the size of that 1T model.&lt;/p&gt;\n&lt;h4 id=\"but-how-does-it-pelican-\"&gt;But how does it pelican?&lt;/h4&gt;\n&lt;p&gt;I used OpenRouter (to avoid signing up for a Moonshot API key) with the &lt;a href=\"https://github.com/simonw/llm-openrouter\"&gt;llm-openrouter plugin&lt;/a&gt; to generate an SVG of a pelican riding a bicycle:&lt;/p&gt;\n&lt;pre&gt;&lt;code&gt;llm -m openrouter/moonshotai/kimi-k3 'Generate an SVG of a pelican riding a bicycle'\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;Here's &lt;a href=\"https://gist.github.com/simonw/66a2699eb1594258904c7b5102840dd6\"&gt;the transcript&lt;/a&gt;. It looks like this:&lt;/p&gt;\n&lt;p&gt;&lt;img src=\"https://static.simonwillison.net/static/2026/kimi-3-pelican.jpg\" alt=\"See description below\" style=\"max-width: 100%;\" /&gt;&lt;/p&gt;\n&lt;p&gt;That pelican took 95 input tokens and 16,658 output tokens (13,241 were reasoning tokens), for a total cost of &lt;a href=\"https://www.llm-prices.com/#it=95&amp;amp;ot=16658&amp;amp;ic=3&amp;amp;oc=15\"&gt;25 cents&lt;/a&gt;!&lt;/p&gt;\n&lt;p&gt;Since K3 accepts image input I ran it against that rendered SVG above (with my &lt;a href=\"https://simonwillison.net/guides/agentic-engineering-patterns/prompts/#alt-text\"&gt;alt text prompt&lt;/a&gt;) and &lt;a href=\"https://gist.github.com/simonw/665dbf840701b421745f2cb891acdfd6\"&gt;got back&lt;/a&gt; (for &lt;a href=\"https://www.llm-prices.com/#it=822&amp;amp;ot=243&amp;amp;ic=3&amp;amp;oc=15\"&gt;0.6 cents&lt;/a&gt;):&lt;/p&gt;\n&lt;blockquote&gt;\n&lt;p&gt;Cartoon illustration of a white pelican wearing a red scarf, riding a red bicycle along a gray road with white dashed lines; the pelican has a large orange beak and webbed orange feet pedaling, with white motion lines behind it; the background shows a light blue sky with white clouds, a yellow sun, two small black birds in flight, and green grass with tiny white flowers in the foreground&lt;/p&gt;\n&lt;/blockquote&gt;\n&lt;h4 id=\"what-can-we-learn-from-the-pelican-\"&gt;What can we learn from the pelican?&lt;/h4&gt;\n&lt;p&gt;My &lt;a href=\"https://simonwillison.net/tags/pelican-riding-a-bicycle/\"&gt;Generate an SVG of a pelican riding a bicycle&lt;/a&gt; test is 21 months old now. It was never a particularly great benchmark. It started out as a joke on how absurdly difficult it is to compare these models, but then for the first year it turned out to have a &lt;a href=\"https://simonwillison.net/2025/Jun/6/six-months-in-llms/\"&gt;surprising correlation&lt;/a&gt; to how good the models actually were.&lt;/p&gt;\n&lt;p&gt;That connection has been mostly severed now. The &lt;a href=\"https://simonwillison.net/2026/Jul/9/gpt-5-6/\"&gt;GPT-5.6&lt;/a&gt; and &lt;a href=\"https://simonwillison.net/2026/Jun/9/claude-fable-5/\"&gt;Claude Fable 5&lt;/a&gt;  pelicans are outclassed &lt;a href=\"https://simonwillison.net/2026/Jun/17/glm-52/\"&gt;by GLM-5.2&lt;/a&gt;, and much as I love GLM I don't think that's a Fable-class model.&lt;/p&gt;\n&lt;p&gt;(I'm still not convinced that labs are &lt;a href=\"https://simonwillison.net/2025/Nov/13/training-for-pelicans-riding-bicycles/\"&gt;training for the benchmark&lt;/a&gt; - if they were, I'd expect much better results. There's a chance that Gemini has optimized for &lt;a href=\"https://simonwillison.net/2026/Feb/19/gemini-31-pro/#jeff-dean\"&gt;any combination of an animal on a vehicle&lt;/a&gt; though!)&lt;/p&gt;\n&lt;p&gt;The biggest limitation of the pelican is that it doesn't touch at all on the thing that matters most for today's model: agentic tool calling and the ability to operate tools reliably as conversations grow in length.&lt;/p&gt;\n&lt;p&gt;So don't go using pelicans to compare models!&lt;/p&gt;\n\n&lt;p&gt;All of that said, I still get a decent amount of value out of running the benchmark myself.&lt;/p&gt;\n&lt;p&gt;Firstly, it's a forcing function for actually trying the model. If I show you a pelican, that means I've managed to run a prompt through it. If the model has an official API I'll use that, if it's open weight (and small enough to fit a 128GB M5 MacBook Pro) I'll try running it on my own machine, usually via &lt;a href=\"https://github.com/ggml-org/llama.cpp\"&gt;llama.cpp&lt;/a&gt; or &lt;a href=\"https://lmstudio.ai\"&gt;LM Studio&lt;/a&gt; or &lt;a href=\"https://ollama.com\"&gt;Ollama&lt;/a&gt;. I'll frequently use &lt;a href=\"https://openrouter.ai\"&gt;OpenRouter&lt;/a&gt; since that usually provides a proxy to an official API without me needing a new API key.&lt;/p&gt;\n&lt;p&gt;Most of my pelicans are generated using &lt;a href=\"https://llm.datasette.io/\"&gt;my LLM CLI tool&lt;/a&gt;, which helps encourage me to ensure the latest models are supported by that (via one of its plugins).&lt;/p&gt;\n&lt;p&gt;More importantly though, even the act of a single prompt to \"Generate an SVG of a pelican riding a bicycle\" can reveal interesting model characteristics.&lt;/p&gt;\n&lt;p&gt;Consider &lt;a href=\"https://gist.github.com/simonw/66a2699eb1594258904c7b5102840dd6\"&gt;the result&lt;/a&gt; for Kimi K3 today. Running those simple prompts helped emphasize several points about the model.&lt;/p&gt;\n&lt;ol&gt;\n&lt;li&gt;It only has one reasoning effort right now, \"max\" - and it shows. The model consumed 13,241 reasoning tokens to output 3,417 tokens of response. This is expensive - the pelican cost 25 cents!&lt;/li&gt;\n&lt;li&gt;How does the prompt \"Generate an SVG of a pelican riding a bicycle\" add up to 95 input tokens?  OpenAI's &lt;a href=\"https://platform.openai.com/tokenizer\"&gt;tokenizer&lt;/a&gt;  counts 10, &lt;a href=\"https://tools.simonwillison.net/claude-token-counter\"&gt;Anthropic's&lt;/a&gt; counts 10 for Opus 4.6, 30 for Opus 4.7 and 25 for Sonnet 5/Fable 5. Prompting \"hi\" &lt;a href=\"https://news.ycombinator.com/item?id=48935342#48936461\"&gt;to Kimi K3&lt;/a&gt; counted 86 tokens, suggesting there may be an 85 token hidden system prompt. It &lt;a href=\"https://news.ycombinator.com/item?id=48935342#48936515\"&gt;refused to leak it&lt;/a&gt; though.&lt;/li&gt;\n&lt;li&gt;Vision works well: the alt text it generated is very good.&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;K3 currently only has one thinking effort level, but I've been deriving quite a bit of value recently from running the same pelican prompt through different effort levels to get a quick idea for what impact those have. Here's my matrix &lt;a href=\"https://static.simonwillison.net/static/2026/gpt-5.6-pelicans.html\"&gt;for the GPT-5.6 model family&lt;/a&gt;, for example.&lt;/p&gt;\n&lt;p&gt;Really though the main things I gain from the pelican test are:&lt;/p&gt;\n&lt;ol&gt;\n&lt;li&gt;It's a \"hello world\" exercise for prompting a model&lt;/li&gt;\n&lt;li&gt;A rough cost and reasoning estimate for a simple task&lt;/li&gt;\n&lt;li&gt;Confirmation that the model can output valid SVG and has a basic idea of geometry and spatial awareness. This is a much bigger deal for the smaller models that run on my laptop.&lt;/li&gt;\n&lt;li&gt;It's still interesting to compare pelicans between releases in the same model family. K3's pelican is a notable improvement from &lt;a href=\"https://simonwillison.net/2026/Jan/27/kimi-k25/\"&gt;Kimi 2.5&lt;/a&gt;.&lt;/li&gt;\n&lt;li&gt;It's something I can share that demonstrates I've tried it. Plus a comment with a pelican in it is kind of a tradition on Hacker News at this point, any time I'm late I get comments asking where it is!&lt;/li&gt;\n&lt;/ol&gt;&lt;p&gt;&lt;em&gt;You are only seeing the long-form articles from my blog. Subscribe to &lt;a href=\"https://simonwillison.net/atom/everything/\"&gt;/atom/everything/&lt;/a&gt; to get all of my posts, or take a look at my &lt;a href=\"https://simonwillison.net/about/#subscribe\"&gt;other subscription options&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "category": [
-            {
-              "term": "ai"
-            },
-            {
-              "term": "generative-ai"
-            },
-            {
-              "term": "llms"
-            },
-            {
-              "term": "llm-pricing"
-            },
-            {
-              "term": "pelican-riding-a-bicycle"
-            },
-            {
-              "term": "llm-release"
-            },
-            {
-              "term": "ai-in-china"
-            },
-            {
-              "term": "artificial-analysis"
-            },
-            {
-              "term": "moonshot"
-            },
-            {
-              "term": "kimi"
-            }
-          ]
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:28.617Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
-      },
-      "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-04T03:05:28.617Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:12.093Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
@@ -1855,12 +1868,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:29.562Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:13.000Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-04T03:05:29.562Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:13.000Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
@@ -1907,12 +1920,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:25.224Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.744Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-04T03:05:25.224Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.744Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -1959,12 +1972,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:25.224Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.744Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-04T03:05:25.224Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.744Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -2011,12 +2024,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:25.224Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.744Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-04T03:05:25.224Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.744Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -2063,12 +2076,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-04T03:05:25.224Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:07.744Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-04T03:05:25.224Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:07.744Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
@@ -2099,12 +2112,12 @@
           "description": "Tech Report GitHub Hugging Face ModelScope DISCORD\nIntroduction We are excited to introduce Qwen3Guard, the first safety guardrail model in the Qwen family. Built upon the powerful Qwen3 foundation models and fine-tuned specifically for safety classificatoin, Qwen3Guard ensures responsible AI interactions by delivering precise safety detection for both prompts and responses, complete with risk levels and categorized classifications for accurate moderation.\nQwen3Guard achieves state-of-the-art performance on major safety benchmarks, demonstrating strong capabilities in both prompt and response classification tasks across English, Chinese, and multilingual environments."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.924Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:11.643Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-04T03:05:27.924Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:11.643Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit",
@@ -2136,12 +2149,12 @@
           "description": "QWEN CHAT GITHUB HUGGING FACE MODELSCOPE DISCORD\nWe are excited to introduce Qwen-Image-Edit, the image editing version of Qwen-Image. Built upon our 20B Qwen-Image model, Qwen-Image-Edit successfully extends Qwen-Image&amp;rsquo;s unique text rendering capabilities to image editing tasks, enabling precise text editing. Furthermore, Qwen-Image-Edit simultaneously feeds the input image into Qwen2.5-VL (for visual semantic control) and the VAE Encoder (for visual appearance control), achieving capabilities in both semantic and appearance editing."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.924Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:11.643Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-04T03:05:27.924Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:11.643Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image",
@@ -2175,12 +2188,12 @@
           "description": "GITHUB HUGGING FACE MODELSCOPE DEMO DISCORD\nWe are thrilled to release Qwen-Image, a 20B MMDiT image foundation model that achieves significant advances in complex text rendering and precise image editing. To try the latest model, feel free to visit Qwen Chat and choose “Image Generation”.\nThe key features include:\nSuperior Text Rendering: Qwen-Image excels at complex text rendering, including multi-line layouts, paragraph-level semantics, and fine-grained details. It supports both alphabetic languages (e."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.924Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:11.643Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-04T03:05:27.924Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:11.643Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-gspo",
@@ -2211,12 +2224,12 @@
           "description": "PAPER DISCORD\nIntroduction Reinforcement Learning (RL) has emerged as a pivotal paradigm for scaling language models and enhancing their deep reasoning and problem-solving capabilities. To scale RL, the foremost prerequisite is maintaining stable and robust training dynamics. However, we observe that existing RL algorithms (such as GRPO) exhibit severe instability issues during long training and lead to irreversible model collapse, hindering further performance improvements with increased compute.\nTo enable successful RL scaling, we propose the Group Sequence Policy Optimization (GSPO) algorithm."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-04T03:05:27.924Z",
-        "importRunId": "import-run-2026-08-04t03-05-18-568z"
+        "importedAt": "2026-08-05T00:05:11.643Z",
+        "importRunId": "import-run-2026-08-05t00-05-02-921z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-04T03:05:27.924Z",
-      "importRunId": "import-run-2026-08-04t03-05-18-568z"
+      "importedAt": "2026-08-05T00:05:11.643Z",
+      "importRunId": "import-run-2026-08-05t00-05-02-921z"
     }
   ]
 }
