@@ -61,6 +61,15 @@ const learningCostLabels: Record<LearningCost, string> = {
   high: "学习成本高"
 };
 
+// For places where a label already says 学习成本. Repeating it in the value
+// reads as 学习成本 / 学习成本中等 — the same stutter removed from the
+// knowledge cards on 2026-07-30.
+const learningCostValues: Record<LearningCost, string> = {
+  low: "低",
+  medium: "中等",
+  high: "高"
+};
+
 const categoryLabels: Record<KnowledgeCategory, string> = {
   "machine-learning": "机器学习",
   "software-architecture": "软件架构",
@@ -312,7 +321,7 @@ export default async function SkillDetailPage({
                 </div>
                 <div>
                   <dt>学习成本</dt>
-                  <dd>{learningCostLabels[skill.learningCost]}</dd>
+                  <dd>{learningCostValues[skill.learningCost]}</dd>
                 </div>
                 <div>
                   <dt>技术信号</dt>
