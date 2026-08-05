@@ -1342,18 +1342,9 @@ p {
 }
 
 .technology-language-switch {
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  min-width: 164px;
-}
-
-.technology-language-switch--compact {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  min-width: auto;
 }
 
 .technology-language-switch__track {
@@ -4660,7 +4651,7 @@ body {
     max-width: none;
   }
 
-  .technology-language-switch--compact {
+  .technology-language-switch {
     justify-content: space-between;
     width: 100%;
   }

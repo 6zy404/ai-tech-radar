@@ -14,25 +14,17 @@ export type TechnologyContentContext = "preview" | "detail";
 export type TechnologyTranslationCoverage =
   "not_needed" | "full" | "partial" | "none";
 
+/* Only the fields the technology detail page actually reads. Eleven more —
+   headings and field labels for panels that were later rebuilt with their
+   own copy — sat here unread; the page renders exactly these seven. */
 interface TechnologyDetailCopy {
-  detailHeading: string;
-  whyItMattersLabel: string;
-  languageStateLabel: string;
   tagsLabel: string;
   sourceTitle: string;
-  sourceNameLabel: string;
   sourceLinkLabel: string;
-  publisherTitle: string;
-  publisherNameLabel: string;
-  publisherTypeLabel: string;
-  publishedLabel: string;
-  importanceLabel: string;
   relatedSkillsTitle: string;
   relatedSkillsDescription: string;
-  relatedSkillsEmpty: string;
   relatedKnowledgeTitle: string;
   relatedKnowledgeDescription: string;
-  relatedKnowledgeEmpty: string;
 }
 
 const technologyContextFields: Record<
@@ -452,51 +444,28 @@ export function getTechnologyDetailCopy(
 ): TechnologyDetailCopy {
   if (mode === "original") {
     return {
-      detailHeading: "Why this matters",
-      whyItMattersLabel: "Signal focus",
-      languageStateLabel: "Language state",
       tagsLabel: "Tags",
       sourceTitle: "Original source",
-      sourceNameLabel: "Source name",
       sourceLinkLabel: "Open original source",
-      publisherTitle: "Publisher",
-      publisherNameLabel: "Publisher",
-      publisherTypeLabel: "Publisher type",
-      publishedLabel: "Published",
-      importanceLabel: "Importance",
       relatedSkillsTitle: "Skills to act on this signal",
       relatedSkillsDescription:
         "Use these capabilities to evaluate, pilot, or operationalize the signal.",
-      relatedSkillsEmpty: "No skill path has been linked for this item.",
       relatedKnowledgeTitle: "Knowledge to understand it",
       relatedKnowledgeDescription:
-        "Review these concepts first if the signal depends on unfamiliar foundations.",
-      relatedKnowledgeEmpty:
-        "No knowledge background has been linked for this item."
+        "Review these concepts first if the signal depends on unfamiliar foundations."
     };
   }
 
   return {
-    detailHeading: "为什么值得关注",
-    whyItMattersLabel: "信号重点",
-    languageStateLabel: "语言状态",
     tagsLabel: "主题标签",
     sourceTitle: "原始来源",
-    sourceNameLabel: "来源名称",
     sourceLinkLabel: "打开原始来源",
-    publisherTitle: "发布方信息",
-    publisherNameLabel: "发布方",
-    publisherTypeLabel: "发布方类型",
-    publishedLabel: "发布日期",
-    importanceLabel: "重要程度",
     relatedSkillsTitle: "理解路径：相关技能",
     relatedSkillsDescription:
       "这些能力可以帮助你评估、试点或落地这条技术信号。",
-    relatedSkillsEmpty: "当前条目还没有关联技能路径。",
     relatedKnowledgeTitle: "理解路径：背景知识",
     relatedKnowledgeDescription:
-      "如果这条信号依赖陌生概念，可以先从这些知识条目开始理解。",
-    relatedKnowledgeEmpty: "当前条目还没有关联背景知识。"
+      "如果这条信号依赖陌生概念，可以先从这些知识条目开始理解。"
   };
 }
 

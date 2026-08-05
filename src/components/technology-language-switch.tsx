@@ -6,21 +6,15 @@ interface TechnologyLanguageSwitchProps {
   mode: TechnologyContentMode;
   onChange: (mode: TechnologyContentMode) => void;
   chineseEnabled?: boolean;
-  compact?: boolean;
 }
 
 export function TechnologyLanguageSwitch({
   mode,
   onChange,
-  chineseEnabled = true,
-  compact = false
+  chineseEnabled = true
 }: TechnologyLanguageSwitchProps) {
   return (
-    <div
-      className={`technology-language-switch${
-        compact ? " technology-language-switch--compact" : ""
-      }`}
-    >
+    <div className="technology-language-switch">
       {/* No visible label: the two buttons already read 中文 / 原文, so a
           label beside them only restates the control. The group keeps an
           accessible name, which a screen reader still needs. */}

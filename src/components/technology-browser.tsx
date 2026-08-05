@@ -133,7 +133,7 @@ export function TechnologyBrowser({
               hideRead={hideRead}
               onToggle={() => setHideRead((current) => !current)}
             />
-            <TechnologyLanguageSwitch mode={mode} onChange={setMode} compact />
+            <TechnologyLanguageSwitch mode={mode} onChange={setMode} />
           </div>
         </div>
       </div>
