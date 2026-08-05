@@ -12,6 +12,58 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Everything above 12 inbound references is now written
+
+- **知识「工具使用与函数调用」 (54 → 1067) and 知识「交互系统中的延迟权衡」
+  (49 → 1006)** — 2026-08-05, the last two stubs at 12 inbound references, so
+  the campaign now has a clean edge: **every entry pointed at 12 or more times
+  is full length.**
+- **The pool crossed over.** It opened this round at 34 entries split 16 full /
+  16 one-sentence stubs; it now stands at **35 entries — 28 full, 7 stubs**,
+  with the full entries running a median of **774 characters**. The remaining 7
+  are the long tail: 8 inbound at the top, 2 at the bottom.
+- **工具使用与函数调用** takes the shape rather than the protocol. It opens on
+  Gemini Robotics 2 declaring its action model and navigation APIs **as
+  tools** — a planning model that does not move the robot but calls something
+  that does, the same shape as a chat product calling a search API. Then why
+  reasoning and acting must be separated (otherwise **got it wrong** and **did
+  it wrong** are indistinguishable and the only repair left is "retry"), with
+  Shippy's deterministic CLI as the idea taken to its limit and Copilot's
+  instruction rewrite as the reverse evidence that the variance lives on the
+  reasoning side. The keeper is the three-part decomposition: decide whether
+  and which (reasoning) → turn intent into a legal call (structured output) →
+  read the result and decide next (reasoning again). **Only the middle step can
+  be mechanically verified**, which is why it was standardized first and why
+  teams who wired up function calling often think they are done. Closes on
+  protocols being packaging — translate a new SDK back into the three steps and
+  ask which one it does for you — and on NVIDIA's point that **failed tool
+  calls are data, not noise**.
+- **交互系统中的延迟权衡** argues that what decides the experience is rarely
+  average latency but **what the user knows while waiting**. Three numbers
+  rather than one (time to first token, steady throughput, total duration), and
+  the discipline that **speed is always speed-under-conditions**:
+  LFM2.5-Encoders' ~3.7× carries "long context, on CPU, against
+  ModernBERT-base", and Gemini Robotics 2's 0.96s mean error was bought at 4×
+  execution speed — the trade is accuracy _per unit time_. Then perceived
+  latency decoupling from real latency, pushed to its extreme by voice, where
+  **there is no screen to hold a spinner and silence reads as failure**; budget
+  allocation across the pipeline instead of blanket optimization (otherwise you
+  optimize the slice you can see); and the rule that every interactive system
+  must define what happens when it is too slow, because **an undefined timeout
+  is a hang**.
+- Verified: 15 / 14 blocks, 5 headings each, 12 bold runs each, zero literal
+  markers, all eight named hand-offs present, 11 public routes at 200, zero
+  horizontal overflow at 375px with the detector proven to fire, zero console
+  errors, typecheck, lint, format, vitest 203/203, and `validate:persistence` /
+  `database` / `workspace-boundary`. Serialized per-record diff against `HEAD`:
+  **technology and skill stores untouched**, two knowledge records changed.
+- **Left, and it is now a genuine tail**: 系统设计的权衡 (8 / 54),
+  API 契约与接口边界 (7 / 48), 反馈闭环与团队学习 (5 / 52), 检索流水线调优
+  (4 / 56), AI 辅助沟通审阅 (4 / 50), 检索增强生成基础 (3 / 56),
+  面向知识系统的图思维 (2 / 51). Two of them — the retrieval pair — sit under a
+  topic with only 3 published signals, so writing them well may need the signal
+  side to grow first rather than more editorial effort.
+
 ## Two more stubs, and the number that reframed one of them
 
 - **知识「人在回路的审查」 (50 → 1044) and 技能「AI 试点范围界定」 (37 → 1046)**
