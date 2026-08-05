@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-04T18:01:30.318Z",
+  "updatedAt": "2026-08-04T23:57:09.099Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -233,60 +233,6 @@
       "updatedAt": "2026-08-01T15:46:13.095Z"
     },
     {
-      "id": "knowledge-tool-use",
-      "title": "工具使用与函数调用",
-      "slug": "tool-use-and-function-calling",
-      "summary": "许多新智能体系统背后的老思想：把推理与行动分离，并对两者分别验证。",
-      "content": "理解工具使用，能让你在比较协议、SDK 和智能体产品时不被品牌包装干扰。它是连接新工具与持久模式的关键桥梁。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.389Z",
-      "updatedAt": "2026-08-04T03:13:09.855Z"
-    },
-    {
-      "id": "knowledge-latency-tradeoffs",
-      "title": "交互系统中的延迟权衡",
-      "slug": "latency-tradeoffs-in-interactive-systems",
-      "summary": "当用户必须等待语音、检索或漫长的多步操作时，交互设计也随之改变。",
-      "content": "这个经典的系统经验在语音和端侧 AI 产品中再次显现。团队需要它来权衡响应速度、批处理和回退行为。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-multimodal"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:24:01.841Z",
-      "updatedAt": "2026-08-04T03:13:09.902Z"
-    },
-    {
       "id": "knowledge-ws-a28a8a56",
       "title": "长时程智能体的记忆与上下文管理",
       "slug": "agent-memory-context-management",
@@ -422,6 +368,60 @@
       "status": "published",
       "createdAt": "2026-07-27T16:57:16.103Z",
       "updatedAt": "2026-08-04T18:01:30.318Z"
+    },
+    {
+      "id": "knowledge-tool-use",
+      "title": "工具使用与函数调用",
+      "slug": "tool-use-and-function-calling",
+      "summary": "许多新智能体系统背后的老思想：把推理与行动分开，并对两者分别验证——认出这个形状，才不会被协议和 SDK 的包装带走。",
+      "content": "Gemini Robotics 2 里那个负责规划的推理模型，把动作模型和导航 API **声明为工具**——它自己不移动机器人，它调用一个会移动机器人的东西。这和一个聊天产品调用搜索接口是同一个形状。\n\n**这个形状比任何协议都更老、也更通用**，而认出它，是在比较协议、SDK 和智能体产品时不被品牌包装带走的唯一办法。\n\n## 为什么要把推理和行动分开\n\n不分开，两类完全不同的失败会混在一起：**想错了**（该不该调、调哪个、参数怎么填）和**做错了**（接口超时、翻页错、返回不合预期）。混在一起的直接后果是没法归因，于是修复动作只剩「重试」。\n\nAi2 的 Shippy 把这条推到了尽头：行动一侧是确定性的 CLI，可以单独测试；不确定性被压缩在推理一侧。而 GitHub 重写 Copilot 代码审查的经历给了反向证据——**同一批工具在不同指令下表现差很多**，说明方差确实主要长在推理这一侧。\n\n## 一次工具调用其实是三件事\n\n1. **决定要不要调、调哪一个**——推理。\n2. **把意图变成一次合法调用**——结构化输出。\n3. **读懂返回值并决定下一步**——又是推理。\n\n只有第 2 步可以被机械验证，所以它也是最早被标准化的一步（函数调用、JSON schema）。**第 1 步和第 3 步没有 schema 可依**，它们只能靠评测和轨迹回放去看。很多团队以为接好了函数调用就等于接好了工具使用，缺的正是这两头。\n\n## 协议是这个模式的包装，不是模式本身\n\nMCP 从有状态改成无状态之后，工具还是那些工具、三步还是那三步，变的是部署形态。Ollama 把本地运行时变成智能体工作台，托管智能体把 runtime 搬到平台侧——同样没有改变这个模式。\n\n所以评估一个新协议或新 SDK 时，先把它翻译回上面那三步：**它替你做了哪一步，剩下的还归你。**\n\n## 失败的调用是数据，不是噪声\n\nNVIDIA 在阐述智能体时代的数据主张时点名了工程轨迹、**工具调用失败**、多步推理这几类数据——它们是训练与评测的材料。一个把失败调用直接吞掉的系统，等于每天都在扔掉最有价值的那部分记录。\n\n## 与相邻条目的分工\n\n这一条是**概念**：为什么把推理与行动分开、一次调用由哪三步组成。单个工具怎么接得可维护，是「工具集成模式」；输入输出约定本身怎么定，是「API 契约与接口边界」；整条链路怎么分层与交接，是「智能体工作流设计」；而调用完成之后这一步算不算做完，是「完成判定与验收信号」。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.389Z",
+      "updatedAt": "2026-08-04T23:57:09.025Z"
+    },
+    {
+      "id": "knowledge-latency-tradeoffs",
+      "title": "交互系统中的延迟权衡",
+      "slug": "latency-tradeoffs-in-interactive-systems",
+      "summary": "交互系统里决定体验的不是平均延迟这一个数，而是用户在等待期间知道什么——语音与端侧 AI 让这条老经验重新变得要紧。",
+      "content": "交互系统里决定体验的，很少是平均延迟这一个数，而是**用户在等待期间知道什么**。这是个很老的系统经验，而语音和端侧 AI 让它重新变得要紧。\n\n## 一个数不够，至少要三个\n\n- **首字延迟**——从请求到第一个可见反应。\n- **稳态吞吐**——之后每秒出多少。\n- **总时长**——这件事整体多久做完。\n\n一个系统可以在其中一个上很快、在另一个上不可用。而且**速度永远是「在什么条件下的速度」**：LFM2.5-Encoders 快约 3.7 倍这个数，附带的限定是「长上下文、在 CPU 上、对比 ModernBERT-base」——去掉限定，这个数就没有意义。同理，Gemini Robotics 2 的时刻定位平均误差 0.96 秒是在「4 倍于大得多的模型的执行速度」下取得的，被买下的权衡是**单位时间内的准确度**，不是单纯的准确度。\n\n## 感知延迟可以和真实延迟脱钩\n\n你能改的往往不是延迟本身，而是**等待期间发生了什么**：流式输出让首字延迟代替总时长成为体感、确认音和语气词填住空档、乐观更新先给出可撤销的结果。\n\n语音把这件事推到极端。GPT-Live 这类模型直接驱动语音产品，而语音**没有屏幕可以放一个转圈**——沉默会被直接读成失败。所以语音的延迟预算不是省出来的，是重新分配出来的。\n\n## 预算要分配，不是一味压缩\n\n一条链路的延迟花在检索、模型、工具调用、后处理几段上。先量出各段占比，再决定优化哪一段——否则优化的往往只是**你看得见的那一段**。\n\n端侧和云的取舍也落在这里：本地省掉了网络往返，但把模型规模压死了；混合架构的实质是**按「哪些请求容忍得起这次往返」来切**，而不是按技术偏好切。\n\n## 定义好「太慢了怎么办」\n\n每个交互系统都需要为「超时」写下明确行为：降级到更小的模型、返回部分结果、转人工，或者干脆告诉用户失败了。**没有定义的超时行为，就是挂起。** 这一条比任何加速手段都更早需要被决定。\n\n## 与相邻条目的分工\n\n这一条是**概念**：延迟由哪几个数描述、预算怎么分、感知怎么和真实脱钩。语音产品的对话节奏、打断与兜底怎么设计，是「实时语音交互设计」；为很多人服务时的排队、批处理与副本数，是「推理服务容量规划」；一台具体机器上的实测与调优，是「端侧模型部署与硬件适配」；哪些请求走本地、哪些走云，是「本地与云混合推理架构」。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-multimodal"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:24:01.841Z",
+      "updatedAt": "2026-08-04T23:57:09.099Z"
     }
   ]
 }
