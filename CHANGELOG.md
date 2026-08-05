@@ -12,6 +12,56 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A label that only said what the buttons already said
+
+- **Owner-reported, and the whole ask was four characters** — 2026-08-05,
+  「去掉阅读语言这四个字」. The 中文 / 原文 toggle carried a label to its left
+  on both pages that render it: **阅读语言** on the technology detail hero,
+  **列表语言** on the technology list toolbar. Neither says anything the two
+  buttons beside them do not already say — the "copy that restates the control
+  is decoration" rule this repo has now applied to reading paths, card notes,
+  the search empty state, and two hero stutters.
+- **Both went, deliberately together, and that was the one real decision.**
+  The literal ask covers only the detail page; but it is **one shared
+  component**, so removing the label on one side would have left the same
+  control looking different on two sibling pages — the exact divergence class
+  the 2026-07-30 detector was written to catch. Put to the owner as a
+  before/after of both rows rather than decided while editing; they took both.
+- **The group keeps `aria-label="阅读语言"`.** A sighted reader has two
+  buttons that read 中文 and 原文; a screen-reader user has an unnamed pair.
+  Deleting the visible span is the fix — deleting the accessible name would
+  have been a different, worse change wearing the same diff.
+- **`getTechnologySwitchLabel` went with it, and two thirds of it were already
+  dead.** Its three branches are `home` 卡片语言, `list` 列表语言 and `detail`
+  阅读语言 — and **only `list` had ever been called**. The detail page took its
+  label from `TechnologyDetailCopy.switchLabel` instead, which is now gone
+  along with its English `Reading language` sibling.
+- Measured rather than eyeballed: the label was **60px plus a 12px gap**, so
+  **72px** comes off that row on each page; the pill is unchanged at 146px and
+  stays flush right, so its right edge did not move (838px on the detail hero,
+  before and after). The switch still switches — clicking 原文 swaps the title
+  to the English original.
+- **The dead CSS shipped as its own commit, verified by diff.**
+  `.technology-language-switch__label` and its `.dossier` override: 45
+  properties plus the bounding box for **every** element on both pages at a
+  pinned 1265×900 viewport — **1534 elements, zero differences**. Proven both
+  ways, because a clean diff means nothing if the instrument is blind: an
+  injected probe was detected (3 hits) and left **zero residual**, and
+  re-capturing the same page twice was confirmed identical **before** any
+  number was trusted — the 07-30 round logged 479 phantom differences from a
+  viewport drifting 0.2px. Backward: with the cleanup stashed, both rules were
+  found back in the loaded stylesheets.
+- **Left in place on purpose**: the non-compact `.technology-language-switch`
+  base rule and the `--compact` variant. Both call sites pass `compact`, and
+  `--compact`'s gap now has a single child to space, so parts of both look
+  unreachable — but that is a wider claim than "this class is gone from the
+  markup", and it needs its own pass rather than a guess folded into this one.
+- Verified: typecheck, lint, format, vitest 203/203, `validate:persistence` /
+  `workspace-boundary` / `ranking`, 16 public routes at 200 with the two label
+  strings absent from rendered text (the only remaining occurrences are the
+  `aria-label`), zero horizontal overflow, zero console errors, at 1440 light,
+  1440 dark and 390.
+
 ## Looking at eleven pages the content rounds never opened
 
 - **The five content rounds all closed by stating they had never looked at the

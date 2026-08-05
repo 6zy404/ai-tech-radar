@@ -821,7 +821,14 @@ Forbidden on public pages:
 - `ExternalSourceBatchActions`
   - workspace-only import-all-enabled control and latest run summary
 - `TechnologyLanguageSwitch`
-  - user-facing bilingual content switch
+  - user-facing bilingual content switch: the 中文 / 原文 button pair,
+    rendered on the technology detail hero and the technology list toolbar
+  - it carries **no visible label**. Until 2026-08-05 a label sat to its left
+    — 阅读语言 on the detail page, 列表语言 on the list — restating what the
+    two buttons already say; both were removed together so the shared
+    component reads the same on both pages. The group keeps
+    `aria-label="阅读语言"`, since a screen reader still needs a name for a
+    pair of otherwise unlabelled buttons
 - `TechnologyLanguageIndicators`
   - user-facing translation availability indicators
 
