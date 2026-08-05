@@ -14,7 +14,6 @@ import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
 import {
   getTechnologySearchText,
-  getTechnologySwitchLabel,
   getTechnologyTypeLabel,
   type TechnologyContentMode
 } from "@/lib/technology-localization";
@@ -134,12 +133,7 @@ export function TechnologyBrowser({
               hideRead={hideRead}
               onToggle={() => setHideRead((current) => !current)}
             />
-            <TechnologyLanguageSwitch
-              mode={mode}
-              onChange={setMode}
-              label={getTechnologySwitchLabel("list")}
-              compact
-            />
+            <TechnologyLanguageSwitch mode={mode} onChange={setMode} compact />
           </div>
         </div>
       </div>
