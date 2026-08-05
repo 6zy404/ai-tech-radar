@@ -174,7 +174,6 @@ export function TechnologyDetailContent({
                 mode={mode}
                 onChange={setRequestedMode}
                 chineseEnabled={hasDetailChinese}
-                compact
               />
             </div>
 
