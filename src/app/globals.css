@@ -1356,13 +1356,6 @@ p {
   min-width: auto;
 }
 
-.technology-language-switch__label {
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
 .technology-language-switch__track {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(68px, 1fr));
@@ -9731,11 +9724,6 @@ a.tech-graph__node:hover {
 }
 
 /* -- language switch -- */
-.dossier .technology-language-switch__label {
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-}
-
 .dossier .technology-language-switch__track {
   border: 1px solid var(--dossier-line);
   background: var(--dossier-surface);
