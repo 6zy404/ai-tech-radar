@@ -51,11 +51,45 @@ For per-topic deep dives, see the `docs/` directory.
   number was trusted — the 07-30 round logged 479 phantom differences from a
   viewport drifting 0.2px. Backward: with the cleanup stashed, both rules were
   found back in the loaded stylesheets.
-- **Left in place on purpose**: the non-compact `.technology-language-switch`
-  base rule and the `--compact` variant. Both call sites pass `compact`, and
-  `--compact`'s gap now has a single child to space, so parts of both look
-  unreachable — but that is a wider claim than "this class is gone from the
-  markup", and it needs its own pass rather than a guess folded into this one.
+- **The leftovers got their own pass, owner-selected the same day**, and both
+  are the kind that only turn up because something else was removed first.
+  - **The switch had a variant with one value.** A base rule plus a
+    `--compact` variant, and **both render sites passed `compact`** — so the
+    base rule's `display`, `gap` and `min-width` never won anything, and
+    `--compact`'s own `gap` now had a single child to space. Collapsed into
+    one rule; the prop and the class went with it, and the ≤900px override
+    moved to the base selector. This is the "partially-overriding duplicate
+    declarations" case the 2026-07-29 round flagged as needing per-rule
+    reasoning rather than a blanket rule, so it was reasoned per declaration
+    and then measured.
+  - **The diff is deliberately not zero, and that is the honest result.**
+    Exactly **one element on each page** changes exactly **two properties**:
+    `align-content` start → normal and `gap` 12px → normal. Both are provably
+    inert — `flex-wrap` is `nowrap`, so `align-content` has no multi-line box
+    to align, and `children.length === 1`, so `gap` has nothing to space. The
+    **bounding box is byte-identical** on both pages at 1265×900, and at
+    390px — where the media override applies and the selector was renamed —
+    the box is `73,187,244,48` before and after.
+  - **`TechnologyDetailCopy` carried 18 fields for a consumer that reads 7.**
+    `detailHeading`, `whyItMattersLabel`, `languageStateLabel`,
+    `sourceNameLabel`, `publisherTitle`, `publisherNameLabel`,
+    `publisherTypeLabel`, `publishedLabel`, `importanceLabel` and the two
+    `*Empty` strings had no call site in either language branch — panels
+    later rebuilt with their own copy left them behind. **11 removed**, and
+    the 7 that remain were confirmed rendering in both 中文 and 原文.
+  - **One check was wrong before the page was, again.** The English pass
+    first reported `Tags` and `Original source` missing. `.eyebrow` sets
+    `text-transform: uppercase` and Chrome's `innerText` returns the
+    **transformed** string, so they render as `TAGS` and `ORIGINAL SOURCE`.
+    Compared case-insensitively, all seven are present in both modes.
+  - **The dev server wedged mid-verification, and the cause is worth
+    keeping**: two `next dev` processes were live in the same folder (pid on
+    :3000 from another session, mine on :51400) writing one `.next` — the
+    hazard recorded on 2026-07-30, in a new form. Restarting only mine fixed
+    it; the new port meant the `localStorage` baselines were on a different
+    origin, so the before-state was re-taken by stashing the change instead.
+  - Verified: typecheck, lint, format, vitest 203/203, **17 public routes at
+    200** with no stale class or label string, zero console errors.
 - Verified: typecheck, lint, format, vitest 203/203, `validate:persistence` /
   `workspace-boundary` / `ranking`, 16 public routes at 200 with the two label
   strings absent from rendered text (the only remaining occurrences are the
