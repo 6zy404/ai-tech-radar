@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-22T09:31:57.951Z",
+  "updatedAt": "2026-08-05T08:38:56.910Z",
   "groups": [
+    {
+      "id": "dup-j0hg47",
+      "candidateIds": [
+        "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
+        "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4"
+      ],
+      "primaryCandidateId": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
+      "status": "resolved",
+      "reasons": [
+        "similar_title",
+        "same_publisher_near_date"
+      ],
+      "createdAt": "2026-08-05T08:38:56.897Z",
+      "updatedAt": "2026-08-05T08:38:56.910Z"
+    },
     {
       "id": "dup-181nhlv",
       "candidateIds": [

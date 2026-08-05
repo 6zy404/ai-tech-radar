@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-04T10:26:48.517Z",
+  "updatedAt": "2026-08-05T08:42:08.634Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2088,6 +2088,96 @@
       "toType": "skill",
       "relationType": "requires",
       "note": "工作流每一步的交接点，本质上就是上一步的验收标准。"
+    },
+    {
+      "id": "rel-ws-7de7ed2b",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "AnthropicMCP 让 MCP 调用收进与供应商的一次往返，是无状态化之后 MCP 落地的一种具体形态。"
+    },
+    {
+      "id": "rel-ws-ad418254",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "内置支持 GPT-5.6 系列，并把便宜的 Luna 设为默认模型。"
+    },
+    {
+      "id": "rel-ws-836f2508",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "反向对照：托管智能体把运行时收到平台侧，这一条把它留在本机。"
+    },
+    {
+      "id": "rel-ws-c988ad42",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一道选择题的另一端——平台交付完成品，本地工具交付可拼接的零件。"
+    },
+    {
+      "id": "rel-ws-c3b29e75",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "要判断服务端工具替你做掉了哪一段，先要有「一次调用分三段」这个拆法。"
+    },
+    {
+      "id": "rel-ws-d47e0ac3",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "工具链可为人工审批暂停并从存储的消息历史恢复——审查点成了框架能力。"
+    },
+    {
+      "id": "rel-ws-904de00a",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "同时实现和消费 OpenAI 兼容端点，是稳定契约让组件可互换的直接例子。"
+    },
+    {
+      "id": "rel-ws-ba6ac75d",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "推理轨迹独立打到 stderr，是最小工具层面上的轨迹可观测性。"
+    },
+    {
+      "id": "rel-ws-2173b103",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "分型事件流让推理、文本与工具调用在结构上可区分，而不是混在一串字符串里。"
+    },
+    {
+      "id": "rel-ws-addacd89",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "给「自建那一侧」补上了一个更完整的答案，正好用来对照托管平台。"
     }
   ]
 }
