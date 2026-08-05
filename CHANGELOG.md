@@ -12,6 +12,79 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — a CLI that grew into an agent framework
+
+- **Eight candidates, one signal** — 2026-08-05. The scheduled import ran
+  unattended at 08:05 local and added 8 candidates; **the unlock trigger
+  question the 08-04 round left open is answered by that alone** — the task
+  fired on time, 10/10 sources succeeded.
+- **LLM 0.32 published as `important`.** Simon Willison calls it the most
+  significant release since the project launched, and the reason it is a signal
+  here is not the feature list but a direction: **the tool loop is moving to
+  the provider side while this project deliberately goes the other way.**
+  `AnthropicMCP` has the provider execute MCP calls against a remote server
+  **inside a single request/response**, alongside OpenAI's code-execution and
+  WebSearch tools — put next to the 07-31 stateless MCP revision and managed
+  agents, that is three forms of the same consolidation. LLM 0.32 answers with
+  a CLI that runs locally, stays auditable, and composes against any
+  OpenAI-compatible endpoint.
+- **The smallest design in the release is the one worth copying.** Reasoning
+  traces print to **stderr**, not stdout, so a reader can watch the model think
+  while still piping the answer to the next program. Observability and
+  composability usually fight; splitting them across two streams makes both
+  true with no new concepts — Unix's old answer, reused exactly.
+- Two more pieces earn their place: a **Git-style content-addressable message
+  store**, because every request carries the full history and naive logging
+  writes the same JSON over and over; and **tool chains that pause for human
+  approval and resume from a stored message history** — human-in-the-loop as a
+  framework capability rather than a product toggle. The author, who refused
+  the word "agent" until he accepted "an LLM agent runs tools in a loop to
+  achieve a goal", now writes: **"I guess LLM is an agent framework now."**
+- **Six rejected, one reviewed.** The rejects are a legal-team workflow case
+  study, Google's monthly AI roundup, an `-rc0` pre-release (the sixth such
+  rejection), education plugins, a course recap, and OpenAI's response to
+  Apple's lawsuit. The reviewed one is the round's honest limit: **OpenAI's
+  writeup on third-party cyber-evaluation incidents** is the most on-topic
+  candidate of the batch — it sits directly on the ExploitGym/Hugging Face
+  thread this site has published twice — but `openai.com` still returns **403**
+  to a direct fetch and the feed carries 144 characters. Writing it up would be
+  inference presented as evidence.
+- **The digest carries two items, and that is the round's judgment.** All nine
+  other selected signals had already been carried by an earlier digest, so the
+  lead is the new signal and the second is ChatGPT Work — deliberately, because
+  it is the opposite end of the same question: the platform takes the runtime,
+  the CLI keeps it. Eight repeats excluded.
+- 10 reverse ids written read-then-union across 4 technologies, 3 knowledge
+  entries and 3 skills, plus 10 typed relations with notes; `config/*.json`
+  diffed against `HEAD` per record afterwards: **zero arrays shrank, zero slugs
+  changed**, with the checker proven to fire on an injected shrink.
+- **A useful regression fell out of it**: the new signal carries **11
+  relations** — exactly the count that broke the old fixed-radius relationship
+  ring on 2026-08-04. The grouped-by-kind replacement measures **0 overlaps and
+  0 nodes outside the section** at both 1265px and 375px.
+- Verified: zero blocking errors on publish (one non-blocking warning — no
+  enrichment suggestion, expected when the body is written by hand), 16 public
+  routes at 200, zero hits on a 10-string internal-field scan on both the
+  signal page and the digest, the pinned lead ordered first **inside the signal
+  section** rather than merely present on the page, all 5 excluded items
+  absent, 6 inline code spans rendering, zero horizontal overflow at 1265 and
+  375 with the detector proven to fire, zero console errors, typecheck, lint,
+  format, vitest 203/203, and `validate:digest` / `persistence` / `ranking` /
+  `workspace-boundary` / `publishing` / `database`.
+- **A stale duplicate group was cleared rather than left blocking.** The one
+  open group paired two MCP Servers repo releases from July whose candidates
+  were **already dispositioned** (one rejected, one reviewed), so nothing was
+  ever going to convert out of it — it was housekeeping showing up as a blocked
+  step on the round console.
+- **Three of this round's own reads were wrong before anything else was.** A
+  crude undecided-count script reported 40 because it guessed the review-state
+  shape (`review.items` is an object keyed by candidate id, which the playbook
+  states); the round-state candidate summary uses `title`, not `originalTitle`,
+  so a first listing printed `undefined` eight times; and the duplicate-group
+  count read 1 from the workflow while the persisted file showed none open,
+  because groups are recomputed from the current snapshot. Each was checked
+  against the source rather than assumed.
+
 ## Everything above 12 inbound references is now written
 
 - **知识「工具使用与函数调用」 (54 → 1067) and 知识「交互系统中的延迟权衡」
