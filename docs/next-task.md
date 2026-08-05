@@ -25,10 +25,33 @@
 > 意义：注入探针报 **3 处**且撤掉后残留 **0**，并且在相信任何数字**之前**先确认同
 > 一页面两次采集完全一致（07-30 那轮记过视口漂移 0.2px 就报出 479 处幻影差异）；
 > 反向把清理 stash 掉，两条规则确实回到了已加载样式表里。
-> **刻意留着没动**：`.technology-language-switch` 非 compact 基础规则与
-> `--compact` 变体。两个调用点都传 `compact`，且 `--compact` 的 gap 现在只剩一个
-> 子元素可间隔，所以两者都有部分看着不可达 —— 但那是比「这个类已从标记里消失」
-> 更大的主张，需要它自己的一轮，而不是顺手塞进这次靠猜。
+> **那两处遗留当天就被 owner 选中做掉了**，两条都属于「删掉别的东西之后才露出来」
+> 的那一类：
+> ① **一个只有一种取值的变体**。开关有基础规则加 `--compact` 变体，而**两个渲染点
+> 都传 `compact`** —— 基础规则的 `display` / `gap` / `min-width` 从来没赢过任何东西，
+> `--compact` 自己的 `gap` 现在也只剩一个子元素可间隔。合成一条规则，prop 和 class
+> 一起去掉，≤900px 的覆盖改挂基础选择器。这正是 07-29 记的「部分覆盖的重复声明」，
+> 要逐条推理而不能一刀切 —— 所以先逐条推理，再去量。
+> ② **diff 刻意不是零，这才是诚实的结果**：每页**恰好 1 个元素**变了**恰好 2 个
+> 属性**（`align-content` start → normal、`gap` 12px → normal）。两者都可证明是惰性
+> 的 —— `flex-wrap` 是 `nowrap`，`align-content` 没有多行盒可对齐；`children.length
+=== 1`，`gap` 没有东西可间隔。**包围盒逐字节相同**（1265×900），390px 下（媒体
+> 覆盖生效、选择器被改名的那一处）前后都是 `73,187,244,48`。
+> ③ **`TechnologyDetailCopy` 给一个只读 7 个字段的消费者带了 18 个**。
+> `detailHeading` / `whyItMattersLabel` / `languageStateLabel` / `sourceNameLabel` /
+> `publisherTitle` / `publisherNameLabel` / `publisherTypeLabel` / `publishedLabel` /
+> `importanceLabel` 加两个 `*Empty`，中英两个分支都没有调用点 —— 是后来重建的面板
+> 留下的。**删 11 个**，保留的 7 个在中文与原文两种模式下都确认渲染。
+> ④ **又一次是检查先错**：英文那遍最初报 `Tags` 与 `Original source` 缺失。
+> `.eyebrow` 带 `text-transform: uppercase`，而 Chrome 的 `innerText` 返回的是**变换
+> 后**的字符串，所以它们渲染成 `TAGS` 和 `ORIGINAL SOURCE`。不分大小写比对，两种模式
+> 下 7 个全在。
+> ⑤ **验证中途 dev server 卡死，原因值得记**：同一个目录里有**两个 `next dev`
+> 进程**（另一个会话占 :3000，我的占 :51400）在写同一个 `.next` —— 07-30 记过的坑
+> 换了个形态。只重启我自己那个即恢复；但换端口意味着 `localStorage` 基线换了 origin，
+> 所以「改前」状态改用 stash 重新取。
+> 验证：typecheck / lint / format / vitest 203/203，**17 条公开路由 200**、无残留
+> class 或标签字符串、零 console 错误。
 > 验证：typecheck / lint / format / vitest 203/203 / `validate:persistence ·
 workspace-boundary · ranking`，16 条公开路由 200 且两个标签字符串在渲染文本里
 > 已消失（仅剩的出现全是 `aria-label`），零横向溢出、零 console 错误，覆盖
