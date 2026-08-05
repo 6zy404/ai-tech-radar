@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-04T03:09:13.074Z",
+  "updatedAt": "2026-08-05T08:38:57.529Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -536,6 +536,39 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-04T03:09:13.074Z",
       "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
+    },
+    "candidate-rss-https-github-blog-p-97698": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-05T08:38:55.804Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-ai-updates-july-2026": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-05T08:38:55.879Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-05T08:38:55.931Z"
+    },
+    "candidate-rss-https-openai-com-index-learn-teach-chatgpt-work-codex": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-05T08:38:55.985Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-ai-agents-intensive-recap-2026": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-05T08:38:56.046Z"
+    },
+    "candidate-rss-https-openai-com-index-apple-is-getting-this-wrong": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-05T08:38:56.102Z"
+    },
+    "candidate-rss-https-openai-com-index-third-party-cyber-evaluations-involving-openai-models": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-05T08:38:56.161Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-05T08:38:57.529Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
     }
   }
 }

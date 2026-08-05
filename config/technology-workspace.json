@@ -1,6 +1,528 @@
 {
-  "updatedAt": "2026-08-04T10:26:48.118Z",
+  "updatedAt": "2026-08-05T08:42:07.796Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "slug": "chatgpt-work",
+      "title": {
+        "original": "ChatGPT is now a partner for your most ambitious work",
+        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
+      },
+      "summary": {
+        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
+        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
+      },
+      "content": {
+        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
+        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-scope-pilots",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-05T08:42:07.796Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
+      "whoShouldCare": [
+        "知识工作者与团队负责人",
+        "智能体应用开发者",
+        "AI 产品经理"
+      ],
+      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
+      "impactAreas": [
+        "办公自动化",
+        "团队协作方式",
+        "智能体产品设计",
+        "知识工作流程"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
+        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
+        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
+        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
+        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
+        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
+      },
+      "followUpQuestions": [
+        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
+        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
+        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "createdAt": "2026-07-09T20:58:31.394Z",
+      "updatedAt": "2026-08-05T08:42:07.796Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "slug": "gemini-managed-agents-background-mcp",
+      "title": {
+        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
+        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
+      },
+      "summary": {
+        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
+      },
+      "content": {
+        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
+      },
+      "type": "platform",
+      "publishDate": "2026-07-07",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-05T08:42:07.743Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
+      "whoShouldCare": [
+        "构建生产级智能体的开发团队",
+        "评估 MCP 生态与工具接入方案的架构师",
+        "对比各家智能体平台能力的技术选型者"
+      ],
+      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
+      "impactAreas": [
+        "智能体平台",
+        "MCP 生态",
+        "开发者工具"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
+        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
+        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
+        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
+        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
+      },
+      "followUpQuestions": [
+        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
+        "后台任务的时长上限、计费模型与并发配额是什么？",
+        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "createdAt": "2026-07-21T05:07:29.299Z",
+      "updatedAt": "2026-08-05T08:42:07.743Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "slug": "gpt-5-6",
+      "title": {
+        "original": "GPT-5.6: Frontier intelligence that scales with your ambition",
+        "zh": "GPT-5.6：OpenAI 新一代旗舰模型，主打单位算力智能密度"
+      },
+      "summary": {
+        "original": "OpenAI's newest frontier model promises more intelligence from every token, stronger performance per dollar, and more capability on demand.",
+        "zh": "OpenAI 发布新一代旗舰模型 GPT-5.6，强调每个 token 提供更多智能、更强的单位成本性能与按需扩展的能力，发布同期即成为 Microsoft 365 Copilot 的首选模型。"
+      },
+      "content": {
+        "original": "OpenAI introduced GPT-5.6, a frontier model update framed around efficiency: more intelligence from every token, stronger performance per dollar, and more capability on demand for hard work. In a companion announcement, Microsoft named GPT-5.6 the preferred model in Microsoft 365 Copilot across Word, Excel, PowerPoint, Chat, and Cowork.",
+        "zh": "OpenAI 发布了新一代旗舰模型 GPT-5.6。与以往强调能力上限不同，这次官方叙事的重心是效率：每个 token 提供更多智能、更强的单位成本性能，以及为高难度任务按需扩展的能力。\n\n值得注意的是发布节奏：同期的配套公告确认，GPT-5.6 已成为 Microsoft 365 Copilot 在 Word、Excel、PowerPoint、Chat 与 Cowork 中的首选模型。旗舰模型的代际更新正在以更短的路径进入主流办公场景——发布即大规模落地，而不是先经历一轮开发者试用期。\n\n对做模型选型的团队来说，这个信号提示竞争轴的变化：当各家旗舰能力趋近时，「单位 token 的智能密度」和「单位成本的性能」正在成为新的比较维度。官方公告未给出完整的规格与基准细节，具体提升幅度需要以原始来源和后续文档为准。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/gpt-5-6",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-68963f7f"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-05T08:42:07.694Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "旗舰模型的竞争叙事正从「能力更强」转向「单位 token 智能密度与单位成本性能」，这直接改变选型和成本测算的方式；发布即成为 Microsoft 365 Copilot 首选模型，也说明代际更新进入主流生产场景的路径正在缩短。",
+      "whoShouldCare": [
+        "AI 应用开发者",
+        "平台与基础设施负责人",
+        "AI 产品经理"
+      ],
+      "technicalContext": "「每个 token 更多智能」意味着同样预算下可以换取更少的 token 消耗或更高的输出质量，因此选型比较需要把 token 效率、延迟和价格放在一起看，而不是只看基准分数。每一代旗舰模型的宣称提升，都应在自己的任务评估集上重新验证。",
+      "impactAreas": [
+        "通用助手与办公套件",
+        "开发者 API 应用",
+        "企业级 AI 集成",
+        "模型选型与成本"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 GPT-5.6 的定位、可用范围和与上一代的宣称差异。",
+        "复习「模型选型与约束匹配」：把任务需求、模型规格与成本约束放在一个框架里比较。",
+        "在自己的评估集上对比新旧模型：同样任务下的质量、token 消耗和延迟各变化多少。",
+        "如果收益明确，先在一个低风险场景做迁移试点，再决定是否全面切换。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "旗舰模型换代后，「任务-模型-成本」的匹配关系需要重估，这个概念提供了重估的框架。",
+        "knowledge-evaluation-loops": "官方宣称的性能提升需要用自己的评估闭环验证，而不是直接采信发布文案。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "用自己的任务集对比新旧模型的质量、成本与延迟，是判断是否值得迁移的唯一可靠方法。",
+        "skill-scope-pilots": "模型换代迁移应先在小范围试点验证收益与回归风险，再决定推广节奏。"
+      },
+      "followUpQuestions": [
+        "GPT-5.6 的 API 定价与配额如何，相对 GPT-5.5 的单位成本变化多大？",
+        "「按需扩展的能力」具体是什么产品形态（推理档位、上下文规格还是工具能力）？",
+        "官方是否提供旧版本的迁移指引和弃用时间表？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-gpt-5-6",
+      "createdAt": "2026-07-09T20:58:31.343Z",
+      "updatedAt": "2026-08-05T08:42:07.694Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; announcement copy is high-level, content kept conservative pending specs and pricing.",
+        "Companion M365 Copilot adoption announcement folded in as context (its candidate marked reviewed, not published separately)."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "slug": "mcp-2-0-stateless-spec",
+      "title": {
+        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
+        "zh": "MCP 2.0：协议核心改为无状态"
+      },
+      "summary": {
+        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
+        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
+      },
+      "content": {
+        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
+        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
+      },
+      "type": "protocol",
+      "publishDate": "2026-07-31",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "Simon Willison",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-c183c9b9"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-05T08:42:07.636Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
+      "whoShouldCare": [
+        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
+        "在网关或 API 层做路由与鉴权的基础设施工程师",
+        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
+      ],
+      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
+      "impactAreas": [
+        "智能体工具接入",
+        "推理服务部署",
+        "网关与鉴权"
+      ],
+      "learningPath": [],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
+        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
+        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
+        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
+        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
+      },
+      "followUpQuestions": [
+        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
+        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
+        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "createdAt": "2026-08-01T15:40:23.257Z",
+      "updatedAt": "2026-08-05T08:42:07.636Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "slug": "llm-0-32-agent-shaped",
+      "title": {
+        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
+        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
+      },
+      "summary": {
+        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
+        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
+      },
+      "content": {
+        "original": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the <code>llm-anthropic</code>, <code>llm-gemini</code>, and <code>llm-openrouter</code> plugins, each with substantial updates of their own.</p> <h4 id=\"headline-features-for-llm-cli-users\">Headline features for LLM CLI users</h4> <p>Running LLM against reasoning models now <strong>displays their reasoning traces</strong> to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add <code>-R/--hide-reasoning</code> to turn this off.</p> <p><img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &quot;think about the best thing about pelicans&quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly cleve…",
+        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-04",
+      "sourceName": "Simon Willison's Weblog",
+      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-05T08:41:17.285Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
+      "whoShouldCare": [
+        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
+        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
+        "关心长对话日志成本与可回放性的基础设施负责人",
+        "在评估 MCP 生态实际落地形态的架构师"
+      ],
+      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
+      "impactAreas": [
+        "本地优先的智能体工具链",
+        "MCP 生态的落地形态",
+        "长时程对话的日志与成本",
+        "命令行与管道式工作流集成"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
+        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
+        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
+        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
+        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
+        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
+        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
+        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
+      },
+      "followUpQuestions": [
+        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
+        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
+        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "createdAt": "2026-08-05T08:38:57.526Z",
+      "updatedAt": "2026-08-05T08:41:17.285Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
       "slug": "hf-security-incident-agentic-intrusion",
@@ -300,109 +822,6 @@
       "relatedTechnologyIds": []
     },
     {
-      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "slug": "chatgpt-work",
-      "title": {
-        "original": "ChatGPT is now a partner for your most ambitious work",
-        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
-      },
-      "summary": {
-        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
-      },
-      "content": {
-        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
-        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-09",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-scope-pilots",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-04T10:26:47.978Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
-      "whoShouldCare": [
-        "知识工作者与团队负责人",
-        "智能体应用开发者",
-        "AI 产品经理"
-      ],
-      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
-      "impactAreas": [
-        "办公自动化",
-        "团队协作方式",
-        "智能体产品设计",
-        "知识工作流程"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
-        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
-        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
-        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
-        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
-        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
-      },
-      "followUpQuestions": [
-        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
-        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
-        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "createdAt": "2026-07-09T20:58:31.394Z",
-      "updatedAt": "2026-08-04T10:26:47.978Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
       "id": "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
       "slug": "gemini-robotics-2",
       "title": {
@@ -523,207 +942,6 @@
         "选题理由是智能体架构而非机器人本身：工具声明、流式上下文、执行中自纠都是站内既有概念，完成度量化是新东西。"
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "slug": "gemini-managed-agents-background-mcp",
-      "title": {
-        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
-        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
-      },
-      "summary": {
-        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
-      },
-      "content": {
-        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
-      },
-      "type": "platform",
-      "publishDate": "2026-07-07",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Google",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-04T03:13:10.163Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
-      "whoShouldCare": [
-        "构建生产级智能体的开发团队",
-        "评估 MCP 生态与工具接入方案的架构师",
-        "对比各家智能体平台能力的技术选型者"
-      ],
-      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
-      "impactAreas": [
-        "智能体平台",
-        "MCP 生态",
-        "开发者工具"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
-        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
-        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
-        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
-        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
-      },
-      "followUpQuestions": [
-        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
-        "后台任务的时长上限、计费模型与并发配额是什么？",
-        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "createdAt": "2026-07-21T05:07:29.299Z",
-      "updatedAt": "2026-08-04T03:13:10.163Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "slug": "mcp-2-0-stateless-spec",
-      "title": {
-        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
-        "zh": "MCP 2.0：协议核心改为无状态"
-      },
-      "summary": {
-        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
-        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
-      },
-      "content": {
-        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
-        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
-      },
-      "type": "protocol",
-      "publishDate": "2026-07-31",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
-      "sourceLanguage": "en",
-      "translationStatus": "pending",
-      "publisherName": "Simon Willison",
-      "publisherType": "startup",
-      "importanceLevel": "critical",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-c183c9b9"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为关键重要性，直接归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-01T19:14:43.164Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
-      "whoShouldCare": [
-        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
-        "在网关或 API 层做路由与鉴权的基础设施工程师",
-        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
-      ],
-      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
-      "impactAreas": [
-        "智能体工具接入",
-        "推理服务部署",
-        "网关与鉴权"
-      ],
-      "learningPath": [],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
-        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
-        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
-        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
-        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
-      },
-      "followUpQuestions": [
-        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
-        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
-        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "createdAt": "2026-08-01T15:40:23.257Z",
-      "updatedAt": "2026-08-01T19:14:43.164Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
         "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
       ]
     },
@@ -1849,108 +2067,6 @@
       "updatedAt": "2026-07-28T12:54:53.257Z",
       "editorialNotes": [
         "2026-07-13 内容轮：从定时导入候选转正；正文基于 Hugging Face 博客（经 hf-mirror 镜像访问）编写。"
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
-      "id": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-      "slug": "gpt-5-6",
-      "title": {
-        "original": "GPT-5.6: Frontier intelligence that scales with your ambition",
-        "zh": "GPT-5.6：OpenAI 新一代旗舰模型，主打单位算力智能密度"
-      },
-      "summary": {
-        "original": "OpenAI's newest frontier model promises more intelligence from every token, stronger performance per dollar, and more capability on demand.",
-        "zh": "OpenAI 发布新一代旗舰模型 GPT-5.6，强调每个 token 提供更多智能、更强的单位成本性能与按需扩展的能力，发布同期即成为 Microsoft 365 Copilot 的首选模型。"
-      },
-      "content": {
-        "original": "OpenAI introduced GPT-5.6, a frontier model update framed around efficiency: more intelligence from every token, stronger performance per dollar, and more capability on demand for hard work. In a companion announcement, Microsoft named GPT-5.6 the preferred model in Microsoft 365 Copilot across Word, Excel, PowerPoint, Chat, and Cowork.",
-        "zh": "OpenAI 发布了新一代旗舰模型 GPT-5.6。与以往强调能力上限不同，这次官方叙事的重心是效率：每个 token 提供更多智能、更强的单位成本性能，以及为高难度任务按需扩展的能力。\n\n值得注意的是发布节奏：同期的配套公告确认，GPT-5.6 已成为 Microsoft 365 Copilot 在 Word、Excel、PowerPoint、Chat 与 Cowork 中的首选模型。旗舰模型的代际更新正在以更短的路径进入主流办公场景——发布即大规模落地，而不是先经历一轮开发者试用期。\n\n对做模型选型的团队来说，这个信号提示竞争轴的变化：当各家旗舰能力趋近时，「单位 token 的智能密度」和「单位成本的性能」正在成为新的比较维度。官方公告未给出完整的规格与基准细节，具体提升幅度需要以原始来源和后续文档为准。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-09",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/gpt-5-6",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-68963f7f"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-scope-pilots",
-        "skill-ws-dddaf80c"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T10:19:53.067Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "旗舰模型的竞争叙事正从「能力更强」转向「单位 token 智能密度与单位成本性能」，这直接改变选型和成本测算的方式；发布即成为 Microsoft 365 Copilot 首选模型，也说明代际更新进入主流生产场景的路径正在缩短。",
-      "whoShouldCare": [
-        "AI 应用开发者",
-        "平台与基础设施负责人",
-        "AI 产品经理"
-      ],
-      "technicalContext": "「每个 token 更多智能」意味着同样预算下可以换取更少的 token 消耗或更高的输出质量，因此选型比较需要把 token 效率、延迟和价格放在一起看，而不是只看基准分数。每一代旗舰模型的宣称提升，都应在自己的任务评估集上重新验证。",
-      "impactAreas": [
-        "通用助手与办公套件",
-        "开发者 API 应用",
-        "企业级 AI 集成",
-        "模型选型与成本"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 GPT-5.6 的定位、可用范围和与上一代的宣称差异。",
-        "复习「模型选型与约束匹配」：把任务需求、模型规格与成本约束放在一个框架里比较。",
-        "在自己的评估集上对比新旧模型：同样任务下的质量、token 消耗和延迟各变化多少。",
-        "如果收益明确，先在一个低风险场景做迁移试点，再决定是否全面切换。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "旗舰模型换代后，「任务-模型-成本」的匹配关系需要重估，这个概念提供了重估的框架。",
-        "knowledge-evaluation-loops": "官方宣称的性能提升需要用自己的评估闭环验证，而不是直接采信发布文案。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "用自己的任务集对比新旧模型的质量、成本与延迟，是判断是否值得迁移的唯一可靠方法。",
-        "skill-scope-pilots": "模型换代迁移应先在小范围试点验证收益与回归风险，再决定推广节奏。"
-      },
-      "followUpQuestions": [
-        "GPT-5.6 的 API 定价与配额如何，相对 GPT-5.5 的单位成本变化多大？",
-        "「按需扩展的能力」具体是什么产品形态（推理档位、上下文规格还是工具能力）？",
-        "官方是否提供旧版本的迁移指引和弃用时间表？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-gpt-5-6",
-      "createdAt": "2026-07-09T20:58:31.343Z",
-      "updatedAt": "2026-07-27T10:19:53.067Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; announcement copy is high-level, content kept conservative pending specs and pricing.",
-        "Companion M365 Copilot adoption announcement folded in as context (its candidate marked reviewed, not published separately)."
       ],
       "relatedTechnologyIds": []
     },
