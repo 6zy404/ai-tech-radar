@@ -6,7 +6,6 @@ interface TechnologyLanguageSwitchProps {
   mode: TechnologyContentMode;
   onChange: (mode: TechnologyContentMode) => void;
   chineseEnabled?: boolean;
-  label?: string;
   compact?: boolean;
 }
 
@@ -14,7 +13,6 @@ export function TechnologyLanguageSwitch({
   mode,
   onChange,
   chineseEnabled = true,
-  label = "阅读语言",
   compact = false
 }: TechnologyLanguageSwitchProps) {
   return (
@@ -23,11 +21,13 @@ export function TechnologyLanguageSwitch({
         compact ? " technology-language-switch--compact" : ""
       }`}
     >
-      <span className="technology-language-switch__label">{label}</span>
+      {/* No visible label: the two buttons already read 中文 / 原文, so a
+          label beside them only restates the control. The group keeps an
+          accessible name, which a screen reader still needs. */}
       <div
         className="technology-language-switch__track"
         role="group"
-        aria-label={label}
+        aria-label="阅读语言"
       >
         <button
           type="button"

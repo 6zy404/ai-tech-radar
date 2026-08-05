@@ -15,7 +15,6 @@ export type TechnologyTranslationCoverage =
   "not_needed" | "full" | "partial" | "none";
 
 interface TechnologyDetailCopy {
-  switchLabel: string;
   detailHeading: string;
   whyItMattersLabel: string;
   languageStateLabel: string;
@@ -448,24 +447,11 @@ export function getTechnologyTranslationCoverageLabel(
   }
 }
 
-export function getTechnologySwitchLabel(
-  scope: "home" | "list" | "detail"
-): string {
-  const labels = {
-    home: "卡片语言",
-    list: "列表语言",
-    detail: "阅读语言"
-  };
-
-  return labels[scope];
-}
-
 export function getTechnologyDetailCopy(
   mode: TechnologyContentMode
 ): TechnologyDetailCopy {
   if (mode === "original") {
     return {
-      switchLabel: "Reading language",
       detailHeading: "Why this matters",
       whyItMattersLabel: "Signal focus",
       languageStateLabel: "Language state",
@@ -491,7 +477,6 @@ export function getTechnologyDetailCopy(
   }
 
   return {
-    switchLabel: "阅读语言",
     detailHeading: "为什么值得关注",
     whyItMattersLabel: "信号重点",
     languageStateLabel: "语言状态",
