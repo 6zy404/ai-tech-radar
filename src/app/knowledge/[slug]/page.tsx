@@ -149,10 +149,11 @@ export default async function KnowledgeDetailPage({
             <UnbreakableTitle text={knowledge.title} />
           </h1>
           <p>{knowledge.summary}</p>
+          {/* The category is already the kicker above; repeating it as the
+              first chip said the same thing twice. The sibling skill hero
+              carries type in the kicker and heat/cost in the chips, so this
+              also stops the two pages diverging. */}
           <div className="skill-detail-hero__meta">
-            <DossierStampTag>
-              {categoryLabels[knowledge.category]}
-            </DossierStampTag>
             <DossierStampTag className="dossier-stamp-tag--muted">
               {difficultyLabels[knowledge.difficulty]}
             </DossierStampTag>
