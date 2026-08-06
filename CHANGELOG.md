@@ -80,12 +80,35 @@ For per-topic deep dives, see the `docs/` directory.
   below — the pane had simply not repainted; the DOM has all 33 headings and a
   6168px main column. And a reverse-link check reported a 404 because it
   guessed the knowledge slug rather than reading it.
-- **Found and deliberately not fixed**: at 390px the hero title breaks after
-  the hyphen in `LFM2.5-`, splitting the model name across lines. Measured
-  rather than assumed across the 5 published titles carrying a hyphenated
-  token: **2 break that way (both LFM signals), 3 do not** (the GPT-\* ones fit
-  on line one). Same shape as the date break fixed on 2026-07-29, and the fix
-  belongs in the shared title renderer, not in a content round.
+- **The hyphen break was then investigated on its own, and both candidate
+  fixes were measured and rejected** — owner-selected, and the outcome is no
+  code change. At 390px the hero title breaks after the hyphen in `LFM2.5-`,
+  splitting the model name. Scope measured rather than assumed: **5 of 29
+  published titles carry a hyphenated token, and only 2 of those 5 actually
+  break** (both LFM signals; the three `GPT-*` ones fit on line one).
+  - **Extending the date protection to the token spills the title out of its
+    card.** `white-space: nowrap` works at 390px — 240px token against a
+    244px measure, 4px to spare — but at 320px the measure is **174px**, and
+    the token's right edge lands at **313px while the paper card ends at
+    270px**: **43px of title on the page ground**. The decisive part is that
+    this raises **no horizontal overflow** (`scrollWidth` stays 320), so both
+    of this repo's overflow detectors call it clean. Only looking finds it.
+  - **A length cap cannot work, because length does not predict width.**
+    `long-horizon` (12 chars) is 240px and fits; `Long-Context` (12 chars) is
+    251px and does not. The set that is safe at 320px is exactly the three
+    `GPT-*` tokens — **the ones that never broke**.
+  - **`text-wrap: pretty` and `balance` change nothing**: measured on the real
+    `h1`, all three of normal / pretty / balance give 5 lines, 225px, one
+    hyphen break.
+  - **Kept, with the reasoning written down** (`docs/design-system.md`), since
+    this repo has twice re-proposed an option whose rejection was never
+    recorded. A hyphen at end of line is the normal signal for a continued
+    word; a split date or a split Chinese word loses its unit with no cue,
+    which is why those were fixed and this is not.
+  - **The measurement instrument was wrong first, again.** The initial
+    `text-wrap` probe used an offscreen clone that did not inherit the font
+    and reported 4 lines / 172px / no break against the real element's 5 /
+    225 / one. Re-measured on the element under test.
 
 ## A label that only said what the buttons already said
 

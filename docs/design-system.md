@@ -1142,6 +1142,51 @@ five, newly splitting 参数 and 承诺. `--fs-display` still has no mobile step
 which is a real gap (it is why a digest date reaches 16px into the hero's
 padding at 390px), but fixing word-splitting is not what it does.
 
+### A latin hyphen break is not the same problem as a date break (2026-08-06)
+
+`renderTitleWithUnbreakableDates` keeps `YYYY-MM-DD` on one line, so the
+obvious next step — extend the same protection to hyphenated product names
+like `LFM2.5-2.6B`, which splits as `LFM2.5-` / `2.6B` at 390px — looks like
+a one-line change. **It was measured and rejected twice. Do not reach for it
+again without re-measuring.**
+
+Scope first, so the size of the problem is honest: **5 of 29 published titles
+carry a hyphenated latin token**, and at 390px only **2 of those 5 actually
+break at the hyphen** (both LFM signals). The three `GPT-*` ones fit on line
+one and never break.
+
+**Rejected — `white-space: nowrap` on the token.** At 390px the token is
+240px against a 244px measure, so it fits with 4px to spare and the fix
+works. At 320px the measure is **174px**: the token renders 240px wide, its
+right edge lands at **313px while the paper card ends at 270px**, so the
+title spills **43px outside the card onto the page ground**. The decisive
+detail is that this produces **no horizontal overflow at all** —
+`document.scrollWidth` stays 320 — so both overflow detectors in this file
+call it clean. It is only visible by looking.
+
+**Rejected — a length cap.** Character count does not predict width in a
+proportional face: `long-horizon` (12 chars) is 240px and fits, `Long-Context`
+(12 chars) is 251px and does not. And the set that is genuinely safe at 320px
+is exactly `GPT-Live` / `GPT-5.6` / `GPT-Red` — **the three that never broke**.
+A rule that is safe at the narrowest supported width fixes nothing.
+
+**No effect — `text-wrap: pretty` / `balance`.** Measured on the real `h1`
+(not a clone): `normal`, `pretty` and `balance` all produce 5 lines, 225px
+and the same single hyphen break.
+
+**Why this is acceptable where a date break was not.** A hyphen at end of
+line is the normal typographic signal for a continued word — that is what
+hyphenation is. A split date (`2026-07-` / `28`) and a split Chinese word
+(`服务` / `器`) lose the unit with no cue; `LFM2.5-` / `2.6B` does not. The
+precedent for this class, when it does need fixing, is the 2026-08-01 MCP
+round: **reword the title**, rather than work around the line breaker.
+
+**Method note.** The first attempt to measure `text-wrap` used an offscreen
+clone that did not inherit the font, and reported 4 lines / 172px / no hyphen
+break against the real element's 5 lines / 225px / one break. Measure on the
+element under test, or verify the clone reproduces the original's height
+before trusting a single number from it.
+
 ### One skeleton for every public detail page (2026-07-29, second sweep)
 
 The four public detail pages — `/technologies/[slug]`, `/skills/[slug]`,
