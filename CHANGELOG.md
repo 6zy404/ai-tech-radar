@@ -12,6 +12,51 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The entry whose evidence is this repository
+
+- **知识《面向知识系统的图思维》 (51 → 1062)** — 2026-08-06. It was the one stub
+  with **no honest external anchor**, so it uses a first-hand one instead:
+  **this repository is a content graph**, and `/network` is the running
+  instance of it.
+- **Every number in the body was measured from `getContentGraph`, then
+  re-checked against the live graph after writing** — 72 nodes, 310 edges, the
+  full relation-type breakdown (印证 91, 必备 72, 借助 36, 释义 33, 渊源 31,
+  延伸 24, 关联 19, 续作 4), average degree 8.61, and the five highest-degree
+  nodes with their exact degrees. **11 counts plus the average, the percentage
+  and all five names verified OK.**
+- **The argument the data supports**: similarity collapses every kind of
+  relation into a single distance, so **explainability comes from the type,
+  not from the metric**. The generic 关联 accounts for only **19 of 310 edges,
+  about 6%** — which says most edges _can_ be typed concretely, and that a
+  graph full of "related" usually means nobody wrote it down rather than that
+  it could not be written. 续作 is **4**, because it was deliberately narrowed
+  to one release line succeeding another and kept apart from "read this next";
+  mixing the two mislabels the 版本脉络 section.
+- **The observation worth keeping**: the five most connected nodes are **all
+  skills and knowledge, not one signal among them**. Graph thinking makes
+  "what is actually being reused" measurable instead of a matter of impression.
+- Then the maintenance cost in the three shapes it actually takes: **edges only
+  ever added**, **type drift** between two people using one label two ways, and
+  **treating direction as meaningful** — this repo stores relations as
+  unordered pairs precisely because from/to is usually record order rather than
+  semantics.
+- **Two deliberate decisions.** **No new relations were added**: unlike
+  反馈闭环与团队学习 and AI 辅助沟通审阅, no published signal genuinely anchors
+  this one, and inventing links to make an entry look supported would be
+  manufacturing evidence. And the figures carry an explicit **「截至
+  2026-08-06」** qualifier, because a body stating 72 nodes and 310 edges as
+  bare fact **would silently become wrong as content grows**.
+- Verified: 13 blocks, 5 headings, 13 bold runs, one list, zero literal
+  markers, all three named hand-offs present, the snapshot date rendering, page
+  at 200, zero horizontal overflow with the detector proven to fire, zero
+  console errors, plus typecheck, lint, format, vitest 203/203 and
+  `validate:persistence` / `database` / `workspace-boundary`. Store diffed
+  against a pre-write snapshot: **zero arrays lost an entry, zero slugs or
+  statuses moved**, checker proven to fire on an injected loss (17 hits).
+- **Pool now 33 full / 2 stubs, median 917 characters.** What remains is the
+  retrieval pair — 检索流水线调优 (4 inbound) and 检索增强生成基础 (3) — still on
+  hold until that topic has more than its current 3 published signals.
+
 ## The skill whose own summary half belonged to a neighbour
 
 - **技能《AI 辅助沟通审阅》 (50 → 958)** — 2026-08-06. The boundary was measured
