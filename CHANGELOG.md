@@ -12,6 +12,81 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — a model trained inside the harness
+
+- **Three candidates, one signal** — 2026-08-06. The scheduled import ran
+  unattended at 08:05 (10/10 sources, 3 new candidates) and the scheduled
+  task also generated the day's digest draft, so the round started from an
+  already-generated draft rather than from nothing.
+- **LFM2.5-2.6B published as `important`.** The numbers are small on purpose —
+  **2.6B in under 2.5GB**, 220 tok/s on an M5 Max, 113 on a Ryzen AI Max+ 395,
+  **~30 tok/s on a phone**, 128K context, day-one support across `llama.cpp` /
+  `MLX` / `vLLM` / `SGLang` / `ONNX` — and against models up to 4× its size it
+  tops **every** instruction-following benchmark and every tool-use benchmark
+  but `BFCLv4`.
+- **The reason it is a signal here is the training, not the size.** Four
+  post-training stages, and the fourth is the one worth copying: agentic RL run
+  **inside real harnesses** (OpenClaw, Hermes Agent), with training engine,
+  rollout engine and environment execution split apart and a **Harness Proxy**
+  treating the harness as a black box — no modification, only token-level
+  trajectories captured. **That inverts the direction of fit**: the model
+  learns inside the loop you already run, instead of the loop being rebuilt
+  around the model.
+- **Put next to the previous day's signal it is the same question from the
+  other end.** LLM 0.32 was the tool loop moving to the provider side; this is
+  a model small enough to drive that loop compressed onto your own machine.
+  The two are linked `related-to` with a note saying exactly that — the first
+  time this site has used a relation to carry a _disagreement_ rather than a
+  corroboration.
+- **Two limits are in the body rather than left to the benchmark table.** The
+  vendor states plainly that **coding is where larger models keep a clear
+  lead**. And a community reply under the article reports the model pulling
+  malformed data through an MCP tool and **presenting it confidently as fact
+  instead of flagging it**, feeding the error straight downstream — Gemma 4
+  E4B did not reproduce it. That lands directly on this site's 完成判定与验收信号
+  and 工具集成模式 entries: **a well-formed tool call is not a correct result.**
+- **Two candidates were not signals.** Ollama v0.32.6 rejected — a patch
+  release whose MLX line is already covered by the published v0.32.4 signal,
+  matching the v0.32.3 call. Simon Willison's Claude Fable 5 game post marked
+  reviewed — a **demonstration rather than an evaluation**: no numbers, no
+  comparison, no stated limits, matching the standing call on narrative posts
+  with no evaluative artifact. Its one reusable trick (GitHub Pages as a live
+  preview for a web-based coding agent) is a workflow tip, not a signal.
+- **The digest carries two items, and the second one is the round's
+  judgment.** All 10 items the generator selected had been carried by an
+  earlier digest, so all 10 were excluded. The new signal leads, pinned;
+  LFM2.5-Encoders (last carried 07-30) is the second — the two halves of one
+  generation, one for workloads whose output is a label and one for workloads
+  that run a tool loop. **LLM 0.32 was deliberately not carried**: it led
+  yesterday, and repeating it a day later is exactly what fresh-first
+  selection exists to avoid, even though it is the better thematic pair.
+- 12 reverse ids written read-then-union across 5 skills, 5 knowledge entries
+  and 2 technologies — **each write verified individually** to keep every
+  prior id — plus 12 typed relations with notes. `config/*.json` diffed
+  against a pre-write snapshot afterwards: **zero arrays shrank, zero slugs or
+  statuses moved**, with the checker proven to fire on an injected shrink (46
+  hits).
+- Verified: 17 public routes at 200, zero hits on a 10-string internal-field
+  scan across the signal page, the digest and `feed.json`, the pinned lead
+  ordered first **inside the digest's signal links** rather than merely present
+  on the page, all 10 excluded items absent, 6 inline code spans rendering,
+  zero literal markers, **12/12 related pages carrying the reverse link**, zero
+  horizontal overflow at 1265 and 390 with the detector proven to fire, zero
+  console errors, light and dark, plus typecheck, lint, format, vitest 203/203
+  and `validate:digest` / `persistence` / `ranking` / `workspace-boundary` /
+  `publishing` / `database`.
+- **One of this round's own readings was wrong before the page was, twice.** A
+  scrolled screenshot showed the article ending mid-body with a blank column
+  below — the pane had simply not repainted; the DOM has all 33 headings and a
+  6168px main column. And a reverse-link check reported a 404 because it
+  guessed the knowledge slug rather than reading it.
+- **Found and deliberately not fixed**: at 390px the hero title breaks after
+  the hyphen in `LFM2.5-`, splitting the model name across lines. Measured
+  rather than assumed across the 5 published titles carrying a hyphenated
+  token: **2 break that way (both LFM signals), 3 do not** (the GPT-\* ones fit
+  on line one). Same shape as the date break fixed on 2026-07-29, and the fix
+  belongs in the shared title renderer, not in a content round.
+
 ## A label that only said what the buttons already said
 
 - **Owner-reported, and the whole ask was four characters** — 2026-08-05,
