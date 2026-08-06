@@ -12,6 +12,51 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The skill whose own summary half belonged to a neighbour
+
+- **技能《AI 辅助沟通审阅》 (50 → 958)** — 2026-08-06. The boundary was measured
+  first, and **half of the entry's own summary turned out to be taken**: it
+  promised to cover 截图、日志和草稿文本, but 技能《视觉输入的组织与核验》 already
+  owns screenshots — resolution and cropping, multi-image referencing, when not
+  to use native vision at all. **So the body deliberately does not touch that
+  half.**
+- **What is left is the half nothing else covers: an artifact aimed at another
+  human.** That framing supplies the judgement no neighbour does — the test is
+  not "generated faster" but **"the other side asked one fewer round of
+  questions"**.
+- The body opens on the split that changes the risk profile: **having it write
+  for you** buys a faster draft and makes you liable for text that reads right
+  and is factually wrong; **having it review for you** produces nothing and
+  carries far less risk — and usually gains more, because engineering
+  communication fails by **omission**, not by wording. Then the one technique
+  worth keeping: **make the model restate the message as the recipient** —
+  what it restates wrongly is what a real reader will misread. That tests
+  comprehensibility rather than polish, and **polish is both the easiest step
+  and the one nobody is short of.**
+- **GitHub's Copilot code-review retrospective is the hard evidence**, used for
+  the transferable point rather than the headline: not "instructions beat
+  tools", but that **review quality depends on whether anyone wrote down what
+  a good review looks like**. Then three failure modes, including one this site
+  keeps meeting from other angles — a model flattening hedges, when
+  「我不确定 X」 is often the most important sentence in an engineering message.
+- **Same anchoring problem as 反馈闭环与团队学习, fixed the same way.** Both of
+  its inbound signals were **bundled seed technologies**, so no real published
+  signal supported it. Copilot 代码审查复盘 and ChatGPT Work now link in both
+  directions with typed 印证 relations and notes.
+- **First copy-on-write override of that seed skill** — expected, and the seed
+  file still holds the original stub.
+- Verified: 14 blocks, 5 headings, 13 bold runs, one list, zero literal
+  markers, all four named hand-offs present, both new links rendering in both
+  directions, 5 routes at 200, zero horizontal overflow with the detector
+  proven to fire, zero console errors, plus typecheck, lint, format, vitest
+  203/203 and `validate:persistence` / `database` / `workspace-boundary`. Store
+  diffed against a pre-write snapshot: **zero arrays lost an entry, zero slugs
+  or statuses moved**, checker proven to fire on an injected loss (29 hits).
+- **Pool now 32 full / 3 stubs, median 917 characters.** What is left is the
+  retrieval cluster plus one graph entry — 检索流水线调优 (4 inbound),
+  检索增强生成基础 (3), 面向知识系统的图思维 (2) — and the first two stay on hold
+  until that topic has more than its current 3 published signals.
+
 ## The entry that was not redundant, only unanchored
 
 - **知识《反馈闭环与团队学习》 (52 → 987)** — 2026-08-06. The owner asked for a
