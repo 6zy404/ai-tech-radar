@@ -12,6 +12,66 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The two stubs everything pointed at
+
+- **知识《系统设计的权衡》 (54 → 992) 与《API 契约与接口边界》 (48 → 995)** —
+  2026-08-06, the two entries tied at the top of the remaining stub list with
+  **8 inbound references each**. The pool moves to **30 full / 5 stubs**, and
+  the full entries' median rises to **912 characters**.
+- **Both needed a boundary before they needed a body**, because the
+  neighbours already own most of what the two titles suggest: 交互系统中的延迟权衡
+  owns latency, 模型选型与约束匹配 owns which constraint bites first,
+  本地与云混合推理架构 owns the local/cloud line, 工具使用与函数调用 owns the
+  three steps of a single call, and the two skills own building the tool layer
+  and deciding what to build at all. **What was left is the shape underneath
+  each** — and that boundary is written into both bodies rather than left for
+  the reader to work out.
+- **系统设计的权衡** opens on the definition that makes the rest usable: **a
+  decision with no cost is not a trade-off, it is common sense** — the question
+  is never "which is better" but "what are you willing to pay for". The first
+  cut it proposes is **reversible vs locked-in**, and MCP 2.0 is the clean
+  case: going stateless did not remove a feature, it removed the constraint
+  that **a session must land on the same instance**, so load balancing, scaling
+  and failure recovery all got simpler at once. Then why state is almost always
+  the expensive one (it buys "send less" and costs "come back to the same
+  place", a bill that arrives in full the day you scale out), why every layer
+  of abstraction trades control for not having to build it — including the case
+  people miss, that **a default is a trade-off someone else already made for
+  you**, as when vLLM made Model Runner V2 the default engine. It closes on the
+  three-part decision record: **we chose X; because here A matters more than B;
+  if A stops mattering, revisit this.** Most records stop after the second
+  clause, which is why nobody dares touch them six months later — the trade-off
+  has quietly become a convention.
+- **API 契约与接口边界** argues a contract is a **promise, not a document**,
+  with four parts: input shape, output shape, **error shape**, and **how the
+  promise may change**. The last two are the ones nobody writes and the ones
+  that decide whether an integration survives a year. MCP 2.0's **12-month
+  deprecation window** is the example — the dullest change in that spec and the
+  only one that decides whether you dare put it in production. Then errors as
+  part of the contract: Ollama moving a truncated response from
+  `finish_reason: "tool_calls"` to `"length"` is **fixing a contract that
+  lied**, and that is the expensive direction — **a 500 gets handled, a wrong
+  200 gets believed**. Then boundary placement deciding who can participate
+  (method and tool names moving into HTTP headers, so a gateway can route and
+  authorize without parsing a body), and a test worth keeping: **if adding one
+  field forces every caller to change, that is not a contract, it is a snapshot
+  of the current implementation.**
+- Verified: both pages render as real structure — **12 / 14 blocks, 4 headings
+  each, 8 / 10 bold runs, 2 inline code spans in monospace, zero literal
+  markers**, every named hand-off present — plus both at 200, zero horizontal
+  overflow at 1265 and 390 with the detector proven to fire, zero console
+  errors, light and dark, typecheck, lint, format, vitest 203/203 and
+  `validate:persistence` / `database` / `workspace-boundary`.
+- Store diffed against a pre-write snapshot: **zero arrays lost an entry, zero
+  slugs or statuses moved, zero copy-on-write additions** (both records were
+  already in the workspace store), with the checker proven to fire on an
+  injected loss (59 hits). The seed file still holds the original stub bodies.
+- **Left**: 5 stubs, and the tail is now genuinely thin — 反馈闭环与团队学习
+  (5 inbound), 检索流水线调优 (4), AI 辅助沟通审阅 (4), 检索增强生成基础 (3),
+  面向知识系统的图思维 (2). The two retrieval entries are still the ones worth
+  holding: that topic has 3 published signals, so the signal side may need to
+  grow before more editorial effort helps.
+
 ## Editorial round — a model trained inside the harness
 
 - **Three candidates, one signal** — 2026-08-06. The scheduled import ran
