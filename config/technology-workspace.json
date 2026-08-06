@@ -1,6 +1,213 @@
 {
-  "updatedAt": "2026-08-06T14:20:50.013Z",
+  "updatedAt": "2026-08-06T14:32:47.475Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "slug": "chatgpt-work",
+      "title": {
+        "original": "ChatGPT is now a partner for your most ambitious work",
+        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
+      },
+      "summary": {
+        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
+        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
+      },
+      "content": {
+        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
+        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-scope-pilots",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122",
+        "skill-communication-ai"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-06T14:32:47.475Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
+      "whoShouldCare": [
+        "知识工作者与团队负责人",
+        "智能体应用开发者",
+        "AI 产品经理"
+      ],
+      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
+      "impactAreas": [
+        "办公自动化",
+        "团队协作方式",
+        "智能体产品设计",
+        "知识工作流程"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
+        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
+        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
+        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
+        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
+        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
+      },
+      "followUpQuestions": [
+        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
+        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
+        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "createdAt": "2026-07-09T20:58:31.394Z",
+      "updatedAt": "2026-08-06T14:32:47.475Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-blog-p-97467",
+      "slug": "copilot-code-review-tool-workflow-lessons",
+      "title": {
+        "original": "Better tools made Copilot code review worse. Here's how we actually improved it.",
+        "zh": "Copilot 代码审查复盘：更好的工具让智能体更差，指令才是关键"
+      },
+      "summary": {
+        "original": "GitHub swapped Copilot code review's custom exploration tools for the better-maintained shared CLI tools (grep, glob, view) expecting a clean upgrade — and got higher cost and fewer caught issues. The tools weren't the problem; the instructions were. Rewriting them around how a reviewer actually reads a pull request flipped the regression into ~20% lower review cost at the same quality.",
+        "zh": "GitHub 把 Copilot 代码审查的专用代码探索工具换成维护更好的共享 CLI 工具（grep/glob/view），预期是干净的升级——结果基准显示审查成本更高、抓到的问题更少。问题不在工具，在指令：按「审查者实际读 PR 的方式」重写工作流指令后，退化翻转为审查成本降低约 20%、质量不变。"
+      },
+      "content": {
+        "original": "When GitHub migrated Copilot code review from its own code exploration tools to the shared Unix-style tools that power Copilot CLI (grep, glob, view), benchmarks showed higher review cost and fewer issues caught — despite the new tools being better maintained. The diagnosis: the instructions, inherited from the old tool layer's design (SWE-agent-style repository navigation), no longer matched the new tools or the task. Rewriting the workflow instructions around how a reviewer actually reads a pull request — anchored on pull request evidence — flipped the regression into roughly 20% lower average review cost while maintaining review quality. The broader lesson: when you build on an agent framework you inherit its tools and their implicit workflows, and as your use case drifts they can quietly start working against you.",
+        "zh": "GitHub 给 Copilot 代码审查换工具的初衷很合理：原有的专用代码探索工具层（源自 SWE-agent 式仓库导航的设计）虽然能用，但只服务这一个场景；换成驱动 Copilot CLI 的共享 Unix 风格工具（grep、glob、view）应该是次干净的升级。结果基准测试给出了反直觉的答案——审查成本更高，抓到的问题更少。\n\n诊断结论是这次复盘的核心：工具没有问题，指令有问题。旧指令是围绕旧工具层的行为写的，直接搬到新工具上，智能体的探索方式就和「审查一个 PR」这件事错了位。团队按照人类审查者实际读 PR 的方式——以 PR 证据为锚点组织探索——重写了工作流指令，退化翻转为胜利：平均审查成本降低约 20%，审查质量保持不变。\n\n这篇复盘的通用教训对任何智能体团队都成立：构建在智能体框架之上时，你继承的不只是工具，还有工具隐含的工作流假设；当你的场景与工具的设计初衷漂移得足够远，它们会安静地开始拖后腿。工具替换必须连同指令一起重写，且需要回归基准来暴露这类退化——没有基准，这次退化可能根本不会被发现。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-10",
+      "sourceName": "GitHub Blog",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "GitHub",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-ws-e251051e",
+        "knowledge-feedback-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1",
+        "skill-communication-ai"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-06T14:32:47.407Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产级智能体的负面结果复盘比成功案例稀缺得多。「更好的工具让效果更差」直指一个普遍盲区：工具与指令是耦合的整体，替换其一必须重写另一——而且没有回归基准，这类退化会被安静地上线。",
+      "whoShouldCare": [
+        "在智能体框架上构建产品的工程团队",
+        "维护智能体工具层的平台工程师",
+        "负责智能体评测基准的工程师"
+      ],
+      "technicalContext": "智能体的行为由「工具能力 × 指令假设」共同决定：工具定义能做什么，指令定义怎么探索。继承自框架的工具带着隐含的工作流设计（这里是 SWE-agent 式仓库导航），当任务从「解决 issue」漂移到「审查 PR」，同一套探索模式就从助力变成开销。以任务的原生证据（PR diff）为锚点重写指令，是把通用工具重新对齐到具体任务的正确杠杆。",
+      "impactAreas": [
+        "智能体工程",
+        "开发者工具",
+        "评测基准"
+      ],
+      "learningPath": [
+        "读原文，注意「换工具前后」的基准对比是怎么设计的",
+        "对照 Shippy 复盘的「确定性工具层」经验，理解工具层设计的两种取舍",
+        "为自己的智能体产品建立一个最小回归基准，再做下一次工具或提示词变更"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "工具调用的效果不取决于工具本身，而取决于模型被引导的使用方式——这篇复盘是该概念最好的生产级注脚。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "工作流设计的反面教材与正面修复同在一篇：指令必须围绕任务的实际认知过程（审查者怎么读 PR）设计，而不是围绕工具能力清单。",
+        "skill-tool-integration": "「继承框架工具」的漂移风险正是工具集成模式要管理的核心：工具的隐含工作流假设需要被显式识别和重新对齐。",
+        "skill-ws-f741f122": "没有回归基准，这次退化不会被发现——评测运维是工具替换能安全进行的前提。"
+      },
+      "followUpQuestions": [
+        "重写后的审查指令是否会开源或沉淀为可复用模式？",
+        "20% 成本降低在不同模型上是否稳定成立？",
+        "同样的「工具×指令错位」诊断方法能否用于其他智能体场景？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-blog-p-97467",
+      "createdAt": "2026-07-21T05:07:29.172Z",
+      "updatedAt": "2026-08-06T14:32:47.407Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：GitHub 工程复盘，与 Shippy 复盘同类的负面结果分享；sourceUrl 为按 GitHub Blog 惯例的规范化地址（feed 提供的是 ?p= 短链）。"
+      ],
+      "relatedTechnologyIds": []
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
       "slug": "ai2-shippy-agent-lessons",
@@ -100,106 +307,6 @@
       "updatedAt": "2026-08-06T14:20:50.012Z",
       "editorialNotes": [
         "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
-      "id": "draft-candidate-rss-https-github-blog-p-97467",
-      "slug": "copilot-code-review-tool-workflow-lessons",
-      "title": {
-        "original": "Better tools made Copilot code review worse. Here's how we actually improved it.",
-        "zh": "Copilot 代码审查复盘：更好的工具让智能体更差，指令才是关键"
-      },
-      "summary": {
-        "original": "GitHub swapped Copilot code review's custom exploration tools for the better-maintained shared CLI tools (grep, glob, view) expecting a clean upgrade — and got higher cost and fewer caught issues. The tools weren't the problem; the instructions were. Rewriting them around how a reviewer actually reads a pull request flipped the regression into ~20% lower review cost at the same quality.",
-        "zh": "GitHub 把 Copilot 代码审查的专用代码探索工具换成维护更好的共享 CLI 工具（grep/glob/view），预期是干净的升级——结果基准显示审查成本更高、抓到的问题更少。问题不在工具，在指令：按「审查者实际读 PR 的方式」重写工作流指令后，退化翻转为审查成本降低约 20%、质量不变。"
-      },
-      "content": {
-        "original": "When GitHub migrated Copilot code review from its own code exploration tools to the shared Unix-style tools that power Copilot CLI (grep, glob, view), benchmarks showed higher review cost and fewer issues caught — despite the new tools being better maintained. The diagnosis: the instructions, inherited from the old tool layer's design (SWE-agent-style repository navigation), no longer matched the new tools or the task. Rewriting the workflow instructions around how a reviewer actually reads a pull request — anchored on pull request evidence — flipped the regression into roughly 20% lower average review cost while maintaining review quality. The broader lesson: when you build on an agent framework you inherit its tools and their implicit workflows, and as your use case drifts they can quietly start working against you.",
-        "zh": "GitHub 给 Copilot 代码审查换工具的初衷很合理：原有的专用代码探索工具层（源自 SWE-agent 式仓库导航的设计）虽然能用，但只服务这一个场景；换成驱动 Copilot CLI 的共享 Unix 风格工具（grep、glob、view）应该是次干净的升级。结果基准测试给出了反直觉的答案——审查成本更高，抓到的问题更少。\n\n诊断结论是这次复盘的核心：工具没有问题，指令有问题。旧指令是围绕旧工具层的行为写的，直接搬到新工具上，智能体的探索方式就和「审查一个 PR」这件事错了位。团队按照人类审查者实际读 PR 的方式——以 PR 证据为锚点组织探索——重写了工作流指令，退化翻转为胜利：平均审查成本降低约 20%，审查质量保持不变。\n\n这篇复盘的通用教训对任何智能体团队都成立：构建在智能体框架之上时，你继承的不只是工具，还有工具隐含的工作流假设；当你的场景与工具的设计初衷漂移得足够远，它们会安静地开始拖后腿。工具替换必须连同指令一起重写，且需要回归基准来暴露这类退化——没有基准，这次退化可能根本不会被发现。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-10",
-      "sourceName": "GitHub Blog",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "GitHub",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-ws-e251051e",
-        "knowledge-feedback-loops"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-f741f122",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-06T14:20:49.943Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产级智能体的负面结果复盘比成功案例稀缺得多。「更好的工具让效果更差」直指一个普遍盲区：工具与指令是耦合的整体，替换其一必须重写另一——而且没有回归基准，这类退化会被安静地上线。",
-      "whoShouldCare": [
-        "在智能体框架上构建产品的工程团队",
-        "维护智能体工具层的平台工程师",
-        "负责智能体评测基准的工程师"
-      ],
-      "technicalContext": "智能体的行为由「工具能力 × 指令假设」共同决定：工具定义能做什么，指令定义怎么探索。继承自框架的工具带着隐含的工作流设计（这里是 SWE-agent 式仓库导航），当任务从「解决 issue」漂移到「审查 PR」，同一套探索模式就从助力变成开销。以任务的原生证据（PR diff）为锚点重写指令，是把通用工具重新对齐到具体任务的正确杠杆。",
-      "impactAreas": [
-        "智能体工程",
-        "开发者工具",
-        "评测基准"
-      ],
-      "learningPath": [
-        "读原文，注意「换工具前后」的基准对比是怎么设计的",
-        "对照 Shippy 复盘的「确定性工具层」经验，理解工具层设计的两种取舍",
-        "为自己的智能体产品建立一个最小回归基准，再做下一次工具或提示词变更"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "工具调用的效果不取决于工具本身，而取决于模型被引导的使用方式——这篇复盘是该概念最好的生产级注脚。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "工作流设计的反面教材与正面修复同在一篇：指令必须围绕任务的实际认知过程（审查者怎么读 PR）设计，而不是围绕工具能力清单。",
-        "skill-tool-integration": "「继承框架工具」的漂移风险正是工具集成模式要管理的核心：工具的隐含工作流假设需要被显式识别和重新对齐。",
-        "skill-ws-f741f122": "没有回归基准，这次退化不会被发现——评测运维是工具替换能安全进行的前提。"
-      },
-      "followUpQuestions": [
-        "重写后的审查指令是否会开源或沉淀为可复用模式？",
-        "20% 成本降低在不同模型上是否稳定成立？",
-        "同样的「工具×指令错位」诊断方法能否用于其他智能体场景？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-blog-p-97467",
-      "createdAt": "2026-07-21T05:07:29.172Z",
-      "updatedAt": "2026-08-06T14:20:49.942Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：GitHub 工程复盘，与 Shippy 复盘同类的负面结果分享；sourceUrl 为按 GitHub Blog 惯例的规范化地址（feed 提供的是 ?p= 短链）。"
       ],
       "relatedTechnologyIds": []
     },
@@ -531,111 +638,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "slug": "chatgpt-work",
-      "title": {
-        "original": "ChatGPT is now a partner for your most ambitious work",
-        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
-      },
-      "summary": {
-        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
-      },
-      "content": {
-        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
-        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-09",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-scope-pilots",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-05T08:42:07.796Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
-      "whoShouldCare": [
-        "知识工作者与团队负责人",
-        "智能体应用开发者",
-        "AI 产品经理"
-      ],
-      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
-      "impactAreas": [
-        "办公自动化",
-        "团队协作方式",
-        "智能体产品设计",
-        "知识工作流程"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
-        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
-        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
-        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
-        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
-        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
-      },
-      "followUpQuestions": [
-        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
-        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
-        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "createdAt": "2026-07-09T20:58:31.394Z",
-      "updatedAt": "2026-08-05T08:42:07.796Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
-      ],
-      "relatedTechnologyIds": [
         "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
       ]
     },

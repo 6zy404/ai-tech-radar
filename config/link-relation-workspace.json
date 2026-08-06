@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T14:21:10.919Z",
+  "updatedAt": "2026-08-06T14:32:47.659Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2304,6 +2304,24 @@
       "toType": "technology",
       "relationType": "supports",
       "note": "把一次内部尝试交付成四条经验加三件开源工件，而不是只有当事人记得的教训。"
+    },
+    {
+      "id": "rel-ws-f631d467",
+      "fromId": "skill-communication-ai",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "把「审查者实际怎么读一个 PR」写进指令才有效——审阅质量取决于有没有把「好的审阅长什么样」写下来。"
+    },
+    {
+      "id": "rel-ws-ef40966f",
+      "fromId": "skill-communication-ai",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "交付的是完成品而不是一段回答，沟通产物正是这一类要发给人看的东西。"
     }
   ]
 }
