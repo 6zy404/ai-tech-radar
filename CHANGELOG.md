@@ -12,6 +12,51 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The entry that was not redundant, only unanchored
+
+- **知识《反馈闭环与团队学习》 (52 → 987)** — 2026-08-06. The owner asked for a
+  keep-or-merge decision rather than a writing task, so the boundary was
+  measured first, and **the measurement pointed the opposite way from the
+  obvious answer** — the same reversal as the 08-05 《评估闭环》 round.
+- **It is not redundant, and the number that settles it is an overlap of
+  zero.** Its inbound signal set shares **0** signals with 评估闭环 (8), **0**
+  with 完成判定与验收信号 (6) and **0** with 人在回路的审查 (9). Four skills
+  point at it — 模型与输出评估, AI 试点范围界定, AI 辅助沟通审阅,
+  智能体可观测性与评测运维 — which is the practice layer reaching for an
+  organisational concept none of those three supplies. **Retiring it would
+  leave those four pointing at a concept about the system's output when what
+  they want is the team's cadence.**
+- **What was actually wrong is that it had no anchor.** Its one inbound signal
+  was 多模态编码助手 — a **bundled seed technology** — so the count of real
+  published signals supporting it was **zero**. Two published signals carry
+  exactly this content and had simply never been wired: GitHub's Copilot
+  code-review retrospective and Ai2's Shippy retrospective. Both are now
+  linked in **both directions** with typed 印证 relations and notes.
+- **The body keeps the boundary explicit**, because 评估闭环 already claims the
+  "same shape, different object" ground: that one evaluates **the system's
+  output**, this one evaluates **the team's own cadence**. Learning speed is
+  framed as a designed variable rather than a talent — how long a change takes
+  to reach users, to come back as feedback, and to be undone. The Copilot case
+  is used for the point that actually generalises: not "instructions beat
+  tools", but that **they could tell which change did the work at all** —
+  which needs one change at a time, measured each time. Then failure needing a
+  **retrievable written reason** (otherwise the same idea returns in six months
+  with nobody remembering why it was dropped), and three ways a team stops
+  learning — one of which breaks at the same place 评估闭环's fourth step does:
+  nobody owns turning this round's lesson into next round's default.
+- Verified: 13 blocks, 5 headings, 9 bold runs, zero literal markers, all four
+  named hand-offs present, both new links rendering on the entry and both
+  reverse links on the signals, 6 routes at 200, zero horizontal overflow with
+  the detector proven to fire, zero console errors, plus typecheck, lint,
+  format, vitest 203/203 and `validate:persistence` / `database` /
+  `workspace-boundary` / `ranking`. Store diffed against a pre-write snapshot:
+  **zero arrays lost an entry, zero slugs or statuses moved**, checker proven
+  to fire on an injected loss (29 hits); the seed file still holds the stub.
+- **Left**: 4 stubs, all in the genuine tail — 检索流水线调优 (4 inbound),
+  AI 辅助沟通审阅 (4), 检索增强生成基础 (3), 面向知识系统的图思维 (2). The two
+  retrieval entries are still worth holding until that topic has more than its
+  current 3 published signals.
+
 ## The two stubs everything pointed at
 
 - **知识《系统设计的权衡》 (54 → 992) 与《API 契约与接口边界》 (48 → 995)** —
