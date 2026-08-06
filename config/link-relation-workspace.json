@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-05T08:42:08.634Z",
+  "updatedAt": "2026-08-06T12:51:35.385Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2178,6 +2178,114 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "给「自建那一侧」补上了一个更完整的答案，正好用来对照托管平台。"
+    },
+    {
+      "id": "rel-ws-07accf5f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "220 / 113 / 30 tok/s 是三种硬件下的数字，要落地必须在目标设备上自己实测首字延迟与稳态吞吐。"
+    },
+    {
+      "id": "rel-ws-26a69f51",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "外壳被写进了训练回路，所以流程的形状会反过来决定模型学到什么。"
+    },
+    {
+      "id": "rel-ws-0a18974a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "社区反馈里那次静默的格式错误，正是「工具层要吸收混乱而不是转发混乱」的现实理由。"
+    },
+    {
+      "id": "rel-ws-069ce9fb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "四段后训练是一份完整配方样本：SFT、专家教师、多领域在线策略蒸馏、真实环境内的强化学习。"
+    },
+    {
+      "id": "rel-ws-13dbc880",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "llama.cpp / MLX / vLLM / SGLang / ONNX 首日全覆盖，是「有原生建模」以上支持等级的正面样本。"
+    },
+    {
+      "id": "rel-ws-87bf8973",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "工具使用压过 4 倍大的模型、编码明确落后——先看哪个约束咬人，而不是参数越多越好。"
+    },
+    {
+      "id": "rel-ws-27e7390a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "工具调用格式正确不等于结果正确；这条信号把两者之间的缝隙暴露得很清楚。"
+    },
+    {
+      "id": "rel-ws-1ed374c7",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "模型没能判断工具返回值不可信，就把错误当事实传给下一步——完成判定缺失时最贵的方向。"
+    },
+    {
+      "id": "rel-ws-7b752d77",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "三档速度对应三种条件，手机上那一档决定它能不能做交互式体验。"
+    },
+    {
+      "id": "rel-ws-b9c0efca",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "本地这一层能力变强之后，哪些请求仍然必须上云，就是这条要重新划的线。"
+    },
+    {
+      "id": "rel-ws-47a8ae7c",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一代 LFM2.5 的另一半：编码器那条覆盖输出是标签的负载，这条覆盖要跑工具循环的负载。"
+    },
+    {
+      "id": "rel-ws-68d712ca",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一道题的两端：那条讲工具循环往供应商侧收拢，这条把足以驱动循环的模型压进本机。"
     }
   ]
 }

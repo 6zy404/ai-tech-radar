@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-05T08:38:57.529Z",
+  "updatedAt": "2026-08-06T12:45:47.495Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -569,6 +569,19 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-05T08:38:57.529Z",
       "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-06T12:45:46.751Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist-atom-entries": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-06T12:45:46.829Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-06T12:45:47.495Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
     }
   }
 }

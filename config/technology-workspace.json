@@ -1,6 +1,337 @@
 {
-  "updatedAt": "2026-08-05T08:42:07.796Z",
+  "updatedAt": "2026-08-06T12:50:33.891Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "slug": "llm-0-32-agent-shaped",
+      "title": {
+        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
+        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
+      },
+      "summary": {
+        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
+        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
+      },
+      "content": {
+        "original": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the <code>llm-anthropic</code>, <code>llm-gemini</code>, and <code>llm-openrouter</code> plugins, each with substantial updates of their own.</p> <h4 id=\"headline-features-for-llm-cli-users\">Headline features for LLM CLI users</h4> <p>Running LLM against reasoning models now <strong>displays their reasoning traces</strong> to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add <code>-R/--hide-reasoning</code> to turn this off.</p> <p><img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &quot;think about the best thing about pelicans&quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly cleve…",
+        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-04",
+      "sourceName": "Simon Willison's Weblog",
+      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-06T12:50:33.891Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
+      "whoShouldCare": [
+        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
+        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
+        "关心长对话日志成本与可回放性的基础设施负责人",
+        "在评估 MCP 生态实际落地形态的架构师"
+      ],
+      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
+      "impactAreas": [
+        "本地优先的智能体工具链",
+        "MCP 生态的落地形态",
+        "长时程对话的日志与成本",
+        "命令行与管道式工作流集成"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
+        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
+        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
+        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
+        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
+        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
+        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
+        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
+      },
+      "followUpQuestions": [
+        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
+        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
+        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "createdAt": "2026-08-05T08:38:57.526Z",
+      "updatedAt": "2026-08-06T12:50:33.891Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "slug": "lfm2-5-encoders",
+      "title": {
+        "original": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
+        "zh": "LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍"
+      },
+      "summary": {
+        "original": "Two new encoder models, LFM2.5-Encoder-230M and 350M: they match larger encoders on GLUE, SuperGLUE and multilingual tasks, handle 8,192-token context, and run about 3.7x faster than ModernBERT-base on CPU at long context.",
+        "zh": "Liquid AI 发布两个开源编码器 LFM2.5-Encoder-230M 与 350M：在 GLUE、SuperGLUE 和多语任务上追平更大的编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它针对的是被生成式模型遮住的那一半生产负载——意图路由、策略检查、PII 识别、文本分类，这些任务整天在跑、大多跑在 CPU 上，且输入越来越长。"
+      },
+      "content": {
+        "original": "Two new encoder models on Hugging Face, built from the LFM2 decoder backbones and converted into bidirectional encoders.",
+        "zh": "## 它解决的是哪一半问题\n\n站内大部分推理信号讨论的是生成式模型怎么跑得起、跑得快。但生产系统里还有另一半负载：**意图路由、安全过滤、策略检查、PII 识别、文本分类**。这些任务不需要生成，需要的是理解一段输入并给出标签——它们整天在跑，通常跑在 CPU 上，而且输入长度在持续变长。\n\n这一类任务的主力一直是编码器模型：BERT 定义了这个门类，ModernBERT 在准确率、速度和上下文长度上又推了一步。LFM2.5-Encoders 是在 LFM2 架构上继续往前的一步，主张是**成本随输入变长而缓慢增长**。\n\n## 三个可直接对照的数字\n\n- **参数量 230M / 350M**：在 GLUE、SuperGLUE 与多语任务上追平或超过更大的编码器\n- **上下文 8,192 token**：延迟随输入变长的增长速度是它的卖点，不只是长度本身\n- **CPU 长上下文快约 3.7 倍**：对照组是 ModernBERT-base\n\n## 怎么造出来的\n\n这一步值得单看：两个编码器不是从零训练的，而是**从对应的 LFM2 解码器骨干初始化**（LFM2.5-230M 与 LFM2.5-350M），再把因果解码器改造成双向编码器：\n\n1. **双向注意力掩码**——每个 token 同时看得到左右两侧，而不只是前面\n2. **非因果短卷积**——对称补齐，让每个 token 的卷积同时混入两侧邻居\n3. **掩码语言建模**——训练时遮蔽 30% 的 token\n\n训练分两段：先在大规模网页语料上以 1,024 token 上下文做通用语言能力，再扩到 8,192 token 做长上下文适配，同时强化事实性、法律与多语能力。\n\n## 什么时候该考虑它\n\n它不与生成式模型竞争，而是替换掉「用大模型做分类」这个常见但昂贵的做法。判断线很直接：如果一项任务的输出是**标签、路由决定或抽取结果**，而不是一段自然语言，那么用编码器几乎总是更便宜；这次的增量是把「输入很长」这个原本会逼你上 GPU 的条件，重新拉回 CPU 可承受的范围。\n\n同一家此前发布过面向多语检索的 LFM2.5-Retrievers；这次是通用编码器，掩码语言目标预训练，所以分类、token 级任务和检索都能在其上微调。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-28",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-encoders",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-on-device",
+        "tag-retrieval"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-a9e80194",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-06T12:50:33.812Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产系统里整天在跑的那一半负载——意图路由、安全过滤、分类、抽取——输出的是标签而不是一段话，用生成式模型做这件事一直是笔糊涂账。这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉：8,192 token 上下文，CPU 上比 ModernBERT-base 快约 3.7 倍。",
+      "whoShouldCare": [
+        "在做意图路由、内容安全过滤或大批量文本分类的工程团队",
+        "需要在没有 GPU 预算的机器上处理文档级输入的人",
+        "正在评估「这项任务到底该不该用大模型」的架构决策者"
+      ],
+      "technicalContext": "两个模型从 LFM2.5-230M / 350M 的解码器骨干初始化，再改造为双向编码器：双向注意力掩码、对称补齐的非因果短卷积、30% 掩码语言建模。训练两段式——先 1,024 token 通用语言能力，再扩到 8,192 token 做长上下文适配。与同厂此前面向多语检索的 LFM2.5-Retrievers 同族，但目标是通用编码器，可在其上微调分类、token 级任务与检索。",
+      "impactAreas": [
+        "无 GPU 环境下的文档级文本处理",
+        "分类 / 路由类任务的单位成本",
+        "长上下文场景的延迟曲线"
+      ],
+      "learningPath": [
+        "先用「模型选型与约束匹配」判断手上这项任务的输出到底是标签还是自然语言",
+        "再用「交互系统中的延迟权衡」看长输入下的延迟增长是否真的是瓶颈",
+        "配合「端侧模型部署与硬件适配」在目标机器上实测首 token 与稳态吞吐，而不是照抄基准数字",
+        "如果要换掉现有的生成式分类方案，用「推理服务容量规划」重算成本"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "这条信号是该条目的一个具体判断案例：输出是标签时，230M 的编码器往往优于任何生成式方案。",
+        "knowledge-latency-tradeoffs": "卖点不是绝对速度而是延迟随输入长度的增长斜率，正是该条目讨论的那条曲线。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "CPU 上的 3.7 倍是基准环境的数字，落到自己的目标机器仍需按该技能的方法实测。",
+        "skill-ws-a9e80194": "把生成式分类换成编码器会改变整条服务的容量与成本模型，需要重算而不是沿用。",
+        "skill-ws-7796779a": "从解码器骨干改造成双向编码器是一种非标准结构，上线前要确认所用推理栈对它的支持处于哪一级。"
+      },
+      "followUpQuestions": [
+        "现在用大模型在做的分类或路由任务，有多少可以换成编码器？",
+        "自己的输入长度分布是否真的落在需要 8,192 token 的区间？",
+        "所用的推理运行时对这种改造过的双向结构支持到哪一级——能加载，还是有性能路径？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "createdAt": "2026-07-30T08:31:01.939Z",
+      "updatedAt": "2026-08-06T12:50:33.812Z",
+      "editorialNotes": [
+        "正文数字（230M/350M、8,192 token、3.7 倍、30% 掩码、两段训练）均取自原文，已逐条核对。",
+        "Hugging Face 源的 RSS 不带 description，正文是直接抓页面读到的——此前三轮把这类条目按「无正文可写」标记已看，这次改为抓取后再判断。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "slug": "lfm2-5-2-6b-on-device-agents",
+      "title": {
+        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
+        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
+        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
+      },
+      "summary": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
+        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
+        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
+      },
+      "content": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
+        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-04",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
+      "sourceLanguage": "en",
+      "translationStatus": "pending",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-84837d46",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-06T12:49:10.845Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
+      "whoShouldCare": [
+        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
+        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
+        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
+      ],
+      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
+      "impactAreas": [
+        "端侧与边缘部署",
+        "智能体工具循环",
+        "推理成本与隐私边界",
+        "后训练方法"
+      ],
+      "learningPath": [
+        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
+        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
+        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
+        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
+        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
+        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
+        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
+        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
+        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
+        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
+        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
+        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
+      },
+      "followUpQuestions": [
+        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
+        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
+        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "createdAt": "2026-08-06T12:45:47.493Z",
+      "updatedAt": "2026-08-06T12:49:10.845Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
       "slug": "chatgpt-work",
@@ -411,116 +742,6 @@
         "tech-mcp",
         "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-      "slug": "llm-0-32-agent-shaped",
-      "title": {
-        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
-        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
-      },
-      "summary": {
-        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
-        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
-      },
-      "content": {
-        "original": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the <code>llm-anthropic</code>, <code>llm-gemini</code>, and <code>llm-openrouter</code> plugins, each with substantial updates of their own.</p> <h4 id=\"headline-features-for-llm-cli-users\">Headline features for LLM CLI users</h4> <p>Running LLM against reasoning models now <strong>displays their reasoning traces</strong> to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add <code>-R/--hide-reasoning</code> to turn this off.</p> <p><img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &quot;think about the best thing about pelicans&quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly cleve…",
-        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-04",
-      "sourceName": "Simon Willison's Weblog",
-      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Simon Willison",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-f741f122",
-        "skill-tool-integration",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-05T08:41:17.285Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
-      "whoShouldCare": [
-        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
-        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
-        "关心长对话日志成本与可回放性的基础设施负责人",
-        "在评估 MCP 生态实际落地形态的架构师"
-      ],
-      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
-      "impactAreas": [
-        "本地优先的智能体工具链",
-        "MCP 生态的落地形态",
-        "长时程对话的日志与成本",
-        "命令行与管道式工作流集成"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
-        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
-        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
-        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
-        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
-        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
-        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
-        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
-      },
-      "followUpQuestions": [
-        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
-        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
-        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-      "createdAt": "2026-08-05T08:38:57.526Z",
-      "updatedAt": "2026-08-05T08:41:17.285Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
       ]
     },
     {
@@ -1046,107 +1267,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
       ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-      "slug": "lfm2-5-encoders",
-      "title": {
-        "original": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
-        "zh": "LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍"
-      },
-      "summary": {
-        "original": "Two new encoder models, LFM2.5-Encoder-230M and 350M: they match larger encoders on GLUE, SuperGLUE and multilingual tasks, handle 8,192-token context, and run about 3.7x faster than ModernBERT-base on CPU at long context.",
-        "zh": "Liquid AI 发布两个开源编码器 LFM2.5-Encoder-230M 与 350M：在 GLUE、SuperGLUE 和多语任务上追平更大的编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它针对的是被生成式模型遮住的那一半生产负载——意图路由、策略检查、PII 识别、文本分类，这些任务整天在跑、大多跑在 CPU 上，且输入越来越长。"
-      },
-      "content": {
-        "original": "Two new encoder models on Hugging Face, built from the LFM2 decoder backbones and converted into bidirectional encoders.",
-        "zh": "## 它解决的是哪一半问题\n\n站内大部分推理信号讨论的是生成式模型怎么跑得起、跑得快。但生产系统里还有另一半负载：**意图路由、安全过滤、策略检查、PII 识别、文本分类**。这些任务不需要生成，需要的是理解一段输入并给出标签——它们整天在跑，通常跑在 CPU 上，而且输入长度在持续变长。\n\n这一类任务的主力一直是编码器模型：BERT 定义了这个门类，ModernBERT 在准确率、速度和上下文长度上又推了一步。LFM2.5-Encoders 是在 LFM2 架构上继续往前的一步，主张是**成本随输入变长而缓慢增长**。\n\n## 三个可直接对照的数字\n\n- **参数量 230M / 350M**：在 GLUE、SuperGLUE 与多语任务上追平或超过更大的编码器\n- **上下文 8,192 token**：延迟随输入变长的增长速度是它的卖点，不只是长度本身\n- **CPU 长上下文快约 3.7 倍**：对照组是 ModernBERT-base\n\n## 怎么造出来的\n\n这一步值得单看：两个编码器不是从零训练的，而是**从对应的 LFM2 解码器骨干初始化**（LFM2.5-230M 与 LFM2.5-350M），再把因果解码器改造成双向编码器：\n\n1. **双向注意力掩码**——每个 token 同时看得到左右两侧，而不只是前面\n2. **非因果短卷积**——对称补齐，让每个 token 的卷积同时混入两侧邻居\n3. **掩码语言建模**——训练时遮蔽 30% 的 token\n\n训练分两段：先在大规模网页语料上以 1,024 token 上下文做通用语言能力，再扩到 8,192 token 做长上下文适配，同时强化事实性、法律与多语能力。\n\n## 什么时候该考虑它\n\n它不与生成式模型竞争，而是替换掉「用大模型做分类」这个常见但昂贵的做法。判断线很直接：如果一项任务的输出是**标签、路由决定或抽取结果**，而不是一段自然语言，那么用编码器几乎总是更便宜；这次的增量是把「输入很长」这个原本会逼你上 GPU 的条件，重新拉回 CPU 可承受的范围。\n\n同一家此前发布过面向多语检索的 LFM2.5-Retrievers；这次是通用编码器，掩码语言目标预训练，所以分类、token 级任务和检索都能在其上微调。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-28",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-encoders",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Liquid AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-on-device",
-        "tag-retrieval"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-a9e80194",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-30T08:34:18.875Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产系统里整天在跑的那一半负载——意图路由、安全过滤、分类、抽取——输出的是标签而不是一段话，用生成式模型做这件事一直是笔糊涂账。这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉：8,192 token 上下文，CPU 上比 ModernBERT-base 快约 3.7 倍。",
-      "whoShouldCare": [
-        "在做意图路由、内容安全过滤或大批量文本分类的工程团队",
-        "需要在没有 GPU 预算的机器上处理文档级输入的人",
-        "正在评估「这项任务到底该不该用大模型」的架构决策者"
-      ],
-      "technicalContext": "两个模型从 LFM2.5-230M / 350M 的解码器骨干初始化，再改造为双向编码器：双向注意力掩码、对称补齐的非因果短卷积、30% 掩码语言建模。训练两段式——先 1,024 token 通用语言能力，再扩到 8,192 token 做长上下文适配。与同厂此前面向多语检索的 LFM2.5-Retrievers 同族，但目标是通用编码器，可在其上微调分类、token 级任务与检索。",
-      "impactAreas": [
-        "无 GPU 环境下的文档级文本处理",
-        "分类 / 路由类任务的单位成本",
-        "长上下文场景的延迟曲线"
-      ],
-      "learningPath": [
-        "先用「模型选型与约束匹配」判断手上这项任务的输出到底是标签还是自然语言",
-        "再用「交互系统中的延迟权衡」看长输入下的延迟增长是否真的是瓶颈",
-        "配合「端侧模型部署与硬件适配」在目标机器上实测首 token 与稳态吞吐，而不是照抄基准数字",
-        "如果要换掉现有的生成式分类方案，用「推理服务容量规划」重算成本"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "这条信号是该条目的一个具体判断案例：输出是标签时，230M 的编码器往往优于任何生成式方案。",
-        "knowledge-latency-tradeoffs": "卖点不是绝对速度而是延迟随输入长度的增长斜率，正是该条目讨论的那条曲线。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "CPU 上的 3.7 倍是基准环境的数字，落到自己的目标机器仍需按该技能的方法实测。",
-        "skill-ws-a9e80194": "把生成式分类换成编码器会改变整条服务的容量与成本模型，需要重算而不是沿用。",
-        "skill-ws-7796779a": "从解码器骨干改造成双向编码器是一种非标准结构，上线前要确认所用推理栈对它的支持处于哪一级。"
-      },
-      "followUpQuestions": [
-        "现在用大模型在做的分类或路由任务，有多少可以换成编码器？",
-        "自己的输入长度分布是否真的落在需要 8,192 token 的区间？",
-        "所用的推理运行时对这种改造过的双向结构支持到哪一级——能加载，还是有性能路径？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-      "createdAt": "2026-07-30T08:31:01.939Z",
-      "updatedAt": "2026-07-30T08:34:18.875Z",
-      "editorialNotes": [
-        "正文数字（230M/350M、8,192 token、3.7 倍、30% 掩码、两段训练）均取自原文，已逐条核对。",
-        "Hugging Face 源的 RSS 不带 description，正文是直接抓页面读到的——此前三轮把这类条目按「无正文可写」标记已看，这次改为抓取后再判断。"
-      ],
-      "relatedTechnologyIds": []
     },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
