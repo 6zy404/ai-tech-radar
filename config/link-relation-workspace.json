@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T12:51:35.385Z",
+  "updatedAt": "2026-08-06T14:21:10.919Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2286,6 +2286,24 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "同一道题的两端：那条讲工具循环往供应商侧收拢，这条把足以驱动循环的模型压进本机。"
+    },
+    {
+      "id": "rel-ws-6ffa5263",
+      "fromId": "knowledge-feedback-loops",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "换上更好的工具反而更差、改指令才有效——值得学的是他们分辨得出是哪一个改动起了作用。"
+    },
+    {
+      "id": "rel-ws-f7e568ae",
+      "fromId": "knowledge-feedback-loops",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "把一次内部尝试交付成四条经验加三件开源工件，而不是只有当事人记得的教训。"
     }
   ]
 }
