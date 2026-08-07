@@ -220,15 +220,30 @@ the middleware-location section above before going any further.
 - `IMPORT_FETCH_RETRY_DELAY_MS`: base backoff between attempts (default `800`,
   multiplied by the attempt number).
 
-> **The importer does not use an HTTP proxy.** Node's global `fetch` (undici)
-> ignores `HTTP_PROXY` / `HTTPS_PROXY`, so the app always connects directly
-> even when the shell's `curl` reaches the same host through a proxy. On a
-> machine where a source host is only reachable via a proxy, every import of
-> that source will fail with `fetch failed` (undici's connect timeout is
-> ~10s), and retries will not help — they take the same blocked path. This
-> was diagnosed on 2026-07-28 against three `github.com` release feeds.
-> Making the importer proxy-aware needs an explicit dispatcher (the `undici`
-> package's `ProxyAgent`), which is a dependency decision, not a config one.
+> **The importer does not use an HTTP proxy by default.** Node's global
+> `fetch` (undici) ignores `HTTP_PROXY` / `HTTPS_PROXY`, so the app connects
+> directly even when the shell's `curl` reaches the same host through a proxy.
+> On a machine where a source host is only reachable via a proxy, every import
+> of that source fails with `fetch failed` (undici's connect timeout is ~10s),
+> and retries do not help — they take the same blocked path. Diagnosed
+> 2026-07-28 against three `github.com` release feeds, and still reproducing
+> on 2026-08-07: the same minute, `curl` returned **200 in 3.27s** while a
+> plain `node -e "fetch(...)"` failed **12 of 13 attempts**, and the scheduled
+> import came back `partial` with exactly those three sources failed.
+>
+> **On Node 24 this is fixable without a dependency.** Setting
+> `NODE_USE_ENV_PROXY=1` makes the built-in fetch honour the proxy environment
+> variables; measured 2026-08-07, all three previously failing feeds returned
+> 200 (929ms / 532ms / 1004ms). Two caveats before turning it on:
+>
+> - it is **experimental** in Node 24, so pin the Node version if you rely on it;
+> - it applies to **every** outbound request the process makes, including the
+>   LLM provider and delivery webhooks — not just the importer. If the proxy
+>   should not see those, use a per-request dispatcher instead, which does
+>   need the `undici` package's `ProxyAgent` and is then a dependency decision.
+>
+> The earlier note here said the dependency was the only route. That predated
+> the flag and was wrong from Node 24 onwards.
 
 - `DELIVERY_WEBHOOK_ENDPOINT`: optional operator reference for generic webhook setup.
 - `FEISHU_WEBHOOK_ENDPOINT`: optional operator reference for Feishu webhook setup.

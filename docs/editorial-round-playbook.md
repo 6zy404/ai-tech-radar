@@ -361,18 +361,37 @@ article returns **200 with the full body**, so two title-only candidates that
 looked unwritable were read in full and one of them became that day's signal.
 The current per-source picture, all measured rather than assumed:
 
-| host                | plain `fetch`  | practical consequence                 |
-| ------------------- | -------------- | ------------------------------------- |
-| `hf-mirror.com`     | 200            | read the page, never the feed summary |
-| `deepmind.google`   | 200            | same                                  |
-| `github.blog`       | 200            | same                                  |
-| `simonwillison.net` | 200            | same                                  |
-| `openai.com`        | **403**        | one RSS sentence is all there is      |
-| `blog.google`       | `fetch failed` | same                                  |
+| host                | plain `fetch`       | practical consequence                    |
+| ------------------- | ------------------- | ---------------------------------------- |
+| `hf-mirror.com`     | 200                 | read the page, never the feed summary    |
+| `deepmind.google`   | 200                 | same                                     |
+| `github.blog`       | 200                 | same                                     |
+| `simonwillison.net` | 200                 | same                                     |
+| `blog.google`       | 200                 | same — **changed 2026-08-07, see below** |
+| `openai.com`        | **403**             | one RSS sentence is all there is         |
+| `github.com`        | **fails ~12 of 13** | needs the proxy flag — see below         |
 
-All six were measured together on 2026-08-04 with a plain
-`node -e "fetch(url)"`; re-measure rather than trusting the table if a source
-suddenly looks thin.
+Measured on 2026-08-04 and **re-measured 2026-08-07**; re-measure rather than
+trusting the table if a source suddenly looks thin. Two rows changed in that
+second measurement, and both change what a round can do:
+
+- **`blog.google` is reachable now** (200, 365KB on an article page). This
+  file previously recorded it as `fetch failed`, which is why Google-blog
+  candidates were repeatedly marked reviewed as "thin, nothing to write from".
+  **That reason no longer holds** — fetch the page like any other source.
+- **`github.com` is the one that now fails**, and it is not GitHub being down.
+  Measured the same minute: `curl` (which honours the proxy environment)
+  returns **200 in 3.27s**, while Node's global `fetch` failed **12 of 13
+  attempts**. This is the 2026-07-28 finding — undici ignores `HTTPS_PROXY` —
+  and it is why the three GitHub release feeds (Ollama, vLLM, MCP Servers)
+  fail on a scheduled run while the other seven sources succeed.
+- **The fix needs no new dependency on Node 24.** Running the importer with
+  `NODE_USE_ENV_PROXY=1` made all three feeds return 200 immediately
+  (929ms / 532ms / 1004ms). The 2026-07-28 note that this requires adding
+  undici's `ProxyAgent` predates that flag. It is experimental in Node 24 and
+  changes proxying for **every** outbound request the app makes, including the
+  LLM provider, so it is a deployment decision rather than a code fix — see
+  [`docs/deployment.md`](deployment.md).
 
 **Since 2026-07-28 this check runs for you.** The `already_published`
 (已发布过) candidate quality flag compares each candidate against the
