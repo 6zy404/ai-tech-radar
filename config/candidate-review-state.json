@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T12:45:47.495Z",
+  "updatedAt": "2026-08-07T11:14:30.242Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -582,6 +582,30 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-06T12:45:47.495Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
+    },
+    "candidate-rss-https-github-blog-p-98013": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-07T11:14:30.004Z"
+    },
+    "candidate-rss-https-openai-com-index-openai-and-apa-partner-to-advance-responsible-ai": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-07T11:14:30.058Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-07T11:14:30.105Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-baseten": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-07T11:14:30.154Z"
+    },
+    "candidate-rss-https-openai-com-index-improving-gpt-5-6-sol-in-chatgpt": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-07T11:14:30.198Z"
+    },
+    "candidate-rss-https-openai-com-index-how-the-world-is-putting-chatgpt-to-work": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-07T11:14:30.242Z"
     }
   }
 }
