@@ -1,6 +1,224 @@
 {
-  "updatedAt": "2026-08-06T14:32:47.475Z",
+  "updatedAt": "2026-08-07T08:30:32.994Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "slug": "mcp-2-0-stateless-spec",
+      "title": {
+        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
+        "zh": "MCP 2.0：协议核心改为无状态"
+      },
+      "summary": {
+        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
+        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
+      },
+      "content": {
+        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
+        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
+      },
+      "type": "protocol",
+      "publishDate": "2026-07-31",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-c183c9b9"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-07T08:30:32.994Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
+      "whoShouldCare": [
+        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
+        "在网关或 API 层做路由与鉴权的基础设施工程师",
+        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
+      ],
+      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
+      "impactAreas": [
+        "智能体工具接入",
+        "推理服务部署",
+        "网关与鉴权"
+      ],
+      "learningPath": [],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
+        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
+        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
+        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
+        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
+      },
+      "followUpQuestions": [
+        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
+        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
+        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "createdAt": "2026-08-01T15:40:23.257Z",
+      "updatedAt": "2026-08-07T08:30:32.994Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "slug": "lfm2-5-2-6b-on-device-agents",
+      "title": {
+        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
+        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
+        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
+      },
+      "summary": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
+        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
+        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
+      },
+      "content": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
+        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-04",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-84837d46",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-07T08:30:32.929Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
+      "whoShouldCare": [
+        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
+        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
+        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
+      ],
+      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
+      "impactAreas": [
+        "端侧与边缘部署",
+        "智能体工具循环",
+        "推理成本与隐私边界",
+        "后训练方法"
+      ],
+      "learningPath": [
+        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
+        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
+        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
+        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
+        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
+        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
+        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
+        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
+        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
+        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
+        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
+        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
+      },
+      "followUpQuestions": [
+        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
+        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
+        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "createdAt": "2026-08-06T12:45:47.493Z",
+      "updatedAt": "2026-08-07T08:30:32.929Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
       "slug": "chatgpt-work",
@@ -525,123 +743,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "slug": "lfm2-5-2-6b-on-device-agents",
-      "title": {
-        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
-        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
-        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
-      },
-      "summary": {
-        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
-        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
-        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
-      },
-      "content": {
-        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
-        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
-      },
-      "type": "model",
-      "publishDate": "2026-08-04",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
-      "sourceLanguage": "en",
-      "translationStatus": "pending",
-      "publisherName": "Liquid AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-tool-use",
-        "knowledge-ws-e251051e",
-        "knowledge-latency-tradeoffs",
-        "knowledge-ws-c761533e"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-84837d46",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-06T12:49:10.845Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
-      "whoShouldCare": [
-        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
-        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
-        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
-      ],
-      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
-      "impactAreas": [
-        "端侧与边缘部署",
-        "智能体工具循环",
-        "推理成本与隐私边界",
-        "后训练方法"
-      ],
-      "learningPath": [
-        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
-        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
-        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
-        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
-        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
-        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
-        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
-        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
-        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
-        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
-        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
-        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
-      },
-      "followUpQuestions": [
-        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
-        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
-        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "createdAt": "2026-08-06T12:45:47.493Z",
-      "updatedAt": "2026-08-06T12:49:10.845Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "slug": "gemini-managed-agents-background-mcp",
       "title": {
@@ -844,107 +945,6 @@
         "Companion M365 Copilot adoption announcement folded in as context (its candidate marked reviewed, not published separately)."
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "slug": "mcp-2-0-stateless-spec",
-      "title": {
-        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
-        "zh": "MCP 2.0：协议核心改为无状态"
-      },
-      "summary": {
-        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
-        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
-      },
-      "content": {
-        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
-        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
-      },
-      "type": "protocol",
-      "publishDate": "2026-07-31",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
-      "sourceLanguage": "en",
-      "translationStatus": "pending",
-      "publisherName": "Simon Willison",
-      "publisherType": "startup",
-      "importanceLevel": "critical",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-c183c9b9"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为关键重要性，直接归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-05T08:42:07.636Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
-      "whoShouldCare": [
-        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
-        "在网关或 API 层做路由与鉴权的基础设施工程师",
-        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
-      ],
-      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
-      "impactAreas": [
-        "智能体工具接入",
-        "推理服务部署",
-        "网关与鉴权"
-      ],
-      "learningPath": [],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
-        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
-        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
-        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
-        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
-      },
-      "followUpQuestions": [
-        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
-        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
-        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "createdAt": "2026-08-01T15:40:23.257Z",
-      "updatedAt": "2026-08-05T08:42:07.636Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
       ]
     },

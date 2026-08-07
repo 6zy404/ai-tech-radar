@@ -76,8 +76,8 @@ The product is split into two subsystems:
   2026-07-29 by connecting the already-written `getPublisherTypeLabel` and one
   optional `SourceReference` prop. `translationStatus` was measured in the same
   pass and deliberately **not** rendered: the derived translation coverage is
-  `full` for all 31 published signals, so any badge would be a constant — see
-  `docs/data-model.md` → `TechnologyItem`.
+  `full` for **every** published signal (re-measured 2026-08-07 at n=37), so
+  any badge would be a constant — see `docs/data-model.md` → `TechnologyItem`.
 - **Version evolution line** — a 版本脉络 section on the technology detail page
   showing where the signal you are reading sits in its release line. Built only
   from explicit `supersedes` (续作) relations between published technologies —

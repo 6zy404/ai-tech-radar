@@ -790,12 +790,14 @@ two fields showed they are not the same kind of thing:
 - **`publisherType` is rendered.** It reaches the reader as a hairline chip in
   the technology detail page's source row (`SourceReference`'s optional
   `publisherTypeLabel` prop, filled by the previously unused
-  `getPublisherTypeLabel`). It carries real signal: across the 31 published
-  signals the distribution is big-tech 12 / startup 9 / open-source-community 6
-  / research-lab 2 / media 2, and "this came from a vendor announcement vs. an
-  open-source release vs. a research lab" changes how a reader calibrates the
-  claim. In `original` reading mode it renders the raw enum, matching what
-  `getTechnologyTypeLabel` already does for the hero's type line.
+  `getPublisherTypeLabel`). It carries real signal: the distribution stays
+  spread across all five values as the pool grows — big-tech 12 / startup 9 /
+  open-source-community 6 / research-lab 2 / media 2 at n=31 on 2026-07-29,
+  and big-tech 13 / startup 12 / open-source-community 8 / research-lab 2 /
+  media 2 at n=37 on 2026-08-07 — and "this came from a vendor announcement
+  vs. an open-source release vs. a research lab" changes how a reader
+  calibrates the claim. In `original` reading mode it renders the raw enum,
+  matching what `getTechnologyTypeLabel` already does for the hero's type line.
 - **`translationStatus` is not rendered, and is workspace bookkeeping.** Two
   measurements decided this. First, the stored value **had drifted**: 6 of the
   31 published signals said `pending` while carrying a complete Chinese title,
@@ -803,12 +805,23 @@ two fields showed they are not the same kind of thing:
   2026-07-29), so rendering the stored field would have shown readers a false
   claim. Second, the truthful alternative — the derived
   `getTechnologyTranslationCoverage`, which computes coverage from the content
-  actually present — currently returns `full` for **all 31**, so a badge built
-  on it would print an identical sentence on every page. That is decoration
-  with no signal, the same failure mode the design system already rejected for
-  content-kind card spines. The field stays in the type (it is required, and
-  editors do use it), but no public surface reads it; treat it as workspace
-  state whose value should track the derived coverage.
+  actually present — returns `full` for **every** published signal (re-measured
+  2026-08-07 at n=37, in both the `preview` and `detail` contexts), so a badge
+  built on it would print an identical sentence on every page. That is
+  decoration with no signal, the same failure mode the design system already
+  rejected for content-kind card spines. The field stays in the type (it is
+  required, and editors do use it), but no public surface reads it; treat it as
+  workspace state whose value should track the derived coverage.
+
+  **The drift recurs, and nothing in the workflow prevents it.** A
+  consistency sweep on 2026-08-07 found the same defect back on **2 of 37**
+  records — `lfm2-5-2-6b-on-device-agents` (published the day before) and
+  `mcp-2-0-stateless-spec` — both saying `pending` while fully translated;
+  both corrected. Nothing sets this field automatically, and the publish gate
+  does not check it against the derived coverage, so a record acquires its
+  Chinese content without the flag ever being updated. **Re-measure it in any
+  consistency pass**, or close the loop by having the publish gate warn when
+  the stored value disagrees with `getTechnologyTranslationCoverage`.
 
 The already-built but still unwired `TechnologyLanguageIndicators` component
 and the `languageStateLabel` copy key are the leftovers of the rejected
