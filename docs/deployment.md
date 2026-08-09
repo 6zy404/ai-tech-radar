@@ -445,6 +445,57 @@ finished in under a millisecond having done exactly that.
 Roll back with
 `Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Trigger $task.Triggers[0]`.
 
+#### Not every missed run was sleep — 17% were killed by Ctrl+C (2026-08-09)
+
+**The sleep explanation above is correct for 07-31, 08-02 and 08-04 and was
+then over-applied.** 08-08 was written up as another sleep day without being
+checked. It was not. The Task Scheduler history enabled on 08-04 finally had
+something to say, and it says the opposite:
+
+| 08-08 08:05:01 | `id=107` time trigger fired, `id=129` process started                         |
+| -------------- | ----------------------------------------------------------------------------- |
+| 08-08 08:05:03 | finished, return code **3221225786** = `0xC000013A` = `STATUS_CONTROL_C_EXIT` |
+
+The machine was awake, the task fired on time, and the process was killed two
+seconds in. `config/task-runner-cron.log` shows npm's banner and then a bare
+`^C^C` where the run should be.
+
+**It had happened before.** Across the whole log, **5 of 29 npm invocations
+(17%) never reached the runner** — four leaving a literal `^C^C`, three of
+those with cmd's `终止批处理操作吗(Y/N)?` prompt still attached, and one dying
+silently.
+
+**Root cause was the task's own principal**: `LogonType: Interactive` with
+`Hidden: False`. The task ran inside the operator's interactive session with a
+visible console window, and that console receives `CTRL_C_EVENT` /
+`CTRL_CLOSE_EVENT` — closing the window, a disconnecting session, or a stray
+keystroke all kill the run. `ExecutionTimeLimit` is 72 hours, so a timeout is
+ruled out by the two-second death.
+
+**Fix — run it without a console at all:**
+
+```powershell
+$p = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType S4U -RunLevel Limited
+Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Principal $p
+```
+
+S4U runs in a background session with no interactive console, so there is no
+window to close and no dependency on anyone being logged on. Verified by
+triggering the real task: **exit code 0**, the runner reached and logged
+normally, no `^C`, and the not-due branches reported correctly so nothing was
+re-imported. Triggers, `StartWhenAvailable` and the proxy variables are
+untouched.
+
+Roll back with
+`Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Principal (New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Limited)`.
+
+**The method note matters more than the fix.** Two readings disagreed during
+this investigation and both were technically right: `cat -A` showed `^C^C`,
+while a byte scan reported **zero** control characters in the file. The file
+contains no control bytes — `cmd.exe` writes the caret notation as **literal
+text**. The wrong step was concluding "no Ctrl-C" from the byte scan instead
+of asking why the two disagreed.
+
 Other notes:
 
 - Schedule the Windows task a few minutes **after** the configured import time

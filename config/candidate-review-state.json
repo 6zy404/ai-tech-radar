@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-09T10:21:39.267Z",
+  "updatedAt": "2026-08-09T11:46:31.459Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -628,6 +628,10 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-09T10:21:39.267Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-09T11:46:31.459Z"
     }
   }
 }
