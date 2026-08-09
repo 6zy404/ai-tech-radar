@@ -385,13 +385,22 @@ second measurement, and both change what a round can do:
   attempts**. This is the 2026-07-28 finding — undici ignores `HTTPS_PROXY` —
   and it is why the three GitHub release feeds (Ollama, vLLM, MCP Servers)
   fail on a scheduled run while the other seven sources succeed.
-- **The fix needs no new dependency on Node 24.** Running the importer with
-  `NODE_USE_ENV_PROXY=1` made all three feeds return 200 immediately
-  (929ms / 532ms / 1004ms). The 2026-07-28 note that this requires adding
-  undici's `ProxyAgent` predates that flag. It is experimental in Node 24 and
-  changes proxying for **every** outbound request the app makes, including the
-  LLM provider, so it is a deployment decision rather than a code fix — see
+- **Fixed on 2026-08-09, and the fix needed no new dependency.** The scheduled
+  task now runs with `NODE_USE_ENV_PROXY=1`, which makes Node 24's built-in
+  fetch honour the proxy. Verified end to end: **10/10 sources in 12 seconds**,
+  against 6/10 in 137 seconds before.
+- **But the proxy is not transparent, and that is the part to remember.** With
+  the flag alone the import goes to 9/10 — the new failure is
+  **`hf-mirror.com`**, which through the proxy returns **200 with `text/html`
+  and 3,736 bytes** (an interception page) where a direct connection returns
+  **200 with `application/rss+xml` and 243,285 bytes**. It is a
+  successful-looking wrong response; the parser rejected it, which is the only
+  reason it was visible. `hf-mirror.com` is therefore excluded via `NO_PROXY`.
+  Full table, rollback command and caveats in
   [`docs/deployment.md`](deployment.md).
+- **If a source suddenly looks empty or unparseable rather than unreachable,
+  suspect the proxy before the source.** A 200 that is the wrong document does
+  not look like a failure anywhere in the import logs except at the parser.
 
 **Since 2026-07-28 this check runs for you.** The `already_published`
 (已发布过) candidate quality flag compares each candidate against the

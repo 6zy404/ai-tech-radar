@@ -231,19 +231,63 @@ the middleware-location section above before going any further.
 > plain `node -e "fetch(...)"` failed **12 of 13 attempts**, and the scheduled
 > import came back `partial` with exactly those three sources failed.
 >
-> **On Node 24 this is fixable without a dependency.** Setting
-> `NODE_USE_ENV_PROXY=1` makes the built-in fetch honour the proxy environment
-> variables; measured 2026-08-07, all three previously failing feeds returned
-> 200 (929ms / 532ms / 1004ms). Two caveats before turning it on:
+> **On Node 24 this is fixable without a dependency, and it is now enabled on
+> this machine's scheduled task** (2026-08-09). `NODE_USE_ENV_PROXY=1` makes
+> the built-in fetch honour the proxy environment variables. The earlier note
+> here said the `undici` package's `ProxyAgent` was the only route; that
+> predated the flag and was wrong from Node 24 onwards.
 >
-> - it is **experimental** in Node 24, so pin the Node version if you rely on it;
-> - it applies to **every** outbound request the process makes, including the
->   LLM provider and delivery webhooks — not just the importer. If the proxy
->   should not see those, use a per-request dispatcher instead, which does
->   need the `undici` package's `ProxyAgent` and is then a dependency decision.
+> **The proxy is not transparent, so the flag alone is not the right setting.**
+> Measured over three full batch imports against the real ten sources, each
+> from an identical baseline in an isolated `LOCAL_DATA_DIR`:
 >
-> The earlier note here said the dependency was the only route. That predated
-> the flag and was wrong from Node 24 onwards.
+> | configuration                        | sources OK  | elapsed | what failed                     |
+> | ------------------------------------ | ----------- | ------- | ------------------------------- |
+> | no flag (the old default)            | **6 / 10**  | 137s    | 3 GitHub feeds + Google AI Blog |
+> | `NODE_USE_ENV_PROXY=1`               | **9 / 10**  | 7–14s   | **Hugging Face Blog**           |
+> | flag + `hf-mirror.com` in `NO_PROXY` | **10 / 10** | 6–7s    | nothing                         |
+>
+> The middle row is the finding worth keeping. Through the proxy,
+> `hf-mirror.com/blog/feed.xml` returns **200 with `text/html` and 3,736
+> bytes** — a Chinese-language interception page — where a direct connection
+> returns **200 with `application/rss+xml` and 243,285 bytes** of real RSS.
+> **It is a successful-looking wrong response, not a transport error.** The
+> importer's parser rejected it ("不支持的订阅源格式"), which is why it was
+> visible at all; a more permissive parser would have ingested the page.
+> `hf-mirror.com` is one of this project's most productive sources, so it is
+> excluded from the proxy rather than the flag being abandoned.
+>
+> The scheduled task therefore runs with both variables:
+>
+> ```text
+> cmd /c cd /d C:\Users\Administrator\ai-tech-radar && set NODE_USE_ENV_PROXY=1 && set NO_PROXY=localhost,127.0.0.1,::1,.local,hf-mirror.com && npm run tasks:run-once >> config\task-runner-cron.log 2>&1
+> ```
+>
+> Verified end to end on 2026-08-09 by triggering the real task: exit code 0,
+> **10/10 sources succeeded in 12 seconds** against 137 seconds before, and
+> `nextRunAt` advanced normally so the run is not repeated.
+>
+> **Rollback** — restore the original single-command action:
+>
+> ```powershell
+> $a = New-ScheduledTaskAction -Execute 'cmd' -Argument '/c cd /d C:\Users\Administrator\ai-tech-radar && npm run tasks:run-once >> config\task-runner-cron.log 2>&1'
+> Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Action $a
+> ```
+>
+> Remaining caveats:
+>
+> - `NODE_USE_ENV_PROXY` is **experimental** in Node 24 and `package.json`
+>   pins only a lower bound, so a Node upgrade could change this. The failure
+>   mode is mild — back to 6/10.
+> - The variables are on the **scheduled task only**, so the web server still
+>   connects directly: a manual single-source import from the workspace UI
+>   will still fail for the GitHub feeds. The task runner's own outbound
+>   surface is the importer plus delivery webhooks; the LLM provider is not on
+>   that path, so it is unaffected by this setting.
+> - **One measurement was not enough.** The first flagged batch run returned
+>   **0/10** and would have produced the opposite recommendation. The proxy was
+>   verified alive, concurrency and request options were each ruled out, and
+>   two re-runs both gave 9/10 — the first result was transient.
 
 - `DELIVERY_WEBHOOK_ENDPOINT`: optional operator reference for generic webhook setup.
 - `FEISHU_WEBHOOK_ENDPOINT`: optional operator reference for Feishu webhook setup.

@@ -12,6 +12,43 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The proxy fix, and the source it quietly broke
+
+- **The scheduled import goes from 6/10 to 10/10, and from 137 seconds to 12**
+  — 2026-08-09, owner-decided after a measured comparison. Node 24's
+  `NODE_USE_ENV_PROXY=1` makes the built-in fetch honour the proxy the shell
+  has always used, so the three `github.com` release feeds stop failing. **No
+  new dependency**; the standing note that this required undici's
+  `ProxyAgent` predated the flag.
+- **The flag alone is the wrong setting, and finding out why is the entry.**
+  With it, the import reaches 9/10 — and the new failure is **`hf-mirror.com`,
+  one of this project's most productive sources**. Through the proxy that feed
+  returns **200 with `text/html` and 3,736 bytes** — a Chinese-language
+  interception page — where a direct connection returns **200 with
+  `application/rss+xml` and 243,285 bytes** of real RSS.
+- **That is a successful-looking wrong response, not a transport error.** The
+  importer's parser rejected it (`不支持的订阅源格式`), which is the only
+  reason it surfaced at all; a more permissive parser would have ingested the
+  page as content. So `hf-mirror.com` is excluded via `NO_PROXY` rather than
+  the flag being abandoned — **10/10 in 6–7 seconds**, reproduced twice.
+- **One measurement was not enough, and the first one pointed the wrong way.**
+  The first flagged batch run came back **0/10** and would have produced the
+  opposite recommendation. Before concluding: the proxy was verified alive
+  (port listening, `curl` 200), a single URL was re-tested with and without the
+  flag (200 in 475ms vs failure), **concurrency was ruled out** (10 parallel
+  fetches through the proxy, 10/10 in 3.5s), and the importer's exact request
+  options — custom headers, `cache: "no-store"` — were each ruled out. Two
+  re-runs then both gave 9/10. The first result was transient.
+- Every run used an **isolated `LOCAL_DATA_DIR` seeded from a copy of the real
+  config**, so five full batch imports against the live sources wrote nothing
+  to the store — confirmed by `git status` before and after.
+- Applied to the Windows scheduled task only, so the web server still connects
+  directly and a manual single-source import from the workspace UI will still
+  fail for the GitHub feeds. Verified end to end by triggering the real task:
+  **exit code 0, 10/10, `nextRunAt` advanced normally**. Rollback command,
+  the full comparison table and the experimental-flag caveat are in
+  [`docs/deployment.md`](docs/deployment.md).
+
 ## Two loops closed, and one of them caught the same defect an hour later
 
 - **Both fixes came out of the 2026-08-07 sweep, and both had already fired for
