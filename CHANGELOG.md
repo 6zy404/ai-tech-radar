@@ -12,6 +12,44 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Two loops closed, and one of them caught the same defect an hour later
+
+- **Both fixes came out of the 2026-08-07 sweep, and both had already fired for
+  real** — 2026-08-09. Neither is speculative hardening.
+- **The publish gate now checks `translationStatus` against the derived
+  coverage**, in both directions. Nothing set that field automatically and
+  nothing compared it to reality, so it drifted twice: **6 of 31 records in
+  July, 2 of 37 in August**, one of them published the day before it was
+  noticed.
+- **The check proved itself immediately.** Run against the real store it
+  flagged **exactly the two signals published earlier the same day** — both
+  left at `pending` by candidate conversion, and never corrected because the
+  PATCH that wrote their bodies never touched the field. That is the same
+  mechanism, caught within the hour instead of two weeks later. Both
+  corrected; the gate reports **0 of 31**.
+- **Five tests pin it**: fully translated but flagged `pending`, the flag
+  matching the content, the reverse direction (`done` without the content), a
+  Chinese-source record where coverage is `not_needed`, and the default
+  fixture — so the check adds **no noise** to records that were already clean.
+  Verified by removing both branches: **exactly 2 tests fail**, and the
+  injection was confirmed to have actually changed the file before the result
+  was believed.
+- **The digest editorial summary now renders through `ContentBody`**, like
+  every other long-form body on the site. It was a bare `<p>`, so a summary
+  written with the same Markdown subset used everywhere else **shipped its
+  `**` markers to readers verbatim** — hit on the 08-07 digest and fixed there
+  in the content, which left the foot-gun in place for the next round.
+- **Beyond the marker fix it also splits paragraphs.** The 08-09 summary now
+  renders as **4 blocks instead of one wall of text**, and so does every
+  earlier digest that used blank lines.
+- Verified: **all 17 published digests** render the panel through
+  `ContentBody` with zero literal markers and no regression, the workspace
+  preview route does too — that shell has no `.dossier` ancestor and is
+  exactly where this component broke on 2026-07-14 — plus zero horizontal
+  overflow, typecheck, lint, format, vitest **208/208** and
+  `validate:publishing` / `digest` / `persistence` / `ranking` /
+  `workspace-boundary` / `content-intelligence` / `database`.
+
 ## Editorial round — the third layer of the intrusion story
 
 - **Five candidates, two signals** — 2026-08-09. The 08-08 run was missed
