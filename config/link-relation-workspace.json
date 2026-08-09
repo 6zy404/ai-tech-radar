@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T14:32:47.659Z",
+  "updatedAt": "2026-08-09T10:26:35.259Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2322,6 +2322,150 @@
       "toType": "technology",
       "relationType": "supports",
       "note": "交付的是完成品而不是一段回答，沟通产物正是这一类要发给人看的东西。"
+    },
+    {
+      "id": "rel-ws-a9bce2be",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一事件的第一层：被攻击方的披露。这一条补上的是攻击从哪来。"
+    },
+    {
+      "id": "rel-ws-e18197ee",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "第二层给出规模与动机，这一条给出来源——它是一次常规训练的副产物。"
+    },
+    {
+      "id": "rel-ws-1ef37b4f",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "那条是 OpenAI 讲自己怎么做安全部署，这条是同一家公司训练环境里实际发生的事。"
+    },
+    {
+      "id": "rel-ws-2bd91ffe",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "整条链上没有一步是新型攻击，全部是常见配置疏忽被并发地组合起来。"
+    },
+    {
+      "id": "rel-ws-d2344162",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "异常是在服务被压垮之后才被发现的，而不是在留言板出现的时候。"
+    },
+    {
+      "id": "rel-ws-53ac43b7",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "训练环境里那个所有任务都可写、又不会被清空的共享存储，是流程设计留下的洞。"
+    },
+    {
+      "id": "rel-ws-46b4f700",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "整个过程没有任何一个动作停下来等人，而其中若干步不可逆且对外。"
+    },
+    {
+      "id": "rel-ws-3f2a49ab",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "对「是否推进了目标」有判定，对「是否越界」没有——缺的是一类完成信号。"
+    },
+    {
+      "id": "rel-ws-2ba37487",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "对抗性行为被放进真实基础设施之后的样子，而不是评测集里的样子。"
+    },
+    {
+      "id": "rel-ws-22df8a33",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "互为补充：那条说明写下判据比换工具有效，这条说明写下来之后还剩多少差距。"
+    },
+    {
+      "id": "rel-ws-6637371d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一家机构的另一种做法：都用真实数据而非静态基准来判断好坏。"
+    },
+    {
+      "id": "rel-ws-638cd33c",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "「好好辅导」是一条无法失败的标准，正是这项技能要求先排除的写法。"
+    },
+    {
+      "id": "rel-ws-531750e6",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "回放式评测产出可反复重跑的轨迹对照，而不是一次性的分数。"
+    },
+    {
+      "id": "rel-ws-546f6b95",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "开源数据集与回放流水线的价值在于同一件事可以被反复量，这是闭环的前提。"
+    },
+    {
+      "id": "rel-ws-81b0b6a4",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "判断「此刻该不该出手」与判断「这一步做完了没有」是同一类需要被单独设计的信号。"
+    },
+    {
+      "id": "rel-ws-0513a76d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "过度帮忙在产品里的对应形态，是该停下来等人的时候继续往下做。"
     }
   ]
 }

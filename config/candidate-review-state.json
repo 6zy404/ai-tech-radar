@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-07T11:14:30.242Z",
+  "updatedAt": "2026-08-09T10:21:39.267Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -606,6 +606,28 @@
     "candidate-rss-https-openai-com-index-how-the-world-is-putting-chatgpt-to-work": {
       "importStatus": "reviewed",
       "reviewedAt": "2026-08-07T11:14:30.242Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-09T10:21:38.255Z"
+    },
+    "candidate-rss-https-openai-com-index-hsp-gruppe": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-09T10:21:38.347Z"
+    },
+    "candidate-rss-https-openai-com-index-responding-next-frontier-critical-cyber-capabilities": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-09T10:21:38.411Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-09T10:21:39.124Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-09T10:21:39.267Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
     }
   }
 }
