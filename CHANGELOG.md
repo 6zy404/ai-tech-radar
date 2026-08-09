@@ -12,6 +12,40 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Not every missed run was sleep — 17% were killed by Ctrl+C
+
+- **A wrong explanation had been reused four times, and checking it took one
+  query** — 2026-08-09. The 2026-08-04 investigation genuinely found sleep
+  behind the 07-31 / 08-02 / 08-04 misses, with kernel power evidence. **That
+  explanation was then applied to 08-08 without being checked.** It was wrong.
+- **The Task Scheduler history enabled on 08-04 finally had something to say.**
+  On 08-08 the task **fired on time at 08:05:01** and **finished two seconds
+  later with return code 3221225786** — `0xC000013A`, `STATUS_CONTROL_C_EXIT`.
+  The machine was awake. `config/task-runner-cron.log` shows npm's banner and
+  then a bare **`^C^C`** where the run should be.
+- **It had happened before.** Across the whole log, **5 of 29 npm invocations
+  (17%) never reached the runner** — four leaving a literal `^C^C`, three of
+  those with cmd's `终止批处理操作吗(Y/N)?` prompt still attached, one dying
+  silently.
+- **The root cause was the task's own principal**, not the machine:
+  `LogonType: Interactive` with `Hidden: False`, so the run lived inside the
+  operator's interactive session with a visible console — and a console
+  receives `CTRL_C_EVENT` / `CTRL_CLOSE_EVENT`. Closing the window, a
+  disconnecting session or a stray keystroke kills it. `ExecutionTimeLimit` is
+  72 hours, so the two-second death rules out a timeout.
+- **Fixed by removing the console**: the principal is now `S4U`, which runs in
+  a background session with no interactive console and no dependency on anyone
+  being logged on. Verified by triggering the real task — **exit code 0**, the
+  runner reached and logged normally, no `^C`, and the not-due branches
+  reported correctly so nothing was re-imported. Triggers,
+  `StartWhenAvailable` and the proxy variables are untouched; rollback command
+  is in [`docs/deployment.md`](docs/deployment.md).
+- **The method note is worth more than the fix.** Two readings disagreed and
+  both were technically right: `cat -A` showed `^C^C` while a byte scan
+  reported **zero** control characters in the file. There are none — `cmd.exe`
+  writes the caret notation as **literal text**. The wrong step was concluding
+  "no Ctrl-C" from the byte scan instead of asking why the two disagreed.
+
 ## The proxy fix, and the source it quietly broke
 
 - **The scheduled import goes from 6/10 to 10/10, and from 137 seconds to 12**
