@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { ContentBody } from "@/components/content-body";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
@@ -455,7 +456,12 @@ export function DailyDigestContent({
       {publicSummary ? (
         <section className="daily-digest-summary-panel">
           <p className="eyebrow user-eyebrow">今日概览</p>
-          <p>{publicSummary}</p>
+          {/* Rendered through ContentBody like every other long-form body on
+              the site. It was a bare <p> until 2026-08-09, so an editorial
+              summary written with the same Markdown subset used everywhere
+              else shipped its `**` markers to readers verbatim — hit for real
+              on the 08-07 digest. */}
+          <ContentBody body={publicSummary} />
         </section>
       ) : null}
 

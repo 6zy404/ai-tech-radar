@@ -1,5 +1,6 @@
 import { technologyItems } from "@/data/technologies";
 import { getEditorialEnrichmentReadinessState } from "@/lib/editorial-enrichment-store";
+import { getTechnologyTranslationCoverage } from "@/lib/technology-localization";
 import type {
   ImportanceLevel,
   PublisherType,
@@ -287,6 +288,35 @@ export function evaluateTechnologyPublishReadiness(
         "translation",
         "missing-chinese-title-summary",
         "英文来源记录还没有配齐中文标题和中文摘要。"
+      )
+    );
+  }
+
+  /* `translationStatus` is set by hand and nothing keeps it honest, so it
+     drifts: 6 of 31 records said `pending` while fully translated in July,
+     and 2 of 37 again in August — one of them published the day before.
+     Compare it against the coverage derived from the content that is
+     actually there, and say so when the two disagree. */
+  const derivedCoverage = getTechnologyTranslationCoverage(record, "detail");
+
+  if (derivedCoverage === "full" && record.translationStatus !== "done") {
+    warnings.push(
+      issue(
+        "warning",
+        "translationStatus",
+        "translation-status-behind-content",
+        `中文内容已齐全，但 translationStatus 仍是「${record.translationStatus}」；发布前请改为 done。`
+      )
+    );
+  }
+
+  if (derivedCoverage !== "full" && record.translationStatus === "done") {
+    warnings.push(
+      issue(
+        "warning",
+        "translationStatus",
+        "translation-status-ahead-of-content",
+        "translationStatus 标为 done，但正文的中文覆盖并不完整。"
       )
     );
   }

@@ -66,4 +66,82 @@ describe("evaluateTechnologyPublishReadiness", () => {
     expect(result.isReady).toBe(false);
     expect(codes(result.blockingErrors)).toContain("duplicate-slug");
   });
+
+  // `translationStatus` is editor-set and nothing keeps it honest, so it
+  // drifts — 6 of 31 records in July, and 2 of 37 again in August. These pin
+  // the comparison against the coverage derived from the actual content.
+  describe("translationStatus against derived coverage", () => {
+    const translated = {
+      title: { original: "Example Technology", zh: "示例技术" },
+      summary: { original: "A concise summary.", zh: "一段简短摘要。" },
+      content: { original: "Body content.", zh: "正文内容。" }
+    };
+
+    it("warns when the content is fully translated but the flag still says pending", () => {
+      const record = makeWorkspaceRecord({
+        ...translated,
+        translationStatus: "pending"
+      });
+
+      const result = evaluate(record);
+
+      expect(result.isReady).toBe(true);
+      expect(codes(result.warnings)).toContain(
+        "translation-status-behind-content"
+      );
+    });
+
+    it("does not warn once the flag matches the content", () => {
+      const record = makeWorkspaceRecord({
+        ...translated,
+        translationStatus: "done"
+      });
+
+      const result = evaluate(record);
+
+      expect(codes(result.warnings)).not.toContain(
+        "translation-status-behind-content"
+      );
+      expect(codes(result.warnings)).not.toContain(
+        "translation-status-ahead-of-content"
+      );
+    });
+
+    it("warns in the other direction when the flag claims done without the content", () => {
+      const record = makeWorkspaceRecord({ translationStatus: "done" });
+
+      const result = evaluate(record);
+
+      expect(codes(result.warnings)).toContain(
+        "translation-status-ahead-of-content"
+      );
+    });
+
+    it("stays quiet for a Chinese-source record, where coverage is not_needed", () => {
+      const record = makeWorkspaceRecord({
+        sourceLanguage: "zh",
+        translationStatus: "not_needed"
+      });
+
+      const result = evaluate(record);
+
+      expect(codes(result.warnings)).not.toContain(
+        "translation-status-behind-content"
+      );
+      expect(codes(result.warnings)).not.toContain(
+        "translation-status-ahead-of-content"
+      );
+    });
+
+    it("leaves the default fixture untouched, so the check adds no noise", () => {
+      const result = evaluate();
+
+      expect(codes(result.warnings)).not.toContain(
+        "translation-status-behind-content"
+      );
+      expect(codes(result.warnings)).not.toContain(
+        "translation-status-ahead-of-content"
+      );
+    });
+  });
 });
