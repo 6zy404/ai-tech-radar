@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T03:16:55.332Z",
+  "updatedAt": "2026-08-10T08:50:15.262Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -22,7 +22,7 @@
       "totalImportedCount": 24,
       "createdAt": "2026-07-09T12:28:08.320Z",
       "updatedAt": "2026-08-10T03:16:55.332Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T03:16:55.332Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T03:16:55.332Z"
@@ -48,7 +48,7 @@
       "totalImportedCount": 14,
       "createdAt": "2026-07-09T12:28:08.320Z",
       "updatedAt": "2026-08-10T03:14:00.665Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T03:14:00.665Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T03:14:00.665Z"
@@ -74,7 +74,7 @@
       "totalImportedCount": 10,
       "createdAt": "2026-07-09T12:28:08.321Z",
       "updatedAt": "2026-08-10T03:14:01.801Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T03:14:01.801Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T03:14:01.801Z"
@@ -100,7 +100,7 @@
       "totalImportedCount": 24,
       "createdAt": "2026-07-09T12:28:08.321Z",
       "updatedAt": "2026-08-10T03:14:04.835Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T03:14:04.835Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T03:14:04.835Z"
@@ -125,7 +125,7 @@
       "totalImportedCount": 47,
       "createdAt": "2026-07-09T12:28:08.321Z",
       "updatedAt": "2026-08-10T00:05:11.997Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T00:05:11.997Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T00:05:11.997Z"
@@ -150,7 +150,7 @@
       "totalImportedCount": 13,
       "createdAt": "2026-07-21T03:20:23.722Z",
       "updatedAt": "2026-08-10T00:05:08.413Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T00:05:08.413Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T00:05:08.413Z"
@@ -175,7 +175,7 @@
       "totalImportedCount": 10,
       "createdAt": "2026-07-21T03:20:23.739Z",
       "updatedAt": "2026-08-10T00:05:05.556Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T00:05:05.556Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T00:05:05.556Z"
@@ -200,7 +200,7 @@
       "totalImportedCount": 4,
       "createdAt": "2026-07-21T03:20:23.754Z",
       "updatedAt": "2026-08-10T00:05:12.529Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T00:05:12.528Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T00:05:12.529Z"
@@ -225,7 +225,7 @@
       "totalImportedCount": 11,
       "createdAt": "2026-07-21T03:20:23.765Z",
       "updatedAt": "2026-08-10T00:05:03.644Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T00:05:03.644Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T00:05:03.644Z"
@@ -250,7 +250,7 @@
       "totalImportedCount": 10,
       "createdAt": "2026-07-21T03:20:23.776Z",
       "updatedAt": "2026-08-10T00:05:13.458Z",
-      "maxItems": 4,
+      "maxItems": 12,
       "lastFetchedAt": "2026-08-10T00:05:13.458Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-08-10T00:05:13.458Z"
