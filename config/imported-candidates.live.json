@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-09T11:05:47.948Z",
+  "syncedAt": "2026-08-10T00:05:15.110Z",
   "sources": [
     {
       "id": "source-github-blog-ai",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://github.blog/ai-and-ml/feed/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:37.063Z"
+      "fetchedAt": "2026-08-10T00:05:03.635Z"
     },
     {
       "id": "source-google-ai-blog",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://blog.google/technology/ai/rss/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:38.911Z"
+      "fetchedAt": "2026-08-10T00:05:05.547Z"
     },
     {
       "id": "source-google-deepmind-blog",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://deepmind.google/blog/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:40.340Z"
+      "fetchedAt": "2026-08-10T00:05:08.403Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:41.760Z"
+      "fetchedAt": "2026-08-10T00:05:08.914Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -44,7 +44,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:42.606Z"
+      "fetchedAt": "2026-08-10T00:05:09.705Z"
     },
     {
       "id": "source-ollama-releases",
@@ -53,7 +53,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:43.826Z"
+      "fetchedAt": "2026-08-10T00:05:11.071Z"
     },
     {
       "id": "source-openai-news",
@@ -62,7 +62,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:44.736Z"
+      "fetchedAt": "2026-08-10T00:05:11.989Z"
     },
     {
       "id": "source-qwen-blog",
@@ -71,7 +71,7 @@
       "sourceUrl": "https://qwenlm.github.io/blog/index.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:45.374Z"
+      "fetchedAt": "2026-08-10T00:05:12.521Z"
     },
     {
       "id": "source-simon-willison-blog",
@@ -80,7 +80,7 @@
       "sourceUrl": "https://simonwillison.net/atom/entries/",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:46.210Z"
+      "fetchedAt": "2026-08-10T00:05:13.449Z"
     },
     {
       "id": "source-vllm-releases",
@@ -89,7 +89,7 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-09T11:05:47.943Z"
+      "fetchedAt": "2026-08-10T00:05:15.105Z"
     }
   ],
   "candidates": [
@@ -138,12 +138,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:46.247Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:13.490Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-09T11:05:46.247Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:13.490Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
@@ -175,12 +175,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:40.383Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.468Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-09T11:05:40.383Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.468Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-responding-next-frontier-critical-cyber-capabilities",
@@ -217,12 +217,12 @@
           "pubDate": "Fri, 07 Aug 2026 15:20:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:43.864Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:11.111Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-09T11:05:43.864Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:11.111Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-hsp-gruppe",
@@ -256,12 +256,12 @@
           "pubDate": "Fri, 07 Aug 2026 09:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:43.864Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:11.111Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-09T11:05:43.864Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:11.111Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
@@ -341,12 +341,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:45.409Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.562Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-09T11:05:45.409Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.562Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0rc1",
@@ -393,12 +393,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:46.247Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:13.490Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-09T11:05:46.247Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:13.490Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98013",
@@ -453,12 +453,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:36.019Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:02.955Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-09T11:05:36.019Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:02.955Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones",
@@ -494,12 +494,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:38.960Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:05.591Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-09T11:05:38.960Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:05.591Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-baseten",
@@ -531,12 +531,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:40.383Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.468Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-09T11:05:40.383Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.468Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-improving-gpt-5-6-sol-in-chatgpt",
@@ -572,12 +572,12 @@
           "pubDate": "Thu, 06 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:43.864Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:11.111Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-09T11:05:43.864Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:11.111Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-openai-and-apa-partner-to-advance-responsible-ai",
@@ -613,12 +613,12 @@
           "pubDate": "Thu, 06 Aug 2026 06:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:43.864Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:11.111Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-09T11:05:43.864Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:11.111Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6",
@@ -666,12 +666,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:42.645Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:09.751Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-09T11:05:42.645Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:09.751Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist-atom-entries",
@@ -760,12 +760,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:45.409Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.562Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-09T11:05:45.409Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.562Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97698",
@@ -819,12 +819,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:36.019Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:02.955Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-09T11:05:36.019Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:02.955Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-ai-updates-july-2026",
@@ -895,12 +895,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:37.115Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:03.705Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-09T11:05:37.115Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:03.705Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
@@ -934,12 +934,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:40.383Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.468Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-09T11:05:40.383Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.468Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6-rc0",
@@ -986,12 +986,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:42.645Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:09.751Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-09T11:05:42.645Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:09.751Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
@@ -1081,12 +1081,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:45.409Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.562Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-09T11:05:45.409Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.562Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-ai-agents-intensive-recap-2026",
@@ -1161,12 +1161,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:37.115Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:03.705Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-09T11:05:37.115Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:03.705Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
@@ -1248,12 +1248,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:45.409Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.562Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-09T11:05:45.409Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.562Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97813",
@@ -1316,12 +1316,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:36.019Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:02.955Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-09T11:05:36.019Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:02.955Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration",
@@ -1353,12 +1353,12 @@
           "guid": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:38.960Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:05.591Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-09T11:05:38.960Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:05.591Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management",
@@ -1390,12 +1390,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:40.383Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.468Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-09T11:05:40.383Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.468Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control",
@@ -1424,12 +1424,12 @@
           "guid": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:38.960Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:05.591Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-09T11:05:38.960Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:05.591Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api-3-6-flash-hooks",
@@ -1500,12 +1500,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:37.115Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:03.705Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-09T11:05:37.115Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:03.705Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-ai-mode-real-world-tips",
@@ -1566,12 +1566,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:37.115Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:03.705Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-09T11:05:37.115Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:03.705Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
@@ -1607,12 +1607,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:38.960Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:05.591Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-09T11:05:38.960Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:05.591Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97740",
@@ -1662,12 +1662,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:36.019Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:02.955Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-09T11:05:36.019Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:02.955Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5",
@@ -1714,12 +1714,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:42.645Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:09.751Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-09T11:05:42.645Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:09.751Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-1rc0",
@@ -1766,12 +1766,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:46.247Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:13.490Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-09T11:05:46.247Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:13.490Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
@@ -1823,12 +1823,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:46.247Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:13.490Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-09T11:05:46.247Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:13.490Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5-rc0",
@@ -1875,12 +1875,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:42.645Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:09.751Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-09T11:05:42.645Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:09.751Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
@@ -1927,12 +1927,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:41.804Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.962Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-09T11:05:41.804Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.962Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -1979,12 +1979,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:41.804Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.962Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-09T11:05:41.804Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.962Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -2031,12 +2031,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:41.804Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.962Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-09T11:05:41.804Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.962Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -2083,12 +2083,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-09T11:05:41.804Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:08.962Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-09T11:05:41.804Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:08.962Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
@@ -2119,12 +2119,12 @@
           "description": "Tech Report GitHub Hugging Face ModelScope DISCORD\nIntroduction We are excited to introduce Qwen3Guard, the first safety guardrail model in the Qwen family. Built upon the powerful Qwen3 foundation models and fine-tuned specifically for safety classificatoin, Qwen3Guard ensures responsible AI interactions by delivering precise safety detection for both prompts and responses, complete with risk levels and categorized classifications for accurate moderation.\nQwen3Guard achieves state-of-the-art performance on major safety benchmarks, demonstrating strong capabilities in both prompt and response classification tasks across English, Chinese, and multilingual environments."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:44.777Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.032Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-09T11:05:44.777Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.032Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit",
@@ -2156,12 +2156,12 @@
           "description": "QWEN CHAT GITHUB HUGGING FACE MODELSCOPE DISCORD\nWe are excited to introduce Qwen-Image-Edit, the image editing version of Qwen-Image. Built upon our 20B Qwen-Image model, Qwen-Image-Edit successfully extends Qwen-Image&amp;rsquo;s unique text rendering capabilities to image editing tasks, enabling precise text editing. Furthermore, Qwen-Image-Edit simultaneously feeds the input image into Qwen2.5-VL (for visual semantic control) and the VAE Encoder (for visual appearance control), achieving capabilities in both semantic and appearance editing."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:44.777Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.032Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-09T11:05:44.777Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.032Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image",
@@ -2195,12 +2195,12 @@
           "description": "GITHUB HUGGING FACE MODELSCOPE DEMO DISCORD\nWe are thrilled to release Qwen-Image, a 20B MMDiT image foundation model that achieves significant advances in complex text rendering and precise image editing. To try the latest model, feel free to visit Qwen Chat and choose “Image Generation”.\nThe key features include:\nSuperior Text Rendering: Qwen-Image excels at complex text rendering, including multi-line layouts, paragraph-level semantics, and fine-grained details. It supports both alphabetic languages (e."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:44.777Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.032Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-09T11:05:44.777Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.032Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-gspo",
@@ -2231,12 +2231,12 @@
           "description": "PAPER DISCORD\nIntroduction Reinforcement Learning (RL) has emerged as a pivotal paradigm for scaling language models and enhancing their deep reasoning and problem-solving capabilities. To scale RL, the foremost prerequisite is maintaining stable and robust training dynamics. However, we observe that existing RL algorithms (such as GRPO) exhibit severe instability issues during long training and lead to irreversible model collapse, hindering further performance improvements with increased compute.\nTo enable successful RL scaling, we propose the Group Sequence Policy Optimization (GSPO) algorithm."
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-09T11:05:44.777Z",
-        "importRunId": "import-run-2026-08-09t11-05-36-011z"
+        "importedAt": "2026-08-10T00:05:12.032Z",
+        "importRunId": "import-run-2026-08-10t00-05-02-948z"
       },
       "sourceId": "source-qwen-blog",
-      "importedAt": "2026-08-09T11:05:44.777Z",
-      "importRunId": "import-run-2026-08-09t11-05-36-011z"
+      "importedAt": "2026-08-10T00:05:12.032Z",
+      "importRunId": "import-run-2026-08-10t00-05-02-948z"
     }
   ]
 }
