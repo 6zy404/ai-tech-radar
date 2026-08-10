@@ -505,6 +505,57 @@ Other notes:
 - The same duplicate protections apply: an extra run on the same day skips the
   already-run import and already-sent deliveries.
 
+### Daily backup (Windows)
+
+`npm run backup:data` (`scripts/backup-local-data.mjs`) takes a timestamped
+copy of `LOCAL_DATA_DIR` and verifies it. It is the mitigation for the
+durability gap in `docs/production-readiness.md` → I2: the JSON store has no
+multi-writer locking, and the task runner writes the same files the operator
+edits through the workspace UI.
+
+What it does, and why each part is there:
+
+- copies to `BACKUP_DIR/config-YYYY-MM-DD_HHmmss` (default
+  `<userprofile>\ai-tech-radar-backups`, deliberately **outside** the repo so
+  it is neither committed nor picked up by the Next file watcher);
+- re-reads every copied file and compares **SHA-256 per file** against the
+  source — a backup nobody verified is a backup nobody can rely on, so this
+  runs every time rather than behind a flag. A mismatch fails the run and
+  **keeps** the bad copy for inspection;
+- writes `backup-manifest.json` (file count, byte total, per-file hashes)
+  into each snapshot, so a later store corruption can be traced to the first
+  snapshot that shows it;
+- refuses to write an **empty** backup, so a mis-set `LOCAL_DATA_DIR` cannot
+  quietly push good snapshots out of the retention window;
+- prunes to `BACKUP_KEEP` (default 14), newest kept;
+- exits non-zero on any failure, so Task Scheduler records a failure instead of
+  reporting success.
+
+Register it to run daily at 07:45 — **before** the 08:05 import task, so the
+snapshot is of a settled store rather than one mid-write:
+
+```powershell
+$action  = New-ScheduledTaskAction -Execute "cmd" -Argument '/c cd /d C:\Users\Administrator\ai-tech-radar && npm run backup:data >> config\backup-cron.log 2>&1'
+$trigger = New-ScheduledTaskTrigger -Daily -At 7:45am
+$principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType S4U -RunLevel Limited
+$settings  = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries
+Register-ScheduledTask -TaskName "ai-tech-radar-backup" -Action $action -Trigger $trigger -Principal $principal -Settings $settings
+```
+
+`S4U` and `-StartWhenAvailable` are not incidental — they are the two settings
+whose absence cost the import task 9 missed days and 5 console-killed runs (see
+the two sections above). Starting the backup task from the same known-good
+shape avoids re-learning both lessons.
+
+Verify with `schtasks /Run /TN "ai-tech-radar-backup"`, then check
+`config\backup-cron.log` and the snapshot directory. Remove with
+`schtasks /Delete /TN "ai-tech-radar-backup"`.
+
+**What this does not protect against, stated plainly:** the snapshots land on
+the same physical disk, so a disk failure loses both. It covers the failure
+mode this project actually hits — a store written wrong, truncated, or deleted.
+Copying `BACKUP_DIR` off the machine periodically is still worth doing.
+
 ## Local JSON Limits
 
 Local JSON is acceptable for:

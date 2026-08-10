@@ -81,6 +81,18 @@ delete, or send deliveries.
 - Residual: this is a single shared token, not per-user auth or session
   management — acceptable for one operator, but rotate it if it leaks and
   always terminate TLS in front of it (the token travels in a header).
+- ◐ Partly addressed (2026-08-10): a git-ignored `.env.local` now carries the
+  two variables with the flip documented inline, and the guard was **re-verified
+  on this machine** with a disposable token: six internal prefixes `401` without
+  it; `/workspace` `200` via all three accepted forms; a **wrong** token `401`
+  (so it compares the value, not merely its presence); enabled-with-empty-token
+  `503` on all internal routes while ten public routes stayed `200` — a
+  misconfiguration fails closed without taking the public site down. The
+  disposable token was removed afterwards and confirmed absent from the tree.
+  **Still open**: `WORKSPACE_ACCESS_ENABLED` is deliberately left `false` so
+  local work is not blocked. The owner must generate the real token and flip it
+  as part of the actual deploy — that is one line, and it is the line that
+  matters.
 
 ### B2. Runtime/config stores are committed to git — latent secret leak
 
@@ -194,6 +206,29 @@ be editing through the UI — two concurrent writers to unlocked JSON.
   transaction; (c) avoid editing in the workspace at the same minute the task
   runner fires. Cross-store transactions remain unimplemented (documented,
   acceptable at this scale).
+- ✓ Addressed (2026-08-10), for (a) — the part that was actually missing.
+  `npm run backup:data` (`scripts/backup-local-data.mjs`, no dependencies)
+  writes a timestamped copy of `LOCAL_DATA_DIR` outside the repo, **verifies it
+  by comparing SHA-256 per file against the source**, writes a manifest, prunes
+  to `BACKUP_KEEP` (default 14), and exits non-zero on failure. Registration for
+  a daily 07:45 Windows task — 20 minutes ahead of the 08:05 import, so the
+  snapshot is of a settled store — is in `docs/deployment.md` → "Daily backup
+  (Windows)". Verified end to end: a real 22-file / 7.8 MB snapshot at
+  `checksums match`, retention pruning to an explicit `BACKUP_KEEP=2`, and the
+  integrity checker **proven to fire** — a corruption injected right after the
+  copy was caught (`content differs: one.json (source 7B, backup 9B)`, exit 1)
+  while the uninjected control passed, and an empty source directory was
+  refused rather than silently replacing good snapshots.
+  - Verification found one real defect before it could bite: two runs inside
+    the same second collided on the snapshot name and **failed the run**. Daily
+    use would never hit it, but a Task Scheduler retry looks exactly like that
+    and would have been recorded as a failed backup. Fixed with a `-2` suffix.
+  - (b) is deliberately **not** taken: switching to SQLite does not solve the
+    stated risk (two concurrent writers), and it costs a migration plus
+    two-driver parity verification. Backups were the missing piece.
+  - Residual, stated plainly: snapshots live on the same physical disk, so a
+    disk failure loses both. This covers the failure mode this project actually
+    hits — a store written wrong, truncated, or deleted.
 
 ### I3. Missing transport-security headers (CSP, HSTS)
 
@@ -280,6 +315,9 @@ public-scale or multi-user deployment.
    expected traffic (see I1).
 6. Put the app behind HTTPS; add HSTS + a `default-src 'self'` CSP (I3).
 7. Pin the Node runtime (≥ 22.5 if using SQLite) (I4).
-8. Set up a daily backup of `LOCAL_DATA_DIR` / the `.sqlite` file (I2).
+8. ~~Set up a daily backup of `LOCAL_DATA_DIR` / the `.sqlite` file (I2).~~
+   Script done 2026-08-10 (`npm run backup:data`, self-verifying); the one
+   remaining action is registering the daily Windows task —
+   `docs/deployment.md` → "Daily backup (Windows)".
 9. `npm run build` + smoke-test the public routes and a token-gated workspace
    route before opening traffic.

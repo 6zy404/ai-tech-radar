@@ -12,6 +12,60 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The state directory finally has a copy of itself
+
+- **Go-live's two doable items, done; the third is one line the owner has to
+  write** — 2026-08-10, owner-selected. The three had been blocked together on
+  "先定部署目标"; splitting them showed only one of the three actually was.
+- **There was no backup of `config/` anywhere.** That directory _is_ the
+  product — every published signal, digest, relation edit and review decision —
+  and the JSON store has no multi-writer locking while the task runner writes
+  the same files the operator edits through the UI. `npm run backup:data`
+  (`scripts/backup-local-data.mjs`, **no dependencies**) closes it: a
+  timestamped copy outside the repo, pruned to `BACKUP_KEEP` (default 14),
+  non-zero exit on failure so Task Scheduler records a failure instead of
+  reporting success.
+- **It verifies the copy rather than trusting it** — every file re-read and
+  compared by **SHA-256** against the source, every run, not behind a flag. A
+  mismatch fails the run and **keeps** the bad copy, because deleting it would
+  destroy the only evidence of what went wrong. Each snapshot also carries a
+  manifest (count, bytes, per-file hashes), so a later corruption can be traced
+  to the first snapshot showing it.
+- **The checker was proven to fire before its clean results were believed.** A
+  corruption injected immediately after the copy was caught —
+  `content differs: one.json (source 7B, backup 9B)`, exit 1 — while the
+  uninjected control passed and an **empty** source directory was refused, so a
+  mis-set `LOCAL_DATA_DIR` cannot quietly push good snapshots out of retention.
+- **Verification found a real defect first.** Two runs inside the same second
+  collided on the snapshot name and **failed the run outright**. Daily use never
+  hits it — but a Task Scheduler retry looks exactly like that, and it would
+  have been recorded as a failed backup. Fixed with a `-2` suffix; the comment
+  records how it was found.
+- **The daily task is scheduled for 07:45, 20 minutes ahead of the 08:05
+  import**, so the snapshot is of a settled store rather than one mid-write,
+  and it is registered with `S4U` + `StartWhenAvailable` — the two settings
+  whose absence cost the import task 9 missed days and 5 console-killed runs.
+  Starting from the known-good shape avoids re-learning both lessons.
+- **The workspace guard was re-verified on this machine, not re-read.** Six
+  internal prefixes `401` without a token; `/workspace` `200` via all three
+  accepted forms; a **wrong** token `401`, so it compares the value rather than
+  its presence; enabled-with-empty-token `503` on every internal route while
+  **ten public routes stayed 200** — a misconfiguration fails closed without
+  taking the public site down. The disposable test token was removed afterwards
+  and confirmed absent from the tree. This is the guard that shipped inert for
+  weeks because reading the code looked like evidence.
+- **`WORKSPACE_ACCESS_ENABLED` is deliberately left `false`** so local work is
+  not blocked, with the flip documented inline in a git-ignored `.env.local`.
+  The real token is the owner's to generate — it is never handled here.
+- **`NEXT_PUBLIC_SITE_URL` stays open, and cannot be closed yet**: it is
+  inlined at **build** time, so it needs a real domain before it can be set at
+  all. Setting it at runtime leaves `localhost` baked into every feed link.
+- **Honest residual**: snapshots land on the same physical disk, so a disk
+  failure loses both. This covers the failure mode this project actually hits —
+  a store written wrong, truncated, or deleted. Switching to SQLite was
+  considered and **not** taken: it does not solve two concurrent writers, which
+  is the stated risk.
+
 ## Not every missed run was sleep — 17% were killed by Ctrl+C
 
 - **A wrong explanation had been reused four times, and checking it took one

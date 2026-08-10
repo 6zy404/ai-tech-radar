@@ -18,6 +18,7 @@
     "test:watch": "vitest",
     "sync:candidates": "tsx scripts/sync-external-candidates.ts",
     "gen:favicon": "node scripts/generate-favicon.mjs",
+    "backup:data": "node scripts/backup-local-data.mjs",
     "db:init": "node scripts/run-ts-validation.cjs scripts/db-init.ts",
     "db:migrate-json": "node scripts/run-ts-validation.cjs scripts/db-migrate-json.ts",
     "db:reset": "node scripts/run-ts-validation.cjs scripts/db-reset.ts",
