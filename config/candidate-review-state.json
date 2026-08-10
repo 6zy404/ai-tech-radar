@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-09T11:46:31.459Z",
+  "updatedAt": "2026-08-10T12:59:38.818Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -632,6 +632,178 @@
     "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0rc2": {
       "importStatus": "rejected",
       "reviewedAt": "2026-08-09T11:46:31.459Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469520": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.093Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469500": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.189Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469493": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.262Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469475": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.337Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469454": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.411Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469213": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.466Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469076": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.526Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-crdrxqxcapcuptfw8usa-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.597Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-s2wfg2mrulmze1s27lf8-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.659Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-qbhkwa0aabfp0fs8rgrk-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.729Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-6extxytt834kmgkiqqdt-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.798Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-lwrkahlso9f7oobigxdi-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.855Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-dxkqwgtlotdel82dzqr6-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.910Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-etcjhcladecisiah5rfu-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:08.966Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-kcw3zlsejcnyfegzd7dx-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.025Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ciqhx2largoslhspz9vk-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.085Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.148Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-16": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.217Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.283Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-15-post1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.352Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.413Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-15": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.470Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.535Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-3-2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.593Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-14": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.658Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-3-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.733Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-13-post1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.803Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-13": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.869Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-3-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:09.945Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-2-3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:10.001Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-12-post1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:10.061Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-2-2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:10.124Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-2-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:10.178Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-12": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:10.234Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-11": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-10T12:59:10.297Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-5qwsld6jv8n2zdgguhk9-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-10T12:59:21.441Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-imsuql5isvbqgckp1aah-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-10T12:59:21.510Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-468913": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-10T12:59:21.563Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-10T12:59:37.908Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469010": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-10T12:59:38.212Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-469010"
+    },
+    "candidate-rss-https-www-qbitai-com-p-468782": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-10T12:59:38.495Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-468782"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-10T12:59:38.818Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
     }
   }
 }

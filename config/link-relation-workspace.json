@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-09T10:26:35.259Z",
+  "updatedAt": "2026-08-10T13:12:53.207Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2466,6 +2466,411 @@
       "toType": "knowledge",
       "relationType": "requires",
       "note": "过度帮忙在产品里的对应形态，是该停下来等人的时候继续往下做。"
+    },
+    {
+      "id": "rel-ws-8f985a3e",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "把「流程的形状决定有没有用」变成了可以直接采购的产品形态。"
+    },
+    {
+      "id": "rel-ws-7ac3893f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "运行时接管了循环，反而让工具层该由谁负责这条边界更清楚。"
+    },
+    {
+      "id": "rel-ws-a465c024",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "内置 OpenTelemetry 与统一仪表板，把跑完之后的归因从自建变成默认。"
+    },
+    {
+      "id": "rel-ws-791e0bab",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "运行时是这两年最典型的一次自建与采购取舍：省下审批与遥测，付出循环内部的控制权。"
+    },
+    {
+      "id": "rel-ws-881a4c78",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "40 次往返后自停是一种机械的终止判定——不判对错，只判不该再继续。"
+    },
+    {
+      "id": "rel-ws-8197200f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "工具审批默认开启是好事，但一个从不拒绝的审批点只是延迟。"
+    },
+    {
+      "id": "rel-ws-72886dd3",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "上下文压缩、文件记忆与每次调用历史的持久化在这里都是默认能力。"
+    },
+    {
+      "id": "rel-ws-cada4c25",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "默认值是别人替你做完的权衡——一整套默认值被打包成运行时。"
+    },
+    {
+      "id": "rel-ws-bac22279",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一种收拢的两种形态：一个把执行收到服务端，一个把运行时本身做成产品。"
+    },
+    {
+      "id": "rel-ws-78a374b6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "刻意相反的两端：一个把工具循环留在本机且可审计，一个把它做成托管服务。"
+    },
+    {
+      "id": "rel-ws-8b371739",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "无状态协议与可托管运行时是同一件事的两端——都在让执行位置变得可替换。"
+    },
+    {
+      "id": "rel-ws-536d3dbc",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-97686",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "「为编码智能体的外壳付费买到了什么」，在这里第一次有了具体的功能清单与价签。"
+    },
+    {
+      "id": "rel-ws-184b3e39",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一天的一组对照：那条给出循环内部的刹车，这条给出没有刹车时的账单。"
+    },
+    {
+      "id": "rel-ws-6b97fb6e",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "同一天里从「有原生建模」直接给到「有性能路径」与跨厂商验证，是那四档最完整的一次样本。"
+    },
+    {
+      "id": "rel-ws-6372dbd5",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "DWDP、DCP 通信后端与会话感知缓存都会改变同一批硬件能承接的并发。"
+    },
+    {
+      "id": "rel-ws-6b45155a",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "把「多久能自托管」的答案从几个月压到同一周，换代判断的依据要跟着变。"
+    },
+    {
+      "id": "rel-ws-3c6cb0ef",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "Kimi K3 是 896 专家 top-16 的隐空间路由 MoE，而 DWDP 直接改动预填充的专家分发方式。"
+    },
+    {
+      "id": "rel-ws-bc101aad",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "DSpark 推测解码是首日性能路径的组成部分，不是事后补的优化。"
+    },
+    {
+      "id": "rel-ws-c91d2f02",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "原生 MXFP4 检查点意味着量化档位由模型方定下，部署方从「自己压」变成「接受并验证」。"
+    },
+    {
+      "id": "rel-ws-68a246c7",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "1.92 倍与 1.54 倍来自同一项优化的两组条件，是「速度永远是条件下的速度」最干净的例子。"
+    },
+    {
+      "id": "rel-ws-d7a6d8af",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "这一版补齐的正是那条信号必然引出的下一个问题：开放之后自托管栈跑不跑得动。"
+    },
+    {
+      "id": "rel-ws-147fc45a",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一形状的两次：开源引擎在旗舰模型发布后的很短时间内补齐整条推理栈。"
+    },
+    {
+      "id": "rel-ws-16bba093",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "Inkling-Small 的 cookbook 配方随这一版一起提供。"
+    },
+    {
+      "id": "rel-ws-8cedaa6d",
+      "fromId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "LFM2.5 嵌入模型在这一版进入支持列表。"
+    },
+    {
+      "id": "rel-ws-96056014",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "「前沿且可验证」本质上是在说：先写下什么算好，而且要写成机器能判的。"
+    },
+    {
+      "id": "rel-ws-e8729bc7",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "它的全部主张都落在后训练阶段——数据配方而不是架构。"
+    },
+    {
+      "id": "rel-ws-4f1e227f",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "自报 10 项第一、超过 1T 模型，是典型的厂商定义指标，需要按三类数字分开读。"
+    },
+    {
+      "id": "rel-ws-99b15d08",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "把数据质量从「清洗出来的」改口为「任务属性决定的」，是这条概念目前最锋利的表述。"
+    },
+    {
+      "id": "rel-ws-0d8fe566",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "人写死的筛选规则不随模型能力演化——尺子不会变，是闭环失效里更难察觉的一种。"
+    },
+    {
+      "id": "rel-ws-4bfc5466",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "35B 总参与约 3B 激活的差距是 MoE 的常规读法。"
+    },
+    {
+      "id": "rel-ws-0e94c9fe",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "35B 总参、3B 激活、262K 上下文是一组具体约束，决定能不能用的从来不是参数量本身。"
+    },
+    {
+      "id": "rel-ws-310ec79b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "自博弈让闭环自己产出下一轮输入，与这里让数据生产系统自我进化是同一个方向的两种做法。"
+    },
+    {
+      "id": "rel-ws-41f2fc8e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "合成数据的另一端：一个把它当作可分发的公共品，一个把生产它的系统当作优化对象。"
+    },
+    {
+      "id": "rel-ws-a2162436",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "都在量同一件事的两面：模型在笼统目标下的行为，与如何为它出一道能判分的题。"
+    },
+    {
+      "id": "rel-ws-e1a2b8dd",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "把可观测性的用途从「出错时能否归因」前移到「没出错时也要知道正在发生什么」。"
+    },
+    {
+      "id": "rel-ws-bf2e0652",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "容量规划一直在算显存与吞吐；这批案例说明还得算钱，而且要在任务开始之前算。"
+    },
+    {
+      "id": "rel-ws-f601fc08",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "自建与采购的比价里长期被漏掉的一项，是失控成本的封顶能力归谁。"
+    },
+    {
+      "id": "rel-ws-1a970355",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "限制影响半径而不是预算——这次说明预算同样需要一个会自己生效的上限。"
+    },
+    {
+      "id": "rel-ws-8fdc004e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "完成判定的另一面是终止判定：不只是「做完了吗」，还有「是不是不该再试了」。"
+    },
+    {
+      "id": "rel-ws-34b1fc3e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "五个月无人察觉说明这里根本没有检查点；只在月度对账时触发的检查点等于没有。"
+    },
+    {
+      "id": "rel-ws-eb75c02b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "用量排行榜是一条评估闭环失效的实例：指标变成目标之后，它衡量的东西就变了。"
+    },
+    {
+      "id": "rel-ws-265d6386",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "没有上限的自动化，是把速度、规模与效率同时用在错误方向上的系统。"
+    },
+    {
+      "id": "rel-ws-8b9f4c29",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "长时程办公智能体正是这类账单最容易出现的地方。"
+    },
+    {
+      "id": "rel-ws-f0e4431b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-97686",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "为外壳付费的另一面：不付费自建时，失控成本要由你自己封顶。"
+    },
+    {
+      "id": "rel-ws-f8bd47ed",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "本机可审计的工具循环，天然更容易看见自己花了多少。"
     }
   ]
 }
