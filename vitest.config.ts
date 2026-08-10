@@ -10,6 +10,8 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"]
+    // `scripts/**` is included for the launcher helpers, which must be plain
+    // `.mjs`: they run before any TypeScript tooling exists in the process.
+    include: ["src/**/*.test.ts", "scripts/**/*.test.mjs"]
   }
 });

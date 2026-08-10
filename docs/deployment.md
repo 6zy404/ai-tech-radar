@@ -279,11 +279,11 @@ the middleware-location section above before going any further.
 > - `NODE_USE_ENV_PROXY` is **experimental** in Node 24 and `package.json`
 >   pins only a lower bound, so a Node upgrade could change this. The failure
 >   mode is mild — back to 6/10.
-> - The variables are on the **scheduled task only**, so the web server still
->   connects directly: a manual single-source import from the workspace UI
->   will still fail for the GitHub feeds. The task runner's own outbound
->   surface is the importer plus delivery webhooks; the LLM provider is not on
->   that path, so it is unaffected by this setting.
+> - ~~The variables are on the **scheduled task only**, so the web server still
+>   connects directly.~~ Closed 2026-08-10 — see "Proxy for every entry point"
+>   below. The scheduled task's inline `set` is now redundant rather than
+>   load-bearing, and is left in place because it costs nothing and keeps the
+>   task working even if the wrapper is bypassed.
 > - **One measurement was not enough.** The first flagged batch run returned
 >   **0/10** and would have produced the opposite recommendation. The proxy was
 >   verified alive, concurrency and request options were each ruled out, and
@@ -504,6 +504,53 @@ Other notes:
   `schtasks /Delete /TN "ai-tech-radar-tasks"` removes it.
 - The same duplicate protections apply: an extra run on the same day skips the
   already-run import and already-sent deliveries.
+
+### Proxy for every entry point
+
+Until 2026-08-10 the proxy variables lived on the scheduled task's command line
+only, so the **same** import took one network path at 08:05 and a different one
+when triggered from the workspace UI. `scripts/with-proxy-env.mjs` now wraps
+`dev`, `start`, `tasks:run-once` and `tasks:watch`; `scripts/proxy-env.mjs` is
+the single definition of what that environment is.
+
+**Why a launcher and not application code.** `NODE_USE_ENV_PROXY` is read at
+process **bootstrap**. Measured against a proxy pointed at a dead port, which
+discriminates regardless of whether the direct route happens to work that day:
+
+| how the flag is set                    | fetch result | engaged? |
+| -------------------------------------- | ------------ | -------- |
+| `NODE_USE_ENV_PROXY=1 node script.mjs` | FAIL 7ms     | yes      |
+| `process.env.NODE_USE_ENV_PROXY = "1"` | OK 504ms     | **no**   |
+| `node --use-env-proxy script.mjs`      | FAIL 8ms     | yes      |
+| `NODE_OPTIONS=--use-env-proxy`         | FAIL 8ms     | yes      |
+
+An earlier probe the same day concluded the opposite — that setting it at
+runtime worked — because it ran while direct connectivity was flapping, so a
+lucky direct connection looked like a proxied one. **The dead-port proxy is the
+instrument that cannot be fooled that way**; a probe that only tries the happy
+path cannot tell "the proxy carried it" from "it did not need the proxy".
+
+The wrapper also reads `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY` out of
+`.env.local` before spawning, filling only what the real environment left
+unset. That is not redundancy with Next's own `.env` loading — Next loads it
+_after_ bootstrap, far too late for this flag — and it is what makes the
+setting survive a launcher with a bare environment. Measured: an IDE preview
+pane reported `未检测到代理配置` while the identical command from a shell did
+not.
+
+The wrapper logs one line on every run, **including when it does nothing**:
+
+```
+[proxy] 已启用代理（NODE_USE_ENV_PROXY=1）…，直连例外：hf-mirror.com（来自 .env.local：…）
+[proxy] 未检测到代理配置（HTTP_PROXY / HTTPS_PROXY），保持直连。
+```
+
+Silence on the inactive branch is indistinguishable from the wrapper not
+running at all, which cost a real diagnostic detour the day it was written. Set
+`PROXY_ENV_QUIET=1` to suppress it.
+
+An explicit `NODE_USE_ENV_PROXY` is never overridden, so the scheduled task's
+own value still wins and `NODE_USE_ENV_PROXY=0` remains a working escape hatch.
 
 ### Daily backup (Windows)
 
