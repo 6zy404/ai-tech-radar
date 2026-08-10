@@ -307,6 +307,7 @@ npm run format:check     # Prettier check (no writes)
 npm run format           # Prettier write
 npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
+npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 
 # persistence / task runner
 npm run db:init

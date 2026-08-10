@@ -24,6 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 config/task-runner-cron.log
+config/backup-cron.log
 
 # Runtime-only local stores: a delivery config that would hold real webhook
 # endpoints/tokens once configured (keep it out of git — see
