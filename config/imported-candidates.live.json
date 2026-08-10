@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-10T00:05:15.110Z",
+  "syncedAt": "2026-08-10T03:16:55.329Z",
   "sources": [
     {
       "id": "source-github-blog-ai",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-10T00:05:08.914Z"
+      "fetchedAt": "2026-08-10T03:14:04.828Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -44,7 +44,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-10T00:05:09.705Z"
+      "fetchedAt": "2026-08-10T03:14:01.794Z"
     },
     {
       "id": "source-ollama-releases",
@@ -53,7 +53,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-10T00:05:11.071Z"
+      "fetchedAt": "2026-08-10T03:16:55.323Z"
     },
     {
       "id": "source-openai-news",
@@ -89,7 +89,7 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 4,
-      "fetchedAt": "2026-08-10T00:05:15.105Z"
+      "fetchedAt": "2026-08-10T03:14:00.658Z"
     }
   ],
   "candidates": [
@@ -138,49 +138,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:13.490Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:13:59.113Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-10T00:05:13.490Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
-    },
-    {
-      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/allenai/tutormoments",
-      "originalTitle": "TutorMoments: Do AI tutors know when to help and when to hold back?",
-      "originalLanguage": "en",
-      "publishDate": "2026-08-07",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "TutorMoments: Do AI tutors know when to help and when to hold back?",
-          "pubDate": "Fri, 07 Aug 2026 17:53:32 GMT",
-          "link": "https://hf-mirror.com/blog/allenai/tutormoments",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/allenai/tutormoments",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-10T00:05:08.468Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-10T00:05:08.468Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:13:59.113Z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-responding-next-frontier-critical-cyber-capabilities",
@@ -393,12 +354,45 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:13.490Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:13:59.113Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-10T00:05:13.490Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:13:59.113Z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/allenai/tutormoments",
+      "originalTitle": "TutorMoments: Do AI tutors know when to help and when to hold back?",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-07",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
+      "tags": [
+        "open-source",
+        "model"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "TutorMoments: Do AI tutors know when to help and when to hold back?",
+          "pubDate": "Fri, 07 Aug 2026 17:53:32 GMT",
+          "link": "https://hf-mirror.com/blog/allenai/tutormoments",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/allenai/tutormoments",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-10T03:14:01.877Z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-08-10T03:14:01.877Z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98013",
@@ -502,43 +496,6 @@
       "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-baseten",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/baseten",
-      "originalTitle": "Baseten on HF Mirror Inference Providers 🔥",
-      "originalLanguage": "en",
-      "publishDate": "2026-08-06",
-      "publisherName": "Hugging Face",
-      "normalizedType": "unknown",
-      "tags": [
-        "open-source",
-        "model"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Baseten on HF Mirror Inference Providers 🔥",
-          "pubDate": "Thu, 06 Aug 2026 00:00:00 GMT",
-          "link": "https://hf-mirror.com/blog/baseten",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/baseten",
-            "isPermaLink": "true"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-10T00:05:08.468Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-10T00:05:08.468Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
-    },
-    {
       "id": "candidate-rss-https-openai-com-index-improving-gpt-5-6-sol-in-chatgpt",
       "sourceType": "rss-feed",
       "sourceName": "OpenAI News",
@@ -621,57 +578,39 @@
       "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6",
+      "id": "candidate-rss-https-hf-mirror-com-blog-baseten",
       "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
-      "originalTitle": "v0.32.6",
-      "originalSummary": "What's Changed Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model's MTP head for speculative decoding automatically /v1/chat/completions streaming now matches OpenAI's wire format: role only on the first chunk, finish_reason on its own chunk,…",
-      "originalContent": "<h2>What's Changed</h2> <ul> <li>Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model's MTP head for speculative decoding automatically</li> <li><code>/v1/chat/completions</code> streaming now matches OpenAI's wire format: <code>role</code> only on the first chunk, <code>finish_reason</code> on its own chunk,<br> and usage in a separate chunk with <code>stream_options.include_usage</code>.</li> <li>Truncated OpenAI responses now report <code>finish_reason: \"length\"</code> instead of <code>\"tool_calls\"</code>.</li> <li><code>ollama run kimi-k3</code> now offers <code>kimi-k3:cloud</code> for cloud-only models that publish no default tag, instead of failing.</li> <li>TUI fixes: pipe-delimited prose no longer renders as a table, Enter accepts the highlighted <code>@</code> file completion, and <code>/prompt</code><br> scrolling is no longer laggy.</li> <li>Experimental image generation has been temporarily removed. Continue using 0.32.5 for image generation support</li> <li>Updated the MLX and llama.cpp engines.</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.32.5...v0.32.6-rc0\"><tt>v0.32.5...v0.32.6-rc0</tt></a></p>",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/baseten",
+      "originalTitle": "Baseten on HF Mirror Inference Providers 🔥",
       "originalLanguage": "en",
-      "publishDate": "2026-08-05",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
+      "publishDate": "2026-08-06",
+      "publisherName": "Hugging Face",
+      "normalizedType": "unknown",
       "tags": [
-        "local-inference",
         "open-source",
-        "multimodal"
+        "model"
       ],
       "importStatus": "new",
       "relatedCandidateIds": [],
       "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.32.6",
-          "updated": "2026-08-05T19:46:52Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.6"
-          },
-          "title": "v0.32.6",
-          "content": {
-            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model&#39;s MTP head for speculative decoding automatically&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/v1/chat/completions&lt;/code&gt; streaming now matches OpenAI&#39;s wire format: &lt;code&gt;role&lt;/code&gt; only on the first chunk, &lt;code&gt;finish_reason&lt;/code&gt; on its own chunk,&lt;br&gt;\nand usage in a separate chunk with &lt;code&gt;stream_options.include_usage&lt;/code&gt;.&lt;/li&gt;\n&lt;li&gt;Truncated OpenAI responses now report &lt;code&gt;finish_reason: &quot;length&quot;&lt;/code&gt; instead of &lt;code&gt;&quot;tool_calls&quot;&lt;/code&gt;.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;ollama run kimi-k3&lt;/code&gt; now offers &lt;code&gt;kimi-k3:cloud&lt;/code&gt; for cloud-only models that publish no default tag, instead of failing.&lt;/li&gt;\n&lt;li&gt;TUI fixes: pipe-delimited prose no longer renders as a table, Enter accepts the highlighted &lt;code&gt;@&lt;/code&gt; file completion, and &lt;code&gt;/prompt&lt;/code&gt;&lt;br&gt;\nscrolling is no longer laggy.&lt;/li&gt;\n&lt;li&gt;Experimental image generation has been temporarily removed. Continue using 0.32.5 for image generation support&lt;/li&gt;\n&lt;li&gt;Updated the MLX and llama.cpp engines.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.32.5...v0.32.6-rc0&quot;&gt;&lt;tt&gt;v0.32.5...v0.32.6-rc0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Baseten on HF Mirror Inference Providers 🔥",
+          "pubDate": "Thu, 06 Aug 2026 00:00:00 GMT",
+          "link": "https://hf-mirror.com/blog/baseten",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/baseten",
+            "isPermaLink": "true"
           }
         },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:09.751Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-10T03:14:01.877Z"
       },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-10T00:05:09.751Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-08-10T03:14:01.877Z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist-atom-entries",
@@ -766,6 +705,57 @@
       "sourceId": "source-simon-willison-blog",
       "importedAt": "2026-08-10T00:05:12.562Z",
       "importRunId": "import-run-2026-08-10t00-05-02-948z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6",
+      "originalTitle": "v0.32.6",
+      "originalSummary": "What's Changed Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model's MTP head for speculative decoding automatically /v1/chat/completions streaming now matches OpenAI's wire format: role only on the first chunk, finish_reason on its own chunk,…",
+      "originalContent": "<h2>What's Changed</h2> <ul> <li>Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model's MTP head for speculative decoding automatically</li> <li><code>/v1/chat/completions</code> streaming now matches OpenAI's wire format: <code>role</code> only on the first chunk, <code>finish_reason</code> on its own chunk,<br> and usage in a separate chunk with <code>stream_options.include_usage</code>.</li> <li>Truncated OpenAI responses now report <code>finish_reason: \"length\"</code> instead of <code>\"tool_calls\"</code>.</li> <li><code>ollama run kimi-k3</code> now offers <code>kimi-k3:cloud</code> for cloud-only models that publish no default tag, instead of failing.</li> <li>TUI fixes: pipe-delimited prose no longer renders as a table, Enter accepts the highlighted <code>@</code> file completion, and <code>/prompt</code><br> scrolling is no longer laggy.</li> <li>Experimental image generation has been temporarily removed. Continue using 0.32.5 for image generation support</li> <li>Updated the MLX and llama.cpp engines.</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.32.5...v0.32.6-rc0\"><tt>v0.32.5...v0.32.6-rc0</tt></a></p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-05",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source",
+        "multimodal"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.6",
+          "updated": "2026-08-05T19:46:52Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.6"
+          },
+          "title": "v0.32.6",
+          "content": {
+            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Qwen3.5 is faster on Apple GPUs: the MLX engine now uses the model&#39;s MTP head for speculative decoding automatically&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/v1/chat/completions&lt;/code&gt; streaming now matches OpenAI&#39;s wire format: &lt;code&gt;role&lt;/code&gt; only on the first chunk, &lt;code&gt;finish_reason&lt;/code&gt; on its own chunk,&lt;br&gt;\nand usage in a separate chunk with &lt;code&gt;stream_options.include_usage&lt;/code&gt;.&lt;/li&gt;\n&lt;li&gt;Truncated OpenAI responses now report &lt;code&gt;finish_reason: &quot;length&quot;&lt;/code&gt; instead of &lt;code&gt;&quot;tool_calls&quot;&lt;/code&gt;.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;ollama run kimi-k3&lt;/code&gt; now offers &lt;code&gt;kimi-k3:cloud&lt;/code&gt; for cloud-only models that publish no default tag, instead of failing.&lt;/li&gt;\n&lt;li&gt;TUI fixes: pipe-delimited prose no longer renders as a table, Enter accepts the highlighted &lt;code&gt;@&lt;/code&gt; file completion, and &lt;code&gt;/prompt&lt;/code&gt;&lt;br&gt;\nscrolling is no longer laggy.&lt;/li&gt;\n&lt;li&gt;Experimental image generation has been temporarily removed. Continue using 0.32.5 for image generation support&lt;/li&gt;\n&lt;li&gt;Updated the MLX and llama.cpp engines.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.32.5...v0.32.6-rc0&quot;&gt;&lt;tt&gt;v0.32.5...v0.32.6-rc0&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-10T03:16:54.438Z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-08-10T03:16:54.438Z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97698",
@@ -903,97 +893,6 @@
       "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
-      "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "sourceType": "rss-feed",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
-      "originalTitle": "Deploy local agents everywhere with LFM2.5-2.6B",
-      "originalLanguage": "en",
-      "publishDate": "2026-08-04",
-      "publisherName": "Hugging Face",
-      "normalizedType": "workflow",
-      "tags": [
-        "open-source",
-        "model",
-        "agents",
-        "on-device"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-hugging-face-blog",
-        "feedTitle": "HF Mirror - Blog",
-        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
-        "item": {
-          "title": "Deploy local agents everywhere with LFM2.5-2.6B",
-          "pubDate": "Tue, 04 Aug 2026 13:58:29 GMT",
-          "link": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
-          "guid": {
-            "#text": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
-            "isPermaLink": "false"
-          }
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-10T00:05:08.468Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
-      },
-      "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-10T00:05:08.468Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6-rc0",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6-rc0",
-      "originalTitle": "v0.32.6-rc0",
-      "originalSummary": "llama.cpp update ( #17545 )",
-      "originalContent": "<p>llama.cpp update (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5054750533\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17545\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17545/hovercard\" href=\"https://github.com/ollama/ollama/pull/17545\">#17545</a>)</p>",
-      "originalLanguage": "en",
-      "publishDate": "2026-08-04",
-      "publisherName": "dhiltgen",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.32.6-rc0",
-          "updated": "2026-08-04T16:51:52Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.6-rc0"
-          },
-          "title": "v0.32.6-rc0",
-          "content": {
-            "#text": "&lt;p&gt;llama.cpp update (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;5054750533&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17545&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17545/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17545&quot;&gt;#17545&lt;/a&gt;)&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "dhiltgen"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/4033016?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:09.751Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-10T00:05:09.751Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
-    },
-    {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
       "sourceType": "rss-feed",
       "sourceName": "Simon Willison Blog",
@@ -1087,6 +986,93 @@
       "sourceId": "source-simon-willison-blog",
       "importedAt": "2026-08-10T00:05:12.562Z",
       "importRunId": "import-run-2026-08-10t00-05-02-948z"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "sourceType": "rss-feed",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
+      "originalTitle": "Deploy local agents everywhere with LFM2.5-2.6B",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "Hugging Face",
+      "normalizedType": "workflow",
+      "tags": [
+        "open-source",
+        "model",
+        "agents",
+        "on-device"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-hugging-face-blog",
+        "feedTitle": "HF Mirror - Blog",
+        "feedUrl": "https://hf-mirror.com/blog/feed.xml",
+        "item": {
+          "title": "Deploy local agents everywhere with LFM2.5-2.6B",
+          "pubDate": "Tue, 04 Aug 2026 13:58:29 GMT",
+          "link": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
+          "guid": {
+            "#text": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
+            "isPermaLink": "false"
+          }
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-10T03:14:01.877Z"
+      },
+      "sourceId": "source-hugging-face-blog",
+      "importedAt": "2026-08-10T03:14:01.877Z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6-rc0",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.6-rc0",
+      "originalTitle": "v0.32.6-rc0",
+      "originalSummary": "llama.cpp update ( #17545 )",
+      "originalContent": "<p>llama.cpp update (<a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5054750533\" data-permission-text=\"Title is private\" data-url=\"https://github.com/ollama/ollama/issues/17545\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/ollama/ollama/pull/17545/hovercard\" href=\"https://github.com/ollama/ollama/pull/17545\">#17545</a>)</p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-04",
+      "publisherName": "dhiltgen",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.6-rc0",
+          "updated": "2026-08-04T16:51:52Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.6-rc0"
+          },
+          "title": "v0.32.6-rc0",
+          "content": {
+            "#text": "&lt;p&gt;llama.cpp update (&lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;5054750533&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/ollama/ollama/issues/17545&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/ollama/ollama/pull/17545/hovercard&quot; href=&quot;https://github.com/ollama/ollama/pull/17545&quot;&gt;#17545&lt;/a&gt;)&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "dhiltgen"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/u/4033016?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-10T03:16:54.438Z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-08-10T03:16:54.438Z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-ai-agents-intensive-recap-2026",
@@ -1390,12 +1376,10 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-10T00:05:08.468Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:14:01.877Z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-10T00:05:08.468Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:14:01.877Z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control",
@@ -1670,58 +1654,6 @@
       "importRunId": "import-run-2026-08-10t00-05-02-948z"
     },
     {
-      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5",
-      "sourceType": "rss-feed",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.5",
-      "originalTitle": "v0.32.5",
-      "originalSummary": "What's Changed Fixed an MLX Metal bug that could reduce output quality for NVFP4 models, particularly Laguna. Full Changelog : v0.32.4...v0.32.5",
-      "originalContent": "<h2>What's Changed</h2> <ul> <li>Fixed an MLX Metal bug that could reduce output quality for NVFP4 models, particularly Laguna.</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.32.4...v0.32.5\"><tt>v0.32.4...v0.32.5</tt></a></p>",
-      "originalLanguage": "en",
-      "publishDate": "2026-07-27",
-      "publisherName": "github-actions[bot]",
-      "normalizedType": "tool",
-      "tags": [
-        "local-inference",
-        "open-source"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ollama-releases",
-        "feedTitle": "Release notes from ollama",
-        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/658928958/v0.32.5",
-          "updated": "2026-07-27T20:45:08Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.5"
-          },
-          "title": "v0.32.5",
-          "content": {
-            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Fixed an MLX Metal bug that could reduce output quality for NVFP4 models, particularly Laguna.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.32.4...v0.32.5&quot;&gt;&lt;tt&gt;v0.32.4...v0.32.5&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "github-actions[bot]"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:09.751Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
-      },
-      "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-10T00:05:09.751Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
-    },
-    {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-1rc0",
       "sourceType": "rss-feed",
       "sourceName": "vLLM Releases",
@@ -1766,12 +1698,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:13.490Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:13:59.113Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-10T00:05:13.490Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:13:59.113Z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
@@ -1823,12 +1753,60 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:13.490Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:13:59.113Z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-10T00:05:13.490Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:13:59.113Z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5",
+      "sourceType": "rss-feed",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.5",
+      "originalTitle": "v0.32.5",
+      "originalSummary": "What's Changed Fixed an MLX Metal bug that could reduce output quality for NVFP4 models, particularly Laguna. Full Changelog : v0.32.4...v0.32.5",
+      "originalContent": "<h2>What's Changed</h2> <ul> <li>Fixed an MLX Metal bug that could reduce output quality for NVFP4 models, particularly Laguna.</li> </ul> <p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/ollama/ollama/compare/v0.32.4...v0.32.5\"><tt>v0.32.4...v0.32.5</tt></a></p>",
+      "originalLanguage": "en",
+      "publishDate": "2026-07-27",
+      "publisherName": "github-actions[bot]",
+      "normalizedType": "tool",
+      "tags": [
+        "local-inference",
+        "open-source"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ollama-releases",
+        "feedTitle": "Release notes from ollama",
+        "feedUrl": "https://github.com/ollama/ollama/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/658928958/v0.32.5",
+          "updated": "2026-07-27T20:45:08Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/ollama/ollama/releases/tag/v0.32.5"
+          },
+          "title": "v0.32.5",
+          "content": {
+            "#text": "&lt;h2&gt;What&#39;s Changed&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Fixed an MLX Metal bug that could reduce output quality for NVFP4 models, particularly Laguna.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/ollama/ollama/compare/v0.32.4...v0.32.5&quot;&gt;&lt;tt&gt;v0.32.4...v0.32.5&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "github-actions[bot]"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/in/15368?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-10T03:16:54.438Z"
+      },
+      "sourceId": "source-ollama-releases",
+      "importedAt": "2026-08-10T03:16:54.438Z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-5-rc0",
@@ -1875,12 +1853,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:09.751Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:16:54.438Z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-10T00:05:09.751Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:16:54.438Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
@@ -1927,12 +1903,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:08.962Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:14:00.738Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-10T00:05:08.962Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:14:00.738Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -1979,12 +1953,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:08.962Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:14:00.738Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-10T00:05:08.962Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:14:00.738Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -2031,12 +2003,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:08.962Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:14:00.738Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-10T00:05:08.962Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:14:00.738Z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -2083,12 +2053,10 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-10T00:05:08.962Z",
-        "importRunId": "import-run-2026-08-10t00-05-02-948z"
+        "importedAt": "2026-08-10T03:14:00.738Z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-10T00:05:08.962Z",
-      "importRunId": "import-run-2026-08-10t00-05-02-948z"
+      "importedAt": "2026-08-10T03:14:00.738Z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
