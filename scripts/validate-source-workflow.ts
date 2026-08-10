@@ -257,6 +257,28 @@ async function main() {
       "Expected failed source error message to be visible in source health."
     );
 
+    // Regression guard (2026-08-10): four of the five writeStore call sites
+    // omitted `...store`, so a single-source import — and creating, editing, or
+    // toggling a source — silently erased the batch import history that
+    // /workspace/operations and the source quality metrics read. Nothing had
+    // ever asserted that the history outlives an unrelated write.
+    const runBeforeSingleImport = getLatestExternalSourceImportRun();
+
+    assert.ok(
+      runBeforeSingleImport,
+      "Expected a batch import run to exist before the preservation check."
+    );
+
+    await runImportForSource(failingSource.id);
+
+    const runAfterSingleImport = getLatestExternalSourceImportRun();
+
+    assert.equal(
+      runAfterSingleImport?.id,
+      runBeforeSingleImport?.id,
+      "Expected the batch import run history to survive a single-source import."
+    );
+
     console.log("Source workflow validation passed.");
   } finally {
     restoreFile(externalSourcesStorePath, sourceStoreBackup);
