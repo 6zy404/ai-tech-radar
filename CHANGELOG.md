@@ -12,6 +12,71 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## One network path for both entry points — and a probe that lied first
+
+- **The workspace UI and the 08:05 task now take the same route** — 2026-08-10,
+  owner-selected. The proxy variables lived on the scheduled task's command line
+  only, so the identical import behaved differently depending on who triggered
+  it. `scripts/with-proxy-env.mjs` wraps `dev` / `start` / `tasks:run-once` /
+  `tasks:watch`; `scripts/proxy-env.mjs` is the single definition of that
+  environment, so the two paths cannot drift apart again.
+- **The first design was wrong, and the measurement that caught it is the
+  entry.** An early probe concluded `NODE_USE_ENV_PROXY` is read lazily at the
+  first fetch, which would have allowed setting it from application code — and
+  an `instrumentation.ts` implementing exactly that was written before the
+  claim was re-tested. It is read at **bootstrap**. Against a proxy pointed at a
+  **dead port**: bootstrap env → fetch fails in 7ms (engaged); the same flag set
+  at runtime → fetch succeeds in 504ms (**inert**); `--use-env-proxy` and
+  `NODE_OPTIONS` → both engaged. The first probe ran while direct connectivity
+  was flapping, so a lucky direct connection looked like a proxied one. **A
+  probe that only tries the happy path cannot tell "the proxy carried it" from
+  "it did not need the proxy."** The instrumentation approach was deleted.
+- **The premise changed under the task, and that is recorded rather than
+  glossed.** `github.com` was reachable directly on 5/5 trials at ~450ms while
+  the same host had failed twice an hour earlier in the same session. So the
+  fix is not "manual import always fails" but "manual import depends on a route
+  that comes and goes, while the scheduled one does not."
+- **`hf-mirror.com` is still excluded, and the honest reason is written down.**
+  Re-measured rather than copied from the record: the 2026-08-09 interception
+  page **did not reproduce** — the proxied request returned real
+  `application/rss+xml`. The exclusion is kept anyway, because a
+  successful-looking wrong response is the expensive failure mode and the direct
+  route costs nothing.
+- **The wrapper reads the proxy keys from `.env.local` itself.** Next loads
+  `.env` after bootstrap, far too late for this flag, so a launcher with a bare
+  environment silently got no proxy — measured, when an IDE preview pane
+  reported `未检测到代理配置` while the same command from a shell did not.
+- **It logs on every run, including when it does nothing.** Silence on the
+  inactive branch is indistinguishable from the wrapper not running at all,
+  which cost a real diagnostic detour that same hour.
+- **Verified with an instrument that discriminates**: through the wrapper with a
+  dead proxy, `github.com` fails in 7ms (proxy engaged) while `hf-mirror.com`
+  still returns 243 KB (exclusion honoured); without the wrapper both succeed —
+  which is precisely the old dev-server behaviour. Plus all four previously
+  affected sources importing **through the real workspace API** (`ok=true`,
+  4 items each), the task runner's not-due branch unchanged, the scheduled
+  task's explicit flag still winning, exit-code passthrough, and the
+  `DEP0190` warning removed by resolving the target to its JS entry instead of
+  spawning through a shell.
+- **A pre-existing data-loss bug surfaced while verifying, with a wider blast
+  radius than it first appeared.** `writeStore` replaces the whole file, and
+  **four of its five call sites omitted `...store`** — so a single-source
+  import, _and_ creating, editing, or enabling/disabling a source, silently
+  erased `latestImportRun` and the entire `importRuns` history that
+  `/workspace/operations` and the source quality metrics read. Same family as
+  the 2026-07-29 snapshot loss: a write that replaces instead of merging. Fixed
+  at all four sites, the destroyed 08:05 run record restored from `HEAD`, and
+  `validate:sources` now asserts the history outlives an unrelated write —
+  **proven to fire** by removing one spread.
+- **Two of this round's own instruments were wrong before the code was.** A
+  regression-injection probe reported "no change" twice: once because the needle
+  used `\n` against a **CRLF** file, once because it indexed the wrong line. Both
+  times the validator then "passed" — a pass that proved nothing. Confirming the
+  injection actually changed the file is what caught it.
+- Verified: typecheck, lint, format, vitest **218/218** (10 new, proven to fail
+  when either branch is removed), and `validate:sources` / `candidates` /
+  `persistence` / `tasks` / `operations` / `duplicates` / `quality`.
+
 ## The state directory finally has a copy of itself
 
 - **Go-live's two doable items, done; the third is one line the owner has to
