@@ -12,6 +12,62 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The intake was the bottleneck, not the pipeline
+
+- **Measured before changing anything** — 2026-08-10, owner-selected after a
+  state review. Publishing cadence had been falling (9 → 5 → 3 → 4 signals per
+  week) and the obvious reading was editorial cost. The funnel says otherwise:
+  **capacity 40 items/day** (10 sources × 4 items × 1 run), **genuinely new
+  ≈ 2.5/day**, **published ≈ 0.5/day**. That morning's run returned 40 items of
+  which **zero** were new. The constraint is upstream.
+- **A negative finding worth as much as the fix**: topic coverage was checked
+  and is **balanced** — nine topics, no real gap, the thinnest being 端侧 AI at
+  6 signals / 1 skill, and those 6 were previously measured as non-exclusive.
+  The "fill a content gap" direction is genuinely finished; it is not where the
+  leverage is.
+- **Per-source item cap 4 → 12.** A source publishing 5 items in a day had its
+  fifth permanently invisible. The one-time cost was **measured, not
+  estimated**: a real batch import into an isolated `LOCAL_DATA_DIR` copied from
+  the live config returned 72 additional items, of which **50 were already
+  dispositioned and skipped automatically**, leaving **22 to triage** (dating
+  back to 2025-03). Live stores were untouched, confirmed before and after. 12
+  rather than more because most feeds return only 10 items anyway.
+- **Four sources added, each probed first — direct _and_ through the proxy.**
+  No Chinese host showed interception (byte-identical both ways), so no new
+  `NO_PROXY` entry was needed. 量子位 and InfoQ 中文 close a real asymmetry: a
+  **Chinese-language product whose ten sources were 100% English**. SGLang sits
+  beside the existing vLLM / Ollama coverage; ms-swift covers training and
+  post-training, which no existing source did.
+- **Seven candidates were rejected on evidence, before any config was written**:
+  机器之心 and DeepSeek's docs site return HTML rather than a feed, 智源 404s,
+  知乎 returns zero bytes, the Qwen3 and GLM-4 release feeds contain **zero
+  entries**, DeepSeek-V3's newest release is **2025-06**, and MiniCPM's is
+  2026-05. Listing a source that does not parse is worse than not having it.
+- **Qwen Blog disabled as a dead source.** It mirrors `qwenlm.github.io`, whose
+  newest post is 2025-09, and it contributed **8 of the 22** backlog items —
+  all stale. `qwen.ai` publishes no feed, so there is nothing to repoint it at.
+  Disabled rather than deleted, so the health history and the reason stay
+  visible.
+- Verified: all four new sources imported **through the real workspace API**
+  (42 candidates, `success`, zero failures), the public news fast lane renders
+  164 cards across 21 day groups with the aggregation disclaimer present, zero
+  horizontal overflow, zero elements painted off-screen, and a five-string
+  internal-field scan came back clean. Plus typecheck, vitest 218/218, and
+  `validate:sources` / `persistence` / `candidates` / `database`.
+- **Not looked at, and stated rather than glossed**: the Browser pane's
+  screenshot tool was unavailable (the pane is not displayed, so the page
+  composites no frames), and `AGENTS.md` forbids running Playwright without an
+  explicit request. Structure, overflow and leakage were measured; the page was
+  not seen.
+- **The honest open question this raises is editorial, not technical.** The two
+  Chinese feeds carry a visibly higher share of industry-PR items — funding
+  rounds, product launches, conference recaps — and the fast lane publishes
+  everything unedited. That pushes the public 全部快讯 view toward the "generic
+  AI news portal" this project explicitly refuses to become. The signals worth
+  having are real (企业 Agent 安全, Agent Framework Harness, 演进式架构), but
+  the ratio is the owner's call, so both sources ship enabled with the finding
+  written down rather than quietly absorbed.
+
 ## One network path for both entry points — and a probe that lied first
 
 - **The workspace UI and the 08:05 task now take the same route** — 2026-08-10,
