@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T00:05:15.145Z",
+  "updatedAt": "2026-08-10T03:16:55.332Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -21,11 +21,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 24,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-08-10T00:05:11.078Z",
+      "updatedAt": "2026-08-10T03:16:55.332Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-08-10T00:05:11.078Z",
+      "lastFetchedAt": "2026-08-10T03:16:55.332Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-08-10T00:05:11.078Z"
+      "lastSuccessfulImportAt": "2026-08-10T03:16:55.332Z"
     },
     {
       "id": "source-vllm-releases",
@@ -47,11 +47,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 14,
       "createdAt": "2026-07-09T12:28:08.320Z",
-      "updatedAt": "2026-08-10T00:05:15.112Z",
+      "updatedAt": "2026-08-10T03:14:00.665Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-08-10T00:05:15.112Z",
+      "lastFetchedAt": "2026-08-10T03:14:00.665Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-08-10T00:05:15.112Z"
+      "lastSuccessfulImportAt": "2026-08-10T03:14:00.665Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -73,11 +73,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 10,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-08-10T00:05:09.714Z",
+      "updatedAt": "2026-08-10T03:14:01.801Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-08-10T00:05:09.714Z",
+      "lastFetchedAt": "2026-08-10T03:14:01.801Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-08-10T00:05:09.714Z"
+      "lastSuccessfulImportAt": "2026-08-10T03:14:01.801Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -99,11 +99,11 @@
       "consecutiveFailureCount": 0,
       "totalImportedCount": 24,
       "createdAt": "2026-07-09T12:28:08.321Z",
-      "updatedAt": "2026-08-10T00:05:08.924Z",
+      "updatedAt": "2026-08-10T03:14:04.835Z",
       "maxItems": 4,
-      "lastFetchedAt": "2026-08-10T00:05:08.924Z",
+      "lastFetchedAt": "2026-08-10T03:14:04.835Z",
       "lastImportMessage": "导入 0 条新候选；跳过 4 条重复或已存在的候选。",
-      "lastSuccessfulImportAt": "2026-08-10T00:05:08.924Z"
+      "lastSuccessfulImportAt": "2026-08-10T03:14:04.835Z"
     },
     {
       "id": "source-openai-news",
