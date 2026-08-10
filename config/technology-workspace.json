@@ -1,6 +1,348 @@
 {
-  "updatedAt": "2026-08-09T10:43:11.133Z",
+  "updatedAt": "2026-08-10T13:12:52.684Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "slug": "agent-token-spend-runaway",
+      "title": {
+        "original": "180万刀，连亚马逊都烧不起Claude了",
+        "zh": "一次 180 万美元的智能体账单：超预算 860%，五个月后才被发现"
+      },
+      "summary": {
+        "original": "亚马逊用 Claude Sonnet 填充作者信息，花费 180 万美元，超预算 860%，五个月后才被发现，且最终没有部署成功。",
+        "zh": "亚马逊用 Claude Sonnet 给自家网站填充作者信息，花掉 180 万美元、超预算 860%、五个月后才被发现，而且最终没有部署成功。同期 Meta 员工 30 天消耗 73.7 万亿 token，Uber 四个月烧完全年编码预算。一项调查显示只有 26% 的企业对自身 AI 成本具备全面可见性。这不是一条价格新闻——它是「智能体安静地做错事」这个失败模式的又一种形态：不报错，只出账单。"
+      },
+      "content": {
+        "original": "Amazon spent $1.8M on a Claude Sonnet task that ran 860% over budget, was discovered five months later, and was never deployed.",
+        "zh": "## 那笔账单的形状\n\n据亚马逊员工透露，公司想用 Claude Sonnet 为自家网站填充详细的作者信息——一个看起来很简单的任务。结果花了 **180 万美元**，**超出预算 860%**，**过了五个月才被发现**，并且**最终没有部署成功**。\n\n按 Claude Sonnet 当时的公开定价（每百万输入 token 3 美元、输出 15 美元）折算，180 万美元最多对应约 **6000 亿 token**。\n\n值得注意的不是金额，是这次失败的**形状**：没有崩溃、没有报警、没有一条错误日志。智能体只是坚韧不拔地反复重试，而没有任何人告诉它「先等一下再试」。**一个不知道自己该停下来的智能体，它的失败模式是账单，不是异常。**\n\n本站《完成判定与验收信号》说的是：答错了却宣称完成、把错误往下游传，是更贵的方向。这里是同一件事再往上抬一层——**连「答错」都没有发生，它只是一直在试**，而没有任何一层负责回答「这一步是不是已经不值得继续了」。上一条信号里微软 Agent Framework 在 40 次往返后自停、Copilot SDK 关掉宿主刹车后跑到 300 次不停，量的正是这个东西。\n\n## 这不是孤例，而且指标本身先失效了\n\n- **Meta**：一名员工在 4 月搭了个叫 Claudeonomics 的排行榜，聚合超过 8.5 万名员工的用量并列出 token 消耗最高的前 250 人。员工在 30 天内消耗的 token 总量攀升到 **73.7 万亿**，按公开定价折算约为**每月 2.21 亿美元**。6 月，Meta 向约 6000 名员工发出备忘录，宣布对 token 用量设限，并搭建名为「AI Gateway」的中央平台实时监控各团队用量与支出、设定预算与上限。\n- **亚马逊**：内部曾有一个叫「KiroRank」的非正式排行榜，导致部分员工有目的地推高个人数据；关闭后又换成「标准化部署」来衡量 AI 产出。\n- **Uber**：2026 年头四个月就烧光了全年的 AI 编程预算，随后把每名员工、每个工具的支出上限设为每月 1500 美元。其 COO 坦言，**token 支出与可衡量的产出之间的联系还未成型**。\n- **OpenAI**：Sam Altman 在 6 月 3 日表示，成本问题在年初还完全无人在意，现在已经成了一个大问题；内部用量最高的个人用户每月约 1000 亿 token，某员工曾在单周烧掉约 2100 亿 token。\n\n排行榜那部分是**古德哈特定律**的教科书复现：当一个衡量指标变成目标，它就不再是一个好指标。用量榜本意是推广，结果直接生产出了刷榜行为——而刷出来的每一个 token 都是真花钱的。\n\n## 最刺眼的一个数字\n\n一项调查显示，**仅有 26% 的企业对自身 AI 成本具备全面的可见性**。也就是说，大多数公司在开始节流之前，**甚至不清楚此前到底花了多少钱**。\n\n把这个数字和亚马逊那五个月放在一起读就很清楚：问题不是花得多，是**看不见**。可观测性在智能体语境下一直被当作「出错时能不能归因」，这批案例说明它还有一个更早的用途——**在没有出错的时候，告诉你正在发生什么**。\n\n## 自动化出错时，损失也会以同样的效率被放大\n\n来源文章用 2012 年骑士资本的事故作类比，这个类比是站得住的：一次部署误激活了一段旧代码，系统开始高频执行毫无经济逻辑的交易，且**没有任何预设的止损机制或金额上限**；从开盘到被手动关停约 45 分钟，在 154 只股票上执行了超过 400 万笔交易，累计买入约 70 亿美元并不想持有的头寸，平仓后亏损约 **4.4 亿美元**——相当于公司全年利润的三倍。两个交易日内股价蒸发 75%，数月后被收购。\n\n自动化承诺的是更快、更便宜、更少人为差错。当它出错时，损失会以**同样的速度、规模和效率**被放大。智能体把这条老规律带进了一个新的地方：不是交易系统，是任何一个你交给它自己跑的任务。\n\n## 对读者的实际含义\n\n三件可以马上做的事，都不需要新技术：\n\n1. **给每个智能体任务设一个硬上限**，而且上限要在循环内部生效，不能指望宿主或人工巡检。\n2. **把「花了多少」做成和「跑得对不对」同等级别的一等指标**，而不是月底对账时才出现的数字。\n3. **不要把用量本身设成目标**。Meta 和亚马逊的排行榜都在用行为证明这一点，代价是真金白银。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-09",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/469010.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "量子位",
+      "publisherType": "media",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-e251051e",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-ws-a9e80194",
+        "skill-ws-2152c7f1",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:12:52.684Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "本站此前讨论智能体失败，讲的都是「答错了却说自己做完了」。这批案例给出了更早、也更难察觉的一种：什么都没错，只是没人知道它还在跑。亚马逊那笔 180 万美元的账单五个月无人察觉、最终还没部署成功，而全行业只有 26% 的企业能看清自己的 AI 成本。对任何准备把智能体交给它自己跑的团队，这条把「循环内部要有硬上限」从工程洁癖变成了有价签的要求。",
+      "whoShouldCare": [
+        "准备把长时程任务交给智能体自主执行、还没设硬性支出上限的工程团队",
+        "为 AI 投入做预算和归因、需要回答「这笔钱买到了什么」的技术负责人",
+        "负责平台侧用量监控与配额的基础设施团队",
+        "正在用「用量」当作 AI 推广指标的管理者——这条案例说明那会直接生产出刷榜行为"
+      ],
+      "technicalContext": "智能体与单次模型调用的成本结构完全不同：每一轮工具循环都会重发历史，重试没有天然次数上限，而失败往往表现为继续尝试而不是抛出异常。传统系统里可以忽略的小问题（一次无效重试、一段没被触发的分支）在按 token 计费时会被放大成不可忽略的支出。护栏因此需要长在循环内部——上限、超时、以及一个明确的「不再继续」判定——而不是依赖外部巡检或月度对账。",
+      "impactAreas": [
+        "智能体任务的支出上限与超时设计",
+        "AI 成本的可见性与实时归因",
+        "把用量当作推广指标带来的反效果",
+        "自动化系统的失败放大效应"
+      ],
+      "learningPath": [
+        "先读《完成判定与验收信号》，把「这一步做完了吗」扩展成「这一步是不是已经不值得继续了」",
+        "检查自己的智能体任务：重试有没有次数上限、有没有总支出上限，以及上限由哪一层执行",
+        "读《智能体可观测性与评测运维》，把成本做成和正确率同级的一等指标而不是事后账单",
+        "读《推理服务容量规划》，把 token 支出翻译成可以提前设定的预算而不是事后观察的结果",
+        "回头看《AI 试点范围界定》里那条「限制的是影响半径不是预算」——这批案例说明两者都要限"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-e251051e": "完成判定的另一面是终止判定：智能体需要知道的不只是「做完了吗」，还有「是不是不该再试了」。",
+        "knowledge-human-loop": "五个月无人察觉说明这里根本没有检查点；而一个只在月度对账时触发的检查点，等于没有。",
+        "knowledge-evaluation-loops": "用量排行榜是一条评估闭环失效的实例：指标变成目标之后，它衡量的东西就变了。",
+        "knowledge-system-design": "没有上限的自动化是一个把速度、规模与效率同时用在错误方向上的系统——这是权衡里最贵的一种默认值。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "这批案例把可观测性的用途从「出错时归因」前移到了「没出错时也要知道正在发生什么」。",
+        "skill-ws-a9e80194": "容量规划一直在算显存与吞吐，这条说明还得算钱，而且要在任务开始之前算。",
+        "skill-ws-2152c7f1": "自建还是采购的比价里，长期被漏掉的一项就是失控成本的封顶能力归谁。",
+        "skill-scope-pilots": "限制影响半径而不是预算，是这条技能的原话；亚马逊这次说明预算同样需要一个会自己生效的上限。"
+      },
+      "followUpQuestions": [
+        "你现在能不能在一小时内回答「上周某个智能体任务花了多少钱」？如果不能，五个月是完全可能的。",
+        "重试上限、超时、支出上限三者里，你的系统实际执行的是哪一个？由谁执行？",
+        "如果把用量从考核指标里拿掉，还有什么指标能说明 AI 投入产生了效果？",
+        "180 万美元这个数字来自未具名员工转述，如果换成可审计的账单数据，结论会变吗？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-469010",
+      "createdAt": "2026-08-10T12:59:38.211Z",
+      "updatedAt": "2026-08-10T13:12:52.684Z",
+      "editorialNotes": [
+        "二手报道：来源为量子位综合 FT 等外媒的整理，亚马逊 180 万美元一项来自未具名员工转述，正文已标明。",
+        "选它是因为数字具体且可归类，且它补的是本站一直缺的运行成本维度；定 signal 而非 important，因为证据链是新闻聚合而非一手工件。",
+        "与 microsoft-agent-framework-harness 是同一天的一组：一条给出循环内部刹车的产品形态，一条给出没有刹车的账单。关系类型用印证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "slug": "microsoft-agent-framework-harness",
+      "title": {
+        "original": "微软正式发布 Agent Framework Harness 和 Hosted Agents",
+        "zh": "微软 Agent Framework Harness 正式发布：智能体的运行时成了产品"
+      },
+      "summary": {
+        "original": "微软正式发布 Agent Framework Harness 和 Hosted Agents",
+        "zh": "微软把 Agent Framework 从 SDK 推进到受支持的生产运行时：Harness 是单个二进制文件，函数调用、历史持久化、上下文压缩、待办清单、文件记忆、工具审批与 OpenTelemetry 全部默认开启，Foundry Hosted Agents 按用量计费。真正值得记住的是随发布一起出现的两个数字——Claude Code 有 98.4% 的代码属于 Harness 基础设施，AI 决策逻辑只占 1.6%；以及一次固定模型参数的对比中，一个运行时在 40 次往返后自停，另一个跑到 300 次不停。"
+      },
+      "content": {
+        "original": "Microsoft has moved Agent Framework from an SDK to a supported production runtime, releasing Agent Harness and Foundry Hosted Agents.",
+        "zh": "## 发布了什么\n\n微软把 Agent Framework 从 SDK 推进到**受支持的生产运行时**。1.0 版本在 2026-04-02 发布；6 月 2 至 3 日的 Build 2026 上，Agent Harness、GitHub Copilot SDK 与 Claude Agent SDK 连接器、以及多智能体编排模式进入稳定版；此次 Harness 与 Foundry Hosted Agents 正式发布。Harness 是**单个二进制文件**，本地开发环境、容器和托管部署跑的是同一个东西。\n\n默认开启、且可逐项关闭的能力：函数调用、每次调用历史的持久化、上下文压缩、带计划与执行两种模式的待办清单、文件记忆、技能、网络搜索、工具审批，以及内置 OpenTelemetry。Shell 工具、文件访问、后台子智能体和自动循环仍是**可选**，而且启用时会发出警告。开发者只提供聊天客户端、指令和工具，其余由一次 `create_harness_agent` 调用接管；Foundry Hosted Agents 作为托管部署目标按用量计费。\n\n## 为什么一个运行时值得单独看\n\n微软首席软件工程师 Wes Steyn 的说法是：模型本身只能生成文本；要让它调用工具、处理多步任务并持续运行到完成，必须把它包在一个运行时里，而那个运行时就是 Harness。\n\n支撑这句话的是一个具体数字。MBZUAI 旗下 VILA 实验室 2026 年 4 月的论文《深入解析 Claude Code》分析了 v2.1.88——该版本完整 TypeScript 源码曾在 3 月 31 日因一次带 source map 的 npm 发布短暂曝光——统计得出 **1884 个文件、约 512,000 行代码**，其中约 **98.4% 属于 Harness 基础设施**：权限管理、上下文管理、沙箱、工具路由与恢复机制；**AI 决策逻辑约占 1.6%**。\n\n这个数字带着星号，而且是作者自己标的：它是对泄露包的行数分类，包含生成代码与压缩代码，不是一次完整审计。但趋势另有旁证——Codex CLI 与 Aider 各自独立演化出了**相同的 Harness 结构**。三个团队分别走到同一个形状，更像是问题施加的约束，而不是某一家的设计偏好。\n\n## 那个 40 对 300\n\n微软 AI 首席架构师 Aqib Sherwani 做的对比测试比多数厂商基准克制：**固定模型参数，并先跑一个确定性的模拟测试**，确保差异可以追溯到 Harness 而不是模型。结论是「推理相同，工程实现不同」——两个运行时在相同步数内给出了相同答案。\n\n差异出现在**护栏失控**这一项：Agent Framework 在 **40 次往返**后自行终止循环并返回「达到限制」；而在关闭宿主端停止控制机制的情况下，Copilot SDK **一直跑到 300 次**仍不自停。\n\n一个把刹车放在**循环内部**，另一个默认**由宿主提供**。这不是性能差异，是责任归属的差异——而它只在宿主那一侧恰好没做的时候才会暴露出来。这正是《人在回路的审查》里那条判据的机器版本：**一个从不触发的限制，和没有限制无法区分**。\n\n## 治理的问题换了一个\n\n编码智能体连接器不需要自定义适配器就能把任务委派给 GitHub Copilot SDK 或 Claude Agent SDK，每个智能体跑自己的自主循环；但连接器严格遵循为整个集群设置的身份、内容安全与可观测性策略——编码智能体的流量进入**同一批 OpenTelemetry 跟踪和 Foundry 仪表板**，而不是成为一个有独立访问模型的孤立集成。\n\n于是治理的核心问题从「智能体能做什么」变成了三问：**谁运行了它、依据什么策略、跟踪信息最终流向哪里**。同样的控制层关注点也出现在亚马逊云科技的 Loom 参考平台里。编排模式与测试框架同步进入稳定版，覆盖顺序管道、并行协作，以及源自微软研究院 Magentic-One 的 Magentic 模式。\n\n## 放在这条线上看\n\n这是同一种收拢的第四种形态。MCP 2.0 把协议改成无状态，好让任意实例承接任意请求；Gemini API 用一个 `background:true` 把执行、状态与工具接入收到服务端；LLM 0.32 让供应商在单次请求内替你执行远程 MCP 调用——而这一条把**运行时本身**做成了按用量计费的产品。\n\n一次 `create_harness_agent` 调用换来的是不必自己实现审批、压缩、持久化和遥测。它同时买走的是控制权，而这正是《系统设计的权衡》里那句话：**默认值是别人替你做完的权衡**。40 与 300 的差别说明这笔交易值得逐项看清楚——你要的是循环内部就有刹车的运行时，还是一个假设你会自己装刹车的运行时。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-10",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/aDEJegvNSKwvue2JZ0yI?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "InfoQ 中文",
+      "publisherType": "media",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-e251051e",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:12:52.615Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体的运行时正在从「每个团队自己拼的一层胶水」变成有厂商支持、按用量计费的产品。这件事的分量不在功能表，而在随它一起出现的一个数字：Claude Code 有 98.4% 的代码是 Harness 基础设施，AI 决策逻辑只占 1.6%。如果这个比例大致成立，那么「用哪个 Harness」比「用哪个模型」影响面更大——而多数团队目前只认真评估后者。",
+      "whoShouldCare": [
+        "要把智能体放进生产环境、正在决定运行时自建还是采购的平台团队",
+        "负责智能体身份、权限、审批与审计策略的安全与治理角色",
+        "在 Agent Framework / GitHub Copilot SDK / Claude Agent SDK 之间做取舍的工程负责人",
+        "已经有一套 OpenTelemetry 体系、需要让智能体流量并进去而不是另起一摊的可观测性团队"
+      ],
+      "technicalContext": "Harness 指把模型包起来、使它能调用工具并持续运行到任务完成的那一层运行时：函数调用、历史持久化、上下文压缩、待办清单、审批、遥测都长在这里。此前它是每个团队自己实现的部分，Agent Framework 1.0 解决的是「用哪个框架构建」，这次发布回答的是「构建出来的东西在哪里执行、能访问什么、行为如何体现在既有的可观测性与策略系统里」。Agent Framework 本身是对 Semantic Kernel 与 AutoGen 的整合，两个前身项目已转入维护模式。",
+      "impactAreas": [
+        "智能体运行时的自建与采购边界",
+        "护栏与审批机制究竟由循环还是由宿主提供",
+        "智能体流量的可观测性与治理策略",
+        "多智能体编排与跨厂商编码智能体的委派"
+      ],
+      "learningPath": [
+        "先读 40 对 300 那一段，把「护栏在循环里还是在宿主里」变成你自己评估任何智能体框架时的第一个问题",
+        "对照 98.4% / 1.6% 这个比例，回头看自己项目里模型调用之外的代码占比——如果远低于它，多半是有一批职责还没被显式实现",
+        "把默认开启的那批能力逐项对到自己已有的实现上，判断哪些是重复建设、哪些是你有意做得不一样",
+        "读《工具集成模式》，确认工具层的职责在采购运行时之后仍然归你",
+        "读《智能体可观测性与评测运维》，把「谁运行了它、依据什么策略、跟踪流向哪里」三问落到具体的仪表板上"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-e251051e": "40 次往返自停是一种「任务该结束了」的机械判定；它不判断对错，只判断不该再继续——这正是完成判定里最容易被忽略的一档。",
+        "knowledge-human-loop": "工具审批默认开启是好事，但一个从不拒绝的审批点只是延迟；40 对 300 是同一条判据在护栏上的形态。",
+        "knowledge-ws-a28a8a56": "上下文压缩、文件记忆和每次调用历史的持久化在这里是默认能力，正好对上这条概念说的「什么被带到下一步」。",
+        "knowledge-system-design": "默认值是别人替你做完的权衡——这次发布把一整套默认值打包成运行时，是这句话最直接的实例。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "这次发布把「流程的形状」变成了可采购的产品；判断一个现成 Harness 是否配得上你的流程，用的还是这条技能里那三个交接问题。",
+        "skill-tool-integration": "Harness 接管了审批与遥测，但工具层要不要吸收混乱仍然归你——它替你做的是循环，不是工具设计。",
+        "skill-ws-f741f122": "内置 OpenTelemetry 与统一仪表板把「跑完之后归因」从自建变成默认，这条技能决定你能否真的读懂那些轨迹。",
+        "skill-ws-2152c7f1": "运行时是这两年最典型的一次自建与采购取舍：省掉的是审批、压缩、持久化与遥测，付出的是循环内部的控制权。"
+      },
+      "followUpQuestions": [
+        "40 次往返这个默认上限对你的任务是太紧还是太松？改动它需要哪一层的权限？",
+        "如果运行时由厂商提供，出现一次越权行为时，你还能不能自己复原完整的动作序列？",
+        "把编码智能体的流量并进统一的遥测体系，会不会反过来让某些团队为了绕开策略而改用未受管的路径？",
+        "98.4% 这个数字来自一次泄露包的行数分类，换一种统计口径（例如按执行路径或按缺陷分布）还成立吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-10T12:59:37.905Z",
+      "updatedAt": "2026-08-10T13:12:52.615Z",
+      "editorialNotes": [
+        "来源为 InfoQ 中文对微软发布的报道（作者 Steef-Jan Wiggers），非厂商一手公告；正文事实以该报道所引的发布公告、VILA 实验室论文与 Sherwani 基准为准。",
+        "98.4% / 1.6% 已按原文保留其限定条件（泄露包的行数分类、含生成与压缩代码、非完整审计），不作为无条件事实呈现。",
+        "与 gemini-managed-agents / llm-0-32 / mcp-2-0 构成同一条「运行时归谁」的线，关系类型均为印证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "slug": "chatgpt-work",
+      "title": {
+        "original": "ChatGPT is now a partner for your most ambitious work",
+        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
+      },
+      "summary": {
+        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
+        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
+      },
+      "content": {
+        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
+        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-09",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-scope-pilots",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122",
+        "skill-communication-ai"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.913Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
+      "whoShouldCare": [
+        "知识工作者与团队负责人",
+        "智能体应用开发者",
+        "AI 产品经理"
+      ],
+      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
+      "impactAreas": [
+        "办公自动化",
+        "团队协作方式",
+        "智能体产品设计",
+        "知识工作流程"
+      ],
+      "learningPath": [
+        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
+        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
+        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
+        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
+        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
+        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
+      },
+      "followUpQuestions": [
+        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
+        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
+        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+      "createdAt": "2026-07-09T20:58:31.394Z",
+      "updatedAt": "2026-08-10T13:11:08.913Z",
+      "editorialNotes": [
+        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
       "slug": "tutormoments-when-to-hold-back",
@@ -58,7 +400,7 @@
           "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-09T10:43:11.133Z",
+        "rankingUpdatedAt": "2026-08-10T13:11:08.794Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "它把「该不该出手」做成了可测量的对象，而这正是智能体产品里最常见、也最难被现有评测捕捉的一类失败——模型倾向于产出而不是克制，而绝大多数评测只奖励产出。回放式评测这个方法本身可以直接搬到任何需要判断「此刻该不该行动」的任务上。",
@@ -97,14 +439,1284 @@
       "intelligenceStatus": "needs_enrichment",
       "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
       "createdAt": "2026-08-09T10:21:39.265Z",
-      "updatedAt": "2026-08-09T10:43:11.133Z",
+      "updatedAt": "2026-08-10T13:11:08.794Z",
       "editorialNotes": [
         "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments.",
         "Review normalized type, publisher type, and related links before publishing."
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog"
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-www-qbitai-com-p-468782"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "slug": "nvidia-open-data-for-agents",
+      "title": {
+        "original": "Data for Agents",
+        "zh": "NVIDIA Nemotron 开放数据：用合成数据支撑智能体开发"
+      },
+      "summary": {
+        "original": "NVIDIA argues that agentic AI needs open data — software engineering traces, tool-use failures, multi-step reasoning, retrieval, safety and user simulation — and that synthetic data is how it scales, backed by the Nemotron open dataset family.",
+        "zh": "NVIDIA 在 Hugging Face 发文阐述智能体时代的数据主张：真正的智能体能力来自工程轨迹、工具调用失败、多步推理、检索与用户模拟等数据，而合成数据是规模化的关键。Nemotron 系列开放数据集（Nemotron-CC、CC-MATH、Pretraining）是这一主张的落地。"
+      },
+      "content": {
+        "original": "NVIDIA lays out why agent capability is a data problem: recovering from broken API calls and unseen workflows requires traces of tool-use failures, multi-step reasoning, retrieval and user simulation. The Nemotron open data family (Nemotron-CC, Nemotron-CC-MATH, Nemotron Pretraining) shows synthetic data as the scaling path, with about 145 ICML papers citing Nemotron models and datasets.",
+        "zh": "NVIDIA 的核心论点是：智能体能力本质上是一个数据问题。一个无法从失败的 API 调用或没见过的工作流中恢复的「智能体」，只是带工具的自动补全。要跨过这道坎，需要软件工程轨迹、工具调用失败、多步推理、检索、安全、用户模拟等类型的数据——这正是 Nemotron 开放数据产品覆盖的范围。\n\n合成数据在其中扮演规模化引擎的角色：Nemotron-CC 用合成增强 Common Crawl 预训练语料，Nemotron-CC-MATH 用合成数学题提升推理能力，Nemotron Pretraining 则覆盖通用、代码、数学等数万亿 token。NVIDIA 援引 ICML 上约 145 篇引用 Nemotron 模型与数据集的论文来说明开放数据对研究生态的带动。\n\n文中还有一个对企业实用的角度：每家公司都有自己的「秘密」（独有的工作流、语料、客户模式），这些信号让 AI 有用，但不应该被直接暴露。合成数据提供了保留信号、隐藏底料的路径。更进一步，开放数据让智能体行为变得可检查、可解释——当模型会调用工具、执行工作流、跨系统行动时，开发者需要理解塑造这些行为的数据。对正在构建智能体的团队来说，这是一份值得对照自查的数据清单。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-08",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "NVIDIA",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-ws-84837d46"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.729Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「智能体做不好」重新定义为数据问题而不是模型问题，并给出了可操作的数据类型清单与合成数据方法。对智能体团队来说，这比又一个新框架更接近瓶颈本质。",
+      "whoShouldCare": [
+        "构建智能体产品的工程团队",
+        "负责训练/微调数据的算法工程师",
+        "关心数据合规与商业机密的技术负责人"
+      ],
+      "technicalContext": "智能体训练数据的关键类型：工具调用轨迹（含失败恢复）、多步推理链、检索行为、安全边界、用户模拟。合成数据管线在保留这些行为信号的同时避免暴露源数据，Nemotron 系列是当前最大的开放实现之一。",
+      "impactAreas": [
+        "智能体训练与微调",
+        "企业数据资产策略",
+        "开放数据研究生态"
+      ],
+      "learningPath": [
+        "对照文中的数据类型清单，盘点自己的智能体缺哪类训练/评估数据",
+        "浏览 Nemotron 开放数据集，理解合成数据的构造方式",
+        "为一个真实工作流构造小规模合成轨迹数据并验证效果"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "工具调用（尤其是失败与恢复）的轨迹数据是智能体与「带工具的自动补全」的分界线。",
+        "knowledge-evaluation-loops": "开放数据让行为可检查：评估闭环需要知道模型行为由什么数据塑造。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "设计智能体时应同步设计其数据来源：哪些行为需要哪类轨迹数据支撑。",
+        "skill-model-evaluation": "用真实世界（非基准）的失败案例评估智能体，是这篇文章隐含的评估方法论。"
+      },
+      "followUpQuestions": [
+        "你的智能体最常见的失败模式，有对应的训练数据吗？",
+        "合成数据在多大程度上能替代真实用户轨迹？",
+        "如何验证合成数据没有泄漏源数据中的敏感信息？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "createdAt": "2026-07-13T08:00:48.625Z",
+      "updatedAt": "2026-08-10T13:11:08.729Z",
+      "editorialNotes": [
+        "2026-07-13 内容轮：从定时导入候选转正；正文基于 NVIDIA 在 Hugging Face 的博客（经 hf-mirror 镜像访问）编写。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-468782"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "slug": "gpt-red",
+      "title": {
+        "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
+        "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
+      },
+      "summary": {
+        "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
+        "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
+      },
+      "content": {
+        "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
+        "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-15",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop",
+        "knowledge-ws-89b98df3"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.662Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
+      "whoShouldCare": [
+        "智能体产品的安全负责人",
+        "模型安全与对齐研究者",
+        "把 LLM 接入外部工具的工程团队"
+      ],
+      "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
+      "impactAreas": [
+        "智能体安全",
+        "模型对齐方法",
+        "AI 红队实践"
+      ],
+      "learningPath": [
+        "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
+        "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
+        "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
+        "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
+        "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
+      },
+      "followUpQuestions": [
+        "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
+        "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
+        "外部团队能否用开源模型复现类似的攻防自博弈回路？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "createdAt": "2026-07-19T03:20:48.157Z",
+      "updatedAt": "2026-08-10T13:11:08.662Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-www-qbitai-com-p-468782"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "slug": "lfm2-5-encoders",
+      "title": {
+        "original": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
+        "zh": "LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍"
+      },
+      "summary": {
+        "original": "Two new encoder models, LFM2.5-Encoder-230M and 350M: they match larger encoders on GLUE, SuperGLUE and multilingual tasks, handle 8,192-token context, and run about 3.7x faster than ModernBERT-base on CPU at long context.",
+        "zh": "Liquid AI 发布两个开源编码器 LFM2.5-Encoder-230M 与 350M：在 GLUE、SuperGLUE 和多语任务上追平更大的编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它针对的是被生成式模型遮住的那一半生产负载——意图路由、策略检查、PII 识别、文本分类，这些任务整天在跑、大多跑在 CPU 上，且输入越来越长。"
+      },
+      "content": {
+        "original": "Two new encoder models on Hugging Face, built from the LFM2 decoder backbones and converted into bidirectional encoders.",
+        "zh": "## 它解决的是哪一半问题\n\n站内大部分推理信号讨论的是生成式模型怎么跑得起、跑得快。但生产系统里还有另一半负载：**意图路由、安全过滤、策略检查、PII 识别、文本分类**。这些任务不需要生成，需要的是理解一段输入并给出标签——它们整天在跑，通常跑在 CPU 上，而且输入长度在持续变长。\n\n这一类任务的主力一直是编码器模型：BERT 定义了这个门类，ModernBERT 在准确率、速度和上下文长度上又推了一步。LFM2.5-Encoders 是在 LFM2 架构上继续往前的一步，主张是**成本随输入变长而缓慢增长**。\n\n## 三个可直接对照的数字\n\n- **参数量 230M / 350M**：在 GLUE、SuperGLUE 与多语任务上追平或超过更大的编码器\n- **上下文 8,192 token**：延迟随输入变长的增长速度是它的卖点，不只是长度本身\n- **CPU 长上下文快约 3.7 倍**：对照组是 ModernBERT-base\n\n## 怎么造出来的\n\n这一步值得单看：两个编码器不是从零训练的，而是**从对应的 LFM2 解码器骨干初始化**（LFM2.5-230M 与 LFM2.5-350M），再把因果解码器改造成双向编码器：\n\n1. **双向注意力掩码**——每个 token 同时看得到左右两侧，而不只是前面\n2. **非因果短卷积**——对称补齐，让每个 token 的卷积同时混入两侧邻居\n3. **掩码语言建模**——训练时遮蔽 30% 的 token\n\n训练分两段：先在大规模网页语料上以 1,024 token 上下文做通用语言能力，再扩到 8,192 token 做长上下文适配，同时强化事实性、法律与多语能力。\n\n## 什么时候该考虑它\n\n它不与生成式模型竞争，而是替换掉「用大模型做分类」这个常见但昂贵的做法。判断线很直接：如果一项任务的输出是**标签、路由决定或抽取结果**，而不是一段自然语言，那么用编码器几乎总是更便宜；这次的增量是把「输入很长」这个原本会逼你上 GPU 的条件，重新拉回 CPU 可承受的范围。\n\n同一家此前发布过面向多语检索的 LFM2.5-Retrievers；这次是通用编码器，掩码语言目标预训练，所以分类、token 级任务和检索都能在其上微调。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-28",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-encoders",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-on-device",
+        "tag-retrieval"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-a9e80194",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.268Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产系统里整天在跑的那一半负载——意图路由、安全过滤、分类、抽取——输出的是标签而不是一段话，用生成式模型做这件事一直是笔糊涂账。这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉：8,192 token 上下文，CPU 上比 ModernBERT-base 快约 3.7 倍。",
+      "whoShouldCare": [
+        "在做意图路由、内容安全过滤或大批量文本分类的工程团队",
+        "需要在没有 GPU 预算的机器上处理文档级输入的人",
+        "正在评估「这项任务到底该不该用大模型」的架构决策者"
+      ],
+      "technicalContext": "两个模型从 LFM2.5-230M / 350M 的解码器骨干初始化，再改造为双向编码器：双向注意力掩码、对称补齐的非因果短卷积、30% 掩码语言建模。训练两段式——先 1,024 token 通用语言能力，再扩到 8,192 token 做长上下文适配。与同厂此前面向多语检索的 LFM2.5-Retrievers 同族，但目标是通用编码器，可在其上微调分类、token 级任务与检索。",
+      "impactAreas": [
+        "无 GPU 环境下的文档级文本处理",
+        "分类 / 路由类任务的单位成本",
+        "长上下文场景的延迟曲线"
+      ],
+      "learningPath": [
+        "先用「模型选型与约束匹配」判断手上这项任务的输出到底是标签还是自然语言",
+        "再用「交互系统中的延迟权衡」看长输入下的延迟增长是否真的是瓶颈",
+        "配合「端侧模型部署与硬件适配」在目标机器上实测首 token 与稳态吞吐，而不是照抄基准数字",
+        "如果要换掉现有的生成式分类方案，用「推理服务容量规划」重算成本"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "这条信号是该条目的一个具体判断案例：输出是标签时，230M 的编码器往往优于任何生成式方案。",
+        "knowledge-latency-tradeoffs": "卖点不是绝对速度而是延迟随输入长度的增长斜率，正是该条目讨论的那条曲线。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "CPU 上的 3.7 倍是基准环境的数字，落到自己的目标机器仍需按该技能的方法实测。",
+        "skill-ws-a9e80194": "把生成式分类换成编码器会改变整条服务的容量与成本模型，需要重算而不是沿用。",
+        "skill-ws-7796779a": "从解码器骨干改造成双向编码器是一种非标准结构，上线前要确认所用推理栈对它的支持处于哪一级。"
+      },
+      "followUpQuestions": [
+        "现在用大模型在做的分类或路由任务，有多少可以换成编码器？",
+        "自己的输入长度分布是否真的落在需要 8,192 token 的区间？",
+        "所用的推理运行时对这种改造过的双向结构支持到哪一级——能加载，还是有性能路径？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "createdAt": "2026-07-30T08:31:01.939Z",
+      "updatedAt": "2026-08-10T13:11:08.268Z",
+      "editorialNotes": [
+        "正文数字（230M/350M、8,192 token、3.7 倍、30% 掩码、两段训练）均取自原文，已逐条核对。",
+        "Hugging Face 源的 RSS 不带 description，正文是直接抓页面读到的——此前三轮把这类条目按「无正文可写」标记已看，这次改为抓取后再判断。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "slug": "thinkingmachines-inkling",
+      "title": {
+        "original": "Welcome Inkling by Thinking Machines",
+        "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
+      },
+      "summary": {
+        "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
+        "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
+      },
+      "content": {
+        "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
+        "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-15",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Thinking Machines",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-c761533e",
+        "knowledge-ws-36346103"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-a9e80194",
+        "skill-ws-84837d46",
+        "skill-ws-dddaf80c",
+        "skill-ws-b47fabd1",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.212Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
+      "whoShouldCare": [
+        "模型选型与技术决策者",
+        "推理平台与 MLOps 工程师",
+        "多模态应用开发者"
+      ],
+      "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
+      "impactAreas": [
+        "开源旗舰模型格局",
+        "多模态应用开发",
+        "自托管推理容量规划"
+      ],
+      "learningPath": [
+        "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
+        "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
+        "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
+        "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
+        "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
+      },
+      "followUpQuestions": [
+        "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
+        "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
+        "1M 上下文在真实长文档任务中的有效利用率是多少？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "createdAt": "2026-07-19T03:20:48.051Z",
+      "updatedAt": "2026-08-10T13:11:08.212Z",
+      "editorialNotes": [
+        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "slug": "vllm-v0-26-0",
+      "title": {
+        "original": "vLLM v0.26.0",
+        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
+        "en": "vLLM v0.26.0"
+      },
+      "summary": {
+        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
+        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
+      },
+      "content": {
+        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
+        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-25",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.154Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
+      "whoShouldCare": [
+        "自建或自运维推理服务的平台团队",
+        "需要在本地评估新开源模型的算法与评测团队",
+        "关注 MoE 与推测解码落地成本的架构师"
+      ],
+      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
+      "impactAreas": [
+        "推理服务容量规划",
+        "开源模型选型周期",
+        "MoE 架构的部署成本",
+        "解码吞吐优化"
+      ],
+      "learningPath": [
+        "先理解 MoE 架构为什么让图捕获和量化变复杂",
+        "再看推测解码如何用草稿模型换解码吞吐",
+        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
+        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
+        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
+        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
+      },
+      "followUpQuestions": [
+        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
+        "MTP=1 推测解码对长上下文任务的加速比是多少？",
+        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "createdAt": "2026-07-27T01:43:12.721Z",
+      "updatedAt": "2026-08-10T13:11:08.154Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
+        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "slug": "kimi-k3",
+      "title": {
+        "original": "Kimi K3, and what we can still learn from the pelican benchmark",
+        "zh": "Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重"
+      },
+      "summary": {
+        "original": "Moonshot AI announces Kimi K3, a 2.8-trillion-parameter flagship with an open-weight release promised by July 27 — the first 'open 3T-class' model. Third-party evaluation (Artificial Analysis) puts it behind only Claude Fable 5 on long-horizon knowledge work, at a cost per task comparable to GPT-5.6 Sol.",
+        "zh": "Moonshot AI 发布 Kimi K3：2.8 万亿参数旗舰，承诺 7 月 27 日前开放权重——将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。第三方评测（Artificial Analysis）显示其长时程知识工作 Elo 仅次于 Claude Fable 5，单任务成本与 GPT-5.6 Sol 同档、约为 Opus 4.8 的一半。"
+      },
+      "content": {
+        "original": "Moonshot AI announced Kimi K3, described as their most capable model to date at 2.8 trillion parameters, available via their website and API with an open-weight release promised by July 27, 2026 — which would make it the first 'open 3T-class' model, taking the scale crown from DeepSeek's 1.6T v4 Pro. Self-reported benchmarks have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high while losing to Claude Fable 5 and GPT-5.6 Sol. Artificial Analysis reports a long-horizon knowledge-work Elo of 1547 (+732 over K2.6, behind only Claude Fable 5), cost per task of $0.94 (similar to GPT-5.6 Sol's $1.04, about half of Opus 4.8's $1.80, higher than open-weight peers), and 21% fewer output tokens than K2.6. The model also now leads Arena.ai's Frontend Code arena.",
+        "zh": "Moonshot AI（月之暗面）发布 Kimi K3，称其为迄今最强模型：2.8 万亿参数，已通过官网与 API 提供，并承诺在 2026 年 7 月 27 日前开放权重——届时它将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。自报基准显示 K3 大多超过 Claude Opus 4.8 max 与 GPT-5.5 high，弱于 Claude Fable 5 与 GPT-5.6 Sol。\n\n更有信息量的是第三方数据。Artificial Analysis 的评测报告给出三个关键点：长时程知识工作评测 Elo 达 1547，比上一代 K2.6 提升 732 分，仅次于 Claude Fable 5；单任务成本 $0.94，与 GPT-5.6 Sol（$1.04）同档，约为 Opus 4.8（$1.80）的一半，但高于其他开放权重模型；输出 token 用量比 K2.6 减少 21%——「智能密度」竞争同样在开源阵营发生。该模型还登顶了 Arena.ai 的 Frontend Code 竞技场。\n\n原文作者 Simon Willison 借这次发布重申了他的「鹈鹕骑车基准」的价值：在官方基准普遍被针对性优化的当下，简单、意外、难以刷分的民间测试反而保留了独立的信息量。对模型选型者而言，这次发布的实际意义是：若开放权重如期兑现，闭源与开源旗舰的能力差距将进一步收窄，而单任务成本已经站到了同一价格带。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-16",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Moonshot AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:08.092Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开源权重前沿竞赛可能迎来新王座：若 7 月 27 日如约开放权重，K3 将是首个「3T 级」开放模型，且单任务成本已与 GPT-5.6 Sol 同档。闭源与开源的能力差距进一步收窄，「模型选型的默认答案」需要重新计算——尤其对可以自托管的团队。",
+      "whoShouldCare": [
+        "负责模型选型与成本核算的团队",
+        "关注开放权重生态的研究者与自托管用户",
+        "评测与基准工程师"
+      ],
+      "technicalContext": "读这类发布要区分三层证据：厂商自报基准（普遍被针对性优化）、第三方系统评测（Artificial Analysis 的长时程 Elo 与单任务成本）、以及难以刷分的民间测试（Willison 的鹈鹕骑车基准）。K3 的输出 token 用量下降 21% 说明前沿竞争的重心正从纯能力转向单位算力与单位成本的智能密度——与 GPT-5.6 的主打方向相同。官方尚未详述架构细节（如是否 MoE、激活参数量）。",
+      "impactAreas": [
+        "开源模型生态",
+        "模型选型",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先读「模型选型与约束匹配」，理解单任务成本比每 token 价格更接近真实决策变量",
+        "对照 Inkling（开源万亿 MoE）理解开放权重阵营的规模化路径",
+        "用一个自己领域的小评测集交叉验证自报基准与第三方数据"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "单任务成本 $0.94 与 GPT-5.6 Sol 同档——模型选型的约束匹配正在从「谁更强」转向「同价位谁更合适」。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "K3 的发布是该技能的典型练习场：自报基准、第三方 Elo、民间鹈鹕测试三层证据需要交叉解读，而不是读一张官方对比表。"
+      },
+      "followUpQuestions": [
+        "开放权重是否在 7 月 27 日如期兑现？采用什么许可证？",
+        "架构细节（是否 MoE、激活参数量）公布后，自托管的真实算力门槛是多少？",
+        "开放后第三方复测能否复现自报与 Artificial Analysis 的结果？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "createdAt": "2026-07-21T05:07:29.020Z",
+      "updatedAt": "2026-08-10T13:11:08.092Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：来源为第三方深度分析（Simon Willison），Moonshot 官方发布页为一手出处；开放权重承诺日期 2026-07-27 待验证，正文明确标注了自报与第三方数据的边界。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-blog-p-97686",
+      "slug": "copilot-vs-raw-api-access",
+      "title": {
+        "original": "Copilot vs. raw API access: What are you actually paying for?",
+        "zh": "Copilot 与裸 API：为编码智能体的「外壳」付费，到底买到了什么",
+        "en": "Copilot vs. raw API access: What are you actually paying for?"
+      },
+      "summary": {
+        "original": "GitHub argues the choice between Copilot and raw model API access comes down to which layer of the system you need to own: the model call, or the workflow, policy, and harness around it.",
+        "zh": "GitHub 在 Copilot 改为按列表 API 费率计费之后，正面回答了「既然能直接调 API，为什么还要付 Copilot」——答案是你要自己拥有哪一层：模型调用本身，还是围绕它的编辑器、仓库、终端、组织策略与计费控制这一整套外壳。"
+      },
+      "content": {
+        "original": "The question is: why pay for GitHub Copilot when the same models are available through an API? The answer depends on what work you need to own. Copilot plans include a monthly allocation of GitHub AI Credits; metered usage is calculated from input, output, and cached tokens at the listed rate. Raw API access and Copilot address different layers. Take a maintenance task: from a GitHub Issue, inspect the repository, change files, run the test suite in the terminal, and open a pull request. The model call is one step; the surrounding system needs the issue, the diff, repository instructions, permitted commands, and organization policies.",
+        "zh": "## 一个被反复问到的问题\n\n「同样的模型我自己调 API 就行，为什么要为 Copilot 付费？」GitHub 把计费改成按列表 API 费率计算之后，这个问题变得更尖锐了——因为模型这一层的价差被明确抹平了。\n\n## 作者给出的分法：你要拥有哪一层\n\n文章的回答不是「Copilot 更便宜」，而是把问题重述为**你需要自己拥有哪一层工作**：\n\n- 如果你在做的是产品功能，需要自己的提示词、检索、路由、日志、安全模型和计费控制——那就该直连 API，这些都是你要自己拥有的东西；\n- 如果你要的是「从一个 Issue 走到一个已评审的 PR」，而编辑器、仓库、终端、组织策略都已经接好——那你买的不是模型，是这套已经连通的外壳。\n\n作者用一个常见的维护任务把这层说透：开发者从 Issue 出发，读仓库、改文件、在终端跑测试、开 PR 交评审。**模型调用只是其中一步**。周边系统需要的是 Issue 上下文、diff、仓库指令、允许执行的命令白名单和组织策略——这些既不是模型能力，也不能靠更好的提示词补上。\n\n计费方式的调整让这条分界更容易看清：代码补全和 Next Edit Suggestions 仍包含在付费计划里，而 AI Credits 用于更消耗资源的对话与智能体任务。\n\n## 为什么把它当信号收录\n\n这不是一篇产品营销稿能覆盖的判断。它给出的是一条**可复用的采购与自建决策线**：先问哪一层是你的核心工作，再决定买外壳还是买 token。对任何在评估「自建智能体平台 vs 采购现成工具」的团队，这条线比价格表更有用。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-07-22",
+      "sourceName": "GitHub Blog AI",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "GitHub",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-model-sizing",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:07.639Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "当模型这一层的价差被抹平，「自建还是采购」的决策依据就必须换成「哪一层工作是你要自己拥有的」。这篇给出的分法可以直接搬到任何智能体平台的采购评估里。",
+      "whoShouldCare": [
+        "在评估自建智能体平台与采购现成工具的技术负责人",
+        "负责研发工具链选型与预算的工程管理者",
+        "设计智能体工作流与权限边界的架构师"
+      ],
+      "technicalContext": "编码智能体的价值分布在两层：模型调用，以及围绕它的 harness——Issue 上下文、diff、仓库指令、命令白名单、组织策略与计费控制。前者可替换，后者是集成成本，通常被严重低估。",
+      "impactAreas": [
+        "研发工具链选型",
+        "智能体平台自建与采购决策",
+        "组织级策略与权限边界",
+        "AI 使用成本核算"
+      ],
+      "learningPath": [
+        "先把自己团队的智能体任务拆成「模型调用」与「周边集成」两栏",
+        "再逐项判断哪一栏是你的核心竞争力、必须自己拥有",
+        "最后才比较价格——价格是结论，不是前提"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "直连 API 意味着你要自己承担契约、版本与错误边界的全部责任，这是「外壳」成本里最容易被低估的一块。",
+        "knowledge-model-sizing": "模型层价差被抹平后，选型的约束条件从价格转向工作流适配度。",
+        "knowledge-system-design": "文章的核心其实是一次系统边界划分练习：哪一层自己拥有，哪一层外包。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "「外壳」的主体就是工具集成——编辑器、仓库、终端、策略系统的连通成本。",
+        "skill-agent-design": "从 Issue 到已评审 PR 的这条链路，正是智能体工作流设计要处理的对象。",
+        "skill-ws-f741f122": "自建外壳意味着日志、评测与运维也要自己扛，这部分成本应计入决策。"
+      },
+      "followUpQuestions": [
+        "把「外壳」自建一遍，团队真实的年化成本是多少？",
+        "组织策略与命令白名单这类控制面，采购方案能满足合规要求吗？",
+        "如果模型供应商更换，自建外壳的迁移成本有多高？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-blog-p-97686",
+      "createdAt": "2026-07-27T01:43:12.969Z",
+      "updatedAt": "2026-08-10T13:11:07.639Z",
+      "editorialNotes": [
+        "2026-07-27 轮：与 07-10 已发布的 Copilot 代码审查复盘同源，两条共同构成「模型之外的工程层才是差异所在」这一主题。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "slug": "mcp-2-0-stateless-spec",
+      "title": {
+        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
+        "zh": "MCP 2.0：协议核心改为无状态"
+      },
+      "summary": {
+        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
+        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
+      },
+      "content": {
+        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
+        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
+      },
+      "type": "protocol",
+      "publishDate": "2026-07-31",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "startup",
+      "importanceLevel": "critical",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-c183c9b9"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为关键重要性，直接归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:07.583Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
+      "whoShouldCare": [
+        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
+        "在网关或 API 层做路由与鉴权的基础设施工程师",
+        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
+      ],
+      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
+      "impactAreas": [
+        "智能体工具接入",
+        "推理服务部署",
+        "网关与鉴权"
+      ],
+      "learningPath": [],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
+        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
+        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
+        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
+        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
+      },
+      "followUpQuestions": [
+        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
+        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
+        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "createdAt": "2026-08-01T15:40:23.257Z",
+      "updatedAt": "2026-08-10T13:11:07.583Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "slug": "llm-0-32-agent-shaped",
+      "title": {
+        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
+        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
+      },
+      "summary": {
+        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
+        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
+      },
+      "content": {
+        "original": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the <code>llm-anthropic</code>, <code>llm-gemini</code>, and <code>llm-openrouter</code> plugins, each with substantial updates of their own.</p> <h4 id=\"headline-features-for-llm-cli-users\">Headline features for LLM CLI users</h4> <p>Running LLM against reasoning models now <strong>displays their reasoning traces</strong> to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add <code>-R/--hide-reasoning</code> to turn this off.</p> <p><img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &quot;think about the best thing about pelicans&quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly cleve…",
+        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-04",
+      "sourceName": "Simon Willison's Weblog",
+      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:07.523Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
+      "whoShouldCare": [
+        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
+        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
+        "关心长对话日志成本与可回放性的基础设施负责人",
+        "在评估 MCP 生态实际落地形态的架构师"
+      ],
+      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
+      "impactAreas": [
+        "本地优先的智能体工具链",
+        "MCP 生态的落地形态",
+        "长时程对话的日志与成本",
+        "命令行与管道式工作流集成"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
+        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
+        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
+        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
+        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
+        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
+        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
+        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
+      },
+      "followUpQuestions": [
+        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
+        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
+        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "createdAt": "2026-08-05T08:38:57.526Z",
+      "updatedAt": "2026-08-10T13:11:07.523Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "slug": "gemini-managed-agents-background-mcp",
+      "title": {
+        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
+        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
+      },
+      "summary": {
+        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
+      },
+      "content": {
+        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
+        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
+      },
+      "type": "platform",
+      "publishDate": "2026-07-07",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:11:07.458Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
+      "whoShouldCare": [
+        "构建生产级智能体的开发团队",
+        "评估 MCP 生态与工具接入方案的架构师",
+        "对比各家智能体平台能力的技术选型者"
+      ],
+      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
+      "impactAreas": [
+        "智能体平台",
+        "MCP 生态",
+        "开发者工具"
+      ],
+      "learningPath": [
+        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
+        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
+        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
+        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
+      },
+      "relatedSkillExplanations": {
+        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
+        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
+      },
+      "followUpQuestions": [
+        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
+        "后台任务的时长上限、计费模型与并发配额是什么？",
+        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "createdAt": "2026-07-21T05:07:29.299Z",
+      "updatedAt": "2026-08-10T13:11:07.458Z",
+      "editorialNotes": [
+        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "slug": "bigbang-v1-self-evolving-data",
+      "title": {
+        "original": "当题库追不上模型，AI开始给自己出题：中国这支团队跑通了数据层RSI",
+        "zh": "BigBang-v1：把数据生产系统本身当成优化对象，以及一处对不上的口径"
+      },
+      "summary": {
+        "original": "无尽前沿团队发布 BigBang-V1，后训练数据 100% 由 AI 自主合成。",
+        "zh": "上海交大人工智能学院、深势科技与上海算法创新研究院组成的无尽前沿团队发布 BigBang-v1：35B 参数、推理时约 3B 激活、262K 上下文，后训练数据称 100% 由 AI 自主合成，Apache-2.0 开源。可复用的不是跑分，而是它对任务的两个硬条件——必须同时前沿且可验证；缺一，合成数据都会迅速贬值。附一条核对：报道称它是「首个 RSI 原生训练的基座模型」，而 Hugging Face 上的元数据把它标为 Qwen3.6-35B-A3B 的微调。"
+      },
+      "content": {
+        "original": "The Endless Frontier team released BigBang-V1, a 35B model whose post-training data is claimed to be 100% AI-synthesized.",
+        "zh": "## 它主张的是什么\n\n上海交大人工智能学院、深势科技与上海算法创新研究院组成的**无尽前沿团队**发布 BigBang-v1：**35B 参数、推理时约 3B 激活、262K 上下文**，后训练数据称 **100% 由 AI 自主合成**，以科学前沿任务为核心，出题、解题、验证全部交给 AI，不需要人类逐题参与。模型与技术报告同步公开。\n\n厂商给出的成绩：在长程搜索、代码、科学研究、AI 研究等评测中拿下全部 35B 模型里的 10 项第一；在 FrontierScience Research、PaperBench 等高难度科研任务上超过 1T 级的 DeepSeek V4 Pro Preview；BrowseComp 76.5，SWE-Bench Pro 54.2。\n\n**这些数字全部是厂商自报的**，来源文章本身也带明显的推介口吻（含作者自己的上手演示、无对照、无批评视角）。所以下面只取那个不依赖跑分也成立的部分。\n\n## 真正可复用的是对任务的两个条件\n\n它把问题从「如何收集更多科学数据」换成了「**如何让数据生产系统随着模型能力一起进化**」——也就是让数据生产系统本身成为被优化的对象。\n\n要让这样一套系统持续跑下去，任务必须**同时**满足两条：\n\n1. **前沿性**——任务位于当前知识或模型能力的边界，甚至没有已知最优答案。静态题库会被模型迅速耗尽，而科学前沿会持续产生新问题。\n2. **可验证性**——候选方案能通过形式化方法、程序执行、数值计算、模拟器、实验反馈或领域工具做客观检查。\n\n**缺一，数据都会快速贬值**：只前沿而无法验证，系统拿不到可靠训练信号；只可验证而没有难度，任务很快落后于模型能力。这两条比任何跑分都更值得记住，因为它给「合成数据到底该合成什么」提供了一个可以照着筛的判据。\n\n报告顺带否掉了两类常见做法，理由都具体：一类只给模型套一层外壳（比如 harness）让它自己调工具改提示词，**底层训练管线原封不动**；另一类用大模型给生成数据打分筛选，但**评判标准是人类预先写死的规则，不会跟着模型能力一起演化**——模型变强之后旧尺子失效，仍然源源不断产出低价值样本。第二条正是本站《评估闭环》里那句「尺子变了没有」的反面：这里的问题不是尺子变了，而是尺子**不会**变。\n\n## 一处对不上的口径\n\n报道称 BigBang-v1 是「首个基于 recursive self-improving 原生方式训练出的**基座模型**」。而 Hugging Face 上的制品（`endless-frontier/BigBang-v1`，Apache-2.0）元数据把它标为 **`Qwen/Qwen3.6-35B-A3B` 的微调**；35B 总参、约 3B 激活与该基座的规格一致。\n\n同一篇报道另一处写的是「**后训练**数据 100% 由 AI 自主合成」——这句与「微调」自洽，与「基座模型」不自洽。合理的读法是：RSI 发生在后训练阶段，底座是别人的。这不削弱那套数据管线的价值，但把主张的范围收窄了不少。\n\n值得记下来的是这次核对本身只花了一次查询。**开放权重的附带好处，是宣传口径可以被制品当场校对**——闭源发布连这一步都做不了。\n\n## 放在这条线上看\n\n本站已发布的 GPT-Red 是自博弈让闭环自己产出下一轮输入，NVIDIA Nemotron 开放数据是把合成数据当作可分发的公共品，TutorMoments 则量出了模型在笼统目标下的行为偏差。这一条补的是中间那一段：**当出题的速度成为瓶颈时，被优化的对象应该是出题的系统**。\n\n它同时是一个提醒——本站 08-10 的信源盘点已经指出，中文信源里产业 PR 的比例明显更高。这条之所以还是被留下，是因为它有可核对的开放制品，而不是因为它的跑分好看。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-09",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/468782.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "量子位",
+      "publisherType": "media",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-818b7bb3",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-36346103",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-84837d46",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:09:54.200Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "模型越强，能给它出题、解题、验证的人越少——高质量训练数据的瓶颈正在从「收集」转移到「出题」。这条信号给出的可复用判据是：能撑起自我进化的任务必须同时具备前沿性与可验证性，缺一数据都会快速贬值。附带一个方法上的收获：它的开放权重让「首个 RSI 原生基座模型」这个宣传口径当场就能被制品校对出偏差。",
+      "whoShouldCare": [
+        "在做合成数据管线、正在纠结「该合成什么」而不是「合成多少」的训练团队",
+        "评估开源模型时习惯先看跑分、想补一套核对制品与口径的工程负责人",
+        "关注 recursive self-improving 这条路线落地形态的研究与战略角色",
+        "需要为领域任务设计可自动验证信号的评测负责人"
+      ],
+      "technicalContext": "Recursive self-improving 指让 AI 参与迭代自身的模型、算法、数据与研发流程。目前多数落地停在两种形态：给模型套工具外壳，或用大模型对生成数据打分筛选——前者不触动训练管线，后者的评判规则由人预先写死、不随模型能力演化。BigBang 的做法是把数据生产系统本身纳入优化对象，并用「前沿且可验证」这两个条件筛选任务载体，因而选择了科学领域作为训练场：它天然组合了搜索、阅读、提出假设、数学推导、代码开发、工具调用、实验分析与结果写作。",
+      "impactAreas": [
+        "合成数据的任务选型判据",
+        "自我进化的数据生产管线",
+        "开放权重带来的宣传口径可核对性",
+        "科研与工程任务上的评测设计"
+      ],
+      "learningPath": [
+        "先把「前沿性 + 可验证性」这两条拿去筛一遍你现有的合成数据任务，看哪些其实只满足一条",
+        "读《评估闭环》，对照「尺子不会变」这个失败模式——它与「尺子变了」同样致命，但更难察觉",
+        "读《合成数据与数据配方》，把数据质量从「洗出来的」重新理解成「任务属性决定的」",
+        "自己去 Hugging Face 上核对一次模型元数据与报道口径，把这一步变成读任何开源发布的默认动作",
+        "读《模型选型与约束匹配》，判断 35B 总参、约 3B 激活这个规格对你的约束是不是合适"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-818b7bb3": "它把数据质量从「清洗出来的」改口为「任务属性决定的」，是这条概念目前最锋利的一种表述。",
+        "knowledge-evaluation-loops": "用大模型按人写死的规则筛数据，是一种尺子不会随能力演化的闭环——环还在转，但已经不再收紧。",
+        "knowledge-ws-36346103": "底座是 Qwen3.6-35B-A3B，35B 总参与约 3B 激活的差距正是 MoE 的常规读法。",
+        "knowledge-model-sizing": "35B 总参、3B 激活、262K 上下文是一组具体约束；决定能不能用的从来不是参数量本身。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "「前沿且可验证」本质上是在说：先写下什么算好，而且要写成机器能判的。这条技能讲的正是那一步。",
+        "skill-ws-84837d46": "它的全部主张都落在后训练阶段——数据配方而非架构，这条技能是读懂它的前提。",
+        "skill-ws-dddaf80c": "自报 10 项第一、超过 1T 模型，是典型的厂商定义指标；用这条技能里的三类数字分法读，就知道哪些能横比。"
+      },
+      "followUpQuestions": [
+        "你的领域里有哪些任务是真正可自动验证的？如果一条都举不出来，这套方法就用不上。",
+        "「后训练数据 100% 由 AI 合成」中，用来做验证的那一环是否也完全无人参与？报道没有说清这一点。",
+        "技术报告是否给出了数据管线自身迭代的消融实验？没有的话，收益归因于 RSI 还是归因于基座，无法区分。",
+        "如果底座是 Qwen3.6-35B-A3B，那么与同底座的其他后训练版本对比，才是能说明问题的对照组——这组数据在哪里？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-468782",
+      "createdAt": "2026-08-10T12:59:38.493Z",
+      "updatedAt": "2026-08-10T13:09:54.200Z",
+      "editorialNotes": [
+        "来源为量子位报道，带明显推介口吻（含自行上手演示、无对照组、无批评视角）；全部跑分均为厂商自报，正文已就此加限定。",
+        "制品核对：Hugging Face 上 endless-frontier/BigBang-v1（Apache-2.0，2026-08-02 创建，社区已出 GGUF/MLX 量化）元数据为 base_model:finetune:Qwen/Qwen3.6-35B-A3B，与报道所称「基座模型」不符，已写入正文。",
+        "定 signal 而非 important：方法层的判据可复用，但收益归因缺少同底座对照，且证据链依赖厂商自报。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "slug": "sglang-v0-5-17",
+      "title": {
+        "original": "SGLang v0.5.17",
+        "zh": "SGLang v0.5.17：Kimi K3 首日可服务，以及一个认识会话的前缀缓存"
+      },
+      "summary": {
+        "original": "SGLang v0.5.17: 582 PRs from 194 contributors, with day-0 support for Kimi K3 and MiniMax-H3.",
+        "zh": "582 个 PR、194 位贡献者的一次大版本。Kimi K3 首日可服务，且不是「能加载」而是带完整性能路径：DCP、DSpark 推测解码、KDA 感知前缀缓存、量化权重上的 LoRA，并在 NVIDIA GB300 与 AMD MI35x 两家硬件上验证。真正的新东西是一个认识会话的统一前缀缓存——淘汰不再只按缓存策略，而是知道哪些前缀仍被活跃会话引用。"
+      },
+      "content": {
+        "original": "SGLang v0.5.17 highlights: 582 PRs from 194 contributors, Kimi K3 and MiniMax-H3 day-0 support, initial Rust frontend, DWDP prefill parallelism, session-reference-aware radix cache.",
+        "zh": "## 这一版补齐的是支持路径，不是功能表\n\n本站 07-16 发过 Kimi K3——2.8 万亿参数旗舰，当时的看点之一是「承诺月内开放权重」。这一版回答的是那条信号必然会引出的下一个问题：**开放之后，自托管栈跑不跑得动、走哪条路、跑得对不对**。\n\n答案是首日可服务，而且落在《模型与推理引擎的支持路径》里的第三、四档而不是第一档。SGLang 为 Kimi K3 提供的不是「能加载」，而是：DCP、DSpark 推测解码、分段预填充 PP 配合 TP 解码、**KDA 感知的前缀缓存**、DCP 之上的 HiCache L2、量化权重上的 LoRA，以及推理、工具调用与 OpenAI 兼容服务——并且在 **NVIDIA GB300 与 AMD MI35x** 两家的硬件上分别验证过。\n\n被服务的这个模型本身值得看一眼形状：2.8T 参数的多模态 LatentMoE，**896 个专家、top-16**，在 3584 维的隐空间里路由；1M token 上下文；**69 层 KDA 线性注意力与 24 层 MLA 交错**；MoonViT3d 视觉塔；并且以**原生 MXFP4 检查点**发布。原生低比特发布意味着量化不再是部署方自己补的一步。\n\n## 认识会话的前缀缓存\n\n这一版里最值得单独拿出来的一条，不是最快的那条。**统一 Radix 缓存现在支持会话引用感知**：请求可以携带一个稳定的 `session_id`，于是淘汰逻辑知道**哪些前缀仍被一个活跃会话引用**，而不是纯按缓存策略把它们踢掉；用完通过 `/close_session` 释放引用。开关是 `--enable-session-radix-cache`。\n\n发布说明写明了它是为**智能体与强化学习推演负载**加的。这是推理层第一次长出一个明显属于智能体形状的概念：一个跑二十轮工具循环的会话，和二十个互不相干的请求，对缓存来说本来毫无区别——直到有人告诉它区别在哪。\n\n## 其余几项，以及它们各自的条件\n\n- **Rust 前端初步支持**：把从网络入口到「已分词请求交给 GPU 调度器」这前半段，从 Python 迁到多线程 Rust 实现。\n- **DWDP（MoE 预填充新并行策略）**：通过 NVLink P2P 预取对端专家权重并在本地计算全部专家，从而去掉 EP 的 all-to-all token 分发。4 张 B200、gpt-oss-120b、**仅预填充**场景下，DWDP4 在 MNT 32K / ISL 32K 达到 **1.92 倍于 DEP4**；饱和时（CONC=128、ISL=8K）**506K 对 329K tok/s，1.54 倍**。作者自己标注为早期开发阶段。\n- **DCP 通信后端与 q-replicate**：`a2a` 把打包后的注意力输出与 fp32 LSE 放进每层一次 NCCL 集合通信，fp8 KV 以 uint8 字节承载；`fi_a2a` 在 GB200 上把跨 rank 交换交给 FlashInfer MNNVL 内核。`--dcp-replicate-q-proj` 在本地投影全头 Q，跳过逐层 Q 头维 all-gather。\n- **MiniMax-H3 首日支持**：一次请求同时产出视频与同步立体声音轨，三种公开任务配置全覆盖；在 B200、H100 与两张 RTX 5090（逐层卸载）上验证。\n- **其他新增模型**：EmbeddingGemma 与 LFM2.5 嵌入模型、nvidia/MiniMax-M3-NVFP4，以及 Poolside Laguna-S-2.1 与 Thinking Machines Inkling-Small 的 cookbook 配方。\n\n那个 1.92 倍值得按《交互系统中的延迟权衡》的规矩读一遍：它是**仅预填充**、在 4 张 B200 上、在特定 MNT/ISL 组合下、对照 DEP4、且作者标为早期开发的一个数。饱和吞吐那一组降到 1.54 倍——**同一项优化在两种条件下差了近四成**，这正是「速度永远是条件下的速度」的现成例子。\n\n## 和这条线上的其他版本比\n\n形状与本站已发布的 vLLM v0.26.0 完全一样：一个开源推理引擎在旗舰模型发布后的很短时间内，把整条推理栈补齐。区别在于覆盖面——这一版同时接住了一个 2.8T 的语言模型、一个视频加音频的扩散模型、若干嵌入模型，并且在**两家 GPU 厂商**上都做了验证。\n\n对读者的实际含义是：判断「我能不能用上某个新旗舰」时，模型公告的日期已经不是决定性的那个日期；**引擎的支持日期才是**，而这两个日期正在被压缩到同一周。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-08",
+      "sourceName": "SGLang Releases",
+      "sourceUrl": "https://github.com/sgl-project/sglang/releases/tag/v0.5.17",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "SGLang",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-34da6116",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-7796779a",
+        "skill-ws-a9e80194",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-10T13:09:54.124Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "旗舰模型的「发布日」和「你能用上它的日子」正在合并。Kimi K3 在这一版里是首日可服务，而且带的是完整性能路径与两家硬件的验证，不是勉强能加载。对自托管的团队来说，这把换代决策的时间窗口从「等几个月看引擎跟不跟」压缩到了「看这一版的发布说明」。另有一条更安静的变化：前缀缓存开始认识会话，推理层第一次长出了智能体形状的概念。",
+      "whoShouldCare": [
+        "自托管推理栈、需要判断新旗舰模型多久能进生产的平台与推理团队",
+        "跑智能体或强化学习推演负载、被前缀缓存命中率困扰的工程团队",
+        "在 NVIDIA 与 AMD 之间评估硬件路线、关心新模型是否两边都验证过的基础设施负责人",
+        "关注 MoE 预填充并行策略与 KV 传输开销的性能工程师"
+      ],
+      "technicalContext": "SGLang 是与 vLLM 同类的开源高吞吐推理引擎。「首日支持」在实践中有强弱之分：能加载、有原生建模、有性能路径、有正确性保障是四个不同的档位，而发布说明里往往只写「支持」。这一版对 Kimi K3 给出的是第三、四档的证据——具体的并行与缓存策略、量化权重上的 LoRA、以及两家厂商硬件上的验证。Kimi K3 的 LatentMoE 在隐空间路由、KDA 线性注意力与 MLA 交错，这些结构决定了前缀缓存与推测解码都必须为它单独适配，而不是复用已有路径。",
+      "impactAreas": [
+        "新旗舰模型的自托管可用时间窗口",
+        "智能体与 RL 推演负载的前缀缓存命中率",
+        "MoE 预填充的并行策略与通信开销",
+        "跨 GPU 厂商的模型可移植性"
+      ],
+      "learningPath": [
+        "先用《模型与推理引擎的支持路径》里的四档，把这一版对 Kimi K3 的支持归到具体某一档，而不是停在「支持了」",
+        "读会话感知前缀缓存那一段，回头量一下自己的智能体负载在多轮之间到底损失了多少缓存命中",
+        "把 DWDP 的 1.92 倍与 1.54 倍并列着读，练习把任何加速数字还原成「在什么条件下」",
+        "对照《模型量化与数值精度》，理解原生 MXFP4 检查点为什么改变了部署方的工作量",
+        "读《推理服务容量规划》，把这一版的能力翻译成你自己集群上的显存与吞吐预算"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Kimi K3 是 896 专家 top-16 且在隐空间路由的 LatentMoE，DWDP 则直接改动 MoE 预填充的专家分发方式——两头都是这条概念的当前形态。",
+        "knowledge-ws-68963f7f": "DSpark 推测解码是 Kimi K3 首日性能路径的组成部分，而不是事后补的优化。",
+        "knowledge-ws-34da6116": "原生 MXFP4 检查点意味着量化档位由模型方定下，部署方从「自己压」变成「接受并验证」。",
+        "knowledge-latency-tradeoffs": "1.92 倍与 1.54 倍来自同一项优化的两组条件，是「速度永远是条件下的速度」最干净的例子。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-7796779a": "这一版是那四档支持路径的完整样本：同一个模型在同一天里从「有原生建模」直接给到了「有性能路径」和跨厂商验证。",
+        "skill-ws-a9e80194": "DWDP、DCP 通信后端与会话感知缓存都是容量规划的输入项，它们改变的是同一批硬件能承接的并发。",
+        "skill-ws-dddaf80c": "读旗舰发布时该问「多久能自托管」；这一版把答案从「几个月」改成了「同一周」，判断依据也要跟着变。"
+      },
+      "followUpQuestions": [
+        "你的智能体负载有稳定的会话标识吗？没有的话，会话感知缓存对你就是一个用不上的开关。",
+        "DWDP 被作者标为早期开发，什么样的验证能让你敢把它开在生产上？",
+        "同一个模型在 GB300 与 MI35x 上都验证过，但验证的是可服务性还是同等的正确性与吞吐？",
+        "如果引擎支持日期与模型发布日期继续压缩到同一周，你的换代评估流程还来得及在窗口内跑完吗？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "createdAt": "2026-08-10T12:59:38.817Z",
+      "updatedAt": "2026-08-10T13:09:54.124Z",
+      "editorialNotes": [
+        "事实全部取自 GitHub 上 v0.5.17 的发布说明原文（非预发布，2026-08-08 发布），性能数字与其限定条件按原文保留。",
+        "与已发布的 vllm-v0-26-0 是同一形状（旗舰模型发布后补齐推理栈），关系类型用印证而非续作——两者是不同引擎，不构成版本承接。",
+        "同批导入的 SGLang v0.5.16 及更早的 8 个版本、ms-swift 的 10 个版本均为每源上限提到 12 之后浮上来的历史存量，已按陈旧发布拒绝。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
       ]
     },
     {
@@ -733,107 +2345,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "slug": "mcp-2-0-stateless-spec",
-      "title": {
-        "original": "Stateless MCP has recaptured my interest (and inspired mcp-explorer and datasette-mcp)",
-        "zh": "MCP 2.0：协议核心改为无状态"
-      },
-      "summary": {
-        "original": "The 2026-07-28 Model Context Protocol specification turns MCP from a bidirectional stateful protocol into a stateless request/response one, retiring the initialize handshake and session id so any request can land on any instance behind a plain load balancer.",
-        "zh": "2026-07-28 版规范把 MCP 从有状态的双向协议改成无状态的请求/响应协议：废除 initialize 握手与会话 id，每个请求自带协议版本与能力，于是任何一个请求都可以落到轮询负载均衡后的任意实例，不再需要共享存储。这是 MCP 发布以来最大的一次改动，同时收紧了鉴权、定下了 12 个月的最短弃用窗口。"
-      },
-      "content": {
-        "original": "<p>Tuesday was <a href=\"https://x.com/ade_oshineye/status/2082129440943866149\">Stateless MCP day</a> - the rollout of MCP 2.0, or <a href=\"https://blog.modelcontextprotocol.io/posts/2026-07-28/\">the 2026-07-28 Model Context Protocol specification</a> to use the more formal but less memorable name. This is the most significant change to the MCP spec since it first launched, and has also served to reignite my personal interest in the protocol.</p> <p>For background: MCP is the Model Context Protocol, which describes a standard way to expose new tools to LLM-powered agent frameworks. It was introduced by Anthropic back <a href=\"https://www.anthropic.com/news/model-context-protocol\">in November 2024</a>, had a <em>huge</em> spike of interest through much of 2025, and then became somewhat eclipsed by <a href=\"https://simonwillison.net/2025/Oct/16/claude-skills/\">Skills</a> (another Anthropic invention) when it became apparent that an agent harness with access to a terminal and <code>curl</code> could do most of what MCP did in a more flexible way. I wrote about that <a href=\"https://simonwillison.net/2025/Dec/31/the-year-in-llms/#the-only-year-of-mcp\">in my review of 2025</a>.</p> <p>I'm coming back around to MCP now. Giving an agent a shell environment with the ability to access the internet is <a href=\"https://simonwillison.net/2026/Jul/22/openai-cyberattack/\">fraught with risk</a>, and requires a strong model that is capable of effectively driving such an environment. MCP tools are easier to audit and control, and simple enough that smaller models that run on a laptop can st…",
-        "zh": "## 这次改了什么\n\n2026-07-28 版规范（社区称 MCP 2.0）的主线只有一句话：**协议核心从有状态变成无状态**。\n\n- **握手和会话没了。** `initialize` / `initialized` 这对交换和 `Mcp-Session-Id` 头一起退休。每个请求自己携带协议版本、客户端标识与能力；想提前知道服务器有什么能力，可以调用新增的 `server/discover`，但**不是必须的**。\n- **因此可以横向扩。** 任何请求都能落到轮询负载均衡后面的任意实例，不需要实例间共享存储——这正是此前呼声最高的诉求。\n- **方法名和工具名走 HTTP 头**（`Mcp-Method`、`Mcp-Name`），网关可以直接按头做路由和鉴权，不必先解请求体。\n- **采样与征询改成多轮往返（MRTR）**，不再要求维持一条常开的双向流。\n- **列表响应可缓存**：带缓存提示且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n- **扩展框架正式化**，Tasks 与 MCP Apps、企业托管授权并列为扩展。\n- **鉴权收紧**：加入签发方校验，并从动态客户端注册转向客户端元数据文档。\n- **弃用有窗口了**：正式的弃用策略给出至少 12 个月，升级可以排期而不是被动响应。\n\n四个一级 SDK（TypeScript、Python、Go、C#）同步更新，破坏性改动附迁移说明。规模上，官方称一级 SDK 月下载量接近 5 亿。\n\n## 为什么现在值得重新看 MCP\n\n信号来源 Simon Willison 的角度值得一并读：2025 年 MCP 的热度被 Skills 盖过，原因是**一个能用终端和 curl 的智能体外壳，用更灵活的方式做到了 MCP 的大部分事**。他现在转回来的理由不是协议变强了，而是那条替代路线的代价看清楚了——给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动；相比之下 MCP 工具**更容易审计和管控，简单到笔记本上跑的小模型也能驱动**。\n\n换句话说，无状态化解决的是运维上的反对意见（可靠性与扩展性），而「可审计」才是它对着 shell 方案的长期理由。"
-      },
-      "type": "protocol",
-      "publishDate": "2026-07-31",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/31/stateless-mcp/#atom-entries",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Simon Willison",
-      "publisherType": "startup",
-      "importanceLevel": "critical",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-c183c9b9"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为关键重要性，直接归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-07T08:30:32.994Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "MCP 服务器此前必须维持会话状态，所以扩容要么粘连会话、要么共享存储，这一条挡住了不少生产部署。无状态化之后，MCP 服务器变成普通的无状态 HTTP 服务，可以直接放在轮询负载均衡后面。这是部署形态的改变，不是功能增补。",
-      "whoShouldCare": [
-        "已经在生产里跑 MCP 服务器、正为会话粘连或扩容发愁的团队",
-        "在网关或 API 层做路由与鉴权的基础设施工程师",
-        "在评估「给智能体一个 shell」与「给智能体一组可审计工具」两条路线的架构决策者"
-      ],
-      "technicalContext": "无状态化的代价落在服务器一侧：能力协商从一次握手变成每个请求自带，服务器要接受重复信息换取实例无关性。采样与征询这类服务器发起的请求原本依赖常开双向流，现在改用多轮往返表达。列表响应加了缓存提示与确定顺序，是为了让客户端缓存工具目录时，上游模型的提示缓存不会因为重连而整体失效。",
-      "impactAreas": [
-        "智能体工具接入",
-        "推理服务部署",
-        "网关与鉴权"
-      ],
-      "learningPath": [],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "无状态化本质上是在重新划接口边界：把原本存在服务器会话里的状态挪回每个请求里。",
-        "knowledge-tool-use": "MCP 规范化的正是工具调用这件事，这一版改的是调用怎么送达，不是调用本身。",
-        "knowledge-system-design": "有状态换无状态是一次典型权衡——用每请求的冗余信息，换实例无关与可横向扩展。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "接入模式直接受影响：握手没了，能力协商要改成逐请求携带。",
-        "skill-agent-design": "工作流里凡是依赖常开双向流的采样与征询环节，都要改成多轮往返。",
-        "skill-ws-c183c9b9": "签发方校验与客户端元数据文档是这一版的鉴权收紧点，值得对着自己的注册流程核一遍。"
-      },
-      "followUpQuestions": [
-        "每个请求都携带协议版本与能力，在高频调用下带来的额外开销有多大？",
-        "工具目录缓存失效时，上游提示缓存的命中率会掉多少？",
-        "从动态客户端注册转向客户端元数据文档，对已有的自动注册流程意味着什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "createdAt": "2026-08-01T15:40:23.257Z",
-      "updatedAt": "2026-08-07T08:30:32.994Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "slug": "lfm2-5-2-6b-on-device-agents",
       "title": {
@@ -947,428 +2458,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "slug": "chatgpt-work",
-      "title": {
-        "original": "ChatGPT is now a partner for your most ambitious work",
-        "zh": "ChatGPT Work：面向长时程任务的办公智能体"
-      },
-      "summary": {
-        "original": "ChatGPT Work is an agent that can take action across your apps and files, stay with a project for hours if needed, and turn a goal into finished work.",
-        "zh": "OpenAI 推出 ChatGPT Work：一个能跨应用与文件执行操作、可连续工作数小时、把目标直接变成完成品的办公智能体。"
-      },
-      "content": {
-        "original": "OpenAI positioned ChatGPT as a partner for ambitious work with ChatGPT Work: an agent that can take action across apps and files, stay with a project for hours if needed, and turn a goal into finished work rather than a chat answer.",
-        "zh": "OpenAI 推出了 ChatGPT Work，把 ChatGPT 的定位从「对话助手」推进到「工作伙伴」：它是一个智能体，能够跨应用和文件执行操作，必要时可以在一个项目上连续工作数小时，最终交付的是完成的工作成果，而不是一段聊天回答。\n\n这个信号值得注意的地方在于产品形态的演进：智能体正从「对话中调用工具」走向「长时程运行的数字同事」。当完成标准从「回答得好」变成「任务做完」，评估维度也随之改变——任务完成率、中途纠错能力和权限边界成为新的关键指标。\n\n结合本站已收录的智能体工作台平台和浏览器自动化智能体等信号，可以看到长时程、跨应用的智能体正在成为多家厂商共同押注的产品方向。公告未披露权限模型、失败恢复机制等工程细节，评估实际可用性需要以后续文档和实测为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-09",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/chatgpt-for-your-most-ambitious-work",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-scope-pilots",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122",
-        "skill-communication-ai"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-06T14:32:47.475Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "智能体产品正从「对话中调用工具」走向「长时程运行的数字同事」：跨应用行动、连续数小时执行、以交付物为完成标准。这会改变团队评估 AI 的方式——从回答质量转向任务完成率与过程可控性。",
-      "whoShouldCare": [
-        "知识工作者与团队负责人",
-        "智能体应用开发者",
-        "AI 产品经理"
-      ],
-      "technicalContext": "长时程智能体的核心工程问题是任务分解、工具调用的可靠性和中途纠错：运行时间越长，错误累积和权限边界问题越突出。审查点（何时停下来让人确认）的设计，往往比模型能力本身更决定这类产品的实际可用性。",
-      "impactAreas": [
-        "办公自动化",
-        "团队协作方式",
-        "智能体产品设计",
-        "知识工作流程"
-      ],
-      "learningPath": [
-        "阅读官方公告原文，确认 ChatGPT Work 的能力边界、可用范围和目标场景。",
-        "复习「工具使用与函数调用」：理解智能体跨应用执行动作的基础机制。",
-        "结合「人在回路的审查」思考：哪些任务环节必须保留人工确认点。",
-        "选一个低风险、可验收的真实任务做试点，记录任务完成率和需要人工介入的位置。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "跨应用、跨文件执行操作的底层机制就是工具调用，理解它才能判断这类智能体的能力边界。",
-        "knowledge-human-loop": "连续数小时的自主执行放大了错误累积风险，审查点设计是这类产品可用性的关键。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "评估长时程智能体的任务编排、状态管理和失败恢复，需要智能体工作流设计的视角。",
-        "skill-scope-pilots": "先用低风险、结果可验收的任务试点，验证任务完成率后再扩大授权范围。"
-      },
-      "followUpQuestions": [
-        "ChatGPT Work 的权限模型如何设计，对应用和文件的访问边界在哪里？",
-        "长时程任务失败或跑偏时，如何回滚已经执行的操作？",
-        "它与现有智能体工作台产品相比，在任务编排和可观测性上差异多大？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-      "createdAt": "2026-07-09T20:58:31.394Z",
-      "updatedAt": "2026-08-06T14:32:47.475Z",
-      "editorialNotes": [
-        "Converted from OpenAI News RSS candidate; engineering details (permissions, rollback) not yet disclosed, content kept conservative."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-      "slug": "llm-0-32-agent-shaped",
-      "title": {
-        "original": "New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging",
-        "zh": "LLM 0.32：一个命令行工具长成了智能体框架"
-      },
-      "summary": {
-        "original": "LLM 0.32 adds visible reasoning traces on stderr, server-side provider tools including AnthropicMCP, a Git-style content-addressable message store, and typed streaming events.",
-        "zh": "Simon Willison 发布 LLM 0.32，称其为该项目自诞生以来最重要的一版：推理轨迹打到 stderr 因而不污染可管道的标准输出、接入供应商的服务端工具（含由供应商代跑远程 MCP 调用的 AnthropicMCP）、仿 Git 的内容寻址消息存储解决长对话的重复日志、以及分型的流式事件。工具链还能为人工审批暂停并从存储的消息历史恢复——作者由此写道「我猜 LLM 现在是个智能体框架了」。"
-      },
-      "content": {
-        "original": "<p>I released <a href=\"https://llm.datasette.io/en/stable/changelog.html#v0-32\">LLM 0.32</a> this morning, the most significant new version of LLM since the initial launch of the project. The new version includes support for visible reasoning traces, server-side provider tools, redesigned content-addressable SQLite logs, new models, and new features enabled by the OpenAI Responses API. I also released new versions of the <code>llm-anthropic</code>, <code>llm-gemini</code>, and <code>llm-openrouter</code> plugins, each with substantial updates of their own.</p> <h4 id=\"headline-features-for-llm-cli-users\">Headline features for LLM CLI users</h4> <p>Running LLM against reasoning models now <strong>displays their reasoning traces</strong> to standard error, so you can see what they are \"thinking\" without that information being included in the standard output that you might pipe to another tool. Add <code>-R/--hide-reasoning</code> to turn this off.</p> <p><img src=\"https://static.simonwillison.net/static/2026/best-pelicans.gif\" alt=\"Running llm &quot;think about the best thing about pelicans&quot; in the macOS terminal window - grey text outputs saying Exploring pelican qualities, then after a paragraph of that a white paragraph of text comes out saying: The best thing about pelicans is their wonderfully oversized, practical design: that enormous bill and pouch look comical, but they make pelicans remarkably skilled fishers. Even better, many species cooperate—working together to herd fish before scooping them up. They’re a great mix of goofy, graceful, and surprisingly cleve…",
-        "zh": "## 这一版改了什么\n\n作者自己的定性是：**这是 LLM 项目自发布以来最重要的一版**。四条主线：\n\n1. **推理轨迹可见，而且打在 stderr 上。** 对推理模型运行时，「思考过程」输出到标准错误而不是标准输出——所以你依然可以把标准输出管给下一个程序，思考过程不会混进去（`-R` / `--hide-reasoning` 关掉）。\n2. **服务端工具。** OpenAI 提供代码执行环境与 WebSearch；llm-anthropic 插件补上 WebSearch、WebFetch、CodeExecution 和 **AnthropicMCP**——后者意味着由供应商在**一次请求-响应之内**替你执行对某个远程 MCP 服务器的调用。\n3. **内容寻址的消息存储，仿照 Git。** 每一轮请求都携带完整历史是 LLM API 的本质，直接记日志会把同一段 JSON 重复写很多遍；按内容寻址之后去重，`llm logs` 再把它还原成好读的形式。\n4. **结构化事件流。** `stream_events()` 返回 reasoning / text / 工具调用 / 图片附件等**分型事件**，取代原来「一串字符串」的返回形状。\n\n另有 `model.prompt(messages=[])` 取代原先的会话抽象，以及一个能对任意 OpenAI 兼容端点跑一次性提示词的 `llm openai endpoint`。\n\n## 最小、但最值得抄的那个设计\n\n**可观测性和可组合性通常互相打架**：你想看到中间过程，又想把结果干净地交给下一个程序。把推理轨迹放到 stderr、把答案留在 stdout，两件事同时成立，而且不需要任何新概念——这是 Unix 老办法在智能体工具上的一次准确复用。\n\n## 工具循环正在往供应商那一侧挪\n\nAnthropicMCP 这个工具值得单独看：MCP 调用发生在与供应商的**一次 API 往返之内**，客户端不再驱动那个循环。把它和 07-31 那版无状态 MCP、以及托管智能体放在一起看，是同一个方向的三种形态——**执行、状态与工具接入都在向服务端收敛。**\n\n## 而这条信号的位置恰好在反方向\n\nChatGPT Work 和 Gemini 托管智能体把运行时搬到平台侧；LLM 0.32 走的是另一条路：**一个跑在本机、可审计、能和任意 OpenAI 兼容端点拼接的命令行**，外加一个足够写出真实智能体的 Python 库。\n\n两条路线的取舍就是「你必须自己拥有哪一层」。这一版还把**工具链可以为人工审批暂停、并从存储的消息历史恢复**做进了框架——人在回路成了框架能力，而不是产品层面的一个开关。\n\n## 作者自己的结论\n\n他一度拒绝使用「智能体」这个词，直到接受了一个足够朴素的定义——**智能体就是在循环里调用工具以达成目标**。这一版之后他写道：**「我猜 LLM 现在是个智能体框架了。」**\n\n一个命令行工具长成智能体框架，这件事本身就是当下这一层生态的形状：**能力不再靠某个大平台一次性给全，而是靠小工具把模型、工具与循环拼起来。**"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-04",
-      "sourceName": "Simon Willison's Weblog",
-      "sourceUrl": "https://simonwillison.net/2026/Aug/4/new-release-of-llm/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Simon Willison",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-f741f122",
-        "skill-tool-integration",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-06T12:50:33.891Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "推理轨迹打到 stderr、答案留在 stdout，是一个很小却值得抄的设计：可观测性和可组合性通常互相打架，而这一版让两者同时成立，没有引入任何新概念。更大的一层是方向——AnthropicMCP 把 MCP 调用收进与供应商的一次往返，说明工具循环正在往服务端挪；而这个项目本身却走反方向，坚持一个能在本机跑、可审计、能拼接任意 OpenAI 兼容端点的命令行。两者的取舍就是「你必须自己拥有哪一层」。",
-      "whoShouldCare": [
-        "在自建智能体运行时与使用托管平台之间做决定的工程团队",
-        "需要把模型调用嵌进既有命令行/管道工作流的开发者",
-        "关心长对话日志成本与可回放性的基础设施负责人",
-        "在评估 MCP 生态实际落地形态的架构师"
-      ],
-      "technicalContext": "四条主线：推理轨迹输出到标准错误（-R 可关）；服务端工具（OpenAI 的代码执行与 WebSearch，llm-anthropic 的 WebSearch/WebFetch/CodeExecution/AnthropicMCP）；仿 Git 的内容寻址消息存储，解决「每轮都带完整历史」造成的重复 JSON；以及 stream_events() 返回 reasoning/text/工具调用/图片附件等分型事件，取代原先的字符串序列。另有 model.prompt(messages=[]) 取代会话抽象，以及可对任意 OpenAI 兼容端点跑一次性提示词的 llm openai endpoint。",
-      "impactAreas": [
-        "本地优先的智能体工具链",
-        "MCP 生态的落地形态",
-        "长时程对话的日志与成本",
-        "命令行与管道式工作流集成"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」，把一次工具调用拆成三段，再回头看服务端工具替你做了哪一段",
-        "对照 07-31 的无状态 MCP 信号，理解 AnthropicMCP 为什么能收进一次往返",
-        "用「AI 工具链选型与自建边界评估」的两栏法，判断这条本地路线和托管平台哪个符合你的边界",
-        "读「智能体可观测性与评测运维」，把推理轨迹接进你自己的轨迹追踪"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "服务端工具改变的是「谁来跑这个循环」，而三段拆解（决定调什么 / 生成合法调用 / 读懂返回值）不变——正好用来判断供应商替你做掉了哪一段。",
-        "knowledge-human-loop": "工具链可以为人工审批暂停、并从存储的消息历史恢复——人在回路在这一版成了框架能力而不是产品开关。",
-        "knowledge-api-contracts": "这一版同时实现和消费 OpenAI 兼容端点，是「稳定契约让组件可以互换」最直接的例子。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-f741f122": "把推理轨迹独立输出到 stderr，等于在最小的工具层面提供了轨迹可观测性。",
-        "skill-tool-integration": "分型事件流让工具调用、文本与推理在结构上可区分，正是工具层「吸收混乱而不是转发混乱」的做法。",
-        "skill-ws-2152c7f1": "本地命令行与托管平台是同一道选择题的两端：这一版给了自建那一侧一个更完整的答案。"
-      },
-      "followUpQuestions": [
-        "服务端工具让供应商代跑循环之后，失败归因还能不能分清「模型选错工具」和「工具执行失败」？",
-        "内容寻址的消息存储能把长对话的日志体积降到什么量级？",
-        "「智能体」被写进核心库之后，这个项目还能保持现在这种可拼接的小工具形态吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-      "createdAt": "2026-08-05T08:38:57.526Z",
-      "updatedAt": "2026-08-06T12:50:33.891Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-openai-com-index-gpt-5-6",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-      "slug": "lfm2-5-encoders",
-      "title": {
-        "original": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
-        "zh": "LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍"
-      },
-      "summary": {
-        "original": "Two new encoder models, LFM2.5-Encoder-230M and 350M: they match larger encoders on GLUE, SuperGLUE and multilingual tasks, handle 8,192-token context, and run about 3.7x faster than ModernBERT-base on CPU at long context.",
-        "zh": "Liquid AI 发布两个开源编码器 LFM2.5-Encoder-230M 与 350M：在 GLUE、SuperGLUE 和多语任务上追平更大的编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它针对的是被生成式模型遮住的那一半生产负载——意图路由、策略检查、PII 识别、文本分类，这些任务整天在跑、大多跑在 CPU 上，且输入越来越长。"
-      },
-      "content": {
-        "original": "Two new encoder models on Hugging Face, built from the LFM2 decoder backbones and converted into bidirectional encoders.",
-        "zh": "## 它解决的是哪一半问题\n\n站内大部分推理信号讨论的是生成式模型怎么跑得起、跑得快。但生产系统里还有另一半负载：**意图路由、安全过滤、策略检查、PII 识别、文本分类**。这些任务不需要生成，需要的是理解一段输入并给出标签——它们整天在跑，通常跑在 CPU 上，而且输入长度在持续变长。\n\n这一类任务的主力一直是编码器模型：BERT 定义了这个门类，ModernBERT 在准确率、速度和上下文长度上又推了一步。LFM2.5-Encoders 是在 LFM2 架构上继续往前的一步，主张是**成本随输入变长而缓慢增长**。\n\n## 三个可直接对照的数字\n\n- **参数量 230M / 350M**：在 GLUE、SuperGLUE 与多语任务上追平或超过更大的编码器\n- **上下文 8,192 token**：延迟随输入变长的增长速度是它的卖点，不只是长度本身\n- **CPU 长上下文快约 3.7 倍**：对照组是 ModernBERT-base\n\n## 怎么造出来的\n\n这一步值得单看：两个编码器不是从零训练的，而是**从对应的 LFM2 解码器骨干初始化**（LFM2.5-230M 与 LFM2.5-350M），再把因果解码器改造成双向编码器：\n\n1. **双向注意力掩码**——每个 token 同时看得到左右两侧，而不只是前面\n2. **非因果短卷积**——对称补齐，让每个 token 的卷积同时混入两侧邻居\n3. **掩码语言建模**——训练时遮蔽 30% 的 token\n\n训练分两段：先在大规模网页语料上以 1,024 token 上下文做通用语言能力，再扩到 8,192 token 做长上下文适配，同时强化事实性、法律与多语能力。\n\n## 什么时候该考虑它\n\n它不与生成式模型竞争，而是替换掉「用大模型做分类」这个常见但昂贵的做法。判断线很直接：如果一项任务的输出是**标签、路由决定或抽取结果**，而不是一段自然语言，那么用编码器几乎总是更便宜；这次的增量是把「输入很长」这个原本会逼你上 GPU 的条件，重新拉回 CPU 可承受的范围。\n\n同一家此前发布过面向多语检索的 LFM2.5-Retrievers；这次是通用编码器，掩码语言目标预训练，所以分类、token 级任务和检索都能在其上微调。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-28",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-encoders",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Liquid AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-on-device",
-        "tag-retrieval"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-a9e80194",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-06T12:50:33.812Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产系统里整天在跑的那一半负载——意图路由、安全过滤、分类、抽取——输出的是标签而不是一段话，用生成式模型做这件事一直是笔糊涂账。这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉：8,192 token 上下文，CPU 上比 ModernBERT-base 快约 3.7 倍。",
-      "whoShouldCare": [
-        "在做意图路由、内容安全过滤或大批量文本分类的工程团队",
-        "需要在没有 GPU 预算的机器上处理文档级输入的人",
-        "正在评估「这项任务到底该不该用大模型」的架构决策者"
-      ],
-      "technicalContext": "两个模型从 LFM2.5-230M / 350M 的解码器骨干初始化，再改造为双向编码器：双向注意力掩码、对称补齐的非因果短卷积、30% 掩码语言建模。训练两段式——先 1,024 token 通用语言能力，再扩到 8,192 token 做长上下文适配。与同厂此前面向多语检索的 LFM2.5-Retrievers 同族，但目标是通用编码器，可在其上微调分类、token 级任务与检索。",
-      "impactAreas": [
-        "无 GPU 环境下的文档级文本处理",
-        "分类 / 路由类任务的单位成本",
-        "长上下文场景的延迟曲线"
-      ],
-      "learningPath": [
-        "先用「模型选型与约束匹配」判断手上这项任务的输出到底是标签还是自然语言",
-        "再用「交互系统中的延迟权衡」看长输入下的延迟增长是否真的是瓶颈",
-        "配合「端侧模型部署与硬件适配」在目标机器上实测首 token 与稳态吞吐，而不是照抄基准数字",
-        "如果要换掉现有的生成式分类方案，用「推理服务容量规划」重算成本"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "这条信号是该条目的一个具体判断案例：输出是标签时，230M 的编码器往往优于任何生成式方案。",
-        "knowledge-latency-tradeoffs": "卖点不是绝对速度而是延迟随输入长度的增长斜率，正是该条目讨论的那条曲线。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "CPU 上的 3.7 倍是基准环境的数字，落到自己的目标机器仍需按该技能的方法实测。",
-        "skill-ws-a9e80194": "把生成式分类换成编码器会改变整条服务的容量与成本模型，需要重算而不是沿用。",
-        "skill-ws-7796779a": "从解码器骨干改造成双向编码器是一种非标准结构，上线前要确认所用推理栈对它的支持处于哪一级。"
-      },
-      "followUpQuestions": [
-        "现在用大模型在做的分类或路由任务，有多少可以换成编码器？",
-        "自己的输入长度分布是否真的落在需要 8,192 token 的区间？",
-        "所用的推理运行时对这种改造过的双向结构支持到哪一级——能加载，还是有性能路径？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-      "createdAt": "2026-07-30T08:31:01.939Z",
-      "updatedAt": "2026-08-06T12:50:33.812Z",
-      "editorialNotes": [
-        "正文数字（230M/350M、8,192 token、3.7 倍、30% 掩码、两段训练）均取自原文，已逐条核对。",
-        "Hugging Face 源的 RSS 不带 description，正文是直接抓页面读到的——此前三轮把这类条目按「无正文可写」标记已看，这次改为抓取后再判断。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "slug": "gemini-managed-agents-background-mcp",
-      "title": {
-        "original": "Expanding Managed Agents in Gemini API: background tasks, remote MCP and more",
-        "zh": "Gemini API Managed Agents 扩展：后台任务与远程 MCP 接入"
-      },
-      "summary": {
-        "original": "Google expands Managed Agents in the Gemini Interactions API: long-running background execution (start with background:true, poll/stream/reconnect by ID), direct connection to remote MCP servers alongside built-in sandbox tools, custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 扩展 Gemini API 的 Managed Agents：单端点调用即可让 Gemini 在隔离云沙箱内完成推理、代码执行、包安装与文件管理；新增长时程后台执行（background:true 异步运行，凭 ID 轮询/流式/断线重连）、远程 MCP 服务器直连（与内置沙箱工具混用）、自定义函数调用与跨交互凭证刷新。"
-      },
-      "content": {
-        "original": "Google announced new capabilities for Managed Agents in the Gemini Interactions API. With managed agents, a single endpoint call has Gemini handle reasoning, code execution, package installation, file management and web information inside an isolated cloud sandbox. New in this update: long-running background execution (pass background:true to run asynchronously on the server; the API returns an ID for polling, streaming progress, or reconnecting later), remote MCP server integration (connect managed agents directly to remote Model Context Protocol servers, mixing remote tools with built-in capabilities like Google Search and code execution), custom function calling, and credential refreshing across interactions.",
-        "zh": "Google 为 Gemini API 的 Managed Agents（托管智能体）发布了一批新能力。托管智能体的基本形态：调用单个 Interactions API 端点，Gemini 在一个隔离的云沙箱里自主完成推理、代码执行、包安装、文件管理与联网获取信息——智能体的执行环境由平台托管，开发者不再自己搭 runtime。\n\n本次扩展补上了生产化的几块关键拼图。其一，长时程后台执行：为长任务保持 HTTP 连接是脆弱的，现在传入 background:true 即可让交互在服务端异步运行，API 立即返回 ID，客户端凭它轮询状态、流式跟进或断线后重连。其二，远程 MCP 服务器直连：无需自写代理中间件，托管智能体可以直接连接远程 Model Context Protocol 服务器访问私有数据库或内部 API，并与 Google 搜索、代码执行等内置工具混合使用。其三，自定义函数调用与跨交互的凭证刷新。\n\n值得注意的是行业含义：继 ChatGPT Work 之后，「托管式长时程智能体」正在成为大厂平台的标配形态——执行环境、状态管理、工具接入都在向平台侧收敛；而 MCP 再下一城，成为又一个大平台的官方工具接入协议。对开发团队来说，「自建智能体 runtime」与「用平台托管」的边界需要重新评估。"
-      },
-      "type": "platform",
-      "publishDate": "2026-07-07",
-      "sourceName": "Google AI Blog",
-      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Google",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-api-contracts"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-05T08:42:07.743Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "托管式长时程智能体正在成为大厂平台的标配：执行沙箱、后台任务、工具接入都向平台侧收敛，MCP 又拿下一个主流平台的官方支持。团队需要重新评估「自建智能体 runtime」还是「用平台托管」——这条边界正在快速移动。",
-      "whoShouldCare": [
-        "构建生产级智能体的开发团队",
-        "评估 MCP 生态与工具接入方案的架构师",
-        "对比各家智能体平台能力的技术选型者"
-      ],
-      "technicalContext": "后台执行解决的是长时程任务的连接脆弱性：同步 HTTP 模式下任务时长受连接寿命限制，异步模式把状态管理移到服务端（凭 ID 轮询/重连），这是长时程智能体状态管理的平台化实现。远程 MCP 直连则把「模型 ↔ 私有工具」的集成从自建代理中间件简化为协议标准件——与内置工具（搜索、代码执行）在同一沙箱内混用。",
-      "impactAreas": [
-        "智能体平台",
-        "MCP 生态",
-        "开发者工具"
-      ],
-      "learningPath": [
-        "先读「工具使用与函数调用」与 MCP 的基本概念，理解托管接入与自建代理的差异",
-        "对照 ChatGPT Work 的产品形态，理解长时程后台执行为什么是标配能力",
-        "评估自己产品里哪些工具接入可以从自建中间件迁移到 MCP 标准件"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "后台执行与断线重连本质是把长时程任务的状态管理平台化——交互状态由服务端持有，客户端凭 ID 回连。",
-        "knowledge-api-contracts": "单端点 Interactions API 是接口契约收敛的典型：推理、执行、工具、状态都折叠进一个契约面，简化集成的同时也加深了平台绑定。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "远程 MCP 直连改变了工具集成的形态：从自写代理中间件到协议标准件，集成工作的重心从「搭通道」转向「设计契约与权限」。",
-        "skill-agent-design": "后台执行 + 断线重连改变了工作流设计的约束：长任务不再受 HTTP 连接寿命限制，任务拆解可以按业务而非按连接来切分。"
-      },
-      "followUpQuestions": [
-        "远程 MCP 接入的鉴权与权限边界如何配置？沙箱内的爆炸半径怎么控制？",
-        "后台任务的时长上限、计费模型与并发配额是什么？",
-        "与自建智能体 runtime 相比，托管形态在可观测性上让渡了什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "createdAt": "2026-07-21T05:07:29.299Z",
-      "updatedAt": "2026-08-05T08:42:07.743Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：feed 摘要仅一句话，正文细节取自官方博文全文；文中提及的 Antigravity agent 文档与 SDK 示例未逐一验证。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries"
       ]
     },
@@ -1601,108 +2690,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-      "slug": "gpt-red",
-      "title": {
-        "original": "GPT-Red: Unlocking Self-Improvement for Robustness",
-        "zh": "GPT-Red：OpenAI 用自博弈自动红队提升模型鲁棒性"
-      },
-      "summary": {
-        "original": "OpenAI introduces GPT-Red, an automated red-teaming system that uses self-play to continuously probe and harden models against safety, alignment and prompt-injection failures.",
-        "zh": "OpenAI 发布 GPT-Red：一套基于自博弈的自动化红队系统，让攻击方模型持续生成对抗性输入、防守方模型迭代修复，用于系统性提升模型在安全、对齐与提示注入防御上的鲁棒性。"
-      },
-      "content": {
-        "original": "GPT-Red is OpenAI's automated red-teaming system. It uses self-play — an attacker model generating adversarial prompts against a defender model, with the results fed back into training — to improve AI safety, alignment, and prompt injection robustness at a scale and cadence human red teams cannot match.",
-        "zh": "GPT-Red 是 OpenAI 的自动化红队系统，核心机制是自博弈：攻击方模型持续生成对抗性提示与注入载荷，防守方模型在对抗中暴露弱点，结果回流到训练中形成修复闭环。相比一次性的人工红队审计，这把安全测试变成了可以随模型版本持续运转的自动回路。\n\n它针对的三类问题——安全（有害输出）、对齐（意图偏离）与提示注入鲁棒性——中，提示注入是当下最具现实意义的一项：智能体产品把模型接进邮箱、浏览器、代码库之后，注入攻击面随工具数量线性扩大，而防御手段仍以模式过滤和人工审计为主。用自博弈生成对抗样本，意味着防御方不再依赖人类想象力来枚举攻击方式。\n\n值得注意的边界：官方页面目前只有概述性描述，未公开系统架构细节、评测数据或可复现的工件；「自我改进」在此语境下指红队-修复回路的自动化，而非模型自主进化。对外部团队的直接意义是方法论参照——把注入防御从静态规则升级为持续对抗测试。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-15",
-      "sourceName": "OpenAI News",
-      "sourceUrl": "https://openai.com/index/unlocking-self-improvement-gpt-red",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "OpenAI",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-ai-agents"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-human-loop",
-        "knowledge-ws-89b98df3"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-agent-design",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-30T08:35:20.185Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "提示注入是智能体落地的最大安全短板。GPT-Red 代表的方向——用自博弈把红队测试变成持续自动回路——可能成为前沿实验室的标准做法，也为外部团队的智能体安全测试提供了方法论参照。",
-      "whoShouldCare": [
-        "智能体产品的安全负责人",
-        "模型安全与对齐研究者",
-        "把 LLM 接入外部工具的工程团队"
-      ],
-      "technicalContext": "自博弈（self-play）源自博弈类强化学习：攻守双方互为对手、共同变强。用在红队场景，攻击方的目标函数是「让防守方失败」，这让对抗样本的生成从人工枚举变成了可扩展的搜索过程。",
-      "impactAreas": [
-        "智能体安全",
-        "模型对齐方法",
-        "AI 红队实践"
-      ],
-      "learningPath": [
-        "先理解提示注入与越狱的区别：注入是数据通道混入指令，越狱是直接对抗安全训练",
-        "了解评估闭环的基本结构：对抗样本生成 → 失败案例归因 → 修复回归",
-        "在自己的智能体产品上建立最小注入测试集，把安全测试纳入发布流程"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-evaluation-loops": "GPT-Red 本质是一个自动化的评估闭环：生成对抗样本、暴露失败、回流修复——评估闭环概念的极致工程化。",
-        "knowledge-human-loop": "自动红队降低了对人工枚举攻击的依赖，但失败案例的定性与修复优先级判断仍需人在回路。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "对抗性评估是模型评估的进阶形态：不只测「平均表现」，更测「最坏情况下的失败方式」。",
-        "skill-agent-design": "智能体工作流设计必须把注入攻击面当作一等约束：每接一个工具，就多一条不可信数据进入模型的通道。"
-      },
-      "followUpQuestions": [
-        "GPT-Red 发现的攻击模式是否会以某种形式对外共享（如安全通告或基准）？",
-        "自博弈红队对多轮、多工具智能体场景的覆盖程度如何？",
-        "外部团队能否用开源模型复现类似的攻防自博弈回路？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-      "createdAt": "2026-07-19T03:20:48.157Z",
-      "updatedAt": "2026-07-30T08:35:20.185Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 OpenAI News 候选转正；官方页面仅有概述，正文明确标注了未公开细节的边界。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
       "slug": "gemini-flash-cyber",
       "title": {
@@ -1815,100 +2802,6 @@
       "relatedTechnologyIds": []
     },
     {
-      "id": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "slug": "kimi-k3",
-      "title": {
-        "original": "Kimi K3, and what we can still learn from the pelican benchmark",
-        "zh": "Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重"
-      },
-      "summary": {
-        "original": "Moonshot AI announces Kimi K3, a 2.8-trillion-parameter flagship with an open-weight release promised by July 27 — the first 'open 3T-class' model. Third-party evaluation (Artificial Analysis) puts it behind only Claude Fable 5 on long-horizon knowledge work, at a cost per task comparable to GPT-5.6 Sol.",
-        "zh": "Moonshot AI 发布 Kimi K3：2.8 万亿参数旗舰，承诺 7 月 27 日前开放权重——将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。第三方评测（Artificial Analysis）显示其长时程知识工作 Elo 仅次于 Claude Fable 5，单任务成本与 GPT-5.6 Sol 同档、约为 Opus 4.8 的一半。"
-      },
-      "content": {
-        "original": "Moonshot AI announced Kimi K3, described as their most capable model to date at 2.8 trillion parameters, available via their website and API with an open-weight release promised by July 27, 2026 — which would make it the first 'open 3T-class' model, taking the scale crown from DeepSeek's 1.6T v4 Pro. Self-reported benchmarks have K3 mostly beating Claude Opus 4.8 max and GPT-5.5 high while losing to Claude Fable 5 and GPT-5.6 Sol. Artificial Analysis reports a long-horizon knowledge-work Elo of 1547 (+732 over K2.6, behind only Claude Fable 5), cost per task of $0.94 (similar to GPT-5.6 Sol's $1.04, about half of Opus 4.8's $1.80, higher than open-weight peers), and 21% fewer output tokens than K2.6. The model also now leads Arena.ai's Frontend Code arena.",
-        "zh": "Moonshot AI（月之暗面）发布 Kimi K3，称其为迄今最强模型：2.8 万亿参数，已通过官网与 API 提供，并承诺在 2026 年 7 月 27 日前开放权重——届时它将成为首个「3T 级」开放模型，从 DeepSeek v4 Pro（1.6T）手中接过开源规模王座。自报基准显示 K3 大多超过 Claude Opus 4.8 max 与 GPT-5.5 high，弱于 Claude Fable 5 与 GPT-5.6 Sol。\n\n更有信息量的是第三方数据。Artificial Analysis 的评测报告给出三个关键点：长时程知识工作评测 Elo 达 1547，比上一代 K2.6 提升 732 分，仅次于 Claude Fable 5；单任务成本 $0.94，与 GPT-5.6 Sol（$1.04）同档，约为 Opus 4.8（$1.80）的一半，但高于其他开放权重模型；输出 token 用量比 K2.6 减少 21%——「智能密度」竞争同样在开源阵营发生。该模型还登顶了 Arena.ai 的 Frontend Code 竞技场。\n\n原文作者 Simon Willison 借这次发布重申了他的「鹈鹕骑车基准」的价值：在官方基准普遍被针对性优化的当下，简单、意外、难以刷分的民间测试反而保留了独立的信息量。对模型选型者而言，这次发布的实际意义是：若开放权重如期兑现，闭源与开源旗舰的能力差距将进一步收窄，而单任务成本已经站到了同一价格带。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-16",
-      "sourceName": "Simon Willison Blog",
-      "sourceUrl": "https://simonwillison.net/2026/Jul/16/kimi-k3/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Moonshot AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-dddaf80c",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-28T12:54:53.798Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源权重前沿竞赛可能迎来新王座：若 7 月 27 日如约开放权重，K3 将是首个「3T 级」开放模型，且单任务成本已与 GPT-5.6 Sol 同档。闭源与开源的能力差距进一步收窄，「模型选型的默认答案」需要重新计算——尤其对可以自托管的团队。",
-      "whoShouldCare": [
-        "负责模型选型与成本核算的团队",
-        "关注开放权重生态的研究者与自托管用户",
-        "评测与基准工程师"
-      ],
-      "technicalContext": "读这类发布要区分三层证据：厂商自报基准（普遍被针对性优化）、第三方系统评测（Artificial Analysis 的长时程 Elo 与单任务成本）、以及难以刷分的民间测试（Willison 的鹈鹕骑车基准）。K3 的输出 token 用量下降 21% 说明前沿竞争的重心正从纯能力转向单位算力与单位成本的智能密度——与 GPT-5.6 的主打方向相同。官方尚未详述架构细节（如是否 MoE、激活参数量）。",
-      "impactAreas": [
-        "开源模型生态",
-        "模型选型",
-        "推理成本"
-      ],
-      "learningPath": [
-        "先读「模型选型与约束匹配」，理解单任务成本比每 token 价格更接近真实决策变量",
-        "对照 Inkling（开源万亿 MoE）理解开放权重阵营的规模化路径",
-        "用一个自己领域的小评测集交叉验证自报基准与第三方数据"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "单任务成本 $0.94 与 GPT-5.6 Sol 同档——模型选型的约束匹配正在从「谁更强」转向「同价位谁更合适」。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "K3 的发布是该技能的典型练习场：自报基准、第三方 Elo、民间鹈鹕测试三层证据需要交叉解读，而不是读一张官方对比表。"
-      },
-      "followUpQuestions": [
-        "开放权重是否在 7 月 27 日如期兑现？采用什么许可证？",
-        "架构细节（是否 MoE、激活参数量）公布后，自托管的真实算力门槛是多少？",
-        "开放后第三方复测能否复现自报与 Artificial Analysis 的结果？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-      "createdAt": "2026-07-21T05:07:29.020Z",
-      "updatedAt": "2026-07-28T12:54:53.798Z",
-      "editorialNotes": [
-        "2026-07-21 编辑轮 #2：来源为第三方深度分析（Simon Willison），Moonshot 官方发布页为一手出处；开放权重承诺日期 2026-07-27 待验证，正文明确标注了自报与第三方数据的边界。"
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "slug": "ollama-v0-32-4",
       "title": {
@@ -2012,108 +2905,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-      "slug": "thinkingmachines-inkling",
-      "title": {
-        "original": "Welcome Inkling by Thinking Machines",
-        "zh": "Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型"
-      },
-      "summary": {
-        "original": "Thinking Machines releases Inkling, an open-weight ~1T-parameter (41B active) Mixture-of-Experts multimodal model with a 1M context window, trained on 45T tokens of text, images, audio and video, with day-one support across Transformers, vLLM, SGLang, llama.cpp and Unsloth.",
-        "zh": "Thinking Machines 开源 Inkling：约 1 万亿总参数、41B 激活参数的 MoE 多模态模型，原生处理文本/图像/音频输入，支持 1M 上下文，训练数据覆盖 45 万亿 token 的文本、图像、音频与视频。发布即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持。"
-      },
-      "content": {
-        "original": "Inkling is a large open-source multimodal language model with roughly 1 trillion total parameters and 41 billion active parameters via a 256-expert Mixture-of-Experts architecture. It natively processes image, text and audio inputs through simple hierarchical MLP modules rather than separate encoders, supports agentic coding and reasoning, ships speculative multi-token prediction (MTP) layers for faster inference, combines global and sliding-window attention, and offers adjustable reasoning effort from none to max. Weights are released on Hugging Face in BF16 (~2TB VRAM) and a quantized NVFP4 variant (~600GB VRAM).",
-        "zh": "Inkling 是一个开源权重的旗舰级多模态语言模型：总参数约 1 万亿，通过 256 专家的 MoE 架构每次仅激活 41B 参数，训练语料覆盖 45 万亿 token 的文本、图像、音频与视频，上下文窗口达到 1M。\n\n架构上有几处值得注意的选择：多模态输入不走独立编码器，而是用层级式 MLP 模块直接处理图像/文本/音频；注意力机制混合了全局与滑动窗口两种模式，位置编码采用 relative attention 并加入了一层短一维卷积；模型内置投机式多 token 预测（MTP）层加速推理，并支持从 none 到 max 的可调推理强度——这组设计基本对齐了当前闭源旗舰模型的公开技术特征。\n\n发布形态同样面向实际部署：BF16 权重需要约 2TB 显存，NVFP4 量化版本压到约 600GB，发布当天即获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 的支持，也可通过 Hugging Face Inference Providers 直接试用。这意味着开源阵营第一次把「万亿参数、原生多模态、1M 上下文」这组旗舰规格同时放进了一个可自托管的模型——尽管 600GB 起步的显存需求决定了它仍是数据中心级的选择。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-15",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/thinkingmachines-inkling",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Thinking Machines",
-      "publisherType": "startup",
-      "importanceLevel": "critical",
-      "status": "published",
-      "tags": [
-        "tag-multimodal",
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-c761533e",
-        "knowledge-ws-36346103"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-a9e80194",
-        "skill-ws-84837d46",
-        "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为关键重要性，直接归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-28T12:54:53.591Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源权重第一次同时具备万亿参数、原生多模态与 1M 上下文这组旗舰规格，直接改变「开源 vs 闭源 API」的选型格局；而 600GB 起步的显存需求也把自托管的容量规划难度抬到了新档位。",
-      "whoShouldCare": [
-        "模型选型与技术决策者",
-        "推理平台与 MLOps 工程师",
-        "多模态应用开发者"
-      ],
-      "technicalContext": "MoE 稀疏激活让 1T 总参数只需 41B 激活算力，是「大容量、可控推理成本」的主流路线。但显存必须装下全部专家权重：即便 NVFP4 量化后仍需约 600GB，对应 8×80GB 级别的多卡甚至多机部署——权重开放不等于部署门槛消失。",
-      "impactAreas": [
-        "开源旗舰模型格局",
-        "多模态应用开发",
-        "自托管推理容量规划"
-      ],
-      "learningPath": [
-        "先理解 MoE 的稀疏激活机制：总参数、激活参数、显存占用三者为什么脱钩",
-        "对照 BF16 / NVFP4 两档显存需求，估算自托管 Inkling 的硬件与成本下限",
-        "用 Hugging Face Inference Providers 的免费额度在自己的任务上先做质量评估，再决定是否投入部署"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "1T 总参数与 41B 激活参数的差别正是模型选型直觉的核心：算力成本看激活量，显存与部署门槛看总量。",
-        "knowledge-ws-c761533e": "600GB 级别的模型注定属于云端/集群侧，混合推理架构解释了它与端侧小模型如何分工协作。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "2TB/600GB 两档显存需求可以直接代入容量规划的估算公式，是练习该技能的现成案例。",
-        "skill-model-evaluation": "开源旗舰是否真能替代闭源 API，最终要靠在自家负载上的对比评估回答，而不是榜单分数。"
-      },
-      "followUpQuestions": [
-        "NVFP4 量化相对 BF16 的质量损失在你的任务上有多大？",
-        "vLLM / SGLang 对 MTP 投机解码层的支持成熟度如何？",
-        "1M 上下文在真实长文档任务中的有效利用率是多少？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-      "createdAt": "2026-07-19T03:20:48.051Z",
-      "updatedAt": "2026-07-28T12:54:53.591Z",
-      "editorialNotes": [
-        "2026-07-19 编辑轮：从 Hugging Face 博客候选转正；正文基于官方发布文编写。"
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
       "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
       "slug": "vllm-v0-25-0",
       "title": {
@@ -2212,112 +3003,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "slug": "vllm-v0-26-0",
-      "title": {
-        "original": "vLLM v0.26.0",
-        "zh": "vLLM v0.26.0：为 Inkling 万亿参数模型补齐推理全栈",
-        "en": "vLLM v0.26.0"
-      },
-      "summary": {
-        "original": "vLLM v0.26.0 ships 411 commits from 212 contributors, headlined by a full support stack for the new Inkling model family.",
-        "zh": "vLLM 发布 v0.26.0，来自 212 位贡献者的 411 个提交。最重要的一条是为 Thinking Machines 开源的 Inkling 模型家族提供完整支持栈：基础建模、分段 CUDA Graph、Hopper 架构的 FA4 相对注意力，以及 MTP=1 的推测解码。"
-      },
-      "content": {
-        "original": "vLLM v0.26.0 Release Notes. Highlights: 411 commits from 212 contributors (61 new). New Inkling model family with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative decoding (#48869).",
-        "zh": "## 这次发布做了什么\n\nvLLM v0.26.0 汇集了 212 位贡献者（其中 61 位是新面孔）的 411 个提交，是一次体量很大的版本。发布说明把「新增 Inkling 模型家族的完整支持栈」放在了第一条。\n\n## 为什么是 Inkling\n\nInkling 是 Thinking Machines 在 7 月中旬开源的万亿参数级多模态 MoE 模型——本站已经把它作为当日头条信号收录。开源权重和「能在主流推理引擎上跑起来」之间，通常还隔着几周到几个月的适配工作：注意力核、图捕获策略、量化路径、并行切分，每一项都要针对具体架构重写。v0.26.0 把这段距离压缩到了十天左右。\n\n支持栈包含四个层次：\n\n- **基础建模**：模型结构本身在 vLLM 内的实现；\n- **分段 CUDA Graph（piecewise CUDA graph）**：把前向过程切成可以分别捕获的片段，让 MoE 这类含动态路由的结构也能吃到 CUDA Graph 的调度收益，而不必整图捕获；\n- **Hopper FA4 相对注意力**：针对 H100 一代硬件的注意力核实现；\n- **MTP=1 推测解码**：多 token 预测形态的推测解码，用小步长的草稿换取解码吞吐。\n\n## 值得注意的信号\n\n把这四条放在一起看，重点不是「又一个模型被支持了」，而是开源推理栈对新架构的适配周期正在明显缩短，并且适配是**成套**的——不是先能跑通、几个版本后才补上性能路径。对于要在本地或自有集群上评估新开源模型的团队，这直接改变了「等多久才能真正测起来」的预期。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-25",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "vLLM Project",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f",
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-28T12:54:53.369Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开源万亿参数模型从「放出权重」到「主流推理引擎上可用」的间隔被压到了十天量级，而且是基础建模、图捕获、注意力核、推测解码一次配齐。这改变了自建推理团队评估新模型的排期假设。",
-      "whoShouldCare": [
-        "自建或自运维推理服务的平台团队",
-        "需要在本地评估新开源模型的算法与评测团队",
-        "关注 MoE 与推测解码落地成本的架构师"
-      ],
-      "technicalContext": "分段 CUDA Graph 解决的是 MoE 动态路由与整图捕获冲突的问题；FA4 相对注意力是面向 Hopper 架构的注意力核；MTP=1 推测解码属于多 token 预测形态，用草稿模型的小步长预测换取解码阶段吞吐。三者叠加才构成一条可用的生产推理路径。",
-      "impactAreas": [
-        "推理服务容量规划",
-        "开源模型选型周期",
-        "MoE 架构的部署成本",
-        "解码吞吐优化"
-      ],
-      "learningPath": [
-        "先理解 MoE 架构为什么让图捕获和量化变复杂",
-        "再看推测解码如何用草稿模型换解码吞吐",
-        "最后结合自有硬件（是否 Hopper）判断这套支持栈能吃到多少收益"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-36346103": "Inkling 是 MoE 模型，分段 CUDA Graph 与专家量化路径的必要性都源自 MoE 的动态路由结构。",
-        "knowledge-ws-68963f7f": "MTP=1 推测解码是本次发布的性能主线之一，理解草稿模型与验证步骤才能判断收益上限。",
-        "knowledge-model-sizing": "万亿参数模型的可用性取决于推理栈的支持程度，选型时必须把引擎适配状态算进约束条件。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "新的注意力核与推测解码路径直接改变吞吐与显存占用模型，容量规划需要重新测算。",
-        "skill-model-evaluation": "引擎适配完成后，评估新模型的瓶颈从「能不能跑」回到「跑得好不好」，评测方法要相应调整。"
-      },
-      "followUpQuestions": [
-        "在非 Hopper 硬件上，这套支持栈能保留多少性能收益？",
-        "MTP=1 推测解码对长上下文任务的加速比是多少？",
-        "分段 CUDA Graph 是否会成为后续 MoE 模型的默认适配路径？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-      "createdAt": "2026-07-27T01:43:12.721Z",
-      "updatedAt": "2026-07-28T12:54:53.369Z",
-      "editorialNotes": [
-        "2026-07-27 轮：与 07-15 已发布的 Inkling 信号形成前后呼应，作为「开源模型适配周期缩短」的实证收录。",
-        "同批次的 v0.26.0rc1 已按预发布规则拒绝。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
       ]
     },
     {
@@ -2719,208 +3404,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-blog-p-97686",
-      "slug": "copilot-vs-raw-api-access",
-      "title": {
-        "original": "Copilot vs. raw API access: What are you actually paying for?",
-        "zh": "Copilot 与裸 API：为编码智能体的「外壳」付费，到底买到了什么",
-        "en": "Copilot vs. raw API access: What are you actually paying for?"
-      },
-      "summary": {
-        "original": "GitHub argues the choice between Copilot and raw model API access comes down to which layer of the system you need to own: the model call, or the workflow, policy, and harness around it.",
-        "zh": "GitHub 在 Copilot 改为按列表 API 费率计费之后，正面回答了「既然能直接调 API，为什么还要付 Copilot」——答案是你要自己拥有哪一层：模型调用本身，还是围绕它的编辑器、仓库、终端、组织策略与计费控制这一整套外壳。"
-      },
-      "content": {
-        "original": "The question is: why pay for GitHub Copilot when the same models are available through an API? The answer depends on what work you need to own. Copilot plans include a monthly allocation of GitHub AI Credits; metered usage is calculated from input, output, and cached tokens at the listed rate. Raw API access and Copilot address different layers. Take a maintenance task: from a GitHub Issue, inspect the repository, change files, run the test suite in the terminal, and open a pull request. The model call is one step; the surrounding system needs the issue, the diff, repository instructions, permitted commands, and organization policies.",
-        "zh": "## 一个被反复问到的问题\n\n「同样的模型我自己调 API 就行，为什么要为 Copilot 付费？」GitHub 把计费改成按列表 API 费率计算之后，这个问题变得更尖锐了——因为模型这一层的价差被明确抹平了。\n\n## 作者给出的分法：你要拥有哪一层\n\n文章的回答不是「Copilot 更便宜」，而是把问题重述为**你需要自己拥有哪一层工作**：\n\n- 如果你在做的是产品功能，需要自己的提示词、检索、路由、日志、安全模型和计费控制——那就该直连 API，这些都是你要自己拥有的东西；\n- 如果你要的是「从一个 Issue 走到一个已评审的 PR」，而编辑器、仓库、终端、组织策略都已经接好——那你买的不是模型，是这套已经连通的外壳。\n\n作者用一个常见的维护任务把这层说透：开发者从 Issue 出发，读仓库、改文件、在终端跑测试、开 PR 交评审。**模型调用只是其中一步**。周边系统需要的是 Issue 上下文、diff、仓库指令、允许执行的命令白名单和组织策略——这些既不是模型能力，也不能靠更好的提示词补上。\n\n计费方式的调整让这条分界更容易看清：代码补全和 Next Edit Suggestions 仍包含在付费计划里，而 AI Credits 用于更消耗资源的对话与智能体任务。\n\n## 为什么把它当信号收录\n\n这不是一篇产品营销稿能覆盖的判断。它给出的是一条**可复用的采购与自建决策线**：先问哪一层是你的核心工作，再决定买外壳还是买 token。对任何在评估「自建智能体平台 vs 采购现成工具」的团队，这条线比价格表更有用。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-22",
-      "sourceName": "GitHub Blog AI",
-      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "GitHub",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-product-strategy"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-model-sizing",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-f741f122",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T02:43:26.470Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "当模型这一层的价差被抹平，「自建还是采购」的决策依据就必须换成「哪一层工作是你要自己拥有的」。这篇给出的分法可以直接搬到任何智能体平台的采购评估里。",
-      "whoShouldCare": [
-        "在评估自建智能体平台与采购现成工具的技术负责人",
-        "负责研发工具链选型与预算的工程管理者",
-        "设计智能体工作流与权限边界的架构师"
-      ],
-      "technicalContext": "编码智能体的价值分布在两层：模型调用，以及围绕它的 harness——Issue 上下文、diff、仓库指令、命令白名单、组织策略与计费控制。前者可替换，后者是集成成本，通常被严重低估。",
-      "impactAreas": [
-        "研发工具链选型",
-        "智能体平台自建与采购决策",
-        "组织级策略与权限边界",
-        "AI 使用成本核算"
-      ],
-      "learningPath": [
-        "先把自己团队的智能体任务拆成「模型调用」与「周边集成」两栏",
-        "再逐项判断哪一栏是你的核心竞争力、必须自己拥有",
-        "最后才比较价格——价格是结论，不是前提"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "直连 API 意味着你要自己承担契约、版本与错误边界的全部责任，这是「外壳」成本里最容易被低估的一块。",
-        "knowledge-model-sizing": "模型层价差被抹平后，选型的约束条件从价格转向工作流适配度。",
-        "knowledge-system-design": "文章的核心其实是一次系统边界划分练习：哪一层自己拥有，哪一层外包。"
-      },
-      "relatedSkillExplanations": {
-        "skill-tool-integration": "「外壳」的主体就是工具集成——编辑器、仓库、终端、策略系统的连通成本。",
-        "skill-agent-design": "从 Issue 到已评审 PR 的这条链路，正是智能体工作流设计要处理的对象。",
-        "skill-ws-f741f122": "自建外壳意味着日志、评测与运维也要自己扛，这部分成本应计入决策。"
-      },
-      "followUpQuestions": [
-        "把「外壳」自建一遍，团队真实的年化成本是多少？",
-        "组织策略与命令白名单这类控制面，采购方案能满足合规要求吗？",
-        "如果模型供应商更换，自建外壳的迁移成本有多高？"
-      ],
-      "readingDifficulty": "beginner",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-blog-p-97686",
-      "createdAt": "2026-07-27T01:43:12.969Z",
-      "updatedAt": "2026-07-27T02:43:26.470Z",
-      "editorialNotes": [
-        "2026-07-27 轮：与 07-10 已发布的 Copilot 代码审查复盘同源，两条共同构成「模型之外的工程层才是差异所在」这一主题。"
-      ],
-      "relatedTechnologyIds": []
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-      "slug": "nvidia-open-data-for-agents",
-      "title": {
-        "original": "Data for Agents",
-        "zh": "NVIDIA Nemotron 开放数据：用合成数据支撑智能体开发"
-      },
-      "summary": {
-        "original": "NVIDIA argues that agentic AI needs open data — software engineering traces, tool-use failures, multi-step reasoning, retrieval, safety and user simulation — and that synthetic data is how it scales, backed by the Nemotron open dataset family.",
-        "zh": "NVIDIA 在 Hugging Face 发文阐述智能体时代的数据主张：真正的智能体能力来自工程轨迹、工具调用失败、多步推理、检索与用户模拟等数据，而合成数据是规模化的关键。Nemotron 系列开放数据集（Nemotron-CC、CC-MATH、Pretraining）是这一主张的落地。"
-      },
-      "content": {
-        "original": "NVIDIA lays out why agent capability is a data problem: recovering from broken API calls and unseen workflows requires traces of tool-use failures, multi-step reasoning, retrieval and user simulation. The Nemotron open data family (Nemotron-CC, Nemotron-CC-MATH, Nemotron Pretraining) shows synthetic data as the scaling path, with about 145 ICML papers citing Nemotron models and datasets.",
-        "zh": "NVIDIA 的核心论点是：智能体能力本质上是一个数据问题。一个无法从失败的 API 调用或没见过的工作流中恢复的「智能体」，只是带工具的自动补全。要跨过这道坎，需要软件工程轨迹、工具调用失败、多步推理、检索、安全、用户模拟等类型的数据——这正是 Nemotron 开放数据产品覆盖的范围。\n\n合成数据在其中扮演规模化引擎的角色：Nemotron-CC 用合成增强 Common Crawl 预训练语料，Nemotron-CC-MATH 用合成数学题提升推理能力，Nemotron Pretraining 则覆盖通用、代码、数学等数万亿 token。NVIDIA 援引 ICML 上约 145 篇引用 Nemotron 模型与数据集的论文来说明开放数据对研究生态的带动。\n\n文中还有一个对企业实用的角度：每家公司都有自己的「秘密」（独有的工作流、语料、客户模式），这些信号让 AI 有用，但不应该被直接暴露。合成数据提供了保留信号、隐藏底料的路径。更进一步，开放数据让智能体行为变得可检查、可解释——当模型会调用工具、执行工作流、跨系统行动时，开发者需要理解塑造这些行为的数据。对正在构建智能体的团队来说，这是一份值得对照自查的数据清单。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-07-08",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/nvidia/open-data-for-agents",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "NVIDIA",
-      "publisherType": "big-tech",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-evaluation-loops"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-model-evaluation",
-        "skill-ws-f741f122",
-        "skill-ws-84837d46"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 97,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-21T02:12:05.441Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它把「智能体做不好」重新定义为数据问题而不是模型问题，并给出了可操作的数据类型清单与合成数据方法。对智能体团队来说，这比又一个新框架更接近瓶颈本质。",
-      "whoShouldCare": [
-        "构建智能体产品的工程团队",
-        "负责训练/微调数据的算法工程师",
-        "关心数据合规与商业机密的技术负责人"
-      ],
-      "technicalContext": "智能体训练数据的关键类型：工具调用轨迹（含失败恢复）、多步推理链、检索行为、安全边界、用户模拟。合成数据管线在保留这些行为信号的同时避免暴露源数据，Nemotron 系列是当前最大的开放实现之一。",
-      "impactAreas": [
-        "智能体训练与微调",
-        "企业数据资产策略",
-        "开放数据研究生态"
-      ],
-      "learningPath": [
-        "对照文中的数据类型清单，盘点自己的智能体缺哪类训练/评估数据",
-        "浏览 Nemotron 开放数据集，理解合成数据的构造方式",
-        "为一个真实工作流构造小规模合成轨迹数据并验证效果"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "工具调用（尤其是失败与恢复）的轨迹数据是智能体与「带工具的自动补全」的分界线。",
-        "knowledge-evaluation-loops": "开放数据让行为可检查：评估闭环需要知道模型行为由什么数据塑造。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "设计智能体时应同步设计其数据来源：哪些行为需要哪类轨迹数据支撑。",
-        "skill-model-evaluation": "用真实世界（非基准）的失败案例评估智能体，是这篇文章隐含的评估方法论。"
-      },
-      "followUpQuestions": [
-        "你的智能体最常见的失败模式，有对应的训练数据吗？",
-        "合成数据在多大程度上能替代真实用户轨迹？",
-        "如何验证合成数据没有泄漏源数据中的敏感信息？"
-      ],
-      "readingDifficulty": "beginner",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-      "createdAt": "2026-07-13T08:00:48.625Z",
-      "updatedAt": "2026-07-21T02:12:05.441Z",
-      "editorialNotes": [
-        "2026-07-13 内容轮：从定时导入候选转正；正文基于 NVIDIA 在 Hugging Face 的博客（经 hf-mirror 镜像访问）编写。"
       ]
     },
     {

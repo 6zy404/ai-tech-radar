@@ -12,6 +12,120 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — the first pass over the widened intake
+
+- **42 undecided candidates, 4 signals** — 2026-08-10. This is the backlog the
+  previous entry predicted: the per-source cap going 4 → 12 plus four new
+  sources surfaced **42** items needing a decision, all from those four
+  sources (量子位 10, InfoQ 中文 12, SGLang 10, ms-swift 10). Dispositioned
+  **4 published, 3 reviewed, 35 rejected**.
+- **Both Chinese feeds ship title plus one sentence and no body**, so every
+  candidate under consideration was read at the source before being
+  dispositioned — the rule this project wrote down after three rounds skipped
+  Hugging Face items for "having nothing to write from". Their auto-tags are
+  junk (`资讯`, `华为`, `claude code`, and `tag-frontier-models` on
+  everything), so published records replaced them.
+- **Microsoft Agent Framework Harness published as `important`**, and the
+  reason is two numbers rather than the feature list. A VILA lab paper
+  analysing Claude Code v2.1.88 — whose source was briefly exposed on 3/31 via
+  an npm release carrying source maps — counts **1884 files, ~512,000 lines**,
+  of which **~98.4% is harness infrastructure** and **~1.6% AI decision
+  logic**. The figure carries its own asterisk (line classification of a leaked
+  package, including generated and minified code, not an audit), but Codex CLI
+  and Aider independently arrived at the same structure, which reads as a
+  problem constraint rather than one vendor's taste.
+- **The other number is the one that decides something.** A comparison run by
+  Microsoft's own AI chief architect fixed the model parameters and ran a
+  deterministic mock first, so differences trace to the harness rather than the
+  model: same answers in the same number of steps, and one difference —
+  Agent Framework **self-terminates after 40 round trips**, while Copilot SDK
+  with the host-side stop disabled **runs to 300 without stopping**. One puts
+  the brake inside the loop; the other assumes the host brought one. That is
+  this site's 人在回路的审查 rule in machine form: **a limit that never fires
+  is indistinguishable from no limit.**
+- **The runaway-spend signal published as `signal`, and it is the same day's
+  counter-example.** Amazon spent **$1.8M** filling in author information with
+  Claude Sonnet — **860% over budget, found five months later, never deployed**.
+  Nothing crashed and nothing alerted; the agent simply retried. **An agent
+  that does not know when to stop fails as a bill, not as an exception.** Meta:
+  **73.7 trillion tokens in 30 days** across 85k+ employees (~$221M/month at
+  list price) before a cap and a central gateway; Uber burned its annual AI
+  coding budget in four months; only **26% of enterprises** have full
+  visibility into their AI spend. The usage leaderboards at Amazon and Meta are
+  Goodhart's law reproduced with a real invoice attached.
+- **SGLang v0.5.17 published as `important`** — 582 PRs from 194 contributors,
+  and the same shape as the already-published vLLM × Inkling signal: Kimi K3,
+  published here on 07-16, is now **day-0 servable** with a full performance
+  path (DCP, DSpark speculative decoding, KDA-aware prefix caching, LoRA on
+  quantized weights) verified on **both NVIDIA GB300 and AMD MI35x**. The
+  quieter item is the better one: the unified radix cache is now
+  **session-reference-aware**, so eviction knows which prefixes an active
+  session still holds — the inference layer growing its first agent-shaped
+  concept.
+- **BigBang-v1 published as `signal`, and the artifact corrected the pitch.**
+  The reusable part is its two hard conditions on any task that feeds a
+  self-evolving data pipeline — **simultaneously frontier and verifiable**;
+  missing either, the data depreciates fast. The check took one query:
+  Hugging Face carries `endless-frontier/BigBang-v1` (Apache-2.0, community
+  GGUF/MLX quants already up), and its metadata reads
+  **`base_model:finetune:Qwen/Qwen3.6-35B-A3B`** while the coverage calls it
+  the first base model trained natively via RSI. The same article's own
+  "**post-training** data is 100% AI-synthesized" is consistent with a
+  finetune and not with a base model. **Open weights are what made the pitch
+  checkable at all.**
+- **Three reviewed rather than published, each on an existing precedent**: the
+  enterprise agent-security panel (a livestream transcript with no artifact,
+  matching the fireside-chat and routing-essay calls) — its sharpest line,
+  that human-in-the-loop is degenerating into _human clicking the button_, is
+  carried with real evidence by the Harness signal instead; the evolutionary
+  architecture essay (good, and **not about AI** — its content belongs to the
+  knowledge layer, not to a technology signal); and GPT-5.6 + Fable closing a
+  25-year MIMO detection problem (a demonstration rather than an evaluation,
+  matching the Willison game-post call).
+- **The 35 rejects split cleanly**: 20 are SGLang/ms-swift back-catalog
+  releases from May–August that only surfaced because the cap rose, and 15 are
+  funding rounds, earnings, dexterous-hand hardware launches, conference
+  promos and non-AI items. **The 08-10 worry about industry-PR ratio was
+  confirmed, not dismissed** — 15 of 22 items from the two Chinese feeds were
+  PR, and both published Chinese-sourced signals say in the body that they are
+  secondary reporting.
+- **The digest carries exactly the four new signals**, all six repeats
+  excluded, with the Harness signal pinned. The thread is honest rather than
+  forced: each item is a different layer of _what makes an automated thing stop
+  in the right place_ — the brake inside the loop, the bill when there is no
+  brake, verifiability as the brake on a data pipeline, and the good case where
+  verifying fast enough compresses a support window to a single week.
+- **33 reverse ids written as one pre-computed union rather than record by
+  record**, because eleven targets are referenced by two of the four signals
+  and a second `PATCH` would have replaced the first — the 2026-07-30 defect
+  that cost 26 ids. Each write was verified individually: **33/33, zero
+  losses**, plus 46 typed relations with notes.
+- Verified: 20 public routes at 200, zero hits on a ten-string internal-field
+  scan, **33/33 target pages rendering the reverse link**, 4/4 news items
+  carrying their 已收录 link, the pinned lead first **inside the digest's
+  signal links**, all six excluded items absent, four bodies rendering as real
+  structure with **zero literal markers**, zero horizontal overflow at 1265 and
+  375 with the detector proven to fire, zero console errors, plus typecheck,
+  lint, format, vitest **218/218** and `validate:digest` / `publishing` /
+  `persistence` / `ranking` / `workspace-boundary` / `candidates` / `database`.
+- **One of this round's own checks was wrong before the pages were, again.**
+  The literal-marker scan reported markers on all four signals — it had sliced
+  the HTML at the section heading and kept everything after it, **including the
+  RSC payload**, which legitimately carries the raw `**`. Scoped to the
+  rendered `.content-body` container with `<script>` blocks stripped: zero on
+  all four. Same false failure recorded on 2026-08-04.
+- **The store diff flagged two changes and both were checked rather than
+  waved through.** `digest-2026-08-10` lost four ids from its generated
+  buckets — because it was still a **draft** at `HEAD` (confirmed) and
+  regeneration refreshed the generated sections once the four new signals took
+  the top slots. All four displaced signals remain published and reachable.
+  Checker proven to fire on an injected loss (6 hits against the real 2).
+- **Not looked at, and stated rather than glossed**: the Browser pane's
+  screenshot tool was unavailable again (the pane is not displayed, so the page
+  composites no frames), and `AGENTS.md` forbids running Playwright without an
+  explicit request. Structure, inline-code rendering, overflow and console were
+  measured; the four pages were not seen.
+
 ## The intake was the bottleneck, not the pipeline
 
 - **Measured before changing anything** — 2026-08-10, owner-selected after a
