@@ -559,7 +559,12 @@ function updateSourceImportState(
     updatedAt: nowIso()
   };
 
+  // `...store` matters: writeStore replaces the whole file, so omitting it
+  // drops `latestImportRun` and `importRuns` — i.e. a single-source import
+  // silently erased the entire batch import history that
+  // `/workspace/operations` and the source quality metrics read from.
   writeStore({
+    ...store,
     updatedAt: nowIso(),
     sources: store.sources.map((item) =>
       item.id === sourceId ? nextSource : item
@@ -604,6 +609,7 @@ export function createExternalSource(
   const source = buildSourceFromInput(input, store.sources);
 
   writeStore({
+    ...store,
     updatedAt: nowIso(),
     sources: [...store.sources, source]
   });
@@ -640,6 +646,7 @@ export function updateExternalSource(
   };
 
   writeStore({
+    ...store,
     updatedAt: nowIso(),
     sources: store.sources.map((source) =>
       source.id === sourceId ? nextSource : source
@@ -667,6 +674,7 @@ export function setExternalSourceEnabled(
   };
 
   writeStore({
+    ...store,
     updatedAt: nowIso(),
     sources: store.sources.map((source) =>
       source.id === sourceId ? nextSource : source
