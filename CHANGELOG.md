@@ -12,6 +12,69 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The noisy sources were not the ones anybody suspected
+
+- **A source-retirement decision that ended in retiring nothing** — 2026-08-11,
+  owner-selected after the previous round confirmed the industry-PR worry with
+  numbers. The question was whether to cap or drop the two Chinese-language
+  media sources added on 08-10. **Three measurements said no, and two of them
+  pointed the opposite way from the hunch.**
+- **Rejection rate does not single them out.** Ranked over the current
+  snapshot: **ms-swift 100%** (10/10), **SGLang 90%**, Qwen Blog 100% (already
+  disabled), then vLLM / Ollama / Google AI Blog at **75%** — with **InfoQ 中文
+  at 75% and 量子位 at 70% sitting in the middle of that pack**, and Simon
+  Willison / Hugging Face at 0%. Applying "retire the noisy source" honestly
+  would retire the release feeds first, which nobody wants. What differs is the
+  _shape_ of the noise: a version bump reads as boring, a funding round reads as
+  a news portal.
+- **Both sources out-produced four established ones.** First round: 量子位 2
+  signals, InfoQ 1 — against **0** each from Google AI Blog, Ollama Releases,
+  GitHub Blog AI and ms-swift. The workspace already shows this
+  (`/workspace/sources` renders conversion rate and a quality level from
+  `evaluateSourceQuality`), so **no new script was written for it**.
+- **The obvious fix would have destroyed what it was protecting.** Lowering
+  量子位's item cap is the intuitive move; its two real signals sat at feed
+  positions **#8 and #10**, with the first seven all PR. A cap of 4 or 5 loses
+  both. InfoQ is the mirror image — its signal is at **#2**, and it is the only
+  source hitting the 12-item cap exactly (12 items on one day), so it is still
+  truncating.
+- **The real variable is publish rate, not quality**: InfoQ ≥12 items/day and
+  量子位 7/day, against **~9 items across the whole 7-day window** from the
+  other eleven sources combined — roughly a **15×** rate difference, because
+  these are daily outlets and the rest are vendor blogs and release feeds. No
+  editorial cadence changes that composition; only dropping a source or
+  changing what the lane shows does.
+- **So the finding was rewritten as a property of the lane, not of the
+  sources.** `src/lib/news.ts` filters `rejected` only, so **candidates
+  awaiting a decision are public** from import until a round dispositions
+  them. Measured across that boundary on 08-10: **33 items, 67% from the two
+  sources, ~15 of them PR — then 16 items and 38% after the round**, with
+  nothing about the sources having changed.
+- **`npm run measure:news-lane` fixes the measurement in place**
+  (`scripts/measure-news-lane.mjs`, no dependencies, read-only, honours
+  `LOCAL_DATA_DIR`). It deliberately does **not** recompute the per-source
+  rates the workspace already shows; it answers the one question no page
+  answers — what a reader is looking at right now, and how much of it nobody
+  has decided on yet.
+- **Proven to surface the problem before its clean output was believed.** Run
+  against an isolated copy of `config/` with that day's 42 dispositions rolled
+  back, it reports **32 visible / 23 undecided with the two sources at 69%**;
+  against the live store, 16 visible / 0 undecided. Live `config/` was
+  confirmed untouched before and after.
+- **The third option was measured and rejected too**: restricting the lane to
+  dispositioned candidates removes the exposure completely and costs no
+  signals, but it makes a public page depend on the editorial round running on
+  schedule — and this repository has already lost **9 days to a scheduler
+  default** and **5 runs to a console `Ctrl+C`**. Recorded in
+  `docs/security-boundary.md` rather than left to be re-proposed, since this
+  project has twice re-derived an option whose rejection was never written
+  down.
+- **Deliberately not decided on one round of data.** n = 22 items from a single
+  day is enough to describe the mechanism and not enough to retire a source
+  added specifically to fix a Chinese-language product whose ten sources were
+  100% English. Re-measure with the same command after two or three more
+  rounds.
+
 ## Editorial round — the first pass over the widened intake
 
 - **42 undecided candidates, 4 signals** — 2026-08-10. This is the backlog the
