@@ -101,6 +101,40 @@ days, max 200 items). Every fast-lane surface renders the fixed
 "自动聚合内容，未经编辑精选" disclaimer so unreviewed content is always
 labelled.
 
+**Undecided candidates are public, and that is the design.** The status filter
+removes `rejected` only, so a candidate whose effective `importStatus` is still
+`new` renders to readers from the moment it is imported until an editor
+dispositions it. That is what "未经编辑精选" means, and it is why the
+disclaimer is not optional — but the consequence is worth stating in numbers,
+because it is not obvious from the rule:
+
+- The lane's composition is driven by **publish rate**, not by source quality.
+  Daily tech-media sources produce roughly an order of magnitude more items per
+  day than vendor blogs and release feeds, so between an import and the next
+  editorial round they dominate the public page.
+- Measured 2026-08-10, the day the per-source cap went 4 → 12 and two
+  Chinese-language media sources were added: **before that day's round the lane
+  showed 33 items, 22 of them (67%) from those two sources**, roughly 15 of
+  which were industry PR. **After the round it showed 16 items with 6 from
+  those sources**, all of them real. Nothing about the sources changed — only
+  whether an editor had looked yet.
+- `npm run measure:news-lane` reports the current composition per source and
+  how many of the visible items are still undecided. It is read-only and
+  respects `LOCAL_DATA_DIR`. `/workspace/sources` already reports per-source
+  success / duplicate / conversion rates and a quality level
+  (`evaluateSourceQuality`), so this command deliberately does not recompute
+  them — it answers the different question of **what a reader is looking at
+  right now**.
+
+Two options were measured and **not** taken on 2026-08-10 (see `CHANGELOG.md`
+→ "The intake was the bottleneck" and the editorial-round entry): lowering a
+noisy source's item cap, which would have cost that source both of its real
+signals because they sat at feed positions #8 and #10; and restricting the lane
+to dispositioned candidates, which removes the exposure entirely but makes a
+public page depend on the editorial round running on schedule — a coupling this
+repository has already been bitten by (9 missed scheduled days, plus 5 runs
+killed by a console `Ctrl+C`).
+
 ## Internal Surfaces
 
 Workspace routes and internal APIs are operational tools for reviewers and maintainers:

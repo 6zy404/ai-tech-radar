@@ -35,7 +35,15 @@ The product is split into two subsystems:
   date / tags only, always labelled "自动聚合，未经编辑精选", with rejected
   candidates, fallback placeholders, and non-primary duplicates excluded, and
   converted items linking to their published signal. The curated technology
-  signal + digest tier stays editor-gated and unchanged.
+  signal + digest tier stays editor-gated and unchanged. Only `rejected` is
+  filtered, so **candidates awaiting a decision are publicly visible** until an
+  editorial round dispositions them — which means the lane's composition
+  follows each source's publish _rate_, not its quality. Measured on
+  2026-08-10: before that day's round the lane was 33 items with 67% from two
+  daily-media sources; after it, 16 items with 38%. `npm run measure:news-lane`
+  reports the current split, and
+  [`docs/security-boundary.md`](docs/security-boundary.md) → "News Fast Lane
+  Boundary" records the two alternatives that were measured and rejected.
 - **Review** — candidate review workflow with filters, deterministic and
   explainable duplicate detection, and duplicate-group resolution.
 - **Drafting & publishing** — candidate → draft conversion, lightweight draft
@@ -308,6 +316,7 @@ npm run format           # Prettier write
 npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
+npm run measure:news-lane # who the public 全部快讯 view is currently showing
 
 # persistence / task runner
 npm run db:init
