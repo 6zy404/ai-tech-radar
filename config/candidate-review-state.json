@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T12:59:38.818Z",
+  "updatedAt": "2026-08-11T03:11:15.134Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -804,6 +804,126 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-10T12:59:38.818Z",
       "convertedTechnologyId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
+    },
+    "candidate-rss-https-www-infoq-cn-article-gmmsltdo3xoy1uwcmdov-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.608Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-8-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.668Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-3-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.717Z"
+    },
+    "candidate-rss-https-openai-com-index-responsible-ai-infrastructure-texas": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.767Z"
+    },
+    "candidate-rss-https-openai-com-index-model-ml": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.815Z"
+    },
+    "candidate-rss-https-openai-com-index-building-an-ai-native-finance-function": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.861Z"
+    },
+    "candidate-rss-https-openai-com-index-premium-seats-chatgpt-business": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.907Z"
+    },
+    "candidate-rss-https-openai-com-index-zapier": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:56.986Z"
+    },
+    "candidate-rss-https-openai-com-index-virgin-atlantic-chatgpt-work": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:57.040Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-1-14": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:57.085Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-12-18": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:57.133Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-11-25": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:57.176Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-9-25": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:57.220Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-9-12": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-11T03:10:57.269Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-7": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.313Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-efficient-knowledge-distillation": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.356Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-q1f3na2a1mhhgqsetlum-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.415Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-computer-use-in-gemini-3-5-flash": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.461Z"
+    },
+    "candidate-rss-https-openai-com-index-expanding-daybreak-as-the-cyber-defense-window-narrows": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.507Z"
+    },
+    "candidate-rss-https-openai-com-index-putting-frontier-cyber-models-in-more-trusted-hands": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.554Z"
+    },
+    "candidate-rss-https-github-blog-p-97992": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.596Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jun-30-shot-scraper-video-atom-entries": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.639Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jun-22-porting-moebius-atom-entries": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.686Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469860": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.737Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469544": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-11T03:10:57.780Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-muse-glimmer": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-11T03:11:13.708Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-11T03:11:14.177Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469795": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-11T03:11:14.653Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-469795"
+    },
+    "candidate-rss-https-www-qbitai-com-p-469721": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-11T03:11:15.134Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-469721"
     }
   }
 }
