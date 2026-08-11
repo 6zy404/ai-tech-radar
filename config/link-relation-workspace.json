@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T13:12:53.207Z",
+  "updatedAt": "2026-08-11T03:19:29.403Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2871,6 +2871,294 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "本机可审计的工具循环，天然更容易看见自己花了多少。"
+    },
+    {
+      "id": "rel-ws-9ffb7566",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "30B 是为「本地跑得动」选的尺寸，约束决定了它的形状。"
+    },
+    {
+      "id": "rel-ws-c26b625c",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "换硬件后输出还对不对，取决于量化路径。"
+    },
+    {
+      "id": "rel-ws-2b3b3241",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。"
+    },
+    {
+      "id": "rel-ws-e5ff16c1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "领先幅度最大的基准全部是工具调用与检索类任务。"
+    },
+    {
+      "id": "rel-ws-9d19414c",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "目标场景就是单机本地部署。"
+    },
+    {
+      "id": "rel-ws-2c9df105",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "MLX 可用而 NVIDIA 待定，正是四级支持的现场。"
+    },
+    {
+      "id": "rel-ws-29a95c7f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "厂商表格同时列出赢的项与输的项，是读发布公告的好材料。"
+    },
+    {
+      "id": "rel-ws-5794ad92",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "builds-on",
+      "note": "它本身是蒸馏产物，后训练路线决定能力边界。"
+    },
+    {
+      "id": "rel-ws-5850a195",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "day-0 支持它的推理栈之一。"
+    },
+    {
+      "id": "rel-ws-8c512c19",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一条 MLX 支持线：先 Laguna，再 Muse Glimmer。"
+    },
+    {
+      "id": "rel-ws-f27b34cb",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "承接 v0.26.0 为 Inkling 补齐推理栈的那条线，这次轮到 Kimi K3。"
+    },
+    {
+      "id": "rel-ws-c444a7a8",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "回答了 Kimi K3 发布时留下的悬念：自托管栈多久能真正跑起来。"
+    },
+    {
+      "id": "rel-ws-6a222ae6",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "共享专家分片而非复制，是 MoE 服务的显存账。"
+    },
+    {
+      "id": "rel-ws-03e5709b",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "多层 MTP 推测器与 FlashAttention 4 都在这条加速线上。"
+    },
+    {
+      "id": "rel-ws-eaed8870",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "JIT 预热针对首个请求的编译停顿，冷启动与稳态是两个数。"
+    },
+    {
+      "id": "rel-ws-eb9992c6",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "PyTorch 2.13 是破坏性变更，升级窗口要单独排期。"
+    },
+    {
+      "id": "rel-ws-6993a731",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "容错框架与弹性扩缩容直接改变容量规划的假设。"
+    },
+    {
+      "id": "rel-ws-b4559ae2",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "一次性落到「有性能路径」那一级的样板案例。"
+    },
+    {
+      "id": "rel-ws-4288c0cd",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "性能数字逐项标明内核层还是端到端。"
+    },
+    {
+      "id": "rel-ws-6c5e28ef",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "这一条说结论复现不了，那一条说格式本身就是原因。"
+    },
+    {
+      "id": "rel-ws-90fbc646",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "跑完却不改变任何东西的评测是报告；论文发表长期停在这一步。"
+    },
+    {
+      "id": "rel-ws-225266aa",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "「复现成功」本身需要一个判据，而审计智能体的判据也会出错。"
+    },
+    {
+      "id": "rel-ws-ff1e3326",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "同行评审是一个通过率极高的检查点，这份数据说明了代价。"
+    },
+    {
+      "id": "rel-ws-d2bfe50a",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "失败原因没被记录下来，是复现不了的主因之一。"
+    },
+    {
+      "id": "rel-ws-72fb85c0",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "「这把尺子有没有量过别人」正是这份审计在做的事。"
+    },
+    {
+      "id": "rel-ws-52644197",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "把验证从一次性动作变成可批量运行的流程。"
+    },
+    {
+      "id": "rel-ws-51734587",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "fromType": "technology",
+      "toId": "knowledge-graph-thinking",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "探索图层把研究过程存成一张可追踪的图，而非线性叙事。"
+    },
+    {
+      "id": "rel-ws-c76d66e3",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "fromType": "technology",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "失败必须留下可检索的理由——这条规矩被推到了学术共同体。"
+    },
+    {
+      "id": "rel-ws-7cb010b0",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "四层知识包本质是一份给机器读的契约。"
+    },
+    {
+      "id": "rel-ws-f6e1bbb1",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "证据层要求每一项主张都能回到原始实验结果。"
+    },
+    {
+      "id": "rel-ws-cfcb37d6",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "机器先行完成结构检查，是评测运维搬进审稿流程。"
+    },
+    {
+      "id": "rel-ws-e012c774",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "fromType": "technology",
+      "toId": "skill-communication-ai",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "写给人看还是写给机器看，是两套不同的取舍。"
     }
   ]
 }
