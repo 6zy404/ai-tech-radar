@@ -71,16 +71,52 @@ and the **User-facing Product** (public reading/discovery).
      provider/model/prompt metadata before the response leaves the server.
    - This completes the agreed P3 candidate list (Compare → Explain →
      learning path); further P3 ideas are new scope.
+6. **Personalization (P4, agreed scope complete)** — followed topics (v0),
+   follow entry points on detail pages (v0.1), a personalized digest view
+   (v0.2), per-topic RSS feeds plus follow export/import (v0.3), and read /
+   read-later marks with a 稍后读 view (v0.4). All of it is browser-local:
+   no accounts, no server-side profile, the served page identical for
+   everyone.
+7. **Public discovery surfaces** — site-wide `/search`, the `/digest` archive,
+   the `/digest/weekly` review, topic hubs at `/topics/[tagId]` with per-topic
+   feeds, and the nav simplification that folded `/news`, `/timeline` and
+   `/radar` into `?view=` tabs on `/technologies`.
+8. **Editorial machinery** — the `/workspace/editorial-round` console, typed
+   relation editing (LinkRelation v1), skill/knowledge workspace editing with
+   copy-on-write over the seeds, technology↔technology relations and the
+   `supersedes` version line, importance-based ranking bands with fresh-first
+   digest selection, and the scheduled digest draft.
+9. **Operational hardening** — a verified backup of the state directory, one
+   network path shared by the workspace and the scheduled task, the S4U task
+   principal that stopped console-killed runs, source import retry, and
+   `measure:news-lane` for what the public fast lane is currently showing.
+10. **The dossier design direction, everywhere** — every page of the
+    User-facing Product, plus dark mode. The Internal Workspace deliberately
+    keeps its own console look.
+
+## Content
+
+The pipeline is no longer the constraint; the content is the product. As of
+2026-08-13: **42 published technology signals**, **15 skills**, **18 knowledge
+entries**, **20 published daily digests**, **13 enabled sources**. The
+skill/knowledge pool went from 16 full entries and 16 one-sentence seed stubs
+to 33 full entries with 2 stubs left, both deliberately on hold until their
+topic has more than its current three published signals.
 
 ## Completion estimate
 
-| Area                                | Done                                                     | Remaining                                                                                                                                                                                                               |
-| ----------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Business pipeline / CMS             | ~98%                                                     | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
-| User-facing visuals / design system | ~95%                                                     | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
-| User-facing content                 | ~90%                                                     | essentially localized                                                                                                                                                                                                   |
-| Knowledge relationship network      | 100% (P2 complete)                                       | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
-| AI assistance / personalization     | P3 agreed scope complete; P4 v0 shipped (personal radar) | Further P3 capabilities and further P4 capabilities (detail-page follow entries, personalized digest view) are new scope proposed per capability                                                                        |
+| Area                                | Done                                  | Remaining                                                                                                                                                                                                               |
+| ----------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business pipeline / CMS             | ~98%                                  | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
+| User-facing visuals / design system | ~95%                                  | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
+| User-facing content                 | ~90%                                  | essentially localized                                                                                                                                                                                                   |
+| Knowledge relationship network      | 100% (P2 complete)                    | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
+| AI assistance / personalization     | P3 and P4 agreed scope both complete  | P4 shipped v0 through v0.4 (radar, detail-page follow, personalized digest, topic feeds + follow transfer, read / read-later marks). Anything further in either is new scope, proposed per capability                   |
+| Deployment                          | code side done; 4 operator steps left | Rate limiting, CSP + HSTS, pinned Node, purged fixtures and untracked runtime stores all landed. What remains needs a machine and a domain — see "What 'done' means" below                                              |
+
+**The honest summary: the feature roadmap is finished.** Everything since
+2026-07-22 has been editorial rounds, content, visual passes, and defect fixes
+— not new phases. What is left is a deployment plus an ongoing operation.
 
 ## Roadmap
 
@@ -127,7 +163,7 @@ agreed next P3 candidate** — the owner's Explain-first choice implies it
 follows, but confirm before starting. This is the CMS → AI-product turning
 point.
 
-### P4 — Personalization (authorized 2026-07-09; v0 shipped)
+### P4 — Personalization (authorized 2026-07-09; v0 through v0.4 shipped)
 
 Followed topics → personalized digest = a personal tech radar.
 
@@ -152,18 +188,87 @@ pre-existing `npm run validate:delivery` fixture mismatch found (not caused)
 during the `sqlite-store.ts` work and flagged separately. Do this as
 interleaved cleanup, not a separate phase.
 
-## Recommended order
+## What "done" means, and the path to it
 
-Seal P1 (short) → focus P2 relationship network → stop and confirm with the
-owner before P3, because AI/personalization are an explicit authorization
-boundary in `AGENTS.md`. Avoid further UI micro-tuning: the project ceiling is
-the relationship network and understanding layer, not button spacing.
+The four phases above are all complete, so "what is left" is no longer a
+feature list — it depends on which reading of **done** you take. Three are
+possible, and this project's own documents already chose one:
 
-**Status: P1 and P2 are done, P3's agreed candidate list is complete, and
-P4 v0 has shipped** — Compare (v0), Explain (v1), the graph-grounded
-learning path (v2), and the personal radar (P4 v0, `/radar`) are all live
-(see the sections above). Any further P3 or P4 capability is new scope to be
-proposed and authorized by the owner per capability. The interleaved
-code-debt list is empty (store decomposition, visual confirmation,
-ESLint/Prettier, and the SQLite storage-model decision are all done — see
-`docs/next-task.md`).
+| Reading             | Meaning                                                | Has an end?                  |
+| ------------------- | ------------------------------------------------------ | ---------------------------- |
+| **A. Deployed**     | public site on a real domain, workspace locked         | **yes, and close**           |
+| B. Content mature   | enough signals/skills/knowledge to decide for a reader | no — ongoing operation       |
+| C. Feature-complete | accounts, production DB, subscriptions                 | yes, but a different product |
+
+**A is the target**, because `docs/production-readiness.md` already scopes it
+that way: a controlled single-operator go-live, with accounts, RBAC, a
+production database and distributed scheduling explicitly out of scope (see
+`AGENTS.md`). B is what A turns into afterwards. C would change what this
+project is.
+
+### Phase 1 — close the current thread
+
+Whatever operational question is open at the time. Effect: the scheduled
+pipeline can be treated as infrastructure rather than something still under
+observation, which matters once it is the only content source.
+
+### Phase 2 — deploy (about half a day, blocked on the owner)
+
+Of the 9-step go-live checklist, **the 5 code/config steps are done** (public
+AI route rate limiting, production CSP + HSTS, pinned Node, purged demo
+fixtures, runtime stores untracked). The remaining 4 are deployment actions,
+none of which need new code:
+
+1. Turn on `WORKSPACE_ACCESS_ENABLED` + a strong token — **and verify by
+   requesting the route, not by reading the middleware**. That is exactly how
+   the inert-guard bug went unnoticed for weeks.
+2. Move the live data directory out of the repository.
+3. Set `NEXT_PUBLIC_SITE_URL` — it is inlined at **build** time, so setting it
+   only at runtime bakes `localhost` into every feed link.
+4. Schedule the daily backup.
+
+Plus HTTPS in front, a build, and a smoke test.
+
+**The only blocker is three answers**: which machine and domain, who may reach
+the workspace, and where backups go.
+
+### Phase 3 — watch it for about two weeks
+
+The things only production shows: whether the scheduled task behaves on a new
+machine (this project has lost runs to sleep _and_ to a console `Ctrl+C`),
+whether the backup actually restores, whether feed links are right, and
+whether two writers ever collide on the unlocked JSON store.
+
+### Phase 4 — steady operation (no end)
+
+The import is automatic; the judgment is not. Optimization here means fewer
+manual steps per round, not more features.
+
+## Status
+
+**P1 through P4 are all complete**, and the interleaved code-debt list is
+empty. The original ordering advice — seal P1, focus P2, confirm before P3 —
+has served its purpose and is kept in the sections above as history.
+
+The one piece of that advice still worth obeying: **avoid UI micro-tuning as a
+goal**. The ceiling of this project is the relationship network and the
+understanding layer, not button spacing. Visual passes remain worth running,
+but as verification of content rounds rather than as redesigns — and they earn
+their keep: two consecutive passes in August found five reader-visible defects
+that every structural check had already passed (a wrong content-type label, a
+publisher rendered as a GitHub username, a summary shipping its `**` markers, a
+command-line flag split across lines, and ASCII quotes in Chinese prose). None
+of those has normal-DOM symptoms. See `AGENTS.md` → "Visual verification rule".
+
+**Next: Phase 2 above** — the deployment. It needs three answers from the owner
+before any of it can start.
+
+## Keeping this document honest
+
+This file went **a month out of date** (2026-07-09 → 2026-08-13) while
+`CHANGELOG.md` was updated daily. That is worse here than elsewhere: the header
+says direction should survive even if chat history is lost, and for a month it
+would have pointed a fresh session at a state that no longer existed.
+
+Update it whenever a phase closes or its status changes — not per feature,
+which is what the changelog is for.
