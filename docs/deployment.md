@@ -84,22 +84,68 @@ The runbook below was written for a Linux server. The owner has since chosen a
 different target, so read the runbook for its reasoning and use these decisions
 for the specifics.
 
-| Question           | Decision                            | What follows                                                                       |
-| ------------------ | ----------------------------------- | ---------------------------------------------------------------------------------- |
-| Where              | **this Windows machine**            | Task Scheduler stays; the systemd + cron sections below do not apply               |
-| Domain             | **none yet, will buy one**          | `NEXT_PUBLIC_SITE_URL` and HTTPS both wait — it is inlined at **build** time       |
-| Workspace exposure | **not public at all**               | the first control is not routing those paths outward; the token is the second lock |
-| Backups            | **same machine, another directory** | `npm run backup:data` as-is; the same-disk risk is accepted, see below             |
+| Question           | Decision                            | What follows                                                                               |
+| ------------------ | ----------------------------------- | ------------------------------------------------------------------------------------------ |
+| Where              | **this Windows machine**            | Task Scheduler stays; the systemd + cron sections below do not apply                       |
+| Domain             | **none yet, will buy one**          | `NEXT_PUBLIC_SITE_URL` and HTTPS both wait — it is inlined at **build** time               |
+| Workspace exposure | **not public at all**               | with a tunnel this is **not** free — it needs an edge deny list _and_ the token; see below |
+| Backups            | **same machine, another directory** | `npm run backup:data` as-is; the same-disk risk is accepted, see below                     |
 
-**On the workspace token.** Because the workspace is not going to be reachable
-from the internet, the token stops being the only thing between the internet
-and the publish button — but keep it as a second lock, and **flip it on at the
-moment the site is first exposed, not before**. Enabling it earlier breaks
-local editorial rounds, which drive `/api/workspace/*` and `/api/candidates/*`
-without a token. The guard itself was verified on this machine on 2026-08-10 by
-requesting the routes (401 without, 200 with, 503 when enabled-but-unconfigured
-while public routes stayed 200); re-verify the same way after flipping it, not
-by reading the middleware.
+### Exposure: outbound tunnel (chosen 2026-08-13)
+
+The machine sits behind a residential-style connection, so the three things
+that would otherwise sink a domain purchase are: ICP filing for anything
+resolving to a mainland-hosted service, inbound 80/443 commonly blocked, and a
+dynamic IP. An outbound tunnel (Cloudflare Tunnel, frp, …) sidesteps all three
+— the machine dials out, nothing listens inbound, and the address does not
+have to be stable. Buy the domain at a registrar that suits the tunnel provider;
+`.dev` and `.app` are worth considering because browsers force HTTPS on them.
+
+**Honest caveat:** tunnel edges vary in how well they serve mainland visitors.
+Measure it before assuming it is fine.
+
+#### A tunnel does NOT keep the workspace private by itself
+
+This is the correction that matters, and it inverts the note this file carried
+before the tunnel was chosen. A reverse proxy can route by path, so "just don't
+route the workspace outward" is a real option there. **A tunnel maps a hostname
+to one local port**, so the moment the domain resolves,
+`https://<domain>/workspace` is reachable. Privacy of the workspace stops being
+a consequence of topology and becomes something you have to configure.
+
+And it collides with the token advice: the middleware does not distinguish
+request origin, so turning the token on also blocks the editorial rounds, which
+drive `/api/workspace/*` and `/api/candidates/*` over `localhost`.
+
+Three layers, and the third is new work that makes the first two compatible:
+
+| Layer          | What it does                                                | Lives in          |
+| -------------- | ----------------------------------------------------------- | ----------------- |
+| Tunnel edge    | deny the same 5 prefixes `src/middleware.ts` matches        | tunnel/CDN config |
+| App middleware | `WORKSPACE_ACCESS_ENABLED=true` + token, as the second lock | `.env.local`      |
+| Round tooling  | send the token header on every workspace API call           | repo scripts      |
+
+The deny list must stay identical to `config.matcher` in `src/middleware.ts`:
+
+```
+/workspace/*   /api/workspace/*   /api/candidates/*   /candidates/*   /technologies/drafts/*
+```
+
+Both lists are five entries precisely so they can be compared by eye. If a new
+internal prefix is ever added, it has to be added in both places — the app one
+fails closed, the edge one does not.
+
+**Also required before the tunnel is useful:** the site has to be running as a
+production process (`npm run start`, not `npm run dev`), kept alive across
+reboots. Nothing in this repo does that yet; it is the same Task Scheduler
+pattern the import job already uses.
+
+**Verify by requesting, never by reading.** The guard was verified on this
+machine on 2026-08-10 (401 without a token, 200 with it in all three accepted
+forms, 503 when enabled-but-unconfigured while public routes stayed 200).
+Re-run that against the real domain after the tunnel is up, and separately
+confirm the edge denies `/workspace` **without** a token reaching the app at
+all.
 
 **On `config/` staying in git (checklist B2).** The runtime and secret stores
 (`delivery.json`, `workflow-events.json`, `task-runner.json`, the three LLM
@@ -118,11 +164,24 @@ project actually hits — a store written wrong, truncated, or deleted. It does
 **not** protect against losing the disk. Accepted knowingly; revisit when the
 content is worth more than the machine.
 
-**Still to do, in order:** register the backup task (command in "Daily backup
-(Windows)" below — it is a system change, so the owner runs it), then buy the
-domain, then set `NEXT_PUBLIC_SITE_URL` **and rebuild**, put HTTPS in front,
-flip the workspace token, and smoke-test. `npm run build` was re-verified on
-2026-08-13 and passes with `ƒ Middleware` present in the route table.
+**Still to do, in order.** Owner steps are marked; the rest is repo work.
+
+1. **(owner)** register the backup task — command in "Daily backup (Windows)"
+   below; it is a system change
+2. **(repo)** teach the editorial-round tooling to send the workspace token, so
+   turning the token on does not block editing
+3. **(repo)** a production run setup: `npm run start` kept alive across reboots
+4. **(owner)** buy the domain
+5. **(repo)** set `NEXT_PUBLIC_SITE_URL` to it and **rebuild** — it is inlined
+   at build time, so a runtime-only value leaves `localhost` in every feed link
+6. **(owner)** stand up the tunnel, and deny the five internal prefixes at its
+   edge
+7. **(both)** flip the workspace token, then verify by request: public routes
+   200, `/workspace` denied at the edge, and 401 from the app without a token
+
+Steps 2 and 3 do not need the domain and can be done now. `npm run build` was
+re-verified on 2026-08-13 and passes with `ƒ Middleware` present in the route
+table.
 
 ## Go-live runbook (single operator, one server)
 
