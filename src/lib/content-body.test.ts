@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { parseContentBody, splitContentBodyInline } from "@/lib/content-body";
+import {
+  contentBodyToPlainText,
+  parseContentBody,
+  splitContentBodyInline
+} from "@/lib/content-body";
 
 describe("parseContentBody", () => {
   it("reads a plain paragraph body as one paragraph per blank-line group", () => {
@@ -131,5 +135,45 @@ describe("splitContentBodyInline", () => {
     expect(splitContentBodyInline("**** 分隔")).toEqual([
       { text: "**** 分隔", kind: "text" }
     ]);
+  });
+});
+
+describe("contentBodyToPlainText", () => {
+  // The case that started this: a digest editorial summary written with the
+  // ContentBody subset reached the home page card, the /digest archive and both
+  // feeds as raw text, so readers saw the asterisks (2026-08-12).
+  it("drops bold markers but keeps the words", () => {
+    expect(
+      contentBodyToPlainText("今天的四条信号：**你凭什么相信它真的行。**")
+    ).toBe("今天的四条信号：你凭什么相信它真的行。");
+  });
+
+  it("drops inline code backticks", () => {
+    expect(contentBodyToPlainText("Ollama 同一天发布 `v0.32.7`。")).toBe(
+      "Ollama 同一天发布 v0.32.7。"
+    );
+  });
+
+  it("drops heading markers and joins blocks with a space", () => {
+    expect(contentBodyToPlainText("## 发布了什么\n\n它是一个模型。")).toBe(
+      "发布了什么 它是一个模型。"
+    );
+  });
+
+  it("flattens ordered and bulleted lists without their markers", () => {
+    expect(contentBodyToPlainText("- **甲** 一\n- 乙 二")).toBe("甲 一 乙 二");
+    expect(contentBodyToPlainText("1. 甲\n2. 乙")).toBe("甲 乙");
+  });
+
+  it("leaves a body with no markup unchanged", () => {
+    expect(contentBodyToPlainText("一句普通的话。")).toBe("一句普通的话。");
+  });
+
+  it("returns an empty string for an empty body", () => {
+    expect(contentBodyToPlainText("")).toBe("");
+  });
+
+  it("keeps a lone backtick, matching the renderer", () => {
+    expect(contentBodyToPlainText("价格是 5` 每米")).toBe("价格是 5` 每米");
   });
 });

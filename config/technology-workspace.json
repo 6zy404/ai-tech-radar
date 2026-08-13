@@ -1,6 +1,434 @@
 {
-  "updatedAt": "2026-08-11T03:18:37.948Z",
+  "updatedAt": "2026-08-13T01:13:09.878Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "slug": "ara-agent-native-research-artifacts",
+      "title": {
+        "original": "PDF 当死，ARA 该立！论文是时候 Agent 原生了",
+        "zh": "ARA：把论文从 PDF 改成智能体能直接操作的知识包"
+      },
+      "summary": {
+        "original": "A paper titled 'The Last Human-Written Paper: Agent-Native Research Artifacts' argues that PDF loses the exploration process and the engineering detail agents need, proposing a four-layer machine-operable knowledge package instead.",
+        "zh": "论文《The Last Human-Written Paper》主张停用 PDF：它把研究的探索过程剪成一条干净的成功路径，又把复现所需的工程细节丢在正文之外。作者提出 ARA——一个分四层、机器可直接操作的知识包，并给出一个数字：PaperBench 的 8921 项复现要求里，仅 45.4% 在 PDF 中得到完整说明。"
+      },
+      "content": {
+        "original": "Secondary reporting by QbitAI on IEEE Spectrum's coverage.",
+        "zh": "## 主张\n\nIEEE Spectrum 报道了一项名为 **ARA**（Agent-Native Research Artifact）的研究。团队在论文《The Last Human-Written Paper: Agent-Native Research Artifacts》中呼吁科学家停止用 PDF 撰写传统论文，理由是：**AI 需要一种不同的内容格式，而 AI 的需求理应被置于首位。**\n\n## 两笔「税」\n\n**叙事税。** 真实的科研不是一条从问题直通答案的直线——研究者要提出十几个假设、尝试几十种方案、调整无数次参数。但写成论文时，那棵枝杈横生的探索树会被修剪成一条干净、连贯的成功路径。**后来者看不见前人踩过的坑，也不知道哪条路已经被走死了。**\n\n**工程税。** 一篇论文只要能让审稿人信服就算完成使命，而「说服审稿人」与「让 AI 完整复现」是两套标准。模型版本、运行环境、超参数、预处理方式、训练技巧散落在正文、附录与代码仓库中，有些从未被记录。\n\n这里有本条最硬的一个数字：团队统计了 PaperBench 中的 **8921 项**专家复现要求，发现**仅有 45.4%** 在论文 PDF 中得到完整说明。\n\n对人来说，缺的信息可以靠经验、问导师或试错补上；**对 AI 来说，论文里没写就只能猜**——而猜出来的东西会以同样自信的语气呈现。\n\n## ARA 的四层\n\n不再把线性叙事的论文当作科研成果本身，而是把研究重组成一个机器可直接操作的知识包：\n\n1. **科学逻辑层**：解决了什么问题、为何采用该方法、哪些主张可被证伪\n2. **可执行代码层**：不只是代码仓库，还包含复现所需的环境、配置与关键参数\n3. **探索图层**：把实验过程还原为可追踪的路线图，**成功与失败的方向、放弃某条路线的原因都被保留**\n4. **证据层**：把每一项主张关联到原始实验结果，让 AI 核验结论而不是采信正文里的概括\n\n一句话：**PDF 只有「我们最后做成了什么」，ARA 还包括「为什么这么做、具体怎么做、哪些方法已失败、原始证据在哪里」。**\n\n## 配套的三套机制\n\n- **Live Research Manager**：在研究过程中持续记录实验、决策、转向与失败路线\n- **ARA Compiler**：把现有的 PDF 与代码仓库转换成 ARA 格式\n- **ARA 原生审稿系统**：让机器先行完成结构检查\n\n## 值得留下的那一点\n\n抛开「PDF 该不该死」这个吸引眼球的说法，**第三层「探索图层」是这套设计里最不寻常、也最难被现有格式替代的部分**：它要求把失败当作一等公民保存下来。\n\n这和本站《反馈闭环与团队学习》里那条规矩是同一个：**失败必须留下可检索的书面理由，否则同一个想法会在六个月后原样重提，而且没人记得上次为什么否掉。** ARA 只是把这条规矩从团队内部推到了整个学术共同体。\n\n## 边界\n\n本条为**二手报道**（量子位报道 IEEE Spectrum 的报道）。ARA 目前是**主张加原型**，不是已被采纳的标准；45.4% 这个数字来自 PaperBench 这一个数据集，未见独立复核。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-10",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/469721.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "量子位",
+      "publisherType": "media",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-workflow",
+        "tag-knowledge-graph"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-graph-thinking",
+        "knowledge-feedback-loops",
+        "knowledge-api-contracts",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-communication-ai"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T01:13:09.878Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「复现不了」这个现象往上追了一层，落到格式本身，并给出一个可核对的数字：复现所需信息只有 45.4% 写在了 PDF 里。提出的四层结构里，把失败路径当一等公民保存，是现有任何论文格式都没做的事。",
+      "whoShouldCare": [
+        "需要让研究成果被自动复现的团队",
+        "在设计知识库或研究记录系统的人",
+        "关注智能体如何消费人类产出的研究者"
+      ],
+      "technicalContext": "ARA 把研究重组为四层知识包（科学逻辑、可执行代码、探索图、证据），配套 Live Research Manager、ARA Compiler 与 ARA 原生审稿系统三套机制。核心论据是 PaperBench 8921 项专家复现要求中仅 45.4% 在 PDF 中完整说明。",
+      "impactAreas": [
+        "科研知识共享格式",
+        "自动化复现",
+        "失败经验的保存",
+        "智能体可消费的文档结构"
+      ],
+      "learningPath": [
+        "先看四层里的「探索图层」，它是与现有格式差别最大的一层",
+        "把 45.4% 这个数字对照你自己项目的文档，看有多少复现细节只存在于某个人的记忆里",
+        "评估「保存失败路径」在你团队的成本，它是这套设计里最贵也最有价值的部分"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-graph-thinking": "探索图层把研究过程存成一张可追踪的图，而不是一条线性叙事。",
+        "knowledge-feedback-loops": "失败必须留下可检索的理由——ARA 把这条团队规矩推到了学术共同体。",
+        "knowledge-api-contracts": "四层知识包本质上是一份给机器读的契约，含出错与演进方式。",
+        "knowledge-evaluation-loops": "证据层要求每一项主张都能回到原始实验结果。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "机器先行完成结构检查，是评测运维的思路搬进审稿流程。",
+        "skill-communication-ai": "写给人看还是写给机器看，是两套完全不同的取舍。"
+      },
+      "followUpQuestions": [
+        "把失败路径全部记录下来的成本，会不会高到让研究者拒绝采用？",
+        "ARA Compiler 从既有 PDF 反向生成知识包，能恢复多少已经丢失的信息？",
+        "45.4% 这个比例在 PaperBench 之外的数据集上是否成立？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-469721",
+      "createdAt": "2026-08-11T03:11:15.133Z",
+      "updatedAt": "2026-08-13T01:13:09.878Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-469721.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-469795"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "slug": "icml-2026-agent-reproduction-audit",
+      "title": {
+        "original": "AI 倒查论文 100 年！99.2% 的顶刊都有问题",
+        "zh": "智能体复现审计：ICML 2026 的 92 篇论文里，只有 8 篇能复现八成结论"
+      },
+      "summary": {
+        "original": "An AI-agent reproduction audit of ICML 2026 oral papers found only 8 of 92 papers reproduced more than 80% of their claims, alongside a separate study flagging objective errors in 99.2% of papers checked.",
+        "zh": "一次用 AI 智能体做的系统性复现审计显示：ICML 2026 的 92 篇可验证论文中，仅 34 篇能复现超过四成结论，能复现八成以上的只有 8 篇。另一项基于 GPT-5 的检查发现，平均每篇论文有 4.7 个客观错误，99.2% 的论文至少被标出一个问题。"
+      },
+      "content": {
+        "original": "Secondary reporting by QbitAI; see the linked article for the original studies.",
+        "zh": "## 审计的结果\n\n一家研究审查公司在 7 月 22 日用 AI 智能体对 ICML 2026 的**全部 168 篇口头报告论文**做了系统性的结果复现审计。其中 **92 篇**拥有至少 5 条可供验证的结论性声明。\n\n- 能成功复现**超过四成**结论的：**34 篇**\n- 能复现**八成以上**的：**仅 8 篇**\n\n## 「复现不了」不等于「造假」\n\n失败原因大多是工程性的：代码缺少关键文件、依赖库版本断裂、运行结果与论文不符。其中 **4 篇论文依赖的模型已经下线**——这意味着那些实验结果**永久性地无法被任何人复现**，与作者是否诚实无关。\n\n但也有错得离谱的：\n\n1. 一篇论文把「**仅训练基础模型 0.77% 的参数**」作为核心卖点，而它实际开源的 checkpoint 训练了 **6.31%** 的参数，**相差约 8 倍**。\n2. 另一篇放了一张基于某评判模型的可靠性表格，**而它的开源代码里根本不包含那个评判模型**，也没有任何脚本能生成表里的结果。\n\n## 另一条线：客观错误的普遍程度\n\n2025 年底另一项研究用基于 GPT-5 的系统检查已发表在顶级会议与期刊上的论文，并且明确限定**只看客观错误**，不评价创新性与研究价值。结果：\n\n- 平均每篇论文 **4.7 个**客观错误\n- **99.2%** 的论文至少被标出一个问题\n- **数学与公式错误占 54.0%**（方程写错、推导有漏洞、证明中的错误假设）\n- 约 **30.8%** 的 NeurIPS 论文与 **23.8%** 的 ICLR 论文含有至少一个**可能影响结果解读**的实质性错误\n\n趋势更值得注意：NeurIPS 论文的篇均错误数从 2021 年的 **3.8** 升到 2025 年的 **5.9**，涨幅 **55.3%**。\n\n## 为什么这是一条技术信号而不是学术八卦\n\n**真正变了的是验证的成本。** 同行评审审稿人几乎没有时间从头下载数据、跑模型、复现每一个实验；而当一篇论文背后的代码、数据与参数可能涉及数百个细节时，这层验证事实上一直是空的。智能体把这层的成本降下来之后，**空缺就变成了可测量的数字。**\n\n这与本站《评估闭环》里那条判据是同一件事：**一次跑完却没有改变任何东西的评测是报告，不是闭环。** 过去论文发表即终点，是因为没人跑得动第二遍；现在跑得动了。\n\n## 这条信号的边界，需要说清楚\n\n- 本条为**二手报道**（量子位），原始研究的执行方在报道中**未具名**（「美国某研究审查公司」），这是它最弱的一环。\n- 抱抱脸与 AlphaXiv 联合发起的 Agent Reproduction Challenge 是可指名的同类工作，结论方向一致。\n- 「复现率低」本身也受审计工具能力限制——**审计智能体复现失败，和论文本身有问题，是两件需要分开的事**，这一点原报道没有充分区分。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-10",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/469795.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "量子位",
+      "publisherType": "media",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-human-loop",
+        "knowledge-feedback-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T01:13:09.814Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体把复现的成本降到可以批量执行之后，一层长期空着的验证第一次变成了数字——而数字很难看。这直接影响你该如何采信一篇论文里的基准结果。",
+      "whoShouldCare": [
+        "依据论文基准结果做技术选型的工程团队",
+        "设计评测体系、需要判断外部数字可信度的人",
+        "研究者与审稿人"
+      ],
+      "technicalContext": "审计对象是 ICML 2026 的 168 篇口头报告论文，其中 92 篇含至少 5 条可验证声明。另一项基于 GPT-5 的检查系统只统计客观错误（数学、公式、推导、证明假设），覆盖已发表于顶级会议与期刊的论文。",
+      "impactAreas": [
+        "论文基准的可信度",
+        "评估体系设计",
+        "智能体在科研流程中的角色",
+        "技术选型依据"
+      ],
+      "learningPath": [
+        "把「这把尺子有没有量过别人」这条判据用到你引用的每一个基准数字上",
+        "区分「审计工具复现失败」与「论文本身有问题」，前者不足以否定后者",
+        "在自己的项目里试着做一次结论级的复现清单，看有多少条真的可验证"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "跑完却不改变任何东西的评测是报告；论文发表长期就停在这一步。",
+        "knowledge-ws-e251051e": "「复现成功」本身需要一个判据，而审计智能体的判据也可能出错。",
+        "knowledge-human-loop": "同行评审是一个通过率极高的检查点，这份数据说明了代价。",
+        "knowledge-feedback-loops": "失败原因没有被记录下来，是复现不了的主因之一。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "「这把尺子有没有量过别人」这条判据，正是这份审计在做的事。",
+        "skill-ws-f741f122": "把验证从一次性动作变成可批量运行的流程。"
+      },
+      "followUpQuestions": [
+        "审计智能体自身的失败率有多高，它的结论经过人工抽样核对了吗？",
+        "如果模型下线导致实验永久不可复现，学术制度上该由谁承担归档责任？",
+        "篇均错误数逐年上升，是审查变严了还是论文确实变差了？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-469795",
+      "createdAt": "2026-08-11T03:11:14.652Z",
+      "updatedAt": "2026-08-13T01:13:09.814Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-469795.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-469721"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "slug": "vllm-v0-27-0",
+      "title": {
+        "original": "vLLM v0.27.0",
+        "zh": "vLLM v0.27.0：561 次提交，一个版本内为 Kimi K3 落齐整条推理栈"
+      },
+      "summary": {
+        "original": "vLLM v0.27.0 ships 561 commits from 242 contributors, landing full-stack Kimi K3 support in a single release, upgrading to PyTorch 2.13, and extending Model Runner V2 to non-generative workloads.",
+        "zh": "vLLM v0.27.0 带来 561 次提交、242 位贡献者，在一个版本内为 Kimi K3 落齐从内核到双前端的整条支持路径；同时升级到 PyTorch 2.13（破坏性环境变更），并把 Model Runner V2 推进到非生成式负载。"
+      },
+      "content": {
+        "original": "See the vLLM v0.27.0 release notes for the full change list.",
+        "zh": "## 一个版本内落齐一条模型支持路径\n\n这一版最值得看的不是数量，而是 **Kimi K3 的支持是一次性落全的**：核心模型文件与内核、Python 前端、**Rust 前端**、AttnRes 内核、DeepGEMM 支持、compressed-tensors 量化检查点、DSpark AR 融合，以及一个把共享专家**分片而不是复制**的选项。\n\n对照本站《模型与推理引擎的支持路径》的四级判据，这不是「能加载」，而是直接落到**有性能路径**那一级。Kimi K3 是 07-16 在本站发布过的信号，当时的悬念正是开放权重到位之后、自托管栈多久能真正跑起来——**答案是不到一个月。**\n\n## 破坏性变更要单独看\n\n**PyTorch 升到 2.13.0**（配 torchvision 0.28.0、Triton 3.7.1），发布说明自己标注这是**破坏性环境变更**，XPU 与 CPU 路径随后跟上。升级窗口需要单独排期，不能当作普通小版本。\n\n## 消除首个请求的编译停顿\n\nFlashAttention 4 在 SM100 上加深集成：FP8 KV 缓存、headdim-256。配套的是新的 **JIT 预热基础设施**与 runner 自己持有的 Triton 内核预热——目的很具体：**把首个请求的编译停顿去掉**。\n\n这是容量规划里经常被忽略的一段：冷启动那一次的首字延迟，和稳态吞吐是两个数。\n\n## 性能改动写成了可核对的数字\n\nDeepSeek-V4 这一路的优化没有笼统说「更快了」，而是逐项列出：\n\n- 跳过空的 c128 启动带来**约 2 倍**内核提升\n- 跳过不必要的 topk / router，端到端首字延迟 **3.4%**\n- 工作区复用，端到端首字延迟 **3.9%**\n- 移除一个冗余的完整内核，**1.88 倍**内核提升\n- PP 缓冲区省下 **448 MiB** 显存\n\n**每一项都写明了是内核层还是端到端**——这正是判断一个性能数字能不能横比的关键。\n\n## 服务形态也在变\n\n- **Model Runner V2 扩到非生成式负载**：仅编码器注意力、用于嵌入与分类的序列池化、编码器 token 分类与嵌入、CPU 上的多模态。输出是标签而不是句子的那一半负载，现在走同一个运行器。\n- **面向大规模服务的韧性**：为 DP+EP 外部负载均衡部署提供了（简化的）容错框架，以及弹性 EP 扩缩容的异步准备。\n- **Rust 前端长出了 gRPC 控制面**：引擎健康上报、中止控制、服务与模型发现、KV 事件源发现。\n\n## 硬件在提前铺路\n\n`sm_107` 目标（NVIDIA Rubin）与 SM107 上的 NVLink all-reduce 路径已经进来，ROCm 的 gfx1250 架构也已启用。**下一代硬件的支持通常比硬件本身早半年出现在推理栈里**，这是判断厂商路线图的一个便宜信号。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-10",
+      "sourceName": "vLLM Releases",
+      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.27.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "vLLM Project",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-68963f7f",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-7796779a",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T01:12:44.882Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它回答了本站 07-16 发布 Kimi K3 时留下的悬念：开放权重公布之后，自托管推理栈多久能落到「有性能路径」那一级。答案是不到一个月，而且是一个版本内落齐。",
+      "whoShouldCare": [
+        "自托管大模型推理服务的平台工程团队",
+        "需要判断一次推理栈升级值不值得排期的技术负责人",
+        "在评估 Kimi K3 等开放权重旗舰模型可用性的架构师"
+      ],
+      "technicalContext": "vLLM v0.27.0 含 561 次提交、242 位贡献者（64 位新人）。除 Kimi K3 全栈支持外，升级到 PyTorch 2.13.0（破坏性环境变更），深化 FlashAttention 4 在 SM100 上的集成，把 Model Runner V2 扩展到嵌入 / 分类等非生成式负载，并为 DP+EP 部署引入容错框架。",
+      "impactAreas": [
+        "推理服务容量规划",
+        "开放权重模型落地",
+        "推理栈升级排期",
+        "非生成式负载服务"
+      ],
+      "learningPath": [
+        "先确认 PyTorch 2.13 的破坏性变更对你现有环境的影响面",
+        "把发布说明里的性能数字按「内核层 / 端到端」分开读，只有后者反映用户可感知的变化",
+        "如果你在跑嵌入或分类负载，评估 Model Runner V2 这条新路径是否替代现有部署"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "共享专家改为分片而不是复制，是 MoE 服务的显存账。",
+        "knowledge-ws-68963f7f": "多层 MTP 推测器与 FlashAttention 4 都在这条加速线上。",
+        "knowledge-latency-tradeoffs": "JIT 预热专门针对首个请求的编译停顿，冷启动与稳态是两个数。",
+        "knowledge-system-design": "PyTorch 2.13 是破坏性环境变更，升级窗口要单独排期。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "容错框架与弹性 EP 扩缩容直接改变容量规划的假设。",
+        "skill-ws-7796779a": "Kimi K3 一次性落到「有性能路径」那一级，是这项技能的样板案例。",
+        "skill-ws-dddaf80c": "性能数字逐项标明内核层还是端到端，是可横比与不可横比的分界。"
+      },
+      "followUpQuestions": [
+        "Kimi K3 的全栈支持在正确性上验证到什么程度，是否有对参考实现的基线比对？",
+        "DP+EP 的容错框架被标为「简化的」，它在真实故障下覆盖哪些场景？",
+        "首个请求的编译停顿被消除后，冷启动首字延迟实际下降了多少？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "createdAt": "2026-08-11T03:11:14.176Z",
+      "updatedAt": "2026-08-13T01:12:44.882Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "slug": "meta-muse-glimmer",
+      "title": {
+        "original": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+        "zh": "Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计"
+      },
+      "summary": {
+        "original": "Meta released Muse Glimmer, a 30B multimodal model distilled from Muse under Apache 2.0, designed for local agentic use, with day-0 support across transformers, llama.cpp and vLLM.",
+        "zh": "Meta 发布 Muse Glimmer——从 Muse 蒸馏到 300 亿参数、Apache 2.0 许可的多模态模型，目标是本地跑的智能体。工具调用与检索类基准领先同级开源模型，但在桌面与终端操作上输给 Qwen3.6-27B；生态当天跟进，硬件支持却分了档。"
+      },
+      "content": {
+        "original": "See the Hugging Face blog post for the full benchmark table and demos.",
+        "zh": "## 发布了什么\n\nMuse Glimmer 是 Meta 从自家 Muse **蒸馏**出来的 **300 亿参数**多模态模型，采用 **Apache 2.0** 许可，明确面向本地智能体场景：隐私敏感的应用、降低成本，或者装配 Claw / Hermes 那类本地助手。发布当天即有 `transformers`、`llama.cpp`、`vLLM` 与 Inference Endpoints 的支持。\n\n## 跑分里赢的部分\n\n对比 Gemma4-31B 与 Qwen3.6-27B（均为 Thinking 模式），智能体类基准领先明显：\n\n1. **MCP Atlas 75.5**，对 54.2 与 62.5\n2. **DeepSearch QA 74.6**，对 61.7 与 71.1\n3. **WildClawBench 47.6**，对 37.6 与 43.2\n4. **GAIA2 43.3**，对 36.4 与 40.0\n5. **SWE-Bench Pro 51.2**，对 36.9 与 50.2\n\n## 输的部分，以及为什么它更值得看\n\n同一张表里有 **5 项输给 Qwen3.6-27B**，而且输的方向很集中：\n\n- **OSWorld-Verified 65.9 对 75.6**\n- **TerminalBench 2.1 51.7 对 60.7**\n- **SkillsBench（带 Skills）44.3 对 46.6**\n- **GDPval-AA 953 对 1141**\n- SWE-Bench Verified 76.0 对 77.2\n\n赢的那些偏**工具调用与检索**，输的那些偏**操作真实系统**——桌面环境、终端会话。这个分野比总分有用：如果你的智能体主要在调 API、查资料，它是同级里最强的；如果它要去点桌面、跑终端，Qwen3.6-27B 目前更稳。\n\n还有一个绝对值低到应该说出来：**τ³-Banking 只有 23.5**，而对手是 15.1 与 16.7。它赢了，但三家都远不及格——多轮、带约束的业务对话仍然是这一档开放模型共同的短板。\n\n## 生态当天跟上了，但分了档\n\nOllama 同一天发布 `v0.32.7` 支持 Muse Glimmer，**但只在 Apple Silicon 的 MLX 引擎上**；NVIDIA 与 AMD 的支持要等 `v0.32.8`，发稿时那还是预发布版本。\n\n这正是本站《模型与推理引擎的支持路径》那四级判据的现场：**「支持」不是布尔值**。当天能在 Mac 上跑起来，不等于能在生产的 NVIDIA 机器上跑起来，更不等于跑得快、跑得对。\n\n## 蒸馏这次是主角，不是脚注\n\nMuse Glimmer 本身就是**蒸馏产物**，而同一天 Hugging Face 上还有一篇系统论文在解决蒸馏本身的成本：把教师模型的 top-K logits **离线缓存**，于是教师不必与学生同时占显存；再配一个分块融合的 KL 损失，避免物化「词表 × 序列长度」那张大矩阵。作者称这让长上下文的能力恢复训练**能在单卡上完成**。\n\n把两件事放在一起读才完整：**一个 30B 的开放权重模型能不能出现，取决于把大模型压小的成本降到了什么程度。**"
+      },
+      "type": "model",
+      "publishDate": "2026-08-10",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/muse-glimmer",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Meta",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-multimodal"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-tool-use"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a",
+        "skill-ws-dddaf80c",
+        "skill-ws-84837d46"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T01:12:44.771Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开放权重的智能体模型第一次把「本地跑得动」和「工具调用够强」做进了同一个 30B 模型，而且它公开承认自己在桌面与终端操作上落后——这让选型可以按任务形状做，而不是按总分做。",
+      "whoShouldCare": [
+        "在本地或私有环境部署智能体的工程团队",
+        "正在评估开放权重能否替代闭源 API 的技术决策者",
+        "关注蒸馏与模型压缩路线的研究者"
+      ],
+      "technicalContext": "Muse Glimmer 从 Meta 的 Muse 蒸馏到 30B，Apache 2.0 许可，支持多模态工具调用、目标检测与推测解码（transformers 与 llama.cpp 两条路径）。它的公开基准表同时列出了赢的项与输的项，对比对象是 Gemma4-31B 与 Qwen3.6-27B 的 Thinking 模式。",
+      "impactAreas": [
+        "本地智能体部署",
+        "开放权重模型选型",
+        "推理引擎适配",
+        "模型蒸馏与压缩"
+      ],
+      "learningPath": [
+        "先读基准表里输的那 5 项，判断你的任务更像「调工具」还是「操作系统」",
+        "确认你的目标硬件属于哪一级支持：能加载、有原生建模、有性能路径、还是有正确性保障",
+        "在自己的任务上跑一次对照，不要直接采信厂商表格里的相对领先幅度"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "30B 这个尺寸是为「本地跑得动」选的，它把哪个约束先咬人这件事摆到台面上。",
+        "knowledge-ws-34da6116": "Ollama 当天只在 MLX 引擎上支持它，量化与数值精度决定了换硬件后输出还对不对。",
+        "knowledge-ws-68963f7f": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。",
+        "knowledge-tool-use": "领先幅度最大的几项基准全部是工具调用与检索类任务。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条信号的目标场景就是单机本地部署。",
+        "skill-ws-7796779a": "「当天支持」分成 MLX 可用与 NVIDIA 待定两档，正是这项技能说的四级支持。",
+        "skill-ws-dddaf80c": "厂商表格同时列出赢的项与输的项，是练习读发布公告的好材料。",
+        "skill-ws-84837d46": "它本身是蒸馏产物，后训练路线决定了它的能力边界。"
+      },
+      "followUpQuestions": [
+        "τ³-Banking 只有 23.5，多轮带约束的业务对话还差在哪一步？",
+        "NVIDIA / AMD 的支持从预发布走到稳定要多久，期间的输出质量是否一致？",
+        "离线 top-K 蒸馏能否被复现到其他开放模型上，还是依赖 Meta 的教师模型？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "createdAt": "2026-08-11T03:11:13.706Z",
+      "updatedAt": "2026-08-13T01:12:44.771Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-muse-glimmer.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "slug": "ollama-v0-32-4",
@@ -308,434 +736,6 @@
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
         "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-qbitai-com-p-469721",
-      "slug": "ara-agent-native-research-artifacts",
-      "title": {
-        "original": "PDF 当死，ARA 该立！论文是时候 Agent 原生了",
-        "zh": "ARA：把论文从 PDF 改成智能体能直接操作的知识包"
-      },
-      "summary": {
-        "original": "A paper titled 'The Last Human-Written Paper: Agent-Native Research Artifacts' argues that PDF loses the exploration process and the engineering detail agents need, proposing a four-layer machine-operable knowledge package instead.",
-        "zh": "论文《The Last Human-Written Paper》主张停用 PDF：它把研究的探索过程剪成一条干净的成功路径，又把复现所需的工程细节丢在正文之外。作者提出 ARA——一个分四层、机器可直接操作的知识包，并给出一个数字：PaperBench 的 8921 项复现要求里，仅 45.4% 在 PDF 中得到完整说明。"
-      },
-      "content": {
-        "original": "Secondary reporting by QbitAI on IEEE Spectrum's coverage.",
-        "zh": "## 主张\n\nIEEE Spectrum 报道了一项名为 **ARA**（Agent-Native Research Artifact）的研究。团队在论文《The Last Human-Written Paper: Agent-Native Research Artifacts》中呼吁科学家停止用 PDF 撰写传统论文，理由是：**AI 需要一种不同的内容格式，而 AI 的需求理应被置于首位。**\n\n## 两笔「税」\n\n**叙事税。** 真实的科研不是一条从问题直通答案的直线——研究者要提出十几个假设、尝试几十种方案、调整无数次参数。但写成论文时，那棵枝杈横生的探索树会被修剪成一条干净、连贯的成功路径。**后来者看不见前人踩过的坑，也不知道哪条路已经被走死了。**\n\n**工程税。** 一篇论文只要能让审稿人信服就算完成使命，而「说服审稿人」与「让 AI 完整复现」是两套标准。模型版本、运行环境、超参数、预处理方式、训练技巧散落在正文、附录与代码仓库中，有些从未被记录。\n\n这里有本条最硬的一个数字：团队统计了 PaperBench 中的 **8921 项**专家复现要求，发现**仅有 45.4%** 在论文 PDF 中得到完整说明。\n\n对人来说，缺的信息可以靠经验、问导师或试错补上；**对 AI 来说，论文里没写就只能猜**——而猜出来的东西会以同样自信的语气呈现。\n\n## ARA 的四层\n\n不再把线性叙事的论文当作科研成果本身，而是把研究重组成一个机器可直接操作的知识包：\n\n1. **科学逻辑层**：解决了什么问题、为何采用该方法、哪些主张可被证伪\n2. **可执行代码层**：不只是代码仓库，还包含复现所需的环境、配置与关键参数\n3. **探索图层**：把实验过程还原为可追踪的路线图，**成功与失败的方向、放弃某条路线的原因都被保留**\n4. **证据层**：把每一项主张关联到原始实验结果，让 AI 核验结论而不是采信正文里的概括\n\n一句话：**PDF 只有「我们最后做成了什么」，ARA 还包括「为什么这么做、具体怎么做、哪些方法已失败、原始证据在哪里」。**\n\n## 配套的三套机制\n\n- **Live Research Manager**：在研究过程中持续记录实验、决策、转向与失败路线\n- **ARA Compiler**：把现有的 PDF 与代码仓库转换成 ARA 格式\n- **ARA 原生审稿系统**：让机器先行完成结构检查\n\n## 值得留下的那一点\n\n抛开「PDF 该不该死」这个吸引眼球的说法，**第三层「探索图层」是这套设计里最不寻常、也最难被现有格式替代的部分**：它要求把失败当作一等公民保存下来。\n\n这和本站《反馈闭环与团队学习》里那条规矩是同一个：**失败必须留下可检索的书面理由，否则同一个想法会在六个月后原样重提，而且没人记得上次为什么否掉。** ARA 只是把这条规矩从团队内部推到了整个学术共同体。\n\n## 边界\n\n本条为**二手报道**（量子位报道 IEEE Spectrum 的报道）。ARA 目前是**主张加原型**，不是已被采纳的标准；45.4% 这个数字来自 PaperBench 这一个数据集，未见独立复核。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-08-10",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/469721.html",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "听雨",
-      "publisherType": "startup",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-workflow",
-        "tag-knowledge-graph"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-graph-thinking",
-        "knowledge-feedback-loops",
-        "knowledge-api-contracts",
-        "knowledge-evaluation-loops"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-f741f122",
-        "skill-communication-ai"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 93,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-11T03:18:37.792Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它把「复现不了」这个现象往上追了一层，落到格式本身，并给出一个可核对的数字：复现所需信息只有 45.4% 写在了 PDF 里。提出的四层结构里，把失败路径当一等公民保存，是现有任何论文格式都没做的事。",
-      "whoShouldCare": [
-        "需要让研究成果被自动复现的团队",
-        "在设计知识库或研究记录系统的人",
-        "关注智能体如何消费人类产出的研究者"
-      ],
-      "technicalContext": "ARA 把研究重组为四层知识包（科学逻辑、可执行代码、探索图、证据），配套 Live Research Manager、ARA Compiler 与 ARA 原生审稿系统三套机制。核心论据是 PaperBench 8921 项专家复现要求中仅 45.4% 在 PDF 中完整说明。",
-      "impactAreas": [
-        "科研知识共享格式",
-        "自动化复现",
-        "失败经验的保存",
-        "智能体可消费的文档结构"
-      ],
-      "learningPath": [
-        "先看四层里的「探索图层」，它是与现有格式差别最大的一层",
-        "把 45.4% 这个数字对照你自己项目的文档，看有多少复现细节只存在于某个人的记忆里",
-        "评估「保存失败路径」在你团队的成本，它是这套设计里最贵也最有价值的部分"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-graph-thinking": "探索图层把研究过程存成一张可追踪的图，而不是一条线性叙事。",
-        "knowledge-feedback-loops": "失败必须留下可检索的理由——ARA 把这条团队规矩推到了学术共同体。",
-        "knowledge-api-contracts": "四层知识包本质上是一份给机器读的契约，含出错与演进方式。",
-        "knowledge-evaluation-loops": "证据层要求每一项主张都能回到原始实验结果。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-f741f122": "机器先行完成结构检查，是评测运维的思路搬进审稿流程。",
-        "skill-communication-ai": "写给人看还是写给机器看，是两套完全不同的取舍。"
-      },
-      "followUpQuestions": [
-        "把失败路径全部记录下来的成本，会不会高到让研究者拒绝采用？",
-        "ARA Compiler 从既有 PDF 反向生成知识包，能恢复多少已经丢失的信息？",
-        "45.4% 这个比例在 PaperBench 之外的数据集上是否成立？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-469721",
-      "createdAt": "2026-08-11T03:11:15.133Z",
-      "updatedAt": "2026-08-11T03:18:37.792Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-469721.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-469795"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-qbitai-com-p-469795",
-      "slug": "icml-2026-agent-reproduction-audit",
-      "title": {
-        "original": "AI 倒查论文 100 年！99.2% 的顶刊都有问题",
-        "zh": "智能体复现审计：ICML 2026 的 92 篇论文里，只有 8 篇能复现八成结论"
-      },
-      "summary": {
-        "original": "An AI-agent reproduction audit of ICML 2026 oral papers found only 8 of 92 papers reproduced more than 80% of their claims, alongside a separate study flagging objective errors in 99.2% of papers checked.",
-        "zh": "一次用 AI 智能体做的系统性复现审计显示：ICML 2026 的 92 篇可验证论文中，仅 34 篇能复现超过四成结论，能复现八成以上的只有 8 篇。另一项基于 GPT-5 的检查发现，平均每篇论文有 4.7 个客观错误，99.2% 的论文至少被标出一个问题。"
-      },
-      "content": {
-        "original": "Secondary reporting by QbitAI; see the linked article for the original studies.",
-        "zh": "## 审计的结果\n\n一家研究审查公司在 7 月 22 日用 AI 智能体对 ICML 2026 的**全部 168 篇口头报告论文**做了系统性的结果复现审计。其中 **92 篇**拥有至少 5 条可供验证的结论性声明。\n\n- 能成功复现**超过四成**结论的：**34 篇**\n- 能复现**八成以上**的：**仅 8 篇**\n\n## 「复现不了」不等于「造假」\n\n失败原因大多是工程性的：代码缺少关键文件、依赖库版本断裂、运行结果与论文不符。其中 **4 篇论文依赖的模型已经下线**——这意味着那些实验结果**永久性地无法被任何人复现**，与作者是否诚实无关。\n\n但也有错得离谱的：\n\n1. 一篇论文把「**仅训练基础模型 0.77% 的参数**」作为核心卖点，而它实际开源的 checkpoint 训练了 **6.31%** 的参数，**相差约 8 倍**。\n2. 另一篇放了一张基于某评判模型的可靠性表格，**而它的开源代码里根本不包含那个评判模型**，也没有任何脚本能生成表里的结果。\n\n## 另一条线：客观错误的普遍程度\n\n2025 年底另一项研究用基于 GPT-5 的系统检查已发表在顶级会议与期刊上的论文，并且明确限定**只看客观错误**，不评价创新性与研究价值。结果：\n\n- 平均每篇论文 **4.7 个**客观错误\n- **99.2%** 的论文至少被标出一个问题\n- **数学与公式错误占 54.0%**（方程写错、推导有漏洞、证明中的错误假设）\n- 约 **30.8%** 的 NeurIPS 论文与 **23.8%** 的 ICLR 论文含有至少一个**可能影响结果解读**的实质性错误\n\n趋势更值得注意：NeurIPS 论文的篇均错误数从 2021 年的 **3.8** 升到 2025 年的 **5.9**，涨幅 **55.3%**。\n\n## 为什么这是一条技术信号而不是学术八卦\n\n**真正变了的是验证的成本。** 同行评审审稿人几乎没有时间从头下载数据、跑模型、复现每一个实验；而当一篇论文背后的代码、数据与参数可能涉及数百个细节时，这层验证事实上一直是空的。智能体把这层的成本降下来之后，**空缺就变成了可测量的数字。**\n\n这与本站《评估闭环》里那条判据是同一件事：**一次跑完却没有改变任何东西的评测是报告，不是闭环。** 过去论文发表即终点，是因为没人跑得动第二遍；现在跑得动了。\n\n## 这条信号的边界，需要说清楚\n\n- 本条为**二手报道**（量子位），原始研究的执行方在报道中**未具名**（「美国某研究审查公司」），这是它最弱的一环。\n- 抱抱脸与 AlphaXiv 联合发起的 Agent Reproduction Challenge 是可指名的同类工作，结论方向一致。\n- 「复现率低」本身也受审计工具能力限制——**审计智能体复现失败，和论文本身有问题，是两件需要分开的事**，这一点原报道没有充分区分。"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-10",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/469795.html",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "听雨",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-workflow",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-ws-e251051e",
-        "knowledge-human-loop",
-        "knowledge-feedback-loops"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-11T03:18:37.736Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "智能体把复现的成本降到可以批量执行之后，一层长期空着的验证第一次变成了数字——而数字很难看。这直接影响你该如何采信一篇论文里的基准结果。",
-      "whoShouldCare": [
-        "依据论文基准结果做技术选型的工程团队",
-        "设计评测体系、需要判断外部数字可信度的人",
-        "研究者与审稿人"
-      ],
-      "technicalContext": "审计对象是 ICML 2026 的 168 篇口头报告论文，其中 92 篇含至少 5 条可验证声明。另一项基于 GPT-5 的检查系统只统计客观错误（数学、公式、推导、证明假设），覆盖已发表于顶级会议与期刊的论文。",
-      "impactAreas": [
-        "论文基准的可信度",
-        "评估体系设计",
-        "智能体在科研流程中的角色",
-        "技术选型依据"
-      ],
-      "learningPath": [
-        "把「这把尺子有没有量过别人」这条判据用到你引用的每一个基准数字上",
-        "区分「审计工具复现失败」与「论文本身有问题」，前者不足以否定后者",
-        "在自己的项目里试着做一次结论级的复现清单，看有多少条真的可验证"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-evaluation-loops": "跑完却不改变任何东西的评测是报告；论文发表长期就停在这一步。",
-        "knowledge-ws-e251051e": "「复现成功」本身需要一个判据，而审计智能体的判据也可能出错。",
-        "knowledge-human-loop": "同行评审是一个通过率极高的检查点，这份数据说明了代价。",
-        "knowledge-feedback-loops": "失败原因没有被记录下来，是复现不了的主因之一。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "「这把尺子有没有量过别人」这条判据，正是这份审计在做的事。",
-        "skill-ws-f741f122": "把验证从一次性动作变成可批量运行的流程。"
-      },
-      "followUpQuestions": [
-        "审计智能体自身的失败率有多高，它的结论经过人工抽样核对了吗？",
-        "如果模型下线导致实验永久不可复现，学术制度上该由谁承担归档责任？",
-        "篇均错误数逐年上升，是审查变严了还是论文确实变差了？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-469795",
-      "createdAt": "2026-08-11T03:11:14.652Z",
-      "updatedAt": "2026-08-11T03:18:37.736Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-469795.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-469721"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-      "slug": "vllm-v0-27-0",
-      "title": {
-        "original": "vLLM v0.27.0",
-        "zh": "vLLM v0.27.0：561 次提交，一个版本内为 Kimi K3 落齐整条推理栈"
-      },
-      "summary": {
-        "original": "vLLM v0.27.0 ships 561 commits from 242 contributors, landing full-stack Kimi K3 support in a single release, upgrading to PyTorch 2.13, and extending Model Runner V2 to non-generative workloads.",
-        "zh": "vLLM v0.27.0 带来 561 次提交、242 位贡献者，在**一个版本内**为 Kimi K3 落齐从内核到双前端的整条支持路径；同时升级到 PyTorch 2.13（破坏性环境变更），并把 Model Runner V2 推进到非生成式负载。"
-      },
-      "content": {
-        "original": "See the vLLM v0.27.0 release notes for the full change list.",
-        "zh": "## 一个版本内落齐一条模型支持路径\n\n这一版最值得看的不是数量，而是 **Kimi K3 的支持是一次性落全的**：核心模型文件与内核、Python 前端、**Rust 前端**、AttnRes 内核、DeepGEMM 支持、compressed-tensors 量化检查点、DSpark AR 融合，以及一个把共享专家**分片而不是复制**的选项。\n\n对照本站《模型与推理引擎的支持路径》的四级判据，这不是「能加载」，而是直接落到**有性能路径**那一级。Kimi K3 是 07-16 在本站发布过的信号，当时的悬念正是开放权重到位之后、自托管栈多久能真正跑起来——**答案是不到一个月。**\n\n## 破坏性变更要单独看\n\n**PyTorch 升到 2.13.0**（配 torchvision 0.28.0、Triton 3.7.1），发布说明自己标注这是**破坏性环境变更**，XPU 与 CPU 路径随后跟上。升级窗口需要单独排期，不能当作普通小版本。\n\n## 消除首个请求的编译停顿\n\nFlashAttention 4 在 SM100 上加深集成：FP8 KV 缓存、headdim-256。配套的是新的 **JIT 预热基础设施**与 runner 自己持有的 Triton 内核预热——目的很具体：**把首个请求的编译停顿去掉**。\n\n这是容量规划里经常被忽略的一段：冷启动那一次的首字延迟，和稳态吞吐是两个数。\n\n## 性能改动写成了可核对的数字\n\nDeepSeek-V4 这一路的优化没有笼统说「更快了」，而是逐项列出：\n\n- 跳过空的 c128 启动带来**约 2 倍**内核提升\n- 跳过不必要的 topk / router，端到端首字延迟 **3.4%**\n- 工作区复用，端到端首字延迟 **3.9%**\n- 移除一个冗余的完整内核，**1.88 倍**内核提升\n- PP 缓冲区省下 **448 MiB** 显存\n\n**每一项都写明了是内核层还是端到端**——这正是判断一个性能数字能不能横比的关键。\n\n## 服务形态也在变\n\n- **Model Runner V2 扩到非生成式负载**：仅编码器注意力、用于嵌入与分类的序列池化、编码器 token 分类与嵌入、CPU 上的多模态。输出是标签而不是句子的那一半负载，现在走同一个运行器。\n- **面向大规模服务的韧性**：为 DP+EP 外部负载均衡部署提供了（简化的）容错框架，以及弹性 EP 扩缩容的异步准备。\n- **Rust 前端长出了 gRPC 控制面**：引擎健康上报、中止控制、服务与模型发现、KV 事件源发现。\n\n## 硬件在提前铺路\n\n`sm_107` 目标（NVIDIA Rubin）与 SM107 上的 NVLink all-reduce 路径已经进来，ROCm 的 gfx1250 架构也已启用。**下一代硬件的支持通常比硬件本身早半年出现在推理栈里**，这是判断厂商路线图的一个便宜信号。"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-10",
-      "sourceName": "vLLM Releases",
-      "sourceUrl": "https://github.com/vllm-project/vllm/releases/tag/v0.27.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "khluu",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-frontier-models"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f",
-        "knowledge-latency-tradeoffs",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-ws-7796779a",
-        "skill-ws-dddaf80c"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-11T03:18:37.665Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它回答了本站 07-16 发布 Kimi K3 时留下的悬念：开放权重公布之后，自托管推理栈多久能落到「有性能路径」那一级。答案是不到一个月，而且是一个版本内落齐。",
-      "whoShouldCare": [
-        "自托管大模型推理服务的平台工程团队",
-        "需要判断一次推理栈升级值不值得排期的技术负责人",
-        "在评估 Kimi K3 等开放权重旗舰模型可用性的架构师"
-      ],
-      "technicalContext": "vLLM v0.27.0 含 561 次提交、242 位贡献者（64 位新人）。除 Kimi K3 全栈支持外，升级到 PyTorch 2.13.0（破坏性环境变更），深化 FlashAttention 4 在 SM100 上的集成，把 Model Runner V2 扩展到嵌入 / 分类等非生成式负载，并为 DP+EP 部署引入容错框架。",
-      "impactAreas": [
-        "推理服务容量规划",
-        "开放权重模型落地",
-        "推理栈升级排期",
-        "非生成式负载服务"
-      ],
-      "learningPath": [
-        "先确认 PyTorch 2.13 的破坏性变更对你现有环境的影响面",
-        "把发布说明里的性能数字按「内核层 / 端到端」分开读，只有后者反映用户可感知的变化",
-        "如果你在跑嵌入或分类负载，评估 Model Runner V2 这条新路径是否替代现有部署"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-36346103": "共享专家改为分片而不是复制，是 MoE 服务的显存账。",
-        "knowledge-ws-68963f7f": "多层 MTP 推测器与 FlashAttention 4 都在这条加速线上。",
-        "knowledge-latency-tradeoffs": "JIT 预热专门针对首个请求的编译停顿，冷启动与稳态是两个数。",
-        "knowledge-system-design": "PyTorch 2.13 是破坏性环境变更，升级窗口要单独排期。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-a9e80194": "容错框架与弹性 EP 扩缩容直接改变容量规划的假设。",
-        "skill-ws-7796779a": "Kimi K3 一次性落到「有性能路径」那一级，是这项技能的样板案例。",
-        "skill-ws-dddaf80c": "性能数字逐项标明内核层还是端到端，是可横比与不可横比的分界。"
-      },
-      "followUpQuestions": [
-        "Kimi K3 的全栈支持在正确性上验证到什么程度，是否有对参考实现的基线比对？",
-        "DP+EP 的容错框架被标为「简化的」，它在真实故障下覆盖哪些场景？",
-        "首个请求的编译停顿被消除后，冷启动首字延迟实际下降了多少？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-      "createdAt": "2026-08-11T03:11:14.176Z",
-      "updatedAt": "2026-08-11T03:18:37.665Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-      "slug": "meta-muse-glimmer",
-      "title": {
-        "original": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
-        "zh": "Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计"
-      },
-      "summary": {
-        "original": "Meta released Muse Glimmer, a 30B multimodal model distilled from Muse under Apache 2.0, designed for local agentic use, with day-0 support across transformers, llama.cpp and vLLM.",
-        "zh": "Meta 发布 Muse Glimmer——从 Muse 蒸馏到 300 亿参数、Apache 2.0 许可的多模态模型，目标是本地跑的智能体。工具调用与检索类基准领先同级开源模型，但在桌面与终端操作上输给 Qwen3.6-27B；生态当天跟进，硬件支持却分了档。"
-      },
-      "content": {
-        "original": "See the Hugging Face blog post for the full benchmark table and demos.",
-        "zh": "## 发布了什么\n\nMuse Glimmer 是 Meta 从自家 Muse **蒸馏**出来的 **300 亿参数**多模态模型，采用 **Apache 2.0** 许可，明确面向本地智能体场景：隐私敏感的应用、降低成本，或者装配 Claw / Hermes 那类本地助手。发布当天即有 `transformers`、`llama.cpp`、`vLLM` 与 Inference Endpoints 的支持。\n\n## 跑分里赢的部分\n\n对比 Gemma4-31B 与 Qwen3.6-27B（均为 Thinking 模式），智能体类基准领先明显：\n\n1. **MCP Atlas 75.5**，对 54.2 与 62.5\n2. **DeepSearch QA 74.6**，对 61.7 与 71.1\n3. **WildClawBench 47.6**，对 37.6 与 43.2\n4. **GAIA2 43.3**，对 36.4 与 40.0\n5. **SWE-Bench Pro 51.2**，对 36.9 与 50.2\n\n## 输的部分，以及为什么它更值得看\n\n同一张表里有 **5 项输给 Qwen3.6-27B**，而且输的方向很集中：\n\n- **OSWorld-Verified 65.9 对 75.6**\n- **TerminalBench 2.1 51.7 对 60.7**\n- **SkillsBench（带 Skills）44.3 对 46.6**\n- **GDPval-AA 953 对 1141**\n- SWE-Bench Verified 76.0 对 77.2\n\n赢的那些偏**工具调用与检索**，输的那些偏**操作真实系统**——桌面环境、终端会话。这个分野比总分有用：如果你的智能体主要在调 API、查资料，它是同级里最强的；如果它要去点桌面、跑终端，Qwen3.6-27B 目前更稳。\n\n还有一个绝对值低到应该说出来：**τ³-Banking 只有 23.5**，而对手是 15.1 与 16.7。它赢了，但三家都远不及格——多轮、带约束的业务对话仍然是这一档开放模型共同的短板。\n\n## 生态当天跟上了，但分了档\n\nOllama 同一天发布 `v0.32.7` 支持 Muse Glimmer，**但只在 Apple Silicon 的 MLX 引擎上**；NVIDIA 与 AMD 的支持要等 `v0.32.8`，发稿时那还是预发布版本。\n\n这正是本站《模型与推理引擎的支持路径》那四级判据的现场：**「支持」不是布尔值**。当天能在 Mac 上跑起来，不等于能在生产的 NVIDIA 机器上跑起来，更不等于跑得快、跑得对。\n\n## 蒸馏这次是主角，不是脚注\n\nMuse Glimmer 本身就是**蒸馏产物**，而同一天 Hugging Face 上还有一篇系统论文在解决蒸馏本身的成本：把教师模型的 top-K logits **离线缓存**，于是教师不必与学生同时占显存；再配一个分块融合的 KL 损失，避免物化「词表 × 序列长度」那张大矩阵。作者称这让长上下文的能力恢复训练**能在单卡上完成**。\n\n把两件事放在一起读才完整：**一个 30B 的开放权重模型能不能出现，取决于把大模型压小的成本降到了什么程度。**"
-      },
-      "type": "workflow",
-      "publishDate": "2026-08-10",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/muse-glimmer",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Hugging Face",
-      "publisherType": "research-lab",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-multimodal"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116",
-        "knowledge-ws-68963f7f",
-        "knowledge-tool-use"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a",
-        "skill-ws-dddaf80c",
-        "skill-ws-84837d46"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-11T03:18:37.611Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开放权重的智能体模型第一次把「本地跑得动」和「工具调用够强」做进了同一个 30B 模型，而且它公开承认自己在桌面与终端操作上落后——这让选型可以按任务形状做，而不是按总分做。",
-      "whoShouldCare": [
-        "在本地或私有环境部署智能体的工程团队",
-        "正在评估开放权重能否替代闭源 API 的技术决策者",
-        "关注蒸馏与模型压缩路线的研究者"
-      ],
-      "technicalContext": "Muse Glimmer 从 Meta 的 Muse 蒸馏到 30B，Apache 2.0 许可，支持多模态工具调用、目标检测与推测解码（transformers 与 llama.cpp 两条路径）。它的公开基准表同时列出了赢的项与输的项，对比对象是 Gemma4-31B 与 Qwen3.6-27B 的 Thinking 模式。",
-      "impactAreas": [
-        "本地智能体部署",
-        "开放权重模型选型",
-        "推理引擎适配",
-        "模型蒸馏与压缩"
-      ],
-      "learningPath": [
-        "先读基准表里输的那 5 项，判断你的任务更像「调工具」还是「操作系统」",
-        "确认你的目标硬件属于哪一级支持：能加载、有原生建模、有性能路径、还是有正确性保障",
-        "在自己的任务上跑一次对照，不要直接采信厂商表格里的相对领先幅度"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "30B 这个尺寸是为「本地跑得动」选的，它把哪个约束先咬人这件事摆到台面上。",
-        "knowledge-ws-34da6116": "Ollama 当天只在 MLX 引擎上支持它，量化与数值精度决定了换硬件后输出还对不对。",
-        "knowledge-ws-68963f7f": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。",
-        "knowledge-tool-use": "领先幅度最大的几项基准全部是工具调用与检索类任务。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "这条信号的目标场景就是单机本地部署。",
-        "skill-ws-7796779a": "「当天支持」分成 MLX 可用与 NVIDIA 待定两档，正是这项技能说的四级支持。",
-        "skill-ws-dddaf80c": "厂商表格同时列出赢的项与输的项，是练习读发布公告的好材料。",
-        "skill-ws-84837d46": "它本身是蒸馏产物，后训练路线决定了它的能力边界。"
-      },
-      "followUpQuestions": [
-        "τ³-Banking 只有 23.5，多轮带约束的业务对话还差在哪一步？",
-        "NVIDIA / AMD 的支持从预发布走到稳定要多久，期间的输出质量是否一致？",
-        "离线 top-K 蒸馏能否被复现到其他开放模型上，还是依赖 Meta 的教师模型？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-      "createdAt": "2026-08-11T03:11:13.706Z",
-      "updatedAt": "2026-08-11T03:18:37.611Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-muse-glimmer.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
       ]
     },
     {
