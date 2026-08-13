@@ -84,12 +84,12 @@ The runbook below was written for a Linux server. The owner has since chosen a
 different target, so read the runbook for its reasoning and use these decisions
 for the specifics.
 
-| Question           | Decision                              | What follows                                                                    |
-| ------------------ | ------------------------------------- | ------------------------------------------------------------------------------- |
-| Where              | **this Windows machine**              | Task Scheduler stays; the systemd + cron sections below do not apply             |
-| Domain             | **none yet, will buy one**            | `NEXT_PUBLIC_SITE_URL` and HTTPS both wait — it is inlined at **build** time      |
-| Workspace exposure | **not public at all**                 | the first control is not routing those paths outward; the token is the second lock |
-| Backups            | **same machine, another directory**   | `npm run backup:data` as-is; the same-disk risk is accepted, see below            |
+| Question           | Decision                            | What follows                                                                       |
+| ------------------ | ----------------------------------- | ---------------------------------------------------------------------------------- |
+| Where              | **this Windows machine**            | Task Scheduler stays; the systemd + cron sections below do not apply               |
+| Domain             | **none yet, will buy one**          | `NEXT_PUBLIC_SITE_URL` and HTTPS both wait — it is inlined at **build** time       |
+| Workspace exposure | **not public at all**               | the first control is not routing those paths outward; the token is the second lock |
+| Backups            | **same machine, another directory** | `npm run backup:data` as-is; the same-disk risk is accepted, see below             |
 
 **On the workspace token.** Because the workspace is not going to be reachable
 from the internet, the token stops being the only thing between the internet
@@ -106,7 +106,7 @@ by reading the middleware.
 caches) are already untracked, so a real webhook token cannot be committed.
 The 14 that remain tracked are **content and editorial state** — signals,
 digests, relations, review decisions — and on a single-machine deployment the
-repository *is* the deployment, so keeping them tracked is what gives the
+repository _is_ the deployment, so keeping them tracked is what gives the
 content a history and a way back. Moving them to a `LOCAL_DATA_DIR` outside the
 tree would end that, and every editorial round would stop being a commit.
 **Decision: they stay tracked.** Revisit only if the deployment ever stops
