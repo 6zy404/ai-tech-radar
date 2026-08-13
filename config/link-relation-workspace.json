@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T03:19:29.403Z",
+  "updatedAt": "2026-08-13T04:45:10.682Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -3159,6 +3159,186 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "写给人看还是写给机器看，是两套不同的取舍。"
+    },
+    {
+      "id": "rel-ws-d64f38f8",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一个动作换了对象：一个把论文改成知识包，一个把源码改成图。"
+    },
+    {
+      "id": "rel-ws-2bc04fef",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "错误的形状被写进契约，而不是留给措辞。"
+    },
+    {
+      "id": "rel-ws-35309952",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "修复计划以 JSON 返回，可被接受、编辑或拒绝。"
+    },
+    {
+      "id": "rel-ws-99664755",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "图存储成为唯一真相，代价是迁移，这是锁死型权衡。"
+    },
+    {
+      "id": "rel-ws-c9896dfe",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-graph-thinking",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "把图思维推到编译器边界。"
+    },
+    {
+      "id": "rel-ws-52382d83",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "能力参数由编译器强制，越界被物理阻止而不是被劝阻。"
+    },
+    {
+      "id": "rel-ws-3c65c8c0",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "统一 --json 与同一套诊断模式。"
+    },
+    {
+      "id": "rel-ws-06b15bed",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "实验阶段且需隔离运行，是自建边界评估的现成材料。"
+    },
+    {
+      "id": "rel-ws-ea53783a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "模型那条讲跑分与生态，这条讲它为什么出现，以及本地跑得动的那组数字。"
+    },
+    {
+      "id": "rel-ws-3359a3fe",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "决定跑不跑得动的是 20GB 与 24GB，不是 300 亿。"
+    },
+    {
+      "id": "rel-ws-59711c03",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "约 4bit 量化是本地部署成立的前提。"
+    },
+    {
+      "id": "rel-ws-16cb2724",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "DFlash 草稿模型，加速比按硬件分别给出。"
+    },
+    {
+      "id": "rel-ws-03b35362",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "独立董事会是把审查点放在不可逆动作之前的组织版本。"
+    },
+    {
+      "id": "rel-ws-7f09dad6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "目标是单张消费级 GPU 的 Mac 或 PC。"
+    },
+    {
+      "id": "rel-ws-6a72c0a5",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "对比对象、门槛与编程能力三处保留，都是读公告的练习。"
+    },
+    {
+      "id": "rel-ws-2e456a78",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "builds-on",
+      "note": "三段式后训练写得比多数发布公告细。"
+    },
+    {
+      "id": "rel-ws-31cd444f",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "随机对照加专家评分，沿用既有临床维度。"
+    },
+    {
+      "id": "rel-ws-1d542158",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "病史完整性与处置恰当性，是完成判定的临床版。"
+    },
+    {
+      "id": "rel-ws-682592ca",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "对照的是真实全科医生，不是自定义复合指标。"
+    },
+    {
+      "id": "rel-ws-e808f62a",
+      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "视听线索进入通道之后，如何核验它真的看到了。"
     }
   ]
 }

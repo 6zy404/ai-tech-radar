@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T03:11:15.134Z",
+  "updatedAt": "2026-08-13T04:39:50.841Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -924,6 +924,209 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-11T03:11:15.134Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-469721"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471254": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.178Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471162": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.247Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471049": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.321Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-470901": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.389Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-470874": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.451Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-470805": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.518Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-470674": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.584Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-470621": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.649Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-470576": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.729Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-b1v6wf6iuajjpnd8vmce-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.795Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-hmg80lzux1kajwpr58g1-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.867Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-pkprbfc9mplzvanpmqgg-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.938Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ldraypwcibnul3xs30pe-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:33.997Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-4pxftxrysrf5fb5hjk9o-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.065Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-fbaa82tnkyg25ahvejhu-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.141Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-10-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.210Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-10-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.270Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-2rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.337Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.406Z"
+    },
+    "candidate-rss-https-openai-com-index-testing-ads-in-chatgpt": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.470Z"
+    },
+    "candidate-rss-https-openai-com-index-daybreak-models-are-now-available-on-aws": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.546Z"
+    },
+    "candidate-rss-https-openai-com-index-how-enterprises-put-ai-to-work": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.606Z"
+    },
+    "candidate-rss-https-openai-com-index-ringcentral": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.673Z"
+    },
+    "candidate-rss-https-blog-google-products-ads-commerce-google-ads-analytics-ai-updates": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.742Z"
+    },
+    "candidate-rss-https-github-blog-p-98221": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.813Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.882Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-22-openai-cyberattack": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:34.953Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:35.018Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-9-gpt-5-6": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:35.079Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:35.156Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:35.221Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-7-sqlite-utils-4": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:35.291Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-5-sqlite-utils-fable": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-13T04:38:35.361Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471030": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.427Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-kwzx2blcahrjulg95vhi-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.494Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ybcpst8secs3xwqzwwle-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.563Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-rcsr7bvqfb9uskadg74t-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.630Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-pqwqcoysq5hdkz96vso3-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.694Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-9": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.756Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-3b": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.833Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-sldd": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.895Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-magpie-tts-multilingual-voice-agents": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:35.964Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jul-21-cat-and-thariq": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:36.022Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:36.085Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jun-30-shot-scraper-video": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:36.149Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-jun-22-porting-moebius": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:38:36.208Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-13T04:39:49.060Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-13T04:39:49.829Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-13T04:39:50.585Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-8": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-13T04:39:50.841Z"
     }
   }
 }

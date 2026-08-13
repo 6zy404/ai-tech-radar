@@ -1,6 +1,433 @@
 {
-  "updatedAt": "2026-08-13T01:13:09.878Z",
+  "updatedAt": "2026-08-13T04:44:02.089Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "slug": "amie-real-time-video-consultation",
+      "title": {
+        "original": "AMIE, our research medical AI system, demonstrates real-time clinical video consultation capabilities in a first-of-its-kind study",
+        "zh": "AMIE 实时视频问诊：把「医生还会看你一眼」那部分放进随机对照研究"
+      },
+      "summary": {
+        "original": "Google Research and DeepMind advanced AMIE to real-time clinical video consultations using a multi-agent architecture on Gemini and Project Astra, evaluated favorably against primary care physicians in a randomized simulated study.",
+        "zh": "Google Research 与 DeepMind 把医疗研究系统 AMIE 推进到实时视频问诊：基于 Gemini 与 Project Astra 的多智能体架构，能解读视觉与听觉线索、引导虚拟体格检查并实时进行诊断推理。在与全科医生对照的随机模拟研究中，临床评估者在多项核心能力上给出正面评价，患者演员也更偏好视频而非文字。"
+      },
+      "content": {
+        "original": "See the Google Research blog for the full study.",
+        "zh": "## 它补的是问诊里\"非文字\"的那一半\n\n一次看诊远不止对话：医生会注意到咳嗽、观察步态、留意可见的不适。此前的医疗对话系统基本都在文字通道里工作，**而这些线索根本不进入通道**。\n\nAMIE 现在能解读**视觉与听觉线索**、**引导虚拟体格检查**，并在实时中进行诊断推理。架构是建立在 Gemini 与 Project Astra 之上的**多智能体**系统。\n\n## 评估方式比结论更值得看\n\n这是一项**随机对照**研究，用患者演员做模拟问诊，对照组是一组全科医生。临床评估者在几项核心临床能力上对 AMIE 给出正面评价：\n\n- 病史采集的**完整性**\n- **诊断准确性**\n- **处置恰当性**\n- **沟通质量**\n\n另有一项结果单独值得记：**患者演员更偏好视频形式而非文字聊天。**\n\n## 为什么这条对非医疗读者也有用\n\n它是\"多模态是不是真的有用\"这个问题少见的**带对照组的回答**。本站已有的多模态信号大多是能力发布，衡量的是模型能不能理解图像；这一条衡量的是**在一个有既定专业标准的任务里，加入视觉与听觉通道之后表现是否更好**，而且用的是别人也在用的评估维度，不是厂商自定义指标。\n\n按《模型与输出评估》里那条判据：**这把尺子量过别人**——对照的是真实全科医生，评估者是临床专家。\n\n## 边界，作者自己写明了\n\n**AMIE 仍是研究系统**，在负责任地部署到真实临床之前还需要更多研究。而且必须说清楚两点：\n\n1. **患者是演员，问诊是模拟的**。模拟问诊与真实门诊在信息完整度、患者依从性与风险分布上都不同。\n2. 博客文章**没有给出具体数值**，只给了\"评估者评价正面\"这一层结论；细节在 Google Research 的博客里。所以这条信号能说的是**方法与方向**，不是效果量。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-11",
+      "sourceName": "Google AI Blog",
+      "sourceUrl": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-video-consultations/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google Research",
+      "publisherType": "research-lab",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-b47fabd1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T04:44:02.088Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它是多模态少见的带对照组的评估：不是问模型能否看懂图像，而是问在一个有专业标准的任务里，加入视觉与听觉通道之后是不是真的更好。",
+      "whoShouldCare": [
+        "在设计多模态产品并需要证明其价值的团队",
+        "关注评估方法能否横比的人",
+        "医疗 AI 方向的研究者与从业者"
+      ],
+      "technicalContext": "AMIE 建立在 Gemini 与 Project Astra 之上，采用多智能体架构，可解读视觉与听觉线索、引导虚拟体格检查并实时进行诊断推理。评估为随机对照的模拟问诊，对照组为全科医生。",
+      "impactAreas": [
+        "多模态评估方法",
+        "医疗 AI",
+        "实时多智能体架构",
+        "人机对照研究设计"
+      ],
+      "learningPath": [
+        "先看它的评估设计：随机、对照、专家评分、维度沿用既有临床标准",
+        "再看「患者演员」这个前提带来的外部效度限制",
+        "最后思考同样的对照设计能不能搬到你自己的多模态任务上"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "随机对照、专家评分、沿用既有临床维度——这把尺子量过别人。",
+        "knowledge-ws-e251051e": "病史采集完整性与处置恰当性，是「这一步做对了吗」的临床版判据。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "对照组是真实全科医生，而不是厂商自定义的复合指标。",
+        "skill-ws-b47fabd1": "视觉与听觉线索进入通道后，如何核验模型真的看到了，是同一个问题。"
+      },
+      "followUpQuestions": [
+        "正面评价的具体效果量是多少，与全科医生的差距在哪些维度？",
+        "模拟问诊的结论能在多大程度上外推到真实门诊？",
+        "多智能体架构里，哪一个智能体承担了视觉线索的解读？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "createdAt": "2026-08-13T04:39:50.584Z",
+      "updatedAt": "2026-08-13T04:44:02.088Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "slug": "meta-open-weights-turn",
+      "title": {
+        "original": "小扎万字长文炮轰闭源：蒸馏无罪，Meta 正式重回开源模型路线",
+        "zh": "Meta 重回开放权重：一封长文、一个独立董事会，和一组本地部署的数字"
+      },
+      "summary": {
+        "original": "Alongside Muse Glimmer's Apache 2.0 release, Meta published a manifesto against closed models, set up an independent board to review each release, and disclosed the quantization and speculative-decoding numbers that make local deployment possible.",
+        "zh": "Muse Glimmer 以 Apache 2.0 开放权重的同时，Meta 宣布重回开放路线：扎克伯格发表长文反对能力集中，公司设立独立董事会逐项审核每次模型发布，并披露了让本地部署成立的量化与推测解码数字。Muse Spark 1.2 的权重据称随后开放。"
+      },
+      "content": {
+        "original": "Secondary reporting by InfoQ China on Meta's release and Zuckerberg's essay.",
+        "zh": "## 这条补的是上一条信号缺的那一半\n\n本站已发布 Muse Glimmer 的模型信号，重点在它的跑分与生态支持。这一条补的是**它为什么会出现**，以及**让它真的能在本地跑起来的那组数字**。\n\n## 让本地部署成立的两个工程决定\n\n- **量化**：语言模型原本需要超过 55GB 内存，通过约 **4 bit 量化压到 20GB 以内**，于是 KV 缓存、图像感知编码器与推测解码模块可以**共同**运行在 24GB 或 32GB 内存的机器上。\n- **推测解码**：配套一个基于 **DFlash** 的轻量草稿模型，一次提出一组候选 token 由主模型并行验证。实测解码速度提升 **RTX 5090 约 3.1 倍、M5 Max 约 1.8 倍、M4 Max 约 1.5 倍**（配合 K-Quant-17GB 量化模型）。\n\n**这两个数字才是「本地智能体」这个定位的支撑**——不是参数量。\n\n## 训练路线写得比多数发布公告细\n\n预训练期用 Muse Spark 的输出做 **logit 蒸馏**，数据组合与教师模型相近；中期训练加入更长上下文、更高比例的智能体任务数据与更丰富的推理轨迹；后训练结合监督微调、**在线策略蒸馏**与强化学习，覆盖通用、推理、编程与智能体任务。\n\n## 治理上的那一步，可能比模型更值得记\n\nMeta 设立了**独立董事会**，负责制定安全标准并**逐项审核每一次模型发布**。扎克伯格的说法是：即使创始人控股，也不应再由 CEO 单独决定高危 AI 上线，并呼吁全行业效仿。\n\n放在本站《人在回路的审查》那条判据下看，这是一个**把审查点放在不可逆动作之前**的组织版本。它同样要面对那条判据的反面：**一个通过率接近 100% 的董事会不是审查，是延迟**——而目前没有任何公开数据说明它否决过什么。\n\n## 长文的主张，以及它自带的张力\n\n扎克伯格主张不应让强大的 AI 集中在企业与政府手中，批评竞争对手靠出售模型访问权获得数十亿收入；他认为**广泛部署的开源系统更安全，因为有更多人能发现漏洞**，并举了 Hugging Face 在闭源模型以安全为由拒绝其请求后、用开放模型修补自身安全系统的例子。他还明确**否定蒸馏\"有害\"的观点**，主张\"人们可以从自己观察到的任何事物中学习\"。\n\n**同一篇文章里也支持继续用芯片出口管制减缓竞争对手**，理由是哪怕两个月的领先也有巨大价值。开放与管制同时主张，是这篇长文最需要读者自己称量的地方。\n\n## 社区的三点保留意见\n\n1. **对比对象不够新**：Muse Glimmer 对比的 Qwen3.6-27B 已经不是最新一代，需要与后续 27B 级模型直接测试才能判断真实竞争力。\n2. **门槛仍在**：24GB 以上显存或统一内存对普通用户是一道坎，官方测试用的 RTX 5090 价格可能达数千美元；只算短期成本，订阅云端前沿模型或许更划算。本地部署的价值更多在隐私、离线、可定制，以及不受 API 价格与服务策略变化影响。\n3. **编程能力存疑**：多位开发者认为它的优势在智能体工作流与工具调用，而非直接挑战最强云端编程模型——\"Qwen3.6 27B 是编程中常用的中型模型，能战胜它绝非易事。\"\n\n## 边界\n\n本条为**二手报道**（InfoQ 中文）。生态侧的后续可以对上：Ollama `v0.32.8` 已宣布 Muse Glimmer **在所有平台可用**，补齐了发布当天只有 Apple Silicon 的缺口。"
+      },
+      "type": "platform",
+      "publishDate": "2026-08-12",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/9sy33cA91Fp8z5mlOvNu?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Meta",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-dddaf80c",
+        "skill-ws-84837d46"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T04:44:02.017Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开放权重这次带着两样东西一起来：一组让消费级设备真的跑得动的工程数字，和一个把发布决定从 CEO 手里拿走的治理安排。后者能不能算数，要看它否决过什么。",
+      "whoShouldCare": [
+        "在做开源与闭源模型选型的技术决策者",
+        "关注本地部署可行性的工程团队",
+        "关心 AI 治理与发布审查如何落地的人"
+      ],
+      "technicalContext": "Muse Glimmer 为 300 亿参数、Apache 2.0，专为持续运行的本地智能体工作流优化。约 4bit 量化把 55GB 以上压到 20GB 以内；DFlash 草稿模型带来 1.5×–3.1× 的解码加速。训练含 logit 蒸馏、在线策略蒸馏与强化学习。",
+      "impactAreas": [
+        "开放权重生态",
+        "本地智能体部署",
+        "模型发布治理",
+        "蒸馏的合法性之争"
+      ],
+      "learningPath": [
+        "先看量化与推测解码那两个数字，它们决定你的机器跑不跑得动",
+        "再看训练三段式，判断它的能力边界来自哪一段",
+        "最后把独立董事会这件事放到「审查点放在哪」的框架里看"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "300 亿参数不是重点，20GB 内存与 24GB 门槛才决定你跑不跑得动。",
+        "knowledge-ws-34da6116": "约 4bit 量化把 55GB 压到 20GB 以内，是本地部署成立的前提。",
+        "knowledge-ws-68963f7f": "DFlash 草稿模型带来 1.5×–3.1× 解码加速，数字按硬件分别给出。",
+        "knowledge-human-loop": "独立董事会逐项审核发布，是把审查点放在不可逆动作之前的组织版本。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "目标场景是单张消费级 GPU 的 Mac 或 PC。",
+        "skill-ws-dddaf80c": "对比对象不够新、门槛仍在、编程能力存疑——读发布公告的三处保留。",
+        "skill-ws-84837d46": "logit 蒸馏加在线策略蒸馏加强化学习，三段式后训练写得比多数公告细。"
+      },
+      "followUpQuestions": [
+        "独立董事会否决过哪一次发布？没有的话，它与延迟有什么区别？",
+        "同时主张开放权重与芯片出口管制，两者如何自洽？",
+        "对比更新一代的 27B 模型后，它的领先还剩多少？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-13T04:39:49.827Z",
+      "updatedAt": "2026-08-13T04:44:02.017Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "slug": "vercel-zero-agent-native-language",
+      "title": {
+        "original": "Vercel 发布新语言 Zero：代码不是写给人看的，而是写给 AI 的",
+        "zh": "Vercel Zero：一门把编译器输出的第一读者当成智能体的语言"
+      },
+      "summary": {
+        "original": "Vercel Labs released Zero, an experimental systems language built on the premise that the compiler's primary reader is an AI agent rather than a human.",
+        "zh": "Vercel Labs 发布实验性系统语言 Zero，前提是编译器输出的主要阅读者不再是人：每个子命令统一支持 --json、错误带稳定代码与带类型的修复元数据，副作用必须走编译器强制的能力参数，而 v0.3.0 起图存储才是编译器输入、源码文件降为给人看的投影。"
+      },
+      "content": {
+        "original": "See the InfoQ article and the Zero language reference.",
+        "zh": "## 前提\n\nZero 是 Vercel Labs 的实验性系统编程语言，Apache 2.0，`.0` 扩展名，可编译到 Linux / macOS / Windows 原生二进制。早期报道盯着体积与速度（Hello World 号称一毫秒内构建、16.2 KiB），**但那不是它真正特别的地方**。\n\n它的设计前提是一句话：**编译器输出的主要阅读者不再是人类，而是智能体。**\n\n## 工具链被写成了契约\n\n- 单一 `zero` 二进制的**每个子命令**都支持统一的 `--json`，且使用同一套诊断模式\n- 错误携带**稳定代码**（如 `NAM003`）与**带类型的修复元数据**（如 `declare-missing-symbol`）\n- `zero fix --plan --json` 返回一份**机器可读的修复计划**，智能体可以接受、编辑或拒绝，而不是盲目套用\n\n这正是本站《API 契约与接口边界》里那条判据的落地：**出错时的形状也是契约的一部分**。一个每次都换措辞的错误信息，对人只是烦，对自动修复的智能体是不可用。\n\n## 副作用被搬到了签名上\n\n任何与外部世界交互的函数**必须接受一个 `World` 能力参数**，并由编译器强制。于是只看函数签名就能判断这段代码能不能访问网络、文件系统或标准输出。\n\n对智能体而言，这把「它会不会偷偷做别的事」从**读代码**变成了**读类型**——与《智能体工作流设计》里那条判据同构：**如果模型决定越界，是什么在物理上阻止它？**\n\n## 最激进的一步在 v0.3.0\n\n图优先创作成为常规工作流：**二进制 `zero.graph` 存储才是编译器的输入**，`.0` 文本文件降级为**给人阅读的投影**，智能体则通过 `zero query` 与 `zero patch` 工作。补丁受图哈希保护，过期或无效的编辑在写入存储之前就会失败。\n\n这和前一天发布的 ARA 是同一个动作，只是换了对象：**ARA 把论文从叙事改成机器可操作的知识包，Zero 把源码从文本改成图。** 两者都把\"给人看的那一版\"降级为投影。\n\n## 代价写在了迁移路径上\n\nv0.1.4 是行语法，v0.2.0 把规范化的 `.0` 文本提升为原生源码载体，v0.3.0 **在编译器边界彻底拒绝源码投影输入**。既有的文本优先包必须用 `zero import` 导入图、再用 `zero export` 与 `zero verify-projection` 完成人工审查与 CI 漂移检查。v0.3.2 把大型程序的导入速度提升约 12 倍，正是因为这个转换本身太贵。\n\n## 质疑值得原样带上\n\nHacker News 上的反对意见有两类，第二类更难回答：\n\n1. **\"没劲，唯一的新东西是能力机制\"**，以及\"结构化错误消息已经存在几十年了\"。反驳是：重点不在开发者，而在智能体——对人只是便利的东西，对自动修复是可用性的前提。\n2. **\"智能体最擅长的语言，将会是那些在预训练数据里出现最多的语言。\"** 这一条针对的是采用而不是设计，而一门新语言天然处在劣势。有人以 Svelte 的重大 API 变更为例反驳说训练数据的重要性可能低于预期，但这是类比不是证据。\n\n项目自己写明：**仍处于实验阶段、预计出现破坏性变更、应在隔离工作区运行，不要用于生产系统或敏感数据。** 目前 v0.3.4，GitHub 星标 5200 以上。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-12",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Vercel Labs",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design",
+        "knowledge-graph-thinking"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T04:44:01.939Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「为机器设计产物」从主张变成了可运行的东西：错误有稳定代码、修复是可协商的计划、副作用写在签名上、源码本体是图而文本只是投影。同一周的 ARA 对论文做了同一件事。",
+      "whoShouldCare": [
+        "在建智能体编码工具链的工程团队",
+        "关心工具返回值能否被机器读懂的人",
+        "在设计给自动化消费的 API 与诊断格式的人"
+      ],
+      "technicalContext": "Zero 使用 .0 扩展名与 Apache 2.0 许可，编译为原生二进制。工具链契约包含统一 --json、稳定诊断代码与带类型修复元数据；副作用通过编译器强制的 World 能力参数暴露；v0.3.0 起二进制图存储为编译器输入，文本为投影，补丁受图哈希保护。",
+      "impactAreas": [
+        "智能体编码工具链",
+        "诊断与错误契约设计",
+        "源码表示形式",
+        "能力式副作用控制"
+      ],
+      "learningPath": [
+        "先看它的错误契约：稳定代码加带类型的修复元数据，这一层与语言无关，可以直接搬",
+        "再看 World 能力参数如何把「能做什么」提升到类型层",
+        "最后判断图优先创作的代价，迁移路径本身就是它最大的成本"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "稳定错误代码与带类型的修复元数据，是「出错时的形状也是契约」的直接落地。",
+        "knowledge-tool-use": "修复计划以 JSON 返回，智能体可接受、编辑或拒绝——工具返回值要能被机器读懂。",
+        "knowledge-system-design": "图存储成为唯一真相，换来的是迁移成本，这是一次典型的锁死型权衡。",
+        "knowledge-graph-thinking": "源码本体是图、文本只是投影，把图思维推到了编译器边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "World 能力参数由编译器强制，是「什么在物理上阻止越界」的答案。",
+        "skill-tool-integration": "统一 --json 与同一套诊断模式，是工具层吸收混乱而不是转发混乱。",
+        "skill-ws-2152c7f1": "实验阶段、破坏性变更、需隔离运行——自建边界评估的现成材料。"
+      },
+      "followUpQuestions": [
+        "预训练数据劣势是否会压过设计优势，一门新语言如何被智能体学会？",
+        "图存储成为唯一真相之后，代码审查与版本控制怎么做？",
+        "能力参数在多大规模的程序上仍然不繁琐？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-13T04:39:49.056Z",
+      "updatedAt": "2026-08-13T04:44:01.939Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-469721"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "slug": "meta-muse-glimmer",
+      "title": {
+        "original": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+        "zh": "Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计"
+      },
+      "summary": {
+        "original": "Meta released Muse Glimmer, a 30B multimodal model distilled from Muse under Apache 2.0, designed for local agentic use, with day-0 support across transformers, llama.cpp and vLLM.",
+        "zh": "Meta 发布 Muse Glimmer——从 Muse 蒸馏到 300 亿参数、Apache 2.0 许可的多模态模型，目标是本地跑的智能体。工具调用与检索类基准领先同级开源模型，但在桌面与终端操作上输给 Qwen3.6-27B；生态当天跟进，硬件支持却分了档。"
+      },
+      "content": {
+        "original": "See the Hugging Face blog post for the full benchmark table and demos.",
+        "zh": "## 发布了什么\n\nMuse Glimmer 是 Meta 从自家 Muse **蒸馏**出来的 **300 亿参数**多模态模型，采用 **Apache 2.0** 许可，明确面向本地智能体场景：隐私敏感的应用、降低成本，或者装配 Claw / Hermes 那类本地助手。发布当天即有 `transformers`、`llama.cpp`、`vLLM` 与 Inference Endpoints 的支持。\n\n## 跑分里赢的部分\n\n对比 Gemma4-31B 与 Qwen3.6-27B（均为 Thinking 模式），智能体类基准领先明显：\n\n1. **MCP Atlas 75.5**，对 54.2 与 62.5\n2. **DeepSearch QA 74.6**，对 61.7 与 71.1\n3. **WildClawBench 47.6**，对 37.6 与 43.2\n4. **GAIA2 43.3**，对 36.4 与 40.0\n5. **SWE-Bench Pro 51.2**，对 36.9 与 50.2\n\n## 输的部分，以及为什么它更值得看\n\n同一张表里有 **5 项输给 Qwen3.6-27B**，而且输的方向很集中：\n\n- **OSWorld-Verified 65.9 对 75.6**\n- **TerminalBench 2.1 51.7 对 60.7**\n- **SkillsBench（带 Skills）44.3 对 46.6**\n- **GDPval-AA 953 对 1141**\n- SWE-Bench Verified 76.0 对 77.2\n\n赢的那些偏**工具调用与检索**，输的那些偏**操作真实系统**——桌面环境、终端会话。这个分野比总分有用：如果你的智能体主要在调 API、查资料，它是同级里最强的；如果它要去点桌面、跑终端，Qwen3.6-27B 目前更稳。\n\n还有一个绝对值低到应该说出来：**τ³-Banking 只有 23.5**，而对手是 15.1 与 16.7。它赢了，但三家都远不及格——多轮、带约束的业务对话仍然是这一档开放模型共同的短板。\n\n## 生态当天跟上了，但分了档\n\nOllama 同一天发布 `v0.32.7` 支持 Muse Glimmer，**但只在 Apple Silicon 的 MLX 引擎上**；NVIDIA 与 AMD 的支持要等 `v0.32.8`，发稿时那还是预发布版本。\n\n这正是本站《模型与推理引擎的支持路径》那四级判据的现场：**「支持」不是布尔值**。当天能在 Mac 上跑起来，不等于能在生产的 NVIDIA 机器上跑起来，更不等于跑得快、跑得对。\n\n## 蒸馏这次是主角，不是脚注\n\nMuse Glimmer 本身就是**蒸馏产物**，而同一天 Hugging Face 上还有一篇系统论文在解决蒸馏本身的成本：把教师模型的 top-K logits **离线缓存**，于是教师不必与学生同时占显存；再配一个分块融合的 KL 损失，避免物化「词表 × 序列长度」那张大矩阵。作者称这让长上下文的能力恢复训练**能在单卡上完成**。\n\n把两件事放在一起读才完整：**一个 30B 的开放权重模型能不能出现，取决于把大模型压小的成本降到了什么程度。**"
+      },
+      "type": "model",
+      "publishDate": "2026-08-10",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/muse-glimmer",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Meta",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-multimodal"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-tool-use"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a",
+        "skill-ws-dddaf80c",
+        "skill-ws-84837d46"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-13T04:42:51.109Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "开放权重的智能体模型第一次把「本地跑得动」和「工具调用够强」做进了同一个 30B 模型，而且它公开承认自己在桌面与终端操作上落后——这让选型可以按任务形状做，而不是按总分做。",
+      "whoShouldCare": [
+        "在本地或私有环境部署智能体的工程团队",
+        "正在评估开放权重能否替代闭源 API 的技术决策者",
+        "关注蒸馏与模型压缩路线的研究者"
+      ],
+      "technicalContext": "Muse Glimmer 从 Meta 的 Muse 蒸馏到 30B，Apache 2.0 许可，支持多模态工具调用、目标检测与推测解码（transformers 与 llama.cpp 两条路径）。它的公开基准表同时列出了赢的项与输的项，对比对象是 Gemma4-31B 与 Qwen3.6-27B 的 Thinking 模式。",
+      "impactAreas": [
+        "本地智能体部署",
+        "开放权重模型选型",
+        "推理引擎适配",
+        "模型蒸馏与压缩"
+      ],
+      "learningPath": [
+        "先读基准表里输的那 5 项，判断你的任务更像「调工具」还是「操作系统」",
+        "确认你的目标硬件属于哪一级支持：能加载、有原生建模、有性能路径、还是有正确性保障",
+        "在自己的任务上跑一次对照，不要直接采信厂商表格里的相对领先幅度"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "30B 这个尺寸是为「本地跑得动」选的，它把哪个约束先咬人这件事摆到台面上。",
+        "knowledge-ws-34da6116": "Ollama 当天只在 MLX 引擎上支持它，量化与数值精度决定了换硬件后输出还对不对。",
+        "knowledge-ws-68963f7f": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。",
+        "knowledge-tool-use": "领先幅度最大的几项基准全部是工具调用与检索类任务。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条信号的目标场景就是单机本地部署。",
+        "skill-ws-7796779a": "「当天支持」分成 MLX 可用与 NVIDIA 待定两档，正是这项技能说的四级支持。",
+        "skill-ws-dddaf80c": "厂商表格同时列出赢的项与输的项，是练习读发布公告的好材料。",
+        "skill-ws-84837d46": "它本身是蒸馏产物，后训练路线决定了它的能力边界。"
+      },
+      "followUpQuestions": [
+        "τ³-Banking 只有 23.5，多轮带约束的业务对话还差在哪一步？",
+        "NVIDIA / AMD 的支持从预发布走到稳定要多久，期间的输出质量是否一致？",
+        "离线 top-K 蒸馏能否被复现到其他开放模型上，还是依赖 Meta 的教师模型？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "createdAt": "2026-08-11T03:11:13.706Z",
+      "updatedAt": "2026-08-13T04:42:51.109Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-muse-glimmer.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-469721",
       "slug": "ara-agent-native-research-artifacts",
@@ -56,7 +483,7 @@
           "编辑标记为一般信号，归入值得跟踪。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-13T01:13:09.878Z",
+        "rankingUpdatedAt": "2026-08-13T04:42:51.042Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "它把「复现不了」这个现象往上追了一层，落到格式本身，并给出一个可核对的数字：复现所需信息只有 45.4% 写在了 PDF 里。提出的四层结构里，把失败路径当一等公民保存，是现有任何论文格式都没做的事。",
@@ -96,13 +523,14 @@
       "intelligenceStatus": "needs_enrichment",
       "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-469721",
       "createdAt": "2026-08-11T03:11:15.133Z",
-      "updatedAt": "2026-08-13T01:13:09.878Z",
+      "updatedAt": "2026-08-13T04:42:51.042Z",
       "editorialNotes": [
         "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-469721.",
         "Review normalized type, publisher type, and related links before publishing."
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-469795"
+        "draft-candidate-rss-https-www-qbitai-com-p-469795",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -315,118 +743,6 @@
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
         "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-      "slug": "meta-muse-glimmer",
-      "title": {
-        "original": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
-        "zh": "Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计"
-      },
-      "summary": {
-        "original": "Meta released Muse Glimmer, a 30B multimodal model distilled from Muse under Apache 2.0, designed for local agentic use, with day-0 support across transformers, llama.cpp and vLLM.",
-        "zh": "Meta 发布 Muse Glimmer——从 Muse 蒸馏到 300 亿参数、Apache 2.0 许可的多模态模型，目标是本地跑的智能体。工具调用与检索类基准领先同级开源模型，但在桌面与终端操作上输给 Qwen3.6-27B；生态当天跟进，硬件支持却分了档。"
-      },
-      "content": {
-        "original": "See the Hugging Face blog post for the full benchmark table and demos.",
-        "zh": "## 发布了什么\n\nMuse Glimmer 是 Meta 从自家 Muse **蒸馏**出来的 **300 亿参数**多模态模型，采用 **Apache 2.0** 许可，明确面向本地智能体场景：隐私敏感的应用、降低成本，或者装配 Claw / Hermes 那类本地助手。发布当天即有 `transformers`、`llama.cpp`、`vLLM` 与 Inference Endpoints 的支持。\n\n## 跑分里赢的部分\n\n对比 Gemma4-31B 与 Qwen3.6-27B（均为 Thinking 模式），智能体类基准领先明显：\n\n1. **MCP Atlas 75.5**，对 54.2 与 62.5\n2. **DeepSearch QA 74.6**，对 61.7 与 71.1\n3. **WildClawBench 47.6**，对 37.6 与 43.2\n4. **GAIA2 43.3**，对 36.4 与 40.0\n5. **SWE-Bench Pro 51.2**，对 36.9 与 50.2\n\n## 输的部分，以及为什么它更值得看\n\n同一张表里有 **5 项输给 Qwen3.6-27B**，而且输的方向很集中：\n\n- **OSWorld-Verified 65.9 对 75.6**\n- **TerminalBench 2.1 51.7 对 60.7**\n- **SkillsBench（带 Skills）44.3 对 46.6**\n- **GDPval-AA 953 对 1141**\n- SWE-Bench Verified 76.0 对 77.2\n\n赢的那些偏**工具调用与检索**，输的那些偏**操作真实系统**——桌面环境、终端会话。这个分野比总分有用：如果你的智能体主要在调 API、查资料，它是同级里最强的；如果它要去点桌面、跑终端，Qwen3.6-27B 目前更稳。\n\n还有一个绝对值低到应该说出来：**τ³-Banking 只有 23.5**，而对手是 15.1 与 16.7。它赢了，但三家都远不及格——多轮、带约束的业务对话仍然是这一档开放模型共同的短板。\n\n## 生态当天跟上了，但分了档\n\nOllama 同一天发布 `v0.32.7` 支持 Muse Glimmer，**但只在 Apple Silicon 的 MLX 引擎上**；NVIDIA 与 AMD 的支持要等 `v0.32.8`，发稿时那还是预发布版本。\n\n这正是本站《模型与推理引擎的支持路径》那四级判据的现场：**「支持」不是布尔值**。当天能在 Mac 上跑起来，不等于能在生产的 NVIDIA 机器上跑起来，更不等于跑得快、跑得对。\n\n## 蒸馏这次是主角，不是脚注\n\nMuse Glimmer 本身就是**蒸馏产物**，而同一天 Hugging Face 上还有一篇系统论文在解决蒸馏本身的成本：把教师模型的 top-K logits **离线缓存**，于是教师不必与学生同时占显存；再配一个分块融合的 KL 损失，避免物化「词表 × 序列长度」那张大矩阵。作者称这让长上下文的能力恢复训练**能在单卡上完成**。\n\n把两件事放在一起读才完整：**一个 30B 的开放权重模型能不能出现，取决于把大模型压小的成本降到了什么程度。**"
-      },
-      "type": "model",
-      "publishDate": "2026-08-10",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/muse-glimmer",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Meta",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-multimodal"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116",
-        "knowledge-ws-68963f7f",
-        "knowledge-tool-use"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a",
-        "skill-ws-dddaf80c",
-        "skill-ws-84837d46"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-13T01:12:44.771Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "开放权重的智能体模型第一次把「本地跑得动」和「工具调用够强」做进了同一个 30B 模型，而且它公开承认自己在桌面与终端操作上落后——这让选型可以按任务形状做，而不是按总分做。",
-      "whoShouldCare": [
-        "在本地或私有环境部署智能体的工程团队",
-        "正在评估开放权重能否替代闭源 API 的技术决策者",
-        "关注蒸馏与模型压缩路线的研究者"
-      ],
-      "technicalContext": "Muse Glimmer 从 Meta 的 Muse 蒸馏到 30B，Apache 2.0 许可，支持多模态工具调用、目标检测与推测解码（transformers 与 llama.cpp 两条路径）。它的公开基准表同时列出了赢的项与输的项，对比对象是 Gemma4-31B 与 Qwen3.6-27B 的 Thinking 模式。",
-      "impactAreas": [
-        "本地智能体部署",
-        "开放权重模型选型",
-        "推理引擎适配",
-        "模型蒸馏与压缩"
-      ],
-      "learningPath": [
-        "先读基准表里输的那 5 项，判断你的任务更像「调工具」还是「操作系统」",
-        "确认你的目标硬件属于哪一级支持：能加载、有原生建模、有性能路径、还是有正确性保障",
-        "在自己的任务上跑一次对照，不要直接采信厂商表格里的相对领先幅度"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "30B 这个尺寸是为「本地跑得动」选的，它把哪个约束先咬人这件事摆到台面上。",
-        "knowledge-ws-34da6116": "Ollama 当天只在 MLX 引擎上支持它，量化与数值精度决定了换硬件后输出还对不对。",
-        "knowledge-ws-68963f7f": "发布同时给出 transformers 与 llama.cpp 两条推测解码路径。",
-        "knowledge-tool-use": "领先幅度最大的几项基准全部是工具调用与检索类任务。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "这条信号的目标场景就是单机本地部署。",
-        "skill-ws-7796779a": "「当天支持」分成 MLX 可用与 NVIDIA 待定两档，正是这项技能说的四级支持。",
-        "skill-ws-dddaf80c": "厂商表格同时列出赢的项与输的项，是练习读发布公告的好材料。",
-        "skill-ws-84837d46": "它本身是蒸馏产物，后训练路线决定了它的能力边界。"
-      },
-      "followUpQuestions": [
-        "τ³-Banking 只有 23.5，多轮带约束的业务对话还差在哪一步？",
-        "NVIDIA / AMD 的支持从预发布走到稳定要多久，期间的输出质量是否一致？",
-        "离线 top-K 蒸馏能否被复现到其他开放模型上，还是依赖 Meta 的教师模型？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-      "createdAt": "2026-08-11T03:11:13.706Z",
-      "updatedAt": "2026-08-13T01:12:44.771Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-muse-glimmer.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
       ]
     },
     {
