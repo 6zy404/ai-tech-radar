@@ -119,11 +119,11 @@ drive `/api/workspace/*` and `/api/candidates/*` over `localhost`.
 
 Three layers, and the third is new work that makes the first two compatible:
 
-| Layer          | What it does                                                | Lives in          |
-| -------------- | ----------------------------------------------------------- | ----------------- |
-| Tunnel edge    | deny the same 5 prefixes `src/middleware.ts` matches        | tunnel/CDN config |
-| App middleware | `WORKSPACE_ACCESS_ENABLED=true` + token, as the second lock | `.env.local`      |
-| Round tooling  | send the token header on every workspace API call           | repo scripts      |
+| Layer          | What it does                                                | Lives in                      |
+| -------------- | ----------------------------------------------------------- | ----------------------------- |
+| Tunnel edge    | deny the same 5 prefixes `src/middleware.ts` matches        | tunnel/CDN config             |
+| App middleware | `WORKSPACE_ACCESS_ENABLED=true` + token, as the second lock | `.env.local`                  |
+| Round tooling  | send the token header on every workspace API call           | `scripts/workspace-fetch.mjs` |
 
 The deny list must stay identical to `config.matcher` in `src/middleware.ts`:
 
@@ -135,17 +135,61 @@ Both lists are five entries precisely so they can be compared by eye. If a new
 internal prefix is ever added, it has to be added in both places — the app one
 fails closed, the edge one does not.
 
-**Also required before the tunnel is useful:** the site has to be running as a
-production process (`npm run start`, not `npm run dev`), kept alive across
-reboots. Nothing in this repo does that yet; it is the same Task Scheduler
-pattern the import job already uses.
+#### Keeping the site running
 
-**Verify by requesting, never by reading.** The guard was verified on this
-machine on 2026-08-10 (401 without a token, 200 with it in all three accepted
-forms, 503 when enabled-but-unconfigured while public routes stayed 200).
-Re-run that against the real domain after the tunnel is up, and separately
-confirm the edge denies `/workspace` **without** a token reaching the app at
-all.
+The tunnel points at a local port, so something has to be listening on it
+across reboots. `npm run start` (not `dev` — that is the HMR server and shares
+`.next` with builds) via the same Task Scheduler pattern the import job uses,
+triggered at startup instead of daily:
+
+```powershell
+$action  = New-ScheduledTaskAction -Execute "cmd" -Argument '/c cd /d C:\Users\Administrator\ai-tech-radar && npm run start >> config\server.log 2>&1'
+$trigger = New-ScheduledTaskTrigger -AtStartup
+$principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType S4U -RunLevel Limited
+$settings  = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1) -ExecutionTimeLimit ([TimeSpan]::Zero)
+Register-ScheduledTask -TaskName "ai-tech-radar-server" -Action $action -Trigger $trigger -Principal $principal -Settings $settings
+```
+
+Four settings are doing real work here:
+
+- **`S4U`** — a background session with no console, so the server cannot be
+  killed by a stray `Ctrl+C` or a closing window. That is not hypothetical:
+  17% of the import task's runs died that way before it was changed.
+- **`-ExecutionTimeLimit ([TimeSpan]::Zero)`** — no time limit. The default
+  would stop a long-running server after three days.
+- **`-RestartCount 3`** — bring it back if the process dies.
+- **`-StartWhenAvailable`** — start it after a missed trigger rather than
+  waiting for the next boot.
+
+**Rebuild before it matters.** `npm run start` serves whatever `.next` holds,
+so it must be rebuilt after `NEXT_PUBLIC_SITE_URL` changes — and **never
+rebuild while this task is running**, since dev/build/start all share `.next`.
+Stop the task, build, start it again.
+
+`scripts/workspace-fetch.mjs` is that third layer. It adds the token header
+when one is configured and behaves exactly like `fetch` when none is, so
+nothing changes until the token is switched on. It doubles as a self-check:
+
+```bash
+node scripts/workspace-fetch.mjs http://localhost:3000/workspace
+```
+
+**Verify by requesting, never by reading.** Re-verified against a real
+`next start` on 2026-08-13, with the guard temporarily enabled and a disposable
+token (removed afterwards, `.env.local` confirmed back to an empty value):
+
+| Check                              | Result                          |
+| ---------------------------------- | ------------------------------- |
+| all 5 protected prefixes, no token | **401**                         |
+| same 5 through `workspaceFetch`    | reached the route (200/405/307) |
+| a **wrong** token                  | **401** — it compares the value |
+| Bearer and Basic forms             | 200                             |
+| 5 public routes                    | 200, unaffected                 |
+
+Repeat this against the real domain once the tunnel is up, and separately
+confirm the edge denies `/workspace` **without the request reaching the app at
+all** — otherwise the app-level 401 is hiding the fact that the edge rule is
+missing.
 
 **On `config/` staying in git (checklist B2).** The runtime and secret stores
 (`delivery.json`, `workflow-events.json`, `task-runner.json`, the three LLM
