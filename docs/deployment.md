@@ -78,10 +78,58 @@ npm run build
 Never verify workspace protection by reading code alone. Request a protected
 route without a token against a real `next start` and confirm the `401`.
 
+## Deployment decisions (owner, 2026-08-13)
+
+The runbook below was written for a Linux server. The owner has since chosen a
+different target, so read the runbook for its reasoning and use these decisions
+for the specifics.
+
+| Question           | Decision                              | What follows                                                                    |
+| ------------------ | ------------------------------------- | ------------------------------------------------------------------------------- |
+| Where              | **this Windows machine**              | Task Scheduler stays; the systemd + cron sections below do not apply             |
+| Domain             | **none yet, will buy one**            | `NEXT_PUBLIC_SITE_URL` and HTTPS both wait — it is inlined at **build** time      |
+| Workspace exposure | **not public at all**                 | the first control is not routing those paths outward; the token is the second lock |
+| Backups            | **same machine, another directory**   | `npm run backup:data` as-is; the same-disk risk is accepted, see below            |
+
+**On the workspace token.** Because the workspace is not going to be reachable
+from the internet, the token stops being the only thing between the internet
+and the publish button — but keep it as a second lock, and **flip it on at the
+moment the site is first exposed, not before**. Enabling it earlier breaks
+local editorial rounds, which drive `/api/workspace/*` and `/api/candidates/*`
+without a token. The guard itself was verified on this machine on 2026-08-10 by
+requesting the routes (401 without, 200 with, 503 when enabled-but-unconfigured
+while public routes stayed 200); re-verify the same way after flipping it, not
+by reading the middleware.
+
+**On `config/` staying in git (checklist B2).** The runtime and secret stores
+(`delivery.json`, `workflow-events.json`, `task-runner.json`, the three LLM
+caches) are already untracked, so a real webhook token cannot be committed.
+The 14 that remain tracked are **content and editorial state** — signals,
+digests, relations, review decisions — and on a single-machine deployment the
+repository *is* the deployment, so keeping them tracked is what gives the
+content a history and a way back. Moving them to a `LOCAL_DATA_DIR` outside the
+tree would end that, and every editorial round would stop being a commit.
+**Decision: they stay tracked.** Revisit only if the deployment ever stops
+being the same checkout the editing happens in.
+
+**On the same-disk backup.** `npm run backup:data` verifies every copied file
+by SHA-256 and keeps a manifest, so it protects against the failure this
+project actually hits — a store written wrong, truncated, or deleted. It does
+**not** protect against losing the disk. Accepted knowingly; revisit when the
+content is worth more than the machine.
+
+**Still to do, in order:** register the backup task (command in "Daily backup
+(Windows)" below — it is a system change, so the owner runs it), then buy the
+domain, then set `NEXT_PUBLIC_SITE_URL` **and rebuild**, put HTTPS in front,
+flip the workspace token, and smoke-test. `npm run build` was re-verified on
+2026-08-13 and passes with `ƒ Middleware` present in the route table.
+
 ## Go-live runbook (single operator, one server)
 
 The target this runbook assumes: one always-on Linux server, one Node process,
 public pages open to everyone, workspace locked behind the shared token.
+**See "Deployment decisions" above for where this project actually landed** —
+the shape reasoning still applies, the Linux specifics do not.
 
 **Why this shape.** The app writes its runtime state to `config/*.json`
 (candidates, drafts, digests, relation overrides, schedule state), so it needs
