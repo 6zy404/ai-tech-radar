@@ -280,6 +280,20 @@ for the full forbidden-field list.
   store against `HEAD` afterwards. Always read the current array first and send
   the union — and diff `config/*.json` against the previous commit before
   committing a round, since nothing in the API surfaces the loss.
+- **`include` cannot be undone through the API, and it is easy to call by
+  mistake** (hit 2026-08-13). Step 5 generation already puts qualifying signals
+  into `highPriorityTechnologyIds` / `watchTechnologyIds`; calling
+  `{"action":"include"}` on one of those **also** adds it to
+  `manuallyAddedTechnologyIds`, so the digest now references it twice and
+  publish fails with `简报重复引用了技术条目`. There is no transition back:
+  `exclude` does remove the id from `manuallyAddedTechnologyIds` but drops the
+  item from the digest entirely, and `generateDailyDigest` always preserves
+  `manuallyAddedTechnologyIds` verbatim (`digest-workflow.ts`), so regenerating
+  does not clear it either. **Only `include` a signal the generator did not
+  already select** — check the generated sections first. Recovery, if it has
+  already happened: clear that one field in `config/daily-digests.json`, which
+  is exactly the state the digest would have had, and leave pins and exclusions
+  alone.
 - Seed **technologies** (`src/data/technologies.ts`) have no copy-on-write
   overlay the way seed skills and knowledge do, so they cannot carry a
   reverse id back to a workspace-created skill/knowledge entry. The graph
