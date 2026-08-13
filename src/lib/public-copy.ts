@@ -1,3 +1,5 @@
+import { contentBodyToPlainText } from "./content-body";
+
 interface PublicDigestCopyInput {
   date: string;
   title?: string | null;
@@ -31,4 +33,14 @@ export function getPublicDigestSummary(digest: PublicDigestCopyInput): string {
   }
 
   return summary;
+}
+
+// The markdown-preserving reader above feeds `ContentBody` on the digest page.
+// Every other public consumer of the same string — the home page digest card,
+// the `/digest` archive, `/feed.xml` and `/feed.json` — renders it as plain
+// text, so it must go through here instead.
+export function getPublicDigestSummaryPlainText(
+  digest: PublicDigestCopyInput
+): string {
+  return contentBodyToPlainText(getPublicDigestSummary(digest));
 }

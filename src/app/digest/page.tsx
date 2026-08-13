@@ -5,7 +5,7 @@ import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getDailyDigests } from "@/lib/digest-workflow";
 import {
-  getPublicDigestSummary,
+  getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
 
@@ -43,7 +43,7 @@ function getPublishedArchiveMonths(): ArchiveMonth[] {
     entries.push({
       date: digest.date,
       title: getPublicDigestTitle(digest),
-      summary: getPublicDigestSummary(digest),
+      summary: getPublicDigestSummaryPlainText(digest),
       highCount: digest.highPriorityTechnologyIds.length,
       watchCount: digest.watchTechnologyIds.length
     });

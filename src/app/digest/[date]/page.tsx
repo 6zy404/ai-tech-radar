@@ -8,7 +8,7 @@ import {
   toPublicDigestView
 } from "@/lib/digest-view";
 import {
-  getPublicDigestSummary,
+  getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
 
@@ -27,7 +27,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
   }
 
   const publicTitle = getPublicDigestTitle(digest);
-  const publicSummary = getPublicDigestSummary(digest);
+  const publicSummary = getPublicDigestSummaryPlainText(digest);
 
   return (
     <UserPageShell

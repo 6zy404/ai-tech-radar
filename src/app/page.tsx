@@ -20,7 +20,7 @@ import {
 import { getLatestPublishedDailyDigest } from "@/lib/digest-workflow";
 import { getDailyDigestRenderData } from "@/lib/digest-view";
 import {
-  getPublicDigestSummary,
+  getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import { getLatestPublicNewsItems, newsDisclaimer } from "@/lib/news";
@@ -243,7 +243,7 @@ export default function HomePage() {
               </span>
               <span>{digestData.watchTechnologies.length} 条值得跟踪</span>
             </div>
-            <p>{getPublicDigestSummary(latestDigest)}</p>
+            <p>{getPublicDigestSummaryPlainText(latestDigest)}</p>
           </DossierCard>
         ) : (
           <div className="empty-state empty-state--actionable">

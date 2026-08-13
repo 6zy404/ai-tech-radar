@@ -8,7 +8,7 @@ import {
   type TechnologyContentMode
 } from "@/lib/technology-localization";
 import {
-  getPublicDigestSummary,
+  getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
@@ -112,7 +112,7 @@ export function toDigestDeliveryItem(
   return {
     date: digest.date,
     title: getPublicDigestTitle(digest),
-    summary: getPublicDigestSummary(digest),
+    summary: getPublicDigestSummaryPlainText(digest),
     digestUrl: getDigestPublicUrl(digest.date, baseUrl),
     highPriorityItems: highPriorityTechnologies.map((technology) =>
       toDeliveryTechnology(technology, baseUrl)

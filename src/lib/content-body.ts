@@ -95,3 +95,33 @@ export function splitContentBodyInline(
       return { text: part, kind: "text" as const };
     });
 }
+
+// Flattens a body written in the ContentBody subset back to plain text.
+//
+// This exists because `ContentBody` is not the only consumer of an editorial
+// body. The digest's editorial summary renders through it on the digest page,
+// but the home page card, the `/digest` archive, and both public feeds serve
+// the same string as plain text — so a summary written with `**bold**` shipped
+// its markers to readers on those four surfaces (found 2026-08-12; the
+// 2026-08-09 fix routed the digest panel through ContentBody and stopped
+// there).
+//
+// It is built on the same parser as the renderer on purpose: when the subset
+// grows a construct, both sides learn it at once. A hand-written regex stripper
+// would have kept rendering `` ` `` after inline code was added on 2026-08-02.
+export function contentBodyToPlainText(body: string): string {
+  return parseContentBody(body)
+    .map((block) =>
+      block.kind === "list"
+        ? block.items.map(inlineToPlainText).join(" ")
+        : inlineToPlainText(block.text)
+    )
+    .filter((text) => text.length > 0)
+    .join(" ");
+}
+
+function inlineToPlainText(text: string): string {
+  return splitContentBodyInline(text)
+    .map((segment) => segment.text)
+    .join("");
+}
