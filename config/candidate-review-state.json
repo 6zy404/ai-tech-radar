@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T04:39:50.841Z",
+  "updatedAt": "2026-08-14T04:01:49.074Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1127,6 +1127,122 @@
     "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-8": {
       "importStatus": "reviewed",
       "reviewedAt": "2026-08-13T04:39:50.841Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-472059": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.453Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-472060": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.539Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471893": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.591Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471884": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.660Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471697": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.710Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471668": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.806Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-2uh7cyreyzv2voqcessv-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.900Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-idseomsu4wcrnlxync5h-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:05.955Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-sw9wgh5vppzpuumqvfo1-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.005Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-l9iquuwzsb4zgp0pbqg2-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.058Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-9d9oik3uzpqfjbfelzaq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.109Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-workspace-sheets-canvas-for-google-sheets-spreadsheets": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.159Z"
+    },
+    "candidate-rss-https-openai-com-index-builders-guide-to-gpt-5-6": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.228Z"
+    },
+    "candidate-rss-https-openai-com-index-dali-rajic-chief-revenue-officer": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.280Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-10": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-14T03:57:06.342Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-472208": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.400Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-472067": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.451Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-471701": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.501Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-oemzispbwkep8ttkdutf-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.552Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-n43yef08jflwxi0s0uec-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.602Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-zyywygd3opkvwhtkyqam-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.653Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-11": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.710Z"
+    },
+    "candidate-rss-https-openai-com-index-previewing-ultrafast": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.764Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-allenai-olmoearth-embeddings": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-14T03:57:06.814Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-14T03:57:07.755Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash"
+    },
+    "candidate-rss-https-www-qbitai-com-p-472016": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-14T03:57:08.249Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-472016"
+    },
+    "candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-14T03:57:09.198Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands"
+    },
+    "candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-14T04:01:49.074Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article"
     }
   }
 }

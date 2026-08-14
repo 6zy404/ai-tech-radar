@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-13T04:45:10.682Z",
+  "updatedAt": "2026-08-14T04:07:11.395Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -3339,6 +3339,222 @@
       "toType": "skill",
       "relationType": "extends",
       "note": "视听线索进入通道之后，如何核验它真的看到了。"
+    },
+    {
+      "id": "rel-ws-17047dd3",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "主力档而非旗舰档，价格砍半改变约束排序。"
+    },
+    {
+      "id": "rel-ws-292aa0ed",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "三周一迭代意味着评测要跟着重跑。"
+    },
+    {
+      "id": "rel-ws-8df4601f",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "来回次数比总分更直接地决定成本。"
+    },
+    {
+      "id": "rel-ws-d9c3dfe3",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "全部对照同族前一版，读公告的正面教材。"
+    },
+    {
+      "id": "rel-ws-734e1f79",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "可比不等于可横比。"
+    },
+    {
+      "id": "rel-ws-68cb3fb3",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "首发价格有窗口期，成本模型要等正式定价。"
+    },
+    {
+      "id": "rel-ws-f97e08dc",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "基准里的开放题被解决，是评测闭环少见的终局。"
+    },
+    {
+      "id": "rel-ws-56fa761c",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "任意两行内积为 0，验证条件可机械检查。"
+    },
+    {
+      "id": "rel-ws-766a44c2",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "三名人类加 Claude，而人在哪一步没有说明。"
+    },
+    {
+      "id": "rel-ws-2653f52f",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "结论能被第三方跑第二遍，而不是只能被采信。"
+    },
+    {
+      "id": "rel-ws-f45c98c8",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "解码过程被独立复现，是可复核性的现场。"
+    },
+    {
+      "id": "rel-ws-4f5e68da",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "一个把编排从运行时拆开，一个把源码从文本拆成图——都在拆耦合。"
+    },
+    {
+      "id": "rel-ws-36b2a3f8",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "评估要便宜到跑几百次，这条约束决定运行时形态。"
+    },
+    {
+      "id": "rel-ws-4f9631c1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "builds-on",
+      "note": "编排绑进 DSL，换走的是「在别处运行」的控制权。"
+    },
+    {
+      "id": "rel-ws-bd5ddd51",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "解耦之后，编排与运行时之间需要显式契约。"
+    },
+    {
+      "id": "rel-ws-5e028c55",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "跑一小时的智能体，状态要活得比进程久。"
+    },
+    {
+      "id": "rel-ws-0470675a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "流程的形状决定它能不能被便宜地评估。"
+    },
+    {
+      "id": "rel-ws-fa974373",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "评估循环的成本就是迭代速度本身。"
+    },
+    {
+      "id": "rel-ws-8a0e3c9b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "框架锁定是自建边界评估里最贵的一种。"
+    },
+    {
+      "id": "rel-ws-3b3966c1",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "两条都在把多模态用到「此前服务不到的人」上。"
+    },
+    {
+      "id": "rel-ws-ffce00d8",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "fromType": "technology",
+      "toId": "knowledge-ws-8c99b19c",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "手语有自身语法，不是口语的逐词手势编码。"
+    },
+    {
+      "id": "rel-ws-b11ebeff",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "跑在手机上，端侧约束决定可行性。"
+    },
+    {
+      "id": "rel-ws-ef57d54b",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "连续手势的核验比静态图更难。"
+    },
+    {
+      "id": "rel-ws-5c128576",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "首发绑定 Pixel 11。"
     }
   ]
 }

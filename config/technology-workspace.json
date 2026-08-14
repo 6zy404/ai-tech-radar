@@ -1,6 +1,524 @@
 {
-  "updatedAt": "2026-08-13T11:35:01.401Z",
+  "updatedAt": "2026-08-14T04:17:58.906Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "slug": "runtime-agnostic-ai-workflows",
+      "title": {
+        "original": "与运行时无关的 AI 工作流：一种兼顾生产环境稳定性和快速评估迭代的模式",
+        "zh": "生产要持久、评估要轻量——把编排从运行时里拆出来"
+      },
+      "summary": {
+        "original": "Brex's AI workflow platform decouples orchestration from the runtime, because production durability and fast evaluation loops need opposite runtimes and most agent frameworks couple orchestration to one of them.",
+        "zh": "Brex 的 AI 工作流平台提出一个模式：把编排逻辑从运行时里拆出来。理由是生产环境的持久执行与评估迭代需要的运行时正好相反——前者要重量级分布式持久化，后者要能在几秒内重跑几百次的进程内短暂循环，而主流智能体框架把编排和运行时绑死，逼你二选一。"
+      },
+      "content": {
+        "original": "See the InfoQ article for the full pattern and code examples.",
+        "zh": "## 两个要求，方向相反\n\nAI 工作流是一串步骤，其中一步或多步会调用大模型。对它的生产要求，和过去十年任何长期运行的分布式系统没有区别：**扛得住部署与崩溃、能幂等重试、能水平扩展**。工作流引擎多年前就解决了这类问题。\n\nAI 工作流独有的那一半是：**LLM 步骤的输出质量会随每次提示词微调或模型变更而漂移**，所以必须靠评估来验证——在标注数据集上离线跑一遍并打分。\n\n于是引擎需要一个它当初没为之设计的能力：**便宜到能重复跑几百次的快速评估循环**。\n\n**这两个要求互相矛盾：**\n\n- **持久化执行**要求每一步结果先落盘再走下一步，崩溃或重新调度后能回放历史、从中断处继续。状态活得比任何单个进程都久。一个跑一小时、调用几十次模型的深度研究智能体，不能因为一个 Pod 被回收就损失四十分钟。\n- **评估迭代**是局部的、进程内的、短暂的。你改一行提示词，加载几百个样本，看汇总分数。它不该在集群范围内持久化或调度任何东西，运行结束后什么都不该留下。\n\n把评估代码塞进工作流引擎，你会继承持久化、任务队列、工作进程和回放语义——**全是这个紧凑循环不需要的开销**。反过来把生产代码塞进评估框架，则拿不到那个一小时智能体依赖的任何持久性保证。\n\n## 为什么大多数技术栈逼你二选一\n\n因为**主流工具把编排和运行时耦合在一起**。\n\nLangGraph、Mastra 这类框架在自己的 SDK 里直接表达编排逻辑：你的控制流被翻译成图的节点与边，或者框架提供的 DSL。**编排逻辑和框架本身是同一个东西。** 要评估这段逻辑就得运行框架，要部署它也得运行框架——**不存在独立于框架的编排**。\n\n## 这条判据可以直接搬走\n\n不管你用不用他们的方案，有一个问题值得对着自己的技术栈问一遍：\n\n**我的编排逻辑，能不能脱离运行时单独存在？**\n\n如果不能，那么「换运行时」和「重写业务逻辑」就是同一件事，而评估循环的成本会被运行时的重量绑架。\n\n这与本站《系统设计的权衡》里那条判据同构：**每一层抽象都是拿控制换省事**，而框架把编排收进 DSL，换走的正是「在别处运行同一段逻辑」这个控制权。\n\n## 平台本身的规模，说明这不是玩具也不是大厂特例\n\n- **TypeScript**，五名工程师维护\n- 工作进程跑在 Kubernetes 上，接托管的 **Temporal Cloud** 执行长期运行的智能体\n- 通过 **Vercel AI SDK** 访问模型，请求路由到内部 LLM 网关集中做限流与鉴权\n- 评估跑在自建平台上\n\n**五个人**这个数字值得留意：它说明这个模式的实现成本，在一个中等规模团队的承受范围内。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-13",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/Za8vaFWPCM7LtuRfhDmD?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Brex",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-workflow",
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-system-design",
+        "knowledge-api-contracts",
+        "knowledge-ws-a28a8a56"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-14T04:17:58.906Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把一个很多团队隐约感觉到、但没说清楚的矛盾讲明白了：生产持久性和评估迭代要的是相反的运行时，而框架把编排绑进运行时之后，你连选的机会都没有。",
+      "whoShouldCare": [
+        "在建生产级 AI 工作流并且需要跑评估的团队",
+        "正在选智能体框架、还没被锁定的技术负责人",
+        "负责评估闭环成本的人"
+      ],
+      "technicalContext": "模式来自 Brex 的 AI 工作流平台：TypeScript、五名工程师、Kubernetes 工作进程接 Temporal Cloud 做持久执行，经 Vercel AI SDK 与内部 LLM 网关访问模型，评估在自建平台运行。核心主张是把编排逻辑与运行时解耦，使同一段编排既能在持久化运行时执行，也能在进程内评估循环里重跑。",
+      "impactAreas": [
+        "AI 工作流架构",
+        "评估闭环成本",
+        "框架锁定",
+        "长期运行智能体的可靠性"
+      ],
+      "learningPath": [
+        "先对自己的技术栈问那一句：编排逻辑能不能脱离运行时单独存在",
+        "把「一次评估循环的成本」量出来——它决定你一天能迭代几次",
+        "再判断持久化执行是不是你真的需要的，还是只是框架顺带给的"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "评估要便宜到能跑几百次，这条约束决定了运行时形态。",
+        "knowledge-system-design": "编排绑进 DSL，换走的是「在别处运行同一段逻辑」的控制权。",
+        "knowledge-api-contracts": "解耦之后，编排与运行时之间需要一份显式契约。",
+        "knowledge-ws-a28a8a56": "跑一小时的智能体，状态必须活得比进程久。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "流程的形状决定它能不能被便宜地评估。",
+        "skill-ws-f741f122": "评估循环的成本就是迭代速度本身。",
+        "skill-ws-2152c7f1": "框架锁定是自建边界评估里最贵的一种。"
+      },
+      "followUpQuestions": [
+        "解耦之后，持久化运行时与评估运行时之间的行为差异如何保证不漂移？",
+        "五人团队维护这套平台，边际成本主要花在哪一层？",
+        "这个模式对不使用 Temporal 这类引擎的团队是否同样成立？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-14T04:01:49.072Z",
+      "updatedAt": "2026-08-14T04:17:58.906Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "slug": "gemini-3-7-flash",
+      "title": {
+        "original": "Introducing Gemini 3.7 Flash",
+        "zh": "Gemini 3.7 Flash：主力档三周一迭代，价格砍半"
+      },
+      "summary": {
+        "original": "Gemini 3.7 Flash arrives three weeks after 3.6 Flash with across-the-board gains in coding, web development and document-heavy knowledge work, at an introductory price of half the previous cost per million tokens.",
+        "zh": "Gemini 3.7 Flash 在 3.6 Flash 发布仅三周后到来，编码、网页开发与文档密集型知识工作全面提升，而每百万 token 的首发价格是上一代的一半。所有对比都是同族前一版，是这类公告里少见的可比口径。"
+      },
+      "content": {
+        "original": "See the Google DeepMind blog post for the full benchmark table.",
+        "zh": "## 三周一代，价格砍半\n\nGemini 3.7 Flash 定位是「主力档」（workhorse）模型，面向编码与智能体。它距离 3.6 Flash 只有 **三周**，官方说法是「开发者反馈加上算法改进」的直接结果。\n\n首发价格是 3.6 Flash 每百万 token 成本的 **一半**。\n\n## 提升幅度写成了同族对照\n\n这份公告有一点值得单独称赞：**每一个数字都是和自家前一版比的**，而不是和一个精心挑选的竞品比。这让它成为少数可以直接读的发布公告。\n\n- **FrontierCode 1.1 Main：43.6%**，对 34.4%\n- **DeepSWE v1.1：65.3%**，对 49.0%\n- **WebDev Arena Elo：1588**，对 1538\n- **GDP.pdf：34.0%**，对 22.0%（复杂文档处理）\n- **AutomationBench：30.4%**，对 17.0%（真实业务流程）\n\n其中 DeepSWE 从 49.0% 到 65.3%、AutomationBench 从 17.0% 到 30.4%，都接近翻倍——三周之内。\n\n## 值得注意的是提升的方向\n\n赢面集中在**调试与问题解决**、**一次通过的代码正确率**、以及**生成可直接投产的代码**。网页开发这一项它强调的是「更少的提示词内生成功能完整的应用」，UI 生成则强调对参考输入（截图、图片、完整设计系统）的**设计一致性**。\n\n换句话说，这一版优化的不是「能不能做」，而是**做对的比例**和**来回次数**。对跑智能体循环的人，后者直接就是成本。\n\n## 一个该保持清醒的地方\n\n**「首发价格」四个字**是有分量的。这类定价通常有窗口期，公告本身没有说明窗口多长、之后回到什么水平。**把它当作长期成本模型的输入之前，先确认正式定价。**\n\n同样地，上面每一组数字都来自厂商自己的评测口径。它们内部一致、可比，但**这把尺子只量过自家两代模型**——按本站《模型与输出评估》的判据，那是可比而非可横比。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-13",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/introducing-gemini-3-7-flash/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-model-evaluation",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-14T04:16:54.130Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "主力档模型三周一迭代且价格砍半，说明这一档的竞争已经从「能不能做」转到「做对的比例和单位成本」——而这两个恰好是跑智能体循环时唯一重要的数。",
+      "whoShouldCare": [
+        "在为智能体循环做模型选型与成本建模的团队",
+        "把编码或文档处理放进生产流程的工程负责人",
+        "关注主力档而非旗舰档竞争格局的技术决策者"
+      ],
+      "technicalContext": "Gemini 3.7 Flash 为 Flash 系列的主力档模型，面向编码与智能体场景。公告给出的对照全部是 3.6 Flash：FrontierCode 1.1 Main 43.6% vs 34.4%、DeepSWE v1.1 65.3% vs 49.0%、WebDev Arena Elo 1588 vs 1538、GDP.pdf 34.0% vs 22.0%、AutomationBench 30.4% vs 17.0%。",
+      "impactAreas": [
+        "模型选型与成本模型",
+        "编码智能体",
+        "文档密集型工作流",
+        "主力档模型竞争"
+      ],
+      "learningPath": [
+        "先确认 introductory 价格的窗口期与之后的正式定价，再把它写进成本模型",
+        "把「一次通过率」和「来回次数」当成比总分更有用的指标",
+        "在自己的任务上跑一次同族对照，不要直接采信厂商表格里的相对幅度"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "主力档而非旗舰档，价格砍半直接改变约束排序。",
+        "knowledge-evaluation-loops": "三周一迭代意味着提示词与评测要跟着重跑。",
+        "knowledge-latency-tradeoffs": "更少来回次数比更高总分更直接地影响成本。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "全部对照同族前一版，是读发布公告的正面教材。",
+        "skill-model-evaluation": "可比不等于可横比——这把尺子只量过自家两代。",
+        "skill-ws-2152c7f1": "首发价格有窗口期，写进成本模型前要先确认正式定价。"
+      },
+      "followUpQuestions": [
+        "introductory 定价的窗口期有多长，正式价格是多少？",
+        "三周一次的迭代节奏下，提示词与评测需要多久重跑一遍？",
+        "这些数字在厂商评测之外的第三方基准上能复现多少？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "createdAt": "2026-08-14T03:57:07.753Z",
+      "updatedAt": "2026-08-14T04:16:54.130Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "slug": "ollama-v0-32-0",
+      "title": {
+        "original": "Ollama v0.32.0",
+        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
+      },
+      "summary": {
+        "original": "Ollama v0.32.0 turns the bare ollama command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
+        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
+      },
+      "content": {
+        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
+        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
+      },
+      "type": "tool",
+      "publishDate": "2026-07-14",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Ollama",
+      "publisherType": "open-source-community",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-d7c9d1d8"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 95,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-14T04:14:28.766Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
+      "whoShouldCare": [
+        "本地/端侧应用开发者",
+        "AI 工具链与开发者体验工程师",
+        "评估智能体工作流落地的团队"
+      ],
+      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
+      "impactAreas": [
+        "开发者工具",
+        "端侧 AI",
+        "智能体工作流"
+      ],
+      "learningPath": [
+        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
+        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
+        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
+        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
+        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
+        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
+      },
+      "followUpQuestions": [
+        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
+        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
+        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "reviewed",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "createdAt": "2026-07-14T00:51:56.001Z",
+      "updatedAt": "2026-08-14T04:14:28.766Z",
+      "editorialNotes": [
+        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "slug": "deepmind-sl2t-sign-language",
+      "title": {
+        "original": "Putting sign language AI into users' hands",
+        "zh": "SL2T：手语识别第一次离开实验室，进了输入法"
+      },
+      "summary": {
+        "original": "Google DeepMind introduced SL2T, a massively multilingual sign-language-to-text model now shipping in Gboard dictation and Live Transcribe on Pixel 11, starting with ASL to English.",
+        "zh": "Google DeepMind 发布大规模多语手语转文字模型 SL2T，并首次把手语 AI 装进消费级产品：Pixel 11 上的 Gboard 手语听写与 Live Transcribe，先支持美国手语转英文。全球有 200 多种手语、约 7000 万聋人及听力障碍者使用者，而这一层此前一直没被语音技术的进展覆盖到。"
+      },
+      "content": {
+        "original": "See the Google DeepMind blog post.",
+        "zh": "## 被漏掉的那一层\n\n过去几十年里，AI 处理**口语**的能力突飞猛进——自动翻译、听写、对话界面，对听人来说已经顺畅到几乎无感。\n\n但这场技术革命**没有到达世界上 200 多种手语**，以及估计 **7000 万**使用它们的聋人与听力障碍者。\n\n## 发布了什么\n\nSL2T 是一个**大规模多语**的手语转文字翻译模型，官方称其在质量与通用性上是一次突破。真正的新意在后半句：**手语 AI 第一次从实验室进入消费产品**。\n\n- **Gboard 的手语听写**：像听人用语音听写代替打字一样，聋人用户可以在任何原本需要打字的地方**打手语**——搜索、起草消息或文档、让 Gemini 执行任务\n- **Live Transcribe**：对话中可以直接用手语回应，而不必来回打字\n- 起点是**美国手语（ASL）转英文**，运行在 **Pixel 11** 上，更多设备与语言在后面\n\n据其测试者反馈，**用 ASL 打手语比用英文打字更快、更自然**。\n\n## 为什么这条对非无障碍方向的人也有意义\n\n它是「多模态到底有没有用」这个问题的一个硬答案：**不是让模型多看懂一种输入，而是让一整类此前无法使用某个界面的人开始能用。**\n\n原文特意点出一件事：手语是聋人社群的**第一语言**，也是聋人文化认同的基石；而聋人群体在手语、口语、读写各方面的熟练程度差异很大，所以**各种模态的可及性都要支持**，不能假设「会读写就够了」。\n\n它也说明了进展慢的原因不只是技术难：**关于手语本身如何运作，存在广泛的误解**——比如把手语当成口语的逐词手势编码，而不是有自己语法的独立语言。\n\n## 边界\n\n这是一次**产品发布**，博客文章没有给出模型的量化评测数字。所以这条信号能说的是**覆盖面与可用性上的进展**，不是效果量。首发范围也很窄：一种手语、一种目标语言、一款手机。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-12",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/putting-sign-language-ai-into-users-hands/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-on-device"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-8c99b19c",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-b47fabd1",
+        "skill-ws-d7c9d1d8"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-14T04:08:49.168Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "多模态的价值第一次以「让一整类此前用不了这个界面的人开始能用」的形式落地，而不是「模型又多看懂一种输入」。这是可及性，不是能力表演。",
+      "whoShouldCare": [
+        "做多模态输入产品的团队",
+        "关心可及性如何从研究走到产品的人",
+        "在评估多模态投入产出的技术决策者"
+      ],
+      "technicalContext": "SL2T 为大规模多语手语转文字翻译模型，驱动 Pixel 11 上 Gboard 的手语听写与 Live Transcribe 的手语回应功能，首发为美国手语转英文。全球有 200 余种手语、约 7000 万聋人及听力障碍者使用。",
+      "impactAreas": [
+        "无障碍与可及性",
+        "多模态输入",
+        "端侧模型应用",
+        "聋人社群的沟通工具"
+      ],
+      "learningPath": [
+        "先看它解决的是覆盖面问题而不是精度问题，这决定了该用什么指标衡量它",
+        "注意「手语是有自身语法的独立语言」这一点，它解释了为什么这个方向进展慢",
+        "再看首发范围有多窄，判断从一种手语到多种手语的距离"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-8c99b19c": "手语与语音一样承载语法与副语言信息，不是逐词编码。",
+        "knowledge-model-sizing": "跑在手机上，尺寸与端侧约束决定了可行性。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-b47fabd1": "视觉输入的组织与核验，在连续手势上比静态图更难。",
+        "skill-ws-d7c9d1d8": "首发绑定 Pixel 11，端侧部署是它的前提。"
+      },
+      "followUpQuestions": [
+        "SL2T 的翻译质量有没有可比的量化指标？",
+        "从 ASL 扩展到其他手语，需要多少标注数据？",
+        "模型跑在端侧还是云端，对隐私和延迟各意味着什么？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+      "createdAt": "2026-08-14T03:57:09.196Z",
+      "updatedAt": "2026-08-14T04:08:49.168Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "slug": "claude-hadamard-668",
+      "title": {
+        "original": "Claude一举扫清2000阶以下哈达玛矩阵！AI开始清空数学待解列表",
+        "zh": "668 阶哈达玛矩阵被构造出来：三个人加 Claude，清掉 2000 阶以下所有未决阶数"
+      },
+      "summary": {
+        "original": "A team of three mathematicians working with Claude constructed a 668-order Hadamard matrix — the smallest unresolved order since 2005 — along with 11 more, clearing every open order below 2000. EpochAI has provisionally marked it solved on FrontierMath.",
+        "zh": "Anthropic 研究员、数学家 Levent Alpöge 报告：由三名人类与 Claude 组成的团队构造出 668 阶哈达玛矩阵——2005 年以来最小的未知阶数，人类卡了三十年。他一次放出 12 张矩阵，清掉 2000 阶以下所有悬而未决的阶数。EpochAI 已在 FrontierMath 上暂标为「由 AI 解决」。"
+      },
+      "content": {
+        "original": "Secondary reporting by QbitAI.",
+        "zh": "## 这道题是什么\n\n哈达玛矩阵只有加减乘除：一个方阵，元素只能是 +1 和 −1，任意两行对应相乘再相加必须**正好等于 0**。\n\n问题简单，但 **668 阶自 2005 年构造出 428 阶之后，就成了最小的未知阶数**——此后二十多年，人类能造出大得多的矩阵，偏偏卡在这里。它的分解式是 4×167，依赖模 4 余 3 素数的佩利有限域高阶构造，长期只能生成模意义下的近似解；去年有人做出「模 64 版本」，差临门一脚。\n\n正因为如此，它被收进了 **FrontierMath**——由陶哲轩等三位菲尔兹奖得主与 IMO 顶级教练等六十余人联合出题的高阶数学推理基准。\n\n## 结果\n\nAnthropic 研究员、数学家 **Levent Alpöge** 报告，由**三名人类与 Claude** 组成的团队解决了它。\n\n- EpochAI 已把这道开放题**暂标为「由 AI 解决」**\n- 若确认，这是 FrontierMath **50 个开放问题中被 AI 解决的第 4 个**\n- 而且他一次放出的是 **12 张矩阵**——668、716、892、1132、1244、1388、1436、1676、1772… **2000 阶以下所有未决阶数一次清空**\n\n## 为什么这条值得记，而不只是一条趣闻\n\n**它是「基准被解决」这件事第一次带着可复核的过程发生。** Alpöge 的公布方式本身就是一次可验证性演示：他发了一条只有 **23828 个加减号**的推文，回复区藏着一段混淆过的 Shell 脚本作为解码器；随后独立数学成果数据库 VibeMathed **复现了整个解码过程**并还原出那 12 组符号。\n\n也就是说，这个结果**不依赖你相信任何人的说法**——矩阵在那里，验证条件（任意两行内积为 0）是可机械检查的。这与本站反复出现的那条判据是同一件事：**一个能被独立跑第二遍的结论，和一个只能被采信的结论，是两种东西。**\n\n## 三个需要说清楚的限定\n\n1. **不是 AI 独立完成**。原文写明是三名人类加 Claude 的团队。「AI 解决了三十年难题」这种说法会丢掉最关键的信息——**人在哪一步**，公开材料没有说明。\n2. **EpochAI 的标记是「暂标」**。确认与否尚未定论。\n3. **本条为二手报道**（量子位）。原始信息来自 Alpöge 本人的社交媒体发布与 EpochAI 的基准页面。\n\n## 一个有节目效果、但也说明问题的细节\n\n那条只有加减号的推文，有人拿去让 Claude Fable 解码，**Fable 拒绝解读**；最后换用 GPT-5.6 Sol 才看懂谜面。同一家公司的研究员用 Claude 做出了结果，而另一款模型不肯解自己同门的谜题——**模型的拒绝策略和它的能力是两回事**，这一点在把模型放进自动化流程时经常被忽略。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-13",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/472016.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "量子位",
+      "publisherType": "media",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-14T04:07:10.933Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它是「AI 解决了开放数学问题」这类主张里少见的可独立复核的一次：结果是一个矩阵，验证条件是机械可查的，而且解码过程被第三方复现了。",
+      "whoShouldCare": [
+        "关心基准被解决意味着什么的人",
+        "在设计需要可独立复核结论的评估体系的人",
+        "把模型放进自动化流程、需要考虑拒绝策略的工程团队"
+      ],
+      "technicalContext": "哈达玛矩阵为元素取 ±1、任意两行内积为 0 的方阵。668 = 4×167 自 2005 年起是最小未知阶数，依赖模 4 余 3 素数的佩利构造。FrontierMath 收录了它作为 50 个开放问题之一；EpochAI 已暂标为由 AI 解决，为该基准的第 4 例。",
+      "impactAreas": [
+        "数学基准与开放问题",
+        "结论的可复核性",
+        "人机协作的分工",
+        "模型拒绝策略"
+      ],
+      "learningPath": [
+        "先看它的验证方式：结果可被机械检查，这是它与「模型说它做到了」的根本区别",
+        "再看「三名人类加 Claude」这个措辞，判断人机分工在公开材料里说清楚了没有",
+        "最后注意暂标与确认的区别，基准状态不等于定论"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "基准里的开放题被解决，是评测闭环少见的终局形态。",
+        "knowledge-ws-e251051e": "验证条件可机械检查，这是「做完了吗」最干净的一种回答。",
+        "knowledge-human-loop": "三名人类加 Claude——人在哪一步，公开材料没说清。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "结论能被第三方独立跑第二遍，而不是只能被采信。",
+        "skill-ws-f741f122": "解码过程被 VibeMathed 复现，是可复核性的现场。"
+      },
+      "followUpQuestions": [
+        "人类在这次构造里承担了哪一步，AI 承担了哪一步？",
+        "EpochAI 的确认流程是什么，暂标到确认要经过什么？",
+        "同样的方法能否推广到 2000 阶以上，还是止于这一批？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-472016",
+      "createdAt": "2026-08-14T03:57:08.247Z",
+      "updatedAt": "2026-08-14T04:07:10.933Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-472016.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": []
+    },
     {
       "id": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
       "slug": "amie-real-time-video-consultation",
@@ -55,7 +573,7 @@
           "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-13T11:35:01.400Z",
+        "rankingUpdatedAt": "2026-08-14T04:05:42.982Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "它是多模态少见的带对照组的评估：不是问模型能否看懂图像，而是问在一个有专业标准的任务里，加入视觉与听觉通道之后是不是真的更好。",
@@ -93,12 +611,122 @@
       "intelligenceStatus": "needs_enrichment",
       "sourceCandidateId": "candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
       "createdAt": "2026-08-13T04:39:50.584Z",
-      "updatedAt": "2026-08-13T11:35:01.400Z",
+      "updatedAt": "2026-08-14T04:05:42.982Z",
       "editorialNotes": [
         "Generated from imported candidate candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations.",
         "Review normalized type, publisher type, and related links before publishing."
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "slug": "vercel-zero-agent-native-language",
+      "title": {
+        "original": "Vercel 发布新语言 Zero：代码不是写给人看的，而是写给 AI 的",
+        "zh": "Vercel Zero：一门把编译器输出的第一读者当成智能体的语言"
+      },
+      "summary": {
+        "original": "Vercel Labs released Zero, an experimental systems language built on the premise that the compiler's primary reader is an AI agent rather than a human.",
+        "zh": "Vercel Labs 发布实验性系统语言 Zero，前提是编译器输出的主要阅读者不再是人：每个子命令都统一支持 JSON 输出、错误带稳定代码与带类型的修复元数据，副作用必须走编译器强制的能力参数，而 v0.3.0 起图存储才是编译器输入、源码文件降为给人看的投影。"
+      },
+      "content": {
+        "original": "See the InfoQ article and the Zero language reference.",
+        "zh": "## 前提\n\nZero 是 Vercel Labs 的实验性系统编程语言，Apache 2.0，`.0` 扩展名，可编译到 Linux / macOS / Windows 原生二进制。早期报道盯着体积与速度（Hello World 号称一毫秒内构建、16.2 KiB），**但那不是它真正特别的地方**。\n\n它的设计前提是一句话：**编译器输出的主要阅读者不再是人类，而是智能体。**\n\n## 工具链被写成了契约\n\n- 单一 `zero` 二进制的**每个子命令**都支持统一的 `--json`，且使用同一套诊断模式\n- 错误携带**稳定代码**（如 `NAM003`）与**带类型的修复元数据**（如 `declare-missing-symbol`）\n- `zero fix --plan --json` 返回一份**机器可读的修复计划**，智能体可以接受、编辑或拒绝，而不是盲目套用\n\n这正是本站《API 契约与接口边界》里那条判据的落地：**出错时的形状也是契约的一部分**。一个每次都换措辞的错误信息，对人只是烦，对自动修复的智能体是不可用。\n\n## 副作用被搬到了签名上\n\n任何与外部世界交互的函数**必须接受一个 `World` 能力参数**，并由编译器强制。于是只看函数签名就能判断这段代码能不能访问网络、文件系统或标准输出。\n\n对智能体而言，这把「它会不会偷偷做别的事」从**读代码**变成了**读类型**——与《智能体工作流设计》里那条判据同构：**如果模型决定越界，是什么在物理上阻止它？**\n\n## 最激进的一步在 v0.3.0\n\n图优先创作成为常规工作流：**二进制 `zero.graph` 存储才是编译器的输入**，`.0` 文本文件降级为**给人阅读的投影**，智能体则通过 `zero query` 与 `zero patch` 工作。补丁受图哈希保护，过期或无效的编辑在写入存储之前就会失败。\n\n这和前一天发布的 ARA 是同一个动作，只是换了对象：**ARA 把论文从叙事改成机器可操作的知识包，Zero 把源码从文本改成图。** 两者都把「给人看的那一版」降级为投影。\n\n## 代价写在了迁移路径上\n\nv0.1.4 是行语法，v0.2.0 把规范化的 `.0` 文本提升为原生源码载体，v0.3.0 **在编译器边界彻底拒绝源码投影输入**。既有的文本优先包必须用 `zero import` 导入图、再用 `zero export` 与 `zero verify-projection` 完成人工审查与 CI 漂移检查。v0.3.2 把大型程序的导入速度提升约 12 倍，正是因为这个转换本身太贵。\n\n## 质疑值得原样带上\n\nHacker News 上的反对意见有两类，第二类更难回答：\n\n1. **\"没劲，唯一的新东西是能力机制「**，以及」结构化错误消息已经存在几十年了「。反驳是：重点不在开发者，而在智能体——对人只是便利的东西，对自动修复是可用性的前提。\n2. **」智能体最擅长的语言，将会是那些在预训练数据里出现最多的语言。\"** 这一条针对的是采用而不是设计，而一门新语言天然处在劣势。有人以 Svelte 的重大 API 变更为例反驳说训练数据的重要性可能低于预期，但这是类比不是证据。\n\n项目自己写明：**仍处于实验阶段、预计出现破坏性变更、应在隔离工作区运行，不要用于生产系统或敏感数据。** 目前 v0.3.4，GitHub 星标 5200 以上。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-12",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Vercel Labs",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design",
+        "knowledge-graph-thinking"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-14T04:05:42.926Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「为机器设计产物」从主张变成了可运行的东西：错误有稳定代码、修复是可协商的计划、副作用写在签名上、源码本体是图而文本只是投影。同一周的 ARA 对论文做了同一件事。",
+      "whoShouldCare": [
+        "在建智能体编码工具链的工程团队",
+        "关心工具返回值能否被机器读懂的人",
+        "在设计给自动化消费的 API 与诊断格式的人"
+      ],
+      "technicalContext": "Zero 使用 .0 扩展名与 Apache 2.0 许可，编译为原生二进制。工具链契约包含统一 --json、稳定诊断代码与带类型修复元数据；副作用通过编译器强制的 World 能力参数暴露；v0.3.0 起二进制图存储为编译器输入，文本为投影，补丁受图哈希保护。",
+      "impactAreas": [
+        "智能体编码工具链",
+        "诊断与错误契约设计",
+        "源码表示形式",
+        "能力式副作用控制"
+      ],
+      "learningPath": [
+        "先看它的错误契约：稳定代码加带类型的修复元数据，这一层与语言无关，可以直接搬",
+        "再看 World 能力参数如何把「能做什么」提升到类型层",
+        "最后判断图优先创作的代价，迁移路径本身就是它最大的成本"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "稳定错误代码与带类型的修复元数据，是「出错时的形状也是契约」的直接落地。",
+        "knowledge-tool-use": "修复计划以 JSON 返回，智能体可接受、编辑或拒绝——工具返回值要能被机器读懂。",
+        "knowledge-system-design": "图存储成为唯一真相，换来的是迁移成本，这是一次典型的锁死型权衡。",
+        "knowledge-graph-thinking": "源码本体是图、文本只是投影，把图思维推到了编译器边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "World 能力参数由编译器强制，是「什么在物理上阻止越界」的答案。",
+        "skill-tool-integration": "统一 --json 与同一套诊断模式，是工具层吸收混乱而不是转发混乱。",
+        "skill-ws-2152c7f1": "实验阶段、破坏性变更、需隔离运行——自建边界评估的现成材料。"
+      },
+      "followUpQuestions": [
+        "预训练数据劣势是否会压过设计优势，一门新语言如何被智能体学会？",
+        "图存储成为唯一真相之后，代码审查与版本控制怎么做？",
+        "能力参数在多大规模的程序上仍然不繁琐？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-13T04:39:49.056Z",
+      "updatedAt": "2026-08-14T04:05:42.925Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-469721",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
@@ -206,113 +834,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-      "slug": "vercel-zero-agent-native-language",
-      "title": {
-        "original": "Vercel 发布新语言 Zero：代码不是写给人看的，而是写给 AI 的",
-        "zh": "Vercel Zero：一门把编译器输出的第一读者当成智能体的语言"
-      },
-      "summary": {
-        "original": "Vercel Labs released Zero, an experimental systems language built on the premise that the compiler's primary reader is an AI agent rather than a human.",
-        "zh": "Vercel Labs 发布实验性系统语言 Zero，前提是编译器输出的主要阅读者不再是人：每个子命令都统一支持 JSON 输出、错误带稳定代码与带类型的修复元数据，副作用必须走编译器强制的能力参数，而 v0.3.0 起图存储才是编译器输入、源码文件降为给人看的投影。"
-      },
-      "content": {
-        "original": "See the InfoQ article and the Zero language reference.",
-        "zh": "## 前提\n\nZero 是 Vercel Labs 的实验性系统编程语言，Apache 2.0，`.0` 扩展名，可编译到 Linux / macOS / Windows 原生二进制。早期报道盯着体积与速度（Hello World 号称一毫秒内构建、16.2 KiB），**但那不是它真正特别的地方**。\n\n它的设计前提是一句话：**编译器输出的主要阅读者不再是人类，而是智能体。**\n\n## 工具链被写成了契约\n\n- 单一 `zero` 二进制的**每个子命令**都支持统一的 `--json`，且使用同一套诊断模式\n- 错误携带**稳定代码**（如 `NAM003`）与**带类型的修复元数据**（如 `declare-missing-symbol`）\n- `zero fix --plan --json` 返回一份**机器可读的修复计划**，智能体可以接受、编辑或拒绝，而不是盲目套用\n\n这正是本站《API 契约与接口边界》里那条判据的落地：**出错时的形状也是契约的一部分**。一个每次都换措辞的错误信息，对人只是烦，对自动修复的智能体是不可用。\n\n## 副作用被搬到了签名上\n\n任何与外部世界交互的函数**必须接受一个 `World` 能力参数**，并由编译器强制。于是只看函数签名就能判断这段代码能不能访问网络、文件系统或标准输出。\n\n对智能体而言，这把「它会不会偷偷做别的事」从**读代码**变成了**读类型**——与《智能体工作流设计》里那条判据同构：**如果模型决定越界，是什么在物理上阻止它？**\n\n## 最激进的一步在 v0.3.0\n\n图优先创作成为常规工作流：**二进制 `zero.graph` 存储才是编译器的输入**，`.0` 文本文件降级为**给人阅读的投影**，智能体则通过 `zero query` 与 `zero patch` 工作。补丁受图哈希保护，过期或无效的编辑在写入存储之前就会失败。\n\n这和前一天发布的 ARA 是同一个动作，只是换了对象：**ARA 把论文从叙事改成机器可操作的知识包，Zero 把源码从文本改成图。** 两者都把「给人看的那一版」降级为投影。\n\n## 代价写在了迁移路径上\n\nv0.1.4 是行语法，v0.2.0 把规范化的 `.0` 文本提升为原生源码载体，v0.3.0 **在编译器边界彻底拒绝源码投影输入**。既有的文本优先包必须用 `zero import` 导入图、再用 `zero export` 与 `zero verify-projection` 完成人工审查与 CI 漂移检查。v0.3.2 把大型程序的导入速度提升约 12 倍，正是因为这个转换本身太贵。\n\n## 质疑值得原样带上\n\nHacker News 上的反对意见有两类，第二类更难回答：\n\n1. **\"没劲，唯一的新东西是能力机制「**，以及」结构化错误消息已经存在几十年了「。反驳是：重点不在开发者，而在智能体——对人只是便利的东西，对自动修复是可用性的前提。\n2. **」智能体最擅长的语言，将会是那些在预训练数据里出现最多的语言。\"** 这一条针对的是采用而不是设计，而一门新语言天然处在劣势。有人以 Svelte 的重大 API 变更为例反驳说训练数据的重要性可能低于预期，但这是类比不是证据。\n\n项目自己写明：**仍处于实验阶段、预计出现破坏性变更、应在隔离工作区运行，不要用于生产系统或敏感数据。** 目前 v0.3.4，GitHub 星标 5200 以上。"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-12",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y?utm_source=rss&amp;utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "Vercel Labs",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-product-strategy"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use",
-        "knowledge-system-design",
-        "knowledge-graph-thinking"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-13T11:35:01.205Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它把「为机器设计产物」从主张变成了可运行的东西：错误有稳定代码、修复是可协商的计划、副作用写在签名上、源码本体是图而文本只是投影。同一周的 ARA 对论文做了同一件事。",
-      "whoShouldCare": [
-        "在建智能体编码工具链的工程团队",
-        "关心工具返回值能否被机器读懂的人",
-        "在设计给自动化消费的 API 与诊断格式的人"
-      ],
-      "technicalContext": "Zero 使用 .0 扩展名与 Apache 2.0 许可，编译为原生二进制。工具链契约包含统一 --json、稳定诊断代码与带类型修复元数据；副作用通过编译器强制的 World 能力参数暴露；v0.3.0 起二进制图存储为编译器输入，文本为投影，补丁受图哈希保护。",
-      "impactAreas": [
-        "智能体编码工具链",
-        "诊断与错误契约设计",
-        "源码表示形式",
-        "能力式副作用控制"
-      ],
-      "learningPath": [
-        "先看它的错误契约：稳定代码加带类型的修复元数据，这一层与语言无关，可以直接搬",
-        "再看 World 能力参数如何把「能做什么」提升到类型层",
-        "最后判断图优先创作的代价，迁移路径本身就是它最大的成本"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "稳定错误代码与带类型的修复元数据，是「出错时的形状也是契约」的直接落地。",
-        "knowledge-tool-use": "修复计划以 JSON 返回，智能体可接受、编辑或拒绝——工具返回值要能被机器读懂。",
-        "knowledge-system-design": "图存储成为唯一真相，换来的是迁移成本，这是一次典型的锁死型权衡。",
-        "knowledge-graph-thinking": "源码本体是图、文本只是投影，把图思维推到了编译器边界。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "World 能力参数由编译器强制，是「什么在物理上阻止越界」的答案。",
-        "skill-tool-integration": "统一 --json 与同一套诊断模式，是工具层吸收混乱而不是转发混乱。",
-        "skill-ws-2152c7f1": "实验阶段、破坏性变更、需隔离运行——自建边界评估的现成材料。"
-      },
-      "followUpQuestions": [
-        "预训练数据劣势是否会压过设计优势，一门新语言如何被智能体学会？",
-        "图存储成为唯一真相之后，代码审查与版本控制怎么做？",
-        "能力参数在多大规模的程序上仍然不繁琐？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-13T04:39:49.056Z",
-      "updatedAt": "2026-08-13T11:35:01.205Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-469721"
       ]
     },
     {
@@ -3948,111 +4469,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-      "slug": "ollama-v0-32-0",
-      "title": {
-        "original": "Ollama v0.32.0",
-        "zh": "Ollama v0.32.0：本地运行时转型智能体工作台"
-      },
-      "summary": {
-        "original": "Ollama v0.32.0 turns the bare `ollama` command into an interactive agent for chatting, coding, web search, and delegating work — the local runtime is repositioning itself as an agent workbench entry point.",
-        "zh": "Ollama 发布 v0.32.0：直接运行 ollama 命令现在会启动一个交互式智能体，可以聊天、写代码、联网搜索并委派实际工作。本地模型运行时正式向智能体入口转型。"
-      },
-      "content": {
-        "original": "Ollama v0.32.0 ships a new interactive agent experience: running `ollama` now launches an agent that can chat, code, search the web, and delegate real work (banner default: glm-5.2:cloud). The Codex App integration was renamed to ChatGPT (`ollama launch chatgpt`), the launch menu was simplified to the most popular integrations, and older agent models (CodeLlama, Qwen2.5, Llama 3.x, Mistral, StarCoder, base DeepSeek-R1) now trigger a deprecation warning before launch.",
-        "zh": "Ollama 发布 v0.32.0，核心变化是一个新的交互式智能体体验：现在直接运行 ollama 命令，启动的不再是模型管理界面，而是一个能聊天、写代码、联网搜索并委派实际工作的智能体（横幅默认模型为 glm-5.2:cloud）。\n\n配套变化都指向同一个方向：Codex App 集成更名为 ChatGPT（ollama launch chatgpt，可用 --restore 恢复原有配置），launch 菜单精简为最常用的集成项，而 CodeLlama、Qwen2.5(-coder)、Llama 3.x、Mistral、StarCoder 和基础版 DeepSeek-R1 这批旧一代模型在启动前会收到弃用警告。\n\n这是 Ollama 定位的一次明确转向：从「把开源模型跑在本地的运行时」变成「智能体工作的入口」。值得注意的是默认横幅里的 glm-5.2:cloud 是云端模型——本地运行时主动拥抱本地/云混合，说明纯本地推理与云端能力的边界正在产品层面被重新划分。上一个稳定版 v0.31.2 还聚焦 iGPU 卸载这类底层可用性，两个版本相隔不到一周，转型节奏相当激进。具体变更请以原始版本说明为准。"
-      },
-      "type": "tool",
-      "publishDate": "2026-07-14",
-      "sourceName": "Ollama Releases",
-      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.0",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Ollama",
-      "publisherType": "open-source-community",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-34da6116"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-d7c9d1d8"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-07-27T09:23:47.206Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "装机量巨大的本地运行时把默认入口从「跑模型」换成「用智能体」，意味着智能体交互正在成为 AI 工具的默认形态，而不再是附加功能；本地/云混合的默认配置也预示端侧与云端的分工进入新阶段。",
-      "whoShouldCare": [
-        "本地/端侧应用开发者",
-        "AI 工具链与开发者体验工程师",
-        "评估智能体工作流落地的团队"
-      ],
-      "technicalContext": "Ollama 原本封装模型下载、GGUF 加载和本地服务接口。v0.32.0 在此之上叠加了智能体层：命令行入口直接对话、调用工具（写码/搜索/委派），并通过 launch 集成打通外部智能体应用（如 ChatGPT）。默认模型 glm-5.2:cloud 表明它的智能体体验采用本地运行时 + 云端模型的混合架构，而非强制纯本地。",
-      "impactAreas": [
-        "开发者工具",
-        "端侧 AI",
-        "智能体工作流"
-      ],
-      "learningPath": [
-        "升级到 v0.32.0，直接运行 ollama 体验智能体入口与旧版的差异。",
-        "结合「工具使用与函数调用」理解智能体委派工作的基本机制。",
-        "对照「模型选型与约束匹配」，理解为什么旧一代模型会被标记弃用、云模型成为默认。",
-        "用「智能体工作流设计」的框架评估：哪些日常任务适合从手动操作迁移到委派给本地智能体。"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-tool-use": "智能体能「委派实际工作」的基础就是工具调用：把推理与行动分离，才能安全地写码、搜索和执行任务。",
-        "knowledge-model-sizing": "旧一代本地模型被批量标记弃用、云模型成为默认，正说明智能体任务对模型能力的要求超出了多数端侧模型的规模上限。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "Ollama 把智能体做成默认入口后，「什么任务适合委派、边界怎么设」成了每个用户都会遇到的设计问题。",
-        "skill-tool-integration": "launch 集成机制（如 ollama launch chatgpt）就是工具链集成能力的直接应用场景。"
-      },
-      "followUpQuestions": [
-        "智能体模式下哪些操作会触碰本地文件系统和网络，权限边界如何配置？",
-        "默认 glm-5.2:cloud 云模型时，哪些数据会离开本地设备，隐私敏感场景如何回退纯本地？",
-        "被弃用警告的旧模型还能继续用多久，迁移路径是什么？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "reviewed",
-      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-      "createdAt": "2026-07-14T00:51:56.001Z",
-      "updatedAt": "2026-07-27T09:23:47.206Z",
-      "editorialNotes": [
-        "Converted from Ollama releases atom candidate v0.32.0 (2026-07-14 scheduled import); rc0 was already dispositioned earlier. Editorial angle: local runtime repositioning as agent workbench entry, local/cloud hybrid default."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4"
       ]
     },
     {

@@ -144,4 +144,62 @@ describe("evaluateTechnologyPublishReadiness", () => {
       );
     });
   });
+
+  describe("Markdown markers in plain-text fields", () => {
+    // Title and summary render as plain strings on the hero, the list cards,
+    // the digest cards and both feeds; only content goes through ContentBody.
+    // Hit twice for real: 2026-08-12 and again 2026-08-14, the second time
+    // producing 36 marker occurrences across 9 public surfaces.
+    it("warns when a summary carries bold markers", () => {
+      const record = makeWorkspaceRecord({
+        summary: { original: "plain", zh: "它把**编排**从运行时里拆出来。" }
+      });
+
+      expect(codes(evaluate(record).warnings)).toContain(
+        "markdown-markers-in-plain-text-field"
+      );
+    });
+
+    it("warns when a title carries inline code", () => {
+      const record = makeWorkspaceRecord({
+        title: { original: "plain", zh: "升级到 `v0.32.8` 之后" }
+      });
+
+      expect(codes(evaluate(record).warnings)).toContain(
+        "markdown-markers-in-plain-text-field"
+      );
+    });
+
+    it("warns when a summary starts a line with a heading marker", () => {
+      const record = makeWorkspaceRecord({
+        summary: {
+          original: "plain",
+          zh: ["第一句。", "## 小节", "第二句。"].join("\n")
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).toContain(
+        "markdown-markers-in-plain-text-field"
+      );
+    });
+
+    it("does not warn about markers in content, which does render them", () => {
+      const record = makeWorkspaceRecord({
+        content: {
+          original: "plain",
+          zh: ["## 小节", "", "这里的 **加粗** 会被渲染。"].join("\n")
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).not.toContain(
+        "markdown-markers-in-plain-text-field"
+      );
+    });
+
+    it("leaves the default fixture untouched, so the check adds no noise", () => {
+      expect(codes(evaluate().warnings)).not.toContain(
+        "markdown-markers-in-plain-text-field"
+      );
+    });
+  });
 });
