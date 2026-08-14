@@ -321,6 +321,42 @@ export function evaluateTechnologyPublishReadiness(
     );
   }
 
+  /* Title and summary are rendered as plain strings everywhere — the hero, the
+     list cards, the digest cards, `/network`, both feeds. Only `content` goes
+     through `ContentBody`. So a `**bold**` written into a summary reaches
+     readers as asterisks on every one of those surfaces at once.
+
+     This has now happened twice: on 2026-08-12 in the vLLM v0.27.0 summary,
+     and again on 2026-08-14 in two summaries of the same round — 36 marker
+     occurrences across 9 public surfaces before it was caught by looking.
+     Both times every structural check passed, because the markers are
+     perfectly ordinary text. Checking here is what stops the third time. */
+  for (const [field, value] of [
+    ["title", record.title],
+    ["summary", record.summary]
+  ] as const) {
+    const offending = Object.entries(value ?? {})
+      .filter(
+        ([, text]) =>
+          typeof text === "string" &&
+          (text.includes("**") ||
+            /(^|\n)##\s/.test(text) ||
+            /`[^`]+`/.test(text))
+      )
+      .map(([language]) => language);
+
+    if (offending.length > 0) {
+      warnings.push(
+        issue(
+          "warning",
+          field,
+          "markdown-markers-in-plain-text-field",
+          `${field}.${offending.join("/")} 含 Markdown 标记，但该字段按纯文本渲染，标记会原样显示给读者。只有正文走 ContentBody。`
+        )
+      );
+    }
+  }
+
   if (record.tags.length < 2) {
     warnings.push(
       issue(

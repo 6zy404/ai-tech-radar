@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-08-05T08:38:56.910Z",
+  "updatedAt": "2026-08-14T04:01:47.326Z",
   "groups": [
+    {
+      "id": "dup-34ibs2",
+      "candidateIds": [
+        "candidate-rss-https-www-infoq-cn-article-oemzispbwkep8ttkdutf-utm-source-rss-amp-utm-medium-article",
+        "candidate-rss-https-www-infoq-cn-article-ybcpst8secs3xwqzwwle-utm-source-rss-amp-utm-medium-article",
+        "candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article"
+      ],
+      "primaryCandidateId": "candidate-rss-https-www-infoq-cn-article-oemzispbwkep8ttkdutf-utm-source-rss-amp-utm-medium-article",
+      "status": "ignored",
+      "reasons": [
+        "similar_title"
+      ],
+      "createdAt": "2026-08-14T04:01:47.196Z",
+      "updatedAt": "2026-08-14T04:01:47.326Z"
+    },
     {
       "id": "dup-j0hg47",
       "candidateIds": [
