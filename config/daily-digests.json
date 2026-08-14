@@ -1,6 +1,77 @@
 {
-  "updatedAt": "2026-08-13T04:46:51.046Z",
+  "updatedAt": "2026-08-14T00:05:17.574Z",
   "digests": [
+    {
+      "id": "digest-2026-08-14",
+      "date": "2026-08-14",
+      "status": "draft",
+      "title": "每日技术简报 - 2026-08-14",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-84837d46",
+        "skill-ws-d7c9d1d8"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-ws-34da6116"
+      ],
+      "sourceNames": [
+        "Google AI Blog",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-08-14T12:00:00.000Z",
+      "updatedAt": "2026-08-14T00:05:17.567Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
     {
       "id": "digest-2026-08-13",
       "date": "2026-08-13",
