@@ -243,6 +243,53 @@ A quick text scan of the rendered page for internal-only strings
 a cheap extra check — see [`docs/security-boundary.md`](security-boundary.md)
 for the full forbidden-field list.
 
+### Then look at the pages, and look for these six things
+
+Every round from 2026-08-11 onward has found reader-visible defects **after all
+of the checks above came back green** — because every one of them has perfectly
+ordinary DOM and passing contrast. This is the same rule `AGENTS.md` states
+site-wide; what follows is the round-specific version of it, because the same
+handful of mistakes keeps recurring.
+
+Capture the new signal pages and the digest at 1440 light, 1440 dark and 390,
+**sliced at 1:1 viewport height** — not downscaled full-page images, which
+produced three withdrawn findings on 2026-08-01. Then actually open them.
+
+The six that have bitten, most recent first:
+
+1. **The kicker says the wrong content type.** `type` is guessed from the
+   candidate at conversion and nobody re-reads it. A 30B model rendered as
+   工作流, a reproduction audit as 工具 (2026-08-12). It is visible in the hero,
+   so one glance catches it.
+2. **The publisher is a username.** `publisherName` is the **organisation
+   behind the announcement**, not the feed it arrived through — Inkling reads
+   "Thinking Machines" though it came via the Hugging Face blog. All four
+   signals of one round broke it: `khluu` (the person who cut a vLLM release)
+   and 听雨 (a 量子位 author's pen name), with `publisherType` wrong to match.
+3. **Markdown markers in a title or summary.** Those fields are plain strings
+   on every surface; only `content` goes through `ContentBody`. **The publish
+   gate now warns about this** (`markdown-markers-in-plain-text-field`), added
+   2026-08-14 after it happened twice — but read the warning rather than
+   skimming past it.
+4. **A Markdown construct `ContentBody` does not support**, which it passes
+   through verbatim. It handles `##`, `**bold**`, inline code and lists — and
+   nothing else. Blockquotes reached readers as `>` on 2026-08-14; backticks
+   did the same on 2026-08-02, before inline code existed.
+5. **An English word left in Chinese prose.** Established technical terms
+   (`token`, `checkpoint`, `stderr`, `shell`) are deliberate and stay; an
+   ordinary adjective is not. `introductory` survived into a published body
+   twice in one signal, and the second occurrence claimed a phrase was "four
+   characters" when it was not.
+6. **ASCII quotes in Chinese prose.** The site uses 「」 everywhere; source
+   articles use `"`, and copying carries them over. 7 occurrences in one round,
+   0 elsewhere.
+
+Items 1, 2, 5 and 6 are cheap to scan for in the store before rendering
+anything; 3 is now a gate warning; 4 and anything about layout need the
+screenshots. **If the screenshot tool is unavailable, say so in the write-up
+rather than quietly downgrading to DOM checks** — that substitution is exactly
+what let a page ship as ellipses for months.
+
 ## Common mistakes this playbook exists to prevent
 
 - Deciding a candidate twice because the check in Step 1 only looked at
