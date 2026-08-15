@@ -290,6 +290,23 @@ screenshots. **If the screenshot tool is unavailable, say so in the write-up
 rather than quietly downgrading to DOM checks** — that substitution is exactly
 what let a page ship as ellipses for months.
 
+### One more, added 2026-08-16: a hero title over three lines
+
+Every published signal's `h1` renders in 3 lines at 1265px. Two titles written
+that round took **4 lines / 220px against 165px** — while being _shorter_ in
+characters than the 43-character title next to them, because
+`splitIntoUnbreakableRuns` wraps each segmented word in a `.nowrap-run` span
+and a long run pushes whole to the next line. Character count does not predict
+it; measure.
+
+**And measure it on the real markup.** The first attempt to test replacement
+titles set `h1.textContent`, which destroys those spans — so it measured the
+unsegmented string and reported 3 lines for a title that really renders 4,
+which would have shipped the problem it was checking for. Rebuild the same span
+structure with `Intl.Segmenter("zh-CN", { granularity: "word" })` and confirm
+the simulator reproduces the unchanged title's real height before trusting any
+candidate it reports.
+
 ## Common mistakes this playbook exists to prevent
 
 - Deciding a candidate twice because the check in Step 1 only looked at
