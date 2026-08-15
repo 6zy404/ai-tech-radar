@@ -3,7 +3,10 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
-import { getDailyDigests } from "@/lib/digest-workflow";
+import {
+  getDailyDigests,
+  getDigestTechnologySections
+} from "@/lib/digest-workflow";
 import {
   getPublicDigestSummaryPlainText,
   getPublicDigestTitle
@@ -39,13 +42,21 @@ function getPublishedArchiveMonths(): ArchiveMonth[] {
   for (const digest of published) {
     const month = digest.date.slice(0, 7);
     const entries = months.get(month) ?? [];
+    // Count what the digest page actually renders, not the generated section
+    // arrays. Those arrays ignore exclusions and manual additions, so before
+    // 2026-08-16 every entry here read "立即关注 4 条 · 值得跟踪 6 条" — the
+    // generator's fixed output — while the digest itself showed something
+    // else. Measured then: 12 of 12 published digests disagreed with their
+    // own page.
+    const { highPriorityTechnologies, watchTechnologies } =
+      getDigestTechnologySections(digest);
 
     entries.push({
       date: digest.date,
       title: getPublicDigestTitle(digest),
       summary: getPublicDigestSummaryPlainText(digest),
-      highCount: digest.highPriorityTechnologyIds.length,
-      watchCount: digest.watchTechnologyIds.length
+      highCount: highPriorityTechnologies.length,
+      watchCount: watchTechnologies.length
     });
     months.set(month, entries);
   }
