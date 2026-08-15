@@ -1,10 +1,83 @@
 {
-  "updatedAt": "2026-08-15T09:19:43.246Z",
+  "updatedAt": "2026-08-15T22:47:48.103Z",
   "digests": [
+    {
+      "id": "digest-2026-08-16",
+      "date": "2026-08-16",
+      "status": "published",
+      "title": "每日技术简报 - 2026-08-16",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
+      "editorialSummary": "今天的四条信号可以合成一个问题：**一个数字究竟量的是什么。**\n\nHugging Face 的开放模型生态半年报给了这一年最该记住的一处口径。按下载量排前 25 与按点赞数排前 25 的仓库，**只有一个同时出现在两张榜上**：赞衡量的是注意力，下载衡量的是依赖，把其中一把尺子当另一把用，是他们见过最多的错误——包括他们自己早期的工作。同一份报告里，智能体第一次成为 Hub 的第一大用户，而这个市场没有在位者：Claude Code 四月 67.8%、五月 6.4%、七月 44.4%。\n\n另外三条各是这个问题的一个实例。**DeepSeek 把自己的 Harness 以 MIT 开源**，插件边界一路下沉到 Agent Loop 与调度——两天半拿到 11.4 万 star，而仓库元数据里未关闭的 issue 是 0、最后一次提交仍停在创建当天。**Qwen3.8-27B 开源**，量化后一张 24GB 消费级显卡装得下，262K 原生上下文；榜单确实好看，但领先幅度最大的那一项跑在一把名字里带着厂商自己的基准上。**两千两百篇 ICML 论文被社区用编码智能体重跑了一遍**，51% 至少有一条论断被独立验证，23% 至少有一条被证伪，而 242 篇上不同团队给出了相反结论。\n\n最后一条里那句话值得单独拿出来：某个定理的反例在第 224 步之后才出现，**别人之所以都「验证」了它，只是因为检查停得太早。** 这与本站已经记过的形状完全一致——一个从不触发的限制等于没有限制。**「已验证」说的是检查，不是被检查的东西。**",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-2152c7f1",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-tool-integration",
+        "skill-ws-7796779a"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop",
+        "knowledge-model-sizing",
+        "knowledge-ws-c761533e",
+        "knowledge-api-contracts",
+        "knowledge-graph-thinking",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Hugging Face Blog",
+        "InfoQ 中文"
+      ],
+      "generatedAt": "2026-08-16T12:00:00.000Z",
+      "updatedAt": "2026-08-15T22:47:47.967Z",
+      "publishedAt": "2026-08-15T22:47:47.967Z",
+      "editorialNotes": [
+        "生成器选出的 6 条 watch 全部被此前简报收录过，逐条核对后全部排除；本期只收录今天新发布的 4 条。",
+        "头条选生态报告而不是当日最响的 DeepSeek Harness：另外三条各是它那处测量口径的实例，先给尺子再给实例。",
+        "四条的主线是「一个数字量的是什么」，不是主题相近——star 对采用、自命名基准对第三方基准、赞对下载、已验证对检查边界。"
+      ]
+    },
     {
       "id": "digest-2026-08-15",
       "date": "2026-08-15",
-      "status": "draft",
+      "status": "archived",
       "title": "每日技术简报 - 2026-08-15",
       "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
       "editorialSummary": "",
@@ -66,7 +139,7 @@
         "Simon Willison Blog"
       ],
       "generatedAt": "2026-08-15T12:00:00.000Z",
-      "updatedAt": "2026-08-15T09:19:43.240Z",
+      "updatedAt": "2026-08-15T22:47:48.041Z",
       "editorialNotes": [
         "由已发布技术记录按 Ranking v0 优先级生成。",
         "Daily Digest v0 默认排除低优先级条目。"
@@ -230,7 +303,7 @@
     {
       "id": "digest-2026-08-12",
       "date": "2026-08-12",
-      "status": "draft",
+      "status": "archived",
       "title": "每日技术简报 - 2026-08-12",
       "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
       "editorialSummary": "",
@@ -292,7 +365,7 @@
         "Simon Willison Blog"
       ],
       "generatedAt": "2026-08-12T12:00:00.000Z",
-      "updatedAt": "2026-08-12T00:05:52.521Z",
+      "updatedAt": "2026-08-15T22:47:48.103Z",
       "editorialNotes": [
         "由已发布技术记录按 Ranking v0 优先级生成。",
         "Daily Digest v0 默认排除低优先级条目。"

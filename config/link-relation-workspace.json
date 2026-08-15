@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-14T04:07:11.395Z",
+  "updatedAt": "2026-08-15T22:43:07.748Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -3555,6 +3555,411 @@
       "toType": "skill",
       "relationType": "requires",
       "note": "首发绑定 Pixel 11。"
+    },
+    {
+      "id": "rel-ws-94d9f565",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一判断（决定表现的是 Harness 不是模型）下的两种相反答案：微软把运行时做成受支持的产品，DeepSeek 把它拆成可替换零件。"
+    },
+    {
+      "id": "rel-ws-ab8e3c10",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "都在把编排从运行时里拆出来，一个靠外部编排层，一个靠内部插件边界。"
+    },
+    {
+      "id": "rel-ws-8fd10dab",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两天半 11.4 万 star 而三天没有新提交，是「注意力不等于采用」的现成实例。"
+    },
+    {
+      "id": "rel-ws-a2d8ff52",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "可替换性买到的是灵活，付出的是接口稳定性与调试复杂度。"
+    },
+    {
+      "id": "rel-ws-ef802411",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "v0.1 明说核心接口会快速变化，等于明说现在没有可依赖的契约。"
+    },
+    {
+      "id": "rel-ws-a9f75566",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "PTC 代码及其子调用不能绕过审批与沙箱——护栏必须在循环内部。"
+    },
+    {
+      "id": "rel-ws-59418602",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "仅追加会话日志把「什么被带到下一步」变成可检索、可分叉的一份底稿。"
+    },
+    {
+      "id": "rel-ws-ba9f177c",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "流程的形状成了配置项，判断它是否配得上你的流程仍要用那三个交接问题。"
+    },
+    {
+      "id": "rel-ws-4cbffbdf",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "框架接管了审批与沙箱，工具层要不要吸收混乱仍归你。"
+    },
+    {
+      "id": "rel-ws-4281b31f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "微软做成产品、DeepSeek 拆成零件，是同一道自建与采购题的两端。"
+    },
+    {
+      "id": "rel-ws-88f04db1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "统一事件流是归因的前提，读懂轨迹才是这条技能要回答的。"
+    },
+    {
+      "id": "rel-ws-3d38347d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一档尺寸、同一个目标（本地跑的智能体）的两次不同答卷，一个稠密一个蒸馏。"
+    },
+    {
+      "id": "rel-ws-282c4e2e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "两条都在推本地档位的上限，一个压到 2.6B，一个把 27B 塞进 24GB。"
+    },
+    {
+      "id": "rel-ws-f10e4a7f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "151,448 个衍生模型与 GGUF 月下载量，为这一代 Qwen 的基座地位提供外部计数。"
+    },
+    {
+      "id": "rel-ws-fe4c4c1a",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "都以开放权重争夺本地部署这一层，评价口径也同样卡在自测基准上。"
+    },
+    {
+      "id": "rel-ws-a02cb6c2",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "决定跑不跑得动的是显存与量化档位，不是参数量。"
+    },
+    {
+      "id": "rel-ws-cfa2064b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "「量化后装得进 24GB」省略了档位，而档位决定长上下文的输出质量。"
+    },
+    {
+      "id": "rel-ws-1beaf00e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "本地档位上限被推高之后，本地与云的分界线要重新画。"
+    },
+    {
+      "id": "rel-ws-cf79de38",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "reasoning_effort 三档把「想多久」变成可调参数，等于把延迟预算交回调用方。"
+    },
+    {
+      "id": "rel-ws-33992b0b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "第三方基准、自命名基准、同族前一版三类数字在这条公告里凑齐了。"
+    },
+    {
+      "id": "rel-ws-36494a2c",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "量化档位、运行时路径与显存预算在这里全部具体化，含 Apple Silicon 专用构建。"
+    },
+    {
+      "id": "rel-ws-99f52934",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "「这把尺子有没有量过别人」在 QwenSWEBench 上的答案，决定 15.2 分怎么读。"
+    },
+    {
+      "id": "rel-ws-eca3037a",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "首日在四条推理路径上可用，属于「有性能路径」而不只是「能加载」。"
+    },
+    {
+      "id": "rel-ws-20a25ecb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "补上一个此前没写过的细节：前沿闭源模型拒绝分析攻击代码，最终由量化开源模型完成。"
+    },
+    {
+      "id": "rel-ws-e5985038",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "美国这一档 100B 以上多为在中国模型之上的转换与优化，这条报告给了 Meta 转向的生态背景。"
+    },
+    {
+      "id": "rel-ws-87009031",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "explains",
+      "note": "Kimi-K3 大约每收到一个赞被拉取 60 次，是「赞衡量注意力」最直接的例子。"
+    },
+    {
+      "id": "rel-ws-ac6d9452",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "1B 以下拿走 83% 下载量，100B 以上只占 1%。"
+    },
+    {
+      "id": "rel-ws-9b3e17e1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "把点赞当下载的代理，是「尺子换了而没人发现」的生态尺度版本。"
+    },
+    {
+      "id": "rel-ws-4fb1797d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "GGUF 让万亿参数模型摊到几台消费级机器上，本地与云的线又挪了一次。"
+    },
+    {
+      "id": "rel-ws-395441cc",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "knowledge-graph-thinking",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "151,448 个衍生模型是一张真实依赖图：生态位置来自别人建在你之上的东西。"
+    },
+    {
+      "id": "rel-ws-809eb1cb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "读发布公告时最缺的那层背景：同期别人发了什么尺寸、什么许可、多少人真在用。"
+    },
+    {
+      "id": "rel-ws-b4834cf1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "从「这把尺子量过谁」升级成「这把尺子量的是不是你以为的那件事」。"
+    },
+    {
+      "id": "rel-ws-8fd13fd1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "开源重心从模型实验室挪到硬件公司，多出了自建与采购之外的第三个选项。"
+    },
+    {
+      "id": "rel-ws-0297a57f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "gguf 增长 464%、mlx 148%，端侧适配的需求在快速扩大。"
+    },
+    {
+      "id": "rel-ws-a0cdda4e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两项不同研究指向同一问题：那条是 92 篇的智能体审计，这条是 2,226 篇的社区众包复现，口径不同因此数字不可直接相加。"
+    },
+    {
+      "id": "rel-ws-fd0657b8",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "一条主张论文该改成智能体可直接操作的知识包，一条真的让智能体去重跑了三分之一届会议。"
+    },
+    {
+      "id": "rel-ws-977f27f5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "都在量一件「模型知不知道该停在哪里」的事：一个是该不该继续帮忙，一个是检查该不该继续跑。"
+    },
+    {
+      "id": "rel-ws-2baadc68",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "判定器被要求不信任记录的自评，却没人全量复核判定器本身。"
+    },
+    {
+      "id": "rel-ws-305e283a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "「已验证」是一次完成判定，而它错得很安静：检查停在问题显现之前仍然输出通过。"
+    },
+    {
+      "id": "rel-ws-16cefb80",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "最可靠的结果来自有人掌舵的流程，因为只有人会质疑实验前提本身。"
+    },
+    {
+      "id": "rel-ws-0883ff4b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "对每一条声称的证伪做对抗性复核，包括抓出一条假证伪。"
+    },
+    {
+      "id": "rel-ws-84a267a1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "一份评测的可信度取决于停止条件写没写下来，这里有四个具体反例。"
+    },
+    {
+      "id": "rel-ws-5b90533a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "274 份完整执行轨迹被当作一等公民公开，是事后归因的前提。"
+    },
+    {
+      "id": "rel-ws-e9668b85",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "智能体卡在局部循环、误读随规模变化的行为，是流程设计问题不是模型问题。"
+    },
+    {
+      "id": "rel-ws-c71f8d70",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "related-to",
+      "note": "从图表与曲线里读结论，在这场活动里同样是失败来源之一。"
     }
   ]
 }
