@@ -138,9 +138,10 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
         <div className="my-radar__manager-copy">
           <p className="eyebrow user-eyebrow">关注话题</p>
           <h2>选择你想跟踪的话题</h2>
-          <p>
-            关注状态只保存在当前浏览器中，不需要账号。点击话题即可关注或取消。
-          </p>
+          {/* The page description already says follows live only in this
+              browser; repeating it here said the same thing twice, in two
+              different wordings, a few hundred pixels apart. */}
+          <p>点击话题即可关注或取消，不需要账号。</p>
         </div>
         <div
           className="my-radar__tag-list"
@@ -235,12 +236,15 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
           <div className="dossier-technology-list">
             {group.items.map(({ technology, matchedTags }) => (
               <div key={technology.id} className="my-radar__item">
-                <p className="my-radar__match-line">
-                  命中关注：{matchedTags.map((tag) => tag.name).join("、")}
-                </p>
                 <DossierTechnologyCard
                   technology={technology}
                   mode="zh"
+                  matchLine={
+                    <p className="my-radar__match-line">
+                      命中关注：
+                      {matchedTags.map((tag) => tag.name).join("、")}
+                    </p>
+                  }
                   isRead={readingState.isRead(technology.id)}
                   readingActions={
                     <SignalReadingActions

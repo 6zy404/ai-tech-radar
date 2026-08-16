@@ -17,7 +17,9 @@ import {
   getAllTags,
   getAllTechnologies
 } from "@/lib/content";
+import { compactText } from "@/lib/compact-text";
 import { getLatestPublishedDailyDigest } from "@/lib/digest-workflow";
+import { digestCardSummaryLength } from "@/lib/digest-card-summary";
 import { getDailyDigestRenderData } from "@/lib/digest-view";
 import {
   getPublicDigestSummaryPlainText,
@@ -243,7 +245,12 @@ export default function HomePage() {
               </span>
               <span>{digestData.watchTechnologies.length} 条值得跟踪</span>
             </div>
-            <p>{getPublicDigestSummaryPlainText(latestDigest)}</p>
+            <p>
+              {compactText(
+                getPublicDigestSummaryPlainText(latestDigest),
+                digestCardSummaryLength
+              )}
+            </p>
           </DossierCard>
         ) : (
           <div className="empty-state empty-state--actionable">

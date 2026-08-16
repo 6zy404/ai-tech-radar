@@ -3,6 +3,8 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
+import { digestCardSummaryLength } from "@/lib/digest-card-summary";
+import { compactText } from "@/lib/compact-text";
 import {
   getDailyDigests,
   getDigestTechnologySections
@@ -54,7 +56,10 @@ function getPublishedArchiveMonths(): ArchiveMonth[] {
     entries.push({
       date: digest.date,
       title: getPublicDigestTitle(digest),
-      summary: getPublicDigestSummaryPlainText(digest),
+      summary: compactText(
+        getPublicDigestSummaryPlainText(digest),
+        digestCardSummaryLength
+      ),
       highCount: highPriorityTechnologies.length,
       watchCount: watchTechnologies.length
     });

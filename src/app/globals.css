@@ -10024,7 +10024,13 @@ a.tech-graph__node:hover {
  * 448px document on a 390px viewport (470 elements painted off-screen), the
  * same mechanism as the 2026-07-29 compare-widget <select>.
  */
-.dossier-related-section__topline .dossier-stamp-tag {
+.dossier-related-section__topline .dossier-stamp-tag,
+/* The signal card's own topline needs it for the same reason, and only shows
+   the defect once a third element joins the row: on a card the reader marked
+   read, the 已读 stamp squeezes the priority stamp beside it, so the same
+   「立即关注」 measured 26px on most cards and 42px there (2026-08-16). The
+   catalog span next to them is the flexible one and still wraps. */
+.dossier-technology-card__topline .dossier-stamp-tag {
   flex-shrink: 0;
   white-space: nowrap;
 }
