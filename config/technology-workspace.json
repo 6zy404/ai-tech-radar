@@ -1,6 +1,463 @@
 {
-  "updatedAt": "2026-08-15T22:54:23.878Z",
+  "updatedAt": "2026-08-16T01:29:29.821Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "slug": "deepseek-harness-everything-is-a-plugin",
+      "title": {
+        "original": "DeepSeek 把 Harness 开源了：模型、工具、Agent Loop 全是插件",
+        "zh": "DeepSeek Harness 开源：连 Agent Loop 都能换掉"
+      },
+      "summary": {
+        "original": "DeepSeek 于 2026-08-13 以 MIT 协议开放 DeepSeek Harness 开发者预览版 v0.1，模型、工具、技能、会话、沙箱、存储、Agent Loop、调度与 UI 全部实现为插件。",
+        "zh": "DeepSeek 以 MIT 协议开放了自己的 Harness 开发者预览版，把插件边界从工具层一路下沉到运行时：模型、工具、技能、会话、沙箱、存储、Agent Loop、调度和 UI 全是插件，换掉任何一层都不用改 Harness 源码。仓库两天半拿到 11.4 万 star，但同一份元数据里还有三个数字说明这是注意力而不是采用。"
+      },
+      "content": {
+        "original": "DeepSeek released its Harness developer preview (v0.1) under MIT on 2026-08-13. Everything — model, tools, skills, session, sandbox, storage, Agent Loop, scheduling and UI — is a plugin loaded by the Cordis meta-framework.",
+        "zh": "DeepSeek 在 2026-08-13 放出了自己的 Harness 开发者预览版 v0.1，源码以 MIT 协议开放。过去几个月围绕 AI 编码的讨论正在从模型转向 Harness——同一个模型放进不同的智能体系统，表现可以差很远，因为模型只负责预测下一步，而 Harness 决定它能看到什么、能调用哪些工具、上下文怎么组织、出错怎么重试、以及什么时候算做完了。\n\n## 插件边界下沉到了整个运行时\n\n主流编码智能体大多支持插件、MCP 或自定义工具，但可扩展范围通常停在工具与技能层。DeepSeek Harness 把这条边界一路推到底：**模型、工具、技能、会话、沙箱、存储、Agent Loop、调度和 UI 全部由插件组成**，替换任何一层都不需要改 Harness 源码。\n\n底座是 Cordis 元框架，它本身只处理插件的加载、卸载与依赖，具体能力由插件提供，插件之间通过服务和事件协作，再由配置决定它们怎么组合。\n\n工具调用也被拆成一条可扩展流水线：请求执行前依次经过 Hook、审批、权限检查、沙箱与超时控制，执行后还能改写结果、记录和渲染。**程序化工具调用（PTC）产生的代码及其子调用同样走这条流水线，不能绕过审批与沙箱**——这一句比整套插件架构更重要，因为它决定了「什么都能换」有没有掏空安全边界。\n\n## 四种模式其实是四套插件组合\n\n它没有维护四套系统，四种模式的差别只在默认加载哪些插件：\n\n1. **标准模式**：完整工具组合，面向常规智能体任务。\n2. **PTC 模式**：允许模型生成代码，把多轮工具调用组合起来一次执行。\n3. **极简模式**：只保留 shell 与文件编辑两个工具，用来在最小环境里测模型本身的能力，减少其他组件干扰。\n4. **创造模式**：智能体检查自己所处的运行时，在内存中试装 Cordis 插件，据此组合出新的运行模式。\n\n第四种是真正的新东西。传统 Harness 的运行方式由产品开发者预先写定，用户只能在既有配置里选；创造模式让**配置本身成为智能体可以操作的对象**。它离「智能体改造自己的 Harness」还有多远，要等真实任务来验证。\n\n## 所有轨迹汇进同一条事件流\n\n模型看到的每一样东西都进入同一份**仅追加**的会话日志：系统提示词、推理内容、工具调用及其结果、子智能体调度、每一次上下文注入。任务失败时，问题可能出在模型判断、工具返回、上下文注入、调度策略或系统提示词中的任何一处；这些内容散落在不同组件里，就没人能还原模型当时究竟看到了什么。统一事件流给调试、评估和回放提供了一份共同底稿，也让会话分叉有了自然的数据结构——新分支沿用分叉点以前的事件，再追加新的行动，不必覆写历史。\n\n## 多智能体：架构有新意，编排没有突破\n\n父智能体可以用 Spawn 启动全新上下文的子智能体，也可以用 Fork 让它继承已有会话；更复杂的任务可以由模型现场写 JavaScript，用 `parallel()` 与 `pipeline()` 组织并行或流水线，或用 Ralph 模式让多个全新智能体按轮次接力。\n\n放进常见编排模式里，它最接近层级式的 Supervisor–Worker，离真正的 Swarm 还远：任务分配与控制权仍然握在父智能体手里，没有智能体之间的自主发现、协商与动态接管。Spawn、Fork、Pipeline、Ralph 都有成熟先例，**特别的地方在于它们被做成了可随配置替换的插件**，甚至可以把 Claude Code、Codex 或支持 ACP 的外部智能体接到同一个子智能体接口后面。\n\n## 报道之外，仓库自己说了什么\n\n正文来自 InfoQ 中文的报道，但仓库元数据可以一手核对。截至 2026-08-16，`deepseek-ai/deepseek-harness`：MIT 协议，TypeScript，创建于 2026-08-13，**114,625 star、11,151 fork**——两天半，量级确实罕见。\n\n同一份元数据里还有三个数字，方向相反：\n\n- **未关闭的 issue 是 0**，对一个 11 万 star 的 v0.1 预览版来说，几乎只能解释为 issue 功能被关掉了。\n- **最后一次 push 仍是创建当天**，而发布说明写的是核心插件与基础接口会「快速迭代」。\n- **没有任何 GitHub release**，版本号只出现在提交信息里，最新一条是 `0.1.0-rc.5`。仓库创建当天 PR 编号已经到 #2519，说明它是私下开发完再一次性推上来的。\n\n所以这个 star 数量度的是**注意力，不是采用**。同一轮里那份开放模型生态报告给了这句话系统性的证据：在 Hub 上按下载量排前 25 与按点赞数排前 25 的仓库，只有一个同时出现在两张榜上。\n\n## 边界\n\n这条是二手报道加一手仓库核对。v0.1 阶段接口会快速变化，现在进入生态要承担迁移成本；插件边界越深，接口稳定性、依赖管理、版本兼容、性能开销与调试复杂度就越难控制。而且**「什么都能换」不会自动带来更高的任务成功率**——最终兑现它的仍然是默认插件的质量、稳定的组合范式和可信的评测结果。"
+      },
+      "type": "platform",
+      "publishDate": "2026-08-14",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "DeepSeek",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-api-contracts",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T01:29:29.821Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "把 Harness 的插件边界推到 Agent Loop 与调度这一层，等于把「智能体按什么规则工作」也交了出去。这与三天前微软那条正相反：微软把运行时做成受支持的产品并预置一整套默认值，DeepSeek 把同一层拆成可替换零件并用 MIT 放开。两条路线服务的是同一个已被确认的判断——决定表现的越来越是 Harness 而不是模型——但它们对「谁拥有循环」给出了相反的答案。",
+      "whoShouldCare": [
+        "正在选型编码智能体运行时、需要决定自建还是采购的平台团队",
+        "想替换 Agent Loop、调度或上下文策略做对照实验，却被现成 Harness 的固定流程挡住的研究与评测团队",
+        "需要在审批、沙箱与权限检查上保留控制权，因此关心 PTC 代码是否绕过安全流水线的安全角色",
+        "在评估国产开源智能体基础设施、需要区分 star 数与真实采用的技术决策者"
+      ],
+      "technicalContext": "Cordis 元框架只负责插件的加载、卸载与依赖解析，能力全部来自插件，组合方式由配置决定。工具调用是一条前置 Hook、审批、权限检查、沙箱、超时，后置结果改写、记录、UI 渲染的流水线，程序化工具调用共享同一套安全与观测机制。会话状态是一份仅追加日志，模型可见的全部内容都写进去，恢复、分叉、检索与回放都建立在它之上。多智能体走层级式编排，Spawn 新建上下文、Fork 继承会话，外部智能体可通过 ACP 接到同一个子智能体接口后面。",
+      "impactAreas": [
+        "智能体运行时的自建与采购边界",
+        "把 Agent Loop 与调度做成可替换插件后的对照实验能力",
+        "程序化工具调用与审批、沙箱的关系",
+        "开源仓库热度指标与真实采用之间的差距"
+      ],
+      "learningPath": [
+        "先看「四种模式其实是四套插件组合」那一节，把极简模式记下来——只留 shell 与文件编辑，是把模型能力与 Harness 能力分开测量的最简办法",
+        "再看仅追加会话日志那一节，对照自己项目里失败一次之后能不能还原模型当时看到的全部内容",
+        "拿仓库那三个数字（issue 0、push 停在创建当天、无 release）当模板，给你正在评估的任何高热度开源项目做同一遍核对",
+        "读《AI 工具链选型与自建边界评估》，把「哪一层必须归我」这个问题先答完，再决定要不要换 Harness"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-system-design": "把一切做成插件，买到的是可替换性，付出的是接口稳定性、依赖管理与调试复杂度——这条信号是「没有代价的决定不是权衡」最直白的一次实例。",
+        "knowledge-api-contracts": "插件边界越深，接口就越是承诺。v0.1 明说核心接口会快速变化，也就等于明说现在还没有可依赖的契约。",
+        "knowledge-human-loop": "PTC 生成的代码及其子调用不能绕过审批与沙箱，这是「护栏必须在循环内部」在可插拔架构里的具体写法。",
+        "knowledge-ws-a28a8a56": "仅追加的会话日志把「什么被带到下一步」变成一份可检索、可分叉的共同底稿，而不是散在各组件里的碎片。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "它把流程的形状做成了配置项；判断一套可替换的 Loop 是否配得上你的流程，用的还是这条技能里的那三个交接问题。",
+        "skill-tool-integration": "工具调用流水线把审批、沙箱与结果改写放进了框架，但工具层要不要吸收混乱仍然归你。",
+        "skill-ws-2152c7f1": "微软把运行时做成产品，DeepSeek 把它拆成零件——这两条正好是同一道自建与采购题目的两端。",
+        "skill-ws-f741f122": "统一事件流是可观测性的前提；能不能读懂那些轨迹、并据此归因，才是这条技能真正回答的问题。"
+      },
+      "followUpQuestions": [
+        "如果 Agent Loop 可以被换掉，你怎么保证换掉之后审批与沙箱这条流水线还在原位？",
+        "创造模式让智能体自己试装插件，越权的边界由谁定义、在哪一层强制？",
+        "两天半 11.4 万 star 而三天没有新提交——再过两周，用哪几个数字判断它是在成长还是停在了发布日？",
+        "把 Claude Code 或 Codex 接到子智能体接口后面之后，这条统一事件流还完整吗，还是只剩下自己那一半？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-15T22:30:27.946Z",
+      "updatedAt": "2026-08-16T01:29:29.820Z",
+      "editorialNotes": [
+        "来源为 InfoQ 中文对 DeepSeek 发布的报道，非厂商一手公告；架构描述以该报道为准。",
+        "仓库数字（114,625 star / 11,151 fork / open issues 0 / pushed_at 停在 2026-08-13 / 无 GitHub release / 提交里最新版本号 0.1.0-rc.5 / 创建当天 PR 已到 #2519）为 2026-08-16 通过 GitHub API 一手核对，正文已标注核对日期。",
+        "publisherName 由转换时默认填入的 InfoQ 作者名改为 DeepSeek，publisherType 改为 startup；type 由 workflow 改为 platform，与同族的 microsoft-agent-framework-harness 保持一致。",
+        "与 microsoft-agent-framework-harness 用印证关系连接：同一判断（Harness 决定表现）下的两种相反答案。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "slug": "bigbang-v1-self-evolving-data",
+      "title": {
+        "original": "当题库追不上模型，AI开始给自己出题：中国这支团队跑通了数据层RSI",
+        "zh": "BigBang-v1：把数据生产系统本身当成优化对象，以及一处对不上的口径"
+      },
+      "summary": {
+        "original": "无尽前沿团队发布 BigBang-V1，后训练数据 100% 由 AI 自主合成。",
+        "zh": "上海交大人工智能学院、深势科技与上海算法创新研究院组成的无尽前沿团队发布 BigBang-v1：35B 参数、推理时约 3B 激活、262K 上下文，后训练数据称 100% 由 AI 自主合成，Apache-2.0 开源。可复用的不是跑分，而是它对任务的两个硬条件——必须同时前沿且可验证；缺一，合成数据都会迅速贬值。附一条核对：报道称它是「首个 RSI 原生训练的基座模型」，而 Hugging Face 上的元数据把它标为 Qwen3.6-35B-A3B 的微调。"
+      },
+      "content": {
+        "original": "The Endless Frontier team released BigBang-V1, a 35B model whose post-training data is claimed to be 100% AI-synthesized.",
+        "zh": "## 它主张的是什么\n\n上海交大人工智能学院、深势科技与上海算法创新研究院组成的**无尽前沿团队**发布 BigBang-v1：**35B 参数、推理时约 3B 激活、262K 上下文**，后训练数据称 **100% 由 AI 自主合成**，以科学前沿任务为核心，出题、解题、验证全部交给 AI，不需要人类逐题参与。模型与技术报告同步公开。\n\n厂商给出的成绩：在长程搜索、代码、科学研究、AI 研究等评测中拿下全部 35B 模型里的 10 项第一；在 FrontierScience Research、PaperBench 等高难度科研任务上超过 1T 级的 DeepSeek V4 Pro Preview；BrowseComp 76.5，SWE-Bench Pro 54.2。\n\n**这些数字全部是厂商自报的**，来源文章本身也带明显的推介口吻（含作者自己的上手演示、无对照、无批评视角）。所以下面只取那个不依赖跑分也成立的部分。\n\n## 真正可复用的是对任务的两个条件\n\n它把问题从「如何收集更多科学数据」换成了「**如何让数据生产系统随着模型能力一起进化**」——也就是让数据生产系统本身成为被优化的对象。\n\n要让这样一套系统持续跑下去，任务必须**同时**满足两条：\n\n1. **前沿性**——任务位于当前知识或模型能力的边界，甚至没有已知最优答案。静态题库会被模型迅速耗尽，而科学前沿会持续产生新问题。\n2. **可验证性**——候选方案能通过形式化方法、程序执行、数值计算、模拟器、实验反馈或领域工具做客观检查。\n\n**缺一，数据都会快速贬值**：只前沿而无法验证，系统拿不到可靠训练信号；只可验证而没有难度，任务很快落后于模型能力。这两条比任何跑分都更值得记住，因为它给「合成数据到底该合成什么」提供了一个可以照着筛的判据。\n\n报告顺带否掉了两类常见做法，理由都具体：一类只给模型套一层外壳（比如 harness）让它自己调工具改提示词，**底层训练管线原封不动**；另一类用大模型给生成数据打分筛选，但**评判标准是人类预先写死的规则，不会跟着模型能力一起演化**——模型变强之后旧尺子失效，仍然源源不断产出低价值样本。第二条正是本站《评估闭环》里那句「尺子变了没有」的反面：这里的问题不是尺子变了，而是尺子**不会**变。\n\n## 一处对不上的口径\n\n报道称 BigBang-v1 是「首个基于 recursive self-improving 原生方式训练出的**基座模型**」。而 Hugging Face 上的制品（`endless-frontier/BigBang-v1`，Apache-2.0）元数据把它标为 `Qwen/Qwen3.6-35B-A3B` **的微调**；35B 总参、约 3B 激活与该基座的规格一致。\n\n同一篇报道另一处写的是「**后训练**数据 100% 由 AI 自主合成」——这句与「微调」自洽，与「基座模型」不自洽。合理的读法是：RSI 发生在后训练阶段，底座是别人的。这不削弱那套数据管线的价值，但把主张的范围收窄了不少。\n\n值得记下来的是这次核对本身只花了一次查询。**开放权重的附带好处，是宣传口径可以被制品当场校对**——闭源发布连这一步都做不了。\n\n## 放在这条线上看\n\n本站已发布的 GPT-Red 是自博弈让闭环自己产出下一轮输入，NVIDIA Nemotron 开放数据是把合成数据当作可分发的公共品，TutorMoments 则量出了模型在笼统目标下的行为偏差。这一条补的是中间那一段：**当出题的速度成为瓶颈时，被优化的对象应该是出题的系统**。\n\n它同时是一个提醒——本站 08-10 的信源盘点已经指出，中文信源里产业 PR 的比例明显更高。这条之所以还是被留下，是因为它有可核对的开放制品，而不是因为它的跑分好看。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-09",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/468782.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "量子位",
+      "publisherType": "media",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-818b7bb3",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-36346103",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-84837d46",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T01:25:01.094Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "模型越强，能给它出题、解题、验证的人越少——高质量训练数据的瓶颈正在从「收集」转移到「出题」。这条信号给出的可复用判据是：能撑起自我进化的任务必须同时具备前沿性与可验证性，缺一数据都会快速贬值。附带一个方法上的收获：它的开放权重让「首个 RSI 原生基座模型」这个宣传口径当场就能被制品校对出偏差。",
+      "whoShouldCare": [
+        "在做合成数据管线、正在纠结「该合成什么」而不是「合成多少」的训练团队",
+        "评估开源模型时习惯先看跑分、想补一套核对制品与口径的工程负责人",
+        "关注 recursive self-improving 这条路线落地形态的研究与战略角色",
+        "需要为领域任务设计可自动验证信号的评测负责人"
+      ],
+      "technicalContext": "Recursive self-improving 指让 AI 参与迭代自身的模型、算法、数据与研发流程。目前多数落地停在两种形态：给模型套工具外壳，或用大模型对生成数据打分筛选——前者不触动训练管线，后者的评判规则由人预先写死、不随模型能力演化。BigBang 的做法是把数据生产系统本身纳入优化对象，并用「前沿且可验证」这两个条件筛选任务载体，因而选择了科学领域作为训练场：它天然组合了搜索、阅读、提出假设、数学推导、代码开发、工具调用、实验分析与结果写作。",
+      "impactAreas": [
+        "合成数据的任务选型判据",
+        "自我进化的数据生产管线",
+        "开放权重带来的宣传口径可核对性",
+        "科研与工程任务上的评测设计"
+      ],
+      "learningPath": [
+        "先把「前沿性 + 可验证性」这两条拿去筛一遍你现有的合成数据任务，看哪些其实只满足一条",
+        "读《评估闭环》，对照「尺子不会变」这个失败模式——它与「尺子变了」同样致命，但更难察觉",
+        "读《合成数据与数据配方》，把数据质量从「洗出来的」重新理解成「任务属性决定的」",
+        "自己去 Hugging Face 上核对一次模型元数据与报道口径，把这一步变成读任何开源发布的默认动作",
+        "读《模型选型与约束匹配》，判断 35B 总参、约 3B 激活这个规格对你的约束是不是合适"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-818b7bb3": "它把数据质量从「清洗出来的」改口为「任务属性决定的」，是这条概念目前最锋利的一种表述。",
+        "knowledge-evaluation-loops": "用大模型按人写死的规则筛数据，是一种尺子不会随能力演化的闭环——环还在转，但已经不再收紧。",
+        "knowledge-ws-36346103": "底座是 Qwen3.6-35B-A3B，35B 总参与约 3B 激活的差距正是 MoE 的常规读法。",
+        "knowledge-model-sizing": "35B 总参、3B 激活、262K 上下文是一组具体约束；决定能不能用的从来不是参数量本身。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "「前沿且可验证」本质上是在说：先写下什么算好，而且要写成机器能判的。这条技能讲的正是那一步。",
+        "skill-ws-84837d46": "它的全部主张都落在后训练阶段——数据配方而非架构，这条技能是读懂它的前提。",
+        "skill-ws-dddaf80c": "自报 10 项第一、超过 1T 模型，是典型的厂商定义指标；用这条技能里的三类数字分法读，就知道哪些能横比。"
+      },
+      "followUpQuestions": [
+        "你的领域里有哪些任务是真正可自动验证的？如果一条都举不出来，这套方法就用不上。",
+        "「后训练数据 100% 由 AI 合成」中，用来做验证的那一环是否也完全无人参与？报道没有说清这一点。",
+        "技术报告是否给出了数据管线自身迭代的消融实验？没有的话，收益归因于 RSI 还是归因于基座，无法区分。",
+        "如果底座是 Qwen3.6-35B-A3B，那么与同底座的其他后训练版本对比，才是能说明问题的对照组——这组数据在哪里？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-468782",
+      "createdAt": "2026-08-10T12:59:38.493Z",
+      "updatedAt": "2026-08-16T01:25:01.094Z",
+      "editorialNotes": [
+        "来源为量子位报道，带明显推介口吻（含自行上手演示、无对照组、无批评视角）；全部跑分均为厂商自报，正文已就此加限定。",
+        "制品核对：Hugging Face 上 endless-frontier/BigBang-v1（Apache-2.0，2026-08-02 创建，社区已出 GGUF/MLX 量化）元数据为 base_model:finetune:Qwen/Qwen3.6-35B-A3B，与报道所称「基座模型」不符，已写入正文。",
+        "定 signal 而非 important：方法层的判据可复用，但收益归因缺少同底座对照，且证据链依赖厂商自报。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "slug": "vercel-zero-agent-native-language",
+      "title": {
+        "original": "Vercel 发布新语言 Zero：代码不是写给人看的，而是写给 AI 的",
+        "zh": "Vercel Zero：一门把编译器输出的第一读者当成智能体的语言"
+      },
+      "summary": {
+        "original": "Vercel Labs released Zero, an experimental systems language built on the premise that the compiler's primary reader is an AI agent rather than a human.",
+        "zh": "Vercel Labs 发布实验性系统语言 Zero，前提是编译器输出的主要阅读者不再是人：每个子命令都统一支持 JSON 输出、错误带稳定代码与带类型的修复元数据，副作用必须走编译器强制的能力参数，而 v0.3.0 起图存储才是编译器输入、源码文件降为给人看的投影。"
+      },
+      "content": {
+        "original": "See the InfoQ article and the Zero language reference.",
+        "zh": "## 前提\n\nZero 是 Vercel Labs 的实验性系统编程语言，Apache 2.0，`.0` 扩展名，可编译到 Linux / macOS / Windows 原生二进制。早期报道盯着体积与速度（Hello World 号称一毫秒内构建、16.2 KiB），**但那不是它真正特别的地方**。\n\n它的设计前提是一句话：**编译器输出的主要阅读者不再是人类，而是智能体。**\n\n## 工具链被写成了契约\n\n- 单一 `zero` 二进制的**每个子命令**都支持统一的 `--json`，且使用同一套诊断模式\n- 错误携带**稳定代码**（如 `NAM003`）与**带类型的修复元数据**（如 `declare-missing-symbol`）\n- `zero fix --plan --json` 返回一份**机器可读的修复计划**，智能体可以接受、编辑或拒绝，而不是盲目套用\n\n这正是本站《API 契约与接口边界》里那条判据的落地：**出错时的形状也是契约的一部分**。一个每次都换措辞的错误信息，对人只是烦，对自动修复的智能体是不可用。\n\n## 副作用被搬到了签名上\n\n任何与外部世界交互的函数**必须接受一个能力参数** `World`，并由编译器强制。于是只看函数签名就能判断这段代码能不能访问网络、文件系统或标准输出。\n\n对智能体而言，这把「它会不会偷偷做别的事」从**读代码**变成了**读类型**——与《智能体工作流设计》里那条判据同构：**如果模型决定越界，是什么在物理上阻止它？**\n\n## 最激进的一步在 v0.3.0\n\n图优先创作成为常规工作流：`zero.graph` **这份二进制存储才是编译器的输入**，`.0` 文本文件降级为**给人阅读的投影**，智能体则通过 `zero query` 与 `zero patch` 工作。补丁受图哈希保护，过期或无效的编辑在写入存储之前就会失败。\n\n这和前一天发布的 ARA 是同一个动作，只是换了对象：**ARA 把论文从叙事改成机器可操作的知识包，Zero 把源码从文本改成图。** 两者都把「给人看的那一版」降级为投影。\n\n## 代价写在了迁移路径上\n\nv0.1.4 是行语法，v0.2.0 把规范化的 `.0` 文本提升为原生源码载体，v0.3.0 **在编译器边界彻底拒绝源码投影输入**。既有的文本优先包必须用 `zero import` 导入图、再用 `zero export` 与 `zero verify-projection` 完成人工审查与 CI 漂移检查。v0.3.2 把大型程序的导入速度提升约 12 倍，正是因为这个转换本身太贵。\n\n## 质疑值得原样带上\n\nHacker News 上的反对意见有两类，第二类更难回答：\n\n1. **「没劲，唯一的新东西是能力机制」**，以及「结构化错误消息已经存在几十年了」。反驳是：重点不在开发者，而在智能体——对人只是便利的东西，对自动修复是可用性的前提。\n2. **「智能体最擅长的语言，将会是那些在预训练数据里出现最多的语言。」** 这一条针对的是采用而不是设计，而一门新语言天然处在劣势。有人以 Svelte 的重大 API 变更为例反驳说训练数据的重要性可能低于预期，但这是类比不是证据。\n\n项目自己写明：**仍处于实验阶段、预计出现破坏性变更、应在隔离工作区运行，不要用于生产系统或敏感数据。** 目前 v0.3.4，GitHub 星标 5200 以上。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-12",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Vercel Labs",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use",
+        "knowledge-system-design",
+        "knowledge-graph-thinking"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T01:25:01.036Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把「为机器设计产物」从主张变成了可运行的东西：错误有稳定代码、修复是可协商的计划、副作用写在签名上、源码本体是图而文本只是投影。同一周的 ARA 对论文做了同一件事。",
+      "whoShouldCare": [
+        "在建智能体编码工具链的工程团队",
+        "关心工具返回值能否被机器读懂的人",
+        "在设计给自动化消费的 API 与诊断格式的人"
+      ],
+      "technicalContext": "Zero 使用 .0 扩展名与 Apache 2.0 许可，编译为原生二进制。工具链契约包含统一 --json、稳定诊断代码与带类型修复元数据；副作用通过编译器强制的 World 能力参数暴露；v0.3.0 起二进制图存储为编译器输入，文本为投影，补丁受图哈希保护。",
+      "impactAreas": [
+        "智能体编码工具链",
+        "诊断与错误契约设计",
+        "源码表示形式",
+        "能力式副作用控制"
+      ],
+      "learningPath": [
+        "先看它的错误契约：稳定代码加带类型的修复元数据，这一层与语言无关，可以直接搬",
+        "再看 World 能力参数如何把「能做什么」提升到类型层",
+        "最后判断图优先创作的代价，迁移路径本身就是它最大的成本"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-api-contracts": "稳定错误代码与带类型的修复元数据，是「出错时的形状也是契约」的直接落地。",
+        "knowledge-tool-use": "修复计划以 JSON 返回，智能体可接受、编辑或拒绝——工具返回值要能被机器读懂。",
+        "knowledge-system-design": "图存储成为唯一真相，换来的是迁移成本，这是一次典型的锁死型权衡。",
+        "knowledge-graph-thinking": "源码本体是图、文本只是投影，把图思维推到了编译器边界。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "World 能力参数由编译器强制，是「什么在物理上阻止越界」的答案。",
+        "skill-tool-integration": "统一 --json 与同一套诊断模式，是工具层吸收混乱而不是转发混乱。",
+        "skill-ws-2152c7f1": "实验阶段、破坏性变更、需隔离运行——自建边界评估的现成材料。"
+      },
+      "followUpQuestions": [
+        "预训练数据劣势是否会压过设计优势，一门新语言如何被智能体学会？",
+        "图存储成为唯一真相之后，代码审查与版本控制怎么做？",
+        "能力参数在多大规模的程序上仍然不繁琐？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-13T04:39:49.056Z",
+      "updatedAt": "2026-08-16T01:25:01.036Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-469721",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "slug": "qwen3-8-27b",
+      "title": {
+        "original": "源神启动！一张消费级显卡跑「Opus 级」Agent，Qwen3.8-27B 多项榜单反超 Claude",
+        "zh": "Qwen3.8-27B 开源：消费级显卡跑得动，尺子却是自己命名的"
+      },
+      "summary": {
+        "original": "阿里巴巴于 2026-08-14 以 Apache 2.0 开源 Qwen3.8-27B：270 亿参数稠密原生多模态模型，262K 原生上下文可外推至 100 万 token，量化后可装进 24GB 显存。",
+        "zh": "270 亿参数、原生多模态、262K 上下文可外推到 100 万，Apache 2.0，量化后一张 24GB 消费级显卡装得下——这一代 Qwen 把「本地跑得动的智能体」这条线又往前推了一格。榜单确实好看，但领先幅度最大的那一项跑在一把以厂商自己命名的基准上，而所有对比都由厂商自己完成。"
+      },
+      "content": {
+        "original": "Alibaba open-sourced Qwen3.8-27B under Apache 2.0 on 2026-08-14: a 27B dense natively-multimodal model with 262K native context extendable to 1M tokens via YaRN.",
+        "zh": "2026-08-14，阿里以 Apache 2.0 协议开源 Qwen3.8-27B。27B 是社区呼声最高的尺寸，原因很实际：**量化之后，24GB 显存的 RTX 3090 / 4090 这类显卡能整卡装下**，而上下文没有跟着缩水——原生 262K token，通过 YaRN 可外推至 100 万。\n\n## 值得记的是架构，不是尺寸\n\n模型共 64 层，其中 **48 层用 Gated DeltaNet 线性注意力，16 层保留完整注意力**，大致按「三层线性 + 一层完整」的节奏循环。线性注意力压住长序列的计算与缓存开销，完整注意力隔几层做一次更充分的信息交互——262K 原生上下文是这个配比换来的，不是堆出来的。这个骨干与 Qwen3.5 / 3.6 同源，ms-swift 的发布说明也是这么描述的。\n\n两个面向长任务的开关同样值得记：\n\n1. `reasoning_effort` **分 xhigh / medium / low 三档**，复杂代码与长程智能体任务拉高，简单问答降下来换速度和成本；Thinking 也可以整个关掉。\n2. `preserve_thinking` **默认开启**，前几轮「怎么想的」会留在后续上下文里。编码智能体连改十几个文件时，可以沿着前面的决策继续走，同时更好地复用 KV 缓存。\n\n## 生态当天就跟上了\n\n- **Ollama v0.32.12**（08-14）加入 `qwen3.8:27b`，并为 Apple Silicon 单独提供了 `qwen3.8:27b-mlx` 构建；次日的 v0.32.13 补上开发者指令支持。\n- **ms-swift v4.5.0**（08-14）同日适配训练与后训练侧。\n- 官方侧接上了 Transformers、vLLM、SGLang 与 TokenSpeed，Hugging Face 上量化版本入口同时开放。\n\n首日可服务这件事本身已经不新鲜了——从 Kimi K3 到 Muse Glimmer，本站记过好几次；值得注意的是这次连 Apple Silicon 的专用构建都在同一天。\n\n## 榜单很好看，但尺子是谁的\n\n厂商公布的对比里，Qwen3.8-27B 在多项评测上超过 Claude Opus 4.6 Max：\n\n- **SWE-bench Pro**：领先 8.3 分\n- **QwenSWEBench**：领先 15.2 分\n- **CoWorkBench**：70.7 对 68.2\n- **OSWorld-Verified**（电脑操作）：84.3 对 72.7\n- **AndroidWorld**（手机操作）：81.9 对 62.0\n\n**领先幅度最大的那一项，跑在一把名字里带着厂商自己的基准上。** 本站《模型与输出评估》里那条判据在这里几乎是逐字适用的：一个数字能不能横比，先问这把尺子有没有量过别人。QwenSWEBench 领先 15.2 分，而第三方的 SWE-bench Pro 领先 8.3 分——两个数差了将近一倍，方向一致但幅度不一致，而且**所有对比都是厂商自己跑的**，不是第三方复现。\n\n浏览器操作 WebArena-Verified 从上一代的 48.8 提升到 64.8，是这批数字里口径最干净的一个：同族前一版，同一项评测。\n\n## 社区实测是用户报告，不是评测\n\n量子位那篇里引了两条网友实测，值得读但要按用户报告对待：一位把 FP8 版本放在单张 GH200 上并发跑 10 个请求、每个最高输出 16K token、上下文拉到 262K，首批流式 token 基本在 10 毫秒内返回；另一位丢给它一部 1935 年的 11 分钟影片，让它识别 96 个带时间戳的事件并逐字引用画面文字，157 秒完成、时间点误差约 2 秒。没有对照组、没有重复运行，所以它们说明的是「跑得起来」，不是「跑得比谁好」。\n\n## 一处可核对的口径差\n\n官方称千问已累计开源 460 余个模型、全球下载超 30 亿次、**衍生模型数超 30 万个**。同一周 Hugging Face 那份生态报告独立数出来的是 **Hub 上 151,448 个 Qwen 衍生模型**。两个数字差了大约一倍，但并不矛盾——一个统计跨平台（含魔搭），一个只统计 Hub。**知道它们口径不同，比记住哪个更大有用。**"
+      },
+      "type": "model",
+      "publishDate": "2026-08-15",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/473669.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "阿里巴巴通义千问",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-on-device",
+        "tag-multimodal",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-c761533e",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-ws-d7c9d1d8",
+        "skill-model-evaluation",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T01:25:00.953Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "本地能跑的那一档模型，长期以来的代价是上下文短、多模态缺失或智能体能力弱。27B 这个尺寸同时给了 262K 原生上下文、原生视觉理解和可调的推理深度，而且是 Apache 2.0——这把「先看看能不能本地跑」从妥协方案变成了默认起点。同一周 Hugging Face 的生态报告给了这件事的宏观背景：小模型拿走 83% 的下载量，而 Qwen 是社区衍生模型最多的基座。",
+      "whoShouldCare": [
+        "手里有一张 24GB 消费级显卡或大内存 Mac、想在本地跑长上下文编码智能体的开发者",
+        "在自托管与云 API 之间做取舍、需要知道本地档位上限已经推到哪里的平台团队",
+        "要读厂商发布公告并决定换不换的技术负责人——尤其是需要区分第三方基准与自命名基准的那一类",
+        "关心线性注意力与完整注意力混合骨干如何换来长上下文的推理工程师"
+      ],
+      "technicalContext": "64 层骨干中 48 层为 Gated DeltaNet 线性注意力、16 层为完整注意力，按三比一循环，与 Qwen3.5 / 3.6 同源。原生 262K token 上下文，经 YaRN 外推至 100 万。原生多模态，覆盖图片、文档、图表与视频理解。reasoning_effort 提供 xhigh / medium / low 三档并可完全关闭 Thinking；preserve_thinking 默认开启，把前几轮推理保留进后续上下文以复用 KV 缓存。Apache 2.0，量化后可在 24GB 显存整卡装载，推理路径覆盖 Transformers、vLLM、SGLang、TokenSpeed、Ollama（含 MLX 构建）与 ms-swift。",
+      "impactAreas": [
+        "本地与云混合推理的档位划分",
+        "长上下文所依赖的注意力混合架构",
+        "厂商自命名基准与第三方基准的可比性",
+        "开源模型生态的首日支持速度"
+      ],
+      "learningPath": [
+        "先把三项数字分开放：第三方基准（SWE-bench Pro）、厂商自命名基准（QwenSWEBench）、同族前一版对比（WebArena-Verified 48.8 到 64.8），只有第三类和第一类能直接用",
+        "再算显存，而不是看参数量——27B 在什么量化档位下装进 24GB，决定了这条信号对你成不成立",
+        "把 reasoning_effort 三档在自己的任务上各跑一遍，记录首字延迟与稳态吞吐的变化，而不是只记准确率",
+        "读《模型选型与约束匹配》与《旗舰模型发布解读与换代判断》，把「该不该换」和「换得了吗」分成两个问题"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "27B 加一张 24GB 显卡是这条概念里最干净的一次实例：决定跑不跑得动的是显存与量化档位，不是参数量本身。",
+        "knowledge-ws-34da6116": "「量化后装得进 24GB」这句话省略了量化档位，而不同档位对长上下文输出质量的影响正是这条概念要回答的。",
+        "knowledge-ws-c761533e": "本地这一档的上限被推高之后，本地与云的分界线要重新画一次——这次是往云那边挪。",
+        "knowledge-latency-tradeoffs": "reasoning_effort 三档本质上是把「想多久」变成一个可调参数，也就是把延迟预算交回给调用方。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "这条公告里三类数字（第三方基准、自命名基准、同族前一版）恰好凑齐，是这条技能那套分类法的现成练习题。",
+        "skill-ws-d7c9d1d8": "量化档位、运行时路径与显存预算三件事在这条信号里全部具体化了，包括 Apple Silicon 的专用构建。",
+        "skill-model-evaluation": "「这把尺子有没有量过别人」在 QwenSWEBench 上得到的答案，直接决定了 15.2 分该怎么读。",
+        "skill-ws-7796779a": "首日在 vLLM、SGLang、Ollama 与 ms-swift 上同时可用，是「有性能路径」这一档而不只是「能加载」。"
+      },
+      "followUpQuestions": [
+        "QwenSWEBench 有没有量过第三方模型？如果没有，那 15.2 分的领先能说明什么？",
+        "262K 原生上下文在你的显存预算下还剩多少可用——KV 缓存吃掉的部分算进去了吗？",
+        "preserve_thinking 默认开启会让上下文更快填满，长任务里它是净收益还是净成本？",
+        "线性注意力占 48 层，在需要精确长距离检索的任务上会不会先掉链子？有没有针对这一点的评测？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-473669",
+      "createdAt": "2026-08-15T22:30:28.604Z",
+      "updatedAt": "2026-08-16T01:25:00.953Z",
+      "editorialNotes": [
+        "来源为量子位对阿里开源公告的报道；架构、上下文长度、许可与基准数字均出自该报道所引的官方公告。",
+        "Ollama v0.32.12 / v0.32.13 与 ms-swift v4.5.0 的发布说明为 2026-08-16 通过 GitHub API 一手核对，两条候选据此拒绝并把事实写进本文。",
+        "publisherName 由转换时默认填入的量子位作者笔名改为阿里巴巴通义千问，publisherType 由 startup 改为 big-tech。",
+        "所有基准均为厂商自测，正文已逐条标注；QwenSWEBench 的自命名问题是本条的编辑判断，不是原文观点。",
+        "官方称衍生模型逾 30 万，而 Hugging Face 生态报告数出 Hub 上 151,448 个——正文按口径不同处理，未择一采信。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-24-0",
       "slug": "vllm-v0-24-0",
@@ -317,126 +774,6 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
         "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-qbitai-com-p-473669",
-      "slug": "qwen3-8-27b",
-      "title": {
-        "original": "源神启动！一张消费级显卡跑「Opus 级」Agent，Qwen3.8-27B 多项榜单反超 Claude",
-        "zh": "Qwen3.8-27B 开源：消费级显卡跑得动，尺子却是自己命名的"
-      },
-      "summary": {
-        "original": "阿里巴巴于 2026-08-14 以 Apache 2.0 开源 Qwen3.8-27B：270 亿参数稠密原生多模态模型，262K 原生上下文可外推至 100 万 token，量化后可装进 24GB 显存。",
-        "zh": "270 亿参数、原生多模态、262K 上下文可外推到 100 万，Apache 2.0，量化后一张 24GB 消费级显卡装得下——这一代 Qwen 把「本地跑得动的智能体」这条线又往前推了一格。榜单确实好看，但领先幅度最大的那一项跑在一把以厂商自己命名的基准上，而所有对比都由厂商自己完成。"
-      },
-      "content": {
-        "original": "Alibaba open-sourced Qwen3.8-27B under Apache 2.0 on 2026-08-14: a 27B dense natively-multimodal model with 262K native context extendable to 1M tokens via YaRN.",
-        "zh": "2026-08-14，阿里以 Apache 2.0 协议开源 Qwen3.8-27B。27B 是社区呼声最高的尺寸，原因很实际：**量化之后，24GB 显存的 RTX 3090 / 4090 这类显卡能整卡装下**，而上下文没有跟着缩水——原生 262K token，通过 YaRN 可外推至 100 万。\n\n## 值得记的是架构，不是尺寸\n\n模型共 64 层，其中 **48 层用 Gated DeltaNet 线性注意力，16 层保留完整注意力**，大致按「三层线性 + 一层完整」的节奏循环。线性注意力压住长序列的计算与缓存开销，完整注意力隔几层做一次更充分的信息交互——262K 原生上下文是这个配比换来的，不是堆出来的。这个骨干与 Qwen3.5 / 3.6 同源，ms-swift 的发布说明也是这么描述的。\n\n两个面向长任务的开关同样值得记：\n\n1. **`reasoning_effort`** 分 xhigh / medium / low 三档，复杂代码与长程智能体任务拉高，简单问答降下来换速度和成本；Thinking 也可以整个关掉。\n2. **`preserve_thinking` 默认开启**，前几轮「怎么想的」会留在后续上下文里。编码智能体连改十几个文件时，可以沿着前面的决策继续走，同时更好地复用 KV 缓存。\n\n## 生态当天就跟上了\n\n- **Ollama v0.32.12**（08-14）加入 `qwen3.8:27b`，并为 Apple Silicon 单独提供了 `qwen3.8:27b-mlx` 构建；次日的 v0.32.13 补上开发者指令支持。\n- **ms-swift v4.5.0**（08-14）同日适配训练与后训练侧。\n- 官方侧接上了 Transformers、vLLM、SGLang 与 TokenSpeed，Hugging Face 上量化版本入口同时开放。\n\n首日可服务这件事本身已经不新鲜了——从 Kimi K3 到 Muse Glimmer，本站记过好几次；值得注意的是这次连 Apple Silicon 的专用构建都在同一天。\n\n## 榜单很好看，但尺子是谁的\n\n厂商公布的对比里，Qwen3.8-27B 在多项评测上超过 Claude Opus 4.6 Max：\n\n- **SWE-bench Pro**：领先 8.3 分\n- **QwenSWEBench**：领先 15.2 分\n- **CoWorkBench**：70.7 对 68.2\n- **OSWorld-Verified**（电脑操作）：84.3 对 72.7\n- **AndroidWorld**（手机操作）：81.9 对 62.0\n\n**领先幅度最大的那一项，跑在一把名字里带着厂商自己的基准上。** 本站《模型与输出评估》里那条判据在这里几乎是逐字适用的：一个数字能不能横比，先问这把尺子有没有量过别人。QwenSWEBench 领先 15.2 分，而第三方的 SWE-bench Pro 领先 8.3 分——两个数差了将近一倍，方向一致但幅度不一致，而且**所有对比都是厂商自己跑的**，不是第三方复现。\n\n浏览器操作 WebArena-Verified 从上一代的 48.8 提升到 64.8，是这批数字里口径最干净的一个：同族前一版，同一项评测。\n\n## 社区实测是用户报告，不是评测\n\n量子位那篇里引了两条网友实测，值得读但要按用户报告对待：一位把 FP8 版本放在单张 GH200 上并发跑 10 个请求、每个最高输出 16K token、上下文拉到 262K，首批流式 token 基本在 10 毫秒内返回；另一位丢给它一部 1935 年的 11 分钟影片，让它识别 96 个带时间戳的事件并逐字引用画面文字，157 秒完成、时间点误差约 2 秒。没有对照组、没有重复运行，所以它们说明的是「跑得起来」，不是「跑得比谁好」。\n\n## 一处可核对的口径差\n\n官方称千问已累计开源 460 余个模型、全球下载超 30 亿次、**衍生模型数超 30 万个**。同一周 Hugging Face 那份生态报告独立数出来的是 **Hub 上 151,448 个 Qwen 衍生模型**。两个数字差了大约一倍，但并不矛盾——一个统计跨平台（含魔搭），一个只统计 Hub。**知道它们口径不同，比记住哪个更大有用。**"
-      },
-      "type": "model",
-      "publishDate": "2026-08-15",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473669.html",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "阿里巴巴通义千问",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-on-device",
-        "tag-multimodal",
-        "tag-ai-agents"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116",
-        "knowledge-ws-c761533e",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-dddaf80c",
-        "skill-ws-d7c9d1d8",
-        "skill-model-evaluation",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-15T22:52:38.651Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "本地能跑的那一档模型，长期以来的代价是上下文短、多模态缺失或智能体能力弱。27B 这个尺寸同时给了 262K 原生上下文、原生视觉理解和可调的推理深度，而且是 Apache 2.0——这把「先看看能不能本地跑」从妥协方案变成了默认起点。同一周 Hugging Face 的生态报告给了这件事的宏观背景：小模型拿走 83% 的下载量，而 Qwen 是社区衍生模型最多的基座。",
-      "whoShouldCare": [
-        "手里有一张 24GB 消费级显卡或大内存 Mac、想在本地跑长上下文编码智能体的开发者",
-        "在自托管与云 API 之间做取舍、需要知道本地档位上限已经推到哪里的平台团队",
-        "要读厂商发布公告并决定换不换的技术负责人——尤其是需要区分第三方基准与自命名基准的那一类",
-        "关心线性注意力与完整注意力混合骨干如何换来长上下文的推理工程师"
-      ],
-      "technicalContext": "64 层骨干中 48 层为 Gated DeltaNet 线性注意力、16 层为完整注意力，按三比一循环，与 Qwen3.5 / 3.6 同源。原生 262K token 上下文，经 YaRN 外推至 100 万。原生多模态，覆盖图片、文档、图表与视频理解。reasoning_effort 提供 xhigh / medium / low 三档并可完全关闭 Thinking；preserve_thinking 默认开启，把前几轮推理保留进后续上下文以复用 KV 缓存。Apache 2.0，量化后可在 24GB 显存整卡装载，推理路径覆盖 Transformers、vLLM、SGLang、TokenSpeed、Ollama（含 MLX 构建）与 ms-swift。",
-      "impactAreas": [
-        "本地与云混合推理的档位划分",
-        "长上下文所依赖的注意力混合架构",
-        "厂商自命名基准与第三方基准的可比性",
-        "开源模型生态的首日支持速度"
-      ],
-      "learningPath": [
-        "先把三项数字分开放：第三方基准（SWE-bench Pro）、厂商自命名基准（QwenSWEBench）、同族前一版对比（WebArena-Verified 48.8 到 64.8），只有第三类和第一类能直接用",
-        "再算显存，而不是看参数量——27B 在什么量化档位下装进 24GB，决定了这条信号对你成不成立",
-        "把 reasoning_effort 三档在自己的任务上各跑一遍，记录首字延迟与稳态吞吐的变化，而不是只记准确率",
-        "读《模型选型与约束匹配》与《旗舰模型发布解读与换代判断》，把「该不该换」和「换得了吗」分成两个问题"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "27B 加一张 24GB 显卡是这条概念里最干净的一次实例：决定跑不跑得动的是显存与量化档位，不是参数量本身。",
-        "knowledge-ws-34da6116": "「量化后装得进 24GB」这句话省略了量化档位，而不同档位对长上下文输出质量的影响正是这条概念要回答的。",
-        "knowledge-ws-c761533e": "本地这一档的上限被推高之后，本地与云的分界线要重新画一次——这次是往云那边挪。",
-        "knowledge-latency-tradeoffs": "reasoning_effort 三档本质上是把「想多久」变成一个可调参数，也就是把延迟预算交回给调用方。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-dddaf80c": "这条公告里三类数字（第三方基准、自命名基准、同族前一版）恰好凑齐，是这条技能那套分类法的现成练习题。",
-        "skill-ws-d7c9d1d8": "量化档位、运行时路径与显存预算三件事在这条信号里全部具体化了，包括 Apple Silicon 的专用构建。",
-        "skill-model-evaluation": "「这把尺子有没有量过别人」在 QwenSWEBench 上得到的答案，直接决定了 15.2 分该怎么读。",
-        "skill-ws-7796779a": "首日在 vLLM、SGLang、Ollama 与 ms-swift 上同时可用，是「有性能路径」这一档而不只是「能加载」。"
-      },
-      "followUpQuestions": [
-        "QwenSWEBench 有没有量过第三方模型？如果没有，那 15.2 分的领先能说明什么？",
-        "262K 原生上下文在你的显存预算下还剩多少可用——KV 缓存吃掉的部分算进去了吗？",
-        "preserve_thinking 默认开启会让上下文更快填满，长任务里它是净收益还是净成本？",
-        "线性注意力占 48 层，在需要精确长距离检索的任务上会不会先掉链子？有没有针对这一点的评测？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-473669",
-      "createdAt": "2026-08-15T22:30:28.604Z",
-      "updatedAt": "2026-08-15T22:52:38.651Z",
-      "editorialNotes": [
-        "来源为量子位对阿里开源公告的报道；架构、上下文长度、许可与基准数字均出自该报道所引的官方公告。",
-        "Ollama v0.32.12 / v0.32.13 与 ms-swift v4.5.0 的发布说明为 2026-08-16 通过 GitHub API 一手核对，两条候选据此拒绝并把事实写进本文。",
-        "publisherName 由转换时默认填入的量子位作者笔名改为阿里巴巴通义千问，publisherType 由 startup 改为 big-tech。",
-        "所有基准均为厂商自测，正文已逐条标注；QwenSWEBench 的自命名问题是本条的编辑判断，不是原文观点。",
-        "官方称衍生模型逾 30 万，而 Hugging Face 生态报告数出 Hub 上 151,448 个——正文按口径不同处理，未择一采信。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -1644,230 +1981,6 @@
         "draft-candidate-rss-https-www-qbitai-com-p-469795",
         "draft-candidate-rss-https-www-qbitai-com-p-469721",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-      "slug": "deepseek-harness-everything-is-a-plugin",
-      "title": {
-        "original": "DeepSeek 把 Harness 开源了：模型、工具、Agent Loop 全是插件",
-        "zh": "DeepSeek Harness 开源：连 Agent Loop 都能换掉"
-      },
-      "summary": {
-        "original": "DeepSeek 于 2026-08-13 以 MIT 协议开放 DeepSeek Harness 开发者预览版 v0.1，模型、工具、技能、会话、沙箱、存储、Agent Loop、调度与 UI 全部实现为插件。",
-        "zh": "DeepSeek 以 MIT 协议开放了自己的 Harness 开发者预览版，把插件边界从工具层一路下沉到运行时：模型、工具、技能、会话、沙箱、存储、Agent Loop、调度和 UI 全是插件，换掉任何一层都不用改 Harness 源码。仓库两天半拿到 11.4 万 star，但同一份元数据里还有三个数字说明这是注意力而不是采用。"
-      },
-      "content": {
-        "original": "DeepSeek released its Harness developer preview (v0.1) under MIT on 2026-08-13. Everything — model, tools, skills, session, sandbox, storage, Agent Loop, scheduling and UI — is a plugin loaded by the Cordis meta-framework.",
-        "zh": "DeepSeek 在 2026-08-13 放出了自己的 Harness 开发者预览版 v0.1，源码以 MIT 协议开放。过去几个月围绕 AI 编码的讨论正在从模型转向 Harness——同一个模型放进不同的智能体系统，表现可以差很远，因为模型只负责预测下一步，而 Harness 决定它能看到什么、能调用哪些工具、上下文怎么组织、出错怎么重试、以及什么时候算做完了。\n\n## 插件边界下沉到了整个运行时\n\n主流编码智能体大多支持插件、MCP 或自定义工具，但可扩展范围通常停在工具与技能层。DeepSeek Harness 把这条边界一路推到底：**模型、工具、技能、会话、沙箱、存储、Agent Loop、调度和 UI 全部由插件组成**，替换任何一层都不需要改 Harness 源码。\n\n底座是 Cordis 元框架，它本身只处理插件的加载、卸载与依赖，具体能力由插件提供，插件之间通过服务和事件协作，再由配置决定它们怎么组合。\n\n工具调用也被拆成一条可扩展流水线：请求执行前依次经过 Hook、审批、权限检查、沙箱与超时控制，执行后还能改写结果、记录和渲染。**程序化工具调用（PTC）产生的代码及其子调用同样走这条流水线，不能绕过审批与沙箱**——这一句比整套插件架构更重要，因为它决定了「什么都能换」有没有掏空安全边界。\n\n## 四种模式其实是四套插件组合\n\n它没有维护四套系统，四种模式的差别只在默认加载哪些插件：\n\n1. **标准模式**：完整工具组合，面向常规智能体任务。\n2. **PTC 模式**：允许模型生成代码，把多轮工具调用组合起来一次执行。\n3. **极简模式**：只保留 shell 与文件编辑两个工具，用来在最小环境里测模型本身的能力，减少其他组件干扰。\n4. **创造模式**：智能体检查自己所处的运行时，在内存中试装 Cordis 插件，据此组合出新的运行模式。\n\n第四种是真正的新东西。传统 Harness 的运行方式由产品开发者预先写定，用户只能在既有配置里选；创造模式让**配置本身成为智能体可以操作的对象**。它离「智能体改造自己的 Harness」还有多远，要等真实任务来验证。\n\n## 所有轨迹汇进同一条事件流\n\n模型看到的每一样东西都进入同一份**仅追加**的会话日志：系统提示词、推理内容、工具调用及其结果、子智能体调度、每一次上下文注入。任务失败时，问题可能出在模型判断、工具返回、上下文注入、调度策略或系统提示词中的任何一处；这些内容散落在不同组件里，就没人能还原模型当时究竟看到了什么。统一事件流给调试、评估和回放提供了一份共同底稿，也让会话分叉有了自然的数据结构——新分支沿用分叉点以前的事件，再追加新的行动，不必覆写历史。\n\n## 多智能体：架构有新意，编排没有突破\n\n父智能体可以用 Spawn 启动全新上下文的子智能体，也可以用 Fork 让它继承已有会话；更复杂的任务可以由模型现场写 JavaScript，用 `parallel()` 与 `pipeline()` 组织并行或流水线，或用 Ralph 模式让多个全新智能体按轮次接力。\n\n放进常见编排模式里，它最接近层级式的 Supervisor–Worker，离真正的 Swarm 还远：任务分配与控制权仍然握在父智能体手里，没有智能体之间的自主发现、协商与动态接管。Spawn、Fork、Pipeline、Ralph 都有成熟先例，**特别的地方在于它们被做成了可随配置替换的插件**，甚至可以把 Claude Code、Codex 或支持 ACP 的外部智能体接到同一个子智能体接口后面。\n\n## 报道之外，仓库自己说了什么\n\n正文来自 InfoQ 中文的报道，但仓库元数据可以一手核对。截至 2026-08-16，`deepseek-ai/deepseek-harness`：MIT 协议，TypeScript，创建于 2026-08-13，**114,625 star、11,151 fork**——两天半，量级确实罕见。\n\n同一份元数据里还有三个数字，方向相反：\n\n- **未关闭的 issue 是 0**，对一个 11 万 star 的 v0.1 预览版来说，几乎只能解释为 issue 是关着的。\n- **最后一次 push 仍是创建当天**，而发布说明写的是核心插件与基础接口会「快速迭代」。\n- **没有任何 GitHub release**，版本号只出现在提交信息里，最新一条是 `0.1.0-rc.5`。仓库创建当天 PR 编号已经到 #2519，说明它是私下开发完再一次性推上来的。\n\n所以这个 star 数量度的是**注意力，不是采用**。同一轮里那份开放模型生态报告给了这句话系统性的证据：在 Hub 上按下载量排前 25 与按点赞数排前 25 的仓库，只有一个同时出现在两张榜上。\n\n## 边界\n\n这条是二手报道加一手仓库核对。v0.1 阶段接口会快速变化，现在进入生态要承担迁移成本；插件边界越深，接口稳定性、依赖管理、版本兼容、性能开销与调试复杂度就越难控制。而且**「什么都能换」不会自动带来更高的任务成功率**——最终兑现它的仍然是默认插件的质量、稳定的组合范式和可信的评测结果。"
-      },
-      "type": "platform",
-      "publishDate": "2026-08-14",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&amp;utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "DeepSeek",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-api-contracts",
-        "knowledge-human-loop",
-        "knowledge-ws-a28a8a56"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-2152c7f1",
-        "skill-ws-f741f122"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-15T22:41:18.617Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "把 Harness 的插件边界推到 Agent Loop 与调度这一层，等于把「智能体按什么规则工作」也交了出去。这与三天前微软那条正相反：微软把运行时做成受支持的产品并预置一整套默认值，DeepSeek 把同一层拆成可替换零件并用 MIT 放开。两条路线服务的是同一个已被确认的判断——决定表现的越来越是 Harness 而不是模型——但它们对「谁拥有循环」给出了相反的答案。",
-      "whoShouldCare": [
-        "正在选型编码智能体运行时、需要决定自建还是采购的平台团队",
-        "想替换 Agent Loop、调度或上下文策略做对照实验，却被现成 Harness 的固定流程挡住的研究与评测团队",
-        "需要在审批、沙箱与权限检查上保留控制权，因此关心 PTC 代码是否绕过安全流水线的安全角色",
-        "在评估国产开源智能体基础设施、需要区分 star 数与真实采用的技术决策者"
-      ],
-      "technicalContext": "Cordis 元框架只负责插件的加载、卸载与依赖解析，能力全部来自插件，组合方式由配置决定。工具调用是一条前置 Hook、审批、权限检查、沙箱、超时，后置结果改写、记录、UI 渲染的流水线，程序化工具调用共享同一套安全与观测机制。会话状态是一份仅追加日志，模型可见的全部内容都写进去，恢复、分叉、检索与回放都建立在它之上。多智能体走层级式编排，Spawn 新建上下文、Fork 继承会话，外部智能体可通过 ACP 接到同一个子智能体接口后面。",
-      "impactAreas": [
-        "智能体运行时的自建与采购边界",
-        "把 Agent Loop 与调度做成可替换插件后的对照实验能力",
-        "程序化工具调用与审批、沙箱的关系",
-        "开源仓库热度指标与真实采用之间的差距"
-      ],
-      "learningPath": [
-        "先看「四种模式其实是四套插件组合」那一节，把极简模式记下来——只留 shell 与文件编辑，是把模型能力与 Harness 能力分开测量的最简办法",
-        "再看仅追加会话日志那一节，对照自己项目里失败一次之后能不能还原模型当时看到的全部内容",
-        "拿仓库那三个数字（issue 0、push 停在创建当天、无 release）当模板，给你正在评估的任何高热度开源项目做同一遍核对",
-        "读《AI 工具链选型与自建边界评估》，把「哪一层必须归我」这个问题先答完，再决定要不要换 Harness"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-system-design": "把一切做成插件，买到的是可替换性，付出的是接口稳定性、依赖管理与调试复杂度——这条信号是「没有代价的决定不是权衡」最直白的一次实例。",
-        "knowledge-api-contracts": "插件边界越深，接口就越是承诺。v0.1 明说核心接口会快速变化，也就等于明说现在还没有可依赖的契约。",
-        "knowledge-human-loop": "PTC 生成的代码及其子调用不能绕过审批与沙箱，这是「护栏必须在循环内部」在可插拔架构里的具体写法。",
-        "knowledge-ws-a28a8a56": "仅追加的会话日志把「什么被带到下一步」变成一份可检索、可分叉的共同底稿，而不是散在各组件里的碎片。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "它把流程的形状做成了配置项；判断一套可替换的 Loop 是否配得上你的流程，用的还是这条技能里的那三个交接问题。",
-        "skill-tool-integration": "工具调用流水线把审批、沙箱与结果改写放进了框架，但工具层要不要吸收混乱仍然归你。",
-        "skill-ws-2152c7f1": "微软把运行时做成产品，DeepSeek 把它拆成零件——这两条正好是同一道自建与采购题目的两端。",
-        "skill-ws-f741f122": "统一事件流是可观测性的前提；能不能读懂那些轨迹、并据此归因，才是这条技能真正回答的问题。"
-      },
-      "followUpQuestions": [
-        "如果 Agent Loop 可以被换掉，你怎么保证换掉之后审批与沙箱这条流水线还在原位？",
-        "创造模式让智能体自己试装插件，越权的边界由谁定义、在哪一层强制？",
-        "两天半 11.4 万 star 而三天没有新提交——再过两周，用哪几个数字判断它是在成长还是停在了发布日？",
-        "把 Claude Code 或 Codex 接到子智能体接口后面之后，这条统一事件流还完整吗，还是只剩下自己那一半？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-15T22:30:27.946Z",
-      "updatedAt": "2026-08-15T22:41:18.617Z",
-      "editorialNotes": [
-        "来源为 InfoQ 中文对 DeepSeek 发布的报道，非厂商一手公告；架构描述以该报道为准。",
-        "仓库数字（114,625 star / 11,151 fork / open issues 0 / pushed_at 停在 2026-08-13 / 无 GitHub release / 提交里最新版本号 0.1.0-rc.5 / 创建当天 PR 已到 #2519）为 2026-08-16 通过 GitHub API 一手核对，正文已标注核对日期。",
-        "publisherName 由转换时默认填入的 InfoQ 作者名改为 DeepSeek，publisherType 改为 startup；type 由 workflow 改为 platform，与同族的 microsoft-agent-framework-harness 保持一致。",
-        "与 microsoft-agent-framework-harness 用印证关系连接：同一判断（Harness 决定表现）下的两种相反答案。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-      "slug": "vercel-zero-agent-native-language",
-      "title": {
-        "original": "Vercel 发布新语言 Zero：代码不是写给人看的，而是写给 AI 的",
-        "zh": "Vercel Zero：一门把编译器输出的第一读者当成智能体的语言"
-      },
-      "summary": {
-        "original": "Vercel Labs released Zero, an experimental systems language built on the premise that the compiler's primary reader is an AI agent rather than a human.",
-        "zh": "Vercel Labs 发布实验性系统语言 Zero，前提是编译器输出的主要阅读者不再是人：每个子命令都统一支持 JSON 输出、错误带稳定代码与带类型的修复元数据，副作用必须走编译器强制的能力参数，而 v0.3.0 起图存储才是编译器输入、源码文件降为给人看的投影。"
-      },
-      "content": {
-        "original": "See the InfoQ article and the Zero language reference.",
-        "zh": "## 前提\n\nZero 是 Vercel Labs 的实验性系统编程语言，Apache 2.0，`.0` 扩展名，可编译到 Linux / macOS / Windows 原生二进制。早期报道盯着体积与速度（Hello World 号称一毫秒内构建、16.2 KiB），**但那不是它真正特别的地方**。\n\n它的设计前提是一句话：**编译器输出的主要阅读者不再是人类，而是智能体。**\n\n## 工具链被写成了契约\n\n- 单一 `zero` 二进制的**每个子命令**都支持统一的 `--json`，且使用同一套诊断模式\n- 错误携带**稳定代码**（如 `NAM003`）与**带类型的修复元数据**（如 `declare-missing-symbol`）\n- `zero fix --plan --json` 返回一份**机器可读的修复计划**，智能体可以接受、编辑或拒绝，而不是盲目套用\n\n这正是本站《API 契约与接口边界》里那条判据的落地：**出错时的形状也是契约的一部分**。一个每次都换措辞的错误信息，对人只是烦，对自动修复的智能体是不可用。\n\n## 副作用被搬到了签名上\n\n任何与外部世界交互的函数**必须接受一个 `World` 能力参数**，并由编译器强制。于是只看函数签名就能判断这段代码能不能访问网络、文件系统或标准输出。\n\n对智能体而言，这把「它会不会偷偷做别的事」从**读代码**变成了**读类型**——与《智能体工作流设计》里那条判据同构：**如果模型决定越界，是什么在物理上阻止它？**\n\n## 最激进的一步在 v0.3.0\n\n图优先创作成为常规工作流：**二进制 `zero.graph` 存储才是编译器的输入**，`.0` 文本文件降级为**给人阅读的投影**，智能体则通过 `zero query` 与 `zero patch` 工作。补丁受图哈希保护，过期或无效的编辑在写入存储之前就会失败。\n\n这和前一天发布的 ARA 是同一个动作，只是换了对象：**ARA 把论文从叙事改成机器可操作的知识包，Zero 把源码从文本改成图。** 两者都把「给人看的那一版」降级为投影。\n\n## 代价写在了迁移路径上\n\nv0.1.4 是行语法，v0.2.0 把规范化的 `.0` 文本提升为原生源码载体，v0.3.0 **在编译器边界彻底拒绝源码投影输入**。既有的文本优先包必须用 `zero import` 导入图、再用 `zero export` 与 `zero verify-projection` 完成人工审查与 CI 漂移检查。v0.3.2 把大型程序的导入速度提升约 12 倍，正是因为这个转换本身太贵。\n\n## 质疑值得原样带上\n\nHacker News 上的反对意见有两类，第二类更难回答：\n\n1. **「没劲，唯一的新东西是能力机制」**，以及「结构化错误消息已经存在几十年了」。反驳是：重点不在开发者，而在智能体——对人只是便利的东西，对自动修复是可用性的前提。\n2. **「智能体最擅长的语言，将会是那些在预训练数据里出现最多的语言。」** 这一条针对的是采用而不是设计，而一门新语言天然处在劣势。有人以 Svelte 的重大 API 变更为例反驳说训练数据的重要性可能低于预期，但这是类比不是证据。\n\n项目自己写明：**仍处于实验阶段、预计出现破坏性变更、应在隔离工作区运行，不要用于生产系统或敏感数据。** 目前 v0.3.4，GitHub 星标 5200 以上。"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-12",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y?utm_source=rss&amp;utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "Vercel Labs",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-product-strategy"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use",
-        "knowledge-system-design",
-        "knowledge-graph-thinking"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-15T22:32:14.044Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它把「为机器设计产物」从主张变成了可运行的东西：错误有稳定代码、修复是可协商的计划、副作用写在签名上、源码本体是图而文本只是投影。同一周的 ARA 对论文做了同一件事。",
-      "whoShouldCare": [
-        "在建智能体编码工具链的工程团队",
-        "关心工具返回值能否被机器读懂的人",
-        "在设计给自动化消费的 API 与诊断格式的人"
-      ],
-      "technicalContext": "Zero 使用 .0 扩展名与 Apache 2.0 许可，编译为原生二进制。工具链契约包含统一 --json、稳定诊断代码与带类型修复元数据；副作用通过编译器强制的 World 能力参数暴露；v0.3.0 起二进制图存储为编译器输入，文本为投影，补丁受图哈希保护。",
-      "impactAreas": [
-        "智能体编码工具链",
-        "诊断与错误契约设计",
-        "源码表示形式",
-        "能力式副作用控制"
-      ],
-      "learningPath": [
-        "先看它的错误契约：稳定代码加带类型的修复元数据，这一层与语言无关，可以直接搬",
-        "再看 World 能力参数如何把「能做什么」提升到类型层",
-        "最后判断图优先创作的代价，迁移路径本身就是它最大的成本"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-api-contracts": "稳定错误代码与带类型的修复元数据，是「出错时的形状也是契约」的直接落地。",
-        "knowledge-tool-use": "修复计划以 JSON 返回，智能体可接受、编辑或拒绝——工具返回值要能被机器读懂。",
-        "knowledge-system-design": "图存储成为唯一真相，换来的是迁移成本，这是一次典型的锁死型权衡。",
-        "knowledge-graph-thinking": "源码本体是图、文本只是投影，把图思维推到了编译器边界。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "World 能力参数由编译器强制，是「什么在物理上阻止越界」的答案。",
-        "skill-tool-integration": "统一 --json 与同一套诊断模式，是工具层吸收混乱而不是转发混乱。",
-        "skill-ws-2152c7f1": "实验阶段、破坏性变更、需隔离运行——自建边界评估的现成材料。"
-      },
-      "followUpQuestions": [
-        "预训练数据劣势是否会压过设计优势，一门新语言如何被智能体学会？",
-        "图存储成为唯一真相之后，代码审查与版本控制怎么做？",
-        "能力参数在多大规模的程序上仍然不繁琐？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-13T04:39:49.056Z",
-      "updatedAt": "2026-08-15T22:32:14.044Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-469721",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -3762,119 +3875,6 @@
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
         "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-qbitai-com-p-468782",
-      "slug": "bigbang-v1-self-evolving-data",
-      "title": {
-        "original": "当题库追不上模型，AI开始给自己出题：中国这支团队跑通了数据层RSI",
-        "zh": "BigBang-v1：把数据生产系统本身当成优化对象，以及一处对不上的口径"
-      },
-      "summary": {
-        "original": "无尽前沿团队发布 BigBang-V1，后训练数据 100% 由 AI 自主合成。",
-        "zh": "上海交大人工智能学院、深势科技与上海算法创新研究院组成的无尽前沿团队发布 BigBang-v1：35B 参数、推理时约 3B 激活、262K 上下文，后训练数据称 100% 由 AI 自主合成，Apache-2.0 开源。可复用的不是跑分，而是它对任务的两个硬条件——必须同时前沿且可验证；缺一，合成数据都会迅速贬值。附一条核对：报道称它是「首个 RSI 原生训练的基座模型」，而 Hugging Face 上的元数据把它标为 Qwen3.6-35B-A3B 的微调。"
-      },
-      "content": {
-        "original": "The Endless Frontier team released BigBang-V1, a 35B model whose post-training data is claimed to be 100% AI-synthesized.",
-        "zh": "## 它主张的是什么\n\n上海交大人工智能学院、深势科技与上海算法创新研究院组成的**无尽前沿团队**发布 BigBang-v1：**35B 参数、推理时约 3B 激活、262K 上下文**，后训练数据称 **100% 由 AI 自主合成**，以科学前沿任务为核心，出题、解题、验证全部交给 AI，不需要人类逐题参与。模型与技术报告同步公开。\n\n厂商给出的成绩：在长程搜索、代码、科学研究、AI 研究等评测中拿下全部 35B 模型里的 10 项第一；在 FrontierScience Research、PaperBench 等高难度科研任务上超过 1T 级的 DeepSeek V4 Pro Preview；BrowseComp 76.5，SWE-Bench Pro 54.2。\n\n**这些数字全部是厂商自报的**，来源文章本身也带明显的推介口吻（含作者自己的上手演示、无对照、无批评视角）。所以下面只取那个不依赖跑分也成立的部分。\n\n## 真正可复用的是对任务的两个条件\n\n它把问题从「如何收集更多科学数据」换成了「**如何让数据生产系统随着模型能力一起进化**」——也就是让数据生产系统本身成为被优化的对象。\n\n要让这样一套系统持续跑下去，任务必须**同时**满足两条：\n\n1. **前沿性**——任务位于当前知识或模型能力的边界，甚至没有已知最优答案。静态题库会被模型迅速耗尽，而科学前沿会持续产生新问题。\n2. **可验证性**——候选方案能通过形式化方法、程序执行、数值计算、模拟器、实验反馈或领域工具做客观检查。\n\n**缺一，数据都会快速贬值**：只前沿而无法验证，系统拿不到可靠训练信号；只可验证而没有难度，任务很快落后于模型能力。这两条比任何跑分都更值得记住，因为它给「合成数据到底该合成什么」提供了一个可以照着筛的判据。\n\n报告顺带否掉了两类常见做法，理由都具体：一类只给模型套一层外壳（比如 harness）让它自己调工具改提示词，**底层训练管线原封不动**；另一类用大模型给生成数据打分筛选，但**评判标准是人类预先写死的规则，不会跟着模型能力一起演化**——模型变强之后旧尺子失效，仍然源源不断产出低价值样本。第二条正是本站《评估闭环》里那句「尺子变了没有」的反面：这里的问题不是尺子变了，而是尺子**不会**变。\n\n## 一处对不上的口径\n\n报道称 BigBang-v1 是「首个基于 recursive self-improving 原生方式训练出的**基座模型**」。而 Hugging Face 上的制品（`endless-frontier/BigBang-v1`，Apache-2.0）元数据把它标为 **`Qwen/Qwen3.6-35B-A3B` 的微调**；35B 总参、约 3B 激活与该基座的规格一致。\n\n同一篇报道另一处写的是「**后训练**数据 100% 由 AI 自主合成」——这句与「微调」自洽，与「基座模型」不自洽。合理的读法是：RSI 发生在后训练阶段，底座是别人的。这不削弱那套数据管线的价值，但把主张的范围收窄了不少。\n\n值得记下来的是这次核对本身只花了一次查询。**开放权重的附带好处，是宣传口径可以被制品当场校对**——闭源发布连这一步都做不了。\n\n## 放在这条线上看\n\n本站已发布的 GPT-Red 是自博弈让闭环自己产出下一轮输入，NVIDIA Nemotron 开放数据是把合成数据当作可分发的公共品，TutorMoments 则量出了模型在笼统目标下的行为偏差。这一条补的是中间那一段：**当出题的速度成为瓶颈时，被优化的对象应该是出题的系统**。\n\n它同时是一个提醒——本站 08-10 的信源盘点已经指出，中文信源里产业 PR 的比例明显更高。这条之所以还是被留下，是因为它有可核对的开放制品，而不是因为它的跑分好看。"
-      },
-      "type": "tool",
-      "publishDate": "2026-08-09",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/468782.html",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "量子位",
-      "publisherType": "media",
-      "importanceLevel": "signal",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-818b7bb3",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-36346103",
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-ws-84837d46",
-        "skill-ws-dddaf80c"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 93,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为一般信号，归入值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-10T13:09:54.200Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "模型越强，能给它出题、解题、验证的人越少——高质量训练数据的瓶颈正在从「收集」转移到「出题」。这条信号给出的可复用判据是：能撑起自我进化的任务必须同时具备前沿性与可验证性，缺一数据都会快速贬值。附带一个方法上的收获：它的开放权重让「首个 RSI 原生基座模型」这个宣传口径当场就能被制品校对出偏差。",
-      "whoShouldCare": [
-        "在做合成数据管线、正在纠结「该合成什么」而不是「合成多少」的训练团队",
-        "评估开源模型时习惯先看跑分、想补一套核对制品与口径的工程负责人",
-        "关注 recursive self-improving 这条路线落地形态的研究与战略角色",
-        "需要为领域任务设计可自动验证信号的评测负责人"
-      ],
-      "technicalContext": "Recursive self-improving 指让 AI 参与迭代自身的模型、算法、数据与研发流程。目前多数落地停在两种形态：给模型套工具外壳，或用大模型对生成数据打分筛选——前者不触动训练管线，后者的评判规则由人预先写死、不随模型能力演化。BigBang 的做法是把数据生产系统本身纳入优化对象，并用「前沿且可验证」这两个条件筛选任务载体，因而选择了科学领域作为训练场：它天然组合了搜索、阅读、提出假设、数学推导、代码开发、工具调用、实验分析与结果写作。",
-      "impactAreas": [
-        "合成数据的任务选型判据",
-        "自我进化的数据生产管线",
-        "开放权重带来的宣传口径可核对性",
-        "科研与工程任务上的评测设计"
-      ],
-      "learningPath": [
-        "先把「前沿性 + 可验证性」这两条拿去筛一遍你现有的合成数据任务，看哪些其实只满足一条",
-        "读《评估闭环》，对照「尺子不会变」这个失败模式——它与「尺子变了」同样致命，但更难察觉",
-        "读《合成数据与数据配方》，把数据质量从「洗出来的」重新理解成「任务属性决定的」",
-        "自己去 Hugging Face 上核对一次模型元数据与报道口径，把这一步变成读任何开源发布的默认动作",
-        "读《模型选型与约束匹配》，判断 35B 总参、约 3B 激活这个规格对你的约束是不是合适"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-818b7bb3": "它把数据质量从「清洗出来的」改口为「任务属性决定的」，是这条概念目前最锋利的一种表述。",
-        "knowledge-evaluation-loops": "用大模型按人写死的规则筛数据，是一种尺子不会随能力演化的闭环——环还在转，但已经不再收紧。",
-        "knowledge-ws-36346103": "底座是 Qwen3.6-35B-A3B，35B 总参与约 3B 激活的差距正是 MoE 的常规读法。",
-        "knowledge-model-sizing": "35B 总参、3B 激活、262K 上下文是一组具体约束；决定能不能用的从来不是参数量本身。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "「前沿且可验证」本质上是在说：先写下什么算好，而且要写成机器能判的。这条技能讲的正是那一步。",
-        "skill-ws-84837d46": "它的全部主张都落在后训练阶段——数据配方而非架构，这条技能是读懂它的前提。",
-        "skill-ws-dddaf80c": "自报 10 项第一、超过 1T 模型，是典型的厂商定义指标；用这条技能里的三类数字分法读，就知道哪些能横比。"
-      },
-      "followUpQuestions": [
-        "你的领域里有哪些任务是真正可自动验证的？如果一条都举不出来，这套方法就用不上。",
-        "「后训练数据 100% 由 AI 合成」中，用来做验证的那一环是否也完全无人参与？报道没有说清这一点。",
-        "技术报告是否给出了数据管线自身迭代的消融实验？没有的话，收益归因于 RSI 还是归因于基座，无法区分。",
-        "如果底座是 Qwen3.6-35B-A3B，那么与同底座的其他后训练版本对比，才是能说明问题的对照组——这组数据在哪里？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-468782",
-      "createdAt": "2026-08-10T12:59:38.493Z",
-      "updatedAt": "2026-08-10T13:09:54.200Z",
-      "editorialNotes": [
-        "来源为量子位报道，带明显推介口吻（含自行上手演示、无对照组、无批评视角）；全部跑分均为厂商自报，正文已就此加限定。",
-        "制品核对：Hugging Face 上 endless-frontier/BigBang-v1（Apache-2.0，2026-08-02 创建，社区已出 GGUF/MLX 量化）元数据为 base_model:finetune:Qwen/Qwen3.6-35B-A3B，与报道所称「基座模型」不符，已写入正文。",
-        "定 signal 而非 important：方法层的判据可复用，但收益归因缺少同底座对照，且证据链依赖厂商自报。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
       ]
     },
     {

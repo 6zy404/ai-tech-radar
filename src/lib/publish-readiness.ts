@@ -357,6 +357,45 @@ export function evaluateTechnologyPublishReadiness(
     }
   }
 
+  /* The other half of the same problem, one level down. `content` does go
+     through `ContentBody`, but its inline tokenizer is a flat alternation —
+     `**bold**` OR `` `code` ``, never one inside the other — and the bold
+     branch takes its inner text verbatim. So ``**`reasoning_effort`**`` renders
+     bold with the backticks still showing.
+
+     Found 2026-08-16 by looking at a page: 5 occurrences across 3 published
+     signals, two of them written that same round. It is the 2026-08-02 defect
+     (backticks reaching readers) in the shape inline code did not fix. */
+  for (const [language, text] of Object.entries(record.content ?? {})) {
+    if (typeof text !== "string") continue;
+
+    const nested = text
+      .split(/(\*\*[^*]+\*\*|`[^`]+`)/)
+      .filter(Boolean)
+      .some(
+        (part) =>
+          (part.length > 4 &&
+            part.startsWith("**") &&
+            part.endsWith("**") &&
+            part.includes("`")) ||
+          (part.length > 2 &&
+            part.startsWith("`") &&
+            part.endsWith("`") &&
+            part.includes("**"))
+      );
+
+    if (nested) {
+      warnings.push(
+        issue(
+          "warning",
+          "content",
+          "nested-inline-markers-in-body",
+          `content.${language} 把行内代码写进了加粗（或反过来）。ContentBody 不解析嵌套的行内标记，内层的反引号或星号会原样显示给读者——把两者并列而不是嵌套。`
+        )
+      );
+    }
+  }
+
   if (record.tags.length < 2) {
     warnings.push(
       issue(

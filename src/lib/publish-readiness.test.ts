@@ -202,4 +202,64 @@ describe("evaluateTechnologyPublishReadiness", () => {
       );
     });
   });
+
+  describe("nested inline markers in the body", () => {
+    it("warns when inline code is written inside bold", () => {
+      const record = makeWorkspaceRecord({
+        content: {
+          original: "plain",
+          zh: "1. **`reasoning_effort`** 分三档，复杂任务拉高。"
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).toContain(
+        "nested-inline-markers-in-body"
+      );
+    });
+
+    it("warns in the other direction too", () => {
+      const record = makeWorkspaceRecord({
+        content: {
+          original: "plain",
+          zh: "配置项是 `--flag **必填**` 这一个。"
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).toContain(
+        "nested-inline-markers-in-body"
+      );
+    });
+
+    it("does not warn when the two sit side by side", () => {
+      const record = makeWorkspaceRecord({
+        content: {
+          original: "plain",
+          zh: "1. `reasoning_effort` **分三档**，复杂任务拉高。"
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).not.toContain(
+        "nested-inline-markers-in-body"
+      );
+    });
+
+    it("does not warn on a body using both markers separately", () => {
+      const record = makeWorkspaceRecord({
+        content: {
+          original: "plain",
+          zh: ["## 小节", "", "跑 `npm test`，**然后**再看结果。"].join("\n")
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).not.toContain(
+        "nested-inline-markers-in-body"
+      );
+    });
+
+    it("leaves the default fixture untouched, so the check adds no noise", () => {
+      expect(codes(evaluate().warnings)).not.toContain(
+        "nested-inline-markers-in-body"
+      );
+    });
+  });
 });
