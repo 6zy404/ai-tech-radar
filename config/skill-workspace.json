@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T03:16:36.736Z",
+  "updatedAt": "2026-08-16T16:23:44.124Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -143,42 +143,6 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.711Z",
       "updatedAt": "2026-08-13T04:42:52.965Z"
-    },
-    {
-      "id": "skill-tool-integration",
-      "title": "工具集成模式",
-      "slug": "tool-integration-patterns",
-      "summary": "把 AI 系统接入 API、浏览器、文档和内部工具，让工具层吸收混乱而不是把混乱转发给模型。",
-      "content": "Ai2 的 Shippy 有一条反直觉的做法：**模型不直接拼裸 API 调用**，而是通过一层专门构建的确定性 CLI 与后端交互。分页错误、畸形查询这类隐蔽 bug 在工具层就被消化掉，而且每一层可以独立测试。\n\n这句话是这项技能的全部要义。工具层不是 API 的薄包装，它是一层要被设计的产品——**它的职责是吸收混乱，而不是把混乱转发给模型。**\n\n## 工具层要吸收混乱\n\n一个直接暴露给模型的原始接口，会把它所有的边角情况一起暴露出去：翻页、超时、部分成功、字段可空、错误码语义不一致。模型对这些的处理方式是即兴发挥，而且每次都不一样。\n\n判断一个工具封装得够不够，有个实用的检查：**把它的返回值单独拿出来看，能不能不依赖上下文就读懂发生了什么。** 如果读不懂，模型也读不懂。\n\n- 成功和失败要在结构上可区分，而不是靠文字措辞。\n- 部分成功要显式表达，不能悄悄返回半截数据。\n- 需要重试的错误和不该重试的错误要分开，否则模型只会一律重试。\n\n## 边界要窄到可以被审计\n\nMCP 在 2025 年一度被 Skills 盖过热度，原因很直白：一个能用终端和 `curl` 的智能体外壳，用更灵活的方式做到了大部分同样的事。而现在重新看 MCP 的理由不是协议变强了，是那条替代路线的代价看清楚了——**给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动。**\n\n相比之下，一件职责明确的工具更容易审计和管控，简单到笔记本上跑的小模型也能驱动。所以工具的边界宽窄不只是工程整洁问题，它同时决定了两件事：出事之后你能不能查清楚，以及这套系统能不能用小模型跑。\n\n## 无状态让工具目录可以被缓存和路由\n\nMCP 2.0 把协议核心从有状态改成了无状态，几处改动直接影响工具怎么接：\n\n1. 握手和会话 id 退休，每个请求自带协议版本与能力——**任何请求都能落到负载均衡后的任意实例**，不需要实例间共享存储。\n2. 方法名与工具名走 HTTP 头（`Mcp-Method`、`Mcp-Name`），网关不必解请求体就能做路由和鉴权。\n3. 列表响应可缓存且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n4. 弃用有了至少 12 个月的正式窗口，升级可以排期而不是被动响应。\n\n第 4 条最容易被忽略，却最影响长期维护成本：一个没有弃用窗口的工具接口，意味着你的集成随时可能在某个周二早上失效。\n\n## 接进来之后，谁负责失败\n\n工具接入的最后一步是让失败可归因。任务失败时至少要分得出三类：**模型选错了工具**、**工具自己执行失败**、**环境异常**。三者的修复动作完全不同，混成一句「重试」就等于放弃了这条信息。\n\n## 与相邻条目的分工\n\n这一条管**单个工具怎么接得可维护**；整条链路怎么分层与交接，是「智能体工作流设计」。工具返回内容可能携带注入，那是「智能体安全与提示注入防御」。概念层面「为什么要把推理与行动分开」在「工具使用与函数调用」，而「稳定的输入输出约定为什么能提升可靠性」在「API 契约与接口边界」。",
-      "skillType": "engineering",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.002Z",
-      "updatedAt": "2026-08-15T22:43:05.386Z"
     },
     {
       "id": "skill-ws-dddaf80c",
@@ -362,84 +326,6 @@
       "updatedAt": "2026-08-15T22:43:05.882Z"
     },
     {
-      "id": "skill-ws-2152c7f1",
-      "title": "AI 工具链选型与自建边界评估",
-      "slug": "ai-toolchain-build-vs-buy",
-      "summary": "在「自己搭一套」和「买现成的」之间划线：先判断哪一层工作是你必须拥有的，再比价格——顺序反过来就会买错。",
-      "content": "当模型这一层的价差被抹平（供应商按同样的 API 费率计费），采购决策就不再是比单价，而是**划分系统边界**。\n\n可操作的做法是把一个具体任务拆成两栏：\n\n- **模型调用**：提示词、上下文组装、模型选择、输出解析。\n- **外壳（harness）**：任务上下文的接入（工单、diff、仓库）、可执行命令的白名单、组织策略与权限、日志与评测、用量与计费控制。\n\n然后逐项问：这一项如果自己做，是不是我的竞争力？如果答案是否，它就是集成成本，而集成成本几乎总是被低估——它不随模型能力提升而变便宜。\n\n三个常见的判断失误：\n\n1. **只比 token 单价。** 价格是结论不是前提；外壳的年化人力成本通常远大于 token 支出。\n2. **低估控制面。** 命令白名单、组织策略、审计这类要求往往是合规硬约束，自建方案要从零补齐。\n3. **忽略迁移成本。** 自建外壳如果和某个供应商的接口耦合，换模型时的迁移成本要提前算进来。\n\n这项能力和「模型选型与约束匹配」是一对：后者决定用哪个模型，前者决定模型之外的那一层归谁。",
-      "skillType": "product",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow",
-        "tag-ai-agents"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-model-sizing",
-        "knowledge-api-contracts"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T02:42:33.891Z",
-      "updatedAt": "2026-08-16T03:16:36.516Z"
-    },
-    {
-      "id": "skill-agent-design",
-      "title": "智能体工作流设计",
-      "slug": "agent-workflow-design",
-      "summary": "设计多步骤 AI 流程：怎么分层、每一步的交接点是什么、护栏放在哪一层才真的拦得住。",
-      "content": "GitHub 把 Copilot 代码审查的专用代码探索工具，换成了维护得更好的共享 CLI 工具。预期是一次干净的升级，结果基准显示**审查成本更高、抓到的问题更少**。真正翻转局面的不是再换一次工具，而是按「审查者实际怎么读一个 PR」重写工作流指令——之后成本降低约 20%、质量不变。\n\n这件事定义了这项技能：**决定一个智能体好不好用的，是流程的形状，不是它手里有几件工具。**\n\n## 先把智能体拆成能各自演进的几层\n\nAi2 的 Shippy 服务 70 多个国家的分析人员做高风险判断，它的拆法值得直接借用：\n\n1. **soul**——定义边界的系统提示：它是谁、不做什么。\n2. **skills**——用 markdown 文档化的能力，一件事一份。\n3. **config**——运行时配置。\n\n三层各自独立版本化，改一层不必重建整体。这个拆法之所以有用，是因为它把三种变更频率完全不同的东西分开了：边界很少改，能力经常加，配置每次部署都可能变。混在一个大提示词里，就意味着每次加一个能力都在动边界。\n\n## 每一步都要有明确的交接点\n\n一条工作流是由交接点定义的，而不是由步骤数量。每一步动笔之前先答三个问题：\n\n- 这一步**收到什么**——上一步保证交付的是什么形状。\n- 这一步**必须产出什么**——下一步会依赖的是什么。\n- **谁来判断它做完了**——外部状态、人写的检查，还是模型自己。\n\n第三问最容易被跳过，而它是长链路失败的主要来源，展开在「完成判定与验收信号」。\n\n## 护栏要放在能拦住的位置\n\n护栏写在提示词里，只能约束模型的意图；真正拦得住的是执行路径上的硬约束——权限范围、可调用的工具集合、沙箱边界。Shippy 按用户会话分配独立的 Kubernetes 沙箱，在数百个政府合作方之间做数据隔离，是这条的极端形态。\n\n判断护栏是否真的存在，只问一句：**模型如果决定越界，是什么在物理上阻止它？** 答案如果是「提示词里写了不要这样做」，那就是没有护栏。\n\n## 自己搭 runtime，还是用平台托管\n\n这条边界最近一年被推着走了很远。Gemini 的 Managed Agents 把执行环境、状态管理、工具接入都收到平台侧：传一个 `background:true` 就能让长任务异步跑在服务端，客户端凭 ID 轮询或断线重连；Ollama 则从「把开源模型跑在本地的运行时」转向「智能体工作的入口」。\n\n所以这不再是一个技术选择，而是一个所有权选择：**你必须自己拥有哪一层。** 长任务的状态管理和沙箱是自建里最贵的两块，也是平台最先补齐的两块。\n\n## 与相邻能力的分工\n\n这一条管**整条链路的形状**：怎么分层、怎么交接、护栏放在哪。单个工具怎么接得可维护，是「工具集成模式」；对抗性输入怎么防，是「智能体安全与提示注入防御」；任务跑完之后怎么回放和归因，是「智能体可观测性与评测运维」；而「你要拥有哪一层」这个决定本身，是「AI 工具链选型与自建边界评估」。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "high",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-browser-agents",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-tool-use",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:17:24.380Z",
-      "updatedAt": "2026-08-16T03:16:36.625Z"
-    },
-    {
       "id": "skill-ws-a9e80194",
       "title": "推理服务容量规划",
       "slug": "inference-capacity-planning",
@@ -472,6 +358,43 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.362Z",
       "updatedAt": "2026-08-16T03:16:36.680Z"
+    },
+    {
+      "id": "skill-tool-integration",
+      "title": "工具集成模式",
+      "slug": "tool-integration-patterns",
+      "summary": "把 AI 系统接入 API、浏览器、文档和内部工具，让工具层吸收混乱而不是把混乱转发给模型。",
+      "content": "Ai2 的 Shippy 有一条反直觉的做法：**模型不直接拼裸 API 调用**，而是通过一层专门构建的确定性 CLI 与后端交互。分页错误、畸形查询这类隐蔽 bug 在工具层就被消化掉，而且每一层可以独立测试。\n\n这句话是这项技能的全部要义。工具层不是 API 的薄包装，它是一层要被设计的产品——**它的职责是吸收混乱，而不是把混乱转发给模型。**\n\n## 工具层要吸收混乱\n\n一个直接暴露给模型的原始接口，会把它所有的边角情况一起暴露出去：翻页、超时、部分成功、字段可空、错误码语义不一致。模型对这些的处理方式是即兴发挥，而且每次都不一样。\n\n判断一个工具封装得够不够，有个实用的检查：**把它的返回值单独拿出来看，能不能不依赖上下文就读懂发生了什么。** 如果读不懂，模型也读不懂。\n\n- 成功和失败要在结构上可区分，而不是靠文字措辞。\n- 部分成功要显式表达，不能悄悄返回半截数据。\n- 需要重试的错误和不该重试的错误要分开，否则模型只会一律重试。\n\n## 边界要窄到可以被审计\n\nMCP 在 2025 年一度被 Skills 盖过热度，原因很直白：一个能用终端和 `curl` 的智能体外壳，用更灵活的方式做到了大部分同样的事。而现在重新看 MCP 的理由不是协议变强了，是那条替代路线的代价看清楚了——**给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动。**\n\n相比之下，一件职责明确的工具更容易审计和管控，简单到笔记本上跑的小模型也能驱动。所以工具的边界宽窄不只是工程整洁问题，它同时决定了两件事：出事之后你能不能查清楚，以及这套系统能不能用小模型跑。\n\n## 无状态让工具目录可以被缓存和路由\n\nMCP 2.0 把协议核心从有状态改成了无状态，几处改动直接影响工具怎么接：\n\n1. 握手和会话 id 退休，每个请求自带协议版本与能力——**任何请求都能落到负载均衡后的任意实例**，不需要实例间共享存储。\n2. 方法名与工具名走 HTTP 头（`Mcp-Method`、`Mcp-Name`），网关不必解请求体就能做路由和鉴权。\n3. 列表响应可缓存且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n4. 弃用有了至少 12 个月的正式窗口，升级可以排期而不是被动响应。\n\n第 4 条最容易被忽略，却最影响长期维护成本：一个没有弃用窗口的工具接口，意味着你的集成随时可能在某个周二早上失效。\n\n## 接进来之后，谁负责失败\n\n工具接入的最后一步是让失败可归因。任务失败时至少要分得出三类：**模型选错了工具**、**工具自己执行失败**、**环境异常**。三者的修复动作完全不同，混成一句「重试」就等于放弃了这条信息。\n\n## 与相邻条目的分工\n\n这一条管**单个工具怎么接得可维护**；整条链路怎么分层与交接，是「智能体工作流设计」。工具返回内容可能携带注入，那是「智能体安全与提示注入防御」。概念层面「为什么要把推理与行动分开」在「工具使用与函数调用」，而「稳定的输入输出约定为什么能提升可靠性」在「API 契约与接口边界」。",
+      "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.002Z",
+      "updatedAt": "2026-08-16T16:23:43.874Z"
     },
     {
       "id": "skill-ws-f741f122",
@@ -508,7 +431,8 @@
         "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -519,7 +443,87 @@
       ],
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-08-16T03:16:36.736Z"
+      "updatedAt": "2026-08-16T16:23:43.974Z"
+    },
+    {
+      "id": "skill-ws-2152c7f1",
+      "title": "AI 工具链选型与自建边界评估",
+      "slug": "ai-toolchain-build-vs-buy",
+      "summary": "在「自己搭一套」和「买现成的」之间划线：先判断哪一层工作是你必须拥有的，再比价格——顺序反过来就会买错。",
+      "content": "当模型这一层的价差被抹平（供应商按同样的 API 费率计费），采购决策就不再是比单价，而是**划分系统边界**。\n\n可操作的做法是把一个具体任务拆成两栏：\n\n- **模型调用**：提示词、上下文组装、模型选择、输出解析。\n- **外壳（harness）**：任务上下文的接入（工单、diff、仓库）、可执行命令的白名单、组织策略与权限、日志与评测、用量与计费控制。\n\n然后逐项问：这一项如果自己做，是不是我的竞争力？如果答案是否，它就是集成成本，而集成成本几乎总是被低估——它不随模型能力提升而变便宜。\n\n三个常见的判断失误：\n\n1. **只比 token 单价。** 价格是结论不是前提；外壳的年化人力成本通常远大于 token 支出。\n2. **低估控制面。** 命令白名单、组织策略、审计这类要求往往是合规硬约束，自建方案要从零补齐。\n3. **忽略迁移成本。** 自建外壳如果和某个供应商的接口耦合，换模型时的迁移成本要提前算进来。\n\n这项能力和「模型选型与约束匹配」是一对：后者决定用哪个模型，前者决定模型之外的那一层归谁。",
+      "skillType": "product",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow",
+        "tag-ai-agents"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-model-sizing",
+        "knowledge-api-contracts"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T02:42:33.891Z",
+      "updatedAt": "2026-08-16T16:23:44.049Z"
+    },
+    {
+      "id": "skill-agent-design",
+      "title": "智能体工作流设计",
+      "slug": "agent-workflow-design",
+      "summary": "设计多步骤 AI 流程：怎么分层、每一步的交接点是什么、护栏放在哪一层才真的拦得住。",
+      "content": "GitHub 把 Copilot 代码审查的专用代码探索工具，换成了维护得更好的共享 CLI 工具。预期是一次干净的升级，结果基准显示**审查成本更高、抓到的问题更少**。真正翻转局面的不是再换一次工具，而是按「审查者实际怎么读一个 PR」重写工作流指令——之后成本降低约 20%、质量不变。\n\n这件事定义了这项技能：**决定一个智能体好不好用的，是流程的形状，不是它手里有几件工具。**\n\n## 先把智能体拆成能各自演进的几层\n\nAi2 的 Shippy 服务 70 多个国家的分析人员做高风险判断，它的拆法值得直接借用：\n\n1. **soul**——定义边界的系统提示：它是谁、不做什么。\n2. **skills**——用 markdown 文档化的能力，一件事一份。\n3. **config**——运行时配置。\n\n三层各自独立版本化，改一层不必重建整体。这个拆法之所以有用，是因为它把三种变更频率完全不同的东西分开了：边界很少改，能力经常加，配置每次部署都可能变。混在一个大提示词里，就意味着每次加一个能力都在动边界。\n\n## 每一步都要有明确的交接点\n\n一条工作流是由交接点定义的，而不是由步骤数量。每一步动笔之前先答三个问题：\n\n- 这一步**收到什么**——上一步保证交付的是什么形状。\n- 这一步**必须产出什么**——下一步会依赖的是什么。\n- **谁来判断它做完了**——外部状态、人写的检查，还是模型自己。\n\n第三问最容易被跳过，而它是长链路失败的主要来源，展开在「完成判定与验收信号」。\n\n## 护栏要放在能拦住的位置\n\n护栏写在提示词里，只能约束模型的意图；真正拦得住的是执行路径上的硬约束——权限范围、可调用的工具集合、沙箱边界。Shippy 按用户会话分配独立的 Kubernetes 沙箱，在数百个政府合作方之间做数据隔离，是这条的极端形态。\n\n判断护栏是否真的存在，只问一句：**模型如果决定越界，是什么在物理上阻止它？** 答案如果是「提示词里写了不要这样做」，那就是没有护栏。\n\n## 自己搭 runtime，还是用平台托管\n\n这条边界最近一年被推着走了很远。Gemini 的 Managed Agents 把执行环境、状态管理、工具接入都收到平台侧：传一个 `background:true` 就能让长任务异步跑在服务端，客户端凭 ID 轮询或断线重连；Ollama 则从「把开源模型跑在本地的运行时」转向「智能体工作的入口」。\n\n所以这不再是一个技术选择，而是一个所有权选择：**你必须自己拥有哪一层。** 长任务的状态管理和沙箱是自建里最贵的两块，也是平台最先补齐的两块。\n\n## 与相邻能力的分工\n\n这一条管**整条链路的形状**：怎么分层、怎么交接、护栏放在哪。单个工具怎么接得可维护，是「工具集成模式」；对抗性输入怎么防，是「智能体安全与提示注入防御」；任务跑完之后怎么回放和归因，是「智能体可观测性与评测运维」；而「你要拥有哪一层」这个决定本身，是「AI 工具链选型与自建边界评估」。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:17:24.380Z",
+      "updatedAt": "2026-08-16T16:23:44.123Z"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T03:13:01.794Z",
+  "updatedAt": "2026-08-16T16:19:11.386Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1372,6 +1372,47 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-16T03:13:01.794Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474245": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:09.596Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474064": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:09.838Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-473972": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:09.905Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-473947": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:09.980Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-lflwiiivhrzlakxdgexc-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:10.041Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-5-2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:10.095Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-5-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T16:19:10.155Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474140": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-16T16:19:10.229Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-irjda2ayz9klutwylqzl-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-16T16:19:10.301Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-16T16:19:11.386Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
     }
   }
 }
