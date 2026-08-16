@@ -78,7 +78,9 @@ export function SavedSignalsContent({
           read does not push the list down. */}
       <div className="saved-signals__toolbar">
         <p className="saved-signals__lede">
-          已攒下 {savedTechnologies.length} 条信号，最近保存的排在前面。
+          {/* The ordering is already stated by the page description above;
+              this row exists for the count and to host the read filter. */}
+          已攒下 {savedTechnologies.length} 条信号。
         </p>
 
         <ReadFilterToggle

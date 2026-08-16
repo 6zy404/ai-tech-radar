@@ -30,6 +30,17 @@ interface DossierTechnologyCardProps {
   isRead?: boolean;
   /** The 稍后读 / 已读 toggles; omitted on surfaces without reading state. */
   readingActions?: ReactNode;
+  /**
+   * The P4 「命中关注：X」 line, rendered inside the card.
+   *
+   * The digest has put it inside its card since 2026-07-29, when leaving it
+   * outside was recorded as a stray floating label; the 我关注的 view kept
+   * rendering it above the card, so the same feature read two ways on two
+   * surfaces (measured 2026-08-16: 4/4 inside on the digest, 45/45 outside
+   * here). Passing it in keeps the card the only thing that decides where it
+   * sits.
+   */
+  matchLine?: ReactNode;
 }
 
 /**
@@ -44,7 +55,8 @@ export function DossierTechnologyCard({
   mode,
   context = "preview",
   isRead = false,
-  readingActions
+  readingActions,
+  matchLine
 }: DossierTechnologyCardProps) {
   const effectiveMode = getEffectiveTechnologyMode(technology, mode, context);
   const title = getLocalizedTechnologyText(
@@ -92,6 +104,8 @@ export function DossierTechnologyCard({
           {getPriorityLevelLabel(ranking.priorityLevel, effectiveMode)}
         </DossierStampTag>
       </div>
+
+      {matchLine}
 
       <h2 className="dossier-technology-card__title">
         <Link href={`/technologies/${technology.slug}`}>
