@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T03:16:37.424Z",
+  "updatedAt": "2026-08-16T16:23:45.187Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -4068,6 +4068,114 @@
       "toType": "skill",
       "relationType": "extends",
       "note": "文件操作受管控且可审计是事后归因的前提，早期预览版能给到什么粒度还要看。"
+    },
+    {
+      "id": "rel-ws-b8388aa1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一次规范改动的后一层：那条写无状态化带来的部署形态变化，这条写它被少报的另一半——两个标头把治理搬进了传输层。"
+    },
+    {
+      "id": "rel-ws-1e114f3b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "SDK 月下载 4 亿次对一台服务器三个月 61 次调用——「可得性不等于使用」在协议层的同一道题。"
+    },
+    {
+      "id": "rel-ws-c40cbdf8",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "都在回答智能体流量该由哪一层承载：一个把运行时换掉，一个把治理元数据放进协议。"
+    },
+    {
+      "id": "rel-ws-c04fec2d",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "托管智能体把远程 MCP 调用收进服务端，而这次改动让任何网关都能读懂那些调用。"
+    },
+    {
+      "id": "rel-ws-b345b1f0",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "动态客户端注册的移除带着 2027 年夏季这个日期——承诺里最少被写下来的那一部分。"
+    },
+    {
+      "id": "rel-ws-a3186bdb",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "审批从一条保持的连接变成两个请求：审查点没挪，承载它的机制变了。"
+    },
+    {
+      "id": "rel-ws-deee4b43",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "任意实例可承接任意请求，代价是等待人工响应不再位于单次调用内部。"
+    },
+    {
+      "id": "rel-ws-c056f228",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "方法名与工具名提到传输层，等于「这是哪一次调用」在读正文之前就可判定。"
+    },
+    {
+      "id": "rel-ws-48b1267c",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "改变的是工具层之外那一圈：路由、限流与计量可以交给现成基础设施。"
+    },
+    {
+      "id": "rel-ws-8606def9",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "工具名进入网关日志后，智能体流量第一次能被已有的可观测体系按工具聚合。"
+    },
+    {
+      "id": "rel-ws-fb528338",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "少建一层控制面，是这次改动最实的收益，也是自建与采购那道题的典型形态。"
+    },
+    {
+      "id": "rel-ws-6dce984a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "审批的连接模型变了，交接点与超时都要重画。"
     }
   ]
 }

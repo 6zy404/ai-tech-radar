@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-16T00:05:18.633Z",
+  "syncedAt": "2026-08-16T16:16:45.941Z",
   "sources": [
     {
       "id": "source-qbitai",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://www.qbitai.com/feed",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:03.424Z"
+      "fetchedAt": "2026-08-16T16:16:33.169Z"
     },
     {
       "id": "source-github-blog-ai",
@@ -17,7 +17,7 @@
       "sourceUrl": "https://github.blog/ai-and-ml/feed/",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:04.257Z"
+      "fetchedAt": "2026-08-16T16:16:33.620Z"
     },
     {
       "id": "source-google-ai-blog",
@@ -26,7 +26,7 @@
       "sourceUrl": "https://blog.google/technology/ai/rss/",
       "syncStatus": "live",
       "itemCount": 12,
-      "fetchedAt": "2026-08-16T00:05:06.006Z"
+      "fetchedAt": "2026-08-16T16:16:34.824Z"
     },
     {
       "id": "source-google-deepmind-blog",
@@ -35,7 +35,7 @@
       "sourceUrl": "https://deepmind.google/blog/rss.xml",
       "syncStatus": "live",
       "itemCount": 12,
-      "fetchedAt": "2026-08-16T00:05:07.663Z"
+      "fetchedAt": "2026-08-16T16:16:35.810Z"
     },
     {
       "id": "source-hugging-face-blog",
@@ -44,7 +44,7 @@
       "sourceUrl": "https://hf-mirror.com/blog/feed.xml",
       "syncStatus": "live",
       "itemCount": 12,
-      "fetchedAt": "2026-08-16T00:05:08.378Z"
+      "fetchedAt": "2026-08-16T16:16:37.056Z"
     },
     {
       "id": "source-infoq-cn",
@@ -53,7 +53,7 @@
       "sourceUrl": "https://www.infoq.cn/feed",
       "syncStatus": "live",
       "itemCount": 12,
-      "fetchedAt": "2026-08-16T00:05:08.799Z"
+      "fetchedAt": "2026-08-16T16:16:37.459Z"
     },
     {
       "id": "source-mcp-servers-releases",
@@ -62,7 +62,7 @@
       "sourceUrl": "https://github.com/modelcontextprotocol/servers/releases.atom",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:09.696Z"
+      "fetchedAt": "2026-08-16T16:16:38.409Z"
     },
     {
       "id": "source-ms-swift-releases",
@@ -71,7 +71,7 @@
       "sourceUrl": "https://github.com/modelscope/ms-swift/releases.atom",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:11.413Z"
+      "fetchedAt": "2026-08-16T16:16:40.011Z"
     },
     {
       "id": "source-ollama-releases",
@@ -80,7 +80,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases.atom",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:12.718Z"
+      "fetchedAt": "2026-08-16T16:16:40.869Z"
     },
     {
       "id": "source-openai-news",
@@ -89,7 +89,7 @@
       "sourceUrl": "https://openai.com/news/rss.xml",
       "syncStatus": "live",
       "itemCount": 12,
-      "fetchedAt": "2026-08-16T00:05:13.864Z"
+      "fetchedAt": "2026-08-16T16:16:41.421Z"
     },
     {
       "id": "source-qwen-blog",
@@ -107,7 +107,7 @@
       "sourceUrl": "https://github.com/sgl-project/sglang/releases.atom",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:16.197Z"
+      "fetchedAt": "2026-08-16T16:16:43.609Z"
     },
     {
       "id": "source-simon-willison-blog",
@@ -116,7 +116,7 @@
       "sourceUrl": "https://simonwillison.net/atom/entries/",
       "syncStatus": "live",
       "itemCount": 12,
-      "fetchedAt": "2026-08-16T00:05:17.225Z"
+      "fetchedAt": "2026-08-16T16:16:44.135Z"
     },
     {
       "id": "source-vllm-releases",
@@ -125,10 +125,460 @@
       "sourceUrl": "https://github.com/vllm-project/vllm/releases.atom",
       "syncStatus": "live",
       "itemCount": 10,
-      "fetchedAt": "2026-08-16T00:05:18.604Z"
+      "fetchedAt": "2026-08-16T16:16:45.894Z"
     }
   ],
   "candidates": [
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-474245",
+      "sourceType": "rss-feed",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/474245.html",
+      "originalTitle": "杭州95后小伙，5亿买走硅谷城堡",
+      "originalSummary": "辞别马斯克xAI半年之后…",
+      "originalContent": "辞别马斯克xAI半年之后…",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "鹭羽",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-frontier-models",
+        "资讯",
+        "首页轮播",
+        "xai",
+        "马斯克"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-qbitai",
+        "feedTitle": "量子位",
+        "feedUrl": "https://www.qbitai.com/feed",
+        "item": {
+          "title": "杭州95后小伙，5亿买走硅谷城堡",
+          "link": "https://www.qbitai.com/2026/08/474245.html",
+          "dc:creator": "鹭羽",
+          "pubDate": "Sun, 16 Aug 2026 11:51:08 +0000",
+          "category": [
+            "资讯",
+            "首页轮播",
+            "xAI",
+            "马斯克"
+          ],
+          "guid": {
+            "#text": "https://www.qbitai.com/?p=474245",
+            "isPermaLink": "false"
+          },
+          "description": "辞别马斯克xAI半年之后…"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-qbitai",
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-474140",
+      "sourceType": "rss-feed",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/474140.html",
+      "originalTitle": "李飞飞最新访谈：AI咋能代替人呢？",
+      "originalSummary": "AI不是替代者，而是个人能力的放大镜",
+      "originalContent": "AI不是替代者，而是个人能力的放大镜",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "一水",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-frontier-models",
+        "资讯",
+        "李飞飞"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-qbitai",
+        "feedTitle": "量子位",
+        "feedUrl": "https://www.qbitai.com/feed",
+        "item": {
+          "title": "李飞飞最新访谈：AI咋能代替人呢？",
+          "link": "https://www.qbitai.com/2026/08/474140.html",
+          "dc:creator": "一水",
+          "pubDate": "Sun, 16 Aug 2026 10:45:47 +0000",
+          "category": [
+            "资讯",
+            "李飞飞"
+          ],
+          "guid": {
+            "#text": "https://www.qbitai.com/?p=474140",
+            "isPermaLink": "false"
+          },
+          "description": "AI不是替代者，而是个人能力的放大镜"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-qbitai",
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-474064",
+      "sourceType": "rss-feed",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/474064.html",
+      "originalTitle": "“B站教AI”爆火后，北航90后副教授何静回应一切",
+      "originalSummary": "“错过种一棵树最好的时间”",
+      "originalContent": "“错过种一棵树最好的时间”",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "一水",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-frontier-models",
+        "资讯",
+        "人物专访"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-qbitai",
+        "feedTitle": "量子位",
+        "feedUrl": "https://www.qbitai.com/feed",
+        "item": {
+          "title": "“B站教AI”爆火后，北航90后副教授何静回应一切",
+          "link": "https://www.qbitai.com/2026/08/474064.html",
+          "dc:creator": "一水",
+          "pubDate": "Sun, 16 Aug 2026 10:36:47 +0000",
+          "category": [
+            "资讯",
+            "人物专访"
+          ],
+          "guid": {
+            "#text": "https://www.qbitai.com/?p=474064",
+            "isPermaLink": "false"
+          },
+          "description": "“错过种一棵树最好的时间”"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-qbitai",
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-473972",
+      "sourceType": "rss-feed",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/473972.html",
+      "originalTitle": "WorkSwarm：引领办公智能体新范式，让AI从一个助手，进化为一支与你并肩作战的团队",
+      "originalSummary": "背后是四项关键能力",
+      "originalContent": "背后是四项关键能力",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "一水",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-frontier-models",
+        "资讯",
+        "首页轮播",
+        "华为云"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-qbitai",
+        "feedTitle": "量子位",
+        "feedUrl": "https://www.qbitai.com/feed",
+        "item": {
+          "title": "WorkSwarm：引领办公智能体新范式，让AI从一个助手，进化为一支与你并肩作战的团队",
+          "link": "https://www.qbitai.com/2026/08/473972.html",
+          "dc:creator": "一水",
+          "pubDate": "Sun, 16 Aug 2026 05:37:39 +0000",
+          "category": [
+            "资讯",
+            "首页轮播",
+            "华为云"
+          ],
+          "guid": {
+            "#text": "https://www.qbitai.com/?p=473972",
+            "isPermaLink": "false"
+          },
+          "description": "背后是四项关键能力"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-qbitai",
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-473947",
+      "sourceType": "rss-feed",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/473947.html",
+      "originalTitle": "牛来！A社营收暴涨1400%，最新季度入账115亿美元",
+      "originalSummary": "将超越马斯克的SpaceX，成为史上上市估值最高的IPO。",
+      "originalContent": "将超越马斯克的SpaceX，成为史上上市估值最高的IPO。",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "henry",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-frontier-models",
+        "资讯",
+        "anthropic",
+        "claude"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-qbitai",
+        "feedTitle": "量子位",
+        "feedUrl": "https://www.qbitai.com/feed",
+        "item": {
+          "title": "牛来！A社营收暴涨1400%，最新季度入账115亿美元",
+          "link": "https://www.qbitai.com/2026/08/473947.html",
+          "dc:creator": "henry",
+          "pubDate": "Sun, 16 Aug 2026 05:28:42 +0000",
+          "category": [
+            "资讯",
+            "Anthropic",
+            "Claude"
+          ],
+          "guid": {
+            "#text": "https://www.qbitai.com/?p=473947",
+            "isPermaLink": "false"
+          },
+          "description": "将超越马斯克的SpaceX，成为史上上市估值最高的IPO。"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-qbitai",
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-lflwiiivhrzlakxdgexc-utm-source-rss-amp-utm-medium-article",
+      "sourceType": "rss-feed",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/LflwIiIVHRZlakxDgexC?utm_source=rss&amp;utm_medium=article",
+      "originalTitle": "从代码生成到研发闭环：AI Coding 在金融科技 SDLC 中的落地实践｜AICon深圳",
+      "originalSummary": "<div align='right'><a href='https://www.infoq.cn/article/LflwIiIVHRZlakxDgexC?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+      "originalContent": "<div align='right'><a href='https://www.infoq.cn/article/LflwIiIVHRZlakxDgexC?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "AICon 全球人工智能开发与应用大会",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-workflow"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-infoq-cn",
+        "feedTitle": "InfoQ - 促进软件开发领域知识与创新的传播",
+        "feedUrl": "https://www.infoq.cn/feed",
+        "item": {
+          "title": "从代码生成到研发闭环：AI Coding 在金融科技 SDLC 中的落地实践｜AICon深圳",
+          "link": "https://www.infoq.cn/article/LflwIiIVHRZlakxDgexC?utm_source=rss&amp;utm_medium=article",
+          "description": "&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;https://www.infoq.cn/article/LflwIiIVHRZlakxDgexC?utm_source=rss&amp;utm_medium=article&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;",
+          "author": "AICon 全球人工智能开发与应用大会",
+          "guid": "https://www.infoq.cn/article/LflwIiIVHRZlakxDgexC?utm_source=rss&amp;utm_medium=article",
+          "pubDate": "Sun, 16 Aug 2026 10:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-infoq-cn",
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-irjda2ayz9klutwylqzl-utm-source-rss-amp-utm-medium-article",
+      "sourceType": "rss-feed",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl?utm_source=rss&amp;utm_medium=article",
+      "originalTitle": "一份数据，多种用途：Spotify 用 RAP 打通分析与在线服务",
+      "originalSummary": "<div align='right'><a href='https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+      "originalContent": "<div align='right'><a href='https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "作者：Leela Kumili",
+      "normalizedType": "unknown",
+      "tags": [
+        "tag-workflow"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-infoq-cn",
+        "feedTitle": "InfoQ - 促进软件开发领域知识与创新的传播",
+        "feedUrl": "https://www.infoq.cn/feed",
+        "item": {
+          "title": "一份数据，多种用途：Spotify 用 RAP 打通分析与在线服务",
+          "link": "https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl?utm_source=rss&amp;utm_medium=article",
+          "description": "&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl?utm_source=rss&amp;utm_medium=article&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;",
+          "author": "作者：Leela Kumili",
+          "guid": "https://www.infoq.cn/article/iRjDa2ayZ9KLUtWylQZl?utm_source=rss&amp;utm_medium=article",
+          "pubDate": "Sun, 16 Aug 2026 10:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-infoq-cn",
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+      "sourceType": "rss-feed",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD?utm_source=rss&amp;utm_medium=article",
+      "originalTitle": "MCP 走向无状态，开发者追问：这不就又变回 API 了吗？",
+      "originalSummary": "<div align='right'><a href='https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+      "originalContent": "<div align='right'><a href='https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+      "originalLanguage": "zh",
+      "publishDate": "2026-08-16",
+      "publisherName": "Steef-Jan Wiggers",
+      "normalizedType": "protocol",
+      "tags": [
+        "tag-workflow"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-infoq-cn",
+        "feedTitle": "InfoQ - 促进软件开发领域知识与创新的传播",
+        "feedUrl": "https://www.infoq.cn/feed",
+        "item": {
+          "title": "MCP 走向无状态，开发者追问：这不就又变回 API 了吗？",
+          "link": "https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD?utm_source=rss&amp;utm_medium=article",
+          "description": "&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD?utm_source=rss&amp;utm_medium=article&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;",
+          "author": "Steef-Jan Wiggers",
+          "guid": "https://www.infoq.cn/article/412hbBva0NF0AYP0CjzD?utm_source=rss&amp;utm_medium=article",
+          "pubDate": "Sun, 16 Aug 2026 08:00:00 GMT"
+        },
+        "externalSourceType": "rss",
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-infoq-cn",
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-5-2",
+      "sourceType": "rss-feed",
+      "sourceName": "ms-swift Releases",
+      "sourceUrl": "https://github.com/modelscope/ms-swift/releases/tag/v4.5.2",
+      "originalTitle": "v4.5.2",
+      "originalSummary": "Bug Fixes Fixed : Corrected the incorrect size configuration for Qwen3.8-35B-A3B , which was mistakenly copied from the previous Qwen3.5/3.6 series during development. We apologize for the confusion and inconvenience this caused . Thanks to the community for…",
+      "originalContent": "<h2>Bug Fixes</h2> <ul> <li><strong>Fixed</strong>: Corrected the incorrect <code>size</code> configuration for <code>Qwen3.8-35B-A3B</code>, which was mistakenly copied from the previous Qwen3.5/3.6 series during development. <strong>We apologize for the confusion and inconvenience this caused</strong>. Thanks to the community for reporting this issue.</li> </ul>",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-16",
+      "publisherName": "hjh0119",
+      "normalizedType": "tool",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ms-swift-releases",
+        "feedTitle": "Release notes from ms-swift",
+        "feedUrl": "https://github.com/modelscope/ms-swift/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/673412924/v4.5.2",
+          "updated": "2026-08-16T02:44:21Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/modelscope/ms-swift/releases/tag/v4.5.2"
+          },
+          "title": "v4.5.2",
+          "content": {
+            "#text": "&lt;h2&gt;Bug Fixes&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;Fixed&lt;/strong&gt;: Corrected the incorrect &lt;code&gt;size&lt;/code&gt; configuration for &lt;code&gt;Qwen3.8-35B-A3B&lt;/code&gt;, which was mistakenly copied from the previous Qwen3.5/3.6 series during development. &lt;strong&gt;We apologize for the confusion and inconvenience this caused&lt;/strong&gt;. Thanks to the community for reporting this issue.&lt;/li&gt;\n&lt;/ul&gt;",
+            "type": "html"
+          },
+          "author": {
+            "name": "hjh0119"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/u/112739147?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-ms-swift-releases",
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
+    {
+      "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-5-1",
+      "sourceType": "rss-feed",
+      "sourceName": "ms-swift Releases",
+      "sourceUrl": "https://github.com/modelscope/ms-swift/releases/tag/v4.5.1",
+      "originalTitle": "v4.5.1",
+      "originalSummary": "No content.",
+      "originalContent": "No content.",
+      "originalLanguage": "en",
+      "publishDate": "2026-08-16",
+      "publisherName": "tastelikefeet",
+      "normalizedType": "tool",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "importStatus": "new",
+      "relatedCandidateIds": [],
+      "rawPayload": {
+        "sourceId": "source-ms-swift-releases",
+        "feedTitle": "Release notes from ms-swift",
+        "feedUrl": "https://github.com/modelscope/ms-swift/releases.atom",
+        "entry": {
+          "id": "tag:github.com,2008:Repository/673412924/v4.5.1",
+          "updated": "2026-08-16T02:02:30Z",
+          "link": {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://github.com/modelscope/ms-swift/releases/tag/v4.5.1"
+          },
+          "title": "v4.5.1",
+          "content": "No content.",
+          "author": {
+            "name": "tastelikefeet"
+          },
+          "media:thumbnail": {
+            "height": "30",
+            "width": "30",
+            "url": "https://avatars.githubusercontent.com/u/58414341?s=60&amp;v=4"
+          }
+        },
+        "externalSourceType": "atom",
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
+      },
+      "sourceId": "source-ms-swift-releases",
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
+    },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-473876",
       "sourceType": "rss-feed",
@@ -170,12 +620,12 @@
           "description": "理解大模型，无需再训练一个替代网络"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-473866",
@@ -220,12 +670,12 @@
           "description": "音潮API限时免费开放"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-473669",
@@ -267,12 +717,12 @@
           "description": "推理能力还能自定义"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-473597",
@@ -313,12 +763,12 @@
           "description": "大家已经给DeepSeek装上了啥"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-473407",
@@ -359,60 +809,12 @@
           "description": "1.9万字全文实录"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:32.911Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-qbitai-com-p-473395",
-      "sourceType": "rss-feed",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473395.html",
-      "originalTitle": "高效低成本开发，商业增长回报高，鸿蒙元服务背后的“开发厨房”让开发者按时吃饭！",
-      "originalSummary": "对开发者而言，ASCF带来的不仅是“按时吃饭”的从容，更是低成本投入、高效率交付、高回报增长的完整商业闭环。",
-      "originalContent": "对开发者而言，ASCF带来的不仅是“按时吃饭”的从容，更是低成本投入、高效率交付、高回报增长的完整商业闭环。",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-15",
-      "publisherName": "允中",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-frontier-models",
-        "资讯",
-        "首页轮播",
-        "鸿蒙"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-qbitai",
-        "feedTitle": "量子位",
-        "feedUrl": "https://www.qbitai.com/feed",
-        "item": {
-          "title": "高效低成本开发，商业增长回报高，鸿蒙元服务背后的“开发厨房”让开发者按时吃饭！",
-          "link": "https://www.qbitai.com/2026/08/473395.html",
-          "dc:creator": "允中",
-          "pubDate": "Sat, 15 Aug 2026 04:03:37 +0000",
-          "category": [
-            "资讯",
-            "首页轮播",
-            "鸿蒙"
-          ],
-          "guid": {
-            "#text": "https://www.qbitai.com/?p=473395",
-            "isPermaLink": "false"
-          },
-          "description": "对开发者而言，ASCF带来的不仅是“按时吃饭”的从容，更是低成本投入、高效率交付、高回报增长的完整商业闭环。"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:32.911Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
@@ -444,12 +846,12 @@
           "pubDate": "Sat, 15 Aug 2026 21:52:31 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-ogbviicigja8tase0lwi-utm-source-rss-amp-utm-medium-article",
@@ -481,12 +883,12 @@
           "pubDate": "Sat, 15 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-55mbodvkkhgihyqfqkfg-utm-source-rss-amp-utm-medium-article",
@@ -518,12 +920,12 @@
           "pubDate": "Sat, 15 Aug 2026 00:19:32 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-plzy01etbhv3etoyg0af-utm-source-rss-amp-utm-medium-article",
@@ -555,12 +957,12 @@
           "pubDate": "Sat, 15 Aug 2026 00:01:01 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-14-rc0",
@@ -608,12 +1010,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-12",
@@ -622,7 +1024,7 @@
       "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.32.12",
       "originalTitle": "v0.32.12",
       "originalSummary": "Qwen 3.8 27B This release adds the support of Qwen 3.8 27B . Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks. ollama run qwen3.8:27b For Apple Silicon devices, Ollama has in particular optimized fo…",
-      "originalContent": "<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4MzkwMTAsIm5iZiI6MTc4NjgzODcxMCwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMDAwNTEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MjE0YTYyYmJlYWExN2Y4YzZmY2ZlZTIyOGRlMDQzYzk3ODk1MDNhNzY4M2IxZWE5MWYzNmUzOTEwNWNjZTFmZSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.vk69_dWD97QXkLQ3y2YZEdGv8U5CTtZW5LvtezEOoIc\"><img width=\"600\" alt=\"ollama and qwen capybara\" src=\"https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4MzkwMTAsIm5iZiI6MTc4NjgzODcxMCwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMDAwNTEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MjE0YTYyYmJlYWExN2Y4YzZmY2ZlZTIyOGRlMDQzYzk3ODk1MDNhNzY4M2IxZW…",
+      "originalContent": "<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTcyOTksIm5iZiI6MTc4Njg5Njk5OSwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMTYxNjM5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjAyNGVkY2Q5MjVjMDJmZDAyNDBiZWJiNmEzYTQ3YjgyNWVhMDdiYjBlYzllNTc4MzllOGJjOGE4MjA3NWJhNyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.ef4NLic7cSA-OxVlgGoISIqQY5uzo_S8h4r9-LBmgjg\"><img width=\"600\" alt=\"ollama and qwen capybara\" src=\"https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTcyOTksIm5iZiI6MTc4Njg5Njk5OSwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMTYxNjM5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjAyNGVkY2Q5MjVjMDJmZDAyNDBiZWJiNmEzYTQ3YjgyNWVhMDdiYjBlYzllNT…",
       "originalLanguage": "en",
       "publishDate": "2026-08-15",
       "publisherName": "dhiltgen",
@@ -650,7 +1052,7 @@
           },
           "title": "v0.32.12",
           "content": {
-            "#text": "&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; href=&quot;https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4MzkwMTAsIm5iZiI6MTc4NjgzODcxMCwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMDAwNTEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MjE0YTYyYmJlYWExN2Y4YzZmY2ZlZTIyOGRlMDQzYzk3ODk1MDNhNzY4M2IxZWE5MWYzNmUzOTEwNWNjZTFmZSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.vk69_dWD97QXkLQ3y2YZEdGv8U5CTtZW5LvtezEOoIc&quot;&gt;&lt;img width=&quot;600&quot; alt=&quot;ollama and qwen capybara&quot; src=&quot;https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4MzkwMTAsIm5iZiI6MTc4NjgzODcxMCwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMDAwNTEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MjE0YTYyYmJlYWExN2Y4YzZmY2ZlZTIyOGRlMDQzYzk3ODk1MDNhNzY4M2IxZWE5MWYzNmUzOTEwNWNjZTFmZSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.vk69_dWD97QXkLQ3y2YZEdGv8U5CTtZW5LvtezEOoIc&quot; content-type-secured-asset=&quot;image/png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/a&gt;\n&lt;h2&gt;Qwen 3.8 27B&lt;/h2&gt;\n&lt;p&gt;This release adds the support of &lt;a href=&quot;https://ollama.com/library/qwen3.8&quot; rel=&quot;nofollow&quot;&gt;Qwen 3.8 27B&lt;/a&gt;. Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks.&lt;/p&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;ollama run qwen3.8:27b&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;ollama run qwen3.8:27b\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;For Apple Silicon devices, Ollama has in particular optimized for maximum performance and output quality suitable for repeated tasks and coding agents.&lt;/p&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;ollama run qwen3.8:27b-mlx&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;ollama run qwen3.8:27b-mlx\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;",
+            "#text": "&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; href=&quot;https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTcyOTksIm5iZiI6MTc4Njg5Njk5OSwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMTYxNjM5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjAyNGVkY2Q5MjVjMDJmZDAyNDBiZWJiNmEzYTQ3YjgyNWVhMDdiYjBlYzllNTc4MzllOGJjOGE4MjA3NWJhNyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.ef4NLic7cSA-OxVlgGoISIqQY5uzo_S8h4r9-LBmgjg&quot;&gt;&lt;img width=&quot;600&quot; alt=&quot;ollama and qwen capybara&quot; src=&quot;https://private-user-images.githubusercontent.com/3325447/636237674-5fa5e93b-d48b-4a6a-b72a-25379ab9429c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODY4OTcyOTksIm5iZiI6MTc4Njg5Njk5OSwicGF0aCI6Ii8zMzI1NDQ3LzYzNjIzNzY3NC01ZmE1ZTkzYi1kNDhiLTRhNmEtYjcyYS0yNTM3OWFiOTQyOWMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MDgxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjA4MTZUMTYxNjM5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjAyNGVkY2Q5MjVjMDJmZDAyNDBiZWJiNmEzYTQ3YjgyNWVhMDdiYjBlYzllNTc4MzllOGJjOGE4MjA3NWJhNyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.ef4NLic7cSA-OxVlgGoISIqQY5uzo_S8h4r9-LBmgjg&quot; content-type-secured-asset=&quot;image/png&quot; style=&quot;max-width: 100%;&quot;&gt;&lt;/a&gt;\n&lt;h2&gt;Qwen 3.8 27B&lt;/h2&gt;\n&lt;p&gt;This release adds the support of &lt;a href=&quot;https://ollama.com/library/qwen3.8&quot; rel=&quot;nofollow&quot;&gt;Qwen 3.8 27B&lt;/a&gt;. Qwen3.8 delivers substantial gains across coding, professional work, research, and long-horizon agentic tasks.&lt;/p&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;ollama run qwen3.8:27b&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;ollama run qwen3.8:27b\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;\n&lt;p&gt;For Apple Silicon devices, Ollama has in particular optimized for maximum performance and output quality suitable for repeated tasks and coding agents.&lt;/p&gt;\n&lt;div class=&quot;snippet-clipboard-content notranslate position-relative overflow-auto&quot; data-snippet-clipboard-copy-content=&quot;ollama run qwen3.8:27b-mlx&quot;&gt;&lt;pre class=&quot;notranslate&quot;&gt;&lt;code&gt;ollama run qwen3.8:27b-mlx\n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;",
             "type": "html"
           },
           "author": {
@@ -663,190 +1065,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-qbitai-com-p-473379",
-      "sourceType": "rss-feed",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473379.html",
-      "originalTitle": "刚刚，Qwen3.8-27B 开源了！家用显卡也能跑",
-      "originalSummary": "所有人都可免费下载部署及商用。",
-      "originalContent": "所有人都可免费下载部署及商用。",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "量子位的朋友们",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-frontier-models",
-        "资讯",
-        "qweb3.8"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-qbitai",
-        "feedTitle": "量子位",
-        "feedUrl": "https://www.qbitai.com/feed",
-        "item": {
-          "title": "刚刚，Qwen3.8-27B 开源了！家用显卡也能跑",
-          "link": "https://www.qbitai.com/2026/08/473379.html",
-          "dc:creator": "量子位的朋友们",
-          "pubDate": "Fri, 14 Aug 2026 15:41:12 +0000",
-          "category": [
-            "资讯",
-            "qweb3.8"
-          ],
-          "guid": {
-            "#text": "https://www.qbitai.com/?p=473379",
-            "isPermaLink": "false"
-          },
-          "description": "所有人都可免费下载部署及商用。"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-qbitai-com-p-473261",
-      "sourceType": "rss-feed",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473261.html",
-      "originalTitle": "7亿年薪留不住！余家辉离职Meta创业",
-      "originalSummary": "真就只待了一年",
-      "originalContent": "真就只待了一年",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "听雨",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-frontier-models",
-        "资讯",
-        "首页轮播"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-qbitai",
-        "feedTitle": "量子位",
-        "feedUrl": "https://www.qbitai.com/feed",
-        "item": {
-          "title": "7亿年薪留不住！余家辉离职Meta创业",
-          "link": "https://www.qbitai.com/2026/08/473261.html",
-          "dc:creator": "听雨",
-          "pubDate": "Fri, 14 Aug 2026 14:59:25 +0000",
-          "category": [
-            "资讯",
-            "首页轮播"
-          ],
-          "guid": {
-            "#text": "https://www.qbitai.com/?p=473261",
-            "isPermaLink": "false"
-          },
-          "description": "真就只待了一年"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-qbitai-com-p-473153",
-      "sourceType": "rss-feed",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473153.html",
-      "originalTitle": "谷歌开始肢解DeepMind，数个团队被划归总部",
-      "originalSummary": "布林亲自下场督战",
-      "originalContent": "布林亲自下场督战",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "听雨",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-frontier-models",
-        "资讯"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-qbitai",
-        "feedTitle": "量子位",
-        "feedUrl": "https://www.qbitai.com/feed",
-        "item": {
-          "title": "谷歌开始肢解DeepMind，数个团队被划归总部",
-          "link": "https://www.qbitai.com/2026/08/473153.html",
-          "dc:creator": "听雨",
-          "pubDate": "Fri, 14 Aug 2026 14:51:48 +0000",
-          "category": "资讯",
-          "guid": {
-            "#text": "https://www.qbitai.com/?p=473153",
-            "isPermaLink": "false"
-          },
-          "description": "布林亲自下场督战"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-qbitai-com-p-473149",
-      "sourceType": "rss-feed",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473149.html",
-      "originalTitle": "太初元碁助力国家级“AI+教育”大赛 “AI+加速卡模型适配赛道”开启招募",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "量子位的朋友们",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-frontier-models",
-        "资讯",
-        "太初元碁"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-qbitai",
-        "feedTitle": "量子位",
-        "feedUrl": "https://www.qbitai.com/feed",
-        "item": {
-          "title": "太初元碁助力国家级“AI+教育”大赛 “AI+加速卡模型适配赛道”开启招募",
-          "link": "https://www.qbitai.com/2026/08/473149.html",
-          "dc:creator": "量子位的朋友们",
-          "pubDate": "Fri, 14 Aug 2026 10:25:36 +0000",
-          "category": [
-            "资讯",
-            "太初元碁"
-          ],
-          "guid": {
-            "#text": "https://www.qbitai.com/?p=473149",
-            "isPermaLink": "false"
-          },
-          "description": ""
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:02.969Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-qbitai",
-      "importedAt": "2026-08-16T00:05:02.969Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98252",
@@ -898,12 +1122,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
@@ -935,12 +1159,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-ywxm26hrwc9ysegz9lpp-utm-source-rss-amp-utm-medium-article",
@@ -972,12 +1196,12 @@
           "pubDate": "Fri, 14 Aug 2026 23:41:55 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-zildf4hae2o3ieyydqqv-utm-source-rss-amp-utm-medium-article",
@@ -1009,12 +1233,12 @@
           "pubDate": "Fri, 14 Aug 2026 15:17:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-gkodbzgi6rxgmn09piek-utm-source-rss-amp-utm-medium-article",
@@ -1046,12 +1270,12 @@
           "pubDate": "Fri, 14 Aug 2026 14:55:20 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-5jaos4xarzjgb5sj2lxg-utm-source-rss-amp-utm-medium-article",
@@ -1083,12 +1307,12 @@
           "pubDate": "Fri, 14 Aug 2026 14:54:05 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-avjlp0xapukyu6cnlokl-utm-source-rss-amp-utm-medium-article",
@@ -1120,124 +1344,12 @@
           "pubDate": "Fri, 14 Aug 2026 14:44:32 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.143Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-      "sourceType": "rss-feed",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&amp;utm_medium=article",
-      "originalTitle": "DeepSeek 把 Harness 开源了：模型、工具、Agent Loop 全是插件",
-      "originalSummary": "<div align='right'><a href='https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-      "originalContent": "<div align='right'><a href='https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "Tina",
-      "normalizedType": "workflow",
-      "tags": [
-        "tag-workflow",
-        "agents"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-infoq-cn",
-        "feedTitle": "InfoQ - 促进软件开发领域知识与创新的传播",
-        "feedUrl": "https://www.infoq.cn/feed",
-        "item": {
-          "title": "DeepSeek 把 Harness 开源了：模型、工具、Agent Loop 全是插件",
-          "link": "https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&amp;utm_medium=article",
-          "description": "&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&amp;utm_medium=article&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;",
-          "author": "Tina",
-          "guid": "https://www.infoq.cn/article/de9AljWc4ejW2KAyW8dD?utm_source=rss&amp;utm_medium=article",
-          "pubDate": "Fri, 14 Aug 2026 14:38:24 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-infoq-cn-article-abck0czdtskmhbpxcdwf-utm-source-rss-amp-utm-medium-article",
-      "sourceType": "rss-feed",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/ABCk0CzDtSKMHbPXCdWF?utm_source=rss&amp;utm_medium=article",
-      "originalTitle": "从“工具”到“同事”——AI 时代的产品进化",
-      "originalSummary": "<div align='right'><a href='https://www.infoq.cn/article/ABCk0CzDtSKMHbPXCdWF?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-      "originalContent": "<div align='right'><a href='https://www.infoq.cn/article/ABCk0CzDtSKMHbPXCdWF?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "作者：苏杰",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-workflow"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-infoq-cn",
-        "feedTitle": "InfoQ - 促进软件开发领域知识与创新的传播",
-        "feedUrl": "https://www.infoq.cn/feed",
-        "item": {
-          "title": "从“工具”到“同事”——AI 时代的产品进化",
-          "link": "https://www.infoq.cn/article/ABCk0CzDtSKMHbPXCdWF?utm_source=rss&amp;utm_medium=article",
-          "description": "&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;https://www.infoq.cn/article/ABCk0CzDtSKMHbPXCdWF?utm_source=rss&amp;utm_medium=article&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;",
-          "author": "作者：苏杰",
-          "guid": "https://www.infoq.cn/article/ABCk0CzDtSKMHbPXCdWF?utm_source=rss&amp;utm_medium=article",
-          "pubDate": "Fri, 14 Aug 2026 14:37:37 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-www-infoq-cn-article-xpfuaftcee3ilggzygzi-utm-source-rss-amp-utm-medium-article",
-      "sourceType": "rss-feed",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/XpFUaftcEE3iLgGzYGZi?utm_source=rss&amp;utm_medium=article",
-      "originalTitle": "DeepSeek + Pi 王炸组合跑赢 Claude Code？Pi创始人：这套组合我早押中了",
-      "originalSummary": "<div align='right'><a href='https://www.infoq.cn/article/XpFUaftcEE3iLgGzYGZi?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-      "originalContent": "<div align='right'><a href='https://www.infoq.cn/article/XpFUaftcEE3iLgGzYGZi?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-      "originalLanguage": "zh",
-      "publishDate": "2026-08-14",
-      "publisherName": "Tina",
-      "normalizedType": "unknown",
-      "tags": [
-        "tag-workflow"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-infoq-cn",
-        "feedTitle": "InfoQ - 促进软件开发领域知识与创新的传播",
-        "feedUrl": "https://www.infoq.cn/feed",
-        "item": {
-          "title": "DeepSeek + Pi 王炸组合跑赢 Claude Code？Pi创始人：这套组合我早押中了",
-          "link": "https://www.infoq.cn/article/XpFUaftcEE3iLgGzYGZi?utm_source=rss&amp;utm_medium=article",
-          "description": "&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;https://www.infoq.cn/article/XpFUaftcEE3iLgGzYGZi?utm_source=rss&amp;utm_medium=article&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;",
-          "author": "Tina",
-          "guid": "https://www.infoq.cn/article/XpFUaftcEE3iLgGzYGZi?utm_source=rss&amp;utm_medium=article",
-          "pubDate": "Fri, 14 Aug 2026 14:34:30 GMT"
-        },
-        "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:08.454Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-infoq-cn",
-      "importedAt": "2026-08-16T00:05:08.454Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.143Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-5-0",
@@ -1288,12 +1400,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-13",
@@ -1340,12 +1452,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-11",
@@ -1394,12 +1506,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-workspace-sheets-canvas-for-google-sheets-spreadsheets",
@@ -1462,12 +1574,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
@@ -1496,12 +1608,12 @@
           "guid": "https://deepmind.google/blog/introducing-gemini-3-7-flash/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-amazon-strands-lerobot-streaming-data-loop",
@@ -1535,12 +1647,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
@@ -1572,12 +1684,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-10",
@@ -1624,12 +1736,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-builders-guide-to-gpt-5-6",
@@ -1666,12 +1778,12 @@
           "pubDate": "Thu, 13 Aug 2026 11:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-previewing-ultrafast",
@@ -1707,12 +1819,12 @@
           "pubDate": "Thu, 13 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-dali-rajic-chief-revenue-officer",
@@ -1748,12 +1860,12 @@
           "pubDate": "Thu, 13 Aug 2026 09:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98221",
@@ -1806,12 +1918,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
@@ -1849,12 +1961,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-allenai-olmoearth-embeddings",
@@ -1886,12 +1998,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-3b",
@@ -1925,12 +2037,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-3",
@@ -1979,12 +2091,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-10-rc1",
@@ -2032,12 +2144,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-10-rc0",
@@ -2084,12 +2196,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-how-enterprises-put-ai-to-work",
@@ -2127,12 +2239,12 @@
           "pubDate": "Wed, 12 Aug 2026 06:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-ringcentral",
@@ -2167,12 +2279,12 @@
           "pubDate": "Wed, 12 Aug 2026 00:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-2rc0",
@@ -2219,12 +2331,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
@@ -2289,12 +2401,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-sldd",
@@ -2326,12 +2438,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-9",
@@ -2379,12 +2491,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-8",
@@ -2434,12 +2546,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-testing-ads-in-chatgpt",
@@ -2475,12 +2587,12 @@
           "pubDate": "Tue, 11 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-daybreak-models-are-now-available-on-aws",
@@ -2517,12 +2629,12 @@
           "pubDate": "Tue, 11 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
@@ -2575,12 +2687,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-1",
@@ -2627,12 +2739,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97992",
@@ -2688,12 +2800,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-ads-commerce-google-ads-analytics-ai-updates",
@@ -2758,12 +2870,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-magpie-tts-multilingual-voice-agents",
@@ -2797,12 +2909,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-efficient-knowledge-distillation",
@@ -2836,12 +2948,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
@@ -2876,12 +2988,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-8-rc0",
@@ -2928,12 +3040,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:11.488Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.101Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ollama-releases",
-      "importedAt": "2026-08-16T00:05:11.488Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.101Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-responsible-ai-infrastructure-texas",
@@ -2969,12 +3081,12 @@
           "pubDate": "Mon, 10 Aug 2026 14:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-model-ml",
@@ -3012,12 +3124,12 @@
           "pubDate": "Mon, 10 Aug 2026 12:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-building-an-ai-native-finance-function",
@@ -3053,12 +3165,12 @@
           "pubDate": "Mon, 10 Aug 2026 17:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-putting-frontier-cyber-models-in-more-trusted-hands",
@@ -3094,12 +3206,12 @@
           "pubDate": "Mon, 10 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-openai-com-index-expanding-daybreak-as-the-cyber-defense-window-narrows",
@@ -3136,12 +3248,12 @@
           "pubDate": "Mon, 10 Aug 2026 10:00:00 GMT"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:12.794Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:40.958Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-openai-news",
-      "importedAt": "2026-08-16T00:05:12.794Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:40.958Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
@@ -3194,12 +3306,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0rc2",
@@ -3246,12 +3358,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline",
@@ -3331,12 +3443,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0rc1",
@@ -3383,12 +3495,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98013",
@@ -3443,12 +3555,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones",
@@ -3484,12 +3596,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-baseten",
@@ -3521,12 +3633,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist",
@@ -3615,12 +3727,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97698",
@@ -3674,12 +3786,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-ai-updates-july-2026",
@@ -3750,12 +3862,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm",
@@ -3845,12 +3957,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-ai-agents-intensive-recap-2026",
@@ -3925,12 +4037,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp",
@@ -4012,12 +4124,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97813",
@@ -4080,12 +4192,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration",
@@ -4117,12 +4229,12 @@
           "guid": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management",
@@ -4154,12 +4266,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control",
@@ -4188,12 +4300,12 @@
           "guid": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api-3-6-flash-hooks",
@@ -4264,12 +4376,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-ai-mode-real-world-tips",
@@ -4330,12 +4442,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-dinner-party-hosting-tips",
@@ -4396,12 +4508,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
@@ -4437,12 +4549,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97740",
@@ -4492,12 +4604,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97758",
@@ -4553,12 +4665,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-cosmos-h-dreams",
@@ -4590,12 +4702,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:07.778Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:35.899Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-hugging-face-blog",
-      "importedAt": "2026-08-16T00:05:07.778Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:35.899Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-1rc0",
@@ -4642,12 +4754,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
@@ -4699,12 +4811,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-16",
@@ -4755,12 +4867,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0rc1",
@@ -4807,12 +4919,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97686",
@@ -4867,12 +4979,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-platforms-android-galaxy-unpacked-2026",
@@ -4937,12 +5049,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission",
@@ -4973,12 +5085,12 @@
           "guid": "https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-22-openai-cyberattack",
@@ -5070,12 +5182,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-blog-p-97611",
@@ -5130,12 +5242,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:03.548Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.265Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-github-blog-ai",
-      "importedAt": "2026-08-16T00:05:03.548Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.265Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber",
@@ -5166,12 +5278,12 @@
           "guid": "https://deepmind.google/blog/introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cyber/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-2",
@@ -5218,12 +5330,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-21-cat-and-thariq",
@@ -5310,12 +5422,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-5-flash-cyber",
@@ -5353,12 +5465,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-connected-apps",
@@ -5428,12 +5540,12 @@
           ]
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-workspace-gemini-omni-personal-avatars",
@@ -5496,12 +5608,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-our-approach-to-bioresilience",
@@ -5539,12 +5651,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3",
@@ -5630,12 +5742,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-blog-google-products-and-platforms-products-search-google-images-25th-anniversary",
@@ -5696,12 +5808,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:04.339Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:33.714Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-ai-blog",
-      "importedAt": "2026-08-16T00:05:04.339Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:33.714Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-15-post1",
@@ -5748,12 +5860,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-1",
@@ -5801,12 +5913,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-empowering-indias-next-generation-of-innovators-with-atl-saathi",
@@ -5844,12 +5956,12 @@
           }
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-1",
@@ -5896,12 +6008,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
@@ -5953,12 +6065,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:17.301Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:44.232Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-vllm-releases",
-      "importedAt": "2026-08-16T00:05:17.301Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:44.232Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-10",
@@ -6005,12 +6117,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-15",
@@ -6060,12 +6172,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-9-gpt-5-6",
@@ -6148,12 +6260,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-7-sqlite-utils-4",
@@ -6247,12 +6359,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-4-0",
@@ -6303,12 +6415,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jul-5-sqlite-utils-fable",
@@ -6412,12 +6524,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-7-4",
@@ -6464,12 +6576,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-google-deepmind-and-a24-announce-first-of-its-kind-research-partnership",
@@ -6499,12 +6611,12 @@
           "guid": "https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/"
         },
         "externalSourceType": "rss",
-        "importedAt": "2026-08-16T00:05:06.112Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:34.914Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-google-deepmind-blog",
-      "importedAt": "2026-08-16T00:05:06.112Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:34.914Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jun-30-shot-scraper-video",
@@ -6594,12 +6706,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-3-2",
@@ -6646,12 +6758,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-14",
@@ -6701,12 +6813,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-jun-22-porting-moebius",
@@ -6778,12 +6890,12 @@
           ]
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:16.274Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:43.695Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-simon-willison-blog",
-      "importedAt": "2026-08-16T00:05:16.274Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:43.695Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-3-1",
@@ -6830,12 +6942,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-16",
@@ -6882,12 +6994,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-13-post1",
@@ -6933,12 +7045,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-13",
@@ -6988,12 +7100,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-3-0",
@@ -7044,12 +7156,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:38.497Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:38.497Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-6-3",
@@ -7096,64 +7208,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-2-3",
-      "sourceType": "rss-feed",
-      "sourceName": "ms-swift Releases",
-      "sourceUrl": "https://github.com/modelscope/ms-swift/releases/tag/v4.2.3",
-      "originalTitle": "Patch release v4.2.3",
-      "originalSummary": "Full Changelog : v4.2.2...v4.2.3",
-      "originalContent": "<p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/modelscope/ms-swift/compare/v4.2.2...v4.2.3\"><tt>v4.2.2...v4.2.3</tt></a></p>",
-      "originalLanguage": "en",
-      "publishDate": "2026-05-31",
-      "publisherName": "Jintao-Huang",
-      "normalizedType": "tool",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ms-swift-releases",
-        "feedTitle": "Release notes from ms-swift",
-        "feedUrl": "https://github.com/modelscope/ms-swift/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/673412924/v4.2.3",
-          "updated": "2026-05-31T12:12:30Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/modelscope/ms-swift/releases/tag/v4.2.3"
-          },
-          "title": "Patch release v4.2.3",
-          "content": {
-            "#text": "&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/modelscope/ms-swift/compare/v4.2.2...v4.2.3&quot;&gt;&lt;tt&gt;v4.2.2...v4.2.3&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "Jintao-Huang"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/45290347?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-12-post1",
@@ -7200,64 +7260,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
-    },
-    {
-      "id": "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-2-2",
-      "sourceType": "rss-feed",
-      "sourceName": "ms-swift Releases",
-      "sourceUrl": "https://github.com/modelscope/ms-swift/releases/tag/v4.2.2",
-      "originalTitle": "Patch release v4.2.2",
-      "originalSummary": "Full Changelog : v4.2.1...v4.2.2",
-      "originalContent": "<p><strong>Full Changelog</strong>: <a class=\"commit-link\" href=\"https://github.com/modelscope/ms-swift/compare/v4.2.1...v4.2.2\"><tt>v4.2.1...v4.2.2</tt></a></p>",
-      "originalLanguage": "en",
-      "publishDate": "2026-05-24",
-      "publisherName": "Jintao-Huang",
-      "normalizedType": "tool",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "importStatus": "new",
-      "relatedCandidateIds": [],
-      "rawPayload": {
-        "sourceId": "source-ms-swift-releases",
-        "feedTitle": "Release notes from ms-swift",
-        "feedUrl": "https://github.com/modelscope/ms-swift/releases.atom",
-        "entry": {
-          "id": "tag:github.com,2008:Repository/673412924/v4.2.2",
-          "updated": "2026-05-24T15:18:07Z",
-          "link": {
-            "rel": "alternate",
-            "type": "text/html",
-            "href": "https://github.com/modelscope/ms-swift/releases/tag/v4.2.2"
-          },
-          "title": "Patch release v4.2.2",
-          "content": {
-            "#text": "&lt;p&gt;&lt;strong&gt;Full Changelog&lt;/strong&gt;: &lt;a class=&quot;commit-link&quot; href=&quot;https://github.com/modelscope/ms-swift/compare/v4.2.1...v4.2.2&quot;&gt;&lt;tt&gt;v4.2.1...v4.2.2&lt;/tt&gt;&lt;/a&gt;&lt;/p&gt;",
-            "type": "html"
-          },
-          "author": {
-            "name": "Jintao-Huang"
-          },
-          "media:thumbnail": {
-            "height": "30",
-            "width": "30",
-            "url": "https://avatars.githubusercontent.com/u/45290347?s=60&amp;v=4"
-          }
-        },
-        "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:09.775Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
-      },
-      "sourceId": "source-ms-swift-releases",
-      "importedAt": "2026-08-16T00:05:09.775Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-12",
@@ -7308,12 +7316,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-11",
@@ -7363,12 +7371,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:13.977Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:41.512Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-sglang-releases",
-      "importedAt": "2026-08-16T00:05:13.977Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:41.512Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-1-26",
@@ -7415,12 +7423,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-1-14",
@@ -7467,12 +7475,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-12-18",
@@ -7519,12 +7527,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-11-25",
@@ -7571,12 +7579,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2025-9-25",
@@ -7623,12 +7631,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen3guard",
@@ -7711,12 +7719,12 @@
           }
         },
         "externalSourceType": "atom",
-        "importedAt": "2026-08-16T00:05:08.876Z",
-        "importRunId": "import-run-2026-08-16t00-05-02-961z"
+        "importedAt": "2026-08-16T16:16:37.548Z",
+        "importRunId": "import-run-2026-08-16t16-16-32-911z"
       },
       "sourceId": "source-mcp-servers-releases",
-      "importedAt": "2026-08-16T00:05:08.876Z",
-      "importRunId": "import-run-2026-08-16t00-05-02-961z"
+      "importedAt": "2026-08-16T16:16:37.548Z",
+      "importRunId": "import-run-2026-08-16t16-16-32-911z"
     },
     {
       "id": "candidate-rss-https-qwenlm-github-io-blog-qwen-image-edit",
