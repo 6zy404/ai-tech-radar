@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T22:30:29.922Z",
+  "updatedAt": "2026-08-16T01:32:49.232Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1363,6 +1363,10 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-15T22:30:29.922Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-14-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-16T01:32:49.232Z"
     }
   }
 }
