@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-15T22:43:07.748Z",
+  "updatedAt": "2026-08-16T03:16:37.424Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -3960,6 +3960,114 @@
       "toType": "skill",
       "relationType": "related-to",
       "note": "从图表与曲线里读结论，在这场活动里同样是失败来源之一。"
+    },
+    {
+      "id": "rel-ws-2f01fcd0",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一周的两个运行时答案，也是彼此的对照组：star 数差 14 倍，而未关闭 issue、最后一次 push 与已发布版本数全部指向相反方向。"
+    },
+    {
+      "id": "rel-ws-a8c65dcc",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "微软把运行时做成受支持的产品，Cloudflare 换掉的是运行智能体的单位本身。"
+    },
+    {
+      "id": "rel-ws-80041f2c",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两个仓库的热度与活跃度背道而驰，是这份报告「注意力不等于采用」在单个项目上的最小实例。"
+    },
+    {
+      "id": "rel-ws-0ff0e174",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "一条把编排从运行时里拆出来，一条把运行时本身换成 isolate 加按需容器。"
+    },
+    {
+      "id": "rel-ws-0aac4788",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "共享文件系统把「什么被带到下一步」从提示词摘要换成两种执行环境都看得见的真实文件。"
+    },
+    {
+      "id": "rel-ws-fa604f56",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "买到横向扩展与更便宜的空闲成本，付出的是绑定在一家厂商的执行模型上。"
+    },
+    {
+      "id": "rel-ws-74f24ae6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "这次往云那边挪的不是模型，是执行单位。"
+    },
+    {
+      "id": "rel-ws-6e9f8774",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "isolate 启停极快可休眠、容器按需连接——延迟预算被显式拆成两档。"
+    },
+    {
+      "id": "rel-ws-490baec6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "本周三条运行时信号里这条锁定最深，所以最需要先答完「哪一层必须归我」。"
+    },
+    {
+      "id": "rel-ws-d65b21df",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "执行单位一换，交接点、护栏与重试都要重画——流程的形状被基础设施改变。"
+    },
+    {
+      "id": "rel-ws-743a5cf0",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "「不到 10% 需要容器」是一句容量规划主张，验证它需要你自己的负载分布。"
+    },
+    {
+      "id": "rel-ws-048ba932",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "文件操作受管控且可审计是事后归因的前提，早期预览版能给到什么粒度还要看。"
     }
   ]
 }

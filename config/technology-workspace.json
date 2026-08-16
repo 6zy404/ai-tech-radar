@@ -1,6 +1,357 @@
 {
-  "updatedAt": "2026-08-16T01:29:29.821Z",
+  "updatedAt": "2026-08-16T03:16:36.348Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "slug": "runtime-agnostic-ai-workflows",
+      "title": {
+        "original": "与运行时无关的 AI 工作流：一种兼顾生产环境稳定性和快速评估迭代的模式",
+        "zh": "生产要持久、评估要轻量——把编排从运行时里拆出来"
+      },
+      "summary": {
+        "original": "Brex's AI workflow platform decouples orchestration from the runtime, because production durability and fast evaluation loops need opposite runtimes and most agent frameworks couple orchestration to one of them.",
+        "zh": "Brex 的 AI 工作流平台提出一个模式：把编排逻辑从运行时里拆出来。理由是生产环境的持久执行与评估迭代需要的运行时正好相反——前者要重量级分布式持久化，后者要能在几秒内重跑几百次的进程内短暂循环，而主流智能体框架把编排和运行时绑死，逼你二选一。"
+      },
+      "content": {
+        "original": "See the InfoQ article for the full pattern and code examples.",
+        "zh": "## 两个要求，方向相反\n\nAI 工作流是一串步骤，其中一步或多步会调用大模型。对它的生产要求，和过去十年任何长期运行的分布式系统没有区别：**扛得住部署与崩溃、能幂等重试、能水平扩展**。工作流引擎多年前就解决了这类问题。\n\nAI 工作流独有的那一半是：**LLM 步骤的输出质量会随每次提示词微调或模型变更而漂移**，所以必须靠评估来验证——在标注数据集上离线跑一遍并打分。\n\n于是引擎需要一个它当初没为之设计的能力：**便宜到能重复跑几百次的快速评估循环**。\n\n**这两个要求互相矛盾：**\n\n- **持久化执行**要求每一步结果先落盘再走下一步，崩溃或重新调度后能回放历史、从中断处继续。状态活得比任何单个进程都久。一个跑一小时、调用几十次模型的深度研究智能体，不能因为一个 Pod 被回收就损失四十分钟。\n- **评估迭代**是局部的、进程内的、短暂的。你改一行提示词，加载几百个样本，看汇总分数。它不该在集群范围内持久化或调度任何东西，运行结束后什么都不该留下。\n\n把评估代码塞进工作流引擎，你会继承持久化、任务队列、工作进程和回放语义——**全是这个紧凑循环不需要的开销**。反过来把生产代码塞进评估框架，则拿不到那个一小时智能体依赖的任何持久性保证。\n\n## 为什么大多数技术栈逼你二选一\n\n因为**主流工具把编排和运行时耦合在一起**。\n\nLangGraph、Mastra 这类框架在自己的 SDK 里直接表达编排逻辑：你的控制流被翻译成图的节点与边，或者框架提供的 DSL。**编排逻辑和框架本身是同一个东西。** 要评估这段逻辑就得运行框架，要部署它也得运行框架——**不存在独立于框架的编排**。\n\n## 这条判据可以直接搬走\n\n不管你用不用他们的方案，有一个问题值得对着自己的技术栈问一遍：\n\n**我的编排逻辑，能不能脱离运行时单独存在？**\n\n如果不能，那么「换运行时」和「重写业务逻辑」就是同一件事，而评估循环的成本会被运行时的重量绑架。\n\n这与本站《系统设计的权衡》里那条判据同构：**每一层抽象都是拿控制换省事**，而框架把编排收进 DSL，换走的正是「在别处运行同一段逻辑」这个控制权。\n\n## 平台本身的规模，说明这不是玩具也不是大厂特例\n\n- **TypeScript**，五名工程师维护\n- 工作进程跑在 Kubernetes 上，接托管的 **Temporal Cloud** 执行长期运行的智能体\n- 通过 **Vercel AI SDK** 访问模型，请求路由到内部 LLM 网关集中做限流与鉴权\n- 评估跑在自建平台上\n\n**五个人**这个数字值得留意：它说明这个模式的实现成本，在一个中等规模团队的承受范围内。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-13",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/Za8vaFWPCM7LtuRfhDmD?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Brex",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-workflow",
+        "tag-ai-agents",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-system-design",
+        "knowledge-api-contracts",
+        "knowledge-ws-a28a8a56"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T03:16:36.348Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把一个很多团队隐约感觉到、但没说清楚的矛盾讲明白了：生产持久性和评估迭代要的是相反的运行时，而框架把编排绑进运行时之后，你连选的机会都没有。",
+      "whoShouldCare": [
+        "在建生产级 AI 工作流并且需要跑评估的团队",
+        "正在选智能体框架、还没被锁定的技术负责人",
+        "负责评估闭环成本的人"
+      ],
+      "technicalContext": "模式来自 Brex 的 AI 工作流平台：TypeScript、五名工程师、Kubernetes 工作进程接 Temporal Cloud 做持久执行，经 Vercel AI SDK 与内部 LLM 网关访问模型，评估在自建平台运行。核心主张是把编排逻辑与运行时解耦，使同一段编排既能在持久化运行时执行，也能在进程内评估循环里重跑。",
+      "impactAreas": [
+        "AI 工作流架构",
+        "评估闭环成本",
+        "框架锁定",
+        "长期运行智能体的可靠性"
+      ],
+      "learningPath": [
+        "先对自己的技术栈问那一句：编排逻辑能不能脱离运行时单独存在",
+        "把「一次评估循环的成本」量出来——它决定你一天能迭代几次",
+        "再判断持久化执行是不是你真的需要的，还是只是框架顺带给的"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-evaluation-loops": "评估要便宜到能跑几百次，这条约束决定了运行时形态。",
+        "knowledge-system-design": "编排绑进 DSL，换走的是「在别处运行同一段逻辑」的控制权。",
+        "knowledge-api-contracts": "解耦之后，编排与运行时之间需要一份显式契约。",
+        "knowledge-ws-a28a8a56": "跑一小时的智能体，状态必须活得比进程久。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "流程的形状决定它能不能被便宜地评估。",
+        "skill-ws-f741f122": "评估循环的成本就是迭代速度本身。",
+        "skill-ws-2152c7f1": "框架锁定是自建边界评估里最贵的一种。"
+      },
+      "followUpQuestions": [
+        "解耦之后，持久化运行时与评估运行时之间的行为差异如何保证不漂移？",
+        "五人团队维护这套平台，边际成本主要花在哪一层？",
+        "这个模式对不使用 Temporal 这类引擎的团队是否同样成立？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-14T04:01:49.072Z",
+      "updatedAt": "2026-08-16T03:16:36.348Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "slug": "state-of-open-models-summer-2026",
+      "title": {
+        "original": "State of Open Models: Summer 2026 Observations",
+        "zh": "开放模型生态半年报：点赞与下载，只有一个仓库同时上榜"
+      },
+      "summary": {
+        "original": "Hugging Face's mid-2026 ecosystem report on the Hub: model size distribution by lab, licensing, derivative counts, download concentration, and the first measurement of agent traffic.",
+        "zh": "Hugging Face 用自家 Hub 前七个月的数据做了一次生态盘点。最该记住的不是排名，而是一个测量口径：按下载量排前 25 与按点赞数排前 25 的仓库，只有一个同时出现在两张榜上——点赞量的是注意力，下载量的是依赖。同一份报告里第一次量到智能体流量，而它自己的许可结论被评论区当场纠正。"
+      },
+      "content": {
+        "original": "Hugging Face's mid-2026 open models report covers the first seven months of Hub activity: lab size profiles, licensing, derivatives, download concentration, local inference, and agent traffic.",
+        "zh": "Hugging Face 用 Hub 前七个月的活动做了一次生态盘点。它值得读的地方不在排名，而在几处**测量口径**——这些口径决定了本站其他每一条信号里的数字该怎么读。\n\n底色先摆出来：**85.6% 的模型终身下载量不足 200 次，1.5% 的仓库占掉全部下载量的 99.2%。** 下面所有结论都发生在这个形状里面。\n\n## 点赞不等于下载，两张榜只重合了一个仓库\n\n取今年累计下载量前 25 与点赞数前 25，**恰好只有一个仓库同时出现在两张榜上**。而且不是年龄造成的——统计的是窗口内下载量，控制年龄之后差距更明显：**2026 年发布的模型没有一个进入下载前 25，而这 25 个里有 13 个来自 2022 年**。`all-MiniLM-L6-v2` 七个月被拉取 15.5 亿次，只有 5,156 个赞；Kimi-K3 大约每收到一个赞被拉取 60 次。\n\n两个数记录的是两件事：**赞说明一次发布重要**，集中在前沿模型发布后的几周；**下载说明某个东西被接进了按计划运行的流水线**，长年累月累积在小而稳定的模型上。报告自己写道，把其中任何一个当作另一个的代理，是他们在关于 Hub 的报道里见得最多的错误，包括他们自己早期的工作。\n\n## 小模型仍然是实际使用的那一层\n\n在声明了参数量的模型里，**1B 以下拿走 83% 的历史下载量，100B 以上拿走 1%**；只看 2026 年窗口，70B 以上占 3%。理由和上一份报告一样：小模型是唯一能在多数开发者真实拥有的硬件上跑起来的。\n\n那万亿参数模型怎么触达到人？走 `llama.cpp`。ggml 团队今年二月加入 Hugging Face，项目保持开源与社区治理。七月的快照里已经有 DeepSeek-V4-Flash（约 284B）与 Kimi-K3（约 2.8T）的 GGUF 构建——本地推理从「笔记本上跑 8B」变成了「几台消费级机器上摊开一个万亿参数的混合专家模型」。\n\n增长最快的也是这一层：模型仓库总量七个月增长 21.5%，而声明 `gguf` 的仓库增长 **464%**、`lerobot` **194%**、Apple 的 `mlx` **148%**，对照 `transformers` 与 `peft` 的 16%、`diffusers` 的 21%。**决定模型能在哪里跑的那一层，增速是建模核心的三到七倍。**\n\n## 开源的重心从模型实验室挪到了硬件公司\n\n今年发布新开放模型最多的两个组织是造硬件的：**AMD 与 NVIDIA 各自发布超过 200 个新模型仓库**，LiquidAI 以约 100 个排第三。谷歌与 Meta 在新发布数量上已经明显落在 NVIDIA 后面。\n\n在 100B 以上这一档，美国今年的多数发布不是新模型，而是建立在中国模型之上的转换与优化——原创的只有 Thinking Machines 的 Inkling（952B）、NVIDIA 的 Nemotron 3 Ultra（561B）与 Super（124B）、以及 Arcee AI 的 Trinity-Large（399B）。\n\n## 许可这一节，被自己的评论区纠正了\n\n报告称：今年 178 个 20B 以上的中国发布里，**59% 是 Apache 2.0、22% 是 MIT，且没有一个带非商业限制**；同一尺寸档的美国发布里 29% 是 Apache 或 MIT，41% 是自定义条款，30% 什么都没声明。\n\n**但这条结论在评论区当场被质疑**：有读者指出 Kimi 系列对年营收超过 2000 万美元的公司设有服务限制，需 Moonshot 明确授权。这类条款正是「没有一个带非商业限制」这句话最容易漏掉的形态——它不写在许可证字段里，写在补充条款里。**统计口径读的是声明的许可证，不是完整的条款。** 这条信号保留原文数字，同时把这处质疑一起带上。\n\n## Qwen 已经是社区的基座\n\nQwen 衍生模型在 Hub 上达到 **151,448 个**，是 Meta 全部足迹的 2.6 倍、Llama 仓库的 4.7 倍；谷歌以 82,506 个排第二。这些衍生模型几乎全部来自社区而非 Qwen 自己——**Hub 上 28,531 个 Qwen 模型的 GGUF 转换里，官方只发布了 54 个。**\n\nGGUF 月下载量也是同一个形状：Qwen 3,960 万，Gemma 2,080 万，Llama 750 万。而 Llama 衍生的 GGUF 仓库数量还略多于 Qwen——**货架一样宽，客流只有五分之一。**\n\n## 智能体成了第一大用户，而且没有在位者\n\n这一节三月还写不出来，因为仪器不存在。七月发布的 agent-usage 数据集记录了编码智能体通过 `huggingface_hub` 或 `hf` 命令行调用 Hub 时带上的标识。\n\n- **Claude Code 七月占 44.4%**，但单月数字掩盖了真正的发现：它四月是 67.8%、五月是 6.4%。\n- Codex 从 10.4% 稳步爬到 20.8%。\n- **近四分之一的七月流量来自数据集尚未收录的外壳**，五月这个比例是 59.8%；四到七月新出现的客户端标识超过十二个。\n\n也就是说这是一个**没有在位者的市场**：一次发布或一个默认值的改动就能在一个月内搬走一半流量。而「新进入者出现得比任何登记表更快」本身就是结论。\n\nHub 这一年也在为这个读者改造自己：三月起论文提供机器可读的 Markdown，四月把智能体轨迹变成一等数据集类型并给每个 Gradio Space 加上 `agents.md` 端点，七月在 MCP 服务器上提供 `hf_fs` 工具，用一千多个 token 暴露仓库、存储、文档与论文，并配可挂载的沙箱。\n\n然后，七月，智能体从读者变成了入侵者——本站已经分三层记过这件事。报告里补了一个此前没写过的细节：**团队想用前沿闭源模型分析捕获到的攻击代码，被安全护栏拒绝了；最终是在自己基础设施上跑的量化开源模型 GLM-5.2 完成的分析。**\n\n## 边界\n\n全部数字只覆盖 Hub 上的活动，**不包含 API 调用、私有部署与其他分发渠道**；报告自己写明下载量、点赞数、衍生数与发布数衡量的是生态活跃度的不同侧面，不能直接当作模型质量、商业采用或市场份额。"
+      },
+      "type": "platform",
+      "publishDate": "2026-08-14",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/state-of-open-models-summer-2026",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Hugging Face",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-product-strategy",
+        "tag-ai-agents",
+        "tag-on-device"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-c761533e",
+        "knowledge-graph-thinking"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-model-evaluation",
+        "skill-ws-2152c7f1",
+        "skill-ws-d7c9d1d8"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T03:16:36.291Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它给了本站每一条模型信号一把校准过的尺子。「两张榜只重合一个仓库」直接说明：热度高的发布和被真正接进流水线的东西几乎不是同一批。同一周 DeepSeek Harness 两天半拿到 11.4 万 star 而三天没有新提交，正是这条结论的现成注脚。而智能体流量第一次被量出来，且四个月里份额能从 67.8% 掉到 6.4% 再回到 44.4%，说明这一层的选型判断有效期很短。",
+      "whoShouldCare": [
+        "拿 star 数、点赞数或下载量给开源项目排序、并据此做选型决定的技术负责人",
+        "在挑基座模型做微调或衍生的团队——衍生数与 GGUF 流量说明了社区实际站在哪一边",
+        "关心本地推理档位上限被推到哪里的端侧与自托管团队",
+        "在做编码智能体外壳选型、需要知道这个市场有多不稳定的平台团队"
+      ],
+      "technicalContext": "统计范围为 Hugging Face Hub 2026 年前七个月的活动。下载量按窗口内计数以控制模型年龄；衍生模型数统计的是社区在某个基座之上发布的仓库；agent-usage 数据集记录 huggingface_hub 与 hf 命令行请求携带的 agent 标识，因此只能看见通过官方客户端访问 Hub 的智能体流量。llama.cpp 的 GGUF 生态是万亿参数模型进入本地推理的主要路径，ggml 团队已于二月加入 Hugging Face。",
+      "impactAreas": [
+        "开源项目热度指标与真实采用的区分",
+        "基座模型选择与衍生生态的正反馈",
+        "本地推理档位与量化格式生态的增速",
+        "编码智能体外壳市场的份额波动"
+      ],
+      "learningPath": [
+        "先把「赞衡量注意力、下载衡量依赖」这句话抄下来，作为以后读任何仓库热度数字的默认前提",
+        "拿 85.6% 与 99.2% 这两个数字重设期望：一个开源仓库的默认命运是没人用，例外才需要解释",
+        "对照 gguf 增长 464% 与 transformers 增长 16%，判断自己团队的注意力是不是放错了层",
+        "读《模型选型与约束匹配》，把「谁的衍生多」变成选基座时的一条具体依据"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "83% 的下载量落在 1B 以下，而 100B 以上只占 1%——「哪个约束先咬人」在整个生态尺度上的答案。",
+        "knowledge-evaluation-loops": "点赞与下载是两把量不同东西的尺子，把其中一把当另一把用，正是这条概念说的「尺子换了而没人发现」。",
+        "knowledge-ws-c761533e": "GGUF 让万亿参数模型摊到几台消费级机器上，本地与云那条线因此又挪了一次。",
+        "knowledge-graph-thinking": "151,448 个衍生模型是一张真实的依赖图；它说明生态位置来自别人建在你之上的东西，而不是你自己发布了多少。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "这份报告给出了读发布公告时最缺的那一层背景：同期别人发了什么尺寸、什么许可、有多少人真的在用。",
+        "skill-model-evaluation": "「这把尺子有没有量过别人」在这里升级成了「这把尺子量的是不是你以为的那件事」。",
+        "skill-ws-2152c7f1": "开源重心从模型实验室挪到硬件公司，改变的是自建与采购之外的第三个选项：跟谁的生态走。",
+        "skill-ws-d7c9d1d8": "gguf、mlx、lerobot 三条增速远高于建模核心，说明端侧适配这条技能的需求正在快速扩大。"
+      },
+      "followUpQuestions": [
+        "你上一次用 star 数或点赞数支持一个选型决定，是什么时候？换成下载量或衍生数，结论会变吗？",
+        "官方只发布了 54 个 GGUF 转换，而社区做了 28,531 个——你用的是哪一版，它和作者测过的权重是同一份吗？",
+        "编码智能体外壳的份额一个月能变一半，你的工具链假设它稳定到什么程度？",
+        "许可证字段说没有非商业限制，补充条款却可能有——你的合规检查读的是哪一份？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "createdAt": "2026-08-15T22:30:29.274Z",
+      "updatedAt": "2026-08-16T03:16:36.291Z",
+      "editorialNotes": [
+        "一手来源：Hugging Face 官方博客（经 hf-mirror 抓取全文阅读），非二手报道。",
+        "许可一节保留原文统计，同时带上评论区对 Kimi 商业条款的质疑；该质疑来自读者留言，未经独立核实，正文已如实标注为质疑而非事实。",
+        "全部数字仅覆盖 Hub 活动，正文末尾保留了原文的口径声明。",
+        "与本轮 DeepSeek Harness、Qwen3.8-27B 互为印证：一条给出「注意力不等于采用」的系统证据，两条各自是它的实例。",
+        "translationStatus 设为 done：标题、摘要与正文均已完整中文化，与实算覆盖度一致。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "slug": "microsoft-agent-framework-harness",
+      "title": {
+        "original": "微软正式发布 Agent Framework Harness 和 Hosted Agents",
+        "zh": "微软 Agent Framework Harness 正式发布：智能体的运行时成了产品"
+      },
+      "summary": {
+        "original": "微软正式发布 Agent Framework Harness 和 Hosted Agents",
+        "zh": "微软把 Agent Framework 从 SDK 推进到受支持的生产运行时：Harness 是单个二进制文件，函数调用、历史持久化、上下文压缩、待办清单、文件记忆、工具审批与 OpenTelemetry 全部默认开启，Foundry Hosted Agents 按用量计费。真正值得记住的是随发布一起出现的两个数字——Claude Code 有 98.4% 的代码属于 Harness 基础设施，AI 决策逻辑只占 1.6%；以及一次固定模型参数的对比中，一个运行时在 40 次往返后自停，另一个跑到 300 次不停。"
+      },
+      "content": {
+        "original": "Microsoft has moved Agent Framework from an SDK to a supported production runtime, releasing Agent Harness and Foundry Hosted Agents.",
+        "zh": "## 发布了什么\n\n微软把 Agent Framework 从 SDK 推进到**受支持的生产运行时**。1.0 版本在 2026-04-02 发布；6 月 2 至 3 日的 Build 2026 上，Agent Harness、GitHub Copilot SDK 与 Claude Agent SDK 连接器、以及多智能体编排模式进入稳定版；此次 Harness 与 Foundry Hosted Agents 正式发布。Harness 是**单个二进制文件**，本地开发环境、容器和托管部署跑的是同一个东西。\n\n默认开启、且可逐项关闭的能力：函数调用、每次调用历史的持久化、上下文压缩、带计划与执行两种模式的待办清单、文件记忆、技能、网络搜索、工具审批，以及内置 OpenTelemetry。Shell 工具、文件访问、后台子智能体和自动循环仍是**可选**，而且启用时会发出警告。开发者只提供聊天客户端、指令和工具，其余由一次 `create_harness_agent` 调用接管；Foundry Hosted Agents 作为托管部署目标按用量计费。\n\n## 为什么一个运行时值得单独看\n\n微软首席软件工程师 Wes Steyn 的说法是：模型本身只能生成文本；要让它调用工具、处理多步任务并持续运行到完成，必须把它包在一个运行时里，而那个运行时就是 Harness。\n\n支撑这句话的是一个具体数字。MBZUAI 旗下 VILA 实验室 2026 年 4 月的论文《深入解析 Claude Code》分析了 v2.1.88——该版本完整 TypeScript 源码曾在 3 月 31 日因一次带 source map 的 npm 发布短暂曝光——统计得出 **1884 个文件、约 512,000 行代码**，其中约 **98.4% 属于 Harness 基础设施**：权限管理、上下文管理、沙箱、工具路由与恢复机制；**AI 决策逻辑约占 1.6%**。\n\n这个数字带着星号，而且是作者自己标的：它是对泄露包的行数分类，包含生成代码与压缩代码，不是一次完整审计。但趋势另有旁证——Codex CLI 与 Aider 各自独立演化出了**相同的 Harness 结构**。三个团队分别走到同一个形状，更像是问题施加的约束，而不是某一家的设计偏好。\n\n## 那个 40 对 300\n\n微软 AI 首席架构师 Aqib Sherwani 做的对比测试比多数厂商基准克制：**固定模型参数，并先跑一个确定性的模拟测试**，确保差异可以追溯到 Harness 而不是模型。结论是「推理相同，工程实现不同」——两个运行时在相同步数内给出了相同答案。\n\n差异出现在**护栏失控**这一项：Agent Framework 在 **40 次往返**后自行终止循环并返回「达到限制」；而在关闭宿主端停止控制机制的情况下，Copilot SDK **一直跑到 300 次**仍不自停。\n\n一个把刹车放在**循环内部**，另一个默认**由宿主提供**。这不是性能差异，是责任归属的差异——而它只在宿主那一侧恰好没做的时候才会暴露出来。这正是《人在回路的审查》里那条判据的机器版本：**一个从不触发的限制，和没有限制无法区分**。\n\n## 治理的问题换了一个\n\n编码智能体连接器不需要自定义适配器就能把任务委派给 GitHub Copilot SDK 或 Claude Agent SDK，每个智能体跑自己的自主循环；但连接器严格遵循为整个集群设置的身份、内容安全与可观测性策略——编码智能体的流量进入**同一批 OpenTelemetry 跟踪和 Foundry 仪表板**，而不是成为一个有独立访问模型的孤立集成。\n\n于是治理的核心问题从「智能体能做什么」变成了三问：**谁运行了它、依据什么策略、跟踪信息最终流向哪里**。同样的控制层关注点也出现在亚马逊云科技的 Loom 参考平台里。编排模式与测试框架同步进入稳定版，覆盖顺序管道、并行协作，以及源自微软研究院 Magentic-One 的 Magentic 模式。\n\n## 放在这条线上看\n\n这是同一种收拢的第四种形态。MCP 2.0 把协议改成无状态，好让任意实例承接任意请求；Gemini API 用一个 `background:true` 把执行、状态与工具接入收到服务端；LLM 0.32 让供应商在单次请求内替你执行远程 MCP 调用——而这一条把**运行时本身**做成了按用量计费的产品。\n\n一次 `create_harness_agent` 调用换来的是不必自己实现审批、压缩、持久化和遥测。它同时买走的是控制权，而这正是《系统设计的权衡》里那句话：**默认值是别人替你做完的权衡**。40 与 300 的差别说明这笔交易值得逐项看清楚——你要的是循环内部就有刹车的运行时，还是一个假设你会自己装刹车的运行时。"
+      },
+      "type": "platform",
+      "publishDate": "2026-08-10",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/aDEJegvNSKwvue2JZ0yI?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Microsoft",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-e251051e",
+        "knowledge-human-loop",
+        "knowledge-ws-a28a8a56",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-f741f122",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T03:16:36.233Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "智能体的运行时正在从「每个团队自己拼的一层胶水」变成有厂商支持、按用量计费的产品。这件事的分量不在功能表，而在随它一起出现的一个数字：Claude Code 有 98.4% 的代码是 Harness 基础设施，AI 决策逻辑只占 1.6%。如果这个比例大致成立，那么「用哪个 Harness」比「用哪个模型」影响面更大——而多数团队目前只认真评估后者。",
+      "whoShouldCare": [
+        "要把智能体放进生产环境、正在决定运行时自建还是采购的平台团队",
+        "负责智能体身份、权限、审批与审计策略的安全与治理角色",
+        "在 Agent Framework / GitHub Copilot SDK / Claude Agent SDK 之间做取舍的工程负责人",
+        "已经有一套 OpenTelemetry 体系、需要让智能体流量并进去而不是另起一摊的可观测性团队"
+      ],
+      "technicalContext": "Harness 指把模型包起来、使它能调用工具并持续运行到任务完成的那一层运行时：函数调用、历史持久化、上下文压缩、待办清单、审批、遥测都长在这里。此前它是每个团队自己实现的部分，Agent Framework 1.0 解决的是「用哪个框架构建」，这次发布回答的是「构建出来的东西在哪里执行、能访问什么、行为如何体现在既有的可观测性与策略系统里」。Agent Framework 本身是对 Semantic Kernel 与 AutoGen 的整合，两个前身项目已转入维护模式。",
+      "impactAreas": [
+        "智能体运行时的自建与采购边界",
+        "护栏与审批机制究竟由循环还是由宿主提供",
+        "智能体流量的可观测性与治理策略",
+        "多智能体编排与跨厂商编码智能体的委派"
+      ],
+      "learningPath": [
+        "先读 40 对 300 那一段，把「护栏在循环里还是在宿主里」变成你自己评估任何智能体框架时的第一个问题",
+        "对照 98.4% / 1.6% 这个比例，回头看自己项目里模型调用之外的代码占比——如果远低于它，多半是有一批职责还没被显式实现",
+        "把默认开启的那批能力逐项对到自己已有的实现上，判断哪些是重复建设、哪些是你有意做得不一样",
+        "读《工具集成模式》，确认工具层的职责在采购运行时之后仍然归你",
+        "读《智能体可观测性与评测运维》，把「谁运行了它、依据什么策略、跟踪流向哪里」三问落到具体的仪表板上"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-e251051e": "40 次往返自停是一种「任务该结束了」的机械判定；它不判断对错，只判断不该再继续——这正是完成判定里最容易被忽略的一档。",
+        "knowledge-human-loop": "工具审批默认开启是好事，但一个从不拒绝的审批点只是延迟；40 对 300 是同一条判据在护栏上的形态。",
+        "knowledge-ws-a28a8a56": "上下文压缩、文件记忆和每次调用历史的持久化在这里是默认能力，正好对上这条概念说的「什么被带到下一步」。",
+        "knowledge-system-design": "默认值是别人替你做完的权衡——这次发布把一整套默认值打包成运行时，是这句话最直接的实例。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "这次发布把「流程的形状」变成了可采购的产品；判断一个现成 Harness 是否配得上你的流程，用的还是这条技能里那三个交接问题。",
+        "skill-tool-integration": "Harness 接管了审批与遥测，但工具层要不要吸收混乱仍然归你——它替你做的是循环，不是工具设计。",
+        "skill-ws-f741f122": "内置 OpenTelemetry 与统一仪表板把「跑完之后归因」从自建变成默认，这条技能决定你能否真的读懂那些轨迹。",
+        "skill-ws-2152c7f1": "运行时是这两年最典型的一次自建与采购取舍：省掉的是审批、压缩、持久化与遥测，付出的是循环内部的控制权。"
+      },
+      "followUpQuestions": [
+        "40 次往返这个默认上限对你的任务是太紧还是太松？改动它需要哪一层的权限？",
+        "如果运行时由厂商提供，出现一次越权行为时，你还能不能自己复原完整的动作序列？",
+        "把编码智能体的流量并进统一的遥测体系，会不会反过来让某些团队为了绕开策略而改用未受管的路径？",
+        "98.4% 这个数字来自一次泄露包的行数分类，换一种统计口径（例如按执行路径或按缺陷分布）还成立吗？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-10T12:59:37.905Z",
+      "updatedAt": "2026-08-16T03:16:36.233Z",
+      "editorialNotes": [
+        "来源为 InfoQ 中文对微软发布的报道（作者 Steef-Jan Wiggers），非厂商一手公告；正文事实以该报道所引的发布公告、VILA 实验室论文与 Sherwani 基准为准。",
+        "98.4% / 1.6% 已按原文保留其限定条件（泄露包的行数分类、含生成与压缩代码、非完整审计），不作为无条件事实呈现。",
+        "与 gemini-managed-agents / llm-0-32 / mcp-2-0 构成同一条「运行时归谁」的线，关系类型均为印证。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
       "slug": "deepseek-harness-everything-is-a-plugin",
@@ -59,7 +410,7 @@
           "编辑标记为重要，且发布于 30 天内，归入立即关注。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-16T01:29:29.821Z",
+        "rankingUpdatedAt": "2026-08-16T03:16:36.168Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "把 Harness 的插件边界推到 Agent Loop 与调度这一层，等于把「智能体按什么规则工作」也交了出去。这与三天前微软那条正相反：微软把运行时做成受支持的产品并预置一整套默认值，DeepSeek 把同一层拆成可替换零件并用 MIT 放开。两条路线服务的是同一个已被确认的判断——决定表现的越来越是 Harness 而不是模型——但它们对「谁拥有循环」给出了相反的答案。",
@@ -104,7 +455,7 @@
       "intelligenceStatus": "needs_enrichment",
       "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
       "createdAt": "2026-08-15T22:30:27.946Z",
-      "updatedAt": "2026-08-16T01:29:29.820Z",
+      "updatedAt": "2026-08-16T03:16:36.168Z",
       "editorialNotes": [
         "来源为 InfoQ 中文对 DeepSeek 发布的报道，非厂商一手公告；架构描述以该报道为准。",
         "仓库数字（114,625 star / 11,151 fork / open issues 0 / pushed_at 停在 2026-08-13 / 无 GitHub release / 提交里最新版本号 0.1.0-rc.5 / 创建当天 PR 已到 #2519）为 2026-08-16 通过 GitHub API 一手核对，正文已标注核对日期。",
@@ -114,7 +465,127 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "slug": "cloudflare-computer-agent-runtime",
+      "title": {
+        "original": "Cloudflare Computer 发布：让 AI 智能体拥有持久化运行环境",
+        "zh": "Cloudflare Computer：不给智能体一个容器，给它一台机器"
+      },
+      "summary": {
+        "original": "Cloudflare 开源 Cloudflare Computer，一个让平台决定代码跑在 isolate、容器沙箱还是浏览器里的智能体运行时，核心是一套 isolate 与容器共享的 SQLite 文件系统。",
+        "zh": "本周第三个关于「智能体运行时归谁」的答案，而这一个换了单位：它认为容器根本不该是那个单位。框架跑在 isolate 里，容器按需连上来当作一次工具调用，两边共享同一套基于 SQLite 的文件系统。目标写得很直白——让不到一成的工作才需要容器。仍是早期预览版。"
+      },
+      "content": {
+        "original": "Cloudflare open-sourced Cloudflare Computer, an agent runtime where the platform decides whether code runs in an isolate, a container sandbox or a browser, built around a SQLite-backed filesystem shared by isolate and container.",
+        "zh": "这是本周第三个关于**智能体运行时归谁**的答案。微软把它做成受支持的产品，DeepSeek 把它拆成可替换的插件，而 Cloudflare 换掉的是单位本身：它认为容器不该是运行智能体的那个单位。\n\n## 论证是关于账单的形状，不是跑分\n\nCloudflare 的说法是：靠容器跑智能体扩展不到「数亿乃至数十亿个并发智能体」，因为全球没有那么多算力。这句话是修辞，不是可核对的结论——真正能被检验的是它派生出的设计目标：**让不到 10% 的工作需要容器**，编码、音视频处理与文档创建都由 isolate 完成。**那是一个目标，不是一次测量。**\n\n## 架构：isolate 跑框架，容器当工具调用\n\n- 智能体框架跑在一个 **isolate（一个 Durable Object）** 里；isolate 可以横向扩展、启停极快、在不运行时休眠，并持久保存智能体状态。\n- 需要更重的原语时，**按需连上一个容器沙箱，当作一次工具调用**——只在必要时才付那份钱。\n- 三种后端：**容器项目**（把 SQLite 状态以真正挂载的 FUSE 文件系统暴露给沙箱容器）、**isolate shell**（在 Dynamic Worker 里跑 just-bash 环境）、**isolate JavaScript**（在全新 Dynamic Worker 里跑 ECMAScript 模块）。\n\n## 真正的核心是那套共享文件系统\n\n架构里最实的一件东西是**基于 SQLite 的共享文件系统，isolate 和容器都能访问**。任务因此可以在两者之间无缝转移，两边处理的是同一批文件；它可以对接 Git 仓库、存储桶或任意文件，而所有操作都受管控、经审计、处于可观测状态。\n\n这一条正好接住本站《长时程智能体的记忆与上下文管理》里那个问题——**什么被带到下一步**。在这里答案不是提示词里的一段摘要，而是一份两种执行环境都看得见的真实文件系统。\n\n## 制品把口径收窄了一点\n\nnpm 上 `@cloudflare/computer` 的自我描述比新闻稿具体得多：**「一套基于 SQLite 的虚拟文件系统，与容器侧守护进程（computerd）同步」**。也就是说，包本身首先是文件系统与同步层，而不是一整套智能体运行时。这不是矛盾，是**宣传口径与制品口径的粒度差**——值得记下来，因为决定你要不要用它的是后者。\n\n## 而它的仓库数字，正好是今天头条那条结论的反面\n\n同一天发布的 DeepSeek Harness 两天半拿到 11.4 万 star。`cloudflare/computer` 只有它的**十四分之一**——但把两边的活跃度指标并排放（均为 2026-08-16 经 GitHub API 与 npm registry 一手核对）：\n\n- **star / fork**：8,265 / 450，对 114,625 / 11,151。\n- **未关闭的 issue**：14，对 0（后者几乎只能解释为 issue 功能被关掉了）。\n- **最后一次 push**：2026-08-14，对停在创建当天。仓库建于 **2026-06-05**，最近 100 次提交分布在 08-07 到 08-14 的七天里，10 位贡献者。\n- **已发布版本**：npm 上 `0.0.0` 到 `0.2.0` 共 5 个，对没有任何 release。\n\n**star 数差 14 倍，而每一个「有人在用、有人在改」的指标都指向相反方向。** 这不是说哪个项目更好，而是说这两组数字量的根本不是同一件事——今天那份开放模型生态报告用整个 Hub 的数据说的正是这句话。\n\n## 边界\n\n本条为二手报道（InfoQ 中文译自 InfoQ 英文，后者报道 Cloudflare），架构描述以该报道为准；仓库与 npm 数字为一手核对。Cloudflare 自己写明**仍处于早期预览阶段，只适合实验、探索与原型开发**。「不到 10% 需要容器」是设计目标，没有公开的负载分布数据支撑；而把智能体运行时放进一家云厂商的 isolate 模型里，锁定程度显然高于跑一个自己的容器——这正是《系统设计的权衡》里那句话的又一次实例。"
+      },
+      "type": "platform",
+      "publishDate": "2026-08-15",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/RaKIH7E4lA9uQ4Iasltb?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Cloudflare",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-system-design",
+        "knowledge-ws-c761533e",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-2152c7f1",
+        "skill-agent-design",
+        "skill-ws-a9e80194",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-16T03:15:46.071Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "同一周里第三种关于智能体运行时的答案，而它把问题往下推了一层：不是「运行时该由谁提供」，而是「运行智能体的单位该是什么」。如果按需连上的容器只服务不到一成的工作，那么成本模型、冷启动、状态持久化和可观测性都要重画一次。它同时是今天头条那条结论最干净的对照组——star 数差 14 倍，活跃度指标全部反向。",
+      "whoShouldCare": [
+        "在为大量并发智能体做成本模型、被容器冷启动与常驻开销卡住的平台团队",
+        "需要让智能体在多次运行之间保留真实文件而不是靠提示词摘要接力的工程团队",
+        "在评估厂商托管运行时的锁定程度、需要把可迁移性写进决策记录的架构负责人",
+        "用仓库热度给开源项目排序的人——这条与今天那条 Harness 信号并排读，效果最好"
+      ],
+      "technicalContext": "智能体框架运行在一个 isolate（Durable Object）中，具备快速启停、休眠与状态持久化；需要更重的计算原语时按需连接容器沙箱，作为一次工具调用。三种后端分别是把 SQLite 状态以 FUSE 挂载暴露给容器的容器项目、在 Dynamic Worker 中运行 just-bash 的 isolate shell、以及在全新 Dynamic Worker 中运行 ECMAScript 模块的 isolate JavaScript。核心是一套 isolate 与容器共享的 SQLite 文件系统，可对接 Git 仓库、存储桶或任意文件，全部操作受管控并可审计。npm 包 @cloudflare/computer 目前为 0.2.0，MIT 协议。",
+      "impactAreas": [
+        "并发智能体的成本模型与执行单位",
+        "跨执行环境共享的持久化文件系统",
+        "厂商托管运行时的锁定程度",
+        "仓库热度指标与真实活跃度的区分"
+      ],
+      "learningPath": [
+        "先读共享文件系统那一节，把「什么被带到下一步」的答案从提示词换成文件，再回看自己项目里这一步是怎么做的",
+        "把「不到 10% 需要容器」当成待验证的假设：统计自己智能体任务里真正需要完整操作系统的比例",
+        "对照那组仓库数字，给你正在评估的任何高热度项目做同一遍核对——star、未关闭 issue、最后一次 push、已发布版本数",
+        "读《系统设计的权衡》，把「换来什么、付出什么」写成三段式记录再决定"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "共享文件系统把「什么被带到下一步」从提示词里的摘要换成两种执行环境都看得见的真实文件。",
+        "knowledge-system-design": "买到的是横向扩展与更便宜的空闲成本，付出的是绑定在一家厂商的执行模型上——教科书式的取舍。",
+        "knowledge-ws-c761533e": "它把本地与云那条线又往云那边挪了一格，而且挪的是执行单位而不是模型。",
+        "knowledge-latency-tradeoffs": "isolate 启停极快、可休眠，容器按需连接——延迟预算被显式拆成了两档。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-2152c7f1": "本周三条运行时信号里，这一条的锁定程度最高，也因此最需要先答完「哪一层必须归我」。",
+        "skill-agent-design": "执行单位换了之后，交接点、护栏与失败重试都要重画——流程的形状被基础设施改变了。",
+        "skill-ws-a9e80194": "「不到 10% 需要容器」是一句容量规划的主张，验证它需要你自己的负载分布。",
+        "skill-ws-f741f122": "所有文件操作受管控且可审计，是事后归因的前提；早期预览版能给到什么粒度还要看。"
+      },
+      "followUpQuestions": [
+        "你的智能体任务里，真正需要完整容器的比例是多少？没有这个数，10% 这个目标对你没有意义。",
+        "共享文件系统在 isolate 与容器之间同步，冲突与延迟怎么表现？早期预览版有没有公开这方面的数据？",
+        "把运行时放进一家云厂商的 isolate 模型，迁出去要重写哪几层？这笔账现在算比以后算便宜。",
+        "如果 star 数与活跃度指标给出相反的结论，你的选型流程会采信哪一个？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-16T03:13:01.791Z",
+      "updatedAt": "2026-08-16T03:15:46.071Z",
+      "editorialNotes": [
+        "来源为 InfoQ 中文（译自 InfoQ 英文对 Cloudflare 的报道），非厂商一手公告；架构描述以该报道为准。英文原文页对直接抓取返回 405 加人机验证，未能核对。",
+        "仓库与 npm 数字为 2026-08-16 经 GitHub API 与 npm registry 一手核对：8,265 star / 450 fork / 14 open issues / 10 贡献者 / 创建于 2026-06-05 / pushed 2026-08-14 / 最近 100 次提交落在 08-07 至 08-14 / npm 最新 0.2.0，共 5 个已发布版本 / MIT。",
+        "npm 包自述「基于 SQLite 的虚拟文件系统，与容器侧守护进程 computerd 同步」比新闻稿的「智能体运行时」窄，正文按粒度差处理，未择一采信。",
+        "刻意不加入 2026-08-16 简报：那期已发布，且四条的主线已经闭合；这条留给下一期。",
+        "与 deepseek-harness 用关联关系相连，承载的是对照而不是印证——两者的 star 数与活跃度指标方向相反。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -654,246 +1125,6 @@
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-      "slug": "state-of-open-models-summer-2026",
-      "title": {
-        "original": "State of Open Models: Summer 2026 Observations",
-        "zh": "开放模型生态半年报：点赞与下载，只有一个仓库同时上榜"
-      },
-      "summary": {
-        "original": "Hugging Face's mid-2026 ecosystem report on the Hub: model size distribution by lab, licensing, derivative counts, download concentration, and the first measurement of agent traffic.",
-        "zh": "Hugging Face 用自家 Hub 前七个月的数据做了一次生态盘点。最该记住的不是排名，而是一个测量口径：按下载量排前 25 与按点赞数排前 25 的仓库，只有一个同时出现在两张榜上——点赞量的是注意力，下载量的是依赖。同一份报告里第一次量到智能体流量，而它自己的许可结论被评论区当场纠正。"
-      },
-      "content": {
-        "original": "Hugging Face's mid-2026 open models report covers the first seven months of Hub activity: lab size profiles, licensing, derivatives, download concentration, local inference, and agent traffic.",
-        "zh": "Hugging Face 用 Hub 前七个月的活动做了一次生态盘点。它值得读的地方不在排名，而在几处**测量口径**——这些口径决定了本站其他每一条信号里的数字该怎么读。\n\n底色先摆出来：**85.6% 的模型终身下载量不足 200 次，1.5% 的仓库占掉全部下载量的 99.2%。** 下面所有结论都发生在这个形状里面。\n\n## 点赞不等于下载，两张榜只重合了一个仓库\n\n取今年累计下载量前 25 与点赞数前 25，**恰好只有一个仓库同时出现在两张榜上**。而且不是年龄造成的——统计的是窗口内下载量，控制年龄之后差距更明显：**2026 年发布的模型没有一个进入下载前 25，而这 25 个里有 13 个来自 2022 年**。`all-MiniLM-L6-v2` 七个月被拉取 15.5 亿次，只有 5,156 个赞；Kimi-K3 大约每收到一个赞被拉取 60 次。\n\n两个数记录的是两件事：**赞说明一次发布重要**，集中在前沿模型发布后的几周；**下载说明某个东西被接进了按计划运行的流水线**，长年累月累积在小而稳定的模型上。报告自己写道，把其中任何一个当作另一个的代理，是他们在关于 Hub 的报道里见得最多的错误，包括他们自己早期的工作。\n\n## 小模型仍然是实际使用的那一层\n\n在声明了参数量的模型里，**1B 以下拿走 83% 的历史下载量，100B 以上拿走 1%**；只看 2026 年窗口，70B 以上占 3%。理由和上一份报告一样：小模型是唯一能在多数开发者真实拥有的硬件上跑起来的。\n\n那万亿参数模型怎么触达到人？走 `llama.cpp`。ggml 团队今年二月加入 Hugging Face，项目保持开源与社区治理。七月的快照里已经有 DeepSeek-V4-Flash（约 284B）与 Kimi-K3（约 2.8T）的 GGUF 构建——本地推理从「笔记本上跑 8B」变成了「几台消费级机器上摊开一个万亿参数的混合专家模型」。\n\n增长最快的也是这一层：模型仓库总量七个月增长 21.5%，而声明 `gguf` 的仓库增长 **464%**、`lerobot` **194%**、Apple 的 `mlx` **148%**，对照 `transformers` 与 `peft` 的 16%、`diffusers` 的 21%。**决定模型能在哪里跑的那一层，增速是建模核心的三到七倍。**\n\n## 开源的重心从模型实验室挪到了硬件公司\n\n今年发布新开放模型最多的两个组织是造硬件的：**AMD 与 NVIDIA 各自发布超过 200 个新模型仓库**，LiquidAI 以约 100 个排第三。谷歌与 Meta 在新发布数量上已经明显落在 NVIDIA 后面。\n\n在 100B 以上这一档，美国今年的多数发布不是新模型，而是建立在中国模型之上的转换与优化——原创的只有 Thinking Machines 的 Inkling（952B）、NVIDIA 的 Nemotron 3 Ultra（561B）与 Super（124B）、以及 Arcee AI 的 Trinity-Large（399B）。\n\n## 许可这一节，被自己的评论区纠正了\n\n报告称：今年 178 个 20B 以上的中国发布里，**59% 是 Apache 2.0、22% 是 MIT，且没有一个带非商业限制**；同一尺寸档的美国发布里 29% 是 Apache 或 MIT，41% 是自定义条款，30% 什么都没声明。\n\n**但这条结论在评论区当场被质疑**：有读者指出 Kimi 系列对年营收超过 2000 万美元的公司设有服务限制，需 Moonshot 明确授权。这类条款正是「没有一个带非商业限制」这句话最容易漏掉的形态——它不写在许可证字段里，写在补充条款里。**统计口径读的是声明的许可证，不是完整的条款。** 这条信号保留原文数字，同时把这处质疑一起带上。\n\n## Qwen 已经是社区的基座\n\nQwen 衍生模型在 Hub 上达到 **151,448 个**，是 Meta 全部足迹的 2.6 倍、Llama 仓库的 4.7 倍；谷歌以 82,506 个排第二。这些衍生模型几乎全部来自社区而非 Qwen 自己——**Hub 上 28,531 个 Qwen 模型的 GGUF 转换里，官方只发布了 54 个。**\n\nGGUF 月下载量也是同一个形状：Qwen 3,960 万，Gemma 2,080 万，Llama 750 万。而 Llama 衍生的 GGUF 仓库数量还略多于 Qwen——**货架一样宽，客流只有五分之一。**\n\n## 智能体成了第一大用户，而且没有在位者\n\n这一节三月还写不出来，因为仪器不存在。七月发布的 agent-usage 数据集记录了编码智能体通过 `huggingface_hub` 或 `hf` 命令行调用 Hub 时带上的标识。\n\n- **Claude Code 七月占 44.4%**，但单月数字掩盖了真正的发现：它四月是 67.8%、五月是 6.4%。\n- Codex 从 10.4% 稳步爬到 20.8%。\n- **近四分之一的七月流量来自数据集尚未收录的外壳**，五月这个比例是 59.8%；四到七月新出现的客户端标识超过十二个。\n\n也就是说这是一个**没有在位者的市场**：一次发布或一个默认值的改动就能在一个月内搬走一半流量。而「新进入者出现得比任何登记表更快」本身就是结论。\n\nHub 这一年也在为这个读者改造自己：三月起论文提供机器可读的 Markdown，四月把智能体轨迹变成一等数据集类型并给每个 Gradio Space 加上 `agents.md` 端点，七月在 MCP 服务器上提供 `hf_fs` 工具，用一千多个 token 暴露仓库、存储、文档与论文，并配可挂载的沙箱。\n\n然后，七月，智能体从读者变成了入侵者——本站已经分三层记过这件事。报告里补了一个此前没写过的细节：**团队想用前沿闭源模型分析捕获到的攻击代码，被安全护栏拒绝了；最终是在自己基础设施上跑的量化开源模型 GLM-5.2 完成的分析。**\n\n## 边界\n\n全部数字只覆盖 Hub 上的活动，**不包含 API 调用、私有部署与其他分发渠道**；报告自己写明下载量、点赞数、衍生数与发布数衡量的是生态活跃度的不同侧面，不能直接当作模型质量、商业采用或市场份额。"
-      },
-      "type": "platform",
-      "publishDate": "2026-08-14",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/state-of-open-models-summer-2026",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Hugging Face",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-product-strategy",
-        "tag-ai-agents",
-        "tag-on-device"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-c761533e",
-        "knowledge-graph-thinking"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-dddaf80c",
-        "skill-model-evaluation",
-        "skill-ws-2152c7f1",
-        "skill-ws-d7c9d1d8"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-15T22:52:38.751Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它给了本站每一条模型信号一把校准过的尺子。「两张榜只重合一个仓库」直接说明：热度高的发布和被真正接进流水线的东西几乎不是同一批。同一周 DeepSeek Harness 两天半拿到 11.4 万 star 而三天没有新提交，正是这条结论的现成注脚。而智能体流量第一次被量出来，且四个月里份额能从 67.8% 掉到 6.4% 再回到 44.4%，说明这一层的选型判断有效期很短。",
-      "whoShouldCare": [
-        "拿 star 数、点赞数或下载量给开源项目排序、并据此做选型决定的技术负责人",
-        "在挑基座模型做微调或衍生的团队——衍生数与 GGUF 流量说明了社区实际站在哪一边",
-        "关心本地推理档位上限被推到哪里的端侧与自托管团队",
-        "在做编码智能体外壳选型、需要知道这个市场有多不稳定的平台团队"
-      ],
-      "technicalContext": "统计范围为 Hugging Face Hub 2026 年前七个月的活动。下载量按窗口内计数以控制模型年龄；衍生模型数统计的是社区在某个基座之上发布的仓库；agent-usage 数据集记录 huggingface_hub 与 hf 命令行请求携带的 agent 标识，因此只能看见通过官方客户端访问 Hub 的智能体流量。llama.cpp 的 GGUF 生态是万亿参数模型进入本地推理的主要路径，ggml 团队已于二月加入 Hugging Face。",
-      "impactAreas": [
-        "开源项目热度指标与真实采用的区分",
-        "基座模型选择与衍生生态的正反馈",
-        "本地推理档位与量化格式生态的增速",
-        "编码智能体外壳市场的份额波动"
-      ],
-      "learningPath": [
-        "先把「赞衡量注意力、下载衡量依赖」这句话抄下来，作为以后读任何仓库热度数字的默认前提",
-        "拿 85.6% 与 99.2% 这两个数字重设期望：一个开源仓库的默认命运是没人用，例外才需要解释",
-        "对照 gguf 增长 464% 与 transformers 增长 16%，判断自己团队的注意力是不是放错了层",
-        "读《模型选型与约束匹配》，把「谁的衍生多」变成选基座时的一条具体依据"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "83% 的下载量落在 1B 以下，而 100B 以上只占 1%——「哪个约束先咬人」在整个生态尺度上的答案。",
-        "knowledge-evaluation-loops": "点赞与下载是两把量不同东西的尺子，把其中一把当另一把用，正是这条概念说的「尺子换了而没人发现」。",
-        "knowledge-ws-c761533e": "GGUF 让万亿参数模型摊到几台消费级机器上，本地与云那条线因此又挪了一次。",
-        "knowledge-graph-thinking": "151,448 个衍生模型是一张真实的依赖图；它说明生态位置来自别人建在你之上的东西，而不是你自己发布了多少。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-dddaf80c": "这份报告给出了读发布公告时最缺的那一层背景：同期别人发了什么尺寸、什么许可、有多少人真的在用。",
-        "skill-model-evaluation": "「这把尺子有没有量过别人」在这里升级成了「这把尺子量的是不是你以为的那件事」。",
-        "skill-ws-2152c7f1": "开源重心从模型实验室挪到硬件公司，改变的是自建与采购之外的第三个选项：跟谁的生态走。",
-        "skill-ws-d7c9d1d8": "gguf、mlx、lerobot 三条增速远高于建模核心，说明端侧适配这条技能的需求正在快速扩大。"
-      },
-      "followUpQuestions": [
-        "你上一次用 star 数或点赞数支持一个选型决定，是什么时候？换成下载量或衍生数，结论会变吗？",
-        "官方只发布了 54 个 GGUF 转换，而社区做了 28,531 个——你用的是哪一版，它和作者测过的权重是同一份吗？",
-        "编码智能体外壳的份额一个月能变一半，你的工具链假设它稳定到什么程度？",
-        "许可证字段说没有非商业限制，补充条款却可能有——你的合规检查读的是哪一份？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-      "createdAt": "2026-08-15T22:30:29.274Z",
-      "updatedAt": "2026-08-15T22:52:38.751Z",
-      "editorialNotes": [
-        "一手来源：Hugging Face 官方博客（经 hf-mirror 抓取全文阅读），非二手报道。",
-        "许可一节保留原文统计，同时带上评论区对 Kimi 商业条款的质疑；该质疑来自读者留言，未经独立核实，正文已如实标注为质疑而非事实。",
-        "全部数字仅覆盖 Hub 活动，正文末尾保留了原文的口径声明。",
-        "与本轮 DeepSeek Harness、Qwen3.8-27B 互为印证：一条给出「注意力不等于采用」的系统证据，两条各自是它的实例。",
-        "translationStatus 设为 done：标题、摘要与正文均已完整中文化，与实算覆盖度一致。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-      "slug": "microsoft-agent-framework-harness",
-      "title": {
-        "original": "微软正式发布 Agent Framework Harness 和 Hosted Agents",
-        "zh": "微软 Agent Framework Harness 正式发布：智能体的运行时成了产品"
-      },
-      "summary": {
-        "original": "微软正式发布 Agent Framework Harness 和 Hosted Agents",
-        "zh": "微软把 Agent Framework 从 SDK 推进到受支持的生产运行时：Harness 是单个二进制文件，函数调用、历史持久化、上下文压缩、待办清单、文件记忆、工具审批与 OpenTelemetry 全部默认开启，Foundry Hosted Agents 按用量计费。真正值得记住的是随发布一起出现的两个数字——Claude Code 有 98.4% 的代码属于 Harness 基础设施，AI 决策逻辑只占 1.6%；以及一次固定模型参数的对比中，一个运行时在 40 次往返后自停，另一个跑到 300 次不停。"
-      },
-      "content": {
-        "original": "Microsoft has moved Agent Framework from an SDK to a supported production runtime, releasing Agent Harness and Foundry Hosted Agents.",
-        "zh": "## 发布了什么\n\n微软把 Agent Framework 从 SDK 推进到**受支持的生产运行时**。1.0 版本在 2026-04-02 发布；6 月 2 至 3 日的 Build 2026 上，Agent Harness、GitHub Copilot SDK 与 Claude Agent SDK 连接器、以及多智能体编排模式进入稳定版；此次 Harness 与 Foundry Hosted Agents 正式发布。Harness 是**单个二进制文件**，本地开发环境、容器和托管部署跑的是同一个东西。\n\n默认开启、且可逐项关闭的能力：函数调用、每次调用历史的持久化、上下文压缩、带计划与执行两种模式的待办清单、文件记忆、技能、网络搜索、工具审批，以及内置 OpenTelemetry。Shell 工具、文件访问、后台子智能体和自动循环仍是**可选**，而且启用时会发出警告。开发者只提供聊天客户端、指令和工具，其余由一次 `create_harness_agent` 调用接管；Foundry Hosted Agents 作为托管部署目标按用量计费。\n\n## 为什么一个运行时值得单独看\n\n微软首席软件工程师 Wes Steyn 的说法是：模型本身只能生成文本；要让它调用工具、处理多步任务并持续运行到完成，必须把它包在一个运行时里，而那个运行时就是 Harness。\n\n支撑这句话的是一个具体数字。MBZUAI 旗下 VILA 实验室 2026 年 4 月的论文《深入解析 Claude Code》分析了 v2.1.88——该版本完整 TypeScript 源码曾在 3 月 31 日因一次带 source map 的 npm 发布短暂曝光——统计得出 **1884 个文件、约 512,000 行代码**，其中约 **98.4% 属于 Harness 基础设施**：权限管理、上下文管理、沙箱、工具路由与恢复机制；**AI 决策逻辑约占 1.6%**。\n\n这个数字带着星号，而且是作者自己标的：它是对泄露包的行数分类，包含生成代码与压缩代码，不是一次完整审计。但趋势另有旁证——Codex CLI 与 Aider 各自独立演化出了**相同的 Harness 结构**。三个团队分别走到同一个形状，更像是问题施加的约束，而不是某一家的设计偏好。\n\n## 那个 40 对 300\n\n微软 AI 首席架构师 Aqib Sherwani 做的对比测试比多数厂商基准克制：**固定模型参数，并先跑一个确定性的模拟测试**，确保差异可以追溯到 Harness 而不是模型。结论是「推理相同，工程实现不同」——两个运行时在相同步数内给出了相同答案。\n\n差异出现在**护栏失控**这一项：Agent Framework 在 **40 次往返**后自行终止循环并返回「达到限制」；而在关闭宿主端停止控制机制的情况下，Copilot SDK **一直跑到 300 次**仍不自停。\n\n一个把刹车放在**循环内部**，另一个默认**由宿主提供**。这不是性能差异，是责任归属的差异——而它只在宿主那一侧恰好没做的时候才会暴露出来。这正是《人在回路的审查》里那条判据的机器版本：**一个从不触发的限制，和没有限制无法区分**。\n\n## 治理的问题换了一个\n\n编码智能体连接器不需要自定义适配器就能把任务委派给 GitHub Copilot SDK 或 Claude Agent SDK，每个智能体跑自己的自主循环；但连接器严格遵循为整个集群设置的身份、内容安全与可观测性策略——编码智能体的流量进入**同一批 OpenTelemetry 跟踪和 Foundry 仪表板**，而不是成为一个有独立访问模型的孤立集成。\n\n于是治理的核心问题从「智能体能做什么」变成了三问：**谁运行了它、依据什么策略、跟踪信息最终流向哪里**。同样的控制层关注点也出现在亚马逊云科技的 Loom 参考平台里。编排模式与测试框架同步进入稳定版，覆盖顺序管道、并行协作，以及源自微软研究院 Magentic-One 的 Magentic 模式。\n\n## 放在这条线上看\n\n这是同一种收拢的第四种形态。MCP 2.0 把协议改成无状态，好让任意实例承接任意请求；Gemini API 用一个 `background:true` 把执行、状态与工具接入收到服务端；LLM 0.32 让供应商在单次请求内替你执行远程 MCP 调用——而这一条把**运行时本身**做成了按用量计费的产品。\n\n一次 `create_harness_agent` 调用换来的是不必自己实现审批、压缩、持久化和遥测。它同时买走的是控制权，而这正是《系统设计的权衡》里那句话：**默认值是别人替你做完的权衡**。40 与 300 的差别说明这笔交易值得逐项看清楚——你要的是循环内部就有刹车的运行时，还是一个假设你会自己装刹车的运行时。"
-      },
-      "type": "platform",
-      "publishDate": "2026-08-10",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/aDEJegvNSKwvue2JZ0yI?utm_source=rss&amp;utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "Microsoft",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-e251051e",
-        "knowledge-human-loop",
-        "knowledge-ws-a28a8a56",
-        "knowledge-system-design"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-f741f122",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-15T22:43:22.694Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "智能体的运行时正在从「每个团队自己拼的一层胶水」变成有厂商支持、按用量计费的产品。这件事的分量不在功能表，而在随它一起出现的一个数字：Claude Code 有 98.4% 的代码是 Harness 基础设施，AI 决策逻辑只占 1.6%。如果这个比例大致成立，那么「用哪个 Harness」比「用哪个模型」影响面更大——而多数团队目前只认真评估后者。",
-      "whoShouldCare": [
-        "要把智能体放进生产环境、正在决定运行时自建还是采购的平台团队",
-        "负责智能体身份、权限、审批与审计策略的安全与治理角色",
-        "在 Agent Framework / GitHub Copilot SDK / Claude Agent SDK 之间做取舍的工程负责人",
-        "已经有一套 OpenTelemetry 体系、需要让智能体流量并进去而不是另起一摊的可观测性团队"
-      ],
-      "technicalContext": "Harness 指把模型包起来、使它能调用工具并持续运行到任务完成的那一层运行时：函数调用、历史持久化、上下文压缩、待办清单、审批、遥测都长在这里。此前它是每个团队自己实现的部分，Agent Framework 1.0 解决的是「用哪个框架构建」，这次发布回答的是「构建出来的东西在哪里执行、能访问什么、行为如何体现在既有的可观测性与策略系统里」。Agent Framework 本身是对 Semantic Kernel 与 AutoGen 的整合，两个前身项目已转入维护模式。",
-      "impactAreas": [
-        "智能体运行时的自建与采购边界",
-        "护栏与审批机制究竟由循环还是由宿主提供",
-        "智能体流量的可观测性与治理策略",
-        "多智能体编排与跨厂商编码智能体的委派"
-      ],
-      "learningPath": [
-        "先读 40 对 300 那一段，把「护栏在循环里还是在宿主里」变成你自己评估任何智能体框架时的第一个问题",
-        "对照 98.4% / 1.6% 这个比例，回头看自己项目里模型调用之外的代码占比——如果远低于它，多半是有一批职责还没被显式实现",
-        "把默认开启的那批能力逐项对到自己已有的实现上，判断哪些是重复建设、哪些是你有意做得不一样",
-        "读《工具集成模式》，确认工具层的职责在采购运行时之后仍然归你",
-        "读《智能体可观测性与评测运维》，把「谁运行了它、依据什么策略、跟踪流向哪里」三问落到具体的仪表板上"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-e251051e": "40 次往返自停是一种「任务该结束了」的机械判定；它不判断对错，只判断不该再继续——这正是完成判定里最容易被忽略的一档。",
-        "knowledge-human-loop": "工具审批默认开启是好事，但一个从不拒绝的审批点只是延迟；40 对 300 是同一条判据在护栏上的形态。",
-        "knowledge-ws-a28a8a56": "上下文压缩、文件记忆和每次调用历史的持久化在这里是默认能力，正好对上这条概念说的「什么被带到下一步」。",
-        "knowledge-system-design": "默认值是别人替你做完的权衡——这次发布把一整套默认值打包成运行时，是这句话最直接的实例。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "这次发布把「流程的形状」变成了可采购的产品；判断一个现成 Harness 是否配得上你的流程，用的还是这条技能里那三个交接问题。",
-        "skill-tool-integration": "Harness 接管了审批与遥测，但工具层要不要吸收混乱仍然归你——它替你做的是循环，不是工具设计。",
-        "skill-ws-f741f122": "内置 OpenTelemetry 与统一仪表板把「跑完之后归因」从自建变成默认，这条技能决定你能否真的读懂那些轨迹。",
-        "skill-ws-2152c7f1": "运行时是这两年最典型的一次自建与采购取舍：省掉的是审批、压缩、持久化与遥测，付出的是循环内部的控制权。"
-      },
-      "followUpQuestions": [
-        "40 次往返这个默认上限对你的任务是太紧还是太松？改动它需要哪一层的权限？",
-        "如果运行时由厂商提供，出现一次越权行为时，你还能不能自己复原完整的动作序列？",
-        "把编码智能体的流量并进统一的遥测体系，会不会反过来让某些团队为了绕开策略而改用未受管的路径？",
-        "98.4% 这个数字来自一次泄露包的行数分类，换一种统计口径（例如按执行路径或按缺陷分布）还成立吗？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-10T12:59:37.905Z",
-      "updatedAt": "2026-08-15T22:43:22.694Z",
-      "editorialNotes": [
-        "来源为 InfoQ 中文对微软发布的报道（作者 Steef-Jan Wiggers），非厂商一手公告；正文事实以该报道所引的发布公告、VILA 实验室论文与 Sherwani 基准为准。",
-        "98.4% / 1.6% 已按原文保留其限定条件（泄露包的行数分类、含生成与压缩代码、非完整审计），不作为无条件事实呈现。",
-        "与 gemini-managed-agents / llm-0-32 / mcp-2-0 构成同一条「运行时归谁」的线，关系类型均为印证。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {
@@ -1756,114 +1987,6 @@
         "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-qbitai-com-p-473669",
         "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-      "slug": "runtime-agnostic-ai-workflows",
-      "title": {
-        "original": "与运行时无关的 AI 工作流：一种兼顾生产环境稳定性和快速评估迭代的模式",
-        "zh": "生产要持久、评估要轻量——把编排从运行时里拆出来"
-      },
-      "summary": {
-        "original": "Brex's AI workflow platform decouples orchestration from the runtime, because production durability and fast evaluation loops need opposite runtimes and most agent frameworks couple orchestration to one of them.",
-        "zh": "Brex 的 AI 工作流平台提出一个模式：把编排逻辑从运行时里拆出来。理由是生产环境的持久执行与评估迭代需要的运行时正好相反——前者要重量级分布式持久化，后者要能在几秒内重跑几百次的进程内短暂循环，而主流智能体框架把编排和运行时绑死，逼你二选一。"
-      },
-      "content": {
-        "original": "See the InfoQ article for the full pattern and code examples.",
-        "zh": "## 两个要求，方向相反\n\nAI 工作流是一串步骤，其中一步或多步会调用大模型。对它的生产要求，和过去十年任何长期运行的分布式系统没有区别：**扛得住部署与崩溃、能幂等重试、能水平扩展**。工作流引擎多年前就解决了这类问题。\n\nAI 工作流独有的那一半是：**LLM 步骤的输出质量会随每次提示词微调或模型变更而漂移**，所以必须靠评估来验证——在标注数据集上离线跑一遍并打分。\n\n于是引擎需要一个它当初没为之设计的能力：**便宜到能重复跑几百次的快速评估循环**。\n\n**这两个要求互相矛盾：**\n\n- **持久化执行**要求每一步结果先落盘再走下一步，崩溃或重新调度后能回放历史、从中断处继续。状态活得比任何单个进程都久。一个跑一小时、调用几十次模型的深度研究智能体，不能因为一个 Pod 被回收就损失四十分钟。\n- **评估迭代**是局部的、进程内的、短暂的。你改一行提示词，加载几百个样本，看汇总分数。它不该在集群范围内持久化或调度任何东西，运行结束后什么都不该留下。\n\n把评估代码塞进工作流引擎，你会继承持久化、任务队列、工作进程和回放语义——**全是这个紧凑循环不需要的开销**。反过来把生产代码塞进评估框架，则拿不到那个一小时智能体依赖的任何持久性保证。\n\n## 为什么大多数技术栈逼你二选一\n\n因为**主流工具把编排和运行时耦合在一起**。\n\nLangGraph、Mastra 这类框架在自己的 SDK 里直接表达编排逻辑：你的控制流被翻译成图的节点与边，或者框架提供的 DSL。**编排逻辑和框架本身是同一个东西。** 要评估这段逻辑就得运行框架，要部署它也得运行框架——**不存在独立于框架的编排**。\n\n## 这条判据可以直接搬走\n\n不管你用不用他们的方案，有一个问题值得对着自己的技术栈问一遍：\n\n**我的编排逻辑，能不能脱离运行时单独存在？**\n\n如果不能，那么「换运行时」和「重写业务逻辑」就是同一件事，而评估循环的成本会被运行时的重量绑架。\n\n这与本站《系统设计的权衡》里那条判据同构：**每一层抽象都是拿控制换省事**，而框架把编排收进 DSL，换走的正是「在别处运行同一段逻辑」这个控制权。\n\n## 平台本身的规模，说明这不是玩具也不是大厂特例\n\n- **TypeScript**，五名工程师维护\n- 工作进程跑在 Kubernetes 上，接托管的 **Temporal Cloud** 执行长期运行的智能体\n- 通过 **Vercel AI SDK** 访问模型，请求路由到内部 LLM 网关集中做限流与鉴权\n- 评估跑在自建平台上\n\n**五个人**这个数字值得留意：它说明这个模式的实现成本，在一个中等规模团队的承受范围内。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-08-13",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/Za8vaFWPCM7LtuRfhDmD?utm_source=rss&amp;utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "Brex",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-workflow",
-        "tag-ai-agents",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-system-design",
-        "knowledge-api-contracts",
-        "knowledge-ws-a28a8a56"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-ws-f741f122",
-        "skill-ws-2152c7f1"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-15T22:43:03.726Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "它把一个很多团队隐约感觉到、但没说清楚的矛盾讲明白了：生产持久性和评估迭代要的是相反的运行时，而框架把编排绑进运行时之后，你连选的机会都没有。",
-      "whoShouldCare": [
-        "在建生产级 AI 工作流并且需要跑评估的团队",
-        "正在选智能体框架、还没被锁定的技术负责人",
-        "负责评估闭环成本的人"
-      ],
-      "technicalContext": "模式来自 Brex 的 AI 工作流平台：TypeScript、五名工程师、Kubernetes 工作进程接 Temporal Cloud 做持久执行，经 Vercel AI SDK 与内部 LLM 网关访问模型，评估在自建平台运行。核心主张是把编排逻辑与运行时解耦，使同一段编排既能在持久化运行时执行，也能在进程内评估循环里重跑。",
-      "impactAreas": [
-        "AI 工作流架构",
-        "评估闭环成本",
-        "框架锁定",
-        "长期运行智能体的可靠性"
-      ],
-      "learningPath": [
-        "先对自己的技术栈问那一句：编排逻辑能不能脱离运行时单独存在",
-        "把「一次评估循环的成本」量出来——它决定你一天能迭代几次",
-        "再判断持久化执行是不是你真的需要的，还是只是框架顺带给的"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-evaluation-loops": "评估要便宜到能跑几百次，这条约束决定了运行时形态。",
-        "knowledge-system-design": "编排绑进 DSL，换走的是「在别处运行同一段逻辑」的控制权。",
-        "knowledge-api-contracts": "解耦之后，编排与运行时之间需要一份显式契约。",
-        "knowledge-ws-a28a8a56": "跑一小时的智能体，状态必须活得比进程久。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "流程的形状决定它能不能被便宜地评估。",
-        "skill-ws-f741f122": "评估循环的成本就是迭代速度本身。",
-        "skill-ws-2152c7f1": "框架锁定是自建边界评估里最贵的一种。"
-      },
-      "followUpQuestions": [
-        "解耦之后，持久化运行时与评估运行时之间的行为差异如何保证不漂移？",
-        "五人团队维护这套平台，边际成本主要花在哪一层？",
-        "这个模式对不使用 Temporal 这类引擎的团队是否同样成立？"
-      ],
-      "readingDifficulty": "advanced",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-14T04:01:49.072Z",
-      "updatedAt": "2026-08-15T22:43:03.726Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article"
       ]
     },
     {

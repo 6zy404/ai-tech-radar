@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T01:32:49.232Z",
+  "updatedAt": "2026-08-16T03:13:01.794Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1367,6 +1367,11 @@
     "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-14-rc0": {
       "importStatus": "rejected",
       "reviewedAt": "2026-08-16T01:32:49.232Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-16T03:13:01.794Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article"
     }
   }
 }
