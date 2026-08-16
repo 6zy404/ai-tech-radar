@@ -274,7 +274,15 @@ The six that have bitten, most recent first:
 4. **A Markdown construct `ContentBody` does not support**, which it passes
    through verbatim. It handles `##`, `**bold**`, inline code and lists — and
    nothing else. Blockquotes reached readers as `>` on 2026-08-14; backticks
-   did the same on 2026-08-02, before inline code existed.
+   did the same on 2026-08-02, before inline code existed. **Tables are not
+   supported either** — a benchmark comparison written as one would render as
+   rows of pipes (caught in a payload before writing, 2026-08-16).
+   **And the two inline markers cannot nest.** The tokenizer is a flat
+   alternation, so ``**`reasoning_effort`**`` renders bold with the backticks
+   showing. Found 2026-08-16 by looking at a page: 5 occurrences on 3 published
+   signals, three of them months old. **This is now a gate warning**
+   (`nested-inline-markers-in-body`) — put the two side by side rather than one
+   inside the other.
 5. **An English word left in Chinese prose.** Established technical terms
    (`token`, `checkpoint`, `stderr`, `shell`) are deliberate and stay; an
    ordinary adjective is not. `introductory` survived into a published body
@@ -285,8 +293,8 @@ The six that have bitten, most recent first:
    0 elsewhere.
 
 Items 1, 2, 5 and 6 are cheap to scan for in the store before rendering
-anything; 3 is now a gate warning; 4 and anything about layout need the
-screenshots. **If the screenshot tool is unavailable, say so in the write-up
+anything; 3 and the nesting half of 4 are now gate warnings; the rest of 4 and
+anything about layout need the screenshots. **If the screenshot tool is unavailable, say so in the write-up
 rather than quietly downgrading to DOM checks** — that substitution is exactly
 what let a page ship as ellipses for months.
 
