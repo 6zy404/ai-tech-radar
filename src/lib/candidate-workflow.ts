@@ -5,6 +5,8 @@ import {
 } from "@/lib/ranking";
 import {
   getLocalStoreFilePath,
+  getLocalStoreFingerprint,
+  getStoreRevision,
   readLocalJsonFile as readJsonFile,
   writeLocalJsonFile as writeJsonFile
 } from "@/lib/repositories/local-json-store";
@@ -162,12 +164,61 @@ function buildTechnologyWorkspaceRecord(
   };
 }
 
-export function getCandidateWorkflowData(): {
+interface CandidateWorkflowData {
   snapshot: ImportedCandidateSnapshot;
   candidates: ImportedCandidate[];
   workspaceRecords: TechnologyWorkspaceRecord[];
   duplicateGroups: DuplicateGroup[];
-} {
+}
+
+/**
+ * The stores this view is derived from. Their identity is what decides whether
+ * a cached result is still good.
+ */
+const candidateWorkflowSources = [
+  "imported-candidates.live.json",
+  "candidate-review-state.json",
+  "technology-workspace.json"
+];
+
+let cachedWorkflowData: { key: string; value: CandidateWorkflowData } | null =
+  null;
+
+/**
+ * Memoized because this is expensive and was being called like it was free.
+ *
+ * One call parses about 3.3 MB of JSON and then runs the pairwise duplicate
+ * analysis over every candidate — measured 2026-08-17 at roughly 200ms with 146
+ * candidates. Nothing cached it, while `getImportedCandidateById`,
+ * `getDuplicateGroups` and `getDuplicateGroupCandidates` all route through it,
+ * so a single `getCandidateDraftConversionReadiness(id)` costs two to four full
+ * rebuilds — and `/workspace` calls that once per candidate. Instrumented on
+ * the real server: **2,075 calls totalling 416 seconds**, with `/workspace`
+ * alone spending 125 seconds in about 620 of them. Because Node is
+ * single-threaded, that blocked every other route for the duration.
+ *
+ * The key is deliberately two-part. The revision counter catches writes made by
+ * this process; the file fingerprint catches writes made by another one — the
+ * task runner writes these same files from `tasks:run-once`. Under the SQLite
+ * driver the fingerprint is null and only the counter applies, which is why the
+ * two are combined rather than either used alone.
+ */
+export function getCandidateWorkflowData(): CandidateWorkflowData {
+  const key = `${getStoreRevision()}::${getLocalStoreFingerprint(
+    candidateWorkflowSources
+  )}`;
+
+  if (cachedWorkflowData?.key === key) {
+    return cachedWorkflowData.value;
+  }
+
+  const value = buildCandidateWorkflowData();
+  cachedWorkflowData = { key, value };
+
+  return value;
+}
+
+function buildCandidateWorkflowData(): CandidateWorkflowData {
   const snapshot = readImportedCandidateSnapshot();
   const reviewState = readCandidateReviewState();
   const workspaceRecords = readTechnologyWorkspaceStore().records;
