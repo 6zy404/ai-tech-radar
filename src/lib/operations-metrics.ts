@@ -497,7 +497,7 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   }
 
   if (failedScheduledRuns.some((run) => run.status === "failed")) {
-    criticalReasons.push("A scheduled delivery run failed.");
+    criticalReasons.push("最近一次定时投递运行失败。");
   }
 
   if (
@@ -514,7 +514,7 @@ export function getSystemHealthSummary(): OperationsDashboardData {
       event.action.includes("publish_failed")
     )
   ) {
-    criticalReasons.push("A publish workflow failed.");
+    criticalReasons.push("有发布流程失败。");
   }
 
   if (latestTaskRunnerRun?.status === "partial") {
@@ -530,7 +530,7 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   }
 
   if (failedScheduledRuns.some((run) => run.status === "partial")) {
-    warningReasons.push("A scheduled delivery run was partial.");
+    warningReasons.push("最近一次定时投递运行为部分成功。");
   }
 
   if (openDuplicateGroups > 0) {
