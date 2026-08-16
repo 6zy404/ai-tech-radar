@@ -8158,6 +8158,20 @@ a.tech-graph__node:hover {
     box-shadow 140ms ease;
 }
 
+/* The dot is sized in pixels while the layout spaces nodes in canvas units, so
+   the same graph gets tighter as the canvas shrinks: 674px wide on desktop
+   against 320px here. Overlap is therefore a pixel problem, and shrinking the
+   pixels is the direct answer — measured 2026-08-16, 12 overlapping dot pairs
+   → 1 at 390px, with desktop untouched (still 11px, still 0). The 28×28 hit
+   area is deliberately not shrunk with it. */
+@media (max-width: 640px) {
+  .content-network__node-dot {
+    width: 8px;
+    height: 8px;
+    border-width: 1.5px;
+  }
+}
+
 .content-network__node--technology .content-network__node-dot {
   background: #12786c;
 }
