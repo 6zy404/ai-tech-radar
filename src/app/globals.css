@@ -3791,6 +3791,17 @@ p {
   margin-top: 12px;
 }
 
+/* The tracks are already `minmax(0, …)`, but a grid *item* still defaults to
+   `min-width: auto` and refuses to shrink below its content — so the `<pre>`
+   inside grew to its longest line and its own `overflow: auto` had nothing left
+   to scroll. Measured 2026-08-17 at 390px: a snapshot `<pre>` 9,686px wide in a
+   301px column with **no scrollable ancestor anywhere in the chain**, i.e. the
+   rest of the payload was unreachable rather than merely off-screen. Same
+   mechanism as the 2026-07-29 compare-widget `<select>`. */
+.operations-event-card__snapshots > * {
+  min-width: 0;
+}
+
 .operations-event-card__snapshots pre {
   max-height: 220px;
   margin: 8px 0 0;
