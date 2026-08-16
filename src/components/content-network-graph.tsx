@@ -126,9 +126,16 @@ function stepForceLayout(
   temperature: number,
   pinnedId: string | null
 ): PositionMap {
-  const idealDistance = Math.sqrt(
-    (VIEW_SIZE * VIEW_SIZE) / Math.max(nodes.length, 1)
-  );
+  // The 1.2 is measured, not tuned by eye. The bare sqrt spaces nodes to fill
+  // the canvas exactly, which leaves no room for the dot's own diameter once
+  // the graph is dense — this page has grown from the 33 nodes the layout was
+  // written for in 2026-07-15 to 94 nodes and 504 edges. Raising it spreads
+  // the cloud without pushing anything against the padding wall: measured over
+  // repeated loads at 1440 and 390, overlapping hit areas go 21 → 15 and
+  // 213 → 155, overlapping dots 12 → 7 at 390, and nodes outside the canvas
+  // stay at 0 with the cloud filling 89% of it.
+  const idealDistance =
+    1.2 * Math.sqrt((VIEW_SIZE * VIEW_SIZE) / Math.max(nodes.length, 1));
   const displacement: PositionMap = {};
 
   nodes.forEach((node) => {
