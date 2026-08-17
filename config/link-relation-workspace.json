@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T16:23:45.187Z",
+  "updatedAt": "2026-08-17T17:32:50.016Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -4176,6 +4176,114 @@
       "toType": "skill",
       "relationType": "requires",
       "note": "审批的连接模型变了，交接点与超时都要重画。"
+    },
+    {
+      "id": "rel-ws-dceefcc0",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一个模型的后一层：那条读的是厂商公告，这条是把它装到两台真机上之后剩下什么——包括公告没提的默认档代价。"
+    },
+    {
+      "id": "rel-ws-cc2a092f",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "两条都是「首日支持之后，真实跑起来会怎样」——一条是 MLX 的输出质量缺陷，一条是默认推理档。"
+    },
+    {
+      "id": "rel-ws-de09882e",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同为本地这一档，但一个压尺寸、一个压默认值，卡住读者的东西不同。"
+    },
+    {
+      "id": "rel-ws-43b46638",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一作者的两条：一条是他自己的命令行工具，一条是他拿别人的模型做的实测。"
+    },
+    {
+      "id": "rel-ws-8e812a58",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "21 分钟对 137 秒是同一道题的两个总时长，差别只在一个默认开关。"
+    },
+    {
+      "id": "rel-ws-3b97c90e",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "默认值是别人替你做完的权衡，这里它的价签是 22,276 个思考 token 换 3,223 个输出 token。"
+    },
+    {
+      "id": "rel-ws-ea6c6085",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "17GB 的 Q4_K_M 是这次全部数字所在的量化档位。"
+    },
+    {
+      "id": "rel-ws-3f643a21",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "15–30 token/秒是本地与托管那条线在一台高端笔记本上的实际位置。"
+    },
+    {
+      "id": "rel-ws-75fd5340",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "运行时路径、量化档位与实测吞吐三件事在两台真实机器上齐了。"
+    },
+    {
+      "id": "rel-ws-dc279122",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "厂商自跑的基准与一位开发者的动手记录都不是系统评测；这条把两边的边界都写明了。"
+    },
+    {
+      "id": "rel-ws-b4efe76a",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "读完公告之后还得读真机——这条补的正是「换得了吗」之后的「跑起来什么样」。"
+    },
+    {
+      "id": "rel-ws-59a39178",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "0–1000 比例的边界框返回加叠加渲染，是视觉核验里最容易机械验证的一种。"
     }
   ]
 }

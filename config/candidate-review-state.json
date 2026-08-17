@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-16T16:19:11.386Z",
+  "updatedAt": "2026-08-17T17:28:24.634Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1413,6 +1413,11 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-16T16:19:11.386Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-17T17:28:24.634Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
     }
   }
 }
