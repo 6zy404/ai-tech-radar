@@ -12,6 +12,135 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Two rules that were wrong in the direction nobody had checked
+
+- **A duplicate rule that grouped any two Chinese headlines containing "AI"** —
+  2026-08-18, found by being blocked by it mid-round. Converting the day's lead
+  signal returned "belongs to a duplicate group and is not the primary
+  candidate", and the group held three unrelated articles: a Fields medallist on
+  LLM mathematics, a HarmonyOS piece, and an interview.
+- **`normalizeTitleForComparison` strips every non-latin character**, so each of
+  those headlines collapsed to the bare string `ai`. The token rule never saw it
+  (tokens must be ≥ 3 characters), but the `similar_title` rule's
+  normalized-title branch only required a non-empty result — and `ai` is
+  non-empty. The two halves of one rule disagreed.
+- **The documented limitation said the opposite.** `docs/data-model.md` recorded
+  that "two different all-Chinese titles can never match; imported candidates
+  come from English-language feeds, so this costs nothing today". Both halves
+  were wrong: the pool has carried two daily Chinese-language feeds since
+  2026-08-10, and the titles did not never-match — they **always** matched
+  whenever both contained "AI". The cost is silent, because a non-primary
+  candidate simply cannot be converted and nothing says why.
+- **Four tests, and the injection hits exactly one.** Restoring the old
+  `length > 0` guard fails only the AI-collision case; a Chinese title carrying
+  a real latin token (`qwen3`, `27b`) still compares, a short latin title
+  (`vLLM v0.26.0`) is still flagged, and the genuinely remaining limitation —
+  two byte-identical all-Chinese titles normalize to the empty string and are
+  not caught either — is pinned deliberately, unchanged by this fix.
+- **Eight import failures had recorded `fetch failed` and nothing else** — the
+  same day, after measuring the four GitHub release feeds that failed that
+  morning. The history says something sharper than "those feeds are flaky":
+  **2 of 11 retained runs, and they are the last two consecutively** (08-17 and
+  08-18), after succeeding on every run from 08-10 to 08-16. For contrast the
+  scattered failures look different — Google AI Blog 2/11 and DeepMind 2/11,
+  both isolated singletons.
+- **The pattern inside a run is byte-identical across both days, and it rules
+  out the obvious explanation.** There are five `github.com` release feeds, not
+  four. In execution order, index 6 (MCP Servers, same host, same feed type)
+  **succeeded both days**; indices 7, 8, 10 and 12 failed; and indices 9
+  (`openai.com`) and 11 (`simonwillison.net`) succeeded **interleaved between
+  the failures**. So it is neither "github.com was unreachable" nor a
+  time/ordering effect: the **first `github.com` request of the run succeeded
+  and every later one failed**. Both failed runs took 153.5s and 153.3s against
+  a normal 13–16s, which is four sources exhausting three attempts with linear
+  backoff.
+- **Size is not the discriminator either**: the one that works is 8KB, the
+  second one tried (and failed) is 17KB, and the largest is 886KB.
+- **None of it reproduces on demand**, so no mechanism was guessed at. All five
+  feeds fetch in under 1.4s right now, twice each, directly _and_ through the
+  scheduled task's exact proxy environment — 10/10 both ways.
+- **What shipped instead is the instrument.** Node's `fetch` reports every
+  transport failure as the bare string `fetch failed` and puts the real reason
+  (`ECONNRESET`, `UND_ERR_SOCKET`, a TLS message) one level down in
+  `error.cause`; the retry wrapper carried `lastError.message`, so all eight
+  records said the same useless thing. `describeFetchError` walks the cause
+  chain, appends a `code` only when the message does not already contain it,
+  and caps depth as a cycle guard.
+- **The existing test passed the whole time the log was useless** — it asserted
+  that "the underlying reason survives", and `fetch failed` technically is one.
+  Three new tests, each proven to fail when the old one-line message is
+  restored. The first attempt at one of them expected `(ECONNRESET)` appended to
+  `read ECONNRESET`; the suppression rule correctly declined to repeat it, so
+  the expectation was wrong rather than the code, and a separate case now covers
+  the suffix path.
+
+## Editorial round — nobody is responsible for calling stop
+
+- **22 undecided candidates, 2 signals** — 2026-08-18. All of them publicly
+  visible on the news lane until dispositioned: 2 published, 5 reviewed, 15
+  rejected, and the lane back to 18 visible with **0 undecided**.
+- **Gowers on what sort of maths LLMs are good at, published as `important`.**
+  The candidate was a Chinese secondary report; the primary source was read
+  directly. Its observation is that the famous results have almost all been
+  constructions rather than theorems — and it then **rejects the obvious
+  explanation**: the logical form of Vinogradov's three-primes theorem and
+  Gluskin's Banach-Mazur result are nearly identical, yet nobody calls the first
+  a counterexample or the second a theorem, so "existential statements" is not
+  the line.
+- **What replaces it generalises well past mathematics**: models know a lot and
+  can afford to fail, so they win where trying many unremarkable ideas works;
+  the edge humans still hold is smelling that a path is dead and pruning the
+  tree. Two reasons that may not simply scale in: the training data is tidied
+  proofs with the dead ends removed, and a model with cheap search has no
+  incentive to prune. The failure signature is concrete — **repeatedly handing
+  back "a narrower and more precise question" without progress**.
+- **One number was checked and dropped.** The secondary report states the ten
+  OpenAI results cost "a few thousand dollars" in tokens. That figure does not
+  appear in the source, which contains no cost estimate at all. It is not used,
+  and the body says so.
+- **Rootly retires its small-PR rule, published as `important`.** Two years of
+  stacked PRs capped at a few hundred lines, abandoned because agents emit
+  **features, not increments**. They **tried** making agents produce stacked PRs
+  and the result was technically correct and worse in context. What got replaced
+  is the criterion: blast radius instead of diff size, an internal reviewer that
+  answers exactly one question per PR (if this is defective, which user-facing
+  features break?) and explicitly does not imitate a human reviewer, and feature
+  flags moving the safety boundary from merge to progressive rollout. Their
+  description of the defect class is the sharpest line in it: **the code runs
+  fine, it is just used in the wrong place.**
+- **Five reviewed, each on evidence.** HelixWorld's repo was checked rather than
+  believed — one commit titled `init`, zero releases, empty package directories,
+  so the weights and code the coverage describes as being opened are not there.
+  GitHub's canvases post names its cost (2,000 and 3,000 AI credits) but asserts
+  the payback without measuring it. The InfoQ Qwen ecosystem piece would be a
+  third entry on one model in three days. The KDC governance essay is an open
+  research position piece whose core claim this site already carries with real
+  evidence. `openai.com` returned 403 again, leaving 147 characters.
+- **The digest carries exactly the three never-carried signals**, Gowers pinned,
+  seven repeats excluded after checking each. The thread is measured rather than
+  forced: each is a layer of _nobody is responsible for calling stop_ — the
+  mechanism, the engineering practice, and the price tag (21 minutes and 22,276
+  reasoning tokens against 137 seconds).
+- **Both titles were four lines and were rewritten.** Every other published
+  signal renders its `h1` in three at 1265px; these took 4 lines / 220px. The
+  simulator rebuilt the real `.nowrap-run` span structure and its control
+  reproduced the unchanged titles exactly before any candidate was trusted.
+- **Reverse ids written as one pre-computed union**, because 7 of the 17 targets
+  are referenced by both signals and a second `PATCH` would have replaced the
+  first. All 17 verified, 46 relation writes across 24 typed pairs with notes,
+  and the store diffed per record against `HEAD`: zero arrays lost an entry,
+  checker proven to fire on injection.
+- Verified: 20 public routes at 200, a ten-string internal-field scan clean, the
+  pinned lead first **inside the digest's signal links**, zero excluded items
+  present, 24/24 reverse links rendering across 17 pages, both bodies at 6
+  section headings with zero literal markers, zero horizontal overflow and zero
+  graph overlaps at 1440 light, 1440 dark and 390, zero console errors, all
+  three pages looked at, plus typecheck, lint, format, vitest 245/245 and eight
+  validators.
+- **One verification failure was the check, not the page**: the excluded-item
+  scan matched `qwen3-8-27b` as a prefix of `qwen3-8-27b-overthinking-default`,
+  which is legitimately in the digest. Re-run on exact slugs: zero.
+
 ## The noisy sources were not the ones anybody suspected
 
 - **A source-retirement decision that ended in retiring nothing** — 2026-08-11,

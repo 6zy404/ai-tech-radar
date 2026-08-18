@@ -158,8 +158,24 @@ describes the site's existing coverage rather than a defect in the record.
 The threshold was measured, not guessed — over the real 40-candidate pool the
 genuine re-publications scored 0.8 and 1.0 while the next-highest unrelated
 candidate scored 0.3. Known limitation: comparison tokens are latin-only, so
-two different all-Chinese titles can never match; imported candidates come
-from English-language feeds, so this costs nothing today.
+two different all-Chinese titles can never match on token similarity.
+
+**That sentence used to end "so this costs nothing today", and it was wrong in
+both halves** (corrected 2026-08-18). Since 2026-08-10 the pool carries two
+daily Chinese-language feeds, so it is not a hypothetical; and the failure runs
+the _opposite_ way from what the note claimed. `normalizeTitleForComparison`
+strips every non-latin character, so a Chinese headline collapses to whatever
+latin fragments it happens to contain — on an AI feed, almost always the bare
+string `ai`. The token rule then drops it (tokens must be ≥ 3 characters), but
+the `similar_title` rule's _normalized-title_ branch only required a non-empty
+result, and `ai` is non-empty. So two unrelated Chinese titles did not "never
+match" — they **always** matched whenever both contained "AI". Three unrelated
+candidates were grouped that way on 2026-08-18, which silently blocked the
+non-primary ones from converting at all. The guard now uses the tokenizer's own
+threshold (`hasComparableTitleTokens`); see `candidate-duplicate-rules.ts` and
+the tests in `candidate-dedup.test.ts`, which also pin the genuinely remaining
+limitation: two byte-identical all-Chinese titles are still not caught by the
+title rules, because they normalize to the empty string.
 
 The check needs published signals passed in
 (`evaluateCandidateQuality(candidate, { publishedSignals })`, built with
