@@ -96,4 +96,92 @@ describe("getDuplicateReasons", () => {
 
     expect(getDuplicateReasons(left, right)).toEqual([]);
   });
+
+  /**
+   * Hit for real on 2026-08-18, when it silently blocked a publish: title
+   * normalization strips every non-latin character, so two unrelated Chinese
+   * headlines whose only latin content is "AI" both normalize to `ai` and were
+   * called the same title.
+   */
+  it("does not call two Chinese titles identical just because both contain AI", () => {
+    const left = makeImportedCandidate({
+      id: "a",
+      sourceUrl: "https://a.example.com/maths",
+      publisherName: "量子位",
+      publishDate: "2026-08-17",
+      originalTitle: "菲尔兹奖得主：AI现在主要靠「抬杠」突破重大数学猜想"
+    });
+    const right = makeImportedCandidate({
+      id: "b",
+      sourceUrl: "https://b.example.com/os",
+      publisherName: "InfoQ 中文",
+      publishDate: "2026-08-17",
+      originalTitle:
+        "当操作系统开始「理解意图」：鸿蒙 AI 如何改变开发者的工作方式"
+    });
+
+    expect(getDuplicateReasons(left, right)).toEqual([]);
+  });
+
+  it("still compares Chinese titles that carry a real latin token", () => {
+    const left = makeImportedCandidate({
+      id: "a",
+      sourceUrl: "https://a.example.com/1",
+      publisherName: "量子位",
+      publishDate: "2026-08-17",
+      originalTitle: "刚刚，Qwen3.8-27B 开源了！家用显卡也能跑"
+    });
+    const right = makeImportedCandidate({
+      id: "b",
+      sourceUrl: "https://b.example.com/2",
+      publisherName: "量子位",
+      publishDate: "2026-08-18",
+      originalTitle: "重磅：Qwen3.8-27B 现已开源"
+    });
+
+    // The fix narrows the normalized-title branch, not Chinese titles as a
+    // whole: `qwen3` and `27b` survive tokenization, so these still compare.
+    expect(getDuplicateReasons(left, right)).toContain("similar_title");
+  });
+
+  /**
+   * Pre-existing and unchanged by the fix above, pinned so it fails loudly if
+   * anyone widens normalization without thinking it through: a title with no
+   * latin characters at all normalizes to the empty string, so two byte-
+   * identical Chinese headlines are not caught by the title rules either.
+   */
+  it("does not catch two identical all-Chinese titles by title alone", () => {
+    const title = "阿里开源新一代推理模型，家用显卡也能跑";
+    const left = makeImportedCandidate({
+      id: "a",
+      sourceUrl: "https://a.example.com/1",
+      publisherName: "量子位",
+      publishDate: "2026-08-17",
+      originalTitle: title
+    });
+    const right = makeImportedCandidate({
+      id: "b",
+      sourceUrl: "https://b.example.com/2",
+      publisherName: "InfoQ 中文",
+      publishDate: "2026-08-17",
+      originalTitle: title
+    });
+
+    expect(getDuplicateReasons(left, right)).toEqual([]);
+  });
+
+  it("still flags a short latin title that survives tokenization", () => {
+    const left = makeImportedCandidate({
+      id: "a",
+      sourceUrl: "https://a.example.com/1",
+      originalTitle: "vLLM v0.26.0"
+    });
+    const right = makeImportedCandidate({
+      id: "b",
+      sourceUrl: "https://b.example.com/2",
+      originalTitle: "vLLM v0.26.0"
+    });
+
+    expect(getDuplicateReasons(left, right)).toContain("similar_title");
+  });
 });
