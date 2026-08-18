@@ -73,11 +73,37 @@ For per-topic deep dives, see the `docs/` directory.
   and published at runtime, and **38 of the 41 prerendered routes**
   are those pages (the other three are the favicon, the icon and the 404). In production an editor would publish into a page that never
   updates.
-- **The fix was measured rather than proposed blind.** With `force-dynamic`
-  added to the five and a rebuild, production serves them in **10–40ms**
-  (`/skills` 10ms, `/knowledge` 11ms, `/network` 35ms, skill detail 40ms).
-  **Not shipped** — it changes deployment behaviour, so it is the owner’s call;
-  the patch was reverted with the rest of the instrumentation.
+- **The fix was measured before it was proposed, then taken.** It changes
+  deployment behaviour, so it went to the owner with its price attached rather
+  than being applied while measuring: with `force-dynamic` on the five,
+  production serves them in **10–47ms** (`/skills` 12ms, `/knowledge` 11ms,
+  `/network` 39ms, skill detail 47ms). Owner took it. Prerendered routes go
+  **41 → 3**, and the three left are the favicon, the icon and the 404.
+- **The same probe run backwards is the proof it worked.** Against the same
+  marked copy of `config/`, the three public pages went from **0 / 0 / 0** hits
+  to **2 / 4 / 3**, matching the workspace page — and a control on the real
+  store still renders the real content with an unknown slug still 404ing.
+- **The two `generateStaticParams` exports went with it.** `force-dynamic`
+  makes them inert, so leaving them would tell the next reader those pages are
+  prerendered and would let them prerender again if the dynamic export were
+  ever dropped. Their now-unused `getAllSkills` / `getAllKnowledge` imports
+  went too — surfaced by lint, not by eye.
+- **`validate:deployment` now requires every `page.tsx` under `src/app` to
+  declare its render mode**, which is satisfied with zero exceptions today.
+  Proven to fire by removing the export from `network/page.tsx` — and the
+  injection was confirmed to have changed the file before the failure was
+  believed. API route handlers are deliberately excluded: they are never
+  prerendered, so including them would have forced 43 cosmetic edits.
+- **The markup is provably unchanged**, which a screenshot could not have
+  shown this session (the Browser pane is not displayed, so the page composites
+  no frames — stated rather than quietly downgraded). With `<script>` blocks
+  stripped, before and after are **byte-identical** on `/skills`, `/network`
+  and a knowledge detail page, against a control whose noise floor is **0**.
+  The first version of that comparison reported 225,082 differing bytes
+  between **two captures of identical code**: the RSC payload carries a
+  per-request `:N<timestamp>` whose length varies, which misaligns every byte
+  after it. Fixing the measurement condition came before trusting the number —
+  the same lesson as the viewport that drifted 0.2px on 2026-07-30.
 
 ## A timing scan, a negative result, and the same defect one layer down
 

@@ -586,10 +586,13 @@ genuinely expensive ones.
   port). `next build` and `next dev` share `.next`, and running a build
   against a live dev server is a recorded way to wedge it. `next build` also
   rewrites `tsconfig.json`; revert it afterwards.
-- **Compare only like for like.** Five public routes are prerendered at build
-  time, so their production number is a file being served, not a render —
-  check `.next-prod/prerender-manifest.json` before reading any route’s prod
-  time as a render cost.
+- **Compare only like for like.** A prerendered route’s production number is
+  a file being served, not a render. Five public routes were in that state
+  when this was first measured and have since been made dynamic (see
+  CHANGELOG — “Five public pages would have shipped frozen at build time”),
+  so only the favicon, the icon and the 404 are prerendered now; check
+  `.next-prod/prerender-manifest.json` before reading any route’s prod time
+  as a render cost.
 - **Hold the payload constant when bisecting a render.** The per-card cost on
   `/technologies` was isolated with a temporary prop that rendered N of 63
   cards while still serializing all 63, which separates rendering from RSC
