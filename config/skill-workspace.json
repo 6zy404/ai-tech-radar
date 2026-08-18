@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T17:32:49.005Z",
+  "updatedAt": "2026-08-18T10:37:41.482Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -57,61 +57,6 @@
       "status": "published",
       "createdAt": "2026-07-19T04:05:11.800Z",
       "updatedAt": "2026-08-09T10:25:39.003Z"
-    },
-    {
-      "id": "skill-scope-pilots",
-      "title": "AI 试点范围界定",
-      "slug": "ai-pilot-scoping",
-      "summary": "挑第一个用例并把它框住：一次试点的产物是一个决定，不是一个功能，所以它要小到错得起。",
-      "content": "每一次能力跃迁——GPT-5.6 那种旗舰更新、ChatGPT Work 那种能连续干几小时的产品形态、GPT-Live 那种实时语音——团队都会重新问一遍「我们要不要上」。这个问题经常变成一个跑了半年、结束时仍然没有结论的项目。\n\n**一次试点的产物是一个决定，不是一个功能。** 这句话决定了它该被怎么框住。\n\n## 先有一个能被证伪的问题\n\n「AI 能不能帮我们提效」不是问题，因为它没有能判错的答案。能拿来跑试点的问题长这样：**能不能把某一类工单的首次响应时间从 A 降到 B。**\n\n开工前的三条自检：\n\n1. **问题能被证伪**——存在一种结果会让你说「不做」。\n2. **判据是现成的**——如果要先造一套评测才能开始，那试点还没开始（判据怎么设计归「模型与输出评估」）。\n3. **失败是便宜的**——要限制的是影响半径，不是预算。\n\n## 优先挑「答案已经在你手里」的用例\n\n最便宜的试点，是那些**正确答案已经躺在历史数据里**的任务：处理过的工单、审过的合同、改过的 PR。它们自带评测集，你不需要为了判断好坏再花一轮标注成本。\n\n这也是一条实用的排序：能用历史数据判分的用例，永远排在需要人工新标注的用例前面。\n\n## 分清「令人兴奋」和「你的约束」\n\n新能力最容易骗人的地方，是它解决的问题不一定是你的问题。实时语音很惊艳，但延迟是不是你真正的瓶颈？端侧小模型很吸引人，但先咬人的到底是隐私还是成本？\n\n**先确认哪个约束先咬人，再看新能力有没有解开它**——这一步和「模型选型与约束匹配」是同一个问题的两端。\n\n## 先定结束条件，再开始\n\n一次没有结束日期的试点，最后会变成一套没有人负责的系统。开工之前先写下两件事：**什么时候看结果**，以及**看到什么就停、看到什么就扩**。\n\nOpenAI 复盘长时程模型部署时用的是同一个形状：小步放量加持续观测。试点和放量的区别只是规模，不是方法。\n\n## 失败的试点也必须交付一样东西\n\n一次得出「不做」的试点是成功的试点——**前提是它写下了理由**。没有写下来的否定结论，六个月后会被原样重新提一遍，而且没有人记得上次为什么否掉。\n\n## 与相邻能力的分工\n\n这一条回答**先做哪个用例、怎么框住它、什么时候收**。自建还是买、哪一层必须归你，是「AI 工具链选型与自建边界评估」；用多大的模型，是「模型选型与约束匹配」；判据怎么设计，是「模型与输出评估」；真正上线时人放在哪个位置，是「人在回路的审查」。",
-      "skillType": "product",
-      "heatLevel": "active",
-      "learningCost": "low",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-slm-edge",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-feedback-loops",
-        "knowledge-human-loop"
-      ],
-      "status": "published",
-      "createdAt": "2026-08-04T18:01:30.623Z",
-      "updatedAt": "2026-08-10T13:11:08.854Z"
-    },
-    {
-      "id": "skill-communication-ai",
-      "title": "AI 辅助沟通审阅",
-      "slug": "ai-assisted-communication-review",
-      "summary": "借助 AI 工具，把截图、日志和草稿文本转化为更清晰的工程沟通。",
-      "content": "这项技能的产物是**给人看的**，所以判据也只能是人：不是「生成得更快」，而是**对方少问了一轮**。这一点决定了它和站里其他几条实践的分工——那些评的是模型的输出，这一条评的是一份要发出去的东西。\n\n## 先分清是替你写，还是替你审\n\n两种用法的代价完全不同。**替你写**：草稿来得快，但你要为「读起来很对、事实是错的」兜底。**替你审**：不产出内容，只指出问题——风险低得多，收益却经常更大，因为工程沟通里出问题的多半是**遗漏**，不是措辞。\n\n默认从「替你审」开始。等你能稳定说清什么算一次好的审阅，再考虑让它替你写。\n\n## 最好用的一招：让它先当读者\n\n发出去之前，让模型**以收件人的身份复述**：它认为你要它做什么、期限是什么、有哪些前提你没写。**复述不准的地方，就是真实读者也会误解的地方。**\n\n这比「帮我润色一下」有用得多，因为它测的是可理解性，不是文采——而润色恰恰是最容易的一步，也是最不缺的一步。\n\n## GitHub 那次复盘给了最硬的证据\n\n他们把 Copilot 代码审查换到维护更好的共享 CLI 工具上，**基准反而更差**：审查成本更高、抓到的问题更少。真正翻转局面的是把「审查者实际怎么读一个 PR」写进指令，成本降约 20%、质量不变。\n\n可迁移的那一点不是「指令比工具重要」，而是：**审阅质量取决于你有没有把「一次好的审阅长什么样」写下来**。写不出来，再强的工具也只是把模糊的要求执行得更快。\n\n## 三种典型的失败\n\n1. **润色盖住了缺口。** 文字顺了，但「谁负责、什么时候、不做会怎样」依然没有。\n2. **把不确定改成了确定。** 模型倾向于抹平犹豫，而工程沟通里「我不确定 X」常常是最重要的一句。发出去前专门回看一遍被删掉的限定词。\n3. **对外的东西没有人过。** 这类属于必须事前授权的一档，交给《人在回路的审查》。\n\n## 与相邻条目的分工\n\n截图与图像怎么组织、怎么确认模型读对了，是《视觉输入的组织与核验》；把「什么算好」写成一句能判错的标准，是《模型与输出评估》；哪些沟通必须有人过目，是《人在回路的审查》；团队整体学得快不快，是《反馈闭环与团队学习》。**这一条只管一件事：一份要给人看的东西，发出去之前怎么让它更难被误解。**",
-      "skillType": "communication",
-      "heatLevel": "emerging",
-      "learningCost": "low",
-      "tags": [
-        "tag-multimodal",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-multimodal-copilots",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-www-qbitai-com-p-469721"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-feedback-loops",
-        "knowledge-human-loop"
-      ],
-      "status": "published",
-      "createdAt": "2026-08-06T14:32:26.109Z",
-      "updatedAt": "2026-08-11T03:18:38.820Z"
     },
     {
       "id": "skill-ws-84837d46",
@@ -253,55 +198,6 @@
       "updatedAt": "2026-08-16T16:23:43.874Z"
     },
     {
-      "id": "skill-ws-f741f122",
-      "title": "智能体可观测性与评测运维",
-      "slug": "agent-observability-evaluation-ops",
-      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
-      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
-      "skillType": "operations",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-observability",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-www-qbitai-com-p-469795",
-        "draft-candidate-rss-https-www-qbitai-com-p-469721",
-        "draft-candidate-rss-https-www-qbitai-com-p-472016",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3",
-        "knowledge-feedback-loops",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-08-16T16:23:43.974Z"
-    },
-    {
       "id": "skill-ws-2152c7f1",
       "title": "AI 工具链选型与自建边界评估",
       "slug": "ai-toolchain-build-vs-buy",
@@ -338,48 +234,6 @@
       "status": "published",
       "createdAt": "2026-07-27T02:42:33.891Z",
       "updatedAt": "2026-08-16T16:23:44.049Z"
-    },
-    {
-      "id": "skill-agent-design",
-      "title": "智能体工作流设计",
-      "slug": "agent-workflow-design",
-      "summary": "设计多步骤 AI 流程：怎么分层、每一步的交接点是什么、护栏放在哪一层才真的拦得住。",
-      "content": "GitHub 把 Copilot 代码审查的专用代码探索工具，换成了维护得更好的共享 CLI 工具。预期是一次干净的升级，结果基准显示**审查成本更高、抓到的问题更少**。真正翻转局面的不是再换一次工具，而是按「审查者实际怎么读一个 PR」重写工作流指令——之后成本降低约 20%、质量不变。\n\n这件事定义了这项技能：**决定一个智能体好不好用的，是流程的形状，不是它手里有几件工具。**\n\n## 先把智能体拆成能各自演进的几层\n\nAi2 的 Shippy 服务 70 多个国家的分析人员做高风险判断，它的拆法值得直接借用：\n\n1. **soul**——定义边界的系统提示：它是谁、不做什么。\n2. **skills**——用 markdown 文档化的能力，一件事一份。\n3. **config**——运行时配置。\n\n三层各自独立版本化，改一层不必重建整体。这个拆法之所以有用，是因为它把三种变更频率完全不同的东西分开了：边界很少改，能力经常加，配置每次部署都可能变。混在一个大提示词里，就意味着每次加一个能力都在动边界。\n\n## 每一步都要有明确的交接点\n\n一条工作流是由交接点定义的，而不是由步骤数量。每一步动笔之前先答三个问题：\n\n- 这一步**收到什么**——上一步保证交付的是什么形状。\n- 这一步**必须产出什么**——下一步会依赖的是什么。\n- **谁来判断它做完了**——外部状态、人写的检查，还是模型自己。\n\n第三问最容易被跳过，而它是长链路失败的主要来源，展开在「完成判定与验收信号」。\n\n## 护栏要放在能拦住的位置\n\n护栏写在提示词里，只能约束模型的意图；真正拦得住的是执行路径上的硬约束——权限范围、可调用的工具集合、沙箱边界。Shippy 按用户会话分配独立的 Kubernetes 沙箱，在数百个政府合作方之间做数据隔离，是这条的极端形态。\n\n判断护栏是否真的存在，只问一句：**模型如果决定越界，是什么在物理上阻止它？** 答案如果是「提示词里写了不要这样做」，那就是没有护栏。\n\n## 自己搭 runtime，还是用平台托管\n\n这条边界最近一年被推着走了很远。Gemini 的 Managed Agents 把执行环境、状态管理、工具接入都收到平台侧：传一个 `background:true` 就能让长任务异步跑在服务端，客户端凭 ID 轮询或断线重连；Ollama 则从「把开源模型跑在本地的运行时」转向「智能体工作的入口」。\n\n所以这不再是一个技术选择，而是一个所有权选择：**你必须自己拥有哪一层。** 长任务的状态管理和沙箱是自建里最贵的两块，也是平台最先补齐的两块。\n\n## 与相邻能力的分工\n\n这一条管**整条链路的形状**：怎么分层、怎么交接、护栏放在哪。单个工具怎么接得可维护，是「工具集成模式」；对抗性输入怎么防，是「智能体安全与提示注入防御」；任务跑完之后怎么回放和归因，是「智能体可观测性与评测运维」；而「你要拥有哪一层」这个决定本身，是「AI 工具链选型与自建边界评估」。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "high",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-browser-agents",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-tool-use",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:17:24.380Z",
-      "updatedAt": "2026-08-16T16:23:44.123Z"
     },
     {
       "id": "skill-ws-d7c9d1d8",
@@ -419,44 +273,6 @@
       "status": "published",
       "createdAt": "2026-07-27T09:22:20.958Z",
       "updatedAt": "2026-08-17T17:32:48.795Z"
-    },
-    {
-      "id": "skill-model-evaluation",
-      "title": "模型与输出评估",
-      "slug": "model-and-output-evaluation",
-      "summary": "在上线前把「什么算好」写成能判错的检查，并让这些检查小到每次改动都能重跑。",
-      "content": "Hume AI 为了衡量语音交互的「人性质量」，做了 40 多个语音模型、15 个以上维度、60 多项指标，底层压着 100 万条以上的人工评分。一家公司需要一百万条人工标注，才敢定义一个形容词。这就是这项技能真正的起点：难的从来不是把评测跑起来，而是在看到输出之前，先把「好」写成一句能判错的话。\n\n## 先把「好」写成能判错的话\n\n一条无法失败的标准不是标准。「回答要准确、有帮助」通不过这一关，因为任何输出都能被辩解成符合。动笔写检查之前，先固定三件事：\n\n1. **输入分布**——你要它在什么样的输入上好？是真实流量的抽样，还是顺手想到的几个例子？\n2. **什么算失败**——不只是答错。拒答、超时、格式崩坏、内容对但结构不可解析，在生产里往往比「答错」更常见。\n3. **谁来裁决**——出现分歧时由谁定，判据写在哪里。\n\n## 供应商的指标和第三方的指标不是一回事\n\nGPT-5.6 主打「单位算力智能密度」，这个指标由发布方自己定义、自己测量，没有第二家用同一把尺子量过别人。Kimi K3 拿到的第三方长时程知识工作 Elo 则不同：同一套测试被跑在所有参赛模型上，所以它可以横比。\n\n判断一个数字能不能横比，只问一句：**这把尺子有没有量过别人。**\n\n## 小而可复现，胜过大而一次性\n\n评测的价值在于第二次跑它。固定输入集、进版本库、随事故增长——改一版提示词就能立刻重跑，才叫回归；跑完写进文档、之后再没人碰的，是一次性报告。\n\nGPT-Red 把这件事推向了另一个方向：攻击方模型持续生成对抗输入、防守方迭代修复，评测集自己会长大。NVIDIA 的 Nemotron 开放数据则说明，评测数据本身正在变成可复用的公共资产——工程轨迹、工具调用失败、多步推理这些数据，过去每家自己攒，现在开始有公开来源。\n\n## 三种最常见的自欺\n\n- **只测成功路径。** 通过率 95% 的评测集，如果里面没有一条是模型本应拒答的，它证明不了任何事。\n- **用模型给模型打分却不校准。** 模型裁判可以规模化，但必须留一小批人工标注作锚，定期核对裁判本身有没有漂。\n- **把评测当成发布前的一道关卡。** RAG 评测看板这类产品存在的理由，正是评测应该是常设的仪表盘，而不是一次性的验收。\n\n## 与相邻能力的分工\n\n这一条回答的是：**上线之前，「好」是什么、怎么量。** 读别人发布公告里的数字并决定要不要换代，是「旗舰模型发布解读与换代判断」；任务跑完之后回放轨迹、定位它在哪一步为什么失败，是「智能体可观测性与评测运维」；而任务还在跑、要判断当前这一步算不算做完，是「完成判定与验收信号」。",
-      "skillType": "analysis",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-observability",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "tech-rag-evals",
-        "tech-slm-edge",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
-        "draft-candidate-rss-https-www-qbitai-com-p-468782",
-        "draft-candidate-rss-https-www-qbitai-com-p-469795",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
-        "draft-candidate-rss-https-www-qbitai-com-p-472016",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-feedback-loops",
-        "knowledge-ws-e251051e"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.044Z",
-      "updatedAt": "2026-08-17T17:32:48.868Z"
     },
     {
       "id": "skill-ws-dddaf80c",
@@ -528,6 +344,198 @@
       "status": "published",
       "createdAt": "2026-07-27T16:56:11.358Z",
       "updatedAt": "2026-08-17T17:32:49.004Z"
+    },
+    {
+      "id": "skill-model-evaluation",
+      "title": "模型与输出评估",
+      "slug": "model-and-output-evaluation",
+      "summary": "在上线前把「什么算好」写成能判错的检查，并让这些检查小到每次改动都能重跑。",
+      "content": "Hume AI 为了衡量语音交互的「人性质量」，做了 40 多个语音模型、15 个以上维度、60 多项指标，底层压着 100 万条以上的人工评分。一家公司需要一百万条人工标注，才敢定义一个形容词。这就是这项技能真正的起点：难的从来不是把评测跑起来，而是在看到输出之前，先把「好」写成一句能判错的话。\n\n## 先把「好」写成能判错的话\n\n一条无法失败的标准不是标准。「回答要准确、有帮助」通不过这一关，因为任何输出都能被辩解成符合。动笔写检查之前，先固定三件事：\n\n1. **输入分布**——你要它在什么样的输入上好？是真实流量的抽样，还是顺手想到的几个例子？\n2. **什么算失败**——不只是答错。拒答、超时、格式崩坏、内容对但结构不可解析，在生产里往往比「答错」更常见。\n3. **谁来裁决**——出现分歧时由谁定，判据写在哪里。\n\n## 供应商的指标和第三方的指标不是一回事\n\nGPT-5.6 主打「单位算力智能密度」，这个指标由发布方自己定义、自己测量，没有第二家用同一把尺子量过别人。Kimi K3 拿到的第三方长时程知识工作 Elo 则不同：同一套测试被跑在所有参赛模型上，所以它可以横比。\n\n判断一个数字能不能横比，只问一句：**这把尺子有没有量过别人。**\n\n## 小而可复现，胜过大而一次性\n\n评测的价值在于第二次跑它。固定输入集、进版本库、随事故增长——改一版提示词就能立刻重跑，才叫回归；跑完写进文档、之后再没人碰的，是一次性报告。\n\nGPT-Red 把这件事推向了另一个方向：攻击方模型持续生成对抗输入、防守方迭代修复，评测集自己会长大。NVIDIA 的 Nemotron 开放数据则说明，评测数据本身正在变成可复用的公共资产——工程轨迹、工具调用失败、多步推理这些数据，过去每家自己攒，现在开始有公开来源。\n\n## 三种最常见的自欺\n\n- **只测成功路径。** 通过率 95% 的评测集，如果里面没有一条是模型本应拒答的，它证明不了任何事。\n- **用模型给模型打分却不校准。** 模型裁判可以规模化，但必须留一小批人工标注作锚，定期核对裁判本身有没有漂。\n- **把评测当成发布前的一道关卡。** RAG 评测看板这类产品存在的理由，正是评测应该是常设的仪表盘，而不是一次性的验收。\n\n## 与相邻能力的分工\n\n这一条回答的是：**上线之前，「好」是什么、怎么量。** 读别人发布公告里的数字并决定要不要换代，是「旗舰模型发布解读与换代判断」；任务跑完之后回放轨迹、定位它在哪一步为什么失败，是「智能体可观测性与评测运维」；而任务还在跑、要判断当前这一步算不算做完，是「完成判定与验收信号」。",
+      "skillType": "analysis",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-observability",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-rag-evals",
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+        "draft-candidate-rss-https-www-qbitai-com-p-468782",
+        "draft-candidate-rss-https-www-qbitai-com-p-469795",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-feedback-loops",
+        "knowledge-ws-e251051e"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.044Z",
+      "updatedAt": "2026-08-18T10:37:40.881Z"
+    },
+    {
+      "id": "skill-ws-f741f122",
+      "title": "智能体可观测性与评测运维",
+      "slug": "agent-observability-evaluation-ops",
+      "summary": "为长时程智能体建立轨迹追踪、行为评测与失败归因的运维闭环，把「智能体为什么这么做」从黑盒猜测变成可查询的工程事实。",
+      "content": "长时程智能体一次任务可能跨越数百次工具调用与多轮自主决策，传统 APM 只能看到服务指标，看不到决策链条——任务失败时你知道「挂了」，却答不出「在哪一步、因为什么」。这项技能的核心对象是轨迹（trajectory）：把每一步的工具调用输入输出、中间状态与关键决策记录成可查询、可回放的结构化数据，让智能体系统获得与传统服务同等级的可观测性。\n\n实践上分三层递进。第一层是轨迹级追踪：为每次任务建立唯一轨迹，记录工具调用序列与失败点，能按任务、按工具、按错误类型聚合检索。第二层是行为评测集：把真实失败案例沉淀为回归评测，每次模型或提示词变更前先跑一遍——Ai2 Shippy 复盘随文开源的评测工件展示了生产团队怎么做这件事，NVIDIA Nemotron 的开放数据则说明评测数据本身正在成为可复用的公共资产。第三层是失败归因与告警：区分模型决策错误、工具执行错误与环境异常，各自路由到不同的修复动作，而不是笼统地「重试」。\n\n判断掌握程度的标志：能直接回答「上周失败的任务里最常见的断点是哪一步」；评测集随事故复盘持续增长并纳入 CI；GPT-Red 式的自动化对抗测试进入日常回归而非年度审计。ChatGPT Work 这类长时程办公智能体的出现，正把这项技能从「可选的锦上添花」推成上线前的必备工程能力。",
+      "skillType": "operations",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-qbitai-com-p-469795",
+        "draft-candidate-rss-https-www-qbitai-com-p-469721",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3",
+        "knowledge-feedback-loops",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.442Z",
+      "updatedAt": "2026-08-18T10:37:40.951Z"
+    },
+    {
+      "id": "skill-agent-design",
+      "title": "智能体工作流设计",
+      "slug": "agent-workflow-design",
+      "summary": "设计多步骤 AI 流程：怎么分层、每一步的交接点是什么、护栏放在哪一层才真的拦得住。",
+      "content": "GitHub 把 Copilot 代码审查的专用代码探索工具，换成了维护得更好的共享 CLI 工具。预期是一次干净的升级，结果基准显示**审查成本更高、抓到的问题更少**。真正翻转局面的不是再换一次工具，而是按「审查者实际怎么读一个 PR」重写工作流指令——之后成本降低约 20%、质量不变。\n\n这件事定义了这项技能：**决定一个智能体好不好用的，是流程的形状，不是它手里有几件工具。**\n\n## 先把智能体拆成能各自演进的几层\n\nAi2 的 Shippy 服务 70 多个国家的分析人员做高风险判断，它的拆法值得直接借用：\n\n1. **soul**——定义边界的系统提示：它是谁、不做什么。\n2. **skills**——用 markdown 文档化的能力，一件事一份。\n3. **config**——运行时配置。\n\n三层各自独立版本化，改一层不必重建整体。这个拆法之所以有用，是因为它把三种变更频率完全不同的东西分开了：边界很少改，能力经常加，配置每次部署都可能变。混在一个大提示词里，就意味着每次加一个能力都在动边界。\n\n## 每一步都要有明确的交接点\n\n一条工作流是由交接点定义的，而不是由步骤数量。每一步动笔之前先答三个问题：\n\n- 这一步**收到什么**——上一步保证交付的是什么形状。\n- 这一步**必须产出什么**——下一步会依赖的是什么。\n- **谁来判断它做完了**——外部状态、人写的检查，还是模型自己。\n\n第三问最容易被跳过，而它是长链路失败的主要来源，展开在「完成判定与验收信号」。\n\n## 护栏要放在能拦住的位置\n\n护栏写在提示词里，只能约束模型的意图；真正拦得住的是执行路径上的硬约束——权限范围、可调用的工具集合、沙箱边界。Shippy 按用户会话分配独立的 Kubernetes 沙箱，在数百个政府合作方之间做数据隔离，是这条的极端形态。\n\n判断护栏是否真的存在，只问一句：**模型如果决定越界，是什么在物理上阻止它？** 答案如果是「提示词里写了不要这样做」，那就是没有护栏。\n\n## 自己搭 runtime，还是用平台托管\n\n这条边界最近一年被推着走了很远。Gemini 的 Managed Agents 把执行环境、状态管理、工具接入都收到平台侧：传一个 `background:true` 就能让长任务异步跑在服务端，客户端凭 ID 轮询或断线重连；Ollama 则从「把开源模型跑在本地的运行时」转向「智能体工作的入口」。\n\n所以这不再是一个技术选择，而是一个所有权选择：**你必须自己拥有哪一层。** 长任务的状态管理和沙箱是自建里最贵的两块，也是平台最先补齐的两块。\n\n## 与相邻能力的分工\n\n这一条管**整条链路的形状**：怎么分层、怎么交接、护栏放在哪。单个工具怎么接得可维护，是「工具集成模式」；对抗性输入怎么防，是「智能体安全与提示注入防御」；任务跑完之后怎么回放和归因，是「智能体可观测性与评测运维」；而「你要拥有哪一层」这个决定本身，是「AI 工具链选型与自建边界评估」。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:17:24.380Z",
+      "updatedAt": "2026-08-18T10:37:41.020Z"
+    },
+    {
+      "id": "skill-scope-pilots",
+      "title": "AI 试点范围界定",
+      "slug": "ai-pilot-scoping",
+      "summary": "挑第一个用例并把它框住：一次试点的产物是一个决定，不是一个功能，所以它要小到错得起。",
+      "content": "每一次能力跃迁——GPT-5.6 那种旗舰更新、ChatGPT Work 那种能连续干几小时的产品形态、GPT-Live 那种实时语音——团队都会重新问一遍「我们要不要上」。这个问题经常变成一个跑了半年、结束时仍然没有结论的项目。\n\n**一次试点的产物是一个决定，不是一个功能。** 这句话决定了它该被怎么框住。\n\n## 先有一个能被证伪的问题\n\n「AI 能不能帮我们提效」不是问题，因为它没有能判错的答案。能拿来跑试点的问题长这样：**能不能把某一类工单的首次响应时间从 A 降到 B。**\n\n开工前的三条自检：\n\n1. **问题能被证伪**——存在一种结果会让你说「不做」。\n2. **判据是现成的**——如果要先造一套评测才能开始，那试点还没开始（判据怎么设计归「模型与输出评估」）。\n3. **失败是便宜的**——要限制的是影响半径，不是预算。\n\n## 优先挑「答案已经在你手里」的用例\n\n最便宜的试点，是那些**正确答案已经躺在历史数据里**的任务：处理过的工单、审过的合同、改过的 PR。它们自带评测集，你不需要为了判断好坏再花一轮标注成本。\n\n这也是一条实用的排序：能用历史数据判分的用例，永远排在需要人工新标注的用例前面。\n\n## 分清「令人兴奋」和「你的约束」\n\n新能力最容易骗人的地方，是它解决的问题不一定是你的问题。实时语音很惊艳，但延迟是不是你真正的瓶颈？端侧小模型很吸引人，但先咬人的到底是隐私还是成本？\n\n**先确认哪个约束先咬人，再看新能力有没有解开它**——这一步和「模型选型与约束匹配」是同一个问题的两端。\n\n## 先定结束条件，再开始\n\n一次没有结束日期的试点，最后会变成一套没有人负责的系统。开工之前先写下两件事：**什么时候看结果**，以及**看到什么就停、看到什么就扩**。\n\nOpenAI 复盘长时程模型部署时用的是同一个形状：小步放量加持续观测。试点和放量的区别只是规模，不是方法。\n\n## 失败的试点也必须交付一样东西\n\n一次得出「不做」的试点是成功的试点——**前提是它写下了理由**。没有写下来的否定结论，六个月后会被原样重新提一遍，而且没有人记得上次为什么否掉。\n\n## 与相邻能力的分工\n\n这一条回答**先做哪个用例、怎么框住它、什么时候收**。自建还是买、哪一层必须归你，是「AI 工具链选型与自建边界评估」；用多大的模型，是「模型选型与约束匹配」；判据怎么设计，是「模型与输出评估」；真正上线时人放在哪个位置，是「人在回路的审查」。",
+      "skillType": "product",
+      "heatLevel": "active",
+      "learningCost": "low",
+      "tags": [
+        "tag-product-strategy",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-slm-edge",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-feedback-loops",
+        "knowledge-human-loop"
+      ],
+      "status": "published",
+      "createdAt": "2026-08-04T18:01:30.623Z",
+      "updatedAt": "2026-08-18T10:37:41.087Z"
+    },
+    {
+      "id": "skill-communication-ai",
+      "title": "AI 辅助沟通审阅",
+      "slug": "ai-assisted-communication-review",
+      "summary": "借助 AI 工具，把截图、日志和草稿文本转化为更清晰的工程沟通。",
+      "content": "这项技能的产物是**给人看的**，所以判据也只能是人：不是「生成得更快」，而是**对方少问了一轮**。这一点决定了它和站里其他几条实践的分工——那些评的是模型的输出，这一条评的是一份要发出去的东西。\n\n## 先分清是替你写，还是替你审\n\n两种用法的代价完全不同。**替你写**：草稿来得快，但你要为「读起来很对、事实是错的」兜底。**替你审**：不产出内容，只指出问题——风险低得多，收益却经常更大，因为工程沟通里出问题的多半是**遗漏**，不是措辞。\n\n默认从「替你审」开始。等你能稳定说清什么算一次好的审阅，再考虑让它替你写。\n\n## 最好用的一招：让它先当读者\n\n发出去之前，让模型**以收件人的身份复述**：它认为你要它做什么、期限是什么、有哪些前提你没写。**复述不准的地方，就是真实读者也会误解的地方。**\n\n这比「帮我润色一下」有用得多，因为它测的是可理解性，不是文采——而润色恰恰是最容易的一步，也是最不缺的一步。\n\n## GitHub 那次复盘给了最硬的证据\n\n他们把 Copilot 代码审查换到维护更好的共享 CLI 工具上，**基准反而更差**：审查成本更高、抓到的问题更少。真正翻转局面的是把「审查者实际怎么读一个 PR」写进指令，成本降约 20%、质量不变。\n\n可迁移的那一点不是「指令比工具重要」，而是：**审阅质量取决于你有没有把「一次好的审阅长什么样」写下来**。写不出来，再强的工具也只是把模糊的要求执行得更快。\n\n## 三种典型的失败\n\n1. **润色盖住了缺口。** 文字顺了，但「谁负责、什么时候、不做会怎样」依然没有。\n2. **把不确定改成了确定。** 模型倾向于抹平犹豫，而工程沟通里「我不确定 X」常常是最重要的一句。发出去前专门回看一遍被删掉的限定词。\n3. **对外的东西没有人过。** 这类属于必须事前授权的一档，交给《人在回路的审查》。\n\n## 与相邻条目的分工\n\n截图与图像怎么组织、怎么确认模型读对了，是《视觉输入的组织与核验》；把「什么算好」写成一句能判错的标准，是《模型与输出评估》；哪些沟通必须有人过目，是《人在回路的审查》；团队整体学得快不快，是《反馈闭环与团队学习》。**这一条只管一件事：一份要给人看的东西，发出去之前怎么让它更难被误解。**",
+      "skillType": "communication",
+      "heatLevel": "emerging",
+      "learningCost": "low",
+      "tags": [
+        "tag-multimodal",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-multimodal-copilots",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-www-qbitai-com-p-469721",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-feedback-loops",
+        "knowledge-human-loop"
+      ],
+      "status": "published",
+      "createdAt": "2026-08-06T14:32:26.109Z",
+      "updatedAt": "2026-08-18T10:37:41.482Z"
     }
   ]
 }
