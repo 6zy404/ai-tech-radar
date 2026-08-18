@@ -14,8 +14,8 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## The slowest public route was the dev server measuring itself
 
-- **`/technologies` is 16ms in production and 445ms in `next dev`** — 2026-08-19,
-  owner-selected as the one route the 08-18 scan left unexplained. Its arithmetic
+- **`/technologies` is 16ms in production and 445ms in `next dev`** — 2026-08-18,
+  owner-selected as the one route the same day’s earlier scan left unexplained. Its arithmetic
   was right and its premise was not: **every number that scan reported was a
   dev-mode number**, and dev-mode cost is not proportional to production cost.
 - **The attribution inside dev was proven before anything was changed.** A
@@ -33,7 +33,7 @@ For per-topic deep dives, see the `docs/` directory.
   exact shape of the two defects fixed on 08-17 and 08-18. Microbenchmarked on
   a real title before a line was written: **9.3µs per construction, 0.5ms
   across all 63 cards.** Caching it would have been a correct-looking fix worth
-  nothing, which is the previous round’s lesson arriving one day later.
+  nothing, which is the same day’s earlier lesson arriving again hours later.
 - **The dev/prod ratio is the reusable finding**, measured across 20
   dynamically-rendered routes. Routes whose cost is real work barely move
   (`/workspace` 189→107ms, **1.8×**; `/workspace/operations` 202→90ms, 2.2×;
@@ -45,7 +45,7 @@ For per-topic deep dives, see the `docs/` directory.
   `/topics/[tagId]` at 32ms; the slowest route anywhere is
   `/workspace/candidates` at 126ms — the one whose 448× defect was fixed on
   08-17, and whose 6.1× ratio correctly says its remaining cost is real work.
-- **No code changed.** The 08-18 backlog item asking for this route to be
+- **No code changed.** The backlog item asking for this route to be
   instrumented is closed as a negative result, not as an optimization. The
   production control was built into a separate `distDir` so the running dev
   server’s `.next` was never touched, and the tree was returned to `HEAD`
@@ -53,7 +53,7 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## Five public pages would have shipped frozen at build time
 
-- **Found while building the production control above** — 2026-08-19, and it is
+- **Found while building the production control above** — 2026-08-18, and it is
   a correctness problem rather than a performance one. `/skills`,
   `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]` and `/network` are the
   only public pages with **no `export const dynamic = "force-dynamic"`**; every
