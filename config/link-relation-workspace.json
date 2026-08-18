@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T17:32:50.016Z",
+  "updatedAt": "2026-08-18T10:37:41.786Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -4284,6 +4284,222 @@
       "toType": "skill",
       "relationType": "uses",
       "note": "0–1000 比例的边界框返回加叠加渲染，是视觉核验里最容易机械验证的一种。"
+    },
+    {
+      "id": "rel-ws-54596333",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "668 阶哈达玛矩阵正是「在巨大空间里找到那个确实存在、但一直没人找到的对象」的实例，这条给出它所属的那一类。"
+    },
+    {
+      "id": "rel-ws-30b341af",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "一条说模型擅长在大空间里找到对象，一条说别人之所以都「验证」了某定理，只是因为检查停得太早——两边都是关于什么时候该停。"
+    },
+    {
+      "id": "rel-ws-b7d451ae",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "「同时前沿且可验证」是这条分界线在数据管线上的形态：可验证正是让大量试错变得便宜的那一半。"
+    },
+    {
+      "id": "rel-ws-fa466a32",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "「失败得起」在研究里是优势，在生产账单上是 180 万美元——同一个性质的两种结果。"
+    },
+    {
+      "id": "rel-ws-0ce16c10",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "「这一步做完了吗」有外部状态可查，「这条路还值不值得走」没有，而后者正是这条信号指出的缺口。"
+    },
+    {
+      "id": "rel-ws-37e7f35b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "定义什么算进展是闭环里最贵的第一步，而训练数据里恰好没有这一步的记录。"
+    },
+    {
+      "id": "rel-ws-3e2ddd45",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "按不可逆性放检查点，在一条每步都可逆的搜索上会失效——这条给了那条规则一个真实的例外。"
+    },
+    {
+      "id": "rel-ws-3e08bb55",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "知道得多、失败得起是一次权衡而不是纯粹的优势：它买到广度，代价是缺少剪枝的动机。"
+    },
+    {
+      "id": "rel-ws-c1c25d87",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "反复交出「更精确的子问题」而没有实质进展，是一条可以写下来的失败判据。"
+    },
+    {
+      "id": "rel-ws-d617153d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "死路占比是一个可以事后统计的运行指标，而此前几乎没有人量它。"
+    },
+    {
+      "id": "rel-ws-94acc23f",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "模型愿意一直试而没有人负责喊停，是流程形状的问题，不是模型能力的问题。"
+    },
+    {
+      "id": "rel-ws-5308ac1d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "试点必须先写下什么结果会让你说不做——这条说明模型自己不会提供那个结果。"
+    },
+    {
+      "id": "rel-ws-f0122c0f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "那条说明写下判据比换工具有效，这条把判据本身换掉了：从代码行数换成爆炸半径。"
+    },
+    {
+      "id": "rel-ws-c3c627b1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两条都用人写的检查回答「智能体做对了没有」，而不是等模型自带指标。"
+    },
+    {
+      "id": "rel-ws-a00ae47f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "刹车放在循环内部还是宿主一侧——特性开关是这道题在发布流程上的答案。"
+    },
+    {
+      "id": "rel-ws-85a6eb42",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一场讨论指出：token 消耗可量化之后，流程里的浪费第一次体现在账单上。"
+    },
+    {
+      "id": "rel-ws-1b941cef",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "「代码能跑，只是用错了场景」是这条判据在生产环境里的完整形态。"
+    },
+    {
+      "id": "rel-ws-dafbcf3a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "合并变得可逆之后，检查点自然挪到了渐进放量——按不可逆性放检查点的实践版。"
+    },
+    {
+      "id": "rel-ws-380ee0b6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "废掉一条推行两年的规则，靠的是先做一次失败的尝试再读它的结果。"
+    },
+    {
+      "id": "rel-ws-8b95d2c5",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "小 PR 是一次权衡不是常识；前提写下来了，前提失效时才有人敢动它。"
+    },
+    {
+      "id": "rel-ws-2b7ac429",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "智能体以特性为单位输出，评审就不能继续以增量为单位——流程的形状决定有没有用。"
+    },
+    {
+      "id": "rel-ws-5fca4696",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "真正的审查发生在渐进放量里，那里的观测指标才是验收信号。"
+    },
+    {
+      "id": "rel-ws-20ce8122",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-communication-ai",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "PR 的「为什么」明确禁止 AI 生成——这一段的价值全在于它是人写给人的。"
+    },
+    {
+      "id": "rel-ws-36f8e0d2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "风险评估、标准化评分与置信度评分是一份可比较的结构化输出，而不是又一段自然语言意见。"
     }
   ]
 }

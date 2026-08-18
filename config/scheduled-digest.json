@@ -2,9 +2,9 @@
   "enabled": true,
   "scheduleTime": "08:00",
   "timezone": "Asia/Shanghai",
-  "nextRunAt": "2026-08-18T00:00:00.000Z",
-  "lastRunAt": "2026-08-17T00:05:02.933Z",
+  "nextRunAt": "2026-08-19T00:00:00.000Z",
+  "lastRunAt": "2026-08-18T00:05:02.422Z",
   "lastRunStatus": "success",
-  "lastRunMessage": "定时简报草稿：今日（2026-08-17）已存在简报，跳过生成。",
-  "updatedAt": "2026-08-17T00:07:36.504Z"
+  "lastRunMessage": "定时简报草稿已生成：2026-08-18，立即关注 4 条，值得跟踪 6 条（待编辑审阅后发布）。",
+  "updatedAt": "2026-08-18T00:07:35.786Z"
 }

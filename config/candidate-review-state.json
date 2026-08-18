@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T17:28:24.634Z",
+  "updatedAt": "2026-08-18T10:31:55.549Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1418,6 +1418,96 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-17T17:28:24.634Z",
       "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474537": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.241Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474518": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.324Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474361": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.393Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-gemini-google-gemini-pixel-football-club-partnerships": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.461Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-0mlcgopxzziltxb8cork-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.522Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ujt7eqizjawe1dfzkd6f-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.589Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-5bfbkx6win3iko6fljwo-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.654Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-fpxjbgx9mj52yzmoz8ty-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.727Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-m7rakplwumqrs72dsyfj-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.791Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-77nthdlzngqtgbumksqh-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.851Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-fedxcebcno8denqbgnz0-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.912Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-urrl1wxppsqqd1a9hn5f-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:21.979Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-6xg6wlbuuqjpdrrf8r7i-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:22.038Z"
+    },
+    "candidate-rss-https-openai-com-index-openai-joins-ports-pike-project": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:22.098Z"
+    },
+    "candidate-rss-https-openai-com-index-new-policy-ideas-for-the-intelligence-age": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-08-18T10:27:22.166Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474334": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-18T10:27:22.224Z"
+    },
+    "candidate-rss-https-github-blog-p-98309": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-18T10:27:22.277Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-mljte2xk6hvkd061ly7k-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-18T10:27:22.340Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-vifwzzk2b2ifeigxastc-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-18T10:27:22.396Z"
+    },
+    "candidate-rss-https-openai-com-index-the-defenders-window": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-08-18T10:27:22.451Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-18T10:27:23.456Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-qbitai-com-p-474381": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-08-18T10:31:55.549Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-474381"
     }
   }
 }
