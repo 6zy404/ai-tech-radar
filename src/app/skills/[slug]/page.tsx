@@ -16,7 +16,6 @@ import { UnbreakableTitle } from "@/components/unbreakable-title";
 import {
   findRelationBetween,
   getAllKnowledge,
-  getAllSkills,
   getAllTechnologies,
   getSkillBySlug,
   getTagsByIds
@@ -36,6 +35,13 @@ import type {
   SkillType,
   TechnologyItem
 } from "@/types/content";
+
+// Reads runtime content through @/lib/content, so it must never be
+// prerendered: a build-time copy freezes whatever the workspace had
+// published when the build ran and never regenerates
+// (initialRevalidateSeconds is false). See CHANGELOG - "Five public pages
+// would have shipped frozen at build time".
+export const dynamic = "force-dynamic";
 
 interface SkillDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -83,10 +89,6 @@ const difficultyLabels: Record<DifficultyLevel, string> = {
   intermediate: "进阶",
   advanced: "高级"
 };
-
-export function generateStaticParams() {
-  return getAllSkills().map((item) => ({ slug: item.slug }));
-}
 
 function getRelatedTechnologies(
   skill: SkillItem,
