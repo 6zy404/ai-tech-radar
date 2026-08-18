@@ -154,6 +154,23 @@ function buildTitleTokenSet(title: string): Set<string> {
   );
 }
 
+/**
+ * Whether a title carries enough latin content for its normalized form to mean
+ * anything. `normalizeTitleForComparison` strips every non-latin character, so
+ * an all-Chinese title collapses to whatever latin fragments it happens to
+ * contain — and on a Chinese-language AI feed that is almost always the bare
+ * string `ai`. Three unrelated candidates collided exactly that way on
+ * 2026-08-18 (a Fields medallist on LLM mathematics, a HarmonyOS piece, and an
+ * interview), which silently blocked the non-primary ones from converting at
+ * all.
+ *
+ * The threshold is the tokenizer's own: if nothing survives that would survive
+ * token comparison, an identical normalization is not evidence of anything.
+ */
+function hasComparableTitleTokens(title: string): boolean {
+  return buildTitleTokenSet(title).size > 0;
+}
+
 export function calculateTokenSimilarity(
   leftTitle: string,
   rightTitle: string
@@ -267,8 +284,7 @@ export function getDuplicateReasons(
   }
 
   if (
-    (sameNormalizedTitle &&
-      normalizeTitleForComparison(left.originalTitle).length > 0) ||
+    (sameNormalizedTitle && hasComparableTitleTokens(left.originalTitle)) ||
     titleSimilarity >= 0.82
   ) {
     reasons.push("similar_title");
