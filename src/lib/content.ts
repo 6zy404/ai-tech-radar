@@ -17,6 +17,10 @@ import {
   technologyItems
 } from "@/data/technologies";
 import {
+  getLocalStoreFingerprint,
+  getStoreRevision
+} from "@/lib/repositories/local-json-store";
+import {
   getPersistenceDriver,
   readSqliteKnowledgeItems,
   readSqliteSeedTechnologies,
@@ -47,6 +51,68 @@ const contentPathMap: Record<ContentKind, string> = {
   knowledge: "/knowledge"
 };
 
+/**
+ * The stores the three public pools are merged from, memoized per store
+ * revision.
+ *
+ * Why: `resolveTitle` and `resolveSlug` each call one of the `getAllX()`
+ * getters and then `.find()` the single item they want, and every caller of
+ * those resolvers is a per-item loop — `getContentGraph` runs both for **every
+ * node**. Measured 2026-08-18 on `/network`: 72 nodes × 2 resolvers = 144 full
+ * reads of `technology-workspace.json` (524 KB, 2.6ms each) plus the skill and
+ * knowledge overlays, which is the whole of that page's 355-382ms inside
+ * `getContentGraph`. Same family as the `/workspace` block fixed the day
+ * before: a whole-store read sitting inside a per-item helper.
+ *
+ * The memo is on the **source reads**, not on the returned pools, so each
+ * getter still builds and sorts a fresh array and no caller can mutate another
+ * caller's copy. The key is the same two-part one the candidate cache uses —
+ * an in-process write counter plus a file fingerprint, so a write from the
+ * task runner invalidates it too.
+ */
+function memoizePerStoreRevision<T>(load: () => T): () => T {
+  let cached: { key: string; value: T } | undefined;
+
+  return () => {
+    const key = `${getStoreRevision()}::${getLocalStoreFingerprint(
+      contentPoolSources
+    )}`;
+
+    if (cached?.key === key) {
+      return cached.value;
+    }
+
+    const value = load();
+    cached = { key, value };
+
+    return value;
+  };
+}
+
+const contentPoolSources = [
+  "technology-workspace.json",
+  "skill-workspace.json",
+  "knowledge-workspace.json"
+];
+
+const loadPublishedTechnologyRecords = memoizePerStoreRevision(() =>
+  getPublishedTechnologyWorkspaceRecords()
+);
+
+const loadMergedSkills = memoizePerStoreRevision(() =>
+  getMergedPublicSkills(
+    getPersistenceDriver() === "sqlite" ? readSqliteSkillItems() : skillItems
+  )
+);
+
+const loadMergedKnowledge = memoizePerStoreRevision(() =>
+  getMergedPublicKnowledge(
+    getPersistenceDriver() === "sqlite"
+      ? readSqliteKnowledgeItems()
+      : knowledgeItems
+  )
+);
+
 export function getAllTechnologies(): TechnologyItem[] {
   const seedTechnologies =
     getPersistenceDriver() === "sqlite"
@@ -57,7 +123,7 @@ export function getAllTechnologies(): TechnologyItem[] {
     ...seedTechnologies
       .filter((item) => item.status === "published")
       .map(withoutTechnologyPriorityInternals),
-    ...getPublishedTechnologyWorkspaceRecords().map(toUserFacingTechnologyItem)
+    ...loadPublishedTechnologyRecords().map(toUserFacingTechnologyItem)
   ].sort((left, right) => right.publishDate.localeCompare(left.publishDate));
 }
 
@@ -66,19 +132,11 @@ export function getAllImportedCandidates(): ImportedCandidate[] {
 }
 
 export function getAllSkills(): SkillItem[] {
-  const baseSkills =
-    getPersistenceDriver() === "sqlite" ? readSqliteSkillItems() : skillItems;
-
-  return getMergedPublicSkills(baseSkills);
+  return [...loadMergedSkills()];
 }
 
 export function getAllKnowledge(): KnowledgeItem[] {
-  const baseKnowledge =
-    getPersistenceDriver() === "sqlite"
-      ? readSqliteKnowledgeItems()
-      : knowledgeItems;
-
-  return getMergedPublicKnowledge(baseKnowledge);
+  return [...loadMergedKnowledge()];
 }
 
 export function getAllTags(): TopicTag[] {

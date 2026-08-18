@@ -163,12 +163,60 @@ export function findRelationIn(
   defaultRelationType: RelationType = "related-to"
 ): { relationType: RelationType; note?: string } {
   const pairKey = getRelationPairKey(aId, aType, bId, bType);
-  const relation = relations.find((item) => getPairKeyOf(item) === pairKey);
+  const relation = indexRelationsByPair(relations).get(pairKey);
 
   return {
     relationType: relation?.relationType ?? defaultRelationType,
     note: relation?.note
   };
+}
+
+/**
+ * Pair-key index for one relation list, memoized on the list itself.
+ *
+ * Why: this lookup used to be a linear `.find()` that rebuilt `getPairKeyOf`
+ * for every relation on every call. `getContentGraph` calls it **once per
+ * edge** over the whole merged list, so the work was edges × relations —
+ * 310 × ~550 when it was measured on 2026-08-18, and growing with the square
+ * of the content. That was 355-382ms of `/network`'s 575ms and of every topic
+ * hub's render.
+ *
+ * The cache is a `WeakMap` keyed on the array rather than a module-level map,
+ * because the merged list is rebuilt on every `getAllLinkRelations()` call and
+ * a stale index would silently serve a relation an editor had just changed.
+ * Keying on identity means a fresh list can never hit an old index, and the
+ * entry is collected with the list. It therefore helps exactly where the cost
+ * was — one array reused across many lookups — and does nothing for callers
+ * that read the store again per lookup, which is the honest behaviour.
+ */
+const relationIndexCache = new WeakMap<
+  LinkRelation[],
+  Map<string, LinkRelation>
+>();
+
+function indexRelationsByPair(
+  relations: LinkRelation[]
+): Map<string, LinkRelation> {
+  const cached = relationIndexCache.get(relations);
+
+  if (cached) {
+    return cached;
+  }
+
+  const index = new Map<string, LinkRelation>();
+
+  // First entry wins, matching the previous `.find()` semantics.
+  for (const relation of relations) {
+    const key = getPairKeyOf(relation);
+
+    if (!index.has(key)) {
+      index.set(key, relation);
+    }
+  }
+
+  relationIndexCache.set(relations, index);
+
+  return index;
 }
 
 /**
@@ -182,6 +230,7 @@ export function buildRelationDefaults(
   targets: { id: string; type: ContentKind }[]
 ): RelationDefaultsMap {
   const relations = getAllLinkRelations();
+  const index = indexRelationsByPair(relations);
   const defaults: RelationDefaultsMap = {};
 
   for (const target of targets) {
@@ -191,7 +240,7 @@ export function buildRelationDefaults(
       target.id,
       target.type
     );
-    const relation = relations.find((item) => getPairKeyOf(item) === pairKey);
+    const relation = index.get(pairKey);
 
     if (relation) {
       defaults[getRelationDefaultKey(target.type, target.id)] = {
