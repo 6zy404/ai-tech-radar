@@ -12,6 +12,50 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A timing scan, a negative result, and the same defect one layer down
+
+- **32 routes measured cold and warm** — 2026-08-18, owner-selected because the
+  448× block fixed the day before was found by walking into it, not by looking.
+  The first result is the negative one, and it is worth as much: **nothing is in
+  that class**. The slowest warm route is `/workspace/candidates` at 865ms.
+- **But `getContentGraph` is 355-382ms of a 575ms `/network`**, and instrumenting
+  showed it called **once** per render — so not a repeat-build problem, just
+  expensive work.
+- **The cause is the 08-17 shape, unchanged.** `resolveTitle` and `resolveSlug`
+  each call one of the `getAllX()` getters and then `.find()` the single item
+  they want, and every caller of those resolvers is a per-item loop —
+  `getContentGraph` runs both for **every node**. That is **72 nodes × 2 = 144
+  full reads of `technology-workspace.json`** (524 KB, 2.62ms each) plus the
+  skill and knowledge overlays on one render, and 144 × 2.6ms accounts for the
+  whole figure.
+- **Memoized the three source reads, not the returned pools**, on the same
+  two-part key the candidate cache uses — an in-process write counter plus a
+  file fingerprint. Each getter still builds and sorts a fresh array, so no
+  caller can reorder another caller's list; a test pins that.
+- **Stashed A/B, reproduced twice**: `/topics/tag-ai-agents` **569 → 206/214ms**,
+  `/network` **691 → 302/412ms**, the technology detail page 211 → 171ms, home
+  143 → 105ms. Pages that never run the resolvers in bulk are unchanged, which
+  is the expected shape rather than a disappointment.
+- **Correctness proven on the running server, both write paths.** A control
+  confirmed two consecutive reads with no write agree; a real API write appeared
+  on the public page immediately and disappeared on revert; a write from another
+  process did the same. Reverse control: with the key forced constant, **both
+  "expect true" checks come back false**. The live store was restored and
+  confirmed free of probe residue. Five tests, three injections, each hitting
+  only its own — and **removing the file fingerprint fails only the
+  out-of-process test**, so the half that exists for `tasks:run-once` is the half
+  that test holds.
+- **One attribution was overturned by the round's own A/B, and that is the entry.**
+  `findRelationIn` was a linear `.find()` rebuilding a pair key per relation, so
+  the graph paid edges × relations — 310 × ~550. The 355ms was attributed to it,
+  the fix was written, and **the A/B showed no page-level change at all**. A
+  microbenchmark on the real data put that term at **10.5ms → 0.26ms**: a 40×
+  cut of something worth 10ms. **The shape being right does not make the
+  magnitude right.** The index is kept — the term is quadratic in two
+  independently growing quantities and that store has gone from 56 relations to
+  556 in a month — but it is recorded as 10ms, not 355, and the real cause was
+  found by continuing to measure rather than by stopping at a plausible one.
+
 ## Two rules that were wrong in the direction nobody had checked
 
 - **A duplicate rule that grouped any two Chinese headlines containing "AI"** —
