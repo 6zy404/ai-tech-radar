@@ -508,6 +508,48 @@ export function resolveImportFetchSettings(
 
 type FetchImpl = (url: string, init: RequestInit) => Promise<Response>;
 
+/**
+ * Describes a transport error including the reason nested in `cause`.
+ *
+ * Why: Node's `fetch` reports every transport failure as the bare string
+ * `fetch failed` and puts the actual reason (`ECONNRESET`, `UND_ERR_SOCKET`,
+ * `ETIMEDOUT`, a TLS message, …) one level down in `error.cause`. The retry
+ * wrapper already carried the last error's `message` into its final message,
+ * and that message told us nothing: four GitHub release feeds failed on the
+ * 08-17 and 08-18 scheduled runs, in a byte-identical pattern — the first
+ * `github.com` feed of the run succeeded and every later one failed, while
+ * `openai.com` and `simonwillison.net` requests interleaved between them
+ * succeeded — and all eight records read only `fetch failed`.
+ *
+ * None of it reproduces on demand, so this does not guess at the mechanism. It
+ * makes the next occurrence say what actually went wrong.
+ */
+function describeFetchError(error: unknown): string {
+  const parts: string[] = [];
+  let current: unknown = error;
+
+  // A cause chain is normally one or two deep; the cap is only a cycle guard.
+  for (let depth = 0; depth < 4 && current instanceof Error; depth += 1) {
+    const code = (current as { code?: unknown }).code;
+    const label =
+      typeof code === "string" && code && !current.message.includes(code)
+        ? `${current.message} (${code})`
+        : current.message;
+
+    if (label && !parts.includes(label)) {
+      parts.push(label);
+    }
+
+    current = current.cause;
+  }
+
+  if (parts.length === 0) {
+    return String(error);
+  }
+
+  return parts.join(" ← ");
+}
+
 type FetchAttemptResult =
   | { kind: "ok"; response: Response }
   /** A configuration problem: retrying only delays finding out. */
@@ -583,7 +625,7 @@ export async function fetchWithRetry(
 
   throw new Error(
     `请求失败（重试 ${settings.attempts} 次后仍失败）：${
-      lastError?.message ?? url
+      lastError ? describeFetchError(lastError) : url
     }`
   );
 }
