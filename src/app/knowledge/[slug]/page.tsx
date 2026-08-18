@@ -15,7 +15,6 @@ import { UserPageShell } from "@/components/user-page-shell";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import {
   findRelationBetween,
-  getAllKnowledge,
   getAllSkills,
   getAllTechnologies,
   getKnowledgeBySlug,
@@ -35,6 +34,13 @@ import type {
   SkillType,
   TechnologyItem
 } from "@/types/content";
+
+// Reads runtime content through @/lib/content, so it must never be
+// prerendered: a build-time copy freezes whatever the workspace had
+// published when the build ran and never regenerates
+// (initialRevalidateSeconds is false). See CHANGELOG - "Five public pages
+// would have shipped frozen at build time".
+export const dynamic = "force-dynamic";
 
 interface KnowledgeDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -82,10 +88,6 @@ function getRelatedSkills(
   skills: SkillItem[]
 ): SkillItem[] {
   return skills.filter((skill) => knowledge.relatedSkillIds.includes(skill.id));
-}
-
-export function generateStaticParams() {
-  return getAllKnowledge().map((item) => ({ slug: item.slug }));
 }
 
 export default async function KnowledgeDetailPage({

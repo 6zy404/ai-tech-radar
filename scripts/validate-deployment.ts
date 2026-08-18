@@ -72,6 +72,46 @@ function assertMiddlewareIsInDiscoverableLocation() {
   );
 }
 
+/**
+ * Every page under src/app must decide, in the source, whether it is rendered
+ * per request.
+ *
+ * Why this is a deployment check and not a style preference: this project
+ * serves its content out of the local store, and a page that does not declare
+ * `dynamic` is prerendered by `next build` with `initialRevalidateSeconds`
+ * false, so it never regenerates. That is not hypothetical — /skills,
+ * /skills/[slug], /knowledge, /knowledge/[slug] and /network shipped that way
+ * until 2026-08-18, which would have frozen every runtime skill and knowledge
+ * edit at build time in production while /search (dynamic) still found the new
+ * text and linked to a stale page.
+ */
+function assertPagesDeclareTheirRenderMode() {
+  const appDirPath = path.join(process.cwd(), "src", "app");
+  const pageFilePaths = listFilesRecursive(appDirPath).filter(
+    (filePath) => path.basename(filePath) === "page.tsx"
+  );
+
+  assert.ok(
+    pageFilePaths.length > 0,
+    "Expected to find page.tsx files under src/app."
+  );
+
+  const undeclared = pageFilePaths
+    .filter(
+      (filePath) =>
+        !readFileSync(filePath, "utf8").includes("export const dynamic")
+    )
+    .map((filePath) =>
+      path.relative(process.cwd(), filePath).split(path.sep).join("/")
+    );
+
+  assert.deepEqual(
+    undeclared,
+    [],
+    `These pages do not declare "export const dynamic", so next build will prerender them and they will never pick up a content change: ${undeclared.join(", ")}`
+  );
+}
+
 function buildHeaders(value: string): Headers {
   return new Headers({
     Authorization: value
@@ -311,6 +351,7 @@ function main() {
   assertPublicSourceDoesNotUseInternalTerms();
   assertClientBuildDoesNotContainWorkspaceSecret();
   assertMiddlewareIsInDiscoverableLocation();
+  assertPagesDeclareTheirRenderMode();
 
   console.log("Deployment readiness validation passed.");
 }
