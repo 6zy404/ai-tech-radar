@@ -141,4 +141,69 @@ describe("fetchWithRetry", () => {
       })
     ).rejects.toThrow("terminated");
   });
+
+  /**
+   * The test above passed the whole time the log was useless: Node's `fetch`
+   * reports every transport failure as the bare string `fetch failed` and puts
+   * the reason in `cause`. Eight scheduled-run failures on 08-17 and 08-18 all
+   * recorded exactly `fetch failed` and nothing else.
+   */
+  it("unwraps the cause chain a bare fetch failure hides", async () => {
+    const cause = Object.assign(new Error("read ECONNRESET"), {
+      code: "ECONNRESET"
+    });
+
+    await expect(
+      fetchWithRetry("https://example.test/feed", {
+        settings: { ...fastSettings, attempts: 2 },
+        fetchImpl: async () => {
+          throw new Error("fetch failed", { cause });
+        }
+      })
+    ).rejects.toThrow("fetch failed ← read ECONNRESET");
+  });
+
+  it("appends a code the message does not already carry", async () => {
+    const cause = Object.assign(new Error("other side closed"), {
+      code: "UND_ERR_SOCKET"
+    });
+
+    await expect(
+      fetchWithRetry("https://example.test/feed", {
+        settings: { ...fastSettings, attempts: 1 },
+        fetchImpl: async () => {
+          throw new Error("fetch failed", { cause });
+        }
+      })
+    ).rejects.toThrow("fetch failed ← other side closed (UND_ERR_SOCKET)");
+  });
+
+  it("does not repeat a code already present in the message", async () => {
+    await expect(
+      fetchWithRetry("https://example.test/feed", {
+        settings: { ...fastSettings, attempts: 1 },
+        fetchImpl: async () => {
+          throw Object.assign(new Error("connect ETIMEDOUT 1.2.3.4:443"), {
+            code: "ETIMEDOUT"
+          });
+        }
+      })
+    ).rejects.toThrow("：connect ETIMEDOUT 1.2.3.4:443");
+  });
+
+  it("survives a cause cycle", async () => {
+    const outer: Error & { cause?: unknown } = new Error("outer");
+    const inner: Error & { cause?: unknown } = new Error("inner");
+    outer.cause = inner;
+    inner.cause = outer;
+
+    await expect(
+      fetchWithRetry("https://example.test/feed", {
+        settings: { ...fastSettings, attempts: 1 },
+        fetchImpl: async () => {
+          throw outer;
+        }
+      })
+    ).rejects.toThrow("outer ← inner");
+  });
 });
