@@ -569,11 +569,11 @@ Two rules for anything added here:
 ### Measuring a slow route
 
 `next dev` timings are not a proxy for production timings, and the error is
-not a constant factor — it reorders routes. Measured 2026-08-19 across 20
-dynamically-rendered routes, dev/prod ranged from **1.8× to 24.7×**, so the
-08-18 scan’s slowest public route (`/technologies`, 445ms) is **16ms** in
-production while routes it reported as mid-pack are the genuinely expensive
-ones.
+not a constant factor — it reorders routes. Measured 2026-08-18 across 20
+dynamically-rendered routes, dev/prod ranged from **1.8× to 24.7×**: that
+day’s scan reported `/technologies` at 445ms as the slowest public route, and
+it is **16ms** in production, while routes the scan put mid-pack are the
+genuinely expensive ones.
 
 - **Use the dev/prod ratio as the triage step.** A route whose cost is real
   work — file reads, JSON parsing, large derived views — barely moves between
