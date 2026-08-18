@@ -534,6 +534,38 @@ Current persistence layers:
 - Workflow modules such as `source-workflow.ts`, `candidate-workflow.ts`, `technology-draft-workflow.ts`, `digest-workflow.ts`, `delivery-workflow.ts`, `scheduled-delivery-workflow.ts`, and `task-runner.ts` own state transitions.
 - App pages and API routes call workflow modules and should not directly read or write JSON files.
 
+### Store-read memoization
+
+Two derived views memoize their store reads, keyed on
+`getStoreRevision()` + `getLocalStoreFingerprint()` from
+`local-json-store.ts`:
+
+- `getCandidateWorkflowData` (`candidate-workflow.ts`, added 2026-08-17)
+- the three merged content pools behind `getAllTechnologies` /
+  `getAllSkills` / `getAllKnowledge` (`content.ts`, added 2026-08-18)
+
+Both existed because a whole-store read sat inside a per-item helper, and
+both grew in silently as the content grew — `/workspace` reached 125
+seconds per render, and `getContentGraph` reached 380ms by calling
+`resolveTitle`/`resolveSlug` (each a full merged read) once per node.
+
+The key deliberately has two halves. The **revision counter** catches writes
+made by this process; the **file fingerprint** catches writes made by
+another one, because `tasks:run-once` writes the same files from its own
+process. Under the SQLite driver the fingerprint is null and only the
+counter applies, which is why the two are combined rather than either used
+alone.
+
+Two rules for anything added here:
+
+- **Memoize the source read, not the returned value**, unless the value is
+  provably never mutated by a caller. The content pools still build and sort
+  a fresh array per call for exactly this reason.
+- **Prove invalidation on both write paths**, not just the in-process one.
+  Each cache has tests covering same-process and other-process writes, and
+  removing the fingerprint half must fail only the second — if it fails
+  neither, the test is not holding the half that exists for the task runner.
+
 Future repository seams:
 
 - source repository for `ExternalSource` and `ImportRun`
