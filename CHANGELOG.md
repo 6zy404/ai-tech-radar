@@ -12,6 +12,73 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The slowest public route was the dev server measuring itself
+
+- **`/technologies` is 16ms in production and 445ms in `next dev`** — 2026-08-19,
+  owner-selected as the one route the 08-18 scan left unexplained. Its arithmetic
+  was right and its premise was not: **every number that scan reported was a
+  dev-mode number**, and dev-mode cost is not proportional to production cost.
+- **The attribution inside dev was proven before anything was changed.** A
+  temporary `renderLimit` prop rendered N of the 63 cards while still
+  serializing all 63 as props, holding payload constant: 0 cards **72ms**,
+  16 → 163ms, 32 → 271ms, 48 → 377ms, 63 → 436ms. Linear, slope **5.8ms per
+  card** — so 364ms of the 436ms is per-card React rendering and only 72ms is
+  the data plus a 475KB payload. The instrument was proven to fire first
+  (limit=0 → 0 cards rendered, limit=63 → 63).
+- **The same slope in production is 0.11ms per card, 53× smaller** (limit=0
+  13ms, limit=63 20ms). Same 63 cards, same ~610KB payload, `force-dynamic` on
+  both sides — the same work, a different runtime.
+- **A third candidate died before it cost anything.** `UnbreakableTitle`
+  constructs a `new Intl.Segmenter("zh-CN")` inside a per-card helper — the
+  exact shape of the two defects fixed on 08-17 and 08-18. Microbenchmarked on
+  a real title before a line was written: **9.3µs per construction, 0.5ms
+  across all 63 cards.** Caching it would have been a correct-looking fix worth
+  nothing, which is the previous round’s lesson arriving one day later.
+- **The dev/prod ratio is the reusable finding**, measured across 20
+  dynamically-rendered routes. Routes whose cost is real work barely move
+  (`/workspace` 189→107ms, **1.8×**; `/workspace/operations` 202→90ms, 2.2×;
+  `/feed.xml` 1.8×); routes whose cost is component rendering collapse
+  (`/technologies` **24.7×**, `/workspace/sources` 19.6×). **A low ratio means
+  there is something to fix. A high one means the dev server was measuring
+  itself.**
+- **Nothing in production is slow.** The slowest public route is
+  `/topics/[tagId]` at 32ms; the slowest route anywhere is
+  `/workspace/candidates` at 126ms — the one whose 448× defect was fixed on
+  08-17, and whose 6.1× ratio correctly says its remaining cost is real work.
+- **No code changed.** The 08-18 backlog item asking for this route to be
+  instrumented is closed as a negative result, not as an optimization. The
+  production control was built into a separate `distDir` so the running dev
+  server’s `.next` was never touched, and the tree was returned to `HEAD`
+  afterwards (`next build` also rewrites `tsconfig.json`, which was reverted).
+
+## Five public pages would have shipped frozen at build time
+
+- **Found while building the production control above** — 2026-08-19, and it is
+  a correctness problem rather than a performance one. `/skills`,
+  `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]` and `/network` are the
+  only public pages with **no `export const dynamic = "force-dynamic"`**; every
+  other one has it. So `next build` prerenders them, and
+  `initialRevalidateSeconds` is **`false`** — they never regenerate.
+- **The manifest was not taken as proof.** A prod server was pointed at a
+  _copy_ of `config/` carrying a marker in one published skill’s title, so the
+  live store was never written: `/workspace/skills` rendered the marker and
+  `/skills`, `/skills/[slug]` and `/network` rendered **zero** hits. Same
+  process, same data — one surface updated and the others did not, which rules
+  out “the data did not change”.
+- **The user-visible symptom is an inconsistent site, not a stale one.**
+  `/search` is dynamic and **found** the changed title, then linked to a detail
+  page still rendering the old one.
+- **This lands squarely on a feature this project already shipped**: Skill /
+  Knowledge workspace editing v0 (2026-07-16) exists so entries can be created
+  and published at runtime, and **38 of the 41 prerendered routes**
+  are those pages (the other three are the favicon, the icon and the 404). In production an editor would publish into a page that never
+  updates.
+- **The fix was measured rather than proposed blind.** With `force-dynamic`
+  added to the five and a rebuild, production serves them in **10–40ms**
+  (`/skills` 10ms, `/knowledge` 11ms, `/network` 35ms, skill detail 40ms).
+  **Not shipped** — it changes deployment behaviour, so it is the owner’s call;
+  the patch was reverted with the rest of the instrumentation.
+
 ## A timing scan, a negative result, and the same defect one layer down
 
 - **32 routes measured cold and warm** — 2026-08-18, owner-selected because the

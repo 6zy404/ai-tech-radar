@@ -566,6 +566,40 @@ Two rules for anything added here:
   removing the fingerprint half must fail only the second — if it fails
   neither, the test is not holding the half that exists for the task runner.
 
+### Measuring a slow route
+
+`next dev` timings are not a proxy for production timings, and the error is
+not a constant factor — it reorders routes. Measured 2026-08-19 across 20
+dynamically-rendered routes, dev/prod ranged from **1.8× to 24.7×**, so the
+08-18 scan’s slowest public route (`/technologies`, 445ms) is **16ms** in
+production while routes it reported as mid-pack are the genuinely expensive
+ones.
+
+- **Use the dev/prod ratio as the triage step.** A route whose cost is real
+  work — file reads, JSON parsing, large derived views — barely moves between
+  the two (`/workspace` 1.8×, `/workspace/operations` 2.2×, `/feed.xml`
+  1.8×). A route whose cost is React component rendering collapses
+  (`/technologies` 24.7×). **A low ratio means there is something to fix; a
+  high one means the dev server was measuring itself.**
+- **Build the production control into a separate `distDir`**
+  (`NEXT_DIST_DIR=.next-prod next build`, served with `next start` on another
+  port). `next build` and `next dev` share `.next`, and running a build
+  against a live dev server is a recorded way to wedge it. `next build` also
+  rewrites `tsconfig.json`; revert it afterwards.
+- **Compare only like for like.** Five public routes are prerendered at build
+  time, so their production number is a file being served, not a render —
+  check `.next-prod/prerender-manifest.json` before reading any route’s prod
+  time as a render cost.
+- **Hold the payload constant when bisecting a render.** The per-card cost on
+  `/technologies` was isolated with a temporary prop that rendered N of 63
+  cards while still serializing all 63, which separates rendering from RSC
+  serialization; without that the two move together and neither is
+  attributable.
+- **Microbenchmark the suspect before rewriting it.** Two rounds running,
+  the plausible culprit has had the right shape and the wrong magnitude — a
+  linear `.find()` worth 10ms, and a `new Intl.Segmenter` per card worth
+  9.3µs. Both would have produced a clean-looking commit that fixed nothing.
+
 Future repository seams:
 
 - source repository for `ExternalSource` and `ImportRun`
