@@ -12,6 +12,53 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The github.com timeouts, and the rule that was never a rule
+
+- **A negative result with one correction attached** — 2026-08-24,
+  owner-selected after six sources failed the 08-23 scheduled import. It does
+  not reproduce: **20 of 20** sequential requests to the five `github.com`
+  release feeds succeeded through the scheduled task’s exact proxy
+  environment, in **110–1400ms**, and a direct control returned **5 of 5**.
+  Both routes to `github.com` are open right now.
+- **The 08-18 finding is falsified, and that is the entry.** It recorded that
+  “the first `github.com` request of the run succeeded and every later one
+  failed”, from two runs where index 6 came back green. The history since then
+  breaks it in both directions: on **08-19 the first two succeeded**, and on
+  **08-23 none did**. It was a coincidence of two runs, not a rule — and the
+  shape it described is exactly the kind of thing that gets reused as a premise
+  later, which is why it is corrected here rather than left standing.
+- **What the 16 retained runs do support** is narrower and better founded:
+  - The five `github.com` feeds fail **as a cluster, on 5 of 16 runs** (08-16
+    16:11, 08-17, 08-18, 08-19, 08-23), hitting **3, 4, 4, 5 and 5** of the
+    five.
+  - **On 3 of those 5 runs nothing else failed at all**, so it is specific to
+    `github.com` rather than the network having a bad few minutes.
+  - The scattered failures are a **separate population**: `blog.google` on
+    08-11 / 08-15 / 08-20, `deepmind.google` on 08-12 / 08-13 / 08-23,
+    `qbitai.com` and `github.blog` on 08-21 — all singletons, and all on runs
+    where the five `github.com` feeds were green.
+  - The error is always a **connect timeout to `github.com:443`**. No server
+    response comes back, so the client cannot tell “the proxy could not reach
+    github” from “github dropped the connection”. **No mechanism is proposed
+    on this evidence.**
+- **The cost is delay, not data.** Checked rather than assumed: of the 50
+  entries currently in the five release feeds, only **2** have never entered
+  the review state, and both are Ollama pre-release tags published _after_ the
+  last successful run — the next scheduled import picks them up, and this
+  project rejects pre-release tags anyway. **Zero permanent loss.** The
+  checker’s control was proven first (a known-dispositioned id must resolve);
+  its first version silently dropped the `https-` prefix from the candidate id
+  and reported all 50 entries missing.
+- **This was only analysable because of the 08-18 change.** Before it, every
+  transport failure recorded the bare string `fetch failed`; the run records
+  now carry `Connect Timeout Error (attempted address: github.com:443)` and,
+  separately, `Client network socket disconnected before secure TLS
+connection` for DeepMind — which is how the two populations were told apart
+  at all.
+- **No code changed**, and the six sources’ `failed` health is left to clear on
+  the next successful run rather than cleared by a manual import, which would
+  add candidates nobody would disposition until the next round.
+
 ## Editorial round — the bottleneck moved, so rearranging beats adding
 
 - **52 undecided candidates, five unedited digest drafts** — 2026-08-24, after
