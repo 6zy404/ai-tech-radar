@@ -8,6 +8,12 @@ import {
   getDeliveryChannels
 } from "@/lib/delivery-workflow";
 
+// This GET reads the local store and takes no request argument, so nothing
+// forces it dynamic on its own — it is dynamic today only because this file
+// also exports POST. Declared explicitly so splitting the handlers apart
+// cannot silently prerender a frozen copy of the store.
+export const dynamic = "force-dynamic";
+
 export function GET() {
   return NextResponse.json({ ok: true, channels: getDeliveryChannels() });
 }

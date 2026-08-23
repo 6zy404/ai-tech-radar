@@ -87,8 +87,17 @@ function assertMiddlewareIsInDiscoverableLocation() {
  */
 function assertPagesDeclareTheirRenderMode() {
   const appDirPath = path.join(process.cwd(), "src", "app");
-  const pageFilePaths = listFilesRecursive(appDirPath).filter(
+  const appFilePaths = listFilesRecursive(appDirPath);
+  const pageFilePaths = appFilePaths.filter(
     (filePath) => path.basename(filePath) === "page.tsx"
+  );
+  // Route handlers that export GET are the only ones Next can prerender; a
+  // POST-only handler is dynamic by construction, so requiring a declaration
+  // there would be 40+ cosmetic edits buying nothing.
+  const getRouteFilePaths = appFilePaths.filter(
+    (filePath) =>
+      path.basename(filePath) === "route.ts" &&
+      /export (async )?function GET/.test(readFileSync(filePath, "utf8"))
   );
 
   assert.ok(
@@ -96,7 +105,7 @@ function assertPagesDeclareTheirRenderMode() {
     "Expected to find page.tsx files under src/app."
   );
 
-  const undeclared = pageFilePaths
+  const undeclared = [...pageFilePaths, ...getRouteFilePaths]
     .filter(
       (filePath) =>
         !readFileSync(filePath, "utf8").includes("export const dynamic")
@@ -108,7 +117,7 @@ function assertPagesDeclareTheirRenderMode() {
   assert.deepEqual(
     undeclared,
     [],
-    `These pages do not declare "export const dynamic", so next build will prerender them and they will never pick up a content change: ${undeclared.join(", ")}`
+    `These pages and GET route handlers do not declare "export const dynamic", so next build will prerender them and they will never pick up a content change: ${undeclared.join(", ")}`
   );
 }
 
