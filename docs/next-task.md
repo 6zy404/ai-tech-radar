@@ -23,9 +23,9 @@
 > 这个检查器的控制组先证过（一个已知处置过的 id 必须能命中）；它的第一版少了
 > `https-` 前缀，把 50 条全报成缺失。
 > **⑤ 这次能查得动，全靠 08-18 那次改动。** 在那之前每条传输失败都只记 `fetch
-> failed`；现在记录里是 `Connect Timeout Error (attempted address: github.com:443)`，
+failed`；现在记录里是 `Connect Timeout Error (attempted address: github.com:443)`，
 > 而 DeepMind 是另一条 `Client network socket disconnected before secure TLS
-> connection`——两个失败群正是靠这个才分得开。
+connection`——两个失败群正是靠这个才分得开。
 > **⑥ 零代码改动。** 六个源的 `failed` 健康状态留给下次成功运行自动清除，而不是手动
 > 触发一次导入——那会引入没人处置的候选，正是刚清理掉的那种公开面暴露。
 > **下一步**：下次定时导入 08-24 08:00（本地），届时可回看那五个源是否恢复。剩余
