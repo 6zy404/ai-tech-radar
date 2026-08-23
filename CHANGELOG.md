@@ -12,6 +12,93 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — the bottleneck moved, so rearranging beats adding
+
+- **52 undecided candidates, five unedited digest drafts** — 2026-08-24, after
+  five days of unattended imports with no round. All 52 dispositioned: 4
+  published, 17 reviewed, 31 rejected. The public news lane goes from **53
+  visible / 51 undecided to 22 / 0**, and its composition moves with it —
+  量子位 19% → 5%, OpenAI News 23% → 14%. That is the 08-11 finding
+  demonstrated rather than restated: **the lane’s makeup follows publish rate
+  until a round runs.**
+- **Three of the four published signals share one shape**, which is what the
+  digest is built on rather than a theme imposed on them.
+- **IBM Research turns agentic memory from a switch into a dose.** ALTK-Evolve
+  distills guidelines from an agent’s own trajectories and injects them back at
+  inference — no weight updates, no human annotation. Across eight models on
+  AppWorld: a weak model (gpt-oss-120b, 117B) gained **+16.1 points at 5% more
+  tokens** from retrieving a few high-confidence guidelines per task, while the
+  full set gained less and cost **~50% more**; a strong one (DeepSeek-V3.2,
+  671B) wanted everything (+9.5 / +16.1 on the stricter metric); and **745B
+  GLM-5 gained nothing**. **Parameter count does not predict the pattern** —
+  and the authors say plainly that “saturated” names what they observed, not a
+  proven cause.
+- **Dharma-AI: same cluster, +33 percentage points, and only the order
+  changed.** A constraint-aware allocator against FIFO across seven scenarios;
+  priority-weighted output rose in every one, up to **+105%**. The line worth
+  keeping: **order is not a tiebreaker applied after the capacity question is
+  settled — order is the capacity decision.** This one is deliberately
+  distinguished from the GPU-utilization essay rejected on 2026-08-01: that was
+  argument without an artifact, this has an allocator, seven scenarios and its
+  own stated measurement conditions.
+- **Simon Willison supplies the human-side version.** Throughput can rise many
+  times over; cognitive capacity does not, so a team now exists to spread
+  review rather than typing. Then the quieter loss: **the brake that used to
+  veto a feature was never judgment, it was a week of work.** At an hour, the
+  thing removed is not the feature — it is the veto. Recorded honestly as a
+  podcast transcript excerpt with no artifact; it earns its place because the
+  mechanism it proposes is checkable, and it is the layer under the already
+  published Rootly and Gowers signals.
+- **Meta’s Muse Glimmer is the one genuinely new artifact, and it wins the same
+  way**: 4-bit quantization, DFlash speculative decoding and a 1.8B perception
+  encoder arranged inside a 24–32GB budget, with day-one runtime support. The
+  half that matters is that **“what to do after a tool call fails” is in the
+  training objective** — the least reliable tier in this site’s own 完成判定与
+  验收信号 entry, treated as trainable rather than emergent.
+- **The four reviewed-not-published each carry a reason**: DeepSeek’s
+  V4-Flash-Vision-Exp (an `Exp` endpoint, and only secondary reporting
+  available), Cloudflare Agent Tracing (beta, first component, billed from
+  October), the Sentence Transformers multi-vector post (a library how-to, not
+  a change in the field), and JetBrains on AI spend (the same central-gateway
+  move a published signal already carries). The 31 rejects are trade-show and
+  funding PR, customer case studies, and **six pre-release tags — including one
+  whose title reads `v0.33.0` while the tag is `v0.33.0-rc0`.**
+- **33 reverse ids written as one pre-computed union**, because 7 targets are
+  referenced by two or three of the four signals and a second `PATCH` would
+  have replaced the first. 33/33 verified individually, 33 typed relation pairs
+  with notes, stores diffed per record against `HEAD` with zero arrays losing
+  an entry, checker proven to fire on an injected loss.
+- **A title was one line too long, and the instrument that found it was wrong
+  first.** Measured against every existing signal, the four new heroes had to
+  land at 3 lines at 1265px and 5 at 390px. The first harness cloned the `h1`
+  into an off-screen container **outside its `.dossier` ancestor**, so the
+  ancestor-scoped rules never applied and it reported 2 lines / 86px where the
+  live page renders 3 / 165. Re-run with the probe inside the real parent and
+  a control requiring it to reproduce the live line count first, the Muse title
+  came back at **6 lines against every other signal’s 5** and was shortened to 5. Character count did not predict it: a 35-character candidate still took 6
+  lines while a 33-character one took 5.
+- **The 08-18 diagnostic change paid off in the logs.** Six sources failed the
+  08-23 scheduled import, and instead of eight identical `fetch failed` lines
+  the records now name the reason: `Connect Timeout Error (attempted address:
+github.com:443)` on five GitHub release feeds and `Client network socket
+disconnected before secure TLS connection` on DeepMind. Not acted on this
+  round, but for the first time the history says something specific.
+- Verified: 19 public routes at 200, a ten-string internal-field scan clean,
+  the pinned lead first **inside the digest’s signal links**, zero excluded
+  items present, **33/33 reverse links rendering across 25 pages**, four bodies
+  at 4–5 section headings with **zero literal markers and zero ASCII quotes**,
+  zero horizontal overflow at 1265 and 390 with the detector proven to fire,
+  zero console errors, plus typecheck, lint, format, vitest 254/254 and seven
+  validators.
+- **Not looked at, and stated rather than glossed**: the Browser pane’s
+  screenshot tool was unavailable again (the pane is not displayed, so the page
+  composites no frames). Structure, title line counts, overflow and console
+  were measured; the pages were not seen.
+- **One absence was checked rather than assumed**: only 3 of the 4 signals show
+  a 已收录 link on the news lane. The fourth’s candidate is dated 2026-08-17,
+  one day outside the lane’s 7-day window — correct behaviour, the same
+  finding recorded on 2026-08-04.
+
 ## The slowest public route was the dev server measuring itself
 
 - **`/technologies` is 16ms in production and 445ms in `next dev`** — 2026-08-18,
