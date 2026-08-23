@@ -1,6 +1,431 @@
 {
-  "updatedAt": "2026-08-18T10:39:28.499Z",
+  "updatedAt": "2026-08-23T16:27:12.420Z",
   "digests": [
+    {
+      "id": "digest-2026-08-24",
+      "date": "2026-08-24",
+      "status": "published",
+      "title": "每日技术简报 - 2026-08-24",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 6 个来源。",
+      "editorialSummary": "今天的四条里有三条共享同一个形状：硬件没换、模型没换、人也没换，**变的只是安排**——而收益是实打实的。IBM Research 把「智能体记忆」从开关改成剂量：弱模型上只按任务检索少量高置信指引，任务完成度涨 **16.1 个百分点**，token 只多花 **5%**，而全量注入涨得更少、还多花约一半成本。Dharma-AI 把同一个集群的分配顺序重排，利用率最多多出 **33 个百分点**，优先级加权产出在每个场景里都上升。两条都自己写下了边界，也都说明了同一件事：**「先上全量」是一个会同时输掉准确率和成本的默认值。**\n\nSimon Willison 那条是同一件事发生在人这一侧。产能可以涨很多倍，认知容量不会——所以团队存在的理由从分摊打字变成了分摊审阅。他随后指出一个更安静的损失：过去替你否决一个功能的从来不是判断力，是一周工期；工期掉到一小时之后，被删掉的不是那个功能，是那个否决动作本身。\n\nMuse Glimmer 是本期唯一真正新增了东西的一条，而它同样靠安排取胜：4 位动态量化、DFlash 推测解码和一个 18 亿参数的感知编码器一起塞进 24 到 32GB 的预算，才让「在本地常驻一个能用的智能体」不必先做一轮工程适配。它还把「工具调用失败之后怎么办」写进了训练目标——报错时诊断并另找路径，而不是终止。那正是本站《完成判定与验收信号》里最不可靠的一档，第一次被当作可训练的目标来做，而它是否稳定仍然要你在自己的任务上复测。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2"
+      ],
+      "skillIds": [
+        "skill-agent-design",
+        "skill-ws-2152c7f1",
+        "skill-ws-f741f122",
+        "skill-model-evaluation",
+        "skill-retrieval-tuning",
+        "skill-scope-pilots",
+        "skill-tool-integration",
+        "skill-ws-7796779a"
+      ],
+      "knowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-system-design",
+        "knowledge-ws-e251051e",
+        "knowledge-evaluation-loops",
+        "knowledge-feedback-loops",
+        "knowledge-human-loop",
+        "knowledge-ws-34da6116"
+      ],
+      "sourceNames": [
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-08-24T12:00:00.000Z",
+      "updatedAt": "2026-08-23T16:27:12.419Z",
+      "publishedAt": "2026-08-23T16:27:12.419Z",
+      "editorialNotes": [
+        "本轮覆盖 08-19 至 08-24 五天积压：52 条待决候选，处置为发布 4 条、标记已看 17 条、拒绝 31 条，公开快讯页未处置数归零。",
+        "排除了生成器选中的 6 条此前简报已收录的重播；4 条新信号全部由 fresh-first 自然选入生成分区，因此未调用 include。",
+        "归档了 08-19 至 08-23 五份由定时任务生成、无人编辑的草稿。",
+        "拒绝集中在展会与融资公关（量子位 9 条）、客户案例与产品公告（OpenAI News 10 条）、以及预发布版本标签（6 条，含标题写作 v0.33.0 而 tag 实为 v0.33.0-rc0 的一条）。",
+        "标记已看而未发布的两条值得下轮复看：DeepSeek V4-Flash-Vision-Exp（实验端点，且只有二手报道）与 Cloudflare Agent Tracing（Beta 首个组件，10 月起计费）。"
+      ]
+    },
+    {
+      "id": "digest-2026-08-23",
+      "date": "2026-08-23",
+      "status": "archived",
+      "title": "每日技术简报 - 2026-08-23",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google AI Blog",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-08-23T12:00:00.000Z",
+      "updatedAt": "2026-08-23T16:25:22.857Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-08-22",
+      "date": "2026-08-22",
+      "status": "archived",
+      "title": "每日技术简报 - 2026-08-22",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google AI Blog",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-08-22T12:00:00.000Z",
+      "updatedAt": "2026-08-23T16:25:22.811Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-08-21",
+      "date": "2026-08-21",
+      "status": "archived",
+      "title": "每日技术简报 - 2026-08-21",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google AI Blog",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-08-21T12:00:00.000Z",
+      "updatedAt": "2026-08-23T16:25:22.761Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-08-20",
+      "date": "2026-08-20",
+      "status": "archived",
+      "title": "每日技术简报 - 2026-08-20",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google AI Blog",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-08-20T12:00:00.000Z",
+      "updatedAt": "2026-08-23T16:25:22.710Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
+    {
+      "id": "digest-2026-08-19",
+      "date": "2026-08-19",
+      "status": "archived",
+      "title": "每日技术简报 - 2026-08-19",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-dddaf80c",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google AI Blog",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-08-19T12:00:00.000Z",
+      "updatedAt": "2026-08-23T16:25:22.656Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
     {
       "id": "digest-2026-08-18",
       "date": "2026-08-18",
