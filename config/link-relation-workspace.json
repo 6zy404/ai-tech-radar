@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T10:37:41.786Z",
+  "updatedAt": "2026-08-23T16:25:00.950Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -4500,6 +4500,303 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "风险评估、标准化评分与置信度评分是一份可比较的结构化输出，而不是又一段自然语言意见。"
+    },
+    {
+      "id": "rel-ws-f85543fb",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "量化档位、运行时路径与显存余量是一起被决定的，正是这条技能的单机口径。"
+    },
+    {
+      "id": "rel-ws-37c92931",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "首日 llama.cpp / MLX / vLLM 原生支持，一上来就落在「有性能路径」那一级。"
+    },
+    {
+      "id": "rel-ws-ef616731",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "公告只给相对表述而非逐项分数，正是「哪些数字可直接比」要处理的情况。"
+    },
+    {
+      "id": "rel-ws-af0bd8ca",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "报错后诊断并另找路径，把一部分容错从工具层挪回了模型自己身上。"
+    },
+    {
+      "id": "rel-ws-5d94f18a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "4 位动态量化把 55GB 压到 17 至 20GB，是这条信号成立的前提。"
+    },
+    {
+      "id": "rel-ws-4792e834",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "DFlash 草稿模型并行验证，最多 3.1 倍吞吐来自这里。"
+    },
+    {
+      "id": "rel-ws-81b1c4de",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "决定跑不跑得动的是权重加 KV 缓存、感知嵌入与草稿模型的总开销。"
+    },
+    {
+      "id": "rel-ws-2edebb1b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "厂商把「这一步做完了吗」当成可训练目标，而不是等它涌现。"
+    },
+    {
+      "id": "rel-ws-2f8c9c46",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "3.1 倍没有附条件，速度永远是「在某组条件下的速度」。"
+    },
+    {
+      "id": "rel-ws-18d30ba3",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一个方向的两个尺寸档：2.6B 求极致轻，30B 求够用的智能体能力。"
+    },
+    {
+      "id": "rel-ws-3bdaabef",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同为消费级显卡可跑的开放权重，但那条的默认值坑在推理强度上。"
+    },
+    {
+      "id": "rel-ws-bec61a92",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "两把尺子的差距本身是发现：严格的 SGC 普遍比宽松的 TGC 动得更多。"
+    },
+    {
+      "id": "rel-ws-af36bc6f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "改变的是可用指引而不是模型，所以这是流程层设计而非训练问题。"
+    },
+    {
+      "id": "rel-ws-c76a92e0",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "指引从自己跑过的成功与失败轨迹蒸馏，前提是那些轨迹被完整记录。"
+    },
+    {
+      "id": "rel-ws-19adb307",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "按任务检索少量高置信条目，在弱模型上同时是最准和最便宜的一档。"
+    },
+    {
+      "id": "rel-ws-7cd1ecc9",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "给「记忆该带多少进上下文」补上量化证据：是剂量，不是开关。"
+    },
+    {
+      "id": "rel-ws-873786ba",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "评测跑完改变了注入策略，才算闭环。"
+    },
+    {
+      "id": "rel-ws-701debe9",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "指引里写的是失败模式，改进的正是对「这一步做对了吗」的判断。"
+    },
+    {
+      "id": "rel-ws-b2355151",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "745B 饱和而 117B 涨最多——参数量不预测该给多少记忆。"
+    },
+    {
+      "id": "rel-ws-6bdf2a01",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "把容量规划从「撑得住多少」推进到「同样的硬件重排一遍能多出多少」。"
+    },
+    {
+      "id": "rel-ws-c644c509",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "自建调度层是一次典型的「这一层要不要自己拥有」决定。"
+    },
+    {
+      "id": "rel-ws-e1d8d95e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "预留掉的闲卡既没被使用也不算空闲，只有单独记出来才看得见。"
+    },
+    {
+      "id": "rel-ws-2db6cddb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "顺序不是打破平局用的，顺序本身就是一个容量决定。"
+    },
+    {
+      "id": "rel-ws-98bfd452",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "实时推理等不了，所以需求必须按曲线而不是按天花板供给。"
+    },
+    {
+      "id": "rel-ws-87c159bf",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "related-to",
+      "note": "块状与弹性两种分配形状互不相容，这个约束比单任务要多少卡更早生效。"
+    },
+    {
+      "id": "rel-ws-5fe20f0c",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "产能上去之后，流程的形状里必须有人补上一个否决动作。"
+    },
+    {
+      "id": "rel-ws-4085f83c",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "「值不值得做」过去由工期代答，现在必须写成明确判据。"
+    },
+    {
+      "id": "rel-ws-017da3ba",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "related-to",
+      "note": "加一个房间变便宜，意味着「这一层要不要自己拥有」的成本结构也变了。"
+    },
+    {
+      "id": "rel-ws-88e1c931",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "概念完整性是要持续付钱的权衡，不是一次定好就一直成立的属性。"
+    },
+    {
+      "id": "rel-ws-d1bc9bf1",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "认知容量要在团队之间分摊，这是团队节奏问题而非个人产能问题。"
+    },
+    {
+      "id": "rel-ws-5495c20e",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "被成本曲线抽走的正是那个「说不」的位置。"
+    },
+    {
+      "id": "rel-ws-35e38743",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "那条换掉了评审的度量，这条解释了那个度量为什么非换不可。"
+    },
+    {
+      "id": "rel-ws-713b8ee1",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "模型缺的是剪枝的能力，人类这一侧缺的是剪枝的动机——同一个问题的两端。"
     }
   ]
 }

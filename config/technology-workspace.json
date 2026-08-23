@@ -1,52 +1,54 @@
 {
-  "updatedAt": "2026-08-18T10:44:42.916Z",
+  "updatedAt": "2026-08-23T16:35:11.691Z",
   "records": [
     {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
-      "slug": "rootly-retires-small-pr-rule",
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "slug": "muse-glimmer-local-agent-model",
       "title": {
-        "original": "Rootly retires its small-PR rule as AI agents change what a code review is for",
-        "zh": "Rootly 废掉了小 PR 规则：审查的对象从行数换成了影响半径"
+        "original": "本地运行、支持视觉与工具调用：Meta 开源智能体模型",
+        "zh": "Muse Glimmer 开源：30B 压进消费级显卡，报错不停下"
       },
       "summary": {
-        "original": "Incident-management vendor Rootly abandoned a two-year-old strict small-pull-request culture after AI agents changed the unit of work, replacing diff size with blast radius, moving the safety boundary from merge to progressive release, and building a reviewer that answers one question per PR.",
-        "zh": "事故管理平台 Rootly 放弃了推行两年的严格小 PR 文化——智能体以「特性」而不是「增量」为单位输出，一次给出迁移、模型、服务、控制器、测试和前端。他们试过让智能体产出堆叠 PR，结果技术上没错、业务上更糟。最终的替换不是换工具而是换判据：衡量代码行数改成衡量爆炸半径，安全边界从合并挪到渐进发布，内部审查器对每个 PR 只回答一个问题——如果这个变更有缺陷，会坏掉哪些面向用户的功能。"
+        "original": "Meta AI Research 发布 Muse Glimmer，300 亿参数、Apache 2.0 开放权重，面向常驻本地的智能体工作流。",
+        "zh": "Meta 发布 Muse Glimmer：300 亿参数、Apache 2.0 开放权重，专为常驻本地的智能体工作流设计。4 位动态量化把 55GB 以上的显存需求压到 17 至 20GB，配合 DFlash 推测解码在 M5 Max 与 RTX 5090 上把吞吐提到最多 3.1 倍。真正值得注意的不是尺寸，而是它把「工具调用失败之后怎么办」写进了训练目标：API 或终端命令报错时，模型诊断故障并另找路径，而不是终止执行。"
       },
       "content": {
-        "original": "Rootly co-founder and CTO Quentin Rousseau, via InfoQ (Matt Saunders), 2026-08-17.",
-        "zh": "Rootly 是做事故管理的，两年来一直推行严格的小 PR 文化：要求堆叠 PR，把一次原子变更限制在几百行以内。联合创始人兼 CTO Quentin Rousseau 说明为什么这条规则被废掉——而理由不是它错了，是**它当初为之设计的那个前提没有了**。\n\n## 智能体改变的是工作的单位\n\n人手写代码时，小 diff 更好审、更好回滚，所以小 PR 是最优解。智能体不是这样工作的：它以**特性**而不是**增量**为单位思考，一次性输出完整实现——数据库迁移、模型、服务、控制器、测试、前端组件一起给出来。\n\n他们**试过**把这套流程套上去，让智能体生成堆叠 PR。结果是技术上挑不出错、整体业务上下文里反而更糟：审查某一个 PR 时，意见往往要依赖另一个 PR 里的改法，评审人被迫来回翻页重新梳理逻辑。**这是一次带负面结果的尝试，不是一次直觉判断**。\n\n## 缺陷的形态也变了\n\n工程团队给出的描述很精确：**AI 引发的漏洞本质是上下文漏洞——代码本身能正常运行，只是被用在了错误的场景中。** 举的两个例子都不需要读代码就能懂：某次数据库迁移删掉了后台任务仍在调用的字段；某个服务往一张表里写数据，而那张表正被另一个团队读取。\n\n这正是本站《完成判定与验收信号》里那条判据的生产版本：**一次成功的调用不等于一次正确的行动。** 类型检查、测试、lint 全绿，仍然可以是错的。\n\n## 换掉的是判据，不是工具\n\n三件事一起动：\n\n1. **爆炸半径取代代码行数。** 团队的原话是「代码改动量的大小已不再具备参考价值，真正关键的指标是故障影响范围」。\n2. **内部 AI 审查器只回答一个问题**：如果这个变更存在缺陷，会破坏哪些面向用户的功能？它明确**不试图扮演人类审查者**，产出的是一份结构化报告——风险评估、标准化评分、置信度评分、按严重程度分类的问题列表——并把「会改变业务行为」的变更和「只影响性能或界面展示」的变更分开定级。给人类的是一个结构化的参考面，不是一份原始 diff。\n3. **安全边界从合并挪到发布。** 每个重要特性都在特性开关后面上线：PR 合并、代码进生产之后，特性默认是关的。真正的审查发生在渐进放量的过程里——先团队内部，再一小批客户，再 10%，最后全量。\n\n## 两条容易被跳过的细节\n\nPR 里的「为什么」和「是什么」由**使用智能体的那个人**填写，而且 Rootly **明确要求 AI 助手不要生成这部分**——因为这一段存在的目的就是捕获上下文：为什么要做这个变更、为什么是现在、对应什么业务诉求。让生成代码的同一个东西去解释这段代码，等于把这段的价值抵消掉。\n\n另一条：每个 PR 都必须描述如何安全回退，**包括必要的数据修复**。\n\n## 不是一家公司的孤例\n\n备份与版本控制服务商 Rewind 的审查工具 Diff Vader 借鉴了同一套基于风险的模型，其团队写道：一个 PR 的风险与它的代码行数几乎无关。2026 年伦敦 QCon 上，Michael Webster 讨论了无界面智能体产出的大 PR 给人工审核造成的瓶颈与持续累积的技术债。同年 6 月的伦敦 AI 原生开发者大会上，被广泛称为 DevOps 之父的 Patrick Debois 提出了更激进的一版：PR 在开源社区里有意义，因为贡献者之间的方向未必一致、需要逐步建立信任；而在一个共享上下文与目标的团队内部，当智能体快速迭代时，PR 审查周期越来越难证明自己的合理性。\n\n同一场讨论里还有一句值得单独记下来的：**过去纯人工开发阶段流程中的低效很难被察觉，而如今智能体的 token 消耗可以量化，浪费会实实在在体现在账单上。** 这与本站那条 180 万美元的账单信号是同一个机制的两面——账单先是灾难，然后成了唯一诚实的度量。\n\n## 边界\n\n这是一家公司的实践复盘，**不是对照实验**：没有给出改动前后的缺陷率、审查耗时或事故数。可迁移的是判据与失败形态，不是「废掉小 PR 一定更好」这个结论。Rousseau 自己也写明，废掉一条曾经感觉非常正确的流程，起初让人很不适应。"
+        "original": "## 这次发布了什么\n\nMeta AI Research 发布 **Muse Glimmer**，300 亿参数、**Apache 2.0** 开放权重，定位是常驻本地的智能体工作流：在消费级 GPU 和工作站上直接跑自主智能体、复杂工具调用、本地编码，以及以模型作为评判者的评估，不依赖云 API。\n\n训练路径分四段，值得单独看的是后两段：\n\n1. **Logit 蒸馏**：用匹配的预训练数据组合，从更大的旗舰模型 Muse Spark 迁移基础推理能力。\n2. **中期训练**：用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像，以及**多步工具调用轨迹**。\n3. **后训练对齐**：SFT、同策略蒸馏与强化学习结合，优化代码生成、工具使用和结构化规划。\n4. 一个 **18 亿参数的感知编码器**让它原生处理交错多模态输入，于是本地智能体在执行代码或自动化流程时可以直接读截图、图表和文档。\n\n## 30B 为什么塞得进 24GB\n\n未压缩的 300 亿参数通常需要 **55GB 以上**显存，标准消费级硬件放不下。它靠两件事把这个数压下来：\n\n- **4 位动态量化**（K-Quant）把占用降到约 **17 至 20GB**，在 24 至 32GB 的显存或统一内存里留出余量，供 KV 缓存、感知嵌入和推测解码开销使用。\n- **DFlash 推测解码**：一个轻量草稿模型一次提出多个 token 的块，由基础模型并行验证。在 Apple Silicon（M4/M5 Max）与 RTX 5090 上，生成吞吐最多提升 **3.1 倍**。\n\n这两项加起来才是「跑得动」的完整含义。**光看权重体积会算错账**——本站《模型选型与约束匹配》讲的正是这一步：决定你能不能跑的从来不是参数量，而是权重加上运行时的全部开销。\n\n## 训练目标里写进了「失败之后怎么办」\n\n这是这条信号真正的分量所在，而它容易被功能表盖过。\n\n模型被训练成能执行长期规划并**处理意外的失败状态**：当一次 API 调用或终端命令返回错误时，它会诊断故障并尝试其他路径，**而不是终止执行**。它支持 OpenClaw 等智能体框架，并提供可调的推理强度，让你在速度与决策质量之间取舍。\n\n在 SWE-Bench、DeepSearch QA、`τ-Bench` 和 MCP-Atlas 上，与同为 300 亿参数级的领先开放模型相比，它的成功率更高；与 Gemma 4 31B、Qwen 3.6 27B 相比，**多步工具调用可靠性和故障恢复能力**更突出，而通用编码与推理保持竞争力。\n\n把这一点放回本站已有的位置：《完成判定与验收信号》说的是「这一步做完了吗」有三档信号来源，而模型自己的判断是最不可靠的一档；这次是厂商把那一档当作**可训练的目标**来做，而不是当作涌现出来的副产品。**它是否稳定，仍然要你在自己的任务上复测。**\n\n## 生态位置\n\n权重已在 Hugging Face 提供，并与开源社区一起为 `llama.cpp`、`ExecuTorch`、`Apple MLX`、`Ollama`、`LM Studio`、`vLLM` 提供原生运行支持，微调走 PyTorch 的 TorchTitan。\n\n**首日多运行时支持这件事本身就是信号**。本站《模型与推理引擎的支持路径》把「已支持」拆成四级——能加载、有原生建模、有性能路径、有正确性保障。Muse Glimmer 一上来就落在第三级，而这正是端侧模型过去最缺的一环：不必等三个月才等到一条能用的路径。\n\n## 这条信号的边界\n\n- 候选来自 InfoQ 中文，而它本身是 InfoQ 英文报道的译文，**属二手报道**；基准数字与内存区间均出自该报道，未经本站复现。\n- 报道给出的是「与同级开放模型相比成功率更高」这类相对表述，**没有给出逐项分数**，所以无法判断领先幅度。\n- 3.1 倍吞吐没有说明上下文长度和批量条件——本站《交互系统中的延迟权衡》里的那条规则在这里适用：**速度永远是「在某组条件下的速度」**。",
+        "zh": "## 这次发布了什么\n\nMeta AI Research 发布 **Muse Glimmer**，300 亿参数、**Apache 2.0** 开放权重，定位是常驻本地的智能体工作流：在消费级 GPU 和工作站上直接跑自主智能体、复杂工具调用、本地编码，以及以模型作为评判者的评估，不依赖云 API。\n\n训练路径分四段，值得单独看的是后两段：\n\n1. **Logit 蒸馏**：用匹配的预训练数据组合，从更大的旗舰模型 Muse Spark 迁移基础推理能力。\n2. **中期训练**：用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像，以及**多步工具调用轨迹**。\n3. **后训练对齐**：SFT、同策略蒸馏与强化学习结合，优化代码生成、工具使用和结构化规划。\n4. 一个 **18 亿参数的感知编码器**让它原生处理交错多模态输入，于是本地智能体在执行代码或自动化流程时可以直接读截图、图表和文档。\n\n## 30B 为什么塞得进 24GB\n\n未压缩的 300 亿参数通常需要 **55GB 以上**显存，标准消费级硬件放不下。它靠两件事把这个数压下来：\n\n- **4 位动态量化**（K-Quant）把占用降到约 **17 至 20GB**，在 24 至 32GB 的显存或统一内存里留出余量，供 KV 缓存、感知嵌入和推测解码开销使用。\n- **DFlash 推测解码**：一个轻量草稿模型一次提出多个 token 的块，由基础模型并行验证。在 Apple Silicon（M4/M5 Max）与 RTX 5090 上，生成吞吐最多提升 **3.1 倍**。\n\n这两项加起来才是「跑得动」的完整含义。**光看权重体积会算错账**——本站《模型选型与约束匹配》讲的正是这一步：决定你能不能跑的从来不是参数量，而是权重加上运行时的全部开销。\n\n## 训练目标里写进了「失败之后怎么办」\n\n这是这条信号真正的分量所在，而它容易被功能表盖过。\n\n模型被训练成能执行长期规划并**处理意外的失败状态**：当一次 API 调用或终端命令返回错误时，它会诊断故障并尝试其他路径，**而不是终止执行**。它支持 OpenClaw 等智能体框架，并提供可调的推理强度，让你在速度与决策质量之间取舍。\n\n在 SWE-Bench、DeepSearch QA、`τ-Bench` 和 MCP-Atlas 上，与同为 300 亿参数级的领先开放模型相比，它的成功率更高；与 Gemma 4 31B、Qwen 3.6 27B 相比，**多步工具调用可靠性和故障恢复能力**更突出，而通用编码与推理保持竞争力。\n\n把这一点放回本站已有的位置：《完成判定与验收信号》说的是「这一步做完了吗」有三档信号来源，而模型自己的判断是最不可靠的一档；这次是厂商把那一档当作**可训练的目标**来做，而不是当作涌现出来的副产品。**它是否稳定，仍然要你在自己的任务上复测。**\n\n## 生态位置\n\n权重已在 Hugging Face 提供，并与开源社区一起为 `llama.cpp`、`ExecuTorch`、`Apple MLX`、`Ollama`、`LM Studio`、`vLLM` 提供原生运行支持，微调走 PyTorch 的 TorchTitan。\n\n**首日多运行时支持这件事本身就是信号**。本站《模型与推理引擎的支持路径》把「已支持」拆成四级——能加载、有原生建模、有性能路径、有正确性保障。Muse Glimmer 一上来就落在第三级，而这正是端侧模型过去最缺的一环：不必等三个月才等到一条能用的路径。\n\n## 这条信号的边界\n\n- 候选来自 InfoQ 中文，而它本身是 InfoQ 英文报道的译文，**属二手报道**；基准数字与内存区间均出自该报道，未经本站复现。\n- 报道给出的是「与同级开放模型相比成功率更高」这类相对表述，**没有给出逐项分数**，所以无法判断领先幅度。\n- 3.1 倍吞吐没有说明上下文长度和批量条件——本站《交互系统中的延迟权衡》里的那条规则在这里适用：**速度永远是「在某组条件下的速度」**。"
       },
-      "type": "workflow",
-      "publishDate": "2026-08-17",
+      "type": "model",
+      "publishDate": "2026-08-21",
       "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/FzWV9Jzv2CPK8yjLPxdA?utm_source=rss&amp;utm_medium=article",
+      "sourceUrl": "https://www.infoq.cn/article/aGfkSN1YlmLrUQMPea9L?utm_source=rss&amp;utm_medium=article",
       "sourceLanguage": "zh",
       "translationStatus": "not_needed",
-      "publisherName": "Rootly",
-      "publisherType": "startup",
+      "publisherName": "Meta AI Research",
+      "publisherType": "big-tech",
       "importanceLevel": "important",
       "status": "published",
       "tags": [
+        "tag-on-device",
         "tag-ai-agents",
-        "tag-workflow",
-        "tag-observability"
+        "tag-multimodal",
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing",
         "knowledge-ws-e251051e",
-        "knowledge-human-loop",
-        "knowledge-feedback-loops",
-        "knowledge-system-design"
+        "knowledge-latency-tradeoffs"
       ],
       "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-ws-f741f122",
-        "skill-communication-ai",
-        "skill-model-evaluation"
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a",
+        "skill-ws-dddaf80c",
+        "skill-tool-integration"
       ],
       "sourceReferences": [],
       "priority": {
         "priorityLevel": "high_priority",
-        "priorityScore": 99,
+        "priorityScore": 100,
         "priorityReasons": [
           "标题完整。",
           "摘要完整。",
@@ -56,69 +58,62 @@
           "已关联技能。",
           "发布方明确。",
           "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-18T10:44:42.916Z",
+        "rankingUpdatedAt": "2026-08-23T16:35:11.690Z",
         "rankingSource": "rule_based"
       },
-      "whyItMatters": "它是一次少见的、把流程规则连同它的前提一起写出来的复盘：小 PR 之所以正确，是因为人类写代码时 diff 大小与审查成本相关；智能体让这个相关性失效，于是规则本身失效。更有用的是它给出的替换——衡量爆炸半径而不是行数、把安全边界从合并挪到渐进发布、让审查器对每个 PR 只回答「坏了会影响谁」——三件都是可以照搬的具体做法。而它对缺陷形态的描述（代码能跑，只是用错了场景）正是这个站点反复遇到的那条判据在生产环境里的样子。",
+      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能装下」，而是「装下之后还剩不剩得下上下文」。Muse Glimmer 把量化、推测解码和感知编码器的内存开销一起算进了 24 至 32GB 这个消费级预算里，并且首日就有 llama.cpp、MLX、Ollama、vLLM 等运行时支持——这让「本地跑一个能用的智能体」第一次不需要先做一轮工程适配。",
       "whoShouldCare": [
-        "代码由智能体大量产出、而审查流程还是为人手写代码设计的团队",
-        "负责发布安全的人：这条给出的是把关口从合并挪到渐进放量的完整理由",
-        "在建 AI 代码审查工具的人——「不扮演人类审查者，只回答一个问题」是一条明确的设计约束",
-        "任何在维护一条「当初为什么这么定」已经没人记得的工程规则的团队"
+        "在自己机器或工作站上跑智能体、不想把数据交给云 API 的开发者",
+        "需要为 24 至 32GB 显存预算选模型的端侧工程师",
+        "关心开放权重模型在工具调用可靠性上追到哪一步的技术决策者"
       ],
-      "technicalContext": "Rootly 此前要求堆叠 PR、单次原子变更控制在几百行内。替换方案包含三部分：以爆炸半径而非 diff 大小定级；内部 AI 审查器输出风险评估、标准化评分、置信度评分与按严重程度分类的问题列表，并区分「改变业务行为」与「仅影响性能或展示」两类变更；所有重要特性经特性开关上线，合并后默认关闭，按团队内部→小批客户→10%→全量渐进放量。PR 的 why/what 由使用智能体的人填写，明确禁止 AI 生成；每个 PR 须描述安全回退方式，含数据修复。Rewind 的 Diff Vader 采用同类风险模型。",
+      "technicalContext": "训练路径分四段：从更大的 Muse Spark 做 logit 蒸馏迁移基础推理能力；中期训练用长上下文序列扩大规模，数据包含复杂推理轨迹、交错的文本与图像、以及多步工具调用轨迹；后训练结合 SFT、同策略蒸馏与强化学习，优化代码生成、工具使用和结构化规划。一个 18 亿参数的感知编码器让它原生处理交错多模态输入，因此本地智能体可以在执行代码或自动化流程时直接读截图、图表和文档。",
       "impactAreas": [
-        "智能体产出代码后的评审流程设计",
-        "发布安全从合并阶段转移到渐进放量",
-        "AI 代码审查工具的职责边界",
-        "工程规则的前提失效后如何被识别"
+        "端侧推理",
+        "智能体工程",
+        "开放权重生态"
       ],
       "learningPath": [
-        "先把那句判据记住：代码能正常运行，只是被用在了错误的场景中——这类缺陷测试与类型检查都拦不住",
-        "拿你团队现有的一条评审规则，写出它成立所依赖的前提，再看那个前提今天还在不在",
-        "读《人在回路的审查》：这条正是「按不可逆性放检查点」的实践版——合并变得可逆之后，检查点自然移到了放量",
-        "读《智能体工作流设计》里那条判据：如果模型决定越界，是什么在物理上阻止它？特性开关是一个真实的答案",
-        "把「这个变更坏了会影响哪些面向用户的功能」写成模板，先用人工填一周，再考虑要不要做成工具"
+        "先算内存账：权重之外还要留出 KV 缓存、感知嵌入和 DFlash 草稿模型的开销，这一步决定你的机器跑不跑得动",
+        "读《模型量化与数值精度》：4 位动态量化把 55GB 压到 17 至 20GB 是这条信号成立的前提，也是精度风险所在",
+        "读《推测解码与推理加速技术》：草稿模型并行验证是那 3.1 倍的来源，也决定了它在什么条件下不成立",
+        "在你自己的任务上复测失败恢复行为：报错后另找路径是能力还是基准特例，只有你的工具链能回答",
+        "读《模型与推理引擎的支持路径》，把「首日支持」按四级口径拆开，判断你要等的是哪一级"
       ],
       "relatedKnowledgeExplanations": {
-        "knowledge-ws-e251051e": "「代码能跑，只是用错了场景」是这条判据在生产环境里的完整形态：测试全绿仍然可以是错的。",
-        "knowledge-human-loop": "合并变得可逆之后，检查点自然从合并挪到了渐进放量——这正是按不可逆性放检查点的做法。",
-        "knowledge-feedback-loops": "一条推行两年的规则被废掉，靠的是先做一次失败的尝试再读它的结果，而不是靠讨论。",
-        "knowledge-system-design": "小 PR 是一次权衡，不是一条常识；它的前提写下来之后，前提失效时才有人敢动它。"
+        "knowledge-ws-34da6116": "4 位动态量化把 55GB 压到 17 至 20GB，是这条信号能成立的前提而不是附注。",
+        "knowledge-ws-68963f7f": "DFlash 的草稿模型一次提多个 token 并行验证，最多 3.1 倍吞吐就来自这里。",
+        "knowledge-model-sizing": "决定跑不跑得动的不是参数量，而是权重加 KV 缓存、感知嵌入与草稿模型的总开销。",
+        "knowledge-ws-e251051e": "厂商把「这一步做完了吗」当成可训练目标，而不是等它作为副产物涌现。",
+        "knowledge-latency-tradeoffs": "3.1 倍没有附上下文长度与批量，速度永远是「在某组条件下的速度」。"
       },
       "relatedSkillExplanations": {
-        "skill-agent-design": "决定好不好用的是流程的形状：智能体以特性为单位输出，评审就不能继续以增量为单位。",
-        "skill-ws-f741f122": "真正的审查发生在渐进放量里，也就是说这里的观测指标才是验收信号。",
-        "skill-communication-ai": "PR 的「为什么」明确禁止 AI 生成——这一段的价值全在于它是人写给人的。",
-        "skill-model-evaluation": "风险评估、标准化评分与置信度评分构成的是一份可比较的结构化输出，而不是又一段自然语言意见。"
+        "skill-ws-d7c9d1d8": "量化档位、运行时路径、显存余量三件事在这条信号里是一起被决定的，正是这条技能的单机口径。",
+        "skill-ws-7796779a": "首日就有 llama.cpp、MLX、vLLM 的原生支持，等于一上来就落在「有性能路径」那一级。",
+        "skill-ws-dddaf80c": "公告给的是相对表述而非逐项分数，正是「哪些数字可直接比」这一问要处理的情况。",
+        "skill-tool-integration": "报错后诊断并另找路径，是把失败吸收在工具层之外、由模型自己承担的那一半。"
       },
       "followUpQuestions": [
-        "你们的评审规则里，哪几条的成立前提是「代码由人手写」？其中哪几条今天还成立？",
-        "一个变更出问题时，你能在几分钟内说出它会坏掉哪些面向用户的功能吗？如果不能，评审在评什么？",
-        "特性开关把关口挪到了放量阶段——那么谁在看放量期间的指标，看多久？",
-        "PR 里的「为什么」如果由生成代码的智能体来写，你还能从中得到什么信息？"
+        "在你的真实任务上，失败恢复行为是稳定的能力还是基准里的特例？",
+        "4 位量化之后，工具调用的结构化输出正确率下降了多少？",
+        "3.1 倍吞吐是在什么上下文长度和批量下测出来的？"
       ],
       "readingDifficulty": "intermediate",
       "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-08-18T10:27:23.452Z",
-      "updatedAt": "2026-08-18T10:44:42.916Z",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-23T16:09:54.672Z",
+      "updatedAt": "2026-08-23T16:35:11.690Z",
       "editorialNotes": [
-        "候选是 InfoQ 中文对 Rootly 博文的编译（作者 Matt Saunders），已抓取全文读过；一手主张来自 Rootly 联合创始人兼 CTO Quentin Rousseau。",
-        "publisherName 由转换填入的「作者：Matt Saunders」改为 Rootly——发布方是提出这套做法的机构，不是编译文章的记者，也不是它到达的那个 feed。",
-        "type 由转换猜测的 tool 改为 workflow：这条讲的是评审流程的形状。",
-        "slug 由转换生成的 draft-ai-rootly-pr 改写。",
-        "旁证在正文中保留但标注来源：Rewind 的 Diff Vader、QCon London 2026 的 Michael Webster、AI 原生开发者大会上的 Patrick Debois。",
-        "刻意写明边界：这是实践复盘，没有改动前后的缺陷率或事故数对照。"
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010"
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669"
       ]
     },
     {
@@ -180,7 +175,7 @@
           "发布方类型属于强技术信号来源。"
         ],
         "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-18T10:44:42.838Z",
+        "rankingUpdatedAt": "2026-08-23T16:23:55.477Z",
         "rankingSource": "rule_based"
       },
       "whyItMatters": "它把一个反复出现的现象从「AI 会做数学题了」升级成一条可用的分界线：模型强在广度加便宜的失败，也就是「在巨大空间里找到那个确实存在但没人找到的对象」；弱在中途判断一条路该不该继续走。这条界线不是数学专属——任何把模型放进搜索、生成、调参或自动化流水线的团队，都会在同一个位置遇到它：模型愿意一直试，而没有人负责喊停。它同时给出了一个具体的诊断信号，也就是反复交出「更精确的子问题」而没有实质进展。",
@@ -226,7 +221,7 @@
       "intelligenceStatus": "needs_enrichment",
       "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-474381",
       "createdAt": "2026-08-18T10:31:55.546Z",
-      "updatedAt": "2026-08-18T10:44:42.838Z",
+      "updatedAt": "2026-08-23T16:23:55.477Z",
       "editorialNotes": [
         "一手来源已直接读过：Timothy Gowers 的博客原文（gowers.wordpress.com，2026-08-12），候选是量子位的二手报道。",
         "publisherName 由转换填入的作者笔名「梦瑶」改为原文作者 Timothy Gowers；publisherType 由 startup 改为 research-lab。",
@@ -239,8 +234,692 @@
         "draft-candidate-rss-https-www-qbitai-com-p-472016",
         "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
         "draft-candidate-rss-https-www-qbitai-com-p-468782",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010"
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code"
       ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "slug": "rootly-retires-small-pr-rule",
+      "title": {
+        "original": "Rootly retires its small-PR rule as AI agents change what a code review is for",
+        "zh": "Rootly 废掉了小 PR 规则：审查的对象从行数换成了影响半径"
+      },
+      "summary": {
+        "original": "Incident-management vendor Rootly abandoned a two-year-old strict small-pull-request culture after AI agents changed the unit of work, replacing diff size with blast radius, moving the safety boundary from merge to progressive release, and building a reviewer that answers one question per PR.",
+        "zh": "事故管理平台 Rootly 放弃了推行两年的严格小 PR 文化——智能体以「特性」而不是「增量」为单位输出，一次给出迁移、模型、服务、控制器、测试和前端。他们试过让智能体产出堆叠 PR，结果技术上没错、业务上更糟。最终的替换不是换工具而是换判据：衡量代码行数改成衡量爆炸半径，安全边界从合并挪到渐进发布，内部审查器对每个 PR 只回答一个问题——如果这个变更有缺陷，会坏掉哪些面向用户的功能。"
+      },
+      "content": {
+        "original": "Rootly co-founder and CTO Quentin Rousseau, via InfoQ (Matt Saunders), 2026-08-17.",
+        "zh": "Rootly 是做事故管理的，两年来一直推行严格的小 PR 文化：要求堆叠 PR，把一次原子变更限制在几百行以内。联合创始人兼 CTO Quentin Rousseau 说明为什么这条规则被废掉——而理由不是它错了，是**它当初为之设计的那个前提没有了**。\n\n## 智能体改变的是工作的单位\n\n人手写代码时，小 diff 更好审、更好回滚，所以小 PR 是最优解。智能体不是这样工作的：它以**特性**而不是**增量**为单位思考，一次性输出完整实现——数据库迁移、模型、服务、控制器、测试、前端组件一起给出来。\n\n他们**试过**把这套流程套上去，让智能体生成堆叠 PR。结果是技术上挑不出错、整体业务上下文里反而更糟：审查某一个 PR 时，意见往往要依赖另一个 PR 里的改法，评审人被迫来回翻页重新梳理逻辑。**这是一次带负面结果的尝试，不是一次直觉判断**。\n\n## 缺陷的形态也变了\n\n工程团队给出的描述很精确：**AI 引发的漏洞本质是上下文漏洞——代码本身能正常运行，只是被用在了错误的场景中。** 举的两个例子都不需要读代码就能懂：某次数据库迁移删掉了后台任务仍在调用的字段；某个服务往一张表里写数据，而那张表正被另一个团队读取。\n\n这正是本站《完成判定与验收信号》里那条判据的生产版本：**一次成功的调用不等于一次正确的行动。** 类型检查、测试、lint 全绿，仍然可以是错的。\n\n## 换掉的是判据，不是工具\n\n三件事一起动：\n\n1. **爆炸半径取代代码行数。** 团队的原话是「代码改动量的大小已不再具备参考价值，真正关键的指标是故障影响范围」。\n2. **内部 AI 审查器只回答一个问题**：如果这个变更存在缺陷，会破坏哪些面向用户的功能？它明确**不试图扮演人类审查者**，产出的是一份结构化报告——风险评估、标准化评分、置信度评分、按严重程度分类的问题列表——并把「会改变业务行为」的变更和「只影响性能或界面展示」的变更分开定级。给人类的是一个结构化的参考面，不是一份原始 diff。\n3. **安全边界从合并挪到发布。** 每个重要特性都在特性开关后面上线：PR 合并、代码进生产之后，特性默认是关的。真正的审查发生在渐进放量的过程里——先团队内部，再一小批客户，再 10%，最后全量。\n\n## 两条容易被跳过的细节\n\nPR 里的「为什么」和「是什么」由**使用智能体的那个人**填写，而且 Rootly **明确要求 AI 助手不要生成这部分**——因为这一段存在的目的就是捕获上下文：为什么要做这个变更、为什么是现在、对应什么业务诉求。让生成代码的同一个东西去解释这段代码，等于把这段的价值抵消掉。\n\n另一条：每个 PR 都必须描述如何安全回退，**包括必要的数据修复**。\n\n## 不是一家公司的孤例\n\n备份与版本控制服务商 Rewind 的审查工具 Diff Vader 借鉴了同一套基于风险的模型，其团队写道：一个 PR 的风险与它的代码行数几乎无关。2026 年伦敦 QCon 上，Michael Webster 讨论了无界面智能体产出的大 PR 给人工审核造成的瓶颈与持续累积的技术债。同年 6 月的伦敦 AI 原生开发者大会上，被广泛称为 DevOps 之父的 Patrick Debois 提出了更激进的一版：PR 在开源社区里有意义，因为贡献者之间的方向未必一致、需要逐步建立信任；而在一个共享上下文与目标的团队内部，当智能体快速迭代时，PR 审查周期越来越难证明自己的合理性。\n\n同一场讨论里还有一句值得单独记下来的：**过去纯人工开发阶段流程中的低效很难被察觉，而如今智能体的 token 消耗可以量化，浪费会实实在在体现在账单上。** 这与本站那条 180 万美元的账单信号是同一个机制的两面——账单先是灾难，然后成了唯一诚实的度量。\n\n## 边界\n\n这是一家公司的实践复盘，**不是对照实验**：没有给出改动前后的缺陷率、审查耗时或事故数。可迁移的是判据与失败形态，不是「废掉小 PR 一定更好」这个结论。Rousseau 自己也写明，废掉一条曾经感觉非常正确的流程，起初让人很不适应。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-17",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/FzWV9Jzv2CPK8yjLPxdA?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Rootly",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-e251051e",
+        "knowledge-human-loop",
+        "knowledge-feedback-loops",
+        "knowledge-system-design"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-communication-ai",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-23T16:23:55.426Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它是一次少见的、把流程规则连同它的前提一起写出来的复盘：小 PR 之所以正确，是因为人类写代码时 diff 大小与审查成本相关；智能体让这个相关性失效，于是规则本身失效。更有用的是它给出的替换——衡量爆炸半径而不是行数、把安全边界从合并挪到渐进发布、让审查器对每个 PR 只回答「坏了会影响谁」——三件都是可以照搬的具体做法。而它对缺陷形态的描述（代码能跑，只是用错了场景）正是这个站点反复遇到的那条判据在生产环境里的样子。",
+      "whoShouldCare": [
+        "代码由智能体大量产出、而审查流程还是为人手写代码设计的团队",
+        "负责发布安全的人：这条给出的是把关口从合并挪到渐进放量的完整理由",
+        "在建 AI 代码审查工具的人——「不扮演人类审查者，只回答一个问题」是一条明确的设计约束",
+        "任何在维护一条「当初为什么这么定」已经没人记得的工程规则的团队"
+      ],
+      "technicalContext": "Rootly 此前要求堆叠 PR、单次原子变更控制在几百行内。替换方案包含三部分：以爆炸半径而非 diff 大小定级；内部 AI 审查器输出风险评估、标准化评分、置信度评分与按严重程度分类的问题列表，并区分「改变业务行为」与「仅影响性能或展示」两类变更；所有重要特性经特性开关上线，合并后默认关闭，按团队内部→小批客户→10%→全量渐进放量。PR 的 why/what 由使用智能体的人填写，明确禁止 AI 生成；每个 PR 须描述安全回退方式，含数据修复。Rewind 的 Diff Vader 采用同类风险模型。",
+      "impactAreas": [
+        "智能体产出代码后的评审流程设计",
+        "发布安全从合并阶段转移到渐进放量",
+        "AI 代码审查工具的职责边界",
+        "工程规则的前提失效后如何被识别"
+      ],
+      "learningPath": [
+        "先把那句判据记住：代码能正常运行，只是被用在了错误的场景中——这类缺陷测试与类型检查都拦不住",
+        "拿你团队现有的一条评审规则，写出它成立所依赖的前提，再看那个前提今天还在不在",
+        "读《人在回路的审查》：这条正是「按不可逆性放检查点」的实践版——合并变得可逆之后，检查点自然移到了放量",
+        "读《智能体工作流设计》里那条判据：如果模型决定越界，是什么在物理上阻止它？特性开关是一个真实的答案",
+        "把「这个变更坏了会影响哪些面向用户的功能」写成模板，先用人工填一周，再考虑要不要做成工具"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-e251051e": "「代码能跑，只是用错了场景」是这条判据在生产环境里的完整形态：测试全绿仍然可以是错的。",
+        "knowledge-human-loop": "合并变得可逆之后，检查点自然从合并挪到了渐进放量——这正是按不可逆性放检查点的做法。",
+        "knowledge-feedback-loops": "一条推行两年的规则被废掉，靠的是先做一次失败的尝试再读它的结果，而不是靠讨论。",
+        "knowledge-system-design": "小 PR 是一次权衡，不是一条常识；它的前提写下来之后，前提失效时才有人敢动它。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "决定好不好用的是流程的形状：智能体以特性为单位输出，评审就不能继续以增量为单位。",
+        "skill-ws-f741f122": "真正的审查发生在渐进放量里，也就是说这里的观测指标才是验收信号。",
+        "skill-communication-ai": "PR 的「为什么」明确禁止 AI 生成——这一段的价值全在于它是人写给人的。",
+        "skill-model-evaluation": "风险评估、标准化评分与置信度评分构成的是一份可比较的结构化输出，而不是又一段自然语言意见。"
+      },
+      "followUpQuestions": [
+        "你们的评审规则里，哪几条的成立前提是「代码由人手写」？其中哪几条今天还成立？",
+        "一个变更出问题时，你能在几分钟内说出它会坏掉哪些面向用户的功能吗？如果不能，评审在评什么？",
+        "特性开关把关口挪到了放量阶段——那么谁在看放量期间的指标，看多久？",
+        "PR 里的「为什么」如果由生成代码的智能体来写，你还能从中得到什么信息？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-08-18T10:27:23.452Z",
+      "updatedAt": "2026-08-23T16:23:55.426Z",
+      "editorialNotes": [
+        "候选是 InfoQ 中文对 Rootly 博文的编译（作者 Matt Saunders），已抓取全文读过；一手主张来自 Rootly 联合创始人兼 CTO Quentin Rousseau。",
+        "publisherName 由转换填入的「作者：Matt Saunders」改为 Rootly——发布方是提出这套做法的机构，不是编译文章的记者，也不是它到达的那个 feed。",
+        "type 由转换猜测的 tool 改为 workflow：这条讲的是评审流程的形状。",
+        "slug 由转换生成的 draft-ai-rootly-pr 改写。",
+        "旁证在正文中保留但标注来源：Rewind 的 Diff Vader、QCon London 2026 的 Michael Webster、AI 原生开发者大会上的 Patrick Debois。",
+        "刻意写明边界：这是实践复盘，没有改动前后的缺陷率或事故数对照。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "slug": "qwen3-8-27b",
+      "title": {
+        "original": "源神启动！一张消费级显卡跑「Opus 级」Agent，Qwen3.8-27B 多项榜单反超 Claude",
+        "zh": "Qwen3.8-27B 开源：消费级显卡跑得动，尺子却是自己命名的"
+      },
+      "summary": {
+        "original": "阿里巴巴于 2026-08-14 以 Apache 2.0 开源 Qwen3.8-27B：270 亿参数稠密原生多模态模型，262K 原生上下文可外推至 100 万 token，量化后可装进 24GB 显存。",
+        "zh": "270 亿参数、原生多模态、262K 上下文可外推到 100 万，Apache 2.0，量化后一张 24GB 消费级显卡装得下——这一代 Qwen 把「本地跑得动的智能体」这条线又往前推了一格。榜单确实好看，但领先幅度最大的那一项跑在一把以厂商自己命名的基准上，而所有对比都由厂商自己完成。"
+      },
+      "content": {
+        "original": "Alibaba open-sourced Qwen3.8-27B under Apache 2.0 on 2026-08-14: a 27B dense natively-multimodal model with 262K native context extendable to 1M tokens via YaRN.",
+        "zh": "2026-08-14，阿里以 Apache 2.0 协议开源 Qwen3.8-27B。27B 是社区呼声最高的尺寸，原因很实际：**量化之后，24GB 显存的 RTX 3090 / 4090 这类显卡能整卡装下**，而上下文没有跟着缩水——原生 262K token，通过 YaRN 可外推至 100 万。\n\n## 值得记的是架构，不是尺寸\n\n模型共 64 层，其中 **48 层用 Gated DeltaNet 线性注意力，16 层保留完整注意力**，大致按「三层线性 + 一层完整」的节奏循环。线性注意力压住长序列的计算与缓存开销，完整注意力隔几层做一次更充分的信息交互——262K 原生上下文是这个配比换来的，不是堆出来的。这个骨干与 Qwen3.5 / 3.6 同源，ms-swift 的发布说明也是这么描述的。\n\n两个面向长任务的开关同样值得记：\n\n1. `reasoning_effort` **分 xhigh / medium / low 三档**，复杂代码与长程智能体任务拉高，简单问答降下来换速度和成本；Thinking 也可以整个关掉。\n2. `preserve_thinking` **默认开启**，前几轮「怎么想的」会留在后续上下文里。编码智能体连改十几个文件时，可以沿着前面的决策继续走，同时更好地复用 KV 缓存。\n\n**补充（2026-08-17）**：第一份第三方动手实测出来了，而它指向的正是第一条那个默认值。同一道画图题，出厂的 `xhigh` 默认档跑 **21 分钟、烧掉 22,276 个思考 token**，关掉思考只要 **137 秒**；LM Studio 默认 8,192 的上下文会被思考过程整个吃光。**先用 low 或直接关掉思考跑**，再决定要不要拉高。详见延伸阅读那条。\n\n## 生态当天就跟上了\n\n- **Ollama v0.32.12**（08-14）加入 `qwen3.8:27b`，并为 Apple Silicon 单独提供了 `qwen3.8:27b-mlx` 构建；次日的 v0.32.13 补上开发者指令支持。\n- **ms-swift v4.5.0**（08-14）同日适配训练与后训练侧。\n- 官方侧接上了 Transformers、vLLM、SGLang 与 TokenSpeed，Hugging Face 上量化版本入口同时开放。\n\n首日可服务这件事本身已经不新鲜了——从 Kimi K3 到 Muse Glimmer，本站记过好几次；值得注意的是这次连 Apple Silicon 的专用构建都在同一天。\n\n## 榜单很好看，但尺子是谁的\n\n厂商公布的对比里，Qwen3.8-27B 在多项评测上超过 Claude Opus 4.6 Max：\n\n- **SWE-bench Pro**：领先 8.3 分\n- **QwenSWEBench**：领先 15.2 分\n- **CoWorkBench**：70.7 对 68.2\n- **OSWorld-Verified**（电脑操作）：84.3 对 72.7\n- **AndroidWorld**（手机操作）：81.9 对 62.0\n\n**领先幅度最大的那一项，跑在一把名字里带着厂商自己的基准上。** 本站《模型与输出评估》里那条判据在这里几乎是逐字适用的：一个数字能不能横比，先问这把尺子有没有量过别人。QwenSWEBench 领先 15.2 分，而第三方的 SWE-bench Pro 领先 8.3 分——两个数差了将近一倍，方向一致但幅度不一致，而且**所有对比都是厂商自己跑的**，不是第三方复现。\n\n浏览器操作 WebArena-Verified 从上一代的 48.8 提升到 64.8，是这批数字里口径最干净的一个：同族前一版，同一项评测。\n\n## 社区实测是用户报告，不是评测\n\n量子位那篇里引了两条网友实测，值得读但要按用户报告对待：一位把 FP8 版本放在单张 GH200 上并发跑 10 个请求、每个最高输出 16K token、上下文拉到 262K，首批流式 token 基本在 10 毫秒内返回；另一位丢给它一部 1935 年的 11 分钟影片，让它识别 96 个带时间戳的事件并逐字引用画面文字，157 秒完成、时间点误差约 2 秒。没有对照组、没有重复运行，所以它们说明的是「跑得起来」，不是「跑得比谁好」。\n\n## 一处可核对的口径差\n\n官方称千问已累计开源 460 余个模型、全球下载超 30 亿次、**衍生模型数超 30 万个**。同一周 Hugging Face 那份生态报告独立数出来的是 **Hub 上 151,448 个 Qwen 衍生模型**。两个数字差了大约一倍，但并不矛盾——一个统计跨平台（含魔搭），一个只统计 Hub。**知道它们口径不同，比记住哪个更大有用。**"
+      },
+      "type": "model",
+      "publishDate": "2026-08-15",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/08/473669.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "阿里巴巴通义千问",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-on-device",
+        "tag-multimodal",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-c761533e",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-ws-d7c9d1d8",
+        "skill-model-evaluation",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-23T16:23:55.326Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "本地能跑的那一档模型，长期以来的代价是上下文短、多模态缺失或智能体能力弱。27B 这个尺寸同时给了 262K 原生上下文、原生视觉理解和可调的推理深度，而且是 Apache 2.0——这把「先看看能不能本地跑」从妥协方案变成了默认起点。同一周 Hugging Face 的生态报告给了这件事的宏观背景：小模型拿走 83% 的下载量，而 Qwen 是社区衍生模型最多的基座。",
+      "whoShouldCare": [
+        "手里有一张 24GB 消费级显卡或大内存 Mac、想在本地跑长上下文编码智能体的开发者",
+        "在自托管与云 API 之间做取舍、需要知道本地档位上限已经推到哪里的平台团队",
+        "要读厂商发布公告并决定换不换的技术负责人——尤其是需要区分第三方基准与自命名基准的那一类",
+        "关心线性注意力与完整注意力混合骨干如何换来长上下文的推理工程师"
+      ],
+      "technicalContext": "64 层骨干中 48 层为 Gated DeltaNet 线性注意力、16 层为完整注意力，按三比一循环，与 Qwen3.5 / 3.6 同源。原生 262K token 上下文，经 YaRN 外推至 100 万。原生多模态，覆盖图片、文档、图表与视频理解。reasoning_effort 提供 xhigh / medium / low 三档并可完全关闭 Thinking；preserve_thinking 默认开启，把前几轮推理保留进后续上下文以复用 KV 缓存。Apache 2.0，量化后可在 24GB 显存整卡装载，推理路径覆盖 Transformers、vLLM、SGLang、TokenSpeed、Ollama（含 MLX 构建）与 ms-swift。",
+      "impactAreas": [
+        "本地与云混合推理的档位划分",
+        "长上下文所依赖的注意力混合架构",
+        "厂商自命名基准与第三方基准的可比性",
+        "开源模型生态的首日支持速度"
+      ],
+      "learningPath": [
+        "先把三项数字分开放：第三方基准（SWE-bench Pro）、厂商自命名基准（QwenSWEBench）、同族前一版对比（WebArena-Verified 48.8 到 64.8），只有第三类和第一类能直接用",
+        "再算显存，而不是看参数量——27B 在什么量化档位下装进 24GB，决定了这条信号对你成不成立",
+        "把 reasoning_effort 三档在自己的任务上各跑一遍，记录首字延迟与稳态吞吐的变化，而不是只记准确率",
+        "读《模型选型与约束匹配》与《旗舰模型发布解读与换代判断》，把「该不该换」和「换得了吗」分成两个问题"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "27B 加一张 24GB 显卡是这条概念里最干净的一次实例：决定跑不跑得动的是显存与量化档位，不是参数量本身。",
+        "knowledge-ws-34da6116": "「量化后装得进 24GB」这句话省略了量化档位，而不同档位对长上下文输出质量的影响正是这条概念要回答的。",
+        "knowledge-ws-c761533e": "本地这一档的上限被推高之后，本地与云的分界线要重新画一次——这次是往云那边挪。",
+        "knowledge-latency-tradeoffs": "reasoning_effort 三档本质上是把「想多久」变成一个可调参数，也就是把延迟预算交回给调用方。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "这条公告里三类数字（第三方基准、自命名基准、同族前一版）恰好凑齐，是这条技能那套分类法的现成练习题。",
+        "skill-ws-d7c9d1d8": "量化档位、运行时路径与显存预算三件事在这条信号里全部具体化了，包括 Apple Silicon 的专用构建。",
+        "skill-model-evaluation": "「这把尺子有没有量过别人」在 QwenSWEBench 上得到的答案，直接决定了 15.2 分该怎么读。",
+        "skill-ws-7796779a": "首日在 vLLM、SGLang、Ollama 与 ms-swift 上同时可用，是「有性能路径」这一档而不只是「能加载」。"
+      },
+      "followUpQuestions": [
+        "QwenSWEBench 有没有量过第三方模型？如果没有，那 15.2 分的领先能说明什么？",
+        "262K 原生上下文在你的显存预算下还剩多少可用——KV 缓存吃掉的部分算进去了吗？",
+        "preserve_thinking 默认开启会让上下文更快填满，长任务里它是净收益还是净成本？",
+        "线性注意力占 48 层，在需要精确长距离检索的任务上会不会先掉链子？有没有针对这一点的评测？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-473669",
+      "createdAt": "2026-08-15T22:30:28.604Z",
+      "updatedAt": "2026-08-23T16:23:55.326Z",
+      "editorialNotes": [
+        "来源为量子位对阿里开源公告的报道；架构、上下文长度、许可与基准数字均出自该报道所引的官方公告。",
+        "Ollama v0.32.12 / v0.32.13 与 ms-swift v4.5.0 的发布说明为 2026-08-16 通过 GitHub API 一手核对，两条候选据此拒绝并把事实写进本文。",
+        "publisherName 由转换时默认填入的量子位作者笔名改为阿里巴巴通义千问，publisherType 由 startup 改为 big-tech。",
+        "所有基准均为厂商自测，正文已逐条标注；QwenSWEBench 的自命名问题是本条的编辑判断，不是原文观点。",
+        "官方称衍生模型逾 30 万，而 Hugging Face 生态报告数出 Hub 上 151,448 个——正文按口径不同处理，未择一采信。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "slug": "lfm2-5-2-6b-on-device-agents",
+      "title": {
+        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
+        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
+        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
+      },
+      "summary": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
+        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
+        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
+      },
+      "content": {
+        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
+        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
+      },
+      "type": "model",
+      "publishDate": "2026-08-04",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-on-device",
+        "tag-ai-agents",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-tool-use",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-agent-design",
+        "skill-tool-integration",
+        "skill-ws-84837d46",
+        "skill-ws-7796779a"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-23T16:23:55.258Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
+      "whoShouldCare": [
+        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
+        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
+        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
+      ],
+      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
+      "impactAreas": [
+        "端侧与边缘部署",
+        "智能体工具循环",
+        "推理成本与隐私边界",
+        "后训练方法"
+      ],
+      "learningPath": [
+        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
+        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
+        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
+        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
+        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
+        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
+        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
+        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
+        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
+        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
+        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
+        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
+      },
+      "followUpQuestions": [
+        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
+        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
+        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "createdAt": "2026-08-06T12:45:47.493Z",
+      "updatedAt": "2026-08-23T16:23:55.258Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "slug": "conceptual-integrity-and-lines-of-code",
+      "title": {
+        "original": "Conceptual integrity and counting lines of code",
+        "zh": "以前替你否掉那个功能的是一周工期，现在它只要一小时"
+      },
+      "summary": {
+        "original": "Simon Willison argues that lines of code can be a meaningful productivity indicator, that the new limiting factor is cognitive capacity, and that conceptual integrity is what coding agents make hardest to keep.",
+        "zh": "Simon Willison 在一次播客里给「代码行数」做了辩护，又给它划了边界：过去一个工程师一天能产出几百行可上生产的代码，两百行已经是极好的一天；如果智能体让这个数字到一千行且质量不变，那是实打实的提升。但产能不是新的瓶颈——认知容量才是。他随后接上《人月神话》的「概念完整性」：加一个功能的成本从一周掉到一小时之后，那个替你否决它的刹车也一起没了。"
+      },
+      "content": {
+        "original": "See simonwillison.net for the original English text.",
+        "zh": "## 给代码行数做的那半个辩护\n\n多数人会告诉你，用代码行数衡量生产力毫无意义。作者不同意，理由是**那里存在一个硬上限**。\n\n在智能体之前，一个软件工程师一天能产出几百行可上生产的代码；**两百行经过调试、可上生产的代码已经是极好的一天**，多数日子是五六十行。如果智能体让你产出一千行经过调试的代码，**并且质量不变**——可维护、有测试——那就是一次实打实的提升。\n\n这句话的重量全在「并且质量不变」那半句上。作者自己补的条件是：做到这一点需要大量技能、知识和经验，**而那正是资深工程师的构成**。\n\n## 但新的瓶颈不在产能这一侧\n\n顺着上面的逻辑很容易问：既然一个人能做的事多这么多，公司为什么还需要不止一个工程师？\n\n除了「一个人的团队是设计得很糟的团队」这类显而易见的理由之外，作者给的答案是**认知容量**：\n\n我可以把代码产出快一百倍，但我没有一百倍的认知容量去跟住那一百倍的代码。\n\n所以团队仍然需要存在——不是为了分摊打字，是为了**把认知容量分摊开**。这条判据的用处在于它可被检验：如果你的产出翻了十倍而审阅能力没变，那么多出来的九倍由谁负责，是一个有明确答案的问题。\n\n## 概念完整性，和那栋不停加房间的房子\n\n《人月神话》里有一个概念叫**概念完整性**：设计良好的软件有一种整体性——里面没有意外，它恰好覆盖该覆盖的那些事，各部分彼此说得通。\n\n作者说，这件事在智能体面前难得多：你有一个功能的想法，跑一次提示词，五分钟后功能就有了。于是**你的软件会朝各个奇怪的方向长出小疙瘩**。\n\n访谈里对方给出的类比是温彻斯特神秘屋——那栋有 140 个房间的宅子，因为主人被告知必须不停盖下去，于是盖了四十年。加房间太便宜，最后得到的东西**概念完整性散掉了，而它散掉之后，关于它的决定也更难做了**。（作者顺带标注：维基百科上有可信来源对那个动机传说提出质疑。）\n\n## 真正的发现是那个刹车原来一直存在\n\n这一节是这条信号被收录的原因。\n\n作者把它归到纪律上，而关键在于**纪律此前不是靠自觉执行的**：\n\n以前那个纪律是由所需时间替你强制执行的。你想到一个疯狂功能，然后想「是啊，但那要花我一周——我没法说服自己，算了」。如果它只要一小时，就好说服自己得多。\n\n也就是说：**过去替你否决那个功能的从来不是你的判断力，是工期。** 工期从一周掉到一小时之后，被移除的不是那个功能，是那个否决动作本身。\n\n把它接回本站已发布的两条：Rootly 那条换掉的是**评审的度量**（从代码行数换成影响半径），这一条解释了**为什么那个度量非换不可**——增量本身不再是稀缺的东西；而 Gowers 那条说模型的短板是「闻出这条路没戏并剪枝」，这一条说的是**人类那一侧的剪枝动机同样正在被成本曲线抽走**。\n\n## 这条信号的边界\n\n- 它是**播客转录稿的节选**，不是带工件的评估：没有测量、没有对照、没有可复现的实验。本站此前拒过多篇论述型无工件的文章，这条的区别在于它提出的机制可被各自检验，而不在于它更有说服力。\n- 「一天两百行」是作者的经验值，不是某项研究的结论，也没有给出适用的语言、领域或团队规模。\n- 「一百倍」是修辞而不是测量。\n- 温彻斯特神秘屋的动机传说存在争议，作者已自行标注，这里照样保留。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-19",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Aug/19/conceptual-integrity-and-counting-lines-of-code/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Simon Willison",
+      "publisherType": "open-source-community",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-feedback-loops",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-23T16:22:13.504Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "本站最近连着三条信号都落在同一个问题上——没有人负责喊停。这一条给出了机制层面的解释：过去的纪律不是靠人自觉，而是由时间成本代为执行的。工期从一周变成一小时，被删掉的不是那个功能，是那个判断。",
+      "whoShouldCare": [
+        "用智能体写代码、并且已经感觉到代码库在往奇怪方向长的工程师",
+        "要为「一个人能顶几个人」这类说法定口径的技术负责人",
+        "在做架构评审、需要一条比「代码量」更好的判据的人"
+      ],
+      "technicalContext": "内容来自 Talking Postgres 播客的一期访谈，主题是「AI 如何改变软件开发」。作者本人说明文字是经过轻微编辑的转录稿——去掉口头语，未改变论点。两段引文分别出现在访谈的 35 分 01 秒和 46 分 03 秒。",
+      "impactAreas": [
+        "工程实践",
+        "团队组织",
+        "技术债"
+      ],
+      "learningPath": [
+        "先接受那个上限：一天两百行可上生产的代码已是极好的一天，这是判断「提升了多少」的基线",
+        "把瓶颈换个位置想：产能涨一百倍，你审得过来的量没有跟着涨一百倍",
+        "读《系统设计的权衡》：概念完整性是一次持续的权衡，而不是一开始定好就能一直成立的属性",
+        "对照本站已发布的 Rootly 信号：那条换掉的是评审的度量，这条说的是评审为什么必须被换掉",
+        "给自己补一个刹车：写下「这个功能要通过什么才值得加」，因为工期已经不替你写了"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-system-design": "概念完整性是一次要持续付钱的权衡，不是一开始定好就一直成立的属性。",
+        "knowledge-feedback-loops": "认知容量要在团队之间分摊，这是团队学习节奏的问题而不是个人产能问题。",
+        "knowledge-human-loop": "被抽走的正是那个「说不」的位置——而审查者的价值恰恰在于能说不。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "决定结果的是流程的形状：产能上去之后，形状里必须有人补上一个否决动作。",
+        "skill-scope-pilots": "「这个功能值不值得做」过去由工期代答，现在必须写成明确的判据。",
+        "skill-ws-2152c7f1": "加一个房间变便宜，意味着「要不要自己拥有这一层」这类决定的成本结构也变了。"
+      },
+      "followUpQuestions": [
+        "你的团队现在还有没有一个会说「不加」的机制？它由谁执行？",
+        "如果产出翻了十倍而审阅能力没变，多出来的那部分是谁在负责？",
+        "你的代码库最近长出来的那几个功能，彼此之间还说得通吗？"
+      ],
+      "readingDifficulty": "beginner",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "createdAt": "2026-08-23T16:09:54.901Z",
+      "updatedAt": "2026-08-23T16:22:13.504Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "slug": "constraint-aware-gpu-allocator",
+      "title": {
+        "original": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
+        "zh": "同一个集群多出 33 个点的利用率：变的只是分配顺序"
+      },
+      "summary": {
+        "original": "A constraint-aware GPU allocator benchmarked against FIFO across seven scenarios: utilization up to 33 percentage points higher, priority-weighted output up in every one.",
+        "zh": "Dharma-AI 做了一个带约束的 GPU 分配器，在七个基准场景里对上 FIFO 调度：硬件不变、负载不变，利用率最多多出 33 个百分点，按优先级加权的产出在每一个场景里都上升，最多翻倍还多。变的只有一件事——分配决定是按什么顺序做出来的。它同时把一个常被当作口号的目标翻译成了可执行的形式：不是「让 GPU 忙起来」，而是哪块卡在哪个时间片跑哪个任务、按什么优先级。"
+      },
+      "content": {
+        "original": "See the linked Hugging Face article for the original English text.",
+        "zh": "## 先把决定说清楚\n\n「让 GPU 忙起来」不是一个系统能执行的决定。真正的决定窄得多也难得多：**哪块 GPU、在哪个时间片、跑哪个任务、按什么优先级。**\n\n形式化之后，它是每个「GPU × 任务 × 时间片」组合上的一个二元选择，输出是一张网格——每块卡在整个调度窗口里的每一格，要么写着一个任务名，要么空着。\n\n四类负载争抢这张网格：训练、实时推理、批量推理、量化。它们分成两种**互不相容的形状**：\n\n- **块状**（训练、批量推理、量化）：一旦开始，就要占住一整块连续的 GPU，中途不能被打断，直到跑完。\n- **弹性**（实时推理）：跟着每个时间片都在变的需求曲线增减。\n\n两种形状在同一个时间片争同一批硬件，才是这个问题真正难的地方。而同一类里还有第二层异质性：同一个基础模型，训练任务可以从几小时到好几天，从一块卡到几十块。\n\n## FIFO 在争抢下要付两笔钱\n\n对照组是一个 FIFO 调度器：实时推理由固定预留供给，其余任务按到达顺序摆放，不看优先级。集群有余量时这是合理策略——怎么排都放得下，顺序不花钱。**争抢是让顺序成本从隐形变成实打实容量损失的那个条件。**\n\n**第一笔是预留。** 实时推理等不了，流量来的时候卡必须在。按到达顺序摆放的调度器没有「低谷时释放、峰值前收回」的机制，于是保证可用性的唯一办法，就是取每个实时应用当天的**最大**需求，把那么多卡包上一整天。代价落在所有非峰值的小时里：一个中午要 6 块、凌晨 4 点只要 2 块的应用，会把 6 块占满 24 小时，那 4 块闲卡对任何批处理任务都不可用——**它们既没有在被使用，也不是空闲的。** 这也是为什么两个由预留主导的场景里，基线只有 **51.6%**（混合对照）和 **53.6%**（训练密集）：大约半个池子，而闲着的那一半多数是被预留掉的。这笔钱不管争不争抢都要付，争抢只是让它显形。\n\n**第二笔是顺序。** 真正争抢时，**哪些任务放得下取决于你按什么次序放**，而不只是取决于还剩多少容量。原文这句值得抄下来：顺序不是容量问题定了之后用来打破平局的东西，**顺序本身就是一个容量决定**。FIFO 按到达先后摆放，既不衡量任务值多少，也不检查窗口里还有什么必须放进来，于是高优先级的工作排在先来的后面，容量被提交给了后来者用不上的摆法。\n\n两笔钱会叠加：为当天峰值包下的那一块，对队列里每一个批处理任务、在每一个小时都是不可用的；剩下的部分再按请求碰巧到达的顺序发出去。\n\n## 结果\n\n在五个为真实争抢构造的基准场景里，分配器**两个指标同时改善**：\n\n1. 利用率从 **52%–85%** 的区间移到 **72%–88%**。\n2. 优先级加权价值上升 **24.6% 到 105.1%**，平均 **52%**。\n3. 每个场景、两个指标都改善，没有需要解释的取舍。\n\n最强的单个案例是 8 块卡上的训练密集负载：利用率 **53.6% → 87.0%**，价值涨了 **105%**。三十三个百分点，从一笔已经在折旧的固定资产上取回来——靠的是把预留的待机容量收回，再把其余部分按优先级摆放。\n\n## 这条信号的边界\n\n- 全部增益都是**相对同一场景下的 FIFO 结果**表述的：利用率用百分点，价值用优先级加权产出的百分比增幅。换一个对照基线，数字就不是这个。\n- 原文自己标注：最强那个案例的图**反映的是单一基线排序**。\n- 原文有一节标题就叫「需求数字错了的话，这些全都不成立」——**这个方法的输入是预测，而预测会错**。\n- 场景是为争抢构造的。集群有余量时，作者明确说 FIFO 与更复杂的策略填充同样的比例，**这套东西在你的集群上值多少，取决于你是否真的在争抢**。"
+      },
+      "type": "tool",
+      "publishDate": "2026-08-17",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/Dharma-AI/gpu-management-pt2",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Dharma-AI",
+      "publisherType": "startup",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-observability",
+        "tag-product-strategy"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-2152c7f1",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-23T16:19:42.669Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "把利用率当目标是个陷阱：忙起来不等于产出更有价值。这篇给出的判据是「顺序本身就是一个容量决定」——在有争抢的集群里，哪些任务放得下取决于你按什么次序放，而不只是取决于总量。这让一笔已经在折旧的固定资产有了不换硬件就能取回的部分。",
+      "whoShouldCare": [
+        "自托管推理或训练集群、且已经在为算力排队的团队",
+        "需要向上解释「买更多卡」之外还有什么选项的技术负责人",
+        "把实时推理和批处理混跑在同一批卡上的平台工程师"
+      ],
+      "technicalContext": "四类负载争抢同一批卡：训练、实时推理、批量推理、量化。它们分成两种互不相容的分配形状——训练、批量推理和量化是块状的，一旦开始就要占住一整块连续的 GPU 直到跑完；实时推理相反，是弹性的，跟着每个时间片都在变的需求曲线增减。两种形状在同一个时间片争同一批硬件，才是这个问题真正难的地方。形式化之后，它是每个「GPU × 任务 × 时间片」组合上的一个二元选择，输出是一张网格：每块卡在整个调度窗口里的每一格，要么写着一个任务名，要么空着。",
+      "impactAreas": [
+        "集群调度",
+        "推理成本",
+        "容量规划"
+      ],
+      "learningPath": [
+        "先把决定写清楚：不是「让 GPU 忙起来」，而是哪块卡、哪个时间片、跑哪个任务、什么优先级",
+        "算一次预留成本：把实时应用当天的峰值需求包一整天，非峰值那些小时的空卡既没被用也不是空闲的",
+        "读《推理服务容量规划》：这条把「撑得住多少」推进到「同样的硬件能不能重新排一遍」",
+        "读《系统设计的权衡》：利用率与优先级加权产出是两个目标，这篇的说法是两者可以同时改善",
+        "先核对需求数字——原文自己说，需求估错的话后面全都不成立"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-system-design": "顺序不是定完容量后用来打破平局的，顺序本身就是容量决定——这是一条可复用的权衡判据。",
+        "knowledge-latency-tradeoffs": "实时推理等不了，所以它的需求必须按曲线而不是按天花板来供给。",
+        "knowledge-model-sizing": "块状与弹性两种分配形状互不相容，这个约束比单个任务要多少卡更早决定结果。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-a9e80194": "把容量规划从「撑得住多少」推进到「同样的硬件重新排一遍能多出多少」。",
+        "skill-ws-2152c7f1": "自建调度层是一次典型的「这一层要不要自己拥有」决定，代价与收益都在文中量化了。",
+        "skill-ws-f741f122": "预留掉的闲卡既没被使用也不算空闲——只有把这一格单独记出来才看得见。"
+      },
+      "followUpQuestions": [
+        "你的集群里有多少卡是为峰值预留、却在多数小时里闲置的？",
+        "这七个场景是为争抢构造的，你的负载真的处在争抢状态吗？",
+        "把顺序作为容量决定之后，谁来定优先级、按什么标准？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "createdAt": "2026-08-23T16:09:55.340Z",
+      "updatedAt": "2026-08-23T16:19:42.669Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "slug": "agent-memory-is-a-dose-not-a-switch",
+      "title": {
+        "original": "How Much Memory Does Your Agent Actually Need?",
+        "zh": "智能体记忆不是开关，是要按模型标定的剂量"
+      },
+      "summary": {
+        "original": "IBM Research evaluates ALTK-Evolve across eight models and finds that the right amount of agentic memory depends on the model, not on parameter count.",
+        "zh": "IBM Research 把 ALTK-Evolve 铺到八个模型上评测：智能体从自己的历史轨迹里蒸馏出可复用的行为指引，推理时注入回上下文，不更新任何权重、不需要人工标注。结论反直觉——同一套指引在不同模型上的最佳用量完全不同，而决定用量的不是参数规模：745B 的 GLM-5 一分没涨，117B 的 gpt-oss-120b 用最省的策略涨了 16.1 个点，代价只有 5% 的 token。",
+        "en": "Agentic memory is not a feature you switch on; it is a dose you calibrate to the model."
+      },
+      "content": {
+        "original": "See the linked Hugging Face article for the original English text.",
+        "zh": "## 学习发生在模型外面，不在模型里面\n\n这里的「记忆」不是回放一段历史对话，而是一套**行为指引**：从智能体自己过去的成功与失败轨迹里蒸馏出来的策略、要避开的错误和边界情况。循环很短——智能体做任务产生轨迹，`ALTK-Evolve` 从成功和失败的运行里提取指引，合并成一套可复用的集合，推理时把全部或按任务挑选的一部分交回给它。\n\n**没有任何权重被更新。** 改变的是智能体可用的指引，不是底下那个模型——这也正是它便宜、且能横跨八个模型移植的原因。\n\n## 三档剂量，而参数量不预测你在哪一档\n\n八个模型从 30B 稠密一路铺到闭源前沿，落成三种反复出现的形态：\n\n- **有余量的强模型要全量。** 每一条指引都要，包括罕见的边界情况，因为它们吃得下也用得上。DeepSeek-V3.2（671B MoE）拿到自己挖出的全套指引后，任务完成度涨了 **9.5 个百分点**。\n- **弱一些的模型会被大指引集淹掉。** 它们最适合一个高置信的紧凑核心，加上每个任务现取的少量相关条目。gpt-oss-120b（117B MoE）用这种选择性策略涨了 **16.1 个百分点**——而全量策略涨得更少、token 还多花约 **50%**。\n- **已经饱和的模型一分不涨。** GLM-5（745B MoE）在这轮里就是如此：**0.0 / 0.0**。\n\n**745B 的那个没涨，117B 的那个涨得最多。** 决定你在哪一档的不是参数量，而是基准上的剩余空间、上下文窗口、架构、指引质量和任务分布——研究者明确说，把这些因素分开仍是进行中的工作。\n\n值得单独表扬的是措辞：作者写明「饱和」这个标签**描述的是观察到的现象，不是已证明的原因**，并列出三种都还成立的解释——模型可能本来就接近这批任务的天花板，指引可能没打中它剩下的失败模式，也可能是它没有有效地应用这些指引。本站《模型与输出评估》里那条判据在这里被作者自己执行了：**一个数字说明什么，取决于它排除了什么。**\n\n## 最省的策略可以同时是最好的\n\n这一点最容易被跳过，因为它违反「更多即更好」的直觉。\n\n每一步都注入全套指引会让每个 ReAct 步骤的输入都变胖，因为指引每一轮都要重发。而 gpt-oss-120b 上，按任务检索的策略拿到 **+16.1 个百分点**，token 只多了 **5%**。\n\n也就是说：**最准的那一档和最便宜的那一档，在这个模型上是同一档。** 这不是普遍规律——强模型确实要全量——但它足以说明「先上全量再说」是一个会同时输掉准确率和成本的默认值。\n\n## 越严格的尺子动得越多\n\n两种打分方式的差距本身就是发现。SGC 要求一个场景的**每一个变体**都通过，比 TGC 严格得多，而它普遍涨得更多：\n\n1. DeepSeek-V3.2：TGC **+9.5**，SGC **+16.1**\n2. Claude Opus 4.6：TGC +4.1，SGC **+7.1**（基线已是 90.5 / 87.5）\n3. GPT-5.5：TGC +2.9，SGC **+7.2**\n\n原因说得通：好的指引尤其帮助智能体清掉一个场景的所有变体，而不只是把平均情况做对。**而且在天花板附近它并没有消失**——只要模型还剩一个可被指引打中的失败模式，记忆就还在付钱。\n\n## 这条信号的边界\n\n- 全部结果来自 **AppWorld 一个基准**，9 个模拟应用，不是真实生产环境。\n- 指引只从训练集挖掘，测试集数据没有进入构建过程——这一点作者写明了，是这组数字可信的前提。\n- 「饱和」只观察到一个样本（GLM-5），且作者自己拒绝把它当成结论。\n- 该团队在上一篇里比较的是**指引怎么投递**，这一篇回答的是**该给多少**；两个问题都还没有跨基准的复现。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-18",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/ibm-research/altk-evolve-hmm",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "IBM Research",
+      "publisherType": "research-lab",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-retrieval",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-retrieval-tuning"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-08-23T16:17:40.866Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "「给智能体加记忆」通常被当成一个开关：把过去的经验塞回上下文，经验越多表现越好。这项评测把它证伪了，而且给出了可执行的替代做法——按模型的剩余空间决定注入多少。更要紧的是它顺手推翻了一个省事的代理指标：参数量不预测该给多少记忆。",
+      "whoShouldCare": [
+        "正在给智能体接记忆层、以为「攒得越多越好」的工程师",
+        "需要在准确率和每次任务 token 成本之间做取舍的平台团队",
+        "设计评测口径的人：这项研究的严格指标比宽松指标动得更多"
+      ],
+      "technicalContext": "评测在 AppWorld 上进行：9 个模拟应用（日历、消息、支付等）里的 585 个多步任务，其中 168 个 test_normal、417 个 test_challenge。两种打分方式——TGC 看单个任务是否完整完成，SGC 更严格，要求一个场景的每个变体都通过。三种配置共用同一套指引，区别只在投递方式：不注入（基线）、每一步都注入全部指引（full guideline set）、固定高置信核心加上按任务检索的少量条目（curated retrieval）。指引只从训练集挖掘，测试集数据从未进入构建过程。",
+      "impactAreas": [
+        "智能体记忆",
+        "评测方法",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先记住那句判据：记忆是剂量不是开关——先问你的模型还剩多少空间，再决定注入多少",
+        "读《长时程智能体的记忆与上下文管理》：这条研究给它补上了量化证据",
+        "把你自己的评测拆成宽松与严格两档，看严格那档动得是不是更多——这项研究里它普遍更大",
+        "算一次 token 账：每一步重复注入全部指引的成本，和按任务检索少量的成本，差了约十倍",
+        "读《评估闭环》第 4 步：一次没有改变任何配置的评测是报告，不是闭环"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "这条给「记忆该带多少进上下文」补上了量化证据：是剂量，不是开关。",
+        "knowledge-evaluation-loops": "评测跑完改变了配置，才算闭环；这项研究改变的正是注入策略。",
+        "knowledge-ws-e251051e": "指引里写的是失败模式，所以它改进的是智能体对「这一步做对了吗」的判断。",
+        "knowledge-model-sizing": "745B 饱和而 117B 涨最多——参数量不预测该给多少记忆。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "两把尺子的差距本身是发现：严格的 SGC 普遍比宽松的 TGC 动得更多。",
+        "skill-agent-design": "改变的是智能体可用的指引而不是模型，所以这是流程层的设计而不是训练问题。",
+        "skill-ws-f741f122": "指引从自己跑过的成功与失败轨迹里蒸馏，前提是那些轨迹被完整记录下来了。",
+        "skill-retrieval-tuning": "按任务检索少量高置信条目，在弱模型上同时是最准和最便宜的一档。"
+      },
+      "followUpQuestions": [
+        "你的模型落在哪一档，是靠实测还是靠参数量猜的？",
+        "指引集是从你自己的任务轨迹里挖的，还是借来的？后者还成立吗？",
+        "「饱和」在你这里是模型到顶了，还是指引没打中它真正的失败模式？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "createdAt": "2026-08-23T16:09:55.118Z",
+      "updatedAt": "2026-08-23T16:17:40.866Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": []
     },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
@@ -1144,125 +1823,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "slug": "lfm2-5-2-6b-on-device-agents",
-      "title": {
-        "original": "Deploy local agents everywhere with LFM2.5-2.6B",
-        "zh": "LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型",
-        "en": "Deploy local agents everywhere with LFM2.5-2.6B"
-      },
-      "summary": {
-        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones.",
-        "zh": "Liquid AI 发布 2.6B 的端侧智能体模型：不到 2.5GB 内存，M5 Max 上 220 tok/s、Ryzen 上 113 tok/s、手机上约 30 tok/s，工具使用与指令跟随几乎全线压过 4 倍大的模型。真正值得注意的不是尺寸，而是后训练的最后一段直接在 OpenClaw、Hermes Agent 这类真实智能体外壳内部跑强化学习——适配的方向反了过来。",
-        "en": "LFM2.5-2.6B is built to power capable agents entirely on-device. It supports tool calling and multi-step workflows while staying small and fast enough for everyday hardware, from laptops to phones."
-      },
-      "content": {
-        "original": "LFM2.5-2.6B is built to power capable agents entirely on-device, with tool calling and multi-step workflows, trained with agentic RL inside real agent harnesses.",
-        "zh": "## 这一版给了什么\n\n**2.6B 参数，不到 2.5GB 内存**，目标是让一台普通机器自己跑完整的智能体循环——工具调用、多步流程，不出设备。速度是三档：Apple **M5 Max 上 220 tok/s**、**Ryzen AI Max+ 395 上 113 tok/s**、手机上约 **30 tok/s**；GPU 侧在高并发下接近每秒 1.5 万输出 token，单张 H100 约合每天 13 亿 token。预训练约 34T token，中训练把上下文扩到 **128K**，`llama.cpp`、`MLX`、`vLLM`、`SGLang`、`ONNX` 首日全部支持，指令版与 Base 版当天都在 Hugging Face 上。\n\n跑分对照的是最大到它约 4 倍的模型（Gemma 4 E2B/E4B、Qwen3.5-4B/9B）：**指令跟随四项全部第一**，工具使用除 `BFCLv4` 外全部第一——那一项被 9.7B 的 Qwen3.5 压过。\n\n## 真正的信号在训练方式，不在尺寸\n\n后训练分四段，前三段是常规路数：两轮偏重智能体数据的监督微调、按领域各训一个专家教师、再把教师蒸馏回一个学生。**第四段才是这条信号的理由**：Agentic RL 直接在真实的智能体外壳内部跑多轮强化学习，而不是在合成的工具调用样本上跑。\n\n它的做法值得记住：训练引擎、推演引擎和环境执行被拆成三个独立部件，动作在沙箱服务里执行，外壳（OpenClaw 或 Hermes Agent）被一个 **Harness Proxy** 当成黑盒——不改外壳一行代码，只在旁边抓 token 级轨迹用来还原训练样本。\n\n这意味着**适配的方向反了**。通常是你改流程去迁就模型；这里是模型在你已经在跑的那套流程里学会怎么工作。\n\n## 与前一天那条正好是同一道题的两端\n\nLLM 0.32 那条讲的是工具循环正在往供应商一侧收拢——由供应商替你在一次请求里执行远程调用。这一条是另一端：把足以驱动工具循环的模型压到 2.5GB，塞进你自己的机器。**两者都在回答「工具循环归谁所有」，答案相反**，而这条给了本地那一侧第一个像样的筹码。\n\n## 厂商划的边界，和一条不该被跑分盖住的社区反馈\n\n1. **代码是它明确落后的一档**。厂商自己写明：编码任务上更大的模型仍有清晰领先，该用大的就用大的。\n2. **它会安静地把错的当对的讲出来**。文章下面一条社区反馈：在一次智能体流程里，模型从 MCP 工具取回了格式错误的数据，**没有报错，而是自信地把错误数据当作事实呈现**，下一步直接吃掉了这个错误；同一流程换 Gemma 4 E4B 没有复现。\n\n第二条比任何一个跑分都值得先读。它不是「小模型比较笨」，而是**判断「这一步做完了吗、这个返回值可信吗」是一种和工具调用本身分开的能力**——工具调用格式正确，不等于结果正确。要把这类模型放进真实流程，护栏得建在工具层，而不是指望模型自己发现返回值不对。"
-      },
-      "type": "model",
-      "publishDate": "2026-08-04",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-2-6b",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Liquid AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-on-device",
-        "tag-ai-agents",
-        "tag-inference"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-tool-use",
-        "knowledge-ws-e251051e",
-        "knowledge-latency-tradeoffs",
-        "knowledge-ws-c761533e"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-agent-design",
-        "skill-tool-integration",
-        "skill-ws-84837d46",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-17T17:32:48.023Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "端侧智能体此前的瓶颈不是「能不能跑」，而是「跑得动的模型驱不动工具循环」。2.6B、不到 2.5GB、手机上 30 tok/s 且工具使用接近同类最好水平，第一次让「整条智能体循环留在本机」成为一个可以认真评估的选项，而不是演示。",
-      "whoShouldCare": [
-        "要把智能体部署到笔记本、手机或边缘设备，且不想为每次调用付云端账单的工程团队",
-        "数据不能出设备、因此一直无法用云端模型跑智能体流程的团队",
-        "正在评估「自建到哪一层」的技术决策者：这条信号把本地那一侧的可行边界往前推了一格"
-      ],
-      "technicalContext": "四段后训练：偏重智能体数据的两轮 SFT、按领域训练专家教师、多领域在线策略蒸馏（MOPD）把教师合并回学生、最后在真实外壳内部做多轮 Agentic RL。RL 侧把训练引擎、推演引擎与环境执行拆开，用 Harness Proxy 把 OpenClaw / Hermes Agent 当黑盒接入，只抓 token 级轨迹。推理侧首日支持 llama.cpp、MLX、vLLM、SGLang、ONNX。",
-      "impactAreas": [
-        "端侧与边缘部署",
-        "智能体工具循环",
-        "推理成本与隐私边界",
-        "后训练方法"
-      ],
-      "learningPath": [
-        "先读《端侧模型部署与硬件适配》，把量化档位、运行时路径和验收指标（首字延迟 + 稳态 tokens/s）在目标设备上定下来",
-        "再读《模型选型与约束匹配》，确认在你的场景里先咬人的约束是内存、延迟还是能力——这条模型只在前两者上有优势",
-        "把《工具集成模式》和《完成判定与验收信号》一起读：社区反馈里那次静默错误，正是这两条讲的护栏该拦下的",
-        "真要上线前，用《模型与输出评估》先写下「什么算做对了」，再跑基准——否则跑分只能告诉你它比谁强，不能告诉你它够不够用"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "2.6B 在工具使用上压过 4 倍大的模型，而在编码上明确落后——这正是「先看哪个约束咬人」而不是「参数越多越好」的教材式案例。",
-        "knowledge-tool-use": "工具调用格式正确不等于结果正确；这条信号把这两件事之间的缝隙暴露得很清楚。",
-        "knowledge-ws-e251051e": "模型没能判断出工具返回值不可信，就把错误当事实传给了下一步——完成判定缺失时最贵的那个方向。",
-        "knowledge-latency-tradeoffs": "220 / 113 / 30 tok/s 是三种条件下的速度，不是一个数；手机那一档决定了它能不能做交互式体验。",
-        "knowledge-ws-c761533e": "把这条模型放进本地那一层之后，哪些请求仍然要上云，就是这条知识要回答的划线问题。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "这条模型的三档速度数字（220 / 113 / 30 tok/s）正是这项技能要求在目标设备上实测的验收指标。",
-        "skill-agent-design": "外壳被写进了训练回路，所以流程的形状不再只是使用方式，它会反过来决定模型学到什么。",
-        "skill-tool-integration": "社区反馈里那次静默的格式错误，正是这项技能主张「工具层要吸收混乱而不是转发混乱」的现实理由。",
-        "skill-ws-84837d46": "四段后训练是一份完整的配方样本：SFT、专家教师、多领域蒸馏、真实环境内的强化学习。",
-        "skill-ws-7796779a": "首日覆盖 llama.cpp / MLX / vLLM / SGLang / ONNX，是这项技能所说「有原生建模」以上支持等级的一个正面样本。"
-      },
-      "followUpQuestions": [
-        "在你自己的外壳里（而不是 OpenClaw / Hermes）它还剩多少工具使用能力？Agentic RL 是在特定外壳里训的，跨外壳的迁移损失没有公开数字",
-        "工具返回格式错误时的静默失败率有多高？厂商基准里没有这一项，而它决定了能否无人值守",
-        "128K 上下文在 2.5GB 内存预算下实际能用到多少？长上下文的 KV 缓存开销不在那个 2.5GB 里"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-      "createdAt": "2026-08-06T12:45:47.493Z",
-      "updatedAt": "2026-08-17T17:32:48.023Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "slug": "ollama-v0-32-4",
       "title": {
@@ -1364,127 +1924,6 @@
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
         "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-qbitai-com-p-473669",
-      "slug": "qwen3-8-27b",
-      "title": {
-        "original": "源神启动！一张消费级显卡跑「Opus 级」Agent，Qwen3.8-27B 多项榜单反超 Claude",
-        "zh": "Qwen3.8-27B 开源：消费级显卡跑得动，尺子却是自己命名的"
-      },
-      "summary": {
-        "original": "阿里巴巴于 2026-08-14 以 Apache 2.0 开源 Qwen3.8-27B：270 亿参数稠密原生多模态模型，262K 原生上下文可外推至 100 万 token，量化后可装进 24GB 显存。",
-        "zh": "270 亿参数、原生多模态、262K 上下文可外推到 100 万，Apache 2.0，量化后一张 24GB 消费级显卡装得下——这一代 Qwen 把「本地跑得动的智能体」这条线又往前推了一格。榜单确实好看，但领先幅度最大的那一项跑在一把以厂商自己命名的基准上，而所有对比都由厂商自己完成。"
-      },
-      "content": {
-        "original": "Alibaba open-sourced Qwen3.8-27B under Apache 2.0 on 2026-08-14: a 27B dense natively-multimodal model with 262K native context extendable to 1M tokens via YaRN.",
-        "zh": "2026-08-14，阿里以 Apache 2.0 协议开源 Qwen3.8-27B。27B 是社区呼声最高的尺寸，原因很实际：**量化之后，24GB 显存的 RTX 3090 / 4090 这类显卡能整卡装下**，而上下文没有跟着缩水——原生 262K token，通过 YaRN 可外推至 100 万。\n\n## 值得记的是架构，不是尺寸\n\n模型共 64 层，其中 **48 层用 Gated DeltaNet 线性注意力，16 层保留完整注意力**，大致按「三层线性 + 一层完整」的节奏循环。线性注意力压住长序列的计算与缓存开销，完整注意力隔几层做一次更充分的信息交互——262K 原生上下文是这个配比换来的，不是堆出来的。这个骨干与 Qwen3.5 / 3.6 同源，ms-swift 的发布说明也是这么描述的。\n\n两个面向长任务的开关同样值得记：\n\n1. `reasoning_effort` **分 xhigh / medium / low 三档**，复杂代码与长程智能体任务拉高，简单问答降下来换速度和成本；Thinking 也可以整个关掉。\n2. `preserve_thinking` **默认开启**，前几轮「怎么想的」会留在后续上下文里。编码智能体连改十几个文件时，可以沿着前面的决策继续走，同时更好地复用 KV 缓存。\n\n**补充（2026-08-17）**：第一份第三方动手实测出来了，而它指向的正是第一条那个默认值。同一道画图题，出厂的 `xhigh` 默认档跑 **21 分钟、烧掉 22,276 个思考 token**，关掉思考只要 **137 秒**；LM Studio 默认 8,192 的上下文会被思考过程整个吃光。**先用 low 或直接关掉思考跑**，再决定要不要拉高。详见延伸阅读那条。\n\n## 生态当天就跟上了\n\n- **Ollama v0.32.12**（08-14）加入 `qwen3.8:27b`，并为 Apple Silicon 单独提供了 `qwen3.8:27b-mlx` 构建；次日的 v0.32.13 补上开发者指令支持。\n- **ms-swift v4.5.0**（08-14）同日适配训练与后训练侧。\n- 官方侧接上了 Transformers、vLLM、SGLang 与 TokenSpeed，Hugging Face 上量化版本入口同时开放。\n\n首日可服务这件事本身已经不新鲜了——从 Kimi K3 到 Muse Glimmer，本站记过好几次；值得注意的是这次连 Apple Silicon 的专用构建都在同一天。\n\n## 榜单很好看，但尺子是谁的\n\n厂商公布的对比里，Qwen3.8-27B 在多项评测上超过 Claude Opus 4.6 Max：\n\n- **SWE-bench Pro**：领先 8.3 分\n- **QwenSWEBench**：领先 15.2 分\n- **CoWorkBench**：70.7 对 68.2\n- **OSWorld-Verified**（电脑操作）：84.3 对 72.7\n- **AndroidWorld**（手机操作）：81.9 对 62.0\n\n**领先幅度最大的那一项，跑在一把名字里带着厂商自己的基准上。** 本站《模型与输出评估》里那条判据在这里几乎是逐字适用的：一个数字能不能横比，先问这把尺子有没有量过别人。QwenSWEBench 领先 15.2 分，而第三方的 SWE-bench Pro 领先 8.3 分——两个数差了将近一倍，方向一致但幅度不一致，而且**所有对比都是厂商自己跑的**，不是第三方复现。\n\n浏览器操作 WebArena-Verified 从上一代的 48.8 提升到 64.8，是这批数字里口径最干净的一个：同族前一版，同一项评测。\n\n## 社区实测是用户报告，不是评测\n\n量子位那篇里引了两条网友实测，值得读但要按用户报告对待：一位把 FP8 版本放在单张 GH200 上并发跑 10 个请求、每个最高输出 16K token、上下文拉到 262K，首批流式 token 基本在 10 毫秒内返回；另一位丢给它一部 1935 年的 11 分钟影片，让它识别 96 个带时间戳的事件并逐字引用画面文字，157 秒完成、时间点误差约 2 秒。没有对照组、没有重复运行，所以它们说明的是「跑得起来」，不是「跑得比谁好」。\n\n## 一处可核对的口径差\n\n官方称千问已累计开源 460 余个模型、全球下载超 30 亿次、**衍生模型数超 30 万个**。同一周 Hugging Face 那份生态报告独立数出来的是 **Hub 上 151,448 个 Qwen 衍生模型**。两个数字差了大约一倍，但并不矛盾——一个统计跨平台（含魔搭），一个只统计 Hub。**知道它们口径不同，比记住哪个更大有用。**"
-      },
-      "type": "model",
-      "publishDate": "2026-08-15",
-      "sourceName": "量子位",
-      "sourceUrl": "https://www.qbitai.com/2026/08/473669.html",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "阿里巴巴通义千问",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-frontier-models",
-        "tag-on-device",
-        "tag-multimodal",
-        "tag-ai-agents"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-ws-34da6116",
-        "knowledge-ws-c761533e",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-dddaf80c",
-        "skill-ws-d7c9d1d8",
-        "skill-model-evaluation",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-08-17T17:32:47.866Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "本地能跑的那一档模型，长期以来的代价是上下文短、多模态缺失或智能体能力弱。27B 这个尺寸同时给了 262K 原生上下文、原生视觉理解和可调的推理深度，而且是 Apache 2.0——这把「先看看能不能本地跑」从妥协方案变成了默认起点。同一周 Hugging Face 的生态报告给了这件事的宏观背景：小模型拿走 83% 的下载量，而 Qwen 是社区衍生模型最多的基座。",
-      "whoShouldCare": [
-        "手里有一张 24GB 消费级显卡或大内存 Mac、想在本地跑长上下文编码智能体的开发者",
-        "在自托管与云 API 之间做取舍、需要知道本地档位上限已经推到哪里的平台团队",
-        "要读厂商发布公告并决定换不换的技术负责人——尤其是需要区分第三方基准与自命名基准的那一类",
-        "关心线性注意力与完整注意力混合骨干如何换来长上下文的推理工程师"
-      ],
-      "technicalContext": "64 层骨干中 48 层为 Gated DeltaNet 线性注意力、16 层为完整注意力，按三比一循环，与 Qwen3.5 / 3.6 同源。原生 262K token 上下文，经 YaRN 外推至 100 万。原生多模态，覆盖图片、文档、图表与视频理解。reasoning_effort 提供 xhigh / medium / low 三档并可完全关闭 Thinking；preserve_thinking 默认开启，把前几轮推理保留进后续上下文以复用 KV 缓存。Apache 2.0，量化后可在 24GB 显存整卡装载，推理路径覆盖 Transformers、vLLM、SGLang、TokenSpeed、Ollama（含 MLX 构建）与 ms-swift。",
-      "impactAreas": [
-        "本地与云混合推理的档位划分",
-        "长上下文所依赖的注意力混合架构",
-        "厂商自命名基准与第三方基准的可比性",
-        "开源模型生态的首日支持速度"
-      ],
-      "learningPath": [
-        "先把三项数字分开放：第三方基准（SWE-bench Pro）、厂商自命名基准（QwenSWEBench）、同族前一版对比（WebArena-Verified 48.8 到 64.8），只有第三类和第一类能直接用",
-        "再算显存，而不是看参数量——27B 在什么量化档位下装进 24GB，决定了这条信号对你成不成立",
-        "把 reasoning_effort 三档在自己的任务上各跑一遍，记录首字延迟与稳态吞吐的变化，而不是只记准确率",
-        "读《模型选型与约束匹配》与《旗舰模型发布解读与换代判断》，把「该不该换」和「换得了吗」分成两个问题"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "27B 加一张 24GB 显卡是这条概念里最干净的一次实例：决定跑不跑得动的是显存与量化档位，不是参数量本身。",
-        "knowledge-ws-34da6116": "「量化后装得进 24GB」这句话省略了量化档位，而不同档位对长上下文输出质量的影响正是这条概念要回答的。",
-        "knowledge-ws-c761533e": "本地这一档的上限被推高之后，本地与云的分界线要重新画一次——这次是往云那边挪。",
-        "knowledge-latency-tradeoffs": "reasoning_effort 三档本质上是把「想多久」变成一个可调参数，也就是把延迟预算交回给调用方。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-dddaf80c": "这条公告里三类数字（第三方基准、自命名基准、同族前一版）恰好凑齐，是这条技能那套分类法的现成练习题。",
-        "skill-ws-d7c9d1d8": "量化档位、运行时路径与显存预算三件事在这条信号里全部具体化了，包括 Apple Silicon 的专用构建。",
-        "skill-model-evaluation": "「这把尺子有没有量过别人」在 QwenSWEBench 上得到的答案，直接决定了 15.2 分该怎么读。",
-        "skill-ws-7796779a": "首日在 vLLM、SGLang、Ollama 与 ms-swift 上同时可用，是「有性能路径」这一档而不只是「能加载」。"
-      },
-      "followUpQuestions": [
-        "QwenSWEBench 有没有量过第三方模型？如果没有，那 15.2 分的领先能说明什么？",
-        "262K 原生上下文在你的显存预算下还剩多少可用——KV 缓存吃掉的部分算进去了吗？",
-        "preserve_thinking 默认开启会让上下文更快填满，长任务里它是净收益还是净成本？",
-        "线性注意力占 48 层，在需要精确长距离检索的任务上会不会先掉链子？有没有针对这一点的评测？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-473669",
-      "createdAt": "2026-08-15T22:30:28.604Z",
-      "updatedAt": "2026-08-17T17:32:47.866Z",
-      "editorialNotes": [
-        "来源为量子位对阿里开源公告的报道；架构、上下文长度、许可与基准数字均出自该报道所引的官方公告。",
-        "Ollama v0.32.12 / v0.32.13 与 ms-swift v4.5.0 的发布说明为 2026-08-16 通过 GitHub API 一手核对，两条候选据此拒绝并把事实写进本文。",
-        "publisherName 由转换时默认填入的量子位作者笔名改为阿里巴巴通义千问，publisherType 由 startup 改为 big-tech。",
-        "所有基准均为厂商自测，正文已逐条标注；QwenSWEBench 的自命名问题是本条的编辑判断，不是原文观点。",
-        "官方称衍生模型逾 30 万，而 Hugging Face 生态报告数出 Hub 上 151,448 个——正文按口径不同处理，未择一采信。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
       ]
     },
