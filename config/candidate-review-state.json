@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-23T16:09:55.343Z",
+  "updatedAt": "2026-09-06T08:07:12.761Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -1720,6 +1720,359 @@
       "importStatus": "converted",
       "reviewedAt": "2026-08-23T16:09:55.343Z",
       "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484726": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:05.481Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484683": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:05.575Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484649": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:05.639Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484611": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:05.705Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484551": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:05.766Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-06T08:07:06.678Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-infoq-cn-article-3m4uyzndwilx6br9rxwy-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:06.788Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-bsxsiyqjexqdh8eo2kwl-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:06.850Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-0-rc1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:06.910Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-19": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:06.971Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484547": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.036Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484437": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:07.096Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484293": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:07.153Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484203": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.229Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-484163": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.292Z"
+    },
+    "candidate-rss-https-github-blog-p-98615": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:07.353Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-4c4rqugphaxgcx8g64ab-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.417Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-hwqs9a123hhtdytk0adq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.483Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-b5bnux3gzruzgvdmbbfi-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.541Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-mkgb7ziprlaifdzcwk0v-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:07.610Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-m9dbsrgv8grsq9nky6rs-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.677Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-s1mdwgiv7yoxkcxmwjx8-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.734Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-6eyvbx5ud2cb0pwyspcq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.796Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-6jc130in2oaxqspdizmj-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:07.858Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-m792kcz4fizk7yhe4wht-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:07.920Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-0-rc0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:07.985Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-4-astra-pelicans": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.041Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-06T08:07:08.330Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc4": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:08.446Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:08.560Z"
+    },
+    "candidate-rss-https-github-blog-p-98638": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:08.621Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-weathernext-3-our-most-advanced-and-accurate-global-weather-ai-model": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.682Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-hcompany-neomme": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.749Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-grpo-with-trl-ifstruct": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.807Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-funes": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.861Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-train-to-paint-with-code": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.926Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-3": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:08.989Z"
+    },
+    "candidate-rss-https-openai-com-index-daybreak-for-frontline-defenders": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:09.052Z"
+    },
+    "candidate-rss-https-openai-com-index-playco-game-prototyping-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:09.121Z"
+    },
+    "candidate-rss-https-openai-com-index-legora-financial-statement-review-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:09.184Z"
+    },
+    "candidate-rss-https-openai-com-index-gpt-6-astra": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-06T08:07:09.475Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra"
+    },
+    "candidate-rss-https-openai-com-index-safety-overview-gpt-6-astra": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:09.586Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:09.644Z"
+    },
+    "candidate-rss-https-github-blog-p-98631": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:09.702Z"
+    },
+    "candidate-rss-https-github-blog-p-98586": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:09.764Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-safety-security-fairwind-program": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:09.819Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-proactive-cyber-defense-for-governments-and-enterprises": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:09.877Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-8-flash-and-38-flash-cyber": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:09.942Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-ibm-research-real-time-intelligence": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:10.005Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-3-rc2": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:10.062Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-3-rc1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:10.126Z"
+    },
+    "candidate-rss-https-openai-com-index-atv-big-air-tour": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:10.182Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-2-claudes-new-system-prompt": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:10.246Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:10.310Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-google-ai-updates-august-2026": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:10.368Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-workspace-google-pics": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:10.430Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-agentic-video-in-gemini": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:10.492Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-06T08:07:10.773Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-webgpu-kernels": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:10.881Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-3-rc0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:10.944Z"
+    },
+    "candidate-rss-https-openai-com-index-ai-native-company-workflows": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:11.004Z"
+    },
+    "candidate-rss-https-openai-com-index-path-to-astra": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.059Z"
+    },
+    "candidate-rss-https-openai-com-index-chatgpt-connects-health-records-and-healthcare-sources": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:11.115Z"
+    },
+    "candidate-rss-https-openai-com-index-gilbert-tobin": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:11.169Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-1-claude-fable-5-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.226Z"
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-2026-8-31": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.286Z"
+    },
+    "candidate-rss-https-openai-com-index-supporting-california-bill-advance-ai-youth-safety": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:11.346Z"
+    },
+    "candidate-rss-https-openai-com-index-polimill": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:11.408Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-aug-30-understanding-chatgpt-work": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.463Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-open-asr-leaderboard-global-south": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.516Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-2": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.574Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-book-travel-ai-mode": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:11.634Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-gemini-omni-1-1-flash-lets-you-build-with-more-control": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:11.690Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-06T08:07:11.967Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-2-rc1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.061Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-2-rc0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.128Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-28-1rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:12.186Z"
+    },
+    "candidate-rss-https-github-blog-p-98460": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:12.247Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-intelligent-transcription-with-gemini-3-5-transcribe": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.311Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-train-multi-vector-encoder": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:12.366Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-33-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.419Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-28-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.478Z"
+    },
+    "candidate-rss-https-github-blog-p-98316": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.541Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-home-decor-tips": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:12.594Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-ibm-granite-granite-4-2": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.655Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-quantization-aware-healing": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-06T08:07:12.708Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-gradio-workflow-guide": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-06T08:07:12.761Z"
     }
   }
 }

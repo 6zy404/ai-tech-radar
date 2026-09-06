@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-23T16:23:55.130Z",
+  "updatedAt": "2026-09-06T08:22:07.604Z",
   "records": [
     {
       "id": "knowledge-ws-818b7bb3",
@@ -26,37 +26,6 @@
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.696Z",
       "updatedAt": "2026-08-10T13:11:08.478Z"
-    },
-    {
-      "id": "knowledge-ws-36346103",
-      "title": "混合专家模型（MoE）架构",
-      "slug": "moe-architecture",
-      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
-      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-frontier-models",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-www-qbitai-com-p-468782",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-model-evaluation",
-        "skill-ws-dddaf80c",
-        "skill-ws-7796779a"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T04:05:12.947Z",
-      "updatedAt": "2026-08-11T03:18:39.500Z"
     },
     {
       "id": "knowledge-ws-8c99b19c",
@@ -108,63 +77,6 @@
       "updatedAt": "2026-08-15T22:43:07.083Z"
     },
     {
-      "id": "knowledge-ws-89b98df3",
-      "title": "对抗性评估与红队方法",
-      "slug": "adversarial-evaluation-red-teaming",
-      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
-      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-frontier-models"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-c183c9b9",
-        "skill-model-evaluation"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-19T05:04:39.934Z",
-      "updatedAt": "2026-08-15T22:43:07.204Z"
-    },
-    {
-      "id": "knowledge-api-contracts",
-      "title": "API 契约与接口边界",
-      "slug": "api-contracts-and-interface-boundaries",
-      "summary": "当 AI 系统调用工具、串联服务或交换结构化上下文时，稳定的契约至关重要。",
-      "content": "接口契约是一个**承诺**，不是一份文档。完整的承诺有四件事：输入的形状、输出的形状、**出错时的形状**、以及**这个承诺将来怎么改**。前两件所有人都会写，后两件经常没人写——而决定你的集成能不能活过一年的，恰恰是后两件。\n\n## 变更规则是那条决定寿命的\n\nMCP 2.0 把弃用写成了规范的一部分：任何被废弃的能力**至少保留 12 个月**。这看起来是最无聊的一条改动，实际上它是唯一一条直接决定「我敢不敢把它接进生产」的改动——没有它，你的集成可能在任何一个周二早上失效，而你事先什么都做不了。\n\n判断一个外部接口值不值得深接，看它有没有回答这三个问题：**什么时候会改、改之前你会知道多久、旧的还能用多久**。答不上来，就按「随时会断」来设计。\n\n## 出错时的形状也是契约\n\n一个例子：Ollama 在 0.32.6 里把被截断的响应从 `finish_reason: \"tool_calls\"` 改成了 `finish_reason: \"length\"`。功能没变，但这是在**修一个会说谎的契约**——调用方原本会以为模型要调工具，实际上只是输出被截断了，于是下游走进完全错误的分支。\n\n这类错误比直接失败贵得多。**返回 500 的接口会被你处理，返回 200 但语义是错的接口会被你相信。**\n\n## 边界画在哪里，决定了谁能参与\n\nMCP 2.0 把方法名和工具名从请求体搬进 HTTP 头，于是**网关不必解析请求体就能路由和鉴权**。同一套能力，只因为契约的形状变了，可参与的角色就多了一类。\n\n反过来也成立：契约把信息藏得越深，能帮上忙的组件就越少，最后所有逻辑都被迫挤在一个地方。\n\n## 一个契约值多少，看它让多少东西不必被改写\n\nvLLM 的 Transformers 后端是这条的极端案例：因为有一个统一的模型接口，**450+ 架构不必逐个移植**就能跑。契约的价值不在于它描述得多细，而在于它替多少人挡住了改写。\n\n落到日常，有一个很好用的检验：**加一个字段，是不是所有调用方都得跟着一起改？** 如果是，那不是契约，只是当前实现的一份快照。\n\n边界之外的事交给邻近条目：一次调用本身分成哪几步，去看《工具使用与函数调用》；工具层要怎么建、怎么吸收混乱，去看技能《工具集成模式》；而「边界应该画在哪一层」本身是一次取舍，去看《系统设计的权衡》。",
-      "category": "software-architecture",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-mcp",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-www-qbitai-com-p-469721",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.433Z",
-      "updatedAt": "2026-08-16T16:23:44.350Z"
-    },
-    {
       "id": "knowledge-tool-use",
       "title": "工具使用与函数调用",
       "slug": "tool-use-and-function-calling",
@@ -195,69 +107,6 @@
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.389Z",
       "updatedAt": "2026-08-16T16:23:44.590Z"
-    },
-    {
-      "id": "knowledge-ws-c761533e",
-      "title": "本地与云混合推理架构",
-      "slug": "local-cloud-hybrid-inference",
-      "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
-      "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
-      ],
-      "relatedSkillIds": [
-        "skill-tool-integration",
-        "skill-agent-design",
-        "skill-ws-d7c9d1d8"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.762Z",
-      "updatedAt": "2026-08-17T17:32:49.774Z"
-    },
-    {
-      "id": "knowledge-ws-34da6116",
-      "title": "模型量化与数值精度",
-      "slug": "model-quantization-numeric-precision",
-      "summary": "把权重和激活从高精度压到低比特，是让大模型跑进有限显存的主要手段；代价是精度损失，而损失落在哪一层决定了它是无感还是灾难。",
-      "content": "量化的基本动作很简单：用更少的比特存同一个数。真正难的是决定**哪些部分可以被压、压到多少**。\n\n三件事值得先弄清楚：\n\n**1. 不是所有层都一样敏感。** 注意力的输出投影、归一化参数、路由器（router）和输出头（output head）对精度远比中间的前馈层敏感。实践中常见的做法是把这些留在较高精度，其余压到 4-bit 或 8-bit——所以你会在发布说明里反复看到「保留输出头精度」「router 保持原精度」这类描述。\n\n**2. 混合精度会带来一致性问题。** MoE 架构允许每个专家单独存储，于是不同专家用不同量化类型是完全可能的。这在服务器端是省显存的常规手段，但一旦解码路径没有处理好精度不一致，表现就是输出异常或性能塌陷，而不是一个干净的报错。\n\n**3. 量化会和其他优化互相影响。** 推测解码里草稿模型的开销直接决定净收益，如果草稿的输出头没有按请求精度量化，省下来的时间会被重新吃掉。图捕获、注意力核的选择也都和数据类型绑定。\n\n判断一条量化相关的信号是否重要，可以问三个问题：它动的是哪一层？精度损失有没有被量化评估（而不是只给个速度数字）？它和现有的推理路径（推测解码、图捕获、并行切分）是否兼容？",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-inference",
-        "tag-on-device"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-a9e80194",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T02:42:33.541Z",
-      "updatedAt": "2026-08-23T16:23:54.702Z"
     },
     {
       "id": "knowledge-ws-68963f7f",
@@ -294,45 +143,34 @@
       "updatedAt": "2026-08-23T16:23:54.761Z"
     },
     {
-      "id": "knowledge-model-sizing",
-      "title": "模型选型与约束匹配",
-      "slug": "model-sizing-and-constraint-matching",
-      "summary": "选模型不是挑最强的那个，而是先找出哪个约束最先咬人——延迟、隐私、成本，还是任务本身根本不需要那么大的模型。",
-      "content": "「用哪个模型」这个问题，很少由「哪个最强」决定。真正决定答案的是延迟、隐私、成本、任务复杂度这四个约束里，**哪一个先咬人**。通常只有一个先咬人，而它一旦确定，候选集会立刻小掉一个数量级。\n\n## 有一整类任务，大模型是形状不对，而不只是贵\n\nLiquid AI 的 LFM2.5-Encoders 是两个 230M 与 350M 的开源编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它瞄准的是被生成式模型遮住的那一半生产负载：意图路由、策略检查、PII 识别、文本分类。\n\n这些任务的共同点是**输出是一个标签，不是一段话**，而且整天在跑、大多跑在 CPU 上。对它们来说，旗舰模型不是贵一点，是形状不对——你为一个用不上的能力付了延迟、成本和运维复杂度。\n\n## 参数量不是尺寸\n\nInkling 是约 1 万亿总参数、41B 激活参数的 MoE 模型。这两个数字都回答不了「我跑不跑得动」：真正决定的是显存，BF16 约 2TB，NVFP4 约 600GB。\n\n所以看规模要同时看三个数：\n\n1. **总参数**——决定权重占多大。\n2. **激活参数**——决定每个 token 实际算多少。\n3. **目标精度下的显存占用**——决定你需要几张卡。\n\n只报总参数的比较没有信息量。\n\n## 承诺的日期不是可用的日期\n\nKimi K3 发布时是 2.8 万亿参数、承诺月内开放权重。在权重真正落地之前，它对一个自托管团队的价值是零。把「已宣布」和「已可用」记成两列，选型表才不会骗自己。\n\n## 「选多大」之外，还有「选哪一层」\n\nGitHub 在 Copilot 改成按 API 列表价计费之后，正面回答了「既然能直接调 API，为什么还要付 Copilot」：你要自己拥有哪一层——是模型调用本身，还是围绕它的编辑器、仓库、终端、组织策略与计费控制这一整套外壳。\n\n**模型选型和边界选型是同一个决定的两半。** 先定你必须拥有哪一层，再去比价格；反过来做，比出来的价格没有意义。\n\n## 交给谁\n\n判断推理引擎对某个模型的支持到了哪一级、多久能真正跑起来，是「模型与推理引擎的支持路径」；目标是一台具体的机器，是「端侧模型部署与硬件适配」；要为很多人提供服务，是「推理服务容量规划」；而读一份发布公告并决定该不该换代，是「旗舰模型发布解读与换代判断」。",
-      "category": "machine-learning",
-      "difficulty": "intermediate",
+      "id": "knowledge-feedback-loops",
+      "title": "反馈闭环与团队学习",
+      "slug": "feedback-loops-and-team-learning",
+      "summary": "小而可见的闭环，比目标模糊的大版本发布更能让团队快速学习。",
+      "content": "决定一个团队把 AI 用得好不好的，往往不是模型选得对不对，而是**他们多快能发现自己选错了**。这条讲的循环和《评估闭环》形状相同、对象不同：那一条被评的是系统的输出，这一条被评的是**团队自己的产出节奏**。\n\n## 学习速度是可以被设计的，不是天赋\n\n它由三个时间决定：一次改动多久能到用户面前、多久能拿回反馈、拿到之后多久能改回来。三个都缩短，团队就学得快——这与团队是否聪明无关，只与循环长度有关。反过来，一个每季度才发一次的流程，无论多认真，一年也只有四次学习机会。\n\n## 小而可见，胜过大而模糊\n\nGitHub 重写 Copilot 代码审查那次是最好的例子：他们换上了维护更好的共享 CLI 工具，**基准反而更差**——审查成本更高、抓到的问题更少。真正翻转局面的是把「审查者实际怎么读一个 PR」写进指令，成本降约 20%、质量不变。\n\n值得学的不是「指令比工具重要」这个结论，而是**他们能够分辨出是哪一个改动起了作用**。一次只动一件事、每次都量，才可能得到这种因果结论；把两件事一起上线，你能拿到的只有一句含糊的「好像变好了」。\n\n## 失败必须留下可检索的理由\n\nAi2 的 Shippy 复盘交付的是四条工程经验加三件开源工件——**它把一次内部尝试变成了别人可以复用的东西**，而不是一个只有当事人记得的教训。\n\n反面更常见：一次被否掉的试点如果没有写下「为什么不做」，六个月后同一个想法会被原样重提，而且没有人记得上次为什么否掉。这是团队学习最容易漏掉的一处，因为它不像故障那样会自己冒出来提醒你。\n\n## 三种让团队学不动的情况\n\n- **反馈太慢。** 改动和结果之间隔得太久，因果已经无法归因，于是每次讨论都退回到各说各的经验。\n- **只在出事时复盘。** 于是「为什么这次成了」永远没人写，成功变成运气，无法被复制。\n- **学习没有归属。** 和评估闭环断在同一个地方：没有人负责把这次学到的东西变成下一次的默认做法。\n\n## 与相邻条目的分工\n\n《评估闭环》评的是系统的输出，这一条评的是团队的节奏；判断任务里某一步做完没有是《完成判定与验收信号》；某个决定值不值得占用一个人，是《人在回路的审查》；而**在动手之前把范围框好、让一次尝试能便宜地失败**，是技能《AI 试点范围界定》——那是这条概念在项目起点处的具体做法。",
+      "category": "product-thinking",
+      "difficulty": "foundation",
       "tags": [
-        "tag-on-device",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-observability"
       ],
       "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-qbitai-com-p-468782",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
-        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2"
+        "tech-multimodal-copilots",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-www-qbitai-com-p-469795",
+        "draft-candidate-rss-https-www-qbitai-com-p-469721",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1",
-        "skill-ws-7796779a"
+        "skill-communication-ai",
+        "skill-scope-pilots"
       ],
       "status": "published",
-      "createdAt": "2026-07-21T05:08:17.347Z",
-      "updatedAt": "2026-08-23T16:23:54.806Z"
+      "createdAt": "2026-08-06T14:20:26.273Z",
+      "updatedAt": "2026-08-23T16:23:55.082Z"
     },
     {
       "id": "knowledge-ws-e251051e",
@@ -364,7 +202,10 @@
         "draft-candidate-rss-https-www-qbitai-com-p-474381",
         "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -373,75 +214,7 @@
       ],
       "status": "published",
       "createdAt": "2026-08-04T10:25:18.175Z",
-      "updatedAt": "2026-08-23T16:23:54.856Z"
-    },
-    {
-      "id": "knowledge-latency-tradeoffs",
-      "title": "交互系统中的延迟权衡",
-      "slug": "latency-tradeoffs-in-interactive-systems",
-      "summary": "交互系统里决定体验的不是平均延迟这一个数，而是用户在等待期间知道什么——语音与端侧 AI 让这条老经验重新变得要紧。",
-      "content": "交互系统里决定体验的，很少是平均延迟这一个数，而是**用户在等待期间知道什么**。这是个很老的系统经验，而语音和端侧 AI 让它重新变得要紧。\n\n## 一个数不够，至少要三个\n\n- **首字延迟**——从请求到第一个可见反应。\n- **稳态吞吐**——之后每秒出多少。\n- **总时长**——这件事整体多久做完。\n\n一个系统可以在其中一个上很快、在另一个上不可用。而且**速度永远是「在什么条件下的速度」**：LFM2.5-Encoders 快约 3.7 倍这个数，附带的限定是「长上下文、在 CPU 上、对比 ModernBERT-base」——去掉限定，这个数就没有意义。同理，Gemini Robotics 2 的时刻定位平均误差 0.96 秒是在「4 倍于大得多的模型的执行速度」下取得的，被买下的权衡是**单位时间内的准确度**，不是单纯的准确度。\n\n## 感知延迟可以和真实延迟脱钩\n\n你能改的往往不是延迟本身，而是**等待期间发生了什么**：流式输出让首字延迟代替总时长成为体感、确认音和语气词填住空档、乐观更新先给出可撤销的结果。\n\n语音把这件事推到极端。GPT-Live 这类模型直接驱动语音产品，而语音**没有屏幕可以放一个转圈**——沉默会被直接读成失败。所以语音的延迟预算不是省出来的，是重新分配出来的。\n\n## 预算要分配，不是一味压缩\n\n一条链路的延迟花在检索、模型、工具调用、后处理几段上。先量出各段占比，再决定优化哪一段——否则优化的往往只是**你看得见的那一段**。\n\n端侧和云的取舍也落在这里：本地省掉了网络往返，但把模型规模压死了；混合架构的实质是**按「哪些请求容忍得起这次往返」来切**，而不是按技术偏好切。\n\n## 定义好「太慢了怎么办」\n\n每个交互系统都需要为「超时」写下明确行为：降级到更小的模型、返回部分结果、转人工，或者干脆告诉用户失败了。**没有定义的超时行为，就是挂起。** 这一条比任何加速手段都更早需要被决定。\n\n## 与相邻条目的分工\n\n这一条是**概念**：延迟由哪几个数描述、预算怎么分、感知怎么和真实脱钩。语音产品的对话节奏、打断与兜底怎么设计，是「实时语音交互设计」；为很多人服务时的排队、批处理与副本数，是「推理服务容量规划」；一台具体机器上的实测与调优，是「端侧模型部署与硬件适配」；哪些请求走本地、哪些走云，是「本地与云混合推理架构」。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-on-device",
-        "tag-multimodal"
-      ],
-      "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2"
-      ],
-      "relatedSkillIds": [
-        "skill-scope-pilots",
-        "skill-ws-d7c9d1d8",
-        "skill-ws-b47fabd1"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:24:01.841Z",
-      "updatedAt": "2026-08-23T16:23:54.899Z"
-    },
-    {
-      "id": "knowledge-ws-a28a8a56",
-      "title": "长时程智能体的记忆与上下文管理",
-      "slug": "agent-memory-context-management",
-      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
-      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
-      "category": "software-architecture",
-      "difficulty": "intermediate",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-ws-f741f122"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-20T14:16:23.755Z",
-      "updatedAt": "2026-08-23T16:23:54.941Z"
+      "updatedAt": "2026-09-06T08:22:04.934Z"
     },
     {
       "id": "knowledge-evaluation-loops",
@@ -470,7 +243,10 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
         "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
         "draft-candidate-rss-https-www-qbitai-com-p-474381",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -479,75 +255,38 @@
       ],
       "status": "published",
       "createdAt": "2026-07-27T10:19:54.071Z",
-      "updatedAt": "2026-08-23T16:23:54.989Z"
+      "updatedAt": "2026-09-06T08:22:05.000Z"
     },
     {
-      "id": "knowledge-system-design",
-      "title": "系统设计的权衡",
-      "slug": "system-design-tradeoffs",
-      "summary": "当产品由 AI 驱动时，延迟、可靠性、成本和可控性这些权衡依然适用。",
-      "content": "架构上的每一个决定都在买东西，而代价是另一样东西。**没有代价的决定不是权衡，是常识**——真正的问题从来不是「哪个更好」，而是「你愿意为什么付钱」。这个判断在 AI 系统里没有变，只是付钱的位置换了。\n\n## 先分「可逆的」和「锁死的」\n\n这是最有用的一次分类，因为它决定了你该花多少时间在这个决定上。**可以晚点再定的，就晚点再定**；一旦定了就会锁死后续所有选项的，值得当场吵清楚。\n\nMCP 2.0 是这一类里最干净的例子。把协议核心从有状态改成无状态，表面上是删掉了握手和会话 id，实质是**把「同一个会话必须落在同一个实例」这条约束从架构里拿掉**——于是负载均衡、扩容、故障恢复三件事同时变简单。它改变的不是一个功能，是后面每一个部署决定的可选项。\n\n## 状态几乎总是最贵的那一项\n\n有状态换来的是「少传一点数据、少算一遍」，付出的是「请求必须回到同一个地方」。这笔账在单机上看着划算，一旦要横向扩，代价会一次性全部到账。所以看到「为了性能把它缓存在实例里」这类说法时，先问一句：**这是省了多少，锁死了什么**。\n\n## 每一层抽象，都是拿控制换省事\n\n「Copilot 与裸 API」那条信号里，模型层的价差被抹平之后，剩下的决定就是**你要拥有哪一层**——外壳、工具层、还是只有权重。往上走一层，你少建一些东西，也少了一些能改的地方。\n\n这里还有一个容易被忽略的形态：**默认值本身就是一次权衡，只是别人替你做了**。vLLM 把 Model Runner V2 定为默认执行引擎，等于把这个取舍一次性推给了所有用户；受影响的人如果没读发布说明，会以为自己什么都没选。\n\n## 写下来的那一句，决定六个月后还能不能改\n\n一条能用的决策记录有三段：**我们选了 X；因为在我们的场景里 A 比 B 重要；如果 A 不再重要，就应该重新考虑。** 大部分记录只写了前两段，于是六个月后没人知道当初的前提还成不成立，也就没人敢动它——权衡退化成了惯例。\n\n具体到某一项怎么量，交给别的条目：延迟那一项去看《交互系统中的延迟权衡》，「哪个约束先咬人」去看《模型选型与约束匹配》，本地与云那条线去看《本地与云混合推理架构》，而「自建还是采购」是《AI 工具链选型与自建边界评估》要回答的。这条只负责一件事：**先认出你正在做的是一次权衡，而不是在选一个更好的东西。**",
-      "category": "software-architecture",
+      "id": "knowledge-ws-89b98df3",
+      "title": "对抗性评估与红队方法",
+      "slug": "adversarial-evaluation-red-teaming",
+      "summary": "一种源自安全工程的经典思路：不测系统平均表现，而是主动寻找让它失败的输入——理解现代模型安全测试与注入防御的方法论根源。",
+      "content": "红队（red teaming）源自军事推演和安全工程：由专人扮演攻击方，用一切手段寻找系统的失败方式，再把发现回流给防守方修复。它与常规评估的根本差别在于目标函数——常规评估问「平均表现多好」，红队问「最坏情况下会怎样失败」。对于会被真实对手攻击的系统（而接入工具的 AI 智能体正是这样的系统），只看平均表现的评估天然高估安全性。\n\n用在大模型上，红队方法有三个层次。第一层是人工红队：领域专家手写越狱与注入尝试，覆盖面受限于人的想象力，但发现的失败案例质量高。第二层是种子扩增：以人工发现为种子，用模板、变异和另一个模型批量生成变体，扩大覆盖。第三层是全自动对抗回路：攻击方模型以「让防守方失败」为目标函数持续搜索，OpenAI 的 GPT-Red 用自博弈把这一层推到了规模化——攻防互为对手、共同变强，对抗样本的生成从枚举变成了优化。\n\n落地时的关键原则：红队发现必须进入回归。一次红队审计只是快照，真正的价值在于把每个失败案例固化为测试集条目，让后续每个版本都要重新通过——这正是评估闭环思想在安全维度的应用。对多数团队来说，从「为自己的智能体维护一份持续增长的注入测试集」开始，比追求自动化攻击生成更务实。",
+      "category": "machine-learning",
       "difficulty": "intermediate",
       "tags": [
-        "tag-workflow",
-        "tag-product-strategy"
+        "tag-ai-agents",
+        "tag-frontier-models"
       ],
       "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-qbitai-com-p-474381",
-        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code"
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
       ],
       "relatedSkillIds": [
-        "skill-agent-design"
+        "skill-ws-c183c9b9",
+        "skill-model-evaluation"
       ],
       "status": "published",
-      "createdAt": "2026-07-27T01:48:18.567Z",
-      "updatedAt": "2026-08-23T16:23:55.033Z"
-    },
-    {
-      "id": "knowledge-feedback-loops",
-      "title": "反馈闭环与团队学习",
-      "slug": "feedback-loops-and-team-learning",
-      "summary": "小而可见的闭环，比目标模糊的大版本发布更能让团队快速学习。",
-      "content": "决定一个团队把 AI 用得好不好的，往往不是模型选得对不对，而是**他们多快能发现自己选错了**。这条讲的循环和《评估闭环》形状相同、对象不同：那一条被评的是系统的输出，这一条被评的是**团队自己的产出节奏**。\n\n## 学习速度是可以被设计的，不是天赋\n\n它由三个时间决定：一次改动多久能到用户面前、多久能拿回反馈、拿到之后多久能改回来。三个都缩短，团队就学得快——这与团队是否聪明无关，只与循环长度有关。反过来，一个每季度才发一次的流程，无论多认真，一年也只有四次学习机会。\n\n## 小而可见，胜过大而模糊\n\nGitHub 重写 Copilot 代码审查那次是最好的例子：他们换上了维护更好的共享 CLI 工具，**基准反而更差**——审查成本更高、抓到的问题更少。真正翻转局面的是把「审查者实际怎么读一个 PR」写进指令，成本降约 20%、质量不变。\n\n值得学的不是「指令比工具重要」这个结论，而是**他们能够分辨出是哪一个改动起了作用**。一次只动一件事、每次都量，才可能得到这种因果结论；把两件事一起上线，你能拿到的只有一句含糊的「好像变好了」。\n\n## 失败必须留下可检索的理由\n\nAi2 的 Shippy 复盘交付的是四条工程经验加三件开源工件——**它把一次内部尝试变成了别人可以复用的东西**，而不是一个只有当事人记得的教训。\n\n反面更常见：一次被否掉的试点如果没有写下「为什么不做」，六个月后同一个想法会被原样重提，而且没有人记得上次为什么否掉。这是团队学习最容易漏掉的一处，因为它不像故障那样会自己冒出来提醒你。\n\n## 三种让团队学不动的情况\n\n- **反馈太慢。** 改动和结果之间隔得太久，因果已经无法归因，于是每次讨论都退回到各说各的经验。\n- **只在出事时复盘。** 于是「为什么这次成了」永远没人写，成功变成运气，无法被复制。\n- **学习没有归属。** 和评估闭环断在同一个地方：没有人负责把这次学到的东西变成下一次的默认做法。\n\n## 与相邻条目的分工\n\n《评估闭环》评的是系统的输出，这一条评的是团队的节奏；判断任务里某一步做完没有是《完成判定与验收信号》；某个决定值不值得占用一个人，是《人在回路的审查》；而**在动手之前把范围框好、让一次尝试能便宜地失败**，是技能《AI 试点范围界定》——那是这条概念在项目起点处的具体做法。",
-      "category": "product-thinking",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-product-strategy",
-        "tag-observability"
-      ],
-      "relatedTechnologyIds": [
-        "tech-multimodal-copilots",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-www-qbitai-com-p-469795",
-        "draft-candidate-rss-https-www-qbitai-com-p-469721",
-        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-communication-ai",
-        "skill-scope-pilots"
-      ],
-      "status": "published",
-      "createdAt": "2026-08-06T14:20:26.273Z",
-      "updatedAt": "2026-08-23T16:23:55.082Z"
+      "createdAt": "2026-07-19T05:04:39.934Z",
+      "updatedAt": "2026-09-06T08:22:05.056Z"
     },
     {
       "id": "knowledge-human-loop",
@@ -579,7 +318,10 @@
         "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-qbitai-com-p-474381",
         "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code"
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
       ],
       "relatedSkillIds": [
         "skill-scope-pilots",
@@ -588,7 +330,289 @@
       ],
       "status": "published",
       "createdAt": "2026-07-27T16:57:16.103Z",
-      "updatedAt": "2026-08-23T16:23:55.130Z"
+      "updatedAt": "2026-09-06T08:22:05.113Z"
+    },
+    {
+      "id": "knowledge-model-sizing",
+      "title": "模型选型与约束匹配",
+      "slug": "model-sizing-and-constraint-matching",
+      "summary": "选模型不是挑最强的那个，而是先找出哪个约束最先咬人——延迟、隐私、成本，还是任务本身根本不需要那么大的模型。",
+      "content": "「用哪个模型」这个问题，很少由「哪个最强」决定。真正决定答案的是延迟、隐私、成本、任务复杂度这四个约束里，**哪一个先咬人**。通常只有一个先咬人，而它一旦确定，候选集会立刻小掉一个数量级。\n\n## 有一整类任务，大模型是形状不对，而不只是贵\n\nLiquid AI 的 LFM2.5-Encoders 是两个 230M 与 350M 的开源编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它瞄准的是被生成式模型遮住的那一半生产负载：意图路由、策略检查、PII 识别、文本分类。\n\n这些任务的共同点是**输出是一个标签，不是一段话**，而且整天在跑、大多跑在 CPU 上。对它们来说，旗舰模型不是贵一点，是形状不对——你为一个用不上的能力付了延迟、成本和运维复杂度。\n\n## 参数量不是尺寸\n\nInkling 是约 1 万亿总参数、41B 激活参数的 MoE 模型。这两个数字都回答不了「我跑不跑得动」：真正决定的是显存，BF16 约 2TB，NVFP4 约 600GB。\n\n所以看规模要同时看三个数：\n\n1. **总参数**——决定权重占多大。\n2. **激活参数**——决定每个 token 实际算多少。\n3. **目标精度下的显存占用**——决定你需要几张卡。\n\n只报总参数的比较没有信息量。\n\n## 承诺的日期不是可用的日期\n\nKimi K3 发布时是 2.8 万亿参数、承诺月内开放权重。在权重真正落地之前，它对一个自托管团队的价值是零。把「已宣布」和「已可用」记成两列，选型表才不会骗自己。\n\n## 「选多大」之外，还有「选哪一层」\n\nGitHub 在 Copilot 改成按 API 列表价计费之后，正面回答了「既然能直接调 API，为什么还要付 Copilot」：你要自己拥有哪一层——是模型调用本身，还是围绕它的编辑器、仓库、终端、组织策略与计费控制这一整套外壳。\n\n**模型选型和边界选型是同一个决定的两半。** 先定你必须拥有哪一层，再去比价格；反过来做，比出来的价格没有意义。\n\n## 交给谁\n\n判断推理引擎对某个模型的支持到了哪一级、多久能真正跑起来，是「模型与推理引擎的支持路径」；目标是一台具体的机器，是「端侧模型部署与硬件适配」；要为很多人提供服务，是「推理服务容量规划」；而读一份发布公告并决定该不该换代，是「旗舰模型发布解读与换代判断」。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-qbitai-com-p-468782",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-dddaf80c",
+        "skill-ws-b47fabd1",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.347Z",
+      "updatedAt": "2026-09-06T08:22:05.162Z"
+    },
+    {
+      "id": "knowledge-api-contracts",
+      "title": "API 契约与接口边界",
+      "slug": "api-contracts-and-interface-boundaries",
+      "summary": "当 AI 系统调用工具、串联服务或交换结构化上下文时，稳定的契约至关重要。",
+      "content": "接口契约是一个**承诺**，不是一份文档。完整的承诺有四件事：输入的形状、输出的形状、**出错时的形状**、以及**这个承诺将来怎么改**。前两件所有人都会写，后两件经常没人写——而决定你的集成能不能活过一年的，恰恰是后两件。\n\n## 变更规则是那条决定寿命的\n\nMCP 2.0 把弃用写成了规范的一部分：任何被废弃的能力**至少保留 12 个月**。这看起来是最无聊的一条改动，实际上它是唯一一条直接决定「我敢不敢把它接进生产」的改动——没有它，你的集成可能在任何一个周二早上失效，而你事先什么都做不了。\n\n判断一个外部接口值不值得深接，看它有没有回答这三个问题：**什么时候会改、改之前你会知道多久、旧的还能用多久**。答不上来，就按「随时会断」来设计。\n\n## 出错时的形状也是契约\n\n一个例子：Ollama 在 0.32.6 里把被截断的响应从 `finish_reason: \"tool_calls\"` 改成了 `finish_reason: \"length\"`。功能没变，但这是在**修一个会说谎的契约**——调用方原本会以为模型要调工具，实际上只是输出被截断了，于是下游走进完全错误的分支。\n\n这类错误比直接失败贵得多。**返回 500 的接口会被你处理，返回 200 但语义是错的接口会被你相信。**\n\n## 边界画在哪里，决定了谁能参与\n\nMCP 2.0 把方法名和工具名从请求体搬进 HTTP 头，于是**网关不必解析请求体就能路由和鉴权**。同一套能力，只因为契约的形状变了，可参与的角色就多了一类。\n\n反过来也成立：契约把信息藏得越深，能帮上忙的组件就越少，最后所有逻辑都被迫挤在一个地方。\n\n## 一个契约值多少，看它让多少东西不必被改写\n\nvLLM 的 Transformers 后端是这条的极端案例：因为有一个统一的模型接口，**450+ 架构不必逐个移植**就能跑。契约的价值不在于它描述得多细，而在于它替多少人挡住了改写。\n\n落到日常，有一个很好用的检验：**加一个字段，是不是所有调用方都得跟着一起改？** 如果是，那不是契约，只是当前实现的一份快照。\n\n边界之外的事交给邻近条目：一次调用本身分成哪几步，去看《工具使用与函数调用》；工具层要怎么建、怎么吸收混乱，去看技能《工具集成模式》；而「边界应该画在哪一层」本身是一次取舍，去看《系统设计的权衡》。",
+      "category": "software-architecture",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-qbitai-com-p-469721",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.433Z",
+      "updatedAt": "2026-09-06T08:22:06.598Z"
+    },
+    {
+      "id": "knowledge-system-design",
+      "title": "系统设计的权衡",
+      "slug": "system-design-tradeoffs",
+      "summary": "当产品由 AI 驱动时，延迟、可靠性、成本和可控性这些权衡依然适用。",
+      "content": "架构上的每一个决定都在买东西，而代价是另一样东西。**没有代价的决定不是权衡，是常识**——真正的问题从来不是「哪个更好」，而是「你愿意为什么付钱」。这个判断在 AI 系统里没有变，只是付钱的位置换了。\n\n## 先分「可逆的」和「锁死的」\n\n这是最有用的一次分类，因为它决定了你该花多少时间在这个决定上。**可以晚点再定的，就晚点再定**；一旦定了就会锁死后续所有选项的，值得当场吵清楚。\n\nMCP 2.0 是这一类里最干净的例子。把协议核心从有状态改成无状态，表面上是删掉了握手和会话 id，实质是**把「同一个会话必须落在同一个实例」这条约束从架构里拿掉**——于是负载均衡、扩容、故障恢复三件事同时变简单。它改变的不是一个功能，是后面每一个部署决定的可选项。\n\n## 状态几乎总是最贵的那一项\n\n有状态换来的是「少传一点数据、少算一遍」，付出的是「请求必须回到同一个地方」。这笔账在单机上看着划算，一旦要横向扩，代价会一次性全部到账。所以看到「为了性能把它缓存在实例里」这类说法时，先问一句：**这是省了多少，锁死了什么**。\n\n## 每一层抽象，都是拿控制换省事\n\n「Copilot 与裸 API」那条信号里，模型层的价差被抹平之后，剩下的决定就是**你要拥有哪一层**——外壳、工具层、还是只有权重。往上走一层，你少建一些东西，也少了一些能改的地方。\n\n这里还有一个容易被忽略的形态：**默认值本身就是一次权衡，只是别人替你做了**。vLLM 把 Model Runner V2 定为默认执行引擎，等于把这个取舍一次性推给了所有用户；受影响的人如果没读发布说明，会以为自己什么都没选。\n\n## 写下来的那一句，决定六个月后还能不能改\n\n一条能用的决策记录有三段：**我们选了 X；因为在我们的场景里 A 比 B 重要；如果 A 不再重要，就应该重新考虑。** 大部分记录只写了前两段，于是六个月后没人知道当初的前提还成不成立，也就没人敢动它——权衡退化成了惯例。\n\n具体到某一项怎么量，交给别的条目：延迟那一项去看《交互系统中的延迟权衡》，「哪个约束先咬人」去看《模型选型与约束匹配》，本地与云那条线去看《本地与云混合推理架构》，而「自建还是采购」是《AI 工具链选型与自建边界评估》要回答的。这条只负责一件事：**先认出你正在做的是一次权衡，而不是在选一个更好的东西。**",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-workflow",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T01:48:18.567Z",
+      "updatedAt": "2026-09-06T08:22:06.661Z"
+    },
+    {
+      "id": "knowledge-ws-36346103",
+      "title": "混合专家模型（MoE）架构",
+      "slug": "moe-architecture",
+      "summary": "理解稀疏激活如何让总参数、推理算力与显存占用三者脱钩——读懂开源旗舰模型规格表和估算部署成本的前提概念。",
+      "content": "混合专家模型（Mixture of Experts, MoE）把稠密网络中的前馈层替换为多个「专家」子网络，每个 token 经路由器只激活其中少数几个。结果是三个此前绑定的量被拆开了：总参数决定模型容量（和显存下限），激活参数决定单次推理的计算成本，而路由质量决定这份容量被利用得多好。Inkling 的「1 万亿总参数、41B 激活」正是这种脱钩的直观例子——推理算力接近一个 41B 稠密模型，但知识容量远超之。\n\n工程上最常被误读的一点：稀疏激活省的是算力，不是显存。所有专家的权重都必须在显存里待命（路由是逐 token 决定的），所以 1T 总参数的模型即便量化后仍需数百 GB 显存，部署门槛是数据中心级的多卡/多机。这也解释了为什么 MoE 是「大容量、可控推理成本」的路线，而不是「大模型跑在小硬件上」的路线。\n\n读规格表时的三个检查点：一看总参/激活参数比（容量与算力的杠杆率）；二看专家数与共享专家设计（路由粒度）；三看推理引擎的 MoE 支持成熟度——执行引擎对专家并行、专家卸载的支持程度，直接决定纸面规格能否变成实际吞吐。",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-www-qbitai-com-p-468782",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-19T04:05:12.947Z",
+      "updatedAt": "2026-09-06T08:22:07.384Z"
+    },
+    {
+      "id": "knowledge-ws-34da6116",
+      "title": "模型量化与数值精度",
+      "slug": "model-quantization-numeric-precision",
+      "summary": "把权重和激活从高精度压到低比特，是让大模型跑进有限显存的主要手段；代价是精度损失，而损失落在哪一层决定了它是无感还是灾难。",
+      "content": "量化的基本动作很简单：用更少的比特存同一个数。真正难的是决定**哪些部分可以被压、压到多少**。\n\n三件事值得先弄清楚：\n\n**1. 不是所有层都一样敏感。** 注意力的输出投影、归一化参数、路由器（router）和输出头（output head）对精度远比中间的前馈层敏感。实践中常见的做法是把这些留在较高精度，其余压到 4-bit 或 8-bit——所以你会在发布说明里反复看到「保留输出头精度」「router 保持原精度」这类描述。\n\n**2. 混合精度会带来一致性问题。** MoE 架构允许每个专家单独存储，于是不同专家用不同量化类型是完全可能的。这在服务器端是省显存的常规手段，但一旦解码路径没有处理好精度不一致，表现就是输出异常或性能塌陷，而不是一个干净的报错。\n\n**3. 量化会和其他优化互相影响。** 推测解码里草稿模型的开销直接决定净收益，如果草稿的输出头没有按请求精度量化，省下来的时间会被重新吃掉。图捕获、注意力核的选择也都和数据类型绑定。\n\n判断一条量化相关的信号是否重要，可以问三个问题：它动的是哪一层？精度损失有没有被量化评估（而不是只给个速度数字）？它和现有的推理路径（推测解码、图捕获、并行切分）是否兼容？",
+      "category": "machine-learning",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-inference",
+        "tag-on-device"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-a9e80194",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-7796779a"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T02:42:33.541Z",
+      "updatedAt": "2026-09-06T08:22:07.439Z"
+    },
+    {
+      "id": "knowledge-latency-tradeoffs",
+      "title": "交互系统中的延迟权衡",
+      "slug": "latency-tradeoffs-in-interactive-systems",
+      "summary": "交互系统里决定体验的不是平均延迟这一个数，而是用户在等待期间知道什么——语音与端侧 AI 让这条老经验重新变得要紧。",
+      "content": "交互系统里决定体验的，很少是平均延迟这一个数，而是**用户在等待期间知道什么**。这是个很老的系统经验，而语音和端侧 AI 让它重新变得要紧。\n\n## 一个数不够，至少要三个\n\n- **首字延迟**——从请求到第一个可见反应。\n- **稳态吞吐**——之后每秒出多少。\n- **总时长**——这件事整体多久做完。\n\n一个系统可以在其中一个上很快、在另一个上不可用。而且**速度永远是「在什么条件下的速度」**：LFM2.5-Encoders 快约 3.7 倍这个数，附带的限定是「长上下文、在 CPU 上、对比 ModernBERT-base」——去掉限定，这个数就没有意义。同理，Gemini Robotics 2 的时刻定位平均误差 0.96 秒是在「4 倍于大得多的模型的执行速度」下取得的，被买下的权衡是**单位时间内的准确度**，不是单纯的准确度。\n\n## 感知延迟可以和真实延迟脱钩\n\n你能改的往往不是延迟本身，而是**等待期间发生了什么**：流式输出让首字延迟代替总时长成为体感、确认音和语气词填住空档、乐观更新先给出可撤销的结果。\n\n语音把这件事推到极端。GPT-Live 这类模型直接驱动语音产品，而语音**没有屏幕可以放一个转圈**——沉默会被直接读成失败。所以语音的延迟预算不是省出来的，是重新分配出来的。\n\n## 预算要分配，不是一味压缩\n\n一条链路的延迟花在检索、模型、工具调用、后处理几段上。先量出各段占比，再决定优化哪一段——否则优化的往往只是**你看得见的那一段**。\n\n端侧和云的取舍也落在这里：本地省掉了网络往返，但把模型规模压死了；混合架构的实质是**按「哪些请求容忍得起这次往返」来切**，而不是按技术偏好切。\n\n## 定义好「太慢了怎么办」\n\n每个交互系统都需要为「超时」写下明确行为：降级到更小的模型、返回部分结果、转人工，或者干脆告诉用户失败了。**没有定义的超时行为，就是挂起。** 这一条比任何加速手段都更早需要被决定。\n\n## 与相邻条目的分工\n\n这一条是**概念**：延迟由哪几个数描述、预算怎么分、感知怎么和真实脱钩。语音产品的对话节奏、打断与兜底怎么设计，是「实时语音交互设计」；为很多人服务时的排队、批处理与副本数，是「推理服务容量规划」；一台具体机器上的实测与调优，是「端侧模型部署与硬件适配」；哪些请求走本地、哪些走云，是「本地与云混合推理架构」。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-multimodal"
+      ],
+      "relatedTechnologyIds": [
+        "tech-slm-edge",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedSkillIds": [
+        "skill-scope-pilots",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-b47fabd1"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:24:01.841Z",
+      "updatedAt": "2026-09-06T08:22:07.497Z"
+    },
+    {
+      "id": "knowledge-ws-a28a8a56",
+      "title": "长时程智能体的记忆与上下文管理",
+      "slug": "agent-memory-context-management",
+      "summary": "上下文窗口不是记忆。长时程任务需要在有限窗口之上构建工作记忆、外部存储与检索回填的分层体系，其设计质量直接决定智能体能走多远。",
+      "content": "上下文窗口与记忆是两回事：窗口是易失的、有限的、按 token 计费的即时状态，记忆是持久的、可检索的长期资产。长时程任务最常见的失败模式，就是上下文溢出后早期的关键约束被静默挤出窗口——智能体在第 80 步忘了第 3 步定下的规则，且没有任何报错。理解这套机制，是评估任何「能干几小时活」的智能体产品时最该先看的一层。\n\n成熟的设计通常分三层。工作记忆：当前任务状态的滚动摘要，随任务推进持续压缩重写，保证「现在在干什么、还剩什么约束」永远在窗口内。情景记忆：完整历史轨迹外置到存储，按需检索回填，而不是全量塞回窗口。语义记忆：把跨任务复用的经验沉淀为规则或知识条目。ChatGPT Work 把长时程办公任务做成产品、Shippy 在高风险场景里跑数小时任务，两者都把状态管理列为核心工程问题而非附属细节；Ollama 的本地智能体工作台则要在设备资源约束下解同一道题。\n\n评估一个智能体产品的记忆设计，问三个问题就够：上下文溢出时按什么规则丢弃、外部记忆在什么时机回填、被写进记忆的错误信息如何被发现和修正。三问答不上来的产品，长时程可靠性大概率是演示级而非生产级。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:16:23.755Z",
+      "updatedAt": "2026-09-06T08:22:07.552Z"
+    },
+    {
+      "id": "knowledge-ws-c761533e",
+      "title": "本地与云混合推理架构",
+      "slug": "local-cloud-hybrid-inference",
+      "summary": "把「哪些请求留在本地、哪些上云」当成一个架构决策：隐私、延迟、成本与能力四个约束的显式权衡。",
+      "content": "端侧模型能力的提升没有消灭云端推理，而是把问题变成了分流：同一个产品里，简单、隐私敏感或离线场景的请求走本地小模型，复杂推理走云端大模型。Ollama v0.32.0 把默认入口换成智能体并默认挂载云端模型，就是这种混合形态成为主流默认的信号。设计混合架构时有四个显式约束要排序：隐私（哪些数据绝不能出设备）、延迟（本地省去网络往返，但大模型本地跑反而更慢）、成本（云端按 token 计费、本地按硬件摊销）、能力（任务失败率超过阈值就必须升级到更强模型）。常见的工程形态是「本地先试 + 置信度路由」：本地模型先答，低置信度或超时再升级云端，同时把路由决策记录下来供后续调优。这个概念解释了为什么端侧和云端的发布节奏值得同时关注。",
+      "category": "software-architecture",
+      "difficulty": "intermediate",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedSkillIds": [
+        "skill-tool-integration",
+        "skill-agent-design",
+        "skill-ws-d7c9d1d8"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.762Z",
+      "updatedAt": "2026-09-06T08:22:07.604Z"
     }
   ]
 }

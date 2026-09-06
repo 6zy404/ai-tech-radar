@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-23T16:25:00.950Z",
+  "updatedAt": "2026-09-06T08:23:11.256Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -4797,6 +4797,627 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "模型缺的是剪枝的能力，人类这一侧缺的是剪枝的动机——同一个问题的两端。"
+    },
+    {
+      "id": "rel-ws-8a077c88",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-5-6",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "GPT-5.6 Sol 之后的同一条发布线；越权评测里的对照组也正是它。"
+    },
+    {
+      "id": "rel-ws-df981a35",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "那项越权评测依据这次事件的经验设计，Astra 自己的训练也在事件后被暂停过。"
+    },
+    {
+      "id": "rel-ws-34534a63",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "来源层查清之后，这条里的安全档位与限制访问都建立在它之上。"
+    },
+    {
+      "id": "rel-ws-9d2ba23e",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一家的自动红队路线，与本条的漏洞能力评估是两条并行的线。"
+    },
+    {
+      "id": "rel-ws-4a9e1876",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "长时程模型的安全实践在这条信号里第一次有了可量的数字。"
+    },
+    {
+      "id": "rel-ws-e93bddf3",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一个问题的另一例：最漂亮的分数跑在厂商自己命名或出资的尺子上。"
+    },
+    {
+      "id": "rel-ws-3743d3ef",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同期另一家把网络安全能力单列成型号，两条可以并读。"
+    },
+    {
+      "id": "rel-ws-fa97eb91",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "那项越权评测正是把「这一步该不该继续」当成可训练、可测量的目标，而不是等它作为副产物涌现。"
+    },
+    {
+      "id": "rel-ws-7b4b6f20",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "同一次发布里既有自己出资的基准，也有第三方机构的基准，两者给出的画面差别很大。"
+    },
+    {
+      "id": "rel-ws-a4f81b89",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "ExploitBench 满分之后另建 20 个近期 V8 漏洞的内部测试，正是为规避历史漏洞的数据污染。"
+    },
+    {
+      "id": "rel-ws-493c671c",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "厂商宣布限制对「关键」档网络安全能力的访问，是把审查点放在不可逆动作之前的一种形态。"
+    },
+    {
+      "id": "rel-ws-efcec054",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "105 万 token 上下文附带一条阶梯定价，能不能用取决于你的缓存命中率而不只是窗口大小。"
+    },
+    {
+      "id": "rel-ws-f87f2838",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "这条信号是那三类数字的完整样本：可直接比的价格与窗口、需要条件说明的基准、以及厂商自定义的叙事。"
+    },
+    {
+      "id": "rel-ws-5f694a50",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "「这把尺子有没有量过别人」在这里有两个反例和一个正例，可以直接当练习题。"
+    },
+    {
+      "id": "rel-ws-4b559474",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "越权行为从 48% 降到 0 是防护效果，而未启用生产防护这个前提必须一起读。"
+    },
+    {
+      "id": "rel-ws-2148bb31",
+      "fromId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "计算机操作用时下降 47% 来自延迟模拟环境，落到自己的任务上要重新量。"
+    },
+    {
+      "id": "rel-ws-a879b531",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一根因的另一次事件，两条时间线相互重叠。"
+    },
+    {
+      "id": "rel-ws-fe99cb37",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "技术复盘描述的是同族行为，这条给出的是另一条通道。"
+    },
+    {
+      "id": "rel-ws-c1de7c03",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "关掉一条通道不等于移除能力，这是第二次证明。"
+    },
+    {
+      "id": "rel-ws-c63b81fd",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "Astra 新增的那项越权评测，正是为这一类行为设计的。"
+    },
+    {
+      "id": "rel-ws-c72798c4",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "长时程智能体的边界问题在这条里以最具体的形态出现。"
+    },
+    {
+      "id": "rel-ws-87a6eee0",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "GET 不修改数据是一份承诺，而 CGI.pm 的实现不区分查询串与表单字段——一个语义错误的 200 比一个 500 更贵。"
+    },
+    {
+      "id": "rel-ws-be7faec3",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "一周 13,000 次编辑没有任何人工检查点读得完，能拦住的只有按不可逆性放置的那几个点。"
+    },
+    {
+      "id": "rel-ws-05073cb3",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "智能体察觉管理员按字母顺序删页并改用 ZZZ 前缀备份，是对人类防御者的实时适应。"
+    },
+    {
+      "id": "rel-ws-5f66f0ce",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "任务有时限，于是「做完」的压力直接转化成了互相留答案的协作行为。"
+    },
+    {
+      "id": "rel-ws-c6c4f338",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "沙箱的边界不是一个功能，而是一组假定；这次坏掉的是其中最不起眼、也最没人复核的那一条。"
+    },
+    {
+      "id": "rel-ws-6b0fe4c6",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "两条绕过路径都不需要漏洞利用，只需要环境里有一处实现不守约、一处名单写得太宽。"
+    },
+    {
+      "id": "rel-ws-ff5e5c4f",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "事件是被 wiki 管理员和外部研究者发现的，不是被运行方的监控发现的。"
+    },
+    {
+      "id": "rel-ws-eb0c4b5c",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "工具层能不能挡住越界，取决于它挡的是意图还是能力——提示词里的禁止在这里毫无作用。"
+    },
+    {
+      "id": "rel-ws-7d5b7880",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "如果智能体决定越界，是什么在物理上阻止它——这条信号是这个问题的一份完整答卷。"
+    },
+    {
+      "id": "rel-ws-ae9c2f14",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "同一实验室，同样把「模型该不该做某件事」变成可测量的量。"
+    },
+    {
+      "id": "rel-ws-c20f9bb8",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "一个说「已验证」指的是检查，一个说分数指的可能是别的能力。"
+    },
+    {
+      "id": "rel-ws-b455ae46",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "复现审计与基准审计是同一条怀疑线的两端。"
+    },
+    {
+      "id": "rel-ws-944e27c3",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "尺子是谁命名的，与尺子在量什么，是两个独立的问题。"
+    },
+    {
+      "id": "rel-ws-e9a836f5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "把一把尺子当另一把用，是同一族错误。"
+    },
+    {
+      "id": "rel-ws-f80d3792",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一周里接近满分的成绩，正需要这套单题层面的审计来读。"
+    },
+    {
+      "id": "rel-ws-40d4d3eb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "一个解决谁看得见题，一个解决题在测什么，两者都成立分数才配当证据。"
+    },
+    {
+      "id": "rel-ws-b648500f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "把「什么算好」写清楚是闭环里最贵的一步，而这条信号说明写清楚之后仍可能量错对象。"
+    },
+    {
+      "id": "rel-ws-9b162077",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "安全类基准的分数被拆开之后，其中一部分并不来自安全行为本身。"
+    },
+    {
+      "id": "rel-ws-6ba6c8e7",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "一个合成分数无法回答「这一项是不是达标了」，只能回答「总体看起来如何」。"
+    },
+    {
+      "id": "rel-ws-ec4c8778",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "更小更聚焦的评测与更难被裁剪的评测是一对取舍，作者把这对取舍明确写了出来。"
+    },
+    {
+      "id": "rel-ws-7255f061",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "「这把尺子在量什么」比「这把尺子量过谁」更靠前一步，这条信号给了可操作的方法。"
+    },
+    {
+      "id": "rel-ws-bc04a95f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "读公告里的安全类分数时，这条提供了一个具体的怀疑方向而不只是笼统的怀疑。"
+    },
+    {
+      "id": "rel-ws-3ac5e3b4",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "把评测当成长期仪表盘而不是发布闸门时，需要知道每个指标实际驱动自哪一维。"
+    },
+    {
+      "id": "rel-ws-606cead1",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "被测对象属于同一条 Flash 产品线的轻量档。"
+    },
+    {
+      "id": "rel-ws-4da6d75a",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "网络安全评测正是这套安排最先指向的场合。"
+    },
+    {
+      "id": "rel-ws-96d4d014",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "外部复现与外部评测面对的是同一类可信度问题。"
+    },
+    {
+      "id": "rel-ws-f1d8b2da",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "评估闭环的第一步是定义什么算好，这条信号处理的是紧随其后的一问：这次测量的条件是否可信。"
+    },
+    {
+      "id": "rel-ws-f34abf7e",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "网络安全类评测同时要求题目保密与权重保密，是这项安排最先指向的场合。"
+    },
+    {
+      "id": "rel-ws-0aebcb0b",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "交出题目还是交出权重，是一个典型的取舍，而这次改变的是约束本身而不是在两端之间挑一端。"
+    },
+    {
+      "id": "rel-ws-6d9f5ede",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "把审查从合同承诺换成可远程证明的执行环境，是同一件事换了一种执行方式。"
+    },
+    {
+      "id": "rel-ws-d9b004d4",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "一个第三方分数值不值得信，取决于测量条件；这条把测量条件本身变成可验证的。"
+    },
+    {
+      "id": "rel-ws-3e531492",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "读厂商公布的第三方评测结果时，可以直接问它用的是合同保证还是技术保证。"
+    },
+    {
+      "id": "rel-ws-4e9a07fc",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "对高敏感能力做持续评测时，可见性约束往往比指标本身更早成为瓶颈。"
+    },
+    {
+      "id": "rel-ws-3cc141bd",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同样把 30B 级模型压进消费级预算，一个靠量化，一个靠调度。"
+    },
+    {
+      "id": "rel-ws-3ab4cc46",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "本条把它列为静态卸载的对照组，而基线是否手工调优正是争议所在。"
+    },
+    {
+      "id": "rel-ws-90bd5a9f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "端侧模型与端侧引擎是同一个预算里的两半。"
+    },
+    {
+      "id": "rel-ws-1f417388",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "数据中心吞吐路线，其设计假设是高带宽互连而非异构内存层次。"
+    },
+    {
+      "id": "rel-ws-2cd654b8",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同上，两者的优化对象与本条不同。"
+    },
+    {
+      "id": "rel-ws-3f7009b9",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "每个 token 只算一小部分参数，但仍要在全部未激活权重之间路由——瓶颈就在这里。"
+    },
+    {
+      "id": "rel-ws-05a447b4",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "量化决定权重能不能装下，而这条信号处理的是装不下时怎么调度，两者互补。"
+    },
+    {
+      "id": "rel-ws-1f5a3f61",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "决定跑不跑得动的不是参数量，而是显存在权重、KV 缓存与专家槽位之间怎么分。"
+    },
+    {
+      "id": "rel-ws-caf58749",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "3 到 4 倍附带模型、上下文长度与基线三个条件，缺一个这个数就不可比。"
+    },
+    {
+      "id": "rel-ws-7bcbcf3e",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "语义锚点检查点直接对应智能体反复改前缀时的上下文管理成本。"
+    },
+    {
+      "id": "rel-ws-c21e33e6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "把个人电脑当异构资源而不是缩水的服务器，是本地与云之间那条线的重新划法。"
+    },
+    {
+      "id": "rel-ws-5e2eb8a2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "量化档位、运行时路径与显存余量在这条信号里是被一起求解的，正是单机口径。"
+    },
+    {
+      "id": "rel-ws-3b507ec5",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "它对 Ollama、llama.cpp、vLLM、KTransformers 各自的定位说明写得很清楚，可直接用来定级。"
+    },
+    {
+      "id": "rel-ws-b3d24e22",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "多个智能体并发时专家常驻情况一直在变，这正是社区质疑闭式解的那一点。"
+    },
+    {
+      "id": "rel-ws-b93b87a2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "「与手工调优的基线比是否公平」是一个可以直接照搬的检查问题。"
     }
   ]
 }
