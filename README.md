@@ -1,9 +1,93 @@
-# AI Tech Radar Prototype
+# AI Tech Radar
 
-A local-first prototype for a high-impact new-technology discovery and
-understanding platform. The goal is not a generic news feed: it helps readers
-see **which new technologies matter first** and connects them to the skills and
-classic knowledge needed to understand them.
+**Not another AI news feed.** It answers a different question: of everything
+that shipped this week, **which one deserves your attention first — and what do
+you need to know before you can judge it?**
+
+The product surface is Chinese; the screenshots show the public site.
+
+![The public home page: today's digest, priority signals, and entry points into skills and background knowledge](docs/images/home.png)
+
+## In 30 seconds
+
+A technology-discovery platform with a **real editorial pipeline** behind it, not
+a seeded demo. Thirteen live sources are imported daily; an editor dispositions
+every candidate; what survives becomes a _signal_ carrying a written explanation
+of why it matters, wired into a typed graph of skills and background concepts.
+
+Everything below was produced by that pipeline over two months of real rounds —
+none of it is fixture data:
+
+|                              |                                |
+| ---------------------------- | ------------------------------ |
+| Published technology signals | **72**                         |
+| Skills / knowledge entries   | 16 / 19                        |
+| Published daily digests      | **26**                         |
+| Live external sources        | 13                             |
+| Content graph                | **107 nodes, 655 typed edges** |
+
+Codebase: ~49,000 lines of TypeScript across **47 pages and 43 API routes**,
+254 unit tests, 22 domain validators, and 23 design documents.
+
+## The three parts that were actually hard
+
+**1. A public/internal boundary that is enforced, not just documented.**
+Imported candidates are noisy by design — raw payloads, review status, duplicate
+internals, source health. Exactly **one mapping function** is allowed to turn one
+into something public, and a validator asserts the internal fields are absent.
+That check earned itself: two fields (`priority`, `intelligenceStatus`) were
+found shipping inside the RSC payload of client components even though no page
+ever rendered them. Nothing looked wrong — only a payload scan could see it.
+
+**2. Ranking that can explain itself.** There is no black-box score. Every signal
+carries the rule that classified it ("editor marked it important, published within
+30 days"), and the reader-facing personalization says _why_ an item matched. The
+banding is derived from the editor's importance level, with recency able to demote
+but never promote — a design chosen only after measuring that the previous
+score-based bands had collapsed to **31 of 31 signals in one band**, leaving the
+other two unreachable.
+
+**3. A typed content graph, not tags.** Every one of the 655 edges carries one of
+eight relation types plus a note, stored as copy-on-write overrides above
+read-only seed data. The generic "related-to" fallback accounts for only **11%**
+of edges — the rest say something specific, which is what makes the graph usable
+rather than decorative. The same graph drives the version-succession line on a
+signal page, the topic hubs, and the grounding for AI-generated learning paths.
+
+![A signal detail page: the version-succession line, publisher type, and the Chinese/original language switch](docs/images/signal-detail.png)
+
+![The whole content graph in one view, with the eight relation types in the legend](docs/images/network.png)
+
+## How I know it works
+
+The interesting engineering here is not the feature list — it is the measurement
+discipline. Three write-ups, each built around a moment where **the measurement
+tool turned out to be wrong before the code was**:
+
+→ **[docs/engineering-stories.md](docs/engineering-stories.md)** (Chinese)
+
+1. A workspace page blocked the entire server for 193 seconds — fixed 448× — and
+   the first correctness proof had to be thrown away.
+2. Five public pages would have shipped frozen at build time; the build manifest
+   was not accepted as evidence.
+3. The slowest public route turned out to be the dev server measuring itself, and
+   the round ended with zero code changed.
+
+The full history is in [`CHANGELOG.md`](CHANGELOG.md) (4,800 lines, newest first).
+
+## Run it locally
+
+```bash
+npm install
+npm run dev          # http://localhost:3000
+npm run typecheck    # default verification gate
+npm run test         # 254 unit tests
+```
+
+No API key or external service is required: the LLM provider defaults to a local
+mock, and all state lives in `config/*.json`.
+
+---
 
 The product is split into two subsystems:
 
