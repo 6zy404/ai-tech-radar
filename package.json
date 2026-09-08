@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "node scripts/with-proxy-env.mjs next dev",
     "build": "next build",
+    "build:public": "node scripts/build-public.mjs",
     "start": "node scripts/with-proxy-env.mjs next start",
     "typecheck": "tsc --noEmit --incremental false",
     "lint": "eslint .",

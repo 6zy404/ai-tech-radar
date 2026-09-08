@@ -49,6 +49,13 @@ const productionSecurityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // `next build` and `next dev` share `.next`, and building against a running
+  // dev server leaves it answering 200 for pages while every API route returns
+  // 500 — hit for real on 2026-07-28. Honouring NEXT_DIST_DIR lets a
+  // verification build (a production control, or `build:public`) go somewhere
+  // else entirely instead of clobbering the dev server's output.
+  ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
+
   async headers() {
     // Resolve inside headers() rather than at module load: Next evaluates
     // next.config before NODE_ENV is reliably set, so a top-level check can

@@ -52,3 +52,7 @@ visual-qa-screenshots/
 *.patch
 *.dmp
 *.pma
+
+# Transient staging dir used by scripts/build-public.mjs while the workspace
+# routes are moved out of the tree. Its presence means a build did not finish.
+.public-build-stash/

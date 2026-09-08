@@ -15,6 +15,14 @@ const primaryNavItems = [
 
 const workspaceNavItem = { href: "/workspace", label: "内部工作台" };
 
+// `scripts/build-public.mjs` removes every workspace route from the build, so
+// the nav entry has to go with them — otherwise the public site ships a link to
+// a route that no longer exists. Read at build time (NEXT_PUBLIC_*, inlined),
+// and deliberately defaults to showing: a local `next dev` has the workspace,
+// and the only cost of getting this wrong is a dead link, not an open door.
+// The door is `src/middleware.ts` plus the routes' absence.
+const showWorkspaceLink = process.env.NEXT_PUBLIC_WORKSPACE_UI !== "off";
+
 function isActiveNavItem(pathname: string, href: string): boolean {
   if (href === "/") {
     return pathname === "/";
@@ -93,25 +101,29 @@ export function TopNav() {
                 </Link>
               </li>
             ))}
-            <li className="top-nav__separator" aria-hidden="true" />
-            <li>
-              <Link
-                href={workspaceNavItem.href}
-                className={navLinkClassName(
-                  pathname,
-                  workspaceNavItem.href,
-                  true
-                )}
-                aria-current={
-                  isActiveNavItem(pathname, workspaceNavItem.href)
-                    ? "page"
-                    : undefined
-                }
-                onClick={closeMenu}
-              >
-                {workspaceNavItem.label}
-              </Link>
-            </li>
+            {showWorkspaceLink ? (
+              <>
+                <li className="top-nav__separator" aria-hidden="true" />
+                <li>
+                  <Link
+                    href={workspaceNavItem.href}
+                    className={navLinkClassName(
+                      pathname,
+                      workspaceNavItem.href,
+                      true
+                    )}
+                    aria-current={
+                      isActiveNavItem(pathname, workspaceNavItem.href)
+                        ? "page"
+                        : undefined
+                    }
+                    onClick={closeMenu}
+                  >
+                    {workspaceNavItem.label}
+                  </Link>
+                </li>
+              </>
+            ) : null}
           </ul>
         </nav>
 

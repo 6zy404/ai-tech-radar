@@ -7,7 +7,15 @@ export interface WorkspaceAccessResult {
 
 type WorkspaceAccessEnv = Record<string, string | undefined>;
 
-const protectedPathPrefixes = [
+/**
+ * Exported because two other things must stay in step with it:
+ * `src/middleware.ts` (which guards these at request time) and
+ * `scripts/build-public.mjs` (which removes the directories that produce them
+ * from the public build). `validate:deployment` asserts the build script covers
+ * every prefix listed here — a prefix added here but not there would still ship
+ * to the public site.
+ */
+export const protectedPathPrefixes = [
   "/workspace",
   "/api/workspace",
   "/api/candidates",

@@ -19,7 +19,8 @@ import { getLocalDataDirPath } from "../src/lib/local-data";
 import {
   checkWorkspaceAccess,
   isProtectedWorkspacePath,
-  isWorkspaceAccessEnabled
+  isWorkspaceAccessEnabled,
+  protectedPathPrefixes
 } from "../src/lib/workspace-access";
 
 const packageJsonPath = path.join(process.cwd(), "package.json");
@@ -118,6 +119,71 @@ function assertPagesDeclareTheirRenderMode() {
     undeclared,
     [],
     `These pages and GET route handlers do not declare "export const dynamic", so next build will prerender them and they will never pick up a content change: ${undeclared.join(", ")}`
+  );
+}
+
+/**
+ * The public build removes the directories that produce the workspace routes
+ * (`scripts/build-public.mjs`), and the request-time guard blocks the same
+ * prefixes (`src/middleware.ts`, via `protectedPathPrefixes`). Those two lists
+ * are written in different files, in different languages, and nothing makes
+ * them agree — so a prefix added to the guard but not to the build script would
+ * ship to the public site with only the guard in front of it, which is exactly
+ * the single-lock situation the build exclusion exists to remove.
+ *
+ * This is a source-text check on purpose: it runs without a build, so it fails
+ * at the moment the drift is introduced rather than at the next deploy.
+ */
+function assertPublicBuildExcludesEveryGuardedPrefix() {
+  const scriptPath = path.join(process.cwd(), "scripts", "build-public.mjs");
+
+  assert.ok(
+    existsSync(scriptPath),
+    "scripts/build-public.mjs should exist; it is what keeps workspace routes out of the public build."
+  );
+
+  const source = readFileSync(scriptPath, "utf8");
+  const excludedBlock = source.match(/const EXCLUDED = \[([\s\S]*?)\];/);
+
+  assert.ok(
+    excludedBlock,
+    "Could not find the EXCLUDED array in scripts/build-public.mjs."
+  );
+
+  const excludedDirs = [...excludedBlock[1].matchAll(/"([^"]+)"/g)].map(
+    (match) => match[1]
+  );
+
+  assert.ok(
+    excludedDirs.length > 0,
+    "The EXCLUDED array in scripts/build-public.mjs is empty."
+  );
+
+  // "src/app/api/workspace" is what produces "/api/workspace".
+  const excludedPrefixes = excludedDirs.map((dir) =>
+    dir.replace(/^src\/app/, "")
+  );
+
+  const uncovered = protectedPathPrefixes.filter(
+    (prefix) => !excludedPrefixes.includes(prefix)
+  );
+
+  assert.deepEqual(
+    uncovered,
+    [],
+    `These prefixes are guarded by src/middleware.ts but their directories are not excluded from the public build, so they would ship: ${uncovered.join(", ")}. Add them to EXCLUDED in scripts/build-public.mjs.`
+  );
+
+  // Every excluded directory must actually exist, or the exclusion is a
+  // no-op that reads as protection.
+  const missing = excludedDirs.filter(
+    (dir) => !existsSync(path.join(process.cwd(), dir))
+  );
+
+  assert.deepEqual(
+    missing,
+    [],
+    `scripts/build-public.mjs excludes directories that do not exist, so the exclusion proves nothing: ${missing.join(", ")}`
   );
 }
 
@@ -361,6 +427,7 @@ function main() {
   assertClientBuildDoesNotContainWorkspaceSecret();
   assertMiddlewareIsInDiscoverableLocation();
   assertPagesDeclareTheirRenderMode();
+  assertPublicBuildExcludesEveryGuardedPrefix();
 
   console.log("Deployment readiness validation passed.");
 }
