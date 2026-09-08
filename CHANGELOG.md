@@ -108,6 +108,20 @@ For per-topic deep dives, see the `docs/` directory.
   relationship-graph overlaps at 1265 and 390 with the detector proven to fire,
   zero console errors, **all four pages looked at**, plus typecheck, lint,
   format, vitest **254/254** and eight validators.
+- **A title split a Chinese word, and the fix was the title rather than the
+  segmenter.** Found by looking at the page after the round was already
+  committed: the Kiro hero rendered 开发者 as 开发 / 者 across a line break.
+  Measured, `Intl.Segmenter("zh-CN")` does not treat it as one word — the same
+  ICU dictionary limitation already pinned in tests for 复盘 / 智能体 / 主打. Per
+  the 2026-08-01 precedent the title was reworded rather than worked around; the
+  replacement renders in **2 lines against 3** and its runs carry no split word.
+  The simulator rebuilt the real `.nowrap-run` span structure and was required
+  to reproduce the live title's line count before any candidate was trusted.
+- **One measurement was nonsense, and the viewport explained it.** The same
+  title measured **23 lines / 1035px** right after a navigation — with
+  `font-size` at 36px, which is the ≤640px step, so the pane had collapsed and
+  the viewport was never pinned. Re-measured at a pinned 1265px: **2 lines /
+  110px**. Same lesson as the 0.2px viewport drift recorded on 2026-07-30.
 - **The store diff flagged six changes and all six were checked rather than
   waved through.** Every one is on today's digest, which was an unedited
   scheduled draft at `HEAD`: three high-priority ids were displaced when
