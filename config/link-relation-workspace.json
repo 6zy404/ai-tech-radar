@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-06T08:23:11.256Z",
+  "updatedAt": "2026-09-08T11:21:18.929Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -5418,6 +5418,384 @@
       "toType": "skill",
       "relationType": "uses",
       "note": "「与手工调优的基线比是否公平」是一个可以直接照搬的检查问题。"
+    },
+    {
+      "id": "rel-ws-34c65266",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一项 ARC-AGI-3 成绩，一个来自旗舰单模型，一个来自 4B 加一座桥——分数相同而含义不同。"
+    },
+    {
+      "id": "rel-ws-4a3c106a",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同样把最贵的那段计算挪到别处：一个挪解码，一个挪专家权重传输。"
+    },
+    {
+      "id": "rel-ws-44c128fe",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "端侧小模型能承接多少，这条把上限往上抬了一截。"
+    },
+    {
+      "id": "rel-ws-a3d51b9a",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "接收方正是这条发布线上的模型，只是这次它只负责写不负责想。"
+    },
+    {
+      "id": "rel-ws-56db22ea",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "一个基准分数由模型还是由系统给出，正是单题层面审计要回答的问题。"
+    },
+    {
+      "id": "rel-ws-0b7f9d1d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "4B 能承接 753B 的一半差距，前提是它只负责写而不负责想——尺寸决定的是角色而不只是能力。"
+    },
+    {
+      "id": "rel-ws-2a60de00",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "extends",
+      "note": "端云那条线以往按「谁跑哪一部分」划，这条信号按「交接时能带多少信息过去」划。"
+    },
+    {
+      "id": "rel-ws-2e571fcd",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "二十分之一的成本降幅来自把解码从大模型挪走，而不是来自桥本身，条件必须一起读。"
+    },
+    {
+      "id": "rel-ws-e3699032",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "同样是把昂贵的部分挪到别处，这条挪的是解码而不是专家权重。"
+    },
+    {
+      "id": "rel-ws-57f88343",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "交出文本还是交出隐藏状态，是一次典型的取舍：前者可读可审计，后者信息量高几个数量级。"
+    },
+    {
+      "id": "rel-ws-c2082b82",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "手机上跑 4B 本身不新鲜，新的是它在一座桥的加持下能承接多少。"
+    },
+    {
+      "id": "rel-ws-d97095b9",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "这套方案对两边的运行时都有要求，而技术细节未公开，暂时落在「能加载」之前那一级。"
+    },
+    {
+      "id": "rel-ws-308127cb",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "同一项 ARC-AGI-3 成绩，旗舰单模型和端云协同系统给出的含义完全不同。"
+    },
+    {
+      "id": "rel-ws-f0babbf5",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "团队自述的实验结果与可复现的论文不是一回事，这条的口径必须写明。"
+    },
+    {
+      "id": "rel-ws-48f852e9",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "那条说明沙箱假定错了会怎样，这条是同一个问题的工程回答：默认拒绝而不是默认允许。"
+    },
+    {
+      "id": "rel-ws-11fce813",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同为智能体运行时产品化，一个把刹车放进循环，一个把权限放进沙箱。"
+    },
+    {
+      "id": "rel-ws-be4f1477",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "并发加跨会话累积上下文，正是那条账单失控的技术前提。"
+    },
+    {
+      "id": "rel-ws-9f2967db",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "工具层吸收混乱、每层可独立测试，这套防护是同一主张的另一种实现。"
+    },
+    {
+      "id": "rel-ws-6411f9e6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "一个是实验室内部的并行智能体，一个是把同样的模式做成开源产品。"
+    },
+    {
+      "id": "rel-ws-76ce1135",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "跨会话累积上下文而不是每次从头开始，省下的是重复的提示词工程，付出的是 token。"
+    },
+    {
+      "id": "rel-ws-0ea11d35",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "审批节点被做进 Activity 视图，是把人在回路从产品开关变成运行时可见的一步。"
+    },
+    {
+      "id": "rel-ws-193da6c7",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "MCP 与 Webhook 是工具接入的两条路径，而 Skills 的可复用性决定这层能不能被当成产品维护。"
+    },
+    {
+      "id": "rel-ws-55207a43",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "Agent Client Protocol 是又一个把智能体流量变成基础设施能读懂的东西的契约。"
+    },
+    {
+      "id": "rel-ws-06c2fb42",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "「过会儿回来就有值得 Review 的成果」，前提是有人定义了什么算做完。"
+    },
+    {
+      "id": "rel-ws-d0c3361d",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "默认拒绝的命令策略是那一问的正面答案：不依赖模型的意图，依赖它拿不到的权限。"
+    },
+    {
+      "id": "rel-ws-bbcee18d",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "七项防护里没有一项写在提示词里，这正是护栏与劝告的区别。"
+    },
+    {
+      "id": "rel-ws-3e91dba5",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "Activity 视图把计划、工具调用与审批节点做成运行时的一部分，而不是事后翻日志。"
+    },
+    {
+      "id": "rel-ws-3564065a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "Skills 可跨平台复用而无需修改，是工具层被当成产品来维护的一个具体表现。"
+    },
+    {
+      "id": "rel-ws-a3a96c6e",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "Astra 就是在这套「人均三个并行智能体」的研发模式下跑出来的。"
+    },
+    {
+      "id": "rel-ws-597ff7b5",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一批研发流程的另一面：智能体大规模并行时，越界行为也在并行。"
+    },
+    {
+      "id": "rel-ws-c94d37a9",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "两条都在处理同一件事——外界能看见前沿实验室内部的什么。"
+    },
+    {
+      "id": "rel-ws-172fb06b",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "披露数据与审计基准是可见性的两个层面。"
+    },
+    {
+      "id": "rel-ws-ac352acf",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "每人每天 600 美元是有人盯着的版本，那条 180 万美元是没人盯着的版本。"
+    },
+    {
+      "id": "rel-ws-c4a26aa8",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "人均实验数创新高，量的是团队的学习速度，不是模型的能力上限。"
+    },
+    {
+      "id": "rel-ws-8d739118",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "被明确留在人手上的三件事——决定方向、判断结果、何时踩刹车——正好都是不可逆或对外的决定。"
+    },
+    {
+      "id": "rel-ws-1165f514",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "「超过一半的成功案例仍需人至少插手一次」，说明完成判定这一档仍然由人兜底。"
+    },
+    {
+      "id": "rel-ws-d6ae2d7b",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "跑评估实验已经交给智能体，而定义什么算好仍然没有。"
+    },
+    {
+      "id": "rel-ws-dfd49aff",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "披露与不披露是一次真实的取舍，作者把它的代价和紧迫性都写了出来。"
+    },
+    {
+      "id": "rel-ws-ebc08d9c",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "一个研究员身后并行三个智能体工作日，可观测性从锦上添花变成前提。"
+    },
+    {
+      "id": "rel-ws-a436dc57",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "智能体接的是边界清晰的任务，边界由谁划、划在哪，是这条信号最可复用的部分。"
+    },
+    {
+      "id": "rel-ws-89d253e0",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "厂商公布的内部数据是一类新的「公告数字」，需要同样的三类划分来读。"
+    },
+    {
+      "id": "rel-ws-0bc4afed",
+      "fromId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "「边界清晰的研究任务」正是试点范围界定那一套判据在实验室内部的应用。"
     }
   ]
 }
