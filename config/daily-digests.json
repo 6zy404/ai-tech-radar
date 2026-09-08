@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-09-08T00:07:54.757Z",
+  "updatedAt": "2026-09-08T11:22:31.419Z",
   "digests": [
     {
       "id": "digest-2026-09-08",
       "date": "2026-09-08",
-      "status": "draft",
+      "status": "published",
       "title": "每日技术简报 - 2026-09-08",
       "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
-      "editorialSummary": "",
+      "editorialSummary": "今天这三条讲的是同一件事：**交接**——谁把什么交给谁，以及交接的那一刻丢掉了什么。\n\n最干净的一例在模型之间。一个大模型生成一个 token 时，内部会构建约两兆字节的状态，最后只吐出 17 个比特；而所有多模型协作系统——子智能体、模型委员会、路由调度——**全部建立在那 17 个比特之上**。Mostik 让 753B 的 GLM-5.2 把隐藏状态通过一座小桥直接交给手机上 4B 的 Qwen-3.5，全程不产生文本、两边权重冻结，结果小模型补上了约一半的差距，而大模型侧的推理成本降到约二十分之一。技术细节尚未公开，这条限制写在正文里。\n\n第二例是人交给智能体。AWS 开源的 Kiro Crew 让编码智能体跨会话异步跑，而它最值钱的数字不是功能表：**3.9 万名内部开发者，六个月 500 名贡献者，且不是被要求用的**。它的防护同样值得抄——操作系统级沙箱、默认拒绝的命令策略、签名审计日志，共同点是**没有一条写在提示词里**。\n\n第三例是交接之后人还剩下什么。OpenAI 公布内部数据：每个研究员身边约有 3.1 个智能体工作日并行运转，每天烧掉超过 600 美元推理资源。但同一份材料给出了反向的数字——原本 4 到 8 小时的任务，**超过一半的成功案例人类至少插手过一次**，高层研究规划几乎不交给智能体。作者的主张其实不是提速，是可见性：递归式自我改进默认只发生在少数几家实验室内部，外界看不见它走到了哪一步。",
       "highPriorityTechnologyIds": [
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
-        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt"
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-qbitai-com-p-485108",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article"
       ],
       "watchTechnologyIds": [
         "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
@@ -23,13 +23,8 @@
         "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
       ],
       "manuallyAddedTechnologyIds": [],
-      "excludedTechnologyIds": [],
-      "pinnedTechnologyIds": [],
-      "orderedTechnologyIds": [
+      "excludedTechnologyIds": [
         "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
-        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
         "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
         "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
@@ -37,38 +32,51 @@
         "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
         "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
       ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-485108"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-qbitai-com-p-485108"
+      ],
       "skillIds": [
-        "skill-model-evaluation",
-        "skill-ws-f741f122",
-        "skill-ws-c183c9b9",
         "skill-agent-design",
         "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-model-evaluation",
+        "skill-scope-pilots",
         "skill-tool-integration",
-        "skill-ws-d7c9d1d8",
-        "skill-scope-pilots"
+        "skill-ws-7796779a",
+        "skill-ws-c183c9b9"
       ],
       "knowledgeIds": [
         "knowledge-human-loop",
-        "knowledge-ws-89b98df3",
-        "knowledge-evaluation-loops",
+        "knowledge-system-design",
         "knowledge-ws-e251051e",
+        "knowledge-api-contracts",
+        "knowledge-evaluation-loops",
+        "knowledge-feedback-loops",
         "knowledge-latency-tradeoffs",
-        "knowledge-model-sizing",
-        "knowledge-ws-a28a8a56",
-        "knowledge-system-design"
+        "knowledge-model-sizing"
       ],
       "sourceNames": [
-        "Google DeepMind Blog",
-        "Hugging Face Blog",
+        "量子位",
         "InfoQ 中文",
-        "OpenAI News",
-        "Simon Willison Blog"
+        "OpenAI News"
       ],
       "generatedAt": "2026-09-08T12:00:00.000Z",
-      "updatedAt": "2026-09-08T00:07:54.748Z",
+      "updatedAt": "2026-09-08T11:22:31.418Z",
+      "lastRegeneratedAt": "2026-09-08T11:21:40.404Z",
+      "publishedAt": "2026-09-08T11:22:31.418Z",
       "editorialNotes": [
-        "由已发布技术记录按 Ranking v0 优先级生成。",
-        "Daily Digest v0 默认排除低优先级条目。"
+        "本轮 25 条待决：发 3、标记已看 8、拒 14，快讯页未处置归零。",
+        "生成器选中的 7 条全部被此前已发布简报收录过，逐条核对后排除；三条新信号已在生成分区内，未调用 include。",
+        "openai.com 对直接抓取返回 403，研究加速那条依据量子位对两篇 OpenAI 文章的二手报道，正文已写明口径。",
+        "《外星思维》并入研究加速那条，不单独发；GPT-6 Sol 内测是网友爆料无官方确认，标记已看。"
       ]
     },
     {

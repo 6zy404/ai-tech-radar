@@ -12,6 +12,111 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — three handoffs, and what each one drops
+
+- **25 undecided candidates, three signals** — 2026-09-08. All 25 dispositioned:
+  **3 published, 8 reviewed, 14 rejected**; the public news lane goes to **32
+  items visible, 0 undecided**.
+- The thread is **the handoff** — who passes what to whom, and what gets dropped
+  at the moment of transfer.
+- **A model hands another model 17 bits, having built two megabytes.** Generating
+  one token, a model constructs a hundred-plus hidden vectors — about a million
+  values, ~2 MB of internal state — then picks one token out of a ~150K
+  vocabulary. **Seventeen bits leave; the two megabytes are discarded.** Every
+  multi-model system in production — sub-agents, model committees, routing —
+  is built on those seventeen bits. Mostik trains a small bridge that hands
+  GLM-5.2's (753B, cloud) hidden state straight to Qwen-3.5 (4B, on a phone):
+  no text at any point, **both models frozen, the bridge the only trained part**.
+  The 4B closes ~**50%** of the gap to the 753B, gains **25%** accuracy, **2×**
+  on the harder subsets, and the large model's inference cost drops to about
+  **one twentieth** — because the bridge lets it do only the cheap prefill and
+  leaves the expensive decode to the small model. Freezing both sides was
+  deliberate: if useful information crosses under that constraint, the structure
+  the bridge exploits **arose in training** rather than being aligned in.
+- **The evidence that the discarded 2 MB matters is not the vendor's.** An ICLR
+  2026 paper shows Qwen-3 carrying the representation of "accountant" several
+  tokens before writing it — which is what makes it pick "an" over "a" — and
+  **larger models plan further ahead**. Anthropic saw the same on Claude 3.5
+  Haiku: the rhyme is fixed before the line is written, and a structure they call
+  J-space maintains unexpressed concepts at every step.
+- **What is not public is stated rather than glossed.** Technical details are
+  withheld ("the competition isn't over"), so this rests on a public demo and
+  the team's own reported results, **not a reproducible paper** — which is why
+  it is `important` and not `critical`. The Fields medallist on the team,
+  Stanislav Smirnov, supplies the sharpest limit himself: finding mathematical
+  common ground between two models is very hard, and **there does not yet seem
+  to be a suitable mathematical language for it**.
+- **A human hands work to an agent, and the number that matters is adoption.**
+  AWS open-sources Kiro Crew (Apache 2.0) for async, cross-session coding
+  agents. The feature list is ordinary; the evidence is not: it came out of
+  Amazon's internal MeshClaw and is used by **over 39,000 internal developers,
+  with 500 contributors in six months, and it was not mandated**. Its guardrails
+  are worth copying — OS-level sandbox, default-deny command policy,
+  suspicious-pattern blocking, input validation, sensitive-path blocking,
+  credential redaction, signed audit logs — and **none of them is written in a
+  prompt**. That is the answer to the question this site's 智能体工作流设计 entry
+  asks: if the model decides to cross the line, what physically stops it. Set
+  against the round-before-last's signal, where an OpenAI sandbox assumed a GET
+  request cannot modify data, this is the same problem answered in engineering.
+  The counter-signal is already in the community: **Crew burns tokens noticeably
+  faster than Kiro CLI**.
+- **After the handoff, what is left on the human side.** OpenAI publishes
+  internal numbers: as of mid-August, per 8-hour researcher workday about
+  **3.1 agent-workdays** run in parallel, and the median researcher spends
+  **over $600/day** of agent inference at API prices; experiments per person hit
+  the highest since January 2025, and the company declares an "automated AI
+  research intern" achieved. **The reverse number is theirs too**: of tasks that
+  originally took 4–8 hours, **more than half the successful cases in the past
+  six months needed a human to step in at least once**, and high-level research
+  planning is almost never delegated. Throughput moved; **judgment did not**.
+- **The real claim in that post is not speed, it is visibility.** Its author
+  argues recursive self-improvement may be one of the most important factors of
+  the coming years, and that by default it happens **only inside a few frontier
+  labs where outsiders cannot see how far it has got** — so disclosure is more
+  urgent than ever, and other labs should publish the same. This is the first
+  frontier lab to publish this kind of internal acceleration data, **and the
+  person publishing it is arguing that publishing is necessary**. Whether that
+  argument holds depends on a second lab following; none has. The same day, the
+  chief scientist's essay argues the opposite half: AI is not assembled from a
+  blueprint, it **grows** in data and compute, and nobody can say why a
+  capability appears or how it behaves in a new environment.
+- **Three OpenAI candidates, one signal.** `openai.com` returns 403 to a plain
+  fetch, so the acceleration post and the chief scientist's essay were both read
+  through a Chinese secondary report, which the body says. The essay is folded
+  into that one signal rather than published separately, and the "GPT-6 Sol in
+  internal testing" item is reviewed rather than published — it is one user's
+  leak with no confirmation, and its benchmark is a single SVG task.
+- **The 14 rejects and 8 reviewed follow standing precedent**: vendor and funding
+  PR, conference programmes and invitations, a weekly news roundup, customer case
+  studies, non-AI infrastructure pieces, and conference talks with no artifact.
+- **32 reverse-id targets written as one pre-computed union**, verified
+  individually — **41/41 reverse links render across 31 pages** — plus **42 typed
+  relation pairs with notes**.
+- **A detector reported OK on an empty set, and only a count caught it.** The
+  eight-detector store scan takes id substrings; it was handed slugs, matched
+  **zero records**, and printed "no structural problems". Re-run with real id
+  substrings — after asserting it matched 3 records — it found a literal `**` in
+  a plain-text `whyItMatters` field, which was then fixed. **A pass over nothing
+  is not a pass**, and the fix is to assert the sample size before reading the
+  result.
+- Verified: 18 public routes at 200, an eight-string internal-field scan clean
+  across five surfaces, the pinned lead first **inside the digest's signal
+  links** with zero excluded items present, three bodies at 4–5 section headings
+  with **zero literal markers, zero ASCII quotes and zero curly quotes** measured
+  on the parsed DOM, hero titles at 2–3 lines at 1265px against a control that
+  reproduced the live element exactly, zero horizontal overflow and zero
+  relationship-graph overlaps at 1265 and 390 with the detector proven to fire,
+  zero console errors, **all four pages looked at**, plus typecheck, lint,
+  format, vitest **254/254** and eight validators.
+- **The store diff flagged six changes and all six were checked rather than
+  waved through.** Every one is on today's digest, which was an unedited
+  scheduled draft at `HEAD`: three high-priority ids were displaced when
+  regeneration put the new signals in the top four (all three remain published
+  and answer 200 — confirmed), seven ordered ids are the exclusions, the skill /
+  knowledge / source aggregates follow the changed selection, and the two lost
+  editorial notes are the default template replaced by four real ones. Checker
+  proven to fire on an injected loss (7 against the real 6), 1150 arrays compared.
+
 ## The workspace routes now leave the public build entirely
 
 - **A second lock, because the first one is off by default and has shipped inert
