@@ -12,6 +12,80 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The workspace routes now leave the public build entirely
+
+- **A second lock, because the first one is off by default and has shipped inert
+  before** — 2026-09-08, owner-selected while scoping a public deployment. The
+  request-time guard in `src/middleware.ts` protects five prefixes and was
+  verified end to end on 2026-08-10; but `.env.example` ships
+  `WORKSPACE_ACCESS_ENABLED=false`, and until 2026-07-27 that middleware sat at
+  the repository root, which a `src/`-directory project **ignores silently** —
+  so `/workspace` answered `200` to anyone for weeks. `npm run build:public`
+  removes the directories that produce those prefixes before `next build` and
+  puts them back afterwards. **A route that is not in the build cannot be
+  reached by a misconfiguration.**
+- **The clean result is worthless without the control, so the control ran
+  first.** Full build: **96 routes, 69 of them workspace**. Public build:
+  **27 routes, 0 workspace** — and 96 − 69 = 27. Served from the public build,
+  15 public routes answer `200` while `/workspace`, `/workspace/sources`,
+  `/workspace/editorial-round`, `/api/workspace/*`, `/api/candidates/*`,
+  `/candidates` and `/technologies/drafts` all answer **`404`, not `401`**,
+  because they do not exist.
+- **The nav entry had to go with them**, or the public site ships a link to a
+  route that is gone. `NEXT_PUBLIC_WORKSPACE_UI=off` is set by the script;
+  measured, 内部工作台 appears in **1 client chunk of the full build and 0 of
+  the public one**. It deliberately defaults to showing — a local `next dev` has
+  the workspace, and the cost of getting this wrong is a dead link, not an open
+  door.
+- **Moving files rather than an env-gated `notFound()`**, because a runtime 404
+  leaves all 69 route files in the bundle. The point is that they are not there.
+- **Two invariants keep it from rotting.** `validate:deployment` asserts the
+  script's `EXCLUDED` list covers every prefix in `protectedPathPrefixes` (now
+  exported for exactly this) and that each excluded directory exists — a
+  source-text check, so it runs without a build and fails the moment the drift
+  is introduced. And the script reads the emitted route manifest after building
+  and exits non-zero if a workspace route appears, so the claim rests on the
+  build output rather than on its own bookkeeping.
+- **The drift assertion was proven to fire, and the first proof was fake.**
+  Adding `/admin` to the guard alone must fail the validator. The first
+  injection reported no change and the validator then "passed" — a pass that
+  proved nothing. The repo is checked out CRLF and the replacement matched on
+  `\n`. **This is the third time that exact trap is recorded here** (2026-08-10
+  twice). Re-done line-wise, the injection was confirmed on disk first, and the
+  validator failed with the intended message.
+- **Two side effects of `next build` are captured and restored**, both hit for
+  real while building the control. `next build` appends
+  `<distDir>/types/**/*.ts` to the tsconfig `include` and leaves it there;
+  because this repo's `include` is `**/*.ts`, the leftover glob from the control
+  build pointed at generated route types for the very workspace routes the
+  public build removes, and the next public build **failed its typecheck on
+  modules that were correctly absent**. `next-env.d.ts` gets its `routes.d.ts`
+  reference repointed the same way. Both are now read before the build and put
+  back after.
+- **`NEXT_DIST_DIR` became real rather than decorative.** The first version of
+  the script passed it through and looked in the wrong place, because
+  `next.config.ts` never read it — the build had quietly gone to `.next`. It is
+  now honoured as `distDir`, which is what lets a verification build avoid
+  clobbering a running dev server's output (the 2026-07-28 failure mode where
+  pages still return `200` while every API route returns `500`).
+- **The restore path was tested by a real failure, not a synthetic one.** When
+  the typecheck failure above killed the build, all five directories came back,
+  the stash was removed, and `git status` showed zero deleted files. The script
+  also refuses to start if a stash from a previous crash exists, and prints the
+  recovery steps rather than deleting anything.
+- **The middleware stays in the public build** (5 matchers), deliberately: it
+  costs nothing and still guards if a route is ever added back.
+- Verified: typecheck, lint, format, vitest **254/254**, `validate:deployment` /
+  `workspace-boundary` / `persistence` / `publishing`, a seven-string
+  internal-field scan clean across four public surfaces of the running public
+  build, the three public AI routes still present (`400` on an empty body), and
+  the tree left byte-identical on `tsconfig.json` and `next-env.d.ts` after a
+  full build cycle.
+- **Not done, and stated rather than implied**: this is the build boundary only.
+  Turning the guard on (`WORKSPACE_ACCESS_ENABLED=true` plus a real token) is
+  still an operator action, and it still matters — the guard is what protects a
+  workspace running anywhere other than localhost.
+
 ## Editorial round — a score is only as good as who can see what
 
 - **87 undecided candidates, five signals** — 2026-09-06, after thirteen days

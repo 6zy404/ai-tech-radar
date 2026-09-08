@@ -152,6 +152,67 @@ mutation APIs. Workspace actions are allowed to mutate local JSON / SQLite state
 trigger imports, publish records, send delivery payloads, and run schedules only
 behind the workspace boundary.
 
+## Public Build Boundary (`npm run build:public`)
+
+The workspace guard below is a **request-time** lock. `npm run build:public` adds
+a **build-time** one: it moves the directories that produce every guarded prefix
+out of the tree, runs `next build`, and puts them back. A route that is not in
+the build cannot be reached by a misconfigured env var, a middleware that fails
+to load, or a token that leaks.
+
+That second lock is not hypothetical hardening. The guard is **off by default**
+(`WORKSPACE_ACCESS_ENABLED=false` in `.env.example`), and it has already shipped
+inert once — until 2026-07-27 `middleware.ts` sat at the repository root, which
+a `src/`-directory project ignores **silently**, so `/workspace` answered `200`
+to anyone. Reading the guard's source proved nothing then and proves nothing now.
+
+Excluded directories (`EXCLUDED` in `scripts/build-public.mjs`), one per prefix
+in `protectedPathPrefixes`:
+
+| directory                     | route prefix           |
+| ----------------------------- | ---------------------- |
+| `src/app/workspace`           | `/workspace`           |
+| `src/app/api/workspace`       | `/api/workspace`       |
+| `src/app/api/candidates`      | `/api/candidates`      |
+| `src/app/candidates`          | `/candidates`          |
+| `src/app/technologies/drafts` | `/technologies/drafts` |
+
+Measured 2026-09-08, with a full build as the control — a clean result means
+nothing unless the control shows the routes were there to remove:
+
+- full build: **96 routes, 69 of them workspace**
+- public build: **27 routes, 0 workspace** (96 − 69 = 27)
+- served from the public build: 15 public routes at `200`, and `/workspace`,
+  `/workspace/sources`, `/workspace/editorial-round`, `/api/workspace/*`,
+  `/api/candidates/*`, `/candidates`, `/technologies/drafts` all **`404`** —
+  not `401`, because they do not exist
+- the 内部工作台 nav entry appears in 1 client chunk of the full build and **0**
+  of the public build (`NEXT_PUBLIC_WORKSPACE_UI=off`, set by the script)
+- the three public AI routes still answer (`400` on an empty body, i.e. present),
+  and a seven-string internal-field scan over four public surfaces is clean
+
+Two invariants keep this from rotting:
+
+1. `validate:deployment` asserts `EXCLUDED` covers every prefix in
+   `protectedPathPrefixes` and that each excluded directory exists — so a prefix
+   added to the guard but not to the build script fails immediately, without
+   needing a build. Proven to fire by adding `/admin` to the guard alone
+   (and confirming the injection reached the file first — the repo's CRLF line
+   endings silently defeated the first attempt, which then "passed").
+2. The script reads the emitted route manifest after building and exits non-zero
+   if a workspace route appears, so the claim rests on the build output rather
+   than on the script's own bookkeeping.
+
+The middleware is still in the public build (5 matchers), deliberately: it costs
+nothing and it still guards if a route is ever added back.
+
+**Two side effects of `next build` are captured and restored** (`tsconfig.json`
+and `next-env.d.ts`). Next appends `<distDir>/types/**/*.ts` to the tsconfig
+`include` and leaves it there; because the repo's `include` is `**/*.ts`, a
+leftover glob from a verification build points at generated route types for the
+workspace routes the public build removes, and the typecheck then fails on
+modules that are correctly absent. Hit for real while building the control.
+
 ## Minimal Access Protection
 
 `src/middleware.ts` protects workspace/internal paths when:

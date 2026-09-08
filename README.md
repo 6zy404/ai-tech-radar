@@ -392,7 +392,8 @@ Open <http://localhost:3000>.
 
 ```bash
 npm run typecheck        # default verification
-npm run build
+npm run build            # full app, workspace included — for local use
+npm run build:public     # public-only build: the workspace routes are physically absent
 npm run lint             # ESLint (next/core-web-vitals + next/typescript + prettier compat)
 npm run lint:fix         # ESLint with autofix
 npm run format:check     # Prettier check (no writes)
