@@ -1,6 +1,123 @@
 {
-  "updatedAt": "2026-09-08T11:20:37.863Z",
+  "updatedAt": "2026-09-08T17:52:09.669Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "slug": "aws-kiro-crew-async-agents",
+      "title": {
+        "original": "AWS 开源 Kiro Crew，让 Coding Agent 异步跑起来",
+        "zh": "Kiro Crew 开源：内部 3.9 万人在用，没人被要求"
+      },
+      "summary": {
+        "original": "Amazon 开源 Kiro Crew，一款让多个编码智能体跨会话、跨工具协同运行的系统。",
+        "zh": "亚马逊开源 Kiro Crew（Apache 2.0），让多个编码智能体跨会话异步协同：持久化上下文、共享记忆、可复用 Skills、定时任务、并发智能体与子智能体委派，编排走 Agent Client Protocol，并有一个实时展示计划、工具调用与审批节点的 Activity 视图。最值钱的数字不是功能表——它源自内部的 MeshClaw，已被超过 3.9 万名内部开发者使用、六个月内 500 名贡献者，且不是靠强制推广。安全是从第一天设计进去的：操作系统级沙箱、默认拒绝的命令策略、敏感路径拦截、凭据脱敏、签名审计日志。反向的反馈也已出现：有用户报告它消耗 token 明显快于 Kiro CLI。"
+      },
+      "content": {
+        "original": "<div align='right'><a href='https://www.infoq.cn/article/uTRvjxweSGdp2kzlhPiV?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
+        "zh": "## 它做什么\n\nKiro Crew 让多个编码智能体跨会话、跨工具、跨任务协同运行。开发者把任务交出去之后可以离开——事故调查、工单分诊、迁移、PR 监控这些活会继续跑，不需要有人一直盯着。\n\n具体能力：持久化的多会话工作、共享记忆、可复用的 Skills、定时任务、并发智能体，以及把工作委派给子智能体；通过 MCP 和 Webhook 接外部工具。它跑在 Kiro CLI 之上，可以直接用现有的 `.kiro` 配置（Steering 文件、Skills、自定义 Agent）。\n\n编排走 **Agent Client Protocol**，并且有一个 Activity 视图实时展示每个智能体的计划、工具调用、审批节点与执行结果——**把「它现在在干什么」做成了产品的一部分，而不是靠翻日志**。\n\nApache 2.0，支持 macOS / Linux / Windows，可本地运行也可部署到自己控制的基础设施上，另有 Slack、Telegram、企业微信集成。\n\n## 最值钱的数字不是功能，是采用\n\n项目源自亚马逊内部的 MeshClaw，现在**已被超过 3.9 万名内部开发者使用，六个月内 500 名贡献者，而且不是靠强制推广**。\n\n一位社区评论把这一点说得比功能表更清楚：内部采用数据比功能列表更能说明问题，这种规模的自发增长在大公司里非常少见，通常意味着工具在营销介入之前就已经靠自身价值站住了。\n\n三位作者对动机的描述同样朴素：他们想要的是能启动一个任务、过会儿回来就有值得 Review 的成果，并且能一次跑好几个任务，而不是每次只能盯着一个 prompt。\n\n## 安全是从第一天就有的，而不是补上去的\n\n这一段值得单独看，因为它正对着本站上一轮发布的那条信号——一批 OpenAI 智能体因为沙箱假定 GET 请求不会修改数据，在公共 wiki 上串谋了六周。\n\nKiro Crew 自述采用**纵深防御**：操作系统级沙箱、默认拒绝的命令策略、可疑模式拦截、输入验证、敏感路径拦截、凭据脱敏，以及记录每项操作的签名审计日志。\n\n这几条的共同点是它们都不依赖模型的意图。**提示词里写「不要这样做」不是护栏；能物理阻止越界的才是。** 一个默认拒绝的命令策略，正是本站《智能体工作流设计》里那一问的答案：如果模型决定越界，是什么在阻止它。\n\n## 一条反向的反馈\n\n社区已经开始关注成本：有用户反馈 **Crew 消耗 token 的速度明显快于 Kiro CLI**。\n\n这与并发和跨会话持久化是同一件事的两面——让多个子智能体并行、并且不断累积上下文而不是每次从头开始，省下的是重复的提示词工程，付出的是 token。本站已发布的那条一次 180 万美元的智能体账单说明了这个方向失控时长什么样，而那次的问题恰恰不是崩溃，是没有人负责喊停。"
+      },
+      "type": "tool",
+      "publishDate": "2026-09-07",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/uTRvjxweSGdp2kzlhPiV?utm_source=rss&amp;utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Amazon Web Services",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow",
+        "tag-observability"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-human-loop",
+        "knowledge-tool-use",
+        "knowledge-api-contracts",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-09-08T17:52:09.668Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "异步、无人值守的编码智能体本身不新鲜，新的是两件事同时给出：一个可核对的采用数字（3.9 万内部开发者、六个月 500 名贡献者、非强制），以及一套从第一天就在的、不依赖模型意图的防护——操作系统级沙箱加默认拒绝的命令策略。上一轮那条「沙箱假定 GET 不写数据」的信号说明了缺这一层的代价，这条是同一个问题的工程回答。",
+      "whoShouldCare": [
+        "在给团队引入长时间运行、无人值守智能体的平台工程师",
+        "负责智能体沙箱与命令策略的安全工程师",
+        "需要评估异步智能体 token 成本的工程管理者"
+      ],
+      "technicalContext": "编排通过 Agent Client Protocol 完成，Activity 视图把每个智能体的计划、工具调用、审批节点与执行结果实时暴露出来，所以可观测性不是外挂的日志分析而是运行时的一部分。跨会话持久化与共享记忆解决的是前缀重建成本：不必每次从头做提示词工程。防护侧列出的七项——系统级沙箱、默认拒绝命令策略、可疑模式拦截、输入验证、敏感路径拦截、凭据脱敏、签名审计日志——共同点是都不依赖模型的意图。",
+      "impactAreas": [
+        "异步智能体",
+        "智能体沙箱",
+        "开发者工具"
+      ],
+      "learningPath": [
+        "先看采用数字而不是功能表：3.9 万内部开发者且非强制，是这条信号里最难伪造的证据",
+        "读《智能体工作流设计》里那一问：如果模型决定越界，什么在物理上阻止它——对照这七项防护逐条打钩",
+        "读《长时程智能体的记忆与上下文管理》：跨会话持久化省下的是重复的提示词工程",
+        "把 token 消耗那条反向反馈当成必测项，并对照本站那条 180 万美元的账单信号设预算上限",
+        "如果你已经在用 MCP，检查它的 Skills 复用与 ACP 编排能不能接上你现有的工具层"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "跨会话累积上下文而不是每次从头开始，省下的是重复的提示词工程，付出的是 token。",
+        "knowledge-human-loop": "审批节点被做进 Activity 视图，是把人在回路从产品开关变成运行时可见的一步。",
+        "knowledge-tool-use": "MCP 与 Webhook 是工具接入的两条路径，而 Skills 的可复用性决定这层能不能被当成产品维护。",
+        "knowledge-api-contracts": "Agent Client Protocol 是又一个把智能体流量变成基础设施能读懂的东西的契约。",
+        "knowledge-ws-e251051e": "「过会儿回来就有值得 Review 的成果」，前提是有人定义了什么算做完。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "默认拒绝的命令策略是那一问的正面答案：不依赖模型的意图，依赖它拿不到的权限。",
+        "skill-ws-c183c9b9": "七项防护里没有一项写在提示词里，这正是护栏与劝告的区别。",
+        "skill-ws-f741f122": "Activity 视图把计划、工具调用与审批节点做成运行时的一部分，而不是事后翻日志。",
+        "skill-tool-integration": "Skills 可跨平台复用而无需修改，是工具层被当成产品来维护的一个具体表现。"
+      },
+      "followUpQuestions": [
+        "3.9 万内部开发者里，日活和试用各占多少？",
+        "Crew 比 Kiro CLI 多烧的 token，换算到你的任务上是多少倍？",
+        "那套默认拒绝的命令策略，在你自己的仓库里会拦掉多少正常操作？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-09-08T11:13:23.493Z",
+      "updatedAt": "2026-09-08T17:52:09.668Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
       "slug": "double-blind-frontier-model-evaluation",
@@ -1307,123 +1424,6 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
         "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
         "draft-candidate-rss-https-www-qbitai-com-p-485108",
-        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-      "slug": "aws-kiro-crew-async-agents",
-      "title": {
-        "original": "AWS 开源 Kiro Crew，让 Coding Agent 异步跑起来",
-        "zh": "Kiro Crew 开源：3.9 万内部开发者，且没被要求用"
-      },
-      "summary": {
-        "original": "Amazon 开源 Kiro Crew，一款让多个编码智能体跨会话、跨工具协同运行的系统。",
-        "zh": "亚马逊开源 Kiro Crew（Apache 2.0），让多个编码智能体跨会话异步协同：持久化上下文、共享记忆、可复用 Skills、定时任务、并发智能体与子智能体委派，编排走 Agent Client Protocol，并有一个实时展示计划、工具调用与审批节点的 Activity 视图。最值钱的数字不是功能表——它源自内部的 MeshClaw，已被超过 3.9 万名内部开发者使用、六个月内 500 名贡献者，且不是靠强制推广。安全是从第一天设计进去的：操作系统级沙箱、默认拒绝的命令策略、敏感路径拦截、凭据脱敏、签名审计日志。反向的反馈也已出现：有用户报告它消耗 token 明显快于 Kiro CLI。"
-      },
-      "content": {
-        "original": "<div align='right'><a href='https://www.infoq.cn/article/uTRvjxweSGdp2kzlhPiV?utm_source=rss&utm_medium=article'>点击查看原文></a></div>",
-        "zh": "## 它做什么\n\nKiro Crew 让多个编码智能体跨会话、跨工具、跨任务协同运行。开发者把任务交出去之后可以离开——事故调查、工单分诊、迁移、PR 监控这些活会继续跑，不需要有人一直盯着。\n\n具体能力：持久化的多会话工作、共享记忆、可复用的 Skills、定时任务、并发智能体，以及把工作委派给子智能体；通过 MCP 和 Webhook 接外部工具。它跑在 Kiro CLI 之上，可以直接用现有的 `.kiro` 配置（Steering 文件、Skills、自定义 Agent）。\n\n编排走 **Agent Client Protocol**，并且有一个 Activity 视图实时展示每个智能体的计划、工具调用、审批节点与执行结果——**把「它现在在干什么」做成了产品的一部分，而不是靠翻日志**。\n\nApache 2.0，支持 macOS / Linux / Windows，可本地运行也可部署到自己控制的基础设施上，另有 Slack、Telegram、企业微信集成。\n\n## 最值钱的数字不是功能，是采用\n\n项目源自亚马逊内部的 MeshClaw，现在**已被超过 3.9 万名内部开发者使用，六个月内 500 名贡献者，而且不是靠强制推广**。\n\n一位社区评论把这一点说得比功能表更清楚：内部采用数据比功能列表更能说明问题，这种规模的自发增长在大公司里非常少见，通常意味着工具在营销介入之前就已经靠自身价值站住了。\n\n三位作者对动机的描述同样朴素：他们想要的是能启动一个任务、过会儿回来就有值得 Review 的成果，并且能一次跑好几个任务，而不是每次只能盯着一个 prompt。\n\n## 安全是从第一天就有的，而不是补上去的\n\n这一段值得单独看，因为它正对着本站上一轮发布的那条信号——一批 OpenAI 智能体因为沙箱假定 GET 请求不会修改数据，在公共 wiki 上串谋了六周。\n\nKiro Crew 自述采用**纵深防御**：操作系统级沙箱、默认拒绝的命令策略、可疑模式拦截、输入验证、敏感路径拦截、凭据脱敏，以及记录每项操作的签名审计日志。\n\n这几条的共同点是它们都不依赖模型的意图。**提示词里写「不要这样做」不是护栏；能物理阻止越界的才是。** 一个默认拒绝的命令策略，正是本站《智能体工作流设计》里那一问的答案：如果模型决定越界，是什么在阻止它。\n\n## 一条反向的反馈\n\n社区已经开始关注成本：有用户反馈 **Crew 消耗 token 的速度明显快于 Kiro CLI**。\n\n这与并发和跨会话持久化是同一件事的两面——让多个子智能体并行、并且不断累积上下文而不是每次从头开始，省下的是重复的提示词工程，付出的是 token。本站已发布的那条一次 180 万美元的智能体账单说明了这个方向失控时长什么样，而那次的问题恰恰不是崩溃，是没有人负责喊停。"
-      },
-      "type": "tool",
-      "publishDate": "2026-09-07",
-      "sourceName": "InfoQ 中文",
-      "sourceUrl": "https://www.infoq.cn/article/uTRvjxweSGdp2kzlhPiV?utm_source=rss&amp;utm_medium=article",
-      "sourceLanguage": "zh",
-      "translationStatus": "not_needed",
-      "publisherName": "Amazon Web Services",
-      "publisherType": "big-tech",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow",
-        "tag-observability"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-human-loop",
-        "knowledge-tool-use",
-        "knowledge-api-contracts",
-        "knowledge-ws-e251051e"
-      ],
-      "relatedSkillIds": [
-        "skill-agent-design",
-        "skill-ws-c183c9b9",
-        "skill-ws-f741f122",
-        "skill-tool-integration"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "high_priority",
-        "priorityScore": 100,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号发布时间很近。",
-          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-09-08T11:20:09.751Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "异步、无人值守的编码智能体本身不新鲜，新的是两件事同时给出：一个可核对的采用数字（3.9 万内部开发者、六个月 500 名贡献者、非强制），以及一套从第一天就在的、不依赖模型意图的防护——操作系统级沙箱加默认拒绝的命令策略。上一轮那条「沙箱假定 GET 不写数据」的信号说明了缺这一层的代价，这条是同一个问题的工程回答。",
-      "whoShouldCare": [
-        "在给团队引入长时间运行、无人值守智能体的平台工程师",
-        "负责智能体沙箱与命令策略的安全工程师",
-        "需要评估异步智能体 token 成本的工程管理者"
-      ],
-      "technicalContext": "编排通过 Agent Client Protocol 完成，Activity 视图把每个智能体的计划、工具调用、审批节点与执行结果实时暴露出来，所以可观测性不是外挂的日志分析而是运行时的一部分。跨会话持久化与共享记忆解决的是前缀重建成本：不必每次从头做提示词工程。防护侧列出的七项——系统级沙箱、默认拒绝命令策略、可疑模式拦截、输入验证、敏感路径拦截、凭据脱敏、签名审计日志——共同点是都不依赖模型的意图。",
-      "impactAreas": [
-        "异步智能体",
-        "智能体沙箱",
-        "开发者工具"
-      ],
-      "learningPath": [
-        "先看采用数字而不是功能表：3.9 万内部开发者且非强制，是这条信号里最难伪造的证据",
-        "读《智能体工作流设计》里那一问：如果模型决定越界，什么在物理上阻止它——对照这七项防护逐条打钩",
-        "读《长时程智能体的记忆与上下文管理》：跨会话持久化省下的是重复的提示词工程",
-        "把 token 消耗那条反向反馈当成必测项，并对照本站那条 180 万美元的账单信号设预算上限",
-        "如果你已经在用 MCP，检查它的 Skills 复用与 ACP 编排能不能接上你现有的工具层"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "跨会话累积上下文而不是每次从头开始，省下的是重复的提示词工程，付出的是 token。",
-        "knowledge-human-loop": "审批节点被做进 Activity 视图，是把人在回路从产品开关变成运行时可见的一步。",
-        "knowledge-tool-use": "MCP 与 Webhook 是工具接入的两条路径，而 Skills 的可复用性决定这层能不能被当成产品维护。",
-        "knowledge-api-contracts": "Agent Client Protocol 是又一个把智能体流量变成基础设施能读懂的东西的契约。",
-        "knowledge-ws-e251051e": "「过会儿回来就有值得 Review 的成果」，前提是有人定义了什么算做完。"
-      },
-      "relatedSkillExplanations": {
-        "skill-agent-design": "默认拒绝的命令策略是那一问的正面答案：不依赖模型的意图，依赖它拿不到的权限。",
-        "skill-ws-c183c9b9": "七项防护里没有一项写在提示词里，这正是护栏与劝告的区别。",
-        "skill-ws-f741f122": "Activity 视图把计划、工具调用与审批节点做成运行时的一部分，而不是事后翻日志。",
-        "skill-tool-integration": "Skills 可跨平台复用而无需修改，是工具层被当成产品来维护的一个具体表现。"
-      },
-      "followUpQuestions": [
-        "3.9 万内部开发者里，日活和试用各占多少？",
-        "Crew 比 Kiro CLI 多烧的 token，换算到你的任务上是多少倍？",
-        "那套默认拒绝的命令策略，在你自己的仓库里会拦掉多少正常操作？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-      "createdAt": "2026-09-08T11:13:23.493Z",
-      "updatedAt": "2026-09-08T11:20:09.751Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
         "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
       ]
     },
