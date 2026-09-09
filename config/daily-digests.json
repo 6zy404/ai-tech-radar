@@ -1,6 +1,81 @@
 {
-  "updatedAt": "2026-09-08T11:22:31.419Z",
+  "updatedAt": "2026-09-09T02:23:27.192Z",
   "digests": [
+    {
+      "id": "digest-2026-09-09",
+      "date": "2026-09-09",
+      "status": "published",
+      "title": "每日技术简报 - 2026-09-09",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "今天这两条讲的是同一件事：**一个合成出来的数字，只有在能被拆回去的时候才可用。**\n\n安全侧给出了最干净的反例。多数安全对齐把「有害」当成话题的属性，而真实部署需要的是同一话题内部不同的边界——公民教育产品和公共部门助手可以共用一个模型，却在政治话题上需要相反的行为。Multiverse Computing 把边界操作化成「共享话题锚点、只在意图上不同」的提示词对之后，量出了这样一对数字：Qwen3-8B 上政治拒答率从 **9.47% 提到 84.75%**，三个有害性基准的不安全响应率从 26.26% 降到 **0.14%**——而**同一个检查点**上，XSTest 的误拒率从 2.00% 涨到了 **74.00%**。有害响应率最低的那个配置，也是把接近四分之三的明显安全提示拒掉的那个。用作者的话说：那是一台粗暴的拒答机器，而**除非你测量良性那一侧，否则你看不到它**。\n\n另一条从正面示范了同一件事。DeepMind 把人类基因组中全部 **90 亿个**单核苷酸变异的分子效应预测整个跑完并发布——1 PB，是 AlphaFold 数据库的 30 多倍。真正可迁移的不是基因组学，是那个部署决定：**当输入空间有限且可枚举时，把模型跑完一遍发布成资源，比让每个人各自调用更可及**。而它同时发布的 AVI 分数把两个模型压成一个数字，却把驱动这个数字的生物学特征一起给了出来——合成分数带着自己的分解。\n\n**今天最值得一提的一条没有发。** OpenAI 宣称给出了纳维-斯托克斯千禧年难题的 AI 生成解，并附 Lean 形式化证明。`openai.com` 对本站返回 403，没有找到二手报道，猜测的仓库地址都是 404——**从一句话写出这样一条信号，产出的是推断而不是证据**，所以它被标记为已看，等可核对的材料出现。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-2152c7f1",
+        "skill-ws-84837d46",
+        "skill-ws-a9e80194",
+        "skill-ws-c183c9b9"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-system-design",
+        "knowledge-graph-thinking",
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-e251051e"
+      ],
+      "sourceNames": [
+        "Google DeepMind Blog",
+        "Hugging Face Blog"
+      ],
+      "generatedAt": "2026-09-09T12:00:00.000Z",
+      "updatedAt": "2026-09-09T02:23:27.191Z",
+      "lastRegeneratedAt": "2026-09-09T02:22:04.272Z",
+      "publishedAt": "2026-09-09T02:23:27.191Z",
+      "editorialNotes": [
+        "本轮 30 条待决：发 2、标记已看 13、拒 15，快讯页未处置归零。",
+        "生成器选中的 8 条全部被此前已发布简报收录过，逐条核对后排除；两条新信号已在生成分区内，未调用 include。",
+        "纳维-斯托克斯那条是本轮最值钱也最无法核实的候选：openai.com 403、无二手报道、猜测的仓库 404，故标记已看。",
+        "vLLM v0.29.0 同样标记已看——期间 github.com 间歇不可达，API 返回的 404 本身可能是错误响应，不能当证据。",
+        "Ollama 那条标题写 v0.34.0 而 tag 实为 v0.34.0-rc2，按预发布先例拒绝（站里第 10 次同类）。"
+      ]
+    },
     {
       "id": "digest-2026-09-08",
       "date": "2026-09-08",

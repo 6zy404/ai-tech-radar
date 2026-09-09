@@ -12,6 +12,82 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — the number that needs its other half
+
+- **30 undecided candidates, two signals** — 2026-09-09, from that morning's
+  scheduled import (**13/13 sources, the github.com cluster recovered on its
+  own**). All 30 dispositioned: **2 published, 13 reviewed, 15 rejected**; the
+  public news lane goes to **31 items visible, 0 undecided**.
+- Both signals are about the same thing: **a number synthesised from several
+  others is only usable when it can be taken apart again.**
+- **The cleanest counter-example is on the safety side.** Most alignment work
+  treats harm as a property of a _topic_ — LlamaGuard-3 encodes exactly that
+  taxonomy — while a real deployment needs different boundaries _inside_ one
+  topic. A civics tutor and a public-sector assistant can share a model and
+  still need opposite behaviour on politics: both answer factual election
+  questions, only one must refuse targeted political manipulation. Multiverse
+  Computing operationalises the boundary as **pairs of prompts sharing a topic
+  anchor and differing only in intent**, then measures both sides of it.
+- **The pair of numbers is the entry.** On Qwen3-8B, in-distribution political
+  refusal goes **9.47% → 84.75%**, and the mean unsafe-response rate across
+  HarmBench, StrongREJECT and WildJailbreak falls **26.26% → 0.14%**. At **the
+  same checkpoint**, over-refusal on XSTest rises **2.00% → 74.00%** — the
+  configuration with the lowest harmful-response rate is the one refusing
+  nearly three quarters of plainly safe prompts. In the authors' words it is a
+  blunt refusal machine rather than a safer model, **and you cannot see that
+  unless you measure the benign side**.
+- **Three holes in the standard self-generation pipeline, each with a number.**
+  Single-shot steering **silently drops 19.88% of prompts (8,009)** — very
+  likely the hardest ones — and an escalating retry brings residual failures to
+  **0.20%**; **11,955** verified surface-dangerous benign prompts across 18
+  semantic types put the over-refusal pressure in training rather than in
+  evaluation; and ordinary harmful/benign splits do not measure the boundary's
+  shape at all, so **1,539 held-out pairs per side** measure it directly.
+- **The positive demonstration of the same idea.** DeepMind precomputed and
+  published the molecular effect predictions for **all 9 billion single-letter
+  variants** in the human genome — **1 PB, more than 30× the AlphaFold
+  Database**, free for academic use. The model is not new; **running it to
+  completion and publishing the result is.** The transferable part is not
+  genomics: **when the input space is finite and enumerable, running the model
+  once and shipping it as a resource beats making everyone call it.** And the
+  AVI score condenses two models into a single number **while shipping the
+  feature attributions that drive it** — the synthesised number arrives with
+  its own decomposition.
+- **The most valuable candidate of the round was the one not published.** OpenAI
+  announced an AI-generated solution to the Navier–Stokes Millennium Prize
+  Problem with a formal proof in Lean. `openai.com` returns 403 here, no
+  secondary coverage was found, and guessed repository paths 404 — which is not
+  evidence either way. Writing that signal from a single sentence would produce
+  inference presented as evidence, so it is **reviewed, pending material that
+  can be checked**. vLLM v0.29.0 is reviewed for a related reason: github.com
+  was intermittently unreachable during the round, and **a 404 returned through
+  a flaky proxy is not a fact about the repository**.
+- **Ollama's candidate reads `v0.34.0` while its tag is `v0.34.0-rc2`** — the
+  same trap recorded on 2026-08-24, and the tenth pre-release rejection here.
+- **20 reverse-id targets written as one pre-computed union**, verified
+  individually — **24/24 reverse links render across 19 pages** — plus **25
+  typed relation pairs with notes**.
+- Verified: 13 public routes at 200, an eight-string internal-field scan clean
+  across four surfaces, the pinned lead first inside the digest's signal links
+  with zero excluded items present, both bodies at 4 section headings with
+  **zero literal markers, zero ASCII quotes and zero curly quotes** measured on
+  the parsed DOM, both hero titles at **2 lines at 1265px** against a control
+  that reproduced the live element, zero horizontal overflow and zero
+  relationship-graph overlaps at 1265 and 390 with the detector proven to fire,
+  zero console errors, plus typecheck, lint, format, vitest **254/254**, eight
+  validators, and stores diffed against `HEAD` — **1180 arrays, zero losses**,
+  checker proven to fire on an injected loss.
+- **The line-break check was run on the rendered text, not on the segmenter's
+  output.** `Intl.Segmenter` splits 检查点 into 检查 + 点, which looks like the
+  ICU limitation that has bitten this repo before — but walking the live `h1`'s
+  client rects character by character shows the break falls between 同一 and
+  检查点, a clean word boundary. **The segmentation is not the rendering**;
+  only the rects say where a line actually ends.
+- **The detector was given a sample-size assertion this round.** After the
+  2026-09-08 false pass — the scan matched zero records and printed "no
+  structural problems" — every run now confirms how many records it matched
+  before its verdict is read.
+
 ## Editorial round — three handoffs, and what each one drops
 
 - **25 undecided candidates, three signals** — 2026-09-08. All 25 dispositioned:

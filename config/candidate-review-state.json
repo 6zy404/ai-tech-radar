@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T11:13:24.389Z",
+  "updatedAt": "2026-09-09T02:17:41.883Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -2176,6 +2176,128 @@
       "importStatus": "converted",
       "reviewedAt": "2026-09-08T11:13:24.389Z",
       "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-0-rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:39.762Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-485854": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:39.823Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-485794": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:39.871Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-485784": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:39.916Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-485630": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:39.964Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-485555": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:40.007Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-09T02:17:40.643Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-09T02:17:40.854Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
+    },
+    "candidate-rss-https-www-infoq-cn-article-qpskhgrypayzv8oztsc8-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:40.931Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ir6xdueok3ay1ysdovat-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:40.977Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-c8wbrpaljejlfsh2xjjj-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.022Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-yfqdta8crxjjb0rzzmjr-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.066Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-tzhcuwlw0ftvmme4efxv-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.107Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-9yqhz7fzeibmidz6pjpc-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.152Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-tkvmcvfzagixgb70kur9-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.196Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-rdesg5icyiz71j7xb69k-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.238Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-zmiqafpda993wfozmtt3-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.287Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-pbosbzl0fljtydzouj8r-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.329Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-hoj5r8sqvqsgvm0knhtd-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.373Z"
+    },
+    "candidate-rss-https-github-com-modelscope-ms-swift-releases-tag-v4-5-3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.426Z"
+    },
+    "candidate-rss-https-openai-com-index-codex-quantum-computing-experiments": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.467Z"
+    },
+    "candidate-rss-https-openai-com-index-the-work-now-within-reach": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.515Z"
+    },
+    "candidate-rss-https-openai-com-index-introducing-chatgpt-images-2-5": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.562Z"
+    },
+    "candidate-rss-https-openai-com-index-navier-stokes-solution": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.609Z"
+    },
+    "candidate-rss-https-openai-com-index-teen-development-research-grants": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.651Z"
+    },
+    "candidate-rss-https-openai-com-index-supporting-journalism-from-classrooms-to-newsrooms": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.698Z"
+    },
+    "candidate-rss-https-openai-com-index-1password": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-09T02:17:41.742Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.784Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc6": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.831Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc5": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-09T02:17:41.883Z"
     }
   }
 }

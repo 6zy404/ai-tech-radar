@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T11:21:18.929Z",
+  "updatedAt": "2026-09-09T02:22:03.945Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -5796,6 +5796,231 @@
       "toType": "skill",
       "relationType": "extends",
       "note": "「边界清晰的研究任务」正是试点范围界定那一套判据在实验室内部的应用。"
+    },
+    {
+      "id": "rel-ws-95797eb5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "一个说安全分数常常在测别的东西，一个说它只报了一半——同一条线的两段。"
+    },
+    {
+      "id": "rel-ws-c0229fdc",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "可见性解决之后，指标该怎么报仍然是独立的一问。"
+    },
+    {
+      "id": "rel-ws-600295cf",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "厂商公布的安全分数正需要这条提出的反向数字来读。"
+    },
+    {
+      "id": "rel-ws-c3a729d0",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同样是量「该不该做某件事」，一个是过度帮忙，一个是过度拒答。"
+    },
+    {
+      "id": "rel-ws-b3245377",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "单轴报告能把一次退化包装成改进，而闭环的第一步正是把「什么算好」写成不能只报一半的形式。"
+    },
+    {
+      "id": "rel-ws-babc79c3",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "单次引导静默丢掉的 19.88% 很可能是最难的样本，而红队最需要的正是这些。"
+    },
+    {
+      "id": "rel-ws-59650c07",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "拒答与回答之间的那条线，就是这个场景里的完成判定——它由部署策略而不是话题决定。"
+    },
+    {
+      "id": "rel-ws-86044ca7",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "安全与可用是一对真实取舍，这条信号给出了它在同一检查点上的具体代价。"
+    },
+    {
+      "id": "rel-ws-82481446",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "11,955 条表面危险的良性提示是一次刻意的数据配方设计，用来把误拒压力挪到训练阶段。"
+    },
+    {
+      "id": "rel-ws-09a4df91",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "「这个数字有没有配一个反向的数字」是这条信号能直接照搬的检查问题。"
+    },
+    {
+      "id": "rel-ws-3b254285",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "把安全从话题级分类改成部署级边界，是护栏设计的一次重述。"
+    },
+    {
+      "id": "rel-ws-df66f4b5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "三处修复全在数据配比上，没有一处改模型结构——这正是后训练定制的典型形态。"
+    },
+    {
+      "id": "rel-ws-bae85f66",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "读厂商公布的安全分数时，可以直接追问误拒那一侧的数字在哪。"
+    },
+    {
+      "id": "rel-ws-5ef12bd5",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "两条都在处理同一件事：一个合成分数要配上它的分解才可用。"
+    },
+    {
+      "id": "rel-ws-99652e6a",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "AVI 把特征归因一起发出来，正是单题层面审计所要求的那种可拆解。"
+    },
+    {
+      "id": "rel-ws-b2a4fcae",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同样是把最贵的那段计算挪走：一个挪解码，一个整个预先算完。"
+    },
+    {
+      "id": "rel-ws-9aa20a8b",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "按需调用还是预先算好，是一对典型取舍；这里选了后者，代价是 1 PB 的存储。"
+    },
+    {
+      "id": "rel-ws-b66ab9a5",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "预计算把推理延迟变成查询延迟，前提是输入空间有限且可枚举。"
+    },
+    {
+      "id": "rel-ws-b21f32b7",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "决定可行性的不是模型大小，而是输入空间能不能被枚举完。"
+    },
+    {
+      "id": "rel-ws-e79886dd",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "knowledge-graph-thinking",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "四层资源相互链接——变异、分数、特征归因、序列基序——正是把预测组织成可走的结构。"
+    },
+    {
+      "id": "rel-ws-d3332117",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "AVI 是一个合成分数，而它把驱动自己的特征一起发出来，这正是合成指标可用的条件。"
+    },
+    {
+      "id": "rel-ws-b770a289",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "90 亿次预测一次算完与按需调用，是两种完全不同的容量规划。"
+    },
+    {
+      "id": "rel-ws-459d1ee0",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "extends",
+      "note": "它把一层从「你自己调模型」变成「你查一份资源」，改变的是你需要拥有哪一层。"
+    },
+    {
+      "id": "rel-ws-6337cf4d",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "1 PB、30 倍 AlphaFold 这类数字可直接比，而「最全面的目录」这类表述不可比。"
+    },
+    {
+      "id": "rel-ws-b6239d66",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "Atlas 里全是预测而非测量，用它排序可以，当成结论不行。"
     }
   ]
 }
