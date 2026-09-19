@@ -129,7 +129,12 @@ The product is split into two subsystems:
   [`docs/security-boundary.md`](docs/security-boundary.md) → "News Fast Lane
   Boundary" records the two alternatives that were measured and rejected.
 - **Review** — candidate review workflow with filters, deterministic and
-  explainable duplicate detection, and duplicate-group resolution.
+  explainable duplicate detection, and duplicate-group resolution. Right after
+  each scheduled import the task runner **auto-rejects** exactly two kinds of
+  candidate — pre-release version tags and announcements already published on
+  the site (`src/lib/candidate-auto-triage.ts`) — because every round rejected
+  them by hand while they sat public on the news lane. Everything else still
+  waits for an editor; title-only items are deliberately not auto-rejected.
 - **Drafting & publishing** — candidate → draft conversion, lightweight draft
   editing, deterministic Ranking v0 priority triage, and a Publish Quality Gate
   with user-facing preview.

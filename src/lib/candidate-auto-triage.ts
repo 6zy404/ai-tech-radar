@@ -1,4 +1,5 @@
 import {
+  getCandidateIdsWithReviewDecision,
   getImportedCandidates,
   updateImportedCandidateStatus
 } from "@/lib/candidate-workflow";
@@ -37,18 +38,22 @@ export interface AutoRejection {
 }
 
 /**
- * Pure core: which undecided candidates the rule would reject, and why. Only
- * `new` candidates are considered, so an editor's earlier decision — including
- * reopening an auto-rejected item — is never overridden.
+ * Pure core: which untouched candidates the rule would reject, and why.
+ *
+ * Status alone is not enough: an editor who reopens an auto-rejected item sets
+ * it back to `new`, which looks exactly like a fresh import, and the next run
+ * would reject it again. So only candidates nobody has ever set a status on
+ * are considered — `decidedIds` is every id in the review-state file.
  */
 export function selectAutoRejections(
   candidates: ImportedCandidate[],
-  publishedSignals: PublishedSignalFingerprint[]
+  publishedSignals: PublishedSignalFingerprint[],
+  decidedIds: ReadonlySet<string> = new Set()
 ): AutoRejection[] {
   const rejections: AutoRejection[] = [];
 
   for (const candidate of candidates) {
-    if (candidate.importStatus !== "new") {
+    if (candidate.importStatus !== "new" || decidedIds.has(candidate.id)) {
       continue;
     }
 
@@ -106,7 +111,8 @@ export function runCandidateAutoTriage(): {
   );
   const rejections = selectAutoRejections(
     getImportedCandidates(),
-    publishedSignals
+    publishedSignals,
+    getCandidateIdsWithReviewDecision()
   );
 
   for (const rejection of rejections) {

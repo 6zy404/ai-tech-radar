@@ -80,6 +80,15 @@ function readCandidateReviewState(): CandidateReviewStateFile {
   });
 }
 
+/**
+ * Ids that anyone has ever set a status on — including a candidate reopened to
+ * `new`, which is indistinguishable from a fresh import by status alone. Auto-
+ * triage uses this so an editor's reopen is not undone by the next run.
+ */
+export function getCandidateIdsWithReviewDecision(): Set<string> {
+  return new Set(Object.keys(readCandidateReviewState().items));
+}
+
 function writeCandidateReviewState(state: CandidateReviewStateFile) {
   writeJsonFile(candidateReviewStatePath, state);
 }

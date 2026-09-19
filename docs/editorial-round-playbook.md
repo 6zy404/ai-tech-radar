@@ -125,6 +125,13 @@ superseded by its own stable release)?
 - UI: candidate detail page → `Convert to technology draft`.
 - API: `POST /api/candidates/{id}/convert` → returns `{ draftId }`.
 
+**Two kinds are already gone when you arrive** (since 2026-09-19): the task
+runner auto-rejects pre-release tags and already-published announcements right
+after the scheduled import. They show up in the workspace as `rejected` with a
+`task_runner` event. If one of them is actually worth publishing, reopen it
+to `new` — auto-triage only acts on candidates nobody has ever set a status
+on, so a reopen is not undone by the next run.
+
 Rejecting near-duplicate pre-release tags (e.g. an `-rc0`/`-rc1` candidate
 once the corresponding stable tag exists) keeps the technology list from
 filling up with redundant version-bump entries — this project does not have
