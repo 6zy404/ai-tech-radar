@@ -25,7 +25,8 @@ local-first prototype with two subsystems:
 - **User-facing Product** — public home, technology list/detail pages, published
   Daily Digest pages, skills/knowledge pages, and public RSS/JSON feeds.
 
-What is implemented today is described in `README.md`, and the version-by-version
+What is implemented today is described in `docs/reference.md` (the README is a
+bilingual project overview), and the version-by-version
 history lives in `CHANGELOG.md`. Treat those two files as the source of truth for
 "what already exists" before starting new work.
 
@@ -73,7 +74,8 @@ role-based permissions, or production secret handling.
 
 Whenever you add or change structure, also document it. At minimum:
 
-- update `README.md` (current capabilities, routes, commands)
+- update `docs/reference.md` (current capabilities, routes, commands), and
+  `README.md` / `README.en.md` only when the overview itself changes
 - add a dated entry to `CHANGELOG.md` for any new feature version
 - update the relevant file under `docs/` (data model, page structure, etc.)
 
@@ -83,7 +85,7 @@ Long-term project context must live in repository documents, not in chat history
 New sessions should start from:
 
 - `AGENTS.md`
-- `README.md`
+- `README.md` / `README.en.md` (overview) and `docs/reference.md` (detail)
 - `CHANGELOG.md`
 - `docs/project-spec.md`
 - `docs/architecture.md`

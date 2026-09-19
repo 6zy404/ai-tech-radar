@@ -12,7 +12,8 @@ rather than restating them.
 
 Read these before doing any work:
 
-- @README.md — current capabilities, routes, commands
+- @README.md — project overview (Chinese; English in README.en.md)
+- @docs/reference.md — current capabilities, routes, commands
 - @CHANGELOG.md — version-by-version feature history
 - @docs/project-spec.md
 - @docs/architecture.md

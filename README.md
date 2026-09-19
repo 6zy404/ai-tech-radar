@@ -1,496 +1,105 @@
 # AI Tech Radar
 
-**Not another AI news feed.** It answers a different question: of everything
-that shipped this week, **which one deserves your attention first — and what do
-you need to know before you can judge it?**
+**中文** | [English](README.en.md)
 
-The product surface is Chinese; the screenshots show the public site.
+一个技术信号的追踪与解读平台。系统从外部信源导入新发布的内容，经编辑审核后发布为
+**技术信号**；每条信号附带「为什么重要、谁该关注、需要什么背景」的说明，并通过带类型的
+关系与**技能**、**背景知识**条目相连。站点界面为中文。
 
-![The public home page: today's digest, priority signals, and entry points into skills and background knowledge](docs/images/home.png)
+![公开首页：今日简报、优先信号，以及技能与背景知识入口](docs/images/home.png)
 
-## In 30 seconds
+## 系统组成
 
-A technology-discovery platform with a **real editorial pipeline** behind it, not
-a seeded demo. Thirteen live sources are imported daily; an editor dispositions
-every candidate; what survives becomes a _signal_ carrying a written explanation
-of why it matters, wired into a typed graph of skills and background concepts.
+- **用户端**：首页、技术信号列表（精选 / 全部快讯 / 按话题 / 我关注的 / 稍后读）、
+  信号详情、每日简报与本周回顾、技能、知识、关系网络、话题页、站内搜索、RSS / JSON
+  订阅。只读取已发布内容。
+- **内部工作台**：信源配置与导入、候选审核、去重、草稿编辑、发布检查、简报编辑、
+  投递渠道、定时任务、运维看板。可用令牌保护，且不进入公开构建。
 
-Everything below was produced by that pipeline over two months of real rounds —
-none of it is fixture data:
+## 数据流程
 
-|                              |                                |
-| ---------------------------- | ------------------------------ |
-| Published technology signals | **72**                         |
-| Skills / knowledge entries   | 16 / 19                        |
-| Published daily digests      | **26**                         |
-| Live external sources        | 13                             |
-| Content graph                | **107 nodes, 655 typed edges** |
+```text
+外部信源（RSS / Atom / GitHub Release / 官方博客）
+  → 定时导入 → 候选池
+  → 自动剔除：预发布版本、站内已发布过的内容
+  → 编辑处置：去重、转草稿、补充说明、关联技能与知识
+  → 发布检查（阻塞项 / 警告项）→ 技术信号
+  → 每日简报 → 页面、RSS / JSON、投递渠道
+```
 
-Codebase: ~49,000 lines of TypeScript across **47 pages and 43 API routes**,
-254 unit tests, 22 domain validators, and 23 design documents.
+候选池在编辑处置之前会以「自动聚合，未经编辑精选」的标注出现在快讯视图中；精选信号
+与简报只包含经过编辑发布的内容。
 
-## The three parts that were actually hard
+截至 2026-09-19，已发布 77 条技术信号、16 条技能、19 条知识、28 期每日简报，
+在用信源 13 个；内容关系图谱共 112 个节点、722 条带类型的边。
 
-**1. A public/internal boundary that is enforced, not just documented.**
-Imported candidates are noisy by design — raw payloads, review status, duplicate
-internals, source health. Exactly **one mapping function** is allowed to turn one
-into something public, and a validator asserts the internal fields are absent.
-That check earned itself: two fields (`priority`, `intelligenceStatus`) were
-found shipping inside the RSC payload of client components even though no page
-ever rendered them. Nothing looked wrong — only a payload scan could see it.
+## 设计要点
 
-**2. Ranking that can explain itself.** There is no black-box score. Every signal
-carries the rule that classified it ("editor marked it important, published within
-30 days"), and the reader-facing personalization says _why_ an item matched. The
-banding is derived from the editor's importance level, with recency able to demote
-but never promote — a design chosen only after measuring that the previous
-score-based bands had collapsed to **31 of 31 signals in one band**, leaving the
-other two unreachable.
+### 公开与内部数据的边界
 
-**3. A typed content graph, not tags.** Every one of the 655 edges carries one of
-eight relation types plus a note, stored as copy-on-write overrides above
-read-only seed data. The generic "related-to" fallback accounts for only **11%**
-of edges — the rest say something specific, which is what makes the graph usable
-rather than decorative. The same graph drives the version-succession line on a
-signal page, the topic hubs, and the grounding for AI-generated learning paths.
+导入的候选包含原始载荷、审核状态、去重信息、信源健康度等内部字段。只有一个映射函数
+（`src/lib/news.ts`）可以把候选转换为公开数据，技术信号同样经由单一映射输出公开形态；
+校验脚本断言内部字段不会出现在公开页面与订阅中。这项检查曾发现 `priority` 与
+`intelligenceStatus` 两个字段虽然没有被任何页面渲染，却随客户端组件的 RSC 载荷发送到
+浏览器，之后已从公开形态中移除。
 
-![A signal detail page: the version-succession line, publisher type, and the Chinese/original language switch](docs/images/signal-detail.png)
+访问控制分两层：运行时由 `src/middleware.ts` 按令牌保护内部路由；构建时
+`npm run build:public` 在构建前移除全部内部路由目录（69 条路由），公开构建中不存在
+这些路由。
 
-![The whole content graph in one view, with the eight relation types in the legend](docs/images/network.png)
+### 可解释的排序
 
-## How I know it works
+排序不使用不透明的综合分数。信号的优先级档位由编辑标注的重要程度决定，发布时间只能
+使档位下降、不能上升；每条信号记录判定它的规则，个性化视图会注明命中的关注话题。
+此前按分数分档的方案在实测中将 31 条信号全部归入同一档，其余两档无法取到，因此改为
+现在的规则。
 
-The interesting engineering here is not the feature list — it is the measurement
-discipline. Three write-ups, each built around a moment where **the measurement
-tool turned out to be wrong before the code was**:
+### 带类型的内容图谱
 
-→ **[docs/engineering-stories.md](docs/engineering-stories.md)** (Chinese)
+技术、技能、知识之间的每条关系带有八种类型之一（渊源、借助、释义、必备、延伸、续作、
+印证、关联）和一段附注。编辑修改以写时复制的覆盖层保存，内置种子数据保持只读。
+兜底类型「关联」约占全部边的 11%。同一张图谱用于信号页的版本脉络、话题页，以及 AI
+生成学习路径时的依据。
 
-1. A workspace page blocked the entire server for 193 seconds — fixed 448× — and
-   the first correctness proof had to be thrown away.
-2. Five public pages would have shipped frozen at build time; the build manifest
-   was not accepted as evidence.
-3. The slowest public route turned out to be the dev server measuring itself, and
-   the round ended with zero code changed.
+![信号详情页：版本脉络、发布方类型、中文 / 原文切换](docs/images/signal-detail.png)
 
-The full history is in [`CHANGELOG.md`](CHANGELOG.md) (4,800 lines, newest first).
+![内容关系图谱全图](docs/images/network.png)
 
-## Run it locally
+## 技术栈
+
+- Next.js 15（App Router）、React 19、TypeScript
+- 存储：本地 JSON（默认），可选 SQLite 驱动（Node 内置 `node:sqlite`）
+- LLM：服务端调用边界，默认本地 mock，可配置任意 OpenAI 兼容接口
+- 测试：Vitest 单元测试 + 按子系统划分的 `validate:*` 校验脚本
+
+## 本地运行
+
+需要 Node.js 22.5 或以上。
 
 ```bash
 npm install
 npm run dev          # http://localhost:3000
-npm run typecheck    # default verification gate
-npm run test         # 254 unit tests
 ```
 
-No API key or external service is required: the LLM provider defaults to a local
-mock, and all state lives in `config/*.json`.
+无需 API Key 或外部服务：LLM 默认使用本地 mock，运行状态保存在 `config/*.json`。
 
----
-
-The product is split into two subsystems:
-
-- **Internal Workspace** — configure external sources, import real items, review
-  candidates, resolve duplicates, convert candidates into technology drafts,
-  edit and enrich draft content, run publish-readiness checks, publish/archive
-  records, build and publish Daily Digests, deliver digests to external
-  channels, schedule deliveries, and monitor operations.
-- **User-facing Product** — a public home, an auto-aggregated news fast lane
-  (`/news`), readable technology list/detail pages (published records only),
-  published Daily Digest pages, skills/knowledge pages that explain the
-  signals, public RSS/JSON feeds, and content-level bilingual support.
-
-> **Status:** working prototype, past the original foundation phase. For the full
-> feature history see [`CHANGELOG.md`](CHANGELOG.md). For deep dives on any area
-> see the [`docs/`](docs/) directory.
-
-## Current capabilities
-
-- **Ingestion** — real import for RSS / Atom, GitHub releases, and
-  official-blog-style pages, with a local fallback layer, batch import,
-  source/candidate quality signals, and a task-runner scheduled daily import
-  (`config/scheduled-import.json`, managed from
-  `/workspace/delivery/schedules`).
-- **News fast lane (two-tier content model)** — the 全部快讯 view on
-  `/technologies?view=news` publicly renders recently imported candidates
-  (last 7 days, grouped by day) through a
-  dedicated sanitizing map (`src/lib/news.ts`): title / summary / source /
-  date / tags only, always labelled "自动聚合，未经编辑精选", with rejected
-  candidates, fallback placeholders, and non-primary duplicates excluded, and
-  converted items linking to their published signal. The curated technology
-  signal + digest tier stays editor-gated and unchanged. Only `rejected` is
-  filtered, so **candidates awaiting a decision are publicly visible** until an
-  editorial round dispositions them — which means the lane's composition
-  follows each source's publish _rate_, not its quality. Measured on
-  2026-08-10: before that day's round the lane was 33 items with 67% from two
-  daily-media sources; after it, 16 items with 38%. `npm run measure:news-lane`
-  reports the current split, and
-  [`docs/security-boundary.md`](docs/security-boundary.md) → "News Fast Lane
-  Boundary" records the two alternatives that were measured and rejected.
-- **Review** — candidate review workflow with filters, deterministic and
-  explainable duplicate detection, and duplicate-group resolution. Right after
-  each scheduled import the task runner **auto-rejects** exactly two kinds of
-  candidate — pre-release version tags and announcements already published on
-  the site (`src/lib/candidate-auto-triage.ts`) — because every round rejected
-  them by hand while they sat public on the news lane. Everything else still
-  waits for an editor; title-only items are deliberately not auto-rejected.
-- **Drafting & publishing** — candidate → draft conversion, lightweight draft
-  editing, deterministic Ranking v0 priority triage, and a Publish Quality Gate
-  with user-facing preview.
-- **Content intelligence** — editable explanation fields (why it matters, who
-  should care, technical context, learning path, etc.) plus optional
-  AI-assisted editorial enrichment behind a server-side LLM provider boundary
-  (mock by default, OpenAI-compatible when configured) with a prompt-quality
-  review loop.
-- **Knowledge relationship network** — every technology/skill/knowledge cross-
-  reference carries an explicit, Chinese-labelled relation type; a small
-  per-item relationship view — the current item, then its neighbours grouped
-  by kind — is walkable on all three detail pages, and
-  `/network` renders the full graph in one view with a hand-written
-  force-directed layout, search-highlight, a category filter, hover-over-edge
-  relation labels, draggable nodes, and click-to-focus exploration of any
-  node's direct connections.
-- **Content bodies** — a shared `ContentBody` renderer for the long-form
-  body of a technology, skill, or knowledge record. The technology detail
-  page gained a 信号正文 section (between 版本脉络 and 为什么重要) read
-  through the same localization helper as the title and summary, so the
-  中文/原文 switch applies to the body too; the skill and knowledge detail
-  pages and the workspace draft panel render through the same component.
-  Editorial bodies use only `##` headings, `**bold**`, inline `` `code` `` and
-  ordered/bulleted lists, so `src/lib/content-body.ts` parses that subset by
-  hand instead of adding a Markdown dependency. Inline code was added
-  2026-08-02, after the MCP 2.0 signal shipped its backticks to readers
-  verbatim for want of it. Until 2026-07-28 the technology body was
-  written by every editorial round, required by the publish gate, and never
-  displayed anywhere public, while skill and knowledge bodies rendered as a
-  single paragraph with their `**` markers visible.
-- **Publisher type on the signal page** — the technology detail page's source
-  row carries the publisher's _type_ (大型科技公司 / 创业公司 / 研究实验室 /
-  开源社区 / 媒体) as a hairline chip beside the publisher name, on both the
-  aside panel and the foot-of-article 来源参考 block, so a reader can tell a
-  vendor announcement from an open-source release before reading. Added
-  2026-07-29 by connecting the already-written `getPublisherTypeLabel` and one
-  optional `SourceReference` prop. `translationStatus` was measured in the same
-  pass and deliberately **not** rendered: the derived translation coverage is
-  `full` for **every** published signal (re-measured 2026-08-07 at n=37), so
-  any badge would be a constant — see `docs/data-model.md` → `TechnologyItem`.
-- **Version evolution line** — a 版本脉络 section on the technology detail page
-  showing where the signal you are reading sits in its release line. Built only
-  from explicit `supersedes` (续作) relations between published technologies —
-  no heuristic — ordered by publish date and marked 当前 / 最新; an older
-  release leads with "这条信号已有后续" and names the latest one. Pure derived
-  view (`getTechnologyEvolutionChain` in `src/lib/technology-evolution.ts`),
-  no new persisted data. Signals outside a release line render nothing.
-- **Topic hub (`/topics/[tagId]`)** — a per-topic drill-down page merging what
-  `/network`, the 按话题 view, and `/search` each show in fragments for one
-  topic tag: the tag's published technology signals, tagged skills, tagged
-  knowledge, and a "图谱关联" section listing its direct content-graph
-  neighbors with relation-type labels. Reached only via a "查看专题" link on
-  `FollowableTagList` chips (technology/skill/knowledge detail pages) — no
-  index page, no global nav entry. Pure derived view (`getTopicHub` in
-  `src/lib/topic-hub.ts`), no new persisted data or AI calls.
-- **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
-  comparison (similarities, differences, when to prefer each) between two
-  published technologies on the technology detail page. Results are cached
-  per technology pair and always shown with an "AI-generated, not reviewed"
-  disclaimer; the first public-facing route that calls the LLM provider
-  directly (`POST /api/technologies/compare`).
-- **Explain at the reader's level (P3 v1)** — reader-triggered, live
-  AI-generated explanation of a published technology tailored to a
-  self-selected experience level (beginner / intermediate / advanced) on the
-  technology detail page. Results are cached per technology × level and shown
-  with the same "AI-generated, not reviewed" disclaimer
-  (`POST /api/technologies/explain`).
-- **Graph-grounded learning path (P3 v2)** — reader-triggered, live
-  AI-generated learning path (overview, ordered steps, self-check
-  checkpoints) for a published technology, grounded in its related
-  knowledge and skills from the content graph. Results are cached per
-  technology and shown with the same disclaimer
-  (`POST /api/technologies/learning-path`).
-- **Personal radar (P4 v0)** — readers follow topic tags (stored only in
-  browser localStorage, no accounts) and the 我关注的 view on
-  `/technologies?view=followed` aggregates matching published signals into
-  the existing priority groups, with an explicit "matched because you follow
-  X" line per item. Deterministic filtering on Ranking v0 — no AI ranking, no
-  server-side profile. Detail pages carry a follow entry (P4 v0.1): the tags
-  section on technology/skill/knowledge detail pages renders the same
-  follow-toggle chips, so readers can follow a topic where they read about
-  it, with an inline "已加入我的雷达 → 查看" link back to
-  `/technologies?view=followed`. Public digest pages carry a personalized view
-  (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
-  "只看我关注的" toggle filters the signal sections client-side — the served
-  digest stays identical for everyone. Topic-level tracking without accounts
-  (P4 v0.3): every topic hub carries a 订阅此话题 block linking its per-topic
-  RSS feed (`/topics/[tagId]/feed.xml`, published signals only), the 我关注的
-  view lists feed links for followed topics, and followed-topic state can be
-  exported/imported as a plain comma-separated 关注码 for cross-device use —
-  still no accounts, no server-side profile. Reading marks (P4 v0.4): every
-  signal card in the 精选 / 我关注的 / 稍后读 views carries a 稍后读 and a
-  已读 toggle, read cards recede (no paper, dashed border, 已读 stamp) and
-  can be hidden with a 隐藏已读 switch, and the new 稍后读 view
-  (`/technologies?view=saved`) lists what the reader saved, most recent
-  first. Marks are manual — opening a signal never marks it read — and live
-  only in browser localStorage (`src/lib/reading-state.ts`), so the served
-  page stays identical for everyone.
-- **Topic timeline** — the 按话题 view on `/technologies?view=timeline`
-  groups published technology signals by topic tag, each shown as a
-  chronological (newest-first) list linking to its detail page.
-  Published-signal data only (no news fast-lane noise); reuses
-  `getAllTechnologies` / `getAllTags` and the bilingual title/summary
-  helpers, no new data or route.
-- **Site-wide search** — public `/search` (an inline search icon in
-  `TopNav` opens the query box) with server-rendered `?q=` keyword search
-  over published technology signals, skills, knowledge, and the sanitized
-  news fast lane. Deterministic, case-insensitive substring matching on
-  title / summary / tag names only (space-separated terms are ANDed),
-  results grouped per content type, and the fixed auto-aggregation
-  disclaimer on the news group. News results reuse the same
-  `src/lib/news.ts` public mapping as the 全部快讯 view; no internal fields
-  enter the page (`src/lib/search.ts`).
-- **Skill/Knowledge workspace editing (v0)** — `/workspace/skills` and
-  `/workspace/knowledge` manage the skill and knowledge content pools:
-  create new entries, or edit the bundled `src/data` seed entries via
-  copy-on-write runtime overrides (`config/skill-workspace.json` /
-  `config/knowledge-workspace.json` — seed files stay read-only). Entries
-  carry a draft/published status with a minimal publish gate (title / slug /
-  summary required and unique slug as blocking errors; short content,
-  missing or non-canonical tags, and missing relations as warnings). Public
-  `getAllSkills` / `getAllKnowledge` serve the merged view with drafts
-  filtered from every public surface (index/detail pages, content graph,
-  search, topic hubs).
-- **Typed relation editing (LinkRelation v1)** — the related-content
-  checkboxes in all three workspace editors (skill, knowledge, and the
-  technology draft form) unfold a relation-type select (渊源/借助/释义/
-  必备/延伸/续作/印证/关联) plus an optional note while checked. Edits are
-  stored as copy-on-write overrides of the read-only seed relations
-  (`config/link-relation-workspace.json`, keyed by unordered pair;
-  reverting to the seed value removes the override). The public relation
-  reads (`findRelationBetween`, detail-page pills and 附注 notes,
-  `RelationshipGraph` tooltips, `/network` edge labels, topic hubs) serve
-  the merged view via `PUT /api/workspace/relations` +
-  `src/lib/link-relation-workflow.ts`.
-- **Daily Digest** — editorial workflow that generates, edits, previews, and
-  publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
-  the month-grouped `/digest` archive index, `/feed.xml`, and `/feed.json`.
-  The task runner can also generate the day's digest **draft** automatically
-  (`config/scheduled-digest.json`, managed from
-  `/workspace/delivery/schedules`; skips when the day already has a digest,
-  never publishes — publishing stays editor-gated).
-- **Weekly review (`/digest/weekly`)** — a public, time-boxed sibling of the
-  daily digest: a pure derived view (`getWeeklyReview` in
-  `src/lib/weekly-review.ts`, no new persisted data, no AI) that buckets
-  published technology signals into natural weeks (Monday–Sunday), classifies
-  each with the same deterministic Ranking v0 the rest of the product uses,
-  and groups them into 立即关注 / 值得跟踪 (low-priority excluded, matching
-  the digest). `/digest/weekly` is the current week (with an empty state and
-  the past-week archive folded in); `/digest/weekly/[week]` is a specific week
-  keyed by its Monday date (`notFound()` for a non-canonical key or a week
-  with no signals). Reached via 本周回顾 links on `/digest` and the public
-  digest pages — no new nav entry.
-- **Delivery** — workspace-only webhook and Feishu channels, manual and
-  scheduled sending of published digests, and a local cron/task runner that
-  also runs the scheduled daily source import (see
-  [`docs/deployment.md`](docs/deployment.md) for Windows Task Scheduler
-  setup).
-- **Editorial round console (`/workspace/editorial-round`)** — a workspace-only
-  orchestration page that collapses the recurring editorial-round loop (see
-  [`docs/editorial-round-playbook.md`](docs/editorial-round-playbook.md)) onto
-  one screen: a round summary, a step tracker, undecided candidates (with
-  inline 转为草稿 / 拒绝), an open-duplicate-group block notice, drafts awaiting
-  publish (with per-draft publish-readiness summary + inline 发布), today's
-  digest (inline 生成 / 发布, soft "publish everything first" hint), and a
-  public-surface verify checklist. Pure read state (`getEditorialRoundState`
-  in `src/lib/editorial-round.ts`); the inline actions reuse the existing
-  candidate/technology/digest API routes, so no editor is duplicated.
-- **Operations** — a workspace operations dashboard, a `WorkflowEvent` audit log,
-  and per-subsystem `validate:*` checks.
-- **Persistence** — local JSON by default, with an optional SQLite driver.
-- **Security boundary** — optional token protection for workspace and internal
-  API routes, with internal-only fields kept off public pages and feeds.
-
-## Architecture & route boundary
-
-The codebase is layered: bundled data (`src/data`) → workflow/business logic
-(`src/lib`) → App Router pages and API routes (`src/app`) → shared UI
-(`src/components`). Pages and API routes call workflow services rather than
-reading storage directly.
-
-Public, user-facing routes:
-
-- `/`, `/technologies` (精选/全部快讯/按话题/我关注的/稍后读 five views via
-  `?view=`),
-  `/technologies/[slug]`
-- `/digest` (archive), `/digest/today`, `/digest/[date]`,
-  `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
-- `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
-- `/network`
-- `/topics/[tagId]` — topic hub (reached via tag chip links, not a nav entry)
-- `/topics/[tagId]/feed.xml` — per-topic RSS feed of that topic's published
-  technology signals (404 for unknown topics or topics with no published
-  signals)
-- `/search`
-- `/feed.xml`, `/feed.json`
-- `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
-- `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
-  `POST /api/technologies/learning-path` — public, unauthenticated by design
-  (they only operate on already-published technology content), but rate
-  limited per client per route (default 10/minute and 40/hour, override with
-  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`); see
-  [`docs/security-boundary.md`](docs/security-boundary.md) for the boundary
-  reasoning.
-
-Internal workspace / API routes (optionally token-protected):
-
-- `/workspace/*`
-- `/api/workspace/*`, `/api/candidates/*`
-- legacy `/candidates/*` and `/technologies/drafts/*` (redirect to workspace)
-
-Public pages must never call mutation APIs, import workspace action components,
-or render internal-only fields (raw payloads, import status, normalized type,
-duplicate internals, delivery endpoints, schedules, task-runner logs, workflow
-events, or workspace tokens).
-
-Optional workspace protection:
+## 测试与验证
 
 ```bash
-WORKSPACE_ACCESS_ENABLED=true
-WORKSPACE_ACCESS_TOKEN=replace-with-a-strong-secret
+npm run typecheck      # 类型检查
+npm run test           # 单元测试
+npm run lint
+npm run build:public   # 公开构建（不含内部路由），并校验构建产物
 ```
 
-The middleware accepts `Authorization: Bearer <token>`, a Basic-auth password,
-or `x-workspace-access-token`. See [`docs/security-boundary.md`](docs/security-boundary.md)
-and [`docs/deployment.md`](docs/deployment.md) for the full environment-variable
-reference.
+各子系统的校验脚本（`validate:*`，共 22 个）见 [`docs/reference.md`](docs/reference.md)。
+性能问题与验证方法的排查记录见 [`docs/engineering-stories.md`](docs/engineering-stories.md)。
 
-## Persistence
+## 文档
 
-JSON is the default store. SQLite is an optional local driver:
-
-```bash
-# default
-PERSISTENCE_DRIVER=json
-
-# enable SQLite locally
-npm run db:init
-npm run db:migrate-json
-PERSISTENCE_DRIVER=sqlite npm run dev
-```
-
-SQLite defaults to `config/ai-tech-radar.sqlite` (override with
-`SQLITE_DATABASE_PATH`) and uses Node's built-in `node:sqlite`. The local JSON
-store does **not** provide multi-writer locking, role-based permissions, or
-production secret handling, and is intended for local development or controlled
-single-operator use. See [`docs/persistence-plan.md`](docs/persistence-plan.md)
-and [`docs/database-migration.md`](docs/database-migration.md).
-
-## Local run
-
-```bash
-npm install
-npm run dev
-```
-
-Open <http://localhost:3000>.
-
-## Useful commands
-
-```bash
-npm run typecheck        # default verification
-npm run build            # full app, workspace included — for local use
-npm run build:public     # public-only build: the workspace routes are physically absent
-npm run lint             # ESLint (next/core-web-vitals + next/typescript + prettier compat)
-npm run lint:fix         # ESLint with autofix
-npm run format:check     # Prettier check (no writes)
-npm run format           # Prettier write
-npm run sync:candidates  # refresh imported candidates from live sources
-npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
-npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
-npm run measure:news-lane # who the public 全部快讯 view is currently showing
-
-# persistence / task runner
-npm run db:init
-npm run db:migrate-json
-npm run tasks:run-once
-
-# per-subsystem validation scripts
-npm run validate:candidates
-npm run validate:publishing
-npm run validate:sources
-npm run validate:duplicates
-npm run validate:quality
-npm run validate:ranking
-npm run validate:digest
-npm run validate:delivery
-npm run validate:delivery-integration
-npm run validate:delivery-channels
-npm run validate:scheduled-delivery
-npm run validate:tasks
-npm run validate:deployment
-npm run validate:persistence
-npm run validate:database
-npm run validate:workflow-hardening
-npm run validate:operations
-npm run validate:content-intelligence
-npm run validate:editorial-enrichment
-npm run validate:llm-enrichment
-npm run validate:prompt-quality
-npm run validate:workspace-boundary
-```
-
-### Manual UI validation
-
-```bash
-npm run ui:check
-```
-
-This launches the locally installed Chromium browser, visits workspace and
-user-facing routes, and writes screenshots plus route/CSS/overflow/internal-field
-leak checks to `visual-qa-screenshots/`. It is a manual local step; sandbox runs
-may fail to launch Chromium (`spawn EPERM`), which is an environment limitation,
-not a project failure.
-
-## Local state files
-
-Runtime workflow state lives in `config/` as JSON (the default fallback store):
-imported candidates, candidate review state, external sources, technology
-workspace records, skill and knowledge workspace records, link relation
-overrides, duplicate groups,
-daily digests, delivery, scheduled delivery, scheduled import, scheduled
-digest draft, task runner,
-workflow events, editorial enrichment suggestions, and prompt versions. Set
-`LOCAL_DATA_DIR` to point at a different local directory.
-
-## Project structure
-
-- `src/app` — App Router pages and API routes
-- `src/components` — shared workspace and user-facing UI
-- `src/data` — bundled mock technology/skill/knowledge/tag/relation and fallback
-  import data
-- `src/lib` — workflow services, importers, duplicate detection, ranking, digest
-  and delivery logic, repositories, and localization helpers
-- `src/types` — shared TypeScript models
-- `scripts` — local workflow, sync, and validation scripts
-- `config` — local runtime workflow state
-- `docs` — architecture, data model, page structure, design system, and other
-  per-topic notes
-
-## Documentation
-
-Start from [`AGENTS.md`](AGENTS.md) and [`CHANGELOG.md`](CHANGELOG.md), then the
-relevant file under [`docs/`](docs/): `project-spec`, `architecture`,
-`data-model`, `page-structure`, `design-system`, `security-boundary`,
-`deployment`, `persistence-plan`, `database-migration`, `workflow-hardening`,
-`content-intelligence`, `editorial-enrichment`, `llm-provider`, `prompt-quality`,
-`operations`, `workspace-actions`, `editorial-round-playbook`,
-`production-readiness`, `decisions`, `progress`, and `next-task`.
-
-## Intentionally not implemented yet
-
-AI black-box / personalized ranking and recommendation; login / accounts / RBAC;
-production database integration and schema migrations; full admin platform;
-external monitoring and alert routing; push / email subscription products and
-production cron infrastructure; full-site i18n; semantic/AI duplicate detection
-beyond the current deterministic rules; distributed scheduling, retry backoff,
-and production secret storage; automatic translation APIs; and source deletion /
-scheduling / health history / auth.
+- [`docs/reference.md`](docs/reference.md)：完整功能、路由与命令（英文）
+- [`docs/architecture.md`](docs/architecture.md)：系统设计与数据生命周期
+- [`docs/data-model.md`](docs/data-model.md)：数据模型
+- [`docs/security-boundary.md`](docs/security-boundary.md)：公开 / 内部边界
+- [`docs/decisions.md`](docs/decisions.md)：设计决策记录
+- [`CHANGELOG.md`](CHANGELOG.md)：变更记录
