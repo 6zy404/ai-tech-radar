@@ -12,6 +12,23 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A bilingual README, and the reference split out of it
+
+- **`README.md` is now Chinese, `README.en.md` is English** — 2026-09-19,
+  owner-selected. The site UI is Chinese, so the page GitHub shows first is the
+  Chinese one; both link to each other at the top.
+- **The README is an overview, not a manual.** It covers what the system is,
+  the data flow, three design notes, the stack, and how to run and verify it,
+  written as plain technical description. The capabilities list, routes,
+  commands, persistence and project-structure sections moved verbatim to
+  [`docs/reference.md`](docs/reference.md), with relative links repointed.
+  `AGENTS.md` and `CLAUDE.md` now name that file as the source of truth for
+  "what already exists".
+- **The numbers were re-measured, not copied.** The previous overview said 72
+  signals, 26 digests and 107 nodes / 655 edges; measured through the same
+  public getters on 2026-09-19 it is **77 signals, 28 digests, 112 nodes / 722
+  edges**, with the generic related-to fallback still at 11%.
+
 ## The two rejections every round made by hand now happen on their own
 
 - **Pre-release tags and already-published announcements are rejected by the
