@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T12:57:19.876Z",
+  "updatedAt": "2026-09-19T13:09:22.193Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -2342,6 +2342,255 @@
     "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-1rc0": {
       "importStatus": "rejected",
       "reviewedAt": "2026-09-19T12:57:19.876Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-492426": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.082Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-492421": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.145Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-492238": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.199Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-492175": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.257Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-492015": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.308Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-491875": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:17.364Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-491764": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.420Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-491711": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:17.470Z"
+    },
+    "candidate-rss-https-github-blog-p-98893": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:17.525Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-afc40ll0yaxvcdvbrfok-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:17.591Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-19T13:09:18.363Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-infoq-cn-article-o1uifjx3cf5szz3ayuai-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:18.451Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-gdsf7xbmd08h0eb0gg11-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:18.500Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-eluarohetbhwjjyzromg-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:18.553Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-tbuqheqo7etbjfyuynk0-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:18.603Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-wbpy0kv3tb32jepv6cg0-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:18.658Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-da8jmox7ikdnmd2vyytm-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:18.717Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-2kglawpjrk9i5kddhlgz-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:18.847Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-x2fmieckedyuv66bnj3g-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:18.914Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-w3toiqhv5pkhsxp6mgww-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:18.971Z"
+    },
+    "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-20": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:19.032Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-un-data-commons-platform": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.088Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-491649": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.145Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-491596": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:19.206Z"
+    },
+    "candidate-rss-https-github-blog-p-98713": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-19T13:09:19.474Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-blog-p-98713"
+    },
+    "candidate-rss-https-www-infoq-cn-article-esh2buaomnqx6nt7vytc-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:19.569Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.628Z"
+    },
+    "candidate-rss-https-openai-com-index-cooley-gopublic": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.682Z"
+    },
+    "candidate-rss-https-openai-com-index-astra-for-law": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.741Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-3-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.795Z"
+    },
+    "candidate-rss-https-openai-com-index-helping-older-adults-use-ai-in-everyday-life": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.849Z"
+    },
+    "candidate-rss-https-openai-com-index-reimagining-advertising-with-ai": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.909Z"
+    },
+    "candidate-rss-https-openai-com-index-hex-gpt-6-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:19.961Z"
+    },
+    "candidate-rss-https-openai-com-index-how-to-connect-ai-usage-to-business-value": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.018Z"
+    },
+    "candidate-rss-https-openai-com-index-model-misalignment-reporting-framework": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:20.074Z"
+    },
+    "candidate-rss-https-openai-com-index-unlocking-new-ways-of-working": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:20.125Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-2-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.181Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-ai-for-societal-impact": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.237Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-ai-applications-science-people": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.286Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-ai-for-every-language": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.344Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-ai-economy-atlas-september-2026": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.401Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-gemini-3-8-live-and-3-8-live-extended-thinking": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:20.455Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-19T13:09:20.724Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.811Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-dialogues-christina-koch": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.872Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-devfest2026": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.929Z"
+    },
+    "candidate-rss-https-openai-com-index-fyxer": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:20.989Z"
+    },
+    "candidate-rss-https-openai-com-index-perplexity-improving-accuracy-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.045Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-12-astra-running-routes": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:21.105Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-19T13:09:21.374Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems"
+    },
+    "candidate-rss-https-github-blog-p-98799": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.459Z"
+    },
+    "candidate-rss-https-openai-com-index-scaling-storage-one-billion-users-part-one": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.516Z"
+    },
+    "candidate-rss-https-openai-com-index-cognition-devin-testing-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.571Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-1-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.626Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-running-race-training-tips": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.675Z"
+    },
+    "candidate-rss-https-github-blog-p-98771": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.727Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-asyncgrpo-lora-hfjobs": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-19T13:09:21.791Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-gradio-workflow-1111": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.839Z"
+    },
+    "candidate-rss-https-blog-google-products-and-platforms-products-search-football-features-google-search": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.893Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-love-rendered-film": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T13:09:21.942Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-19T13:09:22.193Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes"
     }
   }
 }
