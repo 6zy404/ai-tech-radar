@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T02:21:31.376Z",
+  "updatedAt": "2026-09-19T13:15:29.884Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -197,53 +197,36 @@
       "updatedAt": "2026-09-08T11:20:36.191Z"
     },
     {
-      "id": "skill-agent-design",
-      "title": "智能体工作流设计",
-      "slug": "agent-workflow-design",
-      "summary": "设计多步骤 AI 流程：怎么分层、每一步的交接点是什么、护栏放在哪一层才真的拦得住。",
-      "content": "GitHub 把 Copilot 代码审查的专用代码探索工具，换成了维护得更好的共享 CLI 工具。预期是一次干净的升级，结果基准显示**审查成本更高、抓到的问题更少**。真正翻转局面的不是再换一次工具，而是按「审查者实际怎么读一个 PR」重写工作流指令——之后成本降低约 20%、质量不变。\n\n这件事定义了这项技能：**决定一个智能体好不好用的，是流程的形状，不是它手里有几件工具。**\n\n## 先把智能体拆成能各自演进的几层\n\nAi2 的 Shippy 服务 70 多个国家的分析人员做高风险判断，它的拆法值得直接借用：\n\n1. **soul**——定义边界的系统提示：它是谁、不做什么。\n2. **skills**——用 markdown 文档化的能力，一件事一份。\n3. **config**——运行时配置。\n\n三层各自独立版本化，改一层不必重建整体。这个拆法之所以有用，是因为它把三种变更频率完全不同的东西分开了：边界很少改，能力经常加，配置每次部署都可能变。混在一个大提示词里，就意味着每次加一个能力都在动边界。\n\n## 每一步都要有明确的交接点\n\n一条工作流是由交接点定义的，而不是由步骤数量。每一步动笔之前先答三个问题：\n\n- 这一步**收到什么**——上一步保证交付的是什么形状。\n- 这一步**必须产出什么**——下一步会依赖的是什么。\n- **谁来判断它做完了**——外部状态、人写的检查，还是模型自己。\n\n第三问最容易被跳过，而它是长链路失败的主要来源，展开在「完成判定与验收信号」。\n\n## 护栏要放在能拦住的位置\n\n护栏写在提示词里，只能约束模型的意图；真正拦得住的是执行路径上的硬约束——权限范围、可调用的工具集合、沙箱边界。Shippy 按用户会话分配独立的 Kubernetes 沙箱，在数百个政府合作方之间做数据隔离，是这条的极端形态。\n\n判断护栏是否真的存在，只问一句：**模型如果决定越界，是什么在物理上阻止它？** 答案如果是「提示词里写了不要这样做」，那就是没有护栏。\n\n## 自己搭 runtime，还是用平台托管\n\n这条边界最近一年被推着走了很远。Gemini 的 Managed Agents 把执行环境、状态管理、工具接入都收到平台侧：传一个 `background:true` 就能让长任务异步跑在服务端，客户端凭 ID 轮询或断线重连；Ollama 则从「把开源模型跑在本地的运行时」转向「智能体工作的入口」。\n\n所以这不再是一个技术选择，而是一个所有权选择：**你必须自己拥有哪一层。** 长任务的状态管理和沙箱是自建里最贵的两块，也是平台最先补齐的两块。\n\n## 与相邻能力的分工\n\n这一条管**整条链路的形状**：怎么分层、怎么交接、护栏放在哪。单个工具怎么接得可维护，是「工具集成模式」；对抗性输入怎么防，是「智能体安全与提示注入防御」；任务跑完之后怎么回放和归因，是「智能体可观测性与评测运维」；而「你要拥有哪一层」这个决定本身，是「AI 工具链选型与自建边界评估」。",
+      "id": "skill-ws-84837d46",
+      "title": "模型微调与后训练定制",
+      "slug": "model-finetuning-post-training",
+      "summary": "在开源权重上做监督微调、偏好对齐与蒸馏，把通用基座改造成领域模型——数据配方与评测把关比训练脚本本身更决定成败。",
+      "content": "Inkling 这类开源万亿参数 MoE 的出现，把「定制一个自己的模型」从大厂专利变成普通工程团队的可行选项。后训练（post-training）是一个谱系：监督微调（SFT）教模型领域格式与知识，偏好对齐（DPO / RLHF 一族）教模型「什么样的回答更好」，蒸馏则把大模型的能力压进部署成本可承受的小模型。三者常常组合使用，而不是三选一。\n\n实践的重心在数据而非算法：决定微调上限的是数据配方——各来源数据的配比、清洗与去污染规则、合成数据的生成与筛选策略。NVIDIA Nemotron 的开放数据集展示了工业级配方长什么样，也说明这层 know-how 正在从秘方变成可参照的公共工件。评测必须先行：没有独立于训练集的评测集，微调效果无从谈起。基座是 MoE 时还有额外功课——专家路由与负载均衡在微调中容易被破坏，需要针对性的稳定手段。\n\n判断掌握程度的标志：接到需求时能先回答「这个任务真的需要微调，还是提示工程或检索增强就够了」；训练前评测集已经就位；知道蒸馏后的部署成本如何反过来进入模型选型决策，而不是训练完才发现推理开销不可接受。",
       "skillType": "engineering",
       "heatLevel": "hot",
       "learningCost": "high",
       "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
+        "tag-frontier-models",
+        "tag-inference"
       ],
       "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-browser-agents",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
         "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-474381",
-        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
-        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+        "draft-candidate-rss-https-www-qbitai-com-p-468782",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-tool-use",
-        "knowledge-ws-a28a8a56",
-        "knowledge-ws-e251051e"
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-36346103",
+        "knowledge-model-sizing"
       ],
       "status": "published",
-      "createdAt": "2026-07-20T14:17:24.380Z",
-      "updatedAt": "2026-09-08T11:20:37.049Z"
+      "createdAt": "2026-07-20T14:16:23.711Z",
+      "updatedAt": "2026-09-09T02:21:30.842Z"
     },
     {
       "id": "skill-ws-f741f122",
@@ -291,7 +274,10 @@
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
         "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
         "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+        "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -302,77 +288,45 @@
       ],
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-09-08T11:20:37.168Z"
+      "updatedAt": "2026-09-19T13:15:27.734Z"
     },
     {
-      "id": "skill-tool-integration",
-      "title": "工具集成模式",
-      "slug": "tool-integration-patterns",
-      "summary": "把 AI 系统接入 API、浏览器、文档和内部工具，让工具层吸收混乱而不是把混乱转发给模型。",
-      "content": "Ai2 的 Shippy 有一条反直觉的做法：**模型不直接拼裸 API 调用**，而是通过一层专门构建的确定性 CLI 与后端交互。分页错误、畸形查询这类隐蔽 bug 在工具层就被消化掉，而且每一层可以独立测试。\n\n这句话是这项技能的全部要义。工具层不是 API 的薄包装，它是一层要被设计的产品——**它的职责是吸收混乱，而不是把混乱转发给模型。**\n\n## 工具层要吸收混乱\n\n一个直接暴露给模型的原始接口，会把它所有的边角情况一起暴露出去：翻页、超时、部分成功、字段可空、错误码语义不一致。模型对这些的处理方式是即兴发挥，而且每次都不一样。\n\n判断一个工具封装得够不够，有个实用的检查：**把它的返回值单独拿出来看，能不能不依赖上下文就读懂发生了什么。** 如果读不懂，模型也读不懂。\n\n- 成功和失败要在结构上可区分，而不是靠文字措辞。\n- 部分成功要显式表达，不能悄悄返回半截数据。\n- 需要重试的错误和不该重试的错误要分开，否则模型只会一律重试。\n\n## 边界要窄到可以被审计\n\nMCP 在 2025 年一度被 Skills 盖过热度，原因很直白：一个能用终端和 `curl` 的智能体外壳，用更灵活的方式做到了大部分同样的事。而现在重新看 MCP 的理由不是协议变强了，是那条替代路线的代价看清楚了——**给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动。**\n\n相比之下，一件职责明确的工具更容易审计和管控，简单到笔记本上跑的小模型也能驱动。所以工具的边界宽窄不只是工程整洁问题，它同时决定了两件事：出事之后你能不能查清楚，以及这套系统能不能用小模型跑。\n\n## 无状态让工具目录可以被缓存和路由\n\nMCP 2.0 把协议核心从有状态改成了无状态，几处改动直接影响工具怎么接：\n\n1. 握手和会话 id 退休，每个请求自带协议版本与能力——**任何请求都能落到负载均衡后的任意实例**，不需要实例间共享存储。\n2. 方法名与工具名走 HTTP 头（`Mcp-Method`、`Mcp-Name`），网关不必解请求体就能做路由和鉴权。\n3. 列表响应可缓存且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n4. 弃用有了至少 12 个月的正式窗口，升级可以排期而不是被动响应。\n\n第 4 条最容易被忽略，却最影响长期维护成本：一个没有弃用窗口的工具接口，意味着你的集成随时可能在某个周二早上失效。\n\n## 接进来之后，谁负责失败\n\n工具接入的最后一步是让失败可归因。任务失败时至少要分得出三类：**模型选错了工具**、**工具自己执行失败**、**环境异常**。三者的修复动作完全不同，混成一句「重试」就等于放弃了这条信息。\n\n## 与相邻条目的分工\n\n这一条管**单个工具怎么接得可维护**；整条链路怎么分层与交接，是「智能体工作流设计」。工具返回内容可能携带注入，那是「智能体安全与提示注入防御」。概念层面「为什么要把推理与行动分开」在「工具使用与函数调用」，而「稳定的输入输出约定为什么能提升可靠性」在「API 契约与接口边界」。",
+      "id": "skill-ws-c183c9b9",
+      "title": "智能体安全与提示注入防御",
+      "slug": "agent-security-injection-defense",
+      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
+      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
       "skillType": "engineering",
-      "heatLevel": "active",
+      "heatLevel": "hot",
       "learningCost": "medium",
       "tags": [
         "tag-ai-agents",
         "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
-        "tech-agent-workbenches",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
+        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
         "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
-        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article"
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+        "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use"
+        "knowledge-tool-use",
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3"
       ],
       "status": "published",
-      "createdAt": "2026-07-21T05:08:17.002Z",
-      "updatedAt": "2026-09-08T11:20:37.228Z"
-    },
-    {
-      "id": "skill-scope-pilots",
-      "title": "AI 试点范围界定",
-      "slug": "ai-pilot-scoping",
-      "summary": "挑第一个用例并把它框住：一次试点的产物是一个决定，不是一个功能，所以它要小到错得起。",
-      "content": "每一次能力跃迁——GPT-5.6 那种旗舰更新、ChatGPT Work 那种能连续干几小时的产品形态、GPT-Live 那种实时语音——团队都会重新问一遍「我们要不要上」。这个问题经常变成一个跑了半年、结束时仍然没有结论的项目。\n\n**一次试点的产物是一个决定，不是一个功能。** 这句话决定了它该被怎么框住。\n\n## 先有一个能被证伪的问题\n\n「AI 能不能帮我们提效」不是问题，因为它没有能判错的答案。能拿来跑试点的问题长这样：**能不能把某一类工单的首次响应时间从 A 降到 B。**\n\n开工前的三条自检：\n\n1. **问题能被证伪**——存在一种结果会让你说「不做」。\n2. **判据是现成的**——如果要先造一套评测才能开始，那试点还没开始（判据怎么设计归「模型与输出评估」）。\n3. **失败是便宜的**——要限制的是影响半径，不是预算。\n\n## 优先挑「答案已经在你手里」的用例\n\n最便宜的试点，是那些**正确答案已经躺在历史数据里**的任务：处理过的工单、审过的合同、改过的 PR。它们自带评测集，你不需要为了判断好坏再花一轮标注成本。\n\n这也是一条实用的排序：能用历史数据判分的用例，永远排在需要人工新标注的用例前面。\n\n## 分清「令人兴奋」和「你的约束」\n\n新能力最容易骗人的地方，是它解决的问题不一定是你的问题。实时语音很惊艳，但延迟是不是你真正的瓶颈？端侧小模型很吸引人，但先咬人的到底是隐私还是成本？\n\n**先确认哪个约束先咬人，再看新能力有没有解开它**——这一步和「模型选型与约束匹配」是同一个问题的两端。\n\n## 先定结束条件，再开始\n\n一次没有结束日期的试点，最后会变成一套没有人负责的系统。开工之前先写下两件事：**什么时候看结果**，以及**看到什么就停、看到什么就扩**。\n\nOpenAI 复盘长时程模型部署时用的是同一个形状：小步放量加持续观测。试点和放量的区别只是规模，不是方法。\n\n## 失败的试点也必须交付一样东西\n\n一次得出「不做」的试点是成功的试点——**前提是它写下了理由**。没有写下来的否定结论，六个月后会被原样重新提一遍，而且没有人记得上次为什么否掉。\n\n## 与相邻能力的分工\n\n这一条回答**先做哪个用例、怎么框住它、什么时候收**。自建还是买、哪一层必须归你，是「AI 工具链选型与自建边界评估」；用多大的模型，是「模型选型与约束匹配」；判据怎么设计，是「模型与输出评估」；真正上线时人放在哪个位置，是「人在回路的审查」。",
-      "skillType": "product",
-      "heatLevel": "active",
-      "learningCost": "low",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-slm-edge",
-        "tech-voice-runtime",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-www-qbitai-com-p-474381",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
-        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-feedback-loops",
-        "knowledge-human-loop"
-      ],
-      "status": "published",
-      "createdAt": "2026-08-04T18:01:30.623Z",
-      "updatedAt": "2026-09-08T11:20:37.787Z"
+      "createdAt": "2026-07-19T04:05:11.800Z",
+      "updatedAt": "2026-09-19T13:15:27.797Z"
     },
     {
       "id": "skill-model-evaluation",
@@ -411,7 +365,12 @@
         "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-qbitai-com-p-485108",
         "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome"
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+        "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -420,75 +379,170 @@
       ],
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.044Z",
-      "updatedAt": "2026-09-09T02:21:30.751Z"
+      "updatedAt": "2026-09-19T13:15:27.853Z"
     },
     {
-      "id": "skill-ws-c183c9b9",
-      "title": "智能体安全与提示注入防御",
-      "slug": "agent-security-injection-defense",
-      "summary": "识别智能体产品的注入攻击面，用对抗测试、确定性工具层和沙箱隔离把安全测试从静态规则升级为持续工程实践。",
-      "content": "智能体接入邮箱、浏览器、代码库之后，每一个工具都是一条不可信数据进入模型的通道——提示注入的攻击面随工具数量线性扩大，而模型自身的安全训练无法单独兜底。这项技能的核心是把「智能体安全」从事后补救变成设计约束：接入每个工具前先回答，这条通道里的数据谁能控制、注入成功后智能体能做什么坏事、爆炸半径怎么限制。\n\n实践上有三层结构可以依次落地。第一层是攻击面清点与最小权限：列出每条不可信数据通道，把高危操作（发送、删除、支付、外发）隔在确认点之后。第二层是结构性防御：用确定性的工具封装替代裸 API 调用（工具层用传统软件工程兜底可靠性），并为会话配置隔离的执行环境，Ai2 Shippy 的按会话 Kubernetes 沙箱是公开可参照的生产级范本。第三层是持续对抗测试：为自己的智能体建立最小注入测试集并纳入发布回归，OpenAI GPT-Red 展示的自博弈红队方向说明这类测试可以自动化、规模化。\n\n判断掌握程度的标志：能为一个真实智能体产品画出完整的不可信数据流图；注入测试集在 CI 里跑；每次新增工具时有明确的安全评审动作，而不是「模型应该会拒绝」。",
+      "id": "skill-agent-design",
+      "title": "智能体工作流设计",
+      "slug": "agent-workflow-design",
+      "summary": "设计多步骤 AI 流程：怎么分层、每一步的交接点是什么、护栏放在哪一层才真的拦得住。",
+      "content": "GitHub 把 Copilot 代码审查的专用代码探索工具，换成了维护得更好的共享 CLI 工具。预期是一次干净的升级，结果基准显示**审查成本更高、抓到的问题更少**。真正翻转局面的不是再换一次工具，而是按「审查者实际怎么读一个 PR」重写工作流指令——之后成本降低约 20%、质量不变。\n\n这件事定义了这项技能：**决定一个智能体好不好用的，是流程的形状，不是它手里有几件工具。**\n\n## 先把智能体拆成能各自演进的几层\n\nAi2 的 Shippy 服务 70 多个国家的分析人员做高风险判断，它的拆法值得直接借用：\n\n1. **soul**——定义边界的系统提示：它是谁、不做什么。\n2. **skills**——用 markdown 文档化的能力，一件事一份。\n3. **config**——运行时配置。\n\n三层各自独立版本化，改一层不必重建整体。这个拆法之所以有用，是因为它把三种变更频率完全不同的东西分开了：边界很少改，能力经常加，配置每次部署都可能变。混在一个大提示词里，就意味着每次加一个能力都在动边界。\n\n## 每一步都要有明确的交接点\n\n一条工作流是由交接点定义的，而不是由步骤数量。每一步动笔之前先答三个问题：\n\n- 这一步**收到什么**——上一步保证交付的是什么形状。\n- 这一步**必须产出什么**——下一步会依赖的是什么。\n- **谁来判断它做完了**——外部状态、人写的检查，还是模型自己。\n\n第三问最容易被跳过，而它是长链路失败的主要来源，展开在「完成判定与验收信号」。\n\n## 护栏要放在能拦住的位置\n\n护栏写在提示词里，只能约束模型的意图；真正拦得住的是执行路径上的硬约束——权限范围、可调用的工具集合、沙箱边界。Shippy 按用户会话分配独立的 Kubernetes 沙箱，在数百个政府合作方之间做数据隔离，是这条的极端形态。\n\n判断护栏是否真的存在，只问一句：**模型如果决定越界，是什么在物理上阻止它？** 答案如果是「提示词里写了不要这样做」，那就是没有护栏。\n\n## 自己搭 runtime，还是用平台托管\n\n这条边界最近一年被推着走了很远。Gemini 的 Managed Agents 把执行环境、状态管理、工具接入都收到平台侧：传一个 `background:true` 就能让长任务异步跑在服务端，客户端凭 ID 轮询或断线重连；Ollama 则从「把开源模型跑在本地的运行时」转向「智能体工作的入口」。\n\n所以这不再是一个技术选择，而是一个所有权选择：**你必须自己拥有哪一层。** 长任务的状态管理和沙箱是自建里最贵的两块，也是平台最先补齐的两块。\n\n## 与相邻能力的分工\n\n这一条管**整条链路的形状**：怎么分层、怎么交接、护栏放在哪。单个工具怎么接得可维护，是「工具集成模式」；对抗性输入怎么防，是「智能体安全与提示注入防御」；任务跑完之后怎么回放和归因，是「智能体可观测性与评测运维」；而「你要拥有哪一层」这个决定本身，是「AI 工具链选型与自建边界评估」。",
       "skillType": "engineering",
       "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "tech-mcp",
+        "tech-browser-agents",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+        "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-system-design",
+        "knowledge-tool-use",
+        "knowledge-ws-a28a8a56",
+        "knowledge-ws-e251051e"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-20T14:17:24.380Z",
+      "updatedAt": "2026-09-19T13:15:27.906Z"
+    },
+    {
+      "id": "skill-tool-integration",
+      "title": "工具集成模式",
+      "slug": "tool-integration-patterns",
+      "summary": "把 AI 系统接入 API、浏览器、文档和内部工具，让工具层吸收混乱而不是把混乱转发给模型。",
+      "content": "Ai2 的 Shippy 有一条反直觉的做法：**模型不直接拼裸 API 调用**，而是通过一层专门构建的确定性 CLI 与后端交互。分页错误、畸形查询这类隐蔽 bug 在工具层就被消化掉，而且每一层可以独立测试。\n\n这句话是这项技能的全部要义。工具层不是 API 的薄包装，它是一层要被设计的产品——**它的职责是吸收混乱，而不是把混乱转发给模型。**\n\n## 工具层要吸收混乱\n\n一个直接暴露给模型的原始接口，会把它所有的边角情况一起暴露出去：翻页、超时、部分成功、字段可空、错误码语义不一致。模型对这些的处理方式是即兴发挥，而且每次都不一样。\n\n判断一个工具封装得够不够，有个实用的检查：**把它的返回值单独拿出来看，能不能不依赖上下文就读懂发生了什么。** 如果读不懂，模型也读不懂。\n\n- 成功和失败要在结构上可区分，而不是靠文字措辞。\n- 部分成功要显式表达，不能悄悄返回半截数据。\n- 需要重试的错误和不该重试的错误要分开，否则模型只会一律重试。\n\n## 边界要窄到可以被审计\n\nMCP 在 2025 年一度被 Skills 盖过热度，原因很直白：一个能用终端和 `curl` 的智能体外壳，用更灵活的方式做到了大部分同样的事。而现在重新看 MCP 的理由不是协议变强了，是那条替代路线的代价看清楚了——**给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动。**\n\n相比之下，一件职责明确的工具更容易审计和管控，简单到笔记本上跑的小模型也能驱动。所以工具的边界宽窄不只是工程整洁问题，它同时决定了两件事：出事之后你能不能查清楚，以及这套系统能不能用小模型跑。\n\n## 无状态让工具目录可以被缓存和路由\n\nMCP 2.0 把协议核心从有状态改成了无状态，几处改动直接影响工具怎么接：\n\n1. 握手和会话 id 退休，每个请求自带协议版本与能力——**任何请求都能落到负载均衡后的任意实例**，不需要实例间共享存储。\n2. 方法名与工具名走 HTTP 头（`Mcp-Method`、`Mcp-Name`），网关不必解请求体就能做路由和鉴权。\n3. 列表响应可缓存且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n4. 弃用有了至少 12 个月的正式窗口，升级可以排期而不是被动响应。\n\n第 4 条最容易被忽略，却最影响长期维护成本：一个没有弃用窗口的工具接口，意味着你的集成随时可能在某个周二早上失效。\n\n## 接进来之后，谁负责失败\n\n工具接入的最后一步是让失败可归因。任务失败时至少要分得出三类：**模型选错了工具**、**工具自己执行失败**、**环境异常**。三者的修复动作完全不同，混成一句「重试」就等于放弃了这条信息。\n\n## 与相邻条目的分工\n\n这一条管**单个工具怎么接得可维护**；整条链路怎么分层与交接，是「智能体工作流设计」。工具返回内容可能携带注入，那是「智能体安全与提示注入防御」。概念层面「为什么要把推理与行动分开」在「工具使用与函数调用」，而「稳定的输入输出约定为什么能提升可靠性」在「API 契约与接口边界」。",
+      "skillType": "engineering",
+      "heatLevel": "active",
       "learningCost": "medium",
       "tags": [
         "tag-ai-agents",
         "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
-        "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-        "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
-        "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+        "tech-mcp",
+        "tech-multimodal-copilots",
+        "tech-agent-workbenches",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
-        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
         "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
+        "draft-candidate-rss-https-github-blog-p-98713"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-tool-use",
-        "knowledge-human-loop",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3"
+        "knowledge-api-contracts",
+        "knowledge-tool-use"
       ],
       "status": "published",
-      "createdAt": "2026-07-19T04:05:11.800Z",
-      "updatedAt": "2026-09-09T02:21:30.799Z"
+      "createdAt": "2026-07-21T05:08:17.002Z",
+      "updatedAt": "2026-09-19T13:15:28.972Z"
     },
     {
-      "id": "skill-ws-84837d46",
-      "title": "模型微调与后训练定制",
-      "slug": "model-finetuning-post-training",
-      "summary": "在开源权重上做监督微调、偏好对齐与蒸馏，把通用基座改造成领域模型——数据配方与评测把关比训练脚本本身更决定成败。",
-      "content": "Inkling 这类开源万亿参数 MoE 的出现，把「定制一个自己的模型」从大厂专利变成普通工程团队的可行选项。后训练（post-training）是一个谱系：监督微调（SFT）教模型领域格式与知识，偏好对齐（DPO / RLHF 一族）教模型「什么样的回答更好」，蒸馏则把大模型的能力压进部署成本可承受的小模型。三者常常组合使用，而不是三选一。\n\n实践的重心在数据而非算法：决定微调上限的是数据配方——各来源数据的配比、清洗与去污染规则、合成数据的生成与筛选策略。NVIDIA Nemotron 的开放数据集展示了工业级配方长什么样，也说明这层 know-how 正在从秘方变成可参照的公共工件。评测必须先行：没有独立于训练集的评测集，微调效果无从谈起。基座是 MoE 时还有额外功课——专家路由与负载均衡在微调中容易被破坏，需要针对性的稳定手段。\n\n判断掌握程度的标志：接到需求时能先回答「这个任务真的需要微调，还是提示工程或检索增强就够了」；训练前评测集已经就位；知道蒸馏后的部署成本如何反过来进入模型选型决策，而不是训练完才发现推理开销不可接受。",
-      "skillType": "engineering",
-      "heatLevel": "hot",
-      "learningCost": "high",
+      "id": "skill-scope-pilots",
+      "title": "AI 试点范围界定",
+      "slug": "ai-pilot-scoping",
+      "summary": "挑第一个用例并把它框住：一次试点的产物是一个决定，不是一个功能，所以它要小到错得起。",
+      "content": "每一次能力跃迁——GPT-5.6 那种旗舰更新、ChatGPT Work 那种能连续干几小时的产品形态、GPT-Live 那种实时语音——团队都会重新问一遍「我们要不要上」。这个问题经常变成一个跑了半年、结束时仍然没有结论的项目。\n\n**一次试点的产物是一个决定，不是一个功能。** 这句话决定了它该被怎么框住。\n\n## 先有一个能被证伪的问题\n\n「AI 能不能帮我们提效」不是问题，因为它没有能判错的答案。能拿来跑试点的问题长这样：**能不能把某一类工单的首次响应时间从 A 降到 B。**\n\n开工前的三条自检：\n\n1. **问题能被证伪**——存在一种结果会让你说「不做」。\n2. **判据是现成的**——如果要先造一套评测才能开始，那试点还没开始（判据怎么设计归「模型与输出评估」）。\n3. **失败是便宜的**——要限制的是影响半径，不是预算。\n\n## 优先挑「答案已经在你手里」的用例\n\n最便宜的试点，是那些**正确答案已经躺在历史数据里**的任务：处理过的工单、审过的合同、改过的 PR。它们自带评测集，你不需要为了判断好坏再花一轮标注成本。\n\n这也是一条实用的排序：能用历史数据判分的用例，永远排在需要人工新标注的用例前面。\n\n## 分清「令人兴奋」和「你的约束」\n\n新能力最容易骗人的地方，是它解决的问题不一定是你的问题。实时语音很惊艳，但延迟是不是你真正的瓶颈？端侧小模型很吸引人，但先咬人的到底是隐私还是成本？\n\n**先确认哪个约束先咬人，再看新能力有没有解开它**——这一步和「模型选型与约束匹配」是同一个问题的两端。\n\n## 先定结束条件，再开始\n\n一次没有结束日期的试点，最后会变成一套没有人负责的系统。开工之前先写下两件事：**什么时候看结果**，以及**看到什么就停、看到什么就扩**。\n\nOpenAI 复盘长时程模型部署时用的是同一个形状：小步放量加持续观测。试点和放量的区别只是规模，不是方法。\n\n## 失败的试点也必须交付一样东西\n\n一次得出「不做」的试点是成功的试点——**前提是它写下了理由**。没有写下来的否定结论，六个月后会被原样重新提一遍，而且没有人记得上次为什么否掉。\n\n## 与相邻能力的分工\n\n这一条回答**先做哪个用例、怎么框住它、什么时候收**。自建还是买、哪一层必须归你，是「AI 工具链选型与自建边界评估」；用多大的模型，是「模型选型与约束匹配」；判据怎么设计，是「模型与输出评估」；真正上线时人放在哪个位置，是「人在回路的审查」。",
+      "skillType": "product",
+      "heatLevel": "active",
+      "learningCost": "low",
       "tags": [
-        "tag-frontier-models",
-        "tag-inference"
+        "tag-product-strategy",
+        "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
-        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-qbitai-com-p-468782",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom"
+        "tech-browser-agents",
+        "tech-slm-edge",
+        "tech-voice-runtime",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-github-blog-p-98713"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-ws-818b7bb3",
-        "knowledge-ws-36346103",
-        "knowledge-model-sizing"
+        "knowledge-feedback-loops",
+        "knowledge-human-loop"
       ],
       "status": "published",
-      "createdAt": "2026-07-20T14:16:23.711Z",
-      "updatedAt": "2026-09-09T02:21:30.842Z"
+      "createdAt": "2026-08-04T18:01:30.623Z",
+      "updatedAt": "2026-09-19T13:15:29.034Z"
+    },
+    {
+      "id": "skill-ws-a9e80194",
+      "title": "推理服务容量规划",
+      "slug": "inference-capacity-planning",
+      "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
+      "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+      "skillType": "analysis",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-inference",
+        "tag-observability"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.362Z",
+      "updatedAt": "2026-09-19T13:15:29.450Z"
     },
     {
       "id": "skill-ws-dddaf80c",
@@ -524,7 +578,8 @@
         "draft-candidate-rss-https-www-qbitai-com-p-485108",
         "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
         "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome"
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -534,44 +589,7 @@
       ],
       "status": "published",
       "createdAt": "2026-07-27T10:18:51.664Z",
-      "updatedAt": "2026-09-09T02:21:30.892Z"
-    },
-    {
-      "id": "skill-ws-a9e80194",
-      "title": "推理服务容量规划",
-      "slug": "inference-capacity-planning",
-      "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
-      "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
-      "skillType": "analysis",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-inference",
-        "tag-observability"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-latency-tradeoffs",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.362Z",
-      "updatedAt": "2026-09-09T02:21:31.324Z"
+      "updatedAt": "2026-09-19T13:15:29.816Z"
     },
     {
       "id": "skill-ws-2152c7f1",
@@ -603,7 +621,8 @@
         "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome"
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes"
       ],
       "relatedKnowledgeIds": [
         "knowledge-system-design",
@@ -612,7 +631,7 @@
       ],
       "status": "published",
       "createdAt": "2026-07-27T02:42:33.891Z",
-      "updatedAt": "2026-09-09T02:21:31.376Z"
+      "updatedAt": "2026-09-19T13:15:29.884Z"
     }
   ]
 }
