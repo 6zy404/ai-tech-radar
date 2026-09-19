@@ -49,7 +49,8 @@ import type {
   ImportedCandidate,
   ImportedCandidateSnapshot,
   TechnologyWorkspaceRecord,
-  TranslationStatus
+  TranslationStatus,
+  WorkflowEventActorType
 } from "@/types/content";
 
 interface CandidateReviewStateEntry {
@@ -387,7 +388,13 @@ export async function syncImportedCandidateSnapshotFromLiveSources(): Promise<Im
 
 export function updateImportedCandidateStatus(
   candidateId: string,
-  nextStatus: CandidateImportStatus
+  nextStatus: CandidateImportStatus,
+  // Defaults to a person. The task runner's auto-triage passes its own actor
+  // and reason so an automatic reject is distinguishable in the audit log.
+  actor: {
+    actorType?: WorkflowEventActorType;
+    metadata?: Record<string, unknown>;
+  } = {}
 ): CandidateReviewStateEntry {
   const state = readCandidateReviewState();
   const existingEntry = state.items[candidateId];
@@ -407,11 +414,12 @@ export function updateImportedCandidateStatus(
     entityType: "candidate",
     entityId: candidateId,
     action: "candidate.status_updated",
-    actorType: "workspace_user",
+    actorType: actor.actorType ?? "workspace_user",
     beforeSnapshot: existingEntry,
     afterSnapshot: state.items[candidateId],
     metadata: {
-      nextStatus
+      nextStatus,
+      ...actor.metadata
     }
   });
 
