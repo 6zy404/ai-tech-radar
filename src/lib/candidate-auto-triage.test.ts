@@ -90,7 +90,22 @@ describe("selectAutoRejections", () => {
     expect(selectAutoRejections([titleOnly], published)).toEqual([]);
   });
 
-  it("never overrides an editor's decision, including a reopened item", () => {
+  it("leaves a candidate an editor reopened to new", () => {
+    // Status alone cannot tell a reopen from a fresh import; the review-state
+    // entry can.
+    const reopened = makeImportedCandidate({
+      id: "reopened-rc",
+      originalTitle: "v0.34.3-rc0",
+      importStatus: "new"
+    });
+
+    expect(selectAutoRejections([reopened], published)).toHaveLength(1);
+    expect(
+      selectAutoRejections([reopened], published, new Set(["reopened-rc"]))
+    ).toEqual([]);
+  });
+
+  it("never overrides an editor's decision", () => {
     const decided = ["reviewed", "converted", "rejected"].map((status) =>
       makeImportedCandidate({
         originalTitle: "v0.34.3-rc0",

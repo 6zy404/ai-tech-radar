@@ -12,6 +12,51 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The two rejections every round made by hand now happen on their own
+
+- **Pre-release tags and already-published announcements are rejected by the
+  task runner right after the scheduled import** — 2026-09-19, owner-selected
+  after asking why publishing still is not automatic. The answer was that the
+  pipeline is already automatic up to the draft; the step worth automating was
+  the part of every round that never needed judgment. Since 2026-07-27 both
+  flags were rejected by hand **without exception**, and until a round ran they
+  sat public on the news lane.
+- **Only those two, deliberately.** Both are facts about the item, not
+  judgments of its worth. `missing_summary` / `missing_content` stay manual:
+  the Hugging Face and DeepMind feeds ship no description and have produced
+  published signals. Duplicates stay manual: rejecting both sides of a group
+  loses the item.
+- **Dry-running against the live pool before writing anything found two
+  defects, and both would have mattered only once the flags started acting.**
+  Pre-release detection read the title alone, while Ollama titles a release
+  `v0.34.3` whose tag is `v0.34.3-rc0` — the trap recorded by hand on 08-24
+  and 09-09 was **live in the pool again**; the GitHub release tag in the URL is
+  now checked too. And `already_published` flagged an InfoQ piece on the
+  history of RSI as a re-publication of the unrelated BigBang-v1 signal: both
+  Chinese headlines reduced to the single latin token `rsi`, and a one-token
+  ratio is either 0 or 1. A title-only match now needs **three tokens on each
+  side**. As a chip that was a mislabel; as a rule it would have removed a real
+  candidate.
+- **My own doc was wrong before the code was.** The first playbook note said
+  an editor could reopen an auto-rejected item to `new` and it would stay —
+  but a reopen is indistinguishable from a fresh import by status, so the next
+  run would have rejected it again. Auto-triage now only acts on candidates
+  **nobody has ever set a status on**, read from the review-state file.
+- **Every rejection is audited as the machine's**: a
+  `candidate.status_updated` event with `actorType: "task_runner"` and the
+  flag as `metadata.reason`, so it is never mistaken for an editor's call.
+- Measured: 72 undecided, **11 rejected, all pre-release tags**; run again,
+  0 — idempotent. Replayed over already-decided history the rule matches 5
+  candidates, **none of which an editor converted**. Three guards (URL tag,
+  token minimum, reopen) were each proven to fire by injection, each injection
+  confirmed on disk first, each failing exactly its own test. Typecheck, lint,
+  format, vitest **264/264**, `validate:tasks` / `candidates` / `quality` /
+  `duplicates` / `persistence`.
+- **Still not automatic, on purpose**: converting a candidate, publishing a
+  signal, publishing a digest. The 09-09 round is the reason — its most
+  valuable call was _not_ publishing an unverifiable Navier–Stokes claim, and
+  no flag can make that call.
+
 ## Editorial round — the number that needs its other half
 
 - **30 undecided candidates, two signals** — 2026-09-09, from that morning's

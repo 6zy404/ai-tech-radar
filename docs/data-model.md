@@ -140,8 +140,18 @@ Flag values:
 pre-release marker on a version-looking token (`v0.32.5-rc0`, `v0.26.0rc1`,
 `v1.0.0-beta.2`). Release feeds publish these alongside — and usually days
 before — the matching stable tag, and every editorial round so far has
-rejected them by hand. The flag only makes the batch visible; the reject/keep
-judgment stays with the editor.
+rejected them by hand. Since 2026-09-19 it also reads the tag in a GitHub
+release URL, because Ollama's feed titles a release `v0.34.3` while the tag is
+`v0.34.3-rc0` — a trap hit by hand twice before.
+
+**Two flags now reject automatically** (2026-09-19): `prerelease_version` and
+`already_published` are acted on by the task runner right after the scheduled
+import (`runCandidateAutoTriage` in `src/lib/candidate-auto-triage.ts`). Only
+`new` candidates are touched, so an editor who reopens an auto-rejected item
+is never overridden; each rejection is a `candidate.status_updated` event with
+`actorType: "task_runner"` and `metadata.reason`. Every other flag still only
+makes the batch visible — notably `missing_summary` / `missing_content`,
+because feeds that ship no description have produced published signals.
 
 `already_published` (added 2026-07-28) fires when the same announcement is
 already on the site. It exists because duplicate detection compares only
@@ -157,7 +167,11 @@ the flag is excluded from `ranking.ts`'s multiple-problems penalty, because it
 describes the site's existing coverage rather than a defect in the record.
 The threshold was measured, not guessed — over the real 40-candidate pool the
 genuine re-publications scored 0.8 and 1.0 while the next-highest unrelated
-candidate scored 0.3. Known limitation: comparison tokens are latin-only, so
+candidate scored 0.3. A title-only match additionally needs **at least three
+comparison tokens on both sides** (2026-09-19): an InfoQ piece on the history
+of RSI scored 1.00 against the unrelated BigBang-v1 signal because both Chinese
+headlines reduced to the single token `rsi`, and a one-token ratio can only be
+0 or 1. Known limitation: comparison tokens are latin-only, so
 two different all-Chinese titles can never match on token similarity.
 
 **That sentence used to end "so this costs nothing today", and it was wrong in
