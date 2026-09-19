@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T02:17:41.883Z",
+  "updatedAt": "2026-09-19T12:57:19.876Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -2298,6 +2298,50 @@
     "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-0rc5": {
       "importStatus": "reviewed",
       "reviewedAt": "2026-09-09T02:17:41.883Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-3-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.586Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.617Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-2-rc3": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.648Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-2-rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.681Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.709Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-2-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.737Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-2-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.766Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-1-rc2": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.794Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-1-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.822Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-1-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.850Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-29-1rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-19T12:57:19.876Z"
     }
   }
 }
