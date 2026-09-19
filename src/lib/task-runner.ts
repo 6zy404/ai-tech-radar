@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 
+import { runCandidateAutoTriage } from "@/lib/candidate-auto-triage";
 import {
   getDueScheduledDeliveries,
   getScheduledDeliveries,
@@ -255,6 +256,18 @@ export async function runScheduledDeliveryTask({
       const { run: importRun } = await runScheduledImport({ now });
 
       messages.push(buildScheduledImportMessage(importRun));
+
+      // Right after the import, not in the next round: undecided candidates
+      // are public on the news lane from the moment they land.
+      try {
+        messages.push(runCandidateAutoTriage().message);
+      } catch (error) {
+        messages.push(
+          `自动分诊失败：${
+            error instanceof Error ? error.message : "未知错误。"
+          }`
+        );
+      }
 
       if (importRun.status === "failed") {
         importOutcome = "failed";

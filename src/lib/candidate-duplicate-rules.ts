@@ -167,6 +167,10 @@ function buildTitleTokenSet(title: string): Set<string> {
  * The threshold is the tokenizer's own: if nothing survives that would survive
  * token comparison, an identical normalization is not evidence of anything.
  */
+export function countTitleTokens(title: string): number {
+  return buildTitleTokenSet(title).size;
+}
+
 function hasComparableTitleTokens(title: string): boolean {
   return buildTitleTokenSet(title).size > 0;
 }

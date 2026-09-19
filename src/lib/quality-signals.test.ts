@@ -126,10 +126,32 @@ describe("already_published candidate quality flag", () => {
     expect(flagsFor(candidate)).toContain("already_published");
   });
 
+  // The real 2026-09-19 false positive: two unrelated Chinese headlines each
+  // reduce to the single latin token `rsi`, and a one-token overlap scores
+  // 1.00. Harmless as a chip; not harmless once the task runner rejects on it.
+  it("does not match two Chinese titles that share one latin token", () => {
+    const candidate = makeImportedCandidate({
+      originalTitle:
+        "被热议的RSI，39 年前就已诞生？现代人工智能之父复盘RSI的漫长探索",
+      sourceUrl: "https://www.infoq.cn/article/wbpy0Kv3tB32jEPV6Cg0"
+    });
+    const bigBang = {
+      id: "tech-bigbang",
+      sourceUrl: "https://www.qbitai.com/2026/08/bigbang.html",
+      title: {
+        original:
+          "当题库追不上模型，AI开始给自己出题：中国这支团队跑通了数据层RSI"
+      }
+    };
+
+    expect(flagsFor(candidate, [bigBang])).not.toContain("already_published");
+  });
+
   // Known limitation, recorded rather than worked around: comparison tokens
   // are latin-only, so two different all-Chinese titles share no tokens and
-  // can never match. Imported candidates come from English-language feeds, so
-  // this costs nothing today.
+  // can never match on the title alone. Two of the thirteen sources are
+  // Chinese-language (since 2026-08-10), so this is a live gap — a Chinese
+  // re-publication is still caught when its URL matches.
   it("cannot match two all-Chinese titles with no shared latin tokens", () => {
     const candidate = makeImportedCandidate({
       originalTitle: "面向漏洞发现与修复的轻量安全模型",

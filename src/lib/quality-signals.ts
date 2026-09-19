@@ -1,5 +1,6 @@
 import {
   calculateTokenSimilarity,
+  countTitleTokens,
   normalizeUrlForComparison
 } from "@/lib/candidate-duplicate-rules";
 import type {
@@ -50,6 +51,17 @@ export function buildPublishedSignalFingerprints(
 // rather than on a guess.
 const ALREADY_PUBLISHED_TITLE_SIMILARITY = 0.8;
 
+// Token similarity is a ratio, so on a title with one latin token it is 0 or
+// 1 and nothing in between. Comparison tokens are latin-only, which means a
+// Chinese headline collapses to whatever latin fragments it contains: on
+// 2026-09-19 an InfoQ piece on the history of RSI scored 1.00 against the
+// unrelated BigBang-v1 signal because both titles reduced to `{rsi}`. That was
+// a mislabelled chip until the task runner started rejecting on this flag; now
+// it would have removed a real candidate. A title-only match needs at least
+// this many tokens on both sides — the real re-publication this flag was built
+// for carries eight.
+const MIN_COMPARABLE_TITLE_TOKENS = 3;
+
 function isAlreadyPublishedSignal(
   candidate: ImportedCandidate,
   publishedSignals: PublishedSignalFingerprint[]
@@ -70,10 +82,17 @@ function isAlreadyPublishedSignal(
       return true;
     }
 
+    if (
+      countTitleTokens(candidate.originalTitle) < MIN_COMPARABLE_TITLE_TOKENS
+    ) {
+      return false;
+    }
+
     return signal.titles.some(
       (title) =>
+        countTitleTokens(title) >= MIN_COMPARABLE_TITLE_TOKENS &&
         calculateTokenSimilarity(candidate.originalTitle, title) >=
-        ALREADY_PUBLISHED_TITLE_SIMILARITY
+          ALREADY_PUBLISHED_TITLE_SIMILARITY
     );
   });
 }
@@ -121,6 +140,39 @@ function isCandidateTooShort(candidate: ImportedCandidate): boolean {
   );
 }
 
+// The marker must sit on a version-looking token (`v0.26.0rc1`,
+// `v0.32.5-rc0`, `v1.0.0-beta.2`). Matching a bare keyword would flag prose
+// titles such as "Preview: ..." or "Dev tools ...", and release feeds glue the
+// marker straight onto the digits often enough that a leading separator cannot
+// be required either.
+const PRERELEASE_VERSION_PATTERN =
+  /\bv?\d+(?:\.\d+)+[.\-_]?(?:rc|alpha|beta|preview|dev|nightly)[.\-_]?\d*\b/i;
+
+/**
+ * The tag a GitHub release URL points at, or undefined for any other URL.
+ *
+ * Checked in addition to the title because the two disagree: Ollama's feed
+ * titles a release `v0.34.0` while its tag is `v0.34.0-rc2`. That trap was hit
+ * by hand on 2026-08-24 and again on 2026-09-09, and was live in the pool on
+ * 2026-09-19 (`v0.34.3` → `/releases/tag/v0.34.3-rc0`). The tag is what the
+ * project actually cut, so it is the stronger evidence.
+ */
+function getReleaseTagFromUrl(
+  sourceUrl: string | undefined
+): string | undefined {
+  const match = /\/releases\/tag\/([^/?#]+)/i.exec(sourceUrl ?? "");
+
+  if (!match) {
+    return undefined;
+  }
+
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return match[1];
+  }
+}
+
 /**
  * Release-candidate / pre-release version tags (`v1.2.3-rc0`, `-alpha.1`,
  * `-beta`, `-preview`). Release feeds publish these alongside — and usually
@@ -131,14 +183,11 @@ function isCandidateTooShort(candidate: ImportedCandidate): boolean {
  */
 function isPrereleaseVersion(candidate: ImportedCandidate): boolean {
   const title = candidate.originalTitle?.trim() ?? "";
+  const tag = getReleaseTagFromUrl(candidate.sourceUrl);
 
-  // The marker must sit on a version-looking token (`v0.26.0rc1`,
-  // `v0.32.5-rc0`, `v1.0.0-beta.2`). Matching a bare keyword would flag prose
-  // titles such as "Preview: ..." or "Dev tools ...", and release feeds glue
-  // the marker straight onto the digits often enough that a leading separator
-  // cannot be required either.
-  return /\bv?\d+(?:\.\d+)+[.\-_]?(?:rc|alpha|beta|preview|dev|nightly)[.\-_]?\d*\b/i.test(
-    title
+  return (
+    PRERELEASE_VERSION_PATTERN.test(title) ||
+    (tag !== undefined && PRERELEASE_VERSION_PATTERN.test(tag))
   );
 }
 
