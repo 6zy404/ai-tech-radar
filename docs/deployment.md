@@ -242,37 +242,141 @@ was verified by requesting, not by reading a config file.
   The last row is the one that matters for the rounds: turning the token on
   does not block the editorial tooling.
 
-**The edge deny rule** (layer 1), ready to paste as a Cloudflare WAF custom
-rule with action Block once the zone is active:
+### Live (2026-09-20, same day)
+
+The site is reachable at `https://aizyradar.cn`. Every claim below was checked
+by requesting, and the numbers are what this machine measured, including the
+one that is not good.
+
+**The `.cn` question is closed: Cloudflare accepted the zone.** It was added on
+the free plan and reached `Active` within minutes. At the registrar (Aliyun)
+the nameservers went from `dns21/dns22.hichina.com` to `ernest.ns.cloudflare.com`
+and `jewel.ns.cloudflare.com`. The registrar quotes 24–48 hours for that to
+take effect; three domestic public resolvers (`223.5.5.5`, `119.29.29.29`,
+`114.114.114.114`) all returned the Cloudflare nameservers within minutes.
+Checking from this machine's own resolver is useless — the campus resolver
+does not answer `NS` queries at all, and `8.8.8.8` is unreachable here.
+
+**The guard is on.** The token was generated and written straight into
+`.env.local` by a script so the value never appeared in a shell argument or in
+any output; `WORKSPACE_ACCESS_ENABLED` and `WORKSPACE_ACCESS_TOKEN` were
+flipped together. Env is read at boot, so the server task was restarted — note
+that `Stop-ScheduledTask` ends the task instance but leaves the detached
+`next start` holding port 3000, which has to be killed before the port frees.
+
+**The tunnel**: name `ai-tech-radar`, id
+`887730ab-2c07-4fb4-9a14-4266590a80db`, config in
+`C:\Users\Administrator\.cloudflared\config.yml`, 4 connections registered,
+edge location `lax01/lax09/lax10`.
+
+**The deny list lives in the tunnel's ingress**, so it runs before anything
+reaches this machine:
+
+```yaml
+ingress:
+  - {
+      hostname: aizyradar.cn,
+      path: ^/workspace(/.*)?$,
+      service: http_status:404
+    }
+  - {
+      hostname: aizyradar.cn,
+      path: ^/api/workspace(/.*)?$,
+      service: http_status:404
+    }
+  - {
+      hostname: aizyradar.cn,
+      path: ^/api/candidates(/.*)?$,
+      service: http_status:404
+    }
+  - {
+      hostname: aizyradar.cn,
+      path: ^/candidates(/.*)?$,
+      service: http_status:404
+    }
+  - {
+      hostname: aizyradar.cn,
+      path: ^/technologies/drafts(/.*)?$,
+      service: http_status:404
+    }
+  - { hostname: aizyradar.cn, service: http://localhost:3000 }
+  - { service: http_status:404 }
+```
+
+`cloudflared tunnel ingress rule <url>` was used to dry-run the matching before
+the tunnel ever ran. The row that matters is the pair
+`/technologies/some-signal` → the app and `/technologies/drafts/abc` → 404:
+the prefix rule does not swallow real signal pages.
+
+**The two layers were told apart by a check that can distinguish them.** The
+app answers `401` on these paths and cannot answer `404`; the domain answers
+`404`. Measured at the same moment, same paths:
+
+| Path                   | `localhost:3000` (app) | `https://aizyradar.cn` (tunnel) |
+| ---------------------- | ---------------------- | ------------------------------- |
+| `/workspace`           | 401                    | **404**                         |
+| `/workspace/sources`   | 401                    | **404**                         |
+| `/api/candidates`      | 401                    | **404**                         |
+| `/candidates`          | 401                    | **404**                         |
+| `/technologies/drafts` | 401                    | **404**                         |
+
+A published signal page fetched through the domain in the same pass returned
+200 in 1.5s, so the origin was alive while those five were being refused —
+which rules out "the whole site was down".
+
+Reading the server log proves nothing here, and that was checked rather than
+assumed: `next start` writes no per-request line to `config/server.log`, so the
+absence of `/workspace` in it is not evidence either way.
+
+**Startup task `ai-tech-radar-tunnel`**, same shape as the server task (S4U,
+boot trigger, `ExecutionTimeLimit` zero, `RestartCount 3`,
+`StartWhenAvailable`). **Proven by use**: the hand-started `cloudflared` was
+killed, the domain went to `502`, the task was triggered, and the
+task-launched process served `/`, `/technologies`, `/digest/today` and
+`/feed.json` at 200 with the five prefixes still at 404.
+
+**Feed links carry the real origin**: `feed.json` reports
+`home_page_url` / `feed_url` on `https://aizyradar.cn` and **zero** items
+containing `localhost`.
+
+**Latency is the bad number, and it is architectural.** Ten sequential
+requests for the home page, direct (no proxy), from this machine's network:
+
+```
+10/10 at 200 — mean 10.63s, fastest 2.40s, slowest 29.37s
+```
+
+`/technologies` — the heaviest page — has been as slow as 47s. The cause is the
+shape, not the code: the edge is in Los Angeles and the origin is in China, so
+every request crosses the Pacific twice. The free plan does not let you pick an
+edge region. Production timings for these same routes are 16–47ms when measured
+locally, so the whole figure is transport.
+
+This is the number the fallback was written against: acceptable for something
+people open occasionally, not acceptable for a site people use daily. If it has
+to improve, the path is a mainland server plus ICP filing, not tuning.
+
+**Still to do.**
+
+1. **(owner)** register the backup task — command in "Daily backup (Windows)"
+   below; it is a system change
+2. **(owner, optional)** add the WAF custom rule below in the Cloudflare
+   dashboard. It is now defence in depth rather than the only edge layer: the
+   ingress rules already refuse those paths, and a WAF rule would refuse them
+   one hop earlier, before the request is sent over the tunnel
 
 ```text
 starts_with(http.request.uri.path, "/workspace") or starts_with(http.request.uri.path, "/api/workspace") or starts_with(http.request.uri.path, "/api/candidates") or starts_with(http.request.uri.path, "/candidates") or starts_with(http.request.uri.path, "/technologies/drafts")
 ```
 
-It over-blocks by prefix (`/candidates-anything` would match too); nothing else
-starts with these five, and over-blocking is the safe direction here.
+Action `Block`. It over-blocks by prefix (`/candidates-anything` would match
+too); nothing else starts with these five, and over-blocking is the safe
+direction here.
 
-**Still to do, in order.** Owner steps are marked; the rest is repo work.
-
-1. **(owner)** register the backup task — command in "Daily backup (Windows)"
-   below; it is a system change
-2. **(owner)** add `aizyradar.cn` to Cloudflare and repoint the registrar's
-   nameservers at it — whether a `.cn` zone is accepted is unverified, and the
-   attempt is the test
-3. **(owner)** generate the workspace token into `.env.local` and flip
-   `WORKSPACE_ACCESS_ENABLED=true` — both together, since enabled-without-token
-   fails closed with 503 on every internal route
-4. **(repo)** stand up the tunnel to `localhost:3000` and add the edge deny
-   rule above
-5. **(both)** verify against the real domain: public routes 200, `/workspace`
-   denied **at the edge** — separately from the app's 401, or the app is hiding
-   a missing edge rule
-6. **(both)** measure mainland reachability through the tunnel edge; if it is
-   poor, the fallback is a mainland server plus ICP filing
-
-**Do not open the tunnel before step 3.** A tunnel maps a hostname to one local
-port, so the moment the domain resolves, `https://aizyradar.cn/workspace` is
-reachable by anyone.
+**Files that now hold secrets on this machine**, none of them in the repo:
+`.env.local` (workspace token) and
+`C:\Users\Administrator\.cloudflared\` (`cert.pem` plus the tunnel credentials
+JSON — anyone holding that file can serve traffic for this hostname).
 
 ## Go-live runbook (single operator, one server)
 
