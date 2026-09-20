@@ -87,7 +87,7 @@ for the specifics.
 | Question           | Decision                            | What follows                                                                               |
 | ------------------ | ----------------------------------- | ------------------------------------------------------------------------------------------ |
 | Where              | **this Windows machine**            | Task Scheduler stays; the systemd + cron sections below do not apply                       |
-| Domain             | **none yet, will buy one**          | `NEXT_PUBLIC_SITE_URL` and HTTPS both wait — it is inlined at **build** time               |
+| Domain             | **`aizyradar.cn`** (bought 09-20)   | apex is the public origin; `NEXT_PUBLIC_SITE_URL` pinned in `.env.local`, rebuilt from it  |
 | Workspace exposure | **not public at all**               | with a tunnel this is **not** free — it needs an edge deny list _and_ the token; see below |
 | Backups            | **same machine, another directory** | `npm run backup:data` as-is; the same-disk risk is accepted, see below                     |
 
@@ -208,24 +208,71 @@ project actually hits — a store written wrong, truncated, or deleted. It does
 **not** protect against losing the disk. Accepted knowingly; revisit when the
 content is worth more than the machine.
 
+### Machine side, done and verified (2026-09-20)
+
+The domain was bought, so the steps that were blocked on it are done. Each one
+was verified by requesting, not by reading a config file.
+
+- **`cloudflared` 2026.9.1** installed via winget from Cloudflare's own GitHub
+  release; the installer hash was verified by winget.
+- **Built with the real origin.** `.env.local` still carried
+  `NEXT_PUBLIC_SITE_URL=http://localhost:3000`, and the first build only
+  overrode it from the shell — which works once and silently reverts on the
+  next plain `npm run build`. The file now pins `https://aizyradar.cn`.
+  Verified on the running server: `/feed.xml` links read
+  `https://aizyradar.cn/digest/…`.
+- **Startup task `ai-tech-radar-server` registered**, exactly the shape above
+  (S4U, boot trigger, `ExecutionTimeLimit` zero, `RestartCount 3`,
+  `StartWhenAvailable`), read back from `Get-ScheduledTask` after registering.
+  **Proven by use rather than by its settings**: the manually started server
+  was stopped (port 3000 confirmed closed), the task was triggered, and the
+  task-launched process served `/`, `/technologies`, `/digest/today` and
+  `/feed.xml` at 200.
+- **All three layers dry-run with a disposable token**, removed afterwards
+  (`.env.local` confirmed back to an empty token and `ENABLED=false`):
+
+  | Check                                    | Result                          |
+  | ---------------------------------------- | ------------------------------- |
+  | 3 public routes                          | 200, unaffected by the guard    |
+  | all 5 protected prefixes, no token       | **401**                         |
+  | `/workspace` with a **wrong** token      | **401** — it compares the value |
+  | `/workspace` with the correct token      | 200                             |
+  | `scripts/workspace-fetch.mjs` self-check | bare fetch 401, with token 200  |
+
+  The last row is the one that matters for the rounds: turning the token on
+  does not block the editorial tooling.
+
+**The edge deny rule** (layer 1), ready to paste as a Cloudflare WAF custom
+rule with action Block once the zone is active:
+
+```text
+starts_with(http.request.uri.path, "/workspace") or starts_with(http.request.uri.path, "/api/workspace") or starts_with(http.request.uri.path, "/api/candidates") or starts_with(http.request.uri.path, "/candidates") or starts_with(http.request.uri.path, "/technologies/drafts")
+```
+
+It over-blocks by prefix (`/candidates-anything` would match too); nothing else
+starts with these five, and over-blocking is the safe direction here.
+
 **Still to do, in order.** Owner steps are marked; the rest is repo work.
 
 1. **(owner)** register the backup task — command in "Daily backup (Windows)"
    below; it is a system change
-2. **(repo)** teach the editorial-round tooling to send the workspace token, so
-   turning the token on does not block editing
-3. **(repo)** a production run setup: `npm run start` kept alive across reboots
-4. **(owner)** buy the domain
-5. **(repo)** set `NEXT_PUBLIC_SITE_URL` to it and **rebuild** — it is inlined
-   at build time, so a runtime-only value leaves `localhost` in every feed link
-6. **(owner)** stand up the tunnel, and deny the five internal prefixes at its
-   edge
-7. **(both)** flip the workspace token, then verify by request: public routes
-   200, `/workspace` denied at the edge, and 401 from the app without a token
+2. **(owner)** add `aizyradar.cn` to Cloudflare and repoint the registrar's
+   nameservers at it — whether a `.cn` zone is accepted is unverified, and the
+   attempt is the test
+3. **(owner)** generate the workspace token into `.env.local` and flip
+   `WORKSPACE_ACCESS_ENABLED=true` — both together, since enabled-without-token
+   fails closed with 503 on every internal route
+4. **(repo)** stand up the tunnel to `localhost:3000` and add the edge deny
+   rule above
+5. **(both)** verify against the real domain: public routes 200, `/workspace`
+   denied **at the edge** — separately from the app's 401, or the app is hiding
+   a missing edge rule
+6. **(both)** measure mainland reachability through the tunnel edge; if it is
+   poor, the fallback is a mainland server plus ICP filing
 
-Steps 2 and 3 do not need the domain and can be done now. `npm run build` was
-re-verified on 2026-08-13 and passes with `ƒ Middleware` present in the route
-table.
+**Do not open the tunnel before step 3.** A tunnel maps a hostname to one local
+port, so the moment the domain resolves, `https://aizyradar.cn/workspace` is
+reachable by anyone.
 
 ## Go-live runbook (single operator, one server)
 
