@@ -344,8 +344,12 @@ requests for the home page, direct (no proxy), from this machine's network:
 
 ```
 10/10 at 200 — mean 10.63s, fastest 2.40s, slowest 29.37s
+later, 12/12 at 200 — mean  5.65s, fastest 2.90s, slowest 12.90s
 ```
 
+The spread between those two samples is the characteristic worth recording:
+the mean moves by a factor of two between runs minutes apart, and one request
+out of roughly 25 failed outright (curl exit before any status, after 10.8s).
 `/technologies` — the heaviest page — has been as slow as 47s. The cause is the
 shape, not the code: the edge is in Los Angeles and the origin is in China, so
 every request crosses the Pacific twice. The free plan does not let you pick an
