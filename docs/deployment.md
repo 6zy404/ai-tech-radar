@@ -343,31 +343,76 @@ containing `localhost`.
 requests for the home page, direct (no proxy), from this machine's network:
 
 ```
-10/10 at 200 — mean 10.63s, fastest 2.40s, slowest 29.37s
-later, 12/12 at 200 — mean  5.65s, fastest 2.90s, slowest 12.90s
+run 1 (09-20)  10/10 at 200 — mean 10.63s, fastest 2.40s, slowest 29.37s
+run 2 (09-20)  12/12 at 200 — mean  5.65s, fastest 2.90s, slowest 12.90s
+run 3 (09-21)  12/12 at 200 — mean  0.82s, fastest 0.77s, slowest  0.96s
 ```
 
-The spread between those two samples is the characteristic worth recording:
-the mean moves by a factor of two between runs minutes apart, and one request
-out of roughly 25 failed outright (curl exit before any status, after 10.8s).
-`/technologies` — the heaviest page — has been as slow as 47s. The cause is the
-shape, not the code: the edge is in Los Angeles and the origin is in China, so
-every request crosses the Pacific twice. The free plan does not let you pick an
-edge region. Production timings for these same routes are 16–47ms when measured
-locally, so the whole figure is transport.
+One request out of roughly 25 during runs 1 and 2 failed outright (curl exited
+before any status, after 10.8s). `/technologies` was as slow as 47s in run 1.
 
-This is the number the fallback was written against: acceptable for something
-people open occasionally, not acceptable for a site people use daily. If it has
-to improve, the path is a mainland server plus ICP filing, not tuning.
+**Run 3 was taken the next day, after the server was rebuilt with
+`npm run build:public`, and it withdraws the conclusion the first two runs
+supported.** An order of magnitude, and a spread of 0.19s where run 1 spanned
+27s.
+
+The cause is not established, so it is not asserted here. Candidates, none of
+them tested: the tunnel had come up minutes before run 1 (one of its four
+connections failed its first dial and re-registered, and cloudflared logged a
+resolver timeout in the same minute), the build is smaller, or the network
+simply differed. Cloudflare caching is **not** a candidate for these figures —
+the home page is `force-dynamic` and curl fetched only the HTML document, not
+the cacheable chunks.
+
+What does hold across all three runs: production timings for these routes are
+16–47ms measured locally, so whatever the figure is on a given day, it is
+transport rather than the app.
+
+**The mainland-server fallback is therefore not currently justified by
+measurement.** Re-measure at a few different times of day before treating
+either figure as the steady state.
+
+### The public build is what is served (2026-09-21)
+
+The workspace nav entry was visible on the live site, because the server was
+running an ordinary `next build`. It is now rebuilt with `npm run build:public`:
+**27 routes, 0 workspace routes.**
+
+This costs nothing operationally, which was checked rather than assumed: the
+editorial round runs against an ad-hoc `next dev` (see the playbook), and the
+scheduled import and backup are their own tasks, so nothing in the daily
+workflow goes through the always-on server.
+
+**The status code alone cannot show the routes are gone**, because the
+middleware answers 401 first — the same 401 it gave when they existed. The
+discriminating check is to request them **with a valid token**, which used to
+return 200/405 and now returns 404:
+
+| Path with a valid token           | Before | After   |
+| --------------------------------- | ------ | ------- |
+| `/workspace`                      | 200    | **404** |
+| `/workspace/sources`              | 200    | **404** |
+| `/workspace/editorial-round`      | 200    | **404** |
+| `/api/workspace/scheduled-import` | 405    | **404** |
+| `/api/candidates`                 | 404*   | **404** |
+| `/candidates`                     | —      | **404** |
+| `/technologies/drafts`            | 307    | **404** |
+
+The `/api/candidates` row was already 404 for its own reason (there is no GET
+collection handler), so it proves nothing on its own; the other six are the
+evidence.
+
+The nav string `内部工作台` appears **0 times** in the served HTML and **0**
+times across `.next/static`, and three public routes still answer 200 with the
+same token. `tsconfig.json` and `next-env.d.ts` were restored by the script
+(`git status` clean apart from the scheduled import state).
 
 **Still to do.**
 
-1. **(owner)** register the backup task — command in "Daily backup (Windows)"
-   below; it is a system change
-2. **(owner, optional)** add the WAF custom rule below in the Cloudflare
-   dashboard. It is now defence in depth rather than the only edge layer: the
-   ingress rules already refuse those paths, and a WAF rule would refuse them
-   one hop earlier, before the request is sent over the tunnel
+1. **(owner, optional)** add the WAF custom rule below in the Cloudflare
+   dashboard. It is now the third layer, not the only edge layer: the ingress
+   rules already refuse those paths, the routes no longer exist in the build,
+   and a WAF rule would refuse them one hop earlier still
 
 ```text
 starts_with(http.request.uri.path, "/workspace") or starts_with(http.request.uri.path, "/api/workspace") or starts_with(http.request.uri.path, "/api/candidates") or starts_with(http.request.uri.path, "/candidates") or starts_with(http.request.uri.path, "/technologies/drafts")
