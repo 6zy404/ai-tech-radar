@@ -667,8 +667,18 @@ Forbidden on public pages:
 - `TopNav`
   - shared global navigation for user-facing Home, Daily Digest, Technologies
     (which also hosts the former News/Timeline/My Radar views), Skills,
-    Knowledge, Network, an inline search icon/box (GETs to `/search`), and
-    the secondary Workspace entry point
+    Knowledge, Network, an inline search icon/box (GETs to `/search`), the
+    colour-scheme toggle, and the secondary Workspace entry point (absent
+    from the public build)
+- `ThemeToggle`
+  - user-facing light/dark switch in the top nav. The choice lives only in
+    this browser's localStorage (`src/lib/theme.ts`), same boundary as
+    followed topics and reading marks — no account, no server-side profile,
+    and the served HTML is identical for everyone, which is why an inline
+    script in `layout.tsx` resolves the scheme before first paint rather
+    than the server rendering it. With nothing stored the OS preference
+    still decides, so the default behaviour is what it was before the
+    control existed
 - `DetailInfoCard`
   - shared reference / metadata card
 - `TagBadge`

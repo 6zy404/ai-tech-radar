@@ -1596,3 +1596,89 @@ sampled pixel — the first version of that check sampled a coordinate that was
 band makes a geometry change visible instead of letting a misplaced probe
 pass or fail for the wrong reason. Same lesson as the section above, one
 level down.
+
+## A control for the colour scheme (2026-09-21)
+
+Owner-reported, alongside the underline change below. Dark mode shipped
+2026-07-15 as `@media (prefers-color-scheme: dark)` with **no** toggle — that
+was the decision at the time, deliberately the smaller option. The ask now is
+the control, modelled on the single icon button in the top-right of
+curatelit.com: two states, light and dark, persisted, no menu.
+
+**What the media query cost, and why it had to go.** The dark block is ~290
+lines across 32 selectors. The usual way to add an override on top of a media
+query is
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root: not([data-theme= "light"]) …;
+}
+:root[data-theme="dark"]…;
+```
+
+which needs the declarations **twice** in plain CSS. Instead the media query is
+gone: an inline script in `<head>` resolves the scheme before first paint —
+stored choice, else `matchMedia` — and writes `data-theme` plus `color-scheme`
+on `<html>`, and the stylesheet keys off that one attribute. One copy of the
+declarations, one selector prefix per rule.
+
+**The cost is stated rather than hidden**: dark mode now needs JS. It is one
+inline statement that runs before paint, wrapped in `try`, and it degrades to
+light rather than to something broken.
+
+**The rewrite was done with a CSS parser, after a hand-rolled one corrupted the
+file.** The first attempt walked the characters tracking brace depth and split
+selector lists on commas — which also split the commas **inside comments**, so
+`/* … text, text … */` came back as `/:root[data-theme="dark"] * … text,` and
+`:root[data-theme="dark"] text …`. Prettier caught it (`Missed semicolon`), the
+file was restored from a copy taken before the edit, and the transform was
+redone with `postcss`: parse, prefix `rule.selectors`, hoist the children,
+drop the at-rule. 32 rules, comments intact.
+
+**Three details that are load-bearing:**
+
+- **`suppressHydrationWarning` on `<html>` is required, not cosmetic.** The
+  script sets attributes React did not render, so React logs a hydration
+  mismatch on every page load without it. Observed in the console first, then
+  fixed — it is not defensive decoration.
+- **Both icons ship in the markup and CSS picks one**, keyed on the same
+  attribute. If the icon came from React state the server would have to guess a
+  scheme it cannot know, so the icon would either mismatch on hydration or flip
+  a moment after it. For the same reason the accessible name is fixed
+  (「切换深浅色主题」) rather than naming the current state.
+- **The system preference is still followed when the reader has not chosen.**
+  The `change` listener only applies a system flip while nothing is stored;
+  otherwise a machine going dark at sunset would silently override an explicit
+  choice.
+
+**`color-scheme` is set with the attribute**, so form controls, scrollbars and
+the canvas behind the page flip too rather than staying light under a dark
+page.
+
+Verified in the browser rather than by reading: the toggle moves
+`--dossier-ground` between `#e6e7de` and `#1e1f1a`, the choice survives a
+reload, a fresh tab logs **zero** console errors, and with nothing stored a
+dark system gives dark and a light system gives light — checked in both
+directions. No horizontal overflow at 1440 or 375, and the two icon buttons
+measure the same 32×32, which they do by construction: the theme toggle is
+added to `.top-nav__search-toggle`'s own rules rather than given a copy of
+them.
+
+## Links in page chrome carry no underline at rest (2026-09-21)
+
+Owner-reported: 「类似于浏览技术信号这样的文字不需要下划线」.
+
+**Scope was measured before anything changed.** Every underlined string on the
+public pages belongs to one family — the calls to action (`.action-link`), the
+source and feed links, the topic link on a tag chip, and three card "open"
+links. Eight rules. There are **no inline prose links on the public side at
+all**: `ContentBody` parses headings, bold, lists and inline code, so no link
+can appear inside a body. Nothing here loses an underline that carried meaning.
+
+The underline moves to `:hover`. That is not a new idea invented for this
+change — the card titles on `/news`, `/search`, `/digest`, the weekly review,
+the timeline and the technology cards already had exactly this behaviour. The
+two families were behaving differently; now they do not.
+
+Measured after: three representative pages report **zero** resting underlines,
+and the same link reports `none` at rest and `underline` while hovered.
