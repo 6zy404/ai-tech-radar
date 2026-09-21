@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { ThemeToggle } from "@/components/theme-toggle";
+
 const primaryNavItems = [
   { href: "/", label: "首页" },
   { href: "/digest/today", label: "每日简报" },
@@ -127,60 +129,64 @@ export function TopNav() {
           </ul>
         </nav>
 
-        <div
-          className={`top-nav__search${searchOpen ? " top-nav__search--open" : ""}`}
-        >
-          <form
-            action="/search"
-            method="get"
-            role="search"
-            onSubmit={() => setSearchOpen(false)}
+        <div className="top-nav__actions">
+          <div
+            className={`top-nav__search${searchOpen ? " top-nav__search--open" : ""}`}
           >
-            <input
-              ref={searchInputRef}
-              type="search"
-              name="q"
-              placeholder="搜索"
-              aria-label="搜索关键词"
-              onKeyDown={(event) => {
-                if (event.key === "Escape") {
-                  setSearchOpen(false);
-                }
-              }}
-            />
-          </form>
-          <button
-            type="button"
-            className="top-nav__search-toggle"
-            aria-label={searchOpen ? "收起搜索" : "展开搜索"}
-            aria-expanded={searchOpen}
-            onClick={() => setSearchOpen((open) => !open)}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-              aria-hidden="true"
+            <form
+              action="/search"
+              method="get"
+              role="search"
+              onSubmit={() => setSearchOpen(false)}
             >
-              <circle
-                cx="6.5"
-                cy="6.5"
-                r="4.5"
-                stroke="currentColor"
-                strokeWidth="1.4"
+              <input
+                ref={searchInputRef}
+                type="search"
+                name="q"
+                placeholder="搜索"
+                aria-label="搜索关键词"
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    setSearchOpen(false);
+                  }
+                }}
               />
-              <line
-                x1="10"
-                y1="10"
-                x2="13.5"
-                y2="13.5"
-                stroke="currentColor"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
+            </form>
+            <button
+              type="button"
+              className="top-nav__search-toggle"
+              aria-label={searchOpen ? "收起搜索" : "展开搜索"}
+              aria-expanded={searchOpen}
+              onClick={() => setSearchOpen((open) => !open)}
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="6.5"
+                  cy="6.5"
+                  r="4.5"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                />
+                <line
+                  x1="10"
+                  y1="10"
+                  x2="13.5"
+                  y2="13.5"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <ThemeToggle />
         </div>
       </div>
     </header>
