@@ -12,6 +12,61 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A theme the reader picks, and links that stop underlining themselves
+
+- **Dark mode gets a control** — 2026-09-21, owner-reported, modelled on the
+  single top-right icon button on curatelit.com (two states, persisted, no
+  menu). It shipped 2026-07-15 as `@media (prefers-color-scheme: dark)` with
+  no override, which was the deliberate smaller option at the time.
+- **The media query is gone rather than wrapped.** Adding an override on top of
+  one needs the declarations twice in plain CSS, and this block is ~290 lines
+  across 32 selectors. Instead an inline script in `<head>` resolves the scheme
+  before first paint — stored choice, else `matchMedia` — and writes
+  `data-theme` and `color-scheme` on `<html>`; the stylesheet keys off that one
+  attribute. **The cost is stated rather than hidden**: dark mode now needs JS,
+  one `try`-wrapped statement that degrades to light rather than to something
+  broken.
+- **A hand-rolled CSS transform corrupted the file, and a parser fixed it.**
+  The first attempt tracked brace depth and split selector lists on commas —
+  including the commas **inside comments**, so comment text came back as
+  selectors. Prettier caught it, the file was restored from a copy taken before
+  the edit, and the rewrite was redone with `postcss`: 32 rules prefixed,
+  comments intact.
+- **`suppressHydrationWarning` on `<html>` is required, not cosmetic.** The
+  script sets attributes React never rendered, so without it every page load
+  logs a hydration mismatch — observed in the console first, then fixed.
+- **Both icons are in the markup and CSS picks one**, keyed on the same
+  attribute, so the icon is correct before React hydrates and never flips; the
+  accessible name is fixed for the same reason. The system preference is still
+  followed while the reader has not chosen — a system flip is only applied when
+  nothing is stored, so a machine going dark at sunset cannot override an
+  explicit choice.
+- **The underline moves to `:hover` on eight rules.** Scope was measured first:
+  every underlined string on the public pages is a link in page chrome — calls
+  to action, source and feed links, the topic link on a tag chip, three card
+  "open" links — and there are **no inline prose links at all**, because
+  `ContentBody` parses headings, bold, lists and inline code only. So nothing
+  loses a meaningful underline. Hover-only underlining is not new here: the
+  card titles on `/news`, `/search`, `/digest`, the weekly review, the timeline
+  and the technology cards already behaved that way, and the two families now
+  match.
+- Verified in the browser rather than by reading: the toggle moves
+  `--dossier-ground` between `#e6e7de` and `#1e1f1a`, the choice survives a
+  reload, a fresh tab logs **zero** console errors, with nothing stored a dark
+  system gives dark and a light system gives light (both directions checked),
+  three pages report **zero** resting underlines, the same link reports `none`
+  at rest and `underline` while hovered, no horizontal overflow at 1440 or 375,
+  and the two icon buttons measure the same 32×32 — by construction, since the
+  theme toggle was added to the existing button's rules rather than given a
+  copy. Plus typecheck, lint, vitest **264/264**, and `validate:deployment` /
+  `workspace-boundary` / `persistence`.
+- **The public build had to be rebuilt for any of this to be live**, and that
+  build failed first: an earlier `next dev` run left a `.next-dev/` directory in
+  the checkout, and `tsconfig.json`'s `**/*.ts` include pulled in its generated
+  route types — which point at the very workspace routes `build:public` removes.
+  **The same trap is already recorded for 2026-09-08**; the fix is the same,
+  remove the stale directory and restore the two files `next build` rewrites.
+
 ## A bilingual README, and the reference split out of it
 
 - **`README.md` is now Chinese, `README.en.md` is English** — 2026-09-19,
