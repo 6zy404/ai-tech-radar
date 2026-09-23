@@ -8804,6 +8804,12 @@ a.tech-graph__node:hover {
   overflow-wrap: anywhere;
 }
 
+.search-result__reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .search-result__meta {
   display: flex;
   flex-wrap: wrap;

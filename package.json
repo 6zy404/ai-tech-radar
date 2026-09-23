@@ -23,6 +23,7 @@
     "measure:news-lane": "node scripts/measure-news-lane.mjs",
     "build:triage-dataset": "node scripts/build-triage-dataset.mjs",
     "eval:triage": "node scripts/with-proxy-env.mjs node scripts/run-ts-validation.cjs scripts/eval-triage.ts",
+    "eval:search": "node scripts/with-proxy-env.mjs node scripts/run-ts-validation.cjs scripts/eval-search.ts",
     "db:init": "node scripts/run-ts-validation.cjs scripts/db-init.ts",
     "db:migrate-json": "node scripts/run-ts-validation.cjs scripts/db-migrate-json.ts",
     "db:reset": "node scripts/run-ts-validation.cjs scripts/db-reset.ts",
@@ -53,6 +54,7 @@
     "validate:workspace-boundary": "node scripts/run-ts-validation.cjs scripts/validate-workspace-boundary.ts"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.3.0",
     "fast-xml-parser": "^5.6.0",
     "next": "^15.0.0",
     "react": "^19.0.0",

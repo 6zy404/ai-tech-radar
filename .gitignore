@@ -61,3 +61,6 @@ visual-qa-screenshots/
 eval/triage/cache/
 # LLM triage suggestions: regenerable model output, like the AI caches above
 config/candidate-triage-suggestions.json
+
+# Local embedding model + search embedding cache (regenerable)
+.cache/

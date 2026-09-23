@@ -56,6 +56,11 @@ const nextConfig: NextConfig = {
   // else entirely instead of clobbering the dev server's output.
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
 
+  // The local embedding model behind hybrid search runs through native
+  // onnxruntime bindings, which the bundler cannot inline; load them from
+  // node_modules at runtime instead.
+  serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
+
   async headers() {
     // Resolve inside headers() rather than at module load: Next evaluates
     // next.config before NODE_ENV is reliably set, so a top-level check can

@@ -87,6 +87,7 @@ learning paths.
 - Next.js 15 (App Router), React 19, TypeScript
 - Storage: local JSON by default, optional SQLite driver (Node's built-in `node:sqlite`)
 - LLM: server-side provider boundary, local mock by default, any OpenAI-compatible endpoint when configured
+- Embeddings: local `multilingual-e5-small` (transformers.js, in-process, no external API), merged with keyword matching for search
 - Tests: Vitest unit tests plus per-subsystem `validate:*` scripts
 
 ## Running locally

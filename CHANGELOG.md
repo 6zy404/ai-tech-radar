@@ -12,6 +12,65 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Hybrid search, and what it still cannot do
+
+- **`/search` finds by meaning as well as by word** — 2026-09-23,
+  owner-selected as step 2 of the AI-application track. A local embedding
+  model (`Xenova/multilingual-e5-small`, q8, run in-process by
+  transformers.js) scores every published signal, skill and knowledge entry
+  against the query; that list and the keyword list are merged per group by
+  reciprocal rank fusion, and every result says how it was found — 关键词,
+  语义相近, or both. **No API, no key, nothing leaves the server.** The news
+  lane stays keyword-only: it is the unedited tier, and widening it by meaning
+  would widen exactly the part nobody has checked.
+- **Measured before it was believed.** 43 labelled queries
+  (`eval/search/queries.json`), 12 used to pick the cutoff and 31 scored once
+  after. On the test split keyword search found something relevant for
+  **33%** of queries — all nine of its hits were short terms or product names;
+  every longer, descriptive query scored 0 — and hybrid for **93%**, with
+  recall 22% → 64% and MRR 0.33 → 0.73. **The price is stated**: precision
+  94% → 40%. The queries were written by the same agent that built the
+  search, with the corpus in view; the bias that implies is written down in
+  `eval/search/README.md` rather than left for a reader to guess.
+- **An absolute score cutoff was measured and does not work.** On the tune
+  split, the best item for an English query scored 0.788 and the best item for
+  an off-topic Chinese query 0.854, so no floor keeps the first and drops the
+  second. The cutoff is relative to each query instead: at least 1.75 standard
+  deviations above that query's mean, at most five per group.
+- **What it cannot do: say "nothing here".** All six off-topic queries
+  ("how to bake bread", "股票推荐") return results. A relative cutoff always
+  admits the query's best items, and this model does not tell "less related"
+  from "unrelated". The page says so in words: when every result came from
+  meaning alone, it states there was no literal match and the results may be
+  off-topic. Short English acronyms are the other weak spot — "RAG" returns
+  GPT-Red as a semantic match — which is why keyword matching stays in.
+- **A fresh deployment does not make its first reader wait for a download.**
+  The model is ~130MB and is fetched on first use (through `hf-mirror.com`;
+  `huggingface.co` is not reliably reachable here). A search waits at most
+  `SEARCH_SEMANTIC_TIMEOUT_MS` (3000) for the semantic half, then answers from
+  keywords and says so, while the load continues. Proven both ways: with a
+  300ms timeout the first request fell back and a request four seconds later
+  was semantic in 7ms; with the model moved aside and the host unreachable,
+  search stayed up on keywords.
+- **One floating-point bug, caught by its own test.** A flat score
+  distribution left a standard deviation of ~1e-17 rather than 0, which put
+  every item "above the mean". Two faults were injected to prove the new tests
+  fire — an absolute threshold and a reversed tie-break — and each failed
+  exactly its own test.
+- **`next.config.ts` marks `@huggingface/transformers` and
+  `onnxruntime-node` as server-external**, because the native bindings cannot
+  be bundled. Verified on a real `build:public` served by `next start`: 27
+  routes, 0 workspace, first query 0.77s (model load), later ones ~15ms.
+- **The stale-`.next` trap hit again** (recorded 2026-09-08 and 2026-09-21):
+  the public build failed its type check on the dev server's leftover
+  `.next/types`, and a running dev server made the directory moves fail with
+  `EPERM`. Same fix — stop the dev server, remove the stale directory.
+- Verified: typecheck, lint, format, vitest **289/289** (12 new),
+  `validate:deployment` / `workspace-boundary`; in the browser at 1265 and
+  375, zero horizontal overflow, zero console errors, labels at 7.08:1 and the
+  muted semantic label at 5.87:1 on the card. **Not looked at**: the screenshot
+  tool timed out again, so the page was measured, not seen.
+
 ## LLM candidate triage, measured against the editor's own decisions
 
 - **A model suggests 发布 / 标记已看 / 拒绝 for each undecided candidate** —
