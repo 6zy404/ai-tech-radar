@@ -2,6 +2,11 @@ import {
   getDuplicateGroups,
   getImportedCandidates
 } from "@/lib/candidate-workflow";
+import type { TriageLabel } from "@/lib/candidate-llm-triage";
+import {
+  getCurrentTriageSuggestions,
+  isMockTriageModel
+} from "@/lib/candidate-triage-suggestions";
 import { getTodayDateString } from "@/lib/digest-store";
 import { getDailyDigestByDate } from "@/lib/digest-workflow";
 import {
@@ -43,6 +48,16 @@ export interface EditorialRoundCandidate {
    * nothing about whether the item is worth publishing.
    */
   qualityFlags: CandidateQualityFlag[];
+  /**
+   * The model's suggested disposition, when one has been generated for the
+   * current prompt version. Advisory only — the editor still acts.
+   */
+  triage?: {
+    decision: TriageLabel;
+    confidence: number;
+    reason: string;
+    isMock: boolean;
+  };
 }
 
 export interface EditorialRoundDraft {
@@ -175,17 +190,31 @@ export function getEditorialRoundState(): EditorialRoundState {
     getPublishedTechnologyWorkspaceRecords()
   );
 
+  const triageSuggestions = getCurrentTriageSuggestions();
+
   const undecidedCandidates: EditorialRoundCandidate[] = getImportedCandidates()
     .filter((candidate) => candidate.importStatus === "new")
-    .map((candidate) => ({
-      id: candidate.id,
-      title: candidate.originalTitle,
-      sourceName: candidate.sourceName,
-      publishDate: candidate.publishDate,
-      qualityFlags: evaluateCandidateQuality(candidate, {
-        publishedSignals
-      }).flags.filter((flag) => !reviewOnlyQualityFlags.has(flag))
-    }))
+    .map((candidate) => {
+      const suggestion = triageSuggestions.get(candidate.id);
+
+      return {
+        id: candidate.id,
+        title: candidate.originalTitle,
+        sourceName: candidate.sourceName,
+        publishDate: candidate.publishDate,
+        qualityFlags: evaluateCandidateQuality(candidate, {
+          publishedSignals
+        }).flags.filter((flag) => !reviewOnlyQualityFlags.has(flag)),
+        triage: suggestion
+          ? {
+              decision: suggestion.decision,
+              confidence: suggestion.confidence,
+              reason: suggestion.reason,
+              isMock: isMockTriageModel(suggestion.modelName)
+            }
+          : undefined
+      };
+    })
     .sort((left, right) => right.publishDate.localeCompare(left.publishDate));
 
   const openDuplicateGroupCount = getDuplicateGroups().filter(

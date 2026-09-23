@@ -56,3 +56,8 @@ visual-qa-screenshots/
 # Transient staging dir used by scripts/build-public.mjs while the workspace
 # routes are moved out of the tree. Its presence means a build did not finish.
 .public-build-stash/
+
+# LLM triage eval: per-model answer cache (regenerable; results/ is tracked)
+eval/triage/cache/
+# LLM triage suggestions: regenerable model output, like the AI caches above
+config/candidate-triage-suggestions.json

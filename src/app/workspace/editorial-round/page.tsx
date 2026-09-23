@@ -3,8 +3,10 @@ import Link from "next/link";
 import {
   CandidateRoundActions,
   DigestRoundActions,
-  DraftPublishAction
+  DraftPublishAction,
+  TriageSuggestionAction
 } from "@/components/editorial-round-actions";
+import { triageLabelNames } from "@/lib/candidate-llm-triage";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import {
   getDigestStatusLabel,
@@ -85,6 +87,19 @@ export default function EditorialRoundPage() {
             </Link>
           </div>
 
+          {undecidedCount > 0 ? (
+            <div className="editorial-round-triage-bar">
+              <p>
+                {
+                  "模型建议只供参考，不会改变任何候选的状态；处置仍由你点。它的准确率见 "
+                }
+                <code>npm run eval:triage</code>
+                {" 的报告。"}
+              </p>
+              <TriageSuggestionAction />
+            </div>
+          ) : null}
+
           {openDuplicateGroupCount > 0 ? (
             <p className="editorial-round-notice editorial-round-notice--blocked">
               有 {openDuplicateGroupCount}{" "}
@@ -114,6 +129,21 @@ export default function EditorialRoundPage() {
                             {getCandidateQualityFlagLabel(flag)}
                           </span>
                         ))}
+                      </span>
+                    ) : null}
+                    {candidate.triage ? (
+                      <span
+                        className={`editorial-round-row__triage editorial-round-row__triage--${candidate.triage.decision}`}
+                      >
+                        <strong>
+                          模型建议：
+                          {triageLabelNames[candidate.triage.decision]}
+                        </strong>
+                        {` · 置信 ${Math.round(candidate.triage.confidence * 100)}%`}
+                        {candidate.triage.isMock ? " · 本地 mock" : ""}
+                        {candidate.triage.reason
+                          ? ` · ${candidate.triage.reason}`
+                          : ""}
                       </span>
                     ) : null}
                   </div>

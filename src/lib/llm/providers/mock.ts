@@ -137,6 +137,43 @@ function createMockTechnologyLearningPathResponse(
   };
 }
 
+/**
+ * A deliberately dumb keyword rule, so the triage pipeline can run end to end
+ * without a key. Its eval numbers mean nothing about any model — the eval
+ * report labels a mock run as such.
+ */
+function createMockCandidateTriageResponse(
+  request: LlmGenerateRequest
+): LlmGenerateResponse {
+  const prompt = request.userPrompt;
+  const isPrerelease = /-(rc|beta|alpha|pre)\d*\b|\brc\d+\b/i.test(prompt);
+  const isPromotional = /融资|财报|customer|case study|webinar|峰会|大会/i.test(
+    prompt
+  );
+  const decision = isPrerelease || isPromotional ? "reject" : "review";
+
+  return {
+    providerName: "mock",
+    modelName: "mock-candidate-triage-v0",
+    tokenUsage: {
+      promptTokens: Math.ceil(
+        (request.systemPrompt.length + prompt.length) / 4
+      ),
+      completionTokens: 30,
+      totalTokens:
+        Math.ceil((request.systemPrompt.length + prompt.length) / 4) + 30
+    },
+    text: JSON.stringify({
+      decision,
+      confidence: decision === "reject" ? 0.7 : 0.4,
+      reason:
+        decision === "reject"
+          ? "本地 mock 规则：预发布版本或推广类内容。"
+          : "本地 mock 规则：没有命中拒绝关键词，交给编辑判断。"
+    })
+  };
+}
+
 export function createMockLlmProvider(): LlmProvider {
   return {
     name: "mock",
@@ -163,6 +200,10 @@ export function createMockLlmProvider(): LlmProvider {
 
       if (request.userPrompt.startsWith("Purpose: technology_learning_path")) {
         return createMockTechnologyLearningPathResponse(request);
+      }
+
+      if (request.userPrompt.startsWith("Purpose: candidate_triage")) {
+        return createMockCandidateTriageResponse(request);
       }
 
       const title =
