@@ -1,0 +1,155 @@
+{
+  "about": "问雷达 evaluation questions. 'expected' lists items a good answer would cite ('T:', 'S:', 'K:' + public slug); citing any one counts as grounded. An empty list means the site cannot answer and the right response is the fixed refusal. Written by the agent that built the feature, with the corpus in view — see eval/ask/README.md.",
+  "questions": [
+    {
+      "id": "a01",
+      "question": "本地跑大模型要注意什么？",
+      "expected": [
+        "S:on-device-model-deployment",
+        "K:model-quantization-numeric-precision",
+        "K:local-cloud-hybrid-inference",
+        "T:on-device-small-language-models"
+      ]
+    },
+    {
+      "id": "a02",
+      "question": "智能体越权是怎么发生的？",
+      "expected": [
+        "T:agent-intrusion-technical-timeline",
+        "T:openai-hf-attack-timeline",
+        "T:hf-security-incident-agentic-intrusion",
+        "T:openai-agents-public-wiki-collusion",
+        "T:gpt-6-astra",
+        "T:outside-view-of-agent-incidents"
+      ]
+    },
+    {
+      "id": "a03",
+      "question": "怎么判断一个基准分数靠不靠谱？",
+      "expected": [
+        "T:benchmirt-what-benchmarks-measure",
+        "S:frontier-release-reading-and-switching",
+        "S:model-and-output-evaluation",
+        "T:agent-consistency-gap-pass-k",
+        "T:qwen3-8-27b"
+      ]
+    },
+    {
+      "id": "a04",
+      "question": "MCP 2.0 改了什么？",
+      "expected": [
+        "T:mcp-2-0-stateless-spec",
+        "T:mcp-stateless-gateway-headers"
+      ]
+    },
+    {
+      "id": "a05",
+      "question": "为什么混合专家模型总参数很大，却跑得动？",
+      "expected": [
+        "K:moe-architecture",
+        "T:thinkingmachines-inkling",
+        "T:freetoken-bandwidth-adaptive-moe"
+      ]
+    },
+    {
+      "id": "a06",
+      "question": "推测解码是什么，能快多少？",
+      "expected": [
+        "K:speculative-decoding-inference-acceleration",
+        "T:ollama-v0-32-4"
+      ]
+    },
+    {
+      "id": "a07",
+      "question": "智能体的记忆应该全部塞进上下文吗？",
+      "expected": [
+        "T:agent-memory-is-a-dose-not-a-switch",
+        "K:agent-memory-context-management"
+      ]
+    },
+    {
+      "id": "a08",
+      "question": "GitHub 从 Copilot 代码审查里学到了什么？",
+      "expected": ["T:copilot-code-review-tool-workflow-lessons"]
+    },
+    {
+      "id": "a09",
+      "question": "怎么让模型可靠地调用外部工具？",
+      "expected": [
+        "K:tool-use-and-function-calling",
+        "S:tool-integration-patterns",
+        "T:model-context-protocol"
+      ]
+    },
+    {
+      "id": "a10",
+      "question": "AI 做数学研究现在能做到什么程度？",
+      "expected": [
+        "T:gowers-what-maths-llms-are-good-at",
+        "T:claude-hadamard-668",
+        "T:navier-stokes-priority-and-data"
+      ]
+    },
+    {
+      "id": "a11",
+      "question": "ICML 2026 的论文复现结果怎么样？",
+      "expected": [
+        "T:icml-2026-open-reproductions",
+        "T:icml-2026-agent-reproduction-audit"
+      ]
+    },
+    {
+      "id": "a12",
+      "question": "有个智能体烧掉了大笔预算，问题出在哪？",
+      "expected": ["T:agent-token-spend-runaway"]
+    },
+    {
+      "id": "a13",
+      "question": "什么时候应该让人来审查智能体的操作？",
+      "expected": [
+        "K:human-in-the-loop-review",
+        "K:completion-signals-and-acceptance"
+      ]
+    },
+    {
+      "id": "a14",
+      "question": "vLLM 最近几个版本主要更新了什么？",
+      "expected": [
+        "T:vllm-v0-27-0",
+        "T:vllm-v0-26-0",
+        "T:vllm-v0-25-0",
+        "T:vllm-v0-24-0"
+      ]
+    },
+    {
+      "id": "n01",
+      "question": "明天上海的天气怎么样？",
+      "expected": []
+    },
+    {
+      "id": "n02",
+      "question": "推荐几只值得买的 AI 概念股",
+      "expected": []
+    },
+    {
+      "id": "n03",
+      "question": "红烧肉怎么做？",
+      "expected": []
+    },
+    {
+      "id": "n04",
+      "question": "2018 年世界杯冠军是谁？",
+      "expected": []
+    },
+    {
+      "id": "n05",
+      "question": "Rust 和 Go 哪个更适合写 Web 后端？",
+      "expected": []
+    },
+    {
+      "id": "n06",
+      "question": "Transformer 论文是哪一年发表的？",
+      "expected": []
+    }
+  ]
+}

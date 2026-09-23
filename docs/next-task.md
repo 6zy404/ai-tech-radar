@@ -1,5 +1,20 @@
 # Next Task
 
+> Update 2026-09-23 (end of day): **The AI-application track is done: A, B
+> and D.** D is 问雷达 at `/ask` (nav entry 问雷达): a single-turn question,
+> a small tool loop (hybrid search + read an item) with streaming output,
+> every claim cited with numbers the code assigns, and a fixed refusal when
+> the site has nothing. `deepseek-chat` on 20 questions: 14/14 grounded, 6/6
+> declined, 0/40 invalid citations — **a set the builder wrote and everything
+> passed, so it proves the pipeline, not quality**. Details:
+> `eval/ask/README.md`. **Live-site actions for the owner** (not done by the
+> agent): run `npm install` in the main checkout before its next rebuild
+> (new dependency: `@huggingface/transformers`); once restarted with the
+> key in `.env.local`, `/ask` makes real DeepSeek calls, rate limited
+> 10/min and 40/h per client. **Open items**: owner spot-check of
+> `eval/search/queries.json`; a question set written by someone who has not
+> seen the corpus, with half-answerable questions, for both B and D.
+
 > Update 2026-09-23 (latest): **Step 2 of 3, hybrid search, is done.**
 > `/search` merges keyword matching with a local embedding model
 > (`multilingual-e5-small`, in-process, no API) and labels each result

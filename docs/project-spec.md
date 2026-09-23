@@ -104,9 +104,13 @@ Public pages:
   published technology signals only (no news fast-lane items); 404 for
   unknown topics or topics with no published signals; linked from the
   topic hub's 订阅此话题 block and the 我关注的 view's feed-link row
-- `/search` — site-wide keyword search over published signals, skills,
-  knowledge, and the news fast lane (deterministic title/summary/tag
-  matching; news results reuse the `src/lib/news.ts` sanitizing map)
+- `/search` — site-wide search over published signals, skills, knowledge,
+  and the news fast lane: title/summary/tag keyword matching merged with a
+  local embedding model (the news lane stays keyword-only; news results reuse
+  the `src/lib/news.ts` sanitizing map)
+- `/ask` — 问雷达: single-turn questions answered only from published signals,
+  skills and knowledge, with citations; declines with a fixed phrase when the
+  site has nothing
 - `/feed.xml`
 - `/feed.json`
 
@@ -118,6 +122,9 @@ Public API routes:
   (`429` + `Retry-After` once the budget is spent, checked before any parsing,
   cache lookup, or provider call); never returns provider/model/prompt-version
   metadata.
+- `POST /api/ask` — streams a cited answer to one question (newline-delimited
+  JSON). No cache, so the per-client rate limit and a per-round token cap are
+  its cost guard; never returns provider/model/prompt metadata.
 - `POST /api/technologies/explain` — generates or returns a cached AI
   explanation of one published technology tailored to a reader-selected
   experience level. Same boundary discipline as the compare route.

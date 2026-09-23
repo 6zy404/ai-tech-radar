@@ -15,8 +15,9 @@ Chinese.
 
 - **User-facing site** — home, the technology signal list (curated / all news /
   by topic / followed / read later), signal detail, daily digest and weekly
-  review, skills, knowledge, the relationship network, topic pages, search, and
-  RSS / JSON feeds. Reads published content only.
+  review, skills, knowledge, the relationship network, topic pages, search, 问雷达
+  (question answering from the site's own content, with citations), and RSS /
+  JSON feeds. Reads published content only.
 - **Internal workspace** — source configuration and import, candidate review,
   duplicate resolution, draft editing, publish checks, digest editing, delivery
   channels, scheduled tasks, and an operations dashboard. Token-protectable and
