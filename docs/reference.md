@@ -219,6 +219,21 @@ The product is split into two subsystems:
   public-surface verify checklist. Pure read state (`getEditorialRoundState`
   in `src/lib/editorial-round.ts`); the inline actions reuse the existing
   candidate/technology/digest API routes, so no editor is duplicated.
+- **LLM candidate triage + evaluation** — a model suggests 发布 / 标记已看 /
+  拒绝 for each undecided candidate on the editorial-round console, with a
+  confidence and a one-line reason (生成模型建议 button,
+  `POST /api/workspace/triage-suggestions`). **Advisory only**: it writes
+  suggestions to `config/candidate-triage-suggestions.json` and never changes a
+  candidate's status. The suggestions are measured against real editorial
+  decisions: `npm run build:triage-dataset` rebuilds a labelled set from the
+  git history of the candidate snapshot (625 of 629 decisions recovered, time
+  split at 2026-08-10: 146 example-pool / 479 test), and
+  `npm run eval:triage` reports accuracy, per-class precision/recall, a
+  confusion matrix, publish-vs-not, token usage and latency against a
+  majority-class baseline and the existing pre-release rule. Prompt version is
+  a code constant (`TRIAGE_PROMPT_VERSION` in
+  `src/lib/candidate-llm-triage.ts`) so a reported number stays tied to the
+  prompt it measured. See [`eval/triage/README.md`](../eval/triage/README.md).
 - **Operations** — a workspace operations dashboard, a `WorkflowEvent` audit log,
   and per-subsystem `validate:*` checks.
 - **Persistence** — local JSON by default, with an optional SQLite driver.
@@ -323,6 +338,8 @@ npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
+npm run build:triage-dataset # rebuild the triage eval set from git history
+npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
 
 # persistence / task runner
 npm run db:init
@@ -374,7 +391,8 @@ workspace records, skill and knowledge workspace records, link relation
 overrides, duplicate groups,
 daily digests, delivery, scheduled delivery, scheduled import, scheduled
 digest draft, task runner,
-workflow events, editorial enrichment suggestions, and prompt versions. Set
+workflow events, editorial enrichment suggestions, candidate triage
+suggestions, and prompt versions. Set
 `LOCAL_DATA_DIR` to point at a different local directory.
 
 ## Project structure

@@ -911,6 +911,42 @@ Suggestions only affect `TechnologyWorkspaceRecord` after an editor clicks Apply
 
 Prompt Quality v1 adds human review metadata. Apply all marks the suggestion `accepted`; applying selected generated fields marks it `partially_accepted`; rejection records `rejectionReason` and leaves the draft unchanged. These review fields are not Ranking v0 and are not user-facing content.
 
+## StoredTriageSuggestion
+
+A workspace-only model suggestion for one undecided candidate
+(`src/lib/candidate-triage-suggestions.ts`), stored in
+`config/candidate-triage-suggestions.json` as
+`{ updatedAt, suggestions: Record<candidateId, StoredTriageSuggestion> }`.
+
+- `candidateId`
+- `decision`: `publish | review | reject`
+- `confidence`: `0..1`
+- `reason`: one line, ≤ 160 characters
+- `promptVersion`: `TRIAGE_PROMPT_VERSION` at generation time
+- `modelName`: the model that answered, as reported by the provider
+- `requestedModel`: the model that was asked for — the deduplication key,
+  because the two can differ (the mock answers under its own name, and keying
+  on `modelName` made every run regenerate everything)
+- `providerName`
+- `createdAt`
+
+Rules:
+
+- **Advisory only.** Generating suggestions never changes `importStatus`; the
+  editor still acts on each candidate.
+- Only suggestions whose `promptVersion` equals the current constant are shown.
+  The eval number that justifies trusting a suggestion belongs to one prompt
+  version, so an older suggestion is treated as absent rather than current.
+- A regenerable cache like the three public AI caches, so git-ignored. Under
+  the SQLite driver it is one row in `runtime_configs`, keyed by file name
+  like the two schedule configs, because it is one object rather than a list.
+- Writes re-read the store and merge, never replace.
+
+The evaluation set (`eval/triage/dataset.jsonl`) is **derived data**, not a
+store: rebuilt from the git history of `imported-candidates.live.json` joined
+to `candidate-review-state.json` at `HEAD`, because the review state keeps only
+each decision and never the candidate text. See `eval/triage/README.md`.
+
 ## TechnologyWorkspaceRecord
 
 Represents the internal workspace version of a technology record.
@@ -1372,6 +1408,7 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `task-runner.json`
 - `workflow-events.json`
 - `editorial-enrichment-suggestions.json`
+- `candidate-triage-suggestions.json`
 - `technology-comparisons.json`
 - `technology-explanations.json`
 - `technology-learning-paths.json`

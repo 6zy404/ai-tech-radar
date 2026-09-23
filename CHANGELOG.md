@@ -12,6 +12,59 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## LLM candidate triage, measured against the editor's own decisions
+
+- **A model suggests 发布 / 标记已看 / 拒绝 for each undecided candidate** —
+  2026-09-23, owner-selected. It appears on the editorial-round console as one
+  line per candidate (decision, confidence, reason) behind a 生成模型建议
+  button, and it is **advisory only**: nothing it produces changes a
+  candidate's status. `AGENTS.md` keeps black-box ranking out of scope, and the
+  only automatic rejections remain the two factual flags from 2026-09-19.
+- **The labels already existed; the text did not.** The review-state file keeps
+  629 decisions but only their outcome, and the candidate snapshot is a rolling
+  window holding 146. Every round committed the snapshot, so walking its 41
+  commits recovers **625 of 629** candidates with their text; the other 4 were
+  fallback placeholders.
+- **Split by time, not at random**: decisions before 2026-08-10 are the example
+  pool (146), the rest the test set (479 — publish 43 / review 148 / reject
+  288), so an example can never come from the same round as the item under test.
+- **The few-shot examples were wrong the first time.** Picked as "most recent
+  per label", all three publish examples came from one blog and all three
+  review examples from one vendor — which teaches that the source decides.
+  Now at most one per source per label.
+- **The baseline is the headline, and it is unflattering to accuracy.** Always
+  answering 拒绝 scores **60.1%** accuracy on the test split with **0%**
+  publish recall, so the report leads with per-class recall and a separate
+  publish-vs-not figure.
+- **Measuring the baseline found label noise, and it was left in.** The
+  pre-release rule fires on 39 test items; editors rejected 30 and marked 9
+  _reviewed_, mostly in the 2026-09-06 round. Relabelling them would be editing
+  the answer key to suit the model, so the noise is documented instead and
+  publish-vs-not — the boundary the labels agree on — is reported on its own.
+- `npm run build:triage-dataset` and `npm run eval:triage` (accuracy, macro-F1,
+  per-class precision/recall, confusion matrix with a column for failed
+  answers, confidence ≥ 0.8 subset, tokens, p50/p95 latency, optional cost).
+  Answers are cached per prompt version × model, so a run resumes. A mock run
+  writes no result file. The prompt version is a code constant, not a
+  `PromptVersion` record, because a store record can be edited after the number
+  that measured it was reported.
+- **A deduplication bug only the mock could show**: the store keyed on the
+  model name the provider _reported_, and the mock reports a different name
+  from the one requested, so every click regenerated everything. It now keys on
+  the requested model; a second call measured 0 generated / 8 skipped.
+- **No real-model numbers yet**: no key is configured on this machine, so the
+  pipeline was run end to end on the mock only. With a DeepSeek key in
+  `.env.local`, `npm run eval:triage` produces the first real report.
+- Verified: typecheck, lint, vitest **277/277** (13 new),
+  `validate:deployment` / `workspace-boundary` / `database`; on an isolated
+  `LOCAL_DATA_DIR` with 8 candidates reopened, the console rendered 8
+  suggestions with their decision, confidence and reason; review state was
+  unchanged after generation; contrast was 6.17 on the text and 14.10 on the
+  label; there was zero overflow at 375px and zero console errors; the live
+  `config/` was untouched. **Not looked at**: the screenshot tool returned
+  blank frames again (the pane is not displayed), so layout was measured, not
+  seen.
+
 ## A theme the reader picks, and links that stop underlining themselves
 
 - **Dark mode gets a control** — 2026-09-21, owner-reported, modelled on the
