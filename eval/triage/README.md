@@ -72,8 +72,8 @@ the pool the model can mark as noise with almost no risk of burying a signal.
 
 **What it is bad at: finding what to publish**, and the binary figure says so
 plainly — on publish-vs-not it is **worse than never suggesting publish**
-(85.4% against 91.0%). It found 7 of 43 publishes. The confusion has two
-visible causes, both about what the model can see rather than how it reasons:
+(85.4% against 91.0%). It found 7 of 43 publishes. Three things show in the
+confusion matrix, all about what the model can see rather than how it reasons:
 
 - **Missed publishes are mostly title-only.** 29 of the 43 published items
   carry no text beyond the title; the model found 1 of them, against 6 of the
