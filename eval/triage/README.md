@@ -51,6 +51,50 @@ keyword rule, and a committed mock score would read like a model result.
 - **The pre-release rule** (the check the task runner auto-rejects on) fires on
   39 test items; editors rejected 30 of them.
 
+## Results: `candidate-triage-v1` × `deepseek-chat` (2026-09-23)
+
+Full test split, 479 items, 0 failed answers, p50 754ms / p95 1003ms,
+730,529 input + 16,674 output tokens.
+
+|                            |       Always "reject" |             Model |
+| -------------------------- | --------------------: | ----------------: |
+| Accuracy (3-class)         |                 60.1% |         **68.3%** |
+| Macro-F1                   |                 0.250 |         **0.524** |
+| Reject precision / recall  |          60.1% / 100% |     82.5% / 78.8% |
+| Review precision / recall  |                     — |     57.1% / 62.8% |
+| Publish precision / recall |                — / 0% | **17.1% / 16.3%** |
+| Publish vs not, accuracy   | 91.0% (never publish) |         **85.4%** |
+
+**What it is good for: confident rejections.** 129 items got "reject" at
+confidence ≥ 0.9; editors rejected 119 of them (92%) and **published none**.
+At ≥ 0.8 it is 212 items, 186 rejected (88%), 1 published. That is 27–44% of
+the pool the model can mark as noise with almost no risk of burying a signal.
+
+**What it is bad at: finding what to publish**, and the binary figure says so
+plainly — on publish-vs-not it is **worse than never suggesting publish**
+(85.4% against 91.0%). It found 7 of 43 publishes. The confusion has two
+visible causes, both about what the model can see rather than how it reasons:
+
+- **Missed publishes are mostly title-only.** 29 of the 43 published items
+  carry no text beyond the title; the model found 1 of them, against 6 of the
+  14 that have text. Its reasons say exactly this: "摘要仅一句，无法核对". The
+  editor read the article; the model read the feed. The rubric told it to lean
+  to review when information is thin, and it did.
+- **The Chinese sources score 0 of 20.** Both feeds ship a title and one
+  sentence, so this is the same cause concentrated in two sources — and none of
+  their decisions were in the example pool.
+- **False publishes lean on engine releases.** 10 of the 21 "publish" calls
+  the editor rejected are SGLang / ms-swift releases (the rest: 4 InfoQ, 3
+  Willison, 3 Ollama, 1 OpenAI). 7 of the 21 were published more than 30 days
+  before the editor saw them — the back-catalog that surfaced when the
+  per-source cap went from 4 to 12 on 2026-08-10. Each is a real release; what
+  made the editor reject it was context the model sees only as a date.
+
+**Not done, deliberately:** tuning the prompt against these findings. Every
+change made while looking at this test split would be fitted to it; a v2
+prompt needs either a fresh split (decisions after 2026-09-23) or to be judged
+on the example pool only.
+
 ## Known limits, stated up front
 
 - **Label noise on review vs reject.** The 9 pre-release items above that were

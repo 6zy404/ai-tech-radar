@@ -52,9 +52,21 @@ For per-topic deep dives, see the `docs/` directory.
   model name the provider _reported_, and the mock reports a different name
   from the one requested, so every click regenerated everything. It now keys on
   the requested model; a second call measured 0 generated / 8 skipped.
-- **No real-model numbers yet**: no key is configured on this machine, so the
-  pipeline was run end to end on the mock only. With a DeepSeek key in
-  `.env.local`, `npm run eval:triage` produces the first real report.
+- **First real run, `deepseek-chat`, full 479-item test split** (same day,
+  after the owner added a key): accuracy **68.3%** against the baseline's
+  60.1%, macro-F1 **0.524** against 0.250, zero failed answers, p50 754ms.
+  **The useful part is confident rejection**: 129 items rejected at confidence
+  ≥ 0.9, editors rejected 119 of them and **published none**. **The weak part is
+  publish**: 7 of 43 found, and on publish-vs-not the model (85.4%) is **worse
+  than never suggesting publish** (91.0%) — stated rather than hidden behind
+  the headline accuracy. 29 of the 43 publishes are title-only and the model
+  found 1 of them; the two Chinese sources score 0 of 20. Both are about what
+  the model can see, not how it reasons. The prompt was deliberately **not**
+  tuned against these findings, because every change made while reading the
+  test split would be fitted to it. Details in `eval/triage/README.md`.
+- **One number in the first write-up was wrong and was checked before
+  committing**: it said 13 of the 21 false publishes were SGLang / ms-swift
+  releases; counted, it is 10, and 7 of the 21 are older than 30 days.
 - Verified: typecheck, lint, vitest **277/277** (13 new),
   `validate:deployment` / `workspace-boundary` / `database`; on an isolated
   `LOCAL_DATA_DIR` with 8 candidates reopened, the console rendered 8
