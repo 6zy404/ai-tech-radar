@@ -1,9 +1,13 @@
 import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
+import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
+import {
+  searchPublicContentHybrid,
+  type HybridSearchResultLink
+} from "@/lib/hybrid-search";
 import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
-import { searchPublicContent, type SearchResultLink } from "@/lib/search";
 
 interface SearchPageProps {
   searchParams: Promise<{ q?: string }>;
@@ -11,9 +15,25 @@ interface SearchPageProps {
 
 export const dynamic = "force-dynamic";
 
-function SearchResultCard({ item }: { item: SearchResultLink }) {
+function MatchReasonTags({ item }: { item: HybridSearchResultLink }) {
+  return (
+    <div className="search-result__reasons">
+      {item.matchedBy !== "semantic" ? (
+        <DossierStampTag>关键词</DossierStampTag>
+      ) : null}
+      {item.matchedBy !== "keyword" ? (
+        <DossierStampTag className="dossier-stamp-tag--muted">
+          语义相近
+        </DossierStampTag>
+      ) : null}
+    </div>
+  );
+}
+
+function SearchResultCard({ item }: { item: HybridSearchResultLink }) {
   return (
     <DossierCard className="search-result">
+      <MatchReasonTags item={item} />
       <h3>
         <Link href={item.href}>{item.title}</Link>
       </h3>
@@ -93,13 +113,24 @@ function SearchResultGroup({
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { q } = await searchParams;
-  const results = searchPublicContent(q);
+  const results = await searchPublicContentHybrid(q);
   const hasQuery = results.query.length > 0;
+  const graphResults = [
+    ...results.technologies,
+    ...results.skills,
+    ...results.knowledge
+  ];
+  // Every graph result came from meaning alone: say so, because on a query the
+  // site has nothing for, those are the nearest items rather than matches.
+  const onlySemantic =
+    results.news.length === 0 &&
+    graphResults.length > 0 &&
+    graphResults.every((item) => item.matchedBy === "semantic");
 
   return (
     <UserPageShell
       title="全站搜索"
-      description="按关键词检索已发布的技术信号、技能、知识与自动聚合快讯。多个关键词用空格分隔时需同时命中。"
+      description="检索已发布的技术信号、技能、知识与自动聚合快讯。标题或摘要含关键词的内容，和意思相近的内容，按相关程度一起排序并标出是怎么找到的。"
       sectionLabel="搜索"
       className="search-page dossier"
     >
@@ -146,8 +177,18 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         results.totalCount > 0 ? (
           <>
             <p className="search-page__summary">
-              「{results.query}」共命中 {results.totalCount} 条内容。
+              「{results.query}」共找到 {results.totalCount} 条内容。
             </p>
+            {onlySemantic ? (
+              <p className="search-group__notice">
+                {`没有标题或摘要里含「${results.query}」的内容，下面是按意思找到的相近条目，未必切题。`}
+              </p>
+            ) : null}
+            {results.semanticAvailable ? null : (
+              <p className="search-group__notice">
+                语义检索暂时不可用，下面只按关键词匹配。
+              </p>
+            )}
             <SearchResultGroup
               title="技术信号"
               count={results.technologies.length}

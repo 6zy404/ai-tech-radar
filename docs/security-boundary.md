@@ -37,13 +37,18 @@ Public routes can be exposed:
   signals only — same published-content boundary as `/feed.xml`; imported
   candidates, drafts, and internal fields never enter it; 404 for unknown
   or signal-less topics)
-- `/search` (deterministic keyword search over published technology
+- `/search` (keyword plus local-embedding search over published technology
   signals, skills, knowledge, and the news fast lane; matching covers only
   title / summary / tag display names, results are identical for everyone,
   and news results go through the same `src/lib/news.ts` mapping as the
   全部快讯 view — including the fixed 自动聚合 disclaimer on the news group,
   so search is a compliant fast-lane surface rather than a new
-  candidate→public mapping point)
+  candidate→public mapping point. The embedding model runs in-process and
+  calls no API; only the three published graph pools are embedded — never
+  candidates, not even the sanitized news items — and the vector cache in
+  `.cache/search-embeddings.json` holds vectors of already-public text
+  only. It is unauthenticated and unthrottled because a query costs local
+  CPU, about 10–20ms once the model is loaded, not a provider bill)
 - `/feed.xml`
 - `/feed.json`
 - `POST /api/technologies/compare`

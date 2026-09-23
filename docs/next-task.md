@@ -1,5 +1,20 @@
 # Next Task
 
+> Update 2026-09-23 (latest): **Step 2 of 3, hybrid search, is done.**
+> `/search` merges keyword matching with a local embedding model
+> (`multilingual-e5-small`, in-process, no API) and labels each result
+> 关键词 / 语义相近. On 31 held-out queries: something relevant found for 93%
+> of queries against keyword search's 33%, precision 94% → 40%, and off-topic
+> queries now always return something (the page says so when no result
+> matched literally). The queries were written by the agent with the corpus in
+> view — **the owner has not spot-checked them yet**; that is the one open
+> item for B. Details: `eval/search/README.md`. **On the live site** the first
+> search after deploy downloads the model (~130MB via hf-mirror.com) in the
+> background; that request answers from keywords. **Next actual step**: D, the
+> 问雷达 grounded Q&A agent — it needs streaming and tool calling added to
+> `src/lib/llm/providers/openai.ts`, and it can use hybrid search as its
+> retrieval tool.
+
 > Update 2026-09-23 (later): **Step 1 has its real numbers.** `deepseek-chat`
 > on the full 479-item test split: accuracy 68.3% (baseline 60.1%), macro-F1
 > 0.524 (0.250). Confident rejections are reliable (≥0.9: 119/129 rejected by

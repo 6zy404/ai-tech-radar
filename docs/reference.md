@@ -155,15 +155,26 @@ The product is split into two subsystems:
   Published-signal data only (no news fast-lane noise); reuses
   `getAllTechnologies` / `getAllTags` and the bilingual title/summary
   helpers, no new data or route.
-- **Site-wide search** — public `/search` (an inline search icon in
-  `TopNav` opens the query box) with server-rendered `?q=` keyword search
-  over published technology signals, skills, knowledge, and the sanitized
-  news fast lane. Deterministic, case-insensitive substring matching on
-  title / summary / tag names only (space-separated terms are ANDed),
-  results grouped per content type, and the fixed auto-aggregation
-  disclaimer on the news group. News results reuse the same
-  `src/lib/news.ts` public mapping as the 全部快讯 view; no internal fields
-  enter the page (`src/lib/search.ts`).
+- **Site-wide search (hybrid)** — public `/search` (an inline search icon
+  in `TopNav` opens the query box) over published technology signals,
+  skills, knowledge, and the sanitized news fast lane. Two halves, merged per
+  group by reciprocal rank fusion and labelled 关键词 / 语义相近 on each
+  result (`src/lib/hybrid-search.ts`, pure ranking in
+  `src/lib/hybrid-search-ranking.ts`): case-insensitive substring matching
+  on title / summary / tag names (space-separated terms ANDed,
+  `src/lib/search.ts`), and similarity from a **local** embedding model
+  (`Xenova/multilingual-e5-small`, q8, run in-process by transformers.js —
+  no API, nothing leaves the server; `src/lib/embeddings.ts`). A semantic
+  result must score at least 1.75 standard deviations above the mean for
+  that query, at most 5 per group. The news lane stays keyword-only. When
+  every result came from meaning alone the page says there was no literal
+  match; when the model is not ready (first download, a load failure, or
+  past `SEARCH_SEMANTIC_TIMEOUT_MS`, default 3000) that request answers
+  from keywords and says so. Measured against 43 labelled queries
+  (`npm run eval:search`): on the test split keyword search found something
+  relevant for 33% of queries and hybrid for 93%, with precision falling from
+  94% to 40%, and off-topic queries now always return something. See
+  [`eval/search/README.md`](../eval/search/README.md).
 - **Skill/Knowledge workspace editing (v0)** — `/workspace/skills` and
   `/workspace/knowledge` manage the skill and knowledge content pools:
   create new entries, or edit the bundled `src/data` seed entries via
@@ -340,6 +351,7 @@ npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
 npm run build:triage-dataset # rebuild the triage eval set from git history
 npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
+npm run eval:search      # score keyword / semantic / hybrid search on labelled queries (-- --grid to sweep the cutoff)
 
 # persistence / task runner
 npm run db:init

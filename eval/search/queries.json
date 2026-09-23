@@ -1,0 +1,383 @@
+{
+  "about": "Search evaluation queries. Written by the same agent that built the search, with the corpus in view — see eval/search/README.md for what that bias means. Relevant items are 'T:', 'S:' or 'K:' plus a public slug. An empty list means no item on the site should be returned.",
+  "queries": [
+    {
+      "id": "t01",
+      "split": "tune",
+      "query": "本地跑大模型",
+      "relevant": [
+        "S:on-device-model-deployment",
+        "T:on-device-small-language-models",
+        "K:model-quantization-numeric-precision",
+        "K:local-cloud-hybrid-inference",
+        "T:ollama-v0-31-2"
+      ]
+    },
+    {
+      "id": "t02",
+      "split": "tune",
+      "query": "智能体被黑了",
+      "relevant": [
+        "T:hf-security-incident-agentic-intrusion",
+        "T:agent-intrusion-technical-timeline",
+        "T:openai-hf-attack-timeline",
+        "S:agent-security-injection-defense"
+      ]
+    },
+    {
+      "id": "t03",
+      "split": "tune",
+      "query": "how to evaluate model output",
+      "relevant": [
+        "S:model-and-output-evaluation",
+        "K:evaluation-loops",
+        "K:adversarial-evaluation-red-teaming"
+      ]
+    },
+    {
+      "id": "t04",
+      "split": "tune",
+      "query": "显存不够怎么办",
+      "relevant": [
+        "K:model-quantization-numeric-precision",
+        "S:inference-capacity-planning",
+        "K:moe-architecture",
+        "S:on-device-model-deployment"
+      ]
+    },
+    {
+      "id": "t05",
+      "split": "tune",
+      "query": "vLLM",
+      "relevant": [
+        "T:vllm-v0-27-0",
+        "T:vllm-v0-26-0",
+        "T:vllm-v0-25-0",
+        "T:vllm-v0-24-0",
+        "T:vllm-transformers-native-backend"
+      ]
+    },
+    {
+      "id": "t06",
+      "split": "tune",
+      "query": "语音助手",
+      "relevant": [
+        "T:introducing-gpt-live",
+        "T:voice-agent-runtime",
+        "S:realtime-voice-interaction-design",
+        "K:paralinguistics-voice-interaction",
+        "T:real-world-voiceeq"
+      ]
+    },
+    {
+      "id": "t07",
+      "split": "tune",
+      "query": "agent 花钱太多",
+      "relevant": [
+        "T:agent-token-spend-runaway",
+        "S:inference-capacity-planning"
+      ]
+    },
+    {
+      "id": "t08",
+      "split": "tune",
+      "query": "让模型调用外部工具",
+      "relevant": [
+        "K:tool-use-and-function-calling",
+        "S:tool-integration-patterns",
+        "T:model-context-protocol"
+      ]
+    },
+    {
+      "id": "t09",
+      "split": "tune",
+      "query": "论文能不能复现",
+      "relevant": [
+        "T:icml-2026-open-reproductions",
+        "T:icml-2026-agent-reproduction-audit",
+        "T:ara-agent-native-research-artifacts"
+      ]
+    },
+    {
+      "id": "t10",
+      "split": "tune",
+      "query": "让生成速度更快",
+      "relevant": [
+        "K:speculative-decoding-inference-acceleration",
+        "K:latency-tradeoffs-in-interactive-systems",
+        "T:ollama-v0-32-4"
+      ]
+    },
+    {
+      "id": "t11",
+      "split": "tune",
+      "query": "今天天气怎么样",
+      "relevant": []
+    },
+    {
+      "id": "t12",
+      "split": "tune",
+      "query": "红烧肉的做法",
+      "relevant": []
+    },
+    {
+      "id": "e01",
+      "split": "test",
+      "query": "手机上运行的模型",
+      "relevant": [
+        "T:lfm2-5-2-6b-on-device-agents",
+        "T:on-device-small-language-models",
+        "S:on-device-model-deployment"
+      ]
+    },
+    {
+      "id": "e02",
+      "split": "test",
+      "query": "上下文太长记不住",
+      "relevant": [
+        "K:agent-memory-context-management",
+        "T:agent-memory-is-a-dose-not-a-switch"
+      ]
+    },
+    {
+      "id": "e03",
+      "split": "test",
+      "query": "red teaming",
+      "relevant": [
+        "T:gpt-red",
+        "K:adversarial-evaluation-red-teaming",
+        "S:agent-security-injection-defense"
+      ]
+    },
+    {
+      "id": "e04",
+      "split": "test",
+      "query": "MCP",
+      "relevant": [
+        "T:model-context-protocol",
+        "T:mcp-2-0-stateless-spec",
+        "T:mcp-stateless-gateway-headers",
+        "T:gemini-managed-agents-background-mcp"
+      ]
+    },
+    {
+      "id": "e05",
+      "split": "test",
+      "query": "混合专家",
+      "relevant": [
+        "K:moe-architecture",
+        "T:thinkingmachines-inkling",
+        "T:freetoken-bandwidth-adaptive-moe"
+      ]
+    },
+    {
+      "id": "e06",
+      "split": "test",
+      "query": "买现成的还是自己做",
+      "relevant": ["S:ai-toolchain-build-vs-buy", "T:copilot-vs-raw-api-access"]
+    },
+    {
+      "id": "e07",
+      "split": "test",
+      "query": "基准分数靠不住",
+      "relevant": [
+        "T:benchmirt-what-benchmarks-measure",
+        "T:agent-consistency-gap-pass-k",
+        "S:frontier-release-reading-and-switching",
+        "T:qwen3-8-27b"
+      ]
+    },
+    {
+      "id": "e08",
+      "split": "test",
+      "query": "新模型发布值不值得换",
+      "relevant": [
+        "S:frontier-release-reading-and-switching",
+        "S:model-engine-support-paths"
+      ]
+    },
+    {
+      "id": "e09",
+      "split": "test",
+      "query": "智能体每次结果不一样",
+      "relevant": ["T:agent-consistency-gap-pass-k"]
+    },
+    {
+      "id": "e10",
+      "split": "test",
+      "query": "什么时候该让人审核",
+      "relevant": [
+        "K:human-in-the-loop-review",
+        "K:completion-signals-and-acceptance"
+      ]
+    },
+    {
+      "id": "e11",
+      "split": "test",
+      "query": "怎么知道任务做完了",
+      "relevant": ["K:completion-signals-and-acceptance"]
+    },
+    {
+      "id": "e12",
+      "split": "test",
+      "query": "用 AI 生成的数据训练模型",
+      "relevant": [
+        "K:synthetic-data-and-data-recipes",
+        "T:nvidia-open-data-for-agents",
+        "T:bigbang-v1-self-evolving-data"
+      ]
+    },
+    {
+      "id": "e13",
+      "split": "test",
+      "query": "fine-tune open weights",
+      "relevant": [
+        "S:model-finetuning-post-training",
+        "T:nemo-automodel-diffusers-finetuning"
+      ]
+    },
+    {
+      "id": "e14",
+      "split": "test",
+      "query": "智能体越权",
+      "relevant": [
+        "T:gpt-6-astra",
+        "T:agent-intrusion-technical-timeline",
+        "T:openai-agents-public-wiki-collusion",
+        "T:outside-view-of-agent-incidents",
+        "S:agent-security-injection-defense"
+      ]
+    },
+    {
+      "id": "e15",
+      "split": "test",
+      "query": "智能体运行在哪里",
+      "relevant": [
+        "T:cloudflare-computer-agent-runtime",
+        "T:microsoft-agent-framework-harness",
+        "T:deepseek-harness-everything-is-a-plugin",
+        "T:gemini-managed-agents-background-mcp"
+      ]
+    },
+    {
+      "id": "e16",
+      "split": "test",
+      "query": "代码审查",
+      "relevant": [
+        "T:copilot-code-review-tool-workflow-lessons",
+        "T:rootly-retires-small-pr-rule",
+        "S:ai-assisted-communication-review"
+      ]
+    },
+    {
+      "id": "e17",
+      "split": "test",
+      "query": "GPU 利用率",
+      "relevant": [
+        "T:constraint-aware-gpu-allocator",
+        "S:inference-capacity-planning"
+      ]
+    },
+    {
+      "id": "e18",
+      "split": "test",
+      "query": "AI 做数学证明",
+      "relevant": [
+        "T:gowers-what-maths-llms-are-good-at",
+        "T:claude-hadamard-668",
+        "T:navier-stokes-priority-and-data"
+      ]
+    },
+    {
+      "id": "e19",
+      "split": "test",
+      "query": "让模型看懂截图",
+      "relevant": [
+        "S:visual-input-design-and-verification",
+        "T:multimodal-coding-copilots"
+      ]
+    },
+    {
+      "id": "e20",
+      "split": "test",
+      "query": "Kimi",
+      "relevant": ["T:kimi-k3", "T:vllm-v0-27-0", "T:sglang-v0-5-17"]
+    },
+    {
+      "id": "e21",
+      "split": "test",
+      "query": "知识图谱",
+      "relevant": [
+        "T:knowledge-graph-assistants",
+        "K:graph-thinking-for-knowledge-systems"
+      ]
+    },
+    {
+      "id": "e22",
+      "split": "test",
+      "query": "RAG",
+      "relevant": [
+        "K:retrieval-augmented-generation-basics",
+        "S:retrieval-pipeline-tuning",
+        "T:rag-evaluation-dashboards"
+      ]
+    },
+    {
+      "id": "e23",
+      "split": "test",
+      "query": "机器人",
+      "relevant": ["T:gemini-robotics-2"]
+    },
+    {
+      "id": "e24",
+      "split": "test",
+      "query": "两个模型之间怎么传信息",
+      "relevant": ["T:mostik-hidden-state-bridge"]
+    },
+    {
+      "id": "e25",
+      "split": "test",
+      "query": "AI 看病",
+      "relevant": ["T:amie-real-time-video-consultation"]
+    },
+    {
+      "id": "e26",
+      "split": "test",
+      "query": "开源模型下载量排行",
+      "relevant": ["T:state-of-open-models-summer-2026"]
+    },
+    {
+      "id": "e27",
+      "split": "test",
+      "query": "响应太慢用户等不及",
+      "relevant": [
+        "K:latency-tradeoffs-in-interactive-systems",
+        "K:speculative-decoding-inference-acceleration"
+      ]
+    },
+    {
+      "id": "e28",
+      "split": "test",
+      "query": "股票推荐",
+      "relevant": []
+    },
+    {
+      "id": "e29",
+      "split": "test",
+      "query": "周末去哪里旅游",
+      "relevant": []
+    },
+    {
+      "id": "e30",
+      "split": "test",
+      "query": "足球比赛比分",
+      "relevant": []
+    },
+    {
+      "id": "e31",
+      "split": "test",
+      "query": "how to bake bread",
+      "relevant": []
+    }
+  ]
+}

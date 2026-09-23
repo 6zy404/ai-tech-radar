@@ -1,0 +1,2030 @@
+{
+  "model": "Xenova/multilingual-e5-small",
+  "cutoff": {
+    "minZ": 1.75,
+    "perGroupLimit": 5
+  },
+  "generatedAt": "2026-09-23T12:44:40.085Z",
+  "tune": {
+    "summary": {
+      "keyword": {
+        "queries": 10,
+        "hitRate": 0.1,
+        "recall": 0.1,
+        "precision": 0.7142857142857143,
+        "mrr": 0.1,
+        "meanReturned": 0.7,
+        "negatives": 2,
+        "negativesWithResults": 0,
+        "meanReturnedOnNegatives": 0
+      },
+      "semantic": {
+        "queries": 10,
+        "hitRate": 1,
+        "recall": 0.59,
+        "precision": 0.4988095238095238,
+        "mrr": 0.5416666666666666,
+        "meanReturned": 4.5,
+        "negatives": 2,
+        "negativesWithResults": 2,
+        "meanReturnedOnNegatives": 4
+      },
+      "hybrid": {
+        "queries": 10,
+        "hitRate": 1,
+        "recall": 0.59,
+        "precision": 0.47023809523809523,
+        "mrr": 0.5416666666666666,
+        "meanReturned": 4.7,
+        "negatives": 2,
+        "negativesWithResults": 2,
+        "meanReturnedOnNegatives": 4
+      }
+    },
+    "outcomes": {
+      "keyword": [
+        {
+          "id": "t01",
+          "query": "本地跑大模型",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "S:on-device-model-deployment",
+            "T:on-device-small-language-models",
+            "K:model-quantization-numeric-precision",
+            "K:local-cloud-hybrid-inference",
+            "T:ollama-v0-31-2"
+          ]
+        },
+        {
+          "id": "t02",
+          "query": "智能体被黑了",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:hf-security-incident-agentic-intrusion",
+            "T:agent-intrusion-technical-timeline",
+            "T:openai-hf-attack-timeline",
+            "S:agent-security-injection-defense"
+          ]
+        },
+        {
+          "id": "t03",
+          "query": "how to evaluate model output",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "S:model-and-output-evaluation",
+            "K:evaluation-loops",
+            "K:adversarial-evaluation-red-teaming"
+          ]
+        },
+        {
+          "id": "t04",
+          "query": "显存不够怎么办",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:model-quantization-numeric-precision",
+            "S:inference-capacity-planning",
+            "K:moe-architecture",
+            "S:on-device-model-deployment"
+          ]
+        },
+        {
+          "id": "t05",
+          "query": "vLLM",
+          "returned": [
+            "T:vllm-v0-27-0",
+            "T:vllm-v0-26-0",
+            "T:vllm-v0-25-0",
+            "T:vllm-transformers-native-backend",
+            "T:vllm-v0-24-0",
+            "T:meta-muse-glimmer",
+            "T:thinkingmachines-inkling"
+          ],
+          "relevantFound": [
+            "T:vllm-v0-27-0",
+            "T:vllm-v0-26-0",
+            "T:vllm-v0-25-0",
+            "T:vllm-v0-24-0",
+            "T:vllm-transformers-native-backend"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t06",
+          "query": "语音助手",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:introducing-gpt-live",
+            "T:voice-agent-runtime",
+            "S:realtime-voice-interaction-design",
+            "K:paralinguistics-voice-interaction",
+            "T:real-world-voiceeq"
+          ]
+        },
+        {
+          "id": "t07",
+          "query": "agent 花钱太多",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:agent-token-spend-runaway",
+            "S:inference-capacity-planning"
+          ]
+        },
+        {
+          "id": "t08",
+          "query": "让模型调用外部工具",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:tool-use-and-function-calling",
+            "S:tool-integration-patterns",
+            "T:model-context-protocol"
+          ]
+        },
+        {
+          "id": "t09",
+          "query": "论文能不能复现",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:icml-2026-open-reproductions",
+            "T:icml-2026-agent-reproduction-audit",
+            "T:ara-agent-native-research-artifacts"
+          ]
+        },
+        {
+          "id": "t10",
+          "query": "让生成速度更快",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:speculative-decoding-inference-acceleration",
+            "K:latency-tradeoffs-in-interactive-systems",
+            "T:ollama-v0-32-4"
+          ]
+        },
+        {
+          "id": "t11",
+          "query": "今天天气怎么样",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "t12",
+          "query": "红烧肉的做法",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": []
+        }
+      ],
+      "semantic": [
+        {
+          "id": "t01",
+          "query": "本地跑大模型",
+          "returned": [
+            "T:ollama-v0-31-2",
+            "T:meta-muse-glimmer",
+            "T:vllm-v0-25-0",
+            "T:on-device-small-language-models",
+            "K:model-quantization-numeric-precision"
+          ],
+          "relevantFound": [
+            "T:on-device-small-language-models",
+            "K:model-quantization-numeric-precision",
+            "T:ollama-v0-31-2"
+          ],
+          "relevantMissed": [
+            "S:on-device-model-deployment",
+            "K:local-cloud-hybrid-inference"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t02",
+          "query": "智能体被黑了",
+          "returned": [
+            "T:outside-view-of-agent-incidents",
+            "T:hf-security-incident-agentic-intrusion",
+            "T:openai-hf-attack-timeline",
+            "T:agent-intrusion-technical-timeline"
+          ],
+          "relevantFound": [
+            "T:hf-security-incident-agentic-intrusion",
+            "T:agent-intrusion-technical-timeline",
+            "T:openai-hf-attack-timeline"
+          ],
+          "relevantMissed": [
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 2
+        },
+        {
+          "id": "t03",
+          "query": "how to evaluate model output",
+          "returned": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:tutormoments-when-to-hold-back",
+            "S:model-and-output-evaluation",
+            "S:on-device-model-deployment",
+            "S:visual-input-design-and-verification"
+          ],
+          "relevantFound": [
+            "S:model-and-output-evaluation"
+          ],
+          "relevantMissed": [
+            "K:evaluation-loops",
+            "K:adversarial-evaluation-red-teaming"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t04",
+          "query": "显存不够怎么办",
+          "returned": [
+            "T:muse-glimmer-local-agent-model",
+            "T:conceptual-integrity-and-lines-of-code",
+            "K:model-quantization-numeric-precision"
+          ],
+          "relevantFound": [
+            "K:model-quantization-numeric-precision"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning",
+            "K:moe-architecture",
+            "S:on-device-model-deployment"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t05",
+          "query": "vLLM",
+          "returned": [
+            "T:vllm-v0-26-0",
+            "T:vllm-v0-27-0",
+            "T:vllm-transformers-native-backend",
+            "T:vllm-v0-25-0",
+            "T:vllm-v0-24-0"
+          ],
+          "relevantFound": [
+            "T:vllm-v0-27-0",
+            "T:vllm-v0-26-0",
+            "T:vllm-v0-25-0",
+            "T:vllm-v0-24-0",
+            "T:vllm-transformers-native-backend"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t06",
+          "query": "语音助手",
+          "returned": [
+            "T:knowledge-graph-assistants",
+            "T:multimodal-coding-copilots",
+            "T:voice-agent-runtime",
+            "T:deepmind-sl2t-sign-language",
+            "T:real-world-voiceeq",
+            "S:realtime-voice-interaction-design",
+            "K:paralinguistics-voice-interaction"
+          ],
+          "relevantFound": [
+            "T:voice-agent-runtime",
+            "S:realtime-voice-interaction-design",
+            "K:paralinguistics-voice-interaction",
+            "T:real-world-voiceeq"
+          ],
+          "relevantMissed": [
+            "T:introducing-gpt-live"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t07",
+          "query": "agent 花钱太多",
+          "returned": [
+            "T:ara-agent-native-research-artifacts",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:openai-agents-public-wiki-collusion",
+            "T:agent-token-spend-runaway",
+            "T:aws-kiro-crew-async-agents"
+          ],
+          "relevantFound": [
+            "T:agent-token-spend-runaway"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "t08",
+          "query": "让模型调用外部工具",
+          "returned": [
+            "T:copilot-vs-raw-api-access",
+            "S:model-finetuning-post-training",
+            "S:tool-integration-patterns",
+            "S:model-engine-support-paths"
+          ],
+          "relevantFound": [
+            "S:tool-integration-patterns"
+          ],
+          "relevantMissed": [
+            "K:tool-use-and-function-calling",
+            "T:model-context-protocol"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t09",
+          "query": "论文能不能复现",
+          "returned": [
+            "T:icml-2026-agent-reproduction-audit",
+            "T:ara-agent-native-research-artifacts",
+            "T:icml-2026-open-reproductions",
+            "T:boundary-aware-safety-refusal"
+          ],
+          "relevantFound": [
+            "T:icml-2026-open-reproductions",
+            "T:icml-2026-agent-reproduction-audit",
+            "T:ara-agent-native-research-artifacts"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t10",
+          "query": "让生成速度更快",
+          "returned": [
+            "T:vllm-transformers-native-backend",
+            "T:constraint-aware-gpu-allocator",
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantFound": [
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantMissed": [
+            "K:latency-tradeoffs-in-interactive-systems",
+            "T:ollama-v0-32-4"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t11",
+          "query": "今天天气怎么样",
+          "returned": [
+            "T:mostik-hidden-state-bridge",
+            "T:agent-consistency-gap-pass-k",
+            "T:tutormoments-when-to-hold-back",
+            "T:conceptual-integrity-and-lines-of-code",
+            "S:ai-assisted-communication-review"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "t12",
+          "query": "红烧肉的做法",
+          "returned": [
+            "T:gpt-red",
+            "T:rootly-retires-small-pr-rule",
+            "T:alphagenome-atlas-precomputed-variants"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        }
+      ],
+      "hybrid": [
+        {
+          "id": "t01",
+          "query": "本地跑大模型",
+          "returned": [
+            "T:ollama-v0-31-2",
+            "T:meta-muse-glimmer",
+            "T:vllm-v0-25-0",
+            "T:on-device-small-language-models",
+            "K:model-quantization-numeric-precision"
+          ],
+          "relevantFound": [
+            "T:on-device-small-language-models",
+            "K:model-quantization-numeric-precision",
+            "T:ollama-v0-31-2"
+          ],
+          "relevantMissed": [
+            "S:on-device-model-deployment",
+            "K:local-cloud-hybrid-inference"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t02",
+          "query": "智能体被黑了",
+          "returned": [
+            "T:outside-view-of-agent-incidents",
+            "T:hf-security-incident-agentic-intrusion",
+            "T:openai-hf-attack-timeline",
+            "T:agent-intrusion-technical-timeline"
+          ],
+          "relevantFound": [
+            "T:hf-security-incident-agentic-intrusion",
+            "T:agent-intrusion-technical-timeline",
+            "T:openai-hf-attack-timeline"
+          ],
+          "relevantMissed": [
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 2
+        },
+        {
+          "id": "t03",
+          "query": "how to evaluate model output",
+          "returned": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:tutormoments-when-to-hold-back",
+            "S:model-and-output-evaluation",
+            "S:on-device-model-deployment",
+            "S:visual-input-design-and-verification"
+          ],
+          "relevantFound": [
+            "S:model-and-output-evaluation"
+          ],
+          "relevantMissed": [
+            "K:evaluation-loops",
+            "K:adversarial-evaluation-red-teaming"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t04",
+          "query": "显存不够怎么办",
+          "returned": [
+            "T:muse-glimmer-local-agent-model",
+            "T:conceptual-integrity-and-lines-of-code",
+            "K:model-quantization-numeric-precision"
+          ],
+          "relevantFound": [
+            "K:model-quantization-numeric-precision"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning",
+            "K:moe-architecture",
+            "S:on-device-model-deployment"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t05",
+          "query": "vLLM",
+          "returned": [
+            "T:vllm-v0-27-0",
+            "T:vllm-v0-26-0",
+            "T:vllm-v0-25-0",
+            "T:vllm-transformers-native-backend",
+            "T:vllm-v0-24-0",
+            "T:meta-muse-glimmer",
+            "T:thinkingmachines-inkling"
+          ],
+          "relevantFound": [
+            "T:vllm-v0-27-0",
+            "T:vllm-v0-26-0",
+            "T:vllm-v0-25-0",
+            "T:vllm-v0-24-0",
+            "T:vllm-transformers-native-backend"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t06",
+          "query": "语音助手",
+          "returned": [
+            "T:knowledge-graph-assistants",
+            "T:multimodal-coding-copilots",
+            "T:voice-agent-runtime",
+            "T:deepmind-sl2t-sign-language",
+            "T:real-world-voiceeq",
+            "S:realtime-voice-interaction-design",
+            "K:paralinguistics-voice-interaction"
+          ],
+          "relevantFound": [
+            "T:voice-agent-runtime",
+            "S:realtime-voice-interaction-design",
+            "K:paralinguistics-voice-interaction",
+            "T:real-world-voiceeq"
+          ],
+          "relevantMissed": [
+            "T:introducing-gpt-live"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t07",
+          "query": "agent 花钱太多",
+          "returned": [
+            "T:ara-agent-native-research-artifacts",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:openai-agents-public-wiki-collusion",
+            "T:agent-token-spend-runaway",
+            "T:aws-kiro-crew-async-agents"
+          ],
+          "relevantFound": [
+            "T:agent-token-spend-runaway"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "t08",
+          "query": "让模型调用外部工具",
+          "returned": [
+            "T:copilot-vs-raw-api-access",
+            "S:model-finetuning-post-training",
+            "S:tool-integration-patterns",
+            "S:model-engine-support-paths"
+          ],
+          "relevantFound": [
+            "S:tool-integration-patterns"
+          ],
+          "relevantMissed": [
+            "K:tool-use-and-function-calling",
+            "T:model-context-protocol"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t09",
+          "query": "论文能不能复现",
+          "returned": [
+            "T:icml-2026-agent-reproduction-audit",
+            "T:ara-agent-native-research-artifacts",
+            "T:icml-2026-open-reproductions",
+            "T:boundary-aware-safety-refusal"
+          ],
+          "relevantFound": [
+            "T:icml-2026-open-reproductions",
+            "T:icml-2026-agent-reproduction-audit",
+            "T:ara-agent-native-research-artifacts"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "t10",
+          "query": "让生成速度更快",
+          "returned": [
+            "T:vllm-transformers-native-backend",
+            "T:constraint-aware-gpu-allocator",
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantFound": [
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantMissed": [
+            "K:latency-tradeoffs-in-interactive-systems",
+            "T:ollama-v0-32-4"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "t11",
+          "query": "今天天气怎么样",
+          "returned": [
+            "T:mostik-hidden-state-bridge",
+            "T:agent-consistency-gap-pass-k",
+            "T:tutormoments-when-to-hold-back",
+            "T:conceptual-integrity-and-lines-of-code",
+            "S:ai-assisted-communication-review"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "t12",
+          "query": "红烧肉的做法",
+          "returned": [
+            "T:gpt-red",
+            "T:rootly-retires-small-pr-rule",
+            "T:alphagenome-atlas-precomputed-variants"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        }
+      ]
+    }
+  },
+  "test": {
+    "summary": {
+      "keyword": {
+        "queries": 27,
+        "hitRate": 0.3333333333333333,
+        "recall": 0.2191358024691358,
+        "precision": 0.9351851851851853,
+        "mrr": 0.3333333333333333,
+        "meanReturned": 0.6296296296296297,
+        "negatives": 4,
+        "negativesWithResults": 0,
+        "meanReturnedOnNegatives": 0
+      },
+      "semantic": {
+        "queries": 27,
+        "hitRate": 0.9259259259259259,
+        "recall": 0.6197530864197531,
+        "precision": 0.3902116402116402,
+        "mrr": 0.6975308641975309,
+        "meanReturned": 4.074074074074074,
+        "negatives": 4,
+        "negativesWithResults": 4,
+        "meanReturnedOnNegatives": 3.5
+      },
+      "hybrid": {
+        "queries": 27,
+        "hitRate": 0.9259259259259259,
+        "recall": 0.6444444444444444,
+        "precision": 0.39453262786596116,
+        "mrr": 0.7253086419753086,
+        "meanReturned": 4.185185185185185,
+        "negatives": 4,
+        "negativesWithResults": 4,
+        "meanReturnedOnNegatives": 3.5
+      }
+    },
+    "outcomes": {
+      "keyword": [
+        {
+          "id": "e01",
+          "query": "手机上运行的模型",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:lfm2-5-2-6b-on-device-agents",
+            "T:on-device-small-language-models",
+            "S:on-device-model-deployment"
+          ]
+        },
+        {
+          "id": "e02",
+          "query": "上下文太长记不住",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:agent-memory-context-management",
+            "T:agent-memory-is-a-dose-not-a-switch"
+          ]
+        },
+        {
+          "id": "e03",
+          "query": "red teaming",
+          "returned": [
+            "T:gpt-red"
+          ],
+          "relevantFound": [
+            "T:gpt-red"
+          ],
+          "relevantMissed": [
+            "K:adversarial-evaluation-red-teaming",
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e04",
+          "query": "MCP",
+          "returned": [
+            "T:mcp-stateless-gateway-headers",
+            "T:mcp-2-0-stateless-spec",
+            "T:gemini-managed-agents-background-mcp",
+            "T:llm-0-32-agent-shaped"
+          ],
+          "relevantFound": [
+            "T:mcp-2-0-stateless-spec",
+            "T:mcp-stateless-gateway-headers",
+            "T:gemini-managed-agents-background-mcp"
+          ],
+          "relevantMissed": [
+            "T:model-context-protocol"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e05",
+          "query": "混合专家",
+          "returned": [
+            "T:freetoken-bandwidth-adaptive-moe",
+            "K:moe-architecture"
+          ],
+          "relevantFound": [
+            "K:moe-architecture",
+            "T:freetoken-bandwidth-adaptive-moe"
+          ],
+          "relevantMissed": [
+            "T:thinkingmachines-inkling"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e06",
+          "query": "买现成的还是自己做",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "S:ai-toolchain-build-vs-buy",
+            "T:copilot-vs-raw-api-access"
+          ]
+        },
+        {
+          "id": "e07",
+          "query": "基准分数靠不住",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:agent-consistency-gap-pass-k",
+            "S:frontier-release-reading-and-switching",
+            "T:qwen3-8-27b"
+          ]
+        },
+        {
+          "id": "e08",
+          "query": "新模型发布值不值得换",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "S:frontier-release-reading-and-switching",
+            "S:model-engine-support-paths"
+          ]
+        },
+        {
+          "id": "e09",
+          "query": "智能体每次结果不一样",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:agent-consistency-gap-pass-k"
+          ]
+        },
+        {
+          "id": "e10",
+          "query": "什么时候该让人审核",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:human-in-the-loop-review",
+            "K:completion-signals-and-acceptance"
+          ]
+        },
+        {
+          "id": "e11",
+          "query": "怎么知道任务做完了",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:completion-signals-and-acceptance"
+          ]
+        },
+        {
+          "id": "e12",
+          "query": "用 AI 生成的数据训练模型",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:synthetic-data-and-data-recipes",
+            "T:nvidia-open-data-for-agents",
+            "T:bigbang-v1-self-evolving-data"
+          ]
+        },
+        {
+          "id": "e13",
+          "query": "fine-tune open weights",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "S:model-finetuning-post-training",
+            "T:nemo-automodel-diffusers-finetuning"
+          ]
+        },
+        {
+          "id": "e14",
+          "query": "智能体越权",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:gpt-6-astra",
+            "T:agent-intrusion-technical-timeline",
+            "T:openai-agents-public-wiki-collusion",
+            "T:outside-view-of-agent-incidents",
+            "S:agent-security-injection-defense"
+          ]
+        },
+        {
+          "id": "e15",
+          "query": "智能体运行在哪里",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:cloudflare-computer-agent-runtime",
+            "T:microsoft-agent-framework-harness",
+            "T:deepseek-harness-everything-is-a-plugin",
+            "T:gemini-managed-agents-background-mcp"
+          ]
+        },
+        {
+          "id": "e16",
+          "query": "代码审查",
+          "returned": [
+            "T:copilot-code-review-tool-workflow-lessons"
+          ],
+          "relevantFound": [
+            "T:copilot-code-review-tool-workflow-lessons"
+          ],
+          "relevantMissed": [
+            "T:rootly-retires-small-pr-rule",
+            "S:ai-assisted-communication-review"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e17",
+          "query": "GPU 利用率",
+          "returned": [
+            "T:constraint-aware-gpu-allocator"
+          ],
+          "relevantFound": [
+            "T:constraint-aware-gpu-allocator"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e18",
+          "query": "AI 做数学证明",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:gowers-what-maths-llms-are-good-at",
+            "T:claude-hadamard-668",
+            "T:navier-stokes-priority-and-data"
+          ]
+        },
+        {
+          "id": "e19",
+          "query": "让模型看懂截图",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "S:visual-input-design-and-verification",
+            "T:multimodal-coding-copilots"
+          ]
+        },
+        {
+          "id": "e20",
+          "query": "Kimi",
+          "returned": [
+            "T:vllm-v0-27-0",
+            "T:sglang-v0-5-17",
+            "T:kimi-k3"
+          ],
+          "relevantFound": [
+            "T:kimi-k3",
+            "T:vllm-v0-27-0",
+            "T:sglang-v0-5-17"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e21",
+          "query": "知识图谱",
+          "returned": [
+            "T:knowledge-graph-assistants",
+            "T:ara-agent-native-research-artifacts",
+            "K:graph-thinking-for-knowledge-systems"
+          ],
+          "relevantFound": [
+            "T:knowledge-graph-assistants",
+            "K:graph-thinking-for-knowledge-systems"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e22",
+          "query": "RAG",
+          "returned": [
+            "T:rag-evaluation-dashboards"
+          ],
+          "relevantFound": [
+            "T:rag-evaluation-dashboards"
+          ],
+          "relevantMissed": [
+            "K:retrieval-augmented-generation-basics",
+            "S:retrieval-pipeline-tuning"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e23",
+          "query": "机器人",
+          "returned": [
+            "T:gemini-robotics-2"
+          ],
+          "relevantFound": [
+            "T:gemini-robotics-2"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e24",
+          "query": "两个模型之间怎么传信息",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:mostik-hidden-state-bridge"
+          ]
+        },
+        {
+          "id": "e25",
+          "query": "AI 看病",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:amie-real-time-video-consultation"
+          ]
+        },
+        {
+          "id": "e26",
+          "query": "开源模型下载量排行",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:state-of-open-models-summer-2026"
+          ]
+        },
+        {
+          "id": "e27",
+          "query": "响应太慢用户等不及",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": [
+            "K:latency-tradeoffs-in-interactive-systems",
+            "K:speculative-decoding-inference-acceleration"
+          ]
+        },
+        {
+          "id": "e28",
+          "query": "股票推荐",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e29",
+          "query": "周末去哪里旅游",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e30",
+          "query": "足球比赛比分",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e31",
+          "query": "how to bake bread",
+          "returned": [],
+          "relevantFound": [],
+          "relevantMissed": []
+        }
+      ],
+      "semantic": [
+        {
+          "id": "e01",
+          "query": "手机上运行的模型",
+          "returned": [
+            "T:lfm2-5-2-6b-on-device-agents",
+            "T:ollama-v0-32-0",
+            "T:ollama-v0-31-2",
+            "S:on-device-model-deployment"
+          ],
+          "relevantFound": [
+            "T:lfm2-5-2-6b-on-device-agents",
+            "S:on-device-model-deployment"
+          ],
+          "relevantMissed": [
+            "T:on-device-small-language-models"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e02",
+          "query": "上下文太长记不住",
+          "returned": [
+            "T:lfm2-5-encoders",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:openai-agents-public-wiki-collusion",
+            "K:agent-memory-context-management",
+            "K:paralinguistics-voice-interaction"
+          ],
+          "relevantFound": [
+            "K:agent-memory-context-management"
+          ],
+          "relevantMissed": [
+            "T:agent-memory-is-a-dose-not-a-switch"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e03",
+          "query": "red teaming",
+          "returned": [
+            "T:gpt-red",
+            "T:outside-view-of-agent-incidents",
+            "T:gemini-robotics-2",
+            "T:freetoken-bandwidth-adaptive-moe",
+            "T:boundary-aware-safety-refusal"
+          ],
+          "relevantFound": [
+            "T:gpt-red"
+          ],
+          "relevantMissed": [
+            "K:adversarial-evaluation-red-teaming",
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e04",
+          "query": "MCP",
+          "returned": [
+            "T:mcp-2-0-stateless-spec",
+            "T:mcp-stateless-gateway-headers",
+            "T:gemini-managed-agents-background-mcp",
+            "T:benchmirt-what-benchmarks-measure",
+            "T:freetoken-bandwidth-adaptive-moe"
+          ],
+          "relevantFound": [
+            "T:mcp-2-0-stateless-spec",
+            "T:mcp-stateless-gateway-headers",
+            "T:gemini-managed-agents-background-mcp"
+          ],
+          "relevantMissed": [
+            "T:model-context-protocol"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e05",
+          "query": "混合专家",
+          "returned": [
+            "T:meta-muse-glimmer",
+            "T:agent-workbench-platforms",
+            "S:ai-assisted-communication-review",
+            "K:moe-architecture",
+            "K:local-cloud-hybrid-inference"
+          ],
+          "relevantFound": [
+            "K:moe-architecture"
+          ],
+          "relevantMissed": [
+            "T:thinkingmachines-inkling",
+            "T:freetoken-bandwidth-adaptive-moe"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e06",
+          "query": "买现成的还是自己做",
+          "returned": [
+            "T:conceptual-integrity-and-lines-of-code",
+            "S:ai-toolchain-build-vs-buy"
+          ],
+          "relevantFound": [
+            "S:ai-toolchain-build-vs-buy"
+          ],
+          "relevantMissed": [
+            "T:copilot-vs-raw-api-access"
+          ],
+          "firstRelevantRank": 2
+        },
+        {
+          "id": "e07",
+          "query": "基准分数靠不住",
+          "returned": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:agent-consistency-gap-pass-k",
+            "T:boundary-aware-safety-refusal",
+            "T:rootly-retires-small-pr-rule"
+          ],
+          "relevantFound": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:agent-consistency-gap-pass-k"
+          ],
+          "relevantMissed": [
+            "S:frontier-release-reading-and-switching",
+            "T:qwen3-8-27b"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e08",
+          "query": "新模型发布值不值得换",
+          "returned": [
+            "S:frontier-release-reading-and-switching"
+          ],
+          "relevantFound": [
+            "S:frontier-release-reading-and-switching"
+          ],
+          "relevantMissed": [
+            "S:model-engine-support-paths"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e09",
+          "query": "智能体每次结果不一样",
+          "returned": [
+            "T:agent-consistency-gap-pass-k",
+            "K:tool-use-and-function-calling"
+          ],
+          "relevantFound": [
+            "T:agent-consistency-gap-pass-k"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e10",
+          "query": "什么时候该让人审核",
+          "returned": [
+            "T:icml-2026-agent-reproduction-audit",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:ara-agent-native-research-artifacts",
+            "T:icml-2026-open-reproductions",
+            "S:ai-pilot-scoping",
+            "K:human-in-the-loop-review",
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantFound": [
+            "K:human-in-the-loop-review",
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 6
+        },
+        {
+          "id": "e11",
+          "query": "怎么知道任务做完了",
+          "returned": [
+            "T:conceptual-integrity-and-lines-of-code",
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantFound": [
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 2
+        },
+        {
+          "id": "e12",
+          "query": "用 AI 生成的数据训练模型",
+          "returned": [
+            "T:gpt-red",
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:bigbang-v1-self-evolving-data",
+            "S:model-finetuning-post-training"
+          ],
+          "relevantFound": [
+            "T:bigbang-v1-self-evolving-data"
+          ],
+          "relevantMissed": [
+            "K:synthetic-data-and-data-recipes",
+            "T:nvidia-open-data-for-agents"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "e13",
+          "query": "fine-tune open weights",
+          "returned": [
+            "T:kimi-k3",
+            "T:state-of-open-models-summer-2026",
+            "T:gpt-5-6",
+            "T:nemo-automodel-diffusers-finetuning"
+          ],
+          "relevantFound": [
+            "T:nemo-automodel-diffusers-finetuning"
+          ],
+          "relevantMissed": [
+            "S:model-finetuning-post-training"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e14",
+          "query": "智能体越权",
+          "returned": [
+            "T:agent-intrusion-technical-timeline",
+            "T:gpt-6-astra",
+            "K:human-in-the-loop-review"
+          ],
+          "relevantFound": [
+            "T:gpt-6-astra",
+            "T:agent-intrusion-technical-timeline"
+          ],
+          "relevantMissed": [
+            "T:openai-agents-public-wiki-collusion",
+            "T:outside-view-of-agent-incidents",
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e15",
+          "query": "智能体运行在哪里",
+          "returned": [
+            "T:cloudflare-computer-agent-runtime",
+            "T:runtime-agnostic-ai-workflows",
+            "S:agent-workflow-design",
+            "S:agent-observability-evaluation-ops",
+            "K:agent-memory-context-management"
+          ],
+          "relevantFound": [
+            "T:cloudflare-computer-agent-runtime"
+          ],
+          "relevantMissed": [
+            "T:microsoft-agent-framework-harness",
+            "T:deepseek-harness-everything-is-a-plugin",
+            "T:gemini-managed-agents-background-mcp"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e16",
+          "query": "代码审查",
+          "returned": [
+            "T:copilot-code-review-tool-workflow-lessons",
+            "T:rootly-retires-small-pr-rule",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:rag-evaluation-dashboards",
+            "S:retrieval-pipeline-tuning"
+          ],
+          "relevantFound": [
+            "T:copilot-code-review-tool-workflow-lessons",
+            "T:rootly-retires-small-pr-rule"
+          ],
+          "relevantMissed": [
+            "S:ai-assisted-communication-review"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e17",
+          "query": "GPU 利用率",
+          "returned": [
+            "T:constraint-aware-gpu-allocator",
+            "T:agent-consistency-gap-pass-k",
+            "T:gpt-6-astra",
+            "T:freetoken-bandwidth-adaptive-moe",
+            "T:muse-glimmer-local-agent-model"
+          ],
+          "relevantFound": [
+            "T:constraint-aware-gpu-allocator"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e18",
+          "query": "AI 做数学证明",
+          "returned": [
+            "T:bigbang-v1-self-evolving-data",
+            "T:agent-consistency-gap-pass-k",
+            "S:ai-assisted-communication-review"
+          ],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:gowers-what-maths-llms-are-good-at",
+            "T:claude-hadamard-668",
+            "T:navier-stokes-priority-and-data"
+          ]
+        },
+        {
+          "id": "e19",
+          "query": "让模型看懂截图",
+          "returned": [
+            "T:multimodal-coding-copilots",
+            "S:ai-assisted-communication-review",
+            "S:visual-input-design-and-verification",
+            "S:model-engine-support-paths",
+            "S:model-and-output-evaluation",
+            "S:on-device-model-deployment"
+          ],
+          "relevantFound": [
+            "S:visual-input-design-and-verification",
+            "T:multimodal-coding-copilots"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e20",
+          "query": "Kimi",
+          "returned": [
+            "T:kimi-k3",
+            "T:vllm-v0-27-0",
+            "T:amie-real-time-video-consultation"
+          ],
+          "relevantFound": [
+            "T:kimi-k3",
+            "T:vllm-v0-27-0"
+          ],
+          "relevantMissed": [
+            "T:sglang-v0-5-17"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e21",
+          "query": "知识图谱",
+          "returned": [
+            "T:knowledge-graph-assistants",
+            "T:ara-agent-native-research-artifacts",
+            "K:graph-thinking-for-knowledge-systems"
+          ],
+          "relevantFound": [
+            "T:knowledge-graph-assistants",
+            "K:graph-thinking-for-knowledge-systems"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e22",
+          "query": "RAG",
+          "returned": [
+            "T:rag-evaluation-dashboards",
+            "T:gpt-red",
+            "T:openai-agents-public-wiki-collusion",
+            "T:ara-agent-native-research-artifacts",
+            "T:outside-view-of-agent-incidents"
+          ],
+          "relevantFound": [
+            "T:rag-evaluation-dashboards"
+          ],
+          "relevantMissed": [
+            "K:retrieval-augmented-generation-basics",
+            "S:retrieval-pipeline-tuning"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e23",
+          "query": "机器人",
+          "returned": [
+            "T:gemini-robotics-2",
+            "T:openai-research-acceleration-agents",
+            "T:openai-agents-public-wiki-collusion",
+            "K:tool-use-and-function-calling"
+          ],
+          "relevantFound": [
+            "T:gemini-robotics-2"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e24",
+          "query": "两个模型之间怎么传信息",
+          "returned": [
+            "T:model-context-protocol",
+            "T:thinkingmachines-inkling",
+            "S:ai-assisted-communication-review",
+            "S:model-engine-support-paths",
+            "S:model-finetuning-post-training"
+          ],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:mostik-hidden-state-bridge"
+          ]
+        },
+        {
+          "id": "e25",
+          "query": "AI 看病",
+          "returned": [
+            "T:amie-real-time-video-consultation"
+          ],
+          "relevantFound": [
+            "T:amie-real-time-video-consultation"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e26",
+          "query": "开源模型下载量排行",
+          "returned": [
+            "T:vllm-v0-24-0",
+            "T:thinkingmachines-inkling",
+            "T:state-of-open-models-summer-2026",
+            "T:qwen3-8-27b",
+            "T:muse-glimmer-local-agent-model",
+            "S:model-finetuning-post-training"
+          ],
+          "relevantFound": [
+            "T:state-of-open-models-summer-2026"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "e27",
+          "query": "响应太慢用户等不及",
+          "returned": [
+            "T:boundary-aware-safety-refusal",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:agent-consistency-gap-pass-k",
+            "K:latency-tradeoffs-in-interactive-systems",
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantFound": [
+            "K:latency-tradeoffs-in-interactive-systems",
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e28",
+          "query": "股票推荐",
+          "returned": [
+            "T:qwen3-8-27b",
+            "T:alphagenome-atlas-precomputed-variants"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e29",
+          "query": "周末去哪里旅游",
+          "returned": [
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:state-of-open-models-summer-2026",
+            "T:openai-agents-public-wiki-collusion",
+            "T:aws-kiro-crew-async-agents",
+            "T:mostik-hidden-state-bridge"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e30",
+          "query": "足球比赛比分",
+          "returned": [
+            "T:mostik-hidden-state-bridge",
+            "T:agent-token-spend-runaway",
+            "T:gowers-what-maths-llms-are-good-at",
+            "T:openai-research-acceleration-agents"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e31",
+          "query": "how to bake bread",
+          "returned": [
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:outside-view-of-agent-incidents",
+            "T:lfm2-5-encoders"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        }
+      ],
+      "hybrid": [
+        {
+          "id": "e01",
+          "query": "手机上运行的模型",
+          "returned": [
+            "T:lfm2-5-2-6b-on-device-agents",
+            "T:ollama-v0-32-0",
+            "T:ollama-v0-31-2",
+            "S:on-device-model-deployment"
+          ],
+          "relevantFound": [
+            "T:lfm2-5-2-6b-on-device-agents",
+            "S:on-device-model-deployment"
+          ],
+          "relevantMissed": [
+            "T:on-device-small-language-models"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e02",
+          "query": "上下文太长记不住",
+          "returned": [
+            "T:lfm2-5-encoders",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:openai-agents-public-wiki-collusion",
+            "K:agent-memory-context-management",
+            "K:paralinguistics-voice-interaction"
+          ],
+          "relevantFound": [
+            "K:agent-memory-context-management"
+          ],
+          "relevantMissed": [
+            "T:agent-memory-is-a-dose-not-a-switch"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e03",
+          "query": "red teaming",
+          "returned": [
+            "T:gpt-red",
+            "T:outside-view-of-agent-incidents",
+            "T:gemini-robotics-2",
+            "T:freetoken-bandwidth-adaptive-moe",
+            "T:boundary-aware-safety-refusal"
+          ],
+          "relevantFound": [
+            "T:gpt-red"
+          ],
+          "relevantMissed": [
+            "K:adversarial-evaluation-red-teaming",
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e04",
+          "query": "MCP",
+          "returned": [
+            "T:mcp-stateless-gateway-headers",
+            "T:mcp-2-0-stateless-spec",
+            "T:gemini-managed-agents-background-mcp",
+            "T:llm-0-32-agent-shaped",
+            "T:benchmirt-what-benchmarks-measure",
+            "T:freetoken-bandwidth-adaptive-moe"
+          ],
+          "relevantFound": [
+            "T:mcp-2-0-stateless-spec",
+            "T:mcp-stateless-gateway-headers",
+            "T:gemini-managed-agents-background-mcp"
+          ],
+          "relevantMissed": [
+            "T:model-context-protocol"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e05",
+          "query": "混合专家",
+          "returned": [
+            "T:freetoken-bandwidth-adaptive-moe",
+            "T:meta-muse-glimmer",
+            "T:agent-workbench-platforms",
+            "S:ai-assisted-communication-review",
+            "K:moe-architecture",
+            "K:local-cloud-hybrid-inference"
+          ],
+          "relevantFound": [
+            "K:moe-architecture",
+            "T:freetoken-bandwidth-adaptive-moe"
+          ],
+          "relevantMissed": [
+            "T:thinkingmachines-inkling"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e06",
+          "query": "买现成的还是自己做",
+          "returned": [
+            "T:conceptual-integrity-and-lines-of-code",
+            "S:ai-toolchain-build-vs-buy"
+          ],
+          "relevantFound": [
+            "S:ai-toolchain-build-vs-buy"
+          ],
+          "relevantMissed": [
+            "T:copilot-vs-raw-api-access"
+          ],
+          "firstRelevantRank": 2
+        },
+        {
+          "id": "e07",
+          "query": "基准分数靠不住",
+          "returned": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:agent-consistency-gap-pass-k",
+            "T:boundary-aware-safety-refusal",
+            "T:rootly-retires-small-pr-rule"
+          ],
+          "relevantFound": [
+            "T:benchmirt-what-benchmarks-measure",
+            "T:agent-consistency-gap-pass-k"
+          ],
+          "relevantMissed": [
+            "S:frontier-release-reading-and-switching",
+            "T:qwen3-8-27b"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e08",
+          "query": "新模型发布值不值得换",
+          "returned": [
+            "S:frontier-release-reading-and-switching"
+          ],
+          "relevantFound": [
+            "S:frontier-release-reading-and-switching"
+          ],
+          "relevantMissed": [
+            "S:model-engine-support-paths"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e09",
+          "query": "智能体每次结果不一样",
+          "returned": [
+            "T:agent-consistency-gap-pass-k",
+            "K:tool-use-and-function-calling"
+          ],
+          "relevantFound": [
+            "T:agent-consistency-gap-pass-k"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e10",
+          "query": "什么时候该让人审核",
+          "returned": [
+            "T:icml-2026-agent-reproduction-audit",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:ara-agent-native-research-artifacts",
+            "T:icml-2026-open-reproductions",
+            "S:ai-pilot-scoping",
+            "K:human-in-the-loop-review",
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantFound": [
+            "K:human-in-the-loop-review",
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 6
+        },
+        {
+          "id": "e11",
+          "query": "怎么知道任务做完了",
+          "returned": [
+            "T:conceptual-integrity-and-lines-of-code",
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantFound": [
+            "K:completion-signals-and-acceptance"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 2
+        },
+        {
+          "id": "e12",
+          "query": "用 AI 生成的数据训练模型",
+          "returned": [
+            "T:gpt-red",
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:bigbang-v1-self-evolving-data",
+            "S:model-finetuning-post-training"
+          ],
+          "relevantFound": [
+            "T:bigbang-v1-self-evolving-data"
+          ],
+          "relevantMissed": [
+            "K:synthetic-data-and-data-recipes",
+            "T:nvidia-open-data-for-agents"
+          ],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "e13",
+          "query": "fine-tune open weights",
+          "returned": [
+            "T:kimi-k3",
+            "T:state-of-open-models-summer-2026",
+            "T:gpt-5-6",
+            "T:nemo-automodel-diffusers-finetuning"
+          ],
+          "relevantFound": [
+            "T:nemo-automodel-diffusers-finetuning"
+          ],
+          "relevantMissed": [
+            "S:model-finetuning-post-training"
+          ],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e14",
+          "query": "智能体越权",
+          "returned": [
+            "T:agent-intrusion-technical-timeline",
+            "T:gpt-6-astra",
+            "K:human-in-the-loop-review"
+          ],
+          "relevantFound": [
+            "T:gpt-6-astra",
+            "T:agent-intrusion-technical-timeline"
+          ],
+          "relevantMissed": [
+            "T:openai-agents-public-wiki-collusion",
+            "T:outside-view-of-agent-incidents",
+            "S:agent-security-injection-defense"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e15",
+          "query": "智能体运行在哪里",
+          "returned": [
+            "T:cloudflare-computer-agent-runtime",
+            "T:runtime-agnostic-ai-workflows",
+            "S:agent-workflow-design",
+            "S:agent-observability-evaluation-ops",
+            "K:agent-memory-context-management"
+          ],
+          "relevantFound": [
+            "T:cloudflare-computer-agent-runtime"
+          ],
+          "relevantMissed": [
+            "T:microsoft-agent-framework-harness",
+            "T:deepseek-harness-everything-is-a-plugin",
+            "T:gemini-managed-agents-background-mcp"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e16",
+          "query": "代码审查",
+          "returned": [
+            "T:copilot-code-review-tool-workflow-lessons",
+            "T:rootly-retires-small-pr-rule",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:rag-evaluation-dashboards",
+            "S:retrieval-pipeline-tuning"
+          ],
+          "relevantFound": [
+            "T:copilot-code-review-tool-workflow-lessons",
+            "T:rootly-retires-small-pr-rule"
+          ],
+          "relevantMissed": [
+            "S:ai-assisted-communication-review"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e17",
+          "query": "GPU 利用率",
+          "returned": [
+            "T:constraint-aware-gpu-allocator",
+            "T:agent-consistency-gap-pass-k",
+            "T:gpt-6-astra",
+            "T:freetoken-bandwidth-adaptive-moe",
+            "T:muse-glimmer-local-agent-model"
+          ],
+          "relevantFound": [
+            "T:constraint-aware-gpu-allocator"
+          ],
+          "relevantMissed": [
+            "S:inference-capacity-planning"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e18",
+          "query": "AI 做数学证明",
+          "returned": [
+            "T:bigbang-v1-self-evolving-data",
+            "T:agent-consistency-gap-pass-k",
+            "S:ai-assisted-communication-review"
+          ],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:gowers-what-maths-llms-are-good-at",
+            "T:claude-hadamard-668",
+            "T:navier-stokes-priority-and-data"
+          ]
+        },
+        {
+          "id": "e19",
+          "query": "让模型看懂截图",
+          "returned": [
+            "T:multimodal-coding-copilots",
+            "S:ai-assisted-communication-review",
+            "S:visual-input-design-and-verification",
+            "S:model-engine-support-paths",
+            "S:model-and-output-evaluation",
+            "S:on-device-model-deployment"
+          ],
+          "relevantFound": [
+            "S:visual-input-design-and-verification",
+            "T:multimodal-coding-copilots"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e20",
+          "query": "Kimi",
+          "returned": [
+            "T:vllm-v0-27-0",
+            "T:kimi-k3",
+            "T:sglang-v0-5-17",
+            "T:amie-real-time-video-consultation"
+          ],
+          "relevantFound": [
+            "T:kimi-k3",
+            "T:vllm-v0-27-0",
+            "T:sglang-v0-5-17"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e21",
+          "query": "知识图谱",
+          "returned": [
+            "T:knowledge-graph-assistants",
+            "T:ara-agent-native-research-artifacts",
+            "K:graph-thinking-for-knowledge-systems"
+          ],
+          "relevantFound": [
+            "T:knowledge-graph-assistants",
+            "K:graph-thinking-for-knowledge-systems"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e22",
+          "query": "RAG",
+          "returned": [
+            "T:rag-evaluation-dashboards",
+            "T:gpt-red",
+            "T:openai-agents-public-wiki-collusion",
+            "T:ara-agent-native-research-artifacts",
+            "T:outside-view-of-agent-incidents"
+          ],
+          "relevantFound": [
+            "T:rag-evaluation-dashboards"
+          ],
+          "relevantMissed": [
+            "K:retrieval-augmented-generation-basics",
+            "S:retrieval-pipeline-tuning"
+          ],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e23",
+          "query": "机器人",
+          "returned": [
+            "T:gemini-robotics-2",
+            "T:openai-research-acceleration-agents",
+            "T:openai-agents-public-wiki-collusion",
+            "K:tool-use-and-function-calling"
+          ],
+          "relevantFound": [
+            "T:gemini-robotics-2"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e24",
+          "query": "两个模型之间怎么传信息",
+          "returned": [
+            "T:model-context-protocol",
+            "T:thinkingmachines-inkling",
+            "S:ai-assisted-communication-review",
+            "S:model-engine-support-paths",
+            "S:model-finetuning-post-training"
+          ],
+          "relevantFound": [],
+          "relevantMissed": [
+            "T:mostik-hidden-state-bridge"
+          ]
+        },
+        {
+          "id": "e25",
+          "query": "AI 看病",
+          "returned": [
+            "T:amie-real-time-video-consultation"
+          ],
+          "relevantFound": [
+            "T:amie-real-time-video-consultation"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 1
+        },
+        {
+          "id": "e26",
+          "query": "开源模型下载量排行",
+          "returned": [
+            "T:vllm-v0-24-0",
+            "T:thinkingmachines-inkling",
+            "T:state-of-open-models-summer-2026",
+            "T:qwen3-8-27b",
+            "T:muse-glimmer-local-agent-model",
+            "S:model-finetuning-post-training"
+          ],
+          "relevantFound": [
+            "T:state-of-open-models-summer-2026"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 3
+        },
+        {
+          "id": "e27",
+          "query": "响应太慢用户等不及",
+          "returned": [
+            "T:boundary-aware-safety-refusal",
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:agent-consistency-gap-pass-k",
+            "K:latency-tradeoffs-in-interactive-systems",
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantFound": [
+            "K:latency-tradeoffs-in-interactive-systems",
+            "K:speculative-decoding-inference-acceleration"
+          ],
+          "relevantMissed": [],
+          "firstRelevantRank": 4
+        },
+        {
+          "id": "e28",
+          "query": "股票推荐",
+          "returned": [
+            "T:qwen3-8-27b",
+            "T:alphagenome-atlas-precomputed-variants"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e29",
+          "query": "周末去哪里旅游",
+          "returned": [
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:state-of-open-models-summer-2026",
+            "T:openai-agents-public-wiki-collusion",
+            "T:aws-kiro-crew-async-agents",
+            "T:mostik-hidden-state-bridge"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e30",
+          "query": "足球比赛比分",
+          "returned": [
+            "T:mostik-hidden-state-bridge",
+            "T:agent-token-spend-runaway",
+            "T:gowers-what-maths-llms-are-good-at",
+            "T:openai-research-acceleration-agents"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        },
+        {
+          "id": "e31",
+          "query": "how to bake bread",
+          "returned": [
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:outside-view-of-agent-incidents",
+            "T:lfm2-5-encoders"
+          ],
+          "relevantFound": [],
+          "relevantMissed": []
+        }
+      ]
+    }
+  }
+}

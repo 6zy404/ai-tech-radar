@@ -70,6 +70,7 @@
 - Next.js 15（App Router）、React 19、TypeScript
 - 存储：本地 JSON（默认），可选 SQLite 驱动（Node 内置 `node:sqlite`）
 - LLM：服务端调用边界，默认本地 mock，可配置任意 OpenAI 兼容接口
+- 向量检索：本地 `multilingual-e5-small`（transformers.js，进程内运行，无外部 API），与关键词匹配混合排序
 - 测试：Vitest 单元测试 + 按子系统划分的 `validate:*` 校验脚本
 
 ## 本地运行

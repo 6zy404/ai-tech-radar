@@ -12,3 +12,6 @@ package-lock.json
 visual-qa-screenshots
 next-env.d.ts
 *.sqlite
+
+# generated eval reports
+eval/*/results

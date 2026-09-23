@@ -1127,6 +1127,22 @@ excluded. `rawPayload`, `originalContent`, `importStatus`, `normalizedType`,
 candidate IDs, and duplicate internals never enter the public shape. All
 fast-lane surfaces render the fixed 自动聚合 disclaimer.
 
+## SearchDocument (derived) and the search vector cache
+
+`getSearchDocuments()` in `src/lib/search.ts` builds one `SearchDocument`
+per published technology, skill and knowledge item: the public result link,
+the lower-cased title and haystack keyword search matches against, and the
+text that gets embedded (both title languages, summary, tag names, capped at
+400 characters). Keyword and semantic search read the same documents, so they
+can disagree about ranking but never about what exists. Not persisted.
+
+`.cache/search-embeddings.json` (git-ignored) caches one vector per document,
+keyed by a hash of the embedded text and tagged with the model name, so an
+edited item is re-embedded and an unchanged one never is; a different model
+invalidates the whole file. `.cache/models/` holds the downloaded model.
+Both are regenerable and hold nothing that is not already public. News items
+are not embedded.
+
 ## ContentGraphNode / ContentGraphEdge (derived)
 
 Represents the whole technology/skill/knowledge graph for the `/network`
