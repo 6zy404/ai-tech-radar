@@ -543,11 +543,15 @@ Workspace deployment boundary:
     once instead of one node's neighbourhood
   - does not show internal quality, reviewer, delivery, or source data
 - `/search`
-  - user-facing site-wide keyword search (an inline search icon in `TopNav`
+  - user-facing site-wide search (an inline search icon in `TopNav`
     opens the query box, GETs to this page)
-  - server-rendered `?q=` GET form; deterministic case-insensitive substring
-    matching on title / summary / tag display names only, with
-    space-separated terms ANDed
+  - server-rendered `?q=` GET form; case-insensitive substring matching on
+    title / summary / tag display names (space-separated terms ANDed),
+    merged per group with a local embedding model's nearest items; each
+    result carries a 关键词 / 语义相近 stamp, and a notice appears when no
+    result matched literally
+  - the result summary links the query across to `/ask` (pre-filled, not
+    submitted)
   - searches the four public content pools: published technology signals,
     skills, knowledge, and the news fast lane; results render grouped per
     content type with counts
@@ -667,7 +671,8 @@ Forbidden on public pages:
 - `TopNav`
   - shared global navigation for user-facing Home, Daily Digest, Technologies
     (which also hosts the former News/Timeline/My Radar views), Skills,
-    Knowledge, Network, an inline search icon/box (GETs to `/search`), the
+    Knowledge, Network, 问雷达 (`/ask`), an inline search icon/box (GETs to
+    `/search`), the
     colour-scheme toggle, and the secondary Workspace entry point (absent
     from the public build)
 - `ThemeToggle`

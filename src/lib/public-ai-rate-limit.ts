@@ -1,11 +1,12 @@
-// Shared rate-limit policy for the three public AI routes
-// (POST /api/technologies/{compare,explain,learning-path}).
+// Shared rate-limit policy for the public AI routes
+// (POST /api/technologies/{compare,explain,learning-path} and POST /api/ask).
 //
 // These routes are unauthenticated by design (docs/security-boundary.md ->
 // "Public LLM Feature Boundary") and are the only public surfaces that can
 // trigger an LLM provider call. Per-key caching already bounds how many times
 // the same input is generated; this bounds how fast one client can walk through
-// *new* inputs.
+// *new* inputs. /api/ask has no cache (every question is new), so for it this
+// is the whole cost guard, together with its per-round token cap.
 
 import {
   createRateLimiter,
@@ -14,7 +15,7 @@ import {
   type RateLimiter
 } from "@/lib/rate-limit";
 
-export type PublicAiRouteId = "compare" | "explain" | "learning-path";
+export type PublicAiRouteId = "compare" | "explain" | "learning-path" | "ask";
 
 const defaultPerMinuteLimit = 10;
 const defaultPerHourLimit = 40;

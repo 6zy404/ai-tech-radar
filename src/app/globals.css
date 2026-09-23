@@ -8819,6 +8819,169 @@ a.tech-graph__node:hover {
   font-size: var(--fs-label);
 }
 
+/* 问雷达: /ask. Built from the search page's pieces (form, pill input,
+   stamp tags) so the two sibling pages read as one family. */
+.search-page__ask {
+  margin-left: 10px;
+  color: var(--dossier-stamp);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.search-page__ask:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ask-radar {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.ask-radar__examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.ask-radar__result {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+}
+
+.ask-radar__disclaimer {
+  justify-self: start;
+  margin: 0;
+  padding: 4px 10px;
+  border: 1px dashed var(--dossier-stamp);
+  color: var(--dossier-stamp);
+  font-size: var(--fs-label);
+}
+
+.ask-radar__statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: var(--fs-label);
+}
+
+.ask-radar__statuses li::before {
+  content: "→ ";
+}
+
+.ask-radar__pending,
+.ask-radar__error {
+  margin: 0;
+  color: var(--dossier-muted);
+}
+
+.ask-radar__error {
+  color: var(--dossier-stamp);
+}
+
+.ask-radar__answer-text {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.dossier .ask-radar__answer-text p {
+  margin: 0;
+  color: var(--dossier-ink);
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.ask-radar__cite {
+  margin: 0 1px;
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+  font-size: 0.82em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.ask-radar__cite:hover {
+  text-decoration: underline;
+}
+
+.ask-radar__cite--invalid {
+  color: var(--dossier-muted);
+  text-decoration: line-through;
+}
+
+.ask-radar__block {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--dossier-line);
+}
+
+.dossier .ask-radar__block h2,
+.ask-radar__block summary {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: var(--fs-label);
+  font-weight: 400;
+  cursor: default;
+}
+
+.ask-radar__block summary {
+  cursor: pointer;
+}
+
+.ask-radar__sources {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ask-radar__sources li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ask-radar__sources a {
+  color: var(--dossier-ink);
+  overflow-wrap: anywhere;
+}
+
+.ask-radar__sources a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ask-radar__source-ref,
+.ask-radar__source-kind {
+  flex-shrink: 0;
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+  font-size: var(--fs-label);
+}
+
+.ask-radar__source-kind {
+  color: var(--dossier-muted);
+}
+
 /* Public digest archive: /digest page. */
 .digest-archive__count {
   margin: 0;

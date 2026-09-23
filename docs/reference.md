@@ -155,6 +155,21 @@ The product is split into two subsystems:
   Published-signal data only (no news fast-lane noise); reuses
   `getAllTechnologies` / `getAllTags` and the bilingual title/summary
   helpers, no new data or route.
+- **问雷达 (`/ask`)** — a public, single-turn question box answered only
+  from published signals, skills and knowledge, with every claim cited. The
+  model (DeepSeek or any OpenAI-compatible endpoint; a search-only mock when
+  no key is set) runs a small tool loop — `search_radar` (hybrid search)
+  and `read_item` (an item's body) — for up to three rounds, then answers
+  with streaming output. Reference numbers are assigned by the code, not
+  the model, so an invalid citation is detectable; when the site has nothing,
+  the answer must open with 「站内没有直接相关的内容」. The news lane is not a
+  tool. `POST /api/ask` streams newline-delimited JSON events
+  (`src/lib/ask-radar.ts`, tools in `src/lib/ask-radar-tools.ts`,
+  streaming + tool calling in `src/lib/llm/chat-stream.ts`). On a 20-question
+  set (`npm run eval:ask`) `deepseek-chat` grounded 14/14 and declined 6/6
+  with 0 invalid citations — a set written by the builder that everything
+  passed, stated as such in [`eval/ask/README.md`](../eval/ask/README.md).
+  `/search` links each query across as a question (pre-filled, not asked).
 - **Site-wide search (hybrid)** — public `/search` (an inline search icon
   in `TopNav` opens the query box) over published technology signals,
   skills, knowledge, and the sanitized news fast lane. Two halves, merged per
@@ -271,11 +286,11 @@ Public, user-facing routes:
 - `/topics/[tagId]/feed.xml` — per-topic RSS feed of that topic's published
   technology signals (404 for unknown topics or topics with no published
   signals)
-- `/search`
+- `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
 - `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
-- `POST /api/technologies/compare`, `POST /api/technologies/explain`, and
-  `POST /api/technologies/learning-path` — public, unauthenticated by design
+- `POST /api/technologies/compare`, `POST /api/technologies/explain`,
+  `POST /api/technologies/learning-path` and `POST /api/ask` — public, unauthenticated by design
   (they only operate on already-published technology content), but rate
   limited per client per route (default 10/minute and 40/hour, override with
   `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`); see
@@ -352,6 +367,7 @@ npm run measure:news-lane # who the public 全部快讯 view is currently showin
 npm run build:triage-dataset # rebuild the triage eval set from git history
 npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
 npm run eval:search      # score keyword / semantic / hybrid search on labelled queries (-- --grid to sweep the cutoff)
+npm run eval:ask         # score 问雷达: citation validity, grounding, refusals (EVAL_ENV_FILE to borrow a .env.local)
 
 # persistence / task runner
 npm run db:init

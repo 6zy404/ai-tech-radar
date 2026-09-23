@@ -178,6 +178,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <>
             <p className="search-page__summary">
               「{results.query}」共找到 {results.totalCount} 条内容。
+              <Link
+                className="search-page__ask"
+                href={`/ask?q=${encodeURIComponent(results.query)}`}
+              >
+                换成问题问雷达
+              </Link>
             </p>
             {onlySemantic ? (
               <p className="search-group__notice">

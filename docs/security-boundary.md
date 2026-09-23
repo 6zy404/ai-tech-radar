@@ -54,6 +54,7 @@ Public routes can be exposed:
 - `POST /api/technologies/compare`
 - `POST /api/technologies/explain`
 - `POST /api/technologies/learning-path`
+- `/ask` and `POST /api/ask`
 
 They must not render:
 
@@ -386,6 +387,30 @@ still caps total provider calls per window. It is a cost guardrail, not bot
 protection; deployment-level rate limiting stays on the gap list below. Before
 configuring a real-cost provider for a publicly reachable deployment, review the
 budgets against expected traffic rather than assuming the defaults fit.
+
+## 问雷达 (`POST /api/ask`)
+
+The fourth public LLM route, and the first with **no result cache**: every
+question is new, so the per-client rate limit (route id `ask`, same 10/minute
+and 40/hour defaults) and a 700-token cap per round are the whole cost guard.
+Measured on the eval set, a question costs about 4,000 prompt tokens over 3.3
+tool calls. Like the other three it is checked before the body is read.
+
+- **What the model can reach**: two tools only, both over published content —
+  hybrid search across signals, skills and knowledge, and the body of an item
+  that search already returned. Candidates, drafts, the news lane and every
+  workspace store are out of reach; there is no tool that takes a free-form
+  path or URL.
+- **What leaves the server**: newline-delimited events carrying status text,
+  the retrieved items' public title/href/kind, answer text and the cited /
+  invalid reference numbers. No provider name, model name, prompt, token
+  count or raw error; a failure becomes one generic message and a server-side
+  warning.
+- **What the reader is told**: the same 「AI 生成内容，未经编辑审核，仅供参考」
+  disclaimer as the other AI features, rendered above the answer; a citation
+  number that no tool returned is shown struck through rather than linked.
+- **Arriving from `/search`** pre-fills the question but does not submit it,
+  so a navigation never spends a model call.
 
 ## Remaining Production Gaps
 

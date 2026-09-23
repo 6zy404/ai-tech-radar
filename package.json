@@ -24,6 +24,7 @@
     "build:triage-dataset": "node scripts/build-triage-dataset.mjs",
     "eval:triage": "node scripts/with-proxy-env.mjs node scripts/run-ts-validation.cjs scripts/eval-triage.ts",
     "eval:search": "node scripts/with-proxy-env.mjs node scripts/run-ts-validation.cjs scripts/eval-search.ts",
+    "eval:ask": "node scripts/with-proxy-env.mjs node scripts/run-ts-validation.cjs scripts/eval-ask.ts",
     "db:init": "node scripts/run-ts-validation.cjs scripts/db-init.ts",
     "db:migrate-json": "node scripts/run-ts-validation.cjs scripts/db-migrate-json.ts",
     "db:reset": "node scripts/run-ts-validation.cjs scripts/db-reset.ts",

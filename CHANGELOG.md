@@ -12,6 +12,52 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 问雷达: answers from the site, with citations the code can check
+
+- **A question box that answers only from published content** — 2026-09-23,
+  owner-selected as step 3 of the AI-application track: a public `/ask` page
+  (nav entry 问雷达), single-turn, streaming. The model gets two tools —
+  `search_radar` (the hybrid search shipped the same day) and `read_item`
+  (the body of something search returned) — for up to three rounds; the last
+  round is sent without tools so it has to answer. The news lane is not a
+  tool, for the same reason it is not embedded: it is unedited.
+- **The citation numbers are the code's, not the model's.** An item gets its
+  number the first time a tool returns it, and the model is told to cite only
+  those. So a `[n]` that nothing returned is invalid by definition: the page
+  strikes it through instead of linking it, and the eval counts it without a
+  second model.
+- **Declining is a fixed phrase, so it is countable.** When the site has
+  nothing, the answer must open with 「站内没有直接相关的内容」. The two hardest
+  negatives were written to tempt the model into its own knowledge — "Rust 和
+  Go 哪个更适合写 Web 后端" (the site has a Rust story) and "Transformer 论文
+  是哪一年发表的" (every model knows) — and both were declined.
+- **Measured, and the measurement is labelled for what it is.** `deepseek-chat`
+  on 20 questions: grounded 14/14, declined 6/6, 0 of 40 citations invalid,
+  3.3 tool calls and ~2.5s per question, ~4,000 prompt tokens each. The
+  search-only mock scores 11/14 and **0/6** — hybrid search always returns
+  something, and telling "nothing here" from "nearest items" is the part only
+  the model does. **Everything passed on a set the builder wrote**, so the
+  numbers show the pipeline and the refusal rule work, not how good the
+  answers are; 17 specific claims in four answers were looked up in the text
+  the model could read, and all were there.
+- **Streaming and tool calling were added to the provider layer**
+  (`src/lib/llm/chat-stream.ts`): an SSE reader that carries a line split
+  across network chunks, and an accumulator that reassembles a tool call's
+  arguments from fragments. Both are tested with the split cases, and the
+  loop is tested end to end with a scripted model — 13 tests; injecting "keep
+  tools in the last round" failed exactly its own test, injecting an
+  off-by-one in the numbering failed five.
+- **Cost guard, stated**: no cache is possible (every question is new), so
+  the per-client limit (10/min, 40/h, route id `ask`) and a 700-token cap per
+  round are the whole guard. Arriving from `/search` pre-fills the question
+  but does not submit it — a navigation never spends a call.
+- Verified in the browser on the mock (no key in this checkout): the answer
+  streams, citations link to the right pages, 400 on a too-short question and
+  on a malformed body, 429 on the 11th request in a minute, no provider or
+  model name in the stream, zero overflow at 1265 and 375, dark mode at 11.53:1
+  body text and 5.19:1 stamp colour. **Not looked at**: the screenshot tool
+  timed out again.
+
 ## Hybrid search, and what it still cannot do
 
 - **`/search` finds by meaning as well as by word** — 2026-09-23,
