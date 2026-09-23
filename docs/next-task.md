@@ -1,5 +1,17 @@
 # Next Task
 
+> Update 2026-09-23 (later): **Step 1 has its real numbers.** `deepseek-chat`
+> on the full 479-item test split: accuracy 68.3% (baseline 60.1%), macro-F1
+> 0.524 (0.250). Confident rejections are reliable (≥0.9: 119/129 rejected by
+> editors, 0 published); publish detection is weak (7/43, and worse than
+> never-publish on the binary). Results committed in
+> `eval/triage/results/`; analysis in `eval/triage/README.md`. The key lives in
+> the main checkout's `.env.local` — **the live site will start calling
+> DeepSeek from its public AI routes the next time its server restarts**
+> (rate-limited 10/min, 40/h per client per route). **Next actual step**: B
+> hybrid search (local embedding model), or a v2 triage prompt judged on a
+> fresh split rather than on this one.
+
 > Update 2026-09-23: **AI application track started. Step 1 of 3, LLM
 > candidate triage + evaluation, is done. It is still waiting on a key.**
 > The owner chose the AI-application feature set: A triage + eval, then
