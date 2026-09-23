@@ -313,6 +313,14 @@ Security rules:
 - LLM output is parsed, sanitized, and rejected if it contains internal-only fields or invalid structure.
 - Workflow events store only provider/model/status metadata and sanitized errors, not request headers or API keys.
 
+Candidate triage (`POST /api/workspace/triage-suggestions`, 2026-09-23) is a
+workspace-only caller: it lives under `/api/workspace/*`, so it is both behind
+the token guard and physically absent from `npm run build:public`. Its output —
+a decision, a confidence and a reason per candidate — stays in the workspace and
+never reaches a public page or feed. The eval script (`npm run eval:triage`)
+reads `.env.local` itself because a plain Node script does not get Next's env
+loading; the key is only ever read, never printed or written.
+
 The current local JSON and SQLite stores may contain workspace-only suggestion metadata. They are not production secret stores. Production deployments should keep provider credentials in environment-managed secret storage and should not commit local data files containing real provider or delivery credentials.
 
 ## Public LLM Feature Boundary (Comparison v0 + Explanation v1 + Learning Path v2)

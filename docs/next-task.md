@@ -1,5 +1,24 @@
 # Next Task
 
+> Update 2026-09-23: **AI application track started. Step 1 of 3, LLM
+> candidate triage + evaluation, is done. It is still waiting on a key.**
+> The owner chose the AI-application feature set: A triage + eval, then
+> B hybrid search (local open-source embedding model), then D the "问雷达"
+> grounded Q&A agent (streaming, tool calls, citations). Chat model: DeepSeek.
+> Search and Q&A will be public; triage stays in the workspace.
+> **A is built**: a labelled set of 625 decisions rebuilt from git history,
+> split by time (146 example-pool / 479 test), the eval runner, advisory
+> suggestions on `/workspace/editorial-round`. Baseline: always 拒绝 gets
+> 60.1% accuracy with 0% publish recall. See `eval/triage/README.md`.
+> **Next actual step**: the owner puts
+> `LLM_PROVIDER=openai_compatible` / `LLM_BASE_URL=https://api.deepseek.com` /
+> `LLM_MODEL=deepseek-chat` / `LLM_API_KEY=…` in the **main checkout's**
+> `.env.local` (the key is never handled by the agent). Then run
+> `npm run eval:triage -- --limit 40` for a cheap first look, then the full run,
+> and commit `eval/triage/results/`. After that, start B. The existing provider
+> is JSON-only request/response: B needs an embedding interface, and D needs
+> streaming and tool calling added to `src/lib/llm/providers/openai.ts`.
+
 > Update 2026-09-19 (later): **编辑轮 —— 72 条待决，五条信号；主线是「被检查的一方，不能同时掌握检查」.**
 > 距上次编辑轮 10 天。新上线的自动分诊先拒掉 11 条预发布 tag，其余 61 条：发 5、标记已看
 > 16、拒 40；快讯页 17 条可见 / 0 条未处置；10 份无人编辑的定时草稿归档。
