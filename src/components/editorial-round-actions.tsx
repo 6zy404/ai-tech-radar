@@ -267,3 +267,66 @@ export function DigestRoundActions({
     </div>
   );
 }
+
+interface TriageSummary {
+  generated: number;
+  failed: number;
+  skipped: number;
+  modelName: string;
+  errors: string[];
+}
+
+/**
+ * Asks the model for a suggested disposition on every undecided candidate
+ * that lacks one. Writes suggestions only; the editor still acts on each row.
+ */
+export function TriageSuggestionAction() {
+  const router = useRouter();
+  const [message, setMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
+
+  function generate() {
+    startTransition(async () => {
+      setMessage("正在生成模型建议……");
+      try {
+        const response = await fetch("/api/workspace/triage-suggestions", {
+          method: "POST"
+        });
+        const result = (await response.json().catch(() => ({ ok: false }))) as {
+          ok: boolean;
+          message?: string;
+          summary?: TriageSummary;
+        };
+
+        if (!response.ok || !result.ok || !result.summary) {
+          throw new Error(result.message ?? "生成模型建议失败。");
+        }
+
+        const { generated, failed, skipped, modelName, errors } =
+          result.summary;
+        setMessage(
+          `${modelName}：新生成 ${generated} 条，已有 ${skipped} 条${failed > 0 ? `，失败 ${failed} 条（${errors.join("；")}）` : ""}。`
+        );
+        router.refresh();
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "操作失败。");
+      }
+    });
+  }
+
+  return (
+    <div className="editorial-round-actions">
+      <button
+        type="button"
+        className="action-button"
+        onClick={generate}
+        disabled={isPending}
+      >
+        生成模型建议
+      </button>
+      {message ? (
+        <p className="editorial-round-actions__message">{message}</p>
+      ) : null}
+    </div>
+  );
+}

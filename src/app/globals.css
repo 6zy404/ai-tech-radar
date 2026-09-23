@@ -852,6 +852,48 @@ p {
   background: rgba(15, 23, 42, 0.03);
 }
 
+/* Model suggestion: the decision colour lives on the left rule only, so the
+   text keeps the workspace's own contrast. Advisory, so deliberately quieter
+   than the action buttons beside it. */
+.editorial-round-row__triage {
+  display: block;
+  margin-top: 6px;
+  padding: 2px 0 2px 8px;
+  border-left: 3px solid var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.editorial-round-row__triage strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.editorial-round-row__triage--publish {
+  border-left-color: var(--accent);
+}
+
+.editorial-round-row__triage--reject {
+  border-left-color: #b45309;
+}
+
+.editorial-round-triage-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.editorial-round-triage-bar p {
+  margin: 0;
+  flex: 1 1 280px;
+}
+
 .editorial-round-row__actions {
   display: flex;
   align-items: center;
