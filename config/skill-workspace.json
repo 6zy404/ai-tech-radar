@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T03:51:12.377Z",
+  "updatedAt": "2026-09-24T06:54:32.207Z",
   "records": [
     {
       "id": "skill-ws-1a0da8a9",
@@ -425,34 +425,6 @@
       "updatedAt": "2026-09-24T03:51:11.493Z"
     },
     {
-      "id": "skill-retrieval-tuning",
-      "title": "检索流水线调优",
-      "slug": "retrieval-pipeline-tuning",
-      "summary": "优化分块、索引、重排选择和结果格式，让回答更有依据。",
-      "content": "这项技能之所以重要，是因为检索质量常常是 AI 输出不佳背后隐藏的瓶颈。它把新工具与经典的信息检索概念连接起来。",
-      "skillType": "analysis",
-      "heatLevel": "hot",
-      "learningCost": "high",
-      "tags": [
-        "tag-retrieval",
-        "tag-observability"
-      ],
-      "relatedTechnologyIds": [
-        "tech-rag-evals",
-        "tech-kg-assistants",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
-        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-rag-basics",
-        "knowledge-graph-thinking"
-      ],
-      "status": "published",
-      "createdAt": "2026-08-23T16:23:54.047Z",
-      "updatedAt": "2026-09-24T03:51:11.552Z"
-    },
-    {
       "id": "skill-ws-c183c9b9",
       "title": "智能体安全与提示注入防御",
       "slug": "agent-security-injection-defense",
@@ -650,6 +622,35 @@
       "status": "published",
       "createdAt": "2026-07-28T12:52:47.144Z",
       "updatedAt": "2026-09-24T03:51:12.377Z"
+    },
+    {
+      "id": "skill-retrieval-tuning",
+      "title": "检索流水线调优",
+      "slug": "retrieval-pipeline-tuning",
+      "summary": "优化分块、索引、重排选择和结果格式，让回答更有依据。",
+      "content": "检索质量差的时候，症状出现在答案上，原因却在流水线里，而且很少只有一个原因。这项技能的核心不是知道有哪些旋钮，而是**先造一把能判错的尺子，再一个一个拧**。没有尺子的调优，每次都会让某个例子变好，然后让另一批你没看的例子变差。\n\n## 先有查询集，再有调优\n\n一个查询集要有三样东西：真实读者的问法（而不是标题里的词）、每条查询对应的正确条目、以及**站内根本没有答案的负例**。然后分成两半：一半用来选参数，另一半只在参数定死之后打一次分。这个站自己的搜索评测就是这样做的：43 条查询，12 条调参、31 条测试，任何数字都不在报告它的那一半上调过。\n\n还有一条要写进报告：查询集是谁写的。写搜索的人对着语料写查询，会不自觉地写出标题能答的问题。没看过语料的人写的查询集会得更低的分，低多少不知道——**不知道就写不知道**。\n\n## 四个旋钮各自动的是哪个数\n\n- **嵌入模型**：决定成本随输入变长的曲线。这一半负载通常跑在 CPU 上，LFM2.5-Encoders 这类小编码器的卖点正是 8,192 token 的上下文在 CPU 上仍然跑得动，而不是参数量。\n- **索引与量化**：决定内存和召回。Pinterest 的数据把两个数放在同一张表里：标量量化把 HNSW 从 121GB 压到 50GB、召回几乎不掉，乘积量化压到 32GB、召回掉到 77.3%。**选哪种取决于你的召回下限，不取决于压缩率**。\n- **混合与截断**：关键词能精确命中产品名和缩写，向量能理解换了说法的问题，两者按名次融合。截断线不能用绝对分数——同一个模型给一条英文查询的最佳匹配打 0.788，给一条无关的中文查询打 0.854，没有任何一个阈值能留住前者、丢掉后者。按当次查询自己的分布截（高于均值 1.75 个标准差）才站得住。\n- **重排**：便宜的召回先取一百条，再让一个只输出分数的模型逐条打相关分。Jev 这类决策模型把这一步的价格压到了每百万输入 token 几美分。重排的收益要在你自己的查询集上量，它不是默认就有的。\n\n## 一次真实调优的账\n\n截至 2026-09-23，站内搜索从纯关键词改成混合之后，在 31 条测试查询上：找到过相关内容的查询从 33% 升到 93%，召回从 22% 升到 64%，首个相关结果的名次倒数从 0.33 升到 0.73。**代价要写在同一行**：精度从 94% 掉到 40%，返回的四条里超过一半不是读者问的；6 条无关查询仍然全部返回了东西。哪一边更重要，取决于读者是在找一个确定的名字，还是在描述一个模糊的问题——这不是评测能替你回答的。\n\n## 剂量，不是开关\n\n检索多少条交给生成，也是一个要量的参数。IBM 在八个模型上试 ALTK-Evolve：按任务只检索少量高置信条目，在 117B 的 gpt-oss-120b 上涨了 16.1 个百分点、token 只多 5%，而全量注入涨得更少、token 多花一半；745B 的 GLM-5 一分没涨。**最省的那一档和最准的那一档可以是同一档**，而「先全塞进去再说」是一个会同时输掉准确率和成本的默认值。\n\n## 调优会以特定方式自欺\n\n- 在测试那一半上调参，然后报告它的分数。\n- 只用正例评测，于是永远量不到「不该返回却返回了」。\n- 一个分数分布全平的查询，标准差不是 0 而是 1e-17，于是所有条目都「高于均值」——这个站的测试抓到过这一条。\n- 短英文缩写在小模型上会匹配到毫不相关的东西（「RAG」返回过一条红队信号），这正是关键词那一路不能拆掉的理由。\n\n## 与相邻能力的分工\n\n为什么要检索、检索改变了什么信任边界，见《检索增强生成基础》；怎么把「好」写成能判错的检查，是《模型与输出评估》的事；权重那一侧的量化归《模型量化与数值精度》，索引这一侧才在这里；流水线跑起来之后的排队、批处理与副本数，交给《推理服务容量规划》。",
+      "skillType": "analysis",
+      "heatLevel": "hot",
+      "learningCost": "high",
+      "tags": [
+        "tag-retrieval",
+        "tag-observability"
+      ],
+      "relatedTechnologyIds": [
+        "tech-rag-evals",
+        "tech-kg-assistants",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-rag-basics",
+        "knowledge-graph-thinking"
+      ],
+      "status": "published",
+      "createdAt": "2026-08-23T16:23:54.047Z",
+      "updatedAt": "2026-09-24T06:54:32.206Z"
     }
   ]
 }

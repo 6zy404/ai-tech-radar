@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T03:51:09.599Z",
+  "updatedAt": "2026-09-24T06:54:33.396Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -7101,6 +7101,24 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "召回之后的重排可以交给一个只打分的判断模型，这一条管的是召回那一层。"
+    },
+    {
+      "id": "rel-ws-8117bbe9",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "嵌入模型那一侧：长输入在 CPU 上仍跑得动，决定的是成本曲线，不是参数量。"
+    },
+    {
+      "id": "rel-ws-1977960e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "fromType": "technology",
+      "toId": "knowledge-rag-basics",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "被检索的可以是智能体自己的经验条目，而少量高置信条目胜过全量注入。"
     }
   ]
 }

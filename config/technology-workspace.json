@@ -1,6 +1,226 @@
 {
-  "updatedAt": "2026-09-24T04:09:00.091Z",
+  "updatedAt": "2026-09-24T06:54:33.217Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "slug": "agent-memory-is-a-dose-not-a-switch",
+      "title": {
+        "original": "How Much Memory Does Your Agent Actually Need?",
+        "zh": "智能体记忆不是开关，是要按模型标定的剂量"
+      },
+      "summary": {
+        "original": "IBM Research evaluates ALTK-Evolve across eight models and finds that the right amount of agentic memory depends on the model, not on parameter count.",
+        "zh": "IBM Research 把 ALTK-Evolve 铺到八个模型上评测：智能体从自己的历史轨迹里蒸馏出可复用的行为指引，推理时注入回上下文，不更新任何权重、不需要人工标注。结论反直觉——同一套指引在不同模型上的最佳用量完全不同，而决定用量的不是参数规模：745B 的 GLM-5 一分没涨，117B 的 gpt-oss-120b 用最省的策略涨了 16.1 个点，代价只有 5% 的 token。",
+        "en": "Agentic memory is not a feature you switch on; it is a dose you calibrate to the model."
+      },
+      "content": {
+        "original": "See the linked Hugging Face article for the original English text.",
+        "zh": "## 学习发生在模型外面，不在模型里面\n\n这里的「记忆」不是回放一段历史对话，而是一套**行为指引**：从智能体自己过去的成功与失败轨迹里蒸馏出来的策略、要避开的错误和边界情况。循环很短——智能体做任务产生轨迹，`ALTK-Evolve` 从成功和失败的运行里提取指引，合并成一套可复用的集合，推理时把全部或按任务挑选的一部分交回给它。\n\n**没有任何权重被更新。** 改变的是智能体可用的指引，不是底下那个模型——这也正是它便宜、且能横跨八个模型移植的原因。\n\n## 三档剂量，而参数量不预测你在哪一档\n\n八个模型从 30B 稠密一路铺到闭源前沿，落成三种反复出现的形态：\n\n- **有余量的强模型要全量。** 每一条指引都要，包括罕见的边界情况，因为它们吃得下也用得上。DeepSeek-V3.2（671B MoE）拿到自己挖出的全套指引后，任务完成度涨了 **9.5 个百分点**。\n- **弱一些的模型会被大指引集淹掉。** 它们最适合一个高置信的紧凑核心，加上每个任务现取的少量相关条目。gpt-oss-120b（117B MoE）用这种选择性策略涨了 **16.1 个百分点**——而全量策略涨得更少、token 还多花约 **50%**。\n- **已经饱和的模型一分不涨。** GLM-5（745B MoE）在这轮里就是如此：**0.0 / 0.0**。\n\n**745B 的那个没涨，117B 的那个涨得最多。** 决定你在哪一档的不是参数量，而是基准上的剩余空间、上下文窗口、架构、指引质量和任务分布——研究者明确说，把这些因素分开仍是进行中的工作。\n\n值得单独表扬的是措辞：作者写明「饱和」这个标签**描述的是观察到的现象，不是已证明的原因**，并列出三种都还成立的解释——模型可能本来就接近这批任务的天花板，指引可能没打中它剩下的失败模式，也可能是它没有有效地应用这些指引。本站《模型与输出评估》里那条判据在这里被作者自己执行了：**一个数字说明什么，取决于它排除了什么。**\n\n## 最省的策略可以同时是最好的\n\n这一点最容易被跳过，因为它违反「更多即更好」的直觉。\n\n每一步都注入全套指引会让每个 ReAct 步骤的输入都变胖，因为指引每一轮都要重发。而 gpt-oss-120b 上，按任务检索的策略拿到 **+16.1 个百分点**，token 只多了 **5%**。\n\n也就是说：**最准的那一档和最便宜的那一档，在这个模型上是同一档。** 这不是普遍规律——强模型确实要全量——但它足以说明「先上全量再说」是一个会同时输掉准确率和成本的默认值。\n\n## 越严格的尺子动得越多\n\n两种打分方式的差距本身就是发现。SGC 要求一个场景的**每一个变体**都通过，比 TGC 严格得多，而它普遍涨得更多：\n\n1. DeepSeek-V3.2：TGC **+9.5**，SGC **+16.1**\n2. Claude Opus 4.6：TGC +4.1，SGC **+7.1**（基线已是 90.5 / 87.5）\n3. GPT-5.5：TGC +2.9，SGC **+7.2**\n\n原因说得通：好的指引尤其帮助智能体清掉一个场景的所有变体，而不只是把平均情况做对。**而且在天花板附近它并没有消失**——只要模型还剩一个可被指引打中的失败模式，记忆就还在付钱。\n\n## 这条信号的边界\n\n- 全部结果来自 **AppWorld 一个基准**，9 个模拟应用，不是真实生产环境。\n- 指引只从训练集挖掘，测试集数据没有进入构建过程——这一点作者写明了，是这组数字可信的前提。\n- 「饱和」只观察到一个样本（GLM-5），且作者自己拒绝把它当成结论。\n- 该团队在上一篇里比较的是**指引怎么投递**，这一篇回答的是**该给多少**；两个问题都还没有跨基准的复现。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-08-18",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/ibm-research/altk-evolve-hmm",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "IBM Research",
+      "publisherType": "research-lab",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-retrieval",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-model-sizing",
+        "knowledge-rag-basics"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-retrieval-tuning"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 99,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-09-24T06:54:33.217Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "「给智能体加记忆」通常被当成一个开关：把过去的经验塞回上下文，经验越多表现越好。这项评测把它证伪了，而且给出了可执行的替代做法——按模型的剩余空间决定注入多少。更要紧的是它顺手推翻了一个省事的代理指标：参数量不预测该给多少记忆。",
+      "whoShouldCare": [
+        "正在给智能体接记忆层、以为「攒得越多越好」的工程师",
+        "需要在准确率和每次任务 token 成本之间做取舍的平台团队",
+        "设计评测口径的人：这项研究的严格指标比宽松指标动得更多"
+      ],
+      "technicalContext": "评测在 AppWorld 上进行：9 个模拟应用（日历、消息、支付等）里的 585 个多步任务，其中 168 个 test_normal、417 个 test_challenge。两种打分方式——TGC 看单个任务是否完整完成，SGC 更严格，要求一个场景的每个变体都通过。三种配置共用同一套指引，区别只在投递方式：不注入（基线）、每一步都注入全部指引（full guideline set）、固定高置信核心加上按任务检索的少量条目（curated retrieval）。指引只从训练集挖掘，测试集数据从未进入构建过程。",
+      "impactAreas": [
+        "智能体记忆",
+        "评测方法",
+        "推理成本"
+      ],
+      "learningPath": [
+        "先记住那句判据：记忆是剂量不是开关——先问你的模型还剩多少空间，再决定注入多少",
+        "读《长时程智能体的记忆与上下文管理》：这条研究给它补上了量化证据",
+        "把你自己的评测拆成宽松与严格两档，看严格那档动得是不是更多——这项研究里它普遍更大",
+        "算一次 token 账：每一步重复注入全部指引的成本，和按任务检索少量的成本，差了约十倍",
+        "读《评估闭环》第 4 步：一次没有改变任何配置的评测是报告，不是闭环"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "这条给「记忆该带多少进上下文」补上了量化证据：是剂量，不是开关。",
+        "knowledge-evaluation-loops": "评测跑完改变了配置，才算闭环；这项研究改变的正是注入策略。",
+        "knowledge-ws-e251051e": "指引里写的是失败模式，所以它改进的是智能体对「这一步做对了吗」的判断。",
+        "knowledge-model-sizing": "745B 饱和而 117B 涨最多——参数量不预测该给多少记忆。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "两把尺子的差距本身是发现：严格的 SGC 普遍比宽松的 TGC 动得更多。",
+        "skill-agent-design": "改变的是智能体可用的指引而不是模型，所以这是流程层的设计而不是训练问题。",
+        "skill-ws-f741f122": "指引从自己跑过的成功与失败轨迹里蒸馏，前提是那些轨迹被完整记录下来了。",
+        "skill-retrieval-tuning": "按任务检索少量高置信条目，在弱模型上同时是最准和最便宜的一档。"
+      },
+      "followUpQuestions": [
+        "你的模型落在哪一档，是靠实测还是靠参数量猜的？",
+        "指引集是从你自己的任务轨迹里挖的，还是借来的？后者还成立吗？",
+        "「饱和」在你这里是模型到顶了，还是指引没打中它真正的失败模式？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+      "createdAt": "2026-08-23T16:09:55.118Z",
+      "updatedAt": "2026-09-24T06:54:33.217Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm.",
+        "Review normalized type, publisher type, and related links before publishing."
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "slug": "lfm2-5-encoders",
+      "title": {
+        "original": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
+        "zh": "LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍"
+      },
+      "summary": {
+        "original": "Two new encoder models, LFM2.5-Encoder-230M and 350M: they match larger encoders on GLUE, SuperGLUE and multilingual tasks, handle 8,192-token context, and run about 3.7x faster than ModernBERT-base on CPU at long context.",
+        "zh": "Liquid AI 发布两个开源编码器 LFM2.5-Encoder-230M 与 350M：在 GLUE、SuperGLUE 和多语任务上追平更大的编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它针对的是被生成式模型遮住的那一半生产负载——意图路由、策略检查、PII 识别、文本分类，这些任务整天在跑、大多跑在 CPU 上，且输入越来越长。"
+      },
+      "content": {
+        "original": "Two new encoder models on Hugging Face, built from the LFM2 decoder backbones and converted into bidirectional encoders.",
+        "zh": "## 它解决的是哪一半问题\n\n站内大部分推理信号讨论的是生成式模型怎么跑得起、跑得快。但生产系统里还有另一半负载：**意图路由、安全过滤、策略检查、PII 识别、文本分类**。这些任务不需要生成，需要的是理解一段输入并给出标签——它们整天在跑，通常跑在 CPU 上，而且输入长度在持续变长。\n\n这一类任务的主力一直是编码器模型：BERT 定义了这个门类，ModernBERT 在准确率、速度和上下文长度上又推了一步。LFM2.5-Encoders 是在 LFM2 架构上继续往前的一步，主张是**成本随输入变长而缓慢增长**。\n\n## 三个可直接对照的数字\n\n- **参数量 230M / 350M**：在 GLUE、SuperGLUE 与多语任务上追平或超过更大的编码器\n- **上下文 8,192 token**：延迟随输入变长的增长速度是它的卖点，不只是长度本身\n- **CPU 长上下文快约 3.7 倍**：对照组是 ModernBERT-base\n\n## 怎么造出来的\n\n这一步值得单看：两个编码器不是从零训练的，而是**从对应的 LFM2 解码器骨干初始化**（LFM2.5-230M 与 LFM2.5-350M），再把因果解码器改造成双向编码器：\n\n1. **双向注意力掩码**——每个 token 同时看得到左右两侧，而不只是前面\n2. **非因果短卷积**——对称补齐，让每个 token 的卷积同时混入两侧邻居\n3. **掩码语言建模**——训练时遮蔽 30% 的 token\n\n训练分两段：先在大规模网页语料上以 1,024 token 上下文做通用语言能力，再扩到 8,192 token 做长上下文适配，同时强化事实性、法律与多语能力。\n\n## 什么时候该考虑它\n\n它不与生成式模型竞争，而是替换掉「用大模型做分类」这个常见但昂贵的做法。判断线很直接：如果一项任务的输出是**标签、路由决定或抽取结果**，而不是一段自然语言，那么用编码器几乎总是更便宜；这次的增量是把「输入很长」这个原本会逼你上 GPU 的条件，重新拉回 CPU 可承受的范围。\n\n同一家此前发布过面向多语检索的 LFM2.5-Retrievers；这次是通用编码器，掩码语言目标预训练，所以分类、token 级任务和检索都能在其上微调。"
+      },
+      "type": "model",
+      "publishDate": "2026-07-28",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-encoders",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Liquid AI",
+      "publisherType": "startup",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-on-device",
+        "tag-retrieval"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-d7c9d1d8",
+        "skill-ws-a9e80194",
+        "skill-ws-7796779a",
+        "skill-retrieval-tuning"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 95,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号仍在较新时间窗内。",
+          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-09-24T06:54:33.180Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "生产系统里整天在跑的那一半负载——意图路由、安全过滤、分类、抽取——输出的是标签而不是一段话，用生成式模型做这件事一直是笔糊涂账。这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉：8,192 token 上下文，CPU 上比 ModernBERT-base 快约 3.7 倍。",
+      "whoShouldCare": [
+        "在做意图路由、内容安全过滤或大批量文本分类的工程团队",
+        "需要在没有 GPU 预算的机器上处理文档级输入的人",
+        "正在评估「这项任务到底该不该用大模型」的架构决策者"
+      ],
+      "technicalContext": "两个模型从 LFM2.5-230M / 350M 的解码器骨干初始化，再改造为双向编码器：双向注意力掩码、对称补齐的非因果短卷积、30% 掩码语言建模。训练两段式——先 1,024 token 通用语言能力，再扩到 8,192 token 做长上下文适配。与同厂此前面向多语检索的 LFM2.5-Retrievers 同族，但目标是通用编码器，可在其上微调分类、token 级任务与检索。",
+      "impactAreas": [
+        "无 GPU 环境下的文档级文本处理",
+        "分类 / 路由类任务的单位成本",
+        "长上下文场景的延迟曲线"
+      ],
+      "learningPath": [
+        "先用「模型选型与约束匹配」判断手上这项任务的输出到底是标签还是自然语言",
+        "再用「交互系统中的延迟权衡」看长输入下的延迟增长是否真的是瓶颈",
+        "配合「端侧模型部署与硬件适配」在目标机器上实测首 token 与稳态吞吐，而不是照抄基准数字",
+        "如果要换掉现有的生成式分类方案，用「推理服务容量规划」重算成本"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "这条信号是该条目的一个具体判断案例：输出是标签时，230M 的编码器往往优于任何生成式方案。",
+        "knowledge-latency-tradeoffs": "卖点不是绝对速度而是延迟随输入长度的增长斜率，正是该条目讨论的那条曲线。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-d7c9d1d8": "CPU 上的 3.7 倍是基准环境的数字，落到自己的目标机器仍需按该技能的方法实测。",
+        "skill-ws-a9e80194": "把生成式分类换成编码器会改变整条服务的容量与成本模型，需要重算而不是沿用。",
+        "skill-ws-7796779a": "从解码器骨干改造成双向编码器是一种非标准结构，上线前要确认所用推理栈对它的支持处于哪一级。"
+      },
+      "followUpQuestions": [
+        "现在用大模型在做的分类或路由任务，有多少可以换成编码器？",
+        "自己的输入长度分布是否真的落在需要 8,192 token 的区间？",
+        "所用的推理运行时对这种改造过的双向结构支持到哪一级——能加载，还是有性能路径？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "createdAt": "2026-07-30T08:31:01.939Z",
+      "updatedAt": "2026-09-24T06:54:33.180Z",
+      "editorialNotes": [
+        "正文数字（230M/350M、8,192 token、3.7 倍、30% 掩码、两段训练）均取自原文，已逐条核对。",
+        "Hugging Face 源的 RSS 不带 description，正文是直接抓页面读到的——此前三轮把这类条目按「无正文可写」标记已看，这次改为抓取后再判断。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
       "slug": "zcode-snapshot-upload-and-open-source",
@@ -1915,112 +2135,6 @@
       ]
     },
     {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-      "slug": "lfm2-5-encoders",
-      "title": {
-        "original": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
-        "zh": "LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍"
-      },
-      "summary": {
-        "original": "Two new encoder models, LFM2.5-Encoder-230M and 350M: they match larger encoders on GLUE, SuperGLUE and multilingual tasks, handle 8,192-token context, and run about 3.7x faster than ModernBERT-base on CPU at long context.",
-        "zh": "Liquid AI 发布两个开源编码器 LFM2.5-Encoder-230M 与 350M：在 GLUE、SuperGLUE 和多语任务上追平更大的编码器，支持 8,192 token 上下文，长上下文场景下在 CPU 上比 ModernBERT-base 快约 3.7 倍。它针对的是被生成式模型遮住的那一半生产负载——意图路由、策略检查、PII 识别、文本分类，这些任务整天在跑、大多跑在 CPU 上，且输入越来越长。"
-      },
-      "content": {
-        "original": "Two new encoder models on Hugging Face, built from the LFM2 decoder backbones and converted into bidirectional encoders.",
-        "zh": "## 它解决的是哪一半问题\n\n站内大部分推理信号讨论的是生成式模型怎么跑得起、跑得快。但生产系统里还有另一半负载：**意图路由、安全过滤、策略检查、PII 识别、文本分类**。这些任务不需要生成，需要的是理解一段输入并给出标签——它们整天在跑，通常跑在 CPU 上，而且输入长度在持续变长。\n\n这一类任务的主力一直是编码器模型：BERT 定义了这个门类，ModernBERT 在准确率、速度和上下文长度上又推了一步。LFM2.5-Encoders 是在 LFM2 架构上继续往前的一步，主张是**成本随输入变长而缓慢增长**。\n\n## 三个可直接对照的数字\n\n- **参数量 230M / 350M**：在 GLUE、SuperGLUE 与多语任务上追平或超过更大的编码器\n- **上下文 8,192 token**：延迟随输入变长的增长速度是它的卖点，不只是长度本身\n- **CPU 长上下文快约 3.7 倍**：对照组是 ModernBERT-base\n\n## 怎么造出来的\n\n这一步值得单看：两个编码器不是从零训练的，而是**从对应的 LFM2 解码器骨干初始化**（LFM2.5-230M 与 LFM2.5-350M），再把因果解码器改造成双向编码器：\n\n1. **双向注意力掩码**——每个 token 同时看得到左右两侧，而不只是前面\n2. **非因果短卷积**——对称补齐，让每个 token 的卷积同时混入两侧邻居\n3. **掩码语言建模**——训练时遮蔽 30% 的 token\n\n训练分两段：先在大规模网页语料上以 1,024 token 上下文做通用语言能力，再扩到 8,192 token 做长上下文适配，同时强化事实性、法律与多语能力。\n\n## 什么时候该考虑它\n\n它不与生成式模型竞争，而是替换掉「用大模型做分类」这个常见但昂贵的做法。判断线很直接：如果一项任务的输出是**标签、路由决定或抽取结果**，而不是一段自然语言，那么用编码器几乎总是更便宜；这次的增量是把「输入很长」这个原本会逼你上 GPU 的条件，重新拉回 CPU 可承受的范围。\n\n同一家此前发布过面向多语检索的 LFM2.5-Retrievers；这次是通用编码器，掩码语言目标预训练，所以分类、token 级任务和检索都能在其上微调。"
-      },
-      "type": "model",
-      "publishDate": "2026-07-28",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/LiquidAI/lfm2-5-encoders",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "Liquid AI",
-      "publisherType": "startup",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-inference",
-        "tag-on-device",
-        "tag-retrieval"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs"
-      ],
-      "relatedSkillIds": [
-        "skill-ws-d7c9d1d8",
-        "skill-ws-a9e80194",
-        "skill-ws-7796779a"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 95,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-09-24T03:51:11.614Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "生产系统里整天在跑的那一半负载——意图路由、安全过滤、分类、抽取——输出的是标签而不是一段话，用生成式模型做这件事一直是笔糊涂账。这次的增量是把「输入很长」从必须上 GPU 的条件里拿掉：8,192 token 上下文，CPU 上比 ModernBERT-base 快约 3.7 倍。",
-      "whoShouldCare": [
-        "在做意图路由、内容安全过滤或大批量文本分类的工程团队",
-        "需要在没有 GPU 预算的机器上处理文档级输入的人",
-        "正在评估「这项任务到底该不该用大模型」的架构决策者"
-      ],
-      "technicalContext": "两个模型从 LFM2.5-230M / 350M 的解码器骨干初始化，再改造为双向编码器：双向注意力掩码、对称补齐的非因果短卷积、30% 掩码语言建模。训练两段式——先 1,024 token 通用语言能力，再扩到 8,192 token 做长上下文适配。与同厂此前面向多语检索的 LFM2.5-Retrievers 同族，但目标是通用编码器，可在其上微调分类、token 级任务与检索。",
-      "impactAreas": [
-        "无 GPU 环境下的文档级文本处理",
-        "分类 / 路由类任务的单位成本",
-        "长上下文场景的延迟曲线"
-      ],
-      "learningPath": [
-        "先用「模型选型与约束匹配」判断手上这项任务的输出到底是标签还是自然语言",
-        "再用「交互系统中的延迟权衡」看长输入下的延迟增长是否真的是瓶颈",
-        "配合「端侧模型部署与硬件适配」在目标机器上实测首 token 与稳态吞吐，而不是照抄基准数字",
-        "如果要换掉现有的生成式分类方案，用「推理服务容量规划」重算成本"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-model-sizing": "这条信号是该条目的一个具体判断案例：输出是标签时，230M 的编码器往往优于任何生成式方案。",
-        "knowledge-latency-tradeoffs": "卖点不是绝对速度而是延迟随输入长度的增长斜率，正是该条目讨论的那条曲线。"
-      },
-      "relatedSkillExplanations": {
-        "skill-ws-d7c9d1d8": "CPU 上的 3.7 倍是基准环境的数字，落到自己的目标机器仍需按该技能的方法实测。",
-        "skill-ws-a9e80194": "把生成式分类换成编码器会改变整条服务的容量与成本模型，需要重算而不是沿用。",
-        "skill-ws-7796779a": "从解码器骨干改造成双向编码器是一种非标准结构，上线前要确认所用推理栈对它的支持处于哪一级。"
-      },
-      "followUpQuestions": [
-        "现在用大模型在做的分类或路由任务，有多少可以换成编码器？",
-        "自己的输入长度分布是否真的落在需要 8,192 token 的区间？",
-        "所用的推理运行时对这种改造过的双向结构支持到哪一级——能加载，还是有性能路径？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-      "createdAt": "2026-07-30T08:31:01.939Z",
-      "updatedAt": "2026-09-24T03:51:11.614Z",
-      "editorialNotes": [
-        "正文数字（230M/350M、8,192 token、3.7 倍、30% 掩码、两段训练）均取自原文，已逐条核对。",
-        "Hugging Face 源的 RSS 不带 description，正文是直接抓页面读到的——此前三轮把这类条目按「无正文可写」标记已看，这次改为抓取后再判断。"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
-        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
-      ]
-    },
-    {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-469010",
       "slug": "agent-token-spend-runaway",
       "title": {
@@ -3194,118 +3308,6 @@
         "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
         "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
-      ]
-    },
-    {
-      "id": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-      "slug": "agent-memory-is-a-dose-not-a-switch",
-      "title": {
-        "original": "How Much Memory Does Your Agent Actually Need?",
-        "zh": "智能体记忆不是开关，是要按模型标定的剂量"
-      },
-      "summary": {
-        "original": "IBM Research evaluates ALTK-Evolve across eight models and finds that the right amount of agentic memory depends on the model, not on parameter count.",
-        "zh": "IBM Research 把 ALTK-Evolve 铺到八个模型上评测：智能体从自己的历史轨迹里蒸馏出可复用的行为指引，推理时注入回上下文，不更新任何权重、不需要人工标注。结论反直觉——同一套指引在不同模型上的最佳用量完全不同，而决定用量的不是参数规模：745B 的 GLM-5 一分没涨，117B 的 gpt-oss-120b 用最省的策略涨了 16.1 个点，代价只有 5% 的 token。",
-        "en": "Agentic memory is not a feature you switch on; it is a dose you calibrate to the model."
-      },
-      "content": {
-        "original": "See the linked Hugging Face article for the original English text.",
-        "zh": "## 学习发生在模型外面，不在模型里面\n\n这里的「记忆」不是回放一段历史对话，而是一套**行为指引**：从智能体自己过去的成功与失败轨迹里蒸馏出来的策略、要避开的错误和边界情况。循环很短——智能体做任务产生轨迹，`ALTK-Evolve` 从成功和失败的运行里提取指引，合并成一套可复用的集合，推理时把全部或按任务挑选的一部分交回给它。\n\n**没有任何权重被更新。** 改变的是智能体可用的指引，不是底下那个模型——这也正是它便宜、且能横跨八个模型移植的原因。\n\n## 三档剂量，而参数量不预测你在哪一档\n\n八个模型从 30B 稠密一路铺到闭源前沿，落成三种反复出现的形态：\n\n- **有余量的强模型要全量。** 每一条指引都要，包括罕见的边界情况，因为它们吃得下也用得上。DeepSeek-V3.2（671B MoE）拿到自己挖出的全套指引后，任务完成度涨了 **9.5 个百分点**。\n- **弱一些的模型会被大指引集淹掉。** 它们最适合一个高置信的紧凑核心，加上每个任务现取的少量相关条目。gpt-oss-120b（117B MoE）用这种选择性策略涨了 **16.1 个百分点**——而全量策略涨得更少、token 还多花约 **50%**。\n- **已经饱和的模型一分不涨。** GLM-5（745B MoE）在这轮里就是如此：**0.0 / 0.0**。\n\n**745B 的那个没涨，117B 的那个涨得最多。** 决定你在哪一档的不是参数量，而是基准上的剩余空间、上下文窗口、架构、指引质量和任务分布——研究者明确说，把这些因素分开仍是进行中的工作。\n\n值得单独表扬的是措辞：作者写明「饱和」这个标签**描述的是观察到的现象，不是已证明的原因**，并列出三种都还成立的解释——模型可能本来就接近这批任务的天花板，指引可能没打中它剩下的失败模式，也可能是它没有有效地应用这些指引。本站《模型与输出评估》里那条判据在这里被作者自己执行了：**一个数字说明什么，取决于它排除了什么。**\n\n## 最省的策略可以同时是最好的\n\n这一点最容易被跳过，因为它违反「更多即更好」的直觉。\n\n每一步都注入全套指引会让每个 ReAct 步骤的输入都变胖，因为指引每一轮都要重发。而 gpt-oss-120b 上，按任务检索的策略拿到 **+16.1 个百分点**，token 只多了 **5%**。\n\n也就是说：**最准的那一档和最便宜的那一档，在这个模型上是同一档。** 这不是普遍规律——强模型确实要全量——但它足以说明「先上全量再说」是一个会同时输掉准确率和成本的默认值。\n\n## 越严格的尺子动得越多\n\n两种打分方式的差距本身就是发现。SGC 要求一个场景的**每一个变体**都通过，比 TGC 严格得多，而它普遍涨得更多：\n\n1. DeepSeek-V3.2：TGC **+9.5**，SGC **+16.1**\n2. Claude Opus 4.6：TGC +4.1，SGC **+7.1**（基线已是 90.5 / 87.5）\n3. GPT-5.5：TGC +2.9，SGC **+7.2**\n\n原因说得通：好的指引尤其帮助智能体清掉一个场景的所有变体，而不只是把平均情况做对。**而且在天花板附近它并没有消失**——只要模型还剩一个可被指引打中的失败模式，记忆就还在付钱。\n\n## 这条信号的边界\n\n- 全部结果来自 **AppWorld 一个基准**，9 个模拟应用，不是真实生产环境。\n- 指引只从训练集挖掘，测试集数据没有进入构建过程——这一点作者写明了，是这组数字可信的前提。\n- 「饱和」只观察到一个样本（GLM-5），且作者自己拒绝把它当成结论。\n- 该团队在上一篇里比较的是**指引怎么投递**，这一篇回答的是**该给多少**；两个问题都还没有跨基准的复现。"
-      },
-      "type": "workflow",
-      "publishDate": "2026-08-18",
-      "sourceName": "Hugging Face Blog",
-      "sourceUrl": "https://hf-mirror.com/blog/ibm-research/altk-evolve-hmm",
-      "sourceLanguage": "en",
-      "translationStatus": "done",
-      "publisherName": "IBM Research",
-      "publisherType": "research-lab",
-      "importanceLevel": "important",
-      "status": "published",
-      "tags": [
-        "tag-ai-agents",
-        "tag-retrieval",
-        "tag-workflow"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-a28a8a56",
-        "knowledge-evaluation-loops",
-        "knowledge-ws-e251051e",
-        "knowledge-model-sizing"
-      ],
-      "relatedSkillIds": [
-        "skill-model-evaluation",
-        "skill-agent-design",
-        "skill-ws-f741f122",
-        "skill-retrieval-tuning"
-      ],
-      "sourceReferences": [],
-      "priority": {
-        "priorityLevel": "watch",
-        "priorityScore": 99,
-        "priorityReasons": [
-          "标题完整。",
-          "摘要完整。",
-          "正文完整。",
-          "已配置标签。",
-          "已关联背景知识。",
-          "已关联技能。",
-          "发布方明确。",
-          "信号仍在较新时间窗内。",
-          "编辑标记为重要，但已超出 30 天窗口，降为值得跟踪。",
-          "发布方类型属于强技术信号来源。"
-        ],
-        "priorityWarnings": [],
-        "rankingUpdatedAt": "2026-09-19T13:15:29.527Z",
-        "rankingSource": "rule_based"
-      },
-      "whyItMatters": "「给智能体加记忆」通常被当成一个开关：把过去的经验塞回上下文，经验越多表现越好。这项评测把它证伪了，而且给出了可执行的替代做法——按模型的剩余空间决定注入多少。更要紧的是它顺手推翻了一个省事的代理指标：参数量不预测该给多少记忆。",
-      "whoShouldCare": [
-        "正在给智能体接记忆层、以为「攒得越多越好」的工程师",
-        "需要在准确率和每次任务 token 成本之间做取舍的平台团队",
-        "设计评测口径的人：这项研究的严格指标比宽松指标动得更多"
-      ],
-      "technicalContext": "评测在 AppWorld 上进行：9 个模拟应用（日历、消息、支付等）里的 585 个多步任务，其中 168 个 test_normal、417 个 test_challenge。两种打分方式——TGC 看单个任务是否完整完成，SGC 更严格，要求一个场景的每个变体都通过。三种配置共用同一套指引，区别只在投递方式：不注入（基线）、每一步都注入全部指引（full guideline set）、固定高置信核心加上按任务检索的少量条目（curated retrieval）。指引只从训练集挖掘，测试集数据从未进入构建过程。",
-      "impactAreas": [
-        "智能体记忆",
-        "评测方法",
-        "推理成本"
-      ],
-      "learningPath": [
-        "先记住那句判据：记忆是剂量不是开关——先问你的模型还剩多少空间，再决定注入多少",
-        "读《长时程智能体的记忆与上下文管理》：这条研究给它补上了量化证据",
-        "把你自己的评测拆成宽松与严格两档，看严格那档动得是不是更多——这项研究里它普遍更大",
-        "算一次 token 账：每一步重复注入全部指引的成本，和按任务检索少量的成本，差了约十倍",
-        "读《评估闭环》第 4 步：一次没有改变任何配置的评测是报告，不是闭环"
-      ],
-      "relatedKnowledgeExplanations": {
-        "knowledge-ws-a28a8a56": "这条给「记忆该带多少进上下文」补上了量化证据：是剂量，不是开关。",
-        "knowledge-evaluation-loops": "评测跑完改变了配置，才算闭环；这项研究改变的正是注入策略。",
-        "knowledge-ws-e251051e": "指引里写的是失败模式，所以它改进的是智能体对「这一步做对了吗」的判断。",
-        "knowledge-model-sizing": "745B 饱和而 117B 涨最多——参数量不预测该给多少记忆。"
-      },
-      "relatedSkillExplanations": {
-        "skill-model-evaluation": "两把尺子的差距本身是发现：严格的 SGC 普遍比宽松的 TGC 动得更多。",
-        "skill-agent-design": "改变的是智能体可用的指引而不是模型，所以这是流程层的设计而不是训练问题。",
-        "skill-ws-f741f122": "指引从自己跑过的成功与失败轨迹里蒸馏，前提是那些轨迹被完整记录下来了。",
-        "skill-retrieval-tuning": "按任务检索少量高置信条目，在弱模型上同时是最准和最便宜的一档。"
-      },
-      "followUpQuestions": [
-        "你的模型落在哪一档，是靠实测还是靠参数量猜的？",
-        "指引集是从你自己的任务轨迹里挖的，还是借来的？后者还成立吗？",
-        "「饱和」在你这里是模型到顶了，还是指引没打中它真正的失败模式？"
-      ],
-      "readingDifficulty": "intermediate",
-      "intelligenceStatus": "needs_enrichment",
-      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-      "createdAt": "2026-08-23T16:09:55.118Z",
-      "updatedAt": "2026-09-19T13:15:29.527Z",
-      "editorialNotes": [
-        "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm.",
-        "Review normalized type, publisher type, and related links before publishing."
-      ],
-      "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
       ]
     },
