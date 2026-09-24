@@ -95,6 +95,41 @@ change made while looking at this test split would be fitted to it; a v2
 prompt needs either a fresh split (decisions after 2026-09-23) or to be judged
 on the example pool only.
 
+## First live round (2026-09-24)
+
+The suggestions were used on a real round for the first time: 50 undecided
+candidates, 48 with a suggestion (2 requests failed twice with `fetch failed`).
+Rows are the round's decisions, columns the model's:
+
+| decision \ model | publish | review | reject | none |
+| ---------------- | ------: | -----: | -----: | ---: |
+| publish (7)      |       1 |      6 |      0 |    0 |
+| review (19)      |       3 |     14 |      1 |    1 |
+| reject (24)      |       0 |      4 |     19 |    1 |
+
+34 of 48 agree. **The same two findings as the test split, on new items**:
+
+- **Confident rejections held.** All 18 "reject" suggestions at confidence
+  ≥ 0.85 were rejected; they were customer case studies, appointments,
+  funding and event PR, the same classes the editor rejects by precedent.
+- **Finding what to publish did not.** 1 of 7 publishes was suggested — the
+  vLLM release. The other 6 were "review" at 0.55–0.6, and five of the six
+  reasons say the summary was too short to check. Every one of them was
+  decided on the primary source: two Simon Willison posts, an arXiv paper, a
+  Hugging Face post, and two InfoQ articles whose feed entries carry only a
+  link. The model read the feed; the round read the articles.
+- The 3 "publish" suggestions not taken: a GitHub post on rendering large
+  diffs (front-end engineering, not an AI signal), an Ollama patch release
+  (one feature), and an OpenAI benchmark announcement whose page returns 403
+  here, so it could not be checked.
+
+**This is not a clean second measurement, and it should not be read as one.**
+The suggestions were on screen before the decisions were made, so agreement is
+inflated by anchoring in an unknown amount; and the round was run by the
+agent, not by the editor whose decisions make up the dataset. It shows the
+suggestions behave the same way on unseen items. It does not replace a fresh
+held-out split.
+
 ## Known limits, stated up front
 
 - **Label noise on review vs reject.** The 9 pre-release items above that were

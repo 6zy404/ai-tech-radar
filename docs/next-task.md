@@ -1,5 +1,33 @@
 # Next Task
 
+> Update 2026-09-24: **Editorial round — 50 candidates, seven signals, and the
+> first round run with model triage suggestions.** Published: the Opus 5.5 /
+> GPT-6 price war (lead), Jev decision models, DeepSeek DSec sandboxes, the
+> ZCode snapshot incident, vLLM v0.30.0, UK AISI's evaluation data release,
+> and Pinterest's vector-index quantization. 19 reviewed, 24 rejected; the news
+> lane is at 27 visible / 0 undecided; today's digest is published and three
+> unedited scheduled drafts archived. Suggestions matched the round on 34 of
+> 48; high-confidence rejects were 18/18, publishes 1/7 (see
+> `eval/triage/README.md` → "First live round", which says why this is not an
+> independent measurement).
+> **Correction to the backlog below**: deployment is **not** blocked on the
+> owner — the site has been live on `aizyradar.cn` since 2026-09-20 through a
+> Cloudflare Tunnel, serving `npm run build:public` (`docs/deployment.md`). The
+> entries that say otherwise predate it.
+> **How rounds run now**: the live server has no workspace, so a round runs on
+> an ad-hoc `next dev` pointed at the live `config/` (playbook → Step 0,
+> "Running a round now that the site is live"). This round ran from a worktree;
+> its data was copied into the branch for commit, so **landing it in `main`
+> needs the main checkout's `config/` diff to be replaced by the merge** —
+> see the commit message.
+> **Remaining backlog**: (1) the two retrieval stubs (检索流水线调优 /
+> 检索增强生成基础) — the stated hold condition is now met, the retrieval
+> topic has **6** published signals, up from 3; (2) owner spot-check of
+> `eval/search/queries.json` and an independently written question set for
+> search and 问雷达; (3) a v2 triage prompt judged on decisions made after
+> 2026-09-23 — the reason-codes show the fix is to give the model the article,
+> not a better rubric; (4) repo public + description (owner, web UI).
+
 > Update 2026-09-23 (end of day): **The AI-application track is done: A, B
 > and D.** D is 问雷达 at `/ask` (nav entry 问雷达): a single-turn question,
 > a small tool loop (hybrid search + read an item) with streaming output,
