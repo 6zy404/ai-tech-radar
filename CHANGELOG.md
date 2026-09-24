@@ -69,8 +69,12 @@ For per-topic deep dives, see the `docs/` directory.
   (looked at, 1265 and 390, zero overflow), the sitemap lists no archived
   item, `example.com` appears on no public surface, the three AI routes
   answer in Chinese, and the renamed digest shows in the nav, the home page,
-  both feeds and the page title. **Not yet live**: lands with the next
-  deploy.
+  both feeds and the page title. **Deployed 2026-09-25** with the
+  side-directory swap (listening again 2 seconds after start): on the live
+  domain the canonical URLs resolve to `https://aizyradar.cn/...`, an
+  archived seed slug answers the Chinese 404, `robots.txt` points at a
+  180-URL sitemap, the nav reads 技术简报, and semantic search was ready
+  from the cached model within the first 20 seconds.
 
 ## A damaged store file can no longer be read as empty and saved back that way
 
