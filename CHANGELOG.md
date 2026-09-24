@@ -12,6 +12,41 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Deployed with ten seconds of downtime, and the machine now wakes for its own tasks
+
+- **The live site was the 09-21 build, nine commits behind `main`** —
+  2026-09-24, found by the same whole-project review. `/ask` was `404` on
+  aizyradar.cn, hybrid search and triage were not deployed, and
+  `node_modules` had been reinstalled under the old build that morning. The
+  runbook's rebuild path was stop → build → start, minutes of downtime.
+- **Built beside the running server instead.** `NEXT_DIST_DIR=.next-new npm
+run build:public` in the live checkout while `next start` kept serving
+  (29 routes, 0 workspace routes, `api/ask` present), then stop the task, kill
+  the detached process holding port 3000, rename the two directories, start
+  the task. Listening again **1 second** after start; `/ask` `200` on the
+  first request; the request guard answered `415` and `403` on the live
+  domain. The first search fell back to keywords while the embedding model
+  downloaded, and the cache directory exists now. `.next-old` is kept until
+  the next session as the rollback. The procedure is in
+  `docs/deployment.md` → "Rebuild with seconds of downtime".
+- **The host slept through 9/23, and nothing had a way to wake it.** It is a
+  desktop with automatic sleep disabled, so all four sleeps since go-live were
+  manual; on 09-23 it slept 03:01 → 13:59, the site was down, and neither the
+  07:45 backup nor the 08:05 import ran — waking was a fresh logon, which the
+  unlock trigger does not match, and the backup task had no fallback trigger
+  at all. Owner-decided: `WakeToRun` is now on for both tasks, and the backup
+  task also fires 3 minutes after logon.
+- **The logon trigger needed a guard first.** The backup script keeps the
+  newest 14 snapshots by count, so a trigger that fires on every logon would
+  push real days out of the window. It now takes **one verified snapshot per
+  day** (`BACKUP_FORCE=1` overrides), proven four ways on a temp directory:
+  backup, same-day skip, forced second backup, and an unverified same-day
+  directory without a manifest not counting.
+- **Correction to the runbook**: `docs/deployment.md` said `WakeToRun` was
+  "deliberately not enabled … a machine-behavior decision for the operator";
+  that was written before the site was public and is now reversed, with the
+  rollback command beside it.
+
 ## The AI rate limit could be walked around with one header, and now cannot
 
 - **Found by a whole-project review, and it was live** — 2026-09-24. The
