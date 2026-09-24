@@ -51,6 +51,9 @@ Public routes can be exposed:
   CPU, about 10–20ms once the model is loaded, not a provider bill)
 - `/feed.xml`
 - `/feed.json`
+- `GET /api/health` (liveness for an external monitor; reports the build id,
+  uptime, published-signal count and search-model state — nothing a reader
+  could not infer from the site, no paths or env)
 - `POST /api/technologies/compare`
 - `POST /api/technologies/explain`
 - `POST /api/technologies/learning-path`

@@ -20,7 +20,11 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { applyProxyEnvDefaults } from "./proxy-env.mjs";
+import {
+  applyProxyEnvDefaults,
+  getConfiguredProxyUrl,
+  probeProxy
+} from "./proxy-env.mjs";
 
 const require = createRequire(import.meta.url);
 const repoRoot = path.resolve(
@@ -124,7 +128,24 @@ if (!command) {
 
 const env = { ...process.env };
 const loadedFromEnvFile = loadProxyKeysFromEnvFile(env);
-const outcome = applyProxyEnvDefaults(env);
+
+// Probe the proxy before deciding. The live server's proxy runs only inside a
+// logged-on session while the server task starts at boot, so a fresh reboot
+// would otherwise route every outbound request into a dead port until someone
+// logs in (found 2026-09-24). Direct connections reach the LLM provider and
+// the source feeds from this machine, so a dead proxy means "go direct".
+const proxyUrl = getConfiguredProxyUrl(env);
+const probe = proxyUrl ? await probeProxy(proxyUrl) : undefined;
+const outcome = applyProxyEnvDefaults(
+  env,
+  probe
+    ? {
+        proxyReachable: probe.reachable,
+        proxyAddress: probe.address,
+        proxyError: probe.error
+      }
+    : {}
+);
 
 // Always logged, including the "did nothing" case. Silence on the inactive
 // branch is indistinguishable from the wrapper not running at all — which cost

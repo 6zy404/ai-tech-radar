@@ -1,4 +1,10 @@
-import { cosine, embedPassages, embedQuery } from "@/lib/embeddings";
+import {
+  cosine,
+  embedPassages,
+  embedQuery,
+  getEmbeddingModelStatus
+} from "@/lib/embeddings";
+import type { ModelLoadStatus } from "@/lib/model-load-gate";
 import {
   defaultSemanticCutoff,
   fuseRankings,
@@ -52,6 +58,20 @@ interface IndexedCorpus {
 
 let corpusPromise: Promise<IndexedCorpus> | undefined;
 let corpusSignature: string | undefined;
+let corpusState: "idle" | "building" | "ready" | "failed" = "idle";
+
+/**
+ * For the health endpoint. `model` is the embedding model's load gate;
+ * `corpus` says whether the passage vectors for the current documents exist.
+ * Both are process-local — a fresh server starts at `idle` until a search
+ * asks for them.
+ */
+export function getSemanticSearchStatus(): {
+  model: ModelLoadStatus;
+  corpus: "idle" | "building" | "ready" | "failed";
+} {
+  return { model: getEmbeddingModelStatus(), corpus: corpusState };
+}
 
 async function buildCorpus(
   documents: SearchDocument[],
@@ -77,11 +97,18 @@ async function getIndexedCorpus(): Promise<IndexedCorpus> {
 
   if (!corpusPromise || corpusSignature !== signature) {
     corpusSignature = signature;
-    corpusPromise = buildCorpus(documents, signature).catch((error) => {
-      corpusPromise = undefined;
-      corpusSignature = undefined;
-      throw error;
-    });
+    corpusState = "building";
+    corpusPromise = buildCorpus(documents, signature)
+      .then((corpus) => {
+        corpusState = "ready";
+        return corpus;
+      })
+      .catch((error) => {
+        corpusPromise = undefined;
+        corpusSignature = undefined;
+        corpusState = "failed";
+        throw error;
+      });
   }
 
   return corpusPromise;

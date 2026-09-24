@@ -2,6 +2,12 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
+import {
+  createModelLoadGate,
+  type ModelLoadGate,
+  type ModelLoadStatus
+} from "@/lib/model-load-gate";
+
 /**
  * Local text embeddings for hybrid search. Server-only.
  *
@@ -29,8 +35,6 @@ type Extractor = (
   options: { pooling: "mean"; normalize: boolean }
 ) => Promise<{ tolist(): number[][] }>;
 
-let extractorPromise: Promise<Extractor> | undefined;
-
 async function loadExtractor(): Promise<Extractor> {
   const { env, pipeline } = await import("@huggingface/transformers");
 
@@ -43,17 +47,45 @@ async function loadExtractor(): Promise<Extractor> {
   })) as unknown as Extractor;
 }
 
-function getExtractor(): Promise<Extractor> {
-  if (!extractorPromise) {
-    // A failed load must not be cached forever: clear it so the next search
-    // retries instead of staying keyword-only until the server restarts.
-    extractorPromise = loadExtractor().catch((error) => {
-      extractorPromise = undefined;
-      throw error;
+// A cold load from the cache takes a few seconds; a first download of the
+// ~130MB model a minute or two on a normal connection. Two minutes is long
+// enough for both and short enough that a hung download — which is what the
+// mirror's redirect to an unreachable host produces here — is reported the
+// same day it happens rather than never.
+const defaultLoadTimeoutMs = 120_000;
+
+function getLoadTimeoutMs(): number {
+  const value = Number(process.env.EMBEDDING_LOAD_TIMEOUT_MS);
+
+  return Number.isFinite(value) && value > 0 ? value : defaultLoadTimeoutMs;
+}
+
+let gate: ModelLoadGate<Extractor> | undefined;
+
+function getGate(): ModelLoadGate<Extractor> {
+  if (!gate) {
+    gate = createModelLoadGate<Extractor>({
+      load: loadExtractor,
+      timeoutMs: getLoadTimeoutMs(),
+      // The one line that was missing on 2026-09-24: until then a load that
+      // hung or failed left nothing in the log but each search's "not ready".
+      onFailure: (message) =>
+        console.warn(
+          `[embeddings] model load failed (${EMBEDDING_MODEL}): ${message}`
+        )
     });
   }
 
-  return extractorPromise;
+  return gate;
+}
+
+function getExtractor(): Promise<Extractor> {
+  return getGate().get();
+}
+
+/** For the health endpoint: is the embedding model loaded, loading, or broken? */
+export function getEmbeddingModelStatus(): ModelLoadStatus {
+  return getGate().status();
 }
 
 interface VectorCacheFile {

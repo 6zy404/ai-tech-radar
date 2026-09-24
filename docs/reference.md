@@ -295,6 +295,11 @@ Public, user-facing routes:
 - `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
 - `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
+- `GET /api/health` — public liveness check for an external uptime monitor:
+  `200 { status: "ok" }` while the store reads, `503` when it does not, plus
+  the build id, uptime, published-signal count and the semantic search
+  model/corpus state (see `docs/deployment.md` → "Health endpoint and uptime
+  alerts")
 - `POST /api/technologies/compare`, `POST /api/technologies/explain`,
   `POST /api/technologies/learning-path` and `POST /api/ask` — public, unauthenticated by design
   (they only operate on already-published technology content), but rate
