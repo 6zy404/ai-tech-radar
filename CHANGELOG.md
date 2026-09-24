@@ -12,6 +12,77 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round — token gets cheaper, the bill moves elsewhere
+
+- **50 undecided candidates, seven signals** — 2026-09-24, five days after the
+  last round, all 50 publicly visible on the news lane until then. Dispositioned
+  **7 published, 19 reviewed, 24 rejected**; the lane goes to **27 visible, 0
+  undecided**. Three unedited scheduled digest drafts (09-20 to 09-22) were
+  archived.
+- **The first round run with model triage suggestions on screen.** DeepSeek
+  suggested a decision for 48 of the 50. Its 18 rejections at confidence ≥ 0.85
+  were all taken; it suggested 1 of the 7 publishes. The other six it held at
+  「先看看」 because the feed entry was too short to check — and each was
+  decided on the primary source instead. The confusion matrix is in
+  `eval/triage/README.md`, labelled for what it is: not independent, because
+  the suggestions were visible before the decisions.
+- **The thread is where the cost went once tokens got cheap**, and each signal
+  is one place:
+  - **Price (lead, important).** Claude Opus 5.5 and GPT-6 Sol / Luna shipped
+    an hour apart. Sol and Luna are about half their predecessors' price, Luna at
+    $0.10 / $0.50 per million tokens; Opus 5.5 is 20% cheaper with **cache reads
+    60% cheaper**, which matters more for agents than the headline. The top tier
+    (Astra, Fable 5.1) did not move. The counter-number is kept: Opus 5.5 at
+    **max** reasoning hit the 128,000-token output limit twice on a drawing
+    prompt and returned nothing — the same failure as the 08-16 Qwen3.8 signal.
+  - **Judgment (important).** Jev returns probabilities, not text: yes/no,
+    choice and score questions, input-only pricing at $0.042 per million. Its
+    headline speed and cost figures come from the vendor's own workflow evals,
+    which it says are at the high end; the entry keeps Willison's objection that
+    a model with no text output cannot even be asked why, and antirez's that the
+    attention outruns the substance.
+  - **Environment (important).** DeepSeek's DSec paper: about 3 million
+    sandboxes a day, 380,000+ concurrent, four isolation tiers behind one SDK,
+    co-designed with RL so rollout state survives GPU pre-emption. Read on
+    arXiv, not only through the Chinese report that brought it in.
+  - **Restart and memory.** vLLM v0.30.0 (important) keeps quantized, sharded
+    weights in a per-GPU daemon so a restart maps them over CUDA IPC instead of
+    reloading, and adds Gumbel-max watermarking that survives speculative
+    decoding; it supersedes v0.27.0 in the release line. Pinterest (signal)
+    publishes the full trade table for vector-index quantization: scalar
+    quantization takes HNSW from 121GB to 50GB at 92.9% recall, product
+    quantization to 32GB at 77.3% — the choice follows the recall floor, not
+    the compression ratio. It is the retrieval topic's first new signal since
+    08-18.
+  - **Conditions of a score (signal).** The UK AI Security Institute now
+    publishes evaluation results with the protocol and configuration attached,
+    through EvalEval's shared schema; its own paper shows one model's score
+    moving with inference compute.
+  - **Data boundary (important).** ZCode was found uploading encrypted
+    workspace snapshots — full `.git` history included — with the decryption
+    key held server-side. The vendor apologised, deleted the data, had it
+    audited and open-sourced the product. The entry keeps the questions that
+    remain, including why the open repository starts after the incident.
+- **Three hero titles broke inside a word, found by measuring where lines
+  actually end.** At 1265px 「价格｜战」 and 「权｜重」; at 390px 「上｜传」
+  and 「重｜启」. The segmenter splits all of these, so they cannot be kept
+  together by the span logic; per precedent the titles were reworded. The
+  simulator was calibrated first — it reproduced the real breaks of all three
+  original titles at both widths — and the replacements were checked the same
+  way. **This is the first round that measured 390px as well as 1265px**; the
+  playbook now asks for both.
+- Verified: 16 public routes at 200 on the live public build, an
+  eleven-string internal-field scan clean on all of them, the pinned lead first
+  inside the digest's signal links with exactly the seven new signals and 0/4
+  excluded items present, **54/54 reverse links rendering**, bodies at 4–6
+  headings with zero literal markers and zero ASCII or curly quotes on the
+  parsed DOM, titles at 2–3 lines (1265) and 4–5 (390) with every break on a
+  word boundary, zero horizontal overflow at both widths, zero console errors,
+  light and dark. Stores diffed against `HEAD`: **1360 arrays, zero losses**,
+  the checker proven to fire — and its first injection did not, because it
+  landed on a record created this round and absent from `HEAD`. **Looked at**:
+  the screenshot tool worked, and the signal pages and digest were seen.
+
 ## 问雷达: answers from the site, with citations the code can check
 
 - **A question box that answers only from published content** — 2026-09-23,
