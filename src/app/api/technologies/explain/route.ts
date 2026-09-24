@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import {
   checkPublicAiRateLimit,
+  checkPublicAiRequestOrigin,
   publicAiRateLimitMessage
 } from "@/lib/public-ai-rate-limit";
 import {
@@ -19,6 +20,15 @@ export async function POST(request: Request) {
         status: 429,
         headers: { "Retry-After": String(rateLimit.retryAfterSeconds) }
       }
+    );
+  }
+
+  const origin = checkPublicAiRequestOrigin(request);
+
+  if (!origin.ok) {
+    return NextResponse.json(
+      { error: origin.message },
+      { status: origin.status }
     );
   }
 

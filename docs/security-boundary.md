@@ -380,13 +380,32 @@ Two cost controls apply, in this order:
    (explain), and published technologies × 1 (learning path).
 
 What the limiter deliberately does **not** claim to be: it is in-memory and
-per-process (a multi-instance deployment multiplies the effective budget), and
-the client key is derived from `x-forwarded-for` / `x-real-ip`, which a caller
-can rotate — with no proxy in front, every caller shares a single bucket, which
-still caps total provider calls per window. It is a cost guardrail, not bot
-protection; deployment-level rate limiting stays on the gap list below. Before
-configuring a real-cost provider for a publicly reachable deployment, review the
-budgets against expected traffic rather than assuming the defaults fit.
+per-process (a multi-instance deployment multiplies the effective budget). It is
+a cost guardrail, not bot protection; deployment-level rate limiting stays on
+the gap list below. Before configuring a real-cost provider for a publicly
+reachable deployment, review the budgets against expected traffic rather than
+assuming the defaults fit.
+
+**The client key was spoofable behind the tunnel until 2026-09-24.** It was
+read from the _first_ hop of `x-forwarded-for`; Cloudflare appends the address
+it saw to a header the client already sent rather than replacing it, so the
+first hop was whatever the caller wrote, and rotating it gave a fresh bucket
+per request — while a real DeepSeek key was configured. The key is now taken
+from `CF-Connecting-IP` first (the header Cloudflare sets itself), then
+`x-real-ip`, then the _last_ hop of `x-forwarded-for`. Anything that reaches
+the server without going through the proxy can still set all of these, which
+is one reason the server should not listen on every interface (see the gap
+list).
+
+**A second guard stops other websites from spending the budget through their
+visitors.** A `text/plain` POST is a "simple" cross-origin request that
+browsers send without a preflight, so any page could `fetch()` these four
+routes and every visitor would count as a fresh client. The routes now require
+`Content-Type: application/json` (`415` otherwise), which turns a cross-origin
+call into a preflighted one that fails for want of CORS headers, and reject
+`Sec-Fetch-Site: cross-site` or a foreign `Origin` with `403`
+(`checkPublicAiRequestOrigin` in `src/lib/public-ai-rate-limit.ts`). A script
+talking to the server directly is unaffected; that is the rate limit's job.
 
 ## 问雷达 (`POST /api/ask`)
 

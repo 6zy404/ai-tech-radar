@@ -68,6 +68,72 @@ export function checkPublicAiRateLimit(
   return getLimiter().check(`${routeId}:${clientKey}`);
 }
 
+// Request-shape guard, checked right after the rate limit and before the body
+// is read. Its job is to stop *other websites* from spending this site's LLM
+// budget through their visitors' browsers: a `text/plain` POST is a "simple"
+// cross-origin request that browsers send without a preflight, so any page
+// could `fetch()` these routes and every visitor would count as a fresh client.
+//
+// Requiring `application/json` makes a cross-origin call a preflighted one, and
+// these routes send no CORS headers, so the browser refuses it. The
+// `Sec-Fetch-Site` / `Origin` checks are belt and braces for the same case.
+// None of this stops a script talking to the server directly — that is what
+// the per-client rate limit is for.
+export type PublicAiRequestDecision =
+  { ok: true } | { ok: false; status: 403 | 415; message: string };
+
+export const publicAiCrossSiteMessage = "不支持来自其他站点的请求。";
+export const publicAiContentTypeMessage = "请求需要以 JSON 格式提交。";
+
+function hostOf(value: string | null | undefined): string | null {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return new URL(value).host.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
+export function checkPublicAiRequestOrigin(
+  request: Request
+): PublicAiRequestDecision {
+  const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
+
+  if (!contentType.includes("application/json")) {
+    return { ok: false, status: 415, message: publicAiContentTypeMessage };
+  }
+
+  const fetchSite = request.headers.get("sec-fetch-site")?.toLowerCase();
+
+  if (fetchSite === "cross-site") {
+    return { ok: false, status: 403, message: publicAiCrossSiteMessage };
+  }
+
+  const originHost = hostOf(request.headers.get("origin"));
+
+  if (originHost) {
+    const allowedHosts = new Set<string>();
+    const requestHost = request.headers.get("host")?.toLowerCase();
+    const urlHost = hostOf(request.url);
+    const siteHost = hostOf(process.env.NEXT_PUBLIC_SITE_URL);
+
+    for (const host of [requestHost, urlHost, siteHost]) {
+      if (host) {
+        allowedHosts.add(host);
+      }
+    }
+
+    if (!allowedHosts.has(originHost)) {
+      return { ok: false, status: 403, message: publicAiCrossSiteMessage };
+    }
+  }
+
+  return { ok: true };
+}
+
 // Test/ops helper: drops all tracked windows. Not called by any route.
 export function resetPublicAiRateLimit(): void {
   limiter = undefined;
