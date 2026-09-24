@@ -2,9 +2,9 @@
   "enabled": true,
   "scheduleTime": "08:00",
   "timezone": "Asia/Shanghai",
-  "nextRunAt": "2026-09-20T00:00:00.000Z",
-  "lastRunAt": "2026-09-19T00:05:03.217Z",
-  "lastRunStatus": "partial",
-  "lastRunMessage": "定时导入部分成功：13 个启用来源（成功 11，失败 2，部分 0），新增候选 20 条，跳过 98 条。",
-  "updatedAt": "2026-09-19T00:06:24.907Z"
+  "nextRunAt": "2026-09-25T00:00:00.000Z",
+  "lastRunAt": "2026-09-24T00:05:01.817Z",
+  "lastRunStatus": "success",
+  "lastRunMessage": "定时导入成功：13 个启用来源（成功 13，失败 0，部分 0），新增候选 47 条，跳过 95 条。",
+  "updatedAt": "2026-09-24T00:05:18.115Z"
 }
