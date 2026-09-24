@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T13:09:22.193Z",
+  "updatedAt": "2026-09-24T03:42:50.363Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -2591,6 +2591,229 @@
       "importStatus": "converted",
       "reviewedAt": "2026-09-19T13:09:22.193Z",
       "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-3-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-20T00:05:19.459Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T00:05:18.270Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T00:05:18.292Z"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-1rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T00:05:18.315Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496609": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.196Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496578": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:46.262Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496493": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.311Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496494": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.362Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496481": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.412Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496471": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.459Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496384": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.514Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496352": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.562Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496329": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.614Z"
+    },
+    "candidate-rss-https-github-blog-p-99002": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:46.665Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-expanding-ai-economy-research-bench": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.711Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-flow-fashion-week": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.756Z"
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-research-google-beam-expansion": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:46.805Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-advancing-private-ai-compute-with-secure-server-side-memory": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:46.847Z"
+    },
+    "candidate-rss-https-deepmind-google-blog-say-hello-to-gemini-38-text-to-speech": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:46.895Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-pruning-llms-like-a-physicist-block-removal-as-an": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:46.945Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-tokenizers-v1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:46.987Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-transformers-llama-cpp-quants": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.038Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-omlx": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.091Z"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-how-to-use-nvidia-warp-and-mjwarp": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.142Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ythwxaq6vhzum23rnyhk-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.184Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-jg9kssrvpkfp20qif8ov-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.237Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-3rxojunpmjanfv8iwqi8-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.321Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-ug1um83jfgz2bvxwryc9-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.364Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-zspqbrwms0agpetahu9r-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.412Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-2ffh5ehf2smusayqhjlx-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.458Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-jjacfjo5e0elphixwwxo-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.501Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-fzrdzxqypats2sqsqpvk-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.550Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-pojwf9p5wcyjqab39jd6-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.595Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-bakwhvi7ptqzr4mh45xi-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.635Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-3": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.678Z"
+    },
+    "candidate-rss-https-openai-com-index-better-prompt-caching-for-gpt-6": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.729Z"
+    },
+    "candidate-rss-https-openai-com-index-introducing-gpt-6-sol-and-luna": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:47.781Z"
+    },
+    "candidate-rss-https-openai-com-index-parallel-cuts-time-and-cost-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.828Z"
+    },
+    "candidate-rss-https-openai-com-index-two-years-of-openai-academy": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.871Z"
+    },
+    "candidate-rss-https-openai-com-index-openai-extends-cyber-access-to-ukraine-for-civilian-defense": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.914Z"
+    },
+    "candidate-rss-https-openai-com-index-sam-altman-un-security-council-remarks": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:47.955Z"
+    },
+    "candidate-rss-https-openai-com-index-harvey-from-context-to-confidence-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:48.004Z"
+    },
+    "candidate-rss-https-openai-com-index-invideo-builds-with-gpt-6-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:48.046Z"
+    },
+    "candidate-rss-https-openai-com-index-ringg": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:48.090Z"
+    },
+    "candidate-rss-https-openai-com-index-introducing-mentalhealthbench": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-24T03:42:48.142Z"
+    },
+    "candidate-rss-https-openai-com-index-airbnb-gpt-6-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:48.185Z"
+    },
+    "candidate-rss-https-openai-com-index-grab-openai-ai-skills-southeast-asia": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-24T03:42:48.227Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-496393": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:48.934Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-496393"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-evaleval-aisi": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:49.170Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi"
+    },
+    "candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:49.404Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:49.658Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-21-jev": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:49.894Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:50.139Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-24T03:42:50.363Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0"
     }
   }
 }

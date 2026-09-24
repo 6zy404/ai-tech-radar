@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-19T13:15:30.608Z",
+  "updatedAt": "2026-09-24T03:51:09.599Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -6615,6 +6615,492 @@
       "toType": "skill",
       "relationType": "uses",
       "note": "3,000 亿 token 换一个结果：评估能力时，成本与尝试次数应当和结果一起报。"
+    },
+    {
+      "id": "rel-ws-790be75c",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "这条信号里既有可直接比的价格，也有只按成本不按能力比较的厂商数字，正需要这项技能去拆。"
+    },
+    {
+      "id": "rel-ws-55bdc447",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "模型层价格腰斩之后，「你要拥有哪一层」的那条决策线要重新画一次。"
+    },
+    {
+      "id": "rel-ws-02868550",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "缓存命中率与推理档位决定自托管与托管 API 之间的成本比较口径。"
+    },
+    {
+      "id": "rel-ws-18dade2f",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "顶档没降价而次顶档降一半，意味着「够用的那一档」在成本上的优势又拉大了。"
+    },
+    {
+      "id": "rel-ws-069933c8",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "推理档位是一个典型的权衡旋钮：买到的是更深的思考，付出的是时间、账单和撞上上限的风险。"
+    },
+    {
+      "id": "rel-ws-7f3a23b7",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "Astra 仍是 10 / 50 的顶档，这一轮降价的是它下面的 Sol 与 Luna。"
+    },
+    {
+      "id": "rel-ws-41e60463",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一种失败的两次出现：推理档位开到最高，想到超出上限或拖垮时间。"
+    },
+    {
+      "id": "rel-ws-c5e3b9a5",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "单价下降让失控便宜一些，但不会让不知道何时停下的智能体消失。"
+    },
+    {
+      "id": "rel-ws-d11f309b",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "输出是一个选项时，生成式大模型是形状不对，这正是约束匹配要回答的问题。"
+    },
+    {
+      "id": "rel-ws-b7dd16c2",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "只返回一个浮点数、没有任何解释的模型，只能靠结构化实验去发现它错在哪里。"
+    },
+    {
+      "id": "rel-ws-6e3d4bfd",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "knowledge-rag-basics",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "Willison 的用法是检索重排：便宜的召回取 100 条，再逐条打相关分。"
+    },
+    {
+      "id": "rel-ws-05097605",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "官方数字来自自制评测、参考标签由另两个模型生成，用之前必须在自己的样本上重量。"
+    },
+    {
+      "id": "rel-ws-dc65df09",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "重排是它最直接的用法之一，而重排的收益要在你自己的查询集上量。"
+    },
+    {
+      "id": "rel-ws-f21fdf19",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "一个只做判断的托管接口，是「哪一层自己做」这道题里新出现的一个选项。"
+    },
+    {
+      "id": "rel-ws-9b2d4b39",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一个判断的两端：输出是标签不是句子，一个在本机，一个在托管 API 上。"
+    },
+    {
+      "id": "rel-ws-9178e89f",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一周的两种降价：一个把生成的单价砍半，一个干脆不再生成。"
+    },
+    {
+      "id": "rel-ws-d30eb211",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "隔离强度按任务分档，是「模型决定越界时由什么物理阻止它」的一种工程答案。"
+    },
+    {
+      "id": "rel-ws-6942277b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "推演状态要跨抢占保留，可观测性与可复现性首先是环境层的问题。"
+    },
+    {
+      "id": "rel-ws-ac1b2c54",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "同一个接口下换不同隔离强度的后端，是工作流设计里把能力与边界分开的做法。"
+    },
+    {
+      "id": "rel-ws-242ba462",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "强化学习的数据来自环境里的动作，环境的规模与多样性就是数据配方的一部分。"
+    },
+    {
+      "id": "rel-ws-dc35f366",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "四种后端是隔离强度与开销的逐级取舍，统一接口把这个取舍留给任务而不是调用方。"
+    },
+    {
+      "id": "rel-ws-c9c89a0b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "那次事件的起点是一次强化学习训练；这一条是另一家实验室公开写出的训练环境本身。"
+    },
+    {
+      "id": "rel-ws-baa9bae5",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一个问题的产品侧答案：框架在隔离环境里，容器按需接入。"
+    },
+    {
+      "id": "rel-ws-935eb31e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一家公司的两层：一层是智能体外壳，一层是训练它的环境。"
+    },
+    {
+      "id": "rel-ws-56a3dd64",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "数据会不会离开本机，要由模型之外、默认生效的一层来保证。"
+    },
+    {
+      "id": "rel-ws-76214b7b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "采购一款编程智能体时，数据边界与密钥归属是比能力更先要问的问题。"
+    },
+    {
+      "id": "rel-ws-d988eda6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "把整个仓库传上云是不可逆且对外的动作，本该在发生前被用户授权，而不是默认开启。"
+    },
+    {
+      "id": "rel-ws-8b33ce19",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "客户端直传对象存储、绕过自家服务端，让审计与策略控制失去了挂靠的接口。"
+    },
+    {
+      "id": "rel-ws-f496c4c2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "一组对照：一边把防护写在系统层，一边的问题出在一个默认开启的产品功能。"
+    },
+    {
+      "id": "rel-ws-716a02b7",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "被检查的一方不该同时掌握检查：这里的核查由第三方完成，但开源仓库没有保留事发前的历史。"
+    },
+    {
+      "id": "rel-ws-fa3941e5",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "DeepSeek-V4.1-Flash 与 GLM-5.3-Flash 的支持，要按能加载、原生建模、性能路径、正确性四级去核对。"
+    },
+    {
+      "id": "rel-ws-e4772551",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "重启成本、KV 溢出和初始化时间都直接改变容量规划的前提。"
+    },
+    {
+      "id": "rel-ws-cfcab9a2",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "快速启动缓存的正是已量化的权重，FP4 检查点也在覆盖范围内。"
+    },
+    {
+      "id": "rel-ws-ea55b890",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "双密钥水印之所以要单独设计，是因为推测解码会改变采样路径。"
+    },
+    {
+      "id": "rel-ws-cdf596bf",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "新增模型多为 MoE，稀疏 MLA 与 KV 溢出正是为这类模型的解码而设。"
+    },
+    {
+      "id": "rel-ws-d82c7d15",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "toType": "technology",
+      "relationType": "supersedes",
+      "note": "同一条发布线的后一版；中间的 v0.29.0 本站未收录。"
+    },
+    {
+      "id": "rel-ws-4541ee5c",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "Kimi K3 在这一版有了原生默认实现和一串性能补丁。"
+    },
+    {
+      "id": "rel-ws-ecac994a",
+      "fromId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "另一个推理引擎在同一段时间里对同一批模型的支持，可以对照着看。"
+    },
+    {
+      "id": "rel-ws-d0f17499",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "分数只有连同量它的条件一起保存，下一轮才有可比的基线。"
+    },
+    {
+      "id": "rel-ws-6d424fba",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "两项网络安全评测同样按统一格式公开，使安全类结果也能被外部核对。"
+    },
+    {
+      "id": "rel-ws-62aa7b7a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "判断两个分数能不能横比，先要知道它们是不是在同一协议和同一推理算力下量的。"
+    },
+    {
+      "id": "rel-ws-8b7fddb3",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "读发布公告时，可以拿这类公开的带条件结果当参照点。"
+    },
+    {
+      "id": "rel-ws-fe2654c1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "把配置与分数写在同一条记录里，是评测运维可追溯的前提。"
+    },
+    {
+      "id": "rel-ws-ed61c34e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "BenchMIRT 问题目在测什么，这一条问分数是在什么条件下量出来的。"
+    },
+    {
+      "id": "rel-ws-5fb6e2c3",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一个外部评测生态的两步：一个解决谁看得见题，一个解决结果能否被复现。"
+    },
+    {
+      "id": "rel-ws-8487cfec",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "Astra 那条记下了同一篇报道里两组对不上的分数；统一格式正是为这种情况而设。"
+    },
+    {
+      "id": "rel-ws-3446e559",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "价格战里的成本与分数都在某个推理档位下量，档位一变两者一起变。"
+    },
+    {
+      "id": "rel-ws-d2a2ab4e",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-rag-basics",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "召回掉到 77% 意味着生成阶段有将近四分之一该看到的内容看不到。"
+    },
+    {
+      "id": "rel-ws-6a770930",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "同一个用精度换内存的道理，这一条落在向量索引上而不是模型权重上。"
+    },
+    {
+      "id": "rel-ws-1f692bd6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "压缩率、召回和吞吐三者之间的取舍，给出了完整的明码标价。"
+    },
+    {
+      "id": "rel-ws-ca4ad086",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "选量化方案之前，先要在自己的数据上确定召回下限。"
+    },
+    {
+      "id": "rel-ws-2c156955",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "服务成本降低 20% 到 30% 来自内存，把索引搬到 SSD 改变的是容量规划的单位。"
+    },
+    {
+      "id": "rel-ws-5cc14718",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "检索链路的两端：一边是生成向量的编码器，一边是存放与搜索向量的索引。"
+    },
+    {
+      "id": "rel-ws-2ca4b2b2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "召回之后的重排可以交给一个只打分的判断模型，这一条管的是召回那一层。"
     }
   ]
 }
