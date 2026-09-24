@@ -115,23 +115,42 @@ export function createRateLimiter(
   };
 }
 
-// Client identity for rate-limit buckets. Proxy headers are spoofable, so this
-// is a fair-use key, not an identity check: a determined caller can rotate it.
+// Client identity for rate-limit buckets.
+//
+// Order matters, and it was wrong once (2026-09-24). The site is served through
+// a Cloudflare Tunnel, and Cloudflare *appends* to an `X-Forwarded-For` the
+// client already sent rather than replacing it — so the first hop of that
+// header is whatever the caller chose, and rotating it gave a fresh bucket per
+// request. The header Cloudflare sets itself is `CF-Connecting-IP`, so that is
+// read first. `X-Forwarded-For` is read from its *last* hop for the same
+// reason: the last entry is the address the trusted proxy in front of us saw.
+// This is still a fair-use key, not an identity check: anything that reaches
+// the server without going through the proxy can set every one of these.
 export function getRateLimitClientKey(headers: Headers): string {
-  const forwardedFor = headers.get("x-forwarded-for");
+  const cloudflareIp = headers.get("cf-connecting-ip")?.trim();
 
-  if (forwardedFor) {
-    const firstHop = forwardedFor.split(",")[0]?.trim();
-
-    if (firstHop) {
-      return firstHop;
-    }
+  if (cloudflareIp) {
+    return cloudflareIp;
   }
 
   const realIp = headers.get("x-real-ip")?.trim();
 
   if (realIp) {
     return realIp;
+  }
+
+  const forwardedFor = headers.get("x-forwarded-for");
+
+  if (forwardedFor) {
+    const hops = forwardedFor
+      .split(",")
+      .map((hop) => hop.trim())
+      .filter((hop) => hop.length > 0);
+    const lastHop = hops[hops.length - 1];
+
+    if (lastHop) {
+      return lastHop;
+    }
   }
 
   // Local runs have no proxy headers at all, so every caller shares one bucket.

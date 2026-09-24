@@ -12,6 +12,40 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The AI rate limit could be walked around with one header, and now cannot
+
+- **Found by a whole-project review, and it was live** — 2026-09-24. The
+  client key for the four public AI routes was the _first_ hop of
+  `X-Forwarded-For`. Cloudflare appends the address it saw to a header the
+  client already sent rather than replacing it, so behind the tunnel the first
+  hop was whatever the caller wrote; changing it on every request gave a fresh
+  10/minute budget each time, and enough made-up keys evict real clients from
+  the 5000-key map. A real DeepSeek key has been configured on the live server
+  since 09-23, so compare / explain / learning-path were spending money under
+  this rule; `/api/ask`, which has no cache, would have joined them at the next
+  deploy. `docs/security-boundary.md` and `docs/production-readiness.md` both
+  reasoned about the "no proxy in front" case only.
+- **The key now reads `CF-Connecting-IP` first** (the header Cloudflare sets
+  itself), then `x-real-ip`, then the _last_ hop of `X-Forwarded-For` — the
+  address the trusted proxy in front saw. Proven on a dev server: 11 requests
+  rotating the first hop over one last hop answer `200` ×10 then `429`, and a
+  different `CF-Connecting-IP` is a different bucket.
+- **A second guard stops other websites from spending the budget through their
+  visitors.** A `text/plain` POST is a "simple" cross-origin request browsers
+  send without a preflight, so any page could `fetch()` these routes and every
+  visitor would count as a fresh client from their own real IP. The routes now
+  require `Content-Type: application/json` (`415`), which makes a cross-origin
+  call preflighted and refused for want of CORS headers, and reject
+  `Sec-Fetch-Site: cross-site` or a foreign `Origin` (`403`). All four site
+  widgets already send JSON; the 问雷达 page was exercised end to end on the
+  dev server and still answers. Scripts talking to the server directly are
+  unaffected, which is the rate limit's job.
+- Verified: typecheck, lint, format, vitest **308/308** (6 new — key
+  precedence, the last-hop rule against two spoofed first hops, and the five
+  guard cases), `validate:deployment` / `workspace-boundary`; curl probes for
+  `415`, `403` ×2 and a same-origin `400`. **Not yet live**: the running server
+  is the 09-21 build, so this lands with the next deploy.
+
 ## The last two placeholders, written on the site's own retrieval numbers
 
 - **知识《检索增强生成基础》 (56 → 1275) and 技能《检索流水线调优》 (56 → 1640)** — 2026-09-24, owner-selected. Both were held since 2026-08-06

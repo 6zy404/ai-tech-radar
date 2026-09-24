@@ -114,18 +114,45 @@ describe("createRateLimiter", () => {
 });
 
 describe("getRateLimitClientKey", () => {
-  it("prefers the first hop of x-forwarded-for", () => {
+  it("trusts cf-connecting-ip over anything the caller could have sent", () => {
     const headers = new Headers({
+      "cf-connecting-ip": "198.51.100.2",
       "x-forwarded-for": "203.0.113.7, 198.51.100.2",
-      "x-real-ip": "198.51.100.2"
+      "x-real-ip": "203.0.113.7"
     });
 
-    expect(getRateLimitClientKey(headers)).toBe("203.0.113.7");
+    expect(getRateLimitClientKey(headers)).toBe("198.51.100.2");
+  });
+
+  it("reads the LAST hop of x-forwarded-for, because a proxy appends to a spoofed one", () => {
+    // Cloudflare (and nginx) append the address they saw; the first hop is
+    // whatever the client wrote. Rotating it must not yield a fresh bucket.
+    const spoofedA = new Headers({
+      "x-forwarded-for": "10.0.0.1, 198.51.100.2"
+    });
+    const spoofedB = new Headers({
+      "x-forwarded-for": "10.0.0.2, 198.51.100.2"
+    });
+
+    expect(getRateLimitClientKey(spoofedA)).toBe("198.51.100.2");
+    expect(getRateLimitClientKey(spoofedA)).toBe(
+      getRateLimitClientKey(spoofedB)
+    );
+    expect(
+      getRateLimitClientKey(
+        new Headers({ "x-forwarded-for": " , 203.0.113.7 ,  " })
+      )
+    ).toBe("203.0.113.7");
   });
 
   it("falls back to x-real-ip, then to a shared local bucket", () => {
     expect(
-      getRateLimitClientKey(new Headers({ "x-real-ip": "203.0.113.9" }))
+      getRateLimitClientKey(
+        new Headers({
+          "x-real-ip": "203.0.113.9",
+          "x-forwarded-for": "10.0.0.1"
+        })
+      )
     ).toBe("203.0.113.9");
     expect(getRateLimitClientKey(new Headers())).toBe("unknown-client");
   });

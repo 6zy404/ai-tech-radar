@@ -184,13 +184,17 @@ public, uncapped cost/abuse vector — the only bound is the per-key result cach
   (`src/lib/rate-limit.ts` + `src/lib/public-ai-rate-limit.ts`), returning `429`
   with `Retry-After` when the budget is spent. Defaults are 10 requests/minute
   and 40/hour per client **per route**, overridable with
-  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`. Two
-  honest limits of this implementation: it is in-memory and per-process (a
-  multi-instance deploy multiplies the effective budget), and the client key
-  comes from `x-forwarded-for` / `x-real-ip`, which a determined caller can
-  rotate — with no proxy in front, every caller shares one bucket, which still
-  caps total provider calls. It is a cost guardrail, not bot protection; a
-  reverse-proxy or platform limit is still the right layer for the latter.
+  `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`. One
+  honest limit of this implementation: it is in-memory and per-process (a
+  multi-instance deploy multiplies the effective budget). It is a cost
+  guardrail, not bot protection; a reverse-proxy or platform limit is still the
+  right layer for the latter. **Corrected 2026-09-24:** the client key used to
+  be the first hop of `x-forwarded-for`, which Cloudflare appends to rather
+  than replaces, so behind the tunnel a caller could rotate it freely. It now
+  reads `CF-Connecting-IP` first, and the routes also require a JSON content
+  type and reject cross-site origins, so other websites cannot spend the
+  budget through their visitors' browsers (`docs/security-boundary.md` →
+  "Public LLM Feature Boundary").
 
 ### I2. Persistence durability: no locking, no backup, concurrent writers
 
