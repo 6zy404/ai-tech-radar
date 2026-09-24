@@ -161,6 +161,25 @@ function findMismatches(sourceFiles, snapshotFiles) {
   return mismatches;
 }
 
+/** A snapshot counts only if its manifest was written, i.e. it passed verification. */
+function findVerifiedSnapshotForDay(backupRoot, day) {
+  const pad = (value) => String(value).padStart(2, "0");
+  const dayPrefix =
+    `${SNAPSHOT_PREFIX}${day.getFullYear()}-${pad(day.getMonth() + 1)}-` +
+    `${pad(day.getDate())}_`;
+
+  return readdirSync(backupRoot, { withFileTypes: true })
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        entry.name.startsWith(dayPrefix) &&
+        existsSync(path.join(backupRoot, entry.name, "backup-manifest.json"))
+    )
+    .map((entry) => entry.name)
+    .sort()
+    .pop();
+}
+
 function pruneOldSnapshots(backupRoot, keepCount) {
   const snapshots = readdirSync(backupRoot, { withFileTypes: true })
     .filter(
@@ -198,6 +217,22 @@ function main() {
   }
 
   mkdirSync(backupRoot, { recursive: true });
+
+  // One verified snapshot per day is enough. The task now also fires on
+  // logon (added 2026-09-24, after a morning the machine slept through both
+  // the backup and the import), and without this guard every logon would add
+  // a snapshot and push a real day out of the 14-slot retention window.
+  // BACKUP_FORCE=1 takes another one anyway, for a manual pre-change copy.
+  const existingToday = findVerifiedSnapshotForDay(backupRoot, startedAt);
+
+  if (existingToday && process.env.BACKUP_FORCE !== "1") {
+    console.log(
+      `今天已有一份校验通过的备份：${existingToday}，本次跳过` +
+        `（需要再备一份时设置 BACKUP_FORCE=1）`
+    );
+    console.log(`备份目录：${backupRoot}`);
+    return;
+  }
 
   // The timestamp is second-resolution, so a retry or a manual re-run in the
   // same second would collide. Suffixing keeps both copies instead of failing
