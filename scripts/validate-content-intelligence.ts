@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -21,7 +22,7 @@ import { toUserFacingTechnologyItem } from "../src/lib/content";
 import { evaluateTechnologyPriority } from "../src/lib/ranking";
 import type { TechnologyWorkspaceRecord } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const technologyWorkspaceStorePath = path.join(
   configDirPath,
   "technology-workspace.json"

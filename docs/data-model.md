@@ -1431,7 +1431,7 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 
 This local JSON boundary is for local development and controlled single-operator environments. It is not a multi-user database, does not provide transaction isolation, and is not an appropriate production secret store.
 
-The file-level read/write mechanics are centralized in `src/lib/repositories/local-json-store.ts`. Workflow modules own domain transitions:
+The file-level read/write mechanics are centralized in `src/lib/repositories/local-json-store.ts`. Since 2026-09-24 a write is temp-file-then-rename in the same directory (a crash or a concurrent reader never sees a truncated store; on Windows the rename is retried briefly when another process holds the file), and a store file that exists but does not parse **throws** `LocalJsonStoreError` instead of being read as the fallback — every store is read-modify-write of the whole file, so the old behaviour would have replaced a damaged store with an empty one on the next save. A missing file still reads as the fallback. Workflow modules own domain transitions:
 
 - `source-workflow.ts`: sources and import runs
 - `skill-workflow.ts` / `knowledge-workflow.ts`: skill and knowledge

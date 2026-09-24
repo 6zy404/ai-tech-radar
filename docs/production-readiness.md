@@ -210,6 +210,22 @@ be editing through the UI — two concurrent writers to unlocked JSON.
   transaction; (c) avoid editing in the workspace at the same minute the task
   runner fires. Cross-store transactions remain unimplemented (documented,
   acceptable at this scale).
+- ✓ Addressed (2026-09-24), for the failure modes a backup cannot undo in
+  time. Every store write is now **temp-file-then-rename**
+  (`writeFileAtomically` in `src/lib/repositories/local-json-store.ts`, with
+  a short retry on the Windows `EPERM`/`EBUSY` a concurrent reader causes), so
+  a crash or a reader mid-write never sees a truncated file. And a store that
+  exists but does not parse now **throws** (`LocalJsonStoreError`) instead of
+  silently returning the fallback — because every store is read-modify-write
+  of the whole file, the old rule turned one damaged read into a full
+  overwrite (for candidates and sources, an overwrite with the bundled mock).
+  The 22 `validate:*` scripts, which write fixtures into the data directory
+  and restore it in a `finally`, now run against a throwaway copy made by
+  `scripts/run-ts-validation.cjs` (`VALIDATION_DATA_DIR=live` opts out), so
+  a `Ctrl+C` can no longer leave fixtures in the live store and CI can run
+  them (`npm run validate:all`). Still open from this item: two processes can
+  still lose each other's update (last writer wins); they can no longer
+  corrupt the file.
 - ✓ Addressed (2026-08-10), for (a) — the part that was actually missing.
   `npm run backup:data` (`scripts/backup-local-data.mjs`, no dependencies)
   writes a timestamped copy of `LOCAL_DATA_DIR` outside the repo, **verifies it

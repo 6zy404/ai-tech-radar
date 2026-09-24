@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -23,7 +24,7 @@ import {
 } from "../src/lib/digest-delivery";
 import type { DailyDigest, TechnologyItem } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const digestStorePath = path.join(configDirPath, "daily-digests.json");
 const deliveryStorePath = path.join(configDirPath, "delivery.json");
 const now = "2026-05-24T12:00:00.000Z";

@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -24,7 +25,7 @@ import type {
   ImportedCandidateSnapshot
 } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const externalSourcesStorePath = path.join(
   configDirPath,
   "external-sources.json"

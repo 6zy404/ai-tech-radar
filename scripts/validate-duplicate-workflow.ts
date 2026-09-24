@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -27,7 +28,7 @@ import type {
   TechnologyWorkspaceRecord
 } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const importedCandidatesSnapshotPath = path.join(
   configDirPath,
   "imported-candidates.live.json"

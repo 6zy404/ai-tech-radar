@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -27,7 +28,7 @@ import {
 } from "../src/lib/task-runner";
 import type { DailyDigest, TechnologyItem } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const digestStorePath = path.join(configDirPath, "daily-digests.json");
 const deliveryStorePath = path.join(configDirPath, "delivery.json");
 const scheduleStorePath = path.join(configDirPath, "scheduled-delivery.json");

@@ -32,3 +32,10 @@ jobs:
 
       - name: Unit tests
         run: npm run test
+
+      # The validators are most of the project's regression coverage (about
+      # 7,800 lines against 4,800 of unit tests). They run against a throwaway
+      # copy of config/ made by scripts/run-ts-validation.cjs, so they never
+      # touch the checked-in data. validate:database needs node:sqlite (>= 22.5).
+      - name: Workflow validators
+        run: npm run validate:all

@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -19,7 +20,7 @@ import {
 } from "../src/lib/source-workflow";
 import type { ExternalSourceInput } from "../src/lib/source-workflow";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const externalSourcesStorePath = path.join(
   configDirPath,
   "external-sources.json"

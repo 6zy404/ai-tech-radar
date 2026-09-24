@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -28,7 +29,7 @@ import {
 import { getWorkflowEvents } from "../src/lib/workflow-events";
 import type { TechnologyWorkspaceRecord } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const technologyWorkspaceStorePath = path.join(
   configDirPath,
   "technology-workspace.json"

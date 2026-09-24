@@ -12,6 +12,55 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A damaged store file can no longer be read as empty and saved back that way
+
+- **Two rules in the JSON store made one corrupt read into a full wipe** —
+  2026-09-24, from the same whole-project review. Every write was a plain
+  `writeFileSync` over the live file, so a crash or a concurrent reader could
+  see a truncated store; and a store that existed but did not parse was
+  silently returned as its fallback value. Every store is read-modify-write of
+  the whole file, so the next save would have replaced a damaged
+  `candidate-review-state.json` (683 decisions) with an empty one, or a
+  damaged candidate snapshot / source list with the bundled **mock** — and
+  the 07:45 backup would then have copied the result. The host lost power
+  uncleanly on 09-21; nothing was damaged, and that is luck rather than
+  design.
+- **Writes are now temp-file-then-rename** (`writeFileAtomically`), the temp
+  file beside the target and carrying the pid, with a short retry on the
+  Windows `EPERM`/`EBUSY` a concurrent reader causes; on failure the temp
+  file is removed and the target untouched. **A store that does not parse
+  now throws** `LocalJsonStoreError` naming the file, from both the driver
+  read and the migration's disk read; only an absent file still reads as the
+  fallback. Eight tests, including a rename that fails twice and then
+  succeeds, a rename that never succeeds leaving the old version in place,
+  a non-lock error not being retried, and an empty file counting as damaged.
+- **The validators no longer touch the real data directory.** 17
+  `validate:*` scripts had `path.join(process.cwd(), "config")` hard-coded
+  — ignoring `LOCAL_DATA_DIR` — and wrote fixtures there, restoring in a
+  `finally`; on the live machine that is the live data, a `Ctrl+C` skipped
+  the restore, and 48 of the 84 events in `workflow-events.json` were
+  validation fixtures. All 17 now resolve the directory through
+  `getLocalDataDirPath()`, and `scripts/run-ts-validation.cjs` copies the
+  data directory into a temp folder, points `LOCAL_DATA_DIR` and
+  `SQLITE_DATABASE_PATH` at it, and deletes it on exit
+  (`VALIDATION_DATA_DIR=live` opts out). Proven with a probe rather than
+  assumed: a store write from inside the runner lands in the temp folder and
+  not in `config/`, and lands in `config/` only in live mode; all 22
+  validators then ran with `config/` **byte-identical before and after** and
+  zero temp folders left behind.
+- **They are in CI now.** `npm run validate:all` runs the 22 in order and
+  stops at the first failure; `.github/workflows/ci.yml` runs it after the
+  unit tests. That is 7,800 lines of regression checks that CI never ran
+  before, because they could not be trusted not to write. Measured locally:
+  about 50 seconds, 34 of them `validate:sources` retrying its unreachable
+  fixture feeds.
+- **Still open, stated**: two processes writing the same store still lose
+  each other's update (last writer wins) — they can no longer corrupt it.
+  The task runner's read-import-write on the schedule config is the known
+  case. **Not yet live**: this lands with the next deploy.
+- Verified: typecheck, lint, format, vitest **316/316** (8 new),
+  `validate:all` 22/22.
+
 ## Deployed with ten seconds of downtime, and the machine now wakes for its own tasks
 
 - **The live site was the 09-21 build, nine commits behind `main`** —
