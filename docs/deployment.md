@@ -184,12 +184,36 @@ Invoke-WebRequest http://localhost:3000/ask -UseBasicParsing | Select-Object Sta
 
 Rollback is the same swap the other way. `Stop-ScheduledTask` ends the task
 instance but leaves the detached `next start` holding port 3000, which is why
-step 2 kills the process tree explicitly. The first `/search` after a deploy
-downloads the ~130MB embedding model in the background and answers from
-keywords until it is ready (`.cache/` is gitignored, so the model survives
-later rebuilds). Measured 2026-09-24: the live server was out for about ten
-seconds, and `/ask`, which had been `404` on the 09-21 build, answered `200`
-on the first request.
+step 2 kills the process tree explicitly. Measured 2026-09-24: the live server
+was out for about ten seconds, and `/ask`, which had been `404` on the 09-21
+build, answered `200` on the first request.
+
+**The embedding model does not download on this machine — seed the cache.**
+The design was that the first `/search` after a deploy fetches the ~130MB
+model through `hf-mirror.com` in the background and answers from keywords
+until it is ready. Measured 2026-09-24, it never becomes ready: the mirror
+answers the model file with a **302 to `cas-bridge.xethub.hf.co`**, a Hugging
+Face host that is neither in `NO_PROXY` nor reachable directly from here, so
+the download hangs, `.cache/models/` holds only `config.json`, and every search
+logs `not ready within 3000ms` — **no load error is ever logged**, because the
+promise neither resolves nor rejects. Two consequences for the runbook:
+
+1. Before the first deploy on a machine, copy a complete
+   `.cache/models/Xenova/multilingual-e5-small/` (four files, the `.onnx`
+   about 118MB) from any checkout that has one. `.cache/` is gitignored, so it
+   survives rebuilds; it does **not** survive a fresh clone.
+2. Seeding the cache while the server is up is not enough: a hung load is held
+   in the process and never retried, so **restart the server task** after
+   copying. Then one warm-up request and a check that a search result carries
+   the 语义相近 stamp:
+
+```powershell
+Invoke-WebRequest "http://localhost:3000/search?q=quantization" -UseBasicParsing | Out-Null
+(Invoke-WebRequest "http://localhost:3000/search?q=%E6%A3%80%E7%B4%A2" -UseBasicParsing).Content -match "语义相近"
+```
+
+On 2026-09-24 the corpus embedded within 15 seconds of the restart and
+`.cache/search-embeddings.json` (about 1MB) appeared beside the model.
 
 `scripts/workspace-fetch.mjs` is that third layer. It adds the token header
 when one is configured and behaves exactly like `fetch` when none is, so
