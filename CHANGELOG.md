@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The three ways the live site could fail quietly, each given a voice
+
+- **A hung model load now has a deadline and a log line** — 2026-09-25,
+  from the previous day's finding that the embedding model never finished
+  downloading and nothing said so. `src/lib/model-load-gate.ts` is a
+  single-flight loader with a timeout (`EMBEDDING_LOAD_TIMEOUT_MS`, default
+  120s), a status (`idle` / `loading` / `ready` / `failed`, with the last
+  error and attempt count) and a failure callback; `embeddings.ts` runs the
+  transformers pipeline through it and logs
+  `[embeddings] model load failed (…): <reason>`. A timed-out attempt is
+  dropped and the next search starts a fresh one, so seeding the cache no
+  longer needs a restart to take effect; a late failure of the abandoned
+  load never surfaces as unhandled. Four tests, and proven in place: a 1ms
+  timeout warned and reported `failed` at once, the cached model reported
+  `ready` in 694ms.
+- **The launcher probes the proxy and goes direct when it is dead.** The
+  proxy runs only inside a logged-on session while the server and tunnel
+  tasks start at boot, so an unattended reboot sent every outbound request
+  into a dead port until someone logged in. `with-proxy-env.mjs` now opens
+  one TCP connection to the configured proxy before deciding; unreachable
+  means direct, logged with the address and the error code. It overrides even
+  the explicit `NODE_USE_ENV_PROXY=1` the import task sets on its command
+  line (a dead proxy with the flag on fails everything in milliseconds) while
+  an explicit `0` is never touched. Measured first that direct reaches
+  `api.deepseek.com`, `github.com` and `hf-mirror.com` from this machine;
+  then proven against a dead port both ways — `200` in ~400ms with the
+  probe, `ECONNREFUSED` in 9ms without it. Seven tests, including the probe
+  against a live and a just-closed local port.
+- **`GET /api/health` for an external monitor.** `200 { status: "ok" }`
+  while the store reads, `503 "degraded"` when it does not; the body carries
+  the build id, uptime, the published-signal count and the search
+  model/corpus state, and nothing a reader could not infer from the site.
+  A failed model is reported but does not flip the status, because the site
+  keeps answering from keywords. Checked on a dev server: `idle`/`idle`
+  before the first search, `ready`/`ready` twelve seconds after it,
+  `Cache-Control: no-store`. The runbook names the check to configure
+  (every 5 minutes, alert after two consecutive failures, so the ten-second
+  rebuild swap is not an outage); the monitor account is the owner's.
+- Verified: typecheck, lint, format, vitest **327/327** (11 new),
+  `validate:deployment` / `workspace-boundary`.
+
 ## The demo signals are off the site, and every page now says what it is
 
 - **Eight April placeholder signals were public until 2026-09-24.** All eight

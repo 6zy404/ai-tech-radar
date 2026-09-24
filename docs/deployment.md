@@ -696,6 +696,9 @@ the middleware-location section above before going any further.
 - `LLM_BASE_URL`: optional OpenAI-compatible base URL.
 - `LLM_MODEL`: optional model name.
 - `LLM_TIMEOUT_MS`: optional provider request timeout.
+- `EMBEDDING_LOAD_TIMEOUT_MS`: how long one attempt to load the search
+  embedding model may take before it is abandoned and logged; defaults to
+  `120000`. The next search retries.
 - `PUBLIC_AI_RATE_LIMIT_PER_MINUTE`: optional per-client, per-route request
   budget for the four public AI routes; defaults to `10`.
 - `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: the same budget over an hour; defaults to
@@ -914,6 +917,25 @@ Other notes:
 
 ### Proxy for every entry point
 
+**Since 2026-09-25 the launcher probes the proxy first.** The proxy
+(`127.0.0.1:7890`) runs only inside a logged-on desktop session, while the
+server and tunnel tasks start at boot, so after an unattended reboot every
+outbound request — DeepSeek calls, the daily import — went into a dead port
+until someone logged in. `with-proxy-env.mjs` now opens one TCP connection to
+the configured proxy (1.5s limit) before deciding: unreachable means
+`NODE_USE_ENV_PROXY` is left unset and the log says
+`[proxy] 代理 127.0.0.1:7890 不可达（ECONNREFUSED），本次直连。`. That
+overrides even the explicit `NODE_USE_ENV_PROXY=1` the import task sets on
+its command line — a dead proxy with the flag on fails every request in
+milliseconds, which nobody wants — while an explicit `0` is never touched.
+Direct connections reach `api.deepseek.com`, `github.com` and `hf-mirror.com`
+from this machine (measured 2026-09-24), so "go direct" is a real fallback,
+not a slower failure. Proven against a dead port both ways: with the probe,
+`fetch(github.com)` answered `200` in about 400ms; without it, `ECONNREFUSED`
+in 9ms. The decision is per launch, so a server started before the proxy
+comes up stays direct until its next restart — which is the trade the boot
+task needs.
+
 Until 2026-08-10 the proxy variables lived on the scheduled task's command line
 only, so the **same** import took one network path at 08:05 and a different one
 when triggered from the workspace UI. `scripts/with-proxy-env.mjs` now wraps
@@ -1018,6 +1040,43 @@ Verify with `schtasks /Run /TN "ai-tech-radar-backup"`, then check
 the same physical disk, so a disk failure loses both. It covers the failure
 mode this project actually hits — a store written wrong, truncated, or deleted.
 Copying `BACKUP_DIR` off the machine periodically is still worth doing.
+
+## Health endpoint and uptime alerts (2026-09-25)
+
+The site was down for about 28 of its first 90 hours (the host asleep) and
+nobody knew until logs were read days later; a stalled model download logged
+nothing at all. Two pieces close that:
+
+**`GET /api/health`** (public, no token, `Cache-Control: no-store`) answers
+`200` with `{ status: "ok" }` when the JSON store reads, `503` with
+`"degraded"` when it does not — the one state in which the site serves
+nothing useful. The body also carries the running `build` id, `uptimeSeconds`,
+the published-signal count, and the semantic search state:
+`search.model` is `idle` / `loading` / `ready` / `failed` from the load gate
+in `src/lib/model-load-gate.ts`, `search.corpus` whether the passage vectors
+for the current documents exist. A `failed` model does **not** flip the
+status: the site keeps answering from keywords, and the reason is in the
+server log as `[embeddings] model load failed (…)`. It reports nothing a
+reader could not infer from the site — no paths, no env, no provider.
+
+**The model load now has a deadline.** `EMBEDDING_LOAD_TIMEOUT_MS` (default 120000) bounds one load attempt; past it the attempt is logged with its
+reason, the state goes `failed`, and the next search starts a fresh attempt
+instead of waiting on a hung download forever. Proven with a 1ms timeout
+(warned and failed at once) and with the cached model (ready in under a
+second). A late failure of an abandoned load never surfaces as an unhandled
+rejection.
+
+**External check.** Point an uptime monitor at
+`https://aizyradar.cn/api/health`, expecting HTTP `200` and the string
+`"status":"ok"`, every 5 minutes, alerting after two consecutive failures.
+Any free tier does (UptimeRobot, Better Stack, Cronitor); the choice and the
+account are the operator's. Two consecutive failures is deliberate: a single
+miss during the ten-second rebuild swap is not an outage.
+
+**What this still does not cover**: a wrong `200` (the page renders but its
+data is stale or wrong), and the tunnel being up while the machine is
+asleep — in that state the tunnel answers `502`/`530` at the edge, which the
+monitor does see, so the sleep outages of 09-21 to 09-23 would have alerted.
 
 ## Local JSON Limits
 

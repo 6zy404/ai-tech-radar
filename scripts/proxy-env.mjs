@@ -89,7 +89,7 @@ function ensureDirectConnectHosts(env) {
  *   stays a working escape hatch — and so the scheduled task's own command-line
  *   value keeps winning.
  */
-export function applyProxyEnvDefaults(env) {
+export function applyProxyEnvDefaults(env, options = {}) {
   if (!hasProxyConfigured(env)) {
     return {
       applied: false,
@@ -99,6 +99,33 @@ export function applyProxyEnvDefaults(env) {
   }
 
   const explicit = (env.NODE_USE_ENV_PROXY ?? "").trim();
+
+  // A dead proxy with the flag on makes every outbound request fail in
+  // milliseconds — the live server's proxy only runs inside a logged-on
+  // session, so after an unattended reboot that is exactly the state the box
+  // is in. When the launcher's probe says the proxy is unreachable, fall back
+  // to a direct connection, and override even an explicit `1` (the scheduled
+  // import task sets one on its command line). An explicit `0` is the
+  // operator's escape hatch and is never touched.
+  if (options.proxyReachable === false) {
+    if (explicit.length > 0 && explicit !== "1") {
+      return {
+        applied: false,
+        reason: `NODE_USE_ENV_PROXY 已显式设为 ${explicit}，不覆盖。`,
+        addedDirectHosts: []
+      };
+    }
+
+    delete env.NODE_USE_ENV_PROXY;
+
+    return {
+      applied: false,
+      reason: `代理 ${options.proxyAddress ?? "（未知地址）"} 不可达${
+        options.proxyError ? `（${options.proxyError}）` : ""
+      }，本次直连。`,
+      addedDirectHosts: []
+    };
+  }
 
   if (explicit.length > 0) {
     return {
@@ -115,4 +142,62 @@ export function applyProxyEnvDefaults(env) {
     reason: "已启用代理（NODE_USE_ENV_PROXY=1），出站请求将走 HTTP(S)_PROXY。",
     addedDirectHosts: ensureDirectConnectHosts(env)
   };
+}
+
+/** The configured proxy URL, whichever variable carries it. */
+export function getConfiguredProxyUrl(env) {
+  for (const name of PROXY_VARIABLES) {
+    const value = (env[name] ?? "").trim();
+
+    if (value.length > 0) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
+/**
+ * Opens one TCP connection to the proxy and closes it. Resolves with
+ * `{ reachable, address, error? }` and never rejects, so the launcher can
+ * treat "cannot tell" the same as "unreachable". Measured on the live box:
+ * a refused local port answers in under 5ms, so the timeout only matters
+ * for a proxy on another machine.
+ */
+export async function probeProxy(proxyUrl, { timeoutMs = 1500 } = {}) {
+  let host;
+  let port;
+
+  try {
+    const url = new URL(proxyUrl);
+    host = url.hostname;
+    port = Number(url.port) || (url.protocol === "https:" ? 443 : 80);
+  } catch (error) {
+    return {
+      reachable: false,
+      address: proxyUrl,
+      error: `无法解析代理地址：${error instanceof Error ? error.message : error}`
+    };
+  }
+
+  const address = `${host}:${port}`;
+  const { createConnection } = await import("node:net");
+
+  return new Promise((resolve) => {
+    const socket = createConnection({ host, port });
+    const finish = (result) => {
+      socket.removeAllListeners();
+      socket.destroy();
+      resolve(result);
+    };
+
+    socket.setTimeout(timeoutMs);
+    socket.once("connect", () => finish({ reachable: true, address }));
+    socket.once("timeout", () =>
+      finish({ reachable: false, address, error: `${timeoutMs}ms 内未连上` })
+    );
+    socket.once("error", (error) =>
+      finish({ reachable: false, address, error: error.code ?? error.message })
+    );
+  });
 }
