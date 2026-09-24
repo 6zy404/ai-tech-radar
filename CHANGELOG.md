@@ -57,9 +57,24 @@ For per-topic deep dives, see the `docs/` directory.
 - **Still open, stated**: two processes writing the same store still lose
   each other's update (last writer wins) — they can no longer corrupt it.
   The task runner's read-import-write on the schedule config is the known
-  case. **Not yet live**: this lands with the next deploy.
+  case.
 - Verified: typecheck, lint, format, vitest **316/316** (8 new),
-  `validate:all` 22/22.
+  `validate:all` 22/22. **Deployed the same evening** with the side-directory
+  swap (listening again 2 seconds after start, `/ask` and the request guard
+  confirmed on the live domain).
+- **The deploy found that live semantic search had never worked.** After the
+  restart every search still logged `not ready within 3000ms`, and
+  `.cache/models/` held only `config.json`: `hf-mirror.com` answers the model
+  file with a **302 to `cas-bridge.xethub.hf.co`**, a Hugging Face host that
+  is neither in `NO_PROXY` nor reachable directly, so the download hangs
+  forever — and **nothing logs it**, because the load promise neither
+  resolves nor rejects. Fixed by copying a complete model
+  (four files, 118MB `.onnx`) from another checkout into the live cache and
+  restarting once more, since a hung load is held in the process and never
+  retried: the corpus embedded within 15 seconds and the live search page
+  carries 14 语义相近 stamps for 「检索」. Runbook updated to seed the cache
+  before a first deploy; a load timeout with a logged reason is on the
+  backlog.
 
 ## Deployed with ten seconds of downtime, and the machine now wakes for its own tasks
 
