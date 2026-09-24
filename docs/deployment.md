@@ -163,8 +163,33 @@ Four settings are doing real work here:
 
 **Rebuild before it matters.** `npm run start` serves whatever `.next` holds,
 so it must be rebuilt after `NEXT_PUBLIC_SITE_URL` changes — and **never
-rebuild while this task is running**, since dev/build/start all share `.next`.
-Stop the task, build, start it again.
+build into `.next` while this task is running**, since dev/build/start all
+share it.
+
+**Rebuild with seconds of downtime, not minutes (used 2026-09-24).** Build into
+a side directory while the server keeps serving, then swap and restart:
+
+```powershell
+# 1. build beside the running server (takes minutes, no downtime)
+$env:NEXT_DIST_DIR = ".next-new"; npm run build:public; Remove-Item Env:NEXT_DIST_DIR
+# 2. switch (about ten seconds of downtime)
+Stop-ScheduledTask -TaskName "ai-tech-radar-server"
+$pid3000 = (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess | Select-Object -First 1
+if ($pid3000) { taskkill /PID $pid3000 /T /F }
+Rename-Item .next .next-old; Rename-Item .next-new .next
+Start-ScheduledTask -TaskName "ai-tech-radar-server"
+# 3. check, then delete .next-old once you are happy
+Invoke-WebRequest http://localhost:3000/ask -UseBasicParsing | Select-Object StatusCode
+```
+
+Rollback is the same swap the other way. `Stop-ScheduledTask` ends the task
+instance but leaves the detached `next start` holding port 3000, which is why
+step 2 kills the process tree explicitly. The first `/search` after a deploy
+downloads the ~130MB embedding model in the background and answers from
+keywords until it is ready (`.cache/` is gitignored, so the model survives
+later rebuilds). Measured 2026-09-24: the live server was out for about ten
+seconds, and `/ask`, which had been `404` on the 09-21 build, answered `200`
+on the first request.
 
 `scripts/workspace-fetch.mjs` is that third layer. It adds the token header
 when one is configured and behaves exactly like `fetch` when none is, so
@@ -731,9 +756,16 @@ Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Settings $s
 - `ExecutionTimeLimit` and `MultipleInstances` are only repeated because
   `New-ScheduledTaskSettingsSet` builds a **complete** settings object: any
   value left out is reset to its default, not preserved.
-- Deliberately **not** enabled: `WakeToRun`. It would wake a sleeping machine
-  at the trigger time — a machine-behavior decision for the operator, not a
-  project default.
+- `WakeToRun` was deliberately **off** until 2026-09-24, as a machine-behavior
+  decision for the operator. **It is on now**, on this task and on the backup
+  task, owner-decided after the site went public: the host is a desktop with
+  automatic sleep disabled, so every sleep since go-live was manual, and on
+  2026-09-23 it slept from 03:01 to 13:59 — the site was down, and neither
+  07:45 nor 08:05 ran (waking was a fresh logon, which the unlock trigger does
+  not match). With `WakeToRun` the machine wakes for the 07:45 backup and stays
+  up, so the site is back from then on. Applied with
+  `$t = Get-ScheduledTask "ai-tech-radar-tasks"; $s = $t.Settings; $s.WakeToRun = $true; Set-ScheduledTask "ai-tech-radar-tasks" -Settings $s`
+  (same for `ai-tech-radar-backup`); roll back with `$s.WakeToRun = $false`.
 
 Verify with
 `(Get-ScheduledTask -TaskName "ai-tech-radar-tasks").Settings | Select-Object StartWhenAvailable, DisallowStartIfOnBatteries, StopIfGoingOnBatteries`
@@ -926,6 +958,15 @@ What it does, and why each part is there:
 - refuses to write an **empty** backup, so a mis-set `LOCAL_DATA_DIR` cannot
   quietly push good snapshots out of the retention window;
 - prunes to `BACKUP_KEEP` (default 14), newest kept;
+- takes **one verified snapshot per day** (since 2026-09-24): if a snapshot
+  from today already has a manifest, the run logs it and exits 0.
+  `BACKUP_FORCE=1` takes another one anyway. This exists because the task now
+  also fires **3 minutes after logon** (`New-ScheduledTaskTrigger -AtLogOn`,
+  `Delay = PT3M`, added 2026-09-24 alongside `WakeToRun`) — the machine slept
+  through 07:45 on 09-23 and woke into a fresh logon — and without the guard
+  every logon would add a snapshot and push a real day out of the 14-slot
+  window. Roll the trigger back with
+  `Set-ScheduledTask "ai-tech-radar-backup" -Trigger (New-ScheduledTaskTrigger -Daily -At 07:45)`;
 - exits non-zero on any failure, so Task Scheduler records a failure instead of
   reporting success.
 
