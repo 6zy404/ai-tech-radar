@@ -12,6 +12,68 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The last two placeholders, written on the site's own retrieval numbers
+
+- **知识《检索增强生成基础》 (56 → 1275) and 技能《检索流水线调优》 (56 → 1640)** — 2026-09-24, owner-selected. Both were held since 2026-08-06
+  until the retrieval topic had more than 3 published signals; it has **6**
+  (4 workspace-published, 2 seed), so the stated condition was met. **The
+  skill/knowledge pool now has zero stubs**: 35 entries, shortest 279
+  characters, median 958.
+- **The anchor that did not exist in August is this repository's own
+  search.** Since 09-23 the site runs a hybrid retrieval pipeline and a
+  grounded Q&A over it, both measured. Both bodies use those numbers as
+  first-hand evidence, dated 「截至 2026-09-23」 the way the graph entry
+  dates its node counts: on 31 test queries hybrid found something relevant
+  for **93%** against keyword's 33%, at a precision cost of **94% → 40%**;
+  an absolute score cutoff fails (best match 0.788 for an English query,
+  0.854 for an off-topic Chinese one); all six off-topic queries return
+  results, and only the model declines them (**0/6 vs 6/6**). The bias of
+  the query set — written by the agent that built the search — is stated in
+  the skill body rather than left in the eval README.
+- **The knowledge entry owns the "why"**: when the model's own memory is not
+  enough (stale, private, or needing an outside source), that recall is the
+  ceiling (Pinterest's 77% recall means generation never sees a quarter of
+  what it should, and generation does not report that), that retrieval
+  cannot say "nothing here", and that **a valid citation is not a true
+  sentence** — numbers are assigned by the code, and the 17-of-17 spot check
+  is stated as a sample. **The skill owns the "how"**: a query set with
+  negatives and a tune/test split before any knob is touched; four knobs
+  and which number each moves (embedding model — LFM2.5-Encoders; index and
+  quantization — Pinterest's recall floor; hybrid merge and relative cutoff;
+  reranking — Jev); dose rather than switch (ALTK-Evolve: +16.1 points at
+  +5% tokens on the retrieve-a-few strategy, 0.0 on GLM-5); and four ways
+  tuning fools itself, including the flat-distribution 1e-17 standard
+  deviation the site's own tests caught.
+- **Boundaries written into both bodies**: retrieving an agent's own
+  experience → 长时程记忆; explicit relations → 图思维; writing checks that can
+  fail → 模型与输出评估; weight-side quantization → 模型量化与数值精度; serving →
+  推理服务容量规划.
+- **Two reverse links added as read-then-union**, each with a typed relation
+  and a note: LFM2.5-Encoders ↔ the skill (借助) and ALTK-Evolve ↔ the
+  knowledge entry (印证); the five pairs written in the 09-24 round were
+  already in place. Stores diffed against `HEAD`: **913 arrays, zero
+  losses**, checker proven to fire on an injected loss.
+- **Written to the branch, not the live directory.** The worktree's `config/`
+  was byte-identical to the live one, so the entries went through the
+  workspace API on a dev server reading the branch's own data; they go live
+  when the branch merges into `main`.
+- Verified: publish gate zero errors and zero warnings on both; both pages
+  render 14 blocks with 6 headings and **zero literal markers, zero ASCII and
+  zero curly quotes** on the parsed DOM; four reverse links and both notes
+  rendering on the two signal pages and in the `/network` payload; zero
+  horizontal overflow at 1265 and 390 with zero relationship-graph overlaps
+  — the detector proven to fire, **and its first version did not**: the
+  nodes carry a CSS transition, so an injected transform measured at once
+  read the untransformed box; zero console errors; `validate:persistence` /
+  `workspace-boundary`. **Looked at**: both pages scrolled top to bottom at
+  1265 and the tops at 390.
+- **Known and left**: at 390px the skill hero breaks 「检索流水线调 / 优」.
+  `Intl.Segmenter` splits the title into 检索|流水|线|调|优 — the ICU
+  dictionary gap already pinned for 复盘 / 智能体 / 主打 — and the title is a
+  seed name three other bodies refer to, so it stays. The skill page's
+  related-signal cards show a signal's 为什么重要 rather than the relation
+  note, which is that page's existing design and not this round's change.
+
 ## Editorial round — token gets cheaper, the bill moves elsewhere
 
 - **50 undecided candidates, seven signals** — 2026-09-24, five days after the

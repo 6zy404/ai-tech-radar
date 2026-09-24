@@ -1,5 +1,26 @@
 # Next Task
 
+> Update 2026-09-24 (later): **两条检索占位补完，内容池不再有占位条目。**
+> 知识《检索增强生成基础》56 → 1275 字、技能《检索流水线调优》56 → 1640 字；
+> 池子 35 条，最短 279 字、中位数 958。8 月按住的条件（检索话题多于 3 条信号）
+> 现在是 6 条。**8 月没有的锚点是这个仓库自己的检索**：两条正文都用站内 /search
+> 与问雷达 09-23 的实测数字（命中 33% → 93%、精度 94% → 40%、无关查询纯检索
+> 0/6 拒答对模型 6/6、绝对阈值 0.788 对 0.854 失效），带「截至 2026-09-23」
+> 限定，并写明查询集是建搜索的人写的。补两条反向关系（LFM2.5-Encoders ↔ 技能，
+> 借助；ALTK-Evolve ↔ 知识，印证），按并集写入，913 个数组零丢失、检查器注入
+> 自证。**只写进分支**：worktree 与线上 `config/` 逐字节相同，dev server 指向
+> 分支数据，合并进 main 后上线。验证：发布门槛零错零警告、两页各 14 块 6 标题零
+> 残留标记零引号问题、四条反向链接与两条附注在信号页与 `/network` 渲染、1265 与
+> 390 零溢出零图谱压叠（检测器第一版没响——节点带 CSS 过渡、注入后量早了，改后
+> 才响）、零 console 错误、`validate:persistence` / `workspace-boundary`。
+> **两页从头滚到尾看过。** **已知未改**：390px 下技能标题断成「检索流水线调 / 优」，
+> `Intl.Segmenter` 把它切成 检索|流水|线|调|优，与已钉住的 复盘 / 智能体 / 主打
+> 同类 ICU 词典缺口，且是被三条正文引用的种子标题，不改。
+> **剩余 backlog**：(1) owner 抽查 `eval/search/queries.json`，以及一套由没看过
+> 语料的人写的搜索与问雷达问题集；(2) 在 09-23 之后的决定上评判的 v2 分诊提示词
+> ——理由码显示修法是把文章给模型，不是更好的评分表；(3) 仓库改 Public + 换描述
+> （owner，网页操作）。
+
 > Update 2026-09-24: **Editorial round — 50 candidates, seven signals, and the
 > first round run with model triage suggestions.** Published: the Opus 5.5 /
 > GPT-6 price war (lead), Jev decision models, DeepSeek DSec sandboxes, the

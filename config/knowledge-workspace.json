@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T03:51:12.819Z",
+  "updatedAt": "2026-09-24T06:54:32.702Z",
   "records": [
     {
       "id": "knowledge-ws-8c99b19c",
@@ -426,30 +426,6 @@
       "updatedAt": "2026-09-24T03:51:11.377Z"
     },
     {
-      "id": "knowledge-rag-basics",
-      "title": "检索增强生成基础",
-      "slug": "retrieval-augmented-generation-basics",
-      "summary": "为什么外部知识检索会改变答案的质量、时效性和信任边界。",
-      "content": "RAG 仍是基础概念，因为它澄清了模型自身记忆何时不够用。团队可以借它来判断新的检索产品为何重要、又为何会失败。",
-      "category": "data",
-      "difficulty": "foundation",
-      "tags": [
-        "tag-retrieval"
-      ],
-      "relatedTechnologyIds": [
-        "tech-rag-evals",
-        "tech-kg-assistants",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
-        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedSkillIds": [
-        "skill-retrieval-tuning"
-      ],
-      "status": "published",
-      "createdAt": "2026-09-24T03:51:11.430Z",
-      "updatedAt": "2026-09-24T03:51:11.430Z"
-    },
-    {
       "id": "knowledge-ws-818b7bb3",
       "title": "合成数据与数据配方",
       "slug": "synthetic-data-and-data-recipes",
@@ -699,6 +675,31 @@
       "status": "published",
       "createdAt": "2026-07-19T05:04:39.934Z",
       "updatedAt": "2026-09-24T03:51:12.819Z"
+    },
+    {
+      "id": "knowledge-rag-basics",
+      "title": "检索增强生成基础",
+      "slug": "retrieval-augmented-generation-basics",
+      "summary": "为什么外部知识检索会改变答案的质量、时效性和信任边界。",
+      "content": "模型的参数里存着训练时见过的东西，而问题常常在那之外：昨天发布的版本、你们自己的文档、需要给出处的结论。检索增强生成（RAG）就是在生成之前先去外面找，再把找到的交给模型。它改变的不只是答案的质量，还有**答案能被谁核对**。\n\n## 什么时候模型自己的记忆不够用\n\n三种情况各不相同，混在一起会选错方案：\n\n- **过时**：训练截止之后发生的事，模型只能猜。检索补的是时效。\n- **私有**：你们的合同、代码、工单，模型从没见过。检索补的是范围。\n- **要可核对**：模型可能知道答案，但读者需要一个能点开的出处。检索补的是**信任边界**——这一种最容易被忽略，而它才是多数企业场景真正要的。\n\n## 一条流水线的四个动作，各有各的失败方式\n\n切分并建索引、召回、重排、生成。每一步的失败长得不一样：切得太碎，一段话的前提和结论分在两块；召回漏了，后面再聪明也补不回来；重排把「相关」排在「相似」后面；生成阶段把没检索到的内容当成检索到的写出来。\n\n## 召回是天花板\n\nPinterest 在 1 亿条向量上做过一组离线基准：乘积量化把 HNSW 索引从 121GB 压到 32GB，Recall@100 从 93.7% 掉到 77.3%。放在 RAG 里读，**召回 77% 意味着生成阶段有将近四分之一该看到的内容根本看不到**——而且生成那一侧不会报错，它只会用手里有的东西把话说圆。所以选索引和量化方案时，先定的是召回下限，不是压缩率。\n\n## 检索不会说「这里没有」\n\n这是这个站自己量出来的。截至 2026-09-23，站内搜索对 6 条与站内内容无关的查询（「how to bake bread」「股票推荐」）**全部返回了结果**：相对截断总会放行当次查询里最像的几条，模型分不出「不太相关」和「无关」。问雷达把同样的检索交给一个会读结果的模型之后，6 条无关问题被全部拒答，而纯检索的版本一条都没拒。**辨别「站内没有」和「这是最接近的几条」，是检索自己做不到、只能由生成那一侧做的事**——前提是你要求它做，并把拒答写成一句固定的话，让它可以被数出来。\n\n## 引用不是证据\n\n同一套系统里，引用编号由代码在检索结果返回时分配，模型只能引用它真的拿到过的条目，所以一个没被检索到的 `[n]` 按定义就是无效引用。这堵住了一种失败，却堵不住另一种：**引用有效不等于旁边那句话为真**。抽查 4 个回答里的 17 条具体断言，全部能在模型读到的原文里找到，但那是抽样，不是保证。RAG 把信任边界从「相信模型」挪到了「相信它读到的东西，加上它转述的方式」，后一半仍然要人去核。\n\n## 交接\n\n被检索的不一定是文档：IBM 的 ALTK-Evolve 检索的是智能体自己过去的经验条目，而少量高置信条目胜过全量注入，这一支归《长时程智能体的记忆与上下文管理》。相似度说不出两条内容是什么关系，什么时候值得把关系显式写下来，见《面向知识系统的图思维》。切分、索引、重排该怎么调、在什么上量，是技能《检索流水线调优》的事。",
+      "category": "data",
+      "difficulty": "foundation",
+      "tags": [
+        "tag-retrieval"
+      ],
+      "relatedTechnologyIds": [
+        "tech-rag-evals",
+        "tech-kg-assistants",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+      ],
+      "relatedSkillIds": [
+        "skill-retrieval-tuning"
+      ],
+      "status": "published",
+      "createdAt": "2026-09-24T03:51:11.430Z",
+      "updatedAt": "2026-09-24T06:54:32.701Z"
     }
   ]
 }
