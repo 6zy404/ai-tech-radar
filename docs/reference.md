@@ -374,7 +374,10 @@ npm run db:init
 npm run db:migrate-json
 npm run tasks:run-once
 
-# per-subsystem validation scripts
+# per-subsystem validation scripts — each runs against a throwaway copy of the
+# data directory (scripts/run-ts-validation.cjs), never the real config/;
+# VALIDATION_DATA_DIR=live opts out. `validate:all` runs the whole set in order.
+npm run validate:all
 npm run validate:candidates
 npm run validate:publishing
 npm run validate:sources

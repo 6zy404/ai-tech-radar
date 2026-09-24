@@ -272,7 +272,7 @@ The safe public mapping is still explicit:
   (`PUT /api/workspace/relations`) stays behind the workspace boundary
 - delivery channels, delivery logs, schedules, task-runner records, and workflow events are workspace-only
 
-`npm run validate:persistence` provides a lightweight consistency and isolation check for local workflow data. `npm run validate:database` repeats the critical reference and public-field checks against both JSON and SQLite driver modes.
+`npm run validate:persistence` provides a lightweight consistency and isolation check for local workflow data. `npm run validate:database` repeats the critical reference and public-field checks against both JSON and SQLite driver modes. Since 2026-09-24 every `validate:*` script runs against a throwaway copy of the data directory made by `scripts/run-ts-validation.cjs`, so a validator can never write a fixture into the live store; `VALIDATION_DATA_DIR=live` is the explicit opt-out. Store writes are temp-file-then-rename, and a store file that no longer parses throws rather than being read as empty and then overwritten.
 
 ## Task Runner Boundary
 

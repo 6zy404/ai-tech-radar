@@ -61,6 +61,8 @@ visual-qa-screenshots/
 eval/triage/cache/
 # LLM triage suggestions: regenerable model output, like the AI caches above
 config/candidate-triage-suggestions.json
+# in-flight atomic writes (temp-then-rename); never left behind on a clean exit
+config/*.tmp-*
 
 # Local embedding model + search embedding cache (regenerable)
 .cache/

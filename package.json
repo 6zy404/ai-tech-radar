@@ -52,7 +52,8 @@
     "validate:editorial-enrichment": "node scripts/run-ts-validation.cjs scripts/validate-editorial-enrichment.ts",
     "validate:llm-enrichment": "node scripts/run-ts-validation.cjs scripts/validate-llm-enrichment.ts",
     "validate:prompt-quality": "node scripts/run-ts-validation.cjs scripts/validate-prompt-quality.ts",
-    "validate:workspace-boundary": "node scripts/run-ts-validation.cjs scripts/validate-workspace-boundary.ts"
+    "validate:workspace-boundary": "node scripts/run-ts-validation.cjs scripts/validate-workspace-boundary.ts",
+    "validate:all": "node scripts/run-all-validations.cjs"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.0",

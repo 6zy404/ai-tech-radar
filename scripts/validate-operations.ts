@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -40,7 +41,7 @@ import type {
 type BackupEntry =
   { kind: "missing" } | { kind: "file"; value: string } | { kind: "directory" };
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const externalSourceStorePath = path.join(
   configDirPath,
   "external-sources.json"

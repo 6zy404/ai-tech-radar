@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import {
   existsSync,
@@ -56,7 +57,7 @@ import type {
 type BackupEntry =
   { kind: "missing" } | { kind: "file"; value: string } | { kind: "directory" };
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const importedCandidatesSnapshotPath = path.join(
   configDirPath,
   "imported-candidates.live.json"

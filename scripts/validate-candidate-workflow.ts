@@ -1,3 +1,4 @@
+import { getLocalDataDirPath } from "@/lib/local-data";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -19,7 +20,7 @@ import { PublishReadinessError } from "../src/lib/publish-readiness";
 import { getLocalizedTechnologyText } from "../src/lib/technology-localization";
 import type { TechnologyWorkspaceRecord } from "../src/types/content";
 
-const configDirPath = path.join(process.cwd(), "config");
+const configDirPath = getLocalDataDirPath();
 const candidateReviewStatePath = path.join(
   configDirPath,
   "candidate-review-state.json"
