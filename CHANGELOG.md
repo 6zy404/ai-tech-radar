@@ -12,6 +12,66 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The demo signals are off the site, and every page now says what it is
+
+- **Eight April placeholder signals were public until 2026-09-24.** All eight
+  seed technologies in `src/data/technologies.ts` are demos from the
+  foundation phase — invented publishers, `https://example.com/...` source
+  links, bodies of 70–88 characters, six with no explanation fields — and
+  they had been served on aizyradar.cn, fed into search, 问雷达 and the
+  graph, since go-live. Owner-decided: **archived, not deleted.** Their
+  status is `archived`, which the public read already filters, so the ids
+  survive and nothing dangles; the references were then cleaned rather than
+  left pointing at nothing — 13 `relatedTechnologyIds` entries in the seed
+  skills and knowledge, 44 of the 56 seed relations, 35 ids across the
+  workspace stores and 5 relation overrides, plus the dead
+  `getFeaturedTechnologies` helper that only ever pointed at them.
+  Published signals go **89 → 81**, the graph **124 → 116 nodes / 844 → 802
+  edges**, and the knowledge-graph topic is left with one signal.
+- **The search eval was re-run rather than left broken.** Eight labels
+  pointed at the archived items and the eval refuses to run with a label
+  that names nothing. With them removed, hybrid finds something relevant for
+  **85.2%** of test queries against 92.6% before, MRR 0.725 → 0.649 —
+  **down, not up**, because the seeds' short generic titles had been easy
+  hits. Nothing about the search changed; both sets of numbers are in
+  `eval/search/README.md`. Two 问雷达 labels were removed too; that eval is a
+  real-cost call and was not repeated, stated in its README.
+- **Every public page has its own title and description now.** Until today
+  all nineteen shared one `<title>` and a description that called the site
+  a "local prototype". `src/lib/site-metadata.ts` builds each page's title
+  (`%s · AI Tech Radar`), a snippet-length description, a canonical URL and
+  an Open Graph card; the layout sets `metadataBase` from the site URL.
+  Signal, skill, knowledge, digest, week and topic pages take their title
+  and summary from the record; search results and the two localStorage views
+  are `noindex`. New `sitemap.xml` (180 URLs: fixed routes plus every
+  published signal, skill, knowledge entry, digest, topic hub and past week)
+  and `robots.txt`.
+- **A Chinese 404 and error page.** `notFound()` — an unknown slug, an empty
+  topic, a non-Monday week — used to show Next's default English page.
+  `not-found.tsx` and `error.tsx` render in the dossier register with a way
+  out; the error page logs the digest and never shows the error text.
+- **The AI widgets no longer leak English.** The compare / explain /
+  learning-path libraries returned "Comparison generation is temporarily
+  unavailable." and the routes "Request body must be valid JSON." straight
+  into the widgets' error slot; all eleven reader-reachable messages are
+  Chinese now.
+- **「每日简报」 is 「技术简报」.** Five digests were published in the last 30
+  days while the nav promised one a day. Owner-decided: the public name drops
+  「每日」 — nav, home button (阅读最新简报), section labels, feed titles and
+  the generated default title — and the 56 stored default titles were
+  backfilled to `技术简报 - YYYY-MM-DD`, as the 07-10 localization did for
+  the English ones. Routes, data model and the daily scheduled draft are
+  unchanged; docs keep "Daily Digest" as the workflow name
+  (`docs/reference.md` says so).
+- Verified: typecheck, lint, format, vitest **316/316**, `validate:all`
+  22/22; on a dev server every public page's title, description, canonical
+  and share card read correctly, four missing routes render the Chinese 404
+  (looked at, 1265 and 390, zero overflow), the sitemap lists no archived
+  item, `example.com` appears on no public surface, the three AI routes
+  answer in Chinese, and the renamed digest shows in the nav, the home page,
+  both feeds and the page title. **Not yet live**: lands with the next
+  deploy.
+
 ## A damaged store file can no longer be read as empty and saved back that way
 
 - **Two rules in the JSON store made one corrupt read into a full wipe** —

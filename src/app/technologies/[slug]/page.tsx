@@ -10,12 +10,37 @@ import {
 } from "@/lib/content";
 import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
+import { getPreferredTechnologySummary } from "@/lib/technology-localization";
 
 interface TechnologyDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params
+}: TechnologyDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const technology = getTechnologyBySlug(slug);
+
+  if (!technology) {
+    return buildPageMetadata({
+      title: "没有这一页",
+      path: `/technologies/${slug}`,
+      noIndex: true
+    });
+  }
+
+  return buildPageMetadata({
+    title: getPreferredTechnologyTitle(technology),
+    description: getPreferredTechnologySummary(technology),
+    path: `/technologies/${technology.slug}`,
+    type: "article"
+  });
+}
 
 export default async function TechnologyDetailPage({
   params

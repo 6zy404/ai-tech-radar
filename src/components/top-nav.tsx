@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 const primaryNavItems = [
   { href: "/", label: "首页" },
-  { href: "/digest/today", label: "每日简报" },
+  { href: "/digest/today", label: "技术简报" },
   { href: "/technologies", label: "技术信号" },
   { href: "/skills", label: "技能" },
   { href: "/knowledge", label: "知识" },

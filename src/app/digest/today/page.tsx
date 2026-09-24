@@ -11,8 +11,24 @@ import {
   getLatestPublishedDailyDigest,
   getPublishedDailyDigestByDate
 } from "@/lib/digest-workflow";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
+import {
+  getPublicDigestSummaryPlainText,
+  getPublicDigestTitle
+} from "@/lib/public-copy";
 
 export const dynamic = "force-dynamic";
+
+export function generateMetadata(): Metadata {
+  const latest = getLatestPublishedDailyDigest();
+
+  return buildPageMetadata({
+    title: latest ? getPublicDigestTitle(latest) : "技术简报",
+    description: latest ? getPublicDigestSummaryPlainText(latest) : undefined,
+    path: "/digest/today"
+  });
+}
 
 export default function TodayDigestPage() {
   const today = getTodayDateString();
@@ -28,7 +44,7 @@ export default function TodayDigestPage() {
     <UserPageShell
       title="AI 技术简报"
       description="以阅读为先的简报，汇总今天值得关注的技术信号。"
-      sectionLabel="每日简报"
+      sectionLabel="技术简报"
       showHeader={false}
       className="dossier"
     >
@@ -42,7 +58,7 @@ export default function TodayDigestPage() {
       ) : (
         <section className="daily-digest-empty">
           <div>
-            <p className="eyebrow user-eyebrow">每日简报</p>
+            <p className="eyebrow user-eyebrow">技术简报</p>
             <h1>今天还没有已发布的简报。</h1>
             <p>
               首期简报发布后，这里会展示当天的内容。在此之前，你可以先浏览技术信号流。

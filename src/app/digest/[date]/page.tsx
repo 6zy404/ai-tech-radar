@@ -11,12 +11,36 @@ import {
   getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 interface DigestDatePageProps {
   params: Promise<{ date: string }>;
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params
+}: DigestDatePageProps): Promise<Metadata> {
+  const { date } = await params;
+  const digest = getPublishedDailyDigestByDate(date);
+
+  if (!digest) {
+    return buildPageMetadata({
+      title: "没有这一页",
+      path: `/digest/${date}`,
+      noIndex: true
+    });
+  }
+
+  return buildPageMetadata({
+    title: getPublicDigestTitle(digest),
+    description: getPublicDigestSummaryPlainText(digest),
+    path: `/digest/${digest.date}`,
+    type: "article"
+  });
+}
 
 export default async function DigestDatePage({ params }: DigestDatePageProps) {
   const { date } = await params;
@@ -33,7 +57,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
     <UserPageShell
       title={publicTitle}
       description={publicSummary}
-      sectionLabel="每日简报"
+      sectionLabel="技术简报"
       showHeader={false}
       className="dossier"
     >

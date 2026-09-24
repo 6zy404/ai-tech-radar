@@ -12,7 +12,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "software-architecture",
     difficulty: "foundation",
     tags: ["tag-workflow"],
-    relatedTechnologyIds: ["tech-mcp"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-tool-integration"]
   },
   {
@@ -26,7 +26,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "software-architecture",
     difficulty: "intermediate",
     tags: ["tag-ai-agents", "tag-workflow"],
-    relatedTechnologyIds: ["tech-mcp", "tech-multimodal-copilots"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-agent-design", "skill-tool-integration"]
   },
   {
@@ -39,7 +39,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "data",
     difficulty: "foundation",
     tags: ["tag-retrieval"],
-    relatedTechnologyIds: ["tech-rag-evals", "tech-kg-assistants"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-retrieval-tuning"]
   },
   {
@@ -52,7 +52,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "operations",
     difficulty: "intermediate",
     tags: ["tag-observability"],
-    relatedTechnologyIds: ["tech-rag-evals", "tech-agent-workbenches"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-model-evaluation"]
   },
   {
@@ -65,7 +65,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "software-architecture",
     difficulty: "intermediate",
     tags: ["tag-workflow", "tag-product-strategy"],
-    relatedTechnologyIds: ["tech-browser-agents", "tech-agent-workbenches"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-agent-design"]
   },
   {
@@ -78,7 +78,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "operations",
     difficulty: "foundation",
     tags: ["tag-product-strategy", "tag-workflow"],
-    relatedTechnologyIds: ["tech-browser-agents", "tech-voice-runtime"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-scope-pilots", "skill-communication-ai"]
   },
   {
@@ -91,7 +91,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "data",
     difficulty: "advanced",
     tags: ["tag-knowledge-graph", "tag-retrieval"],
-    relatedTechnologyIds: ["tech-kg-assistants"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-retrieval-tuning"]
   },
   {
@@ -104,7 +104,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "machine-learning",
     difficulty: "intermediate",
     tags: ["tag-on-device", "tag-product-strategy"],
-    relatedTechnologyIds: ["tech-slm-edge"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-model-evaluation"]
   },
   {
@@ -117,7 +117,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "software-architecture",
     difficulty: "intermediate",
     tags: ["tag-on-device", "tag-multimodal"],
-    relatedTechnologyIds: ["tech-slm-edge", "tech-voice-runtime"],
+    relatedTechnologyIds: [],
     relatedSkillIds: ["skill-scope-pilots"]
   },
   {
@@ -130,7 +130,7 @@ export const knowledgeItems: KnowledgeItem[] = [
     category: "product-thinking",
     difficulty: "foundation",
     tags: ["tag-product-strategy", "tag-observability"],
-    relatedTechnologyIds: ["tech-multimodal-copilots"],
+    relatedTechnologyIds: [],
     relatedSkillIds: [
       "skill-model-evaluation",
       "skill-communication-ai",

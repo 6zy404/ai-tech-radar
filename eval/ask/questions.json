@@ -7,8 +7,7 @@
       "expected": [
         "S:on-device-model-deployment",
         "K:model-quantization-numeric-precision",
-        "K:local-cloud-hybrid-inference",
-        "T:on-device-small-language-models"
+        "K:local-cloud-hybrid-inference"
       ]
     },
     {
@@ -77,8 +76,7 @@
       "question": "怎么让模型可靠地调用外部工具？",
       "expected": [
         "K:tool-use-and-function-calling",
-        "S:tool-integration-patterns",
-        "T:model-context-protocol"
+        "S:tool-integration-patterns"
       ]
     },
     {

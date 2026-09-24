@@ -4,16 +4,16 @@
     "minZ": 1.75,
     "perGroupLimit": 5
   },
-  "generatedAt": "2026-09-23T12:44:40.085Z",
+  "generatedAt": "2026-09-24T09:47:40.195Z",
   "tune": {
     "summary": {
       "keyword": {
         "queries": 10,
         "hitRate": 0.1,
         "recall": 0.1,
-        "precision": 0.7142857142857143,
-        "mrr": 0.1,
-        "meanReturned": 0.7,
+        "precision": 0.625,
+        "mrr": 0.05,
+        "meanReturned": 0.8,
         "negatives": 2,
         "negativesWithResults": 0,
         "meanReturnedOnNegatives": 0
@@ -21,10 +21,10 @@
       "semantic": {
         "queries": 10,
         "hitRate": 1,
-        "recall": 0.59,
-        "precision": 0.4988095238095238,
-        "mrr": 0.5416666666666666,
-        "meanReturned": 4.5,
+        "recall": 0.6216666666666666,
+        "precision": 0.49833333333333335,
+        "mrr": 0.6116666666666667,
+        "meanReturned": 4.3,
         "negatives": 2,
         "negativesWithResults": 2,
         "meanReturnedOnNegatives": 4
@@ -32,10 +32,10 @@
       "hybrid": {
         "queries": 10,
         "hitRate": 1,
-        "recall": 0.59,
-        "precision": 0.47023809523809523,
-        "mrr": 0.5416666666666666,
-        "meanReturned": 4.7,
+        "recall": 0.6416666666666666,
+        "precision": 0.48083333333333333,
+        "mrr": 0.6116666666666667,
+        "meanReturned": 4.6,
         "negatives": 2,
         "negativesWithResults": 2,
         "meanReturnedOnNegatives": 4
@@ -50,7 +50,6 @@
           "relevantFound": [],
           "relevantMissed": [
             "S:on-device-model-deployment",
-            "T:on-device-small-language-models",
             "K:model-quantization-numeric-precision",
             "K:local-cloud-hybrid-inference",
             "T:ollama-v0-31-2"
@@ -95,6 +94,7 @@
           "id": "t05",
           "query": "vLLM",
           "returned": [
+            "T:vllm-v0-30-0",
             "T:vllm-v0-27-0",
             "T:vllm-v0-26-0",
             "T:vllm-v0-25-0",
@@ -111,7 +111,7 @@
             "T:vllm-transformers-native-backend"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 1
+          "firstRelevantRank": 2
         },
         {
           "id": "t06",
@@ -120,7 +120,6 @@
           "relevantFound": [],
           "relevantMissed": [
             "T:introducing-gpt-live",
-            "T:voice-agent-runtime",
             "S:realtime-voice-interaction-design",
             "K:paralinguistics-voice-interaction",
             "T:real-world-voiceeq"
@@ -143,8 +142,7 @@
           "relevantFound": [],
           "relevantMissed": [
             "K:tool-use-and-function-calling",
-            "S:tool-integration-patterns",
-            "T:model-context-protocol"
+            "S:tool-integration-patterns"
           ]
         },
         {
@@ -192,16 +190,15 @@
             "T:ollama-v0-31-2",
             "T:meta-muse-glimmer",
             "T:vllm-v0-25-0",
-            "T:on-device-small-language-models",
+            "S:on-device-model-deployment",
             "K:model-quantization-numeric-precision"
           ],
           "relevantFound": [
-            "T:on-device-small-language-models",
+            "S:on-device-model-deployment",
             "K:model-quantization-numeric-precision",
             "T:ollama-v0-31-2"
           ],
           "relevantMissed": [
-            "S:on-device-model-deployment",
             "K:local-cloud-hybrid-inference"
           ],
           "firstRelevantRank": 1
@@ -210,10 +207,12 @@
           "id": "t02",
           "query": "智能体被黑了",
           "returned": [
-            "T:outside-view-of-agent-incidents",
             "T:hf-security-incident-agentic-intrusion",
+            "T:outside-view-of-agent-incidents",
             "T:openai-hf-attack-timeline",
-            "T:agent-intrusion-technical-timeline"
+            "T:agent-intrusion-technical-timeline",
+            "T:agent-token-spend-runaway",
+            "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
             "T:hf-security-incident-agentic-intrusion",
@@ -223,17 +222,15 @@
           "relevantMissed": [
             "S:agent-security-injection-defense"
           ],
-          "firstRelevantRank": 2
+          "firstRelevantRank": 1
         },
         {
           "id": "t03",
           "query": "how to evaluate model output",
           "returned": [
-            "T:benchmirt-what-benchmarks-measure",
-            "T:tutormoments-when-to-hold-back",
-            "S:model-and-output-evaluation",
+            "T:jev-decision-models",
             "S:on-device-model-deployment",
-            "S:visual-input-design-and-verification"
+            "S:model-and-output-evaluation"
           ],
           "relevantFound": [
             "S:model-and-output-evaluation"
@@ -249,7 +246,6 @@
           "query": "显存不够怎么办",
           "returned": [
             "T:muse-glimmer-local-agent-model",
-            "T:conceptual-integrity-and-lines-of-code",
             "K:model-quantization-numeric-precision"
           ],
           "relevantFound": [
@@ -260,7 +256,7 @@
             "K:moe-architecture",
             "S:on-device-model-deployment"
           ],
-          "firstRelevantRank": 3
+          "firstRelevantRank": 2
         },
         {
           "id": "t05",
@@ -270,50 +266,47 @@
             "T:vllm-v0-27-0",
             "T:vllm-transformers-native-backend",
             "T:vllm-v0-25-0",
-            "T:vllm-v0-24-0"
+            "T:vllm-v0-30-0"
           ],
           "relevantFound": [
             "T:vllm-v0-27-0",
             "T:vllm-v0-26-0",
             "T:vllm-v0-25-0",
-            "T:vllm-v0-24-0",
             "T:vllm-transformers-native-backend"
           ],
-          "relevantMissed": [],
+          "relevantMissed": [
+            "T:vllm-v0-24-0"
+          ],
           "firstRelevantRank": 1
         },
         {
           "id": "t06",
           "query": "语音助手",
           "returned": [
-            "T:knowledge-graph-assistants",
-            "T:multimodal-coding-copilots",
-            "T:voice-agent-runtime",
             "T:deepmind-sl2t-sign-language",
             "T:real-world-voiceeq",
+            "T:introducing-gpt-live",
             "S:realtime-voice-interaction-design",
             "K:paralinguistics-voice-interaction"
           ],
           "relevantFound": [
-            "T:voice-agent-runtime",
+            "T:introducing-gpt-live",
             "S:realtime-voice-interaction-design",
             "K:paralinguistics-voice-interaction",
             "T:real-world-voiceeq"
           ],
-          "relevantMissed": [
-            "T:introducing-gpt-live"
-          ],
-          "firstRelevantRank": 3
+          "relevantMissed": [],
+          "firstRelevantRank": 2
         },
         {
           "id": "t07",
           "query": "agent 花钱太多",
           "returned": [
             "T:ara-agent-native-research-artifacts",
-            "T:conceptual-integrity-and-lines-of-code",
             "T:openai-agents-public-wiki-collusion",
-            "T:agent-token-spend-runaway",
-            "T:aws-kiro-crew-async-agents"
+            "T:gemini-3-7-flash",
+            "T:aws-kiro-crew-async-agents",
+            "T:agent-token-spend-runaway"
           ],
           "relevantFound": [
             "T:agent-token-spend-runaway"
@@ -321,7 +314,7 @@
           "relevantMissed": [
             "S:inference-capacity-planning"
           ],
-          "firstRelevantRank": 4
+          "firstRelevantRank": 5
         },
         {
           "id": "t08",
@@ -336,8 +329,7 @@
             "S:tool-integration-patterns"
           ],
           "relevantMissed": [
-            "K:tool-use-and-function-calling",
-            "T:model-context-protocol"
+            "K:tool-use-and-function-calling"
           ],
           "firstRelevantRank": 3
         },
@@ -348,7 +340,7 @@
             "T:icml-2026-agent-reproduction-audit",
             "T:ara-agent-native-research-artifacts",
             "T:icml-2026-open-reproductions",
-            "T:boundary-aware-safety-refusal"
+            "T:aisi-evaleval-reproducible-evaluations"
           ],
           "relevantFound": [
             "T:icml-2026-open-reproductions",
@@ -364,6 +356,7 @@
           "returned": [
             "T:vllm-transformers-native-backend",
             "T:constraint-aware-gpu-allocator",
+            "T:gemini-3-7-flash",
             "K:speculative-decoding-inference-acceleration"
           ],
           "relevantFound": [
@@ -373,7 +366,7 @@
             "K:latency-tradeoffs-in-interactive-systems",
             "T:ollama-v0-32-4"
           ],
-          "firstRelevantRank": 3
+          "firstRelevantRank": 4
         },
         {
           "id": "t11",
@@ -393,8 +386,8 @@
           "query": "红烧肉的做法",
           "returned": [
             "T:gpt-red",
-            "T:rootly-retires-small-pr-rule",
-            "T:alphagenome-atlas-precomputed-variants"
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:rootly-retires-small-pr-rule"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -408,16 +401,15 @@
             "T:ollama-v0-31-2",
             "T:meta-muse-glimmer",
             "T:vllm-v0-25-0",
-            "T:on-device-small-language-models",
+            "S:on-device-model-deployment",
             "K:model-quantization-numeric-precision"
           ],
           "relevantFound": [
-            "T:on-device-small-language-models",
+            "S:on-device-model-deployment",
             "K:model-quantization-numeric-precision",
             "T:ollama-v0-31-2"
           ],
           "relevantMissed": [
-            "S:on-device-model-deployment",
             "K:local-cloud-hybrid-inference"
           ],
           "firstRelevantRank": 1
@@ -426,10 +418,12 @@
           "id": "t02",
           "query": "智能体被黑了",
           "returned": [
-            "T:outside-view-of-agent-incidents",
             "T:hf-security-incident-agentic-intrusion",
+            "T:outside-view-of-agent-incidents",
             "T:openai-hf-attack-timeline",
-            "T:agent-intrusion-technical-timeline"
+            "T:agent-intrusion-technical-timeline",
+            "T:agent-token-spend-runaway",
+            "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
             "T:hf-security-incident-agentic-intrusion",
@@ -439,17 +433,15 @@
           "relevantMissed": [
             "S:agent-security-injection-defense"
           ],
-          "firstRelevantRank": 2
+          "firstRelevantRank": 1
         },
         {
           "id": "t03",
           "query": "how to evaluate model output",
           "returned": [
-            "T:benchmirt-what-benchmarks-measure",
-            "T:tutormoments-when-to-hold-back",
-            "S:model-and-output-evaluation",
+            "T:jev-decision-models",
             "S:on-device-model-deployment",
-            "S:visual-input-design-and-verification"
+            "S:model-and-output-evaluation"
           ],
           "relevantFound": [
             "S:model-and-output-evaluation"
@@ -465,7 +457,6 @@
           "query": "显存不够怎么办",
           "returned": [
             "T:muse-glimmer-local-agent-model",
-            "T:conceptual-integrity-and-lines-of-code",
             "K:model-quantization-numeric-precision"
           ],
           "relevantFound": [
@@ -476,16 +467,17 @@
             "K:moe-architecture",
             "S:on-device-model-deployment"
           ],
-          "firstRelevantRank": 3
+          "firstRelevantRank": 2
         },
         {
           "id": "t05",
           "query": "vLLM",
           "returned": [
-            "T:vllm-v0-27-0",
             "T:vllm-v0-26-0",
-            "T:vllm-v0-25-0",
+            "T:vllm-v0-27-0",
+            "T:vllm-v0-30-0",
             "T:vllm-transformers-native-backend",
+            "T:vllm-v0-25-0",
             "T:vllm-v0-24-0",
             "T:meta-muse-glimmer",
             "T:thinkingmachines-inkling"
@@ -504,34 +496,30 @@
           "id": "t06",
           "query": "语音助手",
           "returned": [
-            "T:knowledge-graph-assistants",
-            "T:multimodal-coding-copilots",
-            "T:voice-agent-runtime",
             "T:deepmind-sl2t-sign-language",
             "T:real-world-voiceeq",
+            "T:introducing-gpt-live",
             "S:realtime-voice-interaction-design",
             "K:paralinguistics-voice-interaction"
           ],
           "relevantFound": [
-            "T:voice-agent-runtime",
+            "T:introducing-gpt-live",
             "S:realtime-voice-interaction-design",
             "K:paralinguistics-voice-interaction",
             "T:real-world-voiceeq"
           ],
-          "relevantMissed": [
-            "T:introducing-gpt-live"
-          ],
-          "firstRelevantRank": 3
+          "relevantMissed": [],
+          "firstRelevantRank": 2
         },
         {
           "id": "t07",
           "query": "agent 花钱太多",
           "returned": [
             "T:ara-agent-native-research-artifacts",
-            "T:conceptual-integrity-and-lines-of-code",
             "T:openai-agents-public-wiki-collusion",
-            "T:agent-token-spend-runaway",
-            "T:aws-kiro-crew-async-agents"
+            "T:gemini-3-7-flash",
+            "T:aws-kiro-crew-async-agents",
+            "T:agent-token-spend-runaway"
           ],
           "relevantFound": [
             "T:agent-token-spend-runaway"
@@ -539,7 +527,7 @@
           "relevantMissed": [
             "S:inference-capacity-planning"
           ],
-          "firstRelevantRank": 4
+          "firstRelevantRank": 5
         },
         {
           "id": "t08",
@@ -554,8 +542,7 @@
             "S:tool-integration-patterns"
           ],
           "relevantMissed": [
-            "K:tool-use-and-function-calling",
-            "T:model-context-protocol"
+            "K:tool-use-and-function-calling"
           ],
           "firstRelevantRank": 3
         },
@@ -566,7 +553,7 @@
             "T:icml-2026-agent-reproduction-audit",
             "T:ara-agent-native-research-artifacts",
             "T:icml-2026-open-reproductions",
-            "T:boundary-aware-safety-refusal"
+            "T:aisi-evaleval-reproducible-evaluations"
           ],
           "relevantFound": [
             "T:icml-2026-open-reproductions",
@@ -582,6 +569,7 @@
           "returned": [
             "T:vllm-transformers-native-backend",
             "T:constraint-aware-gpu-allocator",
+            "T:gemini-3-7-flash",
             "K:speculative-decoding-inference-acceleration"
           ],
           "relevantFound": [
@@ -591,7 +579,7 @@
             "K:latency-tradeoffs-in-interactive-systems",
             "T:ollama-v0-32-4"
           ],
-          "firstRelevantRank": 3
+          "firstRelevantRank": 4
         },
         {
           "id": "t11",
@@ -611,8 +599,8 @@
           "query": "红烧肉的做法",
           "returned": [
             "T:gpt-red",
-            "T:rootly-retires-small-pr-rule",
-            "T:alphagenome-atlas-precomputed-variants"
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:rootly-retires-small-pr-rule"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -624,36 +612,36 @@
     "summary": {
       "keyword": {
         "queries": 27,
-        "hitRate": 0.3333333333333333,
-        "recall": 0.2191358024691358,
-        "precision": 0.9351851851851853,
-        "mrr": 0.3333333333333333,
-        "meanReturned": 0.6296296296296297,
+        "hitRate": 0.2962962962962963,
+        "recall": 0.2160493827160494,
+        "precision": 0.90625,
+        "mrr": 0.2777777777777778,
+        "meanReturned": 0.5555555555555556,
         "negatives": 4,
         "negativesWithResults": 0,
         "meanReturnedOnNegatives": 0
       },
       "semantic": {
         "queries": 27,
-        "hitRate": 0.9259259259259259,
-        "recall": 0.6197530864197531,
-        "precision": 0.3902116402116402,
-        "mrr": 0.6975308641975309,
-        "meanReturned": 4.074074074074074,
+        "hitRate": 0.8518518518518519,
+        "recall": 0.6166666666666666,
+        "precision": 0.37160493827160496,
+        "mrr": 0.619753086419753,
+        "meanReturned": 3.888888888888889,
         "negatives": 4,
         "negativesWithResults": 4,
-        "meanReturnedOnNegatives": 3.5
+        "meanReturnedOnNegatives": 4.75
       },
       "hybrid": {
         "queries": 27,
-        "hitRate": 0.9259259259259259,
-        "recall": 0.6444444444444444,
-        "precision": 0.39453262786596116,
-        "mrr": 0.7253086419753086,
-        "meanReturned": 4.185185185185185,
+        "hitRate": 0.8518518518518519,
+        "recall": 0.641358024691358,
+        "precision": 0.37539682539682534,
+        "mrr": 0.6493827160493827,
+        "meanReturned": 4,
         "negatives": 4,
         "negativesWithResults": 4,
-        "meanReturnedOnNegatives": 3.5
+        "meanReturnedOnNegatives": 4.75
       }
     },
     "outcomes": {
@@ -665,7 +653,6 @@
           "relevantFound": [],
           "relevantMissed": [
             "T:lfm2-5-2-6b-on-device-agents",
-            "T:on-device-small-language-models",
             "S:on-device-model-deployment"
           ]
         },
@@ -708,9 +695,7 @@
             "T:mcp-stateless-gateway-headers",
             "T:gemini-managed-agents-background-mcp"
           ],
-          "relevantMissed": [
-            "T:model-context-protocol"
-          ],
+          "relevantMissed": [],
           "firstRelevantRank": 1
         },
         {
@@ -881,8 +866,7 @@
           "returned": [],
           "relevantFound": [],
           "relevantMissed": [
-            "S:visual-input-design-and-verification",
-            "T:multimodal-coding-copilots"
+            "S:visual-input-design-and-verification"
           ]
         },
         {
@@ -905,31 +889,24 @@
           "id": "e21",
           "query": "知识图谱",
           "returned": [
-            "T:knowledge-graph-assistants",
             "T:ara-agent-native-research-artifacts",
             "K:graph-thinking-for-knowledge-systems"
           ],
           "relevantFound": [
-            "T:knowledge-graph-assistants",
             "K:graph-thinking-for-knowledge-systems"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 1
+          "firstRelevantRank": 2
         },
         {
           "id": "e22",
           "query": "RAG",
-          "returned": [
-            "T:rag-evaluation-dashboards"
-          ],
-          "relevantFound": [
-            "T:rag-evaluation-dashboards"
-          ],
+          "returned": [],
+          "relevantFound": [],
           "relevantMissed": [
             "K:retrieval-augmented-generation-basics",
             "S:retrieval-pipeline-tuning"
-          ],
-          "firstRelevantRank": 1
+          ]
         },
         {
           "id": "e23",
@@ -1015,17 +992,13 @@
           "query": "手机上运行的模型",
           "returned": [
             "T:lfm2-5-2-6b-on-device-agents",
-            "T:ollama-v0-32-0",
-            "T:ollama-v0-31-2",
             "S:on-device-model-deployment"
           ],
           "relevantFound": [
             "T:lfm2-5-2-6b-on-device-agents",
             "S:on-device-model-deployment"
           ],
-          "relevantMissed": [
-            "T:on-device-small-language-models"
-          ],
+          "relevantMissed": [],
           "firstRelevantRank": 1
         },
         {
@@ -1053,8 +1026,7 @@
             "T:gpt-red",
             "T:outside-view-of-agent-incidents",
             "T:gemini-robotics-2",
-            "T:freetoken-bandwidth-adaptive-moe",
-            "T:boundary-aware-safety-refusal"
+            "T:freetoken-bandwidth-adaptive-moe"
           ],
           "relevantFound": [
             "T:gpt-red"
@@ -1080,9 +1052,7 @@
             "T:mcp-stateless-gateway-headers",
             "T:gemini-managed-agents-background-mcp"
           ],
-          "relevantMissed": [
-            "T:model-context-protocol"
-          ],
+          "relevantMissed": [],
           "firstRelevantRank": 1
         },
         {
@@ -1090,8 +1060,9 @@
           "query": "混合专家",
           "returned": [
             "T:meta-muse-glimmer",
-            "T:agent-workbench-platforms",
+            "T:aisi-evaleval-reproducible-evaluations",
             "S:ai-assisted-communication-review",
+            "S:model-finetuning-post-training",
             "K:moe-architecture",
             "K:local-cloud-hybrid-inference"
           ],
@@ -1102,7 +1073,7 @@
             "T:thinkingmachines-inkling",
             "T:freetoken-bandwidth-adaptive-moe"
           ],
-          "firstRelevantRank": 4
+          "firstRelevantRank": 5
         },
         {
           "id": "e06",
@@ -1124,10 +1095,10 @@
           "query": "基准分数靠不住",
           "returned": [
             "T:benchmirt-what-benchmarks-measure",
-            "T:conceptual-integrity-and-lines-of-code",
-            "T:agent-consistency-gap-pass-k",
+            "T:aisi-evaleval-reproducible-evaluations",
             "T:boundary-aware-safety-refusal",
-            "T:rootly-retires-small-pr-rule"
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:agent-consistency-gap-pass-k"
           ],
           "relevantFound": [
             "T:benchmirt-what-benchmarks-measure",
@@ -1158,6 +1129,7 @@
           "query": "智能体每次结果不一样",
           "returned": [
             "T:agent-consistency-gap-pass-k",
+            "T:icml-2026-open-reproductions",
             "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
@@ -1171,7 +1143,6 @@
           "query": "什么时候该让人审核",
           "returned": [
             "T:icml-2026-agent-reproduction-audit",
-            "T:conceptual-integrity-and-lines-of-code",
             "T:ara-agent-native-research-artifacts",
             "T:icml-2026-open-reproductions",
             "S:ai-pilot-scoping",
@@ -1183,14 +1154,15 @@
             "K:completion-signals-and-acceptance"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 6
+          "firstRelevantRank": 5
         },
         {
           "id": "e11",
           "query": "怎么知道任务做完了",
           "returned": [
             "T:conceptual-integrity-and-lines-of-code",
-            "K:completion-signals-and-acceptance"
+            "K:completion-signals-and-acceptance",
+            "K:agent-memory-context-management"
           ],
           "relevantFound": [
             "K:completion-signals-and-acceptance"
@@ -1202,26 +1174,23 @@
           "id": "e12",
           "query": "用 AI 生成的数据训练模型",
           "returned": [
-            "T:gpt-red",
             "T:alphagenome-atlas-precomputed-variants",
-            "T:bigbang-v1-self-evolving-data",
+            "T:gpt-red",
             "S:model-finetuning-post-training"
           ],
-          "relevantFound": [
-            "T:bigbang-v1-self-evolving-data"
-          ],
+          "relevantFound": [],
           "relevantMissed": [
             "K:synthetic-data-and-data-recipes",
-            "T:nvidia-open-data-for-agents"
-          ],
-          "firstRelevantRank": 3
+            "T:nvidia-open-data-for-agents",
+            "T:bigbang-v1-self-evolving-data"
+          ]
         },
         {
           "id": "e13",
           "query": "fine-tune open weights",
           "returned": [
-            "T:kimi-k3",
             "T:state-of-open-models-summer-2026",
+            "T:kimi-k3",
             "T:gpt-5-6",
             "T:nemo-automodel-diffusers-finetuning"
           ],
@@ -1260,7 +1229,8 @@
             "T:runtime-agnostic-ai-workflows",
             "S:agent-workflow-design",
             "S:agent-observability-evaluation-ops",
-            "K:agent-memory-context-management"
+            "K:agent-memory-context-management",
+            "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
             "T:cloudflare-computer-agent-runtime"
@@ -1279,8 +1249,8 @@
             "T:copilot-code-review-tool-workflow-lessons",
             "T:rootly-retires-small-pr-rule",
             "T:conceptual-integrity-and-lines-of-code",
-            "T:rag-evaluation-dashboards",
-            "S:retrieval-pipeline-tuning"
+            "T:copilot-runtime-rust-port",
+            "K:completion-signals-and-acceptance"
           ],
           "relevantFound": [
             "T:copilot-code-review-tool-workflow-lessons",
@@ -1313,9 +1283,7 @@
           "id": "e18",
           "query": "AI 做数学证明",
           "returned": [
-            "T:bigbang-v1-self-evolving-data",
-            "T:agent-consistency-gap-pass-k",
-            "S:ai-assisted-communication-review"
+            "T:bigbang-v1-self-evolving-data"
           ],
           "relevantFound": [],
           "relevantMissed": [
@@ -1328,19 +1296,17 @@
           "id": "e19",
           "query": "让模型看懂截图",
           "returned": [
-            "T:multimodal-coding-copilots",
             "S:ai-assisted-communication-review",
             "S:visual-input-design-and-verification",
-            "S:model-engine-support-paths",
             "S:model-and-output-evaluation",
-            "S:on-device-model-deployment"
+            "S:on-device-model-deployment",
+            "S:model-engine-support-paths"
           ],
           "relevantFound": [
-            "S:visual-input-design-and-verification",
-            "T:multimodal-coding-copilots"
+            "S:visual-input-design-and-verification"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 1
+          "firstRelevantRank": 2
         },
         {
           "id": "e20",
@@ -1363,35 +1329,30 @@
           "id": "e21",
           "query": "知识图谱",
           "returned": [
-            "T:knowledge-graph-assistants",
             "T:ara-agent-native-research-artifacts",
             "K:graph-thinking-for-knowledge-systems"
           ],
           "relevantFound": [
-            "T:knowledge-graph-assistants",
             "K:graph-thinking-for-knowledge-systems"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 1
+          "firstRelevantRank": 2
         },
         {
           "id": "e22",
           "query": "RAG",
           "returned": [
-            "T:rag-evaluation-dashboards",
+            "T:ara-agent-native-research-artifacts",
             "T:gpt-red",
             "T:openai-agents-public-wiki-collusion",
-            "T:ara-agent-native-research-artifacts",
-            "T:outside-view-of-agent-incidents"
+            "T:outside-view-of-agent-incidents",
+            "T:opus-5-5-gpt-6-price-war"
           ],
-          "relevantFound": [
-            "T:rag-evaluation-dashboards"
-          ],
+          "relevantFound": [],
           "relevantMissed": [
             "K:retrieval-augmented-generation-basics",
             "S:retrieval-pipeline-tuning"
-          ],
-          "firstRelevantRank": 1
+          ]
         },
         {
           "id": "e23",
@@ -1400,6 +1361,7 @@
             "T:gemini-robotics-2",
             "T:openai-research-acceleration-agents",
             "T:openai-agents-public-wiki-collusion",
+            "T:gpt-red",
             "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
@@ -1412,11 +1374,11 @@
           "id": "e24",
           "query": "两个模型之间怎么传信息",
           "returned": [
-            "T:model-context-protocol",
             "T:thinkingmachines-inkling",
             "S:ai-assisted-communication-review",
             "S:model-engine-support-paths",
-            "S:model-finetuning-post-training"
+            "S:model-finetuning-post-training",
+            "S:on-device-model-deployment"
           ],
           "relevantFound": [],
           "relevantMissed": [
@@ -1440,8 +1402,8 @@
           "query": "开源模型下载量排行",
           "returned": [
             "T:vllm-v0-24-0",
-            "T:thinkingmachines-inkling",
             "T:state-of-open-models-summer-2026",
+            "T:thinkingmachines-inkling",
             "T:qwen3-8-27b",
             "T:muse-glimmer-local-agent-model",
             "S:model-finetuning-post-training"
@@ -1450,7 +1412,7 @@
             "T:state-of-open-models-summer-2026"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 3
+          "firstRelevantRank": 2
         },
         {
           "id": "e27",
@@ -1458,7 +1420,6 @@
           "returned": [
             "T:boundary-aware-safety-refusal",
             "T:conceptual-integrity-and-lines-of-code",
-            "T:agent-consistency-gap-pass-k",
             "K:latency-tradeoffs-in-interactive-systems",
             "K:speculative-decoding-inference-acceleration"
           ],
@@ -1467,14 +1428,16 @@
             "K:speculative-decoding-inference-acceleration"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 4
+          "firstRelevantRank": 3
         },
         {
           "id": "e28",
           "query": "股票推荐",
           "returned": [
             "T:qwen3-8-27b",
-            "T:alphagenome-atlas-precomputed-variants"
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:opus-5-5-gpt-6-price-war",
+            "T:benchmirt-what-benchmarks-measure"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -1484,10 +1447,10 @@
           "query": "周末去哪里旅游",
           "returned": [
             "T:conceptual-integrity-and-lines-of-code",
-            "T:state-of-open-models-summer-2026",
             "T:openai-agents-public-wiki-collusion",
-            "T:aws-kiro-crew-async-agents",
-            "T:mostik-hidden-state-bridge"
+            "T:state-of-open-models-summer-2026",
+            "T:benchmirt-what-benchmarks-measure",
+            "T:aws-kiro-crew-async-agents"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -1497,8 +1460,9 @@
           "query": "足球比赛比分",
           "returned": [
             "T:mostik-hidden-state-bridge",
-            "T:agent-token-spend-runaway",
+            "T:aisi-evaleval-reproducible-evaluations",
             "T:gowers-what-maths-llms-are-good-at",
+            "T:agent-token-spend-runaway",
             "T:openai-research-acceleration-agents"
           ],
           "relevantFound": [],
@@ -1509,8 +1473,10 @@
           "query": "how to bake bread",
           "returned": [
             "T:alphagenome-atlas-precomputed-variants",
+            "T:pinterest-vector-search-quantization",
             "T:outside-view-of-agent-incidents",
-            "T:lfm2-5-encoders"
+            "T:lfm2-5-encoders",
+            "T:freetoken-bandwidth-adaptive-moe"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -1522,17 +1488,13 @@
           "query": "手机上运行的模型",
           "returned": [
             "T:lfm2-5-2-6b-on-device-agents",
-            "T:ollama-v0-32-0",
-            "T:ollama-v0-31-2",
             "S:on-device-model-deployment"
           ],
           "relevantFound": [
             "T:lfm2-5-2-6b-on-device-agents",
             "S:on-device-model-deployment"
           ],
-          "relevantMissed": [
-            "T:on-device-small-language-models"
-          ],
+          "relevantMissed": [],
           "firstRelevantRank": 1
         },
         {
@@ -1560,8 +1522,7 @@
             "T:gpt-red",
             "T:outside-view-of-agent-incidents",
             "T:gemini-robotics-2",
-            "T:freetoken-bandwidth-adaptive-moe",
-            "T:boundary-aware-safety-refusal"
+            "T:freetoken-bandwidth-adaptive-moe"
           ],
           "relevantFound": [
             "T:gpt-red"
@@ -1588,9 +1549,7 @@
             "T:mcp-stateless-gateway-headers",
             "T:gemini-managed-agents-background-mcp"
           ],
-          "relevantMissed": [
-            "T:model-context-protocol"
-          ],
+          "relevantMissed": [],
           "firstRelevantRank": 1
         },
         {
@@ -1599,8 +1558,9 @@
           "returned": [
             "T:freetoken-bandwidth-adaptive-moe",
             "T:meta-muse-glimmer",
-            "T:agent-workbench-platforms",
+            "T:aisi-evaleval-reproducible-evaluations",
             "S:ai-assisted-communication-review",
+            "S:model-finetuning-post-training",
             "K:moe-architecture",
             "K:local-cloud-hybrid-inference"
           ],
@@ -1633,10 +1593,10 @@
           "query": "基准分数靠不住",
           "returned": [
             "T:benchmirt-what-benchmarks-measure",
-            "T:conceptual-integrity-and-lines-of-code",
-            "T:agent-consistency-gap-pass-k",
+            "T:aisi-evaleval-reproducible-evaluations",
             "T:boundary-aware-safety-refusal",
-            "T:rootly-retires-small-pr-rule"
+            "T:conceptual-integrity-and-lines-of-code",
+            "T:agent-consistency-gap-pass-k"
           ],
           "relevantFound": [
             "T:benchmirt-what-benchmarks-measure",
@@ -1667,6 +1627,7 @@
           "query": "智能体每次结果不一样",
           "returned": [
             "T:agent-consistency-gap-pass-k",
+            "T:icml-2026-open-reproductions",
             "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
@@ -1680,7 +1641,6 @@
           "query": "什么时候该让人审核",
           "returned": [
             "T:icml-2026-agent-reproduction-audit",
-            "T:conceptual-integrity-and-lines-of-code",
             "T:ara-agent-native-research-artifacts",
             "T:icml-2026-open-reproductions",
             "S:ai-pilot-scoping",
@@ -1692,14 +1652,15 @@
             "K:completion-signals-and-acceptance"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 6
+          "firstRelevantRank": 5
         },
         {
           "id": "e11",
           "query": "怎么知道任务做完了",
           "returned": [
             "T:conceptual-integrity-and-lines-of-code",
-            "K:completion-signals-and-acceptance"
+            "K:completion-signals-and-acceptance",
+            "K:agent-memory-context-management"
           ],
           "relevantFound": [
             "K:completion-signals-and-acceptance"
@@ -1711,26 +1672,23 @@
           "id": "e12",
           "query": "用 AI 生成的数据训练模型",
           "returned": [
-            "T:gpt-red",
             "T:alphagenome-atlas-precomputed-variants",
-            "T:bigbang-v1-self-evolving-data",
+            "T:gpt-red",
             "S:model-finetuning-post-training"
           ],
-          "relevantFound": [
-            "T:bigbang-v1-self-evolving-data"
-          ],
+          "relevantFound": [],
           "relevantMissed": [
             "K:synthetic-data-and-data-recipes",
-            "T:nvidia-open-data-for-agents"
-          ],
-          "firstRelevantRank": 3
+            "T:nvidia-open-data-for-agents",
+            "T:bigbang-v1-self-evolving-data"
+          ]
         },
         {
           "id": "e13",
           "query": "fine-tune open weights",
           "returned": [
-            "T:kimi-k3",
             "T:state-of-open-models-summer-2026",
+            "T:kimi-k3",
             "T:gpt-5-6",
             "T:nemo-automodel-diffusers-finetuning"
           ],
@@ -1769,7 +1727,8 @@
             "T:runtime-agnostic-ai-workflows",
             "S:agent-workflow-design",
             "S:agent-observability-evaluation-ops",
-            "K:agent-memory-context-management"
+            "K:agent-memory-context-management",
+            "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
             "T:cloudflare-computer-agent-runtime"
@@ -1788,8 +1747,8 @@
             "T:copilot-code-review-tool-workflow-lessons",
             "T:rootly-retires-small-pr-rule",
             "T:conceptual-integrity-and-lines-of-code",
-            "T:rag-evaluation-dashboards",
-            "S:retrieval-pipeline-tuning"
+            "T:copilot-runtime-rust-port",
+            "K:completion-signals-and-acceptance"
           ],
           "relevantFound": [
             "T:copilot-code-review-tool-workflow-lessons",
@@ -1822,9 +1781,7 @@
           "id": "e18",
           "query": "AI 做数学证明",
           "returned": [
-            "T:bigbang-v1-self-evolving-data",
-            "T:agent-consistency-gap-pass-k",
-            "S:ai-assisted-communication-review"
+            "T:bigbang-v1-self-evolving-data"
           ],
           "relevantFound": [],
           "relevantMissed": [
@@ -1837,19 +1794,17 @@
           "id": "e19",
           "query": "让模型看懂截图",
           "returned": [
-            "T:multimodal-coding-copilots",
             "S:ai-assisted-communication-review",
             "S:visual-input-design-and-verification",
-            "S:model-engine-support-paths",
             "S:model-and-output-evaluation",
-            "S:on-device-model-deployment"
+            "S:on-device-model-deployment",
+            "S:model-engine-support-paths"
           ],
           "relevantFound": [
-            "S:visual-input-design-and-verification",
-            "T:multimodal-coding-copilots"
+            "S:visual-input-design-and-verification"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 1
+          "firstRelevantRank": 2
         },
         {
           "id": "e20",
@@ -1872,35 +1827,30 @@
           "id": "e21",
           "query": "知识图谱",
           "returned": [
-            "T:knowledge-graph-assistants",
             "T:ara-agent-native-research-artifacts",
             "K:graph-thinking-for-knowledge-systems"
           ],
           "relevantFound": [
-            "T:knowledge-graph-assistants",
             "K:graph-thinking-for-knowledge-systems"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 1
+          "firstRelevantRank": 2
         },
         {
           "id": "e22",
           "query": "RAG",
           "returned": [
-            "T:rag-evaluation-dashboards",
+            "T:ara-agent-native-research-artifacts",
             "T:gpt-red",
             "T:openai-agents-public-wiki-collusion",
-            "T:ara-agent-native-research-artifacts",
-            "T:outside-view-of-agent-incidents"
+            "T:outside-view-of-agent-incidents",
+            "T:opus-5-5-gpt-6-price-war"
           ],
-          "relevantFound": [
-            "T:rag-evaluation-dashboards"
-          ],
+          "relevantFound": [],
           "relevantMissed": [
             "K:retrieval-augmented-generation-basics",
             "S:retrieval-pipeline-tuning"
-          ],
-          "firstRelevantRank": 1
+          ]
         },
         {
           "id": "e23",
@@ -1909,6 +1859,7 @@
             "T:gemini-robotics-2",
             "T:openai-research-acceleration-agents",
             "T:openai-agents-public-wiki-collusion",
+            "T:gpt-red",
             "K:tool-use-and-function-calling"
           ],
           "relevantFound": [
@@ -1921,11 +1872,11 @@
           "id": "e24",
           "query": "两个模型之间怎么传信息",
           "returned": [
-            "T:model-context-protocol",
             "T:thinkingmachines-inkling",
             "S:ai-assisted-communication-review",
             "S:model-engine-support-paths",
-            "S:model-finetuning-post-training"
+            "S:model-finetuning-post-training",
+            "S:on-device-model-deployment"
           ],
           "relevantFound": [],
           "relevantMissed": [
@@ -1949,8 +1900,8 @@
           "query": "开源模型下载量排行",
           "returned": [
             "T:vllm-v0-24-0",
-            "T:thinkingmachines-inkling",
             "T:state-of-open-models-summer-2026",
+            "T:thinkingmachines-inkling",
             "T:qwen3-8-27b",
             "T:muse-glimmer-local-agent-model",
             "S:model-finetuning-post-training"
@@ -1959,7 +1910,7 @@
             "T:state-of-open-models-summer-2026"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 3
+          "firstRelevantRank": 2
         },
         {
           "id": "e27",
@@ -1967,7 +1918,6 @@
           "returned": [
             "T:boundary-aware-safety-refusal",
             "T:conceptual-integrity-and-lines-of-code",
-            "T:agent-consistency-gap-pass-k",
             "K:latency-tradeoffs-in-interactive-systems",
             "K:speculative-decoding-inference-acceleration"
           ],
@@ -1976,14 +1926,16 @@
             "K:speculative-decoding-inference-acceleration"
           ],
           "relevantMissed": [],
-          "firstRelevantRank": 4
+          "firstRelevantRank": 3
         },
         {
           "id": "e28",
           "query": "股票推荐",
           "returned": [
             "T:qwen3-8-27b",
-            "T:alphagenome-atlas-precomputed-variants"
+            "T:alphagenome-atlas-precomputed-variants",
+            "T:opus-5-5-gpt-6-price-war",
+            "T:benchmirt-what-benchmarks-measure"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -1993,10 +1945,10 @@
           "query": "周末去哪里旅游",
           "returned": [
             "T:conceptual-integrity-and-lines-of-code",
-            "T:state-of-open-models-summer-2026",
             "T:openai-agents-public-wiki-collusion",
-            "T:aws-kiro-crew-async-agents",
-            "T:mostik-hidden-state-bridge"
+            "T:state-of-open-models-summer-2026",
+            "T:benchmirt-what-benchmarks-measure",
+            "T:aws-kiro-crew-async-agents"
           ],
           "relevantFound": [],
           "relevantMissed": []
@@ -2006,8 +1958,9 @@
           "query": "足球比赛比分",
           "returned": [
             "T:mostik-hidden-state-bridge",
-            "T:agent-token-spend-runaway",
+            "T:aisi-evaleval-reproducible-evaluations",
             "T:gowers-what-maths-llms-are-good-at",
+            "T:agent-token-spend-runaway",
             "T:openai-research-acceleration-agents"
           ],
           "relevantFound": [],
@@ -2018,8 +1971,10 @@
           "query": "how to bake bread",
           "returned": [
             "T:alphagenome-atlas-precomputed-variants",
+            "T:pinterest-vector-search-quantization",
             "T:outside-view-of-agent-incidents",
-            "T:lfm2-5-encoders"
+            "T:lfm2-5-encoders",
+            "T:freetoken-bandwidth-adaptive-moe"
           ],
           "relevantFound": [],
           "relevantMissed": []

@@ -13,8 +13,16 @@ import {
   getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = buildPageMetadata({
+  title: "往期简报",
+  description:
+    "按月归档的已发布技术简报。每期汇总当期值得关注的技术信号与编辑判断。",
+  path: "/digest"
+});
 
 interface ArchiveEntry {
   date: string;
@@ -81,7 +89,7 @@ export default function DigestArchivePage() {
   return (
     <UserPageShell
       title="往期简报"
-      description="按月归档的已发布每日简报。每期汇总当天值得关注的技术信号与编辑判断。"
+      description="按月归档的已发布技术简报。每期汇总当期值得关注的技术信号与编辑判断。"
       sectionLabel="简报归档"
       className="digest-archive-page dossier"
       actions={

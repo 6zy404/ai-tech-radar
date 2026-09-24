@@ -52,7 +52,7 @@ export async function generateOrGetTechnologyComparison(
     return {
       error: {
         code: "invalid_pair",
-        message: "Choose two different technologies to compare."
+        message: "请选择两条不同的技术信号进行比较。"
       }
     };
   }
@@ -65,7 +65,7 @@ export async function generateOrGetTechnologyComparison(
     return {
       error: {
         code: "not_found",
-        message: "One or both technologies could not be found."
+        message: "找不到要比较的技术信号。"
       }
     };
   }
@@ -151,7 +151,7 @@ export async function generateOrGetTechnologyComparison(
       return {
         error: {
           code: "generation_failed",
-          message: "Comparison generation is temporarily unavailable."
+          message: "比较功能暂时不可用，请稍后再试。"
         }
       };
     }
@@ -174,7 +174,7 @@ export async function generateOrGetTechnologyComparison(
     return {
       error: {
         code: "generation_failed",
-        message: "Comparison generation is temporarily unavailable."
+        message: "比较功能暂时不可用，请稍后再试。"
       }
     };
   }

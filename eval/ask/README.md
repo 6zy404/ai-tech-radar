@@ -36,6 +36,14 @@ result file.
 
 ## Results: `ask-radar-v1` × `deepseek-chat` (2026-09-23)
 
+> 2026-09-24: two expected items (`T:model-context-protocol` on a09 and
+> `T:on-device-small-language-models` on a01) were removed from
+> `questions.json` when the eight April placeholder signals were archived.
+> Both questions keep other expected items, so the grounding rule still has
+> something to check. The run below predates that edit and was not repeated;
+> it is a real-cost call, and the change cannot make a grounded answer
+> ungrounded.
+
 |                                       | Search only (mock) |    DeepSeek |
 | ------------------------------------- | -----------------: | ----------: |
 | Answerable questions grounded         |              11/14 |       14/14 |

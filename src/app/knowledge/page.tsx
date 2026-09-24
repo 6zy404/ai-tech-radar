@@ -21,6 +21,7 @@ import type {
   SkillItem,
   TechnologyItem
 } from "@/types/content";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 // Reads runtime content through @/lib/content, so it must never be
 // prerendered: a build-time copy freezes whatever the workspace had
@@ -28,6 +29,12 @@ import type {
 // (initialRevalidateSeconds is false). See CHANGELOG - "Five public pages
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
+
+export const metadata = buildPageMetadata({
+  title: "解读 AI 信号的知识",
+  description: "帮助用户理解 AI 技术信号及其背景的概念。",
+  path: "/knowledge"
+});
 
 const difficultySections: Array<{
   id: DifficultyLevel;

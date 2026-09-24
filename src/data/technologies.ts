@@ -27,7 +27,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "开放工具社区",
     publisherType: "open-source-community",
     importanceLevel: "critical",
-    status: "published",
+    status: "archived",
     tags: ["tag-ai-agents", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-api-contracts", "knowledge-tool-use"],
     relatedSkillIds: ["skill-tool-integration", "skill-agent-design"],
@@ -93,7 +93,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "自动化实验室",
     publisherType: "startup",
     importanceLevel: "important",
-    status: "published",
+    status: "archived",
     tags: ["tag-ai-agents", "tag-multimodal", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-human-loop", "knowledge-system-design"],
     relatedSkillIds: ["skill-agent-design", "skill-scope-pilots"],
@@ -125,7 +125,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "边缘计算期刊",
     publisherType: "media",
     importanceLevel: "important",
-    status: "published",
+    status: "archived",
     tags: ["tag-on-device", "tag-product-strategy"],
     relatedKnowledgeIds: [
       "knowledge-model-sizing",
@@ -160,7 +160,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "质量栈",
     publisherType: "startup",
     importanceLevel: "critical",
-    status: "published",
+    status: "archived",
     tags: ["tag-retrieval", "tag-observability"],
     relatedKnowledgeIds: ["knowledge-rag-basics", "knowledge-evaluation-loops"],
     relatedSkillIds: ["skill-retrieval-tuning", "skill-model-evaluation"],
@@ -220,7 +220,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "TeamOps 云",
     publisherType: "big-tech",
     importanceLevel: "important",
-    status: "published",
+    status: "archived",
     tags: ["tag-ai-agents", "tag-observability", "tag-workflow"],
     relatedKnowledgeIds: [
       "knowledge-system-design",
@@ -255,7 +255,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "开发效率评测",
     publisherType: "media",
     importanceLevel: "important",
-    status: "published",
+    status: "archived",
     tags: ["tag-multimodal", "tag-workflow"],
     relatedKnowledgeIds: ["knowledge-feedback-loops", "knowledge-tool-use"],
     relatedSkillIds: ["skill-tool-integration", "skill-communication-ai"],
@@ -287,7 +287,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "结构化数据实验室",
     publisherType: "research-lab",
     importanceLevel: "signal",
-    status: "published",
+    status: "archived",
     tags: ["tag-knowledge-graph", "tag-ai-agents", "tag-retrieval"],
     relatedKnowledgeIds: ["knowledge-graph-thinking", "knowledge-rag-basics"],
     relatedSkillIds: ["skill-retrieval-tuning", "skill-agent-design"],
@@ -319,7 +319,7 @@ export const technologyItems: TechnologyItem[] = [
     publisherName: "对话式系统团队",
     publisherType: "startup",
     importanceLevel: "signal",
-    status: "published",
+    status: "archived",
     tags: ["tag-multimodal", "tag-workflow", "tag-on-device"],
     relatedKnowledgeIds: [
       "knowledge-latency-tradeoffs",
@@ -328,10 +328,4 @@ export const technologyItems: TechnologyItem[] = [
     relatedSkillIds: ["skill-communication-ai", "skill-scope-pilots"],
     relatedTechnologyIds: ["tech-slm-edge"]
   }
-];
-
-export const homeFeaturedTechnologyIds = [
-  "tech-mcp",
-  "tech-rag-evals",
-  "tech-slm-edge"
 ];

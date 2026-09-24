@@ -43,8 +43,11 @@ import type {
   TechnologyItem,
   TopicTag
 } from "@/types/content";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = buildPageMetadata({ path: "/" });
 
 const skillTypeLabels: Record<SkillType, string> = {
   engineering: "工程落地",
@@ -198,7 +201,7 @@ export default function HomePage() {
               href="/digest/today"
               className="action-button action-button--primary"
             >
-              阅读今日简报
+              阅读最新简报
             </Link>
             <Link href="/technologies" className="action-link">
               浏览技术信号
@@ -222,7 +225,7 @@ export default function HomePage() {
         <div className="section-heading">
           <div>
             <p className="eyebrow user-eyebrow">从这里开始</p>
-            <h2>最新每日技术简报</h2>
+            <h2>最新技术简报</h2>
           </div>
           <Link href="/digest/today" className="action-link">
             打开简报
@@ -255,9 +258,7 @@ export default function HomePage() {
         ) : (
           <div className="empty-state empty-state--actionable">
             <strong>还没有已发布简报。</strong>
-            <p>
-              你可以先浏览已发布技术信号，等每日简报发布后这里会展示最新一期。
-            </p>
+            <p>你可以先浏览已发布技术信号，等新一期简报发布后这里会展示它。</p>
             <Link href="/technologies" className="action-link">
               浏览技术信号
             </Link>

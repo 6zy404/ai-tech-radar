@@ -1,10 +1,18 @@
 import { AskRadar } from "@/components/ask-radar";
 import { UserPageShell } from "@/components/user-page-shell";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 // Answers are generated per request through POST /api/ask; the page itself
 // holds no content, but every page declares its render mode (see
 // validate:deployment).
 export const dynamic = "force-dynamic";
+
+export const metadata = buildPageMetadata({
+  title: "问雷达",
+  description:
+    "只根据本站已发布的技术信号、技能和知识回答，每句话标出出处。站里没有的内容，它会直说。",
+  path: "/ask"
+});
 
 const examples = [
   "本地跑大模型要注意什么？",

@@ -1,6 +1,7 @@
 import { ContentNetworkGraph } from "@/components/content-network-graph";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getContentGraph } from "@/lib/content";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 // Reads runtime content through @/lib/content, so it must never be
 // prerendered: a build-time copy freezes whatever the workspace had
@@ -8,6 +9,12 @@ import { getContentGraph } from "@/lib/content";
 // (initialRevalidateSeconds is false). See CHANGELOG - "Five public pages
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
+
+export const metadata = buildPageMetadata({
+  title: "关系网络总览",
+  description: "一次看清全部已发布技术、技能和背景知识之间的连接。",
+  path: "/network"
+});
 
 export default function NetworkPage() {
   const { nodes, edges } = getContentGraph();

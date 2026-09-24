@@ -34,6 +34,8 @@ import type {
   SkillType,
   TechnologyItem
 } from "@/types/content";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 // Reads runtime content through @/lib/content, so it must never be
 // prerendered: a build-time copy freezes whatever the workspace had
@@ -41,6 +43,28 @@ import type {
 // (initialRevalidateSeconds is false). See CHANGELOG - "Five public pages
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params
+}: KnowledgeDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const knowledge = getKnowledgeBySlug(slug);
+
+  if (!knowledge) {
+    return buildPageMetadata({
+      title: "没有这一页",
+      path: `/knowledge/${slug}`,
+      noIndex: true
+    });
+  }
+
+  return buildPageMetadata({
+    title: `${knowledge.title} · 知识`,
+    description: knowledge.summary,
+    path: `/knowledge/${knowledge.slug}`,
+    type: "article"
+  });
+}
 
 interface KnowledgeDetailPageProps {
   params: Promise<{ slug: string }>;

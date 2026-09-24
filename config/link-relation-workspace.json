@@ -1118,15 +1118,6 @@
       "note": "工具调用的效果取决于被引导的使用方式，而非工具本身。"
     },
     {
-      "id": "rel-ws-dbd45dec",
-      "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-      "fromType": "technology",
-      "toId": "tech-mcp",
-      "toType": "technology",
-      "relationType": "uses",
-      "note": "远程 MCP 直连让托管智能体访问私有工具端点——MCP 生态的又一个主流平台落点。"
-    },
-    {
       "id": "rel-ws-df82578b",
       "fromId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "fromType": "technology",
@@ -1469,15 +1460,6 @@
       "note": "GPU 卸载的稳健性是这条能力线最基础的一环，也是最容易被跳过的一环。"
     },
     {
-      "id": "rel-ws-7a248793",
-      "fromId": "skill-ws-d7c9d1d8",
-      "fromType": "skill",
-      "toId": "tech-slm-edge",
-      "toType": "technology",
-      "relationType": "supports",
-      "note": "小模型是端侧的主力形态，它把「装得下」变成默认，剩下的全是适配问题。"
-    },
-    {
       "id": "rel-ws-ec1f36ca",
       "fromId": "skill-ws-d7c9d1d8",
       "fromType": "skill",
@@ -1602,24 +1584,6 @@
       "toType": "technology",
       "relationType": "supports",
       "note": "Inkling 原生吃文本、图像与音频，但「能吃图」不等于「读得对」——这项技能决定送进去的那张图是不是白给的。"
-    },
-    {
-      "id": "rel-ws-b3fff4f9",
-      "fromId": "skill-ws-b47fabd1",
-      "fromType": "skill",
-      "toId": "tech-multimodal-copilots",
-      "toType": "technology",
-      "relationType": "supports",
-      "note": "截图是编码助手最常见的输入，也是最容易糊掉的输入：裁剪与指代做不好，助手会自信地改错地方。"
-    },
-    {
-      "id": "rel-ws-5903e683",
-      "fromId": "skill-ws-b47fabd1",
-      "fromType": "skill",
-      "toId": "tech-browser-agents",
-      "toType": "technology",
-      "relationType": "supports",
-      "note": "浏览器代理靠「看页面」决定下一步，安静的视觉误读会一路传导成错误的点击。"
     },
     {
       "id": "rel-ws-25d6e205",
@@ -1899,15 +1863,6 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "签发方校验与客户端元数据文档是这一版的鉴权收紧点。"
-    },
-    {
-      "id": "rel-ws-e9e70306",
-      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-      "fromType": "technology",
-      "toId": "tech-mcp",
-      "toType": "technology",
-      "relationType": "extends",
-      "note": "同一个协议的新版规范；先读协议本身，再看这一版改了什么。"
     },
     {
       "id": "rel-ws-1b74b719",

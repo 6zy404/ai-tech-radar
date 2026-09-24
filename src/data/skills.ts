@@ -12,11 +12,7 @@ export const skillItems: SkillItem[] = [
     heatLevel: "hot",
     learningCost: "high",
     tags: ["tag-ai-agents", "tag-workflow"],
-    relatedTechnologyIds: [
-      "tech-mcp",
-      "tech-browser-agents",
-      "tech-agent-workbenches"
-    ],
+    relatedTechnologyIds: [],
     relatedKnowledgeIds: ["knowledge-system-design", "knowledge-tool-use"]
   },
   {
@@ -30,11 +26,7 @@ export const skillItems: SkillItem[] = [
     heatLevel: "active",
     learningCost: "medium",
     tags: ["tag-ai-agents", "tag-workflow"],
-    relatedTechnologyIds: [
-      "tech-mcp",
-      "tech-multimodal-copilots",
-      "tech-agent-workbenches"
-    ],
+    relatedTechnologyIds: [],
     relatedKnowledgeIds: ["knowledge-api-contracts", "knowledge-tool-use"]
   },
   {
@@ -48,7 +40,7 @@ export const skillItems: SkillItem[] = [
     heatLevel: "hot",
     learningCost: "high",
     tags: ["tag-retrieval", "tag-observability"],
-    relatedTechnologyIds: ["tech-rag-evals", "tech-kg-assistants"],
+    relatedTechnologyIds: [],
     relatedKnowledgeIds: ["knowledge-rag-basics", "knowledge-graph-thinking"]
   },
   {
@@ -62,7 +54,7 @@ export const skillItems: SkillItem[] = [
     heatLevel: "active",
     learningCost: "medium",
     tags: ["tag-observability", "tag-product-strategy"],
-    relatedTechnologyIds: ["tech-rag-evals", "tech-slm-edge"],
+    relatedTechnologyIds: [],
     relatedKnowledgeIds: [
       "knowledge-evaluation-loops",
       "knowledge-feedback-loops"
@@ -79,11 +71,7 @@ export const skillItems: SkillItem[] = [
     heatLevel: "active",
     learningCost: "low",
     tags: ["tag-product-strategy", "tag-workflow"],
-    relatedTechnologyIds: [
-      "tech-browser-agents",
-      "tech-slm-edge",
-      "tech-voice-runtime"
-    ],
+    relatedTechnologyIds: [],
     relatedKnowledgeIds: ["knowledge-feedback-loops", "knowledge-human-loop"]
   },
   {
@@ -97,7 +85,7 @@ export const skillItems: SkillItem[] = [
     heatLevel: "emerging",
     learningCost: "low",
     tags: ["tag-multimodal", "tag-workflow"],
-    relatedTechnologyIds: ["tech-multimodal-copilots", "tech-voice-runtime"],
+    relatedTechnologyIds: [],
     relatedKnowledgeIds: ["knowledge-feedback-loops", "knowledge-human-loop"]
   }
 ];

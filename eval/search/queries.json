@@ -7,7 +7,6 @@
       "query": "本地跑大模型",
       "relevant": [
         "S:on-device-model-deployment",
-        "T:on-device-small-language-models",
         "K:model-quantization-numeric-precision",
         "K:local-cloud-hybrid-inference",
         "T:ollama-v0-31-2"
@@ -63,7 +62,6 @@
       "query": "语音助手",
       "relevant": [
         "T:introducing-gpt-live",
-        "T:voice-agent-runtime",
         "S:realtime-voice-interaction-design",
         "K:paralinguistics-voice-interaction",
         "T:real-world-voiceeq"
@@ -84,8 +82,7 @@
       "query": "让模型调用外部工具",
       "relevant": [
         "K:tool-use-and-function-calling",
-        "S:tool-integration-patterns",
-        "T:model-context-protocol"
+        "S:tool-integration-patterns"
       ]
     },
     {
@@ -126,7 +123,6 @@
       "query": "手机上运行的模型",
       "relevant": [
         "T:lfm2-5-2-6b-on-device-agents",
-        "T:on-device-small-language-models",
         "S:on-device-model-deployment"
       ]
     },
@@ -154,7 +150,6 @@
       "split": "test",
       "query": "MCP",
       "relevant": [
-        "T:model-context-protocol",
         "T:mcp-2-0-stateless-spec",
         "T:mcp-stateless-gateway-headers",
         "T:gemini-managed-agents-background-mcp"
@@ -292,10 +287,7 @@
       "id": "e19",
       "split": "test",
       "query": "让模型看懂截图",
-      "relevant": [
-        "S:visual-input-design-and-verification",
-        "T:multimodal-coding-copilots"
-      ]
+      "relevant": ["S:visual-input-design-and-verification"]
     },
     {
       "id": "e20",
@@ -307,10 +299,7 @@
       "id": "e21",
       "split": "test",
       "query": "知识图谱",
-      "relevant": [
-        "T:knowledge-graph-assistants",
-        "K:graph-thinking-for-knowledge-systems"
-      ]
+      "relevant": ["K:graph-thinking-for-knowledge-systems"]
     },
     {
       "id": "e22",
@@ -318,8 +307,7 @@
       "query": "RAG",
       "relevant": [
         "K:retrieval-augmented-generation-basics",
-        "S:retrieval-pipeline-tuning",
-        "T:rag-evaluation-dashboards"
+        "S:retrieval-pipeline-tuning"
       ]
     },
     {

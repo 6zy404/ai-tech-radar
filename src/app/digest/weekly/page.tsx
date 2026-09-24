@@ -3,8 +3,15 @@ import Link from "next/link";
 import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getWeeklyReview, getWeeklyReviewArchive } from "@/lib/weekly-review";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = buildPageMetadata({
+  title: "本周回顾",
+  description: "按自然周汇总的已发布技术信号。",
+  path: "/digest/weekly"
+});
 
 export default function WeeklyReviewPage() {
   const data = getWeeklyReview();
@@ -35,7 +42,7 @@ export default function WeeklyReviewPage() {
       className="weekly-review-page dossier"
       actions={
         <Link href="/digest/today" className="action-link">
-          阅读每日简报
+          阅读技术简报
         </Link>
       }
     >

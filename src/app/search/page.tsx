@@ -8,12 +8,30 @@ import {
   type HybridSearchResultLink
 } from "@/lib/hybrid-search";
 import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 interface SearchPageProps {
   searchParams: Promise<{ q?: string }>;
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  searchParams
+}: SearchPageProps): Promise<Metadata> {
+  const { q } = await searchParams;
+  const query = typeof q === "string" ? q.trim() : "";
+
+  return buildPageMetadata({
+    title: query ? `搜索「${query}」` : "站内搜索",
+    description:
+      "在已发布的技术信号、技能、知识和快讯里按关键词与语义相近同时查找。",
+    path: "/search",
+    // A results page is not a page worth indexing on its own.
+    noIndex: query.length > 0
+  });
+}
 
 function MatchReasonTags({ item }: { item: HybridSearchResultLink }) {
   return (

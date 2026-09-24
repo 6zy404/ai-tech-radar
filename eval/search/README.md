@@ -74,18 +74,30 @@ On the tune split, cutoffs from 1.5 to 3.0 were tried; 1.75 with a limit of 5
 had the best balance of recall and precision (59.0% / 47.0%). 2.0 had a better
 MRR (0.617) and lower recall (47.5%).
 
-## Results (`multilingual-e5-small`, z ≥ 1.75, 2026-09-23)
+## Results (`multilingual-e5-small`, z ≥ 1.75, 2026-09-24)
 
 Test split, 27 queries with answers plus 4 with none:
 
 |                                           | Keyword | Semantic |    Hybrid |
 | ----------------------------------------- | ------: | -------: | --------: |
-| Queries where anything relevant was found |   33.3% |    92.6% | **92.6%** |
-| Recall                                    |   21.9% |    62.0% | **64.4%** |
-| Precision                                 |   93.5% |    39.0% |     39.5% |
-| MRR                                       |   0.333 |    0.698 | **0.725** |
-| Results per query                         |     0.6 |      4.1 |       4.2 |
+| Queries where anything relevant was found |   29.6% |    85.2% | **85.2%** |
+| Recall                                    |   21.6% |    61.7% | **64.1%** |
+| Precision                                 |   90.6% |    37.2% |     37.5% |
+| MRR                                       |   0.278 |    0.620 | **0.649** |
+| Results per query                         |     0.6 |      3.9 |       4.0 |
 | Off-topic queries that return something   |  0 of 4 |   4 of 4 |    4 of 4 |
+
+**Re-run 2026-09-24 after the eight seed signals were archived.** Eight
+labels across both splits pointed at the April placeholder signals
+(`model-context-protocol`, `on-device-small-language-models`,
+`voice-agent-runtime`, `rag-evaluation-dashboards`, `knowledge-graph-assistants`,
+`multimodal-coding-copilots`) and were removed; no query lost all of its
+answers. The numbers moved down, not up: hybrid found something relevant for
+23 of 27 queries instead of 25, and MRR fell from 0.725 to 0.649, because the
+seed items had been easy hits — short generic titles written to match exactly
+the kind of query this set asks. The 09-23 figures (hybrid 92.6% / recall
+64.4% / precision 39.5% / MRR 0.725) stand for the old label set and are kept
+here for the record; nothing about the search changed between the two runs.
 
 **What it fixes.** Keyword search found something relevant for a third of the
 queries, because a Chinese query with no spaces only matches if that exact
