@@ -51,7 +51,11 @@ For per-topic deep dives, see the `docs/` directory.
   (every 5 minutes, alert after two consecutive failures, so the ten-second
   rebuild swap is not an outage); the monitor account is the owner's.
 - Verified: typecheck, lint, format, vitest **327/327** (11 new),
-  `validate:deployment` / `workspace-boundary`.
+  `validate:deployment` / `workspace-boundary`. **Deployed 2026-09-25**
+  (fourth ten-second swap): the launcher logged the proxy as reachable and
+  kept it, `https://aizyradar.cn/api/health` answered `200` with the new
+  build id at 1 second of uptime, and reported `model: ready, corpus: ready`
+  18 seconds later after one warm-up search.
 
 ## The demo signals are off the site, and every page now says what it is
 
