@@ -51,7 +51,7 @@ export async function generateOrGetTechnologyLearningPath(
     return {
       error: {
         code: "not_found",
-        message: "The technology could not be found."
+        message: "找不到这条技术信号。"
       }
     };
   }
@@ -133,7 +133,7 @@ export async function generateOrGetTechnologyLearningPath(
       return {
         error: {
           code: "generation_failed",
-          message: "Learning path generation is temporarily unavailable."
+          message: "学习路径功能暂时不可用，请稍后再试。"
         }
       };
     }
@@ -156,7 +156,7 @@ export async function generateOrGetTechnologyLearningPath(
     return {
       error: {
         code: "generation_failed",
-        message: "Learning path generation is temporarily unavailable."
+        message: "学习路径功能暂时不可用，请稍后再试。"
       }
     };
   }

@@ -135,9 +135,9 @@ export function getDigestDeliveryFeed(
   const { rssFeedUrl, jsonFeedUrl } = getDeliverySurfaceUrls(baseUrl);
 
   return {
-    title: "AI Tech Radar 每日技术简报",
+    title: "AI Tech Radar 技术简报",
     description:
-      "只包含已发布每日技术简报的公开 feed，草稿和归档内容不会进入 feed。",
+      "只包含已发布技术简报的公开 feed，草稿和归档内容不会进入 feed。",
     homePageUrl: `${baseUrl}/digest/today`,
     rssFeedUrl,
     jsonFeedUrl,

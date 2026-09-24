@@ -212,7 +212,13 @@ The product is split into two subsystems:
   `RelationshipGraph` tooltips, `/network` edge labels, topic hubs) serve
   the merged view via `PUT /api/workspace/relations` +
   `src/lib/link-relation-workflow.ts`.
-- **Daily Digest** — editorial workflow that generates, edits, previews, and
+- **Daily Digest** (public name since 2026-09-24: **技术简报**, no longer
+  "每日" — the task runner still drafts one per day, but publishing is
+  editor-gated and in practice happens a few times a month, so the nav, the
+  home page, the feed titles and the generated default title
+  `技术简报 - YYYY-MM-DD` stopped promising a daily cadence; the routes and
+  the workflow vocabulary below are unchanged) — editorial workflow that
+  generates, edits, previews, and
   publishes daily briefs, exposed publicly via `/digest/today`, `/digest/[date]`,
   the month-grouped `/digest` archive index, `/feed.xml`, and `/feed.json`.
   The task runner can also generate the day's digest **draft** automatically

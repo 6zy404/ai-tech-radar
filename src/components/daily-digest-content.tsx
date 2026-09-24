@@ -438,7 +438,7 @@ export function DailyDigestContent({
           held only the four counts. */}
       <section className="user-article-hero daily-digest-brief-header">
         <div className="user-article-hero__copy daily-digest-brief-header__copy">
-          <p className="eyebrow user-eyebrow">每日简报 · 第 {digest.date} 号</p>
+          <p className="eyebrow user-eyebrow">技术简报 · 第 {digest.date} 号</p>
           <h1>
             <UnbreakableTitle text={publicTitle} />
           </h1>
@@ -600,7 +600,7 @@ export function DailyDigestContent({
           <div className="daily-digest-section__header daily-digest-section__header--compact">
             <h2>订阅简报</h2>
             <p>
-              稳定的公开订阅源仅包含已发布的每日简报，草稿和已归档简报不在其中。
+              稳定的公开订阅源仅包含已发布的技术简报，草稿和已归档简报不在其中。
             </p>
           </div>
           <div className="digest-feed-links">

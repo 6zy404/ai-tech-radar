@@ -7,8 +7,29 @@ import { TechnologyBrowser } from "@/components/technology-browser";
 import { TopicTimelineSection } from "@/components/topic-timeline-section";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  searchParams
+}: TechnologiesPageProps): Promise<Metadata> {
+  const { view } = await searchParams;
+  const current = parseView(view);
+  const tab = viewTabs.find((item) => item.value === current);
+
+  return buildPageMetadata({
+    title:
+      current === "curated"
+        ? "技术信号"
+        : `${tab?.label ?? "技术信号"} · 技术信号`,
+    description: viewDescriptions[current],
+    path: tab?.href ?? "/technologies",
+    // The two personal views render from localStorage; nothing to index.
+    noIndex: current === "followed" || current === "saved"
+  });
+}
 
 type TechnologyView = "curated" | "news" | "timeline" | "followed" | "saved";
 
@@ -43,7 +64,7 @@ const viewTabs: { value: TechnologyView; label: string; href: string }[] = [
 
 const viewDescriptions: Record<TechnologyView, string> = {
   curated: "浏览已发布的 AI 技术信号，决定先读哪一条。",
-  news: "最近 7 天从外部来源自动聚合的 AI 资讯，按日期分组。想看有编辑判断的内容，请切换到「精选」或阅读每日简报。",
+  news: "最近 7 天从外部来源自动聚合的 AI 资讯，按日期分组。想看有编辑判断的内容，请切换到「精选」或阅读技术简报。",
   timeline:
     "按话题查看已发布技术信号的时间演进：同一主题下先后发生了什么，一眼看清脉络。",
   followed:

@@ -14,7 +14,7 @@ Chinese.
 ## Components
 
 - **User-facing site** — home, the technology signal list (curated / all news /
-  by topic / followed / read later), signal detail, daily digest and weekly
+  by topic / followed / read later), signal detail, the technology digest and weekly
   review, skills, knowledge, the relationship network, topic pages, search, 问雷达
   (question answering from the site's own content, with citations), and RSS /
   JSON feeds. Reads published content only.
@@ -31,16 +31,17 @@ External sources (RSS / Atom / GitHub releases / official blogs)
   → auto-rejected: pre-release versions, items already published on the site
   → editorial review: dedupe, convert to draft, write explanations, link skills and knowledge
   → publish checks (blocking / warnings) → technology signal
-  → daily digest → pages, RSS / JSON feeds, delivery channels
+  → technology digest → pages, RSS / JSON feeds, delivery channels
 ```
 
 Until an editor has reviewed them, candidates appear in the news view labelled
 as unedited aggregation; curated signals and digests contain editor-published
 content only.
 
-As of 2026-09-19: 77 published technology signals, 16 skills, 19 knowledge
-entries, 28 daily digests, and 13 active sources; the content graph has 112
-nodes and 722 typed edges.
+As of 2026-09-24: 81 published technology signals, 16 skills, 19 knowledge
+entries, 30 published digests, and 13 active sources; the content graph has 116
+nodes and 802 typed edges. The eight demo seed signals from April 2026 were
+archived on 2026-09-24 and no longer appear on any public page.
 
 ## Design notes
 
@@ -75,7 +76,7 @@ Every relation between technologies, skills, and knowledge carries one of eight
 types (builds-on, uses, explains, requires, extends, supersedes, supports,
 related-to) plus a note. Editorial changes are stored as copy-on-write
 overrides; the bundled seed data stays read-only. The generic `related-to`
-fallback accounts for about 11% of edges. The same graph drives the version
+fallback accounts for about 13% of edges. The same graph drives the version
 line on signal pages, the topic pages, and the grounding for AI-generated
 learning paths.
 

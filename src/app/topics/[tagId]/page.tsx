@@ -8,12 +8,35 @@ import { topicFeedPath } from "@/lib/feed-paths";
 import { getTopicHub } from "@/lib/topic-hub";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
 import type { ContentKind, HeatLevel, DifficultyLevel } from "@/types/content";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/site-metadata";
 
 interface TopicHubPageProps {
   params: Promise<{ tagId: string }>;
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params
+}: TopicHubPageProps): Promise<Metadata> {
+  const { tagId } = await params;
+  const hub = getTopicHub(tagId);
+
+  if (!hub) {
+    return buildPageMetadata({
+      title: "没有这一页",
+      path: `/topics/${tagId}`,
+      noIndex: true
+    });
+  }
+
+  return buildPageMetadata({
+    title: `${hub.tag.name} · 专题`,
+    description: hub.tag.description,
+    path: `/topics/${hub.tag.id}`
+  });
+}
 
 const heatLabels: Record<HeatLevel, string> = {
   hot: "当前热门",

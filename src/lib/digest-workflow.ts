@@ -560,7 +560,7 @@ export function updateDailyDigest(
   const existingDigest = getDailyDigestByDate(date);
 
   if (!existingDigest) {
-    throw new Error(`未找到 ${date} 的每日简报。`);
+    throw new Error(`未找到 ${date} 的技术简报。`);
   }
 
   const nextDigest = syncDigestAggregates({
@@ -598,7 +598,7 @@ export function updateDailyDigestItemControl(
   const existingDigest = getDailyDigestByDate(date);
 
   if (!existingDigest) {
-    throw new Error(`未找到 ${date} 的每日简报。`);
+    throw new Error(`未找到 ${date} 的技术简报。`);
   }
 
   if (
@@ -912,7 +912,7 @@ export function updateDailyDigestStatus(
   const existingDigest = getDailyDigestByDate(date);
 
   if (!existingDigest) {
-    throw new Error(`未找到 ${date} 的每日简报。`);
+    throw new Error(`未找到 ${date} 的技术简报。`);
   }
 
   const savedDigest = saveDigest({

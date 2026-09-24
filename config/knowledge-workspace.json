@@ -71,7 +71,6 @@
         "tag-retrieval"
       ],
       "relatedTechnologyIds": [
-        "tech-kg-assistants",
         "draft-candidate-rss-https-www-qbitai-com-p-469721",
         "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
@@ -148,7 +147,6 @@
         "tag-observability"
       ],
       "relatedTechnologyIds": [
-        "tech-multimodal-copilots",
         "draft-candidate-rss-https-github-blog-p-97467",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
         "draft-candidate-rss-https-www-qbitai-com-p-469795",
@@ -180,8 +178,6 @@
         "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "tech-mcp",
-        "tech-multimodal-copilots",
         "draft-candidate-rss-https-github-blog-p-97467",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
@@ -249,8 +245,6 @@
         "tag-multimodal"
       ],
       "relatedTechnologyIds": [
-        "tech-slm-edge",
-        "tech-voice-runtime",
         "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
         "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
@@ -289,7 +283,6 @@
         "tag-product-strategy"
       ],
       "relatedTechnologyIds": [
-        "tech-slm-edge",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
         "draft-candidate-rss-https-github-blog-p-97686",
@@ -336,8 +329,6 @@
         "tag-product-strategy"
       ],
       "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-agent-workbenches",
         "draft-candidate-rss-https-github-blog-p-97686",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
         "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
@@ -386,8 +377,6 @@
         "tag-observability"
       ],
       "relatedTechnologyIds": [
-        "tech-rag-evals",
-        "tech-agent-workbenches",
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
         "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
         "draft-candidate-rss-https-www-qbitai-com-p-468782",
@@ -467,8 +456,6 @@
         "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "tech-browser-agents",
-        "tech-voice-runtime",
         "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
         "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
@@ -515,7 +502,6 @@
         "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "tech-mcp",
         "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
         "draft-candidate-rss-https-github-blog-p-97686",
         "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
@@ -688,8 +674,6 @@
         "tag-retrieval"
       ],
       "relatedTechnologyIds": [
-        "tech-rag-evals",
-        "tech-kg-assistants",
         "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
         "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"

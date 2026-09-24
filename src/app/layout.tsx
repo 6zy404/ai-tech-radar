@@ -2,13 +2,26 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { TopNav } from "@/components/top-nav";
+import { getSiteUrl, siteDescription, siteName } from "@/lib/site-metadata";
 import { themeStorageKey } from "@/lib/theme";
 
 import "./globals.css";
 
+// Every page's own title goes through the template; `metadataBase` is what
+// turns the relative canonical and Open Graph URLs the pages declare into
+// absolute ones. Pages set their own title and description with
+// `buildPageMetadata` (src/lib/site-metadata.ts).
 export const metadata: Metadata = {
-  title: "AI Tech Radar",
-  description: "用于跟踪新技术、热门技能与经典知识的本地原型。"
+  metadataBase: new URL(getSiteUrl()),
+  title: { default: siteName, template: `%s · ${siteName}` },
+  description: siteDescription,
+  openGraph: {
+    siteName,
+    locale: "zh_CN",
+    type: "website",
+    title: siteName,
+    description: siteDescription
+  }
 };
 
 /**

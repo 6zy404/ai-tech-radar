@@ -12,10 +12,7 @@ import {
   getTechnologyWorkspaceRecordById,
   getTechnologyWorkspaceRecords
 } from "@/lib/technology-draft-workflow";
-import {
-  homeFeaturedTechnologyIds,
-  technologyItems
-} from "@/data/technologies";
+import { technologyItems } from "@/data/technologies";
 import {
   getLocalStoreFingerprint,
   getStoreRevision
@@ -174,12 +171,6 @@ export function getTagById(id: string): TopicTag | undefined {
 
 export function getTagsByIds(ids: string[]): TopicTag[] {
   return ids.map(getTagById).filter((tag): tag is TopicTag => Boolean(tag));
-}
-
-export function getFeaturedTechnologies(): TechnologyItem[] {
-  return homeFeaturedTechnologyIds
-    .map((id) => getAllTechnologies().find((item) => item.id === id))
-    .filter((item): item is TechnologyItem => Boolean(item));
 }
 
 export function toUserFacingTechnologyItem(

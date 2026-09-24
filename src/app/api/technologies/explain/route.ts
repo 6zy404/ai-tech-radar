@@ -37,10 +37,7 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      { error: "Request body must be valid JSON." },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "请求格式不正确。" }, { status: 400 });
   }
 
   const { technologyId, audienceLevel } = (body ?? {}) as {
@@ -52,10 +49,7 @@ export async function POST(request: Request) {
     typeof technologyId === "string" && technologyId.trim().length > 0;
 
   if (!hasValidTechnologyId) {
-    return NextResponse.json(
-      { error: "technologyId is required." },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "缺少技术信号 id。" }, { status: 400 });
   }
 
   if (!isTechnologyExplanationAudienceLevel(audienceLevel)) {

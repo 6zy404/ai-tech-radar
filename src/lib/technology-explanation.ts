@@ -60,7 +60,7 @@ export async function generateOrGetTechnologyExplanation(
     return {
       error: {
         code: "invalid_level",
-        message: "Choose a supported reader level for the explanation."
+        message: "请选择一个支持的阅读水平。"
       }
     };
   }
@@ -73,7 +73,7 @@ export async function generateOrGetTechnologyExplanation(
     return {
       error: {
         code: "not_found",
-        message: "The technology could not be found."
+        message: "找不到这条技术信号。"
       }
     };
   }
@@ -148,7 +148,7 @@ export async function generateOrGetTechnologyExplanation(
       return {
         error: {
           code: "generation_failed",
-          message: "Explanation generation is temporarily unavailable."
+          message: "解读功能暂时不可用，请稍后再试。"
         }
       };
     }
@@ -171,7 +171,7 @@ export async function generateOrGetTechnologyExplanation(
     return {
       error: {
         code: "generation_failed",
-        message: "Explanation generation is temporarily unavailable."
+        message: "解读功能暂时不可用，请稍后再试。"
       }
     };
   }
