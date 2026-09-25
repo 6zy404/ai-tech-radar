@@ -95,10 +95,10 @@ New sessions should start from:
 - `docs/security-boundary.md`
 - `docs/workspace-actions.md`
 - `docs/editorial-round-playbook.md`
-- `docs/progress.md`
 - `docs/decisions.md`
 - `docs/ui-migration-plan.md`
-- `docs/next-task.md`
+- `docs/next-task.md` (current status and the open backlog; its past
+  session log is archived verbatim in `docs/history/next-task-log.md`)
 
 If a detail is not supported by current repository files, mark it as
 `Unknown / needs verification` instead of reconstructing it from old chat history.

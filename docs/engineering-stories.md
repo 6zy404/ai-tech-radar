@@ -1,7 +1,8 @@
 # 工程排查记录
 
 三次排查的整理稿，原始记录分散在 [`CHANGELOG.md`](../CHANGELOG.md) 与
-[`docs/next-task.md`](next-task.md) 中，每节末尾注明出处。
+[`docs/history/next-task-log.md`](history/next-task-log.md)（原 `next-task.md`
+的会话记录归档）中，每节末尾注明出处。
 
 三次排查有一个共同点：结论成立之前，**用来测量的方法本身先被证明有问题**——一次是
 正确性验证缺少对照组，一次是把构建配置当成了运行行为，一次是用开发模式的数字代表生产。
@@ -82,7 +83,7 @@ CPU 密集渲染会阻塞整个进程，而不只是它自己那条路由。
 - **缓存的对象**：缓存的是源读取结果，不是返回的数组；每个 getter 仍会构建并排序一份
   新数组，调用方之间不会互相修改列表。
 
-> 出处：[`docs/next-task.md`](next-task.md) 2026-08-17 更新的第 ⑮、⑲ 段。
+> 出处：[`docs/history/next-task-log.md`](history/next-task-log.md) 2026-08-17 更新的第 ⑮、⑲ 段。
 
 ---
 

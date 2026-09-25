@@ -12,6 +12,38 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The documents a session reads shrank by three quarters
+
+- **Every session was loading about 1.06 MB of Markdown before reading a
+  line of the request** — 2026-09-26, owner-selected from the P3 debt list.
+  `CLAUDE.md` auto-imports ten files, and two of them were three quarters of
+  the total: `docs/next-task.md` at 399 KB (4,507 lines, 110 session-by-session
+  updates appended since 2026-07-10) and `CHANGELOG.md` at 409 KB (121
+  entries). Both are history, and history does not need to be read before
+  every task.
+- **`docs/next-task.md` is a status board now, 86 lines**: what is live and
+  how it is deployed, the measured content counts, and the open backlog by
+  priority with what each item changes once done. The 110 updates and the
+  finished code-debt sections moved **verbatim** to
+  `docs/history/next-task-log.md` (4,523 lines, nothing edited), so a note
+  that cites a past round's wording can still be grepped.
+- **`CHANGELOG.md` is no longer auto-imported.** The file and the rule to add
+  to it are unchanged; `CLAUDE.md` names it as read-on-demand, beside the new
+  archive. The auto-imported set is now about 270 KB.
+- **`docs/progress.md` retired.** It listed what exists and had stopped in
+  July; `docs/reference.md` is that list and is kept current. `AGENTS.md` and
+  the three other places that named it now point there or at the archive.
+- **`docs/roadmap.md` caught up**: it still said the deployment was blocked on
+  the owner six days after the site went live. Phase 2 is marked done with
+  what the owner's three answers turned out to be, Phase 3 records the five
+  production findings of the first week, the content counts are today's
+  (81 signals / 16 skills / 19 knowledge / 30 digests, 116 nodes / 802 edges,
+  re-measured through the public getters and identical to the README's), and
+  the honesty note records the second lapse beside the first.
+- Verified: `npm run format:check` and `typecheck` clean; every remaining
+  reference to `next-task.md` or `progress.md` in the tree was read and
+  repointed or left where it still describes the live file.
+
 ## The three ways the live site could fail quietly, each given a voice
 
 - **A hung model load now has a deadline and a log line** — 2026-09-25,

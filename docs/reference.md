@@ -459,7 +459,8 @@ relevant file under [`docs/`](./): `project-spec`, `architecture`,
 `deployment`, `persistence-plan`, `database-migration`, `workflow-hardening`,
 `content-intelligence`, `editorial-enrichment`, `llm-provider`, `prompt-quality`,
 `operations`, `workspace-actions`, `editorial-round-playbook`,
-`production-readiness`, `decisions`, `progress`, and `next-task`.
+`production-readiness`, `decisions`, and `next-task`. The session log that
+used to live in `next-task` is archived in `history/next-task-log.md`.
 
 ## Intentionally not implemented yet
 

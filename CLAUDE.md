@@ -14,13 +14,22 @@ Read these before doing any work:
 
 - @README.md — project overview (Chinese; English in README.en.md)
 - @docs/reference.md — current capabilities, routes, commands
-- @CHANGELOG.md — version-by-version feature history
 - @docs/project-spec.md
 - @docs/architecture.md
 - @docs/data-model.md
 - @docs/page-structure.md
 - @docs/security-boundary.md
-- @docs/next-task.md
+- @docs/next-task.md — current status and the open backlog (a status board,
+  not a log)
+
+Read on demand, not auto-imported (together they are 800 KB, three quarters
+of what every session used to load):
+
+- `CHANGELOG.md` — the feature history, one dated entry per change. Read it
+  before claiming something was never done, and add to it per the
+  documentation rules in AGENTS.md.
+- `docs/history/next-task-log.md` — the 2026-07-10 → 2026-09-24 session log,
+  archived verbatim. Grep it when a note refers to a past round's exact wording.
 
 If a detail is not supported by current repository files, mark it as
 `Unknown / needs verification` instead of guessing.
