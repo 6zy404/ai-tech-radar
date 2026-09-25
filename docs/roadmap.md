@@ -1,9 +1,9 @@
 # Roadmap
 
 This is the durable, high-level plan for the project: what it is, what is built,
-and what comes next. It complements `docs/progress.md` (detailed status) and
-`docs/next-task.md` (the immediate next task). Keep it in the repo so direction
-survives even if chat history is lost.
+and what comes next. It complements `docs/reference.md` (what exists today) and
+`docs/next-task.md` (current status and the open backlog). Keep it in the repo
+so direction survives even if chat history is lost.
 
 ## Product identity
 
@@ -93,37 +93,55 @@ and the **User-facing Product** (public reading/discovery).
 10. **The dossier design direction, everywhere** — every page of the
     User-facing Product, plus dark mode. The Internal Workspace deliberately
     keeps its own console look.
+11. **The AI application track (2026-09-23)** — advisory LLM triage on the
+    editorial-round console, measured against 479 real editorial decisions;
+    hybrid search (`/search`, keyword + a local embedding model, no API);
+    and 问雷达 (`/ask`), a grounded question box whose citations are numbered
+    by the code so an invalid one is detectable. Each shipped with its own
+    labelled eval set under `eval/`.
+12. **Live, and hardened after going live** — `aizyradar.cn` through a
+    Cloudflare Tunnel since 2026-09-20, serving the public-only build. The
+    2026-09-24 whole-project review then fixed what only production shows:
+    a spoofable rate-limit key, non-atomic store writes, validators writing
+    into the live data directory, the eight demo seed signals still public,
+    a model download that hung silently, a proxy that died on reboot, and
+    added per-page metadata, a sitemap, a Chinese 404 and `GET /api/health`.
 
 ## Content
 
 The pipeline is no longer the constraint; the content is the product. As of
-2026-08-13: **42 published technology signals**, **15 skills**, **18 knowledge
-entries**, **20 published daily digests**, **13 enabled sources**. The
-skill/knowledge pool went from 16 full entries and 16 one-sentence seed stubs
-to 33 full entries with 2 stubs left, both deliberately on hold until their
-topic has more than its current three published signals.
+2026-09-26 (measured through the public getters): **81 published technology
+signals**, **16 skills**, **19 knowledge entries**, **30 published digests**,
+**13 enabled sources**; the content graph has 116 nodes and 802 typed edges.
+The skill/knowledge pool went from 16 full entries and 16 one-sentence seed
+stubs to **35 full entries and zero stubs** (the last two, on retrieval, were
+written on 2026-09-24 once that topic had six published signals). The eight
+April demo signals were archived the same day.
 
 ## Completion estimate
 
-| Area                                | Done                                  | Remaining                                                                                                                                                                                                               |
-| ----------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Business pipeline / CMS             | ~98%                                  | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
-| User-facing visuals / design system | ~95%                                  | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
-| User-facing content                 | ~90%                                  | essentially localized                                                                                                                                                                                                   |
-| Knowledge relationship network      | 100% (P2 complete)                    | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
-| AI assistance / personalization     | P3 and P4 agreed scope both complete  | P4 shipped v0 through v0.4 (radar, detail-page follow, personalized digest, topic feeds + follow transfer, read / read-later marks). Anything further in either is new scope, proposed per capability                   |
-| Deployment                          | code side done; 4 operator steps left | Rate limiting, CSP + HSTS, pinned Node, purged fixtures and untracked runtime stores all landed. What remains needs a machine and a domain — see "What 'done' means" below                                              |
+| Area                                | Done                                 | Remaining                                                                                                                                                                                                               |
+| ----------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business pipeline / CMS             | ~98%                                 | Workspace visual confirmation, the code-debt decomposition pass, ESLint/Prettier tooling, and the `validate:delivery` fixture fix are all done; no tracked gap remains on this side                                     |
+| User-facing visuals / design system | ~95%                                 | per-page desktop+mobile sweep is done for every page previously flagged (`/digest/today`, `/digest/[date]`, `/skills`, `/knowledge` were the last four); remaining work here is polish-on-demand, not a tracked backlog |
+| User-facing content                 | ~90%                                 | essentially localized                                                                                                                                                                                                   |
+| Knowledge relationship network      | 100% (P2 complete)                   | walkable graph, relation-density line, full semantic typing, and a whole-network overview page all shipped; future work here would be new scope (e.g. filtering, search) rather than finishing P2                       |
+| AI assistance / personalization     | P3 and P4 agreed scope both complete | P4 shipped v0 through v0.4 (radar, detail-page follow, personalized digest, topic feeds + follow transfer, read / read-later marks). Anything further in either is new scope, proposed per capability                   |
+| Deployment                          | live since 2026-09-20                | Public build behind a Cloudflare Tunnel, ten-second rebuild swaps, verified backups, a health endpoint. Open: bind to `127.0.0.1`, a deploy script, an off-disk backup — see `docs/next-task.md`                        |
 
-**The honest summary: the feature roadmap is finished.** Everything since
-2026-07-22 has been editorial rounds, content, visual passes, and defect fixes
-— not new phases. What is left is a deployment plus an ongoing operation.
+**The honest summary: the feature roadmap is finished, and the site is live.**
+Everything from 2026-07-22 to mid-September was editorial rounds, content,
+visual passes and defect fixes; the one genuinely new track since then is the
+AI application work of 2026-09-23 (item 11 above), chosen by the owner. What is
+left is operation: rounds, the small operational items in `docs/next-task.md`,
+and code debt.
 
 ## Roadmap
 
 ### P1 — Seal the current pass (short; do first)
 
 - Finalize the "solid / contrast" visual pass.
-- Commit and sync docs (`progress.md`, `ui-migration-plan.md`) to match code.
+- Commit and sync docs (`ui-migration-plan.md`) to match code.
 - Outcome: UI reaches a token-stable state — future tweaks are token edits, not
   per-page surgery.
 
@@ -183,10 +201,12 @@ CRUD/publish/archive logic), `digest-workflow.ts` (887 → 787 lines; store
 layer extracted to `digest-store.ts`), and `sqlite-store.ts` (1308 → 681
 lines; twelve per-domain files plus `sqlite-primitives.ts` extracted) have
 all had the decomposition pattern applied — every file originally flagged
-for it is done. Remaining code debt: ESLint/Prettier config, and a
-pre-existing `npm run validate:delivery` fixture mismatch found (not caused)
-during the `sqlite-store.ts` work and flagged separately. Do this as
-interleaved cleanup, not a separate phase.
+for it is done, as are the ESLint/Prettier config and the
+`validate:delivery` fixture fix that used to be listed here. The code debt
+open today is different in kind: `globals.css` at 11,000+ lines, test files
+outside the typecheck, and the documentation weight fixed on 2026-09-26 —
+see `docs/next-task.md`. Do this as interleaved cleanup, not a separate
+phase.
 
 ## What "done" means, and the path to it
 
@@ -212,37 +232,32 @@ Whatever operational question is open at the time. Effect: the scheduled
 pipeline can be treated as infrastructure rather than something still under
 observation, which matters once it is the only content source.
 
-### Phase 2 — deploy (about half a day, blocked on the owner)
+### Phase 2 — deploy (done 2026-09-20)
 
-Of the 9-step go-live checklist, **the 5 code/config steps are done** (public
-AI route rate limiting, production CSP + HSTS, pinned Node, purged demo
-fixtures, runtime stores untracked). The remaining 4 are deployment actions,
-none of which need new code:
+The owner's three answers turned out to be: this machine, `aizyradar.cn`
+through a Cloudflare Tunnel, and no workspace on the public server at all —
+`npm run build:public` removes the workspace routes from the build, so the
+token guard is a second lock rather than the only one, and editorial rounds
+run on a local `next dev` against the live data directory. Backups run daily
+at 07:45 and are verified by hash. The runbook is `docs/deployment.md`.
 
-1. Turn on `WORKSPACE_ACCESS_ENABLED` + a strong token — **and verify by
-   requesting the route, not by reading the middleware**. That is exactly how
-   the inert-guard bug went unnoticed for weeks.
-2. Move the live data directory out of the repository.
-3. Set `NEXT_PUBLIC_SITE_URL` — it is inlined at **build** time, so setting it
-   only at runtime bakes `localhost` into every feed link.
-4. Schedule the daily backup.
+### Phase 3 — watch it (2026-09-20 → ongoing)
 
-Plus HTTPS in front, a build, and a smoke test.
-
-**The only blocker is three answers**: which machine and domain, who may reach
-the workspace, and where backups go.
-
-### Phase 3 — watch it for about two weeks
-
-The things only production shows: whether the scheduled task behaves on a new
-machine (this project has lost runs to sleep _and_ to a console `Ctrl+C`),
-whether the backup actually restores, whether feed links are right, and
-whether two writers ever collide on the unlocked JSON store.
+Production showed what it was expected to, and more, within the first five
+days: the host slept through a day, the outbound proxy died on an unattended
+reboot, the embedding model never finished downloading and nothing said so,
+the live build fell nine commits behind `main`, and the public AI rate limit
+could be walked around with one header. All were fixed by 2026-09-25 (see
+`CHANGELOG.md`, the 2026-09-24/25 entries). What is still being watched: the
+nightly manual sleep, and two processes writing the same store (last writer
+wins — they can no longer corrupt it).
 
 ### Phase 4 — steady operation (no end)
 
 The import is automatic; the judgment is not. Optimization here means fewer
-manual steps per round, not more features.
+manual steps per round, not more features. The open list — a few operational
+items, code debt, and things only the owner can do — lives in
+`docs/next-task.md`.
 
 ## Status
 
@@ -260,15 +275,17 @@ publisher rendered as a GitHub username, a summary shipping its `**` markers, a
 command-line flag split across lines, and ASCII quotes in Chinese prose). None
 of those has normal-DOM symptoms. See `AGENTS.md` → "Visual verification rule".
 
-**Next: Phase 2 above** — the deployment. It needs three answers from the owner
-before any of it can start.
+**Now: Phases 3 and 4** — the site is live; the work is rounds, watching, and
+the short backlog in `docs/next-task.md`.
 
 ## Keeping this document honest
 
 This file went **a month out of date** (2026-07-09 → 2026-08-13) while
-`CHANGELOG.md` was updated daily. That is worse here than elsewhere: the header
-says direction should survive even if chat history is lost, and for a month it
-would have pointed a fresh session at a state that no longer existed.
+`CHANGELOG.md` was updated daily, and then did it again (2026-08-13 →
+2026-09-26): for six days after the site went live it still said the
+deployment was blocked on the owner. That is worse here than elsewhere: the
+header says direction should survive even if chat history is lost, and for
+weeks it would have pointed a fresh session at a state that no longer existed.
 
 Update it whenever a phase closes or its status changes — not per feature,
 which is what the changelog is for.

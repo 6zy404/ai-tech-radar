@@ -977,6 +977,7 @@ Pages left for later UI migration: none — the list is empty.
 visual-confirmation pass at desktop and mobile widths, and `/digest/today`,
 `/digest/[date]`, `/skills` (index + detail), and `/knowledge` (index + detail)
 have since had the same pass (layout stacking, horizontal overflow,
-internal-field leak scan, console errors — see `docs/next-task.md`). Every page
+internal-field leak scan, console errors — see the 2026-07 entries in
+`docs/history/next-task-log.md`). Every page
 that was ever on this list has now been confirmed against the current template
 standards.
