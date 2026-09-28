@@ -35,7 +35,7 @@
 - **内容**（2026-09-28 经公开 getter 实测，与 README 一致）：已发布信号 91、
   技能 16、知识 19、技术简报 31 期（最近 09-28）、在用信源 13；图谱 126 节点 /
   890 边，兜底「关联」占 11.5%。技能/知识池零占位。
-- **闸门**：typecheck / lint / format / vitest 369 / `validate:all` 22 个全绿
+- **闸门**：typecheck / lint / format / vitest 376 / `validate:all` 22 个全绿
   （2026-09-29）。CI 跑单测与全部 validator。类型检查自 09-28 起覆盖测试文件
   （33 个）。
 - **重活一次只跑一个**（CLAUDE.md →「Parallel windows」）：一次 `css:diff`
