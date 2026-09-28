@@ -543,6 +543,12 @@ Workspace deployment boundary:
     with the node's title, a link to its own detail page, and its connection
     list (relation-type pill + linked title per connection); clicking again
     deselects
+  - the connection list is **grouped by kind** (技术 · N / 技能 · N / 知识 · N,
+    the same label the detail pages' per-item relationship view uses) and every
+    row is a two-column grid — pill on the left, title wrapping in its own
+    column on the right. Above 860px the panel is capped at the space below its
+    sticky offset and scrolls inside itself; a well-connected node has
+    forty-odd rows (2026-09-28)
   - a lighter, list-based reading of the same node/edge data readers already
     encounter via the per-page `RelationshipGraph`, `RelatedItemsSection`, and
     `RelationDensity` — this page is the one place to see the whole graph at
