@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
 
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import { buildAiGenerationMetadata } from "@/lib/ai-generation-record";
 import { getAllTechnologies } from "@/lib/content";
 import { getLlmProviderConfig } from "@/lib/llm/provider";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
@@ -17,8 +19,6 @@ import type {
   TechnologyExplanationPublicResult,
   TechnologyExplanationRecord
 } from "@/types/content";
-
-const explanationDisclaimer = "AI 生成内容，未经编辑审核，仅供参考。";
 
 const audienceLevels: TechnologyExplanationAudienceLevel[] = [
   "beginner",
@@ -44,7 +44,7 @@ export function toPublicExplanationResult(
     technologyId: record.technologyId,
     audienceLevel: record.audienceLevel,
     fields: record.fields,
-    disclaimer: explanationDisclaimer,
+    disclaimer: aiGeneratedDisclaimer,
     generatedAt: record.updatedAt
   };
 }
@@ -112,20 +112,15 @@ export async function generateOrGetTechnologyExplanation(
             explanation: "",
             keyPoints: []
           },
-      generationMode,
-      providerName: response.providerName,
-      modelName: response.modelName,
-      promptVersionId,
-      promptVersion,
-      outputValidationStatus: validation.ok
-        ? validation.warnings.length > 0
-          ? "warning"
-          : "valid"
-        : "failed",
-      outputValidationWarnings: validation.warnings,
-      generationError: validation.ok ? undefined : validation.error,
-      createdAt: cached?.createdAt ?? new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...buildAiGenerationMetadata({
+        generationMode,
+        providerName: response.providerName,
+        modelName: response.modelName,
+        promptVersionId,
+        promptVersion,
+        validation,
+        createdAt: cached?.createdAt
+      })
     };
 
     const savedRecord = saveTechnologyExplanationRecord(record);

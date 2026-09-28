@@ -1,3 +1,4 @@
+import { normalizeAiGenerationMetadata } from "@/lib/ai-generation-record";
 import {
   getLocalStoreFilePath,
   readLocalJsonFile as readJsonFile,
@@ -63,35 +64,7 @@ function normalizeExplanationRecord(
     technologyId,
     audienceLevel,
     fields: normalizeExplanationFields(record.fields),
-    generationMode:
-      record.generationMode === "llm_assisted" ? "llm_assisted" : "mock_llm",
-    providerName:
-      typeof record.providerName === "string" ? record.providerName : undefined,
-    modelName:
-      typeof record.modelName === "string" ? record.modelName : undefined,
-    promptVersionId:
-      typeof record.promptVersionId === "string"
-        ? record.promptVersionId
-        : undefined,
-    promptVersion:
-      typeof record.promptVersion === "string"
-        ? record.promptVersion
-        : undefined,
-    outputValidationStatus:
-      record.outputValidationStatus === "valid" ||
-      record.outputValidationStatus === "warning" ||
-      record.outputValidationStatus === "failed"
-        ? record.outputValidationStatus
-        : "failed",
-    outputValidationWarnings: Array.isArray(record.outputValidationWarnings)
-      ? (record.outputValidationWarnings as string[])
-      : [],
-    generationError:
-      typeof record.generationError === "string"
-        ? record.generationError
-        : undefined,
-    createdAt: typeof record.createdAt === "string" ? record.createdAt : now,
-    updatedAt: typeof record.updatedAt === "string" ? record.updatedAt : now
+    ...normalizeAiGenerationMetadata(record)
   };
 }
 
