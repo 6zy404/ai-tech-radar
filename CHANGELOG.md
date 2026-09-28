@@ -23,8 +23,11 @@ For per-topic deep dives, see the `docs/` directory.
   `localhost` answer — .NET and Node both fall back from `::1` to IPv4, which
   is what the tunnel's `localhost:3000` relies on. The binding is in
   `package.json`, not in the task definition, so the scheduled task was not
-  re-registered. **It takes effect at the next restart of the live server; as
-  of this entry the live process is still the old one.**
+  re-registered. **Live since the 10:37 deploy the same day**: one listener on
+  `127.0.0.1`, the LAN address refused, seven public routes at 200 through the
+  domain and the five denied prefixes still at 404. `localhost` costs .NET
+  about two seconds on its first connection (it tries `::1` first); the tunnel
+  pays nothing measurable — 12/12 at 200, mean 512ms.
 - **`npm run deploy` / `npm run deploy:rollback`** (`scripts/deploy.ps1`)
   replace the three hand-typed PowerShell steps: build into `.next-new` beside
   the running server, stop, swap, start, health-check, and **roll back
@@ -65,8 +68,10 @@ For per-topic deep dives, see the `docs/` directory.
   back including a build with no `/api/health`, a server bound to `0.0.0.0`
   reported, a foreign process left alone); `-WhatIf` for deploy and rollback
   against the real checkout, real task and real port; refusal from the
-  worktree. **Not verified**: the script has not yet driven the real scheduled
-  task or a real `next build` — the first production deploy is that test.
+  worktree. Then the first real run: `ihu-mrtG…` → `er8Hdsj9…`, **1.8 seconds**
+  from stopping the old process to a healthy answer from the new one, against
+  about ten by hand. **Not verified in production**: the automatic rollback has
+  only ever fired against the stand-in.
 - `.gitignore` now covers `.next-*` (the rollback directory was showing up as
   untracked in the live checkout) and rotated log generations.
 

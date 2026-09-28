@@ -166,15 +166,29 @@ Four settings are doing real work here:
 same machine, so nothing else has a reason to reach the port — and until this
 change everything on the local network could. The binding lives in
 `package.json` rather than in the task definition, so it is versioned and the
-task itself did not have to be re-registered. Measured on a throwaway instance
-(the rollback build on port 3100), with the live server as the control:
+task itself did not have to be re-registered. Measured on the live server,
+before and after the deploy that restarted it:
 
-| Request to                          | live, listening on `::` | with `-H 127.0.0.1`        |
-| ----------------------------------- | ----------------------- | -------------------------- |
-| `127.0.0.1`                         | answers                 | answers                    |
-| `localhost` (.NET and Node `fetch`) | answers                 | answers — falls back to v4 |
-| `[::1]`                             | answers                 | refused                    |
-| the machine's own LAN address       | **200 in 16ms**         | **refused**                |
+| Request to                    | before, listening on `::` | after, listening on `127.0.0.1` |
+| ----------------------------- | ------------------------- | ------------------------------- |
+| `127.0.0.1`                   | 200                       | 200                             |
+| `localhost`                   | not measured              | 200 — after falling back to v4  |
+| `[::1]`                       | not measured              | refused                         |
+| the machine's own LAN address | **200 in 16ms**           | **refused**                     |
+
+Through the domain afterwards: seven public routes at 200, and the five denied
+prefixes still at 404.
+
+**`localhost` still works, at a price that depends on the client.** It resolves
+to `::1` first, which is now refused. Node's `fetch` moves on at once (37ms on
+the first request). .NET — `Invoke-WebRequest` — waits about **two seconds** on
+the first connection and is fast after that (2045ms, then 10ms). The tunnel is
+the client that matters and it pays nothing measurable: twelve sequential
+requests for `/api/health` through the domain, 12/12 at 200, mean 512ms,
+fastest 406ms, slowest 844ms, and no origin error in the tunnel log. Pointing
+the tunnel's ingress at `http://127.0.0.1:3000` would remove the fallback
+altogether; it was left alone because there was nothing to gain that could be
+measured. **Use `127.0.0.1` in local probes**, not `localhost`.
 
 The LAN row is what the change is for. Besides reaching the site around the
 tunnel's deny list, a caller on the network could set `CF-Connecting-IP` to
@@ -223,6 +237,14 @@ What a deploy does, in order:
 
 Exit codes: `0` healthy, `1` failed (previous build restored where possible),
 `2` healthy but not loopback-only.
+
+**First real run, 2026-09-28 10:37**: build `ihu-mrtG…` → `er8Hdsj9…` (32
+routes, 0 workspace), **1.8 seconds** from stopping the old process to a
+healthy answer from the new one — against about ten when the same steps were
+typed by hand. Checked afterwards by requesting rather than by reading the
+script's own output: one listener on `127.0.0.1`, the domain's public routes at
+200, the five denied prefixes at 404, and the working tree clean (`tsconfig.json`
+restored by the build script).
 
 `.next-old` always holds the previous build, so `deploy:rollback` needs no
 arguments, and running it twice returns to where it started. A rollback target
