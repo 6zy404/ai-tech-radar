@@ -65,6 +65,13 @@ For per-topic deep dives, see the `docs/` directory.
     outside any form and send with a button.
 - After the fix, every select showed the stored value after saving, checked
   with values that are not the first option in both directions.
+- **No other select in the repo is exposed.** The reset only follows a form
+  whose `action` is a function, and after this change the five such forms
+  hold uncontrolled, keyed selects or none. The technology draft editor
+  submits with `onSubmit` + `preventDefault`, so it is never reset —
+  confirmed in the browser (importance and reading difficulty show the saved
+  value). The operations event filter is a plain GET form, and 问雷达 and
+  the nav search have no select.
 - **A different bug on the digest page, found while testing and fixed in its
   own commit.** After 添加技术到简报 the added item leaves the option list,
   but `DailyDigestManualAdd` still held its id, so the select showed another
