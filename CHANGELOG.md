@@ -67,6 +67,24 @@ For per-topic deep dives, see the `docs/` directory.
   directory; `check:pipeline` is added to that list. New
   `src/lib/pipeline-alert.test.ts` (8 tests).
 
+## The list-page lede lines up with its title on a phone
+
+- **`/skills`, `/knowledge` and `/topics` at 390px** (2026-09-29). The lede
+  sentence under the page header, and the row of counts under it, started
+  18px right of the title (x 65 against 47) on all three pages, while the
+  first card lined up with the title. Cause: a `max-width: 560px` rule in
+  `27-skill-detail.css` still gave `.skills-library-intro` the
+  `padding: 16px 18px` it had as a panel. The block became a label on the
+  page ground on 2026-07-30 (`padding: 0` in
+  `pages/skill-knowledge-library.css`), but that file is imported before
+  `27-skill-detail.css`, so below 560px the old padding won again. The
+  selector is removed from that rule; nothing else in it changes.
+- Measured with `getBoundingClientRect().left` on the header `h1`, the lede,
+  the counts row and the first card: at 390 all four read 47 on all three
+  pages (lede and counts were 65); at 1440 all four read 245 before and after.
+  Below 560px the block also loses its 16px of top and bottom padding, so the
+  gap above and below it now matches the wide layout.
+
 ## The operations dashboard notices a stalled import and an unrun round
 
 - **Two pipeline alerts on `/workspace/operations`** (2026-09-29). The

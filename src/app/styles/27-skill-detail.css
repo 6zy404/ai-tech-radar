@@ -82,8 +82,11 @@
   }
 }
 
+/* .skills-library-intro used to be in this list, from when it was a panel.
+   It sits on the page ground now (pages/skill-knowledge-library.css,
+   padding: 0), but this file loads after that one, so below 560px the old
+   18px padding came back and pushed the lede 18px right of the title. */
 @media (max-width: 560px) {
-  .skills-library-intro,
   .skill-detail-hero,
   .skill-detail-section,
   .skill-detail-aside-card,
