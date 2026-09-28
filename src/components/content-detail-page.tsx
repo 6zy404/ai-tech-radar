@@ -216,7 +216,7 @@ function RelatedCard({
   linkText
 }: {
   className: string;
-  meta: string;
+  meta: ReactNode;
   relation: { relationType: RelationType };
   title: string;
   href: string;
@@ -368,7 +368,15 @@ export function ContentDetailPage<TItem extends DetailItem>({
                   <RelatedCard
                     key={technology.id}
                     className="skill-detail-related-card"
-                    meta={`${technology.sourceName} · ${technology.publishDate}`}
+                    meta={
+                      <>
+                        {`${technology.sourceName} · `}
+                        {/* A date must not split at its hyphens (2026- / 07-15) on a narrow card. */}
+                        <span className="nowrap-run">
+                          {technology.publishDate}
+                        </span>
+                      </>
+                    }
                     relation={technologyRelations[index]}
                     title={getPreferredTechnologyTitle(technology)}
                     href={`/technologies/${technology.slug}`}
