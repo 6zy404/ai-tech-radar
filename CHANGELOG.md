@@ -79,8 +79,11 @@ For per-topic deep dives, see the `docs/` directory.
   reporting 「技术已添加。」 — only the first of two adds was stored. The
   selection now falls back to the first remaining option whenever the held
   id is gone. In the browser, two clicks in a row store two different
-  technologies, and a hand-picked one is the one sent.
-- typecheck, lint, format and 365 tests pass. Screenshots were unreliable in
+  technologies, and a hand-picked one is the one sent. The fallback is a
+  pure helper (`keepListedOption` in `src/lib/listed-option.ts`) with four
+  tests, three of which fail against the old behaviour — checked by putting
+  it back. The form reset itself needs a browser and has no unit test.
+- typecheck, lint, format and 369 tests pass. Screenshots were unreliable in
   this session (the pane often stopped drawing); the change touches no
   layout.
 

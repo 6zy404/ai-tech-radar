@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
+import { keepListedOption } from "@/lib/listed-option";
 import type { DailyDigest, TechnologyItem } from "@/types/content";
 
 interface DigestResponse {
@@ -220,13 +221,8 @@ export function DailyDigestManualAdd({
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
   // An added technology leaves the list on refresh while the state still
-  // holds its id; the select would then show one technology and a click
-  // would re-send the other, so fall back to the first remaining option.
-  const selectedId = technologies.some(
-    (technology) => technology.id === technologyId
-  )
-    ? technologyId
-    : (technologies[0]?.id ?? "");
+  // holds its id, so the id sent must follow what the select shows.
+  const selectedId = keepListedOption(technologies, technologyId);
 
   function includeTechnology() {
     if (!selectedId) {
