@@ -37,13 +37,47 @@
   min-width: 0;
 }
 
+/* Example questions are whole sentences, so they are ordinary buttons rather
+   than 10.5px stamp chips, under an ink heading rather than a muted label:
+   the block exists to be read first on an empty page. */
 .ask-radar__examples {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.dossier .ask-radar__examples h2 {
+  margin: 0;
+  color: var(--dossier-ink);
+}
+
+.ask-radar__examples ul {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 8px;
-  color: var(--dossier-muted);
-  font-size: var(--fs-label);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ask-radar__examples li {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* The button's own wash is 10% translucent, which let the page's grid paper
+   show through each question; a solid surface keeps the text on one ground
+   (teal on it measures above 4.5:1 in both themes). */
+.ask-radar__examples .action-button {
+  max-width: 100%;
+  border-color: var(--dossier-line);
+  background: var(--dossier-surface);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.ask-radar__examples .action-button:hover {
+  border-color: currentColor;
 }
 
 .ask-radar__result {
