@@ -8,6 +8,10 @@ import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
+  difficultyLabels,
+  knowledgeCategoryLabels
+} from "@/lib/content-labels";
+import {
   getAllKnowledge,
   getAllSkills,
   getAllTechnologies,
@@ -57,20 +61,6 @@ const difficultySections: Array<{
     description: "当信号改变架构、数据或技术战略假设时，使用这些背景。"
   }
 ];
-
-const categoryLabels: Record<KnowledgeCategory, string> = {
-  "machine-learning": "机器学习",
-  "software-architecture": "软件架构",
-  data: "数据",
-  "product-thinking": "产品思维",
-  operations: "运维"
-};
-
-const difficultyLabels: Record<DifficultyLevel, string> = {
-  foundation: "基础",
-  intermediate: "进阶",
-  advanced: "高级"
-};
 
 function getRelatedTechnologies(
   item: KnowledgeItem,
@@ -201,7 +191,7 @@ export default function KnowledgePage() {
                       >
                         <div className="dossier-technology-card__chips">
                           <DossierStampTag>
-                            {categoryLabels[item.category]}
+                            {knowledgeCategoryLabels[item.category]}
                           </DossierStampTag>
                           <DossierStampTag className="dossier-stamp-tag--muted">
                             {difficultyLabels[item.difficulty]}

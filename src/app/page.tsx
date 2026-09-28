@@ -6,6 +6,7 @@ import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
+import { difficultyLabels, skillTypeLabels } from "@/lib/content-labels";
 import {
   getReadingDifficultyLabel,
   getTechnologyAudience,
@@ -36,10 +37,8 @@ import {
   getLocalizedTechnologyText
 } from "@/lib/technology-localization";
 import type {
-  DifficultyLevel,
   KnowledgeItem,
   SkillItem,
-  SkillType,
   TechnologyItem,
   TopicTag
 } from "@/types/content";
@@ -48,20 +47,6 @@ import { buildPageMetadata } from "@/lib/site-metadata";
 export const dynamic = "force-dynamic";
 
 export const metadata = buildPageMetadata({ path: "/" });
-
-const skillTypeLabels: Record<SkillType, string> = {
-  engineering: "工程落地",
-  analysis: "评估与分析",
-  product: "产品判断",
-  operations: "运维与落地",
-  communication: "团队沟通"
-};
-
-const difficultyLabels: Record<DifficultyLevel, string> = {
-  foundation: "基础",
-  intermediate: "进阶",
-  advanced: "高级"
-};
 
 function getPublicTechnologyTitle(technology: TechnologyItem): string {
   const mode = getEffectiveTechnologyMode(technology, "zh", "preview");

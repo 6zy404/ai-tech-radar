@@ -5,6 +5,7 @@ import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
+import { heatLabels, learningCostLabels } from "@/lib/content-labels";
 import {
   getAllKnowledge,
   getAllSkills,
@@ -13,9 +14,7 @@ import {
 } from "@/lib/content";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
-  HeatLevel,
   KnowledgeItem,
-  LearningCost,
   SkillItem,
   SkillType,
   TechnologyItem
@@ -73,18 +72,6 @@ const skillTypeSections: Array<{
     focus: "用这些技能帮助非专业人员理解技术变化。"
   }
 ];
-
-const heatLabels: Record<HeatLevel, string> = {
-  hot: "当前热门",
-  active: "活跃",
-  emerging: "新兴"
-};
-
-const learningCostLabels: Record<LearningCost, string> = {
-  low: "学习成本低",
-  medium: "学习成本中等",
-  high: "学习成本高"
-};
 
 function getRelatedTechnologies(
   skill: SkillItem,

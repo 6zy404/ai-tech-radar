@@ -4,10 +4,11 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
+import { difficultyLabels, heatLabels } from "@/lib/content-labels";
 import { topicFeedPath } from "@/lib/feed-paths";
 import { getTopicHub } from "@/lib/topic-hub";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
-import type { ContentKind, HeatLevel, DifficultyLevel } from "@/types/content";
+import type { ContentKind } from "@/types/content";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
@@ -37,18 +38,6 @@ export async function generateMetadata({
     path: `/topics/${hub.tag.id}`
   });
 }
-
-const heatLabels: Record<HeatLevel, string> = {
-  hot: "当前热门",
-  active: "活跃",
-  emerging: "新兴"
-};
-
-const difficultyLabels: Record<DifficultyLevel, string> = {
-  foundation: "基础",
-  intermediate: "进阶",
-  advanced: "高级"
-};
 
 const kindLabels: Record<ContentKind, string> = {
   technology: "技术",
