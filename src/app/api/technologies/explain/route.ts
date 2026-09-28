@@ -1,44 +1,19 @@
 import { NextResponse } from "next/server";
 
-import {
-  checkPublicAiRateLimit,
-  checkPublicAiRequestOrigin,
-  publicAiRateLimitMessage
-} from "@/lib/public-ai-rate-limit";
+import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 import {
   generateOrGetTechnologyExplanation,
   isTechnologyExplanationAudienceLevel
 } from "@/lib/technology-explanation";
 
 export async function POST(request: Request) {
-  const rateLimit = checkPublicAiRateLimit(request, "explain");
+  const guard = await guardPublicAiRequest(request, "explain");
 
-  if (!rateLimit.allowed) {
-    return NextResponse.json(
-      { error: publicAiRateLimitMessage },
-      {
-        status: 429,
-        headers: { "Retry-After": String(rateLimit.retryAfterSeconds) }
-      }
-    );
+  if (!guard.ok) {
+    return guard.response;
   }
 
-  const origin = checkPublicAiRequestOrigin(request);
-
-  if (!origin.ok) {
-    return NextResponse.json(
-      { error: origin.message },
-      { status: origin.status }
-    );
-  }
-
-  let body: unknown;
-
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "请求格式不正确。" }, { status: 400 });
-  }
+  const body = guard.body;
 
   const { technologyId, audienceLevel } = (body ?? {}) as {
     technologyId?: unknown;

@@ -82,6 +82,45 @@ git add -A; git commit -m "..."`, then rebuild the on-disk index with
   installed) and is the in-sandbox safety gate. Run `npm run test`,
   `npm install`, and `npm run ui:check` on the developer machine.
 
+## Parallel windows (agreed with the user, 2026-09-28)
+
+The user runs several Claude windows at once. Each window gets its own git
+worktree and branch from the desktop app, so code edits cannot overwrite each
+other. What the windows **share** is the problem, and these rules cover it:
+
+- **One window owns the live site** (the "主控" window). Only it may run an
+  editorial round, `npm run deploy` / `deploy:rollback`, restart anything on
+  port 3000, fast-forward `main`, or edit `docs/next-task.md`. If your task is
+  not one of those, you are not the owner — say so and hand it back.
+- **Only the owner's worktree may point at the live data.** The line
+  `LOCAL_DATA_DIR=C:/Users/Administrator/ai-tech-radar/config` belongs in the
+  owner's `.env.local` alone. Any other window's dev server reads its own
+  worktree's `config/` copy, which is safe to write and throw away.
+  `npm run tasks:run-once` from a worktree writes that worktree's copy too;
+  its first log line names the directory — read it.
+- **Ports**: port 3000 is the live site. Start a dev server with
+  `preview_start` (config `dev`, `autoPort`) and use the port it returns.
+  Production-build controls (`css:diff`, `next start -p …`) take a port from
+  the window's own range: the CSS window 3100–3199 (it already serves a
+  control build on 3101), 主控 3200–3299, the third window 3300–3399. Check
+  the port is free before starting.
+- **Shared docs**: every branch adds its own dated `CHANGELOG.md` entry (on a
+  merge conflict keep both entries). Feature windows do **not** edit
+  `docs/next-task.md`; they list what should change there in their final
+  message, and the owner applies it when merging. Touch `docs/reference.md`
+  only when the task changes a capability, route or command.
+- **Merging**: one branch at a time, fast-forward into `main` by the owner,
+  after typecheck + tests pass on that branch. Every other window then syncs
+  with the base branch before continuing.
+- **Heavy jobs** (`next build`, `build:public`, `css:diff`, `validate:all`,
+  `eval:*`) never run in two windows at once — the live site shares this CPU.
+  Keep it to two or three windows.
+- **File overlap**: a window's starter prompt names the directories it owns.
+  Do not edit outside them without asking; if the task turns out to need
+  another window's files, stop and say so.
+- `git stash` is shared by every worktree — see the environment note on it;
+  prefer a WIP commit.
+
 ## Proactive conversation handoff (agreed with the user)
 
 Claude should watch for good moments to start a fresh conversation and flag them
