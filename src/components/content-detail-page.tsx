@@ -29,6 +29,7 @@ import {
   learningCostValues,
   skillTypeLabels
 } from "@/lib/content-labels";
+import { getPrerequisiteChain } from "@/lib/prerequisite-chain";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import {
   getPreferredTechnologySummary,
@@ -43,9 +44,10 @@ import type {
   TopicTag
 } from "@/types/content";
 
-// The public skill and knowledge detail pages: one skeleton — hero, body,
-// relationship graph, related signals, the other kind's related entries,
-// profile aside — and one descriptor per kind for what differs.
+// The public skill and knowledge detail pages: one skeleton — read-first
+// chain, hero, body, relationship graph, related signals, the other kind's
+// related entries, profile aside — and one descriptor per kind for what
+// differs.
 
 type DetailItem = SkillItem | KnowledgeItem;
 
@@ -59,6 +61,37 @@ interface RelatedEntry {
   meta: string;
   tags: string[];
 }
+
+function toKnowledgeEntry(knowledge: KnowledgeItem): RelatedEntry {
+  return {
+    id: knowledge.id,
+    kind: "knowledge",
+    title: knowledge.title,
+    href: `/knowledge/${knowledge.slug}`,
+    summary: knowledge.summary,
+    meta: `${knowledgeCategoryLabels[knowledge.category]} · ${difficultyLabels[knowledge.difficulty]}`,
+    tags: knowledge.tags
+  };
+}
+
+function toSkillEntry(skill: SkillItem): RelatedEntry {
+  return {
+    id: skill.id,
+    kind: "skill",
+    title: skill.title,
+    href: `/skills/${skill.slug}`,
+    summary: skill.summary,
+    meta: `${skillTypeLabels[skill.skillType]} · ${heatLabels[skill.heatLevel]}`,
+    tags: skill.tags
+  };
+}
+
+// The read-first chain can mix kinds, so its cards name the kind in the meta
+// line; the link text is the one each kind's related cards already use.
+const entryKindCopy = {
+  skill: { label: "技能", linkText: "查看技能" },
+  knowledge: { label: "知识", linkText: "查看概念" }
+} as const;
 
 export interface ContentDetailKind<TItem extends DetailItem> {
   kind: "skill" | "knowledge";
@@ -113,15 +146,7 @@ export const skillDetailKind: ContentDetailKind<SkillItem> = {
     getEntries: (skill) =>
       getAllKnowledge()
         .filter((knowledge) => skill.relatedKnowledgeIds.includes(knowledge.id))
-        .map((knowledge) => ({
-          id: knowledge.id,
-          kind: "knowledge",
-          title: knowledge.title,
-          href: `/knowledge/${knowledge.slug}`,
-          summary: knowledge.summary,
-          meta: `${knowledgeCategoryLabels[knowledge.category]} · ${difficultyLabels[knowledge.difficulty]}`,
-          tags: knowledge.tags
-        }))
+        .map(toKnowledgeEntry)
   },
   asideLabel: "技能概览",
   profileKicker: "技能档案",
@@ -163,15 +188,7 @@ export const knowledgeDetailKind: ContentDetailKind<KnowledgeItem> = {
     getEntries: (knowledge) =>
       getAllSkills()
         .filter((skill) => knowledge.relatedSkillIds.includes(skill.id))
-        .map((skill) => ({
-          id: skill.id,
-          kind: "skill",
-          title: skill.title,
-          href: `/skills/${skill.slug}`,
-          summary: skill.summary,
-          meta: `${skillTypeLabels[skill.skillType]} · ${heatLabels[skill.heatLevel]}`,
-          tags: skill.tags
-        }))
+        .map(toSkillEntry)
   },
   asideLabel: "知识概览",
   profileKicker: "知识档案",
@@ -285,12 +302,30 @@ export function ContentDetailPage<TItem extends DetailItem>({
   const relatedTechnologies: TechnologyItem[] = getAllTechnologies().filter(
     (technology) => item.relatedTechnologyIds.includes(technology.id)
   );
-  const relatedEntries = kind.related.getEntries(item);
+  const allRelatedEntries = kind.related.getEntries(item);
+  // `requires` 必备 prerequisites, deepest first. A direct prerequisite is
+  // always one of the related entries (skills and knowledge only link across
+  // kinds), so it moves up into 先读这些 rather than appearing twice with the
+  // same note; the graph and the aside counts still include it.
+  const prerequisites = getPrerequisiteChain(item.id).map((step) => ({
+    step,
+    entry:
+      step.kind === "skill"
+        ? toSkillEntry(step.item)
+        : toKnowledgeEntry(step.item)
+  }));
+  const prerequisiteIds = new Set(prerequisites.map(({ step }) => step.id));
   const technologyRelations = relatedTechnologies.map((technology) =>
     findRelationBetween(item.id, kind.kind, technology.id, "technology")
   );
-  const entryRelations = relatedEntries.map((entry) =>
+  const allEntryRelations = allRelatedEntries.map((entry) =>
     findRelationBetween(item.id, kind.kind, entry.id, entry.kind)
+  );
+  const relatedEntries = allRelatedEntries.filter(
+    (entry) => !prerequisiteIds.has(entry.id)
+  );
+  const entryRelations = allEntryRelations.filter(
+    (_, index) => !prerequisiteIds.has(allRelatedEntries[index].id)
   );
   const graphNodes: RelationshipGraphNode[] = [
     ...relatedTechnologies.map((technology, index) => ({
@@ -303,15 +338,15 @@ export function ContentDetailPage<TItem extends DetailItem>({
       ),
       note: technologyRelations[index].note
     })),
-    ...relatedEntries.map((entry, index) => ({
+    ...allRelatedEntries.map((entry, index) => ({
       title: entry.title,
       href: entry.href,
       kind: entry.kind,
       relationLabel: getRelationTypeLabel(
-        entryRelations[index].relationType,
+        allEntryRelations[index].relationType,
         "zh"
       ),
-      note: entryRelations[index].note
+      note: allEntryRelations[index].note
     }))
   ];
 
@@ -345,6 +380,35 @@ export function ContentDetailPage<TItem extends DetailItem>({
 
         <div className="skill-detail-layout__body">
           <main className="skill-detail-main">
+            {prerequisites.length > 0 ? (
+              <RelatedSection eyebrow="阅读顺序" heading="先读这些">
+                {prerequisites.map(({ step, entry }) => (
+                  <RelatedCard
+                    key={entry.id}
+                    className="skill-detail-related-card skill-detail-related-card--knowledge"
+                    meta={`${entryKindCopy[entry.kind].label} · ${entry.meta}`}
+                    relation={{ relationType: "requires" }}
+                    title={entry.title}
+                    href={entry.href}
+                    summary={entry.summary}
+                    note={
+                      step.note
+                        ? {
+                            label:
+                              step.depth === 1
+                                ? "为什么先读"
+                                : `先于「${step.requiredByTitle}」`,
+                            text: step.note
+                          }
+                        : undefined
+                    }
+                    tags={getTagsByIds(entry.tags)}
+                    linkText={entryKindCopy[entry.kind].linkText}
+                  />
+                ))}
+              </RelatedSection>
+            ) : null}
+
             {item.content ? (
               <section className="skill-detail-section skill-detail-section--lead">
                 <h2>{kind.leadHeading}</h2>
@@ -431,7 +495,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
                   { label: "技术信号", value: relatedTechnologies.length },
                   {
                     label: kind.related.countLabel,
-                    value: relatedEntries.length
+                    value: allRelatedEntries.length
                   }
                 ].map((row) => (
                   <div key={row.label}>

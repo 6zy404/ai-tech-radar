@@ -12,6 +12,42 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 先读这些: skill and knowledge pages name what to read first
+
+- **2026-09-29.** The public skill and knowledge detail pages (one component,
+  `ContentDetailPage`) open their reading column with a 先读这些 section when
+  the item has `requires` 必备 prerequisites, and render nothing otherwise.
+  Cards are the page's existing related cards; each carries the edge's note,
+  labelled 为什么先读 for a direct prerequisite and 先于「X」 for one further
+  back.
+- **Derived view** `getPrerequisiteChain` in `src/lib/prerequisite-chain.ts`
+  (pure core `buildPrerequisiteChain`, 10 tests): follows `requires` back up
+  to 3 levels over published skills and knowledge only, places each
+  prerequisite at its longest distance so anything it needs comes before it,
+  stops on cycles, and counts a pair only when one side actually links the
+  other (no stale override can add a card). Technology signals are not
+  prerequisites — they are dated news, not background.
+- **Direction is read as stored, `from` requires `to`**, which is how every
+  seed relation is written and how the editors store an override (`from` is
+  the entity being edited). This is the first code in the repository that
+  trusts a relation's direction; everything else reads pairs unordered.
+  Measured on the current data: 17 of the 19 skill/knowledge `requires` edges
+  read that way from their notes, 2 read reversed (both from
+  「完成判定与验收信号」), so that one page lists the two skills that actually
+  depend on it.
+- **Coverage**, measured through the public getters: 16 of 35 pages have a
+  chain — 13 of 16 skills, 3 of 19 knowledge items; 3 of them two levels deep
+  (e.g. 模型微调与后训练定制 → 合成数据与数据配方 → 模型与输出评估).
+- **A direct prerequisite moves up rather than appearing twice**: skills and
+  knowledge only link across kinds, so it was always also one of the
+  related-entry cards lower down, with the same note. It now appears only in
+  先读这些; the relationship graph and the aside counts still include it.
+- Looked at top to bottom at 1440 and 390, light and dark, on
+  `/skills/model-finetuning-post-training` (two levels),
+  `/knowledge/local-cloud-hybrid-inference` (two levels, knowledge side) and
+  `/knowledge/graph-thinking-for-knowledge-systems` (no prerequisites — no
+  section).
+
 ## The topic hub's relation stamps stop breaking at 390px
 
 - **Seen 2026-09-29** on `/topics/tag-knowledge-graph` at 390px: in the
