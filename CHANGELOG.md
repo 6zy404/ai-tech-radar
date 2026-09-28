@@ -12,6 +12,29 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Weekly review RSS feed
+
+- **`/digest/weekly/feed.xml`** (2026-09-29). The weekly review had pages
+  but nothing to subscribe to. The new RSS 2.0 feed carries one item per
+  natural week that has at least one shown signal, up to and including the
+  current week (a future-dated signal cannot surface a week that has not
+  started), newest first, capped at 12. Each item is titled
+  「本周回顾 · YYYY-MM-DD 这一周」 (the Monday key), links and guids to
+  `/digest/weekly/[week]`, lists the week's 立即关注 and 值得跟踪 signal
+  titles, and is dated by the week's latest signal, so a finished week's
+  `pubDate` stops moving.
+- Pure derived view like the pages: `src/lib/weekly-feed.ts` reads only
+  `getWeeklyReview` / `getWeeklyReviewArchive`, which already carry public
+  fields only; nothing is persisted and no AI is called. Escaping reuses the
+  shared `escapeXml` from the digest feed. Path constant
+  `weeklyReviewFeedPath` in `src/lib/feed-paths.ts`.
+- The weekly-review pages end with a low-key 订阅 block linking the feed,
+  built from existing classes (no CSS change).
+- `src/lib/weekly-feed.test.ts` (6 tests): week selection, order, cap,
+  future-week exclusion, links, escaping of `< > & " '`, and an internal-field
+  scan. Checked against a dev server: the served feed parses as XML (12
+  items, newest first), and the per-week counts match the page.
+
 ## LLM output caps now hold exactly
 
 - **`truncateText` overshot every cap by two** (2026-09-29). It kept

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { weeklyReviewFeedPath } from "@/lib/feed-paths";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import type {
   WeeklyReviewArchiveEntry,
@@ -116,6 +117,20 @@ export function WeeklyReviewContent({
           </div>
         </section>
       ) : null}
+
+      <section className="weekly-review-group">
+        <div className="weekly-review-group__heading">
+          <h2>订阅</h2>
+          <span>每周一条</span>
+        </div>
+        <div className="digest-feed-links">
+          <Link href={weeklyReviewFeedPath}>订阅本周回顾（RSS）</Link>
+          <span className="weekly-review-group__lede">
+            把这个订阅源加进任何 RSS
+            阅读器，每个自然周的立即关注与值得跟踪信号会自动送达，无需账号。
+          </span>
+        </div>
+      </section>
     </div>
   );
 }
