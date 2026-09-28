@@ -42,11 +42,15 @@ async function postJson(
 
 interface CandidateRoundActionsProps {
   candidateId: string;
+  /** Suggestions are hidden: record the decision as blind. */
+  blind?: boolean;
 }
 
 export function CandidateRoundActions({
-  candidateId
+  candidateId,
+  blind = false
 }: CandidateRoundActionsProps) {
+  const blindBody = blind ? { blind: true } : {};
   const router = useRouter();
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -66,7 +70,8 @@ export function CandidateRoundActions({
   function convert() {
     run(async () => {
       const { response, result } = await postJson(
-        `/api/candidates/${candidateId}/convert`
+        `/api/candidates/${candidateId}/convert`,
+        blindBody
       );
 
       if (!response.ok || !result.ok) {
@@ -83,11 +88,26 @@ export function CandidateRoundActions({
     run(async () => {
       const { response, result } = await postJson(
         `/api/candidates/${candidateId}/status`,
-        { status: "rejected" }
+        { status: "rejected", ...blindBody }
       );
 
       if (!response.ok || !result.ok) {
         throw new Error(result.message ?? "拒绝候选失败。");
+      }
+    });
+  }
+
+  // 「值得一看、暂不收录」 — the third of the three triage answers, which the
+  // console could not record before, so a round had to open each candidate.
+  function markReviewed() {
+    run(async () => {
+      const { response, result } = await postJson(
+        `/api/candidates/${candidateId}/status`,
+        { status: "reviewed", ...blindBody }
+      );
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message ?? "标记已看失败。");
       }
     });
   }
@@ -101,6 +121,14 @@ export function CandidateRoundActions({
         disabled={isPending}
       >
         转为草稿
+      </button>
+      <button
+        type="button"
+        className="action-button"
+        onClick={markReviewed}
+        disabled={isPending}
+      >
+        标记已看
       </button>
       <button
         type="button"

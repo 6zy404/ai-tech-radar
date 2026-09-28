@@ -9,6 +9,7 @@ export interface CandidateReviewStateEntry {
   importStatus: string;
   reviewedAt?: string;
   convertedTechnologyId?: string;
+  blind?: true;
 }
 
 export interface CandidateReviewStateFile {

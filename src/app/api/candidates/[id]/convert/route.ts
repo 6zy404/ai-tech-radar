@@ -7,10 +7,17 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
-export async function POST(_request: Request, context: RouteContext) {
+export async function POST(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
-    const draft = convertImportedCandidateToDraft(id);
+    // The candidate detail page posts no body; the round console may send
+    // { blind: true }.
+    const body = (await request.json().catch(() => ({}))) as {
+      blind?: boolean;
+    };
+    const draft = convertImportedCandidateToDraft(id, {
+      blind: body?.blind === true
+    });
 
     revalidatePath("/workspace");
     revalidatePath("/workspace/candidates");

@@ -25,7 +25,16 @@ const verifyLinks = [
   { href: "/search", label: "/search" }
 ];
 
-export default function EditorialRoundPage() {
+interface EditorialRoundPageProps {
+  searchParams: Promise<{ suggestions?: string }>;
+}
+
+export default async function EditorialRoundPage({
+  searchParams
+}: EditorialRoundPageProps) {
+  // 盲评: with the suggestions hidden, every decision made here is recorded
+  // as blind and can later be scored against (eval/triage/README.md).
+  const blind = (await searchParams).suggestions === "hidden";
   const state = getEditorialRoundState();
   const {
     today,
@@ -88,16 +97,33 @@ export default function EditorialRoundPage() {
           </div>
 
           {undecidedCount > 0 ? (
-            <div className="editorial-round-triage-bar">
-              <p>
-                {
-                  "模型建议只供参考，不会改变任何候选的状态；处置仍由你点。它的准确率见 "
-                }
-                <code>npm run eval:triage</code>
-                {" 的报告。"}
-              </p>
-              <TriageSuggestionAction />
-            </div>
+            blind ? (
+              <div className="editorial-round-triage-bar">
+                <p>
+                  盲评中：模型建议已隐藏，这一页上的每个处置都会记为盲评，之后可以用来检验模型建议的准确率。
+                </p>
+                <Link className="action-link" href="/workspace/editorial-round">
+                  显示模型建议
+                </Link>
+              </div>
+            ) : (
+              <div className="editorial-round-triage-bar">
+                <p>
+                  {
+                    "模型建议只供参考，不会改变任何候选的状态；处置仍由你点。它的准确率见 "
+                  }
+                  <code>npm run eval:triage</code>
+                  {" 的报告。"}
+                </p>
+                <TriageSuggestionAction />
+                <Link
+                  className="action-link"
+                  href="/workspace/editorial-round?suggestions=hidden"
+                >
+                  隐藏建议（盲评）
+                </Link>
+              </div>
+            )
           ) : null}
 
           {openDuplicateGroupCount > 0 ? (
@@ -131,7 +157,7 @@ export default function EditorialRoundPage() {
                         ))}
                       </span>
                     ) : null}
-                    {candidate.triage ? (
+                    {candidate.triage && !blind ? (
                       <span
                         className={`editorial-round-row__triage editorial-round-row__triage--${candidate.triage.decision}`}
                       >
@@ -148,7 +174,10 @@ export default function EditorialRoundPage() {
                     ) : null}
                   </div>
                   <div className="editorial-round-row__actions">
-                    <CandidateRoundActions candidateId={candidate.id} />
+                    <CandidateRoundActions
+                      candidateId={candidate.id}
+                      blind={blind}
+                    />
                     <Link
                       className="action-link"
                       href={`/workspace/candidates/${candidate.id}`}

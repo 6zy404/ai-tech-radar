@@ -57,6 +57,12 @@ interface CandidateReviewStateEntry {
   importStatus: CandidateImportStatus;
   reviewedAt?: string;
   convertedTechnologyId?: string;
+  /**
+   * Decided on the editorial-round console with the model's triage
+   * suggestions hidden, so the decision can serve as a clean label for
+   * `eval:triage` (a decision made with a suggestion on screen is anchored).
+   */
+  blind?: true;
 }
 
 interface CandidateReviewStateFile {
@@ -403,6 +409,7 @@ export function updateImportedCandidateStatus(
   actor: {
     actorType?: WorkflowEventActorType;
     metadata?: Record<string, unknown>;
+    blind?: boolean;
   } = {}
 ): CandidateReviewStateEntry {
   const state = readCandidateReviewState();
@@ -413,7 +420,8 @@ export function updateImportedCandidateStatus(
   state.items[candidateId] = {
     importStatus: nextStatus,
     reviewedAt,
-    convertedTechnologyId: existingEntry?.convertedTechnologyId
+    convertedTechnologyId: existingEntry?.convertedTechnologyId,
+    ...(actor.blind && nextStatus !== "new" ? { blind: true as const } : {})
   };
   state.updatedAt = new Date().toISOString();
 
@@ -428,6 +436,7 @@ export function updateImportedCandidateStatus(
     afterSnapshot: state.items[candidateId],
     metadata: {
       nextStatus,
+      ...(actor.blind ? { blind: true } : {}),
       ...actor.metadata
     }
   });
@@ -479,7 +488,8 @@ export function getCandidateDraftConversionReadiness(candidateId: string): {
 }
 
 export function convertImportedCandidateToDraft(
-  candidateId: string
+  candidateId: string,
+  options: { blind?: boolean } = {}
 ): TechnologyWorkspaceRecord {
   const candidate = getImportedCandidateById(candidateId);
 
@@ -567,7 +577,9 @@ export function convertImportedCandidateToDraft(
     reviewState.items[id] = {
       importStatus: "converted",
       reviewedAt: convertedAt,
-      convertedTechnologyId: mergedRecord.id
+      convertedTechnologyId: mergedRecord.id,
+      // Only the candidate the editor chose; duplicates ride along.
+      ...(options.blind && id === candidateId ? { blind: true as const } : {})
     };
   }
 
@@ -608,7 +620,8 @@ export function convertImportedCandidateToDraft(
     metadata: {
       draftId: mergedRecord.id,
       duplicateGroupId: conversionReadiness.duplicateGroup?.id,
-      markedCandidateIds: candidateIdsToMark
+      markedCandidateIds: candidateIdsToMark,
+      ...(options.blind ? { blind: true } : {})
     }
   });
 

@@ -182,6 +182,15 @@ agree on how far to trust them:
 - A **publish suggestion** is right about one time in six in the test split.
   Treat it as "worth opening", not as a decision.
 
+**盲评 — decide first, look later** (added 2026-09-29). The console's
+「隐藏建议（盲评）」 link (`/workspace/editorial-round?suggestions=hidden`)
+hides every suggestion, and each 转为草稿 / 标记已看 / 拒绝 made on that page
+is stored with `blind: true` in `candidate-review-state.json`. Those are
+the only decisions `eval:triage` can score the model against without the
+suggestion having influenced the answer — a round that looks at the
+suggestions first produces anchored labels. Run a round blind whenever the
+suggestions are not needed to get through the pool.
+
 Rejecting near-duplicate pre-release tags (e.g. an `-rc0`/`-rc1` candidate
 once the corresponding stable tag exists) keeps the technology list from
 filling up with redundant version-bump entries — this project does not have

@@ -18,7 +18,10 @@ interface RouteContext {
 export async function POST(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
-    const body = (await request.json()) as { status?: CandidateImportStatus };
+    const body = (await request.json()) as {
+      status?: CandidateImportStatus;
+      blind?: boolean;
+    };
 
     if (!body.status || !allowedStatuses.includes(body.status)) {
       return NextResponse.json(
@@ -27,7 +30,9 @@ export async function POST(request: Request, context: RouteContext) {
       );
     }
 
-    const state = updateImportedCandidateStatus(id, body.status);
+    const state = updateImportedCandidateStatus(id, body.status, {
+      blind: body.blind === true
+    });
 
     revalidatePath("/workspace");
     revalidatePath("/workspace/candidates");
