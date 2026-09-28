@@ -494,6 +494,13 @@ daily digest **draft** generation. A structural sibling of
 `ScheduledImportConfig`, stored as a single object in
 `config/scheduled-digest.json` (`src/lib/scheduled-digest.ts`).
 
+Since 2026-09-28 the two share one implementation of everything except the
+run itself — shape, defaults, normalization, `HH:mm` validation, the due
+check and the "record a run, advance `nextRunAt`" step — in
+`src/lib/daily-schedule-config.ts` (`DailyScheduleConfig<TRunStatus>`). The
+only field-level difference is the run-status set: the import can end
+`partial`, the digest draft cannot.
+
 - `enabled` (default `true`)
 - `scheduleTime`: simple `HH:mm` (default `08:00`, deliberately the same as
   the import — in-pass code order guarantees the import runs first)

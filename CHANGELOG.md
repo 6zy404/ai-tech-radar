@@ -12,6 +12,30 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 定时导入 and 定时简报草稿 share one config
+
+- **Cluster ⑤ of the copy-paste list** (2026-09-28). `scheduled-import.ts`
+  and `scheduled-digest.ts` were the same 100 lines — single-object JSON
+  store, defaults, normalization, `HH:mm` check, update, due check, advancing
+  `nextRunAt` after a run — around two different "what to do when due"
+  bodies. That part is now `createDailyScheduleConfigStore` in
+  `src/lib/daily-schedule-config.ts`; each module keeps its run function and
+  its exported names, so the task runner and the schedules page did not
+  change. The import can still record `partial`; the digest draft cannot.
+- **The two workspace control components** were copies differing only in
+  wording and endpoint. Both are now `DailyScheduleActions`
+  (`src/components/daily-schedule-actions.tsx`) with a `copy` prop; every
+  button label, confirmation and status message is the same string as
+  before. The two PATCH routes (~30 lines each) were left alone.
+- **New tests** (`src/lib/daily-schedule-config.test.ts`, 5, against a
+  temporary data directory): defaults count as due, malformed stored values
+  read back as defaults, a bad time is refused, a time change moves the next
+  run, a recorded run is not due again until the next day. Before this only
+  the disabled path was exercised (`validate:task-runner`).
+- 365 tests, 22 validators. `/workspace/delivery/schedules` on a dev server
+  renders both control rows with the old labels and no console or hydration
+  error. Duplicated lines 7.2% → **6.9%**.
+
 ## The enrichment routes share one request parser
 
 - **Cluster ④ of the copy-paste list** (2026-09-28). The four workspace

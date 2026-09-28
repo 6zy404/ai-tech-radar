@@ -1,14 +1,14 @@
 import {
+  createDailyScheduleConfigStore,
+  isDailyScheduleDue,
+  type DailyScheduleConfig,
+  type DailyScheduleUpdate
+} from "@/lib/daily-schedule-config";
+import {
   getDailyDigestByDate,
   generateDailyDigest
 } from "@/lib/digest-workflow";
 import { getTodayDateString } from "@/lib/digest-store";
-import {
-  getLocalStoreFilePath,
-  readLocalJsonFile as readJsonFile,
-  writeLocalJsonFile as writeJsonFile
-} from "@/lib/repositories/local-json-store";
-import { computeNextRunAt } from "@/lib/scheduled-delivery-workflow";
 
 /**
  * 定时简报草稿 v0：task runner 在跑到期投递计划（以及定时导入）的同时，检查
@@ -24,146 +24,30 @@ import { computeNextRunAt } from "@/lib/scheduled-delivery-workflow";
  * 每日唯一一次 runner 触发时刻（如 Windows 计划任务的 08:05），会退化成隔天
  * 才生成一次。
  */
+
 export type ScheduledDigestRunStatus = "never_run" | "success" | "failed";
 
-export interface ScheduledDigestConfig {
-  enabled: boolean;
-  scheduleTime: string;
-  timezone: string;
-  nextRunAt?: string;
-  lastRunAt?: string;
-  lastRunStatus: ScheduledDigestRunStatus;
-  lastRunMessage?: string;
-  updatedAt: string;
-}
+export type ScheduledDigestConfig =
+  DailyScheduleConfig<ScheduledDigestRunStatus>;
 
-export interface ScheduledDigestUpdate {
-  enabled?: boolean;
-  scheduleTime?: string;
-}
+export type ScheduledDigestUpdate = DailyScheduleUpdate;
 
-const scheduledDigestStorePath = getLocalStoreFilePath("scheduled-digest.json");
-const defaultScheduleTime = "08:00";
-const defaultTimezone = "Asia/Shanghai";
-const scheduleTimePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-
-function getTimestamp(date = new Date()): string {
-  return date.toISOString();
-}
-
-function getDefaultScheduledDigestConfig(): ScheduledDigestConfig {
-  return {
-    enabled: true,
-    scheduleTime: defaultScheduleTime,
-    timezone: defaultTimezone,
-    lastRunStatus: "never_run",
-    updatedAt: getTimestamp()
-  };
-}
-
-function normalizeRunStatus(value: unknown): ScheduledDigestRunStatus {
-  return value === "success" || value === "failed" ? value : "never_run";
-}
-
-function normalizeScheduledDigestConfig(
-  record: Record<string, unknown>
-): ScheduledDigestConfig {
-  const defaults = getDefaultScheduledDigestConfig();
-
-  return {
-    enabled: typeof record.enabled === "boolean" ? record.enabled : true,
-    scheduleTime:
-      typeof record.scheduleTime === "string" &&
-      scheduleTimePattern.test(record.scheduleTime)
-        ? record.scheduleTime
-        : defaults.scheduleTime,
-    timezone:
-      typeof record.timezone === "string" && record.timezone.trim()
-        ? record.timezone
-        : defaults.timezone,
-    nextRunAt:
-      typeof record.nextRunAt === "string" ? record.nextRunAt : undefined,
-    lastRunAt:
-      typeof record.lastRunAt === "string" ? record.lastRunAt : undefined,
-    lastRunStatus: normalizeRunStatus(record.lastRunStatus),
-    lastRunMessage:
-      typeof record.lastRunMessage === "string"
-        ? record.lastRunMessage
-        : undefined,
-    updatedAt:
-      typeof record.updatedAt === "string"
-        ? record.updatedAt
-        : defaults.updatedAt
-  };
-}
+const store = createDailyScheduleConfigStore<ScheduledDigestRunStatus>(
+  "scheduled-digest.json",
+  ["success", "failed"]
+);
 
 export function getScheduledDigestConfig(): ScheduledDigestConfig {
-  const record = readJsonFile<Record<string, unknown>>(
-    scheduledDigestStorePath,
-    getDefaultScheduledDigestConfig() as unknown as Record<string, unknown>
-  );
-
-  return normalizeScheduledDigestConfig(record);
-}
-
-function writeScheduledDigestConfig(config: ScheduledDigestConfig) {
-  writeJsonFile(scheduledDigestStorePath, {
-    ...config,
-    updatedAt: getTimestamp()
-  });
+  return store.get();
 }
 
 export function updateScheduledDigestConfig(
   update: ScheduledDigestUpdate
 ): ScheduledDigestConfig {
-  const config = getScheduledDigestConfig();
-
-  if (
-    update.scheduleTime !== undefined &&
-    !scheduleTimePattern.test(update.scheduleTime)
-  ) {
-    throw new Error("计划时间必须是 HH:mm 格式，例如 08:00。");
-  }
-
-  const next: ScheduledDigestConfig = {
-    ...config,
-    enabled: update.enabled ?? config.enabled,
-    scheduleTime: update.scheduleTime ?? config.scheduleTime
-  };
-
-  if (
-    update.scheduleTime !== undefined &&
-    update.scheduleTime !== config.scheduleTime
-  ) {
-    next.nextRunAt = computeNextRunAt({
-      scheduleTime: next.scheduleTime,
-      timezone: next.timezone
-    });
-  }
-
-  writeScheduledDigestConfig(next);
-
-  return getScheduledDigestConfig();
+  return store.update(update);
 }
 
-export function isScheduledDigestDue(
-  config: ScheduledDigestConfig,
-  now = new Date()
-): boolean {
-  if (!config.enabled) {
-    return false;
-  }
-
-  if (!config.nextRunAt) {
-    return true;
-  }
-
-  const nextRunAt = new Date(config.nextRunAt);
-
-  return (
-    !Number.isNaN(nextRunAt.getTime()) && nextRunAt.getTime() <= now.getTime()
-  );
-}
+export const isScheduledDigestDue = isDailyScheduleDue;
 
 export interface ScheduledDigestRunResult {
   status: "generated" | "skipped" | "failed";
@@ -202,18 +86,13 @@ export function runScheduledDigest({
 
   // 无论结果如何都推进 nextRunAt：失败也等到下一个计划时间再试，
   // 避免 watch 模式下每分钟重复失败。
-  const next: ScheduledDigestConfig = {
-    ...config,
-    lastRunAt: getTimestamp(now),
-    lastRunStatus: status === "failed" ? "failed" : "success",
-    lastRunMessage: message,
-    nextRunAt: computeNextRunAt(
-      { scheduleTime: config.scheduleTime, timezone: config.timezone },
+  return {
+    status,
+    message,
+    config: store.recordRun(
+      config,
+      { status: status === "failed" ? "failed" : "success", message },
       now
     )
   };
-
-  writeScheduledDigestConfig(next);
-
-  return { status, message, config: getScheduledDigestConfig() };
 }
