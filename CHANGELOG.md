@@ -37,8 +37,11 @@ For per-topic deep dives, see the `docs/` directory.
   `/network` reading differently between two captures of one build when four
   captures ran in parallel (sequential runs agree). Written up in
   `docs/design-system.md` → "Splitting globals.css".
-- Not changed: no rule, selector or value. The live site is untouched; this is
-  on a branch, not deployed.
+- Not changed: no rule, selector or value.
+- **Deployed the same day** (`npm run deploy`, build `fCW_D4-VTnWQzkSxpfC2a`,
+  about 1.7s down). Every page checked, locally and through the public
+  domain, still links `02c1f367e2e59903.css` at 173,555 bytes — the file the
+  site served before the split.
 
 ## One list on the network page showed two layouts
 

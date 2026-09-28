@@ -13,11 +13,11 @@
 
 - **线上**：`https://aizyradar.cn`，Cloudflare Tunnel 接本机 `next start`
   （公开构建 `npm run build:public`，工作台路由物理不存在）。跑的是 `main`
-  的 `33a3dc2`，2026-09-28 第三次部署（关系网络页的抖动与连接列表修复）。服务**只
+  的 `47282ca`，2026-09-28 第四次部署（globals.css 拆分；样式文件字节未变）。服务**只
   监听 `127.0.0.1`**：局域网地址实测被拒，域名下公开路由 200、五个内部前缀 404。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
   不健康自动回滚）；`npm run deploy:rollback` 回到上一版。说明在
-  `docs/deployment.md` →「Deploy with one command」。三次实跑停机 1.8、1.7、1.7 秒。
+  `docs/deployment.md` →「Deploy with one command」。四次实跑停机 1.8、1.7、1.7、1.7 秒。
   `.next-old` 始终是上一版，由脚本在下次部署时替换，不用手删。
 - **本机探测用 `127.0.0.1`，别用 `localhost`**：后者先试 IPv6 被拒，.NET 首次
   连接要等约 2 秒。隧道不受影响（实测均值 512ms）。
