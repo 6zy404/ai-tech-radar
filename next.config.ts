@@ -61,6 +61,16 @@ const nextConfig: NextConfig = {
   // node_modules at runtime instead.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
 
+  // All CSS is the root layout's globals.css and its @imports, so every page
+  // loads the same set. Next's CSS chunking packs modules into chunks of at
+  // most 100KB, which turned the split stylesheet (2026-09-28) into three
+  // files; the minifier then ran on each alone and merged rules differently
+  // from the single-file build. Off, it is one file again, byte-identical to
+  // what the unsplit globals.css produced.
+  experimental: {
+    cssChunking: false
+  },
+
   async headers() {
     // Resolve inside headers() rather than at module load: Next evaluates
     // next.config before NODE_ENV is reliably set, so a top-level check can

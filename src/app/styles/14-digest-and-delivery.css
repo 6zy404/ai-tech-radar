@@ -1,0 +1,179 @@
+.daily-digest {
+  display: grid;
+  gap: 28px;
+}
+
+/* These were invisible layout grids until the 2026-07-14 dossier migration
+   gave them a background and a border (see `.dossier .daily-digest-section`),
+   turning them into cards without giving them any inside spacing — so their
+   headings and cards sat flush against the drawn border. */
+.daily-digest-section,
+.digest-reference-section {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.digest-technology-card {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid rgba(15, 118, 110, 0.13);
+  border-radius: 24px;
+  background: rgba(255, 253, 248, 0.92);
+  box-shadow: 0 12px 34px rgba(31, 41, 51, 0.06);
+}
+
+.digest-workspace-technology__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.digest-technology-card__meta {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.digest-technology-card h3,
+.digest-workspace-technology h3 {
+  margin: 0;
+  color: var(--user-ink);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.digest-technology-card h3 a,
+.digest-workspace-technology h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.digest-technology-card p,
+.digest-workspace-technology p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.daily-digest-sources {
+  padding: 20px;
+  border: 1px solid rgba(15, 118, 110, 0.1);
+  border-radius: 22px;
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.digest-workspace-actions {
+  margin-bottom: 20px;
+}
+
+.digest-workspace-card {
+  gap: 14px;
+}
+
+.digest-workspace-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.digest-workspace-detail {
+  align-items: start;
+}
+
+.digest-delivery-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.delivery-workspace-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  align-items: start;
+  gap: 20px;
+}
+
+.delivery-workspace-layout__main,
+.delivery-workspace-layout__aside,
+.delivery-section,
+.delivery-channel-list,
+.delivery-log-list,
+.digest-delivery-action-panel,
+.digest-delivery-log-panel,
+.digest-delivery-log-list {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.delivery-workspace-layout__aside {
+  position: sticky;
+  top: 18px;
+}
+
+.delivery-channel-card,
+.delivery-log-card,
+.digest-delivery-log {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.delivery-channel-card__header,
+.delivery-log-card__header,
+.digest-delivery-log__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.delivery-channel-card__header h3,
+.delivery-channel-card__header p,
+.delivery-log-card__header strong,
+.delivery-log-card__header span {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.delivery-channel-card__header p,
+.delivery-log-card__header span {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.delivery-channel-card__edit {
+  padding-top: 10px;
+  border-top: 1px solid var(--workspace-line);
+}
+
+.delivery-channel-card__edit summary {
+  cursor: pointer;
+  color: var(--workspace-accent);
+  font-weight: 800;
+}
+
+.delivery-channel-form {
+  margin-top: 12px;
+}
+
+.delivery-error-message {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(185, 28, 28, 0.18);
+  border-radius: 12px;
+  background: rgba(254, 226, 226, 0.42);
+  color: #991b1b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,328 @@
+.workflow-event-panel {
+  border-style: dashed;
+  background: color-mix(in srgb, var(--workspace-surface) 88%, #ffffff 12%);
+}
+
+.workflow-event-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.workflow-event-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+  border-top: 1px solid var(--workspace-line);
+  padding-top: 0.75rem;
+}
+
+.workflow-event-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.workflow-event-item strong {
+  display: block;
+  color: var(--foreground);
+  font-size: 0.9rem;
+}
+
+.workflow-event-item p,
+.workflow-event-item span {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.operations-hero {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.35fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.operations-hero__status {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(248, 250, 252, 0.98),
+      rgba(241, 245, 249, 0.9)
+    ),
+    var(--workspace-surface);
+  box-shadow: var(--workspace-shadow);
+}
+
+.operations-hero__status h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: capitalize;
+}
+
+.operations-hero__status ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.operations-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.workspace-operations-summary__card--healthy,
+.operations-metric--healthy {
+  border-color: rgba(21, 128, 61, 0.22);
+  background: rgba(240, 253, 244, 0.72);
+}
+
+.workspace-operations-summary__card--warning,
+.operations-metric--warning {
+  border-color: rgba(180, 83, 9, 0.22);
+  background: rgba(255, 251, 235, 0.72);
+}
+
+.workspace-operations-summary__card--critical,
+.operations-metric--critical {
+  border-color: rgba(185, 28, 28, 0.22);
+  background: rgba(254, 242, 242, 0.72);
+}
+
+.workspace-operations-summary__card--unknown,
+.operations-metric--unknown {
+  border-color: rgba(100, 116, 139, 0.22);
+  background: rgba(248, 250, 252, 0.72);
+}
+
+.operations-attention-list,
+.operations-compact-list,
+.operations-event-list {
+  display: grid;
+  gap: 12px;
+}
+
+.operations-attention-item,
+.operations-compact-row,
+.operations-event-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: var(--workspace-shadow);
+}
+
+.operations-attention-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+}
+
+.operations-attention-item--critical {
+  border-color: rgba(185, 28, 28, 0.24);
+}
+
+.operations-attention-item--warning {
+  border-color: rgba(180, 83, 9, 0.2);
+}
+
+/* The row's own kicker span, not the `.status-badge` that shares the row.
+   Unqualified, this repainted the badge slate — so a `--danger` badge rendered
+   red in one place and slate in another, and dropped to 4.10 doing it. The only
+   classed spans inside these containers are the badges. */
+.operations-attention-item span:not([class]),
+.operations-compact-row span:not([class]),
+.operations-event-card__header span:not([class]) {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.operations-attention-item strong,
+.operations-compact-row strong {
+  display: block;
+  margin-top: 4px;
+  color: #0f172a;
+  overflow-wrap: anywhere;
+}
+
+.operations-attention-item p,
+.operations-compact-row p {
+  margin: 6px 0 0;
+  color: #64748b;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.operations-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 20px;
+  align-items: start;
+}
+
+.operations-layout__main,
+.operations-layout__aside,
+.operations-section {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.operations-layout__aside {
+  position: sticky;
+  top: 18px;
+}
+
+.operations-compact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.operations-quick-links {
+  display: grid;
+  gap: 10px;
+}
+
+.operations-quick-links a {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.78);
+}
+
+.operations-quick-links strong {
+  color: #0f172a;
+}
+
+.operations-quick-links span {
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+.operations-event-filter {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.operations-event-filter label {
+  display: grid;
+  gap: 6px;
+  color: #334155;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.operations-event-filter select,
+.operations-event-filter button {
+  min-height: 42px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #0f172a;
+}
+
+.operations-event-filter button {
+  padding: 0 14px;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.operations-event-filter > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  color: var(--workspace-accent);
+  font-weight: 850;
+}
+
+.operations-event-card {
+  display: grid;
+  gap: 14px;
+}
+
+.operations-event-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+}
+
+.operations-event-card__header h2 {
+  margin: 4px 0 0;
+  color: #0f172a;
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.operations-event-card__header p,
+.operations-event-card__header time {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.operations-event-card__detail summary {
+  cursor: pointer;
+  color: var(--workspace-accent);
+  font-weight: 850;
+}
+
+.operations-event-card__snapshots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* The tracks are already `minmax(0, …)`, but a grid *item* still defaults to
+   `min-width: auto` and refuses to shrink below its content — so the `<pre>`
+   inside grew to its longest line and its own `overflow: auto` had nothing left
+   to scroll. Measured 2026-08-17 at 390px: a snapshot `<pre>` 9,686px wide in a
+   301px column with **no scrollable ancestor anywhere in the chain**, i.e. the
+   rest of the payload was unreachable rather than merely off-screen. Same
+   mechanism as the 2026-07-29 compare-widget `<select>`. */
+.operations-event-card__snapshots > * {
+  min-width: 0;
+}
+
+.operations-event-card__snapshots pre {
+  max-height: 220px;
+  margin: 8px 0 0;
+  padding: 12px;
+  overflow: auto;
+  border: 1px solid var(--workspace-line);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.04);
+  color: #334155;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}

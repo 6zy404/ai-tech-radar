@@ -203,8 +203,9 @@ lines; twelve per-domain files plus `sqlite-primitives.ts` extracted) have
 all had the decomposition pattern applied — every file originally flagged
 for it is done, as are the ESLint/Prettier config and the
 `validate:delivery` fixture fix that used to be listed here. The code debt
-open today is different in kind: `globals.css` at 11,000+ lines, test files
-outside the typecheck, and the documentation weight fixed on 2026-09-26 —
+open today is different in kind: `globals.css` at 11,000+ lines (split into
+47 files on 2026-09-28), test files outside the typecheck (brought in the
+same day), and the documentation weight fixed on 2026-09-26 —
 see `docs/next-task.md`. Do this as interleaved cleanup, not a separate
 phase.
 

@@ -12,6 +12,34 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## globals.css is 47 files, and the browser receives the same bytes
+
+- **`src/app/globals.css` (11,203 lines) is now 47 `@import`s** of
+  `src/app/styles/NN-name.css` — 2026-09-28, from the P3 debt list. Cut
+  contiguously at the existing section comments and imported in the original
+  order, so the pieces concatenate back to the old file; the number prefix is
+  the cascade order. Rules were **not** regrouped by component: moving a rule
+  changes its source order, and that is a separate, diff-per-step job.
+- **The compiled CSS is byte-identical** to the unsplit build (same content
+  hash). Getting there needed `experimental.cssChunking: false`: with it on,
+  Next packed the 47 modules into three files of ≤100KB and the minifier,
+  running per file, merged rules differently. All CSS belongs to the root
+  layout, so one file costs nothing.
+- **Rendered check: `npm run css:diff`, new** (`scripts/css-style-diff.mjs`).
+  Headless installed Chrome over 63 public and workspace routes at 1440 light,
+  1440 dark and 390; every element's 477 computed properties and box, plus the
+  stylesheet text each page received. **Same build twice: 0. Split vs
+  unsplit: 0** (132,123 elements + 993 pseudo-elements). A build with one
+  probe rule in an early file and one in a late file: **8,091** differing
+  elements, both probes seen. `/network` is back on the route list.
+- **The harness was wrong three ways first** — `<head>` link tags shifting
+  element indices, Chrome enumerating viewport-dependent custom properties, and
+  `/network` reading differently between two captures of one build when four
+  captures ran in parallel (sequential runs agree). Written up in
+  `docs/design-system.md` → "Splitting globals.css".
+- Not changed: no rule, selector or value. The live site is untouched; this is
+  on a branch, not deployed.
+
 ## One list on the network page showed two layouts
 
 - **Reported by the owner with a screenshot, 2026-09-28**: in the side panel

@@ -1,0 +1,63 @@
+/* Skill/Knowledge workspace editing v0: checkbox pickers in the edit forms */
+.content-workspace-fieldset {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 12px;
+}
+
+.content-workspace-fieldset legend {
+  padding: 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--workspace-accent);
+}
+
+.content-workspace-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 14px;
+}
+
+.content-workspace-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.content-workspace-checkbox input {
+  margin: 0;
+}
+
+.relation-checkbox-item__relation {
+  display: none;
+}
+
+.relation-checkbox-item:has(> label input:checked)
+  .relation-checkbox-item__relation {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  padding-left: 22px;
+}
+
+.relation-checkbox-item__relation select {
+  flex: 0 0 auto;
+  min-width: 84px;
+  font-size: 12px;
+  padding: 3px 6px;
+}
+
+.relation-checkbox-item__relation input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12px;
+  padding: 3px 8px;
+}
+
+.content-workspace-status-actions {
+  align-items: center;
+}

@@ -1,0 +1,123 @@
+.section-block--subtle {
+  padding: 18px;
+  border: 1px dashed rgba(148, 163, 184, 0.72);
+  border-radius: 18px;
+  background: rgba(248, 250, 252, 0.54);
+}
+
+.user-shell {
+  display: grid;
+  gap: 30px;
+}
+
+.user-shell--detail {
+  gap: 24px;
+}
+
+.user-page-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 24px;
+  padding: 28px 0 8px;
+  border-bottom: 1px solid rgba(15, 118, 110, 0.14);
+}
+
+.user-page-header__copy {
+  min-width: 0;
+}
+
+.user-page-header h1 {
+  max-width: 900px;
+  margin: 0;
+  color: var(--user-ink);
+  font-size: clamp(2.2rem, 4vw, 4.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.user-page-header__description {
+  max-width: 760px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.user-page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.user-eyebrow {
+  color: var(--user-accent);
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0 8px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.page-header h1,
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.page-description,
+.hero p {
+  max-width: 760px;
+  color: var(--muted);
+}
+
+.hero {
+  display: grid;
+  gap: 20px;
+  padding: 40px;
+  border: 1px solid rgba(15, 118, 110, 0.16);
+  border-radius: 32px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15, 118, 110, 0.12),
+      rgba(255, 253, 248, 0.88)
+    ),
+    var(--surface-strong);
+  box-shadow: var(--shadow);
+}
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-card,
+.detail-panel,
+.section-panel {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.stat-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+}

@@ -1,0 +1,113 @@
+/* ============================================================
+   Technology relationship graph (mini neighborhood map)
+   ============================================================ */
+.tech-graph__hint {
+  color: var(--muted);
+}
+
+/* The graph sits inside a different section on each page that hosts it
+   (.user-article-section on the technology detail page, .skill-detail-section
+   on the skill and knowledge ones), and each of those styles its own
+   paragraphs with a `container p` rule that outranks a lone class. So the same
+   component took its colour from whichever page it was on. Qualified with its
+   own wrapper, it wins on all three. */
+.dossier .tech-graph .tech-graph__hint {
+  color: var(--dossier-muted);
+}
+
+.tech-graph__map {
+  margin-top: 14px;
+}
+
+.tech-graph__group {
+  margin-top: 12px;
+}
+
+/* Rendered as a <div>, not a <p>: `.user-shell p` pins every paragraph to
+   var(--fs-body) with !important (the 2026 typography-scale step), so a <p>
+   here cannot be a small label at all — the first version of this rule shipped
+   the group label as 16px body copy on every public page. The wrapper is kept
+   in the selector for the container-`p` hazard documented at __hint below. */
+.tech-graph__group-label,
+.dossier .tech-graph .tech-graph__group-label {
+  margin: 0 0 6px;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.tech-graph__group-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-graph__node {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 6px 12px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--ui-line);
+  box-shadow: var(--shadow-card);
+  color: var(--user-ink);
+  font-size: var(--fs-label);
+  line-height: 1.35;
+}
+
+.tech-graph__node--center {
+  display: block;
+  max-width: 100%;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.28);
+}
+
+a.tech-graph__node {
+  text-decoration: none;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease;
+}
+
+a.tech-graph__node:hover {
+  transform: translateY(-1px);
+}
+
+.tech-graph__node--technology {
+  border-color: rgba(8, 127, 115, 0.5);
+}
+
+.tech-graph__node--skill {
+  border-color: rgba(138, 90, 18, 0.45);
+}
+
+.tech-graph__node--knowledge {
+  border-color: rgba(24, 95, 165, 0.4);
+}
+
+/* The kind colour now rides on the group label. Qualified with the component's
+   own wrapper for the same reason .tech-graph__hint is: every host section
+   styles its paragraphs with a `container p` rule that outranks a lone class. */
+.tech-graph__group-label--technology,
+.dossier .tech-graph .tech-graph__group-label--technology {
+  color: var(--accent);
+}
+
+.tech-graph__group-label--skill,
+.dossier .tech-graph .tech-graph__group-label--skill {
+  color: var(--label-amber);
+}
+
+.tech-graph__group-label--knowledge,
+.dossier .tech-graph .tech-graph__group-label--knowledge {
+  color: #185fa5;
+}

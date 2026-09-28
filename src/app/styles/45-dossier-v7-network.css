@@ -1,0 +1,71 @@
+/* ============================================================
+   Dossier direction v7 -- ADOPTED on /network. The one page the original
+   migration order left out: not a card swap like every other round, but
+   the hand-written force-directed layout decided in docs/design-system.md
+   -> "Dossier direction" -> "Decided specifics". Nodes render as small
+   dots (2026-07-15 revision -- see "Dot nodes" below); their kind fill
+   colors are intentionally fixed hex, not --dossier-* tokens, matching
+   this file's existing precedent of leaving small accent colors
+   unchanged across light/dark (they read fine on both grounds). Only the
+   dot's ring and the on-demand label need theme-aware colors, since both
+   sit directly on the page background.
+   ============================================================ */
+
+.dossier .content-network__canvas {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  box-shadow: none;
+}
+
+.dossier .content-network__panel {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  box-shadow: none;
+}
+
+.dossier .content-network__panel h3 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .content-network__panel-hint,
+.dossier .content-network__panel-count,
+.dossier .content-network__panel-empty,
+.dossier .content-network__legend-item {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .content-network__legend-heading {
+  color: var(--dossier-stamp);
+  border-top-color: var(--dossier-line);
+}
+
+.dossier .content-network__panel-group {
+  border-top-color: var(--dossier-line);
+}
+
+.dossier .content-network__edge {
+  stroke: var(--dossier-line);
+}
+
+.dossier .content-network__edge--active {
+  stroke: var(--dossier-stamp);
+}
+
+.dossier .content-network__edge-label {
+  background: var(--dossier-ink);
+  color: var(--dossier-surface);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .content-network__node-dot {
+  border-color: var(--dossier-surface);
+}
+
+.dossier .content-network__node-label {
+  background: var(--dossier-surface);
+  border-color: var(--dossier-line);
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}

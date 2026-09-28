@@ -1,0 +1,289 @@
+/* User-facing skills library — colors merged onto the canonical base tokens.
+   Distinct teal-tinted border/soft tints are kept as their own values. */
+.skills-library-page,
+.skill-detail-page {
+  --skills-ink: var(--user-ink);
+  --skills-muted: var(--muted);
+  --skills-line: rgba(18, 83, 80, 0.14);
+  --skills-accent: var(--accent);
+  --skills-accent-soft: rgba(55, 214, 198, 0.14);
+}
+
+/* Centred like the sections under it. While the header was a panel the 16px
+   offset read as a wider band; once it is a rule, its title has to start on
+   the same edge as the first card. */
+.skills-library-page .page-header,
+.skills-library-page .user-page-header {
+  width: min(1040px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.skills-library-intro,
+.skills-library-groups,
+.skills-library-empty {
+  width: min(1040px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+/* Once the slogan came out this held one sentence and one row of counts —
+   48px of content inside 92px of padding and gap. A panel earns its border
+   by holding something; this is the page's lede line, so it sits on the page
+   ground like the header above it, per "a list page top is a label, not a
+   panel". */
+.skills-library-intro {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.skill-detail-kicker {
+  margin: 0 0 10px;
+  color: #08786f;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* The sentence is the whole block now, so it owns no separation of its own —
+   the browser's default paragraph margin was there to clear the heading above
+   it and became 32px of dangling space once that heading went. */
+.skills-library-intro p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--skills-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* Was a 2×2 white inset box in a fixed 280px column — the same "counts in a
+   panel" pattern removed from the digest hero, the home digest card and now the
+   home hero. A count is a caption: one wrapping line under the intro copy. */
+.skills-library-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+}
+
+.skills-library-stats div {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.skills-library-stats dt {
+  color: var(--skills-ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.skills-library-stats dd {
+  margin: 0;
+  color: var(--skills-muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.skill-library-card,
+.skill-detail-section,
+.skill-detail-aside-card {
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.skills-library-groups {
+  display: grid;
+  gap: 46px;
+  margin-top: 46px;
+}
+
+.skills-library-section {
+  display: grid;
+  gap: 18px;
+}
+
+.skills-library-section__header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.9fr);
+  gap: 24px;
+  align-items: end;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--skills-line);
+}
+
+/* Written for the eyebrow above the group title. The group's description is a
+   bare <p> in the same container, so it was picking these up too and rendering
+   at weight 850 in a stamp colour — louder than the 700-weight title beside
+   it, which is the same inversion the digest's 适合 line had. Scoped to the
+   eyebrow; the description reads as body copy below. */
+.skills-library-section__header .eyebrow {
+  margin: 0 0 6px;
+  color: #7a6335;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.skills-library-section__header > p {
+  margin: 0;
+  color: var(--skills-muted);
+  font-size: 0.96rem;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.skills-library-section__header h2 {
+  margin: 0;
+  color: var(--skills-ink);
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.skills-library-section__header span {
+  color: var(--skills-muted);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.skills-library-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.skill-library-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px;
+  min-width: 0;
+}
+
+.skill-library-card__meta,
+.skill-library-card__meta span {
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.05);
+  padding: 5px 9px;
+}
+
+.skill-library-card__meta span:first-child {
+  background: var(--skills-accent-soft);
+  color: #00796f;
+  font-weight: 750;
+}
+
+.skill-library-card h3 {
+  margin: 0;
+  color: var(--skills-ink);
+  font-size: 1.25rem;
+  letter-spacing: -0.035em;
+}
+
+.skill-library-card h3 a,
+.skill-detail-related-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.skill-library-card h3 a:hover,
+.skill-detail-related-card h3 a:hover {
+  color: var(--skills-accent);
+}
+
+.skill-library-card__summary {
+  margin: 0;
+  color: #34465b;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.skill-library-card__outcome {
+  padding: 11px 13px;
+  border-left: 3px solid rgba(15, 143, 131, 0.55);
+  border-radius: 12px;
+  background: rgba(231, 246, 243, 0.72);
+}
+
+.skill-library-card__outcome span,
+.skill-library-card__signals span,
+.skill-detail-related-card__note span {
+  display: block;
+  margin-bottom: 6px;
+  color: #7a6335;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.skill-library-card__outcome p,
+.skill-detail-related-card__note p {
+  margin: 0;
+  color: #40546a;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.skill-library-card__signals {
+  display: grid;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.skill-library-card__signals a {
+  color: #00796f;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.skill-library-card__signals a:hover,
+.skill-library-card__link:hover,
+.skill-detail-related-card__link:hover {
+  text-decoration: underline;
+}
+
+.skill-library-card__link,
+.skill-detail-related-card__link {
+  justify-self: start;
+  color: #00796f;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.skills-library-empty {
+  margin-top: 28px;
+  padding: 34px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.skills-library-empty__eyebrow {
+  margin: 0 0 8px;
+  color: #08786f;
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.skills-library-empty h2 {
+  margin: 0 0 8px;
+  color: var(--skills-ink);
+}
+
+.skills-library-empty p:last-child {
+  margin-bottom: 0;
+  color: var(--skills-muted);
+}

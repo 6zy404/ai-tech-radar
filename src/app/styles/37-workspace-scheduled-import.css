@@ -1,0 +1,16 @@
+/* Scheduled import controls on the workspace schedules page. */
+.scheduled-import-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.scheduled-import-time input {
+  padding: 6px 8px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 8px;
+  background: #ffffff;
+  font: inherit;
+}
