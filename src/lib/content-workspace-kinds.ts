@@ -11,6 +11,8 @@ import {
   knowledgeCategories,
   knowledgeCategoryLabels,
   learningCosts,
+  learningCostValues,
+  skillTypeLabels,
   skillTypes
 } from "@/lib/content-labels";
 import type { ContentWorkspaceEntryOf } from "@/lib/content-workspace-workflow";
@@ -27,14 +29,14 @@ import {
 } from "@/lib/skill-workflow";
 import type { KnowledgeItem, SkillItem } from "@/types/content";
 
+type ContentWorkspaceEntry = ContentWorkspaceEntryOf<SkillItem | KnowledgeItem>;
+
 /**
  * Everything the skill and knowledge workspace pages need to know about
  * their kind: copy, paths, attributes, the workflow reads, and the related
  * pool besides technologies. `form` is the serializable part handed to the
  * client form.
  */
-type ContentWorkspaceEntry = ContentWorkspaceEntryOf<SkillItem | KnowledgeItem>;
-
 export interface ContentWorkspaceKindView {
   form: ContentWorkspaceFormKind;
   /** The list page's one-line description. */
@@ -52,20 +54,6 @@ function options(values: readonly string[], labels: Record<string, string>) {
   return values.map((value) => ({ value, label: labels[value] }));
 }
 
-// Workspace wording, kept as it was until the labels are unified.
-const workspaceSkillTypeLabels: Record<string, string> = {
-  engineering: "工程落地",
-  analysis: "评估与分析",
-  product: "产品决策",
-  operations: "运维",
-  communication: "沟通协作"
-};
-const workspaceLearningCostLabels: Record<string, string> = {
-  low: "低",
-  medium: "中",
-  high: "高"
-};
-
 export const skillWorkspaceKind: ContentWorkspaceKindView = {
   form: {
     entityType: "skill",
@@ -79,7 +67,7 @@ export const skillWorkspaceKind: ContentWorkspaceKindView = {
         key: "skillType",
         label: "技能类型",
         fallback: "engineering",
-        options: options(skillTypes, workspaceSkillTypeLabels)
+        options: options(skillTypes, skillTypeLabels)
       },
       {
         key: "heatLevel",
@@ -91,7 +79,7 @@ export const skillWorkspaceKind: ContentWorkspaceKindView = {
         key: "learningCost",
         label: "学习成本",
         fallback: "medium",
-        options: options(learningCosts, workspaceLearningCostLabels)
+        options: options(learningCosts, learningCostValues)
       }
     ]
   },
