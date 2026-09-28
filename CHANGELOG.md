@@ -12,6 +12,31 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Search-page pieces shared; related-signal dates stay whole
+
+- **The search page's copies** (2026-09-29), the largest left in `src/`
+  after cluster ③: the magnifier SVG drawn in three places (search page, top
+  nav, `DossierSearchInput`) is `SearchGlyph`, and the tag row and
+  「已收录为精选技术信号」 link written out in three cards are
+  `NewsCardTags` / `NewsCardSignalLink` (`src/components/news-card-parts.tsx`).
+  Twelve pages — five search queries including an empty result, the bare
+  search page, 全部快讯, home, `/network`, `/ask`, a skill page — render
+  identical HTML, after two baseline captures agreed. Duplicated lines
+  5.0% → **4.8%**.
+- **Dates no longer split on narrow skill/knowledge pages.** At 390px a
+  related signal's 「来源 · 日期」 line is 228px wide, and three of the four
+  dates on `/knowledge/paralinguistics-voice-interaction` broke at a hyphen
+  (「2026-」 / 「07-15」). The date now sits in the `.nowrap-run` span the
+  digest pages already use. The HTML changed in exactly those 556 lines
+  across the 35 detail pages; every date measures one line, page heights are
+  unchanged at 390 and 1440, and 1:1 slices at both widths look right.
+- **The rest of the CSS regroup was measured and not done.** Of the 765 rules
+  still in numbered files, 14 are scattered-component rules the tool proved
+  unsafe to move, 334 belong to 140 components already gathered in one file
+  each (moving them only renames the file), and 336 target a bare tag and
+  would need the tool to learn ancestor chains first. Recorded in
+  `docs/next-task.md` as low value.
+
 ## Skills and knowledge share one implementation
 
 - **Cluster ③, the last of the copy-paste list** (2026-09-28). Skills and
