@@ -384,7 +384,9 @@ npm run eval:triage      # score LLM triage against real editorial decisions (--
 npm run eval:search      # score keyword / semantic / hybrid search on labelled queries (-- --grid to sweep the cutoff)
 npm run eval:ask         # score 问雷达: citation validity, grounding, refusals (EVAL_ENV_FILE to borrow a .env.local)
 
-# persistence / task runner
+# persistence / task runner — launched by scripts/run-ts.cjs against the REAL
+# data directory (it prints which one); never through run-ts-validation.cjs,
+# whose throwaway copy discarded four days of imports (2026-09-25 to 09-27)
 npm run db:init
 npm run db:migrate-json
 npm run tasks:run-once
@@ -392,6 +394,7 @@ npm run tasks:run-once
 # per-subsystem validation scripts — each runs against a throwaway copy of the
 # data directory (scripts/run-ts-validation.cjs), never the real config/;
 # VALIDATION_DATA_DIR=live opts out. `validate:all` runs the whole set in order.
+# That launcher accepts only validate-* and eval-* scripts.
 npm run validate:all
 npm run validate:candidates
 npm run validate:publishing

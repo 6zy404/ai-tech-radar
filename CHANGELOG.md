@@ -12,6 +12,42 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Four days of imports went into a folder that was deleted on exit
+
+- **Every scheduled import from 2026-09-25 to 09-27 was discarded** — found
+  2026-09-28 at the start of an editorial round, when the pool showed 0
+  undecided candidates while the cron log reported "新增候选 31 条" per run.
+  Both were true. The task runner was launched through
+  `scripts/run-ts-validation.cjs`, which had only ever been a TypeScript
+  loader; on 2026-09-24 that launcher began pointing `LOCAL_DATA_DIR` at a
+  throwaway copy to keep validators off the live data, and the task runner went
+  with it. Four runs fetched their sources, imported, auto-triaged, generated a
+  digest draft, and wrote all of it into a temp folder that was removed when
+  the process exited. `nextRunAt` never advanced, the live store was last
+  written on 09-24, and the news lane — a seven-day window — was three or four
+  days from empty.
+- **The log said so on every run**, in the line
+  `验证数据目录：…（…的临时副本，结束后删除）`, directly above a success
+  message. Nothing was hidden; nothing made the two lines disagree loudly
+  enough to be read.
+- **Two launchers now, and each refuses the other's scripts.**
+  `scripts/run-ts.cjs` runs the task runner and the `db:*` commands against
+  the real data directory and prints which one. `run-ts-validation.cjs` keeps
+  the throwaway copy and accepts only `validate-*` and `eval-*`. The `db:*`
+  commands had the same defect — they initialised and migrated a SQLite file
+  inside the copy.
+- **Proven three ways.** Nine tests (`scripts/ts-runners.test.mjs`) spawn both
+  launchers around a probe that writes into the directory it is given, and
+  assert which npm script uses which launcher; putting the original
+  `package.json` line back fails 2 of them, and teaching the launcher to treat
+  `tasks-*` as isolated fails 3. Then the real task runner, through the new
+  launcher, against a scratch copy of the live data with the delivery config
+  left out: 13 of 13 sources, 32 new candidates, `nextRunAt` advanced to
+  09-29, the live files untouched.
+- **What was lost**: whatever left its feed's window during those four days.
+  The feeds are re-read on the next run, so most items come back; a source
+  that publishes more than its cap per day may not return all of them.
+
 ## One command to deploy, loopback only, and a rehearsal that took the site down
 
 - **The server binds to `127.0.0.1`** — 2026-09-28, P2 operations. The start

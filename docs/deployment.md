@@ -811,6 +811,16 @@ npm run tasks:run-once
 npm run tasks:watch
 ```
 
+**Check the first line of each run in `config/task-runner-cron.log`.** It must
+read `数据目录：…（真实数据目录）` and name the live directory. From
+2026-09-25 to 09-27 it read `验证数据目录：…临时副本，结束后删除` instead,
+because the runner was launched through the validators' launcher, and every
+import of those four days was deleted with the copy while the log reported
+success. The runner now goes through `scripts/run-ts.cjs`; the validators'
+launcher refuses it. A second thing to look at when the pool seems quiet:
+`nextRunAt` in `config/scheduled-import.json` should be tomorrow, not a date
+in the past.
+
 Linux server run-once example:
 
 ```bash
