@@ -12,6 +12,29 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The four public AI routes share one opening
+
+- **Measured first** (2026-09-28): a line-window scan of `src/` and `scripts/`
+  (8 identical significant lines = a clone; styles and seed data excluded)
+  found 3,589 of 45,017 lines duplicated, about 8%. The five clusters worth
+  collapsing are listed in `docs/next-task.md`; this entry takes the one that
+  guards money.
+- **`guardPublicAiRequest(request, routeId)`** in
+  `src/lib/public-ai-rate-limit.ts` now runs the rate limit, the
+  request-shape guard and the JSON body read, in that order, and returns
+  either the body or the response to send. `/api/ask` and the three
+  `/api/technologies/*` AI routes each carried their own ~25-line copy of it;
+  a fifth route can no longer get the order wrong or drop a step.
+- **The order is now tested**, where before only each check was:
+  `src/lib/public-ai-guard.test.ts` (6 tests) pins that a spent budget
+  answers `429` even for a malformed request, that budgets are per route, and
+  the `415` / `403` / `400` answers. Swapping the rate limit and the origin
+  check in the helper fails exactly the ordering test.
+- **Behaviour unchanged**, checked against a local dev server: all four
+  routes answer `415`, `403` and `400` with the same Chinese messages as
+  before, a valid learning-path request answers `200`, and `/api/ask` turns
+  `429` on the 11th request of a minute. 354 tests pass.
+
 ## globals.css is 47 files, and the browser receives the same bytes
 
 - **`src/app/globals.css` (11,203 lines) is now 47 `@import`s** of
