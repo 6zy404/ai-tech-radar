@@ -1,62 +1,6 @@
 {
-  "updatedAt": "2026-09-24T06:54:32.207Z",
+  "updatedAt": "2026-09-28T03:14:27.478Z",
   "records": [
-    {
-      "id": "skill-ws-1a0da8a9",
-      "title": "实时语音交互设计",
-      "slug": "realtime-voice-interaction-design",
-      "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
-      "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
-      "skillType": "product",
-      "heatLevel": "emerging",
-      "learningCost": "medium",
-      "tags": [
-        "tag-multimodal",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-latency-tradeoffs",
-        "knowledge-human-loop",
-        "knowledge-ws-8c99b19c"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.431Z",
-      "updatedAt": "2026-07-19T05:04:42.495Z"
-    },
-    {
-      "id": "skill-ws-b47fabd1",
-      "title": "视觉输入的组织与核验",
-      "slug": "visual-input-design-and-verification",
-      "summary": "把截图、图表和文档整理成模型真正读得懂的输入，并用可复现的手段确认它读对了——视觉任务的失败往往是安静的。",
-      "content": "Inkling 这类原生处理文本、图像与音频的模型，把「让模型看一眼」从特殊能力变成了默认能力；编码助手靠截图定位问题，浏览器代理靠看页面决定下一步。但「把图丢进去」和「把图组织好再丢进去」，结果差得很远，而这一层几乎没有人系统地讲。这项技能就管两件事：怎么把视觉信息送进模型，以及怎么确认它真的读对了。\n\n输入侧有三个决定成败的动作。第一是分辨率与裁剪：图像会被切成视觉 token，模型看到的是缩放后的版本，界面里的小号文字和细线最先糊掉——截到目标区域，比丢一张整屏截图再让模型自己找更可靠。第二是图文交错与指代：一次给多张图时用编号和文字锚点（「第 2 张图里红框那块」）代替「上图」，模型对图片顺序的记忆远不如人稳。第三是判断什么时候根本不该用原生视觉：表格数值、密集文本、需要逐字准确的内容，先做 OCR 或者直接取结构化源数据，比让模型「看」更便宜也更准；原生视觉的强项在布局、空间关系和难以结构化的现场场景。\n\n代价要按 token 估，而不是按「一张图」估——一张高分辨率截图可能吃掉数千 token，同时把首响应延迟顶上去，这两件事会直接进入上下文预算与模型选型的决策。核验则是这项技能真正的分水岭：视觉任务的失败是安静的，模型会用和答对时一模一样的自信语气，描述图里并不存在的按钮、或者把数字读错一位。三种可复现的手段：让模型先复述关键元素（位置、数量、读数）再作答，把错误暴露在中间步骤而不是结论里；准备反事实图——改掉一个数字、移走一个控件——看输出是否跟着变，不变就说明它压根没在看；读数类任务与 OCR 基线逐条比对。\n\n边界要划清楚：这项技能讲的是把视觉信息送进模型并确认它读对了，不负责设计整套评测体系（那是《模型与输出评估》要回答的），不涉及语音的轮次节奏、打断与失败兜底（那是《实时语音交互设计》），也不讲怎么训练或微调视觉模型（那是《模型微调与后训练定制》）。掌握的标志：接到「让模型看图做判断」的需求时，能先说清哪部分走原生视觉、哪部分该退回 OCR 或结构化数据；能给出这次输入的 token 量级与延迟影响；并且在上线前就备好了一组反事实图，而不是等用户报错才发现模型一直在猜。",
-      "skillType": "engineering",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-multimodal",
-        "tag-ai-agents"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
-        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs",
-        "knowledge-evaluation-loops",
-        "knowledge-human-loop"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T16:56:11.358Z",
-      "updatedAt": "2026-08-17T17:32:49.004Z"
-    },
     {
       "id": "skill-communication-ai",
       "title": "AI 辅助沟通审阅",
@@ -83,47 +27,6 @@
       "status": "published",
       "createdAt": "2026-08-06T14:32:26.109Z",
       "updatedAt": "2026-08-18T10:37:41.482Z"
-    },
-    {
-      "id": "skill-ws-d7c9d1d8",
-      "title": "端侧模型部署与硬件适配",
-      "slug": "on-device-model-deployment",
-      "summary": "判断一台具体的机器能不能跑、跑得值不值：定量化档位、选运行时、配卸载与上下文，最后用首 token 延迟和稳态吞吐验收——而不是看参数量猜。",
-      "content": "端侧部署的第一个判断不是「这个模型好不好」，而是**这台机器的内存带宽和显存够不够**。参数量只决定权重占多大，真正决定体验的是每生成一个 token 要把多少字节从内存搬到计算单元。\n\n按顺序定下四个量，顺序反过来就会返工：\n\n1. **量化档位**。先看权重压到几 bit 还不塌，再决定 KV cache 和推测解码的草稿输出头要不要单独定精度。Ollama v0.32.4 修的正是 MoE 专家精度不一致导致的解码问题——「整个模型一个档位」这种想法在混合结构上已经不成立。\n2. **运行时**。llama.cpp / MLX / vLLM 各自吃不同的硬件路径：Apple 芯片上要走 MLX 才拿得到 GPU，消费级 N 卡走 CUDA，纯 CPU 只能靠小模型和低比特硬扛。运行时选错，再好的芯片也是闲着。\n3. **卸载与上下文**。放不下就得决定哪几层留在显存、上下文开多长。上下文长度直接吃 KV cache，它常常比权重更早把显存打满。\n4. **验收指标**。用**首 token 延迟**和**稳态 tokens/s** 两个数收尾，并且必须在目标设备上实测：同一份模型在 M5 Max 和一台四年前的笔记本上是两个产品。\n\n三个常见误判：\n\n- **拿「跑起来了」当「跑得动」。** 交换到磁盘也能出字，但每秒一个 token 的助手没人会用第二次。\n- **只测短提示。** 长上下文下显存占用和延迟都是另一条曲线，短提示的漂亮数字骗不了真实使用。\n- **把端侧当成免费。** 省下的是 API 费用，换来的是分发、升级和一堆设备型号的适配成本——这笔账要和「本地与云混合推理架构」一起算。\n\n这项能力的边界很清楚：它止于单机。一旦要为多人同时提供服务，问题就变成排队、批处理和副本数，交给「推理服务容量规划」。",
-      "skillType": "engineering",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-on-device",
-        "tag-inference"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-485108"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-ws-34da6116",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f",
-        "knowledge-ws-c761533e",
-        "knowledge-latency-tradeoffs"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T09:22:20.958Z",
-      "updatedAt": "2026-09-08T11:20:36.128Z"
     },
     {
       "id": "skill-ws-84837d46",
@@ -156,72 +59,6 @@
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.711Z",
       "updatedAt": "2026-09-09T02:21:30.842Z"
-    },
-    {
-      "id": "skill-tool-integration",
-      "title": "工具集成模式",
-      "slug": "tool-integration-patterns",
-      "summary": "把 AI 系统接入 API、浏览器、文档和内部工具，让工具层吸收混乱而不是把混乱转发给模型。",
-      "content": "Ai2 的 Shippy 有一条反直觉的做法：**模型不直接拼裸 API 调用**，而是通过一层专门构建的确定性 CLI 与后端交互。分页错误、畸形查询这类隐蔽 bug 在工具层就被消化掉，而且每一层可以独立测试。\n\n这句话是这项技能的全部要义。工具层不是 API 的薄包装，它是一层要被设计的产品——**它的职责是吸收混乱，而不是把混乱转发给模型。**\n\n## 工具层要吸收混乱\n\n一个直接暴露给模型的原始接口，会把它所有的边角情况一起暴露出去：翻页、超时、部分成功、字段可空、错误码语义不一致。模型对这些的处理方式是即兴发挥，而且每次都不一样。\n\n判断一个工具封装得够不够，有个实用的检查：**把它的返回值单独拿出来看，能不能不依赖上下文就读懂发生了什么。** 如果读不懂，模型也读不懂。\n\n- 成功和失败要在结构上可区分，而不是靠文字措辞。\n- 部分成功要显式表达，不能悄悄返回半截数据。\n- 需要重试的错误和不该重试的错误要分开，否则模型只会一律重试。\n\n## 边界要窄到可以被审计\n\nMCP 在 2025 年一度被 Skills 盖过热度，原因很直白：一个能用终端和 `curl` 的智能体外壳，用更灵活的方式做到了大部分同样的事。而现在重新看 MCP 的理由不是协议变强了，是那条替代路线的代价看清楚了——**给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动。**\n\n相比之下，一件职责明确的工具更容易审计和管控，简单到笔记本上跑的小模型也能驱动。所以工具的边界宽窄不只是工程整洁问题，它同时决定了两件事：出事之后你能不能查清楚，以及这套系统能不能用小模型跑。\n\n## 无状态让工具目录可以被缓存和路由\n\nMCP 2.0 把协议核心从有状态改成了无状态，几处改动直接影响工具怎么接：\n\n1. 握手和会话 id 退休，每个请求自带协议版本与能力——**任何请求都能落到负载均衡后的任意实例**，不需要实例间共享存储。\n2. 方法名与工具名走 HTTP 头（`Mcp-Method`、`Mcp-Name`），网关不必解请求体就能做路由和鉴权。\n3. 列表响应可缓存且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n4. 弃用有了至少 12 个月的正式窗口，升级可以排期而不是被动响应。\n\n第 4 条最容易被忽略，却最影响长期维护成本：一个没有弃用窗口的工具接口，意味着你的集成随时可能在某个周二早上失效。\n\n## 接进来之后，谁负责失败\n\n工具接入的最后一步是让失败可归因。任务失败时至少要分得出三类：**模型选错了工具**、**工具自己执行失败**、**环境异常**。三者的修复动作完全不同，混成一句「重试」就等于放弃了这条信息。\n\n## 与相邻条目的分工\n\n这一条管**单个工具怎么接得可维护**；整条链路怎么分层与交接，是「智能体工作流设计」。工具返回内容可能携带注入，那是「智能体安全与提示注入防御」。概念层面「为什么要把推理与行动分开」在「工具使用与函数调用」，而「稳定的输入输出约定为什么能提升可靠性」在「API 契约与接口边界」。",
-      "skillType": "engineering",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
-        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
-        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-github-blog-p-98713"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-api-contracts",
-        "knowledge-tool-use"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-21T05:08:17.002Z",
-      "updatedAt": "2026-09-19T13:15:28.972Z"
-    },
-    {
-      "id": "skill-scope-pilots",
-      "title": "AI 试点范围界定",
-      "slug": "ai-pilot-scoping",
-      "summary": "挑第一个用例并把它框住：一次试点的产物是一个决定，不是一个功能，所以它要小到错得起。",
-      "content": "每一次能力跃迁——GPT-5.6 那种旗舰更新、ChatGPT Work 那种能连续干几小时的产品形态、GPT-Live 那种实时语音——团队都会重新问一遍「我们要不要上」。这个问题经常变成一个跑了半年、结束时仍然没有结论的项目。\n\n**一次试点的产物是一个决定，不是一个功能。** 这句话决定了它该被怎么框住。\n\n## 先有一个能被证伪的问题\n\n「AI 能不能帮我们提效」不是问题，因为它没有能判错的答案。能拿来跑试点的问题长这样：**能不能把某一类工单的首次响应时间从 A 降到 B。**\n\n开工前的三条自检：\n\n1. **问题能被证伪**——存在一种结果会让你说「不做」。\n2. **判据是现成的**——如果要先造一套评测才能开始，那试点还没开始（判据怎么设计归「模型与输出评估」）。\n3. **失败是便宜的**——要限制的是影响半径，不是预算。\n\n## 优先挑「答案已经在你手里」的用例\n\n最便宜的试点，是那些**正确答案已经躺在历史数据里**的任务：处理过的工单、审过的合同、改过的 PR。它们自带评测集，你不需要为了判断好坏再花一轮标注成本。\n\n这也是一条实用的排序：能用历史数据判分的用例，永远排在需要人工新标注的用例前面。\n\n## 分清「令人兴奋」和「你的约束」\n\n新能力最容易骗人的地方，是它解决的问题不一定是你的问题。实时语音很惊艳，但延迟是不是你真正的瓶颈？端侧小模型很吸引人，但先咬人的到底是隐私还是成本？\n\n**先确认哪个约束先咬人，再看新能力有没有解开它**——这一步和「模型选型与约束匹配」是同一个问题的两端。\n\n## 先定结束条件，再开始\n\n一次没有结束日期的试点，最后会变成一套没有人负责的系统。开工之前先写下两件事：**什么时候看结果**，以及**看到什么就停、看到什么就扩**。\n\nOpenAI 复盘长时程模型部署时用的是同一个形状：小步放量加持续观测。试点和放量的区别只是规模，不是方法。\n\n## 失败的试点也必须交付一样东西\n\n一次得出「不做」的试点是成功的试点——**前提是它写下了理由**。没有写下来的否定结论，六个月后会被原样重新提一遍，而且没有人记得上次为什么否掉。\n\n## 与相邻能力的分工\n\n这一条回答**先做哪个用例、怎么框住它、什么时候收**。自建还是买、哪一层必须归你，是「AI 工具链选型与自建边界评估」；用多大的模型，是「模型选型与约束匹配」；判据怎么设计，是「模型与输出评估」；真正上线时人放在哪个位置，是「人在回路的审查」。",
-      "skillType": "product",
-      "heatLevel": "active",
-      "learningCost": "low",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-www-qbitai-com-p-474381",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
-        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
-        "draft-candidate-rss-https-github-blog-p-98713"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-feedback-loops",
-        "knowledge-human-loop"
-      ],
-      "status": "published",
-      "createdAt": "2026-08-04T18:01:30.623Z",
-      "updatedAt": "2026-09-19T13:15:29.034Z"
     },
     {
       "id": "skill-ws-dddaf80c",
@@ -273,143 +110,31 @@
       "updatedAt": "2026-09-24T03:51:10.403Z"
     },
     {
-      "id": "skill-ws-2152c7f1",
-      "title": "AI 工具链选型与自建边界评估",
-      "slug": "ai-toolchain-build-vs-buy",
-      "summary": "在「自己搭一套」和「买现成的」之间划线：先判断哪一层工作是你必须拥有的，再比价格——顺序反过来就会买错。",
-      "content": "当模型这一层的价差被抹平（供应商按同样的 API 费率计费），采购决策就不再是比单价，而是**划分系统边界**。\n\n可操作的做法是把一个具体任务拆成两栏：\n\n- **模型调用**：提示词、上下文组装、模型选择、输出解析。\n- **外壳（harness）**：任务上下文的接入（工单、diff、仓库）、可执行命令的白名单、组织策略与权限、日志与评测、用量与计费控制。\n\n然后逐项问：这一项如果自己做，是不是我的竞争力？如果答案是否，它就是集成成本，而集成成本几乎总是被低估——它不随模型能力提升而变便宜。\n\n三个常见的判断失误：\n\n1. **只比 token 单价。** 价格是结论不是前提；外壳的年化人力成本通常远大于 token 支出。\n2. **低估控制面。** 命令白名单、组织策略、审计这类要求往往是合规硬约束，自建方案要从零补齐。\n3. **忽略迁移成本。** 自建外壳如果和某个供应商的接口耦合，换模型时的迁移成本要提前算进来。\n\n这项能力和「模型选型与约束匹配」是一对：后者决定用哪个模型，前者决定模型之外的那一层归谁。",
-      "skillType": "product",
-      "heatLevel": "hot",
-      "learningCost": "medium",
-      "tags": [
-        "tag-product-strategy",
-        "tag-workflow",
-        "tag-ai-agents"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-github-blog-p-97686",
-        "draft-candidate-rss-https-github-blog-p-97467",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
-        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
-        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
-        "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-system-design",
-        "knowledge-model-sizing",
-        "knowledge-api-contracts"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-27T02:42:33.891Z",
-      "updatedAt": "2026-09-24T03:51:10.454Z"
-    },
-    {
-      "id": "skill-ws-a9e80194",
-      "title": "推理服务容量规划",
-      "slug": "inference-capacity-planning",
-      "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
-      "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+      "id": "skill-retrieval-tuning",
+      "title": "检索流水线调优",
+      "slug": "retrieval-pipeline-tuning",
+      "summary": "优化分块、索引、重排选择和结果格式，让回答更有依据。",
+      "content": "检索质量差的时候，症状出现在答案上，原因却在流水线里，而且很少只有一个原因。这项技能的核心不是知道有哪些旋钮，而是**先造一把能判错的尺子，再一个一个拧**。没有尺子的调优，每次都会让某个例子变好，然后让另一批你没看的例子变差。\n\n## 先有查询集，再有调优\n\n一个查询集要有三样东西：真实读者的问法（而不是标题里的词）、每条查询对应的正确条目、以及**站内根本没有答案的负例**。然后分成两半：一半用来选参数，另一半只在参数定死之后打一次分。这个站自己的搜索评测就是这样做的：43 条查询，12 条调参、31 条测试，任何数字都不在报告它的那一半上调过。\n\n还有一条要写进报告：查询集是谁写的。写搜索的人对着语料写查询，会不自觉地写出标题能答的问题。没看过语料的人写的查询集会得更低的分，低多少不知道——**不知道就写不知道**。\n\n## 四个旋钮各自动的是哪个数\n\n- **嵌入模型**：决定成本随输入变长的曲线。这一半负载通常跑在 CPU 上，LFM2.5-Encoders 这类小编码器的卖点正是 8,192 token 的上下文在 CPU 上仍然跑得动，而不是参数量。\n- **索引与量化**：决定内存和召回。Pinterest 的数据把两个数放在同一张表里：标量量化把 HNSW 从 121GB 压到 50GB、召回几乎不掉，乘积量化压到 32GB、召回掉到 77.3%。**选哪种取决于你的召回下限，不取决于压缩率**。\n- **混合与截断**：关键词能精确命中产品名和缩写，向量能理解换了说法的问题，两者按名次融合。截断线不能用绝对分数——同一个模型给一条英文查询的最佳匹配打 0.788，给一条无关的中文查询打 0.854，没有任何一个阈值能留住前者、丢掉后者。按当次查询自己的分布截（高于均值 1.75 个标准差）才站得住。\n- **重排**：便宜的召回先取一百条，再让一个只输出分数的模型逐条打相关分。Jev 这类决策模型把这一步的价格压到了每百万输入 token 几美分。重排的收益要在你自己的查询集上量，它不是默认就有的。\n\n## 一次真实调优的账\n\n截至 2026-09-23，站内搜索从纯关键词改成混合之后，在 31 条测试查询上：找到过相关内容的查询从 33% 升到 93%，召回从 22% 升到 64%，首个相关结果的名次倒数从 0.33 升到 0.73。**代价要写在同一行**：精度从 94% 掉到 40%，返回的四条里超过一半不是读者问的；6 条无关查询仍然全部返回了东西。哪一边更重要，取决于读者是在找一个确定的名字，还是在描述一个模糊的问题——这不是评测能替你回答的。\n\n## 剂量，不是开关\n\n检索多少条交给生成，也是一个要量的参数。IBM 在八个模型上试 ALTK-Evolve：按任务只检索少量高置信条目，在 117B 的 gpt-oss-120b 上涨了 16.1 个百分点、token 只多 5%，而全量注入涨得更少、token 多花一半；745B 的 GLM-5 一分没涨。**最省的那一档和最准的那一档可以是同一档**，而「先全塞进去再说」是一个会同时输掉准确率和成本的默认值。\n\n## 调优会以特定方式自欺\n\n- 在测试那一半上调参，然后报告它的分数。\n- 只用正例评测，于是永远量不到「不该返回却返回了」。\n- 一个分数分布全平的查询，标准差不是 0 而是 1e-17，于是所有条目都「高于均值」——这个站的测试抓到过这一条。\n- 短英文缩写在小模型上会匹配到毫不相关的东西（「RAG」返回过一条红队信号），这正是关键词那一路不能拆掉的理由。\n\n## 与相邻能力的分工\n\n为什么要检索、检索改变了什么信任边界，见《检索增强生成基础》；怎么把「好」写成能判错的检查，是《模型与输出评估》的事；权重那一侧的量化归《模型量化与数值精度》，索引这一侧才在这里；流水线跑起来之后的排队、批处理与副本数，交给《推理服务容量规划》。",
       "skillType": "analysis",
       "heatLevel": "hot",
-      "learningCost": "medium",
+      "learningCost": "high",
       "tags": [
-        "tag-inference",
+        "tag-retrieval",
         "tag-observability"
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-www-qbitai-com-p-469010",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
-        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
-      ],
-      "relatedKnowledgeIds": [
-        "knowledge-latency-tradeoffs",
-        "knowledge-model-sizing",
-        "knowledge-ws-68963f7f"
-      ],
-      "status": "published",
-      "createdAt": "2026-07-16T03:16:15.362Z",
-      "updatedAt": "2026-09-24T03:51:10.504Z"
-    },
-    {
-      "id": "skill-model-evaluation",
-      "title": "模型与输出评估",
-      "slug": "model-and-output-evaluation",
-      "summary": "在上线前把「什么算好」写成能判错的检查，并让这些检查小到每次改动都能重跑。",
-      "content": "Hume AI 为了衡量语音交互的「人性质量」，做了 40 多个语音模型、15 个以上维度、60 多项指标，底层压着 100 万条以上的人工评分。一家公司需要一百万条人工标注，才敢定义一个形容词。这就是这项技能真正的起点：难的从来不是把评测跑起来，而是在看到输出之前，先把「好」写成一句能判错的话。\n\n## 先把「好」写成能判错的话\n\n一条无法失败的标准不是标准。「回答要准确、有帮助」通不过这一关，因为任何输出都能被辩解成符合。动笔写检查之前，先固定三件事：\n\n1. **输入分布**——你要它在什么样的输入上好？是真实流量的抽样，还是顺手想到的几个例子？\n2. **什么算失败**——不只是答错。拒答、超时、格式崩坏、内容对但结构不可解析，在生产里往往比「答错」更常见。\n3. **谁来裁决**——出现分歧时由谁定，判据写在哪里。\n\n## 供应商的指标和第三方的指标不是一回事\n\nGPT-5.6 主打「单位算力智能密度」，这个指标由发布方自己定义、自己测量，没有第二家用同一把尺子量过别人。Kimi K3 拿到的第三方长时程知识工作 Elo 则不同：同一套测试被跑在所有参赛模型上，所以它可以横比。\n\n判断一个数字能不能横比，只问一句：**这把尺子有没有量过别人。**\n\n## 小而可复现，胜过大而一次性\n\n评测的价值在于第二次跑它。固定输入集、进版本库、随事故增长——改一版提示词就能立刻重跑，才叫回归；跑完写进文档、之后再没人碰的，是一次性报告。\n\nGPT-Red 把这件事推向了另一个方向：攻击方模型持续生成对抗输入、防守方迭代修复，评测集自己会长大。NVIDIA 的 Nemotron 开放数据则说明，评测数据本身正在变成可复用的公共资产——工程轨迹、工具调用失败、多步推理这些数据，过去每家自己攒，现在开始有公开来源。\n\n## 三种最常见的自欺\n\n- **只测成功路径。** 通过率 95% 的评测集，如果里面没有一条是模型本应拒答的，它证明不了任何事。\n- **用模型给模型打分却不校准。** 模型裁判可以规模化，但必须留一小批人工标注作锚，定期核对裁判本身有没有漂。\n- **把评测当成发布前的一道关卡。** RAG 评测看板这类产品存在的理由，正是评测应该是常设的仪表盘，而不是一次性的验收。\n\n## 与相邻能力的分工\n\n这一条回答的是：**上线之前，「好」是什么、怎么量。** 读别人发布公告里的数字并决定要不要换代，是「旗舰模型发布解读与换代判断」；任务跑完之后回放轨迹、定位它在哪一步为什么失败，是「智能体可观测性与评测运维」；而任务还在跑、要判断当前这一步算不算做完，是「完成判定与验收信号」。",
-      "skillType": "analysis",
-      "heatLevel": "active",
-      "learningCost": "medium",
-      "tags": [
-        "tag-observability",
-        "tag-product-strategy"
-      ],
-      "relatedTechnologyIds": [
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
-        "draft-candidate-rss-https-www-qbitai-com-p-468782",
-        "draft-candidate-rss-https-www-qbitai-com-p-469795",
-        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
-        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
-        "draft-candidate-rss-https-www-qbitai-com-p-472016",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
-        "draft-candidate-rss-https-www-qbitai-com-p-474381",
-        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
-        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
-        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-485108",
-        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
-        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
-        "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-github-blog-p-98713",
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
         "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
-        "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi"
+        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-evaluation-loops",
-        "knowledge-feedback-loops",
-        "knowledge-ws-e251051e"
+        "knowledge-rag-basics",
+        "knowledge-graph-thinking"
       ],
       "status": "published",
-      "createdAt": "2026-07-21T05:08:17.044Z",
-      "updatedAt": "2026-09-24T03:51:11.493Z"
+      "createdAt": "2026-08-23T16:23:54.047Z",
+      "updatedAt": "2026-09-24T06:54:32.206Z"
     },
     {
       "id": "skill-ws-c183c9b9",
@@ -439,7 +164,10 @@
         "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
         "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-www-qbitai-com-p-496393",
-        "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article"
+        "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-www-qbitai-com-p-497382",
+        "draft-candidate-rss-https-github-blog-p-98465"
       ],
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
@@ -449,7 +177,7 @@
       ],
       "status": "published",
       "createdAt": "2026-07-19T04:05:11.800Z",
-      "updatedAt": "2026-09-24T03:51:11.723Z"
+      "updatedAt": "2026-09-28T03:14:26.767Z"
     },
     {
       "id": "skill-ws-f741f122",
@@ -502,7 +230,9 @@
         "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
         "draft-candidate-rss-https-www-qbitai-com-p-496393",
-        "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi"
+        "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-www-qbitai-com-p-497382"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -513,7 +243,137 @@
       ],
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.442Z",
-      "updatedAt": "2026-09-24T03:51:11.780Z"
+      "updatedAt": "2026-09-28T03:14:26.837Z"
+    },
+    {
+      "id": "skill-ws-d7c9d1d8",
+      "title": "端侧模型部署与硬件适配",
+      "slug": "on-device-model-deployment",
+      "summary": "判断一台具体的机器能不能跑、跑得值不值：定量化档位、选运行时、配卸载与上下文，最后用首 token 延迟和稳态吞吐验收——而不是看参数量猜。",
+      "content": "端侧部署的第一个判断不是「这个模型好不好」，而是**这台机器的内存带宽和显存够不够**。参数量只决定权重占多大，真正决定体验的是每生成一个 token 要把多少字节从内存搬到计算单元。\n\n按顺序定下四个量，顺序反过来就会返工：\n\n1. **量化档位**。先看权重压到几 bit 还不塌，再决定 KV cache 和推测解码的草稿输出头要不要单独定精度。Ollama v0.32.4 修的正是 MoE 专家精度不一致导致的解码问题——「整个模型一个档位」这种想法在混合结构上已经不成立。\n2. **运行时**。llama.cpp / MLX / vLLM 各自吃不同的硬件路径：Apple 芯片上要走 MLX 才拿得到 GPU，消费级 N 卡走 CUDA，纯 CPU 只能靠小模型和低比特硬扛。运行时选错，再好的芯片也是闲着。\n3. **卸载与上下文**。放不下就得决定哪几层留在显存、上下文开多长。上下文长度直接吃 KV cache，它常常比权重更早把显存打满。\n4. **验收指标**。用**首 token 延迟**和**稳态 tokens/s** 两个数收尾，并且必须在目标设备上实测：同一份模型在 M5 Max 和一台四年前的笔记本上是两个产品。\n\n三个常见误判：\n\n- **拿「跑起来了」当「跑得动」。** 交换到磁盘也能出字，但每秒一个 token 的助手没人会用第二次。\n- **只测短提示。** 长上下文下显存占用和延迟都是另一条曲线，短提示的漂亮数字骗不了真实使用。\n- **把端侧当成免费。** 省下的是 API 费用，换来的是分发、升级和一堆设备型号的适配成本——这笔账要和「本地与云混合推理架构」一起算。\n\n这项能力的边界很清楚：它止于单机。一旦要为多人同时提供服务，问题就变成排队、批处理和副本数，交给「推理服务容量规划」。",
+      "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-on-device",
+        "tag-inference"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-31-2",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-485108",
+        "draft-candidate-rss-https-www-qbitai-com-p-497624",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+        "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-34da6116",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f",
+        "knowledge-ws-c761533e",
+        "knowledge-latency-tradeoffs"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T09:22:20.958Z",
+      "updatedAt": "2026-09-28T03:14:26.900Z"
+    },
+    {
+      "id": "skill-ws-a9e80194",
+      "title": "推理服务容量规划",
+      "slug": "inference-capacity-planning",
+      "summary": "估算并发、显存与成本三者的关系，判断一次推理栈升级或模型更换对自托管服务意味着什么。",
+      "content": "推理引擎的大版本升级（如 vLLM 的 Model Runner V2 代际切换）会直接改变吞吐、延迟和 GPU 成本曲线，容量规划就是把这些变化翻译成可决策的数字。核心方法：先定延迟预算（P95 首 token 时间和整体响应时间），再由目标并发反推批量大小、KV 缓存占用和显存配置；量化方案与模型尺寸的选择应服从这个预算，而不是反过来。每次推理栈升级前，用一组固定的代表性请求做基准回放，比较升级前后的吞吐/延迟/成本三条曲线，而不是只看版本说明里的峰值数字。对本地与云混合部署（如 Ollama 的本地/云双轨），还要把两侧的容量分开核算：本地受限于单机显存，云端受限于配额与预算。这项技能让「要不要跟进这次升级」从直觉判断变成有数字支撑的决策。",
+      "skillType": "analysis",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-inference",
+        "tag-observability"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-497624",
+        "draft-candidate-rss-https-www-qbitai-com-p-497425"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-model-sizing",
+        "knowledge-ws-68963f7f"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.362Z",
+      "updatedAt": "2026-09-28T03:14:26.971Z"
+    },
+    {
+      "id": "skill-ws-7796779a",
+      "title": "模型与推理引擎的支持路径",
+      "slug": "model-engine-support-paths",
+      "summary": "决定要换一个新模型之后、真正上线之前的那一段：判断引擎对它的支持到了哪一级、走哪条路最快跑起来、以及怎么确认它不只是「能出字」而是「跑得对」。",
+      "content": "一份新旗舰模型发布，从「决定要用它」到「真的在自己的服务里跑起来」，中间隔着一段常被低估的距离。Inkling 发布当天就宣布获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 支持，但它的 BF16 权重要约 2TB 显存；而 vLLM 直到十天后的 v0.26.0 才补齐它的完整支持栈。**「已支持」不是一个布尔值。**\n\n## 先判断支持深度到了哪一级\n\n把「支持」拆成四级，才问得出有用的问题：\n\n1. **能加载**：模型能跑出正确结果，但走的是参考实现路径，性能可能只有原生实现的一个零头。\n2. **有原生建模**：引擎里有这个架构的专门实现。\n3. **有性能路径**：注意力核、图捕获策略、量化路径、并行切分都到位。vLLM v0.26.0 为 Inkling 补的正是这四层——基础建模、分段 CUDA Graph、Hopper FA4 相对注意力、MTP 推测解码。\n4. **有正确性保障**：这一级最容易被跳过。Ollama v0.32.4 当天就支持了 Apple GPU 上的 Laguna，但那条 MLX 路径带着一个会降低 NVFP4 输出质量的缺陷，直到 v0.32.5 才修好。\n\n所以问「支持了吗」得到的答案没有信息量，问「到第几级」才有。**能跑起来和跑得对，是两件事。**\n\n## 三条路径，代价不同\n\n- **等原生支持。** 历史上要几周到几个月；vLLM 把 Inkling 压到十天已经算快。适合不赶时间、且要吃满性能的场景。\n- **走 Transformers 后端。** vLLM 里一个 --model-impl transformers 开关，覆盖 450 多种架构，且在 Qwen3 的单卡稠密、张量并行稠密、专家并行 MoE 三档实测上已追平甚至反超手写原生实现。这条路把「可用时间差」压到接近零——但要先确认你的架构不在例外名单里（线性注意力类当时尚未支持）。\n- **换引擎。** llama.cpp、SGLang、MLX 各有各的适配节奏，同一个模型在不同引擎上的支持级别可能差两级。换引擎的代价不在跑起来，而在于并行配置、量化格式和运维习惯全部要重来。\n\n## 上线前必须落地的三个数\n\n- **显存门槛：按权重加 KV 缓存算，不要按参数量猜。** Inkling 是 1 万亿总参数、41B 激活，但 BF16 要约 2TB、NVFP4 约 600GB——决定你能不能跑的是后面这个数。\n- **正确性基线：拿固定输入和参考实现对比，而不是看它能不能出字。** 上面那条 MLX 缺陷只有这样才发现得了——输出流畅、语气正常，就是质量掉了。视觉与结构化输出尤其如此。\n- **时间窗：承诺的开放权重日期不等于可用日期。** Kimi K3 承诺月内开放权重，但在权重真正落地之前，它对自托管团队的价值是零。\n\n## 与相邻能力的分工\n\n「旗舰模型发布解读与换代判断」回答**该不该换**；这一条接在它后面，回答**换得了吗、多久换得了、跑得对不对**。一旦模型已经在你的栈上正确跑起来，问题就变成排队、批处理与副本数，交给「推理服务容量规划」；如果目标是一台具体的机器而不是一个对外服务，那是「端侧模型部署与硬件适配」的范围。",
+      "skillType": "engineering",
+      "heatLevel": "hot",
+      "learningCost": "medium",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-485108",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+        "draft-candidate-rss-https-www-qbitai-com-p-497425",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-68963f7f",
+        "knowledge-model-sizing"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-28T12:52:47.144Z",
+      "updatedAt": "2026-09-28T03:14:27.031Z"
     },
     {
       "id": "skill-agent-design",
@@ -554,7 +414,11 @@
         "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
         "draft-candidate-rss-https-github-blog-p-98713",
         "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-        "draft-candidate-rss-https-www-qbitai-com-p-496393"
+        "draft-candidate-rss-https-www-qbitai-com-p-496393",
+        "draft-candidate-rss-https-github-blog-p-98465",
+        "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article"
       ],
       "relatedKnowledgeIds": [
         "knowledge-system-design",
@@ -564,75 +428,236 @@
       ],
       "status": "published",
       "createdAt": "2026-07-20T14:17:24.380Z",
-      "updatedAt": "2026-09-24T03:51:11.830Z"
+      "updatedAt": "2026-09-28T03:14:27.097Z"
     },
     {
-      "id": "skill-ws-7796779a",
-      "title": "模型与推理引擎的支持路径",
-      "slug": "model-engine-support-paths",
-      "summary": "决定要换一个新模型之后、真正上线之前的那一段：判断引擎对它的支持到了哪一级、走哪条路最快跑起来、以及怎么确认它不只是「能出字」而是「跑得对」。",
-      "content": "一份新旗舰模型发布，从「决定要用它」到「真的在自己的服务里跑起来」，中间隔着一段常被低估的距离。Inkling 发布当天就宣布获得 Transformers、vLLM、SGLang、llama.cpp、Unsloth 支持，但它的 BF16 权重要约 2TB 显存；而 vLLM 直到十天后的 v0.26.0 才补齐它的完整支持栈。**「已支持」不是一个布尔值。**\n\n## 先判断支持深度到了哪一级\n\n把「支持」拆成四级，才问得出有用的问题：\n\n1. **能加载**：模型能跑出正确结果，但走的是参考实现路径，性能可能只有原生实现的一个零头。\n2. **有原生建模**：引擎里有这个架构的专门实现。\n3. **有性能路径**：注意力核、图捕获策略、量化路径、并行切分都到位。vLLM v0.26.0 为 Inkling 补的正是这四层——基础建模、分段 CUDA Graph、Hopper FA4 相对注意力、MTP 推测解码。\n4. **有正确性保障**：这一级最容易被跳过。Ollama v0.32.4 当天就支持了 Apple GPU 上的 Laguna，但那条 MLX 路径带着一个会降低 NVFP4 输出质量的缺陷，直到 v0.32.5 才修好。\n\n所以问「支持了吗」得到的答案没有信息量，问「到第几级」才有。**能跑起来和跑得对，是两件事。**\n\n## 三条路径，代价不同\n\n- **等原生支持。** 历史上要几周到几个月；vLLM 把 Inkling 压到十天已经算快。适合不赶时间、且要吃满性能的场景。\n- **走 Transformers 后端。** vLLM 里一个 --model-impl transformers 开关，覆盖 450 多种架构，且在 Qwen3 的单卡稠密、张量并行稠密、专家并行 MoE 三档实测上已追平甚至反超手写原生实现。这条路把「可用时间差」压到接近零——但要先确认你的架构不在例外名单里（线性注意力类当时尚未支持）。\n- **换引擎。** llama.cpp、SGLang、MLX 各有各的适配节奏，同一个模型在不同引擎上的支持级别可能差两级。换引擎的代价不在跑起来，而在于并行配置、量化格式和运维习惯全部要重来。\n\n## 上线前必须落地的三个数\n\n- **显存门槛：按权重加 KV 缓存算，不要按参数量猜。** Inkling 是 1 万亿总参数、41B 激活，但 BF16 要约 2TB、NVFP4 约 600GB——决定你能不能跑的是后面这个数。\n- **正确性基线：拿固定输入和参考实现对比，而不是看它能不能出字。** 上面那条 MLX 缺陷只有这样才发现得了——输出流畅、语气正常，就是质量掉了。视觉与结构化输出尤其如此。\n- **时间窗：承诺的开放权重日期不等于可用日期。** Kimi K3 承诺月内开放权重，但在权重真正落地之前，它对自托管团队的价值是零。\n\n## 与相邻能力的分工\n\n「旗舰模型发布解读与换代判断」回答**该不该换**；这一条接在它后面，回答**换得了吗、多久换得了、跑得对不对**。一旦模型已经在你的栈上正确跑起来，问题就变成排队、批处理与副本数，交给「推理服务容量规划」；如果目标是一台具体的机器而不是一个对外服务，那是「端侧模型部署与硬件适配」的范围。",
+      "id": "skill-tool-integration",
+      "title": "工具集成模式",
+      "slug": "tool-integration-patterns",
+      "summary": "把 AI 系统接入 API、浏览器、文档和内部工具，让工具层吸收混乱而不是把混乱转发给模型。",
+      "content": "Ai2 的 Shippy 有一条反直觉的做法：**模型不直接拼裸 API 调用**，而是通过一层专门构建的确定性 CLI 与后端交互。分页错误、畸形查询这类隐蔽 bug 在工具层就被消化掉，而且每一层可以独立测试。\n\n这句话是这项技能的全部要义。工具层不是 API 的薄包装，它是一层要被设计的产品——**它的职责是吸收混乱，而不是把混乱转发给模型。**\n\n## 工具层要吸收混乱\n\n一个直接暴露给模型的原始接口，会把它所有的边角情况一起暴露出去：翻页、超时、部分成功、字段可空、错误码语义不一致。模型对这些的处理方式是即兴发挥，而且每次都不一样。\n\n判断一个工具封装得够不够，有个实用的检查：**把它的返回值单独拿出来看，能不能不依赖上下文就读懂发生了什么。** 如果读不懂，模型也读不懂。\n\n- 成功和失败要在结构上可区分，而不是靠文字措辞。\n- 部分成功要显式表达，不能悄悄返回半截数据。\n- 需要重试的错误和不该重试的错误要分开，否则模型只会一律重试。\n\n## 边界要窄到可以被审计\n\nMCP 在 2025 年一度被 Skills 盖过热度，原因很直白：一个能用终端和 `curl` 的智能体外壳，用更灵活的方式做到了大部分同样的事。而现在重新看 MCP 的理由不是协议变强了，是那条替代路线的代价看清楚了——**给智能体一个能上网的 shell 风险很大，而且需要足够强的模型才驱动得动。**\n\n相比之下，一件职责明确的工具更容易审计和管控，简单到笔记本上跑的小模型也能驱动。所以工具的边界宽窄不只是工程整洁问题，它同时决定了两件事：出事之后你能不能查清楚，以及这套系统能不能用小模型跑。\n\n## 无状态让工具目录可以被缓存和路由\n\nMCP 2.0 把协议核心从有状态改成了无状态，几处改动直接影响工具怎么接：\n\n1. 握手和会话 id 退休，每个请求自带协议版本与能力——**任何请求都能落到负载均衡后的任意实例**，不需要实例间共享存储。\n2. 方法名与工具名走 HTTP 头（`Mcp-Method`、`Mcp-Name`），网关不必解请求体就能做路由和鉴权。\n3. 列表响应可缓存且顺序确定，客户端可以缓存工具目录，重连之后上游的提示缓存也不会失效。\n4. 弃用有了至少 12 个月的正式窗口，升级可以排期而不是被动响应。\n\n第 4 条最容易被忽略，却最影响长期维护成本：一个没有弃用窗口的工具接口，意味着你的集成随时可能在某个周二早上失效。\n\n## 接进来之后，谁负责失败\n\n工具接入的最后一步是让失败可归因。任务失败时至少要分得出三类：**模型选错了工具**、**工具自己执行失败**、**环境异常**。三者的修复动作完全不同，混成一句「重试」就等于放弃了这条信息。\n\n## 与相邻条目的分工\n\n这一条管**单个工具怎么接得可维护**；整条链路怎么分层与交接，是「智能体工作流设计」。工具返回内容可能携带注入，那是「智能体安全与提示注入防御」。概念层面「为什么要把推理与行动分开」在「工具使用与函数调用」，而「稳定的输入输出约定为什么能提升可靠性」在「API 契约与接口边界」。",
       "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-ai-agents",
+        "tag-workflow"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-31-stateless-mcp-atom-entries",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-github-blog-p-98465",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+        "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-api-contracts",
+        "knowledge-tool-use"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.002Z",
+      "updatedAt": "2026-09-28T03:14:27.159Z"
+    },
+    {
+      "id": "skill-ws-1a0da8a9",
+      "title": "实时语音交互设计",
+      "slug": "realtime-voice-interaction-design",
+      "summary": "为语音优先的 AI 产品设计对话节奏、打断处理和失败兜底，让实时语音模型的能力落进可用的产品体验。",
+      "content": "当语音模型有了独立的代际迭代并直接驱动核心产品（如 GPT-Live 之于 ChatGPT Voice），语音就不再是文字界面的附属输入法，而是需要独立设计的交互形态。这项技能覆盖三个层面：一是对话节奏——首响应延迟的预算与填充策略（确认音、语气词）、轮次边界的判定、用户打断时的截断与恢复；二是模态分工——哪些信息适合说出来、哪些应该回落到屏幕（长列表、代码、需要核对的数字），避免把视觉信息硬塞进语音通道；三是失败兜底——识别错误、网络抖动和模型答非所问时的重述、澄清与升级路径。评估语音产品时不能只测「答对了没有」，还要测被打断后的行为和静默时的表现。",
+      "skillType": "product",
+      "heatLevel": "emerging",
+      "learningCost": "medium",
+      "tags": [
+        "tag-multimodal",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-latency-tradeoffs",
+        "knowledge-human-loop",
+        "knowledge-ws-8c99b19c"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-16T03:16:15.431Z",
+      "updatedAt": "2026-09-28T03:14:27.222Z"
+    },
+    {
+      "id": "skill-ws-b47fabd1",
+      "title": "视觉输入的组织与核验",
+      "slug": "visual-input-design-and-verification",
+      "summary": "把截图、图表和文档整理成模型真正读得懂的输入，并用可复现的手段确认它读对了——视觉任务的失败往往是安静的。",
+      "content": "Inkling 这类原生处理文本、图像与音频的模型，把「让模型看一眼」从特殊能力变成了默认能力；编码助手靠截图定位问题，浏览器代理靠看页面决定下一步。但「把图丢进去」和「把图组织好再丢进去」，结果差得很远，而这一层几乎没有人系统地讲。这项技能就管两件事：怎么把视觉信息送进模型，以及怎么确认它真的读对了。\n\n输入侧有三个决定成败的动作。第一是分辨率与裁剪：图像会被切成视觉 token，模型看到的是缩放后的版本，界面里的小号文字和细线最先糊掉——截到目标区域，比丢一张整屏截图再让模型自己找更可靠。第二是图文交错与指代：一次给多张图时用编号和文字锚点（「第 2 张图里红框那块」）代替「上图」，模型对图片顺序的记忆远不如人稳。第三是判断什么时候根本不该用原生视觉：表格数值、密集文本、需要逐字准确的内容，先做 OCR 或者直接取结构化源数据，比让模型「看」更便宜也更准；原生视觉的强项在布局、空间关系和难以结构化的现场场景。\n\n代价要按 token 估，而不是按「一张图」估——一张高分辨率截图可能吃掉数千 token，同时把首响应延迟顶上去，这两件事会直接进入上下文预算与模型选型的决策。核验则是这项技能真正的分水岭：视觉任务的失败是安静的，模型会用和答对时一模一样的自信语气，描述图里并不存在的按钮、或者把数字读错一位。三种可复现的手段：让模型先复述关键元素（位置、数量、读数）再作答，把错误暴露在中间步骤而不是结论里；准备反事实图——改掉一个数字、移走一个控件——看输出是否跟着变，不变就说明它压根没在看；读数类任务与 OCR 基线逐条比对。\n\n边界要划清楚：这项技能讲的是把视觉信息送进模型并确认它读对了，不负责设计整套评测体系（那是《模型与输出评估》要回答的），不涉及语音的轮次节奏、打断与失败兜底（那是《实时语音交互设计》），也不讲怎么训练或微调视觉模型（那是《模型微调与后训练定制》）。掌握的标志：接到「让模型看图做判断」的需求时，能先说清哪部分走原生视觉、哪部分该退回 OCR 或结构化数据；能给出这次输入的 token 量级与延迟影响；并且在上线前就备好了一组反事实图，而不是等用户报错才发现模型一直在猜。",
+      "skillType": "engineering",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-multimodal",
+        "tag-ai-agents"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+        "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+        "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-27T16:56:11.358Z",
+      "updatedAt": "2026-09-28T03:14:27.281Z"
+    },
+    {
+      "id": "skill-model-evaluation",
+      "title": "模型与输出评估",
+      "slug": "model-and-output-evaluation",
+      "summary": "在上线前把「什么算好」写成能判错的检查，并让这些检查小到每次改动都能重跑。",
+      "content": "Hume AI 为了衡量语音交互的「人性质量」，做了 40 多个语音模型、15 个以上维度、60 多项指标，底层压着 100 万条以上的人工评分。一家公司需要一百万条人工标注，才敢定义一个形容词。这就是这项技能真正的起点：难的从来不是把评测跑起来，而是在看到输出之前，先把「好」写成一句能判错的话。\n\n## 先把「好」写成能判错的话\n\n一条无法失败的标准不是标准。「回答要准确、有帮助」通不过这一关，因为任何输出都能被辩解成符合。动笔写检查之前，先固定三件事：\n\n1. **输入分布**——你要它在什么样的输入上好？是真实流量的抽样，还是顺手想到的几个例子？\n2. **什么算失败**——不只是答错。拒答、超时、格式崩坏、内容对但结构不可解析，在生产里往往比「答错」更常见。\n3. **谁来裁决**——出现分歧时由谁定，判据写在哪里。\n\n## 供应商的指标和第三方的指标不是一回事\n\nGPT-5.6 主打「单位算力智能密度」，这个指标由发布方自己定义、自己测量，没有第二家用同一把尺子量过别人。Kimi K3 拿到的第三方长时程知识工作 Elo 则不同：同一套测试被跑在所有参赛模型上，所以它可以横比。\n\n判断一个数字能不能横比，只问一句：**这把尺子有没有量过别人。**\n\n## 小而可复现，胜过大而一次性\n\n评测的价值在于第二次跑它。固定输入集、进版本库、随事故增长——改一版提示词就能立刻重跑，才叫回归；跑完写进文档、之后再没人碰的，是一次性报告。\n\nGPT-Red 把这件事推向了另一个方向：攻击方模型持续生成对抗输入、防守方迭代修复，评测集自己会长大。NVIDIA 的 Nemotron 开放数据则说明，评测数据本身正在变成可复用的公共资产——工程轨迹、工具调用失败、多步推理这些数据，过去每家自己攒，现在开始有公开来源。\n\n## 三种最常见的自欺\n\n- **只测成功路径。** 通过率 95% 的评测集，如果里面没有一条是模型本应拒答的，它证明不了任何事。\n- **用模型给模型打分却不校准。** 模型裁判可以规模化，但必须留一小批人工标注作锚，定期核对裁判本身有没有漂。\n- **把评测当成发布前的一道关卡。** RAG 评测看板这类产品存在的理由，正是评测应该是常设的仪表盘，而不是一次性的验收。\n\n## 与相邻能力的分工\n\n这一条回答的是：**上线之前，「好」是什么、怎么量。** 读别人发布公告里的数字并决定要不要换代，是「旗舰模型发布解读与换代判断」；任务跑完之后回放轨迹、定位它在哪一步为什么失败，是「智能体可观测性与评测运维」；而任务还在跑、要判断当前这一步算不算做完，是「完成判定与验收信号」。",
+      "skillType": "analysis",
+      "heatLevel": "active",
+      "learningCost": "medium",
+      "tags": [
+        "tag-observability",
+        "tag-product-strategy"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments",
+        "draft-candidate-rss-https-www-qbitai-com-p-468782",
+        "draft-candidate-rss-https-www-qbitai-com-p-469795",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-www-qbitai-com-p-472016",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-485108",
+        "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+        "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+        "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-feedback-loops",
+        "knowledge-ws-e251051e"
+      ],
+      "status": "published",
+      "createdAt": "2026-07-21T05:08:17.044Z",
+      "updatedAt": "2026-09-28T03:14:27.345Z"
+    },
+    {
+      "id": "skill-ws-2152c7f1",
+      "title": "AI 工具链选型与自建边界评估",
+      "slug": "ai-toolchain-build-vs-buy",
+      "summary": "在「自己搭一套」和「买现成的」之间划线：先判断哪一层工作是你必须拥有的，再比价格——顺序反过来就会买错。",
+      "content": "当模型这一层的价差被抹平（供应商按同样的 API 费率计费），采购决策就不再是比单价，而是**划分系统边界**。\n\n可操作的做法是把一个具体任务拆成两栏：\n\n- **模型调用**：提示词、上下文组装、模型选择、输出解析。\n- **外壳（harness）**：任务上下文的接入（工单、diff、仓库）、可执行命令的白名单、组织策略与权限、日志与评测、用量与计费控制。\n\n然后逐项问：这一项如果自己做，是不是我的竞争力？如果答案是否，它就是集成成本，而集成成本几乎总是被低估——它不随模型能力提升而变便宜。\n\n三个常见的判断失误：\n\n1. **只比 token 单价。** 价格是结论不是前提；外壳的年化人力成本通常远大于 token 支出。\n2. **低估控制面。** 命令白名单、组织策略、审计这类要求往往是合规硬约束，自建方案要从零补齐。\n3. **忽略迁移成本。** 自建外壳如果和某个供应商的接口耦合，换模型时的迁移成本要提前算进来。\n\n这项能力和「模型选型与约束匹配」是一对：后者决定用哪个模型，前者决定模型之外的那一层归谁。",
+      "skillType": "product",
       "heatLevel": "hot",
       "learningCost": "medium",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-product-strategy",
+        "tag-workflow",
+        "tag-ai-agents"
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
-        "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
-        "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
-        "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
-        "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
-        "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
-        "draft-candidate-rss-https-www-qbitai-com-p-473669",
-        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-www-qbitai-com-p-485108",
-        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0"
+        "draft-candidate-rss-https-github-blog-p-97686",
+        "draft-candidate-rss-https-github-blog-p-97467",
+        "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
+        "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-3-7-flash",
+        "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+        "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-412hbbva0nf0ayp0cjzd-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-ws-36346103",
-        "knowledge-ws-34da6116",
-        "knowledge-ws-68963f7f",
-        "knowledge-model-sizing"
+        "knowledge-system-design",
+        "knowledge-model-sizing",
+        "knowledge-api-contracts"
       ],
       "status": "published",
-      "createdAt": "2026-07-28T12:52:47.144Z",
-      "updatedAt": "2026-09-24T03:51:12.377Z"
+      "createdAt": "2026-07-27T02:42:33.891Z",
+      "updatedAt": "2026-09-28T03:14:27.419Z"
     },
     {
-      "id": "skill-retrieval-tuning",
-      "title": "检索流水线调优",
-      "slug": "retrieval-pipeline-tuning",
-      "summary": "优化分块、索引、重排选择和结果格式，让回答更有依据。",
-      "content": "检索质量差的时候，症状出现在答案上，原因却在流水线里，而且很少只有一个原因。这项技能的核心不是知道有哪些旋钮，而是**先造一把能判错的尺子，再一个一个拧**。没有尺子的调优，每次都会让某个例子变好，然后让另一批你没看的例子变差。\n\n## 先有查询集，再有调优\n\n一个查询集要有三样东西：真实读者的问法（而不是标题里的词）、每条查询对应的正确条目、以及**站内根本没有答案的负例**。然后分成两半：一半用来选参数，另一半只在参数定死之后打一次分。这个站自己的搜索评测就是这样做的：43 条查询，12 条调参、31 条测试，任何数字都不在报告它的那一半上调过。\n\n还有一条要写进报告：查询集是谁写的。写搜索的人对着语料写查询，会不自觉地写出标题能答的问题。没看过语料的人写的查询集会得更低的分，低多少不知道——**不知道就写不知道**。\n\n## 四个旋钮各自动的是哪个数\n\n- **嵌入模型**：决定成本随输入变长的曲线。这一半负载通常跑在 CPU 上，LFM2.5-Encoders 这类小编码器的卖点正是 8,192 token 的上下文在 CPU 上仍然跑得动，而不是参数量。\n- **索引与量化**：决定内存和召回。Pinterest 的数据把两个数放在同一张表里：标量量化把 HNSW 从 121GB 压到 50GB、召回几乎不掉，乘积量化压到 32GB、召回掉到 77.3%。**选哪种取决于你的召回下限，不取决于压缩率**。\n- **混合与截断**：关键词能精确命中产品名和缩写，向量能理解换了说法的问题，两者按名次融合。截断线不能用绝对分数——同一个模型给一条英文查询的最佳匹配打 0.788，给一条无关的中文查询打 0.854，没有任何一个阈值能留住前者、丢掉后者。按当次查询自己的分布截（高于均值 1.75 个标准差）才站得住。\n- **重排**：便宜的召回先取一百条，再让一个只输出分数的模型逐条打相关分。Jev 这类决策模型把这一步的价格压到了每百万输入 token 几美分。重排的收益要在你自己的查询集上量，它不是默认就有的。\n\n## 一次真实调优的账\n\n截至 2026-09-23，站内搜索从纯关键词改成混合之后，在 31 条测试查询上：找到过相关内容的查询从 33% 升到 93%，召回从 22% 升到 64%，首个相关结果的名次倒数从 0.33 升到 0.73。**代价要写在同一行**：精度从 94% 掉到 40%，返回的四条里超过一半不是读者问的；6 条无关查询仍然全部返回了东西。哪一边更重要，取决于读者是在找一个确定的名字，还是在描述一个模糊的问题——这不是评测能替你回答的。\n\n## 剂量，不是开关\n\n检索多少条交给生成，也是一个要量的参数。IBM 在八个模型上试 ALTK-Evolve：按任务只检索少量高置信条目，在 117B 的 gpt-oss-120b 上涨了 16.1 个百分点、token 只多 5%，而全量注入涨得更少、token 多花一半；745B 的 GLM-5 一分没涨。**最省的那一档和最准的那一档可以是同一档**，而「先全塞进去再说」是一个会同时输掉准确率和成本的默认值。\n\n## 调优会以特定方式自欺\n\n- 在测试那一半上调参，然后报告它的分数。\n- 只用正例评测，于是永远量不到「不该返回却返回了」。\n- 一个分数分布全平的查询，标准差不是 0 而是 1e-17，于是所有条目都「高于均值」——这个站的测试抓到过这一条。\n- 短英文缩写在小模型上会匹配到毫不相关的东西（「RAG」返回过一条红队信号），这正是关键词那一路不能拆掉的理由。\n\n## 与相邻能力的分工\n\n为什么要检索、检索改变了什么信任边界，见《检索增强生成基础》；怎么把「好」写成能判错的检查，是《模型与输出评估》的事；权重那一侧的量化归《模型量化与数值精度》，索引这一侧才在这里；流水线跑起来之后的排队、批处理与副本数，交给《推理服务容量规划》。",
-      "skillType": "analysis",
-      "heatLevel": "hot",
-      "learningCost": "high",
+      "id": "skill-scope-pilots",
+      "title": "AI 试点范围界定",
+      "slug": "ai-pilot-scoping",
+      "summary": "挑第一个用例并把它框住：一次试点的产物是一个决定，不是一个功能，所以它要小到错得起。",
+      "content": "每一次能力跃迁——GPT-5.6 那种旗舰更新、ChatGPT Work 那种能连续干几小时的产品形态、GPT-Live 那种实时语音——团队都会重新问一遍「我们要不要上」。这个问题经常变成一个跑了半年、结束时仍然没有结论的项目。\n\n**一次试点的产物是一个决定，不是一个功能。** 这句话决定了它该被怎么框住。\n\n## 先有一个能被证伪的问题\n\n「AI 能不能帮我们提效」不是问题，因为它没有能判错的答案。能拿来跑试点的问题长这样：**能不能把某一类工单的首次响应时间从 A 降到 B。**\n\n开工前的三条自检：\n\n1. **问题能被证伪**——存在一种结果会让你说「不做」。\n2. **判据是现成的**——如果要先造一套评测才能开始，那试点还没开始（判据怎么设计归「模型与输出评估」）。\n3. **失败是便宜的**——要限制的是影响半径，不是预算。\n\n## 优先挑「答案已经在你手里」的用例\n\n最便宜的试点，是那些**正确答案已经躺在历史数据里**的任务：处理过的工单、审过的合同、改过的 PR。它们自带评测集，你不需要为了判断好坏再花一轮标注成本。\n\n这也是一条实用的排序：能用历史数据判分的用例，永远排在需要人工新标注的用例前面。\n\n## 分清「令人兴奋」和「你的约束」\n\n新能力最容易骗人的地方，是它解决的问题不一定是你的问题。实时语音很惊艳，但延迟是不是你真正的瓶颈？端侧小模型很吸引人，但先咬人的到底是隐私还是成本？\n\n**先确认哪个约束先咬人，再看新能力有没有解开它**——这一步和「模型选型与约束匹配」是同一个问题的两端。\n\n## 先定结束条件，再开始\n\n一次没有结束日期的试点，最后会变成一套没有人负责的系统。开工之前先写下两件事：**什么时候看结果**，以及**看到什么就停、看到什么就扩**。\n\nOpenAI 复盘长时程模型部署时用的是同一个形状：小步放量加持续观测。试点和放量的区别只是规模，不是方法。\n\n## 失败的试点也必须交付一样东西\n\n一次得出「不做」的试点是成功的试点——**前提是它写下了理由**。没有写下来的否定结论，六个月后会被原样重新提一遍，而且没有人记得上次为什么否掉。\n\n## 与相邻能力的分工\n\n这一条回答**先做哪个用例、怎么框住它、什么时候收**。自建还是买、哪一层必须归你，是「AI 工具链选型与自建边界评估」；用多大的模型，是「模型选型与约束匹配」；判据怎么设计，是「模型与输出评估」；真正上线时人放在哪个位置，是「人在回路的审查」。",
+      "skillType": "product",
+      "heatLevel": "active",
+      "learningCost": "low",
       "tags": [
-        "tag-retrieval",
-        "tag-observability"
+        "tag-product-strategy",
+        "tag-workflow"
       ],
       "relatedTechnologyIds": [
-        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
-        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
-        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders"
+        "draft-candidate-rss-https-www-qbitai-com-p-469010",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-github-blog-p-98713",
+        "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-rag-basics",
-        "knowledge-graph-thinking"
+        "knowledge-feedback-loops",
+        "knowledge-human-loop"
       ],
       "status": "published",
-      "createdAt": "2026-08-23T16:23:54.047Z",
-      "updatedAt": "2026-09-24T06:54:32.206Z"
+      "createdAt": "2026-08-04T18:01:30.623Z",
+      "updatedAt": "2026-09-28T03:14:27.478Z"
     }
   ]
 }

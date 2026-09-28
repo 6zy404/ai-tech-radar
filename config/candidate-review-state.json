@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T03:42:50.363Z",
+  "updatedAt": "2026-09-28T02:59:12.277Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -2814,6 +2814,144 @@
       "importStatus": "converted",
       "reviewedAt": "2026-09-24T03:42:50.363Z",
       "convertedTechnologyId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:49:42.571Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-498633": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:44.963Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-498605": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.027Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-498478": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.083Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-498271": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.138Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-497613": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.195Z"
+    },
+    "candidate-rss-https-github-blog-p-99027": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.250Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-9uvorlmxkgjeofauq4py-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.304Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-uc6jk6tu7fwe5bdo8oqw-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.364Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-c1vuzh9fumul9i5wmdzf-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.417Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-kj4ekjplvth9it5yyxkm-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.479Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-oucl9autu0dg1bit6bib-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.540Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-qqk3wiolu1vsch3u0p7t-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.600Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-lh6z5e9zkr33boehqgky-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.655Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-hrmb2p18ikewl24omvcv-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.715Z"
+    },
+    "candidate-rss-https-openai-com-index-proaction": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.764Z"
+    },
+    "candidate-rss-https-openai-com-index-chatgpt-ads-expands-southeast-asia-taiwan": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-28T02:58:45.815Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-498584": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-28T02:58:45.917Z"
+    },
+    "candidate-rss-https-github-blog-p-98939": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-28T02:58:45.971Z"
+    },
+    "candidate-rss-https-www-infoq-cn-article-4gr5zt9gzoyiwf2f6lvr-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-28T02:58:46.023Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-28T02:58:46.085Z"
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-27-2026-in-llms-so-far": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-28T02:58:46.134Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-498546": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:10.180Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-498546"
+    },
+    "candidate-rss-https-www-qbitai-com-p-497624": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:10.422Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-497624"
+    },
+    "candidate-rss-https-www-qbitai-com-p-497425": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:10.654Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-497425"
+    },
+    "candidate-rss-https-www-qbitai-com-p-497382": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:10.884Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-497382"
+    },
+    "candidate-rss-https-github-blog-p-98465": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:11.109Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-github-blog-p-98465"
+    },
+    "candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:11.341Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar"
+    },
+    "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:11.579Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark"
+    },
+    "candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:11.809Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:12.041Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-28T02:59:12.277Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article"
     }
   }
 }
