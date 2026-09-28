@@ -45,6 +45,8 @@ export function RelationCheckboxItem({
   targetType,
   relationDefault
 }: RelationCheckboxItemProps) {
+  const relationType = relationDefault?.relationType ?? "related-to";
+
   return (
     <div className="relation-checkbox-item">
       <label className={checkboxClassName}>
@@ -57,9 +59,12 @@ export function RelationCheckboxItem({
         <span>{option.title}</span>
       </label>
       <div className="relation-checkbox-item__relation">
+        {/* Keyed by the saved type so a save's form reset cannot leave the
+            old one showing (see ContentWorkspaceForm). */}
         <select
+          key={relationType}
           name={`relationType:${targetType}:${option.id}`}
-          defaultValue={relationDefault?.relationType ?? "related-to"}
+          defaultValue={relationType}
           aria-label={`与「${option.title}」的关系类型`}
         >
           {relationTypeOrder.map((relationType) => (

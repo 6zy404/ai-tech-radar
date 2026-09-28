@@ -183,24 +183,28 @@ export function ContentWorkspaceForm({
           />
         </label>
 
-        {kind.attributes.map((attribute) => (
-          <label key={attribute.key} className="field">
-            <span>{attribute.label}</span>
-            <select
-              name={attribute.key}
-              defaultValue={
-                (readField(item, attribute.key) as string | undefined) ??
-                attribute.fallback
-              }
-            >
-              {attribute.options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        ))}
+        {kind.attributes.map((attribute) => {
+          const value =
+            (readField(item, attribute.key) as string | undefined) ??
+            attribute.fallback;
+
+          return (
+            <label key={attribute.key} className="field">
+              <span>{attribute.label}</span>
+              {/* Keyed by the saved value: after a save React resets the form
+                to the defaults it rendered with, and a select does not
+                follow a changed defaultValue, so without a remount it
+                shows — and the next save writes back — the old value. */}
+              <select key={value} name={attribute.key} defaultValue={value}>
+                {attribute.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          );
+        })}
       </div>
 
       <fieldset className="content-workspace-fieldset">
