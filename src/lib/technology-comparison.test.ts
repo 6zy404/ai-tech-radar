@@ -85,12 +85,11 @@ describe("validateTechnologyComparisonLlmOutput", () => {
     );
 
     expect(result.ok).toBe(true);
-    // truncateText appends "..." without shrinking the slice to make room for it,
-    // so the real cap is maxLength + 2, not maxLength exactly (pre-existing
-    // behavior inherited verbatim from editorial-enrichment-output.ts).
+    // 420 is whenToPreferA's cap in technology-comparison-output.ts, ellipsis
+    // included.
     expect(
       (result.fields as { whenToPreferA: string }).whenToPreferA.length
-    ).toBeLessThanOrEqual(422);
+    ).toBe(420);
     expect(
       (result.fields as { whenToPreferA: string }).whenToPreferA.length
     ).toBeLessThan(longText.length);

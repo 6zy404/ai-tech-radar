@@ -12,6 +12,25 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## LLM output caps now hold exactly
+
+- **`truncateText` overshot every cap by two** (2026-09-29). It kept
+  `maxLength - 1` characters and then appended `...`, so a 420-character
+  field could come back at 422, and a comparison test had been written to
+  accept that. It now keeps `maxLength - 3`, and a cap of 3 or less gets a
+  plain cut with no ellipsis. Every AI output validator (enrichment, compare, explain,
+  learning path) goes through it.
+- `editorial-enrichment.ts` had a private copy with the same bug (the 520-char
+  content preview sent to the model, the 180-char summary in the rule-based
+  `whyItMatters`); it now imports the shared one. The preview feeds the input
+  signature, so on the next regenerate an older unreviewed suggestion for a
+  draft whose body exceeds 520 characters is marked stale once.
+- `trimToLength` in `external-import.ts` looked the same but appends a single
+  `…`, so `maxLength - 1` is correct there; unchanged.
+- New `src/lib/llm/output-sanitization.test.ts` (6 tests) pins the cap and the
+  small-cap boundary; with the old line put back, it and the tightened
+  comparison test fail (6 of 18).
+
 ## Triage reads the article; blind rounds; outside questions
 
 - **Blind rounds** (2026-09-29). Every decision since the triage eval's split

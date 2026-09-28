@@ -16,6 +16,7 @@ import {
   upsertEditorialEnrichmentSuggestion
 } from "@/lib/editorial-enrichment-store";
 import { validateEditorialEnrichmentLlmOutput } from "@/lib/llm/editorial-enrichment-output";
+import { truncateText } from "@/lib/llm/output-sanitization";
 import { getLlmProviderConfig } from "@/lib/llm/provider";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
 import { buildEditorialEnrichmentPrompt } from "@/lib/llm/prompts/editorial-enrichment";
@@ -104,16 +105,6 @@ function getReviewPatch(
 
 function getDisplayText(value: { original?: string; zh?: string }): string {
   return value.zh?.trim() || value.original?.trim() || "";
-}
-
-function truncateText(value: string, maxLength: number): string {
-  const normalized = value.replace(/\s+/g, " ").trim();
-
-  if (normalized.length <= maxLength) {
-    return normalized;
-  }
-
-  return `${normalized.slice(0, maxLength - 1).trim()}...`;
 }
 
 function getInputSignature(

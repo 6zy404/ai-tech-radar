@@ -82,12 +82,24 @@ export function parseLlmJsonObject(
   return { ok: true, record, warnings };
 }
 
+const ellipsis = "...";
+
+// Collapses whitespace and caps the result at `maxLength` characters, the
+// ellipsis included. Until 2026-09-29 the slice kept `maxLength - 1` characters
+// before appending three dots, so every cap overshot by two. A cap too small to
+// hold the ellipsis gets a plain cut instead.
 export function truncateText(value: string, maxLength: number): string {
   const normalized = value.replace(/\s+/g, " ").trim();
 
-  return normalized.length > maxLength
-    ? `${normalized.slice(0, maxLength - 1).trim()}...`
-    : normalized;
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  if (maxLength <= ellipsis.length) {
+    return normalized.slice(0, Math.max(0, maxLength));
+  }
+
+  return `${normalized.slice(0, maxLength - ellipsis.length).trim()}${ellipsis}`;
 }
 
 export function sanitizeString(
