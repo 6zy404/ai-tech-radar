@@ -22,7 +22,11 @@ const publishedGemini = {
 
 function flagsFor(
   candidate: Parameters<typeof evaluateCandidateQuality>[0],
-  published = [publishedGemini]
+  // Typed by what the function accepts, not inferred from the default: a
+  // published signal with no `zh` title is valid, and one test passes one.
+  published: Parameters<typeof buildPublishedSignalFingerprints>[0] = [
+    publishedGemini
+  ]
 ) {
   return evaluateCandidateQuality(candidate, {
     publishedSignals: buildPublishedSignalFingerprints(published)

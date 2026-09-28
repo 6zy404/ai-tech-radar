@@ -23,7 +23,7 @@ function candidate(
     originalLanguage: "en",
     publishDate: "2026-07-28",
     publisherName: "Ollama",
-    normalizedType: "release",
+    normalizedType: "tool",
     tags: [],
     importStatus: "new",
     relatedCandidateIds: [],
