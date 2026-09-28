@@ -12,6 +12,45 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The network page convulsed on load; it was showing its own arithmetic
+
+- **Reported by the owner on 2026-09-28**: opening `/network` made the graph
+  thrash. It was the layout simulation, which painted each of its 150 steps.
+- **Measured on the real graph (126 nodes, 890 edges)**: nodes reversed
+  direction on **93.5%** of the frames in which they moved, travelling 7.7
+  canvas units a frame over the first 60 — about 52px on a 674px canvas, 67px
+  at most. The simulation does not converge at this density. Each step moves a
+  node up to the current "temperature", the net force on nearly every node
+  exceeds that cap, so it overshoots and is thrown back; the motion only stops
+  because the temperature is scheduled to reach zero. The page was written for
+  33 nodes and 88 edges.
+- **The steps are unchanged and no longer shown.** All 150 take about 50ms, so
+  they run to the end first (`settleForceLayout` in the new
+  `src/lib/network-layout.ts`) and the reader ends up with exactly the picture
+  they ended up with before. A test pins that: settling equals stepping 150
+  times by hand.
+- **What is shown instead is one glide**, 700ms, from the server-rendered grid
+  to the settled layout, decelerating. It is a straight line per node, so it
+  cannot reverse. It is driven by elapsed time rather than a frame count, so a
+  tab opened in the background arrives at the settled layout instead of
+  resuming half way. Under `prefers-reduced-motion` there is no glide.
+- **Verified on the real component with a stepped clock**, because the preview
+  pane was hidden and a hidden page gets no animation frames: 45 frames
+  painted, then none queued; **0 reversals in 5,270 node moves**; 0 nodes
+  outside the canvas; all 1,780 edge endpoints on a node; reduced motion
+  queued 0 frames and landed on the identical layout; dragging one node moved
+  that node and none of the other 125. **Not verified**: the glide was never
+  watched at real speed, for the same reason.
+- **The tests were proven to fire**: an easing curve that overshoots fails two
+  of the twelve. One test documents why the simulation is not painted — on a
+  dense graph it reverses on more than half its frames.
+- A first draft of `interpolateLayout` used `start + (end - start) * t`, which
+  in floating point does not land on `end` at `t = 1`. The layout a reader is
+  left with has to be the settled one exactly, so it is a weighted sum.
+- Side effect worth having: `docs/design-system.md` recorded `/network` as
+  "not reproducible between loads" and dropped it from the computed-style
+  diff. It was never random; captures were landing mid-simulation.
+
 ## Editorial round 2026-09-28: ten signals, and a dev server that was not local
 
 - **31 candidates dispositioned, every one read at its source** — 2026-09-28,

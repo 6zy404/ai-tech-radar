@@ -1529,7 +1529,12 @@ and 390, then diffing. Getting a trustworthy number took two corrections:
   settles differently each time, so two captures of _identical_ code differed
   in **964** places — the same count the injected probe produced, meaning the
   probe had proven nothing at all. With `/network` dropped from the route list
-  the noise floor is 0 across 4698 elements.
+  the noise floor is 0 across 4698 elements. **The cause was found on
+  2026-09-28 and it was not randomness**: the layout is deterministic, but its
+  150 steps were painted one per frame and a capture landed on whichever step
+  was on screen. The steps are no longer painted, so once the 700ms glide has
+  finished the page is the same on every load and can go back on the route
+  list — wait for the glide, or capture with reduced motion on.
 - **A probe must win on source order.** The first probe rule was inserted above
   `.tech-graph__node`'s own rule and was silently overridden, so the harness
   reported 0 differences and looked broken. Moved below it, the probe shows up
