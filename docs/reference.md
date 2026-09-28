@@ -399,6 +399,7 @@ npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
+npm run check:pipeline   # Windows toast when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
 npm run build:triage-dataset # rebuild the triage eval set from git history
 npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
 npm run eval:search      # score keyword / semantic / hybrid search on labelled queries (-- --grid to sweep the cutoff)

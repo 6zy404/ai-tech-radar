@@ -1019,6 +1019,14 @@ Other notes:
 - The same duplicate protections apply: an extra run on the same day skips the
   already-run import and already-sent deliveries.
 
+**Pipeline alert (`check:pipeline`, 2026-09-29).** A third daily task runs
+`npm run check:pipeline` from the main checkout at 14:30 — six and a half hours
+after the import, late enough to see both a stall and an overdue run. It shows
+a Windows toast when the dashboard's pipeline alerts fire (once per alert per
+day) and exits 1. It **must** be registered with "Run only when user is logged
+on": a task in session 0 has no desktop, so the toast would never appear. Try
+it with `npm run check:pipeline -- --test`.
+
 ### Proxy for every entry point
 
 **Since 2026-09-25 the launcher probes the proxy first.** The proxy
