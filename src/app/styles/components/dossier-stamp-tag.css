@@ -27,10 +27,26 @@
   cursor: default;
 }
 
+/* A chip the reader clicks is read as a control, not glanced at as a stamp:
+   at the stamp's 10.5px the /technologies filter rows were reported as hard
+   to read even though they cleared 4.5:1 (2026-09-29). It takes the label
+   step of the type scale and a 30px box (18px line + 5px + 5px + borders),
+   so it is also a usable touch target at 390px. Static stamps keep 10.5px.
+   Side padding is 10px, not the stamp's 12px: with 12px the eleven-chip tag
+   row measured 967px against 936px at 1440 and wrapped; with 10px it is one
+   line again. */
 .dossier-stamp-tag--interactive {
   cursor: pointer;
   border: 1px solid var(--dossier-line);
   color: var(--dossier-muted);
+  font-size: var(--fs-label);
+  line-height: 18px;
+  padding: 5px 10px;
+}
+
+.dossier-stamp-tag--interactive:not(.dossier-stamp-tag--on):hover {
+  color: var(--dossier-ink);
+  border-color: var(--dossier-stamp);
 }
 
 .dossier-stamp-tag--on {

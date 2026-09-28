@@ -98,6 +98,32 @@ For per-topic deep dives, see the `docs/` directory.
   and with a group folded; no horizontal overflow at 390. The copy was restored
   byte for byte afterwards.
 
+## Clickable filter chips grow from 10.5px to the label size
+
+- **Reported 2026-09-29**: the filter chips under the `/technologies` search
+  box were hard to read. Contrast was not the problem (5.87:1 unselected,
+  6.15:1 selected, light); the text was 10.5px, the stamp size, on a control
+  the reader has to scan and click.
+- **Only the clickable variant changed** (`.dossier-stamp-tag--interactive`,
+  rendered by `DossierCategoryChips` on `/technologies` and `/network`, and by
+  the example-question buttons on `/ask`). Static stamps on cards and in the
+  `/network` side panel stay 10.5px.
+- **13px (`--fs-label`), an 18px line, 5px/10px padding**: every chip is
+  30px tall instead of 22px. The side padding dropped from 12px to 10px
+  because at 12px the eleven-chip tag row measured 967px against 936px at
+  1440 and wrapped; at 10px it is 923px, one line, with 13px to spare — the
+  next tag added to the pool will wrap it, which is the flex-wrap doing its
+  job, not a regression.
+- **A hover state was added** (there was none): an unselected chip takes the
+  ink colour and a stamp-red border; a selected chip does not change.
+- **Measured** — row counts per chip group identical before and after at 1440
+  and 390 on all three pages. `/technologies` filter block 82 → 106px at 1440,
+  232 → 296px at 390; `/network` and `/ask` rows +8px. Contrast, unselected /
+  selected / hovered: light 5.87 / 6.15 / 13.32, dark 5.42 / 6.02 / 11.53.
+- Looked at top to bottom at 1440 and 390, light and dark, on all three pages
+  (headless Chrome over CDP, tiled full-page captures — the browser pane would
+  not paint scrolled content). No horizontal overflow at 390.
+
 ## The topic hub's relation stamps stop breaking at 390px
 
 - **Seen 2026-09-29** on `/topics/tag-knowledge-graph` at 390px: in the
