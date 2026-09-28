@@ -102,9 +102,10 @@ The product is split into two subsystems:
   `/network`, the 按话题 view, and `/search` each show in fragments for one
   topic tag: the tag's published technology signals, tagged skills, tagged
   knowledge, and a "图谱关联" section listing its direct content-graph
-  neighbors with relation-type labels. Reached via a "查看专题" link on
-  `FollowableTagList` chips (technology/skill/knowledge detail pages) or from
-  the `/topics` index (`getTopicIndex`, same file) — no global nav entry. Pure derived view (`getTopicHub` in
+  neighbors with relation-type labels. Reached via 查看专题 links on
+  `FollowableTagList` chips (technology/skill/knowledge detail pages), the
+  `/topics` index (`getTopicIndex`, same file), or the 按话题 view's
+  查看全部话题 link — no global nav entry. Pure derived view (`getTopicHub` in
   `src/lib/topic-hub.ts`), no new persisted data or AI calls.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two

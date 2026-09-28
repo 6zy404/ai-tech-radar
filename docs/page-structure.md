@@ -356,6 +356,8 @@ Workspace deployment boundary:
     published signal are shown; published-signal data only — no news
     fast-lane items, no internal fields; guided empty state when no
     published signals exist yet
+    — opens with a 查看全部话题 link to `/topics` above the first topic
+    (omitted in the empty state)
   - 我关注的 (`?view=followed`, `MyRadarContent`): readers follow topic tags
     via toggle chips; follows live only in browser localStorage (no
     accounts, no server-side profile); aggregates published technologies
@@ -586,11 +588,14 @@ Workspace deployment boundary:
   - built from the `/skills` list skeleton (label header, one-line lede,
     caption row of counts, two-column grid) by reusing its classes; pure
     derived view (`getTopicIndex` in `src/lib/topic-hub.ts`), no internal
-    fields; not in the nav, and nothing links to it yet (2026-09-29)
+    fields; not in the nav — linked from each topic hub's header and from
+    the 按话题 view
 - `/topics/[tagId]`
   - user-facing topic hub: a drill-down destination, not a global nav entry
     — reached via "查看专题" links on `FollowableTagList` chips
     (technology/skill/knowledge detail pages) or from `/topics`
+  - the header's action slot carries a 全部话题 link to `/topics` (same
+    `action-link` as 回到本周回顾 on the per-week review)
   - merges what `/network`, the 按话题 view, and `/search` each show in
     fragments for one topic tag into a single page: the tag's published
     technology signals (newest first), tagged skills, tagged knowledge, and
