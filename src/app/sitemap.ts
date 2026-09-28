@@ -45,6 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     { url: absolute("/skills"), changeFrequency: "weekly", priority: 0.7 },
     { url: absolute("/knowledge"), changeFrequency: "weekly", priority: 0.7 },
+    { url: absolute("/topics"), changeFrequency: "weekly", priority: 0.6 },
     { url: absolute("/network"), changeFrequency: "weekly", priority: 0.5 },
     { url: absolute("/ask"), changeFrequency: "monthly", priority: 0.5 }
   ];
