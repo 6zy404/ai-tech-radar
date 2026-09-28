@@ -101,8 +101,9 @@ other. What the windows **share** is the problem, and these rules cover it:
 - **Ports**: port 3000 is the live site. Start a dev server with
   `preview_start` (config `dev`, `autoPort`) and use the port it returns.
   Production-build controls (`css:diff`, `next start -p …`) take a port from
-  the window's own range: 主控 3100–3199, second window 3200–3299, third
-  3300–3399. Check the port is free before starting.
+  the window's own range: the CSS window 3100–3199 (it already serves a
+  control build on 3101), 主控 3200–3299, the third window 3300–3399. Check
+  the port is free before starting.
 - **Shared docs**: every branch adds its own dated `CHANGELOG.md` entry (on a
   merge conflict keep both entries). Feature windows do **not** edit
   `docs/next-task.md`; they list what should change there in their final
