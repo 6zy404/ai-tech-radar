@@ -1,0 +1,6 @@
+/* components/workspace-breadcrumbs: every rule whose subject is this component.
+   Gathered 2026-09-28 from 03-workspace-shell.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.workspace-breadcrumbs__separator {
+  color: #64748b;
+}

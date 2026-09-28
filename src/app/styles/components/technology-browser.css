@@ -1,0 +1,21 @@
+/* components/technology-browser: every rule whose subject is this component.
+   Gathered 2026-09-28 from 18-ui-refinement.css, 23-technology-list.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.technology-list-page .technology-browser__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 16px;
+  border: 1px solid rgba(8, 127, 115, 0.11);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .technology-browser__toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

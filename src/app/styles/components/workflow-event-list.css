@@ -1,0 +1,31 @@
+/* components/workflow-event-list: every rule whose subject is this component.
+   Gathered 2026-09-28 from 15-workspace-operations.css, 20-workspace-delivery-console.css, 22-workspace-schedule-console.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.workflow-event-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.workflow-event-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+  border-top: 1px solid var(--workspace-line);
+  padding-top: 0.75rem;
+}
+
+.workflow-event-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.delivery-audit-panel .workflow-event-list {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+.workspace-schedule-console .schedule-support-panel .workflow-event-list {
+  margin-top: 12px;
+  box-shadow: none;
+}

@@ -1,0 +1,35 @@
+/* components/source-form: every rule whose subject is this component.
+   Gathered 2026-09-28 from 12-workspace-sources.css, 18-ui-refinement.css, 19-design-system-v0.css, 22-workspace-schedule-console.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.source-form {
+  display: grid;
+  gap: 18px;
+}
+
+.source-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.source-form__wide {
+  grid-column: 1 / -1;
+}
+
+.source-form__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .source-form__wide {
+    grid-column: auto;
+  }
+}
+
+.workspace-schedule-console .schedule-row__edit .source-form {
+  margin-top: 10px;
+}

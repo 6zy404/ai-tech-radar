@@ -1,0 +1,22 @@
+/* components/action-link: every rule whose subject is this component.
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 42-dossier-v4-digest-search.css, 46-dossier-dark.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-underline-offset: 0.18em;
+}
+
+.dossier .action-link {
+  color: var(--dossier-accent);
+}
+
+/* /search: the GET-form submit button showed the UA's light
+     ButtonFace; news tag pills kept a light-mode teal tint. */
+:root[data-theme="dark"] .dossier .search-form button.action-link {
+  background: transparent;
+}

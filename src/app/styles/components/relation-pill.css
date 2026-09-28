@@ -1,0 +1,11 @@
+/* components/relation-pill: every rule whose subject is this component.
+   Gathered 2026-09-28 from 07-detail-layout.css, 13-article-layout.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.relation-list__item .relation-pill {
+  flex: 0 0 auto;
+}
+
+.user-related-section .relation-pill {
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--accent);
+}

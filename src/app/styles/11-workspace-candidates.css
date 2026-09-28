@@ -24,29 +24,10 @@
   gap: 20px;
 }
 
-.candidate-detail-hero {
-  display: grid;
-  gap: 14px;
-  padding: 28px;
-}
-
 .candidate-detail-hero h1 {
   max-width: 24ch;
   overflow-wrap: anywhere;
   text-wrap: balance;
-}
-
-.candidate-detail-hero__summary {
-  max-width: 72ch;
-  margin: 0;
-  color: var(--muted);
-  font-size: 1.05rem;
-}
-
-.candidate-detail-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .candidate-detail-columns {
@@ -90,33 +71,6 @@
   display: grid;
   gap: 18px;
   min-width: 0;
-}
-
-.candidate-review-actions {
-  display: grid;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid rgba(203, 213, 225, 0.74);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.candidate-review-actions__buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.candidate-review-actions__meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 24px;
-}
-
-.candidate-review-actions__hint {
-  color: var(--muted);
-  font-size: 0.9rem;
 }
 
 .candidate-duplicate-list {

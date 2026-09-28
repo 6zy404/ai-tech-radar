@@ -1,0 +1,89 @@
+/* components/dossier-scope: every rule whose subject is this component.
+   Gathered 2026-09-28 from 38-dossier-v0-components.css, 39-dossier-v1-technologies.css, 46-dossier-dark.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+/* ============================================================
+   Dossier design system v0 -- STAGED, not applied to any live page.
+   Component tokens/classes for the "编辑桌" direction approved during
+   the 2026-07-14 design session (docs/design-system.md -> "Dossier
+   direction (staged)"). Everything here is scoped under .dossier so it
+   cannot affect any existing page; no page component imports these
+   classes yet. Prefixed --dossier- to avoid any collision with the
+   live --bg/--accent/etc. tokens above.
+   ============================================================ */
+.dossier {
+  --dossier-ground: #e6e7de;
+  --dossier-surface: #f8f6ee;
+  --dossier-line: #c9c5b2;
+  --dossier-ink: #2b2a22;
+  /* Darkened from #6d6b5b (4.32:1 on --dossier-ground) for 4.5:1
+     small-text contrast (2026-07-16 contrast round). */
+  --dossier-muted: #62604f;
+  --dossier-accent: #34524a;
+  --dossier-stamp: #8a3b2a;
+  background: var(--dossier-ground);
+  background-image:
+    linear-gradient(var(--dossier-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dossier-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: -1px -1px;
+  color: var(--dossier-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  padding: 26px clamp(16px, 4vw, 40px) 64px;
+  border: 1px solid var(--dossier-line);
+}
+
+@media (max-width: 640px) {
+  .dossier {
+    padding: 18px 14px 48px;
+  }
+}
+
+/* ============================================================
+   Dossier direction -- dark mode (2026-07-15; made switchable 2026-09-21).
+   It started as `@media (prefers-color-scheme: dark)` with no toggle. It
+   is now keyed off `:root[data-theme="dark"]`, and an inline script in
+   layout.tsx resolves that attribute before first paint: a stored choice
+   wins, otherwise the OS preference does. So the default behaviour is
+   unchanged for a reader who never touches the control -- what changed is
+   that the control exists.
+   Keying off one attribute rather than a media query is what avoids
+   duplicating these ~290 lines: with a media query you need a second copy
+   for the explicit choice. The cost is that dark mode now needs JS. It is
+   one inline statement that runs before paint, and it degrades to light
+   rather than to something broken.
+   Almost every rule above already routes color through the seven
+   --dossier-* custom properties, so redeclaring them here repaints the
+   whole dossier scope -- custom properties resolve at paint time, so every
+   earlier ".dossier ..." rule picks this up automatically.
+   Two things live *outside* .dossier and need their own dark variant so
+   dark mode doesn't look half-finished: TopNav (rendered once in
+   layout.tsx, a sibling of every page's content, shared with the Internal
+   Workspace too) and the body background gradient, visible as light
+   gutters beside .main-content on wide viewports. The Internal Workspace's
+   own console styling is untouched -- it uses its own --workspace-* tokens.
+   ============================================================ */
+:root[data-theme="dark"] .dossier {
+  --dossier-ground: #1e1f1a;
+  --dossier-surface: #2a2b23;
+  --dossier-line: #46473a;
+  --dossier-ink: #e9e7dc;
+  --dossier-muted: #a3a08c;
+  --dossier-accent: #6fa090;
+  /* #c97a62 measured 4.39:1 on --dossier-surface, just under the 4.5
+       small-text bar; lightened one step for the whole dark scope. */
+  --dossier-stamp: #d28a73;
+  /* Generic root tokens still referenced by pre-dossier public-page
+       rules (var(--muted) meta lines, var(--surface-strong) rows, ...).
+       Redeclared here, scoped to .dossier, so public pages flip while
+       the Internal Workspace (non-dossier) keeps its light design. */
+  --surface: #2a2b23;
+  --surface-strong: #2a2b23;
+  --text: #e9e7dc;
+  --muted: #a3a08c;
+  --line: #46473a;
+  --accent: #6fa090;
+  --accent-soft: rgba(111, 160, 144, 0.16);
+  --user-ink: #e9e7dc;
+  --user-accent: #6fa090;
+  --label-amber: #d9a44a;
+}

@@ -1,38 +1,8 @@
+/* Stays here, not in components/workspace-page-shell.css: it would move past a rule it can tie with (display in ".workspace-shell" vs display in ".workspace-shell" (18-ui-refinement.css)). */
+
 .workspace-shell {
   display: grid;
   gap: 22px;
-}
-
-.workspace-shell::before {
-  content: "";
-  display: block;
-  width: 72px;
-  height: 3px;
-  border-radius: 999px;
-  background: var(--workspace-accent);
-}
-
-.workspace-page-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 20px;
-  padding: 22px;
-  border: 1px solid rgba(203, 213, 225, 0.92);
-  border-left: 5px solid var(--workspace-accent);
-  border-radius: 20px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(248, 250, 252, 0.98),
-      rgba(241, 245, 249, 0.92)
-    ),
-    var(--workspace-surface);
-  box-shadow: var(--workspace-shadow);
-}
-
-.workspace-page-header__copy {
-  min-width: 0;
 }
 
 .workspace-page-header h1 {
@@ -41,12 +11,6 @@
   font-size: clamp(2rem, 3vw, 3.25rem);
   line-height: 1.08;
   letter-spacing: -0.035em;
-}
-
-.workspace-page-header__description {
-  max-width: 820px;
-  margin: 12px 0 0;
-  color: #64748b;
 }
 
 .workspace-page-header__actions,
@@ -61,17 +25,6 @@
   color: var(--workspace-accent);
 }
 
-.workspace-security-note {
-  margin-top: -6px;
-  padding: 12px 14px;
-  border: 1px dashed rgba(180, 83, 9, 0.35);
-  border-radius: 16px;
-  background: rgba(255, 251, 235, 0.72);
-  color: #78350f;
-  font-size: 0.88rem;
-  line-height: 1.55;
-}
-
 .workspace-security-note strong {
   color: #7c2d12;
 }
@@ -82,50 +35,6 @@
   background: rgba(254, 243, 199, 0.88);
   color: #7c2d12;
   font-size: 0.8rem;
-}
-
-.workspace-nav {
-  padding: 10px;
-  border: 1px solid rgba(203, 213, 225, 0.92);
-  border-radius: 18px;
-  background: rgba(248, 250, 252, 0.82);
-  box-shadow: var(--workspace-shadow);
-}
-
-.workspace-nav__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.workspace-nav__link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  color: #475569;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.workspace-nav__link:hover {
-  background: rgba(226, 232, 240, 0.9);
-  color: #0f172a;
-}
-
-.workspace-nav__link--active {
-  background: #0f172a;
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
-}
-
-.workspace-nav__link--active:hover {
-  background: #1e293b;
-  color: #fff;
 }
 
 .workspace-breadcrumbs ol {
@@ -155,10 +64,6 @@
   text-decoration: underline;
   text-decoration-color: rgba(51, 65, 85, 0.22);
   text-underline-offset: 0.18em;
-}
-
-.workspace-breadcrumbs__separator {
-  color: #64748b;
 }
 
 .workspace-dashboard__intro h2 {

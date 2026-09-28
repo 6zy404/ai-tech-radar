@@ -1,0 +1,30 @@
+/* components/eyebrow: every rule whose subject is this component.
+   Gathered 2026-09-28 from 04-page-headers.css, 26-skills-library.css, 40-dossier-v2-skills-knowledge.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Written for the eyebrow above the group title. The group's description is a
+   bare <p> in the same container, so it was picking these up too and rendering
+   at weight 850 in a stamp colour — louder than the 700-weight title beside
+   it, which is the same inversion the digest's 适合 line had. Scoped to the
+   eyebrow; the description reads as body copy below. */
+.skills-library-section__header .eyebrow {
+  margin: 0 0 6px;
+  color: #7a6335;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.dossier .skills-library-section__header .eyebrow {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}

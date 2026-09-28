@@ -1,0 +1,72 @@
+/* components/technology-draft-detail: every rule whose subject is this component.
+   Gathered 2026-09-28 from 07-detail-layout.css, 13-article-layout.css, 18-ui-refinement.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.relation-list {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.relation-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  min-width: 0;
+}
+
+.relation-list__text {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.relation-list__action {
+  justify-self: start;
+  color: var(--skills-accent, var(--color-accent));
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.relation-list__action:hover {
+  text-decoration: underline;
+}
+
+.relation-list__description {
+  margin: -4px 0 14px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.translation-note {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 14px;
+  background: rgba(15, 118, 110, 0.08);
+  color: var(--muted);
+}
+
+.translation-note--warning {
+  border-color: rgba(161, 98, 7, 0.2);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.user-related-section .relation-list__item {
+  border-color: rgba(15, 118, 110, 0.13);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 900px) {
+  .relation-list__item {
+    flex-direction: column;
+  }
+}

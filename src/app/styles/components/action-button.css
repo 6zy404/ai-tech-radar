@@ -1,0 +1,137 @@
+/* components/action-button: every rule whose subject is this component.
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 16-workspace-digest-editor.css, 19-design-system-v0.css, 20-workspace-delivery-console.css, 21-workspace-sources-console.css, 22-workspace-schedule-console.css, 33-search-ask.css, 39-dossier-v1-technologies.css, 46-dossier-dark.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.action-button {
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  background: rgba(15, 118, 110, 0.1);
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+
+.action-button--subtle {
+  border-color: rgba(31, 41, 51, 0.1);
+  background: rgba(31, 41, 51, 0.04);
+  color: var(--muted);
+}
+
+.action-button--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.action-button--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.18);
+}
+
+.action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.digest-item-actions .action-button {
+  padding: 8px 10px;
+  font-size: 0.82rem;
+}
+
+.action-button--primary,
+.action-button--accent {
+  background: var(--ui-teal);
+  box-shadow: none;
+}
+
+.workspace-delivery-console .delivery-channel-row__actions .action-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+}
+
+.workspace-delivery-console .delivery-run-actions .action-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+}
+
+.workspace-sources-console .workspace-page-header__actions .action-button {
+  white-space: nowrap;
+}
+
+.workspace-sources-console .source-batch-panel .action-button--accent {
+  border-color: rgba(15, 118, 110, 0.28);
+  background: #ffffff;
+  color: var(--ui-teal-strong);
+  box-shadow: none;
+}
+
+.workspace-sources-console .source-batch-panel .action-button--accent:hover {
+  background: rgba(240, 253, 250, 0.9);
+}
+
+.workspace-sources-console .source-actions--compact .action-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+}
+
+.workspace-schedule-console .schedule-row__actions .action-button,
+.workspace-schedule-console
+  .schedule-support-panel
+  .delivery-run-actions
+  .action-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+}
+
+.workspace-schedule-console .schedule-row__actions .action-button--accent,
+.workspace-schedule-console
+  .schedule-support-panel
+  .delivery-run-actions
+  .action-button--accent {
+  border-color: rgba(20, 184, 166, 0.26);
+  background: #ffffff;
+  color: var(--ui-teal-strong);
+  box-shadow: none;
+}
+
+/* The submit control was an `.action-link`, i.e. link styling on a
+   `<button>`, so the browser's default button chrome came through: a
+   square, hairline-bordered box 12px shorter than the pill beside it —
+   the only control on the site that looked unstyled. It now reuses the
+   same filled button as the home hero's 阅读今日简报; the height is
+   pinned to the field's so the pair reads as one row. */
+.search-form .action-button {
+  align-self: stretch;
+  min-height: 0;
+  padding-inline: 22px;
+}
+
+.dossier .action-button--accent {
+  background: var(--dossier-stamp);
+  border-color: var(--dossier-stamp);
+  color: var(--dossier-surface);
+}
+
+.dossier .action-button--accent:hover {
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+}
+
+/* Primary action buttons keep white-on-accent copy; the dark accent
+     (#6fa090) is too light a ground for white text. */
+:root[data-theme="dark"] .dossier .action-button--primary {
+  color: #1e1f1a;
+}

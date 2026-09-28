@@ -1,52 +1,3 @@
-/* ============================================================
-   Dossier direction -- dark mode (2026-07-15; made switchable 2026-09-21).
-   It started as `@media (prefers-color-scheme: dark)` with no toggle. It
-   is now keyed off `:root[data-theme="dark"]`, and an inline script in
-   layout.tsx resolves that attribute before first paint: a stored choice
-   wins, otherwise the OS preference does. So the default behaviour is
-   unchanged for a reader who never touches the control -- what changed is
-   that the control exists.
-   Keying off one attribute rather than a media query is what avoids
-   duplicating these ~290 lines: with a media query you need a second copy
-   for the explicit choice. The cost is that dark mode now needs JS. It is
-   one inline statement that runs before paint, and it degrades to light
-   rather than to something broken.
-   Almost every rule above already routes color through the seven
-   --dossier-* custom properties, so redeclaring them here repaints the
-   whole dossier scope -- custom properties resolve at paint time, so every
-   earlier ".dossier ..." rule picks this up automatically.
-   Two things live *outside* .dossier and need their own dark variant so
-   dark mode doesn't look half-finished: TopNav (rendered once in
-   layout.tsx, a sibling of every page's content, shared with the Internal
-   Workspace too) and the body background gradient, visible as light
-   gutters beside .main-content on wide viewports. The Internal Workspace's
-   own console styling is untouched -- it uses its own --workspace-* tokens.
-   ============================================================ */
-:root[data-theme="dark"] .dossier {
-  --dossier-ground: #1e1f1a;
-  --dossier-surface: #2a2b23;
-  --dossier-line: #46473a;
-  --dossier-ink: #e9e7dc;
-  --dossier-muted: #a3a08c;
-  --dossier-accent: #6fa090;
-  /* #c97a62 measured 4.39:1 on --dossier-surface, just under the 4.5
-       small-text bar; lightened one step for the whole dark scope. */
-  --dossier-stamp: #d28a73;
-  /* Generic root tokens still referenced by pre-dossier public-page
-       rules (var(--muted) meta lines, var(--surface-strong) rows, ...).
-       Redeclared here, scoped to .dossier, so public pages flip while
-       the Internal Workspace (non-dossier) keeps its light design. */
-  --surface: #2a2b23;
-  --surface-strong: #2a2b23;
-  --text: #e9e7dc;
-  --muted: #a3a08c;
-  --line: #46473a;
-  --accent: #6fa090;
-  --accent-soft: rgba(111, 160, 144, 0.16);
-  --user-ink: #e9e7dc;
-  --user-accent: #6fa090;
-  --label-amber: #d9a44a;
-}
 :root[data-theme="dark"] body {
   background:
     radial-gradient(
@@ -78,11 +29,6 @@
   .user-article-layout__aside
   .user-reference-panel {
   background: var(--dossier-surface);
-}
-/* Primary action buttons keep white-on-accent copy; the dark accent
-     (#6fa090) is too light a ground for white text. */
-:root[data-theme="dark"] .dossier .action-button--primary {
-  color: #1e1f1a;
 }
 :root[data-theme="dark"] .dossier .daily-digest-meta-strip span {
   color: var(--dossier-muted);
@@ -133,22 +79,7 @@
 :root[data-theme="dark"] .dossier .skill-detail-related-card__note {
   background: rgba(111, 160, 144, 0.1);
 }
-/* /search: the GET-form submit button showed the UA's light
-     ButtonFace; news tag pills kept a light-mode teal tint. */
-:root[data-theme="dark"] .dossier .search-form button.action-link {
-  background: transparent;
-}
 :root[data-theme="dark"] .dossier .news-card__tags span {
   background: rgba(111, 160, 144, 0.14);
   color: var(--dossier-ink);
-}
-/* The Internal Workspace keeps its light design by design; in dark
-     mode the (unconditionally dark) body used to show through behind
-     its unpanelled chrome — breadcrumbs, section headings, eyebrows —
-     and behind its translucent light panels. Give the workspace shell
-     an opaque light board so the light design holds together. */
-:root[data-theme="dark"] .workspace-shell {
-  padding: 22px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #f7f4ed 0%, #f0ebe2 100%);
 }

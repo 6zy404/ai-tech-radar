@@ -1,19 +1,20 @@
 /* components/content-network-graph: every rule whose subject is this component.
    Gathered 2026-09-28 from 30-network.css, 45-dossier-v7-network.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 /* Whole-network overview graph (/network) */
 .content-network {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
+
 .content-network__controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
 }
+
 /* `/technologies` had exactly this problem — a search field and filter chips
    floating between the hero card and the content card, so the page read as
    hero / gap / content — and the first sweep collected them into one panel.
@@ -25,12 +26,14 @@
   border-radius: 2px;
   background: var(--dossier-surface);
 }
+
 .content-network__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
   gap: 24px;
   align-items: start;
 }
+
 .content-network__canvas {
   position: relative;
   width: 100%;
@@ -42,6 +45,7 @@
   box-shadow: var(--shadow-card);
   overflow: hidden;
 }
+
 .content-network__lines {
   position: absolute;
   inset: 0;
@@ -49,6 +53,7 @@
   height: 100%;
   overflow: visible;
 }
+
 /* Edges rest at low opacity by default (789 crossing pairs measured on
    the real 33-node/88-edge graph -- always-visible edges read as a
    busy web). A selected node's own edges pop to full opacity in the
@@ -61,19 +66,23 @@
   opacity: 0.35;
   transition: opacity 140ms ease;
 }
+
 .content-network__edge--active {
   stroke: rgba(8, 127, 115, 0.65);
   stroke-width: 2;
   opacity: 1;
 }
+
 .content-network__edge--dim {
   opacity: 0.15;
 }
+
 .content-network__edge-hit {
   stroke: transparent;
   stroke-width: 10;
   cursor: pointer;
 }
+
 .content-network__edge-label {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -86,6 +95,7 @@
   white-space: nowrap;
   pointer-events: none;
 }
+
 /* Nodes render as a small always-visible dot; the title label only
    appears for a hovered/selected node or an active search match (see
    ContentNetworkGraph). At 33+ nodes, always-on text labels overlapped
@@ -107,9 +117,11 @@
   touch-action: none;
   transition: opacity 140ms ease;
 }
+
 .content-network__node:active {
   cursor: grabbing;
 }
+
 .content-network__node-dot {
   width: 11px;
   height: 11px;
@@ -121,6 +133,13 @@
     height 140ms ease,
     box-shadow 140ms ease;
 }
+
+/* The dot is sized in pixels while the layout spaces nodes in canvas units, so
+   the same graph gets tighter as the canvas shrinks: 674px wide on desktop
+   against 320px here. Overlap is therefore a pixel problem, and shrinking the
+   pixels is the direct answer — measured 2026-08-16, 12 overlapping dot pairs
+   → 1 at 390px, with desktop untouched (still 11px, still 0). The 28×28 hit
+   area is deliberately not shrunk with it. */
 @media (max-width: 640px) {
   .content-network__node-dot {
     width: 8px;
@@ -128,15 +147,19 @@
     border-width: 1.5px;
   }
 }
+
 .content-network__node--technology .content-network__node-dot {
   background: #12786c;
 }
+
 .content-network__node--skill .content-network__node-dot {
   background: #a8711f;
 }
+
 .content-network__node--knowledge .content-network__node-dot {
   background: #2f6ea3;
 }
+
 .content-network__node:hover .content-network__node-dot,
 .content-network__node:focus-visible .content-network__node-dot,
 .content-network__node--selected .content-network__node-dot {
@@ -146,9 +169,11 @@
     0 0 0 4px rgba(15, 23, 42, 0.08),
     0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
 .content-network__node--selected {
   z-index: 3;
 }
+
 .content-network__node-label {
   position: absolute;
   left: 50%;
@@ -170,9 +195,11 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   z-index: 4;
 }
+
 .content-network__node--dim {
   opacity: 0.28;
 }
+
 .content-network__panel {
   position: sticky;
   top: 96px;
@@ -182,12 +209,14 @@
   background: #ffffff;
   box-shadow: var(--shadow-card);
 }
+
 .content-network__panel-hint {
   margin: 0 0 16px;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.6;
 }
+
 .content-network__legend {
   display: grid;
   gap: 8px;
@@ -195,12 +224,14 @@
   padding: 0;
   list-style: none;
 }
+
 .content-network__legend-item {
   position: relative;
   padding-left: 20px;
   color: var(--muted);
   font-size: 0.86rem;
 }
+
 .content-network__legend-item::before {
   content: "";
   position: absolute;
@@ -211,15 +242,19 @@
   border-radius: 999px;
   transform: translateY(-50%);
 }
+
 .content-network__legend-item--technology::before {
   background: #12786c;
 }
+
 .content-network__legend-item--skill::before {
   background: #a8711f;
 }
+
 .content-network__legend-item--knowledge::before {
   background: #2f6ea3;
 }
+
 .content-network__legend-heading {
   margin: 16px 0 8px;
   padding-top: 14px;
@@ -230,21 +265,25 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
 .content-network__relation-legend {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
+
 .content-network__panel-count {
   margin: 0;
   color: var(--muted);
   font-size: var(--fs-label);
 }
+
 .content-network__panel-group {
   margin-top: 16px;
   padding-top: 14px;
   border-top: 1px dashed rgba(100, 116, 139, 0.24);
 }
+
 .content-network__panel-list {
   display: grid;
   gap: 10px;
@@ -252,6 +291,12 @@
   padding: 0;
   list-style: none;
 }
+
+/* A well-connected node has forty-odd rows. On a desktop layout the panel is
+   sticky beside the graph, so it is capped at the space below its sticky
+   offset and scrolls inside itself — otherwise its lower half could only be
+   reached by scrolling the graph out of view. Below 860px the panel is in the
+   page flow and scrolls with it. */
 @media (min-width: 861px) {
   .content-network__panel {
     max-height: calc(100vh - 96px - 24px);
@@ -260,11 +305,13 @@
     scrollbar-width: thin;
   }
 }
+
 .content-network__panel-empty {
   margin: 12px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
 }
+
 @media (max-width: 860px) {
   .content-network__body {
     grid-template-columns: 1fr;
@@ -274,16 +321,19 @@
     position: static;
   }
 }
+
 .dossier .content-network__canvas {
   background: var(--dossier-surface);
   border: 1px solid var(--dossier-line);
   box-shadow: none;
 }
+
 .dossier .content-network__panel {
   background: var(--dossier-surface);
   border: 1px solid var(--dossier-line);
   box-shadow: none;
 }
+
 .dossier .content-network__panel-hint,
 .dossier .content-network__panel-count,
 .dossier .content-network__panel-empty,
@@ -291,27 +341,34 @@
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
+
 .dossier .content-network__legend-heading {
   color: var(--dossier-stamp);
   border-top-color: var(--dossier-line);
 }
+
 .dossier .content-network__panel-group {
   border-top-color: var(--dossier-line);
 }
+
 .dossier .content-network__edge {
   stroke: var(--dossier-line);
 }
+
 .dossier .content-network__edge--active {
   stroke: var(--dossier-stamp);
 }
+
 .dossier .content-network__edge-label {
   background: var(--dossier-ink);
   color: var(--dossier-surface);
   font-family: ui-monospace, monospace;
 }
+
 .dossier .content-network__node-dot {
   border-color: var(--dossier-surface);
 }
+
 .dossier .content-network__node-label {
   background: var(--dossier-surface);
   border-color: var(--dossier-line);

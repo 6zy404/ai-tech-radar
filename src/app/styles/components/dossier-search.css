@@ -1,0 +1,21 @@
+/* components/dossier-search: every rule whose subject is this component.
+   Gathered 2026-09-28 from 38-dossier-v0-components.css, 42-dossier-v4-digest-search.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.dossier-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+.dossier-search:focus-within {
+  border-color: var(--dossier-accent);
+}
+
+/* -- search -- */
+.dossier .search-form .dossier-search {
+  flex: 1 1 260px;
+}

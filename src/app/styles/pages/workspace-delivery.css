@@ -1,7 +1,6 @@
 /* pages/workspace-delivery: every rule whose subject is this component.
    Gathered 2026-09-28 from 19-design-system-v0.css, 20-workspace-delivery-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .delivery-channel-table {
   display: grid;
   overflow: hidden;

@@ -1,0 +1,94 @@
+/* components/candidate-card: every rule whose subject is this component.
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.candidate-grid .candidate-card {
+  height: 100%;
+}
+
+.candidate-card {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow);
+}
+
+.workspace-shell .workspace-record-card .candidate-card__meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.72);
+}
+
+.workspace-shell .workspace-record-card .candidate-card__badges {
+  justify-content: flex-end;
+  max-width: 360px;
+  gap: 8px;
+}
+
+.workspace-shell .workspace-record-card .candidate-card__body {
+  max-width: 820px;
+  gap: 8px;
+}
+
+.candidate-card__meta {
+  display: grid;
+  gap: 10px;
+}
+
+.candidate-card__meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.candidate-card__meta-row--muted {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.candidate-card__source-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(15, 118, 110, 0.12);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.candidate-card__source-name {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.candidate-card__body {
+  display: grid;
+  gap: 12px;
+}
+
+.candidate-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .workspace-shell .workspace-record-card .candidate-card__badges {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}

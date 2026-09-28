@@ -1,7 +1,6 @@
 /* components/content-body: every rule whose subject is this component.
    Gathered 2026-09-28 from 24-technology-detail.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .content-body {
   display: grid;
   gap: 14px;

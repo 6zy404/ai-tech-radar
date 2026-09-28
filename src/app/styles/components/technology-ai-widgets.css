@@ -1,0 +1,83 @@
+/* components/technology-ai-widgets: every rule whose subject is this component.
+   Gathered 2026-09-28 from 24-technology-detail.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.technology-compare-widget__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* A native `<select>` sizes itself to its widest option, and the options here
+   are full technology titles — it rendered 558px inside a 487px column and
+   dragged the whole reading column with it. `max-width: 100%` alone cannot
+   fix that: the grid track is sized *from* this element's min-content, so
+   100% resolves back to the same 558px. `min-width: 0` is what actually drops
+   its min-content contribution to zero; `flex-basis` then gives it a
+   preferred size it is free to shrink below. */
+.technology-compare-widget__select {
+  flex: 1 1 220px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.technology-compare-widget__select:disabled {
+  opacity: 0.6;
+}
+
+.technology-compare-widget__error {
+  margin: 0;
+  color: #b3261e;
+  font-size: 0.92rem;
+}
+
+.technology-compare-widget__result {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.technology-compare-widget .technology-compare-widget__disclaimer {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(180, 83, 9, 0.1);
+  color: var(--label-amber);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.technology-compare-widget__block {
+  display: grid;
+  gap: 6px;
+}
+
+/* -- AI widgets (compare / explain / learning path) -- */
+.dossier .technology-compare-widget__select {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+}
+
+.dossier .technology-compare-widget__result {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-ground);
+  box-shadow: none;
+}
+
+.dossier .technology-compare-widget .technology-compare-widget__disclaimer {
+  background: transparent;
+  border: 1px dashed var(--dossier-stamp);
+  color: var(--dossier-stamp);
+}

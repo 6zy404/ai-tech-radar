@@ -7,20 +7,6 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.empty-state {
-  margin: 0;
-  color: var(--muted);
-}
-
-.empty-state--actionable {
-  display: grid;
-  gap: 12px;
-  padding: 18px;
-  border: 1px dashed rgba(100, 116, 139, 0.45);
-  border-radius: var(--radius-md);
-  background: rgba(248, 250, 252, 0.78);
-}
-
 .empty-state--actionable strong {
   display: block;
   margin-bottom: 4px;

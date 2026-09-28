@@ -3,10 +3,6 @@
    /digest/[date], and /search.
    ============================================================ */
 
-.dossier .action-link {
-  color: var(--dossier-accent);
-}
-
 .dossier .action-link:hover,
 .dossier .source-reference a:hover,
 .dossier .detail-info-card__link:hover,
@@ -14,21 +10,6 @@
 .dossier .digest-feed-links a:hover,
 .dossier .followable-tag-list__topic-link:hover {
   text-decoration-color: var(--dossier-stamp);
-}
-
-/* Public pages carry two empty-state components: `.dossier-empty-state`, which
-   is drawn from tokens, and `.empty-state--actionable`, which hardcoded a
-   near-white fill and a slate border. That hardcoding is what made the dark
-   scheme unreadable (1.19:1 on the heading) — the first fix patched only dark,
-   which left the same latent hazard in light. Routing both through the same
-   tokens removes the class of bug rather than the instance, and makes the two
-   read as one component in both schemes. Scoped to `.dossier`, so the
-   deliberately light Internal Workspace — which uses this class on three
-   pages — keeps its own look. */
-.dossier .empty-state--actionable {
-  border-color: var(--dossier-line);
-  background: var(--dossier-surface);
-  color: var(--dossier-muted);
 }
 
 .dossier .empty-state--actionable strong {
@@ -89,11 +70,6 @@
 .dossier .digest-source-chip h3 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   color: var(--dossier-ink);
-}
-
-/* -- search -- */
-.dossier .search-form .dossier-search {
-  flex: 1 1 260px;
 }
 
 .dossier .search-form input[type="search"] {

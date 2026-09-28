@@ -1,0 +1,11 @@
+/* components/field: every rule whose subject is this component.
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 23-technology-list.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.technology-list-page .field {
+  min-width: 0;
+}

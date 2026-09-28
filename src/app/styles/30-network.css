@@ -1,10 +1,3 @@
-/* The dot is sized in pixels while the layout spaces nodes in canvas units, so
-   the same graph gets tighter as the canvas shrinks: 674px wide on desktop
-   against 320px here. Overlap is therefore a pixel problem, and shrinking the
-   pixels is the direct answer — measured 2026-08-16, 12 overlapping dot pairs
-   → 1 at 390px, with desktop untouched (still 11px, still 0). The 28×28 hit
-   area is deliberately not shrunk with it. */
-
 .content-network__panel h3 {
   margin: 4px 0 12px;
   color: var(--user-ink);
@@ -24,10 +17,6 @@
   gap: 8px;
 }
 
-.content-network__panel-list .dossier-stamp-tag {
-  white-space: nowrap;
-}
-
 /* The tag is 22px tall and the title's first line 21px; this puts the title's
    first line on the tag's centre line when the title runs to several. */
 .content-network__panel-list a {
@@ -35,9 +24,3 @@
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
-
-/* A well-connected node has forty-odd rows. On a desktop layout the panel is
-   sticky beside the graph, so it is capped at the space below its sticky
-   offset and scrolls inside itself — otherwise its lower half could only be
-   reached by scrolling the graph out of view. Below 860px the panel is in the
-   page flow and scrolls with it. */

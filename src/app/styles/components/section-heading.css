@@ -1,0 +1,9 @@
+/* components/section-heading: every rule whose subject is this component.
+   Gathered 2026-09-28 from 06-shared-components.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}

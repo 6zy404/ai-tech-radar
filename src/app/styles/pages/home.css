@@ -1,7 +1,6 @@
 /* pages/home: every rule whose subject is this component.
    Gathered 2026-09-28 from 09-home.css, 18-ui-refinement.css, 19-design-system-v0.css, 36-home-news.css, 44-dossier-v6-home.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .product-home-hero {
   display: grid;
   gap: 28px;
@@ -42,7 +41,6 @@
    first sweep already removed twice (from the digest hero and the home digest
    card). A count is a caption, not a panel: it now reads as one line under the
    headline, matching `.technology-detail-hero__meta`. */
-
 .product-home-hero__stats {
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +58,6 @@
 
 /* An inline meta row under the title, matching the digest page's own
    `.daily-digest-meta-strip`, instead of a tinted box in its own column. */
-
 .home-digest-card__stats {
   display: flex;
   flex-wrap: wrap;
@@ -151,7 +148,6 @@
 
 /* The tinted fill belonged to the old boxed stat column; as an inline meta
    row it would paint a band across the card. */
-
 .dossier .home-digest-card__stats {
   color: var(--dossier-muted);
 }
@@ -164,7 +160,6 @@
    left these rows on `#fff`, because they keep their pre-migration markup (they
    need `target="_blank"`, which `DossierRegisterRow` cannot express). A pure
    white block on a paper page reads as a different module bolted on. */
-
 .dossier .home-news-row {
   border-bottom: 1px solid var(--dossier-line);
   background: var(--dossier-surface);

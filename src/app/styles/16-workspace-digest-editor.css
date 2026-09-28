@@ -1,9 +1,3 @@
-.delivery-run-actions {
-  display: grid;
-  gap: 8px;
-  justify-items: start;
-}
-
 .digest-delivery-list {
   display: grid;
   gap: 12px;
@@ -77,11 +71,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-}
-
-.digest-item-actions .action-button {
-  padding: 8px 10px;
-  font-size: 0.82rem;
 }
 
 .digest-item-actions span {

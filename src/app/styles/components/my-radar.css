@@ -1,0 +1,105 @@
+/* components/my-radar: every rule whose subject is this component.
+   Gathered 2026-09-28 from 31-my-radar.css, 39-dossier-v1-technologies.css, 43-dossier-v5-radar-news.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+/* My Radar (P4 v0) — followed-topic personal radar page */
+.my-radar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.my-radar__manager {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.my-radar__tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.my-radar__tag-toggle {
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: var(--fs-label);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.my-radar__tag-toggle:hover {
+  border-color: var(--accent);
+}
+
+.my-radar__tag-toggle--active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.my-radar__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.my-radar__match-line {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.my-radar__feeds {
+  display: grid;
+  gap: 8px;
+}
+
+.my-radar__transfer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.my-radar__feeds-lede {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.dossier .my-radar__tag-toggle {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .my-radar__tag-toggle--active {
+  background: var(--dossier-stamp);
+  border-color: var(--dossier-stamp);
+  color: var(--dossier-surface);
+}
+
+.dossier .my-radar__manager {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .my-radar__match-line {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}

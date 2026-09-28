@@ -2,13 +2,6 @@
    Dossier direction v5 -- ADOPTED on /radar and /news.
    ============================================================ */
 
-.dossier .my-radar__manager {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-  box-shadow: none;
-}
-
 .dossier .my-radar__manager-copy h2,
 .dossier .my-radar__group-header h2 {
   font-family: Georgia, "Songti SC", "STSong", serif;
@@ -22,11 +15,6 @@
 .dossier .my-radar__group-header p:not([class]) {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .my-radar__match-line {
-  color: var(--dossier-stamp);
-  font-family: ui-monospace, monospace;
 }
 
 .dossier .news-day__heading h2 {

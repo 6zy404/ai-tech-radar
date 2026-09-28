@@ -1,32 +1,3 @@
-/* ============================================================
-   Dossier design system v0 -- STAGED, not applied to any live page.
-   Component tokens/classes for the "编辑桌" direction approved during
-   the 2026-07-14 design session (docs/design-system.md -> "Dossier
-   direction (staged)"). Everything here is scoped under .dossier so it
-   cannot affect any existing page; no page component imports these
-   classes yet. Prefixed --dossier- to avoid any collision with the
-   live --bg/--accent/etc. tokens above.
-   ============================================================ */
-.dossier {
-  --dossier-ground: #e6e7de;
-  --dossier-surface: #f8f6ee;
-  --dossier-line: #c9c5b2;
-  --dossier-ink: #2b2a22;
-  /* Darkened from #6d6b5b (4.32:1 on --dossier-ground) for 4.5:1
-     small-text contrast (2026-07-16 contrast round). */
-  --dossier-muted: #62604f;
-  --dossier-accent: #34524a;
-  --dossier-stamp: #8a3b2a;
-  background: var(--dossier-ground);
-  background-image:
-    linear-gradient(var(--dossier-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--dossier-line) 1px, transparent 1px);
-  background-size: 44px 44px;
-  background-position: -1px -1px;
-  color: var(--dossier-ink);
-  font-family: Georgia, "Songti SC", "STSong", serif;
-}
-
 .dossier-card {
   position: relative;
   background: var(--dossier-surface);
@@ -46,32 +17,6 @@
   .dossier-card:hover {
     transform: translateY(-2px);
   }
-}
-
-.dossier-stamp-tag {
-  display: inline-flex;
-  align-items: center;
-  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
-  color: var(--dossier-stamp);
-  border: 1px solid var(--dossier-stamp);
-  border-radius: 999px;
-  padding: 4px 12px;
-  background: var(--dossier-surface);
-  cursor: default;
-}
-
-.dossier-stamp-tag--interactive {
-  cursor: pointer;
-  border: 1px solid var(--dossier-line);
-  color: var(--dossier-muted);
-}
-
-.dossier-stamp-tag--on {
-  color: var(--dossier-ground);
-  background: var(--dossier-stamp);
-  border-color: var(--dossier-stamp);
 }
 
 .dossier-catalog-note {
@@ -128,20 +73,6 @@
     grid-template-columns: 1fr;
     gap: 4px;
   }
-}
-
-.dossier-search {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 999px;
-  padding: 8px 16px;
-}
-
-.dossier-search:focus-within {
-  border-color: var(--dossier-accent);
 }
 
 .dossier-search svg {

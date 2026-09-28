@@ -1,0 +1,82 @@
+/* components/technology-workspace-record: every rule whose subject is this component.
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.technology-workspace-record {
+  display: grid;
+  min-width: 0;
+}
+
+.workspace-shell .technology-workspace-record {
+  grid-template-columns: minmax(0, 1fr) minmax(220px, auto);
+  align-items: start;
+}
+
+.technology-workspace-record__meta {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.72);
+}
+
+.technology-workspace-record__topline,
+.technology-workspace-record__badges,
+.technology-workspace-record__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.technology-workspace-record__topline {
+  justify-content: space-between;
+}
+
+.technology-workspace-record__type,
+.technology-workspace-record__source {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.technology-workspace-record__type {
+  background: rgba(51, 65, 85, 0.1);
+  color: #334155;
+}
+
+.technology-workspace-record__source {
+  color: #64748b;
+}
+
+.technology-workspace-record__metadata {
+  font-size: 0.86rem;
+}
+
+.technology-workspace-record__body {
+  display: grid;
+  gap: 8px;
+  max-width: 820px;
+  min-width: 0;
+}
+
+.technology-workspace-record__badges {
+  justify-content: flex-end;
+  max-width: 360px;
+}
+
+.technology-workspace-record__actions {
+  grid-column: 1 / -1;
+  padding-top: 10px;
+  border-top: 1px solid rgba(203, 213, 225, 0.72);
+}
+
+@media (max-width: 900px) {
+  .technology-workspace-record__badges {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
