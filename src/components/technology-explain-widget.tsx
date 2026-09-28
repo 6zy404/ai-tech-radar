@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 
 import { UnbreakableTitle } from "@/components/unbreakable-title";
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import type {
   TechnologyExplanationAudienceLevel,
   TechnologyExplanationFields,
@@ -12,8 +13,6 @@ import type {
 interface TechnologyExplainWidgetProps {
   technology: Pick<TechnologyItem, "id">;
 }
-
-const disclaimerText = "AI 生成内容，未经编辑审核，仅供参考。";
 
 const audienceLevelOptions: {
   value: TechnologyExplanationAudienceLevel;
@@ -112,7 +111,7 @@ export function TechnologyExplainWidget({
       {fields ? (
         <div className="technology-compare-widget__result">
           <p className="technology-compare-widget__disclaimer">
-            {disclaimerText}
+            {aiGeneratedDisclaimer}
           </p>
 
           <div className="technology-compare-widget__block">

@@ -1,6 +1,5 @@
 import {
-  extractJsonText,
-  hasInternalTerms,
+  parseLlmJsonObject,
   sanitizeString,
   sanitizeStringArray
 } from "@/lib/llm/output-sanitization";
@@ -81,47 +80,19 @@ export function validateEditorialEnrichmentLlmOutput(
   rawText: string,
   sourceInputs: EditorialEnrichmentSourceInputs
 ): ValidatedEditorialEnrichmentOutput {
-  let parsed: unknown;
+  const parsed = parseLlmJsonObject(rawText, allowedTopLevelFields);
 
-  try {
-    parsed = JSON.parse(extractJsonText(rawText));
-  } catch {
+  if (!parsed.ok) {
     return {
       ok: false,
       fields: {},
       limitations: [],
       warnings: [],
-      error: "LLM output was not valid JSON."
+      error: parsed.error
     };
   }
 
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-    return {
-      ok: false,
-      fields: {},
-      limitations: [],
-      warnings: [],
-      error: "LLM output must be a JSON object."
-    };
-  }
-
-  if (hasInternalTerms(parsed)) {
-    return {
-      ok: false,
-      fields: {},
-      limitations: [],
-      warnings: [],
-      error: "LLM output contained internal-only fields or terms."
-    };
-  }
-
-  const parsedRecord = parsed as Record<string, unknown>;
-  const extraFields = Object.keys(parsedRecord).filter(
-    (key) => !allowedTopLevelFields.has(key)
-  );
-  const warnings = extraFields.map(
-    (field) => `Ignored unsupported LLM output field: ${field}.`
-  );
+  const { record: parsedRecord, warnings } = parsed;
   const fields: EditorialEnrichmentGeneratedFields = {};
   const whyItMatters = sanitizeString(parsedRecord.whyItMatters, 700);
   const technicalContext = sanitizeString(parsedRecord.technicalContext, 700);

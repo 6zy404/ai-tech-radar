@@ -12,6 +12,27 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The three AI caches share their bookkeeping
+
+- **Cluster ① of the copy-paste list** (2026-09-28). Comparison, explanation
+  and learning path each spelled out the same ten generation-metadata fields
+  twice — once reading a record back from disk, once building it from a
+  provider response. Both now go through `src/lib/ai-generation-record.ts`
+  (`normalizeAiGenerationMetadata`, `buildAiGenerationMetadata`); each
+  record keeps its own key and `fields`, and the stored JSON keeps its key
+  order.
+- **`parseLlmJsonObject`** in `src/lib/llm/output-sanitization.ts` is the
+  shared first half of every output validator: JSON object, no internal-only
+  term, unknown top-level fields dropped with a warning. Four validators use
+  it — the three above plus editorial enrichment, which had the same copy.
+- **The disclaimer sentence lives in one file**, `src/lib/ai-disclaimer.ts`,
+  imported by the three server mappers and the four client widgets
+  (including 问雷达). It was a string literal in seven places.
+- Duplicated lines, same scan as below: 8.0% → **7.4%** after this and the
+  route-guard entry. 360 tests (6 new, covering the malformed-record fallback
+  and the parser), 22 validators; on a local dev server a generated learning
+  path still renders the disclaimer above its six steps.
+
 ## The four public AI routes share one opening
 
 - **Measured first** (2026-09-28): a line-window scan of `src/` and `scripts/`

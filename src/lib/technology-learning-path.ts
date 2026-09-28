@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
 
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import { buildAiGenerationMetadata } from "@/lib/ai-generation-record";
 import {
   getAllKnowledge,
   getAllSkills,
@@ -20,8 +22,6 @@ import type {
   TechnologyLearningPathRecord
 } from "@/types/content";
 
-const learningPathDisclaimer = "AI 生成内容，未经编辑审核，仅供参考。";
-
 export type TechnologyLearningPathError =
   | { code: "not_found"; message: string }
   | { code: "generation_failed"; message: string };
@@ -32,7 +32,7 @@ export function toPublicLearningPathResult(
   return {
     technologyId: record.technologyId,
     fields: record.fields,
-    disclaimer: learningPathDisclaimer,
+    disclaimer: aiGeneratedDisclaimer,
     generatedAt: record.updatedAt
   };
 }
@@ -97,20 +97,15 @@ export async function generateOrGetTechnologyLearningPath(
             overview: "",
             steps: []
           },
-      generationMode,
-      providerName: response.providerName,
-      modelName: response.modelName,
-      promptVersionId,
-      promptVersion,
-      outputValidationStatus: validation.ok
-        ? validation.warnings.length > 0
-          ? "warning"
-          : "valid"
-        : "failed",
-      outputValidationWarnings: validation.warnings,
-      generationError: validation.ok ? undefined : validation.error,
-      createdAt: cached?.createdAt ?? new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...buildAiGenerationMetadata({
+        generationMode,
+        providerName: response.providerName,
+        modelName: response.modelName,
+        promptVersionId,
+        promptVersion,
+        validation,
+        createdAt: cached?.createdAt
+      })
     };
 
     const savedRecord = saveTechnologyLearningPathRecord(record);

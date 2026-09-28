@@ -44,6 +44,44 @@ export function hasInternalTerms(value: unknown): boolean {
   return internalOnlyTerms.some((term) => serialized.includes(term));
 }
 
+export type ParsedLlmJsonObject =
+  | { ok: true; record: Record<string, unknown>; warnings: string[] }
+  | { ok: false; error: string };
+
+// The checks every validator runs before it reads its own fields: the text
+// holds a JSON object, the object carries no internal-only term, and any
+// top-level field outside `allowedFields` is dropped with a warning.
+export function parseLlmJsonObject(
+  rawText: string,
+  allowedFields: ReadonlySet<string>
+): ParsedLlmJsonObject {
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(extractJsonText(rawText));
+  } catch {
+    return { ok: false, error: "LLM output was not valid JSON." };
+  }
+
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return { ok: false, error: "LLM output must be a JSON object." };
+  }
+
+  if (hasInternalTerms(parsed)) {
+    return {
+      ok: false,
+      error: "LLM output contained internal-only fields or terms."
+    };
+  }
+
+  const record = parsed as Record<string, unknown>;
+  const warnings = Object.keys(record)
+    .filter((key) => !allowedFields.has(key))
+    .map((field) => `Ignored unsupported LLM output field: ${field}.`);
+
+  return { ok: true, record, warnings };
+}
+
 export function truncateText(value: string, maxLength: number): string {
   const normalized = value.replace(/\s+/g, " ").trim();
 

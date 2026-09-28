@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import type {
   TechnologyItem,
   TechnologyLearningPathFields
@@ -10,8 +11,6 @@ import type {
 interface TechnologyLearningPathWidgetProps {
   technology: Pick<TechnologyItem, "id">;
 }
-
-const disclaimerText = "AI 生成内容，未经编辑审核，仅供参考。";
 
 export function TechnologyLearningPathWidget({
   technology
@@ -78,7 +77,7 @@ export function TechnologyLearningPathWidget({
       {fields ? (
         <div className="technology-compare-widget__result">
           <p className="technology-compare-widget__disclaimer">
-            {disclaimerText}
+            {aiGeneratedDisclaimer}
           </p>
 
           <div className="technology-compare-widget__block">
