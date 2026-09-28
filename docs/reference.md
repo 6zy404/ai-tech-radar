@@ -367,6 +367,10 @@ Open <http://localhost:3000>.
 npm run typecheck        # default verification
 npm run build            # full app, workspace included — for local use
 npm run build:public     # public-only build: the workspace routes are physically absent
+npm run start            # production server, loopback only (next start -H 127.0.0.1)
+npm run deploy           # Windows host: build beside the live server, swap, restart, health-check, auto-rollback
+npm run deploy:rollback  # swap back to the previous build (.next-old) and restart
+npm run deploy:rehearse  # drive the deploy script against a stand-in server on port 3199
 npm run lint             # ESLint (next/core-web-vitals + next/typescript + prettier compat)
 npm run lint:fix         # ESLint with autofix
 npm run format:check     # Prettier check (no writes)

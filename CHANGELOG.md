@@ -12,6 +12,64 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## One command to deploy, loopback only, and a rehearsal that took the site down
+
+- **The server binds to `127.0.0.1`** — 2026-09-28, P2 operations. The start
+  script is now `next start -H 127.0.0.1`. The live process had been listening
+  on `::`, and the control measurement showed what that meant: the machine's
+  own LAN address answered `/api/health` with `200` in 16ms, around the tunnel
+  and its deny list. On a throwaway instance with the flag (the rollback build,
+  port 3100), the LAN address and `[::1]` are refused while `127.0.0.1` and
+  `localhost` answer — .NET and Node both fall back from `::1` to IPv4, which
+  is what the tunnel's `localhost:3000` relies on. The binding is in
+  `package.json`, not in the task definition, so the scheduled task was not
+  re-registered. **It takes effect at the next restart of the live server; as
+  of this entry the live process is still the old one.**
+- **`npm run deploy` / `npm run deploy:rollback`** (`scripts/deploy.ps1`)
+  replace the three hand-typed PowerShell steps: build into `.next-new` beside
+  the running server, stop, swap, start, health-check, and **roll back
+  automatically** when the new build does not answer. Healthy means
+  `/api/health` reports the new build id _from a process younger than the
+  restart_ — the route reads `BUILD_ID` from disk per request, so without the
+  second condition a server that was never restarted passes. After every
+  restart the script also checks that each listener is a loopback address
+  (exit `2` otherwise), four public pages, and the public URL through the
+  tunnel (reported, never a rollback trigger). `-WhatIf` prints the steps and
+  health-checks the running server without changing anything.
+- **Log rotation lives in the stop window**, the only moment `server.log` is
+  not held open: over 1 MB becomes `.1`, three generations kept. Nothing
+  rotates yet — the three logs total about 100 KB.
+- **The first rehearsal stopped the live server for 78 seconds**
+  (10:21:52–10:23:10). The harness stored its port in `$port`, the script's
+  parameter is `$Port`, PowerShell names are case-insensitive, and dot-sourcing
+  assigns parameters in the caller's scope — so an earlier dot-source without
+  `-Port` overwrote `3199` with the default `3000`, and the stand-in's stop
+  step ended the real process. The server was restarted through its own
+  scheduled task and answered within a second; `.next` and `.next-old` were
+  never touched, because every directory swap happened in the fixture. The
+  check that should have stopped it was "the process on the port is `node`",
+  which the live server satisfies.
+- **What changed because of it.** The script refuses to end a process that was
+  not started out of its own checkout's `node_modules`, and refuses to run at
+  all from a checkout the server task does not serve — so it cannot be aimed
+  at the live site from a git worktree. The rehearsal
+  (`npm run deploy:rehearse`) reproduces the incident as its first scenario
+  and asserts at the end that whatever holds port 3000 is the same process as
+  at the start.
+- **The rehearsal found one more real bug**: with exactly one listener,
+  PowerShell unrolls the returned array and `.Count` on the remaining CIM
+  object is empty, so a correctly bound server was reported as "not loopback
+  only" and the wait for the port to free would have returned at once.
+- **Verified**: rehearsal 34/34 on a stand-in server (healthy deploy, failed
+  health check rolled back, swap without restart caught, rollback there and
+  back including a build with no `/api/health`, a server bound to `0.0.0.0`
+  reported, a foreign process left alone); `-WhatIf` for deploy and rollback
+  against the real checkout, real task and real port; refusal from the
+  worktree. **Not verified**: the script has not yet driven the real scheduled
+  task or a real `next build` — the first production deploy is that test.
+- `.gitignore` now covers `.next-*` (the rollback directory was showing up as
+  untracked in the live checkout) and rotated log generations.
+
 ## The documents a session reads shrank by three quarters
 
 - **Every session was loading about 1.06 MB of Markdown before reading a
