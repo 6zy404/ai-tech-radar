@@ -1,6 +1,11 @@
 /* components/empty-state: every rule whose subject is this component.
    Gathered 2026-09-28 from 17-lists-empty-state.css, 42-dossier-v4-digest-search.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.dossier .empty-state--actionable strong {
+  color: var(--dossier-ink);
+}
+
 .empty-state {
   margin: 0;
   color: var(--muted);

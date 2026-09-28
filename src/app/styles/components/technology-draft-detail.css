@@ -1,6 +1,7 @@
 /* components/technology-draft-detail: every rule whose subject is this component.
    Gathered 2026-09-28 from 07-detail-layout.css, 13-article-layout.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .relation-list {
   list-style: none;
   display: grid;

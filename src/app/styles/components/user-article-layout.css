@@ -1,6 +1,7 @@
 /* components/user-article-layout: every rule whose subject is this component.
    Gathered 2026-09-28 from 13-article-layout.css, 18-ui-refinement.css, 24-technology-detail.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .user-article-layout {
   display: grid;
   gap: 28px;
@@ -109,4 +110,37 @@
   border: 1px solid var(--dossier-line);
   border-radius: 2px;
   box-shadow: none;
+}
+
+/* The columns already opt out of `min-width: auto`, but their children did not:
+   a grid item sizes to its content's min-content width unless told otherwise,
+   so one wide child (a `<select>` sized to its longest option) pushed every
+   section past the reading column and under the aside. */
+.user-article-layout__main > *,
+.user-article-layout__aside > * {
+  min-width: 0;
+}
+
+.user-article-hero__copy {
+  min-width: 0;
+}
+
+.user-article-hero h1 {
+  max-width: 18ch;
+  margin: 0;
+  color: var(--user-ink);
+  font-size: clamp(2.4rem, 5vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.user-article-section p {
+  margin: 0;
+  color: #34404a;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }

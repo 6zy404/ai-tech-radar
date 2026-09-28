@@ -1,6 +1,7 @@
 /* components/candidate-card: every rule whose subject is this component.
-   Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 11-workspace-candidates.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .candidate-grid .candidate-card {
   height: 100%;
 }
@@ -91,4 +92,18 @@
     justify-content: flex-start;
     max-width: none;
   }
+}
+
+.workspace-shell .workspace-record-card .candidate-card__body h2 {
+  font-size: 1.04rem;
+  line-height: 1.3;
+}
+
+.workspace-shell .workspace-record-card .candidate-card__body p {
+  -webkit-line-clamp: 2;
+  line-height: 1.55;
+}
+
+.duplicate-group-card .candidate-card__body h2 {
+  max-width: 760px;
 }

@@ -1,6 +1,37 @@
 /* pages/workspace-delivery: every rule whose subject is this component.
    Gathered 2026-09-28 from 19-design-system-v0.css, 20-workspace-delivery-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.delivery-channel-row__identity strong {
+  color: #0f172a;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.delivery-channel-row__cell span {
+  overflow-wrap: anywhere;
+}
+
+.delivery-channel-row__edit summary {
+  cursor: pointer;
+  color: var(--ui-teal-strong);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.workspace-delivery-console .delivery-channel-row__edit summary {
+  width: fit-content;
+  color: var(--ui-teal-strong);
+  font-size: 0.78rem;
+}
+
+.delivery-audit-panel > summary {
+  cursor: pointer;
+  color: #334155;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
 .delivery-channel-table {
   display: grid;
   overflow: hidden;

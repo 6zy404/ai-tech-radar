@@ -450,6 +450,21 @@ port 3000 (the live site): serve each build on its own port
 data. A clean result means something only after a same-build control reads 0
 and a deliberate probe (`--probe "<css>"`, or a real edit in its own build)
 reads non-zero — see `docs/design-system.md` → "Splitting globals.css".
+When the stylesheet is meant to change (a regroup), add `--css-may-change` to
+`diff`: the computed styles must still match, the CSS text no longer does.
+
+```bash
+npm run css:regroup -- plan  --dom before.json components/<name>=<root>,<root>
+npm run css:regroup -- apply --dom before.json components/<name>=<root>,<root>
+```
+
+Moves a component's rules out of the numbered layer files into
+`src/app/styles/components/` or `pages/`, checking every pair of rules the move
+reorders for a possible tie and leaving any rule it cannot prove safe in place,
+with a comment. `--dom` takes a `css:diff` capture for the class combinations
+real elements carry. Follow every `apply` with a build and a `css:diff`
+against the build before it. See `docs/design-system.md` → "Gathering each
+component into one file".
 
 ## Local state files
 
@@ -466,8 +481,9 @@ suggestions, and prompt versions. Set
 ## Project structure
 
 - `src/app` — App Router pages and API routes; `src/app/styles/` holds the
-  global stylesheet as 47 numbered files that `globals.css` imports in
-  cascade order
+  global stylesheet: `pages/` (8) and `components/` (58), one page's or
+  component's own rules each, and 46 numbered files with the shared rules and
+  layers, all imported by `globals.css` in cascade order
 - `src/components` — shared workspace and user-facing UI
 - `src/data` — bundled mock technology/skill/knowledge/tag/relation and fallback
   import data

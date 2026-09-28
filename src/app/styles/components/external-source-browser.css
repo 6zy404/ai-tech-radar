@@ -1,6 +1,27 @@
 /* components/external-source-browser: every rule whose subject is this component.
    Gathered 2026-09-28 from 21-workspace-sources-console.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.source-console-row h3,
+.source-console-row p {
+  margin: 0;
+}
+
+.source-console-row h3 {
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.source-console-row__links a {
+  color: var(--ui-teal-strong);
+  font-weight: 800;
+}
+
+.source-console-empty h3,
+.source-console-empty p {
+  margin: 0;
+}
+
 .source-console-filter {
   grid-template-columns: minmax(260px, 1fr) minmax(180px, 220px) minmax(
       160px,

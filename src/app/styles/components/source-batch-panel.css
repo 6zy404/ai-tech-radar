@@ -1,6 +1,12 @@
 /* components/source-batch-panel: every rule whose subject is this component.
    Gathered 2026-09-28 from 12-workspace-sources.css, 18-ui-refinement.css, 21-workspace-sources-console.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.source-batch-panel > div:first-child {
+  display: grid;
+  gap: 6px;
+}
+
 .source-batch-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

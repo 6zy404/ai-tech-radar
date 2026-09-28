@@ -1,6 +1,7 @@
 /* components/technology-language-switch: every rule whose subject is this component.
    Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .technology-language-switch {
   display: flex;
   align-items: center;

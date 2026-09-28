@@ -1,6 +1,7 @@
 /* components/technology-detail-content: every rule whose subject is this component.
    Gathered 2026-09-28 from 13-article-layout.css, 24-technology-detail.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .user-reference-panel__copy {
   margin: 0;
   color: var(--muted);
@@ -65,4 +66,12 @@
 
 .dossier .user-reference-panel__copy {
   color: var(--dossier-muted);
+}
+
+.technology-detail-impact > span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }

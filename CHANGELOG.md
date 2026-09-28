@@ -12,6 +12,35 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Each page and component has its own stylesheet
+
+- **787 of the 1,596 rules moved into 66 files** — `src/app/styles/pages/`
+  (8) and `components/` (58), grouped by the React file that uses the classes
+  — 2026-09-28, continuing the split below. `.top-nav`, for one, had rules in
+  four eras of the stylesheet; they are now one file.
+- **`npm run css:regroup`, new** (`scripts/css-regroup.mjs`). For every pair of
+  rules a move reorders it checks whether they could tie: overlapping media,
+  overlapping properties (explicit shorthand tables), equal specificity and
+  importance, and whether one element can carry both — judged from the class
+  combinations in the captured DOM and in `src/`'s `className` expressions. A
+  rule it cannot clear stays, and 16 such rules carry a note saying why.
+  100 overridden declarations were removed, each re-proven by a separate check
+  before anything is written.
+- **Verified per batch** with the computed-style diff against the unsplit
+  build: **0** differences over 130,008 elements and 993 pseudo-elements in
+  three modes, three times. The same diff caught one real regression on the
+  way — `/network`'s node dots losing `border-radius: 999px`, because the tool
+  took `border` to reset `border-radius` — and the removal check, which had
+  shared that assumption, was rewritten to use its own table. Three more tool
+  bugs are written up in `docs/design-system.md` → "Gathering each component
+  into one file".
+- **Left in the numbered files on purpose**: rules shared by several
+  components (the card chrome among them), the typography scale, and rules
+  aimed at a bare tag (`.x h1`) that cannot be proven safe to move.
+- Screenshots of the final build mostly failed (the app window was hidden);
+  one of four was taken and looked right. Not deployed: this window does not
+  own the live site.
+
 ## globals.css is 47 files, and the browser receives the same bytes
 
 - **`src/app/globals.css` (11,203 lines) is now 47 `@import`s** of

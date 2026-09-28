@@ -1,6 +1,11 @@
 /* components/source-reference: every rule whose subject is this component.
    Gathered 2026-09-28 from 13-article-layout.css, 24-technology-detail.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.dossier .source-reference a {
+  color: var(--dossier-accent);
+}
+
 .source-reference__meta {
   display: flex;
   flex-wrap: wrap;

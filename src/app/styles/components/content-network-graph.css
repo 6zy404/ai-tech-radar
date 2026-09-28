@@ -1,6 +1,12 @@
 /* components/content-network-graph: every rule whose subject is this component.
    Gathered 2026-09-28 from 30-network.css, 45-dossier-v7-network.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.dossier .content-network__panel h3 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
 /* Whole-network overview graph (/network) */
 .content-network {
   display: flex;
@@ -134,12 +140,6 @@
     box-shadow 140ms ease;
 }
 
-/* The dot is sized in pixels while the layout spaces nodes in canvas units, so
-   the same graph gets tighter as the canvas shrinks: 674px wide on desktop
-   against 320px here. Overlap is therefore a pixel problem, and shrinking the
-   pixels is the direct answer — measured 2026-08-16, 12 overlapping dot pairs
-   → 1 at 390px, with desktop untouched (still 11px, still 0). The 28×28 hit
-   area is deliberately not shrunk with it. */
 @media (max-width: 640px) {
   .content-network__node-dot {
     width: 8px;
@@ -292,11 +292,6 @@
   list-style: none;
 }
 
-/* A well-connected node has forty-odd rows. On a desktop layout the panel is
-   sticky beside the graph, so it is capped at the space below its sticky
-   offset and scrolls inside itself — otherwise its lower half could only be
-   reached by scrolling the graph out of view. Below 860px the panel is in the
-   page flow and scrolls with it. */
 @media (min-width: 861px) {
   .content-network__panel {
     max-height: calc(100vh - 96px - 24px);

@@ -7,11 +7,6 @@
     ),
     linear-gradient(180deg, #17160f 0%, #1c1b17 100%);
 }
-:root[data-theme="dark"] .top-nav__search input {
-  border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-  color: #e9e7dc;
-}
 /* ---- dark-mode completion (2026-07-16 contrast round) ----
      Components whose light-mode looks were hardcoded (not token-driven)
      and therefore stayed light while their text flipped, or vice versa.
@@ -29,12 +24,6 @@
   .user-article-layout__aside
   .user-reference-panel {
   background: var(--dossier-surface);
-}
-:root[data-theme="dark"] .dossier .daily-digest-meta-strip span {
-  color: var(--dossier-muted);
-}
-:root[data-theme="dark"] .dossier .daily-digest-meta-strip strong {
-  color: var(--dossier-ink);
 }
 /* Hardcoded body-copy inks that never flipped. */
 :root[data-theme="dark"] .dossier .user-article-section p,
@@ -68,11 +57,6 @@
 :root[data-theme="dark"] .dossier .skill-library-card__link,
 :root[data-theme="dark"] .dossier .skill-detail-related-card__link {
   color: var(--dossier-accent);
-}
-/* Accent pills sit on an accent-tinted ground, so accent-colored text
-     stays too close; use ink on the tint instead. */
-:root[data-theme="dark"] .dossier .skill-library-card__meta span:first-child {
-  color: var(--dossier-ink);
 }
 /* Light-tinted note panels under the now-muted text above. */
 :root[data-theme="dark"] .dossier .skill-library-card__outcome,

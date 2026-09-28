@@ -12,34 +12,11 @@
   letter-spacing: -0.05em;
 }
 
-.delivery-console-summary__card span {
-  display: block;
-  color: var(--delivery-console-muted);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-}
-
-.delivery-console-summary__card strong {
-  display: block;
-  margin-top: 6px;
-  color: #06142b;
-  font-size: 1.5rem;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-
 .delivery-console-summary__card p {
   margin: 5px 0 0;
   color: var(--delivery-console-muted);
   font-size: 0.78rem;
   line-height: 1.35;
-}
-
-.delivery-console-panel__header h2 {
-  margin: 2px 0 4px;
-  font-size: 1.25rem;
-  letter-spacing: -0.035em;
 }
 
 .delivery-console-panel__header p {
@@ -101,20 +78,7 @@
   white-space: nowrap;
 }
 
-.workspace-delivery-console .delivery-channel-row__edit summary {
-  width: fit-content;
-  color: var(--ui-teal-strong);
-  font-size: 0.78rem;
-}
-
 .delivery-log-message {
   color: var(--delivery-console-muted);
   overflow-wrap: anywhere;
-}
-
-.delivery-audit-panel > summary {
-  cursor: pointer;
-  color: #334155;
-  font-size: 0.84rem;
-  font-weight: 800;
 }

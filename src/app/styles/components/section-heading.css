@@ -1,9 +1,26 @@
 /* components/section-heading: every rule whose subject is this component.
-   Gathered 2026-09-28 from 06-shared-components.css
+   Gathered 2026-09-28 from 06-shared-components.css, 09-home.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.section-heading h2 {
+  margin: 0;
+}
+
 .section-heading {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+}
+
+/* Home information hierarchy: primary digest, secondary signals, tertiary foundations */
+.product-home-digest .section-heading h2 {
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.home-discovery-panel .section-heading h2 {
+  font-size: 1.2rem;
+  line-height: 1.25;
 }

@@ -1617,6 +1617,91 @@ downloads its embedding model on first query — point `EMBEDDING_REMOTE_HOST`
 at an unreachable address for a capture server, so search answers from
 keywords, identically every time, and nothing is downloaded.
 
+## Gathering each component into one file (2026-09-28)
+
+The split above kept the history layers intact: `.top-nav` still had rules in
+`02-site-chrome`, `18-ui-refinement`, `19-design-system-v0` and
+`46-dossier-dark`, each era overriding the last instead of editing it. The
+regroup moves each page's and component's rules into `pages/*.css` and
+`components/*.css`, grouped by the React file that uses the classes.
+
+`scripts/css-regroup.mjs` does the moving, because the hard part is not the
+editing but knowing a move is safe. Two rules decide the order question:
+moving a rule only matters where it passes another rule that sets an
+overlapping property, with equal specificity and importance, on an element
+both can match. The tool checks exactly that for every pair a move reorders —
+using the class combinations actually seen in the captured DOM and in the
+`className` expressions of `src/` — and leaves a rule in place, with a note
+naming the rule it could tie with, when it cannot rule the tie out.
+
+**Where it ended**: 787 of the 1,596 rules now sit in 66 files — 8 under
+`pages/`, 58 under `components/` — and 765 remain in the 46 numbered files
+(the rest were merged or emptied: 100 overridden declarations removed, each
+re-proven). 16 rules carry a "Stays here" note. Every batch read **0**
+differences in the computed-style diff against the unsplit build, over 130,008
+elements and 993 pseudo-elements in three modes. Among the stays is a
+`:hover` rule on the primary button that can tie with the sources console's
+import button — a state no capture reaches, which only the static check could
+see.
+
+What is left in the numbered files, and why:
+
+- **Shared rules**, which style several components in one selector list.
+- **The typography scale** (`28-typography.css`): its rules target
+  `.user-shell h1`, `.user-shell p` and so on, so by nearest class they
+  belong to the shell; they were left together because this file documents
+  them as one layer.
+- **Bare-tag rules that cannot move.** A rule like
+  `.product-home-hero__copy h1` has no class on the element itself, so the
+  checker cannot rule out a tie with every other `… h1` of equal specificity
+  without knowing ancestors, and keeps it. These get no note: they are where
+  they always were, and noting all of them added 172 comments.
+- **Groups already in one file**, which had nothing to gather.
+
+**Shared rules stay shared.** A rule like
+`.dossier .source-reference, .dossier .user-reference-panel {…}` styles two
+components at once, and 115 components are joined that way into one cluster
+through the card-chrome rules. Splitting those into per-component copies would
+duplicate the single source of truth this file describes for card chrome, so
+only rules whose every selector targets one component move.
+
+### Four bugs the checks caught in the tool itself
+
+- **A stale list deleted live declarations.** Removing one dead declaration
+  re-read the rule, and the loop carried on over the old list; each stale
+  entry then compared against the whole rule, itself included, and "killed"
+  itself. `display: flex` on `.top-nav__inner` went this way. Caught by reading
+  the removal list before building — it named declarations that could not be
+  dead.
+- **`border` was taken to reset `border-radius`.** Shorthand coverage was
+  matched by name prefix. The computed-style diff caught it: `/network`'s node
+  dots, `border-radius: 999px → 0px` on 1,062 elements. The independent
+  removal check had used the same function and passed it, so it now has its
+  own, smaller table, and both injected bugs are refused before anything is
+  written.
+- **A rebuilt file duplicated its header.** Rebuilding an existing file read
+  its header comment as the comment of the rule under it and carried it along.
+  Found by running the tool a second time on its own output; it now reaches a
+  fixed point (the third run changes nothing).
+- **A rebuilt file could drop its own rules.** A rule already in the target
+  that the checker judged unable to move would have "stayed" in the old copy
+  of the file, which is overwritten. It never happened, but nothing stopped
+  it; the tool now refuses such a rebuild.
+- **Comments on `@media` blocks were left behind.** The tool carries a comment
+  with the rule directly under it, not with an at-rule, so two explanations in
+  the network file ended up above unrelated rules. Moved by hand, and the
+  rebuild was byte-identical.
+
+The first two would not have been caught by the other safeguard alone, which
+is the argument for keeping both: the static checks cover states no capture
+reaches, and the capture covers mistakes in the static checks.
+
+Of four screenshots of the final build only one could be taken
+(`/workspace/delivery`, correct) — the pane stopped drawing while the app
+window was hidden — so the visual check for this round rests on the
+computed-style diff, which covers every element's paint and box but is not a
+look at the page.
+
 ## The site mark (2026-08-04)
 
 The site had no favicon at all, so every page load logged a `/favicon.ico` 404

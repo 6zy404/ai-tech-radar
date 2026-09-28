@@ -1,6 +1,36 @@
 /* components/workspace-breadcrumbs: every rule whose subject is this component.
-   Gathered 2026-09-28 from 03-workspace-shell.css
+   Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.workspace-breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  /* Darkened from #64748b for 4.5:1 on the light board (2026-07-16
+     contrast round). */
+  color: #475569;
+  font-size: 0.86rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.workspace-breadcrumbs li {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+}
+
+.workspace-breadcrumbs a {
+  color: #334155;
+  text-decoration: underline;
+  text-decoration-color: rgba(51, 65, 85, 0.22);
+  text-underline-offset: 0.18em;
+}
+
 .workspace-breadcrumbs__separator {
   color: #64748b;
 }

@@ -1,6 +1,7 @@
 /* components/workspace-list-toolbar: every rule whose subject is this component.
    Gathered 2026-09-28 from 08-cards-lists-actions.css, 19-design-system-v0.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .workspace-list-toolbar {
   display: flex;
   align-items: center;

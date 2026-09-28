@@ -13,36 +13,9 @@
   text-transform: uppercase;
 }
 
-.technology-list-page .field input,
-.technology-list-page .field select {
-  min-width: 0;
-  min-height: 42px;
-  padding: 10px 12px;
-  border-radius: 12px;
-}
-
-.technology-list-page .technology-browser__toolbar p {
-  max-width: 560px;
-  margin: 4px 0 0;
-  color: var(--ui-muted);
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
-
 .technology-signal-list {
   display: grid;
   gap: 14px;
-}
-
-.technology-list-page .technology-card__source-line span {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.technology-list-page .technology-card__body h2 {
-  margin: 0;
-  font-size: clamp(1.25rem, 2vw, 1.55rem);
-  line-height: 1.18;
 }
 
 .technology-list-page .technology-card__insight span {

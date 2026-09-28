@@ -1,6 +1,7 @@
 /* components/technology-workspace-record: every rule whose subject is this component.
    Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .technology-workspace-record {
   display: grid;
   min-width: 0;

@@ -1,7 +1,3 @@
-.content-body__list li {
-  overflow-wrap: anywhere;
-}
-
 .technology-detail-chip {
   display: inline-flex;
   align-items: center;
@@ -11,14 +7,6 @@
   color: var(--accent);
   font-weight: 800;
   font-size: 0.86rem;
-}
-
-.technology-detail-impact > span {
-  color: var(--muted);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .technology-detail-learning-list,
@@ -43,15 +31,6 @@
   margin: 0;
   color: #34404a;
   line-height: 1.75;
-}
-
-.technology-compare-widget__block ul {
-  margin: 0;
-  padding-left: 1.25rem;
-  display: grid;
-  gap: 6px;
-  color: #34404a;
-  line-height: 1.65;
 }
 
 .user-related-section__header {

@@ -1,6 +1,7 @@
 /* components/workspace-page-header: every rule whose subject is this component.
    Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css, 19-design-system-v0.css, 20-workspace-delivery-console.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .workspace-page-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

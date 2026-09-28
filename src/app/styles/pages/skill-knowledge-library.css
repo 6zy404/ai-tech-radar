@@ -1,6 +1,32 @@
 /* pages/skill-knowledge-library: every rule whose subject is this component.
-   Gathered 2026-09-28 from 26-skills-library.css, 40-dossier-v2-skills-knowledge.css
+   Gathered 2026-09-28 from 26-skills-library.css, 40-dossier-v2-skills-knowledge.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.skills-library-stats div {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.skill-library-card__meta,
+.skill-library-card__meta span {
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.05);
+  padding: 5px 9px;
+}
+
+.skill-library-card__meta span:first-child {
+  background: var(--skills-accent-soft);
+  color: #00796f;
+  font-weight: 750;
+}
+
+.skill-library-card__signals a {
+  color: #00796f;
+  font-weight: 750;
+  text-decoration: none;
+}
+
 .skills-library-intro,
 .skills-library-groups,
 .skills-library-empty {
@@ -112,4 +138,18 @@
 
 .dossier .skills-library-section__header {
   border-bottom: 1px solid var(--dossier-line);
+}
+
+.dossier .skills-library-stats dt {
+  color: var(--dossier-stamp);
+}
+
+.dossier .skills-library-stats dd {
+  color: var(--dossier-muted);
+}
+
+/* Accent pills sit on an accent-tinted ground, so accent-colored text
+     stays too close; use ink on the tint instead. */
+:root[data-theme="dark"] .dossier .skill-library-card__meta span:first-child {
+  color: var(--dossier-ink);
 }

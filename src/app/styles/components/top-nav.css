@@ -1,6 +1,29 @@
 /* components/top-nav: every rule whose subject is this component.
    Gathered 2026-09-28 from 02-site-chrome.css, 18-ui-refinement.css, 19-design-system-v0.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.top-nav__search form {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.15s ease;
+}
+
+.top-nav__search--open form {
+  width: 160px;
+}
+
+@media (max-width: 900px) {
+  .top-nav__search--open form {
+    width: 120px;
+  }
+}
+
+:root[data-theme="dark"] .top-nav__search input {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e9e7dc;
+}
+
 .top-nav {
   position: sticky;
   top: 0;

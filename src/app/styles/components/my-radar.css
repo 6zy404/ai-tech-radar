@@ -1,6 +1,33 @@
 /* components/my-radar: every rule whose subject is this component.
    Gathered 2026-09-28 from 31-my-radar.css, 39-dossier-v1-technologies.css, 43-dossier-v5-radar-news.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.my-radar__transfer button {
+  padding: 6px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dossier .my-radar__manager-copy h2,
+.dossier .my-radar__group-header h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+/* Same shape as the digest summary panel above: this is the block's own lede,
+   not the `.eyebrow` that shares the container. */
+.dossier .my-radar__manager-copy p:not([class]),
+.dossier .my-radar__group-header p:not([class]) {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
 /* My Radar (P4 v0) — followed-topic personal radar page */
 .my-radar {
   display: flex;

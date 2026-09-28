@@ -1,6 +1,7 @@
 /* components/action-button: every rule whose subject is this component.
    Gathered 2026-09-28 from 08-cards-lists-actions.css, 16-workspace-digest-editor.css, 19-design-system-v0.css, 20-workspace-delivery-console.css, 21-workspace-sources-console.css, 22-workspace-schedule-console.css, 33-search-ask.css, 39-dossier-v1-technologies.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .action-button {
   border: 1px solid rgba(15, 118, 110, 0.18);
   background: rgba(15, 118, 110, 0.1);

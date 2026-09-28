@@ -1,6 +1,7 @@
 /* pages/digest-archive: every rule whose subject is this component.
    Gathered 2026-09-28 from 34-digest-archive-weekly.css, 42-dossier-v4-digest-search.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 /* Public digest archive: /digest page. */
 .digest-archive__count {
   margin: 0;

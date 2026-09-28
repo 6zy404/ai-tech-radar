@@ -1,6 +1,7 @@
 /* components/dossier-stamp-tag: every rule whose subject is this component.
    Gathered 2026-09-28 from 09-home.css, 30-network.css, 38-dossier-v0-components.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 /* A stamp tag is a chip: it should hug its label, the way the same component
    does on every signal card (70px there). As a grid item it stretched to the
    card's full width instead — 446px of chip around two characters. */

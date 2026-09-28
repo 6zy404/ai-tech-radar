@@ -1,11 +1,15 @@
-/* Global stylesheet, split by page and component on 2026-09-28.
+/* Global stylesheet, split on 2026-09-28.
 
-   These files are imported in the order they used to appear in this one file,
-   and that order is load-bearing: many rules win only by coming later (dark
-   mode, the dossier overrides, the typography scale). The number prefix is the
-   cascade order. Add new rules to the file for their page or component, and
-   never reorder these imports without a computed-style diff
-   (scripts/css-style-diff.mjs; see docs/design-system.md). */
+   pages/ and components/ hold one page's or component's own rules each. The
+   numbered files are what is left of the original single file, in its order:
+   rules shared by several components, the typography scale, the dossier base
+   and dark-mode layers, and rules that could not move without risking a tie.
+
+   The import order below is load-bearing — many rules win only by coming
+   later — so each pages/ or components/ file sits where scripts/css-regroup.mjs
+   proved its rules could go. Add new rules to the file for their page or
+   component, and never reorder these imports without a computed-style diff
+   (npm run css:diff; see docs/design-system.md). */
 
 @import "./styles/01-base.css";
 @import "./styles/02-site-chrome.css";
