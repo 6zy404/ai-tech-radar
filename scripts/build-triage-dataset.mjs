@@ -34,6 +34,16 @@ const FEW_SHOT_PER_LABEL = 3;
  * item under test — the model would be shown the answer to its neighbour.
  */
 const SPLIT_DATE = "2026-08-10";
+
+/**
+ * Decisions from this date on postdate the v1 eval, so they are the only
+ * place a v2 prompt can be judged without having been fitted to the numbers.
+ * A row is `fresh` when it is in that window, was not auto-rejected by the
+ * task runner, and no suggestion was on screen when it was decided (see
+ * isAnchored). That last condition is read from the live data directory,
+ * whose suggestion and event stores are not in git.
+ */
+const FRESH_FROM = "2026-09-24";
 const TEXT_LIMIT = 700;
 
 const labelByStatus = {
@@ -67,7 +77,39 @@ function toPlainText(value) {
     .slice(0, TEXT_LIMIT);
 }
 
+function readLiveStore(name, fallback) {
+  const dir = process.env.LOCAL_DATA_DIR?.trim() || "config";
+  const file = path.join(dir, name);
+
+  return fs.existsSync(file)
+    ? JSON.parse(fs.readFileSync(file, "utf8"))
+    : fallback;
+}
+
 function main() {
+  const suggestions =
+    readLiveStore("candidate-triage-suggestions.json", {}).suggestions ?? {};
+  const autoRejected = new Set(
+    (readLiveStore("workflow-events.json", {}).events ?? [])
+      .filter(
+        (event) =>
+          event.action === "candidate.status_updated" &&
+          event.actorType === "task_runner"
+      )
+      .map((event) => event.entityId)
+  );
+  // A suggestion counts as seen when it existed before the decision and the
+  // decision was not made in the console's blind mode.
+  const isAnchored = (id, decision) => {
+    const suggestion = suggestions[id];
+
+    return (
+      !decision.blind &&
+      Boolean(suggestion) &&
+      (suggestion.createdAt ?? "") <= (decision.reviewedAt ?? "")
+    );
+  };
+
   const shas = git(["log", "--format=%H", "--", SNAPSHOT])
     .trim()
     .split("\n")
@@ -129,7 +171,11 @@ function main() {
       sourceUrl: candidate.sourceUrl ?? "",
       publisherName: candidate.publisherName ?? "",
       publishDate: candidate.publishDate ?? "",
-      language: candidate.originalLanguage ?? ""
+      language: candidate.originalLanguage ?? "",
+      fresh:
+        decidedAt.slice(0, 10) >= FRESH_FROM &&
+        !autoRejected.has(id) &&
+        !isAnchored(id, decision)
     });
   }
 
@@ -179,7 +225,9 @@ function main() {
   fs.writeFileSync(
     FEW_SHOT_OUTPUT,
     JSON.stringify(
-      fewShot.map(({ split: _split, content: _content, ...row }) => row),
+      fewShot.map(
+        ({ split: _split, content: _content, fresh: _fresh, ...row }) => row
+      ),
       null,
       2
     ) + "\n",
@@ -197,6 +245,11 @@ function main() {
   console.log(`rows written: ${rows.length} -> ${OUTPUT}`);
   console.log(
     `skipped: ${missing.length} without text, ${skippedFallback} fallback placeholders`
+  );
+
+  const fresh = rows.filter((row) => row.fresh);
+  console.log(
+    `  fresh    ${String(fresh.length).padStart(4)}  publish ${fresh.filter((r) => r.label === "publish").length} / review ${fresh.filter((r) => r.label === "review").length} / reject ${fresh.filter((r) => r.label === "reject").length}  (decided since ${FRESH_FROM}, no suggestion on screen, not auto-rejected)`
   );
 
   for (const split of ["examples", "test"]) {

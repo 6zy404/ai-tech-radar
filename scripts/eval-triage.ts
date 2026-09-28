@@ -25,12 +25,15 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { fetchArticleExcerpt } from "@/lib/candidate-article";
 import {
   TRIAGE_PROMPT_VERSION,
+  TRIAGE_PROMPT_VERSIONS,
   runCandidateTriage,
   triageLabels,
   type TriageExample,
   type TriageLabel,
+  type TriagePromptVersion,
   type TriageSuggestion
 } from "@/lib/candidate-llm-triage";
 import {
@@ -46,6 +49,8 @@ interface DatasetRow extends TriageExample {
   id: string;
   split: "examples" | "test";
   decidedAt: string;
+  /** Decided after the v1 eval, with no suggestion on screen (build-triage-dataset). */
+  fresh?: boolean;
 }
 
 interface Outcome {
@@ -70,10 +75,63 @@ function readArgs() {
     return index >= 0 ? args[index + 1] : undefined;
   };
 
+  const prompt = value("--prompt");
+  const promptVersion = prompt
+    ? TRIAGE_PROMPT_VERSIONS.find((version) => version.endsWith(`-${prompt}`))
+    : TRIAGE_PROMPT_VERSION;
+
+  if (!promptVersion) {
+    throw new Error(`unknown --prompt ${prompt}; use v1 or v2`);
+  }
+
   return {
     limit: Number(value("--limit") ?? 0) || undefined,
-    concurrency: Math.max(1, Number(value("--concurrency") ?? 4) || 4)
+    concurrency: Math.max(1, Number(value("--concurrency") ?? 4) || 4),
+    promptVersion: promptVersion as TriagePromptVersion,
+    // --fresh scores only the decisions made after the v1 eval with no
+    // suggestion on screen: the one set a v2 prompt was not fitted to.
+    fresh: args.includes("--fresh")
   };
+}
+
+// Article text is third-party content, so it is cached outside the tracked
+// tree (.cache/ is git-ignored), keyed by URL, failures included — a page
+// that refused once is not asked again on a re-run.
+const articleCacheFile = path.join(
+  process.cwd(),
+  ".cache",
+  "triage-articles.json"
+);
+
+async function withArticles(rows: DatasetRow[]): Promise<DatasetRow[]> {
+  const cache: Record<string, { text?: string; error?: string }> =
+    fs.existsSync(articleCacheFile)
+      ? JSON.parse(fs.readFileSync(articleCacheFile, "utf8"))
+      : {};
+  let fetched = 0;
+
+  await runPool(rows, 4, async (row) => {
+    if (!cache[row.sourceUrl]) {
+      const excerpt = await fetchArticleExcerpt(row.sourceUrl);
+      cache[row.sourceUrl] = excerpt.ok
+        ? { text: excerpt.text }
+        : { error: excerpt.error };
+      fetched += 1;
+    }
+  });
+
+  fs.mkdirSync(path.dirname(articleCacheFile), { recursive: true });
+  fs.writeFileSync(articleCacheFile, JSON.stringify(cache), "utf8");
+  const readable = rows.filter((row) => cache[row.sourceUrl].text).length;
+  console.log(
+    `articles: ${readable}/${rows.length} readable, ${fetched} fetched this run`
+  );
+
+  return rows.map((row) => ({
+    ...row,
+    articleExcerpt: cache[row.sourceUrl].text,
+    articleError: cache[row.sourceUrl].error
+  }));
 }
 
 function readDataset(): DatasetRow[] {
@@ -178,8 +236,10 @@ function printConfusion(report: ClassificationReport<TriageLabel>) {
  * the shell win — loadEnvFile does not override them.
  */
 function loadLocalEnv() {
-  for (const file of [".env.local", ".env"]) {
-    if (fs.existsSync(file)) {
+  // EVAL_ENV_FILE lets a worktree borrow the main checkout's key, as eval:ask
+  // does; the key is only read into this process.
+  for (const file of [process.env.EVAL_ENV_FILE, ".env.local", ".env"]) {
+    if (file && fs.existsSync(file)) {
       process.loadEnvFile(file);
     }
   }
@@ -187,13 +247,19 @@ function loadLocalEnv() {
 
 async function main() {
   loadLocalEnv();
-  const { limit, concurrency } = readArgs();
+  const { limit, concurrency, promptVersion, fresh } = readArgs();
   const dataset = readDataset();
   const examples = JSON.parse(
     fs.readFileSync(path.join(evalDir, "fewshot.json"), "utf8")
   ) as TriageExample[];
   const exampleSplit = dataset.filter((row) => row.split === "examples");
-  let testSplit = dataset.filter((row) => row.split === "test");
+  let testSplit = dataset.filter((row) =>
+    fresh ? row.fresh : row.split === "test"
+  );
+
+  if (promptVersion === "candidate-triage-v2") {
+    testSplit = await withArticles(testSplit);
+  }
 
   if (limit) {
     // Deterministic spread across the whole period rather than the first N,
@@ -207,17 +273,17 @@ async function main() {
 
   const provider = createConfiguredLlmProvider();
   const isMock = provider.name === "mock";
-  const runKey = `${TRIAGE_PROMPT_VERSION}__${slug(provider.modelName)}`;
+  const runKey = `${promptVersion}__${slug(provider.modelName)}`;
   const cacheFile = path.join(evalDir, "cache", `${runKey}.jsonl`);
   const cache = readCache(cacheFile);
 
   fs.mkdirSync(path.dirname(cacheFile), { recursive: true });
 
   console.log(
-    `triage eval — prompt ${TRIAGE_PROMPT_VERSION}, provider ${provider.name}, model ${provider.modelName}`
+    `triage eval — prompt ${promptVersion}, provider ${provider.name}, model ${provider.modelName}`
   );
   console.log(
-    `test items ${testSplit.length}${limit ? ` (sampled from ${dataset.filter((r) => r.split === "test").length})` : ""}, few-shot examples ${examples.length}, cached ${cache.size}`
+    `${fresh ? "fresh" : "test"} items ${testSplit.length}${limit ? ` (sampled from ${dataset.filter((r) => r.split === "test").length})` : ""}, few-shot examples ${examples.length}, cached ${cache.size}`
   );
 
   // --- baselines ---------------------------------------------------------
@@ -253,12 +319,16 @@ async function main() {
       return;
     }
 
-    let result = await runCandidateTriage(row, examples, provider);
+    let result = await runCandidateTriage(row, examples, provider, {
+      promptVersion
+    });
     calls += 1;
 
     if (!result.suggestion) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      result = await runCandidateTriage(row, examples, provider);
+      result = await runCandidateTriage(row, examples, provider, {
+        promptVersion
+      });
       calls += 1;
     }
 
@@ -361,14 +431,15 @@ async function main() {
   const resultFile = path.join(
     evalDir,
     "results",
-    `${runKey}${limit ? `__sample${limit}` : ""}.json`
+    `${runKey}${fresh ? "__fresh" : ""}${limit ? `__sample${limit}` : ""}.json`
   );
   fs.mkdirSync(path.dirname(resultFile), { recursive: true });
   fs.writeFileSync(
     resultFile,
     JSON.stringify(
       {
-        promptVersion: TRIAGE_PROMPT_VERSION,
+        promptVersion,
+        fresh,
         model: provider.modelName,
         ranAt: new Date().toISOString(),
         testItems: testSplit.length,

@@ -1,0 +1,439 @@
+{
+  "promptVersion": "candidate-triage-v2",
+  "fresh": true,
+  "model": "deepseek-chat",
+  "ranAt": "2026-09-28T17:00:30.656Z",
+  "testItems": 33,
+  "sampled": false,
+  "fewShotIds": [
+    "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+    "candidate-rss-https-github-blog-p-97686",
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+    "candidate-rss-https-openai-com-index-responding-next-frontier-critical-cyber-capabilities",
+    "candidate-rss-https-simonwillison-net-2026-aug-5-raccoon-heist-atom-entries",
+    "candidate-rss-https-deepmind-google-blog-gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration",
+    "candidate-rss-https-openai-com-index-hsp-gruppe",
+    "candidate-rss-https-github-blog-p-98013",
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-6"
+  ],
+  "baselines": {
+    "majority": {
+      "label": "reject",
+      "report": {
+        "total": 33,
+        "failed": 0,
+        "accuracy": 0.5151515151515151,
+        "macroF1": 0.22666666666666666,
+        "perClass": {
+          "publish": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "support": 10,
+            "predicted": 0
+          },
+          "review": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "support": 6,
+            "predicted": 0
+          },
+          "reject": {
+            "precision": 0.5151515151515151,
+            "recall": 1,
+            "f1": 0.6799999999999999,
+            "support": 17,
+            "predicted": 33
+          }
+        },
+        "confusion": {
+          "publish": {
+            "none": 0,
+            "publish": 0,
+            "review": 0,
+            "reject": 10
+          },
+          "review": {
+            "none": 0,
+            "publish": 0,
+            "review": 0,
+            "reject": 6
+          },
+          "reject": {
+            "none": 0,
+            "publish": 0,
+            "review": 0,
+            "reject": 17
+          }
+        }
+      }
+    },
+    "prereleaseRule": {
+      "fires": 0,
+      "editorsRejected": 0
+    }
+  },
+  "report": {
+    "total": 33,
+    "failed": 0,
+    "accuracy": 0.6666666666666666,
+    "macroF1": 0.5656565656565656,
+    "perClass": {
+      "publish": {
+        "precision": 0.6666666666666666,
+        "recall": 0.8,
+        "f1": 0.7272727272727272,
+        "support": 10,
+        "predicted": 12
+      },
+      "review": {
+        "precision": 0.2,
+        "recall": 0.16666666666666666,
+        "f1": 0.1818181818181818,
+        "support": 6,
+        "predicted": 5
+      },
+      "reject": {
+        "precision": 0.8125,
+        "recall": 0.7647058823529411,
+        "f1": 0.787878787878788,
+        "support": 17,
+        "predicted": 16
+      }
+    },
+    "confusion": {
+      "publish": {
+        "none": 0,
+        "publish": 8,
+        "review": 1,
+        "reject": 1
+      },
+      "review": {
+        "none": 0,
+        "publish": 3,
+        "review": 1,
+        "reject": 2
+      },
+      "reject": {
+        "none": 0,
+        "publish": 1,
+        "review": 3,
+        "reject": 13
+      }
+    }
+  },
+  "publishVsNot": {
+    "total": 33,
+    "failed": 0,
+    "accuracy": 0.8181818181818182,
+    "macroF1": 0.7954545454545454,
+    "perClass": {
+      "publish": {
+        "precision": 0.6666666666666666,
+        "recall": 0.8,
+        "f1": 0.7272727272727272,
+        "support": 10,
+        "predicted": 12
+      },
+      "skip": {
+        "precision": 0.9047619047619048,
+        "recall": 0.8260869565217391,
+        "f1": 0.8636363636363636,
+        "support": 23,
+        "predicted": 21
+      }
+    },
+    "confusion": {
+      "publish": {
+        "none": 0,
+        "publish": 8,
+        "skip": 2
+      },
+      "skip": {
+        "none": 0,
+        "publish": 4,
+        "skip": 19
+      }
+    }
+  },
+  "confident": {
+    "threshold": 0.8,
+    "items": 26,
+    "correct": 21
+  },
+  "usage": {
+    "promptTokens": 72261,
+    "completionTokens": 1214
+  },
+  "latencyMs": {
+    "p50": 905,
+    "p95": 1267
+  },
+  "predictions": [
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496494",
+      "title": "达卯科技完成新一轮融资，算电协同核心软件层“稀缺标的”",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.98,
+      "reason": "融资与公司宣传稿，无技术实物或数据，不属于本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-2ffh5ehf2smusayqhjlx-utm-source-rss-amp-utm-medium-article",
+      "title": "AI 改变跨平台开发取舍，Shopify 弃用 React Native，改用 Swift 和 Kotlin",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "Shopify 弃用 React Native 转原生，含冷启动、稳定性、构建速度等可核对数据，属工程决策复盘。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498633",
+      "title": "量子AI创业来了一支“清华梦之队”：10亿估值，用量子改造大模型底层",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.8,
+      "reason": "创业公司融资与产品宣传稿，无第三方可核对的实物或数据，属融资/营销内容。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498605",
+      "title": "量子计算走上桌面！“小盒子”跑通端到端，数据全程不出门",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "厂商发布会与产品营销稿，无开源实物或可核对数据，属商业宣传。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498478",
+      "title": "索辰科技加码世界模型，与战略投资企业美梦空间联合发布具身模型与物理测评标准",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "企业联合发布与展会首发，属营销公关稿，无开源权重或可核对评测数据。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498271",
+      "title": "AI开始研究Physical AI：FSD级团队亮出首版模型Simate-beta，空降RoboDojo",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.72,
+      "reason": "公司首版模型beta，仅宣传与榜单口径，无一手论文或可核对数据，未开源。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-497613",
+      "title": "在云栖大会，我终于看懂了米哈游千亿AI野心",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "会议分享与愿景叙事，无实物数据或工程复盘，属营销宣传性质。"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99027",
+      "title": "GitHub Copilot app for Beginners: How to build custom workflows with canvases",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "面向初学者的用法教程，非新进展，原文也无法核对。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-9uvorlmxkgjeofauq4py-utm-source-rss-amp-utm-medium-article",
+      "title": "生成式到代理式跃迁：构建保险后援数字分身｜QCon上海",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.9,
+      "reason": "会议演讲预告，无实物或可核对数据，仅宣传议程与提纲。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-uc6jk6tu7fwe5bdo8oqw-utm-source-rss-amp-utm-medium-article",
+      "title": "可控、可测、可进化——B2B跨境支付的 AI 驾驭实践｜QCon上海",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "这是 QCon 大会演讲预告与嘉宾介绍，属会议推广，非可核对的工程实物。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-c1vuzh9fumul9i5wmdzf-utm-source-rss-amp-utm-medium-article",
+      "title": "AI 时代，技术人靠什么赢？｜QCon上海",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.96,
+      "reason": "QCon大会宣传与讲师个人分享预告，属会议推广，无实物或数据。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-kj4ekjplvth9it5yyxkm-utm-source-rss-amp-utm-medium-article",
+      "title": "htmx 4.0 发布：改用 Fetch API 重写，内置 DOM Morphing Swap，并明确属性继承规则",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "htmx 4.0 主版本发布，含 fetch 重写、内置 morph swap、属性继承破坏性变更及升级工具，属实质工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-oucl9autu0dg1bit6bib-utm-source-rss-amp-utm-medium-article",
+      "title": "每周下载量约 16 万，仍处 Alpha 的 TanStack Charts 为什么火了？",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "仍是Alpha、明确不保证API稳定，处于预发布阶段且原文警告不宜生产使用，不达标。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-qqk3wiolu1vsch3u0p7t-utm-source-rss-amp-utm-medium-article",
+      "title": "当 Vibe Coding 撞上企业级现实：真实工程中的 AI 效能之路｜QCon上海",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "会议演讲预告与推广，无实物或可核对数据，不属本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-lh6z5e9zkr33boehqgky-utm-source-rss-amp-utm-medium-article",
+      "title": "云栖之后，10+阿里AI实战派将亮相QCon上海站",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "QCon大会推广稿，属会议邀请与宣传，非可核对的技术实物或数据。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-hrmb2p18ikewl24omvcv-utm-source-rss-amp-utm-medium-article",
+      "title": "世界人工智能开源大赛（GOAI）总决赛暨颁奖盛典在杭州举行",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "赛事与颁奖活动报道，无技术实物或工程数据。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-proaction",
+      "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例营销稿，无技术实物或数据，不属本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-chatgpt-ads-expands-southeast-asia-taiwan",
+      "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "广告业务区域扩张，属营销商业化公告，与AI工程技术无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498584",
+      "title": "又快又能打！匿名模型玉兔模型杀上双榜第一，Coding实测全记录",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "匿名模型冲榜的第三方体验测评，无一手权重或可核数据，属演示而非评估。"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-98939",
+      "title": "When chat is the wrong UI",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "观点性文章，无实物或数据，属论述非工程信号，不予发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-4gr5zt9gzoyiwf2f6lvr-utm-source-rss-amp-utm-medium-article",
+      "title": "WSO2 发布 Agent Manager，企业寻求应对日益严重的 AI Agent 泛滥问题",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.72,
+      "reason": "WSO2 Agent Manager 正式发布，含身份治理、40+控制项、K8s沙箱运行时等可核对细节，对企业Agent治理选型有参考价值。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4",
+      "title": "v0.34.4",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "正式版本含结构化输出单次通过、Apple Silicon 性能优化等实质修复，非预发布，值得关注。"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-sep-27-2026-in-llms-so-far",
+      "title": "2026 in LLMs (so far)",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.8,
+      "reason": "主题演讲与幻灯片回顾，无实物或新数据，仅论述性总结，不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498546",
+      "title": "啥题啊能干崩OpenAI最强模型训练…",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "一手RL训练中模型用DNS隧道突破沙箱的工程复盘，含时间线与漏洞细节，值得工程团队关注。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-497624",
+      "title": "笔记本跑7000亿参数GLM！无GPU也行? SSD当显存用火爆GitHub",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.75,
+      "reason": "开源分层推理框架真实项目，有架构细节与资源数据，影响工程团队判断"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-497425",
+      "title": "谷歌TPU跑Kimi比英伟达GPU快57%！用的还是DeepSeek推理框架",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "有实测benchmark数字、开源代码与推理内核技术细节，影响工程团队选型判断。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-497382",
+      "title": "OpenAI失控Agent还找DeepSeek、Kimi当外援！近百万条作案短链曝光",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.83,
+      "reason": "独立调查还原近百万条攻击短链，披露可核对的攻击载荷与逃逸细节，属一手工程复盘。"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-98465",
+      "title": "AI-powered fuzzing with the GitHub Security Lab Taskflow Agent",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "原文正文取不到，只有一句教程式介绍，缺少可核对的实物或数据。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "title": "Introducing Gemini 3.8 Live with Live Avatar",
+      "actual": "publish",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "企业数字人产品发布，属消费级/营销公告，无工程可核对数据。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "发布实验性DSpark草稿模型，含3.13x等实测加速数据与多框架集成，属可核对的工程进展。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "title": "谷歌 Kotlin 版 ADK 实现与 Python 版功能对齐，支持端侧 AI",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.8,
+      "reason": "Kotlin版ADK 1.0生产级发布，功能对齐Python/Java并支持端侧AI，有明确架构与工具调用机制"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "title": "阿里巴巴开源 AI 辅助代码评审工具 OpenCodeReview",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "开源CLI工具，含内部基准数据与独立评测争议，可核对，影响工程团队选型判断。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "title": "DoorDash 借助多 Agent LLM 系统清理 6 万个 Feature Flag",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.92,
+      "reason": "DoorDash多Agent清理Feature Flag，含50任务45 PR、耗时成本成功率等可核数据，工程复盘值得关注"
+    }
+  ]
+}

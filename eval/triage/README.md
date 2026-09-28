@@ -130,6 +130,54 @@ agent, not by the editor whose decisions make up the dataset. It shows the
 suggestions behave the same way on unseen items. It does not replace a fresh
 held-out split.
 
+## Prompt v2: the article, not the feed (2026-09-29)
+
+Both measurements above point at one cause: the model sees the feed, the
+editor read the article. `candidate-triage-v2` fetches the primary source
+(`src/lib/candidate-article.ts` — `<article>`, else `<main>`, else `<body>`,
+chrome stripped, first 1,500 characters) and tells the model to judge on it;
+when a page refuses, the prompt says so and why. The v1 prompt text is
+unchanged byte for byte, so the numbers above still describe it.
+
+**Scored on a set neither prompt was fitted to.** `build-triage-dataset` now
+marks a row `fresh` when it was decided on or after 2026-09-24, was not
+auto-rejected by the task runner, and no suggestion was on screen at the time
+(no stored suggestion older than the decision, or the decision was made in
+the console's blind mode). That is 33 rows — 31 from the 2026-09-28 round,
+which ran without suggestions, and 2 from 09-24; the other 51 of that round
+were made with suggestions showing and are excluded. Articles were readable
+for 29 of 33 (two OpenAI pages answer 403, two GitHub Blog pages render in
+JavaScript).
+
+```bash
+npm run eval:triage -- --prompt v1 --fresh
+npm run eval:triage -- --prompt v2 --fresh
+```
+
+| fresh set, 33 items (10 / 6 / 17) | v1 (feed) | v2 (article) |
+| --------------------------------- | --------: | -----------: |
+| accuracy                          |     57.6% |    **66.7%** |
+| macro-F1                          |     0.421 |    **0.566** |
+| publish recall                    |  **0/10** |     **8/10** |
+| publish precision                 |         — |         8/12 |
+| publish vs not, accuracy          |     66.7% |    **81.8%** |
+| reject at confidence ≥ 0.85       |     14/14 |        12/13 |
+| input tokens per item             |    ~1,520 |       ~2,190 |
+
+v1 found none of the ten publishes, the same failure as both earlier
+measurements. v2 found eight. Its errors are boundary calls: two front-end
+releases (htmx 4.0, Shopify leaving React Native) suggested for publish on a
+site that covers AI engineering, a patch release and an enterprise product
+suggested for publish, and several review ↔ reject swaps — the boundary the
+labels already disagree on. The two publishes it missed were the GitHub page
+it could not read and Gemini 3.8 Live, which it took for a consumer launch.
+
+**How much to trust this.** 33 items from essentially one round, decided by
+the agent that later built v2 (reading articles, as v2 now does). It shows the
+direction and the size of the effect; it is not a stable number. The console
+switched to v2 on the same day because suggestions stay advisory, and every
+blind round now adds clean rows to re-check it with.
+
 ## Known limits, stated up front
 
 - **Label noise on review vs reject.** The 9 pre-release items above that were

@@ -6,6 +6,7 @@ import {
   type TriageExample,
   type TriageLabel
 } from "@/lib/candidate-llm-triage";
+import { fetchArticleExcerpt } from "@/lib/candidate-article";
 import { getImportedCandidates } from "@/lib/candidate-workflow";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
 import {
@@ -126,6 +127,9 @@ export async function generateTriageSuggestionsForUndecided(): Promise<TriageGen
       const candidate = pending[next];
       next += 1;
 
+      // v2 judges on the article, not the feed (eval/triage/README.md →
+      // "Prompt v2"). A page that refuses is passed on as the reason.
+      const article = await fetchArticleExcerpt(candidate.sourceUrl);
       const result = await runCandidateTriage(
         {
           title: candidate.originalTitle,
@@ -134,10 +138,14 @@ export async function generateTriageSuggestionsForUndecided(): Promise<TriageGen
           sourceName: candidate.sourceName,
           sourceUrl: candidate.sourceUrl,
           publisherName: candidate.publisherName,
-          publishDate: candidate.publishDate
+          publishDate: candidate.publishDate,
+          ...(article.ok
+            ? { articleExcerpt: article.text }
+            : { articleError: article.error })
         },
         examples,
-        provider
+        provider,
+        { promptVersion: TRIAGE_PROMPT_VERSION }
       );
 
       if (result.suggestion) {

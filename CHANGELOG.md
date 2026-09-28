@@ -12,6 +12,30 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Triage reads the article; blind rounds; outside questions
+
+- **Blind rounds** (2026-09-29). Every decision since the triage eval's split
+  date had been made with the model's suggestion on screen, so none was a
+  clean label. The editorial-round console's 「隐藏建议（盲评）」 link hides
+  the suggestions, and each decision made there is stored with `blind: true`
+  on its review-state entry. The console also gained 标记已看, the third
+  triage answer, which previously needed the candidate's own page.
+- **Triage prompt v2 fetches the primary source** (`src/lib/candidate-article.ts`)
+  and judges on it. On the 33 decisions made since 09-24 with no suggestion
+  showing, v1 found **0 of 10** publishes and v2 **8 of 10**; accuracy 57.6% →
+  66.7%, confident rejects 14/14 → 12/13. A small set from one round, stated as
+  such in `eval/triage/README.md`. The console now uses v2; the v1 prompt text
+  is unchanged, so its published numbers stand. `build-triage-dataset` marks
+  those clean rows `fresh`; `eval:triage` takes `--prompt v1|v2` and
+  `--fresh`, and reads `EVAL_ENV_FILE` like `eval:ask`. Article text is
+  cached in the git-ignored `.cache/`.
+- **Questions from outside.** `eval/outside-questions/` holds instructions and
+  a blank CSV for readers who have not seen the site, and labelling steps for
+  the owner. `eval:ask` reports builder and outside questions separately and
+  takes a `partial` kind (covered in part: checked for grounding, answers
+  listed for a person to read); `eval:search` gets an `outside` split.
+- 372 tests (7 new), typecheck and lint pass.
+
 ## Search-page pieces shared; related-signal dates stay whole
 
 - **The search page's copies** (2026-09-29), the largest left in `src/`

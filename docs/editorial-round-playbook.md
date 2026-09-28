@@ -181,6 +181,11 @@ agree on how far to trust them:
   on the primary source. Read those articles.
 - A **publish suggestion** is right about one time in six in the test split.
   Treat it as "worth opening", not as a decision.
+- **Since 2026-09-29 the suggestions come from prompt v2**, which reads the
+  article. On 33 clean decisions it found 8 of 10 publishes (v1: 0) at 8 of 12
+  precision — better, from a small sample. The three bullets above describe
+  v1; until blind rounds re-measure v2, keep treating a publish suggestion as
+  "worth opening".
 
 **盲评 — decide first, look later** (added 2026-09-29). The console's
 「隐藏建议（盲评）」 link (`/workspace/editorial-round?suggestions=hidden`)

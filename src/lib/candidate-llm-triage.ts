@@ -16,7 +16,17 @@ import type { LlmProvider, LlmTokenUsage } from "@/lib/llm/provider";
  * outlives the prompt it measured is worse than no number.
  */
 
-export const TRIAGE_PROMPT_VERSION = "candidate-triage-v1";
+export const TRIAGE_PROMPT_VERSIONS = [
+  "candidate-triage-v1",
+  // v2 adds the opening of the primary source (candidate-article.ts) and
+  // tells the model to judge on it. Evaluated before it replaces v1.
+  "candidate-triage-v2"
+] as const;
+
+export type TriagePromptVersion = (typeof TRIAGE_PROMPT_VERSIONS)[number];
+
+/** The version the workspace console uses. */
+export const TRIAGE_PROMPT_VERSION: TriagePromptVersion = "candidate-triage-v2";
 
 export const triageLabels = ["publish", "review", "reject"] as const;
 
@@ -36,6 +46,9 @@ export interface TriageInput {
   sourceUrl: string;
   publisherName: string;
   publishDate: string;
+  /** v2 only: the article's opening, or why it could not be read. */
+  articleExcerpt?: string;
+  articleError?: string;
 }
 
 export interface TriageExample extends TriageInput {
@@ -60,7 +73,7 @@ export interface TriageRunResult {
 const FIELD_LIMIT = 500;
 const REASON_LIMIT = 160;
 
-const rubric = `你是一个中文技术雷达站的编辑助理。这个站不是 AI 新闻门户：它只发布「值得工程团队优先关注的新技术信号」，并解释它为什么重要。每天导入的候选里，大多数都会被拒绝。
+const rubricHead = `你是一个中文技术雷达站的编辑助理。这个站不是 AI 新闻门户：它只发布「值得工程团队优先关注的新技术信号」，并解释它为什么重要。每天导入的候选里，大多数都会被拒绝。
 
 对一条候选，给出编辑最可能的处置，三选一：
 
@@ -68,9 +81,16 @@ const rubric = `你是一个中文技术雷达站的编辑助理。这个站不�
 - review（标记已看，不选）：主题相关但这次不发。例如：与已发布内容讲同一件事、原文只剩一句话无法核对、只有论述没有实物、演示而不是评估、补丁版本、用法教程。
 - reject（拒绝）：不属于本站。例如：融资、财报、人事、营销与客户案例、消费级产品公告、会议推广与邀请、预发布版本（rc / beta / pre）、与 AI 工程无关的内容、政策公关稿。
 
-注意：
-- 你只能看到订阅源里的标题和摘要，编辑还读过原文。信息不足时，倾向 review 而不是 publish。
-- 标题像版本号时，看链接里的 tag：标题写 v0.34.3 而 tag 是 v0.34.3-rc0 的，是预发布版本。
+注意：`;
+
+const readingNote: Record<TriagePromptVersion, string> = {
+  "candidate-triage-v1":
+    "- 你只能看到订阅源里的标题和摘要，编辑还读过原文。信息不足时，倾向 review 而不是 publish。",
+  "candidate-triage-v2":
+    "- 每条候选附有原文开头的摘录（取不到时会注明原因）。以原文为准判断有没有可核对的实物或数据，不要因为订阅源的摘要短就给 review；只有原文也取不到、信息确实不足时，才倾向 review。"
+};
+
+const rubricTail = `- 标题像版本号时，看链接里的 tag：标题写 v0.34.3 而 tag 是 v0.34.3-rc0 的，是预发布版本。
 
 只输出一个 JSON 对象：{"decision":"publish|review|reject","confidence":0 到 1 之间的数,"reason":"一句中文理由，不超过 60 字"}`;
 
@@ -80,19 +100,37 @@ function clip(value: string, limit = FIELD_LIMIT): string {
   return text.length > limit ? `${text.slice(0, limit)}…` : text;
 }
 
+function buildRubric(version: TriagePromptVersion): string {
+  return [rubricHead, readingNote[version], rubricTail].join("\n");
+}
+
 function describeCandidate(input: TriageInput): string {
   const body = input.summary || input.content;
-
-  return [
+  const lines = [
     `标题: ${clip(input.title, 200)}`,
     `来源: ${input.sourceName}${input.publisherName && input.publisherName !== input.sourceName ? ` / ${input.publisherName}` : ""}`,
     `链接: ${input.sourceUrl}`,
     `发布日期: ${input.publishDate || "未知"}`,
     `摘要: ${body ? clip(body) : "（订阅源没有提供摘要）"}`
-  ].join("\n");
+  ];
+
+  // Only candidates that went through the fetch carry either field; the
+  // few-shot examples do not, and print no excerpt line at all.
+  if (input.articleExcerpt) {
+    lines.push(`原文摘录: ${input.articleExcerpt}`);
+  } else if (input.articleError) {
+    lines.push(`原文摘录: （取不到：${input.articleError}）`);
+  }
+
+  return lines.join("\n");
 }
 
-export function buildTriageSystemPrompt(examples: TriageExample[]): string {
+export function buildTriageSystemPrompt(
+  examples: TriageExample[],
+  version: TriagePromptVersion = TRIAGE_PROMPT_VERSION
+): string {
+  const rubric = buildRubric(version);
+
   if (examples.length === 0) {
     return rubric;
   }
@@ -167,13 +205,13 @@ export async function runCandidateTriage(
   input: TriageInput,
   examples: TriageExample[],
   provider: LlmProvider,
-  options: { timeoutMs?: number } = {}
+  options: { timeoutMs?: number; promptVersion?: TriagePromptVersion } = {}
 ): Promise<TriageRunResult> {
   const startedAt = Date.now();
 
   try {
     const response = await provider.generate({
-      systemPrompt: buildTriageSystemPrompt(examples),
+      systemPrompt: buildTriageSystemPrompt(examples, options.promptVersion),
       userPrompt: buildTriageUserPrompt(input),
       timeoutMs: options.timeoutMs ?? 30000
     });
