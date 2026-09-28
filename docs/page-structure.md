@@ -644,10 +644,25 @@ Forbidden on public pages:
   - workspace-only publish / unpublish control shared by the skill and
     knowledge edit pages, with confirmation prompts and 409 readiness
     messages surfaced inline
-- `SkillWorkspaceForm` / `KnowledgeWorkspaceForm`
-  - workspace-only create/edit forms with canonical-`TopicTag` checkbox
-    pickers and related-content pickers; submit to the
-    `/api/workspace/{skills,knowledge}` routes
+- `ContentWorkspaceForm`
+  - workspace-only create/edit form shared by skills and knowledge, with
+    canonical-`TopicTag` checkbox pickers and related-content pickers;
+    the attribute selects come from the kind's descriptor; submits to the
+    `/api/workspace/{skills,knowledge}` routes. Until 2026-09-28 each kind
+    had its own copy (`SkillWorkspaceForm` / `KnowledgeWorkspaceForm`)
+- `ContentWorkspaceListPage` / `ContentWorkspaceDetailPage` /
+  `ContentWorkspaceNewPage` (`content-workspace-pages.tsx`)
+  - the list, edit and new-entry pages of both consoles; each route file
+    passes `skillWorkspaceKind` or `knowledgeWorkspaceKind` from
+    `src/lib/content-workspace-kinds.ts` (copy, paths, attributes, the
+    workflow reads, the second related pool)
+- `ContentDetailPage` (`content-detail-page.tsx`)
+  - the public `/skills/[slug]` and `/knowledge/[slug]` page: hero, body,
+    relationship graph, related signals, the other kind's entries and the
+    profile aside, with one descriptor per kind (`skillDetailKind` /
+    `knowledgeDetailKind`) for what differs. The two pages were sibling
+    copies until 2026-09-28; attribute labels for both kinds live in
+    `src/lib/content-labels.ts`
 - `RelationCheckboxItem`
   - workspace-only related-content checkbox shared by all three editors
     (skill, knowledge, technology draft): while checked it unfolds a

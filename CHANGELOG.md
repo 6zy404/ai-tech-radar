@@ -12,6 +12,58 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Skills and knowledge share one implementation
+
+- **Cluster ③, the last of the copy-paste list** (2026-09-28). Skills and
+  knowledge were two copies of the same feature: the workspace workflow
+  (540 lines each), three API routes, the SQLite store, the edit form, the
+  list / edit / new workspace pages, and the public detail page (370 lines
+  each). They differed in their enum attributes (skill type / heat /
+  learning cost vs. category / difficulty), which related list they carry
+  besides technologies, and a handful of nouns.
+- **Now one of each**, with a descriptor per kind:
+  `createContentWorkspaceWorkflow` (`src/lib/content-workspace-workflow.ts`;
+  `skill-workflow.ts` and `knowledge-workflow.ts` keep their exported
+  names), `createContentWorkspaceRoutes`
+  (`src/app/api/workspace/content-workspace-routes.ts`), one SQLite module
+  keyed by table, `ContentWorkspaceForm`, `content-workspace-pages.tsx`
+  with `src/lib/content-workspace-kinds.ts`, and `ContentDetailPage`
+  (`src/components/content-detail-page.tsx`). The attribute value lists and
+  labels, which had been copied into eight files, are
+  `src/lib/content-labels.ts`.
+- **One visible change, on purpose, in its own commit**: the skill console
+  said 产品决策 / 运维 / 沟通协作 and 学习成本「中」 where every public page
+  says 产品判断 / 运维与落地 / 团队沟通 and「中等」; it now uses the public
+  labels.
+- **Verified by output, not by reading the code.** Before starting, the HTML
+  of 79 pages (35 detail pages, both indexes, home, two topic hubs, and every
+  skill / knowledge workspace page) was captured with scripts and comments
+  stripped; two captures of the same build read 0 differences. After every
+  step the capture read 0 again, except the label commit, which changed
+  exactly the four words above on the 18 skill workspace pages and nothing
+  else — which is also the proof the comparison fires. A scripted
+  create / edit / publish run on a throwaway data directory writes
+  byte-identical stores and workflow events before and after (a one-word
+  probe is caught); every API error path answers the same status and
+  message; in the browser a new knowledge entry redirects to its edit page
+  and saving stores the new difficulty, relation type and note.
+  Full-page screenshots of a skill and a knowledge detail page at 1440 and
+  390 show the same skeleton and no horizontal overflow.
+- **A bug found while testing the form, fixed in its own commit.** After a
+  save, a select box showed the value it had before the save — the stored
+  value was right, but a second save would have written the old one back.
+  React resets a form after its action runs, and a `<select>` does not
+  follow a changed `defaultValue`. It hit the attribute selects (heat,
+  difficulty …) and the relation-type select in `RelationCheckboxItem`,
+  which the technology draft editor shares; both are now keyed by the saved
+  value, and in the browser both show the new value after saving. The old
+  forms had the same code. Four other workspace forms use the same pattern
+  and were not checked.
+- Duplicated lines, same scan as the entries below (rerun here it read 6.8%
+  where they recorded 6.9%): **6.8% → 5.0%**; no skill or knowledge file is
+  on the list any more. 365 tests, 22 validators, typecheck, lint and format
+  pass. `npm run build:public` was not run.
+
 ## 定时导入 and 定时简报草稿 share one config
 
 - **Cluster ⑤ of the copy-paste list** (2026-09-28). `scheduled-import.ts`

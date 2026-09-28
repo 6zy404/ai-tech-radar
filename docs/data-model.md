@@ -1025,7 +1025,10 @@ shape with:
 - `createdAt` / `updatedAt`
 
 Stored in `config/skill-workspace.json` / `config/knowledge-workspace.json`
-(`skill-workflow.ts` / `knowledge-workflow.ts`). The stores are a
+(`skill-workflow.ts` / `knowledge-workflow.ts`, both thin configurations
+of `createContentWorkspaceWorkflow` in `content-workspace-workflow.ts`
+since 2026-09-28 — they differ only in their enum attributes, their second
+related-id list and two sentences of copy). The stores are a
 **copy-on-write overlay** over the `src/data` seed arrays:
 
 - editing a seed entry copies it into the store (initial status `published`,
