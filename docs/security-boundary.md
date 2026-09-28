@@ -397,8 +397,12 @@ per request — while a real DeepSeek key was configured. The key is now taken
 from `CF-Connecting-IP` first (the header Cloudflare sets itself), then
 `x-real-ip`, then the _last_ hop of `x-forwarded-for`. Anything that reaches
 the server without going through the proxy can still set all of these, which
-is one reason the server should not listen on every interface (see the gap
-list).
+is why the server listens on `127.0.0.1` only since 2026-09-28
+(`next start -H 127.0.0.1` in `package.json`): before that, the machine's LAN
+address answered `200`, and with the loopback binding the same request is
+refused. What is left is a process on the machine itself, which can already
+read the store directly. `npm run deploy` re-checks the binding after every
+restart — see `docs/deployment.md` → "Keeping the site running".
 
 **A second guard stops other websites from spending the budget through their
 visitors.** A `text/plain` POST is a "simple" cross-origin request that

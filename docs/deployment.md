@@ -161,32 +161,104 @@ Four settings are doing real work here:
 - **`-StartWhenAvailable`** — start it after a missed trigger rather than
   waiting for the next boot.
 
+**The server listens on loopback only (2026-09-28).** `npm run start` is
+`next start -H 127.0.0.1`. The tunnel connects to `localhost:3000` from the
+same machine, so nothing else has a reason to reach the port — and until this
+change everything on the local network could. The binding lives in
+`package.json` rather than in the task definition, so it is versioned and the
+task itself did not have to be re-registered. Measured on a throwaway instance
+(the rollback build on port 3100), with the live server as the control:
+
+| Request to                          | live, listening on `::` | with `-H 127.0.0.1`        |
+| ----------------------------------- | ----------------------- | -------------------------- |
+| `127.0.0.1`                         | answers                 | answers                    |
+| `localhost` (.NET and Node `fetch`) | answers                 | answers — falls back to v4 |
+| `[::1]`                             | answers                 | refused                    |
+| the machine's own LAN address       | **200 in 16ms**         | **refused**                |
+
+The LAN row is what the change is for. Besides reaching the site around the
+tunnel's deny list, a caller on the network could set `CF-Connecting-IP` to
+anything and get a fresh rate-limit bucket per request (see
+`docs/security-boundary.md` → "Public LLM Feature Boundary"). `npm run deploy`
+checks the binding after every restart and exits `2` when a listener is not a
+loopback address.
+
 **Rebuild before it matters.** `npm run start` serves whatever `.next` holds,
 so it must be rebuilt after `NEXT_PUBLIC_SITE_URL` changes — and **never
 build into `.next` while this task is running**, since dev/build/start all
 share it.
 
-**Rebuild with seconds of downtime, not minutes (used 2026-09-24).** Build into
-a side directory while the server keeps serving, then swap and restart:
+**Deploy with one command (`scripts/deploy.ps1`, 2026-09-28).** Run from the
+checkout the server task serves:
 
 ```powershell
-# 1. build beside the running server (takes minutes, no downtime)
-$env:NEXT_DIST_DIR = ".next-new"; npm run build:public; Remove-Item Env:NEXT_DIST_DIR
-# 2. switch (about ten seconds of downtime)
-Stop-ScheduledTask -TaskName "ai-tech-radar-server"
-$pid3000 = (Get-NetTCPConnection -LocalPort 3000 -State Listen).OwningProcess | Select-Object -First 1
-if ($pid3000) { taskkill /PID $pid3000 /T /F }
-Rename-Item .next .next-old; Rename-Item .next-new .next
-Start-ScheduledTask -TaskName "ai-tech-radar-server"
-# 3. check, then delete .next-old once you are happy
-Invoke-WebRequest http://localhost:3000/ask -UseBasicParsing | Select-Object StatusCode
+npm run deploy            # build beside the running server, swap, restart, verify
+npm run deploy:rollback   # swap back to the previous build, restart, verify
+powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -WhatIf   # print the steps, change nothing
 ```
 
-Rollback is the same swap the other way. `Stop-ScheduledTask` ends the task
-instance but leaves the detached `next start` holding port 3000, which is why
-step 2 kills the process tree explicitly. Measured 2026-09-24: the live server
-was out for about ten seconds, and `/ask`, which had been `404` on the 09-21
-build, answered `200` on the first request.
+What a deploy does, in order:
+
+1. **Preflight, before anything changes.** The scheduled task must serve this
+   checkout, and the process on port 3000 must be a `node` started out of this
+   checkout's `node_modules`. Run from a git worktree, it refuses.
+2. **Build into `.next-new`** with `npm run build:public` while the server keeps
+   serving. A failed build stops here; the server was never touched.
+3. **Swap** — stop the task, end the process tree holding the port
+   (`Stop-ScheduledTask` leaves the detached `next start` running, so this is
+   explicit), rotate logs, `.next` → `.next-old`, `.next-new` → `.next`, start
+   the task.
+4. **Health check.** `/api/health` must answer `ok` with the **new** build id
+   **from a process younger than the restart**. The second condition is not
+   decoration: the route reads `BUILD_ID` from disk on every request, so a
+   server that was never restarted reports the new id while still running the
+   old code.
+5. **If the health check fails, roll back automatically**: the previous build
+   goes back to `.next`, the task restarts, and the failed build is kept in
+   `.next-failed` for inspection until the next deploy.
+6. **Report**: four public pages at 200, the listening address, the public URL
+   through the tunnel (reported only — the edge has measured anywhere from 0.8s
+   to 29s from this network, so it is never a reason to roll back), and the
+   measured downtime. One line per run is appended to `config/deploy.log`.
+
+Exit codes: `0` healthy, `1` failed (previous build restored where possible),
+`2` healthy but not loopback-only.
+
+`.next-old` always holds the previous build, so `deploy:rollback` needs no
+arguments, and running it twice returns to where it started. A rollback target
+older than 2026-09-25 has no `/api/health`; the script then checks the home
+page instead and says so.
+
+**Log rotation happens inside the stop window**, because `config/server.log` is
+held open by the running task and cannot be renamed at any other time. A log
+over 1 MB (`-LogMaxKB`) becomes `.1`, older generations shift up, three are
+kept (`-LogKeep`). It covers `server.log`, `task-runner-cron.log` and
+`backup-cron.log`; a log another task is writing at that moment is skipped and
+reported, not an error. On 2026-09-28 the three together were about 100 KB, so
+nothing rotates yet.
+
+**Rehearse after changing the script**: `npm run deploy:rehearse` builds a
+throwaway repository under the temp directory, starts a stand-in server on port
+3199 in place of the scheduled task, and drives the real deploy and rollback
+through seven scenarios (34 checks, about a minute). Only the scheduled task is
+stubbed.
+
+> **The first rehearsal stopped the live server for 78 seconds** (2026-09-28,
+> 10:21:52–10:23:10). The harness kept its port in `$port`; the deploy script's
+> parameter is `$Port`; PowerShell variable names are case-insensitive and
+> dot-sourcing assigns a script's parameters in the caller's scope, so the
+> default `3000` overwrote `3199`. The only check standing in the way was "the
+> process on the port is `node`", which the live server passes. Two things
+> changed: the script now refuses to end a process that was not started from
+> its own checkout, and the rehearsal reproduces exactly this case as its first
+> scenario. For part of that window the stand-in answered on port 3000, so a
+> visitor would have received a bare `ok`.
+
+Doing it by hand is still possible and is what the script replaced — build with
+`NEXT_DIST_DIR=.next-new`, `Stop-ScheduledTask`, end the process tree on port
+3000, rename the two directories, `Start-ScheduledTask`. Measured by hand on
+2026-09-24: about ten seconds of downtime, and `/ask`, which had been `404` on
+the 09-21 build, answered `200` on the first request.
 
 **The embedding model does not download on this machine — seed the cache.**
 The design was that the first `/search` after a deploy fetches the ~130MB

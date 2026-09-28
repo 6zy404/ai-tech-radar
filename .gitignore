@@ -1,8 +1,10 @@
 # Dependencies
 node_modules
 
-# Next.js build output
+# Next.js build output. `.next-*` covers the side directories a deploy leaves
+# behind (`.next-new`, `.next-old`, `.next-failed`) and verification builds.
 .next
+.next-*
 out
 
 # TypeScript incremental build info
@@ -26,6 +28,9 @@ pnpm-debug.log*
 config/task-runner-cron.log
 config/backup-cron.log
 config/server.log
+config/deploy.log
+# rotated generations written by scripts/deploy.ps1 (server.log.1, ...)
+config/*.log.*
 
 # Runtime-only local stores: a delivery config that would hold real webhook
 # endpoints/tokens once configured (keep it out of git — see
