@@ -1,0 +1,48 @@
+/* components/workspace-detail-layout: every rule whose subject is this component.
+   Gathered 2026-09-28 from 07-detail-layout.css, 08-cards-lists-actions.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 20px;
+}
+
+.technology-detail-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.technology-detail-panel__header {
+  align-items: flex-start;
+}
+
+.technology-detail-panel__intro {
+  display: grid;
+  gap: 8px;
+  min-block-size: 0;
+}
+
+.technology-detail-panel__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  min-block-size: 0;
+}
+
+.technology-detail-panel__meta {
+  display: grid;
+  gap: 14px;
+}
+
+.technology-detail-panel__meta-group {
+  display: grid;
+  gap: 10px;
+}
+
+.technology-detail-panel__content {
+  min-block-size: 220px;
+}
+
+.workspace-shell .technology-detail-panel__content {
+  min-block-size: 0;
+}

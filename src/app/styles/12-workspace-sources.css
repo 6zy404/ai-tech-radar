@@ -68,23 +68,6 @@
   gap: 14px;
 }
 
-.source-batch-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 18px;
-  align-items: start;
-  margin-bottom: 20px;
-  padding: 18px;
-  border: 1px solid var(--workspace-line);
-  border-radius: 16px;
-  background: linear-gradient(
-    135deg,
-    rgba(248, 250, 252, 0.98),
-    rgba(226, 232, 240, 0.7)
-  );
-  box-shadow: var(--workspace-shadow);
-}
-
 .source-batch-panel h2,
 .source-batch-panel p {
   margin: 0;
@@ -93,12 +76,6 @@
 .source-batch-panel > div:first-child {
   display: grid;
   gap: 6px;
-}
-
-.source-batch-panel__actions {
-  display: grid;
-  justify-items: end;
-  gap: 8px;
 }
 
 .source-batch-summary {
@@ -116,47 +93,6 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(31, 41, 51, 0.08);
-}
-
-.source-batch-panel__empty {
-  grid-column: 1 / -1;
-  margin: 0;
-  width: fit-content;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.source-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(160px, 0.48fr) minmax(
-      240px,
-      0.62fr
-    );
-  gap: 16px;
-  align-items: start;
-  padding: 16px 18px;
-  border: 1px solid var(--workspace-line);
-  border-radius: 16px;
-  background: rgba(248, 250, 252, 0.92);
-  box-shadow: var(--workspace-shadow);
-}
-
-.source-row__main,
-.source-row__meta,
-.source-row__status {
-  min-width: 0;
-}
-
-.source-row__main {
-  display: grid;
-  gap: 8px;
-}
-
-.source-row__title-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
 }
 
 .source-row__title-line h2,
@@ -185,63 +121,6 @@
   font-size: 0.9rem;
 }
 
-.source-row__url {
-  overflow-wrap: anywhere;
-}
-
-.source-row__message {
-  overflow-wrap: anywhere;
-  line-height: 1.45;
-}
-
-.source-row__quality-line {
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: var(--ink);
-}
-
-.source-row__meta,
-.source-row__status {
-  display: grid;
-  gap: 7px;
-}
-
 .source-row__status .status-badge {
   justify-self: start;
-}
-
-.source-row__status .source-actions {
-  margin-top: 4px;
-}
-
-.source-actions {
-  display: grid;
-  gap: 8px;
-}
-
-.source-actions--compact .candidate-review-actions__buttons {
-  gap: 8px;
-}
-
-.source-form {
-  display: grid;
-  gap: 18px;
-}
-
-.source-form__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.source-form__wide {
-  grid-column: 1 / -1;
-}
-
-.source-form__checkbox {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--muted);
-  font-weight: 700;
 }

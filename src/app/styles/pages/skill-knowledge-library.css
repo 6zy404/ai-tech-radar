@@ -1,7 +1,6 @@
 /* pages/skill-knowledge-library: every rule whose subject is this component.
    Gathered 2026-09-28 from 26-skills-library.css, 40-dossier-v2-skills-knowledge.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .skills-library-intro,
 .skills-library-groups,
 .skills-library-empty {
@@ -14,7 +13,6 @@
    by holding something; this is the page's lede line, so it sits on the page
    ground like the header above it, per "a list page top is a label, not a
    panel". */
-
 .skills-library-intro {
   display: grid;
   gap: 12px;
@@ -29,7 +27,6 @@
 /* Was a 2×2 white inset box in a fixed 280px column — the same "counts in a
    panel" pattern removed from the digest hero, the home digest card and now the
    home hero. A count is a caption: one wrapping line under the intro copy. */
-
 .skills-library-stats {
   display: flex;
   flex-wrap: wrap;

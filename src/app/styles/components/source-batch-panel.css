@@ -1,0 +1,57 @@
+/* components/source-batch-panel: every rule whose subject is this component.
+   Gathered 2026-09-28 from 12-workspace-sources.css, 18-ui-refinement.css, 21-workspace-sources-console.css, 22-workspace-schedule-console.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.source-batch-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 20px;
+  padding: 18px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.98),
+    rgba(226, 232, 240, 0.7)
+  );
+  box-shadow: var(--workspace-shadow);
+}
+
+.source-batch-panel__actions {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.source-batch-panel__empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  width: fit-content;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .source-batch-panel__actions {
+    justify-items: stretch;
+  }
+}
+
+.source-console-import-panel .source-batch-panel {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(248, 250, 252, 0.88);
+  box-shadow: none;
+}
+
+@media (max-width: 980px) {
+  .source-console-import-panel .source-batch-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .source-console-import-panel .source-batch-panel__actions {
+    justify-items: start;
+  }
+}

@@ -1,0 +1,69 @@
+/* components/dossier-stamp-tag: every rule whose subject is this component.
+   Gathered 2026-09-28 from 09-home.css, 30-network.css, 38-dossier-v0-components.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+/* A stamp tag is a chip: it should hug its label, the way the same component
+   does on every signal card (70px there). As a grid item it stretched to the
+   card's full width instead — 446px of chip around two characters. */
+.foundation-card > .dossier-stamp-tag {
+  justify-self: start;
+}
+
+.content-network__panel-list .dossier-stamp-tag {
+  white-space: nowrap;
+}
+
+.dossier-stamp-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--dossier-stamp);
+  border: 1px solid var(--dossier-stamp);
+  border-radius: 999px;
+  padding: 4px 12px;
+  background: var(--dossier-surface);
+  cursor: default;
+}
+
+.dossier-stamp-tag--interactive {
+  cursor: pointer;
+  border: 1px solid var(--dossier-line);
+  color: var(--dossier-muted);
+}
+
+.dossier-stamp-tag--on {
+  color: var(--dossier-ground);
+  background: var(--dossier-stamp);
+  border-color: var(--dossier-stamp);
+}
+
+.dossier-stamp-tag--muted {
+  color: var(--dossier-muted);
+  border-color: var(--dossier-line);
+}
+
+/*
+ * A stamp is a label, not a column: as a flex item it was shrinking to make
+ * room for a wrapping title, so the same 印证 rendered 48x26 beside a
+ * one-line title and 45x42 (印 above 证) beside a two-line one on the same
+ * page. The title still shrinks and wraps, so the row keeps its min-content
+ * width. Mirror image of the 2026-07-29 fix where the same component was
+ * stretched to 446px around two characters.
+ *
+ * Deliberately NOT applied to the card chips row: a chip there can carry a
+ * long tag name, and forbidding it to shrink sizes the grid track from its
+ * max-content width — measured at 390px, that pushed /technologies to a
+ * 448px document on a 390px viewport (470 elements painted off-screen), the
+ * same mechanism as the 2026-07-29 compare-widget <select>.
+ */
+.dossier-related-section__topline .dossier-stamp-tag,
+/* The signal card's own topline needs it for the same reason, and only shows
+   the defect once a third element joins the row: on a card the reader marked
+   read, the 已读 stamp squeezes the priority stamp beside it, so the same
+   「立即关注」 measured 26px on most cards and 42px there (2026-08-16). The
+   catalog span next to them is the flexible one and still wraps. */
+.dossier-technology-card__topline .dossier-stamp-tag {
+  flex-shrink: 0;
+  white-space: nowrap;
+}

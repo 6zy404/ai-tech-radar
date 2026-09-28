@@ -1,11 +1,3 @@
-/* Public site-wide search: /search page. */
-.search-form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
 .search-form input[type="search"] {
   flex: 1 1 260px;
   min-width: 0;
@@ -20,18 +12,6 @@
 .search-form input[type="search"]:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
-}
-
-/* The submit control was an `.action-link`, i.e. link styling on a
-   `<button>`, so the browser's default button chrome came through: a
-   square, hairline-bordered box 12px shorter than the pill beside it —
-   the only control on the site that looked unstyled. It now reuses the
-   same filled button as the home hero's 阅读今日简报; the height is
-   pinned to the field's so the pair reads as one row. */
-.search-form .action-button {
-  align-self: stretch;
-  min-height: 0;
-  padding-inline: 22px;
 }
 
 .search-group__heading h2 {

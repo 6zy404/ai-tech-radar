@@ -1,0 +1,30 @@
+/* components/source-actions: every rule whose subject is this component.
+   Gathered 2026-09-28 from 12-workspace-sources.css, 21-workspace-sources-console.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.source-row__status .source-actions {
+  margin-top: 4px;
+}
+
+.source-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.workspace-sources-console .source-actions__import {
+  border-color: rgba(15, 118, 110, 0.28);
+  background: #ffffff;
+  color: var(--ui-teal-strong);
+  box-shadow: none;
+}
+
+.workspace-sources-console .source-actions__toggle--risk {
+  border-color: rgba(217, 119, 6, 0.28);
+  background: rgba(255, 251, 235, 0.8);
+  color: #9a3412;
+}
+
+.workspace-sources-console .source-actions__toggle--restore {
+  border-color: rgba(15, 118, 110, 0.28);
+  background: rgba(240, 253, 250, 0.8);
+  color: #0f766e;
+}

@@ -35,11 +35,6 @@
   color: var(--dossier-ink);
 }
 
-.dossier .skills-library-section__header .eyebrow {
-  color: var(--dossier-stamp);
-  font-family: ui-monospace, monospace;
-}
-
 .dossier .skills-library-section__header > p {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;

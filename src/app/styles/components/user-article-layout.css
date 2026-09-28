@@ -1,0 +1,112 @@
+/* components/user-article-layout: every rule whose subject is this component.
+   Gathered 2026-09-28 from 13-article-layout.css, 18-ui-refinement.css, 24-technology-detail.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.user-article-layout {
+  display: grid;
+  gap: 28px;
+}
+
+.user-article-layout__hero {
+  min-width: 0;
+}
+
+.user-article-layout__body {
+  display: grid;
+  align-items: start;
+  justify-content: center;
+  grid-template-columns: minmax(0, 760px) minmax(240px, 300px);
+  gap: 24px;
+}
+
+.user-article-layout__main,
+.user-article-layout__aside {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.user-article-layout__main {
+  max-width: 780px;
+}
+
+.user-article-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 28px;
+  border: 1px solid rgba(15, 118, 110, 0.14);
+  background:
+    linear-gradient(135deg, rgba(255, 253, 248, 1), rgba(229, 245, 241, 0.58)),
+    var(--surface-strong);
+  border-radius: 24px;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.06);
+  padding: 30px;
+}
+
+.user-article-hero__summary {
+  max-width: 760px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+}
+
+.user-article-layout__aside {
+  position: sticky;
+  top: 86px;
+}
+
+@media (max-width: 900px) {
+  .user-article-layout__aside {
+    position: static;
+  }
+
+  .user-article-hero {
+    padding: 24px;
+  }
+}
+
+/* User-facing technology detail reading template v0 */
+.technology-detail-reading .user-article-layout__body {
+  grid-template-columns: minmax(0, 760px) minmax(220px, 280px);
+  align-items: start;
+  gap: 28px;
+}
+
+.technology-detail-reading .user-article-layout__main {
+  gap: 20px;
+}
+
+.technology-detail-reading .user-article-layout__aside {
+  gap: 14px;
+}
+
+@media (max-width: 920px) {
+  .technology-detail-reading .user-article-layout__body {
+    grid-template-columns: 1fr;
+  }
+
+  .technology-detail-reading .user-article-layout__aside {
+    position: static;
+  }
+}
+
+/* -- article layout / hero (technology detail) -- */
+.dossier.user-article-layout {
+  background: transparent;
+}
+
+.dossier .user-article-hero {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+/* -- every content-section box, including the AI widgets and the
+   relationship graph, which all share this same class -- */
+.dossier .user-article-section {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}

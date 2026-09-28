@@ -1,7 +1,6 @@
 /* components/top-nav: every rule whose subject is this component.
    Gathered 2026-09-28 from 02-site-chrome.css, 18-ui-refinement.css, 19-design-system-v0.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .top-nav {
   position: sticky;
   top: 0;
@@ -127,7 +126,6 @@
    first paint: if it came from React state the server would have to guess a
    scheme it cannot know, and the icon would either mismatch on hydration or
    flip a moment after it. */
-
 .top-nav__theme-icon--moon {
   display: none;
 }

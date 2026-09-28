@@ -1,7 +1,6 @@
 /* components/external-source-browser: every rule whose subject is this component.
    Gathered 2026-09-28 from 21-workspace-sources-console.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .source-console-filter {
   grid-template-columns: minmax(260px, 1fr) minmax(180px, 220px) minmax(
       160px,
@@ -27,7 +26,6 @@
    five of the seven columns, the import and edit actions among them, were cut
    off with no way to reach them. `max-content` would overcorrect: it sizes to
    the longest description and makes the desktop layout scroll too. */
-
 .source-console-table {
   min-width: min-content;
   overflow: hidden;

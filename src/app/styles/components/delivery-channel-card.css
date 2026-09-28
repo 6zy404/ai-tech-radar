@@ -1,0 +1,17 @@
+/* components/delivery-channel-card: every rule whose subject is this component.
+   Gathered 2026-09-28 from 14-digest-and-delivery.css, 19-design-system-v0.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.delivery-channel-card__edit {
+  margin-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  padding-top: 8px;
+}
+
+.delivery-channel-card {
+  padding: 14px;
+}
+
+.delivery-channel-card__header {
+  align-items: flex-start;
+  gap: 12px;
+}

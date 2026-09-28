@@ -1,0 +1,62 @@
+/* components/workspace-page-shell: every rule whose subject is this component.
+   Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css, 19-design-system-v0.css, 20-workspace-delivery-console.css, 46-dossier-dark.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.workspace-shell::before {
+  content: "";
+  width: 72px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--workspace-accent);
+  display: none;
+}
+
+.workspace-security-note {
+  border: 1px dashed rgba(180, 83, 9, 0.35);
+  color: #78350f;
+  line-height: 1.55;
+  margin-top: 0;
+  border-radius: 12px;
+  padding: 9px 12px;
+  border-style: solid;
+  border-color: rgba(180, 83, 9, 0.22);
+  background: rgba(255, 247, 237, 0.62);
+  font-size: 0.78rem;
+}
+
+.workspace-shell__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  min-width: 0;
+}
+
+.workspace-shell {
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 980px) {
+  .workspace-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+.workspace-delivery-console .workspace-security-note {
+  padding: 9px 12px;
+  border-color: rgba(217, 119, 6, 0.24);
+  border-radius: 10px;
+  background: rgba(255, 251, 235, 0.66);
+  color: #92400e;
+  font-size: 0.78rem;
+}
+
+/* The Internal Workspace keeps its light design by design; in dark
+     mode the (unconditionally dark) body used to show through behind
+     its unpanelled chrome — breadcrumbs, section headings, eyebrows —
+     and behind its translucent light panels. Give the workspace shell
+     an opaque light board so the light design holds together. */
+:root[data-theme="dark"] .workspace-shell {
+  padding: 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f7f4ed 0%, #f0ebe2 100%);
+}

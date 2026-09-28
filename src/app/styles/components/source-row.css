@@ -1,0 +1,56 @@
+/* components/source-row: every rule whose subject is this component.
+   Gathered 2026-09-28 from 12-workspace-sources.css, 18-ui-refinement.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.source-row {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.92);
+  box-shadow: var(--workspace-shadow);
+  grid-template-columns: minmax(0, 1.15fr) minmax(180px, 0.7fr) minmax(
+      230px,
+      0.75fr
+    );
+}
+
+.source-row__main,
+.source-row__meta,
+.source-row__status {
+  min-width: 0;
+}
+
+.source-row__main {
+  display: grid;
+  gap: 8px;
+}
+
+.source-row__title-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.source-row__url {
+  overflow-wrap: anywhere;
+}
+
+.source-row__message {
+  overflow-wrap: anywhere;
+  line-height: 1.45;
+}
+
+.source-row__quality-line {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.source-row__meta,
+.source-row__status {
+  display: grid;
+  gap: 7px;
+}

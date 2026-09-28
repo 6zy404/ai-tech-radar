@@ -1,0 +1,67 @@
+/* components/technology-language-switch: every rule whose subject is this component.
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.technology-language-switch {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.technology-language-switch__track {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(68px, 1fr));
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(31, 41, 51, 0.04);
+}
+
+.technology-language-switch__button {
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 36px;
+  padding: 8px 14px;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.technology-language-switch__button--active {
+  background: var(--surface-strong);
+  color: var(--accent);
+  box-shadow: 0 2px 10px rgba(31, 41, 51, 0.08);
+}
+
+.technology-language-switch__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+@media (max-width: 900px) {
+  .technology-language-switch {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+/* -- language switch -- */
+.dossier .technology-language-switch__track {
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+}
+
+.dossier .technology-language-switch__button {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .technology-language-switch__button--active {
+  background: var(--dossier-accent);
+  color: var(--dossier-surface);
+}

@@ -81,13 +81,6 @@
   line-height: 1.25;
 }
 
-/* A stamp tag is a chip: it should hug its label, the way the same component
-   does on every signal card (70px there). As a grid item it stretched to the
-   card's full width instead — 446px of chip around two characters. */
-.foundation-card > .dossier-stamp-tag {
-  justify-self: start;
-}
-
 .home-signal-card__why span,
 .foundation-card__label {
   color: var(--label-amber);

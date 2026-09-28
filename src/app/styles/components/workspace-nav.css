@@ -1,0 +1,153 @@
+/* components/workspace-nav: every rule whose subject is this component.
+   Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css, 19-design-system-v0.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.workspace-nav {
+  position: sticky;
+  border: 0;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+}
+
+.workspace-nav__list {
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.workspace-nav__link {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 9px;
+  font-weight: 700;
+}
+
+.workspace-nav__link--active {
+  background: #0f172a;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+}
+
+.workspace-nav__link--active:hover {
+  background: #1e293b;
+  color: #fff;
+}
+
+.workspace-nav__brand {
+  display: grid;
+  gap: 2px;
+  color: #cbd5e1;
+  line-height: 1.2;
+  padding: 4px 10px 14px;
+}
+
+.workspace-nav__item {
+  display: grid;
+  gap: 4px;
+}
+
+.workspace-nav__group {
+  display: block;
+  margin: 14px 8px 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin-top: 12px;
+  color: var(--workspace-nav-muted);
+}
+
+.workspace-nav__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.46);
+}
+
+.workspace-nav__link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.workspace-nav__link--active,
+.workspace-nav__link--active:hover {
+  box-shadow: none;
+}
+
+.workspace-nav__link--active .workspace-nav__dot {
+  background: #ccfbf1;
+}
+
+@media (max-width: 900px) {
+  .workspace-nav {
+    position: static;
+    min-height: 0;
+  }
+
+  .workspace-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .workspace-nav__item {
+    display: contents;
+  }
+
+  .workspace-nav__group,
+  .workspace-nav__brand {
+    display: none;
+  }
+
+  .workspace-nav__link {
+    width: auto;
+  }
+}
+
+.workspace-nav {
+  top: 78px;
+  min-height: calc(100vh - 102px);
+  padding: 16px 10px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(16, 25, 40, 0.98), rgba(8, 17, 31, 0.98)),
+    var(--workspace-nav-bg);
+}
+
+.workspace-nav__link {
+  min-height: 34px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: #d7e1ea;
+  font-size: 0.82rem;
+}
+
+.workspace-nav__link--active,
+.workspace-nav__link--active:hover {
+  background: var(--workspace-nav-active);
+  color: #ffffff;
+}
+
+@media (max-width: 980px) {
+  .workspace-nav {
+    position: static;
+    min-height: 0;
+  }
+
+  .workspace-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .workspace-nav__brand,
+  .workspace-nav__group {
+    display: none;
+  }
+
+  .workspace-nav__link {
+    width: auto;
+  }
+}

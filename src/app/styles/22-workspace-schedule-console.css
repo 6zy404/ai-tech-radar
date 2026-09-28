@@ -76,42 +76,6 @@
   gap: 8px;
 }
 
-.workspace-schedule-console .schedule-row__actions .delivery-run-actions {
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.workspace-schedule-console .schedule-row__actions .action-button,
-.workspace-schedule-console
-  .schedule-support-panel
-  .delivery-run-actions
-  .action-button {
-  min-height: 30px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.74rem;
-}
-
-.workspace-schedule-console .schedule-row__actions .action-button--accent,
-.workspace-schedule-console
-  .schedule-support-panel
-  .delivery-run-actions
-  .action-button--accent {
-  border-color: rgba(20, 184, 166, 0.26);
-  background: #ffffff;
-  color: var(--ui-teal-strong);
-  box-shadow: none;
-}
-
-.workspace-schedule-console
-  .schedule-row__actions
-  .candidate-review-actions__message,
-.workspace-schedule-console
-  .schedule-row__actions
-  .candidate-review-actions__hint {
-  display: none;
-}
-
 .workspace-schedule-console .schedule-row__edit {
   width: 100%;
 }
@@ -122,10 +86,6 @@
   color: var(--ui-teal-strong);
   font-size: 0.78rem;
   font-weight: 800;
-}
-
-.workspace-schedule-console .schedule-row__edit .source-form {
-  margin-top: 10px;
 }
 
 .workspace-schedule-console .schedule-empty-state {
@@ -220,36 +180,11 @@
   line-height: 1.45;
 }
 
-.workspace-schedule-console .schedule-support-panel .workflow-event-list {
-  margin-top: 12px;
-  box-shadow: none;
-}
-
 @media (max-width: 980px) {
-  .workspace-delivery-console .workspace-page-header {
-    align-items: flex-start;
-  }
-
-  .workspace-delivery-console .workspace-page-header__actions {
-    align-self: flex-start;
-  }
-
-  .delivery-console-summary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .delivery-console-panel__header,
   .delivery-create-panel__summary {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .source-console-import-panel .source-batch-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .source-console-import-panel .source-batch-panel__actions {
-    justify-items: start;
   }
 
   .workspace-schedule-console .schedule-support-grid {
@@ -258,10 +193,6 @@
 }
 
 @media (max-width: 640px) {
-  .delivery-console-summary {
-    grid-template-columns: 1fr;
-  }
-
   .workspace-delivery-console .workspace-page-header__actions,
   .workspace-delivery-console .workspace-page-header__actions .action-button {
     width: 100%;

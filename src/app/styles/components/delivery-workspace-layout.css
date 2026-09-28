@@ -1,0 +1,19 @@
+/* components/delivery-workspace-layout: every rule whose subject is this component.
+   Gathered 2026-09-28 from 14-digest-and-delivery.css, 18-ui-refinement.css, 19-design-system-v0.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.delivery-workspace-layout__aside {
+  position: sticky;
+  top: 18px;
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .delivery-workspace-layout__aside {
+    position: static;
+  }
+}
+
+.delivery-workspace-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 280px);
+  gap: 18px;
+}

@@ -46,7 +46,7 @@
   flex-wrap: wrap;
   gap: 10px;
 }
-
+/* Stays here, not in components/delivery-workspace-layout.css: it would move past a rule it can tie with (grid-template-columns in ".delivery-workspace-layout" vs grid-template-columns in ".delivery-workspace-layout" (18-ui-refinement.css)). */
 .delivery-workspace-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
@@ -65,11 +65,6 @@
   display: grid;
   gap: 14px;
   min-width: 0;
-}
-
-.delivery-workspace-layout__aside {
-  position: sticky;
-  top: 18px;
 }
 
 .delivery-channel-card,
@@ -108,17 +103,8 @@
   line-height: 1.5;
 }
 
-.delivery-channel-card__edit {
-  padding-top: 10px;
-  border-top: 1px solid var(--workspace-line);
-}
-
 .delivery-channel-card__edit summary {
   cursor: pointer;
   color: var(--workspace-accent);
   font-weight: 800;
-}
-
-.delivery-channel-form {
-  margin-top: 12px;
 }

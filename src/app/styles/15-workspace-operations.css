@@ -3,25 +3,6 @@
   background: color-mix(in srgb, var(--workspace-surface) 88%, #ffffff 12%);
 }
 
-.workflow-event-list {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.workflow-event-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: start;
-  border-top: 1px solid var(--workspace-line);
-  padding-top: 0.75rem;
-}
-
-.workflow-event-item:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
 .workflow-event-item strong {
   display: block;
   color: var(--foreground);

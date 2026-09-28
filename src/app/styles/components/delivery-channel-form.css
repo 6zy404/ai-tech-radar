@@ -1,0 +1,10 @@
+/* components/delivery-channel-form: every rule whose subject is this component.
+   Gathered 2026-09-28 from 14-digest-and-delivery.css, 19-design-system-v0.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.delivery-channel-form {
+  margin-top: 12px;
+}
+
+.delivery-channel-row__edit .delivery-channel-form {
+  margin-top: 12px;
+}

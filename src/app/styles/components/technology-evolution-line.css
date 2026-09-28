@@ -1,7 +1,6 @@
 /* components/technology-evolution-line: every rule whose subject is this component.
    Gathered 2026-09-28 from 24-technology-detail.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
-
 .technology-evolution__list {
   display: grid;
   gap: 8px;
@@ -69,7 +68,6 @@ a.technology-evolution__title {
 }
 
 /* -- version evolution line -- */
-
 .dossier .technology-evolution__step {
   background: var(--dossier-surface);
   border: 1px solid var(--dossier-line);

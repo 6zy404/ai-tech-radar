@@ -1,0 +1,58 @@
+/* components/user-page-header: every rule whose subject is this component.
+   Gathered 2026-09-28 from 04-page-headers.css, 18-ui-refinement.css, 19-design-system-v0.css, 23-technology-list.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.user-page-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 24px;
+  padding: 28px 0 8px;
+  border-bottom: 1px solid rgba(15, 118, 110, 0.14);
+}
+
+.user-page-header__copy {
+  min-width: 0;
+}
+
+.user-page-header__description {
+  max-width: 760px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.user-page-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* This page carried its own hero surface — a radial gradient off the top-right
+   corner, a 28px radius and a heavier shadow — against the linear gradient and
+   26px radius the other seven list pages share. Same tier, two different
+   treatments, and `/technologies` is the one a reader reaches most often. The
+   overrides that describe this page's *proportions* stay; the ones that
+   redecorate the surface are gone, so it inherits the shared look. */
+.technology-list-page .user-page-header {
+  padding: 54px 48px;
+  /* User-facing Technology Signal List Template v0 */
+  width: min(1040px, 100%);
+  margin-inline: auto;
+}
+
+.technology-list-page .user-page-header__description {
+  max-width: 720px;
+  color: #41536a;
+  font-size: 1rem;
+}
+
+@media (max-width: 980px) {
+  .technology-list-page .user-page-header {
+    padding: 34px 24px;
+  }
+}
+
+.dossier .user-page-header__description {
+  color: var(--dossier-muted);
+}

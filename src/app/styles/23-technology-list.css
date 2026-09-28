@@ -1,29 +1,9 @@
-/* User-facing Technology Signal List Template v0 */
-.technology-list-page .user-page-header {
-  width: min(1040px, 100%);
-  margin-inline: auto;
-}
-
 .technology-list-page .search-filter-bar,
 .technology-list-page .technology-browser__toolbar,
 .technology-list-page .technology-signal-list,
 .technology-list-page .empty-state {
   width: min(860px, 100%);
   margin-inline: auto;
-}
-
-.technology-list-page .search-filter-bar {
-  grid-template-columns:
-    minmax(220px, 1.35fr)
-    repeat(3, minmax(132px, 0.72fr));
-  gap: 12px;
-  padding: 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.technology-list-page .field {
-  min-width: 0;
 }
 
 .technology-list-page .field span {
@@ -39,18 +19,6 @@
   min-height: 42px;
   padding: 10px 12px;
   border-radius: 12px;
-}
-
-.technology-list-page .technology-browser__toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 13px 16px;
-  border: 1px solid rgba(8, 127, 115, 0.11);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.74);
-  box-shadow: none;
 }
 
 .technology-list-page .technology-browser__toolbar p {
@@ -105,19 +73,9 @@
 }
 
 @media (max-width: 820px) {
-  .technology-list-page .search-filter-bar {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .technology-list-page .technology-browser__toolbar,
   .technology-list-page .technology-card__topline {
     flex-direction: column;
     align-items: flex-start;
-  }
-}
-
-@media (max-width: 560px) {
-  .technology-list-page .search-filter-bar {
-    grid-template-columns: 1fr;
   }
 }

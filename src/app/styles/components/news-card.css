@@ -1,0 +1,37 @@
+/* components/news-card: every rule whose subject is this component.
+   Gathered 2026-09-28 from 32-news.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.news-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px;
+}
+
+.news-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+
+.news-card__source {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.news-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.news-card__signal {
+  justify-self: start;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-underline-offset: 3px;
+}

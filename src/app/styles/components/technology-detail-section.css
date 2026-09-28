@@ -1,0 +1,29 @@
+/* components/technology-detail-section: every rule whose subject is this component.
+   Gathered 2026-09-28 from 24-technology-detail.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.technology-detail-section {
+  display: grid;
+  gap: 12px;
+}
+
+.technology-detail-section__eyebrow {
+  margin: 0;
+  color: var(--label-amber);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.technology-detail-section__lede {
+  margin: 0;
+  color: #26323d;
+  font-size: 1.08rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.dossier .technology-detail-section__eyebrow {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}

@@ -1,0 +1,10 @@
+/* components/search-form: every rule whose subject is this component.
+   Gathered 2026-09-28 from 33-search-ask.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+/* Public site-wide search: /search page. */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
