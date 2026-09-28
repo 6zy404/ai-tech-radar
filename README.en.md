@@ -38,9 +38,9 @@ Until an editor has reviewed them, candidates appear in the news view labelled
 as unedited aggregation; curated signals and digests contain editor-published
 content only.
 
-As of 2026-09-24: 81 published technology signals, 16 skills, 19 knowledge
-entries, 30 published digests, and 13 active sources; the content graph has 116
-nodes and 802 typed edges. The eight demo seed signals from April 2026 were
+As of 2026-09-28: 91 published technology signals, 16 skills, 19 knowledge
+entries, 31 published digests, and 13 active sources; the content graph has 126
+nodes and 890 typed edges. The eight demo seed signals from April 2026 were
 archived on 2026-09-24 and no longer appear on any public page.
 
 ## Design notes
@@ -76,7 +76,7 @@ Every relation between technologies, skills, and knowledge carries one of eight
 types (builds-on, uses, explains, requires, extends, supersedes, supports,
 related-to) plus a note. Editorial changes are stored as copy-on-write
 overrides; the bundled seed data stays read-only. The generic `related-to`
-fallback accounts for about 13% of edges. The same graph drives the version
+fallback accounts for about 12% of edges. The same graph drives the version
 line on signal pages, the topic pages, and the grounding for AI-generated
 learning paths.
 

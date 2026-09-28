@@ -12,6 +12,58 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-09-28: ten signals, and a dev server that was not local
+
+- **31 candidates dispositioned, every one read at its source** — 2026-09-28,
+  the first round after the import was repaired. 10 published, 5 marked
+  reviewed, 16 rejected (conference promotion, funding and PR, two front-end
+  releases unrelated to AI, a customer story, an ads expansion, a beginner
+  tutorial). The owner confirmed the list before anything was published, and
+  added three items that had been proposed as reviewed.
+- **Ten signals**: an OpenAI research model reaching an external chatbot over
+  DNS; the Swarm Traces reconstruction of how GET-only agents delivered code;
+  GitHub Security Lab's fuzzing taskflow; Alibaba's Open Code Review;
+  DoorDash's feature-flag cleanup; ADK for Kotlin 1.0; Inferact's TPU
+  megakernels; Colibrì; LFM2.5-VL-DSpark; Gemini 3.8 Live with Live Avatar.
+- **Five of the ten arrived through a media feed and were written from the
+  primary source instead** — OpenAI's incident report, swarmtraces.org, the
+  Inferact blog and repository, the Colibrì README, the Open Code Review
+  README. Reading them changed the text: the media account of the DNS incident
+  said the task rules forbade testing the network, the report says only that
+  the task did not ask for it; the repository explained why a demo on "32
+  devices" and a benchmark on "16 chips" are the same machine. Two signals
+  (DoorDash, ADK) rest on InfoQ alone and say so in the body.
+- **One number in a source was wrong and is flagged rather than copied**: the
+  LFM2.5-VL-DSpark post gives an H100 range of "20.4x to 2.66x" against a
+  headline of "up to 2.66x". Only the upper bound is quoted.
+- **Five titles were reworded after measuring them on the real markup.** Two
+  broke inside a word at 1440px (芯/片, 流水/线), two more only at 390px
+  (智能/体, 每/个), and `OpenCodeReview` could not fit a 244px line at all, so
+  the project's own spaced name is used. The simulator was calibrated first:
+  10 of 10 titles produced markup identical to the server's.
+- **88 typed relations, none of them the fallback type**; the fallback share
+  of all edges went from 12.7% to 11.5%. Reverse ids went onto 12 skills, 16
+  knowledge entries and 25 earlier signals as unions (the round's commit
+  message says 28; three of those are this round's own signals). A diff against a
+  snapshot taken before the round shows no id lost from any existing record.
+- **Digest 2026-09-28**: the generator picked seven of the ten and three
+  signals earlier digests had carried; the three were excluded, the missing
+  three included, and the DNS incident pinned.
+- **`npm run dev` binds to `127.0.0.1`.** The playbook said the round's dev
+  server was "on localhost only" and the workspace guard could therefore stay
+  off. It was not: `next dev` listens on every interface, so an unguarded
+  workspace writing to live data was reachable from the local network for the
+  length of every round since 09-24. Verified on this round's server: one
+  listener on `127.0.0.1`, the LAN address refused.
+- **Looked at, not only checked**: all ten signal pages at 1440 light (one top
+  to bottom, the rest hero plus body), the digest top to bottom, and the digest
+  plus two signal pages in dark and at 390px. No Markdown markers, no ASCII
+  quotes, no horizontal overflow, inline code rendered. **Limit of this pass**:
+  the preview pane renders a 1440px viewport at 800px, so fine spacing was not
+  inspected at full resolution.
+- Totals, measured through the public getters: 91 signals, 16 skills, 19
+  knowledge, 31 digests, 13 sources; 126 nodes, 890 edges.
+
 ## Four days of imports went into a folder that was deleted on exit
 
 - **Every scheduled import from 2026-09-25 to 09-27 was discarded** — found
