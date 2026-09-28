@@ -1,0 +1,36 @@
+/* components/news-feed-section: every rule whose subject is this component.
+   Gathered 2026-09-28 from 32-news.css, 43-dossier-v5-radar-news.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+/* Public news fast lane (自动聚合快讯): /news page and the home news board. */
+.news-page__notice {
+  margin: 0;
+  padding: var(--space-box);
+  border: 1px solid rgba(138, 90, 18, 0.28);
+  border-radius: 14px;
+  background: rgba(138, 90, 18, 0.07);
+  color: var(--label-amber);
+  font-size: var(--fs-label);
+  font-weight: 700;
+}
+.news-day {
+  display: grid;
+  gap: 14px;
+}
+.news-day__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+.news-day__list {
+  display: grid;
+  gap: 12px;
+}
+.dossier .news-page__notice {
+  border: 1px dashed var(--dossier-stamp);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}

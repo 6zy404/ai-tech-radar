@@ -111,11 +111,6 @@
   padding: var(--space-card);
 }
 
-/* Compact list items */
-.user-shell .digest-reference-item {
-  padding: var(--space-chip);
-}
-
 /* Nested accent boxes inside cards */
 .user-shell .technology-card__insight,
 .user-shell .home-signal-card__why,

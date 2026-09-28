@@ -1,0 +1,42 @@
+/* components/source-reference: every rule whose subject is this component.
+   Gathered 2026-09-28 from 13-article-layout.css, 24-technology-detail.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.source-reference__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* the publisher *type* is a classification, not another name — a hairline
+   chip keeps it from reading as part of the publisher name beside it */
+
+.source-reference__publisher-type {
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+
+.source-reference__url {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.technology-detail-reading .source-reference__url {
+  overflow-wrap: anywhere;
+}
+
+.dossier .source-reference__meta {
+  color: var(--dossier-muted);
+}
+
+.dossier .source-reference__publisher-type {
+  border-color: var(--dossier-line);
+}

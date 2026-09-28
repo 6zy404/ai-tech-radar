@@ -1,7 +1,4 @@
-.home-news-list {
-  display: grid;
-  gap: 10px;
-}
+/* Stays here, not in pages/home.css: it would move past a rule it can tie with (min-width in ".home-news-row" vs min-width in ".user-article-layout__main > *" (13-article-layout.css)). */
 
 .home-news-row {
   display: grid;
@@ -11,19 +8,6 @@
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface-strong);
-}
-
-.home-news-row__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  color: var(--muted);
-  font-size: var(--fs-label);
-}
-
-.home-news-row__source {
-  color: var(--accent);
-  font-weight: 800;
 }
 
 .home-news-row > a {
@@ -36,10 +20,4 @@
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-
-.home-news-list__note {
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--fs-label);
 }

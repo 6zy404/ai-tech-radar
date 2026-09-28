@@ -13,43 +13,6 @@
   gap: 14px;
 }
 
-.technology-detail-hero {
-  overflow: hidden;
-}
-
-.technology-detail-hero__copy {
-  min-width: 0;
-}
-
-.technology-detail-hero__topline {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-
-.technology-detail-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-  align-items: center;
-  margin-top: 18px;
-  color: var(--muted);
-  font-size: 0.93rem;
-}
-
-.technology-detail-hero__priority-copy {
-  max-width: 720px;
-  margin: 14px 0 0;
-  color: #34404a;
-  line-height: 1.65;
-}
-
-.technology-detail-hero__tags {
-  margin-top: 16px;
-}
-
 .technology-detail-section {
   display: grid;
   gap: 12px;
@@ -72,121 +35,8 @@
   overflow-wrap: anywhere;
 }
 
-.content-body {
-  display: grid;
-  gap: 14px;
-}
-
-.content-body__heading {
-  margin: 6px 0 0;
-  color: #26323d;
-  font-size: 1.02rem;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-.content-body__paragraph {
-  margin: 0;
-  color: #26323d;
-  font-size: 1.02rem;
-  line-height: 1.85;
-  overflow-wrap: anywhere;
-}
-
-.content-body__list {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding-left: 1.35em;
-  color: #26323d;
-  font-size: 1.02rem;
-  line-height: 1.75;
-}
-
 .content-body__list li {
   overflow-wrap: anywhere;
-}
-
-.content-body__code {
-  padding: 0.1em 0.34em;
-  border: 1px solid rgba(38, 50, 61, 0.14);
-  border-radius: 4px;
-  background: rgba(38, 50, 61, 0.05);
-  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
-  font-size: 0.92em;
-  overflow-wrap: anywhere;
-}
-
-.technology-evolution__list {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.technology-evolution__step {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 12px;
-  background: var(--surface);
-}
-
-.technology-evolution__step--current {
-  border-color: var(--accent);
-}
-
-.technology-evolution__date {
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.technology-evolution__title {
-  flex: 1 1 12rem;
-  color: var(--user-ink);
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-a.technology-evolution__title {
-  color: var(--accent);
-}
-
-.technology-evolution__marks {
-  display: inline-flex;
-  gap: 6px;
-}
-
-.technology-evolution__mark {
-  border-radius: 999px;
-  padding: 2px 9px;
-  background: rgba(15, 118, 110, 0.11);
-  color: var(--accent);
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.technology-evolution__mark--latest {
-  background: rgba(180, 83, 9, 0.12);
-  color: var(--label-amber);
-}
-
-.technology-evolution__note {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.75;
-}
-
-.technology-detail-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 }
 
 .technology-detail-chip {
@@ -198,12 +48,6 @@ a.technology-evolution__title {
   color: var(--accent);
   font-weight: 800;
   font-size: 0.86rem;
-}
-
-.technology-detail-impact {
-  display: grid;
-  gap: 8px;
-  margin-top: 2px;
 }
 
 .technology-detail-impact > span {
@@ -375,10 +219,6 @@ a.technology-evolution__title {
   color: var(--accent);
   font-weight: 800;
   text-underline-offset: 3px;
-}
-
-.technology-detail-reading .source-reference__url {
-  overflow-wrap: anywhere;
 }
 
 .technology-detail-reading .user-article-layout__aside .source-reference,

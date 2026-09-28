@@ -1,0 +1,176 @@
+/* pages/workspace-delivery: every rule whose subject is this component.
+   Gathered 2026-09-28 from 19-design-system-v0.css, 20-workspace-delivery-console.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.delivery-channel-table {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.delivery-channel-table__head,
+.delivery-channel-row {
+  display: grid;
+  grid-template-columns:
+    minmax(200px, 1.45fr)
+    minmax(110px, 0.72fr)
+    minmax(120px, 0.75fr)
+    minmax(180px, 1fr)
+    minmax(140px, 0.85fr)
+    minmax(112px, 0.6fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.delivery-channel-table__head {
+  padding: 10px 14px;
+  background: #f8fafc;
+  color: #667085;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.delivery-channel-row {
+  padding: 14px;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.delivery-channel-row__identity,
+.delivery-channel-row__cell {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.delivery-channel-row__actions {
+  display: flex;
+}
+
+.delivery-channel-row__edit {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+@media (max-width: 980px) {
+  .delivery-channel-table__head {
+    display: none;
+  }
+
+  .delivery-channel-row {
+    grid-template-columns: 1fr;
+  }
+
+  .delivery-channel-row__actions {
+    justify-content: flex-start;
+  }
+}
+
+.workspace-delivery-console .delivery-channel-table--console {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.workspace-delivery-console .delivery-channel-table__head--console,
+.workspace-delivery-console .delivery-channel-row--console {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 1.45fr)
+    minmax(92px, 0.65fr)
+    minmax(72px, 0.5fr)
+    minmax(82px, 0.55fr)
+    minmax(118px, 0.8fr)
+    minmax(120px, 0.88fr)
+    minmax(150px, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.workspace-delivery-console .delivery-channel-row--console {
+  min-height: 64px;
+  padding: 12px 14px;
+}
+
+.delivery-masked-endpoint {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  border: 0;
+  color: #475569;
+  font-size: 0.74rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delivery-channel-row__last-status {
+  align-content: center;
+}
+
+.delivery-channel-row__actions {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.workspace-delivery-console .delivery-channel-row__edit {
+  margin-top: 0;
+  padding-top: 10px;
+}
+
+.delivery-log-table {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--delivery-console-border);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.delivery-log-table__head,
+.delivery-log-row {
+  display: grid;
+  grid-template-columns:
+    minmax(128px, 0.9fr)
+    minmax(94px, 0.65fr)
+    minmax(140px, 1fr)
+    minmax(82px, 0.55fr)
+    minmax(70px, 0.42fr)
+    minmax(180px, 1.7fr)
+    minmax(108px, 0.7fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.delivery-log-table__head {
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #667085;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.delivery-log-row {
+  min-height: 56px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+  color: #334155;
+  font-size: 0.82rem;
+}
+
+.delivery-audit-panel {
+  padding: 12px 14px;
+  border: 1px dashed rgba(148, 163, 184, 0.44);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.62);
+}

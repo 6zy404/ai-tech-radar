@@ -1,0 +1,181 @@
+/* pages/home: every rule whose subject is this component.
+   Gathered 2026-09-28 from 09-home.css, 18-ui-refinement.css, 19-design-system-v0.css, 36-home-news.css, 44-dossier-v6-home.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.product-home-hero {
+  display: grid;
+  gap: 28px;
+  border: 1px solid rgba(15, 118, 110, 0.16);
+  padding: 34px;
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at 85% 12%,
+      rgba(20, 184, 166, 0.16),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(236, 253, 245, 0.78)
+    );
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.07);
+  padding: clamp(28px, 4vw, 46px);
+}
+
+.product-home-hero__copy {
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+.product-home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* These three counts used to sit in a white inset box in a fixed 190–250px
+   column beside the headline — the third and fourth appearance of a pattern the
+   first sweep already removed twice (from the digest hero and the home digest
+   card). A count is a caption, not a panel: it now reads as one line under the
+   headline, matching `.technology-detail-hero__meta`. */
+
+.product-home-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.home-digest-card {
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+}
+
+/* An inline meta row under the title, matching the digest page's own
+   `.daily-digest-meta-strip`, instead of a tinted box in its own column. */
+
+.home-digest-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 2px 0 4px;
+}
+
+.home-discovery-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 6px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(15, 118, 110, 0.12);
+}
+
+.home-signal-card,
+.foundation-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  padding: 20px;
+}
+
+.home-signal-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-signal-card__why {
+  display: grid;
+  gap: 5px;
+  padding: 12px 14px;
+  border-left: 4px solid rgba(15, 118, 110, 0.44);
+  border-radius: 14px;
+  background: rgba(15, 118, 110, 0.07);
+}
+
+.home-signal-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.foundation-card-list {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.home-news-list {
+  display: grid;
+  gap: 10px;
+}
+
+.home-news-row__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+
+.home-news-row__source {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.home-news-list__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+
+.dossier .product-home-hero {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .product-home-hero__stats {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+/* The tinted fill belonged to the old boxed stat column; as an inline meta
+   row it would paint a band across the card. */
+
+.dossier .home-digest-card__stats {
+  color: var(--dossier-muted);
+}
+
+.dossier .home-discovery-grid {
+  border-top: 1px solid var(--dossier-line);
+}
+
+/* The 2026-07-14 dossier migration moved every card onto the paper surface but
+   left these rows on `#fff`, because they keep their pre-migration markup (they
+   need `target="_blank"`, which `DossierRegisterRow` cannot express). A pure
+   white block on a paper page reads as a different module bolted on. */
+
+.dossier .home-news-row {
+  border-bottom: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+}
+
+.dossier .home-news-row__source {
+  color: var(--dossier-accent);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .home-news-list__note {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}

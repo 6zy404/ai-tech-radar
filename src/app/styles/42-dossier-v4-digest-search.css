@@ -41,18 +41,13 @@
   color: var(--dossier-ink);
 }
 
-.dossier .digest-archive__count,
-.dossier .digest-archive-card__date {
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-}
-
 .dossier .digest-archive-card p {
   color: var(--dossier-ink);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
 
 /* -- daily digest reading page -- */
+/* Stays here, not in components/daily-digest-content.css: it would move past a rule it can tie with (background in ".dossier .daily-digest-brief-header" vs background in ".dossier .user-article-hero" (39-dossier-v1-technologies.css)). */
 .dossier .daily-digest-brief-header,
 .dossier .daily-digest-summary-panel,
 .dossier .daily-digest-section,
@@ -84,18 +79,6 @@
   font-family: system-ui, "PingFang SC", sans-serif;
 }
 
-.dossier .daily-digest-meta-strip {
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-}
-
-.dossier .digest-technology-card__summary,
-.dossier .digest-technology-card__audience,
-.dossier .digest-technology-card__meta-line {
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-}
-
 .dossier .digest-reference-item p,
 .dossier .digest-source-chip p {
   color: var(--dossier-muted);
@@ -120,12 +103,6 @@
   border-radius: 0;
   color: var(--dossier-ink);
   font-family: Georgia, "Songti SC", "STSong", serif;
-}
-
-.dossier .search-page__summary,
-.dossier .search-group__notice {
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
 }
 
 .dossier .search-group__heading h2 {

@@ -1,0 +1,17 @@
+/* components/root-layout: every rule whose subject is this component.
+   Gathered 2026-09-28 from 02-site-chrome.css, 18-ui-refinement.css, 19-design-system-v0.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+/* A page whose content is shorter than the viewport ended above the fold, and
+   the body gradient showed below it as a band with a hard edge across the full
+   window — 277px on `/search` before a query, 204px on an empty 稍后读. The
+   content area now reaches the bottom of the viewport, so the page ends where
+   the window does. `100dvh` rather than `100vh` so a mobile browser's
+   retracting toolbar does not reintroduce the gap. */
+.main-content {
+  min-height: calc(100dvh - var(--top-nav-height, 61px));
+  margin: 0 auto;
+  padding: 32px 0 72px;
+  padding-top: 28px;
+  width: min(1260px, calc(100% - 40px));
+}

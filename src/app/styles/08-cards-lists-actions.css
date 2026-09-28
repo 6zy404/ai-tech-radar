@@ -101,17 +101,6 @@
   height: 100%;
 }
 
-.technology-card {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 14px;
-  padding: 22px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--surface-strong);
-  box-shadow: var(--shadow);
-}
-
 .candidate-card {
   display: grid;
   gap: 16px;
@@ -378,27 +367,6 @@
   font-size: 0.88rem;
 }
 
-.technology-card__meta-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  background: rgba(15, 118, 110, 0.12);
-  color: var(--accent);
-  font-size: 0.82rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.technology-card__signal-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
 .candidate-card__source-type {
   display: inline-flex;
   align-items: center;
@@ -418,18 +386,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.technology-card__body {
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 12px;
-}
-
-.user-content-card {
-  border-color: rgba(8, 127, 115, 0.2);
-  background: #ffffff;
-  box-shadow: var(--shadow-card);
 }
 
 .candidate-card__body {
@@ -452,11 +408,6 @@
   -webkit-line-clamp: 4;
 }
 
-.technology-card__insight {
-  display: grid;
-  gap: 6px;
-}
-
 .technology-card__insight span {
   color: var(--label-amber);
   font-size: 0.76rem;
@@ -472,12 +423,6 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-}
-
-.technology-card__footer {
-  display: grid;
-  gap: 10px;
-  align-content: end;
 }
 
 .relation-density {
@@ -496,14 +441,6 @@
 .relation-density strong {
   color: var(--accent);
   font-weight: 800;
-}
-
-.technology-card__context-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  color: #586070;
-  font-size: 0.82rem;
 }
 
 .technology-card__context-row span {

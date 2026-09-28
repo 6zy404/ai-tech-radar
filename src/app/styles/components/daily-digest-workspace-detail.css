@@ -1,0 +1,86 @@
+/* components/daily-digest-workspace-detail: every rule whose subject is this component.
+   Gathered 2026-09-28 from 14-digest-and-delivery.css, 16-workspace-digest-editor.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.digest-workspace-technology__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.digest-workspace-detail {
+  align-items: start;
+}
+
+.digest-delivery-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.delivery-error-message {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(185, 28, 28, 0.18);
+  border-radius: 12px;
+  background: rgba(254, 226, 226, 0.42);
+  color: #991b1b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.delivery-url {
+  display: inline-block;
+  max-width: 100%;
+  color: var(--workspace-accent);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.digest-workspace-section {
+  display: grid;
+  gap: 14px;
+}
+
+.digest-workspace-technology-list {
+  display: grid;
+  gap: 12px;
+}
+
+.digest-workspace-technology {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.digest-readiness-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.digest-readiness-list {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid rgba(161, 98, 7, 0.22);
+  border-radius: 14px;
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.digest-readiness-list--blocking {
+  border-color: rgba(185, 28, 28, 0.22);
+  background: rgba(254, 226, 226, 0.46);
+}
+
+.digest-readiness-ok {
+  margin: 0;
+  color: #047857;
+  font-weight: 700;
+}

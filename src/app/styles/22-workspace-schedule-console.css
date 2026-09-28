@@ -244,10 +244,6 @@
     align-items: flex-start;
   }
 
-  .source-console-filter {
-    grid-template-columns: 1fr;
-  }
-
   .source-console-import-panel .source-batch-panel {
     grid-template-columns: 1fr;
   }

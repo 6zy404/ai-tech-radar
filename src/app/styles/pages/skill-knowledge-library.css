@@ -1,0 +1,118 @@
+/* pages/skill-knowledge-library: every rule whose subject is this component.
+   Gathered 2026-09-28 from 26-skills-library.css, 40-dossier-v2-skills-knowledge.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.skills-library-intro,
+.skills-library-groups,
+.skills-library-empty {
+  width: min(1040px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+/* Once the slogan came out this held one sentence and one row of counts —
+   48px of content inside 92px of padding and gap. A panel earns its border
+   by holding something; this is the page's lede line, so it sits on the page
+   ground like the header above it, per "a list page top is a label, not a
+   panel". */
+
+.skills-library-intro {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+/* Was a 2×2 white inset box in a fixed 280px column — the same "counts in a
+   panel" pattern removed from the digest hero, the home digest card and now the
+   home hero. A count is a caption: one wrapping line under the intro copy. */
+
+.skills-library-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+}
+
+.skills-library-groups {
+  display: grid;
+  gap: 46px;
+  margin-top: 46px;
+}
+
+.skills-library-section {
+  display: grid;
+  gap: 18px;
+}
+
+.skills-library-section__header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.9fr);
+  gap: 24px;
+  align-items: end;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--skills-line);
+}
+
+.skills-library-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.skill-library-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px;
+  min-width: 0;
+}
+
+.skill-library-card__summary {
+  margin: 0;
+  color: #34465b;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.skill-library-card__outcome {
+  padding: 11px 13px;
+  border-left: 3px solid rgba(15, 143, 131, 0.55);
+  border-radius: 12px;
+  background: rgba(231, 246, 243, 0.72);
+}
+
+.skill-library-card__signals {
+  display: grid;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.skills-library-empty {
+  margin-top: 28px;
+  padding: 34px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.skills-library-empty__eyebrow {
+  margin: 0 0 8px;
+  color: #08786f;
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.dossier .skills-library-stats {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.dossier .skills-library-section__header {
+  border-bottom: 1px solid var(--dossier-line);
+}

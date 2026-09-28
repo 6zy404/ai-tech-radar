@@ -1,0 +1,52 @@
+/* components/topic-timeline-section: every rule whose subject is this component.
+   Gathered 2026-09-28 from 35-timeline.css, 41-dossier-v3-timeline.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+/* Public topic timeline: /timeline page. */
+.timeline-topic {
+  display: grid;
+  gap: 12px;
+}
+.timeline-topic__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+.timeline-topic__description {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+.timeline-topic__list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0 0 0 4px;
+  list-style: none;
+  border-left: 2px solid var(--line);
+}
+.dossier .timeline-topic__description {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+.dossier .dossier-timeline-list {
+  border-left: none;
+  padding-left: 0;
+}
+.dossier-timeline-node {
+  padding: 4px 0 16px;
+}
+.dossier-timeline-node__summary {
+  margin: 6px 0 0;
+  padding-left: 96px;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .dossier-timeline-node__summary {
+    padding-left: 0;
+  }
+}

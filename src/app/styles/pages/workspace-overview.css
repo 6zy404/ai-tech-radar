@@ -1,0 +1,114 @@
+/* pages/workspace-overview: every rule whose subject is this component.
+   Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.workspace-dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.workspace-dashboard__intro {
+  padding: 24px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(248, 250, 252, 0.98),
+      rgba(241, 245, 249, 0.9)
+    ),
+    var(--workspace-surface);
+  box-shadow: var(--workspace-shadow);
+}
+
+.workspace-status-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.workspace-status-summary__card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--workspace-shadow);
+}
+
+.workflow-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.workflow-step {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--workspace-line);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.92);
+  box-shadow: var(--workspace-shadow);
+}
+
+.workflow-step::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  right: -10px;
+  width: 10px;
+  height: 1px;
+  background: var(--workspace-line);
+}
+
+.workflow-step:last-child::after {
+  display: none;
+}
+
+.workflow-step__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #0f172a;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.workflow-step__label {
+  color: #0f172a;
+  font-weight: 850;
+}
+
+.workspace-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.workspace-activity-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.workspace-operations-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .workflow-step::after {
+    display: none;
+  }
+}

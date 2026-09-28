@@ -1,0 +1,61 @@
+/* pages/workspace-operations: every rule whose subject is this component.
+   Gathered 2026-09-28 from 15-workspace-operations.css, 18-ui-refinement.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.operations-hero {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.35fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.operations-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.operations-attention-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+}
+
+.operations-attention-item--critical {
+  border-color: rgba(185, 28, 28, 0.24);
+}
+
+.operations-attention-item--warning {
+  border-color: rgba(180, 83, 9, 0.2);
+}
+
+.operations-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 20px;
+  align-items: start;
+}
+
+.operations-layout__aside {
+  position: sticky;
+  top: 18px;
+}
+
+.operations-compact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.operations-quick-links {
+  display: grid;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .operations-layout__aside {
+    position: static;
+  }
+}
