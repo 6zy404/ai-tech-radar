@@ -37,6 +37,42 @@ For per-topic deep dives, see the `docs/` directory.
   would need the tool to learn ancestor chains first. Recorded in
   `docs/next-task.md` as low value.
 
+## Three more workspace forms keep the saved select value
+
+- **The four forms left unchecked by the entry below** (2026-09-28). Each was
+  tested on a dev server against this worktree's own `config/` copy: change a
+  select, save, read the select, then compare with the stored file and a
+  reloaded page. Three reproduced; one could not.
+  - **信源编辑** (`/workspace/sources/[id]`, `ExternalSourceForm`) —
+    reproduced. Saved 中文 / 媒体; the selects went back to 英文 / 开源社区.
+    Its four uncontrolled selects are now keyed by the saved value, the same
+    fix as `ContentWorkspaceForm`.
+  - **投递渠道** (`/workspace/delivery`, `DeliveryChannelForm`) — reproduced,
+    and the plain key fix was **not enough**. These two selects were
+    controlled (`value` + state), and a controlled select never marks an
+    option as its default, so the reset always lands on the **first** option,
+    remounted or not. That made the first re-check pass by accident — the
+    value it tested, `json`, is the first option — and switching to 飞书
+    still showed 通用 Webhook / JSON over a stored `feishu_webhook` / `text`.
+    Both selects are now uncontrolled and keyed; the 飞书 → 文本 coupling
+    that the state existed for sets the format select through a ref.
+  - **定时投递** (`/workspace/delivery/schedules`, `ScheduledDeliveryForm`) —
+    reproduced: stored 指定日期简报, the select showed 最新已发布简报 while the
+    date field stayed enabled. Same fix as the channel form; the state
+    remains, but only to enable the date field.
+  - **简报编辑** (`/workspace/digests/[date]`) — cannot occur: its form has
+    no select. The page's two selects (manual add, delivery channel) sit
+    outside any form and send with a button.
+- After the fix, every select showed the stored value after saving, checked
+  with values that are not the first option in both directions.
+- Seen while testing and **not fixed here**: after 添加技术到简报 the added
+  item leaves the option list, but the component still holds its id, so the
+  select shows a different technology and clicking again re-sends the one
+  already added while reporting 「技术已添加。」.
+- typecheck, lint, format and 365 tests pass. Screenshots were unreliable in
+  this session (the pane often stopped drawing); the change touches no
+  layout.
+
 ## Skills and knowledge share one implementation
 
 - **Cluster ③, the last of the copy-paste list** (2026-09-28). Skills and
@@ -83,7 +119,7 @@ For per-topic deep dives, see the `docs/` directory.
   which the technology draft editor shares; both are now keyed by the saved
   value, and in the browser both show the new value after saving. The old
   forms had the same code. Four other workspace forms use the same pattern
-  and were not checked.
+  and were not checked (checked the same day — see the entry above).
 - Duplicated lines, same scan as the entries below (rerun here it read 6.8%
   where they recorded 6.9%): **6.8% → 5.0%**; no skill or knowledge file is
   on the list any more. 365 tests, 22 validators, typecheck, lint and format

@@ -78,6 +78,14 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
     });
   }
 
+  // The selects are keyed by their saved value, as in ContentWorkspaceForm:
+  // React resets the form after a save and a select does not follow a
+  // changed defaultValue, so it would show — and resave — the old value.
+  const sourceType = source?.type ?? "rss";
+  const language = source?.language ?? "en";
+  const publisherType = source?.publisherType ?? "media";
+  const normalizedType = source?.defaultNormalizedType ?? "unknown";
+
   return (
     <form action={submit} className="source-form">
       <div className="source-form__grid">
@@ -88,7 +96,7 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
 
         <label className="field">
           <span>类型</span>
-          <select name="type" defaultValue={source?.type ?? "rss"}>
+          <select key={sourceType} name="type" defaultValue={sourceType}>
             <option value="rss">RSS</option>
             <option value="atom">Atom</option>
             <option value="github_release">GitHub 版本发布</option>
@@ -117,7 +125,7 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
 
         <label className="field">
           <span>语言</span>
-          <select name="language" defaultValue={source?.language ?? "en"}>
+          <select key={language} name="language" defaultValue={language}>
             <option value="en">英文</option>
             <option value="zh">中文</option>
           </select>
@@ -126,8 +134,9 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
         <label className="field">
           <span>发布方类型</span>
           <select
+            key={publisherType}
             name="publisherType"
-            defaultValue={source?.publisherType ?? "media"}
+            defaultValue={publisherType}
           >
             <option value="big-tech">大型科技公司</option>
             <option value="startup">创业公司</option>
@@ -149,8 +158,9 @@ export function ExternalSourceForm({ source }: ExternalSourceFormProps) {
         <label className="field">
           <span>默认内容类型</span>
           <select
+            key={normalizedType}
             name="defaultNormalizedType"
-            defaultValue={source?.defaultNormalizedType ?? "unknown"}
+            defaultValue={normalizedType}
           >
             <option value="unknown">未知</option>
             <option value="platform">平台</option>

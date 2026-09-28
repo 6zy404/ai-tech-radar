@@ -21,9 +21,8 @@ export function ScheduledDeliveryForm({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
-  const [digestTarget, setDigestTarget] = useState(
-    schedule?.digestTarget ?? "latest_published_digest"
-  );
+  const savedDigestTarget = schedule?.digestTarget ?? "latest_published_digest";
+  const [digestTarget, setDigestTarget] = useState(savedDigestTarget);
   const isEditing = Boolean(schedule);
   const selectedChannelIds = new Set(schedule?.channelIds ?? []);
 
@@ -85,9 +84,15 @@ export function ScheduledDeliveryForm({
 
         <label className="field">
           <span>简报目标</span>
+          {/* Uncontrolled and keyed by the saved value, as in
+            ContentWorkspaceForm: React resets the form after a save, and a
+            select returns to its defaultValue — a controlled one to its
+            first option — so it would show, and resave, a stale value. The
+            state only drives the date field. */}
           <select
+            key={savedDigestTarget}
             name="digestTarget"
-            value={digestTarget}
+            defaultValue={savedDigestTarget}
             onChange={(event) =>
               setDigestTarget(
                 event.target.value as ScheduledDelivery["digestTarget"]

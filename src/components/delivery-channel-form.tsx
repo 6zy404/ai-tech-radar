@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 
 import type { DeliveryChannel } from "@/types/content";
 
@@ -21,8 +21,7 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
   const defaultType = channel?.type ?? "webhook";
   const defaultFormat =
     channel?.format ?? (defaultType === "feishu_webhook" ? "text" : "json");
-  const [channelType, setChannelType] = useState(defaultType);
-  const [format, setFormat] = useState(defaultFormat);
+  const formatRef = useRef<HTMLSelectElement>(null);
 
   function submit(formData: FormData) {
     startTransition(async () => {
@@ -81,16 +80,23 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
           <input name="name" defaultValue={channel?.name ?? ""} required />
         </label>
 
+        {/* Both selects are uncontrolled and keyed by the saved value, as in
+          ContentWorkspaceForm: React resets the form after a save, and a
+          select returns to its defaultValue — a controlled one to its first
+          option — so it would show, and the next save would send, a value
+          that is not the saved one. */}
         <label className="field">
           <span>渠道类型</span>
           <select
+            key={defaultType}
             name="type"
-            value={channelType}
+            defaultValue={defaultType}
             onChange={(event) => {
-              const nextType = event.target.value as DeliveryChannel["type"];
-              setChannelType(nextType);
-              if (nextType === "feishu_webhook") {
-                setFormat("text");
+              if (
+                event.target.value === "feishu_webhook" &&
+                formatRef.current
+              ) {
+                formatRef.current.value = "text";
               }
             }}
           >
@@ -102,11 +108,10 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
         <label className="field">
           <span>格式</span>
           <select
+            key={defaultFormat}
+            ref={formatRef}
             name="format"
-            value={format}
-            onChange={(event) =>
-              setFormat(event.target.value as DeliveryChannel["format"])
-            }
+            defaultValue={defaultFormat}
           >
             <option value="json">JSON Webhook 载荷</option>
             <option value="text">文本简报摘要</option>
