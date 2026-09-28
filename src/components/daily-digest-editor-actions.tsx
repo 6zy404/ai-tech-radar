@@ -219,9 +219,17 @@ export function DailyDigestManualAdd({
   const [technologyId, setTechnologyId] = useState(technologies[0]?.id ?? "");
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
+  // An added technology leaves the list on refresh while the state still
+  // holds its id; the select would then show one technology and a click
+  // would re-send the other, so fall back to the first remaining option.
+  const selectedId = technologies.some(
+    (technology) => technology.id === technologyId
+  )
+    ? technologyId
+    : (technologies[0]?.id ?? "");
 
   function includeTechnology() {
-    if (!technologyId) {
+    if (!selectedId) {
       return;
     }
 
@@ -234,7 +242,10 @@ export function DailyDigestManualAdd({
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ action: "include", technologyId })
+          body: JSON.stringify({
+            action: "include",
+            technologyId: selectedId
+          })
         });
         const result = await readDigestResponse(response);
 
@@ -257,7 +268,7 @@ export function DailyDigestManualAdd({
       {technologies.length > 0 ? (
         <>
           <select
-            value={technologyId}
+            value={selectedId}
             onChange={(event) => setTechnologyId(event.target.value)}
           >
             {technologies.map((technology) => (

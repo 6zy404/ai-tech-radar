@@ -65,10 +65,14 @@ For per-topic deep dives, see the `docs/` directory.
     outside any form and send with a button.
 - After the fix, every select showed the stored value after saving, checked
   with values that are not the first option in both directions.
-- Seen while testing and **not fixed here**: after 添加技术到简报 the added
-  item leaves the option list, but the component still holds its id, so the
-  select shows a different technology and clicking again re-sends the one
-  already added while reporting 「技术已添加。」.
+- **A different bug on the digest page, found while testing and fixed in its
+  own commit.** After 添加技术到简报 the added item leaves the option list,
+  but `DailyDigestManualAdd` still held its id, so the select showed another
+  technology and a second click re-sent the one already added while
+  reporting 「技术已添加。」 — only the first of two adds was stored. The
+  selection now falls back to the first remaining option whenever the held
+  id is gone. In the browser, two clicks in a row store two different
+  technologies, and a hand-picked one is the one sent.
 - typecheck, lint, format and 365 tests pass. Screenshots were unreliable in
   this session (the pane often stopped drawing); the change touches no
   layout.
