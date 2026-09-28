@@ -37,6 +37,36 @@ For per-topic deep dives, see the `docs/` directory.
   would not paint the middle of the 390 dark page (the signal and knowledge
   cards, which this does not touch); those sections were checked in light.
 
+## The pipeline alerts reach the desktop
+
+- **`npm run check:pipeline`** (2026-09-29). The two alerts added to
+  `/workspace/operations` earlier the same day were only visible on a page
+  nobody opens: the live site is the public build, which has no workspace.
+  The new command runs the same judgments (`getPipelineAlerts`, now shared by
+  the dashboard and the command) against the real data directory and, when an
+  alert is active, shows a Windows toast naming each one.
+- Each alert pops up at most once per Shanghai calendar day; one that clears
+  and comes back the same day is shown again. That memory is
+  `.cache/pipeline-alert-state.json` — this machine's record of what it
+  showed, so it stays out of the data directory, the SQLite store and git.
+- The toast is Windows PowerShell's `ToastNotificationManager` under
+  PowerShell's own AppUserModelID (an unregistered id is accepted and silently
+  dropped). The text is passed in environment variables, never interpolated
+  into the script.
+- `--dry-run` prints without showing or remembering anything; `--test` shows a
+  sample toast. Exit code 0 = clear, 1 = an alert is active, 2 = the toast
+  failed (the state is not written, so the next run retries).
+- Checked against this worktree's copy with the 09-28 import removed and 25
+  candidates reopened: one toast listing all three alerts, a second run the
+  same day printed 今天已经通知过, and after restoring the copy the command
+  reported all clear and emptied the state.
+- To run it daily, a Task Scheduler entry must use **Run only when user is
+  logged on**: a task in session 0 has no desktop, so the toast would go
+  nowhere.
+- `scripts/ts-runners.test.mjs` pins which commands run on the real
+  directory; `check:pipeline` is added to that list. New
+  `src/lib/pipeline-alert.test.ts` (8 tests).
+
 ## The operations dashboard notices a stalled import and an unrun round
 
 - **Two pipeline alerts on `/workspace/operations`** (2026-09-29). The

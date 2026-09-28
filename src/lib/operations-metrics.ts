@@ -500,6 +500,33 @@ export function evaluateCandidateBacklog({
   };
 }
 
+/**
+ * The import-stall and backlog alerts for this data directory, read the same
+ * way the dashboard reads them. `npm run check:pipeline` calls this too, so a
+ * desktop notification can never disagree with the page.
+ */
+export function getPipelineAlerts({ now = new Date() }: { now?: Date } = {}): {
+  importStall: OperationsAttentionItem[];
+  candidateBacklog?: OperationsAttentionItem;
+} {
+  const importRuns = getExternalSourceImportRuns();
+  const latestRecordedImportRun = getLatestExternalSourceImportRun();
+
+  return {
+    importStall: evaluateImportStall({
+      schedule: getScheduledImportConfig(),
+      importRuns: latestRecordedImportRun
+        ? [latestRecordedImportRun, ...importRuns]
+        : importRuns,
+      now
+    }),
+    candidateBacklog: evaluateCandidateBacklog({
+      candidates: getCandidateWorkflowData().candidates,
+      now
+    })
+  };
+}
+
 function getAttentionRequiredItems({
   failedImports,
   failedDeliveries,
@@ -613,7 +640,6 @@ export function getSystemHealthSummary({
 }: { now?: Date } = {}): OperationsDashboardData {
   const sources = getExternalSources();
   const importRuns = getExternalSourceImportRuns();
-  const latestRecordedImportRun = getLatestExternalSourceImportRun();
   const { candidates, duplicateGroups } = getCandidateWorkflowData();
   const sourceQualityById = evaluateSourcesQuality(
     sources,
@@ -633,14 +659,10 @@ export function getSystemHealthSummary({
     .filter(isFailureEvent)
     .map(sanitizeWorkflowEventForOperations)
     .slice(0, 20);
-  const importStallItems = evaluateImportStall({
-    schedule: getScheduledImportConfig(),
-    importRuns: latestRecordedImportRun
-      ? [latestRecordedImportRun, ...importRuns]
-      : importRuns,
-    now
-  });
-  const candidateBacklogItem = evaluateCandidateBacklog({ candidates, now });
+  const {
+    importStall: importStallItems,
+    candidateBacklog: candidateBacklogItem
+  } = getPipelineAlerts({ now });
   const attentionItems = getAttentionRequiredItems({
     failedImports,
     failedDeliveries,

@@ -154,13 +154,14 @@ describe("package.json scripts", () => {
     expect(misplaced).toEqual([]);
   });
 
-  it("runs the task runner and the db commands on the real directory", () => {
+  it("runs the task runner, the pipeline check and the db commands on the real directory", () => {
     const operational = launched
       .filter((entry) => entry.launcher === "run-ts.cjs")
       .map((entry) => entry.name)
       .sort();
 
     expect(operational).toEqual([
+      "check:pipeline",
       "db:init",
       "db:migrate-json",
       "db:reset",
