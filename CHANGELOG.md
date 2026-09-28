@@ -12,6 +12,40 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The operations dashboard notices a stalled import and an unrun round
+
+- **Two pipeline alerts on `/workspace/operations`** (2026-09-29). The
+  scheduled imports of 09-25 to 09-27 all wrote into a throwaway copy and
+  nobody noticed for three days; the "twenty candidates or a week" rule for
+  running an editorial round was written down and reminded nowhere. Both are
+  now deterministic attention items, pinned above the rest of 需要关注 (the
+  list is sorted by timestamp and cut at 12 on the page, and a stall's
+  timestamp is by definition old), and both feed the health status.
+- **定时导入已停摆 / 定时导入逾期未运行** (critical), only while the scheduled
+  import is enabled: the last import in which at least one source succeeded
+  finished more than 36 hours ago, or `nextRunAt` is more than 6 hours in the
+  past. The intake time is the newest `ImportRun` with `successfulSources > 0`
+  — not `scheduled-import.json`'s `lastRunAt` (it is set by a run where every
+  source failed and never sees a manual import), and not the batch `status`
+  (a batch is `partial` even when every source only fell back to a
+  placeholder). The run record is written into the same data directory as the
+  candidates it merged, so a runner writing elsewhere leaves it behind.
+  Replayed against this worktree's copy with the 09-28 run removed, the two
+  items read 113 and 89 hours.
+- **该跑一轮编辑轮了** (warning): more than 20 undecided candidates, or the
+  oldest undecided one imported more than 7 days ago; the text states the
+  count and the oldest age and links to `/workspace/editorial-round`.
+- Thresholds are named constants in `src/lib/operations-metrics.ts`
+  (`IMPORT_STALL_THRESHOLD_HOURS`, `SCHEDULED_IMPORT_OVERDUE_HOURS`,
+  `CANDIDATE_BACKLOG_MAX_COUNT`, `CANDIDATE_BACKLOG_MAX_AGE_DAYS`), and
+  `getSystemHealthSummary` takes a `now`. New
+  `src/lib/operations-metrics.test.ts` (19 tests) covers 35 / 36 / 37 hours,
+  20 / 21 candidates and exactly 7 days; deleting any one judgment fails 1–3
+  tests, and so does turning any `>` into `>=`. `validate:operations` gained a
+  fixed-clock fixture for all three items and asserts `/api/health` does not
+  import the operations summary.
+- Workspace only: nothing new reaches a public page, a feed or `/api/health`.
+
 ## LLM output caps now hold exactly
 
 - **`truncateText` overshot every cap by two** (2026-09-29). It kept

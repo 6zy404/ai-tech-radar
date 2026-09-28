@@ -63,7 +63,16 @@ const scheduleStorePath = path.join(configDirPath, "scheduled-delivery.json");
 const taskRunnerStorePath = path.join(configDirPath, "task-runner.json");
 const workflowEventStorePath = path.join(configDirPath, "workflow-events.json");
 const digestStorePath = path.join(configDirPath, "daily-digests.json");
+const scheduledImportStorePath = path.join(
+  configDirPath,
+  "scheduled-import.json"
+);
 const now = "2026-05-29T09:00:00.000Z";
+const hourMs = 60 * 60 * 1000;
+
+function hoursBeforeNow(hours: number): string {
+  return new Date(Date.parse(now) - hours * hourMs).toISOString();
+}
 const secretUrl = "https://hooks.example.test/send?token=super-secret-token";
 const internalTerms = [
   "WorkflowEvent",
@@ -190,6 +199,16 @@ function writeFixtureStores() {
       duplicateFixture: true
     }
   };
+  // Undecided for eight days: past the backlog age threshold on its own.
+  const staleCandidate: ImportedCandidate = {
+    ...candidate,
+    id: "operations-candidate-stale",
+    sourceUrl: "https://example.test/candidates/operations-stale",
+    originalTitle: "Operations candidate waiting for an editorial round",
+    duplicateGroupId: undefined,
+    importedAt: hoursBeforeNow(8 * 24),
+    rawPayload: { sourceId: failedSource.id }
+  };
   const snapshot: ImportedCandidateSnapshot = {
     syncedAt: now,
     sources: [
@@ -203,7 +222,7 @@ function writeFixtureStores() {
         fetchedAt: now
       }
     ],
-    candidates: [candidate, duplicateCandidate]
+    candidates: [candidate, duplicateCandidate, staleCandidate]
   };
   const duplicateGroup: DuplicateGroup = {
     id: "duplicate-group-operations",
@@ -361,7 +380,36 @@ function writeFixtureStores() {
         }
       ]
     },
-    importRuns: []
+    // The last run that brought anything in finished 40 hours before `now`:
+    // past the 36-hour stall threshold. The failed `latestImportRun` above
+    // is newer but must not count as intake.
+    importRuns: [
+      {
+        id: "operations-import-run-last-success",
+        startedAt: hoursBeforeNow(40),
+        finishedAt: hoursBeforeNow(40),
+        status: "success",
+        totalSources: 1,
+        enabledSources: 1,
+        skippedSources: 0,
+        successfulSources: 1,
+        failedSources: 0,
+        partialSources: 0,
+        totalCandidatesCreated: 2,
+        totalCandidatesSkipped: 0,
+        messages: [],
+        sourceResults: []
+      }
+    ]
+  });
+  writeJsonFile(scheduledImportStorePath, {
+    enabled: true,
+    scheduleTime: "08:00",
+    timezone: "Asia/Shanghai",
+    nextRunAt: hoursBeforeNow(10),
+    lastRunAt: hoursBeforeNow(40),
+    lastRunStatus: "success",
+    updatedAt: hoursBeforeNow(40)
   });
   writeJsonFile(importedCandidateStorePath, snapshot);
   writeJsonFile(candidateReviewStatePath, { updatedAt: now, items: {} });
@@ -387,10 +435,58 @@ function writeFixtureStores() {
   writeJsonFile(digestStorePath, { updatedAt: now, digests: [digest] });
 }
 
+function assertPipelineAlerts(
+  operations: ReturnType<typeof getSystemHealthSummary>
+) {
+  const ids = operations.attentionItems.map((item) => item.id);
+
+  assert.deepEqual(
+    ids.slice(0, 3),
+    ["import-stall-intake", "import-stall-overdue", "candidate-backlog"],
+    "Import-stall and backlog alerts should lead the attention list."
+  );
+
+  const intake = operations.attentionItems[0];
+  const backlog = operations.attentionItems[2];
+
+  assert.equal(intake.severity, "critical");
+  assert.ok(
+    intake.description.includes("40 小时前"),
+    "Import stall should count from the last run with a successful source, not the newer failed run."
+  );
+  assert.equal(operations.attentionItems[1].severity, "critical");
+  assert.equal(backlog.severity, "warning");
+  assert.equal(backlog.href, "/workspace/editorial-round");
+  assert.ok(
+    backlog.description.includes("未处置候选 3 条") &&
+      backlog.description.includes("已等待 8 天"),
+    `Backlog alert should state the count and the oldest age, got: ${backlog.description}`
+  );
+  assert.ok(
+    operations.statusReasons.includes("定时导入已停摆。") &&
+      operations.statusReasons.includes("定时导入逾期未运行。") &&
+      operations.statusReasons.includes("未处置候选积压，该跑一轮编辑轮了。"),
+    "Both alert kinds should appear in the health status reasons."
+  );
+}
+
 function assertPublicSourceIsolation() {
   assertNoInternalTerms(getAllTechnologies(), "User-facing technologies");
   assertNoInternalTerms(getDigestDeliveryFeed(), "Public digest feed");
   assertNoInternalTerms(renderDigestJsonFeed(), "Public JSON feed");
+
+  // The pipeline alerts describe the workspace, not the site: the public
+  // health endpoint must not grow a dependency on the operations summary.
+  const healthRouteSource = readFileSync(
+    path.join(process.cwd(), "src/app/api/health/route.ts"),
+    "utf8"
+  );
+
+  assert.equal(
+    healthRouteSource.includes("operations-metrics"),
+    false,
+    "/api/health should not read the workspace operations summary."
+  );
 }
 
 function assertRouteFilesExist() {
@@ -431,7 +527,8 @@ function main() {
     scheduleStorePath,
     taskRunnerStorePath,
     workflowEventStorePath,
-    digestStorePath
+    digestStorePath,
+    scheduledImportStorePath
   ];
   const backups = new Map<string, BackupEntry>(
     storePaths.map((filePath) => [filePath, backupEntry(filePath)])
@@ -440,8 +537,9 @@ function main() {
   try {
     writeFixtureStores();
 
-    const operations = getSystemHealthSummary();
+    const operations = getSystemHealthSummary({ now: new Date(now) });
 
+    assertPipelineAlerts(operations);
     assert.equal(
       ["critical", "warning", "healthy", "unknown"].includes(operations.status),
       true,

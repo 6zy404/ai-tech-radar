@@ -14,14 +14,18 @@ import {
 } from "@/lib/scheduled-delivery-workflow";
 import {
   getExternalSourceImportRuns,
-  getExternalSources
+  getExternalSources,
+  getLatestExternalSourceImportRun
 } from "@/lib/source-workflow";
+import { getScheduledImportConfig } from "@/lib/scheduled-import";
 import { getLatestTaskRunnerRun, getTaskRunnerRuns } from "@/lib/task-runner";
 import { getWorkflowEvents } from "@/lib/workflow-events";
 import type {
   CandidateQualityFlag,
   DeliveryRun,
   ExternalSource,
+  ImportedCandidate,
+  ImportRun,
   ScheduledDeliveryRun,
   TaskRunnerRun,
   WorkflowEvent
@@ -344,16 +348,170 @@ function getCandidateQualityAttention(): OperationsAttentionItem[] {
     .slice(0, 12);
 }
 
+/**
+ * 导入停摆与候选积压：两条确定性提醒，只进工作台运维看板。
+ *
+ * 起因是 2026-09-25 至 09-27 的定时导入全部写进了临时副本，线上数据目录连续
+ * 三天没有新候选，却没有任何地方报警；编辑轮「二十条或一周」的约定也没有
+ * 任何地方提醒。阈值集中在这里，改动时连同 operations-metrics.test.ts 一起改。
+ */
+export const IMPORT_STALL_THRESHOLD_HOURS = 36;
+export const SCHEDULED_IMPORT_OVERDUE_HOURS = 6;
+export const CANDIDATE_BACKLOG_MAX_COUNT = 20;
+export const CANDIDATE_BACKLOG_MAX_AGE_DAYS = 7;
+
+const hourMs = 60 * 60 * 1000;
+const dayMs = 24 * hourMs;
+
+function formatHours(ms: number): string {
+  return String(Math.floor(ms / hourMs));
+}
+
+/**
+ * The last time candidates could actually have entered the live store: the
+ * newest import run in which at least one source fetched successfully.
+ *
+ * Not `scheduled-import.json`'s `lastRunAt` — that records that the scheduler
+ * ran (a run where every source failed still sets it) and never sees a manual
+ * import. And not the run's `status` alone: a batch is `partial` even when
+ * every source only fell back to a placeholder, which brings in nothing.
+ * The run record is written into the same data directory as the candidates
+ * it merged, so a runner writing somewhere else (the 09-25 failure) leaves
+ * this timestamp behind.
+ */
+export function getLastCandidateIntakeAt(
+  importRuns: readonly ImportRun[]
+): string | undefined {
+  let latest: string | undefined;
+
+  for (const run of importRuns) {
+    const finishedAt = run.finishedAt ?? run.startedAt;
+
+    if (
+      run.successfulSources > 0 &&
+      parseTime(finishedAt) > parseTime(latest)
+    ) {
+      latest = finishedAt;
+    }
+  }
+
+  return latest;
+}
+
+export function evaluateImportStall({
+  schedule,
+  importRuns,
+  now
+}: {
+  schedule: { enabled: boolean; nextRunAt?: string };
+  importRuns: readonly ImportRun[];
+  now: Date;
+}): OperationsAttentionItem[] {
+  if (!schedule.enabled) {
+    return [];
+  }
+
+  const items: OperationsAttentionItem[] = [];
+  const nowMs = now.getTime();
+  const lastIntakeAt = getLastCandidateIntakeAt(importRuns);
+  const sinceIntakeMs = lastIntakeAt
+    ? nowMs - parseTime(lastIntakeAt)
+    : undefined;
+
+  if (
+    sinceIntakeMs !== undefined &&
+    sinceIntakeMs > IMPORT_STALL_THRESHOLD_HOURS * hourMs
+  ) {
+    items.push({
+      id: "import-stall-intake",
+      severity: "critical",
+      title: "定时导入已停摆",
+      description: `定时导入已启用，但最近一次有来源成功的导入在 ${formatHours(sinceIntakeMs)} 小时前（超过 ${IMPORT_STALL_THRESHOLD_HOURS} 小时），这段时间没有新候选进入这个数据目录。先看任务运行器日志首行写的是不是真实数据目录。`,
+      href: "/workspace/delivery/schedules",
+      source: "定时导入",
+      createdAt: lastIntakeAt
+    });
+  }
+
+  const nextRunMs = parseTime(schedule.nextRunAt);
+  const overdueMs = nextRunMs > 0 ? nowMs - nextRunMs : 0;
+
+  if (overdueMs > SCHEDULED_IMPORT_OVERDUE_HOURS * hourMs) {
+    items.push({
+      id: "import-stall-overdue",
+      severity: "critical",
+      title: "定时导入逾期未运行",
+      description: `计划的下一次导入时间已过去 ${formatHours(overdueMs)} 小时（超过 ${SCHEDULED_IMPORT_OVERDUE_HOURS} 小时）仍未运行：任务运行器可能没有启动，或写进了别的数据目录。`,
+      href: "/workspace/delivery/schedules",
+      source: "定时导入",
+      createdAt: schedule.nextRunAt
+    });
+  }
+
+  return items;
+}
+
+function getCandidateWaitingSince(
+  candidate: Pick<ImportedCandidate, "importedAt" | "publishDate">
+): number {
+  return parseTime(candidate.importedAt) || parseTime(candidate.publishDate);
+}
+
+export function evaluateCandidateBacklog({
+  candidates,
+  now
+}: {
+  candidates: readonly Pick<
+    ImportedCandidate,
+    "importStatus" | "importedAt" | "publishDate"
+  >[];
+  now: Date;
+}): OperationsAttentionItem | undefined {
+  const undecided = candidates.filter(
+    (candidate) => candidate.importStatus === "new"
+  );
+
+  if (undecided.length === 0) {
+    return undefined;
+  }
+
+  const waitingSince = undecided
+    .map(getCandidateWaitingSince)
+    .filter((time) => time > 0);
+  const oldestMs = waitingSince.length > 0 ? Math.min(...waitingSince) : 0;
+  const oldestAgeMs = oldestMs > 0 ? now.getTime() - oldestMs : 0;
+  const tooMany = undecided.length > CANDIDATE_BACKLOG_MAX_COUNT;
+  const tooOld = oldestAgeMs > CANDIDATE_BACKLOG_MAX_AGE_DAYS * dayMs;
+
+  if (!tooMany && !tooOld) {
+    return undefined;
+  }
+
+  const oldestDays = Math.floor(oldestAgeMs / dayMs);
+
+  return {
+    id: "candidate-backlog",
+    severity: "warning",
+    title: "该跑一轮编辑轮了",
+    description: `未处置候选 ${undecided.length} 条，最老的一条已等待 ${oldestDays} 天（约定：超过 ${CANDIDATE_BACKLOG_MAX_COUNT} 条或超过 ${CANDIDATE_BACKLOG_MAX_AGE_DAYS} 天就跑一轮）。这些候选在处置前都公开挂在快讯页上。`,
+    href: "/workspace/editorial-round",
+    source: "候选积压",
+    createdAt: oldestMs > 0 ? new Date(oldestMs).toISOString() : undefined
+  };
+}
+
 function getAttentionRequiredItems({
   failedImports,
   failedDeliveries,
   failedScheduledRuns,
-  failedWorkflowEvents
+  failedWorkflowEvents,
+  pinnedItems
 }: {
   failedImports: FailedImportSummary[];
   failedDeliveries: FailedDeliverySummary[];
   failedScheduledRuns: FailedScheduledRunSummary[];
   failedWorkflowEvents: WorkflowEvent[];
+  pinnedItems: OperationsAttentionItem[];
 }): OperationsAttentionItem[] {
   const { duplicateGroups } = getCandidateWorkflowData();
   const latestTaskRunnerRun = getLatestTaskRunnerRun();
@@ -433,11 +591,14 @@ function getAttentionRequiredItems({
     });
   }
 
-  return attentionItems
-    .sort(
+  // Stall and backlog alerts are about the whole pipeline, not one record, so
+  // they stay on top instead of sorting by an old timestamp below the cut.
+  return [
+    ...pinnedItems,
+    ...attentionItems.sort(
       (left, right) => parseTime(right.createdAt) - parseTime(left.createdAt)
     )
-    .slice(0, 24);
+  ].slice(0, 24);
 }
 
 export function getOperationsRecentWorkflowEvents(limit = 16): WorkflowEvent[] {
@@ -447,9 +608,12 @@ export function getOperationsRecentWorkflowEvents(limit = 16): WorkflowEvent[] {
     .slice(0, limit);
 }
 
-export function getSystemHealthSummary(): OperationsDashboardData {
+export function getSystemHealthSummary({
+  now = new Date()
+}: { now?: Date } = {}): OperationsDashboardData {
   const sources = getExternalSources();
   const importRuns = getExternalSourceImportRuns();
+  const latestRecordedImportRun = getLatestExternalSourceImportRun();
   const { candidates, duplicateGroups } = getCandidateWorkflowData();
   const sourceQualityById = evaluateSourcesQuality(
     sources,
@@ -469,11 +633,23 @@ export function getSystemHealthSummary(): OperationsDashboardData {
     .filter(isFailureEvent)
     .map(sanitizeWorkflowEventForOperations)
     .slice(0, 20);
+  const importStallItems = evaluateImportStall({
+    schedule: getScheduledImportConfig(),
+    importRuns: latestRecordedImportRun
+      ? [latestRecordedImportRun, ...importRuns]
+      : importRuns,
+    now
+  });
+  const candidateBacklogItem = evaluateCandidateBacklog({ candidates, now });
   const attentionItems = getAttentionRequiredItems({
     failedImports,
     failedDeliveries,
     failedScheduledRuns,
-    failedWorkflowEvents
+    failedWorkflowEvents,
+    pinnedItems: [
+      ...importStallItems,
+      ...(candidateBacklogItem ? [candidateBacklogItem] : [])
+    ]
   });
   const goodSources = Object.values(sourceQualityById).filter(
     (metrics) => metrics.qualityLevel === "good"
@@ -491,6 +667,10 @@ export function getSystemHealthSummary(): OperationsDashboardData {
   ).length;
   const criticalReasons: string[] = [];
   const warningReasons: string[] = [];
+
+  for (const item of importStallItems) {
+    criticalReasons.push(`${item.title}。`);
+  }
 
   if (latestTaskRunnerRun?.status === "failed") {
     criticalReasons.push("最近一次任务运行器运行失败。");
@@ -539,6 +719,10 @@ export function getSystemHealthSummary(): OperationsDashboardData {
 
   if (getCandidateQualityAttention().length > 0) {
     warningReasons.push("部分候选存在阻塞性质量问题。");
+  }
+
+  if (candidateBacklogItem) {
+    warningReasons.push("未处置候选积压，该跑一轮编辑轮了。");
   }
 
   const hasNoSignals =
