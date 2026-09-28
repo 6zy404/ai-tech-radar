@@ -14,6 +14,7 @@ import type {
   KnowledgeItem,
   RelationType,
   SkillItem,
+  TechnologyItem,
   TopicTag
 } from "@/types/content";
 
@@ -126,4 +127,96 @@ export function getTopicHub(tagId: string): TopicHubData | undefined {
     knowledge,
     relatedNodes
   };
+}
+
+/**
+ * 话题总览（/topics）：列出每一个专题页存在的话题——与 getTopicHub 的
+ * notFound 规则一致，至少有一条已发布信号、技能或知识——附带三类内容各
+ * 几条。按信号数降序，同数按名称排。纯派生视图，只读公开池。
+ */
+export interface TopicIndexEntry {
+  id: string;
+  name: string;
+  description: string;
+  technologyCount: number;
+  skillCount: number;
+  knowledgeCount: number;
+}
+
+export interface TopicIndexData {
+  topics: TopicIndexEntry[];
+  /** 至少挂在一个已列出话题下的内容条数（去重），用于页头的计数行。 */
+  coverage: {
+    technologies: number;
+    skills: number;
+    knowledge: number;
+  };
+}
+
+type TaggedItem = Pick<
+  TechnologyItem | SkillItem | KnowledgeItem,
+  "id" | "tags"
+>;
+
+export function buildTopicIndex(
+  tags: TopicTag[],
+  technologies: TaggedItem[],
+  skills: TaggedItem[],
+  knowledge: TaggedItem[]
+): TopicIndexData {
+  const tagIds = new Set(tags.map((tag) => tag.id));
+  const countByTag = (items: TaggedItem[]) => {
+    const counts = new Map<string, number>();
+
+    for (const item of items) {
+      for (const tagId of new Set(item.tags)) {
+        counts.set(tagId, (counts.get(tagId) ?? 0) + 1);
+      }
+    }
+
+    return counts;
+  };
+  const coveredCount = (items: TaggedItem[]) =>
+    items.filter((item) => item.tags.some((tagId) => tagIds.has(tagId))).length;
+
+  const technologyCounts = countByTag(technologies);
+  const skillCounts = countByTag(skills);
+  const knowledgeCounts = countByTag(knowledge);
+
+  const topics = tags
+    .map((tag) => ({
+      id: tag.id,
+      name: tag.name,
+      description: tag.description,
+      technologyCount: technologyCounts.get(tag.id) ?? 0,
+      skillCount: skillCounts.get(tag.id) ?? 0,
+      knowledgeCount: knowledgeCounts.get(tag.id) ?? 0
+    }))
+    .filter(
+      (entry) =>
+        entry.technologyCount + entry.skillCount + entry.knowledgeCount > 0
+    )
+    .sort(
+      (left, right) =>
+        right.technologyCount - left.technologyCount ||
+        left.name.localeCompare(right.name, "zh-CN")
+    );
+
+  return {
+    topics,
+    coverage: {
+      technologies: coveredCount(technologies),
+      skills: coveredCount(skills),
+      knowledge: coveredCount(knowledge)
+    }
+  };
+}
+
+export function getTopicIndex(): TopicIndexData {
+  return buildTopicIndex(
+    getAllTags(),
+    getAllTechnologies(),
+    getAllSkills(),
+    getAllKnowledge()
+  );
 }

@@ -46,6 +46,52 @@ For per-topic deep dives, see the `docs/` directory.
   import the operations summary.
 - Workspace only: nothing new reaches a public page, a feed or `/api/health`.
 
+## Weekly review RSS feed
+
+- **`/digest/weekly/feed.xml`** (2026-09-29). The weekly review had pages
+  but nothing to subscribe to. The new RSS 2.0 feed carries one item per
+  natural week that has at least one shown signal, up to and including the
+  current week (a future-dated signal cannot surface a week that has not
+  started), newest first, capped at 12. Each item is titled
+  「本周回顾 · YYYY-MM-DD 这一周」 (the Monday key), links and guids to
+  `/digest/weekly/[week]`, lists the week's 立即关注 and 值得跟踪 signal
+  titles, and is dated by the week's latest signal, so a finished week's
+  `pubDate` stops moving.
+- Pure derived view like the pages: `src/lib/weekly-feed.ts` reads only
+  `getWeeklyReview` / `getWeeklyReviewArchive`, which already carry public
+  fields only; nothing is persisted and no AI is called. Escaping reuses the
+  shared `escapeXml` from the digest feed. Path constant
+  `weeklyReviewFeedPath` in `src/lib/feed-paths.ts`.
+- The weekly-review pages end with a low-key 订阅 block linking the feed,
+  built from existing classes (no CSS change).
+- `src/lib/weekly-feed.test.ts` (6 tests): week selection, order, cap,
+  future-week exclusion, links, escaping of `< > & " '`, and an internal-field
+  scan. Checked against a dev server: the served feed parses as XML (12
+  items, newest first), and the per-week counts match the page.
+
+## Topic index page (`/topics`)
+
+- **Every topic hub now has an index** (2026-09-29). Until today
+  `/topics/[tagId]` was reachable only from the 查看专题 link on a detail
+  page's tag chips, so a reader could not see which topics existed. `/topics`
+  lists every topic with at least one published signal, skill or knowledge
+  item — the same rule under which `getTopicHub` returns a page rather than
+  `notFound()` — with its description and the three counts, linking to the
+  hub. Ordered by signal count, then by name (`zh-CN` collation).
+- Pure derived view: `buildTopicIndex` / `getTopicIndex` in
+  `src/lib/topic-hub.ts` read the public pools only; no new persisted data,
+  no AI call, no internal field.
+- The page is built from the `/skills` and `/knowledge` list skeleton —
+  `UserPageShell` label header, one-line lede, a caption row of counts, the
+  two-column `DossierCard` grid — by reusing their classes, so no new CSS.
+  Checked at 1440 and 390, light and dark, top to bottom: no horizontal
+  overflow, title and first card on the same left edge.
+- New `src/lib/topic-hub.test.ts` (6 tests). One asserts the index lists
+  exactly the topics whose hub exists; changing the index filter to count
+  signals only fails it (and two others), so the two rules cannot drift
+  apart silently.
+- Not linked from anywhere yet — the nav and the other pages are unchanged.
+
 ## LLM output caps now hold exactly
 
 - **`truncateText` overshot every cap by two** (2026-09-29). It kept

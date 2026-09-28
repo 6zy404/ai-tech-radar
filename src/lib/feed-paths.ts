@@ -7,3 +7,5 @@ export const jsonFeedPath = "/feed.json";
 export function topicFeedPath(tagId: string): string {
   return `/topics/${tagId}/feed.xml`;
 }
+
+export const weeklyReviewFeedPath = "/digest/weekly/feed.xml";
