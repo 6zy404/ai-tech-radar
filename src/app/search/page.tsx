@@ -13,6 +13,8 @@ import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
+import { HighlightedText } from "./highlighted-text";
+
 interface SearchPageProps {
   searchParams: Promise<{ q?: string }>;
 }
@@ -50,14 +52,30 @@ function MatchReasonTags({ item }: { item: HybridSearchResultLink }) {
   );
 }
 
-function SearchResultCard({ item }: { item: HybridSearchResultLink }) {
+function SearchResultCard({
+  item,
+  terms
+}: {
+  item: HybridSearchResultLink;
+  terms: string[];
+}) {
+  // A result found by meaning alone has no literal hit to point at; marking
+  // a stray substring there would claim a match that did not happen.
+  const hitTerms = item.matchedBy === "semantic" ? [] : terms;
+
   return (
     <DossierCard className="search-result">
       <MatchReasonTags item={item} />
       <h3>
-        <Link href={item.href}>{item.title}</Link>
+        <Link href={item.href}>
+          <HighlightedText text={item.title} terms={hitTerms} />
+        </Link>
       </h3>
-      {item.summary ? <p>{item.summary}</p> : null}
+      {item.summary ? (
+        <p>
+          <HighlightedText text={item.summary} terms={hitTerms} />
+        </p>
+      ) : null}
       {item.meta ? (
         <div className="search-result__meta">{item.meta}</div>
       ) : null}
@@ -66,15 +84,25 @@ function SearchResultCard({ item }: { item: HybridSearchResultLink }) {
   );
 }
 
-function SearchNewsCard({ item }: { item: PublicNewsItem }) {
+function SearchNewsCard({
+  item,
+  terms
+}: {
+  item: PublicNewsItem;
+  terms: string[];
+}) {
   return (
     <DossierCard className="search-result">
       <h3>
         <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener">
-          {item.title}
+          <HighlightedText text={item.title} terms={terms} />
         </a>
       </h3>
-      {item.summary ? <p>{item.summary}</p> : null}
+      {item.summary ? (
+        <p>
+          <HighlightedText text={item.summary} terms={terms} />
+        </p>
+      ) : null}
       <div className="search-result__meta">
         <span className="news-card__source">{item.sourceName}</span>
         <span>{item.publishDate}</span>
@@ -178,17 +206,29 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               count={results.technologies.length}
             >
               {results.technologies.map((item) => (
-                <SearchResultCard key={item.key} item={item} />
+                <SearchResultCard
+                  key={item.key}
+                  item={item}
+                  terms={results.terms}
+                />
               ))}
             </SearchResultGroup>
             <SearchResultGroup title="技能" count={results.skills.length}>
               {results.skills.map((item) => (
-                <SearchResultCard key={item.key} item={item} />
+                <SearchResultCard
+                  key={item.key}
+                  item={item}
+                  terms={results.terms}
+                />
               ))}
             </SearchResultGroup>
             <SearchResultGroup title="知识" count={results.knowledge.length}>
               {results.knowledge.map((item) => (
-                <SearchResultCard key={item.key} item={item} />
+                <SearchResultCard
+                  key={item.key}
+                  item={item}
+                  terms={results.terms}
+                />
               ))}
             </SearchResultGroup>
             <SearchResultGroup
@@ -197,7 +237,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               notice={newsDisclaimer}
             >
               {results.news.map((item) => (
-                <SearchNewsCard key={item.key} item={item} />
+                <SearchNewsCard
+                  key={item.key}
+                  item={item}
+                  terms={results.terms}
+                />
               ))}
             </SearchResultGroup>
           </>

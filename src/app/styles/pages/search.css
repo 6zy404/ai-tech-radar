@@ -76,3 +76,20 @@
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
 }
+
+/* Literal hits of the query inside a keyword-matched result (2026-09-29).
+   Tinted with the stamp colour, the same colour as the 关键词 stamp above the
+   title, so the mark and the reason it is there read as one thing. The text
+   keeps its own colour instead of the browser's black-on-yellow, which in the
+   dark theme would be the one bright block on the page; the tint is 18% of a
+   token each theme already tunes for contrast, and the underline keeps the
+   hit visible to a reader who cannot tell the tint from the card. */
+.search-hit {
+  padding: 0 0.12em;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--dossier-stamp) 18%, transparent);
+  box-shadow: inset 0 -1px 0 var(--dossier-stamp);
+  color: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}

@@ -124,6 +124,40 @@ For per-topic deep dives, see the `docs/` directory.
   (headless Chrome over CDP, tiled full-page captures — the browser pane would
   not paint scrolled content). No horizontal overflow at 390.
 
+## Search results mark where the query matched
+
+- **2026-09-29.** On `/search`, results found by keyword now wrap every
+  literal hit of the query in `<mark>`, in the title and in the summary. Each
+  space-separated term is marked, case-insensitively, in Chinese and in
+  latin text. Results found **only** by meaning (语义相近) get no marks,
+  because they have no literal hit and a stray substring would suggest one.
+  News results are marked the same way, from the `PublicNewsItem` fields the
+  page already renders. `src/lib/news.ts` is unchanged.
+- **The splitting is a pure function**, `highlightSearchTerms` in
+  `src/lib/search-highlight.ts`. It returns plain / matched segments, and the
+  page renders them as React children (`src/app/search/highlighted-text.tsx`),
+  so nothing is parsed as HTML. It matches the way keyword search does: a
+  plain lower-cased substring, no regex, so `c++` or `(v2.0)` are only text.
+  Overlapping and touching hits merge into one mark (「模型推理」). Lower-casing
+  runs one character at a time with a position map, because
+  `"İ".toLowerCase()` is two code units and a direct index would shift every
+  later mark. 14 tests.
+- **Style** (`pages/search.css` → `.search-hit`): 18% of `--dossier-stamp`
+  (the colour of the 关键词 stamp) plus a 1px stamp-coloured underline. The
+  text keeps its own colour. Measured: text on the mark 10.0:1 light and
+  8.6:1 dark, underline against the card 7.1:1 and 5.2:1.
+- **Known gap, measured on the worktree data**: a keyword result can show no
+  mark at all, because keyword search also matches text the card does not
+  show. For 「agent」, 29 of 37 keyword cards are unmarked: the hit is in the
+  English original title or summary while the card shows the Chinese 智能体.
+  For 「推理」, 25 of 51 are unmarked, mostly because the hit is in the tag
+  推理与部署. Tag chips are rendered by the shared `NewsCardTags` and are not
+  marked yet.
+- Looked at top to bottom for 「agent」 and 「模型 推理」 at 1440 and 390, light
+  and dark. The browser pane was hidden and painted blank, so the captures
+  came from headless Chrome over the DevTools protocol, with an exact 390
+  viewport (`innerWidth` 390, `scrollWidth` 390).
+
 ## The topic hub's relation stamps stop breaking at 390px
 
 - **Seen 2026-09-29** on `/topics/tag-knowledge-graph` at 390px: in the
