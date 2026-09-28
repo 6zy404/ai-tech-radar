@@ -12,7 +12,36 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Test files are type-checked; six fixtures had never been valid
+
+- **`tsconfig.json` no longer excludes `**/*.test.ts`, `test-factories.ts` or
+  `vitest.config.ts`** — 2026-09-28, from the P3 debt list. They had been
+  excluded since the day vitest was added (2026-06-17), so `npm run typecheck`
+  covered 357 files and skipped the 35 that are supposed to pin the rest.
+- **Measured before fixing: 6 errors in 3 files, one error code.** Five were
+  fixtures using values no type has ever allowed — a skill of type
+  `technique` with heat `rising`, a knowledge entry in category `concept` at
+  difficulty `beginner`, a candidate normalized as `release`. The tests passed
+  because nothing they assert reads those fields; the records they built could
+  not exist. The sixth was a helper whose parameter type was inferred from its
+  default value, which made a valid published signal with no `zh` title look
+  like an error.
+- **Proven to fire**: one bad enum put back into a fixture fails the check
+  with exit 2.
+- **`next build` type-checks too, so the public build was re-run with the
+  tests included**: 32 routes, 0 workspace. It failed the first time for an
+  unrelated reason worth knowing — a checkout that has run `next dev` keeps
+  `.next/types` for every route, the public build removes the workspace
+  routes, and the stale types then point at modules that are gone. Delete
+  `.next` before a verification build in such a checkout. The live checkout is
+  not affected: its `.next` is itself a public build.
+- Not covered: `scripts/*.test.mjs` are plain JavaScript and `allowJs` is off.
+
 ## The network page convulsed on load; it was showing its own arithmetic
+
+- **Live since 2026-09-28**, the day's second deploy: 1.7 seconds from
+  stopping the old process to a healthy answer. Re-checked on the production
+  build with the same stepped clock: 42 frames, 0 reversals, the same layout.
 
 - **Reported by the owner on 2026-09-28**: opening `/network` made the graph
   thrash. It was the layout simulation, which painted each of its 150 steps.
