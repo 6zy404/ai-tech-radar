@@ -11,6 +11,17 @@ good answer would use, and that it declines when the site has nothing.
 | `questions.json` | 20 questions: 14 the site can answer, 6 it cannot               | yes            |
 | `results/*.json` | one report per prompt version × model, with every answer's text | yes, real runs |
 
+## Questions from outside (2026-09-29)
+
+Questions can now carry `"author": "outside"` — written by someone who had
+not seen the corpus, collected through `eval/outside-questions/` — and are
+summarised separately from the builder's. A third kind, `"kind": "partial"`,
+is for questions the site covers only in part: the checks confirm the answer
+used what the site has (grounded, not refused), and the answers are listed
+under `partialToRead` in the result file, because whether an answer said what
+the site lacks is not something a string check can judge. No outside questions
+exist yet.
+
 ## What is checked, and how
 
 No second model grades anything. Every check is a string or set comparison:

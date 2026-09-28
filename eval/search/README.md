@@ -32,6 +32,10 @@ refuses to run if a label names an item that no longer exists.
 
 ## Split
 
+A third split, `outside`, holds queries written by someone who had not seen
+the corpus (`eval/outside-questions/`, added 2026-09-29). It is reported on
+its own and never used to tune the cutoff. None exist yet.
+
 **12 tune queries** (2 negatives) were the only ones looked at while choosing
 the cutoff. **31 test queries** (4 negatives) were scored once, with the
 setting already fixed. Same rule as the triage eval: nothing is tuned on the

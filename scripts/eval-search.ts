@@ -30,7 +30,9 @@ import {
 
 interface EvalQuery {
   id: string;
-  split: "tune" | "test";
+  // "outside": written by someone who had not seen the corpus
+  // (eval/outside-questions/). Reported on its own and never used to tune.
+  split: "tune" | "test" | "outside";
   query: string;
   relevant: string[];
 }
@@ -256,8 +258,12 @@ async function main() {
     generatedAt: new Date().toISOString()
   };
 
-  for (const split of ["tune", "test"] as const) {
+  for (const split of ["tune", "test", "outside"] as const) {
     const queries = splitQueries(split);
+
+    if (split === "outside" && queries.length === 0) {
+      continue;
+    }
     const rows = {} as Record<Mode, Summary>;
     const outcomes = {} as Record<Mode, QueryOutcome[]>;
 

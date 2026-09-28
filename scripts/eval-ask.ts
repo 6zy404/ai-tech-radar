@@ -43,11 +43,27 @@ interface EvalQuestion {
   id: string;
   question: string;
   expected: string[];
+  /**
+   * Who wrote it. "outside" questions come from readers who had not seen the
+   * corpus (eval/outside-questions/) and are reported separately, because
+   * questions written with the corpus in view all passed. Absent = "builder".
+   */
+  author?: "builder" | "outside";
+  /**
+   * "partial": the site covers part of the question. A good answer uses what
+   * the site has (grounded, not refused) and says what it does not cover —
+   * which no string check can judge, so those answers are listed in the
+   * result file for a person to read. `expected` lists the items covering
+   * the covered part.
+   */
+  kind?: "partial";
 }
 
 interface Outcome {
   id: string;
   question: string;
+  author: "builder" | "outside";
+  partial: boolean;
   answerable: boolean;
   answer: string;
   refused: boolean;
@@ -97,6 +113,8 @@ async function runOne(question: EvalQuestion): Promise<Outcome> {
   return {
     id: question.id,
     question: question.question,
+    author: question.author ?? "builder",
+    partial: question.kind === "partial",
     answerable: question.expected.length > 0,
     answer: stats?.answer ?? "",
     refused: done?.refused ?? false,
@@ -147,48 +165,39 @@ async function main() {
         : outcome.refused
           ? "refused (correct)"
           : `ANSWERED (should refuse), cited ${outcome.cited.join(",") || "nothing"}`;
+    const label = outcome.partial
+      ? `partial · ${verdict} — read the answer`
+      : verdict;
     console.log(
-      `  ${outcome.id} ${verdict} · tools ${outcome.toolCalls} · ${outcome.latencyMs}ms`
+      `  ${outcome.id} ${label} · tools ${outcome.toolCalls} · ${outcome.latencyMs}ms`
     );
   }
 
-  const answerable = outcomes.filter((o) => o.answerable);
-  const unanswerable = outcomes.filter((o) => !o.answerable);
-  const citations = outcomes.reduce((sum, o) => sum + o.cited.length, 0);
-  const invalid = outcomes.reduce((sum, o) => sum + o.invalidCitations, 0);
-  const latencies = outcomes.map((o) => o.latencyMs);
-  const summary = {
-    answerableGrounded: pct(
-      answerable.filter((o) => o.grounded && !o.refused).length,
-      answerable.length
-    ),
-    answerableFalseRefusals: pct(
-      answerable.filter((o) => o.refused).length,
-      answerable.length
-    ),
-    answerableWithoutCitations: pct(
-      answerable.filter((o) => !o.refused && o.cited.length === 0).length,
-      answerable.length
-    ),
-    unanswerableRefused: pct(
-      unanswerable.filter((o) => o.refused).length,
-      unanswerable.length
-    ),
-    invalidCitations: pct(invalid, citations + invalid),
-    errors: outcomes.filter((o) => o.error).length,
-    meanToolCalls: (
-      outcomes.reduce((sum, o) => sum + o.toolCalls, 0) / outcomes.length
-    ).toFixed(2),
-    latencyP50Ms: percentile(latencies, 0.5),
-    latencyP95Ms: percentile(latencies, 0.95),
-    promptTokens: outcomes.reduce((sum, o) => sum + o.promptTokens, 0),
-    completionTokens: outcomes.reduce((sum, o) => sum + o.completionTokens, 0)
-  };
-
-  console.log("\nSummary");
-  for (const [key, value] of Object.entries(summary)) {
-    console.log(`  ${key.padEnd(28)} ${value}`);
+  // Reported per author: the builder's questions all passed, so mixing an
+  // outside set into them would only dilute what the outside set shows.
+  const summary: Record<string, ReturnType<typeof summarize>> = {};
+  for (const author of ["builder", "outside"] as const) {
+    const group = outcomes.filter((o) => o.author === author);
+    if (group.length > 0) {
+      summary[author] = summarize(group);
+    }
   }
+
+  for (const [author, values] of Object.entries(summary)) {
+    console.log(`\nSummary · ${author}`);
+    for (const [key, value] of Object.entries(values)) {
+      console.log(`  ${key.padEnd(28)} ${value}`);
+    }
+  }
+
+  const partialToRead = outcomes
+    .filter((o) => o.partial)
+    .map(({ id, question, answer, cited }) => ({
+      id,
+      question,
+      answer,
+      cited
+    }));
 
   if (isMock) {
     return;
@@ -208,6 +217,7 @@ async function main() {
         model,
         generatedAt: new Date().toISOString(),
         summary,
+        partialToRead,
         outcomes
       },
       null,
@@ -216,6 +226,54 @@ async function main() {
     "utf8"
   );
   console.log(`\nWrote ${outFile}`);
+}
+
+function summarize(group: Outcome[]) {
+  const answerable = group.filter((o) => o.answerable && !o.partial);
+  const unanswerable = group.filter((o) => !o.answerable);
+  const partial = group.filter((o) => o.partial);
+  const citations = group.reduce((sum, o) => sum + o.cited.length, 0);
+  const invalid = group.reduce((sum, o) => sum + o.invalidCitations, 0);
+  const latencies = group.map((o) => o.latencyMs);
+
+  return {
+    questions: group.length,
+    answerableGrounded: pct(
+      answerable.filter((o) => o.grounded && !o.refused).length,
+      answerable.length
+    ),
+    answerableFalseRefusals: pct(
+      answerable.filter((o) => o.refused).length,
+      answerable.length
+    ),
+    answerableWithoutCitations: pct(
+      answerable.filter((o) => !o.refused && o.cited.length === 0).length,
+      answerable.length
+    ),
+    unanswerableRefused: pct(
+      unanswerable.filter((o) => o.refused).length,
+      unanswerable.length
+    ),
+    // Partial: used what the site has. Whether it named what the site lacks
+    // is read by a person — see partialToRead in the result file.
+    partialGroundedNotRefused: pct(
+      partial.filter((o) => o.grounded && !o.refused).length,
+      partial.length
+    ),
+    partialRefused: pct(
+      partial.filter((o) => o.refused).length,
+      partial.length
+    ),
+    invalidCitations: pct(invalid, citations + invalid),
+    errors: group.filter((o) => o.error).length,
+    meanToolCalls: (
+      group.reduce((sum, o) => sum + o.toolCalls, 0) / group.length
+    ).toFixed(2),
+    latencyP50Ms: percentile(latencies, 0.5),
+    latencyP95Ms: percentile(latencies, 0.95),
+    promptTokens: group.reduce((sum, o) => sum + o.promptTokens, 0),
+    completionTokens: group.reduce((sum, o) => sum + o.completionTokens, 0)
+  };
 }
 
 main().catch((error) => {
