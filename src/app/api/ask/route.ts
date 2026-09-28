@@ -3,11 +3,7 @@ import { NextResponse } from "next/server";
 import { runAskRadar, type AskEvent } from "@/lib/ask-radar";
 import { siteAskTools } from "@/lib/ask-radar-tools";
 import { createConfiguredChatStream } from "@/lib/llm/chat-clients";
-import {
-  checkPublicAiRateLimit,
-  checkPublicAiRequestOrigin,
-  publicAiRateLimitMessage
-} from "@/lib/public-ai-rate-limit";
+import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 
 /**
  * POST /api/ask — 问雷达. Public and unauthenticated like the other AI
@@ -22,34 +18,13 @@ const minQuestionLength = 2;
 const maxQuestionLength = 200;
 
 export async function POST(request: Request) {
-  const rateLimit = checkPublicAiRateLimit(request, "ask");
+  const guard = await guardPublicAiRequest(request, "ask");
 
-  if (!rateLimit.allowed) {
-    return NextResponse.json(
-      { error: publicAiRateLimitMessage },
-      {
-        status: 429,
-        headers: { "Retry-After": String(rateLimit.retryAfterSeconds) }
-      }
-    );
+  if (!guard.ok) {
+    return guard.response;
   }
 
-  const origin = checkPublicAiRequestOrigin(request);
-
-  if (!origin.ok) {
-    return NextResponse.json(
-      { error: origin.message },
-      { status: origin.status }
-    );
-  }
-
-  let body: unknown;
-
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "请求格式不正确。" }, { status: 400 });
-  }
+  const body = guard.body;
 
   const question =
     typeof (body as { question?: unknown })?.question === "string"
