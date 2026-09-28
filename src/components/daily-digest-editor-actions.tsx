@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
+import { keepListedOption } from "@/lib/listed-option";
 import type { DailyDigest, TechnologyItem } from "@/types/content";
 
 interface DigestResponse {
@@ -219,9 +220,12 @@ export function DailyDigestManualAdd({
   const [technologyId, setTechnologyId] = useState(technologies[0]?.id ?? "");
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
+  // An added technology leaves the list on refresh while the state still
+  // holds its id, so the id sent must follow what the select shows.
+  const selectedId = keepListedOption(technologies, technologyId);
 
   function includeTechnology() {
-    if (!technologyId) {
+    if (!selectedId) {
       return;
     }
 
@@ -234,7 +238,10 @@ export function DailyDigestManualAdd({
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ action: "include", technologyId })
+          body: JSON.stringify({
+            action: "include",
+            technologyId: selectedId
+          })
         });
         const result = await readDigestResponse(response);
 
@@ -257,7 +264,7 @@ export function DailyDigestManualAdd({
       {technologies.length > 0 ? (
         <>
           <select
-            value={technologyId}
+            value={selectedId}
             onChange={(event) => setTechnologyId(event.target.value)}
           >
             {technologies.map((technology) => (
