@@ -48,6 +48,56 @@ For per-topic deep dives, see the `docs/` directory.
   `/knowledge/graph-thinking-for-knowledge-systems` (no prerequisites — no
   section).
 
+## 问雷达 suggests questions the site can answer (2026-09-29)
+
+- **Before**: an empty `/ask` showed a box and three hand-written examples
+  (「本地跑大模型要注意什么？」…) that never changed, rendered as 10.5px
+  monospace stamp chips in the muted colour, and **clicking one asked it** —
+  a click spent a model call on the reader's behalf, the thing arriving from
+  `/search` with `?q=` was built not to do.
+- **Now the examples come from what is published**, by fixed rules in
+  `buildAskExamples` (`src/lib/ask-examples.ts`), no model call: the two
+  newest signals (「X」讲了什么，为什么值得关注？), a pair of signals the
+  editors linked to each other (「X」和「Y」有什么区别？), and the knowledge
+  item, topic and skill cited most by the 12 newest signals. A signal is
+  named by its headline's part before the colon (`ADK Kotlin 1.0`, not the
+  whole 「ADK Kotlin 1.0：智能体逻辑不必再绕回 Python」); a name over 20
+  characters is skipped rather than truncated. Only ids present in the
+  published pools are ever named, so a link to a draft cannot surface. Same
+  set for every reader at a given moment; 9 unit tests.
+- **A click fills the box and focuses it, and does not ask.** Verified in the
+  browser: after clicking, the input holds the question and has focus, and
+  the network log has no `/api/ask` request. Once a question is asked the
+  examples are removed rather than left above the answer.
+- **Readable in both themes**: each example is an ordinary `.action-button`
+  at 14.4px under an ink 「可以这样问」 heading. The button's own wash is 10%
+  translucent and let the page's grid paper show through the text, so here it
+  sits on `--dossier-surface`. Looked at top to bottom at 1440 and 390, light
+  and dark; no horizontal overflow at 390, no console errors.
+
+## The editorial round groups its candidates by source
+
+- **2026-09-29.** The 待决候选 list on `/workspace/editorial-round` was one
+  flat list, newest first. A daily media source brings a dozen items a day, so
+  in a round of twenty or thirty it was not visible which feed was filling the
+  pool.
+- **The list is now one native `<details>` per source**, open by default, its
+  summary line the source name and a count; groups run largest first, and the
+  heading says how many sources there are. Inside a group nothing changed: the
+  same rows, in the same newest-first order, with the same quality flags, model
+  suggestion and inline 转为草稿 / 标记已看 / 拒绝. Blind mode groups the same
+  way and still hides every suggestion (0 suggestion lines, against 21 of 21
+  rows without it).
+- **The grouping is a pure function**, `groupCandidatesBySource` in
+  `src/lib/editorial-round.ts`, exposed on the round state as
+  `undecidedCandidateGroups`. Groups of equal size keep the order their source
+  first appears in, so the source with the newest item comes first. No new
+  persisted data, and no write path changed. No batch action was added.
+- Looked at on a worktree data copy with 21 candidates reopened across five
+  sources (9 / 6 / 3 / 2 / 1), at 1440 and 390, with and without suggestions,
+  and with a group folded; no horizontal overflow at 390. The copy was restored
+  byte for byte afterwards.
+
 ## The topic hub's relation stamps stop breaking at 390px
 
 - **Seen 2026-09-29** on `/topics/tag-knowledge-graph` at 390px: in the

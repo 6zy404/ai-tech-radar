@@ -140,6 +140,7 @@ export function AskRadar({
   const [state, setState] = useState<AskState>(emptyState);
   const [running, setRunning] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   async function ask(question: string) {
     const trimmed = question.trim();
@@ -228,6 +229,7 @@ export function AskRadar({
       >
         <div className="dossier-search">
           <input
+            ref={inputRef}
             type="search"
             name="question"
             value={input}
@@ -246,22 +248,28 @@ export function AskRadar({
         </button>
       </form>
 
-      {!hasRun ? (
+      {!hasRun && !running && examples.length > 0 ? (
         <div className="ask-radar__examples">
-          <span>试试：</span>
-          {examples.map((example) => (
-            <button
-              key={example}
-              type="button"
-              className="dossier-stamp-tag dossier-stamp-tag--interactive"
-              onClick={() => {
-                setInput(example);
-                void ask(example);
-              }}
-            >
-              {example}
-            </button>
-          ))}
+          <h2>可以这样问</h2>
+          <ul>
+            {examples.map((example) => (
+              <li key={example}>
+                {/* Fills the box, never asks: a click on a suggestion should
+                    not spend a model call on the reader's behalf — the same
+                    rule as arriving from /search with ?q=. */}
+                <button
+                  type="button"
+                  className="action-button"
+                  onClick={() => {
+                    setInput(example);
+                    inputRef.current?.focus();
+                  }}
+                >
+                  {example}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : null}
 

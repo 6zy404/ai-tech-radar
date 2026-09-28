@@ -1,5 +1,12 @@
 import { AskRadar } from "@/components/ask-radar";
 import { UserPageShell } from "@/components/user-page-shell";
+import { buildAskExamples } from "@/lib/ask-examples";
+import {
+  getAllKnowledge,
+  getAllSkills,
+  getAllTags,
+  getAllTechnologies
+} from "@/lib/content";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
 // Answers are generated per request through POST /api/ask; the page itself
@@ -14,12 +21,6 @@ export const metadata = buildPageMetadata({
   path: "/ask"
 });
 
-const examples = [
-  "本地跑大模型要注意什么？",
-  "智能体越权是怎么发生的？",
-  "怎么判断一个基准分数靠不靠谱？"
-];
-
 interface AskPageProps {
   searchParams: Promise<{ q?: string }>;
 }
@@ -29,6 +30,14 @@ export default async function AskPage({ searchParams }: AskPageProps) {
   // should never spend a model call on its own.
   const { q } = await searchParams;
   const initialQuestion = q?.trim().slice(0, 200) ?? "";
+  // Built by fixed rules from what is published now, so they change as the
+  // site does and never name something it does not hold.
+  const examples = buildAskExamples({
+    technologies: getAllTechnologies(),
+    knowledge: getAllKnowledge(),
+    skills: getAllSkills(),
+    tags: getAllTags()
+  });
 
   return (
     <UserPageShell

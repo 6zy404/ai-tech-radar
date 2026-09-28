@@ -10,7 +10,8 @@ import { triageLabelNames } from "@/lib/candidate-llm-triage";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import {
   getDigestStatusLabel,
-  getEditorialRoundState
+  getEditorialRoundState,
+  type EditorialRoundCandidate
 } from "@/lib/editorial-round";
 import { getCandidateQualityFlagLabel } from "@/lib/quality-display";
 
@@ -25,6 +26,60 @@ const verifyLinks = [
   { href: "/search", label: "/search" }
 ];
 
+/**
+ * One undecided candidate: title, source/date, quality flags, the model's
+ * suggestion (hidden in blind mode) and the inline actions.
+ */
+function CandidateRow({
+  candidate,
+  blind
+}: {
+  candidate: EditorialRoundCandidate;
+  blind: boolean;
+}) {
+  return (
+    <li className="editorial-round-row">
+      <div className="editorial-round-row__main">
+        <span className="editorial-round-row__title">{candidate.title}</span>
+        <span className="editorial-round-row__meta">
+          {candidate.sourceName} · {candidate.publishDate}
+        </span>
+        {candidate.qualityFlags.length > 0 ? (
+          <span className="editorial-round-row__flags">
+            {candidate.qualityFlags.map((flag) => (
+              <span key={flag} className="editorial-round-row__flag">
+                {getCandidateQualityFlagLabel(flag)}
+              </span>
+            ))}
+          </span>
+        ) : null}
+        {candidate.triage && !blind ? (
+          <span
+            className={`editorial-round-row__triage editorial-round-row__triage--${candidate.triage.decision}`}
+          >
+            <strong>
+              模型建议：
+              {triageLabelNames[candidate.triage.decision]}
+            </strong>
+            {` · 置信 ${Math.round(candidate.triage.confidence * 100)}%`}
+            {candidate.triage.isMock ? " · 本地 mock" : ""}
+            {candidate.triage.reason ? ` · ${candidate.triage.reason}` : ""}
+          </span>
+        ) : null}
+      </div>
+      <div className="editorial-round-row__actions">
+        <CandidateRoundActions candidateId={candidate.id} blind={blind} />
+        <Link
+          className="action-link"
+          href={`/workspace/candidates/${candidate.id}`}
+        >
+          详情
+        </Link>
+      </div>
+    </li>
+  );
+}
+
 interface EditorialRoundPageProps {
   searchParams: Promise<{ suggestions?: string }>;
 }
@@ -38,7 +93,7 @@ export default async function EditorialRoundPage({
   const state = getEditorialRoundState();
   const {
     today,
-    undecidedCandidates,
+    undecidedCandidateGroups,
     openDuplicateGroupCount,
     draftsAwaitingPublish,
     todayDigest,
@@ -91,6 +146,11 @@ export default async function EditorialRoundPage({
         <section className="editorial-round-block">
           <div className="editorial-round-block__heading">
             <h3>待决候选 · {undecidedCount}</h3>
+            {undecidedCandidateGroups.length > 1 ? (
+              <span className="editorial-round-block__hint editorial-round-block__hint--beside">
+                来自 {undecidedCandidateGroups.length} 个信源，按条数排列
+              </span>
+            ) : null}
             <Link className="action-link" href="/workspace/candidates">
               在候选页打开
             </Link>
@@ -134,60 +194,34 @@ export default async function EditorialRoundPage({
             </p>
           ) : null}
 
-          {undecidedCandidates.length > 0 ? (
-            <ul className="editorial-round-list">
-              {undecidedCandidates.map((candidate) => (
-                <li key={candidate.id} className="editorial-round-row">
-                  <div className="editorial-round-row__main">
-                    <span className="editorial-round-row__title">
-                      {candidate.title}
+          {undecidedCandidateGroups.length > 0 ? (
+            <div className="editorial-round-groups">
+              {undecidedCandidateGroups.map((group) => (
+                <details
+                  key={group.sourceName}
+                  className="editorial-round-group"
+                  open
+                >
+                  <summary className="editorial-round-group__summary">
+                    <span className="editorial-round-group__name">
+                      {group.sourceName}
                     </span>
-                    <span className="editorial-round-row__meta">
-                      {candidate.sourceName} · {candidate.publishDate}
+                    <span className="editorial-round-group__count">
+                      {group.candidates.length} 条
                     </span>
-                    {candidate.qualityFlags.length > 0 ? (
-                      <span className="editorial-round-row__flags">
-                        {candidate.qualityFlags.map((flag) => (
-                          <span
-                            key={flag}
-                            className="editorial-round-row__flag"
-                          >
-                            {getCandidateQualityFlagLabel(flag)}
-                          </span>
-                        ))}
-                      </span>
-                    ) : null}
-                    {candidate.triage && !blind ? (
-                      <span
-                        className={`editorial-round-row__triage editorial-round-row__triage--${candidate.triage.decision}`}
-                      >
-                        <strong>
-                          模型建议：
-                          {triageLabelNames[candidate.triage.decision]}
-                        </strong>
-                        {` · 置信 ${Math.round(candidate.triage.confidence * 100)}%`}
-                        {candidate.triage.isMock ? " · 本地 mock" : ""}
-                        {candidate.triage.reason
-                          ? ` · ${candidate.triage.reason}`
-                          : ""}
-                      </span>
-                    ) : null}
-                  </div>
-                  <div className="editorial-round-row__actions">
-                    <CandidateRoundActions
-                      candidateId={candidate.id}
-                      blind={blind}
-                    />
-                    <Link
-                      className="action-link"
-                      href={`/workspace/candidates/${candidate.id}`}
-                    >
-                      详情
-                    </Link>
-                  </div>
-                </li>
+                  </summary>
+                  <ul className="editorial-round-list">
+                    {group.candidates.map((candidate) => (
+                      <CandidateRow
+                        key={candidate.id}
+                        candidate={candidate}
+                        blind={blind}
+                      />
+                    ))}
+                  </ul>
+                </details>
               ))}
-            </ul>
+            </div>
           ) : (
             <p className="empty-state">本轮没有待决候选。</p>
           )}
