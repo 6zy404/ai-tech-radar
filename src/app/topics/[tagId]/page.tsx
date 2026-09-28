@@ -61,6 +61,11 @@ export default async function TopicHubPage({ params }: TopicHubPageProps) {
       description={tag.description}
       sectionLabel="主题聚合"
       className="topic-hub-page dossier"
+      actions={
+        <Link href="/topics" className="action-link">
+          全部话题
+        </Link>
+      }
     >
       {technologies.length > 0 ? (
         <section className="topic-hub-section">

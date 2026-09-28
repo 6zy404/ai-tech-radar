@@ -90,7 +90,13 @@ For per-topic deep dives, see the `docs/` directory.
   exactly the topics whose hub exists; changing the index filter to count
   signals only fails it (and two others), so the two rules cannot drift
   apart silently.
-- Not linked from anywhere yet — the nav and the other pages are unchanged.
+- **Two entry points, no nav entry** (same day, owner's choice). Every topic
+  hub carries a 全部话题 link in its header's action slot, the same
+  `action-link` the per-week review uses for 回到本周回顾, so it sits right of
+  the title at 1440 and under the description at 390. The 按话题 view on
+  `/technologies?view=timeline` opens with a 查看全部话题 line above its first
+  topic; it is omitted when the view is in its empty state. Topic headings in
+  that view still do not link to their hub — left as it was on purpose.
 
 ## LLM output caps now hold exactly
 

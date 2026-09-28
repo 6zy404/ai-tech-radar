@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { DossierRegisterRow } from "@/components/dossier-register-row";
 import {
   getPreferredTechnologySummary,
@@ -69,32 +71,39 @@ export function TopicTimelineSection({
   return (
     <div className="topic-timeline-section">
       {topics.length > 0 ? (
-        topics.map((topic) => (
-          <section key={topic.tagId} className="timeline-topic">
-            <div className="timeline-topic__heading">
-              <h2>{topic.tagName}</h2>
-              <span>{topic.entries.length} 条信号</span>
-            </div>
-            <p className="timeline-topic__description">
-              {topic.tagDescription}
-            </p>
-            <ol className="timeline-topic__list dossier-timeline-list">
-              {topic.entries.map((entry) => (
-                <li key={entry.slug} className="dossier-timeline-node">
-                  <DossierRegisterRow
-                    title={entry.title}
-                    date={entry.publishDate}
-                    href={`/technologies/${entry.slug}`}
-                    tag={entry.sourceName}
-                  />
-                  <p className="dossier-timeline-node__summary">
-                    {entry.summary}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))
+        <>
+          <p className="topic-timeline-section__index">
+            <Link href="/topics" className="action-link">
+              查看全部话题
+            </Link>
+          </p>
+          {topics.map((topic) => (
+            <section key={topic.tagId} className="timeline-topic">
+              <div className="timeline-topic__heading">
+                <h2>{topic.tagName}</h2>
+                <span>{topic.entries.length} 条信号</span>
+              </div>
+              <p className="timeline-topic__description">
+                {topic.tagDescription}
+              </p>
+              <ol className="timeline-topic__list dossier-timeline-list">
+                {topic.entries.map((entry) => (
+                  <li key={entry.slug} className="dossier-timeline-node">
+                    <DossierRegisterRow
+                      title={entry.title}
+                      date={entry.publishDate}
+                      href={`/technologies/${entry.slug}`}
+                      tag={entry.sourceName}
+                    />
+                    <p className="dossier-timeline-node__summary">
+                      {entry.summary}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+        </>
       ) : (
         <div className="empty-state">
           <strong>还没有可以展示的信号时间线。</strong>
