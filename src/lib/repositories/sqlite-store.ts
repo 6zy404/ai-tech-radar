@@ -48,10 +48,11 @@ import {
   writeImportedCandidateSnapshot
 } from "@/lib/repositories/sqlite-imported-candidate-store";
 import {
-  readKnowledgeWorkspaceStore,
-  writeKnowledgeWorkspaceStore,
-  type KnowledgeWorkspaceStore
-} from "@/lib/repositories/sqlite-knowledge-workspace-store";
+  readContentWorkspaceStore,
+  writeContentWorkspaceStore,
+  type KnowledgeWorkspaceStore,
+  type SkillWorkspaceStore
+} from "@/lib/repositories/sqlite-content-workspace-store";
 import {
   readLinkRelationWorkspaceStore,
   writeLinkRelationWorkspaceStore,
@@ -71,11 +72,6 @@ import {
   writeScheduledDeliveryStore,
   type ScheduledDeliveryStore
 } from "@/lib/repositories/sqlite-scheduled-delivery-store";
-import {
-  readSkillWorkspaceStore,
-  writeSkillWorkspaceStore,
-  type SkillWorkspaceStore
-} from "@/lib/repositories/sqlite-skill-workspace-store";
 import {
   readTechnologyComparisonStore,
   readTechnologyExplanationStore,
@@ -279,9 +275,15 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
       case "prompt-versions.json":
         return readPromptVersionStore(database) as T;
       case "skill-workspace.json":
-        return readSkillWorkspaceStore(database) as T;
+        return readContentWorkspaceStore(
+          database,
+          "skill_workspace_records"
+        ) as T;
       case "knowledge-workspace.json":
-        return readKnowledgeWorkspaceStore(database) as T;
+        return readContentWorkspaceStore(
+          database,
+          "knowledge_workspace_records"
+        ) as T;
       case "link-relation-workspace.json":
         return readLinkRelationWorkspaceStore(database) as T;
       case "scheduled-import.json":
@@ -360,11 +362,16 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
           writePromptVersionStore(database, value as PromptVersionStore);
           break;
         case "skill-workspace.json":
-          writeSkillWorkspaceStore(database, value as SkillWorkspaceStore);
+          writeContentWorkspaceStore(
+            database,
+            "skill_workspace_records",
+            value as SkillWorkspaceStore
+          );
           break;
         case "knowledge-workspace.json":
-          writeKnowledgeWorkspaceStore(
+          writeContentWorkspaceStore(
             database,
+            "knowledge_workspace_records",
             value as KnowledgeWorkspaceStore
           );
           break;
@@ -478,12 +485,14 @@ export function migrateJsonStoresToSqlite(stores: {
           promptVersions: []
         }
       );
-      writeSkillWorkspaceStore(
+      writeContentWorkspaceStore(
         database,
+        "skill_workspace_records",
         stores.skillWorkspace ?? { updatedAt: getTimestamp(), records: [] }
       );
-      writeKnowledgeWorkspaceStore(
+      writeContentWorkspaceStore(
         database,
+        "knowledge_workspace_records",
         stores.knowledgeWorkspace ?? { updatedAt: getTimestamp(), records: [] }
       );
       writeLinkRelationWorkspaceStore(
