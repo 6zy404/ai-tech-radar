@@ -1,52 +1,10 @@
 const fs = require("node:fs");
-const Module = require("node:module");
 const os = require("node:os");
 const path = require("node:path");
-const ts = require("typescript");
+
+const { isIsolatedScript, registerTypeScript } = require("./ts-register.cjs");
 
 const projectRoot = process.cwd();
-const originalResolveFilename = Module._resolveFilename;
-
-Module._resolveFilename = function resolveFilename(
-  request,
-  parent,
-  isMain,
-  options
-) {
-  if (request.startsWith("@/")) {
-    return originalResolveFilename.call(
-      this,
-      path.join(projectRoot, "src", request.slice(2)),
-      parent,
-      isMain,
-      options
-    );
-  }
-
-  return originalResolveFilename.call(this, request, parent, isMain, options);
-};
-
-function registerTypeScriptExtension(extension) {
-  Module._extensions[extension] = function compileTypeScript(module, filename) {
-    const source = fs.readFileSync(filename, "utf8");
-    const result = ts.transpileModule(source, {
-      fileName: filename,
-      compilerOptions: {
-        esModuleInterop: true,
-        jsx: ts.JsxEmit.ReactJSX,
-        module: ts.ModuleKind.CommonJS,
-        moduleResolution: ts.ModuleResolutionKind.NodeJs,
-        resolveJsonModule: true,
-        target: ts.ScriptTarget.ES2020
-      }
-    });
-
-    module._compile(result.outputText, filename);
-  };
-}
-
-registerTypeScriptExtension(".ts");
-registerTypeScriptExtension(".tsx");
 
 /**
  * Every validator writes fixtures into the data directory and restores it in
@@ -57,6 +15,11 @@ registerTypeScriptExtension(".tsx");
  * a throwaway copy: the data directory (or `config/`) is copied into a temp
  * folder, `LOCAL_DATA_DIR` and `SQLITE_DATABASE_PATH` point at the copy, and
  * the copy is deleted on exit. `VALIDATION_DATA_DIR=live` opts out.
+ *
+ * Only `validate-*` and `eval-*` scripts are accepted. Anything whose writes
+ * are the point — the task runner, the db:* commands — goes through
+ * `run-ts.cjs`; launched from here its work would be deleted with the copy,
+ * which is what happened to every scheduled import from 2026-09-25 to 09-27.
  */
 function prepareIsolatedDataDir() {
   if (process.env.VALIDATION_DATA_DIR === "live") {
@@ -93,7 +56,14 @@ const scriptPath = process.argv[2];
 if (!scriptPath) {
   console.error("Usage: node scripts/run-ts-validation.cjs <script.ts>");
   process.exitCode = 1;
+} else if (!isIsolatedScript(scriptPath)) {
+  console.error(
+    `${path.basename(scriptPath)} 不是校验或评测脚本：在这里运行，它写入的数据会随临时副本一起删除。请改用 scripts/run-ts.cjs。`
+  );
+  process.exitCode = 2;
 } else {
+  registerTypeScript(projectRoot);
+
   const isolation = prepareIsolatedDataDir();
 
   if (isolation) {
