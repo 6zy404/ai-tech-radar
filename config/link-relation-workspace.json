@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T06:54:33.396Z",
+  "updatedAt": "2026-09-28T03:11:04.033Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -7074,6 +7074,798 @@
       "toType": "knowledge",
       "relationType": "supports",
       "note": "被检索的可以是智能体自己的经验条目，而少量高置信条目胜过全量注入。"
+    },
+    {
+      "id": "rel-ws-e4a184b2",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "那次入侵之后做了安全加固，这是加固完成以来的第一起。"
+    },
+    {
+      "id": "rel-ws-564dca56",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一类错误假定：那次是只读请求不会写数据，这次是 DNS 只用来查地址。"
+    },
+    {
+      "id": "rel-ws-e6739ec3",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "另一家实验室怎样按任务给训练环境分档隔离。"
+    },
+    {
+      "id": "rel-ws-994c1c66",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "补救之一是用模型辅助对沙箱和网络控制做红队测试。"
+    },
+    {
+      "id": "rel-ws-d4aaa00e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "人看到了警报却没有停掉运行：审查需要配上处置的权限与规则。"
+    },
+    {
+      "id": "rel-ws-2f46860c",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "能阻止越界的是物理上不存在的出站通道，而不是提示词。"
+    },
+    {
+      "id": "rel-ws-9f97c76b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "探测要对着行为本身，而不是对着行为有没有成功。"
+    },
+    {
+      "id": "rel-ws-9c768e78",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一个判断的另一种做法：消费级机器是异构资源，不是缩水的服务器。"
+    },
+    {
+      "id": "rel-ws-76b4aa51",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "它支持的最大模型：权重约 1.6TB，内存 32GB 起。"
+    },
+    {
+      "id": "rel-ws-498b9a25",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "975B 的 Inkling 是它支持的九个家族之一。"
+    },
+    {
+      "id": "rel-ws-a285246a",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同样把一部分数据放到固态硬盘上，取舍明细很接近。"
+    },
+    {
+      "id": "rel-ws-35560e3d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "前提是稀疏激活：每个 token 只用到少数专家。"
+    },
+    {
+      "id": "rel-ws-28261e6e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "权重以 int4 存放，并承诺不会悄悄改动精度。"
+    },
+    {
+      "id": "rel-ws-e5c7fa46",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "把「装不装得下」换成了「愿意等多久」。"
+    },
+    {
+      "id": "rel-ws-2ca1a6d9",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "硬件适配变成了对内存、显存和硬盘带宽的分配。"
+    },
+    {
+      "id": "rel-ws-77bbd552",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "速度的跨度就是从硬盘读取到全部常驻之间的容量曲线。"
+    },
+    {
+      "id": "rel-ws-e5c62919",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "巨核是为这个模型的 92 层结构手写的。"
+    },
+    {
+      "id": "rel-ws-7e69e5ff",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "同一批人的通用引擎；基线用的就是它已发布的 Kimi K3 配置。"
+    },
+    {
+      "id": "rel-ws-6c328545",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同样在推测解码之上为 Kimi K3 提速，走的是通用引擎这条路。"
+    },
+    {
+      "id": "rel-ws-2abb2616",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "每次内核调用同时验证 1 个锚点和 7 个候选。"
+    },
+    {
+      "id": "rel-ws-66d2d6df",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "专家的权重是跨层预取的主要对象。"
+    },
+    {
+      "id": "rel-ws-f23d2bfa",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "面向单个用户优化的解码，并发上来之后取舍会变。"
+    },
+    {
+      "id": "rel-ws-32d455ea",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "同一规格下软件实现能差出一倍吞吐。"
+    },
+    {
+      "id": "rel-ws-7f77df71",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "explains",
+      "note": "通用引擎与手写内核是成本不同的两条支持路径。"
+    },
+    {
+      "id": "rel-ws-27e4ef4b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "那份复盘讲了做了什么，这一份补上了代码是怎样送出去的。"
+    },
+    {
+      "id": "rel-ws-19a94df8",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一个错误假定：只读请求不会写数据。"
+    },
+    {
+      "id": "rel-ws-a7bcd8c8",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "又一份来自外部的调查，这次完全基于公开痕迹。"
+    },
+    {
+      "id": "rel-ws-c916dc01",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "一次事后的外部红队：从公开痕迹反推攻击面。"
+    },
+    {
+      "id": "rel-ws-166c0424",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "knowledge-api-contracts",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "读取请求不改变状态是约定，不是保证。"
+    },
+    {
+      "id": "rel-ws-2000bbf9",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "出站策略要按「对方会替我做什么」来审。"
+    },
+    {
+      "id": "rel-ws-34299685",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "可观测性的范围不止自己的日志。"
+    },
+    {
+      "id": "rel-ws-6d7d1879",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一家的另一份复盘：工具粒度和指令怎样决定智能体的表现。"
+    },
+    {
+      "id": "rel-ws-d7f1f93b",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "模型一侧的对应物：专门面向漏洞发现与修复的模型。"
+    },
+    {
+      "id": "rel-ws-e4ca4143",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同样让模型参与安全测试，那一条测的是模型自己。"
+    },
+    {
+      "id": "rel-ws-eb3ca8ac",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "requires",
+      "note": "攻防类任务需要更强的隔离；这条流水线把隔离留给了使用者。"
+    },
+    {
+      "id": "rel-ws-bad466c0",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "工具只暴露基本操作，组合方式由智能体决定。"
+    },
+    {
+      "id": "rel-ws-a4a5f13e",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "连续两轮增量低于 1 个百分点就停。"
+    },
+    {
+      "id": "rel-ws-1392ff0b",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "knowledge-feedback-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "覆盖率报告是每一轮的反馈。"
+    },
+    {
+      "id": "rel-ws-c5261b9b",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "阶段之间只通过数据库传状态，任何一步都可以重放。"
+    },
+    {
+      "id": "rel-ws-87cf9f82",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "所有执行都经过一组有边界的工具。"
+    },
+    {
+      "id": "rel-ws-7f375cec",
+      "fromId": "draft-candidate-rss-https-github-blog-p-98465",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "模型选定的命令直接在宿主机上运行，要放进一次性环境。"
+    },
+    {
+      "id": "rel-ws-8a0c93a0",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-live",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一条线的前一步：先有实时语音模型，再有带形象的实时对话。"
+    },
+    {
+      "id": "rel-ws-22f8e74f",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-real-world-voiceeq",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "衡量语音交互质量的基准；带上形象之后要衡量的维度更多了。"
+    },
+    {
+      "id": "rel-ws-fe63b693",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一家在医疗场景里对实时视频对话做的随机对照研究。"
+    },
+    {
+      "id": "rel-ws-83e34a3d",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "knowledge-ws-8c99b19c",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "形象让语言之外的信号从声音扩展到了画面。"
+    },
+    {
+      "id": "rel-ws-b572329f",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "延迟决定对话会不会断掉，而公告没有给出数字。"
+    },
+    {
+      "id": "rel-ws-4674179a",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "工具调用改成后台进行，不再是一问一答的顺序。"
+    },
+    {
+      "id": "rel-ws-ba2f7d15",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "skill-ws-1a0da8a9",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "后台调用期间说什么、结果回来时怎样接上，都要专门设计。"
+    },
+    {
+      "id": "rel-ws-736b27ad",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "异步调用要求工具的结果在晚到时仍然有意义。"
+    },
+    {
+      "id": "rel-ws-05df513a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "builds-on",
+      "note": "同一个模型家族：先有端侧文本模型，再为视觉版本加推测解码。"
+    },
+    {
+      "id": "rel-ws-cc2eb221",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "首日支持的三个推理框架之一。"
+    },
+    {
+      "id": "rel-ws-ad5fc978",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "本地运行时同样在为推测解码的草稿模型做适配。"
+    },
+    {
+      "id": "rel-ws-4e6c6b6a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一种推测解码方式，那一条用在数据中心的大模型上。"
+    },
+    {
+      "id": "rel-ws-5f2ceba7",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "草稿模型起草候选，目标模型逐个验证，输出不变。"
+    },
+    {
+      "id": "rel-ws-7c6bc850",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "用户感受到的是总时间，不是其中最快的一段。"
+    },
+    {
+      "id": "rel-ws-8c9e174f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "同一个草稿模型在不同芯片上的加速幅度不同。"
+    },
+    {
+      "id": "rel-ws-f52af5fd",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "explains",
+      "note": "首日支持依赖尚未合并的改动，是能否上生产的一个信号。"
+    },
+    {
+      "id": "rel-ws-090fc73b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "视觉输入怎样组织，决定预填充要花多久。"
+    },
+    {
+      "id": "rel-ws-f75d6a53",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一家在云端一侧的智能体能力：后台任务与远程工具接入。"
+    },
+    {
+      "id": "rel-ws-7a0b635d",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "另一家同样把智能体的运行时能力做成了框架的一部分。"
+    },
+    {
+      "id": "rel-ws-233b51c4",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "可以在端侧运行的智能体模型；这一条是承载它的框架。"
+    },
+    {
+      "id": "rel-ws-8a89337a",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "人工确认被做成工具声明里的一个开关。"
+    },
+    {
+      "id": "rel-ws-822c092f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "工具的描述规约在编译期生成。"
+    },
+    {
+      "id": "rel-ws-0899bdda",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "本地运行，能力不够时再转向云端模型。"
+    },
+    {
+      "id": "rel-ws-5a0a5559",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "上下文压缩与可序列化的会话，针对长时间运行。"
+    },
+    {
+      "id": "rel-ws-ffc81e50",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "注解加编译期生成，把工具契约固定下来。"
+    },
+    {
+      "id": "rel-ws-29229529",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "先做一个可恢复的智能体，再考虑多层级。"
+    },
+    {
+      "id": "rel-ws-5297be58",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "端侧推理有两条路径，其中一条仍是测试版。"
+    },
+    {
+      "id": "rel-ws-3e399423",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "另一家得出的相近结论：工具和指令的设计比模型更决定评审质量。"
+    },
+    {
+      "id": "rel-ws-b3f860eb",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "评审这件事本身在变：对象从行数换成了影响半径。"
+    },
+    {
+      "id": "rel-ws-73fdad36",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-98713",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一条原则的另一个例子：不能出错的部分不交给智能体。"
+    },
+    {
+      "id": "rel-ws-50f305de",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-98465",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一轮里的另一份设计：智能体做决定，工具管执行。"
+    },
+    {
+      "id": "rel-ws-9cd71611",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "三组对不上的数字，要先分清是谁做的、有没有复测。"
+    },
+    {
+      "id": "rel-ws-604a5c30",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "用确定性换精确率，代价是召回率。"
+    },
+    {
+      "id": "rel-ws-f352b92e",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "工具集是从生产调用轨迹里筛出来的。"
+    },
+    {
+      "id": "rel-ws-e7a2c1e1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "requires",
+      "note": "读基准先问：谁标注、谁运行、不利的数字给了没有。"
+    },
+    {
+      "id": "rel-ws-69d2a8df",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "选工具之前先定目标：减少噪声，还是减少漏报。"
+    },
+    {
+      "id": "rel-ws-f5d9b956",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "把选文件、打包、定位从智能体手里拿走。"
+    },
+    {
+      "id": "rel-ws-1e366dee",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "另一家大规模内部使用异步智能体的记录。"
+    },
+    {
+      "id": "rel-ws-b2da51d1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "每次任务的成本为什么必须可见：那一条是看不见时的后果。"
+    },
+    {
+      "id": "rel-ws-6d077605",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "工作流建在同一个智能体开发套件上。"
+    },
+    {
+      "id": "rel-ws-7a07ce2f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-blog-p-98713",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同样靠现成的自动检查给智能体的修改兜底。"
+    },
+    {
+      "id": "rel-ws-f3cbf08f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "审查点放在改代码之前：工程师确认的是目标值。"
+    },
+    {
+      "id": "rel-ws-fd613da0",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "四道自动检查全部通过才算完成。"
+    },
+    {
+      "id": "rel-ws-282d71de",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "实验平台的数据通过 MCP 提供给智能体。"
+    },
+    {
+      "id": "rel-ws-18624a4b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "只读的分析与带写权限的修改拆成两个阶段。"
+    },
+    {
+      "id": "rel-ws-355b3721",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "范围窄、验收自动、成本可算，适合先做。"
+    },
+    {
+      "id": "rel-ws-938d0c87",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "隔离的工作树解决并行时互相污染状态的问题。"
     }
   ]
 }
