@@ -35,6 +35,29 @@ For per-topic deep dives, see the `docs/` directory.
   scan. Checked against a dev server: the served feed parses as XML (12
   items, newest first), and the per-week counts match the page.
 
+## Topic index page (`/topics`)
+
+- **Every topic hub now has an index** (2026-09-29). Until today
+  `/topics/[tagId]` was reachable only from the 查看专题 link on a detail
+  page's tag chips, so a reader could not see which topics existed. `/topics`
+  lists every topic with at least one published signal, skill or knowledge
+  item — the same rule under which `getTopicHub` returns a page rather than
+  `notFound()` — with its description and the three counts, linking to the
+  hub. Ordered by signal count, then by name (`zh-CN` collation).
+- Pure derived view: `buildTopicIndex` / `getTopicIndex` in
+  `src/lib/topic-hub.ts` read the public pools only; no new persisted data,
+  no AI call, no internal field.
+- The page is built from the `/skills` and `/knowledge` list skeleton —
+  `UserPageShell` label header, one-line lede, a caption row of counts, the
+  two-column `DossierCard` grid — by reusing their classes, so no new CSS.
+  Checked at 1440 and 390, light and dark, top to bottom: no horizontal
+  overflow, title and first card on the same left edge.
+- New `src/lib/topic-hub.test.ts` (6 tests). One asserts the index lists
+  exactly the topics whose hub exists; changing the index filter to count
+  signals only fails it (and two others), so the two rules cannot drift
+  apart silently.
+- Not linked from anywhere yet — the nav and the other pages are unchanged.
+
 ## LLM output caps now hold exactly
 
 - **`truncateText` overshot every cap by two** (2026-09-29). It kept
