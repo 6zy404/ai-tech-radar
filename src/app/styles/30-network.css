@@ -1,0 +1,351 @@
+/* Whole-network overview graph (/network) */
+.content-network {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.content-network__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* `/technologies` had exactly this problem — a search field and filter chips
+   floating between the hero card and the content card, so the page read as
+   hero / gap / content — and the first sweep collected them into one panel.
+   `/network` was not in that round's scope; it is the same fix, reusing the
+   surface `.dossier-technology-browser__controls` already defines. */
+.dossier .content-network__controls {
+  padding: 20px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  background: var(--dossier-surface);
+}
+
+.content-network__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  gap: 24px;
+  align-items: start;
+}
+
+.content-network__canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 320px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.content-network__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Edges rest at low opacity by default (789 crossing pairs measured on
+   the real 33-node/88-edge graph -- always-visible edges read as a
+   busy web). A selected node's own edges pop to full opacity in the
+   accent color; everything else stays faint or drops further via
+   --dim, so the graph reads as "quiet until you focus on something"
+   instead of "everything at once". */
+.content-network__edge {
+  stroke: rgba(100, 116, 139, 0.2);
+  stroke-width: 1;
+  opacity: 0.35;
+  transition: opacity 140ms ease;
+}
+
+.content-network__edge--active {
+  stroke: rgba(8, 127, 115, 0.65);
+  stroke-width: 2;
+  opacity: 1;
+}
+
+.content-network__edge--dim {
+  opacity: 0.15;
+}
+
+.content-network__edge-hit {
+  stroke: transparent;
+  stroke-width: 10;
+  cursor: pointer;
+}
+
+.content-network__edge-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Nodes render as a small always-visible dot; the title label only
+   appears for a hovered/selected node or an active search match (see
+   ContentNetworkGraph). At 33+ nodes, always-on text labels overlapped
+   each other badly -- the dot keeps each node's on-screen footprint
+   small enough that the force layout can actually keep them apart. */
+.content-network__node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  z-index: 1;
+  cursor: grab;
+  touch-action: none;
+  transition: opacity 140ms ease;
+}
+
+.content-network__node:active {
+  cursor: grabbing;
+}
+
+.content-network__node-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition:
+    width 140ms ease,
+    height 140ms ease,
+    box-shadow 140ms ease;
+}
+
+/* The dot is sized in pixels while the layout spaces nodes in canvas units, so
+   the same graph gets tighter as the canvas shrinks: 674px wide on desktop
+   against 320px here. Overlap is therefore a pixel problem, and shrinking the
+   pixels is the direct answer — measured 2026-08-16, 12 overlapping dot pairs
+   → 1 at 390px, with desktop untouched (still 11px, still 0). The 28×28 hit
+   area is deliberately not shrunk with it. */
+@media (max-width: 640px) {
+  .content-network__node-dot {
+    width: 8px;
+    height: 8px;
+    border-width: 1.5px;
+  }
+}
+
+.content-network__node--technology .content-network__node-dot {
+  background: #12786c;
+}
+
+.content-network__node--skill .content-network__node-dot {
+  background: #a8711f;
+}
+
+.content-network__node--knowledge .content-network__node-dot {
+  background: #2f6ea3;
+}
+
+.content-network__node:hover .content-network__node-dot,
+.content-network__node:focus-visible .content-network__node-dot,
+.content-network__node--selected .content-network__node-dot {
+  width: 15px;
+  height: 15px;
+  box-shadow:
+    0 0 0 4px rgba(15, 23, 42, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.content-network__node--selected {
+  z-index: 3;
+}
+
+.content-network__node-label {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 160px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  color: var(--user-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 11.5px;
+  line-height: 1.35;
+  text-align: center;
+  white-space: normal;
+  pointer-events: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 4;
+}
+
+.content-network__node--dim {
+  opacity: 0.28;
+}
+
+.content-network__panel {
+  position: sticky;
+  top: 96px;
+  padding: var(--space-card, 20px);
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.content-network__panel h3 {
+  margin: 4px 0 12px;
+  color: var(--user-ink);
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.content-network__panel-hint {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.content-network__legend {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.content-network__legend-item {
+  position: relative;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.content-network__legend-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.content-network__legend-item--technology::before {
+  background: #12786c;
+}
+
+.content-network__legend-item--skill::before {
+  background: #a8711f;
+}
+
+.content-network__legend-item--knowledge::before {
+  background: #2f6ea3;
+}
+
+.content-network__legend-heading {
+  margin: 16px 0 8px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(100, 116, 139, 0.24);
+  color: var(--muted);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.content-network__relation-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.content-network__panel-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+
+.content-network__panel-group {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(100, 116, 139, 0.24);
+}
+
+.content-network__panel-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Two columns, so every row has the same shape. Until 2026-09-28 this was a
+   wrapping flex row: a title that fitted sat beside its tag and one that did
+   not dropped whole onto the next line, so one list showed two layouts. The
+   tag column is as wide as a tag — they are all two characters — and the
+   title wraps inside its own column. */
+.content-network__panel-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+}
+
+.content-network__panel-list .dossier-stamp-tag {
+  white-space: nowrap;
+}
+
+/* The tag is 22px tall and the title's first line 21px; this puts the title's
+   first line on the tag's centre line when the title runs to several. */
+.content-network__panel-list a {
+  padding-top: 1px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* A well-connected node has forty-odd rows. On a desktop layout the panel is
+   sticky beside the graph, so it is capped at the space below its sticky
+   offset and scrolls inside itself — otherwise its lower half could only be
+   reached by scrolling the graph out of view. Below 860px the panel is in the
+   page flow and scrolls with it. */
+@media (min-width: 861px) {
+  .content-network__panel {
+    max-height: calc(100vh - 96px - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+}
+
+.content-network__panel-empty {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .content-network__body {
+    grid-template-columns: 1fr;
+  }
+
+  .content-network__panel {
+    position: static;
+  }
+}

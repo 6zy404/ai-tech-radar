@@ -1,0 +1,111 @@
+/* ============================================================
+   Dossier direction v2 -- ADOPTED on /skills, /skills/[slug],
+   /knowledge, /knowledge/[slug]. These pages don't share components with
+   /technologies (each route hand-rolls its own card/section markup), so
+   DossierCard/DossierStampTag/DossierCatalogNote are used directly in
+   place rather than through page-specific sibling components. The shared
+   pieces they DO reuse (RelationshipGraph, TagList, FollowableTagList,
+   RelationDensity) already pick up the dossier look for free from the
+   .dossier .tech-graph* / .tag-badge / .my-radar__tag-toggle overrides
+   above -- nothing new needed for those here.
+   ============================================================ */
+
+.dossier .skill-detail-kicker {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+/* .skills-library-intro is deliberately not here: it is a list page's lede
+   line and sits on the page ground. A detail-page hero holds the record's own
+   material, so it keeps its panel. */
+.dossier .skill-detail-hero {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .skill-detail-hero h1 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .skills-library-intro p,
+.dossier .skill-detail-hero > p:not(.skill-detail-kicker) {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .skills-library-stats {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.dossier .skills-library-stats dt {
+  color: var(--dossier-stamp);
+}
+
+.dossier .skills-library-stats dd {
+  color: var(--dossier-muted);
+}
+
+.dossier .skill-detail-section,
+.dossier .skill-detail-aside-card {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .skill-detail-section h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+.dossier .skills-library-section__header {
+  border-bottom: 1px solid var(--dossier-line);
+}
+
+.dossier .skills-library-section__header .eyebrow {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .skills-library-section__header > p {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .skills-library-section__header h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+/* The section's own body copy carries no class. Its two classed siblings —
+   the section eyebrow and the graph hint — are shared components with their
+   own rules, and an unqualified `> p` here outranks both. */
+.dossier .skill-library-card__summary,
+.dossier .skill-detail-section > p:not([class]) {
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .skill-library-card__signals a,
+.dossier .skill-library-card__link,
+.dossier .skill-detail-related-card__link {
+  color: var(--dossier-accent);
+}
+
+.dossier .skill-detail-related-card__meta {
+  color: var(--dossier-muted) !important;
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .skill-detail-profile dt {
+  color: var(--dossier-muted);
+}
+
+.dossier .skill-detail-profile dd {
+  color: var(--dossier-ink);
+}

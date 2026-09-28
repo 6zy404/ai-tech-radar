@@ -1,0 +1,260 @@
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 20px;
+}
+
+.workspace-shell .detail-layout,
+.workspace-shell .candidate-review-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  align-items: start;
+}
+
+.workspace-shell .detail-panel,
+.workspace-shell .section-panel {
+  border-color: var(--workspace-line);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.94);
+  box-shadow: var(--workspace-shadow);
+}
+
+.workspace-shell .detail-panel h1 {
+  font-size: clamp(1.8rem, 2.7vw, 3rem);
+  letter-spacing: -0.035em;
+}
+
+.workspace-object-hero {
+  position: relative;
+  overflow: hidden;
+  border-left: 5px solid var(--workspace-accent);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(241, 245, 249, 0.94)
+    ),
+    var(--workspace-surface);
+}
+
+.workspace-object-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(51, 65, 85, 0.1), transparent 68%);
+  transform: translate(44px, -84px);
+}
+
+.workspace-object-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.workspace-object-hero h1 {
+  max-width: 26ch;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.detail-main,
+.detail-side {
+  display: grid;
+  gap: 18px;
+}
+
+.detail-panel h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.detail-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.technology-detail-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.technology-detail-panel__header {
+  align-items: flex-start;
+}
+
+.technology-detail-panel__intro {
+  display: grid;
+  gap: 8px;
+  min-block-size: 0;
+}
+
+.technology-detail-panel__intro h1 {
+  min-block-size: 2.45em;
+}
+
+.technology-detail-panel__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  min-block-size: 0;
+}
+
+.technology-detail-panel__meta {
+  display: grid;
+  gap: 14px;
+}
+
+.technology-detail-panel__meta-group {
+  display: grid;
+  gap: 10px;
+}
+
+.detail-meta-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.technology-detail-panel__content {
+  min-block-size: 220px;
+}
+
+.technology-detail-panel__content p {
+  margin: 0;
+}
+
+.detail-meta {
+  display: grid;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.detail-info-card {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-info-card h2 {
+  margin: 0;
+  font-size: 1.12rem;
+}
+
+.detail-info-card__rows {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-info-card__row {
+  display: grid;
+  gap: 6px;
+}
+
+.detail-info-card__label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.detail-info-card__value {
+  overflow-wrap: anywhere;
+}
+
+.detail-info-card--compact {
+  padding: 18px;
+  gap: 12px;
+}
+
+.detail-info-card--compact .detail-info-card__rows {
+  gap: 12px;
+}
+
+.detail-info-card__link {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+.detail-copy {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.raw-payload {
+  margin: 0;
+  min-width: 100%;
+  padding: 16px 18px;
+  color: var(--muted);
+  font-family: "Cascadia Code", "Consolas", monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.detail-section h2 {
+  margin: 0 0 14px;
+  font-size: 1.25rem;
+}
+
+.relation-list {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.relation-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-strong);
+  min-width: 0;
+}
+
+.relation-list__text {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.relation-list__item h3 {
+  margin: 0 0 8px;
+}
+
+.relation-list__item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.relation-list__action {
+  justify-self: start;
+  color: var(--skills-accent, var(--color-accent));
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.relation-list__action:hover {
+  text-decoration: underline;
+}
+
+.relation-list__item .relation-pill {
+  flex: 0 0 auto;
+}
+
+.relation-list__description {
+  margin: -4px 0 14px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}

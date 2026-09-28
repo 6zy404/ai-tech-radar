@@ -1,0 +1,273 @@
+.workspace-schedule-console .schedule-create-panel {
+  margin-bottom: 16px;
+}
+
+.workspace-schedule-console .schedule-table--console {
+  min-width: 1180px;
+  overflow: hidden;
+  border: 1px solid var(--delivery-console-border);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.workspace-schedule-console .schedule-table__head,
+.workspace-schedule-console .schedule-row {
+  display: grid;
+  grid-template-columns:
+    minmax(230px, 1.2fr)
+    minmax(150px, 0.78fr)
+    minmax(110px, 0.58fr)
+    minmax(170px, 0.88fr)
+    minmax(90px, 0.48fr)
+    minmax(150px, 0.82fr)
+    minmax(150px, 0.82fr)
+    minmax(220px, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.workspace-schedule-console .schedule-table__head {
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #667085;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.workspace-schedule-console .schedule-row {
+  min-height: 68px;
+  padding: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+  color: #334155;
+  font-size: 0.82rem;
+}
+
+.workspace-schedule-console .schedule-row__identity strong,
+.workspace-schedule-console .schedule-run-row strong {
+  display: block;
+  color: #06142b;
+  font-size: 0.88rem;
+}
+
+.workspace-schedule-console .schedule-row__identity p,
+.workspace-schedule-console .schedule-cell small {
+  display: block;
+  margin: 3px 0 0;
+  color: var(--delivery-console-muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.workspace-schedule-console .schedule-cell {
+  min-width: 0;
+}
+
+.workspace-schedule-console .schedule-cell span,
+.workspace-schedule-console .schedule-run-row span {
+  overflow-wrap: anywhere;
+}
+
+.workspace-schedule-console .schedule-row__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.workspace-schedule-console .schedule-row__actions .delivery-run-actions {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.workspace-schedule-console .schedule-row__actions .action-button,
+.workspace-schedule-console
+  .schedule-support-panel
+  .delivery-run-actions
+  .action-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+}
+
+.workspace-schedule-console .schedule-row__actions .action-button--accent,
+.workspace-schedule-console
+  .schedule-support-panel
+  .delivery-run-actions
+  .action-button--accent {
+  border-color: rgba(20, 184, 166, 0.26);
+  background: #ffffff;
+  color: var(--ui-teal-strong);
+  box-shadow: none;
+}
+
+.workspace-schedule-console
+  .schedule-row__actions
+  .candidate-review-actions__message,
+.workspace-schedule-console
+  .schedule-row__actions
+  .candidate-review-actions__hint {
+  display: none;
+}
+
+.workspace-schedule-console .schedule-row__edit {
+  width: 100%;
+}
+
+.workspace-schedule-console .schedule-row__edit summary {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--ui-teal-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.workspace-schedule-console .schedule-row__edit .source-form {
+  margin-top: 10px;
+}
+
+.workspace-schedule-console .schedule-empty-state {
+  padding: 22px;
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  border-radius: 12px;
+  background: rgba(248, 250, 252, 0.64);
+}
+
+.workspace-schedule-console .schedule-empty-state h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.workspace-schedule-console .schedule-empty-state p {
+  max-width: 58ch;
+  margin: 0 0 10px;
+  color: var(--delivery-console-muted);
+  font-size: 0.84rem;
+}
+
+.workspace-schedule-console .schedule-runs-panel {
+  margin-top: 16px;
+}
+
+.workspace-schedule-console .schedule-run-table {
+  min-width: 1060px;
+  overflow: hidden;
+  border: 1px solid var(--delivery-console-border);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.workspace-schedule-console .schedule-run-table__head,
+.workspace-schedule-console .schedule-run-row {
+  display: grid;
+  grid-template-columns:
+    minmax(145px, 0.84fr)
+    minmax(170px, 1fr)
+    minmax(130px, 0.72fr)
+    minmax(90px, 0.48fr)
+    minmax(180px, 1fr)
+    minmax(88px, 0.48fr)
+    minmax(250px, 1.45fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.workspace-schedule-console .schedule-run-table__head {
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #667085;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.workspace-schedule-console .schedule-run-row {
+  min-height: 54px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+  color: #334155;
+  font-size: 0.8rem;
+}
+
+.workspace-schedule-console .schedule-support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.workspace-schedule-console .schedule-support-panel {
+  padding: 12px 14px;
+  border: 1px dashed rgba(148, 163, 184, 0.44);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.62);
+}
+
+.workspace-schedule-console .schedule-support-panel > summary {
+  cursor: pointer;
+  color: #334155;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.workspace-schedule-console .schedule-support-panel > p {
+  margin: 10px 0;
+  color: var(--delivery-console-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.workspace-schedule-console .schedule-support-panel .workflow-event-list {
+  margin-top: 12px;
+  box-shadow: none;
+}
+
+@media (max-width: 980px) {
+  .workspace-delivery-console .workspace-page-header {
+    align-items: flex-start;
+  }
+
+  .workspace-delivery-console .workspace-page-header__actions {
+    align-self: flex-start;
+  }
+
+  .delivery-console-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .delivery-console-panel__header,
+  .delivery-create-panel__summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .source-console-filter {
+    grid-template-columns: 1fr;
+  }
+
+  .source-console-import-panel .source-batch-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .source-console-import-panel .source-batch-panel__actions {
+    justify-items: start;
+  }
+
+  .workspace-schedule-console .schedule-support-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .delivery-console-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-delivery-console .workspace-page-header__actions,
+  .workspace-delivery-console .workspace-page-header__actions .action-button {
+    width: 100%;
+  }
+}

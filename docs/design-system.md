@@ -310,7 +310,7 @@ Visual rules:
 ### Typography scale
 
 User-facing pages use a centralized typographic scale defined as CSS custom
-properties in `src/app/globals.css` `:root` and applied only under `.user-shell`
+properties in `:root` (`src/app/styles/01-base.css`) and applied only under `.user-shell`
 (public pages). The Internal Workspace and the shared `TopNav` keep their
 existing typography.
 
@@ -324,8 +324,8 @@ existing typography.
 - `--fs-label` `13px` — eyebrows, metadata, and small labels
 - `--lh-base` `1.5` — unified line-height across headings and text blocks
 
-The scale is applied through a single `.user-shell`-scoped layer at the end of
-`globals.css`. It uses `!important` so the central scale stays authoritative over
+The scale is applied through a single `.user-shell`-scoped layer,
+`src/app/styles/28-typography.css`. It uses `!important` so the central scale stays authoritative over
 the older per-page sizes; page components reference the tokens instead of
 hard-coding font sizes. This is a typography-only layer: it does not change
 layout, color, logic, or component structure.
@@ -491,8 +491,8 @@ Workspace pages use a compact internal-operations surface:
 - endpoint URLs, schedules, delivery logs, task-runner status, and audit events
   remain workspace-only
 
-Design tokens are intentionally still plain CSS custom properties in
-`src/app/globals.css`. The current project does not introduce a component
+Design tokens are intentionally still plain CSS custom properties, in
+`src/app/styles/01-base.css` and `19-design-system-v0.css`. The current project does not introduce a component
 library or new dependency for this refactor.
 
 On public pages the later `--ui-*` and `--skills-*` palettes resolve to the
@@ -652,7 +652,8 @@ pages" below):
   the confirmed stamp-chip category filter, composed from
   `DossierStampTag`.
 
-All CSS lives under a single `.dossier` root class in `globals.css`
+All CSS lives under a single `.dossier` root class, in the
+`src/app/styles/38-…46-dossier-*.css` files
 (`--dossier-*` custom properties, prefixed to avoid any collision with the
 live `--bg` / `--accent` / etc. tokens), so applying it to a page is
 additive and cannot regress any currently shipped page.
@@ -1534,7 +1535,10 @@ and 390, then diffing. Getting a trustworthy number took two corrections:
   150 steps were painted one per frame and a capture landed on whichever step
   was on screen. The steps are no longer painted, so once the 700ms glide has
   finished the page is the same on every load and can go back on the route
-  list — wait for the glide, or capture with reduced motion on.
+  list — wait for the glide, or capture with reduced motion on. **It went back
+  on the list on 2026-09-28** and read 0 differences across two captures of
+  one build — but only when captures ran one at a time; see "Splitting
+  globals.css" below.
 - **A probe must win on source order.** The first probe rule was inserted above
   `.tech-graph__node`'s own rule and was silently overridden, so the harness
   reported 0 differences and looked broken. Moved below it, the probe shows up
@@ -1544,6 +1548,74 @@ Only then does "4698 elements, 0 differences" mean the removal changed nothing.
 This is the 2026-07-30 lesson in its third form: **fix the measurement
 condition before the number means anything** — and confirm the instrument fires
 in the direction you expect, not merely that it produces a number.
+
+## Splitting globals.css (2026-09-28)
+
+`src/app/globals.css` had reached 11,203 lines. It is now a list of 47
+`@import`s of `src/app/styles/NN-name.css`, cut **contiguously, in the original
+order**, at the existing section comments — so the pieces concatenate back to
+the old file and the cascade cannot change. Regrouping rules by component
+(pulling a component's dark-mode override out of `46-dossier-dark.css`, say)
+was deliberately left for later: moving a rule changes its source order, and
+this file has too many rules that win only by coming later.
+
+The number prefix is the cascade order. `globals.css` says so in its header;
+**never reorder the imports without a computed-style diff.**
+
+### Three layers of proof, strongest first
+
+1. **Source**: the split script checks every cut sits at brace depth 0 outside
+   a comment and after a blank line, and that the pieces reassemble to the
+   original.
+2. **Compiled output**: the production build's CSS file is **byte-identical**
+   to the unsplit build's — same content hash, same filename. This is the
+   check that covers states no capture can reach (hover, focus, an open
+   panel), because the browser receives the same bytes.
+3. **Rendered**: `npm run css:diff` over 63 routes (all public route kinds,
+   `/network` included, and every workspace list/detail/new/preview page) at
+   1440 light, 1440 dark and 390 — 132,123 elements + 993 pseudo-elements ×
+   477 computed properties, plus each box. Same build twice: **0**. Split vs
+   unsplit: **0**. A build with one `word-spacing` rule added to an early file
+   (`03-workspace-shell.css`) and one to a late one
+   (`39-dossier-v1-technologies.css`): **8,091** differing elements, the first
+   on all 27 workspace routes, the second on `/technologies`.
+
+### Next's CSS chunking undid layer 2 until it was turned off
+
+The first split build emitted **three** CSS files instead of one. Next's
+`CssChunkingPlugin` packs CSS modules into chunks of at most 100KB of source;
+one 260KB module could not be split, 47 modules could. The files load in the
+right order, but the minifier runs per file, so it merged rules differently —
+the first difference was a `min-width: 0` kept inside a rule the single-file
+build had merged away. Probably equivalent, but "probably" is exactly what
+layer 2 exists to remove, and it cannot be checked for hover states.
+`experimental.cssChunking: false` (in `next.config.ts`) restores one file,
+byte-identical to before. It costs nothing here: all CSS is the root layout's,
+so every page loads the same set anyway.
+
+### What the harness got wrong before its reading meant anything
+
+- **`<head>` shifted every index.** Next inserts a varying number of `<link>`
+  tags in the head, so the same build compared against itself aborted a page
+  on "DOM differs". Head elements do not render; the capture now starts at
+  `<html>` and `<body>`.
+- **Chrome enumerates custom properties** in `getComputedStyle`, and which
+  are in scope changes with the viewport, so the property list differed
+  between 1440 and 390. Only standard longhands are compared; a token change
+  still shows through every property using it.
+- **Parallel captures made `/network` flaky.** Run four at once, the same
+  build read `margin-left: 0px` on `.main-content` in one capture and `90px`
+  in another, with identical boxes. Run one at a time, six captures across
+  both builds agreed. **Run captures sequentially** (about 6 minutes each).
+- **The injected `--probe` looked dead** until the head fix: the added
+  `<style>` shifted indices like the links did. It now reports its rule
+  (`.eyebrow{word-spacing:1px}` → 30 elements on `/skills` alone).
+
+Two practical traps outside the harness: Git Bash rewrites an argument like
+`/skills` into a Windows path (`MSYS_NO_PATHCONV=1`), and the search page
+downloads its embedding model on first query — point `EMBEDDING_REMOTE_HOST`
+at an unreachable address for a capture server, so search answers from
+keywords, identically every time, and nothing is downloaded.
 
 ## The site mark (2026-08-04)
 

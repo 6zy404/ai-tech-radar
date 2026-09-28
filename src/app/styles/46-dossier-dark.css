@@ -1,0 +1,228 @@
+/* ============================================================
+   Dossier direction -- dark mode (2026-07-15; made switchable 2026-09-21).
+   It started as `@media (prefers-color-scheme: dark)` with no toggle. It
+   is now keyed off `:root[data-theme="dark"]`, and an inline script in
+   layout.tsx resolves that attribute before first paint: a stored choice
+   wins, otherwise the OS preference does. So the default behaviour is
+   unchanged for a reader who never touches the control -- what changed is
+   that the control exists.
+   Keying off one attribute rather than a media query is what avoids
+   duplicating these ~290 lines: with a media query you need a second copy
+   for the explicit choice. The cost is that dark mode now needs JS. It is
+   one inline statement that runs before paint, and it degrades to light
+   rather than to something broken.
+   Almost every rule above already routes color through the seven
+   --dossier-* custom properties, so redeclaring them here repaints the
+   whole dossier scope -- custom properties resolve at paint time, so every
+   earlier ".dossier ..." rule picks this up automatically.
+   Two things live *outside* .dossier and need their own dark variant so
+   dark mode doesn't look half-finished: TopNav (rendered once in
+   layout.tsx, a sibling of every page's content, shared with the Internal
+   Workspace too) and the body background gradient, visible as light
+   gutters beside .main-content on wide viewports. The Internal Workspace's
+   own console styling is untouched -- it uses its own --workspace-* tokens.
+   ============================================================ */
+:root[data-theme="dark"] .dossier {
+  --dossier-ground: #1e1f1a;
+  --dossier-surface: #2a2b23;
+  --dossier-line: #46473a;
+  --dossier-ink: #e9e7dc;
+  --dossier-muted: #a3a08c;
+  --dossier-accent: #6fa090;
+  /* #c97a62 measured 4.39:1 on --dossier-surface, just under the 4.5
+       small-text bar; lightened one step for the whole dark scope. */
+  --dossier-stamp: #d28a73;
+  /* Generic root tokens still referenced by pre-dossier public-page
+       rules (var(--muted) meta lines, var(--surface-strong) rows, ...).
+       Redeclared here, scoped to .dossier, so public pages flip while
+       the Internal Workspace (non-dossier) keeps its light design. */
+  --surface: #2a2b23;
+  --surface-strong: #2a2b23;
+  --text: #e9e7dc;
+  --muted: #a3a08c;
+  --line: #46473a;
+  --accent: #6fa090;
+  --accent-soft: rgba(111, 160, 144, 0.16);
+  --user-ink: #e9e7dc;
+  --user-accent: #6fa090;
+  --label-amber: #d9a44a;
+}
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(111, 160, 144, 0.14),
+      transparent 24%
+    ),
+    linear-gradient(180deg, #17160f 0%, #1c1b17 100%);
+}
+:root[data-theme="dark"] .top-nav {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: rgba(28, 27, 23, 0.92);
+}
+:root[data-theme="dark"] .brand {
+  color: #e9e7dc;
+}
+:root[data-theme="dark"] .top-nav__link {
+  color: #a3a08c;
+}
+:root[data-theme="dark"] .top-nav__link:hover,
+:root[data-theme="dark"] .brand:hover {
+  color: #6fa090;
+}
+:root[data-theme="dark"] .top-nav__link--active {
+  color: #6fa090;
+  background: rgba(111, 160, 144, 0.14);
+}
+:root[data-theme="dark"] .top-nav__link--active::after {
+  background: #6fa090;
+}
+:root[data-theme="dark"] .top-nav__link--workspace {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cfcdbf;
+}
+:root[data-theme="dark"] .top-nav__separator {
+  background: rgba(255, 255, 255, 0.14);
+}
+:root[data-theme="dark"] .top-nav__toggle {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cfcdbf;
+}
+:root[data-theme="dark"] .top-nav__search-toggle,
+:root[data-theme="dark"] .top-nav__theme-toggle {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cfcdbf;
+}
+:root[data-theme="dark"] .top-nav__search input {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e9e7dc;
+}
+/* ---- dark-mode completion (2026-07-16 contrast round) ----
+     Components whose light-mode looks were hardcoded (not token-driven)
+     and therefore stayed light while their text flipped, or vice versa.
+     Each override below maps a measured WCAG failure back onto the
+     dossier tokens; see docs/design-system.md for the audit notes. */
+/* The page-header override that used to live here dropped the light
+     gradient in dark mode and nothing else, so the teal border and the 26px
+     radius stayed on a dark ground — dark was half-converted. The header
+     carries no panel in either scheme now, so no override is needed. */
+/* Technology detail aside: a higher-specificity light background won
+     over the dossier surface override. */
+:root[data-theme="dark"] .dossier .user-article-layout__aside .source-reference,
+:root[data-theme="dark"]
+  .dossier
+  .user-article-layout__aside
+  .user-reference-panel {
+  background: var(--dossier-surface);
+}
+/* Primary action buttons keep white-on-accent copy; the dark accent
+     (#6fa090) is too light a ground for white text. */
+:root[data-theme="dark"] .dossier .action-button--primary {
+  color: #1e1f1a;
+}
+/* Digest header notice + meta strip kept hardcoded light panels. */
+:root[data-theme="dark"] .dossier .daily-digest-brief-header__notice {
+  background: rgba(217, 164, 74, 0.12);
+  border-color: rgba(217, 164, 74, 0.35);
+}
+:root[data-theme="dark"] .dossier .daily-digest-meta-strip {
+  background: var(--dossier-surface);
+  border-color: var(--dossier-line);
+  color: var(--dossier-muted);
+}
+:root[data-theme="dark"] .dossier .daily-digest-meta-strip span {
+  color: var(--dossier-muted);
+}
+:root[data-theme="dark"] .dossier .daily-digest-meta-strip strong {
+  color: var(--dossier-ink);
+}
+/* Relationship graph: white node chips and hardcoded kind colors. */
+:root[data-theme="dark"] .dossier .tech-graph__node {
+  background: var(--dossier-surface);
+  border-color: var(--dossier-line);
+  box-shadow: none;
+}
+:root[data-theme="dark"] .dossier .tech-graph__node--center {
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+  color: #1e1f1a;
+}
+:root[data-theme="dark"]
+  .dossier
+  .tech-graph
+  .tech-graph__group-label--knowledge,
+:root[data-theme="dark"]
+  .dossier
+  .content-network__panel
+  .tech-graph__group-label--knowledge {
+  color: #7fb2e5;
+}
+:root[data-theme="dark"] .dossier .tech-graph .tech-graph__hint {
+  color: var(--dossier-muted);
+}
+/* Hardcoded body-copy inks that never flipped. */
+:root[data-theme="dark"] .dossier .user-article-section p,
+:root[data-theme="dark"] .dossier .content-intelligence-list,
+:root[data-theme="dark"] .dossier .technology-detail-hero__priority-copy,
+:root[data-theme="dark"] .dossier .technology-detail-learning-list,
+:root[data-theme="dark"] .dossier .technology-detail-question-list,
+:root[data-theme="dark"] .dossier .technology-compare-widget__block p,
+:root[data-theme="dark"] .dossier .technology-compare-widget__block ul,
+:root[data-theme="dark"] .dossier .skill-library-card__summary,
+:root[data-theme="dark"] .dossier .skill-detail-section > p:not([class]),
+:root[data-theme="dark"] .dossier .skill-detail-related-card p {
+  color: var(--dossier-ink);
+}
+:root[data-theme="dark"] .dossier .skill-library-card__outcome p,
+:root[data-theme="dark"] .dossier .skill-detail-related-card__note p,
+:root[data-theme="dark"]
+  .dossier
+  .skill-detail-aside-card
+  p:not(.skill-detail-kicker),
+:root[data-theme="dark"] .dossier .skill-detail-profile dt {
+  color: var(--dossier-muted);
+}
+:root[data-theme="dark"] .dossier .skill-library-card__outcome span,
+:root[data-theme="dark"] .dossier .skill-library-card__signals span,
+:root[data-theme="dark"] .dossier .skill-detail-related-card__note span,
+:root[data-theme="dark"] .dossier .skill-detail-section__header p {
+  color: var(--dossier-stamp);
+}
+:root[data-theme="dark"] .dossier .skill-library-card__signals a,
+:root[data-theme="dark"] .dossier .skill-library-card__link,
+:root[data-theme="dark"] .dossier .skill-detail-related-card__link {
+  color: var(--dossier-accent);
+}
+/* Accent pills sit on an accent-tinted ground, so accent-colored text
+     stays too close; use ink on the tint instead. */
+:root[data-theme="dark"] .dossier .skill-library-card__meta span:first-child {
+  color: var(--dossier-ink);
+}
+/* Light-tinted note panels under the now-muted text above. */
+:root[data-theme="dark"] .dossier .skill-library-card__outcome,
+:root[data-theme="dark"] .dossier .skill-detail-related-card__note {
+  background: rgba(111, 160, 144, 0.1);
+}
+/* /search: the GET-form submit button showed the UA's light
+     ButtonFace; news tag pills kept a light-mode teal tint. */
+:root[data-theme="dark"] .dossier .search-form button.action-link {
+  background: transparent;
+}
+:root[data-theme="dark"] .dossier .news-card__tags span {
+  background: rgba(111, 160, 144, 0.14);
+  color: var(--dossier-ink);
+}
+/* The Internal Workspace keeps its light design by design; in dark
+     mode the (unconditionally dark) body used to show through behind
+     its unpanelled chrome — breadcrumbs, section headings, eyebrows —
+     and behind its translucent light panels. Give the workspace shell
+     an opaque light board so the light design holds together. */
+:root[data-theme="dark"] .workspace-shell {
+  padding: 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f7f4ed 0%, #f0ebe2 100%);
+}

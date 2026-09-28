@@ -1,0 +1,134 @@
+/* ============================================================
+   User-facing typographic scale (typography only)
+   Centralized font family + size scale + unified line-height,
+   scoped to public pages (.user-shell). Tokens live in :root.
+   Internal Workspace and the shared TopNav are intentionally
+   left on their existing typography.
+   Scale: h1 28 / section 22 / card title 18 / body 15 / label 13.
+   ============================================================ */
+.user-shell {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+}
+
+.user-shell p,
+.user-shell li,
+.user-shell dd,
+.user-shell blockquote {
+  font-size: var(--fs-body) !important;
+}
+
+.user-shell h1 {
+  font-size: var(--fs-h1) !important;
+}
+
+.user-shell h2 {
+  font-size: var(--fs-section) !important;
+}
+
+.user-shell h3,
+.user-shell h4 {
+  font-size: var(--fs-card-title) !important;
+}
+
+/* Card titles that use <h2> map to the card-title step, not section */
+.user-shell .technology-card h2,
+.user-shell .skill-library-card h2,
+.user-shell .relation-list__item h2,
+.user-shell .user-related-section__item h2 {
+  font-size: var(--fs-card-title) !important;
+}
+
+/* Secondary / label text */
+.user-shell .eyebrow,
+.user-shell small,
+.user-shell figcaption,
+.user-shell .metadata-row dt,
+.user-shell .metadata-row dd {
+  font-size: var(--fs-label) !important;
+}
+
+/* Unified line-height across headings and text blocks */
+.user-shell h1,
+.user-shell h2,
+.user-shell h3,
+.user-shell h4,
+.user-shell p,
+.user-shell li,
+.user-shell dd {
+  line-height: var(--lh-base) !important;
+}
+
+/* The display step had no narrow-screen value, so a 44px hero title ran to
+   6 lines / 330px at 390px — more than a third of an 844px viewport for one
+   heading. One step down, at the breakpoint this file already uses most, is
+   deliberately the whole fix: the audience is not on phones, so this is a
+   "not absurd" value rather than a mobile type scale. 36px was measured
+   against 34 / 32 / 30 — it takes most heroes from 3-4 lines to 2 and the
+   longest title from 6 lines to 5 (330px -> 225px), while staying clear of
+   --fs-h1 at 30px, which the smaller candidates collide with. Nothing at or
+   above 641px is touched. */
+@media (max-width: 640px) {
+  :root {
+    --fs-display: 36px;
+  }
+}
+
+/* Display tier: hero / page-title headings get the larger --fs-display step
+   and a tighter heading line-height than the body. */
+.user-shell .product-home-hero h1,
+.user-shell .user-page-header h1,
+.user-shell .user-article-hero h1,
+.user-shell .daily-digest-brief-header h1,
+.user-shell .skill-detail-hero h1 {
+  font-size: var(--fs-display) !important;
+  line-height: 1.25 !important;
+}
+
+/* ============================================================
+   User-facing internal spacing normalization (typography pass)
+   One consistent text-to-border padding across cards, nested
+   accent boxes, compact items, and hero / intro panels. Scoped
+   to .user-shell and placed last so it settles the older layered
+   padding values onto a single scale. Workspace is unaffected.
+   ============================================================ */
+
+/* Standard content cards */
+.user-shell .technology-card,
+.user-shell .home-signal-card,
+.user-shell .home-digest-card,
+.user-shell .foundation-card,
+.user-shell .digest-technology-card,
+.user-shell .skill-library-card,
+.user-shell .user-article-section,
+.user-shell .user-related-section,
+.user-shell .source-reference,
+.user-shell .user-reference-panel,
+.user-shell .skill-detail-section,
+.user-shell .skill-detail-aside-card,
+.user-shell .skill-detail-related-card {
+  padding: var(--space-card);
+}
+
+/* Compact list items */
+.user-shell .digest-reference-item {
+  padding: var(--space-chip);
+}
+
+/* Nested accent boxes inside cards */
+.user-shell .technology-card__insight,
+.user-shell .home-signal-card__why,
+.user-shell .skill-library-card__outcome,
+.user-shell .skill-detail-related-card__note {
+  padding: var(--space-box);
+}
+
+/* Hero / large intro panels */
+.user-shell .user-page-header,
+.user-shell .product-home-hero,
+.user-shell .user-article-hero,
+.user-shell .daily-digest-brief-header,
+.user-shell .skill-detail-hero {
+  padding: var(--space-panel);
+}

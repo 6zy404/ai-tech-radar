@@ -1,0 +1,415 @@
+/* User-facing technology detail reading template v0 */
+.technology-detail-reading .user-article-layout__body {
+  grid-template-columns: minmax(0, 760px) minmax(220px, 280px);
+  align-items: start;
+  gap: 28px;
+}
+
+.technology-detail-reading .user-article-layout__main {
+  gap: 20px;
+}
+
+.technology-detail-reading .user-article-layout__aside {
+  gap: 14px;
+}
+
+.technology-detail-hero {
+  overflow: hidden;
+}
+
+.technology-detail-hero__copy {
+  min-width: 0;
+}
+
+.technology-detail-hero__topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.technology-detail-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.technology-detail-hero__priority-copy {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: #34404a;
+  line-height: 1.65;
+}
+
+.technology-detail-hero__tags {
+  margin-top: 16px;
+}
+
+.technology-detail-section {
+  display: grid;
+  gap: 12px;
+}
+
+.technology-detail-section__eyebrow {
+  margin: 0;
+  color: var(--label-amber);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.technology-detail-section__lede {
+  margin: 0;
+  color: #26323d;
+  font-size: 1.08rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.content-body {
+  display: grid;
+  gap: 14px;
+}
+
+.content-body__heading {
+  margin: 6px 0 0;
+  color: #26323d;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.content-body__paragraph {
+  margin: 0;
+  color: #26323d;
+  font-size: 1.02rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.content-body__list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.35em;
+  color: #26323d;
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.content-body__list li {
+  overflow-wrap: anywhere;
+}
+
+.content-body__code {
+  padding: 0.1em 0.34em;
+  border: 1px solid rgba(38, 50, 61, 0.14);
+  border-radius: 4px;
+  background: rgba(38, 50, 61, 0.05);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+}
+
+.technology-evolution__list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.technology-evolution__step {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--surface);
+}
+
+.technology-evolution__step--current {
+  border-color: var(--accent);
+}
+
+.technology-evolution__date {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.technology-evolution__title {
+  flex: 1 1 12rem;
+  color: var(--user-ink);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+a.technology-evolution__title {
+  color: var(--accent);
+}
+
+.technology-evolution__marks {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.technology-evolution__mark {
+  border-radius: 999px;
+  padding: 2px 9px;
+  background: rgba(15, 118, 110, 0.11);
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.technology-evolution__mark--latest {
+  background: rgba(180, 83, 9, 0.12);
+  color: var(--label-amber);
+}
+
+.technology-evolution__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.technology-detail-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.technology-detail-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(15, 118, 110, 0.11);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 0.86rem;
+}
+
+.technology-detail-impact {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.technology-detail-impact > span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.technology-detail-learning-list,
+.technology-detail-question-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 10px;
+  color: #34404a;
+  line-height: 1.75;
+}
+
+.technology-compare-widget__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* A native `<select>` sizes itself to its widest option, and the options here
+   are full technology titles — it rendered 558px inside a 487px column and
+   dragged the whole reading column with it. `max-width: 100%` alone cannot
+   fix that: the grid track is sized *from* this element's min-content, so
+   100% resolves back to the same 558px. `min-width: 0` is what actually drops
+   its min-content contribution to zero; `flex-basis` then gives it a
+   preferred size it is free to shrink below. */
+.technology-compare-widget__select {
+  flex: 1 1 220px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.technology-compare-widget__select:disabled {
+  opacity: 0.6;
+}
+
+.technology-compare-widget__error {
+  margin: 0;
+  color: #b3261e;
+  font-size: 0.92rem;
+}
+
+.technology-compare-widget__result {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.technology-compare-widget .technology-compare-widget__disclaimer {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(180, 83, 9, 0.1);
+  color: var(--label-amber);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.technology-compare-widget__block {
+  display: grid;
+  gap: 6px;
+}
+
+.technology-compare-widget__block > span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.technology-compare-widget__block p {
+  margin: 0;
+  color: #34404a;
+  line-height: 1.75;
+}
+
+.technology-compare-widget__block ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 6px;
+  color: #34404a;
+  line-height: 1.65;
+}
+
+.user-related-section__header {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.user-related-section__header p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.user-related-section__list {
+  display: grid;
+  gap: 12px;
+}
+
+.user-related-section__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(8, 127, 115, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.user-related-section__body {
+  min-width: 0;
+}
+
+.user-related-section__body h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  color: var(--user-ink);
+}
+
+.user-related-section__body p {
+  margin: 0;
+  color: #4a5865;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.user-related-section__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+}
+
+.user-related-section__relation {
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(15, 118, 110, 0.1);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.user-related-section__link {
+  color: var(--accent);
+  font-weight: 800;
+  text-underline-offset: 3px;
+}
+
+.technology-detail-reading .source-reference__url {
+  overflow-wrap: anywhere;
+}
+
+.technology-detail-reading .user-article-layout__aside .source-reference,
+.technology-detail-reading .user-article-layout__aside .user-reference-panel {
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: none;
+}
+
+.technology-detail-reading .user-article-layout__aside h2 {
+  font-size: 1.05rem;
+}
+
+@media (max-width: 920px) {
+  .technology-detail-reading .user-article-layout__body {
+    grid-template-columns: 1fr;
+  }
+
+  .technology-detail-reading .user-article-layout__aside {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .technology-detail-hero__topline,
+  .user-related-section__item {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .user-related-section__meta {
+    justify-content: flex-start;
+  }
+}
