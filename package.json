@@ -35,6 +35,7 @@
     "tasks:watch": "node scripts/with-proxy-env.mjs node scripts/run-ts.cjs scripts/tasks-runner.ts watch",
     "ui:check": "node scripts/playwright-ui-check.mjs",
     "css:diff": "node scripts/css-style-diff.mjs",
+    "css:regroup": "node scripts/css-regroup.mjs",
     "validate:candidates": "node scripts/run-ts-validation.cjs scripts/validate-candidate-workflow.ts",
     "validate:publishing": "node scripts/run-ts-validation.cjs scripts/validate-candidate-workflow.ts",
     "validate:sources": "node scripts/run-ts-validation.cjs scripts/validate-source-workflow.ts",

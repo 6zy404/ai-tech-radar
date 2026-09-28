@@ -139,8 +139,19 @@ function analyseSelector(selector) {
     classes,
     tag: tagMatch ? tagMatch[1].toLowerCase() : null,
     pseudoElement,
-    root: classes.length ? bemRoot(classes[classes.length - 1]) : null
+    // A bare-tag subject (`.content-network__panel h3`) belongs to its nearest
+    // class. Only attribution uses this; co-matching still uses `classes`.
+    root: classes.length
+      ? bemRoot(classes[classes.length - 1])
+      : nearestClass(selector)
   };
+}
+
+function nearestClass(selector) {
+  const all = [
+    ...stripFunctionalPseudos(selector).matchAll(/\.([a-zA-Z_][\w-]*)/g)
+  ];
+  return all.length ? bemRoot(all[all.length - 1][1]) : null;
 }
 
 function bemRoot(className) {
@@ -548,14 +559,20 @@ function findConflicts(items, files, movedSet, slot, cooccurrence) {
   return problems;
 }
 
-function planComponent(items, files, roots, cooccurrence) {
+function planComponent(items, files, roots, cooccurrence, fixedSlot = -2) {
   const candidates = items.filter(
     (item) =>
       item.branches.length &&
       item.branches.every((b) => b.root && roots.includes(b.root))
   );
   let best = null;
-  for (let slot = -1; slot < files.length; slot += 1) {
+  // A file that already exists keeps its place: its rules and the new ones are
+  // rebuilt there, in original relative order.
+  const slots =
+    fixedSlot >= -1
+      ? [fixedSlot]
+      : Array.from({ length: files.length + 1 }, (_, i) => i - 1);
+  for (const slot of slots) {
     const moved = new Set(candidates);
     let problems = [];
     for (let guard = 0; guard < 50; guard += 1) {
@@ -760,11 +777,21 @@ function writeComponent(name, plan, cooccurrence) {
         : null;
     const node = item.node.clone();
     node.raws.before = "\n\n";
+    // a "Stays here" note from an earlier run is dropped once its rule can move
+    // Neither a "Stays here" note from an earlier run (dropped once its rule
+    // can move) nor a generated file's own header belongs to the rule below it;
+    // carrying the header duplicated it on every rebuild.
+    const carried =
+      attached &&
+      !attached.text.startsWith("Stays here") &&
+      !/^[\w/-]+: every rule whose subject/.test(attached.text)
+        ? attached
+        : null;
     const entry = {
       node,
       file: item.file,
       media: item.media,
-      comments: attached ? [attached.clone()] : []
+      comments: carried ? [carried.clone()] : []
     };
     refresh(entry);
     attached?.remove();
@@ -806,10 +833,42 @@ function writeComponent(name, plan, cooccurrence) {
     target.append(entry.node);
   }
 
+  // postcss drops `raws.before` on clone, so spacing is set here: a blank line
+  // between sibling blocks, none between a comment and the block it describes.
+  const space = (container, indent) => {
+    container.nodes.forEach((node, i) => {
+      if (i === 0) return;
+      const prev = container.nodes[i - 1];
+      node.raws.before =
+        prev.type === "comment" ? `\n${indent}` : `\n\n${indent}`;
+    });
+    container.each((node) => {
+      if (node.type === "atrule" && node.nodes) space(node, `${indent}  `);
+    });
+  };
+  space(out, "");
   mkdirSync(path.dirname(path.join(STYLES, `${name}.css`)), {
     recursive: true
   });
-  const sources = [...new Set(moved.map((m) => m.file))].join(", ");
+  // keep the layer files an earlier run gathered from, when rebuilding a file
+  const target = path.join(STYLES, `${name}.css`);
+  let previous = [];
+  try {
+    const match = readFileSync(target, "utf8").match(
+      /Gathered 2026-09-28 from ([^\n]+)/
+    );
+    if (match) previous = match[1].split(",").map((s) => s.trim());
+  } catch {
+    // a new file
+  }
+  const sources = [
+    ...new Set([
+      ...previous,
+      ...moved.map((m) => m.file).filter((f) => !f.includes("/"))
+    ])
+  ]
+    .sort()
+    .join(", ");
   const header = `/* ${name}: every rule whose subject is this component.\n   Gathered 2026-09-28 from ${sources}\n   by scripts/css-regroup.mjs, which checks each move against the cascade. */\n`;
   writeFileSync(
     path.join(STYLES, `${name}.css`),
@@ -846,7 +905,14 @@ const cooccurrence = loadCooccurrence(domPath);
 for (const component of components) {
   const files = importList();
   const { roots, items } = loadAll(files);
-  const plan = planComponent(items, files, component.roots, cooccurrence);
+  const existing = files.indexOf(`${component.name}.css`);
+  const plan = planComponent(
+    items,
+    files,
+    component.roots,
+    cooccurrence,
+    existing >= 0 ? existing : -2
+  );
   const fromFiles = [...new Set(plan.candidates.map((c) => c.file))];
   console.log(
     `\n${component.name}: ${plan.candidates.length} rules in ${fromFiles.length} files → slot after ${files[plan.slot] ?? "(start)"}; ${plan.moved.size} move, ${plan.stayed.length} stay`
@@ -857,6 +923,16 @@ for (const component of components) {
     );
   }
   if (command === "apply" && plan.moved.size > 0) {
+    // Rebuilding an existing file writes only the moved rules; a rule of that
+    // file judged unable to move would be lost with the old version of it.
+    const lost = plan.stayed.filter(
+      (item) => item.file === `${component.name}.css`
+    );
+    if (lost.length) {
+      throw new Error(
+        `refusing to rebuild ${component.name}.css: ${lost.length} of its own rules could not stay in place`
+      );
+    }
     const { removed, merged, touched } = writeComponent(
       component.name,
       plan,
@@ -870,8 +946,15 @@ for (const component of components) {
           `\n(${component.name}.css was already written; restore with git)`
       );
     }
-    // Leave a note on every rule that could not move, where it stays.
+    // Leave a note on every rule that could not move, where it stays — for rules
+    // aimed at the component's own classes. A bare-tag rule (`.x h1`) was only
+    // ever attributed by its nearest class, and one that cannot move is simply
+    // where it always was; noting all of them added 172 comments.
     for (const [item, reason] of plan.stayReasons) {
+      if (!item.branches.every((b) => b.classes.length > 0)) continue;
+      const prev = item.node.prev();
+      if (prev && prev.type === "comment" && prev.text.startsWith("Stays here"))
+        continue;
       const note = postcss.comment({
         text: `Stays here, not in ${component.name}.css: it would move past a rule it can tie with (${reason}).`,
         raws: { before: item.node.raws.before, left: " ", right: " " }
@@ -880,8 +963,11 @@ for (const component of components) {
       item.node.before(note);
       touched.add(item.file);
     }
-    for (const file of touched)
+    for (const file of touched) {
+      // the target was just rewritten whole; its old tree is only leftovers
+      if (file === `${component.name}.css`) continue;
       writeFileSync(path.join(STYLES, file), roots.get(file).toString());
+    }
     const importLine = `@import "./styles/${component.name}.css";`;
     const anchor =
       plan.slot >= 0 ? `@import "./styles/${files[plan.slot]}";` : null;
@@ -890,7 +976,7 @@ for (const component of components) {
     globals = anchor
       ? globals.replace(anchor, `${anchor}${eol}${importLine}`)
       : globals.replace(/@import/, `${importLine}${eol}@import`);
-    writeFileSync(GLOBALS, globals);
+    if (existing < 0) writeFileSync(GLOBALS, globals);
     console.log(
       `  wrote ${component.name}.css; merged ${merged} rules; dropped ${removed.length} dead declarations`
     );
