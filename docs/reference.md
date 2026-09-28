@@ -102,9 +102,9 @@ The product is split into two subsystems:
   `/network`, the 按话题 view, and `/search` each show in fragments for one
   topic tag: the tag's published technology signals, tagged skills, tagged
   knowledge, and a "图谱关联" section listing its direct content-graph
-  neighbors with relation-type labels. Reached only via a "查看专题" link on
-  `FollowableTagList` chips (technology/skill/knowledge detail pages) — no
-  index page, no global nav entry. Pure derived view (`getTopicHub` in
+  neighbors with relation-type labels. Reached via a "查看专题" link on
+  `FollowableTagList` chips (technology/skill/knowledge detail pages) or from
+  the `/topics` index (`getTopicIndex`, same file) — no global nav entry. Pure derived view (`getTopicHub` in
   `src/lib/topic-hub.ts`), no new persisted data or AI calls.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
@@ -236,6 +236,12 @@ The product is split into two subsystems:
   keyed by its Monday date (`notFound()` for a non-canonical key or a week
   with no signals). Reached via 本周回顾 links on `/digest` and the public
   digest pages — no new nav entry.
+  The weekly review also has an RSS 2.0 feed at `/digest/weekly/feed.xml`
+  (`renderWeeklyReviewRssXml` in `src/lib/weekly-feed.ts`): one item per
+  natural week with shown signals, up to the current week, newest first,
+  capped at 12, each linking to `/digest/weekly/[week]` and listing that
+  week's 立即关注 / 值得跟踪 titles. Linked from a 订阅 block at the foot of
+  both weekly-review pages.
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
@@ -267,7 +273,13 @@ The product is split into two subsystems:
   `src/lib/candidate-llm-triage.ts`) so a reported number stays tied to the
   prompt it measured. See [`eval/triage/README.md`](../eval/triage/README.md).
 - **Operations** — a workspace operations dashboard, a `WorkflowEvent` audit log,
-  and per-subsystem `validate:*` checks.
+  and per-subsystem `validate:*` checks. The dashboard pins two deterministic
+  pipeline alerts above everything else: a stalled scheduled import (critical —
+  while enabled, the last import in which a source succeeded is over 36 hours
+  old, or `nextRunAt` is over 6 hours past) and a candidate backlog (warning —
+  over 20 undecided candidates or the oldest over 7 days, linking to
+  `/workspace/editorial-round`). Thresholds are constants in
+  `src/lib/operations-metrics.ts`; see [`docs/operations.md`](operations.md).
 - **Persistence** — local JSON by default, with an optional SQLite driver.
 - **Security boundary** — optional token protection for workspace and internal
   API routes, with internal-only fields kept off public pages and feeds.
@@ -288,12 +300,18 @@ Public, user-facing routes:
   `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
 - `/network`
-- `/topics/[tagId]` — topic hub (reached via tag chip links, not a nav entry)
+- `/topics` — topic index: every topic with at least one published signal,
+  skill or knowledge item (the same rule as the hub's `notFound()`), with its
+  description and the three counts, ordered by signal count then name; not a
+  nav entry
+- `/topics/[tagId]` — topic hub (reached via tag chip links or `/topics`, not
+  a nav entry)
 - `/topics/[tagId]/feed.xml` — per-topic RSS feed of that topic's published
   technology signals (404 for unknown topics or topics with no published
   signals)
 - `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
+- `/digest/weekly/feed.xml` — weekly-review RSS (published signals only)
 - `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
 - `GET /api/health` — public liveness check for an external uptime monitor:
   `200 { status: "ok" }` while the store reads, `503` when it does not, plus

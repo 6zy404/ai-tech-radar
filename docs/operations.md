@@ -62,6 +62,24 @@ Attention items are generated from concrete local records:
 
 Each item links back to the most relevant workspace page when available.
 
+### Pipeline alerts (2026-09-29)
+
+- 定时导入已停摆 (critical): the scheduled import is enabled and the newest
+  `ImportRun` with `successfulSources > 0` finished more than
+  `IMPORT_STALL_THRESHOLD_HOURS` (36) ago. That run record lives in the same
+  data directory as the candidates it merged, so a task runner writing to
+  another directory (the 2026-09-25..27 failure) leaves it behind.
+- 定时导入逾期未运行 (critical): `scheduled-import.json`'s `nextRunAt` is more
+  than `SCHEDULED_IMPORT_OVERDUE_HOURS` (6) in the past.
+- 该跑一轮编辑轮了 (warning): more than `CANDIDATE_BACKLOG_MAX_COUNT` (20)
+  undecided candidates, or the oldest imported more than
+  `CANDIDATE_BACKLOG_MAX_AGE_DAYS` (7) days ago.
+
+All three are pinned at the top of 需要关注 and appear in the health reasons.
+Workspace only — never on public pages, feeds or `/api/health`. First check
+when one fires: the first line of the task runner log names the data
+directory it wrote to.
+
 ## WorkflowEvent browser
 
 `/workspace/operations/events` supports filtering by:

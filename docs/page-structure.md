@@ -66,6 +66,7 @@ Used by:
 - `/technologies` (also hosts the 全部快讯/按话题/我关注的 views via `?view=`)
 - `/skills`
 - `/knowledge`
+- `/topics`
 
 Purpose:
 
@@ -438,6 +439,8 @@ Workspace deployment boundary:
     `src/lib/weekly-review.ts`), rendered by the shared `WeeklyReviewContent`
     component in dossier styling; no new persisted data, no AI, no internal
     fields
+  - ends with a low-key 订阅 block linking the weekly-review RSS feed
+    (`/digest/weekly/feed.xml`)
 - `/digest/weekly/[week]`
   - a specific past/other natural week keyed by its canonical Monday date
     (`YYYY-MM-DD`, e.g. `/digest/weekly/2026-07-13`); same layout as
@@ -574,10 +577,20 @@ Workspace deployment boundary:
     state was removed on 2026-08-01 because its heading repeated the input's
     placeholder and its body repeated the page description
   - does not show internal quality, reviewer, delivery, or source data
+- `/topics`
+  - user-facing topic index (按话题浏览): every topic with at least one
+    published signal, skill or knowledge item — the same rule as the hub's
+    `notFound()` — as a `DossierCard` with name, description and a
+    收录 · N 信号 · N 技能 · N 知识 density line, linking to
+    `/topics/[tagId]`; ordered by signal count, then name
+  - built from the `/skills` list skeleton (label header, one-line lede,
+    caption row of counts, two-column grid) by reusing its classes; pure
+    derived view (`getTopicIndex` in `src/lib/topic-hub.ts`), no internal
+    fields; not in the nav, and nothing links to it yet (2026-09-29)
 - `/topics/[tagId]`
   - user-facing topic hub: a drill-down destination, not a global nav entry
-    or index page — reached only via "查看专题" links on `FollowableTagList`
-    chips (technology/skill/knowledge detail pages)
+    — reached via "查看专题" links on `FollowableTagList` chips
+    (technology/skill/knowledge detail pages) or from `/topics`
   - merges what `/network`, the 按话题 view, and `/search` each show in
     fragments for one topic tag into a single page: the tag's published
     technology signals (newest first), tagged skills, tagged knowledge, and
@@ -596,6 +609,11 @@ Workspace deployment boundary:
     bilingual-preferred titles/summaries linking to `/technologies/[slug]`
   - 404 for unknown topics or topics with no published signals; news
     fast-lane candidates never enter the feed
+- `/digest/weekly/feed.xml`
+  - weekly-review RSS 2.0 feed (`src/lib/weekly-feed.ts`): one item per
+    natural week with at least one shown signal, up to the current week,
+    newest first, max 12; item title 「本周回顾 · YYYY-MM-DD 这一周」, links to
+    `/digest/weekly/[week]`; published signals only, no news fast-lane items
 
 ## User-facing public view model
 

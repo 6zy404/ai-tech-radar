@@ -24,13 +24,19 @@ Public routes can be exposed:
   pure derived view over published technology signals, same published-content
   boundary as the digest; no persisted data, no AI, no internal fields;
   `/digest/weekly/[week]` 404s for a non-canonical key or a signal-less week)
+- `/digest/weekly/feed.xml` (weekly-review RSS — derived from the same
+  `getWeeklyReview` view as the pages, so it carries only public signal
+  titles, week ranges and priority grouping; no persisted data, no AI, no
+  internal fields)
 - `/skills`
 - `/skills/[slug]`
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
-- `/topics/[tagId]` (topic hub; a drill-down destination reached only via
-  `FollowableTagList` chip links, not a global nav entry or index page —
+- `/topics` (topic index; published counts per topic from the same three
+  public pools as the hubs, no internal fields; not a nav entry)
+- `/topics/[tagId]` (topic hub; a drill-down destination reached via
+  `FollowableTagList` chip links or `/topics`, not a global nav entry —
   merges a tag's published technologies, skills, knowledge, and direct
   `getContentGraph()` neighbors; `notFound()` for an unknown or empty tag)
 - `/topics/[tagId]/feed.xml` (per-topic RSS of published technology

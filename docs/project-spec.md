@@ -96,9 +96,11 @@ Public pages:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/topics` — topic index listing every topic with published content and
+  its counts (`getTopicIndex`); not a nav entry
 - `/topics/[tagId]` — topic hub merging a tag's published technologies,
   skills, knowledge, and direct content-graph neighbors into one page;
-  reached only via `FollowableTagList` chip links (no index page, no global
+  reached via `FollowableTagList` chip links or `/topics` (no global
   nav entry); `notFound()` for an unknown tag or one with no content
 - `/topics/[tagId]/feed.xml` — per-topic RSS 2.0 feed of the topic's
   published technology signals only (no news fast-lane items); 404 for
