@@ -34,6 +34,15 @@ const baseUrl = (process.env.BASE_URL ?? "http://127.0.0.1:3100").replace(
 );
 const workspaceToken = process.env.WORKSPACE_ACCESS_TOKEN?.trim();
 
+// Never rendered. Next streams them into <body> when a render is slow, so
+// whether they appear there depends on timing, not on the code.
+const METADATA_TAGS = new Set(["title", "meta", "link", "base"]);
+const withoutIndex = (key) => key.replace(/^\d+:/, "");
+const renderable = (elements) =>
+  elements.filter(
+    ([key]) => !METADATA_TAGS.has(withoutIndex(key).split(/[.:]/)[0])
+  );
+
 if (new URL(baseUrl).port === "3000") {
   console.error("Refusing to run against port 3000: that is the live site.");
   process.exit(2);
@@ -231,7 +240,9 @@ function snapshotPage() {
       tag === "script" ||
       tag === "noscript" ||
       tag === "template" ||
-      tag === "style"
+      tag === "style" ||
+      // METADATA_TAGS, repeated: this function runs in the page
+      ["title", "meta", "link", "base"].includes(tag)
     )
       continue;
     const rect = element.getBoundingClientRect();
@@ -406,7 +417,10 @@ async function capture(outPath, flags) {
   );
 }
 
-async function diff(beforePath, afterPath) {
+async function diff(beforePath, afterPath, flags = {}) {
+  // --css-may-change: for refactors that edit the stylesheet on purpose; the
+  // computed styles still have to match, the CSS text no longer does.
+  const cssMayChange = "css-may-change" in flags;
   const before = JSON.parse(await readFile(beforePath, "utf8"));
   const after = JSON.parse(await readFile(afterPath, "utf8"));
 
@@ -453,18 +467,20 @@ async function diff(beforePath, afterPath) {
     const rightCss = right.css.map((hash) => cssText(after, hash)).join("\n");
     if (leftCss !== rightCss) cssFindings.add(pageKey);
 
-    if (left.elements.length !== right.elements.length) {
+    const leftElements = renderable(left.elements);
+    const rightElements = renderable(right.elements);
+    if (leftElements.length !== rightElements.length) {
       findings.push(
-        `${pageKey}: ${left.elements.length} → ${right.elements.length} elements (DOM differs)`
+        `${pageKey}: ${leftElements.length} → ${rightElements.length} elements (DOM differs)`
       );
     }
-    const count = Math.min(left.elements.length, right.elements.length);
+    const count = Math.min(leftElements.length, rightElements.length);
     for (let index = 0; index < count; index += 1) {
-      const [leftKey, leftBox, leftStyle] = left.elements[index];
-      const [rightKey, rightBox, rightStyle] = right.elements[index];
+      const [leftKey, leftBox, leftStyle] = leftElements[index];
+      const [rightKey, rightBox, rightStyle] = rightElements[index];
       if (leftKey.includes("::")) pseudoCount += 1;
       else elementCount += 1;
-      if (leftKey !== rightKey) {
+      if (withoutIndex(leftKey) !== withoutIndex(rightKey)) {
         findings.push(
           `${pageKey}: element ${index} is ${leftKey} → ${rightKey} (DOM differs)`
         );
@@ -522,7 +538,9 @@ async function diff(beforePath, afterPath) {
     );
 
   process.exit(
-    differingElements === 0 && cssFindings.size === 0 && findings.length === 0
+    differingElements === 0 &&
+      (cssMayChange || cssFindings.size === 0) &&
+      findings.length === 0
       ? 0
       : 1
   );
@@ -534,7 +552,7 @@ const [command, first, second] = positional;
 if (command === "capture" && first) {
   await capture(first, flags);
 } else if (command === "diff" && first && second) {
-  await diff(first, second);
+  await diff(first, second, flags);
 } else {
   console.error(
     "usage: css-style-diff.mjs capture <out.json> [--routes-from <capture.json>] [--probe <css>]\n" +

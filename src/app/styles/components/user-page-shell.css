@@ -1,0 +1,35 @@
+/* components/user-page-shell: every rule whose subject is this component.
+   Gathered 2026-09-28 from 04-page-headers.css, 18-ui-refinement.css, 19-design-system-v0.css, 28-typography.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+.user-shell {
+  display: grid;
+  gap: 30px;
+  margin: 0 auto;
+  /* Token merge (B): on public pages, resolve the --ui-* palette to the canonical
+   base tokens (:root) so user-facing surfaces use one set of brand colors.
+   Scoped to .user-shell because the Internal Workspace also reads --ui-* and
+   must keep its own values. Card surface, soft tints, shadows, radii, and the
+   accessible --ui-teal-strong remain distinct semantic tokens. */
+  --ui-bg: var(--bg);
+  --ui-ink: var(--user-ink);
+  --ui-muted: var(--muted);
+  --ui-line: var(--line);
+  --ui-teal: var(--accent);
+  --ui-teal-soft: var(--accent-soft);
+  width: min(1060px, 100%);
+  /* ============================================================
+   User-facing typographic scale (typography only)
+   Centralized font family + size scale + unified line-height,
+   scoped to public pages (.user-shell). Tokens live in :root.
+   Internal Workspace and the shared TopNav are intentionally
+   left on their existing typography.
+   Scale: h1 28 / section 22 / card title 18 / body 15 / label 13.
+   ============================================================ */
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+}
+
+.user-shell--detail {
+  gap: 24px;
+}

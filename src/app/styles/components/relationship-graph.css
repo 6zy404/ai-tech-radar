@@ -1,3 +1,7 @@
+/* components/relationship-graph: every rule whose subject is this component.
+   Gathered 2026-09-28 from 29-relationship-graph.css, 39-dossier-v1-technologies.css, 46-dossier-dark.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 /* ============================================================
    Technology relationship graph (mini neighborhood map)
    ============================================================ */
@@ -110,4 +114,46 @@ a.tech-graph__node:hover {
 .tech-graph__group-label--knowledge,
 .dossier .tech-graph .tech-graph__group-label--knowledge {
   color: #185fa5;
+}
+
+/* -- relationship graph -- */
+.dossier .tech-graph__node {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.dossier .tech-graph__node--center {
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+  color: var(--dossier-surface);
+}
+
+/* Relationship graph: white node chips and hardcoded kind colors. */
+:root[data-theme="dark"] .dossier .tech-graph__node {
+  background: var(--dossier-surface);
+  border-color: var(--dossier-line);
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .dossier .tech-graph__node--center {
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+  color: #1e1f1a;
+}
+
+:root[data-theme="dark"]
+  .dossier
+  .tech-graph
+  .tech-graph__group-label--knowledge,
+:root[data-theme="dark"]
+  .dossier
+  .content-network__panel
+  .tech-graph__group-label--knowledge {
+  color: #7fb2e5;
+}
+
+:root[data-theme="dark"] .dossier .tech-graph .tech-graph__hint {
+  color: var(--dossier-muted);
 }

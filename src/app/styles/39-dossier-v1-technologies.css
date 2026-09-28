@@ -6,17 +6,6 @@
    radar, news, home) is untouched and keeps the teal/cream system above.
    ============================================================ */
 
-.dossier {
-  padding: 26px clamp(16px, 4vw, 40px) 64px;
-  border: 1px solid var(--dossier-line);
-}
-
-@media (max-width: 640px) {
-  .dossier {
-    padding: 18px 14px 48px;
-  }
-}
-
 /* A list page's header is a label saying which page you are on, not an object
    worth a frame. It had kept the pre-dossier panel — a mint gradient, a teal
    border, a 26px radius and a shadow — because the 2026-07-14 migration
@@ -27,6 +16,7 @@
    lines up with the content under it. Detail-page and home heroes keep their
    panel — those hold the source, publisher and priority copy, which is
    content. */
+/* Stays here, not in components/user-page-header.css: it would move past a rule it can tie with (padding in ".dossier .user-page-header" vs padding in ".user-shell .user-page-header" (28-typography.css)). */
 .dossier .user-page-header {
   padding: 4px 0 18px;
   border: 0;
@@ -40,10 +30,6 @@
   color: var(--dossier-ink);
   font-family: Georgia, "Songti SC", "STSong", serif;
   letter-spacing: 0;
-}
-
-.dossier .user-page-header__description {
-  color: var(--dossier-muted);
 }
 
 .dossier .eyebrow,
@@ -310,11 +296,6 @@
   text-decoration: underline;
 }
 
-.dossier-stamp-tag--muted {
-  color: var(--dossier-muted);
-  border-color: var(--dossier-line);
-}
-
 /* -- reading state: read / read-later marks (P4 v0.4) --
    A read card recedes through surface and weight, not through lower text
    contrast: the title drops from ink to muted (both already pass), the
@@ -425,34 +406,6 @@
   color: var(--dossier-muted);
 }
 
-/* -- language switch -- */
-.dossier .technology-language-switch__track {
-  border: 1px solid var(--dossier-line);
-  background: var(--dossier-surface);
-}
-
-.dossier .technology-language-switch__button {
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .technology-language-switch__button--active {
-  background: var(--dossier-accent);
-  color: var(--dossier-surface);
-}
-
-/* -- article layout / hero (technology detail) -- */
-.dossier.user-article-layout {
-  background: transparent;
-}
-
-.dossier .user-article-hero {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-  box-shadow: none;
-}
-
 .dossier .user-article-hero h1 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   color: var(--dossier-ink);
@@ -463,26 +416,6 @@
 .dossier .technology-detail-hero__priority-copy {
   color: var(--dossier-muted);
   font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .technology-detail-hero__meta {
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-  font-size: 12px;
-}
-
-/* -- every content-section box, including the AI widgets and the
-   relationship graph, which all share this same class -- */
-.dossier .user-article-section {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-  box-shadow: none;
-}
-
-.dossier .technology-detail-section__eyebrow {
-  color: var(--dossier-stamp);
-  font-family: ui-monospace, monospace;
 }
 
 .dossier .technology-detail-section h2 {
@@ -499,66 +432,12 @@
   font-family: system-ui, "PingFang SC", sans-serif;
 }
 
-.dossier .content-body__heading {
-  color: var(--dossier-ink);
-  font-family: Georgia, "Songti SC", "STSong", serif;
-}
-
-.dossier .content-body__list li::marker {
-  color: var(--dossier-stamp);
-}
-
-.dossier .content-body__code {
-  border-color: var(--dossier-line);
-  background: var(--dossier-ground);
-  color: var(--dossier-ink);
-}
-
 .dossier .technology-detail-impact > span {
   color: var(--dossier-muted);
 }
-
-/* -- version evolution line -- */
-.dossier .technology-evolution__step {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-}
-
-.dossier .technology-evolution__step--current {
-  border-color: var(--dossier-accent);
-}
-
-.dossier .technology-evolution__date,
-.dossier .technology-evolution__note {
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-}
-
-.dossier .technology-evolution__note {
-  font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .technology-evolution__title {
-  color: var(--dossier-ink);
-  font-family: Georgia, "Songti SC", "STSong", serif;
-}
-
+/* Stays here, not in components/technology-evolution-line.css: it would move past a rule it can tie with (color in ".dossier a.technology-evolution__title" vs color in ".home-news-row > a:hover" (36-home-news.css)). */
 .dossier a.technology-evolution__title {
   color: var(--dossier-accent);
-}
-
-.dossier .technology-evolution__mark {
-  background: transparent;
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-}
-
-.dossier .technology-evolution__mark--latest {
-  border-color: var(--dossier-stamp);
-  color: var(--dossier-stamp);
 }
 
 /* -- source reference / reference panels (aside) -- */
@@ -576,87 +455,12 @@
   color: var(--dossier-ink);
 }
 
-.dossier .user-reference-panel__copy {
-  color: var(--dossier-muted);
-}
-
-.dossier .source-reference__meta {
-  color: var(--dossier-muted);
-}
-
-.dossier .source-reference__publisher-type {
-  border-color: var(--dossier-line);
-}
-
-.dossier .source-reference a {
-  color: var(--dossier-accent);
-}
-
 /* -- tags (hero + aside follow list) -- */
 .dossier .tag-badge {
   border: 1px solid var(--dossier-line);
   background: var(--dossier-surface);
   color: var(--dossier-muted);
   font-family: ui-monospace, monospace;
-}
-
-.dossier .followable-tag-list__hint {
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .followable-tag-list__topic-link {
-  color: var(--dossier-muted);
-}
-
-.dossier .followable-tag-list__topic-link:hover {
-  color: var(--dossier-accent);
-}
-
-.dossier .my-radar__tag-toggle {
-  border: 1px solid var(--dossier-line);
-  background: var(--dossier-surface);
-  color: var(--dossier-muted);
-  font-family: ui-monospace, monospace;
-}
-
-.dossier .my-radar__tag-toggle--active {
-  background: var(--dossier-stamp);
-  border-color: var(--dossier-stamp);
-  color: var(--dossier-surface);
-}
-
-/* -- relationship graph -- */
-.dossier .tech-graph__node {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  color: var(--dossier-ink);
-  font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .tech-graph__node--center {
-  background: var(--dossier-accent);
-  border-color: var(--dossier-accent);
-  color: var(--dossier-surface);
-}
-
-/* -- AI widgets (compare / explain / learning path) -- */
-.dossier .technology-compare-widget__select {
-  border: 1px solid var(--dossier-line);
-  background: var(--dossier-surface);
-  color: var(--dossier-ink);
-}
-
-.dossier .technology-compare-widget__result {
-  border: 1px solid var(--dossier-line);
-  background: var(--dossier-ground);
-  box-shadow: none;
-}
-
-.dossier .technology-compare-widget .technology-compare-widget__disclaimer {
-  background: transparent;
-  border: 1px dashed var(--dossier-stamp);
-  color: var(--dossier-stamp);
 }
 
 .dossier .technology-compare-widget__block > span {
@@ -666,17 +470,6 @@
 .dossier .technology-compare-widget__block p,
 .dossier .technology-compare-widget__block ul {
   color: var(--dossier-ink);
-}
-
-.dossier .action-button--accent {
-  background: var(--dossier-stamp);
-  border-color: var(--dossier-stamp);
-  color: var(--dossier-surface);
-}
-
-.dossier .action-button--accent:hover {
-  background: var(--dossier-accent);
-  border-color: var(--dossier-accent);
 }
 
 /* -- related items (dossier-specific: "附注" cross-reference cards) -- */
@@ -719,31 +512,6 @@
 .dossier-related-section__topline h3 {
   margin: 0;
   font-size: 15.5px;
-}
-
-/*
- * A stamp is a label, not a column: as a flex item it was shrinking to make
- * room for a wrapping title, so the same 印证 rendered 48x26 beside a
- * one-line title and 45x42 (印 above 证) beside a two-line one on the same
- * page. The title still shrinks and wraps, so the row keeps its min-content
- * width. Mirror image of the 2026-07-29 fix where the same component was
- * stretched to 446px around two characters.
- *
- * Deliberately NOT applied to the card chips row: a chip there can carry a
- * long tag name, and forbidding it to shrink sizes the grid track from its
- * max-content width — measured at 390px, that pushed /technologies to a
- * 448px document on a 390px viewport (470 elements painted off-screen), the
- * same mechanism as the 2026-07-29 compare-widget <select>.
- */
-.dossier-related-section__topline .dossier-stamp-tag,
-/* The signal card's own topline needs it for the same reason, and only shows
-   the defect once a third element joins the row: on a card the reader marked
-   read, the 已读 stamp squeezes the priority stamp beside it, so the same
-   「立即关注」 measured 26px on most cards and 42px there (2026-08-16). The
-   catalog span next to them is the flexible one and still wraps. */
-.dossier-technology-card__topline .dossier-stamp-tag {
-  flex-shrink: 0;
-  white-space: nowrap;
 }
 
 .dossier-related-section__topline h3 a {
