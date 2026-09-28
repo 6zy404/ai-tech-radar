@@ -10,21 +10,6 @@
    above -- nothing new needed for those here.
    ============================================================ */
 
-.dossier .skill-detail-kicker {
-  color: var(--dossier-stamp);
-  font-family: ui-monospace, monospace;
-}
-
-/* .skills-library-intro is deliberately not here: it is a list page's lede
-   line and sits on the page ground. A detail-page hero holds the record's own
-   material, so it keeps its panel. */
-.dossier .skill-detail-hero {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-  box-shadow: none;
-}
-
 .dossier .skill-detail-hero h1 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   color: var(--dossier-ink);
@@ -37,11 +22,6 @@
   font-family: system-ui, "PingFang SC", sans-serif;
 }
 
-.dossier .skills-library-stats {
-  font-family: ui-monospace, monospace;
-  font-size: 12px;
-}
-
 .dossier .skills-library-stats dt {
   color: var(--dossier-stamp);
 }
@@ -50,21 +30,9 @@
   color: var(--dossier-muted);
 }
 
-.dossier .skill-detail-section,
-.dossier .skill-detail-aside-card {
-  background: var(--dossier-surface);
-  border: 1px solid var(--dossier-line);
-  border-radius: 2px;
-  box-shadow: none;
-}
-
 .dossier .skill-detail-section h2 {
   font-family: Georgia, "Songti SC", "STSong", serif;
   color: var(--dossier-ink);
-}
-
-.dossier .skills-library-section__header {
-  border-bottom: 1px solid var(--dossier-line);
 }
 
 .dossier .skills-library-section__header .eyebrow {
@@ -95,11 +63,6 @@
 .dossier .skill-library-card__link,
 .dossier .skill-detail-related-card__link {
   color: var(--dossier-accent);
-}
-
-.dossier .skill-detail-related-card__meta {
-  color: var(--dossier-muted) !important;
-  font-family: ui-monospace, monospace;
 }
 
 .dossier .skill-detail-profile dt {

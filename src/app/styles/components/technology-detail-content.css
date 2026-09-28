@@ -1,0 +1,69 @@
+/* components/technology-detail-content: every rule whose subject is this component.
+   Gathered 2026-09-28 from 13-article-layout.css, 24-technology-detail.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.user-reference-panel__copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.technology-detail-hero {
+  overflow: hidden;
+}
+
+.technology-detail-hero__copy {
+  min-width: 0;
+}
+
+.technology-detail-hero__topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.technology-detail-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.technology-detail-hero__priority-copy {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: #34404a;
+  line-height: 1.65;
+}
+
+.technology-detail-hero__tags {
+  margin-top: 16px;
+}
+
+.technology-detail-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.technology-detail-impact {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.dossier .technology-detail-hero__meta {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.dossier .user-reference-panel__copy {
+  color: var(--dossier-muted);
+}

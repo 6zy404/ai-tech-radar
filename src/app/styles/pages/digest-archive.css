@@ -1,0 +1,48 @@
+/* pages/digest-archive: every rule whose subject is this component.
+   Gathered 2026-09-28 from 34-digest-archive-weekly.css, 42-dossier-v4-digest-search.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+/* Public digest archive: /digest page. */
+.digest-archive__count {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+.digest-archive-month {
+  display: grid;
+  gap: 14px;
+}
+.digest-archive-month__list {
+  display: grid;
+  gap: 12px;
+}
+.digest-archive-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px;
+}
+.digest-archive-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+.digest-archive-card__date {
+  color: var(--accent);
+  font-weight: 800;
+}
+.digest-archive-card__open {
+  justify-self: start;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-underline-offset: 3px;
+}
+.dossier .digest-archive__count,
+.dossier .digest-archive-card__date {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}

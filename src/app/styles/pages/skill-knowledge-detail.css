@@ -1,0 +1,147 @@
+/* pages/skill-knowledge-detail: every rule whose subject is this component.
+   Gathered 2026-09-28 from 26-skills-library.css, 27-skill-detail.css, 40-dossier-v2-skills-knowledge.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.skill-detail-kicker {
+  margin: 0 0 10px;
+  color: #08786f;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Public detail pages share one skeleton (docs/page-structure.md → "User-facing
+   Detail Page"): the hero spans the full measure, and the reading column plus
+   its aside sit underneath. The skill and knowledge pages had the hero as the
+   first child of the reading column instead, so the aside stood shoulder to
+   shoulder with the title and the whole page ran 50px wider than
+   `/technologies/[slug]`. The skin was already identical — only the box was
+   not, which is the same skin-vs-box-model split the 2026-07-29 sweep found on
+   the digest sections. Widths mirror `.user-article-layout__body`. */
+
+.skill-detail-layout {
+  display: grid;
+  gap: 28px;
+  width: min(896px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.skill-detail-layout__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 280px);
+  gap: 28px;
+  align-items: start;
+}
+
+.skill-detail-hero {
+  display: grid;
+  gap: 16px;
+  padding: clamp(30px, 6vw, 54px);
+  border: 1px solid rgba(8, 127, 115, 0.24);
+  border-radius: var(--radius-page);
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    rgba(217, 243, 239, 0.66) 100%
+  );
+  box-shadow: var(--shadow-soft);
+}
+
+.skill-detail-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-detail-section {
+  padding: 24px;
+}
+
+.skill-detail-section--lead {
+  background: #ffffff;
+}
+
+.skill-detail-section__header {
+  margin-bottom: 18px;
+}
+
+.skill-detail-related-list {
+  display: grid;
+  gap: 14px;
+}
+
+.skill-detail-related-card__meta {
+  color: var(--skills-muted) !important;
+  font-size: 0.8rem;
+}
+
+.skill-detail-related-card__toprow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.skill-detail-related-card__toprow .skill-detail-related-card__meta {
+  margin: 0;
+}
+
+.skill-detail-related-card__note {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(231, 246, 243, 0.66);
+}
+
+.skill-detail-related-card__link {
+  white-space: nowrap;
+}
+
+.skill-detail-aside-card {
+  padding: 22px;
+}
+
+.skill-detail-profile {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .skill-detail-related-card__link {
+    justify-self: start;
+    white-space: normal;
+  }
+}
+
+.dossier .skill-detail-kicker {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+}
+
+/* .skills-library-intro is deliberately not here: it is a list page's lede
+   line and sits on the page ground. A detail-page hero holds the record's own
+   material, so it keeps its panel. */
+
+.dossier .skill-detail-hero {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .skill-detail-section,
+.dossier .skill-detail-aside-card {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .skill-detail-related-card__meta {
+  color: var(--dossier-muted) !important;
+  font-family: ui-monospace, monospace;
+}

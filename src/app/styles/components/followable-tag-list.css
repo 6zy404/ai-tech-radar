@@ -1,0 +1,35 @@
+/* components/followable-tag-list: every rule whose subject is this component.
+   Gathered 2026-09-28 from 31-my-radar.css, 39-dossier-v1-technologies.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+/* Detail-page follow-topic entry: reuses the my-radar toggle chips. */
+.followable-tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.followable-tag-list__hint {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+.followable-tag-list__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.followable-tag-list__topic-link {
+  font-size: 12px;
+  color: var(--muted);
+  text-underline-offset: 2px;
+}
+.dossier .followable-tag-list__hint {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+.dossier .followable-tag-list__topic-link {
+  color: var(--dossier-muted);
+}
+.dossier .followable-tag-list__topic-link:hover {
+  color: var(--dossier-accent);
+}

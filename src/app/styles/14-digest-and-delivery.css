@@ -1,18 +1,4 @@
-.daily-digest {
-  display: grid;
-  gap: 28px;
-}
-
-/* These were invisible layout grids until the 2026-07-14 dossier migration
-   gave them a background and a border (see `.dossier .daily-digest-section`),
-   turning them into cards without giving them any inside spacing — so their
-   headings and cards sat flush against the drawn border. */
-.daily-digest-section,
-.digest-reference-section {
-  display: grid;
-  gap: 16px;
-  padding: 20px;
-}
+/* Stays here, not in components/daily-digest-content.css: it would move past a rule it can tie with (min-width in ".digest-technology-card" vs min-width in ".operations-event-card__snapshots > *" (15-workspace-operations.css)). */
 
 .digest-technology-card {
   display: grid;
@@ -23,19 +9,6 @@
   border-radius: 24px;
   background: rgba(255, 253, 248, 0.92);
   box-shadow: 0 12px 34px rgba(31, 41, 51, 0.06);
-}
-
-.digest-workspace-technology__header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.digest-technology-card__meta {
-  color: var(--muted);
-  font-size: 0.86rem;
 }
 
 .digest-technology-card h3,
@@ -60,13 +33,6 @@
   line-height: 1.7;
 }
 
-.daily-digest-sources {
-  padding: 20px;
-  border: 1px solid rgba(15, 118, 110, 0.1);
-  border-radius: 22px;
-  background: rgba(255, 253, 248, 0.72);
-}
-
 .digest-workspace-actions {
   margin-bottom: 20px;
 }
@@ -79,15 +45,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.digest-workspace-detail {
-  align-items: start;
-}
-
-.digest-delivery-panel {
-  display: grid;
-  gap: 16px;
 }
 
 .delivery-workspace-layout {
@@ -164,16 +121,4 @@
 
 .delivery-channel-form {
   margin-top: 12px;
-}
-
-.delivery-error-message {
-  margin: 0;
-  padding: 10px 12px;
-  border: 1px solid rgba(185, 28, 28, 0.18);
-  border-radius: 12px;
-  background: rgba(254, 226, 226, 0.42);
-  color: #991b1b;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
 }

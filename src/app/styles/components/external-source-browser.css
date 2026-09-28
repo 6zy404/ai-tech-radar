@@ -1,0 +1,150 @@
+/* components/external-source-browser: every rule whose subject is this component.
+   Gathered 2026-09-28 from 21-workspace-sources-console.css, 22-workspace-schedule-console.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.source-console-filter {
+  grid-template-columns: minmax(260px, 1fr) minmax(180px, 220px) minmax(
+      160px,
+      200px
+    );
+  margin: 0;
+}
+
+.source-console-list-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.source-console-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+/* `min-content` is what lets the wrapper above actually scroll. With
+   `min-width: 0` the table shrank to the wrapper and then clipped its own rows
+   with the `overflow: hidden` it needs for the rounded corners — so at 390px
+   five of the seven columns, the import and edit actions among them, were cut
+   off with no way to reach them. `max-content` would overcorrect: it sizes to
+   the longest description and makes the desktop layout scroll too. */
+
+.source-console-table {
+  min-width: min-content;
+  overflow: hidden;
+  border: 1px solid var(--delivery-console-border);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.source-console-table__head,
+.source-console-row {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 1.35fr)
+    minmax(96px, 0.72fr)
+    minmax(110px, 0.82fr)
+    minmax(100px, 0.65fr)
+    minmax(150px, 1fr)
+    minmax(92px, 0.62fr)
+    minmax(140px, 0.98fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.source-console-table__head {
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #667085;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.source-console-row {
+  min-height: 74px;
+  padding: 13px 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.24);
+  color: #334155;
+  font-size: 0.82rem;
+}
+
+.source-console-row--attention {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 251, 235, 0.72),
+    rgba(255, 255, 255, 0.96)
+  );
+}
+
+.source-console-source-link {
+  color: #06142b;
+  text-decoration: none;
+}
+
+.source-console-source-link:hover {
+  color: var(--ui-teal-strong);
+}
+
+.source-console-description {
+  margin-top: 4px !important;
+  color: var(--delivery-console-muted);
+  line-height: 1.35;
+}
+
+.source-console-url {
+  display: block;
+  max-width: 100%;
+  margin-top: 6px;
+  overflow: hidden;
+  color: #64748b;
+  font-size: 0.74rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.source-console-muted {
+  color: var(--delivery-console-muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.source-console-last-result {
+  display: grid;
+  gap: 6px;
+  color: var(--delivery-console-muted);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.source-console-last-result--attention {
+  color: var(--source-console-attention);
+  font-weight: 700;
+}
+
+.source-console-row__actions {
+  justify-items: start;
+}
+
+.source-console-row__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+
+.source-console-empty {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 28px;
+  border: 1px dashed rgba(148, 163, 184, 0.42);
+  border-radius: 12px;
+  background: rgba(248, 250, 252, 0.65);
+}
+
+@media (max-width: 980px) {
+  .source-console-filter {
+    grid-template-columns: 1fr;
+  }
+}

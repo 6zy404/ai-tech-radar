@@ -14,95 +14,6 @@ body {
     linear-gradient(180deg, #faf8f3 0%, #f1ece3 100%);
 }
 
-.top-nav {
-  border-bottom-color: rgba(15, 23, 42, 0.08);
-  background: rgba(255, 253, 248, 0.9);
-}
-
-.top-nav__inner {
-  width: min(1200px, calc(100% - 32px));
-  padding: 14px 0;
-}
-
-.brand {
-  color: #16212b;
-  letter-spacing: -0.02em;
-}
-
-.top-nav__list {
-  align-items: center;
-  gap: 8px;
-}
-
-.top-nav__link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  color: #667085;
-  font-size: 0.9rem;
-}
-
-.top-nav__link--active {
-  color: var(--accent);
-  background: rgba(15, 118, 110, 0.08);
-}
-
-.top-nav__link--active::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -10px;
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--accent);
-  transform: translateX(-50%);
-}
-
-.top-nav__link--workspace {
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 999px;
-  background: rgba(248, 250, 252, 0.82);
-  color: #344054;
-  font-size: 0.82rem;
-}
-
-.top-nav__menu {
-  display: flex;
-  align-items: center;
-}
-
-.top-nav__separator {
-  width: 1px;
-  height: 18px;
-  margin: 0 4px;
-  background: rgba(15, 23, 42, 0.12);
-}
-
-.top-nav__toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 36px;
-  padding: 0;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.7);
-  color: #344054;
-  cursor: pointer;
-}
-
-.top-nav__search {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: 8px;
-}
-
 .top-nav__search form {
   width: 0;
   overflow: hidden;
@@ -122,79 +33,6 @@ body {
   background: rgba(255, 255, 255, 0.7);
   color: #344054;
   font-size: 0.85rem;
-}
-
-.top-nav__actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Both icons are in the markup and CSS picks one, keyed on the same attribute
-   the dark-mode rules use. That is what lets the icon be correct on the very
-   first paint: if it came from React state the server would have to guess a
-   scheme it cannot know, and the icon would either mismatch on hydration or
-   flip a moment after it. */
-.top-nav__theme-icon--moon {
-  display: none;
-}
-
-:root[data-theme="dark"] .top-nav__theme-icon--sun {
-  display: none;
-}
-
-:root[data-theme="dark"] .top-nav__theme-icon--moon {
-  display: block;
-}
-
-.top-nav__search-toggle,
-.top-nav__theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  color: #667085;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.top-nav__toggle-bars,
-.top-nav__toggle-bars::before,
-.top-nav__toggle-bars::after {
-  display: block;
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: currentColor;
-}
-
-.top-nav__toggle-bars {
-  position: relative;
-}
-
-.top-nav__toggle-bars::before,
-.top-nav__toggle-bars::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.top-nav__toggle-bars::before {
-  top: -6px;
-}
-
-.top-nav__toggle-bars::after {
-  top: 6px;
-}
-
-.main-content {
-  width: min(1320px, calc(100% - 32px));
-  padding-top: 28px;
 }
 
 .user-shell {
@@ -352,23 +190,6 @@ body {
   background: rgba(255, 255, 255, 0.86);
 }
 
-.product-home-hero {
-  padding: 34px;
-  border-radius: 24px;
-  background:
-    radial-gradient(
-      circle at 85% 12%,
-      rgba(20, 184, 166, 0.16),
-      transparent 34%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.98),
-      rgba(236, 253, 245, 0.78)
-    );
-  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.07);
-}
-
 .product-home-hero__copy h1 {
   max-width: 18ch;
   font-size: clamp(2.25rem, 5.4vw, 4.8rem);
@@ -380,22 +201,8 @@ body {
   margin-inline: auto;
 }
 
-.user-shell .technology-card {
-  gap: 12px;
-  padding: 18px;
-  border-radius: 18px;
-}
-
-.user-shell .technology-card__body {
-  grid-template-rows: auto;
-}
-
 .user-shell .technology-card__insight p {
   -webkit-line-clamp: 2;
-}
-
-.user-shell .technology-card__context-row {
-  gap: 7px;
 }
 
 .user-article-hero {
@@ -471,49 +278,11 @@ body {
   border-radius: 999px;
 }
 
-.technology-list-page .technology-card {
-  min-height: 0;
-  gap: 12px;
-  padding: 20px;
-  border-radius: 18px;
-}
-
-.technology-list-page .technology-card__body {
-  grid-template-rows: auto;
-  gap: 12px;
-}
-
-.technology-card__summary {
-  margin: 0;
-  color: #41536a;
-  line-height: 1.65;
-}
-
-.technology-list-page .technology-card__summary {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.technology-list-page .technology-card__insight {
-  min-block-size: 0;
-  padding: 12px 14px;
-  border-left: 3px solid #14b8a6;
-  border-radius: 14px;
-  background: rgba(15, 118, 110, 0.07);
-}
-
 .technology-list-page .technology-card__insight p {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-}
-
-.technology-list-page .technology-card__footer {
-  min-block-size: 0;
-  gap: 8px;
 }
 
 @media (max-width: 900px) {
@@ -593,15 +362,7 @@ body {
     align-items: start;
   }
 
-  .workflow-step::after {
-    display: none;
-  }
-
   .delivery-workspace-layout__aside {
-    position: static;
-  }
-
-  .operations-layout__aside {
     position: static;
   }
 
@@ -688,52 +449,8 @@ body {
     min-block-size: unset;
   }
 
-  .technology-card__body {
-    grid-template-rows: auto auto;
-  }
-
-  .top-nav__inner {
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .top-nav__toggle {
-    display: inline-flex;
-  }
-
   .top-nav__search--open form {
     width: 120px;
-  }
-
-  .top-nav__menu {
-    flex-basis: 100%;
-    display: none;
-  }
-
-  .top-nav__menu--open {
-    display: block;
-  }
-
-  .top-nav__list {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 4px;
-  }
-
-  .top-nav__link {
-    width: 100%;
-    min-height: 40px;
-    padding: 8px 12px;
-  }
-
-  .top-nav__link--active::after {
-    display: none;
-  }
-
-  .top-nav__separator {
-    width: auto;
-    height: 1px;
-    margin: 6px 0;
   }
 
   .relation-list__item {

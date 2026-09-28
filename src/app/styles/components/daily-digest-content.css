@@ -1,0 +1,358 @@
+/* components/daily-digest-content: every rule whose subject is this component.
+   Gathered 2026-09-28 from 14-digest-and-delivery.css, 25-digest-reading.css, 28-typography.css, 31-my-radar.css, 42-dossier-v4-digest-search.css, 46-dossier-dark.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.daily-digest {
+  display: grid;
+  gap: 28px;
+}
+
+/* These were invisible layout grids until the 2026-07-14 dossier migration
+   gave them a background and a border (see `.dossier .daily-digest-section`),
+   turning them into cards without giving them any inside spacing — so their
+   headings and cards sat flush against the drawn border. */
+
+.daily-digest-section,
+.digest-reference-section {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.digest-technology-card__meta {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.daily-digest-sources {
+  padding: 20px;
+  border: 1px solid rgba(15, 118, 110, 0.1);
+  border-radius: 22px;
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.digest-technology-card__summary,
+.digest-technology-card__audience {
+  color: #334155;
+  line-height: 1.7;
+}
+
+@media (max-width: 920px) {
+  .digest-technology-list--featured,
+  .digest-source-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Digest Page Visual Layout Refinement v0 */
+
+.daily-digest-reading {
+  max-width: min(1040px, 100%);
+  margin: 0 auto;
+  gap: 40px;
+}
+
+/* The digest hero now renders through .user-article-hero, the same primitive
+   /technologies/[slug] uses, so everything below is a single-column tweak on
+   top of it rather than a second, competing hero definition. */
+
+.daily-digest-brief-header {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.daily-digest-brief-header__copy {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.daily-digest-brief-header__notice {
+  max-width: 640px;
+  margin: 4px 0 0;
+  padding: 11px 14px;
+  border: 1px solid rgba(180, 83, 9, 0.18);
+  border-radius: 14px;
+  color: var(--label-amber);
+  background: rgba(255, 251, 235, 0.72);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* One inline meta row under the title, mirroring
+   .technology-detail-hero__meta. It used to be a bordered 174px box in the
+   hero's right column, which left that column three-quarters empty. */
+
+.daily-digest-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 14px;
+  color: #475569;
+}
+
+/* Every other block on the digest page puts its heading above its content; this
+   one reserved a 183px label column beside a nine-line paragraph, so the left
+   third of the panel stood empty — the same near-empty fixed column removed
+   from the digest hero and the home digest card in the first sweep. */
+
+.daily-digest-summary-panel {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.daily-digest-section__header {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.35fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+
+.daily-digest-section__header--compact {
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.digest-technology-list {
+  display: grid;
+  gap: 16px;
+}
+
+.digest-technology-list--featured {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.digest-technology-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.digest-technology-card--featured {
+  border-color: rgba(8, 127, 115, 0.28);
+}
+
+.digest-technology-card--compact {
+  padding: 18px 20px;
+  border-color: rgba(8, 127, 115, 0.14);
+  box-shadow: none;
+}
+
+.digest-technology-card__topline,
+.digest-technology-card__footer {
+  justify-content: space-between;
+}
+
+.digest-technology-card__topline {
+  margin-bottom: 12px;
+}
+
+.digest-technology-card__body {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.digest-technology-card__summary,
+.digest-technology-card__audience,
+.digest-technology-card__meta-line {
+  color: #475569;
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.digest-technology-card__summary {
+  margin: 0;
+}
+
+/* Audience ("适合 …") is supporting metadata, not a heading. It carried
+   font-weight 800 until 2026-07-29, which made it louder than the card title
+   it sat under. Duplicate declarations of this selector live at ~6859/6864 and
+   in the grouped rule above; they are folded together in a separate cleanup. */
+
+.digest-technology-card__audience {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.digest-technology-card__footer {
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.digest-technology-card__meta-line {
+  max-width: 100%;
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.digest-technology-card__actions {
+  justify-content: flex-end;
+}
+
+.digest-technology-card__open {
+  white-space: nowrap;
+  font-size: 0.86rem;
+}
+
+.digest-reference-section {
+  display: grid;
+  gap: 14px;
+}
+
+.digest-reference-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.digest-reference-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(8, 127, 115, 0.2);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.digest-reference-item__link {
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.digest-source-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+/* These render as full DossierCards (title + publisher line + link), not as
+   inline pills. They kept `border-radius: 999px` from the pre-dossier pill
+   design until 2026-07-29, which turned every 253x177 card into an ellipse. */
+
+.digest-source-chip {
+  max-width: 100%;
+  padding: 16px;
+  border: 1px solid rgba(8, 127, 115, 0.18);
+  border-radius: 2px;
+  color: #475569;
+  background: #ffffff;
+  font-size: 0.86rem;
+  overflow-wrap: anywhere;
+}
+
+/* The `border: 0` / `border-radius: 0` / transparent background here never
+   won: `.dossier .daily-digest-section` is more specific and re-adds the card
+   skin. Rather than keep declarations that lose, this is a card like its
+   siblings. */
+
+.daily-digest-feeds {
+  padding: 20px;
+}
+
+@media (max-width: 920px) {
+  .daily-digest-brief-header,
+  .digest-technology-list--featured,
+  .digest-source-list,
+  .digest-reference-list,
+  .daily-digest-summary-panel,
+  .daily-digest-section__header {
+    grid-template-columns: 1fr;
+  }
+
+  .daily-digest-meta-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .daily-digest-reading {
+    gap: 32px;
+  }
+
+  .daily-digest-brief-header {
+    padding: 26px 22px;
+    border-radius: 24px;
+  }
+
+  .daily-digest-meta-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 16px;
+  }
+
+  .daily-digest-section__header {
+    gap: 8px;
+  }
+
+  .digest-technology-card {
+    padding: 18px;
+  }
+
+  .digest-technology-card__topline,
+  .digest-technology-card__footer,
+  .digest-technology-card__actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .digest-reference-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Compact list items */
+
+.user-shell .digest-reference-item {
+  padding: var(--space-chip);
+}
+
+/* Personalized digest bar: followed-topic highlight + filter toggle. */
+
+.daily-digest-personal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  border-radius: 14px;
+  padding: 12px 18px;
+}
+
+.dossier .daily-digest-meta-strip {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
+.dossier .digest-technology-card__summary,
+.dossier .digest-technology-card__audience,
+.dossier .digest-technology-card__meta-line {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+/* Digest header notice + meta strip kept hardcoded light panels. */
+
+:root[data-theme="dark"] .dossier .daily-digest-brief-header__notice {
+  background: rgba(217, 164, 74, 0.12);
+  border-color: rgba(217, 164, 74, 0.35);
+}
+
+:root[data-theme="dark"] .dossier .daily-digest-meta-strip {
+  background: var(--dossier-surface);
+  border-color: var(--dossier-line);
+  color: var(--dossier-muted);
+}

@@ -1,0 +1,79 @@
+/* pages/search: every rule whose subject is this component.
+   Gathered 2026-09-28 from 33-search-ask.css, 42-dossier-v4-digest-search.css
+   by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.search-page__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+
+.search-group {
+  display: grid;
+  gap: 12px;
+}
+
+.search-group__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.search-group__notice {
+  margin: 0;
+  padding: var(--space-box);
+  border: 1px solid rgba(138, 90, 18, 0.28);
+  border-radius: 14px;
+  background: rgba(138, 90, 18, 0.07);
+  color: var(--label-amber);
+  font-size: var(--fs-label);
+  font-weight: 700;
+}
+
+.search-group__list {
+  display: grid;
+  gap: 12px;
+}
+
+.search-result {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px;
+}
+
+.search-result__reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.search-result__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: var(--fs-label);
+}
+
+/* 问雷达: /ask. Built from the search page's pieces (form, pill input,
+   stamp tags) so the two sibling pages read as one family. */
+
+.search-page__ask {
+  margin-left: 10px;
+  color: var(--dossier-stamp);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.search-page__ask:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dossier .search-page__summary,
+.dossier .search-group__notice {
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}

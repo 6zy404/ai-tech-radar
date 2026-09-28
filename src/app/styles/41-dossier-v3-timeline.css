@@ -15,32 +15,3 @@
   color: var(--dossier-muted);
   font-family: ui-monospace, monospace;
 }
-
-.dossier .timeline-topic__description {
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-}
-
-.dossier .dossier-timeline-list {
-  border-left: none;
-  padding-left: 0;
-}
-
-.dossier-timeline-node {
-  padding: 4px 0 16px;
-}
-
-.dossier-timeline-node__summary {
-  margin: 6px 0 0;
-  padding-left: 96px;
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-@media (max-width: 640px) {
-  .dossier-timeline-node__summary {
-    padding-left: 0;
-  }
-}

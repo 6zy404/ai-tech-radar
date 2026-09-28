@@ -35,14 +35,7 @@
   font-size: 0.82rem;
   line-height: 1.45;
 }
-
-.operations-hero {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.35fr);
-  gap: 18px;
-  align-items: stretch;
-}
-
+/* Stays here, not in pages/workspace-operations.css: it would move past a rule it can tie with (min-width in ".operations-hero__status" vs min-width in ".operations-event-card__snapshots > *" (15-workspace-operations.css)). */
 .operations-hero__status {
   display: grid;
   align-content: start;
@@ -77,12 +70,6 @@
   padding-left: 18px;
   color: #475569;
   line-height: 1.5;
-}
-
-.operations-metric-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
 }
 
 .workspace-operations-summary__card--healthy,
@@ -127,21 +114,6 @@
   box-shadow: var(--workspace-shadow);
 }
 
-.operations-attention-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
-  align-items: start;
-}
-
-.operations-attention-item--critical {
-  border-color: rgba(185, 28, 28, 0.24);
-}
-
-.operations-attention-item--warning {
-  border-color: rgba(180, 83, 9, 0.2);
-}
-
 /* The row's own kicker span, not the `.status-badge` that shares the row.
    Unqualified, this repainted the badge slate — so a `--danger` badge rendered
    red in one place and slate in another, and dropped to 4.10 doing it. The only
@@ -172,36 +144,12 @@
   overflow-wrap: anywhere;
 }
 
-.operations-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
-  gap: 20px;
-  align-items: start;
-}
-
 .operations-layout__main,
 .operations-layout__aside,
 .operations-section {
   display: grid;
   gap: 14px;
   min-width: 0;
-}
-
-.operations-layout__aside {
-  position: sticky;
-  top: 18px;
-}
-
-.operations-compact-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
-  gap: 14px;
-  align-items: start;
-}
-
-.operations-quick-links {
-  display: grid;
-  gap: 10px;
 }
 
 .operations-quick-links a {

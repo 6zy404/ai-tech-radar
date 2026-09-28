@@ -46,14 +46,6 @@ body {
   color: var(--ui-ink);
 }
 
-.top-nav {
-  background: rgba(255, 253, 248, 0.92);
-}
-
-.main-content {
-  width: min(1260px, calc(100% - 40px));
-}
-
 .user-shell {
   width: min(1060px, 100%);
 }
@@ -69,10 +61,6 @@ body {
     rgba(217, 243, 239, 0.66) 100%
   );
   box-shadow: var(--shadow-soft);
-}
-
-.product-home-hero {
-  padding: clamp(28px, 4vw, 46px);
 }
 
 .product-home-hero__copy h1,
@@ -110,24 +98,6 @@ body {
   transition:
     border-color 160ms ease,
     transform 160ms ease;
-}
-
-.user-shell .technology-card {
-  display: grid;
-  gap: 12px;
-  padding: 20px;
-  border: 1px solid rgba(8, 127, 115, 0.2);
-  box-shadow: var(--shadow-card);
-}
-
-.user-shell .technology-card__signal-row {
-  gap: 8px;
-}
-
-.user-shell .technology-card__insight {
-  padding: 0;
-  border: 0;
-  background: transparent;
 }
 
 .user-shell .technology-card__insight span {
@@ -359,50 +329,6 @@ body {
   font-size: 0.84rem;
 }
 
-.delivery-channel-table {
-  display: grid;
-  overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.32);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.94);
-}
-
-.delivery-channel-table__head,
-.delivery-channel-row {
-  display: grid;
-  grid-template-columns:
-    minmax(200px, 1.45fr)
-    minmax(110px, 0.72fr)
-    minmax(120px, 0.75fr)
-    minmax(180px, 1fr)
-    minmax(140px, 0.85fr)
-    minmax(112px, 0.6fr);
-  gap: 12px;
-  align-items: start;
-}
-
-.delivery-channel-table__head {
-  padding: 10px 14px;
-  background: #f8fafc;
-  color: #667085;
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.delivery-channel-row {
-  padding: 14px;
-  border-top: 1px solid rgba(148, 163, 184, 0.25);
-}
-
-.delivery-channel-row__identity,
-.delivery-channel-row__cell {
-  display: grid;
-  gap: 4px;
-  min-width: 0;
-}
-
 .delivery-channel-row__identity strong {
   color: #0f172a;
   line-height: 1.2;
@@ -426,18 +352,6 @@ body {
   font-family:
     ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
   font-size: 0.84rem;
-}
-
-.delivery-channel-row__actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.delivery-channel-row__edit {
-  grid-column: 1 / -1;
-  margin-top: 2px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(148, 163, 184, 0.22);
 }
 
 .delivery-channel-row__edit summary {
@@ -516,18 +430,6 @@ body {
 
   .workspace-metric-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .delivery-channel-table__head {
-    display: none;
-  }
-
-  .delivery-channel-row {
-    grid-template-columns: 1fr;
-  }
-
-  .delivery-channel-row__actions {
-    justify-content: flex-start;
   }
 
   .technology-list-page .user-page-header {
