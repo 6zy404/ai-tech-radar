@@ -12,6 +12,31 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The topic hub's relation stamps stop breaking at 390px
+
+- **Seen 2026-09-29** on `/topics/tag-knowledge-graph` at 390px: in the
+  图谱关联 section, 5 of 11 relation stamps wrapped — 「技术 · 借助」 on two
+  lines (42px tall), 「技术 · 延伸」 on three (57px) — beside any title long
+  enough to wrap.
+- **Cause**: the same one the `/network` side panel had on 2026-09-28. Each
+  row (`.topic-hub-relation`) was an inline flex row, and a flex item shrinks,
+  so the stamp gave up width to the title.
+- **Each row is now the `/network` two-column grid** — `auto minmax(0, 1fr)`,
+  the stamp `nowrap` in the first column, the title wrapping in the second.
+  The `nowrap` is scoped to this row; `DossierStampTag` itself is unchanged.
+  Measured at 390px: all 11 stamps one line (25.75px), 0 titles below their
+  stamp, 0 rows past the viewport, no horizontal page overflow.
+- **The row radius went from 999px to 20px**, half the one-line row height
+  (39.8px), so a one-line row is still the same pill. A wrapped row used to be
+  a stadium 55–71px tall whose curved ends crowded its own text; it is a
+  rounded rectangle now.
+- **1440 unchanged**: every row's and stamp's x, width and height measured
+  identical before and after (all 11 rows are one line there); only y moved,
+  by the scroll offset between the two readings.
+- Looked at top to bottom at 390 and 1440, light and dark. The browser pane
+  would not paint the middle of the 390 dark page (the signal and knowledge
+  cards, which this does not touch); those sections were checked in light.
+
 ## The operations dashboard notices a stalled import and an unrun round
 
 - **Two pipeline alerts on `/workspace/operations`** (2026-09-29). The

@@ -190,15 +190,26 @@
   color: var(--muted);
 }
 
+/* Same two-column row as the /network side panel (2026-09-28): the stamp in a
+   column as wide as the stamp, the title wrapping in its own. As a flex row the
+   stamp shrank for a long title at 390px — 「技术 · 借助」 on two lines,
+   「技术 · 延伸」 on three. The radius is half the one-line height (39.8px), so a
+   one-line row is the same pill as before and a wrapped one is a rounded
+   rectangle instead of a stadium crowding its own text. */
 .topic-hub-relation {
-  display: inline-flex;
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
   border: 1px solid var(--dossier-line);
-  border-radius: 999px;
+  border-radius: 20px;
   font-size: 13px;
   color: var(--dossier-ink);
+}
+
+.topic-hub-relation .dossier-stamp-tag {
+  white-space: nowrap;
 }
 
 .topic-hub-relation:hover {
