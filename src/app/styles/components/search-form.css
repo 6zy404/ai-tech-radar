@@ -1,10 +1,36 @@
 /* components/search-form: every rule whose subject is this component.
-   Gathered 2026-09-28 from 33-search-ask.css
+   Gathered 2026-09-28 from 33-search-ask.css, 42-dossier-v4-digest-search.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.search-form input[type="search"] {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-strong);
+  color: var(--user-ink);
+  font-size: var(--fs-body);
+}
+
+.search-form input[type="search"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 /* Public site-wide search: /search page. */
 .search-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
+}
+
+.dossier .search-form input[type="search"] {
+  border: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: var(--dossier-ink);
+  font-family: Georgia, "Songti SC", "STSong", serif;
 }

@@ -158,19 +158,10 @@ body {
   gap: 10px;
 }
 
-.delivery-channel-card__header h3 {
-  font-size: 1.05rem;
-}
-
 .delivery-channel-card__header p {
   max-width: 68ch;
   font-size: 0.88rem;
   line-height: 1.45;
-}
-
-.delivery-channel-card__edit summary {
-  color: var(--ui-teal-strong);
-  font-size: 0.86rem;
 }
 
 .workspace-metric-strip {
@@ -211,12 +202,6 @@ body {
   font-size: 0.84rem;
 }
 
-.delivery-channel-row__identity strong {
-  color: #0f172a;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
-}
-
 .delivery-channel-row__identity p,
 .delivery-channel-row__cell small {
   margin: 0;
@@ -226,21 +211,10 @@ body {
   overflow-wrap: anywhere;
 }
 
-.delivery-channel-row__cell span {
-  overflow-wrap: anywhere;
-}
-
 .delivery-channel-row__endpoint span {
   font-family:
     ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
   font-size: 0.84rem;
-}
-
-.delivery-channel-row__edit summary {
-  cursor: pointer;
-  color: var(--ui-teal-strong);
-  font-size: 0.84rem;
-  font-weight: 800;
 }
 
 .field span,
@@ -249,13 +223,6 @@ body {
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.field input,
-.field select,
-.field textarea {
-  min-height: 38px;
-  border-radius: 9px;
 }
 /* Stays here, not in components/action-button.css: it would move past a rule it can tie with (background in ".action-button--accent:hover" vs background in ".workspace-sources-console .source-actions__import" (21-workspace-sources-console.css)). */
 .action-button--primary:hover,

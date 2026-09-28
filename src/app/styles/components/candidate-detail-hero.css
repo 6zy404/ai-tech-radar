@@ -1,6 +1,7 @@
 /* components/candidate-detail-hero: every rule whose subject is this component.
    Gathered 2026-09-28 from 11-workspace-candidates.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .candidate-detail-hero {
   display: grid;
   gap: 14px;

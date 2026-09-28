@@ -1,6 +1,18 @@
 /* components/topic-timeline-section: every rule whose subject is this component.
    Gathered 2026-09-28 from 35-timeline.css, 41-dossier-v3-timeline.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.dossier .timeline-topic__heading h2 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+  letter-spacing: 0;
+}
+
+.dossier .timeline-topic__heading span {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+}
+
 /* Public topic timeline: /timeline page. */
 .timeline-topic {
   display: grid;

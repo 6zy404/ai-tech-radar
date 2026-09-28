@@ -20,17 +20,6 @@
   font-size: var(--fs-body);
 }
 
-.my-radar__transfer button {
-  padding: 6px 14px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--accent);
-  font-size: var(--fs-label);
-  font-weight: 700;
-  cursor: pointer;
-}
-
 .my-radar__transfer span {
   font-size: var(--fs-label);
   color: var(--muted);

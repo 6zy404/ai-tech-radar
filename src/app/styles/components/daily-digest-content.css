@@ -1,6 +1,13 @@
 /* components/daily-digest-content: every rule whose subject is this component.
    Gathered 2026-09-28 from 14-digest-and-delivery.css, 25-digest-reading.css, 28-typography.css, 31-my-radar.css, 42-dossier-v4-digest-search.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.digest-technology-card__meta-line span:not(:last-child)::after {
+  content: "·";
+  margin-left: 8px;
+  color: rgba(100, 116, 139, 0.66);
+}
+
 .daily-digest {
   display: grid;
   gap: 28px;
@@ -343,4 +350,29 @@
   background: var(--dossier-surface);
   border-color: var(--dossier-line);
   color: var(--dossier-muted);
+}
+
+.dossier .daily-digest-brief-header,
+.dossier .daily-digest-summary-panel,
+.dossier .daily-digest-section,
+.dossier .daily-digest-personal-bar,
+.dossier .digest-reference-section {
+  background: var(--dossier-surface);
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.dossier .digest-reference-item h3,
+.dossier .digest-source-chip h3 {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  color: var(--dossier-ink);
+}
+
+:root[data-theme="dark"] .dossier .daily-digest-meta-strip span {
+  color: var(--dossier-muted);
+}
+
+:root[data-theme="dark"] .dossier .daily-digest-meta-strip strong {
+  color: var(--dossier-ink);
 }

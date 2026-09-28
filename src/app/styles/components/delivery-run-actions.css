@@ -1,6 +1,7 @@
 /* components/delivery-run-actions: every rule whose subject is this component.
    Gathered 2026-09-28 from 16-workspace-digest-editor.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .delivery-run-actions {
   display: grid;
   gap: 8px;

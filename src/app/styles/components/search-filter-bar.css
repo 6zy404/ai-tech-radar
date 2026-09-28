@@ -1,6 +1,7 @@
 /* components/search-filter-bar: every rule whose subject is this component.
    Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css, 19-design-system-v0.css, 23-technology-list.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .search-filter-bar {
   display: grid;
   grid-template-columns: minmax(0, 2fr) repeat(2, minmax(180px, 1fr));

@@ -1,6 +1,16 @@
 /* components/technology-ai-widgets: every rule whose subject is this component.
    Gathered 2026-09-28 from 24-technology-detail.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.technology-compare-widget__block ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 6px;
+  color: #34404a;
+  line-height: 1.65;
+}
+
 .technology-compare-widget__controls {
   display: flex;
   flex-wrap: wrap;

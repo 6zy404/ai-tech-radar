@@ -1,6 +1,28 @@
 /* components/field: every rule whose subject is this component.
-   Gathered 2026-09-28 from 08-cards-lists-actions.css, 23-technology-list.css
+   Gathered 2026-09-28 from 08-cards-lists-actions.css, 19-design-system-v0.css, 23-technology-list.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.field textarea {
+  min-height: 112px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.field input,
+.field select,
+.field textarea {
+  min-height: 38px;
+  border-radius: 9px;
+}
+
+.technology-list-page .field input,
+.technology-list-page .field select {
+  min-width: 0;
+  min-height: 42px;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
 .field {
   display: grid;
   gap: 8px;

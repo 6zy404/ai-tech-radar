@@ -1,6 +1,7 @@
 /* components/source-actions: every rule whose subject is this component.
    Gathered 2026-09-28 from 12-workspace-sources.css, 21-workspace-sources-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .source-row__status .source-actions {
   margin-top: 4px;
 }

@@ -75,26 +75,6 @@
   }
 }
 
-.dossier-search svg {
-  flex: none;
-  opacity: 0.55;
-}
-
-.dossier-search input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-family: Georgia, "Songti SC", serif;
-  font-size: 14.5px;
-  color: var(--dossier-ink);
-  padding: 0;
-  min-width: 0;
-}
-
-.dossier-search input:focus {
-  outline: none;
-}
-
 .dossier-category-chips {
   display: flex;
   flex-wrap: wrap;

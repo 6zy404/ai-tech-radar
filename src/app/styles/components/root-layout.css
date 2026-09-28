@@ -1,6 +1,7 @@
 /* components/root-layout: every rule whose subject is this component.
    Gathered 2026-09-28 from 02-site-chrome.css, 18-ui-refinement.css, 19-design-system-v0.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 /* A page whose content is shorter than the viewport ended above the fold, and
    the body gradient showed below it as a band with a hard edge across the full
    window — 277px on `/search` before a query, 204px on an empty 稍后读. The

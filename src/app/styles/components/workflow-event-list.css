@@ -1,6 +1,7 @@
 /* components/workflow-event-list: every rule whose subject is this component.
    Gathered 2026-09-28 from 15-workspace-operations.css, 20-workspace-delivery-console.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .workflow-event-list {
   display: grid;
   gap: 0.75rem;

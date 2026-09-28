@@ -1,6 +1,7 @@
 /* components/eyebrow: every rule whose subject is this component.
    Gathered 2026-09-28 from 04-page-headers.css, 26-skills-library.css, 40-dossier-v2-skills-knowledge.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--accent);

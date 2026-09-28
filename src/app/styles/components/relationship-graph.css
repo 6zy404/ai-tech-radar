@@ -1,6 +1,7 @@
 /* components/relationship-graph: every rule whose subject is this component.
    Gathered 2026-09-28 from 29-relationship-graph.css, 39-dossier-v1-technologies.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 /* ============================================================
    Technology relationship graph (mini neighborhood map)
    ============================================================ */

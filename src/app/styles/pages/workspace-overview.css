@@ -1,6 +1,12 @@
 /* pages/workspace-overview: every rule whose subject is this component.
    Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.workspace-dashboard__intro p:last-child {
+  margin-bottom: 0;
+  color: #64748b;
+}
+
 .workspace-dashboard {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);

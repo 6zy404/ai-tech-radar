@@ -1,6 +1,7 @@
 /* components/followable-tag-list: every rule whose subject is this component.
    Gathered 2026-09-28 from 31-my-radar.css, 39-dossier-v1-technologies.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 /* Detail-page follow-topic entry: reuses the my-radar toggle chips. */
 .followable-tag-list {
   display: flex;

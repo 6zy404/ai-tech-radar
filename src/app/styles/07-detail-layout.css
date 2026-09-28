@@ -70,10 +70,6 @@
   gap: 20px;
 }
 
-.technology-detail-panel__intro h1 {
-  min-block-size: 2.45em;
-}
-
 .detail-meta-label {
   color: var(--muted);
   font-size: 0.82rem;

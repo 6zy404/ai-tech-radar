@@ -1,6 +1,7 @@
 /* components/section-block: every rule whose subject is this component.
    Gathered 2026-09-28 from 04-page-headers.css, 06-shared-components.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .section-block--subtle {
   padding: 18px;
   border: 1px dashed rgba(148, 163, 184, 0.72);

@@ -1,6 +1,33 @@
 /* components/source-row: every rule whose subject is this component.
    Gathered 2026-09-28 from 12-workspace-sources.css, 18-ui-refinement.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.source-row__title-line h2,
+.source-row__main p {
+  margin: 0;
+}
+
+.source-row__title-line h2 {
+  font-size: 1.12rem;
+}
+
+.source-row__title-line a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.source-row__title-line a:hover {
+  color: var(--accent);
+}
+
+.source-row__main p,
+.source-row__url,
+.source-row__meta,
+.source-row__status {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .source-row {
   display: grid;
   gap: 16px;

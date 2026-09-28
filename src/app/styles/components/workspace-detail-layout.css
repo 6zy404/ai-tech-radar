@@ -1,6 +1,11 @@
 /* components/workspace-detail-layout: every rule whose subject is this component.
    Gathered 2026-09-28 from 07-detail-layout.css, 08-cards-lists-actions.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.technology-detail-panel__intro h1 {
+  min-block-size: 2.45em;
+}
+
 .detail-layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);

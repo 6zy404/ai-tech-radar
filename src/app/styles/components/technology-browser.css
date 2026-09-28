@@ -1,6 +1,7 @@
 /* components/technology-browser: every rule whose subject is this component.
    Gathered 2026-09-28 from 18-ui-refinement.css, 23-technology-list.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .technology-list-page .technology-browser__toolbar {
   display: flex;
   align-items: center;
@@ -18,4 +19,12 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+.technology-list-page .technology-browser__toolbar p {
+  max-width: 560px;
+  margin: 4px 0 0;
+  color: var(--ui-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
 }

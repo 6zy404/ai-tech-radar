@@ -1,6 +1,27 @@
 /* components/dossier-search: every rule whose subject is this component.
    Gathered 2026-09-28 from 38-dossier-v0-components.css, 42-dossier-v4-digest-search.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.dossier-search svg {
+  flex: none;
+  opacity: 0.55;
+}
+
+.dossier-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: Georgia, "Songti SC", serif;
+  font-size: 14.5px;
+  color: var(--dossier-ink);
+  padding: 0;
+  min-width: 0;
+}
+
+.dossier-search input:focus {
+  outline: none;
+}
+
 .dossier-search {
   display: flex;
   align-items: center;

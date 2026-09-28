@@ -1,6 +1,7 @@
 /* components/candidate-review-actions: every rule whose subject is this component.
    Gathered 2026-09-28 from 11-workspace-candidates.css, 12-workspace-sources.css, 20-workspace-delivery-console.css, 21-workspace-sources-console.css, 22-workspace-schedule-console.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .candidate-review-actions {
   display: grid;
   gap: 12px;

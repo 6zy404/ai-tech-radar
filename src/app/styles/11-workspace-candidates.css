@@ -111,10 +111,6 @@
   gap: 8px;
 }
 
-.duplicate-group-card .candidate-card__body h2 {
-  max-width: 760px;
-}
-
 .duplicate-review-actions {
   max-width: 920px;
 }

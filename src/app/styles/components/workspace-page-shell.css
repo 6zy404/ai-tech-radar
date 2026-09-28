@@ -1,6 +1,15 @@
 /* components/workspace-page-shell: every rule whose subject is this component.
    Gathered 2026-09-28 from 03-workspace-shell.css, 18-ui-refinement.css, 19-design-system-v0.css, 20-workspace-delivery-console.css, 46-dossier-dark.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
+.workspace-security-note code {
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: rgba(254, 243, 199, 0.88);
+  color: #7c2d12;
+  font-size: 0.8rem;
+}
+
 .workspace-shell::before {
   content: "";
   width: 72px;

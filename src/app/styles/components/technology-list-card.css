@@ -1,6 +1,7 @@
 /* components/technology-list-card: every rule whose subject is this component.
    Gathered 2026-09-28 from 08-cards-lists-actions.css, 18-ui-refinement.css, 19-design-system-v0.css, 23-technology-list.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .technology-card {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -214,4 +215,15 @@
   .technology-list-page .technology-card__open-link {
     width: 100%;
   }
+}
+
+.technology-list-page .technology-card__source-line span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.technology-list-page .technology-card__body h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.18;
 }

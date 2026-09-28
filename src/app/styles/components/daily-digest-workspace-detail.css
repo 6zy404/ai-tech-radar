@@ -1,6 +1,7 @@
 /* components/daily-digest-workspace-detail: every rule whose subject is this component.
    Gathered 2026-09-28 from 14-digest-and-delivery.css, 16-workspace-digest-editor.css
    by scripts/css-regroup.mjs, which checks each move against the cascade. */
+
 .digest-workspace-technology__header {
   display: flex;
   flex-wrap: wrap;
