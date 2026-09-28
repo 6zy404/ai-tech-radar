@@ -96,6 +96,12 @@
   font-size: 0.8rem;
 }
 
+/* A hint that belongs to the title rather than the far edge: it pushes the
+   heading's last item (the link) right instead of sitting mid-row. */
+.editorial-round-block__hint--beside {
+  margin-right: auto;
+}
+
 .editorial-round-notice {
   margin: 0;
   padding: 10px 12px;
@@ -118,6 +124,67 @@
 .editorial-round-notice a {
   color: inherit;
   text-decoration: underline;
+}
+
+/* Undecided candidates, one <details> per source, largest source first. */
+.editorial-round-groups {
+  display: grid;
+  gap: 12px;
+}
+
+.editorial-round-group {
+  display: grid;
+  gap: 8px;
+}
+
+.editorial-round-group__summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 2px;
+  border-bottom: 1px solid var(--workspace-line);
+  cursor: pointer;
+  list-style: none;
+}
+
+.editorial-round-group__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The disclosure mark: points down while open, right while folded. */
+.editorial-round-group__summary::before {
+  content: "";
+  flex: none;
+  align-self: center;
+  width: 0;
+  height: 0;
+  border-top: 5px solid var(--muted);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.editorial-round-group:not([open]) > .editorial-round-group__summary::before {
+  transform: rotate(-90deg);
+}
+
+.editorial-round-group__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.editorial-round-group__name {
+  min-width: 0;
+  color: #0f172a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.editorial-round-group__count {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
 .editorial-round-list {

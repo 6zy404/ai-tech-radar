@@ -1,6 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { getEditorialRoundState } from "@/lib/editorial-round";
+import {
+  getEditorialRoundState,
+  groupCandidatesBySource,
+  type EditorialRoundCandidate
+} from "@/lib/editorial-round";
 import {
   makeImportedCandidate,
   makeWorkspaceRecord
@@ -185,6 +189,123 @@ describe("getEditorialRoundState — candidates", () => {
 
     expect(state.openDuplicateGroupCount).toBe(1);
     expect(candidateStep?.status).toBe("blocked");
+  });
+});
+
+function roundCandidate(
+  id: string,
+  sourceName: string
+): EditorialRoundCandidate {
+  return {
+    id,
+    title: id,
+    sourceName,
+    publishDate: "2026-07-21",
+    qualityFlags: []
+  };
+}
+
+describe("groupCandidatesBySource", () => {
+  it("returns no groups for no candidates", () => {
+    expect(groupCandidatesBySource([])).toEqual([]);
+  });
+
+  it("orders groups largest-first and keeps input order inside each group", () => {
+    const groups = groupCandidatesBySource([
+      roundCandidate("blog-1", "Vendor Blog"),
+      roundCandidate("media-1", "Daily Media"),
+      roundCandidate("media-2", "Daily Media"),
+      roundCandidate("blog-2", "Vendor Blog"),
+      roundCandidate("media-3", "Daily Media"),
+      roundCandidate("release-1", "Release Feed")
+    ]);
+
+    expect(
+      groups.map((group) => [group.sourceName, group.candidates.length])
+    ).toEqual([
+      ["Daily Media", 3],
+      ["Vendor Blog", 2],
+      ["Release Feed", 1]
+    ]);
+    expect(groups[0].candidates.map((c) => c.id)).toEqual([
+      "media-1",
+      "media-2",
+      "media-3"
+    ]);
+    expect(groups[1].candidates.map((c) => c.id)).toEqual(["blog-1", "blog-2"]);
+  });
+
+  it("breaks size ties by the source's first appearance", () => {
+    const groups = groupCandidatesBySource([
+      roundCandidate("b-1", "Beta"),
+      roundCandidate("a-1", "Alpha"),
+      roundCandidate("c-1", "Gamma"),
+      roundCandidate("a-2", "Alpha"),
+      roundCandidate("b-2", "Beta")
+    ]);
+
+    expect(groups.map((group) => group.sourceName)).toEqual([
+      "Beta",
+      "Alpha",
+      "Gamma"
+    ]);
+  });
+
+  it("does not modify its input", () => {
+    const input = [
+      roundCandidate("a-1", "Alpha"),
+      roundCandidate("b-1", "Beta"),
+      roundCandidate("b-2", "Beta")
+    ];
+    const snapshot = input.map((candidate) => candidate.id);
+
+    groupCandidatesBySource(input);
+
+    expect(input.map((candidate) => candidate.id)).toEqual(snapshot);
+  });
+
+  it("is what getEditorialRoundState exposes, covering every undecided candidate", () => {
+    getImportedCandidatesMock.mockReturnValue([
+      makeImportedCandidate({
+        id: "a",
+        sourceName: "Alpha",
+        importStatus: "new",
+        publishDate: "2026-07-19"
+      }),
+      makeImportedCandidate({
+        id: "b",
+        sourceName: "Beta",
+        importStatus: "new",
+        publishDate: "2026-07-21"
+      }),
+      makeImportedCandidate({
+        id: "c",
+        sourceName: "Beta",
+        importStatus: "new",
+        publishDate: "2026-07-20"
+      }),
+      makeImportedCandidate({
+        id: "gone",
+        sourceName: "Alpha",
+        importStatus: "rejected",
+        publishDate: "2026-07-21"
+      })
+    ]);
+
+    const state = getEditorialRoundState();
+
+    expect(state.undecidedCandidateGroups).toEqual(
+      groupCandidatesBySource(state.undecidedCandidates)
+    );
+    expect(
+      state.undecidedCandidateGroups.map((group) => [
+        group.sourceName,
+        group.candidates.map((c) => c.id)
+      ])
+    ).toEqual([
+      ["Beta", ["b", "c"]],
+      ["Alpha", ["a"]]
+    ]);
   });
 });
 

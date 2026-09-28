@@ -39,6 +39,29 @@ For per-topic deep dives, see the `docs/` directory.
   sits on `--dossier-surface`. Looked at top to bottom at 1440 and 390, light
   and dark; no horizontal overflow at 390, no console errors.
 
+## The editorial round groups its candidates by source
+
+- **2026-09-29.** The 待决候选 list on `/workspace/editorial-round` was one
+  flat list, newest first. A daily media source brings a dozen items a day, so
+  in a round of twenty or thirty it was not visible which feed was filling the
+  pool.
+- **The list is now one native `<details>` per source**, open by default, its
+  summary line the source name and a count; groups run largest first, and the
+  heading says how many sources there are. Inside a group nothing changed: the
+  same rows, in the same newest-first order, with the same quality flags, model
+  suggestion and inline 转为草稿 / 标记已看 / 拒绝. Blind mode groups the same
+  way and still hides every suggestion (0 suggestion lines, against 21 of 21
+  rows without it).
+- **The grouping is a pure function**, `groupCandidatesBySource` in
+  `src/lib/editorial-round.ts`, exposed on the round state as
+  `undecidedCandidateGroups`. Groups of equal size keep the order their source
+  first appears in, so the source with the newest item comes first. No new
+  persisted data, and no write path changed. No batch action was added.
+- Looked at on a worktree data copy with 21 candidates reopened across five
+  sources (9 / 6 / 3 / 2 / 1), at 1440 and 390, with and without suggestions,
+  and with a group folded; no horizontal overflow at 390. The copy was restored
+  byte for byte afterwards.
+
 ## The topic hub's relation stamps stop breaking at 390px
 
 - **Seen 2026-09-29** on `/topics/tag-knowledge-graph` at 390px: in the

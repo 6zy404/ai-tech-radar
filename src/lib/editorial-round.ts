@@ -85,9 +85,49 @@ export interface EditorialRoundStep {
   detail: string;
 }
 
+export interface EditorialRoundCandidateGroup {
+  sourceName: string;
+  candidates: EditorialRoundCandidate[];
+}
+
+/**
+ * Groups the undecided candidates by source, so a round can see at a glance
+ * which feed is flooding the pool — a daily media source can bring a dozen
+ * items a day, and in a flat list of thirty that is invisible.
+ *
+ * Groups are ordered by size, largest first; groups of equal size keep the
+ * order in which their source first appears in the input. Inside a group the
+ * candidates keep their input order untouched, so a caller that sorted the
+ * list newest-first gets each group newest-first too.
+ */
+export function groupCandidatesBySource(
+  candidates: readonly EditorialRoundCandidate[]
+): EditorialRoundCandidateGroup[] {
+  const groups = new Map<string, EditorialRoundCandidate[]>();
+
+  for (const candidate of candidates) {
+    const group = groups.get(candidate.sourceName);
+
+    if (group) {
+      group.push(candidate);
+    } else {
+      groups.set(candidate.sourceName, [candidate]);
+    }
+  }
+
+  // Array.prototype.sort is stable, so equal-sized groups stay in
+  // first-appearance order.
+  return Array.from(groups, ([sourceName, members]) => ({
+    sourceName,
+    candidates: members
+  })).sort((left, right) => right.candidates.length - left.candidates.length);
+}
+
 export interface EditorialRoundState {
   today: string;
   undecidedCandidates: EditorialRoundCandidate[];
+  /** The same candidates as `undecidedCandidates`, grouped by source. */
+  undecidedCandidateGroups: EditorialRoundCandidateGroup[];
   openDuplicateGroupCount: number;
   draftsAwaitingPublish: EditorialRoundDraft[];
   todayDigest?: EditorialRoundDigest;
@@ -255,6 +295,7 @@ export function getEditorialRoundState(): EditorialRoundState {
   return {
     today,
     undecidedCandidates,
+    undecidedCandidateGroups: groupCandidatesBySource(undecidedCandidates),
     openDuplicateGroupCount,
     draftsAwaitingPublish,
     todayDigest,
