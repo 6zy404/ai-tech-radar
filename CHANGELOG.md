@@ -41,6 +41,67 @@ For per-topic deep dives, see the `docs/` directory.
   one of four was taken and looked right. Not deployed: this window does not
   own the live site.
 
+## The enrichment routes share one request parser
+
+- **Cluster ④ of the copy-paste list** (2026-09-28). The four workspace
+  enrichment routes (generate, and apply / reject / review a suggestion) each
+  carried their own `isRecord`, field-name filter, quality-label filter,
+  three `revalidatePath` calls and 500 handler. They now import them from
+  `src/app/api/workspace/technologies/[id]/enrichment/parse.ts`, the same
+  sibling-`parse.ts` shape the skill and knowledge routes already use.
+- **One behaviour kept on purpose**: apply still ignores a
+  `rejectionReason` in its body, as it always did, so an accepted suggestion
+  cannot carry a rejection note.
+- Checked against a dev server on a throwaway copy of the data: generate with
+  a non-object body falls back to `rule_based`; review and reject drop an
+  unknown quality label; apply drops an unknown field name, records
+  `partially_accepted` and no rejection reason; a missing suggestion answers
+  `500` with the same message. Duplicated lines 7.4% → **7.2%**.
+
+## The three AI caches share their bookkeeping
+
+- **Cluster ① of the copy-paste list** (2026-09-28). Comparison, explanation
+  and learning path each spelled out the same ten generation-metadata fields
+  twice — once reading a record back from disk, once building it from a
+  provider response. Both now go through `src/lib/ai-generation-record.ts`
+  (`normalizeAiGenerationMetadata`, `buildAiGenerationMetadata`); each
+  record keeps its own key and `fields`, and the stored JSON keeps its key
+  order.
+- **`parseLlmJsonObject`** in `src/lib/llm/output-sanitization.ts` is the
+  shared first half of every output validator: JSON object, no internal-only
+  term, unknown top-level fields dropped with a warning. Four validators use
+  it — the three above plus editorial enrichment, which had the same copy.
+- **The disclaimer sentence lives in one file**, `src/lib/ai-disclaimer.ts`,
+  imported by the three server mappers and the four client widgets
+  (including 问雷达). It was a string literal in seven places.
+- Duplicated lines, same scan as below: 8.0% → **7.4%** after this and the
+  route-guard entry. 360 tests (6 new, covering the malformed-record fallback
+  and the parser), 22 validators; on a local dev server a generated learning
+  path still renders the disclaimer above its six steps.
+
+## The four public AI routes share one opening
+
+- **Measured first** (2026-09-28): a line-window scan of `src/` and `scripts/`
+  (8 identical significant lines = a clone; styles and seed data excluded)
+  found 3,589 of 45,017 lines duplicated, about 8%. The five clusters worth
+  collapsing are listed in `docs/next-task.md`; this entry takes the one that
+  guards money.
+- **`guardPublicAiRequest(request, routeId)`** in
+  `src/lib/public-ai-rate-limit.ts` now runs the rate limit, the
+  request-shape guard and the JSON body read, in that order, and returns
+  either the body or the response to send. `/api/ask` and the three
+  `/api/technologies/*` AI routes each carried their own ~25-line copy of it;
+  a fifth route can no longer get the order wrong or drop a step.
+- **The order is now tested**, where before only each check was:
+  `src/lib/public-ai-guard.test.ts` (6 tests) pins that a spent budget
+  answers `429` even for a malformed request, that budgets are per route, and
+  the `415` / `403` / `400` answers. Swapping the rate limit and the origin
+  check in the helper fails exactly the ordering test.
+- **Behaviour unchanged**, checked against a local dev server: all four
+  routes answer `415`, `403` and `400` with the same Chinese messages as
+  before, a valid learning-path request answers `200`, and `/api/ask` turns
+  `429` on the 11th request of a minute. 354 tests pass.
+
 ## globals.css is 47 files, and the browser receives the same bytes
 
 - **`src/app/globals.css` (11,203 lines) is now 47 `@import`s** of

@@ -1,6 +1,5 @@
 import {
-  extractJsonText,
-  hasInternalTerms,
+  parseLlmJsonObject,
   sanitizeString,
   sanitizeStringArray
 } from "@/lib/llm/output-sanitization";
@@ -18,44 +17,13 @@ export interface ValidatedTechnologyLearningPathOutput {
 export function validateTechnologyLearningPathLlmOutput(
   rawText: string
 ): ValidatedTechnologyLearningPathOutput {
-  let parsed: unknown;
+  const parsed = parseLlmJsonObject(rawText, allowedTopLevelFields);
 
-  try {
-    parsed = JSON.parse(extractJsonText(rawText));
-  } catch {
-    return {
-      ok: false,
-      fields: {},
-      warnings: [],
-      error: "LLM output was not valid JSON."
-    };
+  if (!parsed.ok) {
+    return { ok: false, fields: {}, warnings: [], error: parsed.error };
   }
 
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-    return {
-      ok: false,
-      fields: {},
-      warnings: [],
-      error: "LLM output must be a JSON object."
-    };
-  }
-
-  if (hasInternalTerms(parsed)) {
-    return {
-      ok: false,
-      fields: {},
-      warnings: [],
-      error: "LLM output contained internal-only fields or terms."
-    };
-  }
-
-  const parsedRecord = parsed as Record<string, unknown>;
-  const extraFields = Object.keys(parsedRecord).filter(
-    (key) => !allowedTopLevelFields.has(key)
-  );
-  const warnings = extraFields.map(
-    (field) => `Ignored unsupported LLM output field: ${field}.`
-  );
+  const { record: parsedRecord, warnings } = parsed;
 
   const overview = sanitizeString(parsedRecord.overview, 600);
   const steps = sanitizeStringArray(parsedRecord.steps, 6, 260);

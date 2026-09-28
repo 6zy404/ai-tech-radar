@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto";
 
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import { buildAiGenerationMetadata } from "@/lib/ai-generation-record";
 import { findRelationBetween, getAllTechnologies } from "@/lib/content";
 import { getLlmProviderConfig } from "@/lib/llm/provider";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
@@ -18,8 +20,6 @@ import type {
   TechnologyItem
 } from "@/types/content";
 
-const comparisonDisclaimer = "AI 生成内容，未经编辑审核，仅供参考。";
-
 export type TechnologyComparisonError =
   | { code: "invalid_pair"; message: string }
   | { code: "not_found"; message: string }
@@ -36,7 +36,7 @@ export function toPublicComparisonResult(
     technologyIdA: record.technologyIdA,
     technologyIdB: record.technologyIdB,
     fields: record.fields,
-    disclaimer: comparisonDisclaimer,
+    disclaimer: aiGeneratedDisclaimer,
     generatedAt: record.updatedAt
   };
 }
@@ -115,20 +115,15 @@ export async function generateOrGetTechnologyComparison(
             whenToPreferA: "",
             whenToPreferB: ""
           },
-      generationMode,
-      providerName: response.providerName,
-      modelName: response.modelName,
-      promptVersionId,
-      promptVersion,
-      outputValidationStatus: validation.ok
-        ? validation.warnings.length > 0
-          ? "warning"
-          : "valid"
-        : "failed",
-      outputValidationWarnings: validation.warnings,
-      generationError: validation.ok ? undefined : validation.error,
-      createdAt: cached?.createdAt ?? new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...buildAiGenerationMetadata({
+        generationMode,
+        providerName: response.providerName,
+        modelName: response.modelName,
+        promptVersionId,
+        promptVersion,
+        validation,
+        createdAt: cached?.createdAt
+      })
     };
 
     const savedRecord = saveTechnologyComparisonRecord(record);

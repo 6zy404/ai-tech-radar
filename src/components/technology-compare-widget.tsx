@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import type {
   TechnologyComparisonFields,
   TechnologyItem
@@ -17,8 +18,6 @@ interface TechnologyCompareWidgetProps {
   technology: Pick<TechnologyItem, "id">;
   candidates: CompareCandidate[];
 }
-
-const disclaimerText = "AI 生成内容，未经编辑审核，仅供参考。";
 
 export function TechnologyCompareWidget({
   technology,
@@ -106,7 +105,7 @@ export function TechnologyCompareWidget({
       {fields ? (
         <div className="technology-compare-widget__result">
           <p className="technology-compare-widget__disclaimer">
-            {disclaimerText}
+            {aiGeneratedDisclaimer}
           </p>
 
           {fields.similarities.length > 0 ? (

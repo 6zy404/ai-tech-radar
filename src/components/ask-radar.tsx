@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 
+import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import type { AskEvent, AskSource } from "@/lib/ask-radar";
 import { splitAnswerWithCitations } from "@/lib/ask-radar-citations";
-
-const disclaimerText = "AI 生成内容，未经编辑审核，仅供参考。";
 
 const kindLabels: Record<AskSource["kind"], string> = {
   technology: "技术信号",
@@ -268,7 +267,7 @@ export function AskRadar({
 
       {hasRun ? (
         <section className="ask-radar__result" aria-live="polite">
-          <p className="ask-radar__disclaimer">{disclaimerText}</p>
+          <p className="ask-radar__disclaimer">{aiGeneratedDisclaimer}</p>
 
           {state.statuses.length > 0 ? (
             <ul className="ask-radar__statuses">

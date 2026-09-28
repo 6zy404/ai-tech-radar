@@ -8,6 +8,8 @@
 // *new* inputs. /api/ask has no cache (every question is new), so for it this
 // is the whole cost guard, together with its per-round token cap.
 
+import { NextResponse } from "next/server";
+
 import {
   createRateLimiter,
   getRateLimitClientKey,
@@ -132,6 +134,60 @@ export function checkPublicAiRequestOrigin(
   }
 
   return { ok: true };
+}
+
+export const publicAiInvalidBodyMessage = "请求格式不正确。";
+
+export type PublicAiGuardOutcome =
+  { ok: true; body: unknown } | { ok: false; response: NextResponse };
+
+// The opening every public AI route shares, in the order that matters: the
+// rate limit first (so a spent budget costs nothing, not even a body read),
+// then the request-shape guard, then the JSON body. Until 2026-09-28 each of
+// the four routes carried its own copy of these ~25 lines; one function means
+// a fifth route cannot get the order wrong or leave a step out.
+export async function guardPublicAiRequest(
+  request: Request,
+  routeId: PublicAiRouteId
+): Promise<PublicAiGuardOutcome> {
+  const rateLimit = checkPublicAiRateLimit(request, routeId);
+
+  if (!rateLimit.allowed) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: publicAiRateLimitMessage },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rateLimit.retryAfterSeconds) }
+        }
+      )
+    };
+  }
+
+  const origin = checkPublicAiRequestOrigin(request);
+
+  if (!origin.ok) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: origin.message },
+        { status: origin.status }
+      )
+    };
+  }
+
+  try {
+    return { ok: true, body: await request.json() };
+  } catch {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: publicAiInvalidBodyMessage },
+        { status: 400 }
+      )
+    };
+  }
 }
 
 // Test/ops helper: drops all tracked windows. Not called by any route.
