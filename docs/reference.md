@@ -433,6 +433,24 @@ leak checks to `visual-qa-screenshots/`. It is a manual local step; sandbox runs
 may fail to launch Chromium (`spawn EPERM`), which is an environment limitation,
 not a project failure.
 
+### Computed-style diff (structural CSS changes)
+
+```bash
+npm run css:diff -- capture before.json
+npm run css:diff -- capture after.json --routes-from before.json
+npm run css:diff -- diff before.json after.json
+```
+
+For CSS refactors that must change nothing. `capture` drives the installed
+Chrome (headless) over ~63 public and workspace routes at 1440 light, 1440 dark
+and 390, recording every element's full computed style and box plus the exact
+stylesheet text each page received; `diff` compares two captures. It refuses
+port 3000 (the live site): serve each build on its own port
+(`NEXT_DIST_DIR=… next build`, then `next start -p 3100`) against a copy of the
+data. A clean result means something only after a same-build control reads 0
+and a deliberate probe (`--probe "<css>"`, or a real edit in its own build)
+reads non-zero — see `docs/design-system.md` → "Splitting globals.css".
+
 ## Local state files
 
 Runtime workflow state lives in `config/` as JSON (the default fallback store):
@@ -447,7 +465,9 @@ suggestions, and prompt versions. Set
 
 ## Project structure
 
-- `src/app` — App Router pages and API routes
+- `src/app` — App Router pages and API routes; `src/app/styles/` holds the
+  global stylesheet as 47 numbered files that `globals.css` imports in
+  cascade order
 - `src/components` — shared workspace and user-facing UI
 - `src/data` — bundled mock technology/skill/knowledge/tag/relation and fallback
   import data
