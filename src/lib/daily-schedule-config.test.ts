@@ -26,12 +26,12 @@ afterEach(() => {
 });
 
 async function makeStore() {
-  const module = await import("@/lib/daily-schedule-config");
-  const store = module.createDailyScheduleConfigStore<
+  const scheduleConfig = await import("@/lib/daily-schedule-config");
+  const store = scheduleConfig.createDailyScheduleConfigStore<
     "never_run" | "success" | "failed"
   >("test-schedule.json", ["success", "failed"]);
 
-  return { ...module, store };
+  return { ...scheduleConfig, store };
 }
 
 const storeFile = () => path.join(dataDir, "test-schedule.json");
