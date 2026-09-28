@@ -68,8 +68,8 @@
   ~~① 三个 AI 缓存（compare / explain / learning-path）的 store 归一化、输出
   解析、公开映射~~（2026-09-28 已收，重复降到 7.4%）；~~② 四条公开 AI 路由开头的限流与来源校验~~（2026-09-28 已收成
   `guardPublicAiRequest`）；③ 技能 / 知识的 workflow、
-  编辑表单、工作台列表页、详情页（这是兄弟页面，本该共用组件）；④ enrichment 的
-  apply / reject / review 三条路由；⑤ 定时导入与定时简报的配置和操作组件。
+  编辑表单、工作台列表页、详情页（这是兄弟页面，本该共用组件）；~~④ enrichment
+  的 apply / reject / review 三条路由~~（2026-09-28 已收，7.2%）；⑤ 定时导入与定时简报的配置和操作组件。
   `validate-*` 脚本重复率也高，但每个脚本各自独立，暂不动。
 - `scripts/*.test.mjs` 是纯 JS，不在类型检查范围内（`allowJs` 关着）；三个文件，
   都很小，暂不处理。

@@ -12,6 +12,23 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The enrichment routes share one request parser
+
+- **Cluster ④ of the copy-paste list** (2026-09-28). The four workspace
+  enrichment routes (generate, and apply / reject / review a suggestion) each
+  carried their own `isRecord`, field-name filter, quality-label filter,
+  three `revalidatePath` calls and 500 handler. They now import them from
+  `src/app/api/workspace/technologies/[id]/enrichment/parse.ts`, the same
+  sibling-`parse.ts` shape the skill and knowledge routes already use.
+- **One behaviour kept on purpose**: apply still ignores a
+  `rejectionReason` in its body, as it always did, so an accepted suggestion
+  cannot carry a rejection note.
+- Checked against a dev server on a throwaway copy of the data: generate with
+  a non-object body falls back to `rule_based`; review and reject drop an
+  unknown quality label; apply drops an unknown field name, records
+  `partially_accepted` and no rejection reason; a missing suggestion answers
+  `500` with the same message. Duplicated lines 7.4% → **7.2%**.
+
 ## The three AI caches share their bookkeeping
 
 - **Cluster ① of the copy-paste list** (2026-09-28). Comparison, explanation
