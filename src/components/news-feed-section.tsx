@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { NewsCardSignalLink, NewsCardTags } from "@/components/news-card-parts";
 import { DossierCard } from "@/components/dossier-card";
 import { getTodayDateString } from "@/lib/digest-store";
 import {
@@ -37,21 +36,8 @@ function NewsCard({ item }: { item: PublicNewsItem }) {
         </a>
       </h3>
       {item.summary ? <p>{item.summary}</p> : null}
-      {item.tags.length > 0 ? (
-        <div className="news-card__tags">
-          {item.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-      ) : null}
-      {item.publishedTechnology ? (
-        <Link
-          className="news-card__signal"
-          href={`/technologies/${item.publishedTechnology.slug}`}
-        >
-          已收录为精选技术信号：{item.publishedTechnology.title}
-        </Link>
-      ) : null}
+      <NewsCardTags tags={item.tags} />
+      <NewsCardSignalLink technology={item.publishedTechnology} />
     </DossierCard>
   );
 }

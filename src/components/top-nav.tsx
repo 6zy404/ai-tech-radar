@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { SearchGlyph } from "@/components/search-glyph";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const primaryNavItems = [
@@ -160,30 +161,7 @@ export function TopNav() {
               aria-expanded={searchOpen}
               onClick={() => setSearchOpen((open) => !open)}
             >
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 15 15"
-                fill="none"
-                aria-hidden="true"
-              >
-                <circle
-                  cx="6.5"
-                  cy="6.5"
-                  r="4.5"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                />
-                <line
-                  x1="10"
-                  y1="10"
-                  x2="13.5"
-                  y2="13.5"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <SearchGlyph />
             </button>
           </div>
 

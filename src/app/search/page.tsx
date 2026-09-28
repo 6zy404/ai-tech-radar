@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { NewsCardSignalLink, NewsCardTags } from "@/components/news-card-parts";
+import { SearchGlyph } from "@/components/search-glyph";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -59,13 +61,7 @@ function SearchResultCard({ item }: { item: HybridSearchResultLink }) {
       {item.meta ? (
         <div className="search-result__meta">{item.meta}</div>
       ) : null}
-      {item.tags.length > 0 ? (
-        <div className="news-card__tags">
-          {item.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-      ) : null}
+      <NewsCardTags tags={item.tags} />
     </DossierCard>
   );
 }
@@ -83,21 +79,8 @@ function SearchNewsCard({ item }: { item: PublicNewsItem }) {
         <span className="news-card__source">{item.sourceName}</span>
         <span>{item.publishDate}</span>
       </div>
-      {item.tags.length > 0 ? (
-        <div className="news-card__tags">
-          {item.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-      ) : null}
-      {item.publishedTechnology ? (
-        <Link
-          className="news-card__signal"
-          href={`/technologies/${item.publishedTechnology.slug}`}
-        >
-          已收录为精选技术信号：{item.publishedTechnology.title}
-        </Link>
-      ) : null}
+      <NewsCardTags tags={item.tags} />
+      <NewsCardSignalLink technology={item.publishedTechnology} />
     </DossierCard>
   );
 }
@@ -154,30 +137,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     >
       <form className="search-form" action="/search" method="get">
         <div className="dossier-search">
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 15 15"
-            fill="none"
-            aria-hidden="true"
-          >
-            <circle
-              cx="6.5"
-              cy="6.5"
-              r="4.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
-            />
-            <line
-              x1="10"
-              y1="10"
-              x2="13.5"
-              y2="13.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-          </svg>
+          <SearchGlyph />
           <input
             type="search"
             name="q"
