@@ -8,6 +8,16 @@ import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierSearchInput } from "@/components/dossier-search-input";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import type { ContentGraphEdge, ContentGraphNode } from "@/lib/content";
+import {
+  clamp,
+  easeOutCubic,
+  gridLayout,
+  interpolateLayout,
+  type LayoutPositions,
+  PAD,
+  settleForceLayout,
+  VIEW_SIZE
+} from "@/lib/network-layout";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
 
 interface ContentNetworkGraphProps {
@@ -15,23 +25,14 @@ interface ContentNetworkGraphProps {
   edges: ContentGraphEdge[];
 }
 
-type Point = { x: number; y: number };
-type PositionMap = Record<string, Point>;
-
 interface PositionedNode extends ContentGraphNode {
   x: number;
   y: number;
 }
 
-// Hand-written force-directed layout (Fruchterman-Reingold style): nodes
-// repel each other, edges pull their endpoints together, and a weak
-// centering force keeps the graph from drifting off-canvas. The coordinate
-// space is a 0-100 square matching the canvas's 1:1 CSS aspect-ratio, so
-// on-screen distances line up with the physics distances (no distortion).
-const VIEW_SIZE = 100;
-const PAD = 6;
-const SIM_FRAMES = 150;
-const SIM_START_TEMPERATURE = 10;
+// How long the nodes take to travel from the server-rendered grid to the
+// settled layout. The layout maths itself lives in `@/lib/network-layout`.
+const UNFOLD_MS = 700;
 
 const kindOrder: ContentGraphNode["kind"][] = [
   "technology",
@@ -50,10 +51,6 @@ const kindFilterOptions = [
   ...kindOrder.map((kind) => ({ value: kind, label: kindLabel[kind] }))
 ];
 
-function clamp(value: number, min: number, max: number): number {
-  return Math.min(max, Math.max(min, value));
-}
-
 // A node/edge is dimmed only if it fails every currently-active highlight
 // criterion (search, category filter, selection). With two independent
 // lenses active at once, this is a union: something visible under either
@@ -62,166 +59,6 @@ function clamp(value: number, min: number, max: number): number {
 // entire graph to nothing.
 function isDimmedByActiveChecks(checks: boolean[]): boolean {
   return checks.length > 0 && !checks.some(Boolean);
-}
-
-// Deterministic (not Math.random), so the server-rendered markup and the
-// client's first paint agree before the physics effect starts animating it.
-function hashId(id: string): number {
-  let hash = 0;
-
-  for (let i = 0; i < id.length; i += 1) {
-    hash = (hash * 31 + id.charCodeAt(i)) | 0;
-  }
-
-  return Math.abs(hash);
-}
-
-// Server-safe: a plain grid using only +/-/*//, which the spec guarantees
-// produces bit-identical results on any engine. Used for the very first
-// render (SSR + hydration) so there is nothing for React to mismatch on.
-function gridLayout(nodes: ContentGraphNode[]): PositionMap {
-  const positions: PositionMap = {};
-  const usable = VIEW_SIZE - PAD * 2;
-  const columns = Math.max(1, Math.ceil(Math.sqrt(nodes.length)));
-  const rows = Math.max(1, Math.ceil(nodes.length / columns));
-
-  nodes.forEach((node, index) => {
-    const column = index % columns;
-    const row = Math.floor(index / columns);
-
-    positions[node.id] = {
-      x: PAD + ((column + 0.5) * usable) / columns,
-      y: PAD + ((row + 0.5) * usable) / rows
-    };
-  });
-
-  return positions;
-}
-
-// Client-only starting scatter for the physics animation. Math.cos/Math.sin
-// are not spec-guaranteed to be bit-identical across engines, so this must
-// never be used for the initial render state — only applied from inside an
-// effect, after hydration has already completed.
-function scatterLayout(nodes: ContentGraphNode[]): PositionMap {
-  const positions: PositionMap = {};
-
-  nodes.forEach((node) => {
-    const seed = hashId(node.id);
-    const angle = (seed % 360) * (Math.PI / 180);
-    const radius = 14 + (seed % 29);
-
-    positions[node.id] = {
-      x: clamp(VIEW_SIZE / 2 + Math.cos(angle) * radius, PAD, VIEW_SIZE - PAD),
-      y: clamp(VIEW_SIZE / 2 + Math.sin(angle) * radius, PAD, VIEW_SIZE - PAD)
-    };
-  });
-
-  return positions;
-}
-
-function stepForceLayout(
-  positions: PositionMap,
-  nodes: ContentGraphNode[],
-  edges: ContentGraphEdge[],
-  temperature: number,
-  pinnedId: string | null
-): PositionMap {
-  // The 1.2 is measured, not tuned by eye. The bare sqrt spaces nodes to fill
-  // the canvas exactly, which leaves no room for the dot's own diameter once
-  // the graph is dense — this page has grown from the 33 nodes the layout was
-  // written for in 2026-07-15 to 94 nodes and 504 edges. Raising it spreads
-  // the cloud without pushing anything against the padding wall: measured over
-  // repeated loads at 1440 and 390, overlapping hit areas go 21 → 15 and
-  // 213 → 155, overlapping dots 12 → 7 at 390, and nodes outside the canvas
-  // stay at 0 with the cloud filling 89% of it.
-  const idealDistance =
-    1.2 * Math.sqrt((VIEW_SIZE * VIEW_SIZE) / Math.max(nodes.length, 1));
-  const displacement: PositionMap = {};
-
-  nodes.forEach((node) => {
-    displacement[node.id] = { x: 0, y: 0 };
-  });
-
-  for (let i = 0; i < nodes.length; i += 1) {
-    for (let j = i + 1; j < nodes.length; j += 1) {
-      const a = nodes[i].id;
-      const b = nodes[j].id;
-      const pa = positions[a];
-      const pb = positions[b];
-
-      if (!pa || !pb) {
-        continue;
-      }
-
-      const dx = pa.x - pb.x;
-      const dy = pa.y - pb.y;
-      const distance = Math.sqrt(dx * dx + dy * dy) || 0.01;
-      const force = (idealDistance * idealDistance) / distance;
-
-      displacement[a].x += (dx / distance) * force;
-      displacement[a].y += (dy / distance) * force;
-      displacement[b].x -= (dx / distance) * force;
-      displacement[b].y -= (dy / distance) * force;
-    }
-  }
-
-  edges.forEach((edge) => {
-    const pa = positions[edge.sourceId];
-    const pb = positions[edge.targetId];
-
-    if (!pa || !pb) {
-      return;
-    }
-
-    const dx = pa.x - pb.x;
-    const dy = pa.y - pb.y;
-    const distance = Math.sqrt(dx * dx + dy * dy) || 0.01;
-    const force = (distance * distance) / idealDistance;
-
-    displacement[edge.sourceId].x -= (dx / distance) * force;
-    displacement[edge.sourceId].y -= (dy / distance) * force;
-    displacement[edge.targetId].x += (dx / distance) * force;
-    displacement[edge.targetId].y += (dy / distance) * force;
-  });
-
-  const center = VIEW_SIZE / 2;
-
-  nodes.forEach((node) => {
-    const p = positions[node.id];
-
-    if (!p) {
-      return;
-    }
-
-    displacement[node.id].x += (center - p.x) * 0.01;
-    displacement[node.id].y += (center - p.y) * 0.01;
-  });
-
-  const next: PositionMap = {};
-
-  nodes.forEach((node) => {
-    const p = positions[node.id];
-
-    if (!p) {
-      return;
-    }
-
-    if (node.id === pinnedId) {
-      next[node.id] = p;
-      return;
-    }
-
-    const d = displacement[node.id];
-    const dLength = Math.sqrt(d.x * d.x + d.y * d.y) || 0.01;
-    const limited = Math.min(dLength, temperature);
-
-    next[node.id] = {
-      x: clamp(p.x + (d.x / dLength) * limited, PAD, VIEW_SIZE - PAD),
-      y: clamp(p.y + (d.y / dLength) * limited, PAD, VIEW_SIZE - PAD)
-    };
-  });
-
-  return next;
 }
 
 export function ContentNetworkGraph({
@@ -233,7 +70,7 @@ export function ContentNetworkGraph({
   const [kindFilter, setKindFilter] = useState("");
   const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
-  const [positions, setPositions] = useState<PositionMap>(() =>
+  const [positions, setPositions] = useState<LayoutPositions>(() =>
     gridLayout(nodes)
   );
   const draggingIdRef = useRef<string | null>(null);
@@ -248,28 +85,49 @@ export function ContentNetworkGraph({
   );
 
   useEffect(() => {
-    // Safe to use Math.cos/Math.sin here: this effect only runs client-side,
-    // after hydration has already reconciled against the SSR-safe grid.
-    setPositions(scatterLayout(nodes));
+    // The simulation runs to its end here, unpainted, and only the result is
+    // shown. Painting its steps is what made this page convulse — see
+    // `@/lib/network-layout`. Safe to use Math.cos/Math.sin: this effect only
+    // runs client-side, after hydration has reconciled against the grid.
+    const settled = settleForceLayout(nodes, edges);
 
-    let frame = 0;
+    // Keeps a node the reader has already picked up where they put it.
+    const keepDragged = (next: LayoutPositions, prev: LayoutPositions) => {
+      const draggingId = draggingIdRef.current;
+
+      return draggingId && prev[draggingId]
+        ? { ...next, [draggingId]: prev[draggingId] }
+        : next;
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setPositions((prev) => keepDragged(settled, prev));
+      return;
+    }
+
+    // One straight glide from the server-rendered grid. It is driven by
+    // elapsed time, not by a frame count, so a tab that was opened in the
+    // background arrives at the settled layout instead of resuming mid-way.
+    const from = gridLayout(nodes);
+    const startedAt = performance.now();
     let raf = 0;
 
-    const step = () => {
-      const temperature = SIM_START_TEMPERATURE * (1 - frame / SIM_FRAMES);
+    const tick = (now: number) => {
+      const progress = (now - startedAt) / UNFOLD_MS;
 
       setPositions((prev) =>
-        stepForceLayout(prev, nodes, edges, temperature, draggingIdRef.current)
+        keepDragged(
+          interpolateLayout(from, settled, easeOutCubic(progress)),
+          prev
+        )
       );
 
-      frame += 1;
-
-      if (frame < SIM_FRAMES) {
-        raf = requestAnimationFrame(step);
+      if (progress < 1) {
+        raf = requestAnimationFrame(tick);
       }
     };
 
-    raf = requestAnimationFrame(step);
+    raf = requestAnimationFrame(tick);
 
     return () => cancelAnimationFrame(raf);
     // Layout only needs to restart when the set of nodes/edges actually

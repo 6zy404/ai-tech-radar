@@ -529,6 +529,12 @@ Workspace deployment boundary:
     real topology — not a fixed technology/skill/knowledge lane split — drives
     the layout, with an edge for every declared relationship and its semantic
     type
+  - the simulation is **computed to its end and never painted** (since
+    2026-09-28, `src/lib/network-layout.ts`). On load the nodes make one
+    700ms glide from the server-rendered grid to the settled layout, and
+    arrive there at once under `prefers-reduced-motion`. Painting the 150
+    steps made the page convulse: on the real graph nodes reversed direction
+    on 93.5% of the frames in which they moved
   - a search box highlights matching node titles; category chips filter by
     kind (technology/skill/knowledge); hovering an edge shows its relation
     label; nodes can be dragged to reposition them; search/filter and node
