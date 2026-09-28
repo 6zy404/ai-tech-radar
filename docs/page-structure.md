@@ -602,6 +602,9 @@ Workspace deployment boundary:
     a "图谱关联" section listing the topic's direct graph neighbors (via
     `getContentGraph()`, excluding nodes already shown in the three
     sections above) with their relation-type label
+  - each 图谱关联 row is the same two-column grid as the `/network` side
+    panel's connection list: the relation stamp on the left never wraps, the
+    title wraps in its own column (2026-09-29)
   - `notFound()` for an unknown tag id or a tag with no published content in
     any of the three pools (`getTopicHub` in `src/lib/topic-hub.ts`)
   - published-content only; no internal fields, no new AI calls, no new
