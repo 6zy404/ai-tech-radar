@@ -8397,19 +8397,56 @@ a.tech-graph__node:hover {
   font-size: var(--fs-label);
 }
 
+.content-network__panel-group {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(100, 116, 139, 0.24);
+}
+
 .content-network__panel-list {
   display: grid;
   gap: 10px;
-  margin: 14px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Two columns, so every row has the same shape. Until 2026-09-28 this was a
+   wrapping flex row: a title that fitted sat beside its tag and one that did
+   not dropped whole onto the next line, so one list showed two layouts. The
+   tag column is as wide as a tag — they are all two characters — and the
+   title wraps inside its own column. */
 .content-network__panel-list li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
   gap: 8px;
+}
+
+.content-network__panel-list .dossier-stamp-tag {
+  white-space: nowrap;
+}
+
+/* The tag is 22px tall and the title's first line 21px; this puts the title's
+   first line on the tag's centre line when the title runs to several. */
+.content-network__panel-list a {
+  padding-top: 1px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* A well-connected node has forty-odd rows. On a desktop layout the panel is
+   sticky beside the graph, so it is capped at the space below its sticky
+   offset and scrolls inside itself — otherwise its lower half could only be
+   reached by scrolling the graph out of view. Below 860px the panel is in the
+   page flow and scrolls with it. */
+@media (min-width: 861px) {
+  .content-network__panel {
+    max-height: calc(100vh - 96px - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
 }
 
 .content-network__panel-empty {
@@ -10843,6 +10880,10 @@ a.tech-graph__node:hover {
   border-top-color: var(--dossier-line);
 }
 
+.dossier .content-network__panel-group {
+  border-top-color: var(--dossier-line);
+}
+
 .dossier .content-network__edge {
   stroke: var(--dossier-line);
 }
@@ -11024,6 +11065,10 @@ a.tech-graph__node:hover {
 :root[data-theme="dark"]
   .dossier
   .tech-graph
+  .tech-graph__group-label--knowledge,
+:root[data-theme="dark"]
+  .dossier
+  .content-network__panel
   .tech-graph__group-label--knowledge {
   color: #7fb2e5;
 }

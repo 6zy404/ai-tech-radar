@@ -12,6 +12,36 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## One list on the network page showed two layouts
+
+- **Reported by the owner with a screenshot, 2026-09-28**: in the side panel
+  of `/network`, a connection whose title fitted sat beside its relation pill,
+  and one whose title did not dropped whole onto the line below. Short and long
+  titles alternate, so the list read as ragged.
+- **Cause**: each row was a wrapping flex row. A flex item that does not fit
+  moves to the next line as a unit, so whether a row had one shape or the other
+  depended on the length of its title.
+- **Every row is a two-column grid now** — the pill in a column as wide as a
+  pill (they are all two characters), the title wrapping inside its own column.
+  Measured on the node with the most connections, 45 rows, at 1440 and at 390:
+  one x position for every pill, one for every title, **0 titles below their
+  pill**, 0 rows past the panel's edge, no horizontal page overflow.
+- **The list is grouped by kind** (技术 · 40 / 知识 · 5), using the label the
+  detail pages' per-item relationship view already has, so the two read as one
+  family. It had been a single column in title order with nothing to say which
+  rows were signals and which were skills.
+- **The panel is capped and scrolls inside itself above 860px.** It is sticky
+  beside the graph, and with 45 rows its content is 3,393px tall; uncapped, the
+  lower rows could only be reached by scrolling the graph out of view. Below
+  860px it stays in the page flow.
+- **Looked at** at 1440 light, 1440 dark and 390 dark (the owner's case), with
+  the panel scrolled to its end in dark. Group labels measure 4.84 and 6.4
+  against the dark panel, titles 11.5. The knowledge label needed its dark
+  colour extended to this panel; the existing rule was scoped to the detail
+  pages.
+- Left as it is: the panel is 280px wide, so a long title runs to three or four
+  lines. Widening it would shrink the graph.
+
 ## Test files are type-checked; six fixtures had never been valid
 
 - **`tsconfig.json` no longer excludes `**/*.test.ts`, `test-factories.ts` or

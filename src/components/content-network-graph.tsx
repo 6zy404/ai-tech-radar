@@ -221,6 +221,22 @@ export function ContentNetworkGraph({
       .sort((a, b) => a.node.title.localeCompare(b.node.title, "zh"));
   }, [selectedEdges, selectedId, positionById]);
 
+  // Grouped by kind, the way the per-item relationship view on the detail
+  // pages groups them. A node can have forty-odd connections; mixed together
+  // in title order they read as one undifferentiated column.
+  const connectionGroups = useMemo(
+    () =>
+      kindOrder
+        .map((kind) => ({
+          kind,
+          items: connections.filter(
+            (connection) => connection.node.kind === kind
+          )
+        }))
+        .filter((group) => group.items.length > 0),
+    [connections]
+  );
+
   const hoveredEdge = useMemo(() => {
     if (!hoveredEdgeId) {
       return null;
@@ -464,19 +480,37 @@ export function ContentNetworkGraph({
               <Link className="action-link" href={selectedNode.href}>
                 查看详情
               </Link>
-              {connections.length > 0 ? (
-                <ul className="content-network__panel-list">
-                  {connections.map((connection) => (
-                    <li key={connection.id}>
-                      <DossierStampTag>
-                        {getRelationTypeLabel(connection.relationType, "zh")}
-                      </DossierStampTag>
-                      <Link href={connection.node.href}>
-                        {connection.node.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              {connectionGroups.length > 0 ? (
+                connectionGroups.map((group) => (
+                  <div
+                    className="content-network__panel-group"
+                    key={group.kind}
+                  >
+                    {/* A <div>, not a <p>: `.user-shell p` pins paragraphs to
+                        body size. Same label as the detail pages' per-item
+                        relationship view, so the two read as one family. */}
+                    <div
+                      className={`tech-graph__group-label tech-graph__group-label--${group.kind}`}
+                    >
+                      {kindLabel[group.kind]} · {group.items.length}
+                    </div>
+                    <ul className="content-network__panel-list">
+                      {group.items.map((connection) => (
+                        <li key={connection.id}>
+                          <DossierStampTag>
+                            {getRelationTypeLabel(
+                              connection.relationType,
+                              "zh"
+                            )}
+                          </DossierStampTag>
+                          <Link href={connection.node.href}>
+                            {connection.node.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
               ) : (
                 <p className="content-network__panel-empty">
                   暂无已记录的连接。
