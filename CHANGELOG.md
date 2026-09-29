@@ -53,6 +53,54 @@ For per-topic deep dives, see the `docs/` directory.
   internal field names. `src/components/json-ld.tsx` is a server component,
   so the data adds nothing to a client bundle.
 
+## 跳到正文 and one keyboard focus ring
+
+- **2026-09-29.** Every page, public and workspace, now starts with a
+  「跳到正文」 link as its first tab stop. It is invisible until focused, then
+  appears at the top left above the sticky nav. Activating it moves focus into
+  the page: the layout's `<main id="main-content" tabIndex={-1}>`, or on
+  workspace pages the content column after the rail
+  (`#workspace-content`), so a keyboard user skips the dozen rail links too
+  (`src/components/skip-link.tsx`, ids in `src/lib/skip-link-targets.ts`).
+  The href works without JavaScript; the click handler only picks the
+  workspace target and avoids writing a fragment into the URL.
+- **The focus ring was measured before it was changed.** A script focused
+  every focusable element on 11 pages at 1440px, light and dark, and read the
+  outline against the ground behind it. Only one global `:focus-visible` rule
+  existed, and it passed almost everywhere (4.4–5.4:1). Four places did not:
+  - the top nav in dark mode, which sits outside `.dossier` and so kept the
+    light accent: **3.14:1**, now 5.82:1;
+  - the workspace rail, teal on navy: **3.22:1**, now 5.96:1;
+  - the search pill on `/technologies` and `/network`: the input removed its
+    outline and the only cue was a 1px border colour change. On `/search` and
+    `/ask` the same pill drew its ring on the inner input instead. All four
+    now draw the ring on the pill (`.dossier-search:has(input:focus-visible)`);
+  - the collapsed search box in the top nav was a tab stop while 0px wide and
+    clipped, so Tab landed on nothing. It is out of the tab order until the
+    toggle opens it.
+- **One token, two colours, both existing.** `--focus-ring` is `#0f766e`
+  (the light accent) on light grounds and `#6fa090` (the dark dossier accent)
+  on dark ones. It follows the ground, not the theme: the workspace board stays
+  light in dark mode and keeps `#0f766e`, and the rail is dark in both themes
+  and uses `#6fa090`. The editorial-round summary's own rule now reads the
+  token too.
+- **Nothing outside the focus state moved.** Computed styles of every element
+  (and its `::before` / `::after`) on six pages (home, `/technologies`, a
+  signal, `/digest/today`, `/network`, `/workspace`) were captured before
+  and after, in both themes. A same-code control recapture read 0. Before the
+  new token was excluded, the harness flagged it on every element and
+  pseudo-element, which shows it does detect a change. After excluding it:
+  0 differences on every page and theme. The signal page also showed 28 nodes
+  marked new: Next dev's streamed `<title>`/`<meta>`/`<template>` in
+  `<body>`, not this change.
+- **A second `<main>` removed.** `UserArticleLayout` rendered its reading
+  column as a `<main>` inside the layout's `<main>`, which made two main
+  landmarks. It is a `<div>` now; the computed-style diff confirms nothing
+  changed.
+- Clicking a button draws no ring. Clicking into a text field does, because
+  browsers always match `:focus-visible` for text inputs; `/search` and
+  `/ask` behaved this way before.
+
 ## Previous / next on the digest and the weekly review
 
 - **2026-09-29.** Every public digest page (`/digest/[date]`, and the issue

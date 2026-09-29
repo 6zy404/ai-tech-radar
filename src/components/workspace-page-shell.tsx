@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { PageHeader } from "@/components/page-header";
 import { WorkspaceBreadcrumbs } from "@/components/workspace-breadcrumbs";
 import { WorkspaceNav } from "@/components/workspace-nav";
+import { workspaceContentId } from "@/lib/skip-link-targets";
 
 interface WorkspacePageShellProps {
   title: string;
@@ -26,7 +27,11 @@ export function WorkspacePageShell({
   return (
     <div className={["workspace-shell", className].filter(Boolean).join(" ")}>
       <WorkspaceNav />
-      <div className="workspace-shell__content">
+      <div
+        id={workspaceContentId}
+        className="workspace-shell__content"
+        tabIndex={-1}
+      >
         <WorkspaceBreadcrumbs />
         <PageHeader
           variant="workspace"

@@ -21,7 +21,9 @@ export function UserArticleLayout({
     <article className={rootClassName}>
       <div className="user-article-layout__hero">{hero}</div>
       <div className="user-article-layout__body">
-        <main className="user-article-layout__main">{children}</main>
+        {/* A <div>, not a <main>: the layout's <main> already wraps every
+            page, and a second one inside it is a second main landmark. */}
+        <div className="user-article-layout__main">{children}</div>
         {aside ? (
           <aside className="user-article-layout__aside">{aside}</aside>
         ) : null}

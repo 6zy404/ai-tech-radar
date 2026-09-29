@@ -1,0 +1,45 @@
+/* components/skip-link: 跳到正文 (2026-09-29).
+   Visually hidden, not display:none, so it stays the first stop in the tab
+   order; on focus it appears at the top left, above the sticky top nav. It is
+   outside .dossier, so its dark variant is keyed off the root attribute like
+   the top nav's, with the same colours. */
+
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  z-index: 100;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link:focus {
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-strong);
+  color: var(--user-ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+:root[data-theme="dark"] .skip-link:focus {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: #2a2b23;
+  color: #e9e7dc;
+}
+
+/* The landing targets take focus so the next Tab starts inside the content,
+   but a ring around the whole page would say nothing. */
+#main-content:focus,
+#workspace-content:focus {
+  outline: none;
+}

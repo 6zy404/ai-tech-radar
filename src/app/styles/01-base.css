@@ -69,8 +69,28 @@ p {
   line-height: 1.7;
 }
 
+/* One keyboard focus ring for the whole site (2026-09-29). Two colours, both
+   existing tokens: the light accent on light grounds, the dark-mode dossier
+   accent on dark ones. Each is at least 3:1 against every ground it sits on
+   (measured over the public pages and the workspace, light and dark). The
+   ring follows the ground, not the theme, which is why the workspace board
+   (light even in dark mode) and its rail (dark in both) set their own.
+   Only :focus-visible — a mouse click never draws it. */
+:root {
+  --focus-ring: #0f766e;
+}
+
+:root[data-theme="dark"],
+.workspace-nav {
+  --focus-ring: #6fa090;
+}
+
+:root[data-theme="dark"] .workspace-shell__content {
+  --focus-ring: #0f766e;
+}
+
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
   border-radius: 4px;
 }

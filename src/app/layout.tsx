@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import { SkipLink } from "@/components/skip-link";
 import { TopNav } from "@/components/top-nav";
 import {
   buildFeedAlternateTypes,
@@ -8,6 +9,7 @@ import {
   siteDescription,
   siteName
 } from "@/lib/site-metadata";
+import { mainContentId } from "@/lib/skip-link-targets";
 import { themeStorageKey } from "@/lib/theme";
 
 import "./globals.css";
@@ -63,8 +65,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>
+        <SkipLink />
         <TopNav />
-        <main className="main-content">{children}</main>
+        <main id={mainContentId} className="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </body>
     </html>
   );

@@ -122,5 +122,6 @@
 @import "./styles/46-dossier-dark.css";
 @import "./styles/components/dossier-scope.css";
 @import "./styles/components/top-nav.css";
+@import "./styles/components/skip-link.css";
 @import "./styles/47-workspace-content-editing.css";
 @import "./styles/components/action-button.css";

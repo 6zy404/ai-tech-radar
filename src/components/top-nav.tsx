@@ -147,6 +147,9 @@ export function TopNav() {
                 name="q"
                 placeholder="搜索"
                 aria-label="搜索关键词"
+                // Collapsed, the box is 0px wide and clipped by its form, so
+                // it must not be a tab stop; the toggle focuses it on open.
+                tabIndex={searchOpen ? undefined : -1}
                 onKeyDown={(event) => {
                   if (event.key === "Escape") {
                     setSearchOpen(false);

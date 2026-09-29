@@ -13,11 +13,6 @@
   font-size: var(--fs-body);
 }
 
-.search-form input[type="search"]:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
-}
-
 /* Public site-wide search: /search page. */
 .search-form {
   display: flex;

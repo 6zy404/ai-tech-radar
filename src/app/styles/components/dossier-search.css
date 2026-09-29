@@ -36,6 +36,15 @@
   border-color: var(--dossier-accent);
 }
 
+/* The input has no ring of its own (its outline is removed above), so the
+   keyboard ring is drawn on the pill around it — the same ring as every
+   other control. Keyed on the input's :focus-visible, so a click into the
+   box keeps only the border change above. */
+.dossier-search:has(input:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 /* -- search -- */
 .dossier .search-form .dossier-search {
   flex: 1 1 260px;
