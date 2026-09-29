@@ -10,7 +10,7 @@ import { getTopicHub } from "@/lib/topic-hub";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
 import type { ContentKind } from "@/types/content";
 import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/site-metadata";
+import { buildPageMetadata, siteName } from "@/lib/site-metadata";
 
 interface TopicHubPageProps {
   params: Promise<{ tagId: string }>;
@@ -35,7 +35,18 @@ export async function generateMetadata({
   return buildPageMetadata({
     title: `${hub.tag.name} · 专题`,
     description: hub.tag.description,
-    path: `/topics/${hub.tag.id}`
+    path: `/topics/${hub.tag.id}`,
+    // The feed route 404s for a topic with no published signal, which is
+    // also when the 订阅此话题 block below is left out.
+    feeds:
+      hub.technologies.length > 0
+        ? [
+            {
+              path: topicFeedPath(hub.tag.id),
+              title: `${siteName} · 话题：${hub.tag.name}`
+            }
+          ]
+        : []
   });
 }
 

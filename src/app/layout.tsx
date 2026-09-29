@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { TopNav } from "@/components/top-nav";
-import { getSiteUrl, siteDescription, siteName } from "@/lib/site-metadata";
+import {
+  buildFeedAlternateTypes,
+  getSiteUrl,
+  siteDescription,
+  siteName
+} from "@/lib/site-metadata";
 import { themeStorageKey } from "@/lib/theme";
 
 import "./globals.css";
@@ -15,6 +20,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: { default: siteName, template: `%s · ${siteName}` },
   description: siteDescription,
+  // For pages with no metadata of their own (the skill and knowledge detail
+  // pages); `buildPageMetadata` repeats these for every other page.
+  alternates: { types: buildFeedAlternateTypes() },
   openGraph: {
     siteName,
     locale: "zh_CN",

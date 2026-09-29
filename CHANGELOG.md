@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Feed autodiscovery: every page announces its feeds
+
+- **2026-09-29.** The site had four kinds of public feed — the digest RSS
+  (`/feed.xml`) and JSON Feed (`/feed.json`), the weekly review
+  (`/digest/weekly/feed.xml`) and one per topic (`/topics/[tagId]/feed.xml`)
+  — and no page's `<head>` mentioned any of them, so a feed reader or a
+  browser given a page URL found nothing to subscribe to.
+- **Every page** now carries `<link rel="alternate">` for the digest RSS
+  (「AI Tech Radar · 技术简报」) and JSON Feed (「… 技术简报（JSON）」,
+  `application/feed+json`). `/digest/weekly` and `/digest/weekly/[week]` add
+  「… 本周回顾」, and `/topics/[tagId]` adds 「… 话题：<name>」 — **only when the
+  topic has a published signal**, the same condition under which the feed
+  route answers 200 and the page shows its 订阅此话题 block. A page's own feed
+  is listed first, so a reader that takes the first alternate subscribes to
+  what the page is about.
+- **Built through the Metadata API**, not hand-written tags:
+  `buildPageMetadata` (`src/lib/site-metadata.ts`) takes an optional
+  `feeds` list and always emits the digest feeds beside it. It has to:
+  Next replaces the layout's `alternates` wholesale rather than merging it,
+  so a page that sets its canonical URL would otherwise drop the layout's
+  feeds. The layout declares the same digest feeds for the pages with no
+  metadata of their own (the skill and knowledge detail pages). 5 tests in
+  `src/lib/site-metadata.test.ts`.
+- **Verified on a dev server** by reading the served HTML: the home page,
+  `/technologies`, a skill page and a 404 carry the two digest links; the
+  weekly pages three; `/topics/tag-ai-agents` three, with its topic feed
+  first; each link appears once. Every announced path answered 200 with an
+  RSS or JSON body. No real topic has content but no signal (all 10 feeds
+  answer 200), so that branch was checked by temporarily tagging one skill in
+  the worktree's own data copy with a new tag: the hub rendered, its feed
+  404'd, and the head announced only the two digest feeds. Reverted after.
+  Hrefs are absolute via `metadataBase`, i.e. `NEXT_PUBLIC_SITE_URL`.
+
 ## 先读这些: skill and knowledge pages name what to read first
 
 - **2026-09-29.** The public skill and knowledge detail pages (one component,

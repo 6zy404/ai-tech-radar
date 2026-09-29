@@ -5,7 +5,7 @@ import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getWeeklyReview, getWeeklyReviewArchive } from "@/lib/weekly-review";
 import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/site-metadata";
+import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
 interface WeeklyReviewWeekPageProps {
   params: Promise<{ week: string }>;
@@ -30,7 +30,8 @@ export async function generateMetadata({
   return buildPageMetadata({
     title: `${data.rangeLabel} · 本周回顾`,
     description: `这一周有 ${data.totalCount} 条已发布技术信号：立即关注 ${data.highPriorityCount} 条，值得跟踪 ${data.watchCount} 条，覆盖 ${data.topicCount} 个话题。`,
-    path: `/digest/weekly/${data.weekKey}`
+    path: `/digest/weekly/${data.weekKey}`,
+    feeds: [weeklyReviewFeed]
   });
 }
 
