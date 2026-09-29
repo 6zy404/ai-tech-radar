@@ -153,6 +153,84 @@ describe("cleanFeedText", () => {
   });
 });
 
+describe("cleanFeedText — GitHub Blog's WordPress footer", () => {
+  const footer = (title: string) =>
+    `<p>The post <a href="https://github.blog/x/">${title}</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>`;
+
+  it("removes the footer and keeps the summary before it", () => {
+    expect(
+      cleanFeedText(
+        `<p>What is a developer to do when they need something more than a chat box? Enter canvases.</p>\n${footer("When chat is the wrong UI")}`
+      )
+    ).toBe(
+      "What is a developer to do when they need something more than a chat box? Enter canvases."
+    );
+  });
+
+  it("copes with punctuation in the title, and the old stored spacing", () => {
+    expect(
+      cleanFeedText(
+        `<p>Hot takes.</p>${footer("Should you read the code, is RAG dead, and did Skills kill MCP?")}`
+      )
+    ).toBe("Hot takes.");
+    expect(
+      cleanFeedText(
+        "Summary. The post AI-powered fuzzing with the GitHub Security Lab Taskflow Agent appeared first on The GitHub Blog ."
+      )
+    ).toBe("Summary.");
+  });
+
+  it("does not reach back to an earlier sentence starting 'The post '", () => {
+    expect(
+      cleanFeedText(
+        "The post office opened late. The post Foo appeared first on The GitHub Blog."
+      )
+    ).toBe("The post office opened late.");
+  });
+
+  it("reduces a footer-only description to nothing", () => {
+    expect(cleanFeedText(footer("Only a footer"))).toBe("");
+  });
+
+  it("leaves the sentence alone mid-text, for other sites, and for near misses", () => {
+    const middle =
+      "The post Foo appeared first on The GitHub Blog. Then the body goes on.";
+    expect(cleanFeedText(middle)).toBe(middle);
+    expect(
+      cleanFeedText("Summary. The post Foo appeared first on Some Other Blog.")
+    ).toBe("Summary. The post Foo appeared first on Some Other Blog.");
+    expect(
+      cleanFeedText("Summary. This post appeared first on The GitHub Blog.")
+    ).toBe("Summary. This post appeared first on The GitHub Blog.");
+    expect(
+      cleanFeedText(
+        "Summary. The post Foo was first published on The GitHub Blog."
+      )
+    ).toBe("Summary. The post Foo was first published on The GitHub Blog.");
+  });
+});
+
+describe("cleanFeedText — an empty GitHub release body", () => {
+  it("reduces 'No content.' to nothing, loosely on case, period and space", () => {
+    expect(cleanFeedText("No content.")).toBe("");
+    expect(cleanFeedText("  no content  ")).toBe("");
+    expect(cleanFeedText("<p>NO CONTENT .</p>")).toBe("");
+  });
+
+  it("keeps the words anywhere they are not the whole text", () => {
+    expect(cleanFeedText("Fixes a crash. No content.")).toBe(
+      "Fixes a crash. No content."
+    );
+    expect(cleanFeedText("No content. Fixes a crash.")).toBe(
+      "No content. Fixes a crash."
+    );
+    expect(cleanFeedText("No content changes in this release.")).toBe(
+      "No content changes in this release."
+    );
+    expect(cleanFeedText("No contents.")).toBe("No contents.");
+  });
+});
+
 describe("isFeedBoilerplateOnly", () => {
   it("recognises a stored InfoQ original, raw or already cleaned", () => {
     expect(
@@ -161,6 +239,18 @@ describe("isFeedBoilerplateOnly", () => {
       )
     ).toBe(true);
     expect(isFeedBoilerplateOnly("点击查看原文>")).toBe(true);
+  });
+
+  it("recognises the other two feeds' boilerplate standing alone", () => {
+    expect(isFeedBoilerplateOnly("No content.")).toBe(true);
+    expect(
+      isFeedBoilerplateOnly("The post Foo appeared first on The GitHub Blog.")
+    ).toBe(true);
+    expect(
+      isFeedBoilerplateOnly(
+        "Summary. The post Foo appeared first on The GitHub Blog."
+      )
+    ).toBe(false);
   });
 
   it("is false for real text, empty text and markup with no phrase", () => {

@@ -12,6 +12,38 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The narrow-screen menu closes on Esc and outside clicks; two more feed boilerplates
+
+- **2026-09-30.** On `/workspace/*` the 内部工作台 entry never looked current:
+  `.top-nav__link--workspace` sets its colour, background and border after
+  `.top-nav__link--active`, at the same specificity, so it won — in the
+  narrow-screen panel, on the desktop bar, and in the dark theme (whose
+  workspace rule also comes after its active rule). A compound
+  `.top-nav__link--workspace.top-nav__link--active` rule, light and dark,
+  puts the accent back; the inactive pill is unchanged. Before / after at
+  390px light and dark and 1440px in `ai-tech-radar-hub/shots/U/`.
+- **The narrow-screen menu now closes on Esc**, handing focus back to the menu
+  button, **and on a click anywhere outside the panel and the button**. The
+  listeners are attached only while the panel is open. Esc in the search box
+  stays the search box's. On `click` rather than `pointerdown`, so the panel
+  does not collapse and move the page under the pointer before the click
+  lands. Both handlers do nothing unless the menu button is rendered, so a
+  window widened past 900px with the state still set never moves focus to a
+  hidden button.
+- **Two more feed boilerplates are cleaned at import** (`cleanFeedText`,
+  `src/lib/text-sanitize.ts`). GitHub Blog is WordPress, and every summary
+  ends in "The post {title} appeared first on The GitHub Blog." — 7 of 7
+  GitHub Blog candidates in the snapshot, and one published signal. Because
+  the sentence carries the post title, it could not join the fixed-phrase
+  list InfoQ's 点击查看原文 sits in; it is a second named list of end-anchored
+  sentence patterns, bounded to 300 characters and never reaching back across
+  an earlier "The post ". A GitHub release with empty notes arrives as
+  `No content.`, which imported as a one-line summary and passed
+  `missing_summary` (ms-swift v4.5.1); a third named list matches such
+  placeholders only as the whole text, so the candidate is now flagged. 8
+  unit tests and two feed-to-quality-check tests, each shown to fail with its
+  pattern disabled.
+
 ## Search shows the original title it matched; the 404 page has a search box
 
 - **2026-09-30.** Keyword search matches a signal's title in both languages,

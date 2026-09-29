@@ -241,11 +241,50 @@ const trailingFeedBoilerplatePattern = new RegExp(
   `(?:^|\\s)(?:${trailingFeedBoilerplatePhrases.map(escapeRegExp).join("|")})[\\s>＞›»]*$`
 );
 
-function stripTrailingFeedBoilerplate(text: string): string {
+/**
+ * Sentences a feed appends that carry a variable part — the post's own title —
+ * so they cannot be a fixed phrase above. One named pattern per feed, anchored
+ * to the end of the text, and as narrow as that feed's wording allows.
+ */
+const trailingFeedBoilerplateSentences: RegExp[] = [
+  // GitHub Blog (github.blog/feed, WordPress): every `<description>` and
+  // `<content:encoded>` ends in WordPress's "The post <a>{title}</a> appeared
+  // first on <a>The GitHub Blog</a>." — 7 of 7 GitHub Blog candidates on
+  // 2026-09-30. The title may hold any punctuation (one ends in "MCP?"), so it
+  // is bounded instead: at most 300 characters, and never across another
+  // "The post ", so an earlier sentence opening with those words is not taken
+  // for the start of this one. Text stored before 2026-09-29 has a space
+  // before the final period, left by the old tag stripper.
+  /(?:^|\s)The post (?:(?!\sThe post ).){1,300}? appeared first on The GitHub Blog\s*\.?$/
+];
+
+/**
+ * Text a feed writes in place of an empty body. Matches only when it is the
+ * whole text, so the same words inside real notes are never touched.
+ */
+const emptyFeedBodyPlaceholders: RegExp[] = [
+  // GitHub releases.atom (ms-swift Releases): a release with no notes has
+  // `<content>No content.</content>`, which imported as a one-line summary
+  // and passed the missing_summary check. 1 candidate on 2026-09-30.
+  /^no content\s*\.?$/i
+];
+
+function stripFeedBoilerplateOnce(text: string): string {
+  if (emptyFeedBodyPlaceholders.some((pattern) => pattern.test(text))) {
+    return "";
+  }
+
+  return [
+    trailingFeedBoilerplatePattern,
+    ...trailingFeedBoilerplateSentences
+  ].reduce((current, pattern) => current.replace(pattern, "").trim(), text);
+}
+
+function stripFeedBoilerplate(text: string): string {
   let current = text;
 
   for (;;) {
-    const next = current.replace(trailingFeedBoilerplatePattern, "").trim();
+    const next = stripFeedBoilerplateOnce(current);
 
     if (next === current) {
       return current;
@@ -257,23 +296,26 @@ function stripTrailingFeedBoilerplate(text: string): string {
 
 /**
  * Plain text for an imported summary or body: `htmlToPlainText` plus removal
- * of trailing feed boilerplate. May return an empty string, which callers
- * already treat as "no summary" — so an InfoQ item whose description is only
- * the link is flagged `missing_summary` instead of passing as summarised.
+ * of feed boilerplate (the trailing phrases and sentences above, and a whole
+ * text that is only an empty-body placeholder). May return an empty string,
+ * which callers already treat as "no summary" — so an InfoQ item whose
+ * description is only the link, or a release whose notes are "No content.",
+ * is flagged `missing_summary` instead of passing as summarised.
  */
 export function cleanFeedText(value: string | undefined): string {
-  return stripTrailingFeedBoilerplate(htmlToPlainText(value));
+  return stripFeedBoilerplate(htmlToPlainText(value));
 }
 
 /**
  * True when a value has text and all of it is feed boilerplate — the stored
- * `original` of a signal converted from a link-only InfoQ item. Markup-only
+ * `original` of a signal converted from a link-only InfoQ item, or a release
+ * whose only text is "No content.". Markup-only
  * or empty values are not boilerplate: there is no phrase in them.
  */
 export function isFeedBoilerplateOnly(value: string | undefined): boolean {
   const text = htmlToPlainText(value);
 
-  return text.length > 0 && stripTrailingFeedBoilerplate(text) === "";
+  return text.length > 0 && stripFeedBoilerplate(text) === "";
 }
 
 function isHttpUrl(value: string): boolean {

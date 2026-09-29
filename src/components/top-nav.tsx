@@ -58,8 +58,60 @@ export function TopNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLElement>(null);
 
   const closeMenu = () => setMenuOpen(false);
+
+  // While the panel is open, Esc closes it and hands focus back to the button
+  // that opened it, and a click anywhere outside the panel and the button
+  // closes it. The listeners exist only while it is open. Above 900px the
+  // button is display:none and the panel cannot be open, but a window resized
+  // mid-way could leave the state set — so both handlers do nothing unless the
+  // button is actually rendered, and the desktop nav never reacts.
+  useEffect(() => {
+    if (!menuOpen) {
+      return;
+    }
+
+    const toggleIsShown = () =>
+      (menuToggleRef.current?.getClientRects().length ?? 0) > 0;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || !toggleIsShown()) {
+        return;
+      }
+      // Esc in the search box belongs to the search box.
+      if (event.target === searchInputRef.current) {
+        return;
+      }
+      setMenuOpen(false);
+      menuToggleRef.current?.focus();
+    };
+
+    // "click", not "pointerdown": closing on press would collapse the panel
+    // and move the page under the pointer before the click lands.
+    const onClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node) || !toggleIsShown()) {
+        return;
+      }
+      if (
+        menuPanelRef.current?.contains(target) ||
+        menuToggleRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("click", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("click", onClick);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     if (searchOpen) {
@@ -170,6 +222,7 @@ export function TopNav() {
           <ThemeToggle />
 
           <button
+            ref={menuToggleRef}
             type="button"
             className="top-nav__toggle"
             aria-label={menuOpen ? "收起菜单" : "展开菜单"}
@@ -182,6 +235,7 @@ export function TopNav() {
         </div>
 
         <nav
+          ref={menuPanelRef}
           id="top-nav-menu"
           className={`top-nav__menu top-nav__menu--panel${menuOpen ? " top-nav__menu--open" : ""}`}
           aria-label="主导航"

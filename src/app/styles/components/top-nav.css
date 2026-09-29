@@ -105,6 +105,15 @@
   font-size: 0.82rem;
 }
 
+/* The workspace entry sets its own colour and background after the active rule
+   and at the same specificity, so on /workspace/* it used to read as inactive.
+   Compounding the two classes puts the active state back on top. */
+.top-nav__link--workspace.top-nav__link--active {
+  border-color: rgba(15, 118, 110, 0.24);
+  color: var(--accent);
+  background: rgba(15, 118, 110, 0.08);
+}
+
 .top-nav__menu {
   display: flex;
   align-items: center;
@@ -315,6 +324,12 @@
   border-color: rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.06);
   color: #cfcdbf;
+}
+
+:root[data-theme="dark"] .top-nav__link--workspace.top-nav__link--active {
+  border-color: rgba(111, 160, 144, 0.32);
+  color: #6fa090;
+  background: rgba(111, 160, 144, 0.14);
 }
 
 :root[data-theme="dark"] .top-nav__separator {

@@ -295,6 +295,46 @@ describe("feed text and links — the 2026-09-29 escaped-HTML case", () => {
     );
   });
 
+  it("drops GitHub Blog's WordPress footer and keeps the summary before it", async () => {
+    stubFeed(`<?xml version="1.0"?><rss><channel><title>The GitHub Blog</title>
+      <item>
+        <title>When chat is the wrong UI</title>
+        <link>https://github.blog/ai-and-ml/github-copilot/when-chat-is-the-wrong-ui/</link>
+        <description>&lt;p&gt;Enter canvases.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://github.blog/ai-and-ml/github-copilot/when-chat-is-the-wrong-ui/&quot;&gt;When chat is the wrong UI&lt;/a&gt; appeared first on &lt;a href=&quot;https://github.blog&quot;&gt;The GitHub Blog&lt;/a&gt;.&lt;/p&gt;</description>
+        <pubDate>Tue, 29 Sep 2026 16:00:00 GMT</pubDate>
+      </item>
+    </channel></rss>`);
+
+    const [candidate] = await importCandidatesForExternalSource(makeSource({}));
+
+    expect(candidate.originalSummary).toBe("Enter canvases.");
+    expect(evaluateCandidateQuality(candidate).flags).not.toContain(
+      "missing_summary"
+    );
+  });
+
+  it("imports a release whose notes are 'No content.' as no summary", async () => {
+    stubFeed(`<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">
+      <title>Release notes from ms-swift</title>
+      <entry>
+        <title>v4.1.3</title>
+        <link rel="alternate" href="https://github.com/modelscope/ms-swift/releases/tag/v4.1.3"/>
+        <updated>2026-09-29T01:54:15Z</updated>
+        <content type="html">No content.</content>
+      </entry>
+    </feed>`);
+
+    const [candidate] = await importCandidatesForExternalSource(
+      makeSource({ type: "atom" })
+    );
+
+    expect(candidate.originalSummary).toBe("");
+    expect(evaluateCandidateQuality(candidate).flags).toContain(
+      "missing_summary"
+    );
+  });
+
   it("cleans an Atom entry's escaped HTML content, keeping the id stable", async () => {
     stubFeed(`<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">
       <title>Release notes</title>
