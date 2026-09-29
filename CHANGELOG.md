@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## InfoQ's 「点击查看原文」 link is not a summary
+
+- **2026-09-30.** InfoQ 中文's feed ends every `<description>` with a
+  right-aligned `<div><a …>点击查看原文></a></div>`, and for most items that
+  link is the whole description (12 of 12 InfoQ candidates in the pool). The
+  09-29 import cleaning already dropped the phrase, but with a pattern that
+  matched it anywhere in the text. It now comes off the **end** only, from a
+  named phrase list that records which feed each entry belongs to
+  (`trailingFeedBoilerplatePhrases` in `src/lib/text-sanitize.ts`), after a
+  space or the start of the text and followed by nothing but `>` `＞` `›` `»`
+  or whitespace. The phrase mid-text, and prose that merely ends in the same
+  words (「详情请点击查看原文」), are left alone. A link-only description
+  imports as an empty summary, so the candidate is flagged `missing_summary`
+  / `missing_content` instead of passing as summarised — now tested from the
+  feed XML through `evaluateCandidateQuality`. The news lane already read
+  summaries through the same function, so it needed no change.
+- **Eight published signals carried the link as their original text.** Their
+  `summary.original` (5) and `content.original` (8) were the raw link while
+  editors wrote the `zh`. The 原文 reading mode shows `original` with no
+  fallback, so a reader switching to it got that one line, and keyword search
+  indexed it (a search for the phrase matched 4 signals). `repair-entities.ts
+  --published-text` skipped them on 09-29 because cleaning would have emptied
+  them. `scripts/fix-boilerplate-originals.ts` (dry run by default, `--apply`
+  to write) copies `zh` over an `original` that is boilerplate and nothing
+  else: these sources are Chinese, so there is no other original to restore,
+  and clearing it instead would have left the 原文 mode blank. Titles, fields
+  with real original text (three of the summaries) and fields whose `zh` is
+  empty are untouched, and a second run reports nothing to do. Rules in
+  `src/lib/boilerplate-original-repair.ts`. Verified on a worktree copy:
+  preview 8 signals / 13 fields → apply → rerun reports 无事可做; two of the
+  pages screenshotted top to bottom in 原文 mode, the news lane and the search
+  page checked for the phrase. Not yet run against the live data.
+
 ## 新: signals published since your last visit
 
 - **2026-09-30.** On the 精选 and 我关注的 views and the home page's priority

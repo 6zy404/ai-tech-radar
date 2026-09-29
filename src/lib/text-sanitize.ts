@@ -215,22 +215,65 @@ export function htmlToPlainText(value: string | undefined): string {
 }
 
 /**
- * Link boilerplate a feed puts where the summary should be. InfoQ 中文's
- * `<description>` is nothing but a right-aligned 「点击查看原文>」 link, so once
- * the markup is gone the "summary" would be that phrase alone.
+ * Link text a feed appends to every summary, one entry per feed that does it.
+ * Add a phrase only after seeing it in a real feed — each one is removed from
+ * the end of imported text, so a guess could eat the last words of a body.
  */
-const feedBoilerplatePattern = /点击查看原文\s*[>＞»›]?/g;
+const trailingFeedBoilerplatePhrases = [
+  // InfoQ 中文 (infoq.cn/feed): every `<description>` ends in a right-aligned
+  // `<div><a href=…>点击查看原文></a></div>`, and for most items that link is
+  // the whole description. 12 of 12 InfoQ candidates on 2026-09-30.
+  "点击查看原文"
+];
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * The phrase must stand at the very end, after the start of the text or a
+ * space, followed by nothing but an arrow mark (`>` `＞` `›` `»`) and
+ * whitespace. The block `<div>` InfoQ wraps it in becomes that space, while
+ * prose that merely ends in the words (「详情请点击查看原文」) has no gap and is
+ * left alone, as is the phrase anywhere mid-text.
+ */
+const trailingFeedBoilerplatePattern = new RegExp(
+  `(?:^|\\s)(?:${trailingFeedBoilerplatePhrases.map(escapeRegExp).join("|")})[\\s>＞›»]*$`
+);
+
+function stripTrailingFeedBoilerplate(text: string): string {
+  let current = text;
+
+  for (;;) {
+    const next = current.replace(trailingFeedBoilerplatePattern, "").trim();
+
+    if (next === current) {
+      return current;
+    }
+
+    current = next;
+  }
+}
 
 /**
  * Plain text for an imported summary or body: `htmlToPlainText` plus removal
- * of feed boilerplate. May return an empty string, which callers already treat
- * as "no summary".
+ * of trailing feed boilerplate. May return an empty string, which callers
+ * already treat as "no summary" — so an InfoQ item whose description is only
+ * the link is flagged `missing_summary` instead of passing as summarised.
  */
 export function cleanFeedText(value: string | undefined): string {
-  return htmlToPlainText(value)
-    .replace(feedBoilerplatePattern, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return stripTrailingFeedBoilerplate(htmlToPlainText(value));
+}
+
+/**
+ * True when a value has text and all of it is feed boilerplate — the stored
+ * `original` of a signal converted from a link-only InfoQ item. Markup-only
+ * or empty values are not boilerplate: there is no phrase in them.
+ */
+export function isFeedBoilerplateOnly(value: string | undefined): boolean {
+  const text = htmlToPlainText(value);
+
+  return text.length > 0 && stripTrailingFeedBoilerplate(text) === "";
 }
 
 function isHttpUrl(value: string): boolean {
