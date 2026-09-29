@@ -124,8 +124,12 @@ Checks:
 Flag values:
 
 - `missing_summary` (an InfoQ 中文 description holding only its
-  「点击查看原文>」 link imports as an empty summary and reports this —
-  `trailingFeedBoilerplatePhrases` in `src/lib/text-sanitize.ts`)
+  「点击查看原文>」 link, or a GitHub release body that is only 「No content.」,
+  imports as an empty summary and reports this; GitHub Blog's trailing
+  「The post … appeared first on The GitHub Blog.」 is stripped from an
+  otherwise real summary — `trailingFeedBoilerplatePhrases`,
+  `trailingFeedBoilerplateSentences` and `emptyFeedBodyPlaceholders` in
+  `src/lib/text-sanitize.ts`)
 - `missing_content`
 - `missing_publisher`
 - `invalid_source_url`

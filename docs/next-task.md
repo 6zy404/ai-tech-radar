@@ -70,9 +70,9 @@
 
 ~~8 条 InfoQ 信号的原文只是「点击查看原文」样板~~：2026-09-30 导入侧只在结尾剥掉这句
 （只剩它时算缺摘要），13 个原文字段由 `scripts/fix-boilerplate-originals.ts` 设成与
-中文一致，已对线上执行，复跑无事可做。同类样板还有两种没处理：GitHub Blog 摘要结尾的
-「The post … appeared first on The GitHub Blog.」，和 ms-swift 空 release 的「No content.」
-（被当成有摘要）。
+中文一致，已对线上执行，复跑无事可做。同类的 GitHub Blog 结尾「The post … appeared first
+on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉；已发布的
+`seclab-fuzzing-taskflow` 摘要由 `scripts/fix-github-blog-footer.ts` 修正（线上：待执行）。
 
 ### 2. P2 运维剩余
 
@@ -112,13 +112,11 @@
 - ~~分诊提示词 v2~~：2026-09-29 已做并启用（喂原文）。33 条干净决定上找回
   发布 0/10 → 8/10，样本小。**编辑轮尽量用盲评**（控制台「隐藏建议」），
   攒够新的干净决定后跑 `eval:triage -- --fresh` 复核。
-- `validate:deployment` 只要求 `page.tsx` 声明渲染模式；`opengraph-image.tsx` 也该
-  纳入（`/digest/today` 的分享卡就是从这个缺口冻结的）。
-- 工作台窄屏菜单里「内部工作台」为当前页时不高亮：`.top-nav__link--workspace` 的颜色
-  写在 `--active` 之后把它盖掉了。窄屏菜单也没有 Esc / 点外部收起。
-- 动态路由里 `notFound()` 出的 404（如 `/technologies/<不存在>`）套的是 Next 的错误外壳
-  （`<html id="__next_error__">`，没有 `lang`、没有主题脚本），不跟随暗色、读屏拿不到语言；
-  未知的顶层路径正常。线上同样如此（2026-09-30 发现）。
+- 动态路由里 `notFound()` 出的 404 是 Next 15.5 的上游限制：服务器发的是空的
+  `__next_error__` 外壳。2026-09-30 起客户端补上 `lang` 与主题（`ErrorShellRepair`），但无 JS
+  时仍没有内容。没选的三种：Suspense（状态码变 200）、`dynamicParams=false`（构建后新 slug
+  也 404）、middleware 预检 + rewrite（要把内容查询放进工作台守卫、改 Node runtime）。
+  Next 升级后再看。
 - 已知不改：390px 下技能《检索流水线调优》标题断成「检索流水线调 / 优」
   （ICU 词典缺口，种子标题被三条正文引用）。
 

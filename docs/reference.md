@@ -536,6 +536,9 @@ npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
 node scripts/run-ts.cjs scripts/repair-entities.ts [--apply] [--published-text] # one-off: strip HTML / decode entities left in stored imports (dry run by default)
+node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off: InfoQ 「点击查看原文」-only originals → their Chinese text (dry run by default)
+node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)
+npm run validate:deployment # also requires share-image / icon / sitemap routes without a dynamic segment to declare their render mode
 npm run check:pipeline   # Windows toast when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
 npm run build:triage-dataset # rebuild the triage eval set from git history
 npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)
