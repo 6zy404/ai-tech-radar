@@ -14,9 +14,15 @@ import {
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { useReadingState } from "@/components/use-reading-state";
 import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
+import { useVisitBaseline } from "@/components/visit-baseline";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
+import {
+  countNewSinceLastVisit,
+  isNewSinceLastVisit,
+  toVisitKeys
+} from "@/lib/visit-state";
 import {
   getTechnologySearchText,
   getTechnologyTypeLabel,
@@ -48,6 +54,9 @@ export function TechnologyBrowser({
   const deferredSearchText = useDeferredValue(searchText);
   const { readIds, isRead, isSaved, toggleRead, toggleSaved } =
     useReadingState();
+  const visitBaselineKeys = useVisitBaseline(
+    toVisitKeys(technologies.map((item) => item.id))
+  );
 
   const matchedTechnologies = technologies.filter((item) => {
     const priority = evaluateTechnologyPriority(item).priorityLevel;
@@ -68,6 +77,11 @@ export function TechnologyBrowser({
     matchedTechnologies,
     readIds,
     hideRead
+  );
+  const newCount = countNewSinceLastVisit(
+    filteredTechnologies,
+    visitBaselineKeys,
+    readIds
   );
   const shortcuts = useSignalShortcuts({
     signals: filteredTechnologies.map((item) => ({
@@ -141,7 +155,14 @@ export function TechnologyBrowser({
             its min-height covers the control, so the switch turns up in place
             and nothing below it moves. */}
         <div className="dossier-technology-browser__toolbar">
-          <strong>{filteredTechnologies.length} 条技术信号</strong>
+          <div className="dossier-technology-browser__count">
+            <strong>{filteredTechnologies.length} 条技术信号</strong>
+            {newCount > 0 ? (
+              <span className="dossier-technology-browser__new-count">
+                上次来访后新增 {newCount} 条
+              </span>
+            ) : null}
+          </div>
           <div className="dossier-technology-browser__toolbar-controls">
             <ReadFilterToggle
               readCount={readCount}
@@ -161,6 +182,7 @@ export function TechnologyBrowser({
             technology={item}
             mode={mode}
             isRead={isRead(item.id)}
+            isNew={isNewSinceLastVisit(visitBaselineKeys, item.id, readIds)}
             isCurrent={shortcuts.currentId === item.id}
             readingActions={
               <SignalReadingActions

@@ -113,6 +113,23 @@
   color: var(--dossier-accent);
 }
 
+/* The count and the 「上次来访后新增 N 条」 line share one run of text. The
+   second half appears after mount; it is plain text at the count's own size
+   and line height, so it adds width, never height, and fits beside the
+   count at 390px. */
+.dossier-technology-browser__count {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.dossier-technology-browser__new-count {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--dossier-muted);
+}
+
 .dossier-technology-browser__toolbar-controls {
   display: flex;
   flex-wrap: wrap;

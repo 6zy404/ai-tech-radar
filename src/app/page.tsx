@@ -7,6 +7,10 @@ import { JsonLd } from "@/components/json-ld";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
+import {
+  NewSignalStamp,
+  VisitBaselineProvider
+} from "@/components/visit-baseline";
 import { difficultyLabels, skillTypeLabels } from "@/lib/content-labels";
 import {
   getReadingDifficultyLabel,
@@ -29,6 +33,7 @@ import {
 } from "@/lib/public-copy";
 import { getLatestPublicNewsItems, newsDisclaimer } from "@/lib/news";
 import { buildWebSiteJsonLd } from "@/lib/structured-data";
+import { toVisitKeys } from "@/lib/visit-state";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
   getPriorityLevelLabel,
@@ -86,6 +91,7 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
 
   return (
     <DossierCard className="home-signal-card">
+      <NewSignalStamp technologyId={technology.id} />
       <div className="home-signal-card__meta">
         <DossierStampTag>
           {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
@@ -267,14 +273,22 @@ export default function HomePage() {
             </Link>
           </div>
           {prioritySignals.length > 0 ? (
-            <div className="home-signal-grid">
-              {prioritySignals.map((technology) => (
-                <HomeTechnologyCard
-                  key={technology.id}
-                  technology={technology}
-                />
-              ))}
-            </div>
+            // Records the visit with the whole published list, not just these
+            // three cards (see src/lib/visit-state.ts).
+            <VisitBaselineProvider
+              publishedKeys={toVisitKeys(
+                technologies.map((technology) => technology.id)
+              )}
+            >
+              <div className="home-signal-grid">
+                {prioritySignals.map((technology) => (
+                  <HomeTechnologyCard
+                    key={technology.id}
+                    technology={technology}
+                  />
+                ))}
+              </div>
+            </VisitBaselineProvider>
           ) : (
             <div className="empty-state empty-state--actionable">
               <strong>还没有已发布技术信号。</strong>
