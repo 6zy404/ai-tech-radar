@@ -15,7 +15,8 @@ export const metadata = buildPageMetadata({
   title: "本周回顾",
   description: "按自然周汇总的已发布技术信号。",
   path: "/digest/weekly",
-  feeds: [weeklyReviewFeed]
+  feeds: [weeklyReviewFeed],
+  largeImage: true
 });
 
 export default function WeeklyReviewPage() {

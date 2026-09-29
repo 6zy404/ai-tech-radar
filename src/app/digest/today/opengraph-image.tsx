@@ -18,6 +18,11 @@ export const alt = "AI Tech Radar 技术简报卡片";
 export const size = shareCardSize;
 export const contentType = shareCardContentType;
 
+// With no route params, `next build` prerendered this once and never
+// regenerated it (initialRevalidateSeconds: false), so the card stayed on
+// whichever issue was latest when the build ran.
+export const dynamic = "force-dynamic";
+
 export default async function Image() {
   const digest =
     getPublishedDailyDigestByDate(getTodayDateString()) ??
