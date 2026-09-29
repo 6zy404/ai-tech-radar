@@ -67,6 +67,15 @@ The product is split into two subsystems:
   force-directed layout, search-highlight, a category filter, hover-over-edge
   relation labels, draggable nodes, and click-to-focus exploration of any
   node's direct connections.
+- **先读这些 (prerequisite reading chain)** — on skill and knowledge detail
+  pages with `requires` (必备) prerequisites, the reading column opens with
+  the items to read first: up to 3 levels, the farthest first, published
+  skills and knowledge only, cycles stop (`getPrerequisiteChain` in
+  `src/lib/prerequisite-chain.ts`). The direct prerequisites move up from the
+  related-items area instead of appearing twice. This is the one place that
+  reads a relation's **direction** (`from` needs `to` first); everywhere
+  else pairs are unordered. Measured 2026-09-29: 16 of 35 pages have a chain
+  (skills 13/16, knowledge 3/19). Pure derived view, no new persisted data.
 - **Content bodies** — a shared `ContentBody` renderer for the long-form
   body of a technology, skill, or knowledge record. The technology detail
   page gained a 信号正文 section (between 版本脉络 and 为什么重要) read
@@ -171,6 +180,11 @@ The product is split into two subsystems:
   with 0 invalid citations — a set written by the builder that everything
   passed, stated as such in [`eval/ask/README.md`](../eval/ask/README.md).
   `/search` links each query across as a question (pre-filled, not asked).
+  Before the first question the page offers up to six example questions
+  built by fixed rules from published content (`buildAskExamples` in
+  `src/lib/ask-examples.ts` — the newest signals, a linked signal pair, and
+  the most-cited knowledge / topic / skill); clicking one fills the box
+  without asking.
 - **Site-wide search (hybrid)** — public `/search` (an inline search icon
   in `TopNav` opens the query box) over published technology signals,
   skills, knowledge, and the sanitized news fast lane. Two halves, merged per
@@ -191,6 +205,11 @@ The product is split into two subsystems:
   relevant for 33% of queries and hybrid for 93%, with precision falling from
   94% to 40%, and off-topic queries now always return something. See
   [`eval/search/README.md`](../eval/search/README.md).
+  Keyword-matched results mark each literal hit of the query with `<mark>`
+  in their title, summary and tag chips (`highlightSearchTerms` in
+  `src/lib/search-highlight.ts`); results found by meaning alone carry no
+  marks. A hit in the original-language title a card does not display
+  (e.g. "agent" on a card titled 智能体) is not shown — a known gap.
 - **Skill/Knowledge workspace editing (v0)** — `/workspace/skills` and
   `/workspace/knowledge` manage the skill and knowledge content pools:
   create new entries, or edit the bundled `src/data` seed entries via
@@ -251,8 +270,8 @@ The product is split into two subsystems:
 - **Editorial round console (`/workspace/editorial-round`)** — a workspace-only
   orchestration page that collapses the recurring editorial-round loop (see
   [`docs/editorial-round-playbook.md`](editorial-round-playbook.md)) onto
-  one screen: a round summary, a step tracker, undecided candidates (with
-  inline 转为草稿 / 拒绝), an open-duplicate-group block notice, drafts awaiting
+  one screen: a round summary, a step tracker, undecided candidates grouped by
+  source, largest group first (with inline 转为草稿 / 拒绝), an open-duplicate-group block notice, drafts awaiting
   publish (with per-draft publish-readiness summary + inline 发布), today's
   digest (inline 生成 / 发布, soft "publish everything first" hint), and a
   public-surface verify checklist. Pure read state (`getEditorialRoundState`

@@ -442,7 +442,8 @@ tool calls. Like the other three it is checked before the body is read.
   disclaimer as the other AI features, rendered above the answer; a citation
   number that no tool returned is shown struck through rather than linked.
 - **Arriving from `/search`** pre-fills the question but does not submit it,
-  so a navigation never spends a model call.
+  so a navigation never spends a model call. A suggested example question is
+  filled into the box on click, not submitted, for the same reason.
 
 ## Remaining Production Gaps
 

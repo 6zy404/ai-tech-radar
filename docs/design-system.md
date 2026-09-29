@@ -639,7 +639,14 @@ pages" below):
   removal is a separate, deliberately deferred cleanup.
 - `DossierStampTag` (`src/components/dossier-stamp-tag.tsx`) — rubber-stamp
   label; renders as a `<button>` with `aria-pressed` when given `onClick`,
-  otherwise a static `<span>`.
+  otherwise a static `<span>`. It has two sizes (2026-09-29): the static
+  stamp (priority, type, relation type) stays 10.5px, a label to glance at;
+  the clickable variant (`.dossier-stamp-tag--interactive` —
+  `DossierCategoryChips` and the 问雷达 example questions) is a control and
+  uses `--fs-label` (13px), an 18px line and 5px 10px padding, 30px tall.
+  At 10.5px the /technologies filter rows were reported hard to read while
+  passing 4.5:1. When changing the clickable variant, measure the tag row on
+  /technologies at 1440: it was 923px wide in a 936px container.
 - `DossierCatalogNote` (`src/components/dossier-catalog-note.tsx`) — the
   "附注" cross-reference annotation block.
 - `DossierRegisterRow` (`src/components/dossier-register-row.tsx`) — a

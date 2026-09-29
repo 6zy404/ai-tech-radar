@@ -1087,6 +1087,13 @@ the relation for an unordered pair regardless of which side `LinkRelation`
 records as `from`/`to`, falling back to `related-to` when no explicit entry
 exists for that pair.
 
+`requires` is the one relation type read **with** its direction: `from`
+needs `to` first (the 先读这些 prerequisite chain,
+`src/lib/prerequisite-chain.ts`). The editors save with `from` = the entity
+being edited, so saving a pair from the depended-on side stores it reversed;
+measured 2026-09-29, 2 of the 19 skill/knowledge `requires` edges were
+reversed (both from 完成判定与验收信号).
+
 Since LinkRelation v1 (2026-07-19), relations are editable from the three
 workspace editors (skill, knowledge, technology draft). Edits live in
 `config/link-relation-workspace.json`

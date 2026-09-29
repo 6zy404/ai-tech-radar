@@ -142,6 +142,11 @@ properties had matched the whole time, which is why it went unnoticed. See
     awaiting publish with a per-draft publish-readiness summary + inline 发布,
     today's digest with inline 生成 / 发布 and a soft "publish everything first"
     hint, and a public-surface verify link checklist
+  - undecided candidates are grouped by source — one native `<details>` per
+    source (open by default) headed by the source name and count, largest
+    group first (`groupCandidatesBySource`), so a round sees which feed is
+    filling the pool; row content, order and actions within a group are
+    unchanged (2026-09-29)
   - pure read state (`getEditorialRoundState` in `src/lib/editorial-round.ts`),
     no new persisted data; the inline actions reuse the existing
     candidate/technology/digest API routes (no editor duplicated), so 写内容 /
@@ -506,6 +511,11 @@ Workspace deployment boundary:
     same pass
   - links to published technology signals where the skill is useful
   - links to background knowledge that makes the skill easier to apply
+  - when the skill has `requires` prerequisites, the reading column opens
+    with a 先读这些 section (same cards as the related items, farthest
+    prerequisite first); the direct prerequisites move up here instead of
+    appearing twice. `/knowledge/[slug]` renders the same section through the
+    same `ContentDetailPage`
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
     readers can add the skill's topics to their personal radar in place
 - `/knowledge`
@@ -565,8 +575,10 @@ Workspace deployment boundary:
   - server-rendered `?q=` GET form; case-insensitive substring matching on
     title / summary / tag display names (space-separated terms ANDed),
     merged per group with a local embedding model's nearest items; each
-    result carries a 关键词 / 语义相近 stamp, and a notice appears when no
-    result matched literally
+    result carries a 关键词 / 语义相近 stamp; keyword-matched results mark each
+    literal hit of the query with `<mark>` in their title, summary and tag
+    chips (the news group too), while results found by meaning alone carry
+    no marks; a notice appears when no result matched literally
   - the result summary links the query across to `/ask` (pre-filled, not
     submitted)
   - searches the four public content pools: published technology signals,
@@ -741,6 +753,10 @@ Forbidden on public pages:
   - shared reference / metadata card
 - `TagBadge`
   - shared tag presentation
+- `HighlightedText`
+  - renders text with literal search hits wrapped in `<mark>` (segments from
+    `highlightSearchTerms` in `src/lib/search-highlight.ts`); used by
+    `/search` and by `NewsCardTags` when given `terms`
 - `RelatedItemsSection`
   - user-facing wrapper for related skills and knowledge inside the article layout
 - `RelationshipGraph`
