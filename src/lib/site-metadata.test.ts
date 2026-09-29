@@ -33,6 +33,17 @@ describe("buildFeedAlternateTypes", () => {
   });
 });
 
+describe("buildPageMetadata share card", () => {
+  it("uses the small card unless the page has a wide image", () => {
+    expect(buildPageMetadata({ path: "/skills" }).twitter).toMatchObject({
+      card: "summary"
+    });
+    expect(
+      buildPageMetadata({ path: "/technologies/x", largeImage: true }).twitter
+    ).toMatchObject({ card: "summary_large_image" });
+  });
+});
+
 describe("buildPageMetadata feeds", () => {
   it("keeps the digest feeds on a page that passes none", () => {
     // A page's `alternates` replaces the layout's, so dropping them here

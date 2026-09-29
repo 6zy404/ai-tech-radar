@@ -44,6 +44,12 @@ For per-topic deep dives, see the `docs/` directory.
   the worktree's own data copy with a new tag: the hub rendered, its feed
   404'd, and the head announced only the two digest feeds. Reverted after.
   Hrefs are absolute via `metadataBase`, i.e. `NEXT_PUBLIC_SITE_URL`.
+- **Share card size is now per page.** `buildPageMetadata` also takes
+  `largeImage`, which switches `twitter:card` from `summary` to
+  `summary_large_image`. It is off by default, so only a page with its own
+  wide share image — the signal page, once its 1200×630 `opengraph-image`
+  lands — asks X for the large card; a large card with no image has nothing
+  to fill it.
 
 ## 先读这些: skill and knowledge pages name what to read first
 

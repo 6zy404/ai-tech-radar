@@ -124,6 +124,12 @@ export interface PageMetadataInput {
    * published signal.
    */
   feeds?: readonly PageFeed[];
+  /**
+   * Set when the page has a wide share image (an `opengraph-image` route),
+   * so X renders it as a large card. Pages without one keep the small
+   * card: a large card with no image has nothing to fill it with.
+   */
+  largeImage?: boolean;
 }
 
 export function buildPageMetadata({
@@ -132,7 +138,8 @@ export function buildPageMetadata({
   path,
   type = "website",
   noIndex = false,
-  feeds = []
+  feeds = [],
+  largeImage = false
 }: PageMetadataInput): Metadata {
   const resolvedDescription = compactDescription(
     description ?? siteDescription
@@ -155,7 +162,7 @@ export function buildPageMetadata({
       type
     },
     twitter: {
-      card: "summary",
+      card: largeImage ? "summary_large_image" : "summary",
       title: fullTitle,
       description: resolvedDescription
     },
