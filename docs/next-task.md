@@ -28,6 +28,9 @@
   窄屏菜单按钮移到最右（S）、分享卡去孤字 + 本周页分享卡 + 信号页侧栏不透明（N）、
   技能 / 知识页本页目录（O）。预渲染清单现在只剩 icon / favicon / 404 / robots，
   `/digest/today` 与 `/digest/weekly` 的分享卡按请求生成，不再冻结。
+- **2026-09-30 第四、五次部署**（构建 `3uPDcvbc…` 与 `CcA64V93…`，各停机约 1.7 秒）：搜索卡片的「原标题」行与
+  404 搜索框（Q+R）；工作台窄屏菜单高亮与 Esc 收起、两种来源样板（U）；`notFound()` 404 的客户端主题修复与
+  元数据路由渲染模式校验（T）。线上核对：六类 404 仍为 404，暗色下 `[lang, theme]` 为 `["zh-CN","dark"]`。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
   不健康自动回滚）；`npm run deploy:rollback` 回到上一版。说明在
   `docs/deployment.md` →「Deploy with one command」。八次实跑停机 1.7–2.3 秒（最近一次 2.3）。
@@ -72,7 +75,7 @@
 （只剩它时算缺摘要），13 个原文字段由 `scripts/fix-boilerplate-originals.ts` 设成与
 中文一致，已对线上执行，复跑无事可做。同类的 GitHub Blog 结尾「The post … appeared first
 on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉；已发布的
-`seclab-fuzzing-taskflow` 摘要由 `scripts/fix-github-blog-footer.ts` 修正（线上：待执行）。
+`seclab-fuzzing-taskflow` 摘要由 `scripts/fix-github-blog-footer.ts` 修正，2026-09-30 已对线上执行。
 
 ### 2. P2 运维剩余
 
@@ -127,6 +130,9 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
   配置写在 `docs/deployment.md`）。
 - 主机夜里被手动休眠时站点跟着下线；`WakeToRun` 只保证 07:45 之后恢复。
 - 第二块盘（见异盘备份）。
+- Cloudflare 往页面里注入 Web Analytics 信标（`static.cloudflareinsights.com/beacon.min.js`），被站点的
+  CSP 拦下，每页控制台一条报错（2026-09-30 发现）。在 Cloudflare 面板关掉 Web Analytics 自动注入，
+  或者决定要它、再放宽 CSP。
 
 ## 长期不做的
 
