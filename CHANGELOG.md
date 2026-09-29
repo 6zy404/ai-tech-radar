@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Reading pages print cleanly
+
+- **2026-09-30.** The site had no `@media print` at all, so printing a signal,
+  a digest or a weekly review — or saving one as PDF — printed the nav, the
+  theme and search buttons, the three AI widgets, 本页目录, the pager, the
+  follow chips and the 44px dossier grid, and a reader in dark mode got a dark
+  page. Every print rule now lives in one file, `src/app/styles/print.css`,
+  imported last in `globals.css`, wrapped in a single `@media print`. It covers
+  `/technologies/[slug]`, `/digest/[date]`, `/digest/today`, the weekly review
+  pages, `/skills/[slug]` and `/knowledge/[slug]`, written against the shared
+  layout classes rather than per page.
+- **What prints**: title, meta, body, the explanation sections, related
+  entries (relation, title and note), follow-up questions and the source
+  block, ink on white in one column. External links in the body and the
+  source blocks print their URL after them; internal links do not. **What
+  does not**: site chrome, controls, navigation to other pages, and anything
+  the same page already prints — the relationship map (the related sections
+  list the same items), the follow chips (the hero's tags), the aside's
+  source block and its 优先级 panel (the article foot and the hero). Two
+  elements with no class to select carry `data-print="hide"`: that 优先级
+  panel and the 阅读路径 card on skill and knowledge pages.
+- **Dark mode is an attribute, so print cannot switch it off.** The dossier
+  tokens are redeclared to a print palette under both `.dossier` and
+  `:root[data-theme="dark"] .dossier`, and backgrounds and shadows are cleared.
+  Printed in both schemes, the per-page ink of every PDF matches to within
+  1%.
+- **Vertical grids print as block flow.** Chrome fragmented a grid badly: a
+  card pushed to the next page by `break-inside: avoid` kept its place in the
+  grid's height, and on the digest the last 背景知识 card printed on top of
+  the 来源参考 heading. Each former gap is now a top margin; sections take no
+  bottom margin, because one on the aside's last panel pushed a blank sheet
+  out on the signal page.
+- **Sheets, A4, before → after** (the same pages, headless Chrome): signal
+  7 → 4, digest 12 → 9, `/digest/today` 12 → 10, weekly 6 → 5, skill 19 → 11,
+  knowledge 5 → 3. The skill page's drop is mostly its thirty related
+  signals printing without their summaries and tags.
+- **Screen rendering cannot change**: the file's only top-level nodes are a
+  comment and `@media print` (checked with postcss), and the served
+  stylesheet has all 35 print rules inside that block. Verified by printing
+  through CDP `Page.printToPDF` in both colour schemes and reading every page.
+
 ## InfoQ's 「点击查看原文」 link is not a summary
 
 - **2026-09-30.** InfoQ 中文's feed ends every `<description>` with a
@@ -32,9 +73,10 @@ For per-topic deep dives, see the `docs/` directory.
   `summary.original` (5) and `content.original` (8) were the raw link while
   editors wrote the `zh`. The 原文 reading mode shows `original` with no
   fallback, so a reader switching to it got that one line, and keyword search
-  indexed it (a search for the phrase matched 4 signals). The 09-29 entity
-  repair skipped them on purpose, because cleaning would have emptied them. `scripts/fix-boilerplate-originals.ts` (dry run by default, `--apply`
-  to write) copies `zh` over an `original` that is boilerplate and nothing
+  indexed the five summaries. The 09-29 entity repair skipped them on
+  purpose, because cleaning would have emptied them.
+  `scripts/fix-boilerplate-originals.ts` (dry run by default, `--apply` to
+  write) copies `zh` over an `original` that is boilerplate and nothing
   else: these sources are Chinese, so there is no other original to restore,
   and clearing it instead would have left the 原文 mode blank. Titles, fields
   with real original text (three of the summaries) and fields whose `zh` is

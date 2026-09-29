@@ -1896,3 +1896,22 @@ shown (zero difference at 1440 light / dark and 390), with an 80px probe to
 prove the check fires; a 30px probe was absorbed by the row's existing height.
 Anything else that only the client knows should follow the same rule: ride
 an edge, or sit in a row that is already there.
+
+## Print (2026-09-30)
+
+Every print rule lives in `src/app/styles/print.css`, a single `@media print`
+block imported last by `globals.css`; no component file carries print CSS, so
+screen styles cannot be affected by it. Print is always light: the colour
+tokens are redeclared inside the block rather than each rule being
+overridden, so a dark-scheme reader gets the same PDF (per-page ink within
+1% of the light print). Elements with no class of their own to target carry
+`data-print="hide"` (the signal page's priority panel, the skill / knowledge
+reading-path card) — prefer a class when one exists.
+
+Two Chrome pagination traps shaped the rules. A card pushed to the next page
+by `break-inside: avoid` inside a grid still occupies its original grid
+height, so the next heading is painted over by it; every vertical grid is
+therefore a block flow in print, with its gap turned into the same top
+margin. And a bottom margin on the last aside panel spills onto a blank page
+of its own, so sections space themselves with top margins only. The digest's
+featured cards may break across pages; every other card stays whole.

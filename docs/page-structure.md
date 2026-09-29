@@ -107,6 +107,12 @@ Purpose:
 - support Chinese / original content switching
 - avoid raw payload, review status, source health, and duplicate workflow data
 - omit the generic page header so the article hero is the first meaningful content block
+- print as a reading copy (2026-09-30, `src/app/styles/print.css`): title,
+  meta, body, the explanation sections, related items (relation, title and
+  note only — no summary or tags), follow-up questions and source references
+  stay; the nav, controls, AI widgets, 本页目录, relationship graph, pager,
+  subscribe blocks and the aside panels that repeat the hero are hidden.
+  Digest source references print as two compact columns
 
 All four share one geometry, not merely one look (2026-07-29): the hero spans
 the full measure, and the reading column plus its aside sit underneath it. At
