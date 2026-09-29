@@ -31,6 +31,7 @@ import {
 } from "@/lib/content-intelligence";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { estimateReadingMinutes, formatReadingTime } from "@/lib/reading-time";
+import type { SimilarSignalLink } from "@/lib/similar-signals";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 import {
   getPriorityLevelLabel,
@@ -62,6 +63,8 @@ interface TechnologyDetailContentProps {
   relatedKnowledge: RelationListItem[];
   compareCandidates: { id: string; title: string; href: string }[];
   evolutionChain?: TechnologyEvolutionChain;
+  /** Omitted by the workspace preview: drafts are not in the embedded pool. */
+  similarSignals?: SimilarSignalLink[];
 }
 
 export function TechnologyDetailContent({
@@ -71,7 +74,8 @@ export function TechnologyDetailContent({
   relatedSkills,
   relatedKnowledge,
   compareCandidates,
-  evolutionChain
+  evolutionChain,
+  similarSignals = []
 }: TechnologyDetailContentProps) {
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
@@ -344,6 +348,20 @@ export function TechnologyDetailContent({
         formatRelationType={(relationType) =>
           getRelationTypeLabel(relationType, mode)
         }
+      />
+
+      <DossierRelatedItemsSection
+        title="内容相近的信号"
+        description="按内容自动匹配，未经编辑挑选；已在相关技术和版本脉络里的不再重复。"
+        items={similarSignals.map((item) => ({
+          id: item.id,
+          title: item.title,
+          href: item.href,
+          relationType: "related-to" as const,
+          note: item.summary ?? ""
+        }))}
+        linkLabel="查看信号"
+        formatRelationType={() => "自动匹配"}
       />
 
       <TechnologyCompareWidget

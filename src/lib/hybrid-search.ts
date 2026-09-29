@@ -50,7 +50,7 @@ export interface HybridSearchResults {
   semanticAvailable: boolean;
 }
 
-interface IndexedCorpus {
+export interface IndexedCorpus {
   signature: string;
   documents: SearchDocument[];
   vectors: number[][];
@@ -142,6 +142,15 @@ function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
   promise.catch(() => undefined);
 
   return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+/**
+ * The same embedded corpus, for derived views other than search (the similar
+ * signals on a detail page) that must not wait for the model either. Shares
+ * the corpus, its disk cache and its timeout with search.
+ */
+export function getIndexedCorpusWithinTimeout(): Promise<IndexedCorpus> {
+  return withTimeout(getIndexedCorpus(), getSemanticTimeoutMs());
 }
 
 function emptyResults(query: string, terms: string[]): HybridSearchResults {

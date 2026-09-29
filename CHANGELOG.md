@@ -51,6 +51,47 @@ For per-topic deep dives, see the `docs/` directory.
   ESLint could not run in this worktree: the shared `node_modules` is missing
   `@eslint-community/eslint-utils`.
 
+## Similar signals on the signal page
+
+- **2026-09-29.** The technology detail page gains 「内容相近的信号」 right
+  after 相关技术: up to three other published signals whose text is closest in
+  the search embedding space, as the same `DossierRelatedItemsSection` cards,
+  stamped 自动匹配, with the other signal's summary (≤ 80 characters) as the
+  note. The description says it is matched automatically and not picked by an
+  editor. Signals already on the page — 相关技术 and the 版本脉络 line — and
+  the signal itself are excluded.
+- **Pure derived view** (`src/lib/similar-signals.ts`): the same passage
+  vectors, cache file and model as `/search`, reached through one new export,
+  `getIndexedCorpusWithinTimeout` in `hybrid-search.ts`. No persisted data,
+  no LLM, and no query embedding — passage vectors only, so a page render loads
+  no model at all while the cache is warm.
+- **The page never waits for the model.** When the corpus is not ready within
+  `SEARCH_SEMANTIC_TIMEOUT_MS` (first download, a failed load, a signal just
+  published and not yet embedded) the section is omitted, with no placeholder,
+  and a warning goes to the server log. The workspace preview passes nothing,
+  so drafts never show it.
+- **Measured over the 91 published signals, 4,095 pairs.** Raw cosines sit in
+  a band: mean 0.881, standard deviation 0.016, p95 0.907, p99 0.919, max
+  0.953. On raw scores a couple of generic items won everywhere — one
+  agent-security write-up was the nearest neighbour of 8 unrelated signals,
+  one agent-memory piece of 7 — and a per-signal z-score did not help
+  (Jev ↔ 智能体记忆 scored z = 2.86 within Jev's row and are unrelated).
+  Subtracting the pool's mean vector first removes the direction every signal
+  shares: centered scores have mean −0.011, standard deviation 0.100, p99
+  0.289, and the most repeated nearest neighbour drops to 4.
+- **The floor**: a centered score at least **2.5 standard deviations above
+  the mean of all pairs** (0.238 on this pool), recomputed per corpus, at most 3. Result: **42 of 91** signals show the section, 65 cards; at 2.75 it would
+  be 31 / 43, at 3.0 23 / 30. Examples above the floor: the two Muse Glimmer
+  signals (0.53), LFM2.5-VL ↔ LFM2.5-Encoders (0.40), Gemini 3.7 Flash ↔
+  Gemini Flash Cyber (0.39), TPU 巨核 ↔ vLLM v0.27 (both Kimi K3, 0.27).
+  Below it and correctly empty: ADK Kotlin (best 0.16), Jev (0.17), Pinterest
+  vector search (0.14). Borderline misses that do clear it: Qwen3.8 third-party
+  test ↔ 「模型之间只传 17 比特」 (0.27).
+- Computing all 91 signals' lists takes 286ms in total from a warm cache.
+- Tests: `src/lib/similar-signals.test.ts` (8) — exclusion of self and page
+  links, the floor and the limit, a flat or unknown pool, signals-only, and an
+  empty result when the corpus loader rejects.
+
 ## Reading time on the signal page
 
 - **2026-09-29.** The technology detail hero's meta row gains 「约 N 分钟读完」

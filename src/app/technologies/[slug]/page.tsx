@@ -8,6 +8,7 @@ import {
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";
+import { getSimilarSignals } from "@/lib/similar-signals";
 import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type { Metadata } from "next";
@@ -74,6 +75,12 @@ export default async function TechnologyDetailPage({
     targetIds: technology.relatedTechnologyIds ?? [],
     defaultNote: "与该信号相邻的技术，可顺着这条线继续了解。"
   });
+  const evolutionChain = getTechnologyEvolutionChain(technology.id);
+  // What the page already links to is not repeated as "similar".
+  const similarSignals = await getSimilarSignals(technology.id, [
+    ...(technology.relatedTechnologyIds ?? []),
+    ...(evolutionChain?.steps.map((step) => step.id) ?? [])
+  ]);
   const compareCandidates = getAllTechnologies()
     .filter((item) => item.id !== technology.id)
     .map((item) => ({
@@ -97,7 +104,8 @@ export default async function TechnologyDetailPage({
         relatedSkills={relatedSkills}
         relatedKnowledge={relatedKnowledge}
         compareCandidates={compareCandidates}
-        evolutionChain={getTechnologyEvolutionChain(technology.id)}
+        evolutionChain={evolutionChain}
+        similarSignals={similarSignals}
       />
     </UserPageShell>
   );
