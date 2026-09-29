@@ -1881,3 +1881,18 @@ lands clear of the nav. Table links draw no outline of their own and use the
 global `--focus-ring`. Below 920px the table becomes a `<details>` whose
 summary carries a drawn chevron and a 44px row, because a bare
 「本页目录 · N 节」 line does not read as something that opens.
+
+## A stamp that appears after mount rides the border (2026-09-30)
+
+The 新 stamp is known only in the browser, after the server-rendered page has
+painted. Placed inline in the card's top row it pushed the next item down: on
+the signal list it wrapped the second card's 第 2026-09-27 号 line and grew
+the card by 8px the moment it mounted. It now sits on the card's top border
+(`.dossier-card > .dossier-stamp-tag--new`, absolutely positioned) in the
+accent fill with ground text — 6.87:1 light, 5.61:1 dark — which keeps it
+apart from the red-framed priority stamp and the red-filled active filter.
+Checked by measuring every card's top and height with the stamps hidden and
+shown (zero difference at 1440 light / dark and 390), with an 80px probe to
+prove the check fires; a 30px probe was absorbed by the row's existing height.
+Anything else that only the client knows should follow the same rule: ride
+an edge, or sit in a row that is already there.

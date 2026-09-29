@@ -207,6 +207,17 @@ The product is split into two subsystems:
   first. Marks are manual — opening a signal never marks it read — and live
   only in browser localStorage (`src/lib/reading-state.ts`), so the served
   page stays identical for everyone.
+  新 since the last visit (2026-09-30): on the home page's priority cards
+  and the 精选 / 我关注的 views, a signal the reader has not seen before
+  carries a 新 stamp on its top edge, and the 精选 count row adds
+  上次来访后新增 N 条 (hidden at 0). "Seen" is the set of published signals
+  the reader's previous visit knew about, kept in one localStorage key
+  (`ai-tech-radar:visit-state`, hashed ids, replaced — not accumulated — on
+  every visit, so archived ids drop out); a visit is a run of page loads no
+  more than 30 minutes apart, so a refresh or a new tab keeps the marks. A
+  first visit marks nothing, a signal marked 已读 is never new, and only the
+  pages that hold the full published list read or write the key
+  (`src/lib/visit-state.ts`, `src/components/visit-baseline.tsx`).
   Keyboard shortcuts (2026-09-29): the 精选 / 我关注的 / 稍后读 views take
   j / k (move between signal cards; focus lands on the card's title link,
   which gets an outline and scrolls clear of the sticky nav), Enter / o
