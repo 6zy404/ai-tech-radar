@@ -78,6 +78,9 @@ The product is split into two subsystems:
   reads a relation's **direction** (`from` needs `to` first); everywhere
   else pairs are unordered. Measured 2026-09-29: 16 of 35 pages have a chain
   (skills 13/16, knowledge 3/19). Pure derived view, no new persisted data.
+  The editors choose a 必备 relation's direction (我需要先读它 / 它需要先读我),
+  prefilled from the stored one, so saving from either side no longer
+  reverses it (2026-09-29).
 - **Content bodies** — a shared `ContentBody` renderer for the long-form
   body of a technology, skill, or knowledge record. The technology detail
   page gained a 信号正文 section (between 版本脉络 and 为什么重要) read
