@@ -92,6 +92,33 @@ For per-topic deep dives, see the `docs/` directory.
   links, the floor and the limit, a flat or unknown pool, signals-only, and an
   empty result when the corpus loader rejects.
 
+## An RSS feed of every published signal
+
+- **2026-09-29.** New public route `/technologies/feed.xml`: RSS 2.0 of the
+  newest **50** published technology signals, newest first
+  (`SIGNAL_FEED_ITEM_LIMIT` in `src/lib/signal-feed.ts`). Until now a reader
+  could subscribe to the digest, the weekly review or one topic, but not to
+  the signals themselves. Each item carries the Chinese-preferred title and
+  summary (the same localization helpers as the topic feed), a link and guid
+  to `/technologies/[slug]`, the publish date, and one `<category>` per known
+  topic tag. News fast-lane candidates, drafts, archived records and every
+  internal field stay out: the item list is `getAllTechnologies()` filtered
+  to `status === "published"` again locally, so the boundary does not rest on
+  the getter alone.
+- **One renderer for both signal feeds.** `renderSignalRssXml` now renders the
+  items for this feed and for `/topics/[tagId]/feed.xml`; the topic feed passes
+  its own channel and a single category. All ten topic feeds were fetched
+  before and after the change and are **byte-identical** apart from
+  `lastBuildDate`.
+- **Announced** on every view of `/technologies` with
+  `<link rel="alternate">` (`signalFeed` in `src/lib/site-metadata.ts`), ahead
+  of the site-wide digest feeds.
+- **Tests** (`src/lib/signal-feed.test.ts`, 8): published only, newest first,
+  the cap, category mapping, XML escaping, no internal fields, an empty
+  channel. Removing the local published filter and the cap was checked to fail
+  exactly the two tests that cover them.
+- Pure derived view: no persisted data, no AI, no internal fields.
+
 ## Reading time on the signal page
 
 - **2026-09-29.** The technology detail hero's meta row gains 「约 N 分钟读完」

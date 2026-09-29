@@ -9,3 +9,6 @@ export function topicFeedPath(tagId: string): string {
 }
 
 export const weeklyReviewFeedPath = "/digest/weekly/feed.xml";
+
+/** Every published technology signal, newest first. */
+export const signalFeedPath = "/technologies/feed.xml";

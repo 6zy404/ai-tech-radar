@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import {
   jsonFeedPath,
   rssFeedPath,
+  signalFeedPath,
   weeklyReviewFeedPath
 } from "@/lib/feed-paths";
 
@@ -85,6 +86,12 @@ export const siteFeeds: readonly PageFeed[] = [
 export const weeklyReviewFeed: PageFeed = {
   path: weeklyReviewFeedPath,
   title: `${siteName} · 本周回顾`
+};
+
+/** Announced by every view of `/technologies`. */
+export const signalFeed: PageFeed = {
+  path: signalFeedPath,
+  title: `${siteName} · 全部技术信号`
 };
 
 type FeedAlternateTypes = Record<string, { url: string; title: string }[]>;

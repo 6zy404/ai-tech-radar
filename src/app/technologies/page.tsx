@@ -8,7 +8,7 @@ import { TopicTimelineSection } from "@/components/topic-timeline-section";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
 import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/site-metadata";
+import { buildPageMetadata, signalFeed } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +27,8 @@ export async function generateMetadata({
     description: viewDescriptions[current],
     path: tab?.href ?? "/technologies",
     // The two personal views render from localStorage; nothing to index.
-    noIndex: current === "followed" || current === "saved"
+    noIndex: current === "followed" || current === "saved",
+    feeds: [signalFeed]
   });
 }
 
