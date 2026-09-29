@@ -121,6 +121,10 @@
   z-index: 1;
   cursor: grab;
   touch-action: none;
+  /* A /network?focus= node below the fold is scrolled to with
+     block: "nearest"; this keeps it (and its label, which sits above the dot)
+     clear of the viewport edge and of the 60px sticky top nav. */
+  scroll-margin-block: 96px;
   transition: opacity 140ms ease;
 }
 

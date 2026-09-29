@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { buildNetworkFocusHref } from "@/lib/network-focus";
+
 export interface RelationshipGraphNode {
   title: string;
   href: string;
@@ -12,6 +14,9 @@ export interface RelationshipGraphNode {
 
 interface RelationshipGraphProps {
   centerTitle: string;
+  /** The current item's content-graph id. When given, the section ends with a
+      link that opens `/network` with this item already selected. */
+  centerId?: string;
   nodes: RelationshipGraphNode[];
   /** Outer section chrome class, so the graph fits the host page's card language. */
   sectionClassName?: string;
@@ -41,6 +46,7 @@ const kindLabel: Record<RelationshipGraphNode["kind"], string> = {
 
 export function RelationshipGraph({
   centerTitle,
+  centerId,
   nodes,
   sectionClassName = "user-article-section",
   heading = "在关系网络中的位置",
@@ -104,6 +110,13 @@ export function RelationshipGraph({
           </div>
         ))}
       </div>
+      {centerId ? (
+        <div className="tech-graph__more">
+          <Link className="action-link" href={buildNetworkFocusHref(centerId)}>
+            在关系网络中查看 →
+          </Link>
+        </div>
+      ) : null}
     </section>
   );
 }

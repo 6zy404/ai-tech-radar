@@ -27,6 +27,13 @@
   margin-top: 12px;
 }
 
+/* The way out to /network?focus=. A <div>, not a <p>, for the container-`p`
+   hazard documented at __hint. `.action-link` already sets a 38px tap height,
+   so the gap above it is kept small. */
+.tech-graph__more {
+  margin-top: 8px;
+}
+
 /* Rendered as a <div>, not a <p>: `.user-shell p` pins every paragraph to
    var(--fs-body) with !important (the 2026 typography-scale step), so a <p>
    here cannot be a small label at all — the first version of this rule shipped

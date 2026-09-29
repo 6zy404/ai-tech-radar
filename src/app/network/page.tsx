@@ -1,6 +1,7 @@
 import { ContentNetworkGraph } from "@/components/content-network-graph";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getContentGraph } from "@/lib/content";
+import { resolveNetworkFocus } from "@/lib/network-focus";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
 // Reads runtime content through @/lib/content, so it must never be
@@ -16,8 +17,17 @@ export const metadata = buildPageMetadata({
   path: "/network"
 });
 
-export default function NetworkPage() {
+interface NetworkPageProps {
+  searchParams: Promise<{ focus?: string | string[] }>;
+}
+
+export default async function NetworkPage({ searchParams }: NetworkPageProps) {
+  const { focus } = await searchParams;
   const { nodes, edges } = getContentGraph();
+  // `?focus=<node id>` opens the page with that node selected. An unknown or
+  // unpublished id is dropped here, so the page renders exactly as it would
+  // without the parameter.
+  const initialFocusId = resolveNetworkFocus(focus, nodes);
 
   return (
     <UserPageShell
@@ -26,7 +36,11 @@ export default function NetworkPage() {
       sectionLabel="关系网络"
       className="network-page dossier"
     >
-      <ContentNetworkGraph nodes={nodes} edges={edges} />
+      <ContentNetworkGraph
+        nodes={nodes}
+        edges={edges}
+        initialFocusId={initialFocusId}
+      />
     </UserPageShell>
   );
 }

@@ -8,6 +8,7 @@ import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierSearchInput } from "@/components/dossier-search-input";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import type { ContentGraphEdge, ContentGraphNode } from "@/lib/content";
+import { withNetworkFocus } from "@/lib/network-focus";
 import {
   clamp,
   easeOutCubic,
@@ -23,6 +24,8 @@ import { getRelationTypeLabel } from "@/lib/technology-localization";
 interface ContentNetworkGraphProps {
   nodes: ContentGraphNode[];
   edges: ContentGraphEdge[];
+  /** From `?focus=`, already checked against `nodes` by the page. */
+  initialFocusId?: string | null;
 }
 
 interface PositionedNode extends ContentGraphNode {
@@ -63,9 +66,15 @@ function isDimmedByActiveChecks(checks: boolean[]): boolean {
 
 export function ContentNetworkGraph({
   nodes,
-  edges
+  edges,
+  initialFocusId = null
 }: ContentNetworkGraphProps) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  // Selection is by id and independent of positions, so a focused node is
+  // selected in the server-rendered markup and stays selected through the
+  // glide into the settled layout.
+  const [selectedId, setSelectedId] = useState<string | null>(initialFocusId);
+  const [hasSettled, setHasSettled] = useState(false);
+  const hasRevealedFocusRef = useRef(false);
   const [searchText, setSearchText] = useState("");
   const [kindFilter, setKindFilter] = useState("");
   const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
@@ -102,6 +111,7 @@ export function ContentNetworkGraph({
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setPositions((prev) => keepDragged(settled, prev));
+      setHasSettled(true);
       return;
     }
 
@@ -124,6 +134,8 @@ export function ContentNetworkGraph({
 
       if (progress < 1) {
         raf = requestAnimationFrame(tick);
+      } else {
+        setHasSettled(true);
       }
     };
 
@@ -134,6 +146,61 @@ export function ContentNetworkGraph({
     // changes identity, not on every parent re-render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeKey, edgeKey]);
+
+  // Keeps `?focus=` in step with the selection so the address bar can be
+  // copied and shared. replaceState, not a navigation: the page does not
+  // re-render on the server, and clicking around does not fill the back
+  // button with one entry per node.
+  useEffect(() => {
+    const next = withNetworkFocus(window.location.href, selectedId);
+    const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (next !== current) {
+      window.history.replaceState(null, "", next);
+    }
+  }, [selectedId]);
+
+  // A deep-linked node can sit below the fold, since the canvas is square.
+  // Scrolled to once, after the glide ends, because until then the node is
+  // still on its way to where it will be.
+  useEffect(() => {
+    if (!hasSettled || !initialFocusId || hasRevealedFocusRef.current) {
+      return;
+    }
+
+    hasRevealedFocusRef.current = true;
+
+    if (selectedId !== initialFocusId) {
+      return;
+    }
+
+    const element = document.querySelector<HTMLElement>(
+      `[data-node-id="${CSS.escape(initialFocusId)}"]`
+    );
+
+    if (!element) {
+      return;
+    }
+
+    const rect = element.getBoundingClientRect();
+
+    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+      return;
+    }
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // "nearest", not "center": the side panel is sticky only within the
+    // canvas's height, so centering a node near the bottom of the canvas
+    // pushed the panel's title up under the top nav. The node's
+    // scroll-margin keeps it clear of the viewport edge.
+    element.scrollIntoView({
+      block: "nearest",
+      behavior: reduceMotion ? "auto" : "smooth"
+    });
+  }, [hasSettled, initialFocusId, selectedId]);
 
   const positionedNodes = useMemo<PositionedNode[]>(
     () =>
@@ -425,6 +492,7 @@ export function ContentNetworkGraph({
               <button
                 key={node.id}
                 type="button"
+                data-node-id={node.id}
                 className={className}
                 style={{ left: `${node.x}%`, top: `${node.y}%` }}
                 onClick={() => handleNodeClick(node.id)}
