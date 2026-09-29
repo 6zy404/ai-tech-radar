@@ -112,7 +112,12 @@ For per-topic deep dives, see the `docs/` directory.
   `lastBuildDate`.
 - **Announced** on every view of `/technologies` with
   `<link rel="alternate">` (`signalFeed` in `src/lib/site-metadata.ts`), ahead
-  of the site-wide digest feeds.
+  of the site-wide digest feeds, and linked from a 「RSS 订阅」 `action-link`
+  in the page header's action slot on all five views — the same slot and
+  class as the topic hub's 全部话题. It is a plain `<a>`, since a route
+  handler has nothing for client-side navigation to prefetch. At 375px it
+  wraps under the description on the title's left edge, with no horizontal
+  overflow.
 - **Tests** (`src/lib/signal-feed.test.ts`, 8): published only, newest first,
   the cap, category mapping, XML escaping, no internal fields, an empty
   channel. Removing the local published filter and the cap was checked to fail

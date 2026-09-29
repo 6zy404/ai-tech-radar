@@ -87,6 +87,13 @@ export default async function TechnologiesPage({
       description={viewDescriptions[view]}
       sectionLabel="已发布信号"
       className="technology-list-page dossier"
+      actions={
+        // A plain anchor: the feed is a route handler, not a page, so
+        // client-side navigation and prefetch have nothing to load.
+        <a href={signalFeed.path} className="action-link">
+          RSS 订阅
+        </a>
+      }
     >
       <div
         className="technology-view-tabs"
