@@ -7,6 +7,7 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { FollowableTagList } from "@/components/followable-tag-list";
+import { PageToc } from "@/components/page-toc";
 import {
   RelationshipGraph,
   type RelationshipGraphNode
@@ -29,6 +30,11 @@ import {
   learningCostValues,
   skillTypeLabels
 } from "@/lib/content-labels";
+import {
+  contentDetailTocIds as tocIds,
+  getContentDetailTocCandidates,
+  selectPageTocEntries
+} from "@/lib/page-toc";
 import { getPrerequisiteChain } from "@/lib/prerequisite-chain";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import {
@@ -271,16 +277,18 @@ function RelatedCard({
 }
 
 function RelatedSection({
+  id,
   eyebrow,
   heading,
   children
 }: {
+  id: string;
   eyebrow: string;
   heading: string;
   children: ReactNode;
 }) {
   return (
-    <section className="skill-detail-section">
+    <section id={id} className="skill-detail-section">
       <div className="skill-detail-section__header">
         <div>
           <p>{eyebrow}</p>
@@ -350,6 +358,23 @@ export function ContentDetailPage<TItem extends DetailItem>({
       note: allEntryRelations[index].note
     }))
   ];
+  // Same conditions the sections below render on, so the table lists exactly
+  // what is on the page.
+  const tocEntries = selectPageTocEntries(
+    getContentDetailTocCandidates({
+      kind: kind.kind,
+      prerequisiteCount: prerequisites.length,
+      hasBody: Boolean(item.content),
+      graphNodeCount: graphNodes.length,
+      relatedTechnologyCount: relatedTechnologies.length,
+      relatedEntryCount: relatedEntries.length,
+      headings: {
+        body: kind.leadHeading,
+        relatedTechnologies: kind.technologySection.heading,
+        relatedEntries: kind.related.heading
+      }
+    })
+  );
 
   return (
     <UserPageShell
@@ -381,8 +406,14 @@ export function ContentDetailPage<TItem extends DetailItem>({
 
         <div className="skill-detail-layout__body">
           <main className="skill-detail-main">
+            <PageToc entries={tocEntries} variant="disclosure" />
+
             {prerequisites.length > 0 ? (
-              <RelatedSection eyebrow="阅读顺序" heading="先读这些">
+              <RelatedSection
+                id={tocIds.prerequisites}
+                eyebrow="阅读顺序"
+                heading="先读这些"
+              >
                 {prerequisites.map(({ step, entry }) => (
                   <RelatedCard
                     key={entry.id}
@@ -411,7 +442,10 @@ export function ContentDetailPage<TItem extends DetailItem>({
             ) : null}
 
             {item.content ? (
-              <section className="skill-detail-section skill-detail-section--lead">
+              <section
+                id={tocIds.body}
+                className="skill-detail-section skill-detail-section--lead"
+              >
                 <h2>{kind.leadHeading}</h2>
                 <ContentBody body={item.content} />
               </section>
@@ -422,11 +456,13 @@ export function ContentDetailPage<TItem extends DetailItem>({
               centerId={item.id}
               nodes={graphNodes}
               sectionClassName="skill-detail-section"
+              id={tocIds.graph}
               hint={kind.graphHint}
             />
 
             {relatedTechnologies.length > 0 ? (
               <RelatedSection
+                id={tocIds.relatedTechnologies}
                 eyebrow={kind.technologySection.eyebrow}
                 heading={kind.technologySection.heading}
               >
@@ -464,6 +500,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
 
             {relatedEntries.length > 0 ? (
               <RelatedSection
+                id={tocIds.relatedEntries[kind.kind]}
                 eyebrow={kind.related.eyebrow}
                 heading={kind.related.heading}
               >
@@ -520,6 +557,12 @@ export function ContentDetailPage<TItem extends DetailItem>({
               <p className="skill-detail-kicker">阅读路径</p>
               <p>{kind.readingPath}</p>
             </section>
+
+            <PageToc
+              entries={tocEntries}
+              className="skill-detail-aside-card"
+              labelClassName="skill-detail-kicker"
+            />
           </aside>
         </div>
       </div>

@@ -15,6 +15,12 @@ interface PageTocProps {
   variant?: "panel" | "disclosure";
   /** The host page's own panel skin, so the table matches its neighbours. */
   className?: string;
+  /**
+   * The panel label's class, for a host whose panels label themselves with
+   * something other than the shared eyebrow (the skill and knowledge aside
+   * cards use `skill-detail-kicker`).
+   */
+  labelClassName?: string;
 }
 
 const tocLabel = "本页目录";
@@ -116,7 +122,8 @@ function useActiveTocId(ids: string[]) {
 export function PageToc({
   entries,
   variant = "panel",
-  className
+  className,
+  labelClassName = "eyebrow user-eyebrow"
 }: PageTocProps) {
   const { activeId, pin } = useActiveTocId(entries.map((entry) => entry.id));
   const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -200,7 +207,7 @@ export function PageToc({
         .join(" ")}
       aria-label={tocLabel}
     >
-      <p className="eyebrow user-eyebrow">{tocLabel}</p>
+      <p className={labelClassName}>{tocLabel}</p>
       {list}
     </nav>
   );

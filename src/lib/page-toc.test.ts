@@ -2,10 +2,13 @@ import { describe, expect, it } from "vitest";
 
 import {
   PAGE_TOC_MIN_ENTRIES,
+  contentDetailTocIds,
+  getContentDetailTocCandidates,
   getTechnologyTocCandidates,
   pickActiveTocId,
   selectPageTocEntries,
   technologyTocIds,
+  type ContentDetailTocInput,
   type TechnologyTocInput
 } from "@/lib/page-toc";
 
@@ -70,6 +73,95 @@ describe("selectPageTocEntries", () => {
         { id: "c", label: "C", present: false }
       ])
     ).toEqual([]);
+  });
+});
+
+const skillHeadings: ContentDetailTocInput["headings"] = {
+  body: "这项技能能帮你做什么",
+  relatedTechnologies: "这项技能有助于评估的技术信号",
+  relatedEntries: "与这项技能搭配的知识"
+};
+
+const fullSkill: ContentDetailTocInput = {
+  kind: "skill",
+  prerequisiteCount: 2,
+  hasBody: true,
+  graphNodeCount: 6,
+  relatedTechnologyCount: 3,
+  relatedEntryCount: 2,
+  headings: skillHeadings
+};
+
+function contentTocFor(input: Partial<ContentDetailTocInput>) {
+  return selectPageTocEntries(
+    getContentDetailTocCandidates({
+      ...fullSkill,
+      prerequisiteCount: 0,
+      hasBody: false,
+      graphNodeCount: 0,
+      relatedTechnologyCount: 0,
+      relatedEntryCount: 0,
+      ...input
+    })
+  );
+}
+
+describe("getContentDetailTocCandidates", () => {
+  it("lists every section of a skill page, in page order, by its heading", () => {
+    expect(
+      selectPageTocEntries(getContentDetailTocCandidates(fullSkill))
+    ).toEqual([
+      { id: "section-prerequisites", label: "先读这些" },
+      { id: "section-body", label: "这项技能能帮你做什么" },
+      { id: "section-graph", label: "关系网络" },
+      {
+        id: "section-related-technologies",
+        label: "这项技能有助于评估的技术信号"
+      },
+      { id: "section-related-knowledge", label: "与这项技能搭配的知识" }
+    ]);
+  });
+
+  it("anchors the other kind's entries by what they are", () => {
+    const ids = getContentDetailTocCandidates({
+      ...fullSkill,
+      kind: "knowledge"
+    }).map((candidate) => candidate.id);
+
+    expect(ids).toContain(contentDetailTocIds.relatedEntries.knowledge);
+    expect(ids).toContain("section-related-skills");
+    expect(ids).not.toContain("section-related-knowledge");
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("shares the signal page's ids for the sections both have", () => {
+    expect(contentDetailTocIds.body).toBe(technologyTocIds.body);
+    expect(contentDetailTocIds.graph).toBe(technologyTocIds.graph);
+    expect(contentDetailTocIds.relatedTechnologies).toBe(
+      technologyTocIds.relatedTechnologies
+    );
+  });
+
+  it("leaves out a section the page does not render", () => {
+    const labels = contentTocFor({
+      hasBody: true,
+      graphNodeCount: 3,
+      relatedTechnologyCount: 3
+    }).map((entry) => entry.label);
+
+    expect(labels).toEqual([
+      "这项技能能帮你做什么",
+      "关系网络",
+      "这项技能有助于评估的技术信号"
+    ]);
+  });
+
+  it("drops the whole table for a page with fewer than three sections", () => {
+    // A body and the graph alone: the common short knowledge page.
+    expect(contentTocFor({ hasBody: true, graphNodeCount: 2 })).toEqual([]);
+    expect(
+      contentTocFor({ hasBody: true, graphNodeCount: 2, relatedEntryCount: 1 })
+    ).toHaveLength(3);
   });
 });
 

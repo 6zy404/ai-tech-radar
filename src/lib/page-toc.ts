@@ -124,6 +124,72 @@ export function getTechnologyTocCandidates(
   ];
 }
 
+/**
+ * Element ids of the skill and knowledge pages' sections. Where a section is
+ * the same kind of thing as one on the signal page, it keeps the signal
+ * page's id, so `#section-body` means the body on every detail page.
+ */
+export const contentDetailTocIds = {
+  prerequisites: "section-prerequisites",
+  body: technologyTocIds.body,
+  graph: technologyTocIds.graph,
+  relatedTechnologies: technologyTocIds.relatedTechnologies,
+  /** A skill page lists knowledge here, a knowledge page skills. */
+  relatedEntries: {
+    skill: technologyTocIds.relatedKnowledge,
+    knowledge: technologyTocIds.relatedSkills
+  }
+} as const;
+
+export interface ContentDetailTocInput {
+  kind: "skill" | "knowledge";
+  prerequisiteCount: number;
+  hasBody: boolean;
+  graphNodeCount: number;
+  relatedTechnologyCount: number;
+  relatedEntryCount: number;
+  /**
+   * The h2 of each section whose heading differs by kind, taken from the
+   * page's own descriptor so the table and the page cannot drift apart.
+   */
+  headings: {
+    body: string;
+    relatedTechnologies: string;
+    relatedEntries: string;
+  };
+}
+
+/**
+ * The skill / knowledge page's sections (`ContentDetailPage`), each marked
+ * present exactly when the page renders it. The relationship graph is listed
+ * as 关系网络, its eyebrow, as on the signal page; the others by their h2.
+ */
+export function getContentDetailTocCandidates(
+  input: ContentDetailTocInput
+): PageTocCandidate[] {
+  const ids = contentDetailTocIds;
+
+  return [
+    {
+      id: ids.prerequisites,
+      label: "先读这些",
+      present: input.prerequisiteCount > 0
+    },
+    { id: ids.body, label: input.headings.body, present: input.hasBody },
+    { id: ids.graph, label: "关系网络", present: input.graphNodeCount > 0 },
+    {
+      id: ids.relatedTechnologies,
+      label: input.headings.relatedTechnologies,
+      present: input.relatedTechnologyCount > 0
+    },
+    {
+      id: ids.relatedEntries[input.kind],
+      label: input.headings.relatedEntries,
+      present: input.relatedEntryCount > 0
+    }
+  ];
+}
+
 export interface TocSectionGeometry {
   id: string;
   /** Distance of the section's top edge from the viewport top, in px. */

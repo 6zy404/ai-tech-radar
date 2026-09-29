@@ -53,6 +53,40 @@ For per-topic deep dives, see the `docs/` directory.
   beat the old rule redundant; it is gone. Dark computes the same as before;
   the skill and knowledge asides already used the token and are unchanged.
 
+## 本页目录 on the skill and knowledge pages
+
+- **2026-09-30.** The table of contents added to the signal page the same day
+  now also sits on `/skills/[slug]` and `/knowledge/[slug]`, the signal page's
+  siblings, through the same `PageToc` component — no second copy. The pages'
+  sections are chosen by `getContentDetailTocCandidates` in
+  `src/lib/page-toc.ts`: 先读这些, the body (这项技能能帮你做什么 /
+  这个概念是什么意思), 关系网络, the related signals and the other kind's
+  entries, each listed by its own h2 (taken from the page's kind descriptor, so
+  the two cannot drift) except the graph, which is listed as 关系网络 as on the
+  signal page. Sections both page families have share one id
+  (`#section-body`, `#section-graph`, `#section-related-technologies`).
+- **Measured**: every published skill and knowledge page has 4 or 5 sections,
+  so every one of the 35 shows a table; 5 on 13 of 16 skills and 3 of 19
+  knowledge items (the ones with a 先读这些 chain). None falls under the
+  three-section minimum today; that case was checked on a throwaway entry in a
+  worktree's own data copy (body only: no table, aside unchanged) and is
+  pinned by the unit tests.
+- **Layout**: the skill and knowledge pages' reading column and aside have
+  classes of their own (`.skill-detail-main`, `.skill-detail-aside`), so the
+  three layout rules in `components/page-toc.css` — the scroll margin, the
+  aside that stops being one sticky block, the pinned table — now name both
+  families with `:is()`, same specificity as before. The panel/disclosure
+  switch follows each family's own breakpoint: 920px on the signal page,
+  **980px** here, where the aside drops below the article and becomes a
+  two-column grid. `PageToc` takes an optional `labelClassName` so the panel's
+  label matches its neighbours (`skill-detail-kicker`, as 技能档案 / 阅读路径);
+  the signal page keeps the shared eyebrow. Print already hid `.page-toc`.
+- **Verified** with screenshots of a skill and a knowledge page at 1440 light
+  and dark (top of page and scrolled, table pinned with the current section
+  highlighted), at 390 (folded and unfolded) and at 900 (panel hidden, aside
+  grid unchanged); a click lands the section at 86px, puts the hash in the
+  URL, highlights the entry and focuses the heading.
+
 ## Reading pages print cleanly
 
 - **2026-09-30.** The site had no `@media print` at all, so printing a signal,
