@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { useSignalShortcutPreference } from "@/components/use-signal-shortcut-preference";
 import {
   reconcileCurrentSignalId,
   resolveSignalShortcut,
@@ -66,6 +67,11 @@ export function useSignalShortcuts({
   enabled = true
 }: UseSignalShortcutsOptions): SignalShortcutsState {
   const router = useRouter();
+  const [singleKeysEnabled] = useSignalShortcutPreference();
+  // j / k / o / s / x (and the current-card outline) need both the list to
+  // be ready and the reader not to have turned them off; ? needs only the
+  // first, so the switch in the overlay stays reachable.
+  const cardKeysEnabled = enabled && singleKeysEnabled;
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [announcement, setAnnouncement] = useState("");
@@ -79,6 +85,7 @@ export function useSignalShortcuts({
     signals,
     currentId,
     isHelpOpen,
+    singleKeysEnabled,
     isRead,
     isSaved,
     toggleRead,
@@ -88,6 +95,7 @@ export function useSignalShortcuts({
     signals,
     currentId,
     isHelpOpen,
+    singleKeysEnabled,
     isRead,
     isSaved,
     toggleRead,
@@ -148,7 +156,7 @@ export function useSignalShortcuts({
   // the reader is. Only keyboard focus counts (:focus-visible): a mouse click
   // on a card's button must not light the card up.
   useEffect(() => {
-    if (!enabled) {
+    if (!cardKeysEnabled) {
       return;
     }
 
@@ -186,7 +194,7 @@ export function useSignalShortcuts({
     document.addEventListener("focusin", handleFocusIn);
 
     return () => document.removeEventListener("focusin", handleFocusIn);
-  }, [enabled]);
+  }, [cardKeysEnabled]);
 
   useEffect(() => {
     if (!enabled) {
@@ -205,15 +213,18 @@ export function useSignalShortcuts({
         return;
       }
 
-      const action = resolveSignalShortcut({
-        key: event.key,
-        ctrlKey: event.ctrlKey,
-        metaKey: event.metaKey,
-        altKey: event.altKey,
-        isComposing: event.isComposing,
-        defaultPrevented: event.defaultPrevented,
-        target: event.target instanceof Element ? event.target : null
-      });
+      const action = resolveSignalShortcut(
+        {
+          key: event.key,
+          ctrlKey: event.ctrlKey,
+          metaKey: event.metaKey,
+          altKey: event.altKey,
+          isComposing: event.isComposing,
+          defaultPrevented: event.defaultPrevented,
+          target: event.target instanceof Element ? event.target : null
+        },
+        { singleKeysEnabled: latest.singleKeysEnabled }
+      );
 
       if (action === null) {
         return;
@@ -283,10 +294,16 @@ export function useSignalShortcuts({
 
   useEffect(() => {
     if (!enabled) {
-      setCurrentId(null);
       setIsHelpOpen(false);
     }
   }, [enabled]);
+
+  // Turning the keys off (or the list going away) drops the outline too.
+  useEffect(() => {
+    if (!cardKeysEnabled) {
+      setCurrentId(null);
+    }
+  }, [cardKeysEnabled]);
 
   const openHelp = useCallback(() => setIsHelpOpen(true), []);
   const closeHelp = useCallback(() => setIsHelpOpen(false), []);

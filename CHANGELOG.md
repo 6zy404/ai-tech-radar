@@ -130,6 +130,15 @@ For per-topic deep dives, see the `docs/` directory.
   below 640px. The list is a native modal `<dialog>`
   (`src/components/signal-shortcut-help.tsx`), so focus is trapped and the page
   behind it is inert.
+- **They can be turned off** (WCAG 2.1.4, single-character shortcuts). The
+  ? list carries a 关闭单键快捷键 checkbox; with it ticked, j, k, Enter, o, s
+  and x do nothing and no card is outlined, while ? still opens the list so
+  the switch stays reachable. The choice is a preference, not a reading mark:
+  one localStorage key (`ai-tech-radar:signal-shortcuts-off`), the same
+  boundary as the theme choice, every read and write in try/catch
+  (`src/lib/signal-shortcut-preference.ts`, 4 tests, plus 1 more for the
+  resolver). Focus opens on the list's 关闭 button rather than on the
+  checkbox, so a stray Space cannot switch the keys off.
 - **A bug found by pressing the keys.** The first version synced the dialog's
   state from its `close` event. That event is queued as a task, and in a
   backgrounded tab it had not fired 100ms after `close()`, so after `Esc` the

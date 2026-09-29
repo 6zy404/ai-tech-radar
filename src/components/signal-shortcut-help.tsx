@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import { useSignalShortcutPreference } from "@/components/use-signal-shortcut-preference";
+
 interface SignalShortcutHelpProps {
   open: boolean;
   onClose: () => void;
@@ -30,6 +32,8 @@ export function SignalShortcutHelp({
 }: SignalShortcutHelpProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
+  const [singleKeysEnabled, setSingleKeysEnabled] =
+    useSignalShortcutPreference();
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -111,11 +115,31 @@ export function SignalShortcutHelp({
           <p className="signal-shortcut-help__note">
             在输入框里打字，或按着 Ctrl、Alt、⌘ 时，这些键照常使用。
           </p>
+          {/* WCAG 2.1.4: single-character shortcuts must be possible to turn
+              off. ? stays on either way, so this switch is always reachable. */}
+          <label className="signal-shortcut-help__switch">
+            <input
+              type="checkbox"
+              checked={!singleKeysEnabled}
+              onChange={(event) =>
+                setSingleKeysEnabled(!event.currentTarget.checked)
+              }
+            />
+            <span>
+              关闭单键快捷键
+              <span className="signal-shortcut-help__switch-hint">
+                j、k、Enter、o、s、x 不再响应，? 仍可打开这份说明
+              </span>
+            </span>
+          </label>
           <div className="signal-shortcut-help__actions">
             <button
               type="button"
               className="signal-shortcut-help__close"
               onClick={handleClose}
+              // Focus lands here, not on the switch above it, so a stray
+              // Space on opening cannot turn the shortcuts off.
+              autoFocus
             >
               关闭
             </button>

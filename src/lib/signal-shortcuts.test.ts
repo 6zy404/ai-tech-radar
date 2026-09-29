@@ -105,6 +105,24 @@ describe("resolveSignalShortcut", () => {
     ).toBe("toggle-read");
   });
 
+  it("keeps only ? once the reader turned single keys off", () => {
+    const off = { singleKeysEnabled: false };
+
+    for (const key of ["j", "k", "o", "s", "x", "Enter"]) {
+      expect(resolveSignalShortcut(press(key), off)).toBeNull();
+    }
+
+    expect(resolveSignalShortcut(press("?"), off)).toBe("help");
+    expect(resolveSignalShortcut(press("？"), off)).toBe("help");
+    // Still never inside a text field, even for ?.
+    expect(
+      resolveSignalShortcut(press("?", { target: element("INPUT") }), off)
+    ).toBeNull();
+    expect(resolveSignalShortcut(press("j"), { singleKeysEnabled: true })).toBe(
+      "next"
+    );
+  });
+
   it("treats a missing target as the page body", () => {
     expect(resolveSignalShortcut(press("j", { target: null }))).toBe("next");
   });

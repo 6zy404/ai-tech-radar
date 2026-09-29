@@ -115,9 +115,14 @@ const letterActions: Record<string, SignalShortcutAction> = {
  * not j). Enter counts as "open" only when focus is not on something that
  * handles Enter itself — on the card's title link the browser follows the
  * link, which is the same destination.
+ *
+ * With `singleKeysEnabled` false (the reader turned them off in the ?
+ * overlay), everything but ? is ignored — ? has to keep working, or the
+ * reader could never reach the switch to turn them back on.
  */
 export function resolveSignalShortcut(
-  event: ShortcutKeyEventLike
+  event: ShortcutKeyEventLike,
+  { singleKeysEnabled = true }: { singleKeysEnabled?: boolean } = {}
 ): SignalShortcutAction | null {
   if (event.defaultPrevented || event.isComposing) {
     return null;
@@ -131,11 +136,18 @@ export function resolveSignalShortcut(
     return null;
   }
 
-  if (event.key === "Enter") {
-    return isInteractiveTarget(event.target) ? null : "open";
+  const action =
+    event.key === "Enter"
+      ? isInteractiveTarget(event.target)
+        ? null
+        : "open"
+      : (letterActions[event.key] ?? null);
+
+  if (!singleKeysEnabled && action !== "help") {
+    return null;
   }
 
-  return letterActions[event.key] ?? null;
+  return action;
 }
 
 /**
