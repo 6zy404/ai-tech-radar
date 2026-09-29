@@ -1878,7 +1878,11 @@ sticky and only the table is pinned
 table keep the whole aside sticky. Anchor targets carry
 `scroll-margin-top: 86px`, the same offset the table sticks at, so a jump
 lands clear of the nav. Table links draw no outline of their own and use the
-global `--focus-ring`. Below 920px the table becomes a `<details>` whose
+global `--focus-ring`. The layout rules are written as
+`:is(.user-article-layout__*, .skill-detail-*)` so the skill and knowledge
+pages share them rather than copy them; each page family folds at its own
+aside breakpoint (920px signal, 980px skill / knowledge). Below that width
+the table becomes a `<details>` whose
 summary carries a drawn chevron and a 44px row, because a bare
 「本页目录 · N 节」 line does not read as something that opens.
 

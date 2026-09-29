@@ -100,7 +100,7 @@ The product is split into two subsystems:
   page shows in the current language (Chinese 400 characters/min, English
   200 words/min, rounded up, minimum 1; `src/lib/reading-time.ts`). Every
   published signal, digest (`/digest/[date]`, `/digest/today`), weekly
-  review week (`/digest/weekly/[week]`), skill, knowledge item and topic hub
+  review (`/digest/weekly` and `/digest/weekly/[week]`), skill, knowledge item and topic hub
   serves a 1200×630 share image through its own `opengraph-image` route
   (og:image / twitter:image with `summary_large_image`; list pages keep the
   plain summary card), painted by one renderer
@@ -112,8 +112,16 @@ The product is split into two subsystems:
   against the font's cmap, `src/lib/font-cmap.ts`). The CJK glyphs come from
   a Noto Serif SC Bold subset under `assets/fonts/` (OFL, 1.16 MB; GB2312
   level 1 plus every character on the site when it was cut); check coverage
-  with `node assets/fonts/check-share-card-font.cjs . <data dir>`.
-- **本页目录 on the signal page** (2026-09-30) — the technology detail page's
+  with `node assets/fonts/check-share-card-font.cjs . <data dir>`. A title
+  never ends on a line holding one character (`bindTrailingUnit` in
+  `share-card.ts`, 2026-09-30); an image route with no dynamic segment
+  (`/digest/today`, `/digest/weekly`) must declare
+  `export const dynamic = "force-dynamic"`, or `next build` prerenders it
+  and the card freezes on the build day's issue — `/digest/today`'s did
+  until 2026-09-30. Every public page also announces its RSS / JSON feeds
+  with `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
+  `feeds` option in `src/lib/site-metadata.ts`).
+- **本页目录 on the signal, skill and knowledge pages** (2026-09-30) — the technology detail page's
   aside ends with a table of the sections the page actually renders (omitted
   below three; the AI widgets and the foot 来源参考 are not listed). The
   current section is highlighted as the reader scrolls (IntersectionObserver,
@@ -124,10 +132,10 @@ The product is split into two subsystems:
   table stays pinned. Below 920px it is a folded 「本页目录 · N 节」
   `<details>` at the top of the reading column. Entry selection is
   `selectPageTocEntries` / `getTechnologyTocCandidates` in
-  `src/lib/page-toc.ts`; the component `PageToc` takes any entry list, but
-  is mounted on the signal page only. Every public page also announces its RSS / JSON feeds with
-  `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
-  `feeds` option in `src/lib/site-metadata.ts`).
+  `src/lib/page-toc.ts`. The skill and knowledge pages mount the same
+  `PageToc` with `getContentDetailTocCandidates` (先读这些, the body,
+  关系网络, the related signals and the other kind's entries), switching to
+  the folded version at 980px, their own aside breakpoint (2026-09-30).
 - **Publisher type on the signal page** — the technology detail page's source
   row carries the publisher's _type_ (大型科技公司 / 创业公司 / 研究实验室 /
   开源社区 / 媒体) as a hairline chip beside the publisher name, on both the

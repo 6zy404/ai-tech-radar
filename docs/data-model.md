@@ -123,7 +123,9 @@ Checks:
 
 Flag values:
 
-- `missing_summary`
+- `missing_summary` (an InfoQ 中文 description holding only its
+  「点击查看原文>」 link imports as an empty summary and reports this —
+  `trailingFeedBoilerplatePhrases` in `src/lib/text-sanitize.ts`)
 - `missing_content`
 - `missing_publisher`
 - `invalid_source_url`

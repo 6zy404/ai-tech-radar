@@ -485,6 +485,9 @@ Workspace deployment boundary:
     component in dossier styling; no new persisted data, no AI, no internal
     fields
   - ends with a low-key 订阅 block linking the weekly-review RSS feed
+  - a 1200×630 share image for the current week (its own
+    `opengraph-image`, force-dynamic; the site card while the week has no
+    signals)
     (`/digest/weekly/feed.xml`)
   - ends its content with 上一周 / 下一周 (`IssuePager`, same primitive as
     the digest), before 往期周回顾: only weeks with shown signals (the
@@ -804,6 +807,11 @@ Forbidden on public pages:
     `/search`), the
     colour-scheme toggle, and the secondary Workspace entry point (absent
     from the public build)
+  - at 900px and under the bar reads brand … search, theme, menu — the menu
+    button sits at the right end, and the link list is rendered twice (the
+    desktop inline nav and the panel after the button) with CSS showing one,
+    so the Tab order matches what is seen at both widths; at 480px and under
+    an open search box takes the brand's place (2026-09-30)
 - `ThemeToggle`
   - user-facing light/dark switch in the top nav. The choice lives only in
     this browser's localStorage (`src/lib/theme.ts`), same boundary as
@@ -900,8 +908,9 @@ Forbidden on public pages:
   - on-page table of contents for long detail pages: `panel` variant for
     the aside, `disclosure` variant (`<details>`) for narrow widths;
     highlights the current section and moves focus to the heading it jumps
-    to. Used by the signal page; the skill and knowledge pages can pass their
-    own entries
+    to. Used by the signal page and, through `ContentDetailPage`, the skill
+    and knowledge pages (sidebar panel last, folded at the top of the body
+    at 980px and under); `labelClassName` lets a host restyle the label
 - `DossierTechnologyCard`
   - user-facing dossier-styled index card for `/technologies`; a
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it

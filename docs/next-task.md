@@ -22,6 +22,12 @@
   分享卡扩到简报 / 周回顾 / 技能 / 知识 / 话题（H），信号页「本页目录」（I），
   搜索按类型筛选（J），编辑器「必备」方向可选（L，工作台专用，公开构建里不存在）。
   线上核对：新分享图 200、`?type=` 生效、目录渲染、内部前缀仍 404。
+- **2026-09-30 再部署**（构建 `HZwjQDZH…`，停机 1.7 秒，`main` `efdeebb`）：
+  「上次来访后」的新信号标记（K）、阅读页打印样式（M）、InfoQ 样板修复（P）。
+- **main 上已合、未部署**：窄屏菜单按钮移到最右（S）、分享卡去孤字 + 本周页分享卡 +
+  `/digest/today` 分享卡不再冻结 + 信号页侧栏不透明（N）、技能 / 知识页本页目录（O）。
+  下次部署后看 `.next/prerender-manifest.json`：`/digest/today/opengraph-image` 与
+  `/digest/weekly/opengraph-image` 不应在 routes 里。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
   不健康自动回滚）；`npm run deploy:rollback` 回到上一版。说明在
   `docs/deployment.md` →「Deploy with one command」。八次实跑停机 1.7–2.3 秒（最近一次 2.3）。
@@ -61,11 +67,11 @@
 ~~两条「必备」关系存反~~：2026-09-29 编辑器可以选方向了；两条边由
 `scripts/fix-requires-direction.ts` 修正，2026-09-29 已对线上执行，复跑无事可做。
 
-另一件顺手：8 条 InfoQ 信号的原文（`summary/content.original`）整段只是「点击查看
-原文」样板，修复脚本特意没动：`doordash-feature-flag-cleanup-agents`、
-`alibaba-open-code-review`、`google-adk-kotlin-1-0`、`aws-kiro-crew-async-agents`、
-`pinterest-vector-search-quantization`、`freetoken-bandwidth-adaptive-moe`、
-`zcode-snapshot-upload-and-open-source`、`anthropic-measuring-ai-led-rd`。补原文或设成与中文一致。
+~~8 条 InfoQ 信号的原文只是「点击查看原文」样板~~：2026-09-30 导入侧只在结尾剥掉这句
+（只剩它时算缺摘要），13 个原文字段由 `scripts/fix-boilerplate-originals.ts` 设成与
+中文一致，已对线上执行，复跑无事可做。同类样板还有两种没处理：GitHub Blog 摘要结尾的
+「The post … appeared first on The GitHub Blog.」，和 ms-swift 空 release 的「No content.」
+（被当成有摘要）。
 
 ### 2. P2 运维剩余
 
@@ -105,11 +111,10 @@
 - ~~分诊提示词 v2~~：2026-09-29 已做并启用（喂原文）。33 条干净决定上找回
   发布 0/10 → 8/10，样本小。**编辑轮尽量用盲评**（控制台「隐藏建议」），
   攒够新的干净决定后跑 `eval:triage -- --fresh` 复核。
-- 分享卡长标题末尾可能单字成行（「…上下文管 / 理」），换行算法不避孤字；改了会
-  动信号卡输出，低优先。
-- `/digest/weekly`（本周页）没有分享卡，其余周与简报都有；一个文件就能加。
-- 信号页侧栏面板亮色下是半透明白（`24-technology-detail.css`），网格线透出来，
-  目录吸顶时更明显；兄弟面板共有，低优先。
+- `validate:deployment` 只要求 `page.tsx` 声明渲染模式；`opengraph-image.tsx` 也该
+  纳入（`/digest/today` 的分享卡就是从这个缺口冻结的）。
+- 工作台窄屏菜单里「内部工作台」为当前页时不高亮：`.top-nav__link--workspace` 的颜色
+  写在 `--active` 之后把它盖掉了。窄屏菜单也没有 Esc / 点外部收起。
 - 已知不改：390px 下技能《检索流水线调优》标题断成「检索流水线调 / 优」
   （ICU 词典缺口，种子标题被三条正文引用）。
 
