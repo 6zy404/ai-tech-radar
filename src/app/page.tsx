@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { JsonLd } from "@/components/json-ld";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -27,6 +28,7 @@ import {
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import { getLatestPublicNewsItems, newsDisclaimer } from "@/lib/news";
+import { buildWebSiteJsonLd } from "@/lib/structured-data";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
   getPriorityLevelLabel,
@@ -167,187 +169,195 @@ export default function HomePage() {
   const latestNews = getLatestPublicNewsItems(4);
 
   return (
-    <UserPageShell
-      title="AI Tech Radar"
-      description="发现、理解并持续跟踪值得优先关注的 AI 技术信号。"
-      sectionLabel="AI 技术发现"
-      showHeader={false}
-      className="dossier"
-    >
-      <section className="product-home-hero">
-        <div className="product-home-hero__copy">
-          <p className="eyebrow user-eyebrow">AI 技术发现</p>
-          <h1>
-            <UnbreakableTitle text="发现值得关注的 AI 技术" />
-          </h1>
-          <p>一条清晰的阅读路径，帮你理解它为何重要、掌握所需背景。</p>
-          <div className="product-home-hero__actions">
-            <Link
-              href="/digest/today"
-              className="action-button action-button--primary"
-            >
-              阅读最新简报
-            </Link>
-            <Link href="/technologies" className="action-link">
-              浏览技术信号
-            </Link>
+    <>
+      <UserPageShell
+        title="AI Tech Radar"
+        description="发现、理解并持续跟踪值得优先关注的 AI 技术信号。"
+        sectionLabel="AI 技术发现"
+        showHeader={false}
+        className="dossier"
+      >
+        <section className="product-home-hero">
+          <div className="product-home-hero__copy">
+            <p className="eyebrow user-eyebrow">AI 技术发现</p>
+            <h1>
+              <UnbreakableTitle text="发现值得关注的 AI 技术" />
+            </h1>
+            <p>一条清晰的阅读路径，帮你理解它为何重要、掌握所需背景。</p>
+            <div className="product-home-hero__actions">
+              <Link
+                href="/digest/today"
+                className="action-button action-button--primary"
+              >
+                阅读最新简报
+              </Link>
+              <Link href="/technologies" className="action-link">
+                浏览技术信号
+              </Link>
+            </div>
+            <p className="product-home-hero__stats">
+              <span>
+                <strong>{technologies.length}</strong> 条已发布技术信号
+              </span>
+              <span>
+                <strong>{getAllSkills().length}</strong> 项理解与应用技能
+              </span>
+              <span>
+                <strong>{getAllKnowledge().length}</strong> 个背景知识概念
+              </span>
+            </p>
           </div>
-          <p className="product-home-hero__stats">
-            <span>
-              <strong>{technologies.length}</strong> 条已发布技术信号
-            </span>
-            <span>
-              <strong>{getAllSkills().length}</strong> 项理解与应用技能
-            </span>
-            <span>
-              <strong>{getAllKnowledge().length}</strong> 个背景知识概念
-            </span>
-          </p>
-        </div>
-      </section>
+        </section>
 
-      <section className="product-home-digest">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow user-eyebrow">从这里开始</p>
-            <h2>最新技术简报</h2>
+        <section className="product-home-digest">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow user-eyebrow">从这里开始</p>
+              <h2>最新技术简报</h2>
+            </div>
+            <Link href="/digest/today" className="action-link">
+              打开简报
+            </Link>
           </div>
-          <Link href="/digest/today" className="action-link">
-            打开简报
-          </Link>
-        </div>
-        {/* One column: the two counts used to sit in a fixed 150-220px right
+          {/* One column: the two counts used to sit in a fixed 150-220px right
             column of their own, which left most of that column empty — the
             same shape removed from the digest hero. */}
-        {latestDigest && digestData ? (
-          <DossierCard className="home-digest-card">
-            <span>{latestDigest.date}</span>
-            <h3>
-              <Link href={`/digest/${latestDigest.date}`}>
-                {getPublicDigestTitle(latestDigest)}
+          {latestDigest && digestData ? (
+            <DossierCard className="home-digest-card">
+              <span>{latestDigest.date}</span>
+              <h3>
+                <Link href={`/digest/${latestDigest.date}`}>
+                  {getPublicDigestTitle(latestDigest)}
+                </Link>
+              </h3>
+              <div className="home-digest-card__stats">
+                <span>
+                  {digestData.highPriorityTechnologies.length} 条立即关注
+                </span>
+                <span>{digestData.watchTechnologies.length} 条值得跟踪</span>
+              </div>
+              <p>
+                {compactText(
+                  getPublicDigestSummaryPlainText(latestDigest),
+                  digestCardSummaryLength
+                )}
+              </p>
+            </DossierCard>
+          ) : (
+            <div className="empty-state empty-state--actionable">
+              <strong>还没有已发布简报。</strong>
+              <p>
+                你可以先浏览已发布技术信号，等新一期简报发布后这里会展示它。
+              </p>
+              <Link href="/technologies" className="action-link">
+                浏览技术信号
               </Link>
-            </h3>
-            <div className="home-digest-card__stats">
-              <span>
-                {digestData.highPriorityTechnologies.length} 条立即关注
-              </span>
-              <span>{digestData.watchTechnologies.length} 条值得跟踪</span>
             </div>
-            <p>
-              {compactText(
-                getPublicDigestSummaryPlainText(latestDigest),
-                digestCardSummaryLength
-              )}
-            </p>
-          </DossierCard>
-        ) : (
-          <div className="empty-state empty-state--actionable">
-            <strong>还没有已发布简报。</strong>
-            <p>你可以先浏览已发布技术信号，等新一期简报发布后这里会展示它。</p>
+          )}
+        </section>
+
+        <section className="section-block">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow user-eyebrow">优先技术信号</p>
+              <h2>现在最值得关注</h2>
+            </div>
             <Link href="/technologies" className="action-link">
-              浏览技术信号
+              查看全部信号
             </Link>
           </div>
-        )}
-      </section>
+          {prioritySignals.length > 0 ? (
+            <div className="home-signal-grid">
+              {prioritySignals.map((technology) => (
+                <HomeTechnologyCard
+                  key={technology.id}
+                  technology={technology}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state empty-state--actionable">
+              <strong>还没有已发布技术信号。</strong>
+              <p>发布正式技术记录后，这里会突出最值得先读的内容。</p>
+            </div>
+          )}
+        </section>
 
-      <section className="section-block">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow user-eyebrow">优先技术信号</p>
-            <h2>现在最值得关注</h2>
-          </div>
-          <Link href="/technologies" className="action-link">
-            查看全部信号
-          </Link>
-        </div>
-        {prioritySignals.length > 0 ? (
-          <div className="home-signal-grid">
-            {prioritySignals.map((technology) => (
-              <HomeTechnologyCard key={technology.id} technology={technology} />
-            ))}
-          </div>
-        ) : (
-          <div className="empty-state empty-state--actionable">
-            <strong>还没有已发布技术信号。</strong>
-            <p>发布正式技术记录后，这里会突出最值得先读的内容。</p>
-          </div>
-        )}
-      </section>
-
-      <section className="section-block">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow user-eyebrow">今日快讯</p>
-            <h2>来源里正在发生什么</h2>
-          </div>
-          <Link href="/technologies?view=news" className="action-link">
-            查看全部快讯
-          </Link>
-        </div>
-        {latestNews.length > 0 ? (
-          <div className="home-news-list">
-            {latestNews.map((item) => (
-              <article key={item.key} className="home-news-row">
-                <div className="home-news-row__meta">
-                  <span className="home-news-row__source">
-                    {item.sourceName}
-                  </span>
-                  <span>{item.publishDate}</span>
-                </div>
-                <a
-                  href={item.sourceUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {item.title}
-                </a>
-              </article>
-            ))}
-            <p className="home-news-list__note">{newsDisclaimer}</p>
-          </div>
-        ) : (
-          <div className="empty-state">
-            最近还没有自动聚合的快讯。来源定时导入后，这里会展示最新资讯。
-          </div>
-        )}
-      </section>
-
-      <section className="home-discovery-grid">
-        <div className="home-discovery-panel">
+        <section className="section-block">
           <div className="section-heading">
             <div>
-              <p className="eyebrow user-eyebrow">技能</p>
-              <h2>建立判断技术信号的能力</h2>
+              <p className="eyebrow user-eyebrow">今日快讯</p>
+              <h2>来源里正在发生什么</h2>
             </div>
-            <Link href="/skills" className="action-link">
-              查看技能
+            <Link href="/technologies?view=news" className="action-link">
+              查看全部快讯
             </Link>
           </div>
-          <div className="foundation-card-list">
-            {skills.map((skill) => (
-              <SkillPathCard key={skill.id} skill={skill} />
-            ))}
-          </div>
-        </div>
+          {latestNews.length > 0 ? (
+            <div className="home-news-list">
+              {latestNews.map((item) => (
+                <article key={item.key} className="home-news-row">
+                  <div className="home-news-row__meta">
+                    <span className="home-news-row__source">
+                      {item.sourceName}
+                    </span>
+                    <span>{item.publishDate}</span>
+                  </div>
+                  <a
+                    href={item.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {item.title}
+                  </a>
+                </article>
+              ))}
+              <p className="home-news-list__note">{newsDisclaimer}</p>
+            </div>
+          ) : (
+            <div className="empty-state">
+              最近还没有自动聚合的快讯。来源定时导入后，这里会展示最新资讯。
+            </div>
+          )}
+        </section>
 
-        <div className="home-discovery-panel">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow user-eyebrow">知识</p>
-              <h2>用稳定概念理解新变化</h2>
+        <section className="home-discovery-grid">
+          <div className="home-discovery-panel">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow user-eyebrow">技能</p>
+                <h2>建立判断技术信号的能力</h2>
+              </div>
+              <Link href="/skills" className="action-link">
+                查看技能
+              </Link>
             </div>
-            <Link href="/knowledge" className="action-link">
-              查看知识
-            </Link>
+            <div className="foundation-card-list">
+              {skills.map((skill) => (
+                <SkillPathCard key={skill.id} skill={skill} />
+              ))}
+            </div>
           </div>
-          <div className="foundation-card-list">
-            {knowledge.map((item) => (
-              <KnowledgePathCard key={item.id} item={item} />
-            ))}
+
+          <div className="home-discovery-panel">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow user-eyebrow">知识</p>
+                <h2>用稳定概念理解新变化</h2>
+              </div>
+              <Link href="/knowledge" className="action-link">
+                查看知识
+              </Link>
+            </div>
+            <div className="foundation-card-list">
+              {knowledge.map((item) => (
+                <KnowledgePathCard key={item.id} item={item} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </UserPageShell>
+        </section>
+      </UserPageShell>
+      <JsonLd data={buildWebSiteJsonLd()} />
+    </>
   );
 }

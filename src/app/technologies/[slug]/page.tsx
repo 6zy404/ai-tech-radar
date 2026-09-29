@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/json-ld";
 import { TechnologyDetailContent } from "@/components/technology-detail-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -9,6 +10,7 @@ import {
   getTechnologyBySlug
 } from "@/lib/content";
 import { getSimilarSignals } from "@/lib/similar-signals";
+import { buildTechnologyJsonLd } from "@/lib/structured-data";
 import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type { Metadata } from "next";
@@ -88,25 +90,32 @@ export default async function TechnologyDetailPage({
       title: getPreferredTechnologyTitle(item),
       href: `/technologies/${item.slug}`
     }));
+  const tags = getTagsByIds(technology.tags);
+  // Built here, not in TechnologyDetailContent: the workspace preview renders
+  // drafts through that component and must not emit structured data.
+  const structuredData = buildTechnologyJsonLd(technology, tags);
 
   return (
-    <UserPageShell
-      title="技术详情"
-      description="以阅读为先，呈现已发布信号、来源，以及帮助理解它的技能与知识。"
-      sectionLabel="已发布技术"
-      showHeader={false}
-      className="dossier"
-    >
-      <TechnologyDetailContent
-        technology={technology}
-        tags={getTagsByIds(technology.tags)}
-        relatedTechnologies={relatedTechnologies}
-        relatedSkills={relatedSkills}
-        relatedKnowledge={relatedKnowledge}
-        compareCandidates={compareCandidates}
-        evolutionChain={evolutionChain}
-        similarSignals={similarSignals}
-      />
-    </UserPageShell>
+    <>
+      <UserPageShell
+        title="技术详情"
+        description="以阅读为先，呈现已发布信号、来源，以及帮助理解它的技能与知识。"
+        sectionLabel="已发布技术"
+        showHeader={false}
+        className="dossier"
+      >
+        <TechnologyDetailContent
+          technology={technology}
+          tags={tags}
+          relatedTechnologies={relatedTechnologies}
+          relatedSkills={relatedSkills}
+          relatedKnowledge={relatedKnowledge}
+          compareCandidates={compareCandidates}
+          evolutionChain={evolutionChain}
+          similarSignals={similarSignals}
+        />
+      </UserPageShell>
+      {structuredData ? <JsonLd data={structuredData} /> : null}
+    </>
   );
 }

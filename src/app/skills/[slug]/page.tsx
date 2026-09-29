@@ -6,7 +6,9 @@ import {
   ContentDetailPage,
   skillDetailKind
 } from "@/components/content-detail-page";
-import { getSkillBySlug } from "@/lib/content";
+import { JsonLd } from "@/components/json-ld";
+import { getSkillBySlug, getTagsByIds } from "@/lib/content";
+import { buildContentJsonLd } from "@/lib/structured-data";
 
 // Reads runtime content through @/lib/content, so it must never be
 // prerendered: a build-time copy freezes whatever the workspace had
@@ -41,5 +43,12 @@ export default async function SkillDetailPage({
     notFound();
   }
 
-  return <ContentDetailPage kind={skillDetailKind} item={skill} />;
+  return (
+    <>
+      <ContentDetailPage kind={skillDetailKind} item={skill} />
+      <JsonLd
+        data={buildContentJsonLd("skill", skill, getTagsByIds(skill.tags))}
+      />
+    </>
+  );
 }

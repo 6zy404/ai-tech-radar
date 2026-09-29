@@ -6,7 +6,9 @@ import {
   ContentDetailPage,
   knowledgeDetailKind
 } from "@/components/content-detail-page";
-import { getKnowledgeBySlug } from "@/lib/content";
+import { JsonLd } from "@/components/json-ld";
+import { getKnowledgeBySlug, getTagsByIds } from "@/lib/content";
+import { buildContentJsonLd } from "@/lib/structured-data";
 
 // Reads runtime content through @/lib/content, so it must never be
 // prerendered: a build-time copy freezes whatever the workspace had
@@ -41,5 +43,16 @@ export default async function KnowledgeDetailPage({
     notFound();
   }
 
-  return <ContentDetailPage kind={knowledgeDetailKind} item={knowledge} />;
+  return (
+    <>
+      <ContentDetailPage kind={knowledgeDetailKind} item={knowledge} />
+      <JsonLd
+        data={buildContentJsonLd(
+          "knowledge",
+          knowledge,
+          getTagsByIds(knowledge.tags)
+        )}
+      />
+    </>
+  );
 }

@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Structured data (JSON-LD) on the public pages
+
+- **2026-09-29.** Signal, digest, skill and knowledge pages, and the home
+  page, now carry schema.org JSON-LD in `<script type="application/ld+json">`,
+  so a search engine reads what each page is rather than guessing from the
+  markup. Nothing visible changed.
+- **What each page says.** A signal page is a `NewsArticle` — headline,
+  description, `datePublished` (the date the page shows), `inLanguage`
+  (`zh-CN` when a translation exists, which is what the page reads, else the
+  source language), the canonical URL, the existing share card as `image`,
+  AI Tech Radar as author and publisher, tag names as `keywords` — whose
+  `isBasedOn` is the original announcement (its title, URL and publisher);
+  any further source references become `citation`. Chosen over `TechArticle`
+  because the page reports a dated release from an outside source, which is
+  what `NewsArticle` describes; `TechArticle` is for how-tos and
+  specifications. A digest page (`/digest/[date]`, and `/digest/today` at its
+  own URL) is a `CollectionPage` whose `mainEntity` is an `ItemList` of the
+  issue's signals in page order. Skill and knowledge pages are `Article`s —
+  each is a written explanation with a body, and neither record carries a
+  date, so none is invented; a knowledge entry's Article is additionally
+  `about` a `DefinedTerm`. Every detail page adds a `BreadcrumbList`
+  (首页 › 技术信号 / 技术简报 / 技能 / 知识 › the page). The home page carries
+  a `WebSite`.
+- **Public fields only, by construction.** `src/lib/structured-data.ts` picks
+  every field by name from the public shapes the pages already render, so a
+  field it does not list cannot leak; the tests hand it a record carrying
+  `priority` and `intelligenceStatus` and assert neither appears. The signal
+  builder returns nothing for anything but a published record, and the
+  JSON-LD is emitted from the route files, not from `TechnologyDetailContent`,
+  so the workspace preview — which renders drafts through that component —
+  emits none.
+- **Escaping.** `serializeJsonLd` writes `<`, `>`, `&` and U+2028/2029 as JSON
+  escapes, so a title containing `</script>` cannot close the element; the
+  output parses back to the same data. Proven to fire: with the escape
+  removed, two tests fail. URLs are absolute on `NEXT_PUBLIC_SITE_URL`, the
+  same base `metadataBase` gives the Open Graph tags.
+- **Verified** on a dev server: every page type's JSON-LD parses, carries the
+  schema.org required properties for its type, and contains none of eleven
+  internal field names. `src/components/json-ld.tsx` is a server component,
+  so the data adds nothing to a client bundle.
+
 ## Previous / next on the digest and the weekly review
 
 - **2026-09-29.** Every public digest page (`/digest/[date]`, and the issue
