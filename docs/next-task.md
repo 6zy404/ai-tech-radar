@@ -9,16 +9,18 @@
   查一个旧结论的原话时去 grep。
 - 「现在有什么功能」看 `docs/reference.md`，不在这里重复。
 
-## 当前状态（2026-09-28）
+## 当前状态（2026-09-29）
 
 - **线上**：`https://aizyradar.cn`，Cloudflare Tunnel 接本机 `next start`
   （公开构建 `npm run build:public`，工作台路由物理不存在）。跑的是 `main`
-  的 `a051064`（构建 `gBb45zXG…`），2026-09-29 部署：技能 / 知识去重、搜索页
-  去重、窄屏日期不再断开。线上复查搜索页、快讯、详情页 200 且截图正常，内部前缀
-  404，公开 AI 接口 415 照旧。服务**只监听 `127.0.0.1`**：局域网地址实测被拒，域名下公开路由 200、五个内部前缀 404。
+  的 `a6b86d3`（构建 `pmEgFidp…`），2026-09-29 晚部署：简报 / 周回顾翻页、
+  内容相近的信号、全部信号 RSS、JSON-LD、跳到正文与统一焦点环、列表快捷键、导入
+  文本清洗。同时对线上数据跑了 `scripts/repair-entities.ts --published-text`
+  （180 个字段，复核归零）：快讯页原始 HTML 24 处 → 0，InfoQ 原文链接的
+  `&amp;` 已去掉。服务**只监听 `127.0.0.1`**：局域网地址实测被拒，域名下公开路由 200、五个内部前缀 404。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
   不健康自动回滚）；`npm run deploy:rollback` 回到上一版。说明在
-  `docs/deployment.md` →「Deploy with one command」。七次实跑停机 1.8、1.7、1.7、1.7、2.1、2.2、2.3 秒。
+  `docs/deployment.md` →「Deploy with one command」。八次实跑停机 1.7–2.3 秒（最近一次 2.3）。
   `.next-old` 始终是上一版，由脚本在下次部署时替换，不用手删。
 - **本机探测用 `127.0.0.1`，别用 `localhost`**：后者先试 IPv6 被拒，.NET 首次
   连接要等约 2 秒。隧道不受影响（实测均值 512ms）。
@@ -36,7 +38,7 @@
 - **内容**（2026-09-28 经公开 getter 实测，与 README 一致）：已发布信号 91、
   技能 16、知识 19、技术简报 31 期（最近 09-28）、在用信源 13；图谱 126 节点 /
   890 边，兜底「关联」占 11.5%。技能/知识池零占位。
-- **闸门**：typecheck / lint / format / vitest 500 / `validate:all` 22 个全绿
+- **闸门**：typecheck / lint / format / vitest 585 / `validate:all` 22 个全绿
   （2026-09-29）。CI 跑单测与全部 validator。类型检查自 09-28 起覆盖测试文件
   （33 个）。
 - **重活一次只跑一个**（CLAUDE.md →「Parallel windows」）：一次 `css:diff`
@@ -55,6 +57,12 @@
 下一轮顺手：在工作台里把「完成判定与验收信号」的两条「必备」关系从**技能那一侧**
 重新保存（「智能体可观测性与评测运维」「智能体工作流设计」），现在方向存反了，
 「先读这些」在那一页把顺序显示反了（2026-09-29 实测）。
+
+另一件顺手：8 条 InfoQ 信号的原文（`summary/content.original`）整段只是「点击查看
+原文」样板，修复脚本特意没动：`doordash-feature-flag-cleanup-agents`、
+`alibaba-open-code-review`、`google-adk-kotlin-1-0`、`aws-kiro-crew-async-agents`、
+`pinterest-vector-search-quantization`、`freetoken-bandwidth-adaptive-moe`、
+`zcode-snapshot-upload-and-open-source`、`anthropic-measuring-ai-led-rd`。补原文或设成与中文一致。
 
 ### 2. P2 运维剩余
 
