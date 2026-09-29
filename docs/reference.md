@@ -184,6 +184,16 @@ The product is split into two subsystems:
   first. Marks are manual — opening a signal never marks it read — and live
   only in browser localStorage (`src/lib/reading-state.ts`), so the served
   page stays identical for everyone.
+  Keyboard shortcuts (2026-09-29): the 精选 / 我关注的 / 稍后读 views take
+  j / k (move between signal cards; focus lands on the card's title link,
+  which gets an outline and scrolls clear of the sticky nav), Enter / o
+  (open), s (稍后读), x (已读) and ? (a modal list of the keys; Esc closes).
+  Inputs, Ctrl/Meta/Alt chords, IME composition and Enter on links or
+  buttons are left alone; 全部快讯 and 按话题 have none. Marks go through the
+  existing reading state (`src/lib/signal-shortcuts.ts`,
+  `use-signal-shortcuts.ts`). The ? list carries a 关闭单键快捷键 switch
+  (WCAG 2.1.4); off, only ? responds. It is stored as one localStorage
+  preference key, the same boundary as the theme choice.
 - **Topic timeline** — the 按话题 view on `/technologies?view=timeline`
   groups published technology signals by topic tag, each shown as a
   chronological (newest-first) list linking to its detail page.

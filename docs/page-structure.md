@@ -388,6 +388,14 @@ Workspace deployment boundary:
     curated view's count/language toolbar and the saved view's lede line —
     rather than on one of its own, so appearing after the reader's first mark
     does not move the card grid (2026-07-30)
+  - keyboard shortcuts apply to the same three views: j / k / Enter / o /
+    s / x / ?, the current card is the focused one (`isCurrent` outline on
+    `DossierTechnologyCard`), and a quiet 「快捷键 ?」 button sits at the end
+    of a row already present — the count row on 精选 and 稍后读, beside the
+    first group title on 我关注的 — hidden below 640px. The ? list is
+    `SignalShortcutHelp`, a native modal `<dialog>` with a 关闭单键快捷键
+    switch (WCAG 2.1.4); off, only ? responds (one localStorage preference
+    key, like the theme)
 - `/technologies/[slug]`
   - user-facing published technology detail
   - a 版本脉络 evolution-line section as the first content block, rendered only
@@ -786,6 +794,9 @@ Forbidden on public pages:
   - shared reference / metadata card
 - `TagBadge`
   - shared tag presentation
+- `SignalShortcutHelp` / `SignalShortcutHint` (`signal-shortcut-help.tsx`)
+  - the ? shortcut list (native modal `<dialog>` with the off switch) and
+    the quiet 「快捷键 ?」 button that opens it, on the three signal-list views
 - `HighlightedText`
   - renders text with literal search hits wrapped in `<mark>` (segments from
     `highlightSearchTerms` in `src/lib/search-highlight.ts`); used by
