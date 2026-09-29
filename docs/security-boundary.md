@@ -286,6 +286,7 @@ The safe public mapping is still explicit:
   (pair, relation type, note) and reach public pages through the merged
   read in `getAllLinkRelations`; the editing surface
   (`PUT /api/workspace/relations`) stays behind the workspace boundary
+- JSON-LD on public pages is built by `src/lib/structured-data.ts`, which picks fields by name from the public shapes the pages already render; ranking, `intelligenceStatus`, editorial notes and workspace fields cannot appear, a non-published technology yields no output, and the workspace preview never renders it. The serializer escapes `<`, `>`, `&` and U+2028/2029 so content cannot close the script element
 - delivery channels, delivery logs, schedules, task-runner records, and workflow events are workspace-only
 
 `npm run validate:persistence` provides a lightweight consistency and isolation check for local workflow data. `npm run validate:database` repeats the critical reference and public-field checks against both JSON and SQLite driver modes. Since 2026-09-24 every `validate:*` script runs against a throwaway copy of the data directory made by `scripts/run-ts-validation.cjs`, so a validator can never write a fixture into the live store; `VALIDATION_DATA_DIR=live` is the explicit opt-out. Store writes are temp-file-then-rename, and a store file that no longer parses throws rather than being read as empty and then overwritten.

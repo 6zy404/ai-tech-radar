@@ -1854,3 +1854,17 @@ two families were behaving differently; now they do not.
 
 Measured after: three representative pages report **zero** resting underlines,
 and the same link reports `none` at rest and `underline` while hovered.
+
+## Keyboard focus (2026-09-29)
+
+Every focusable element draws its ring only on `:focus-visible`: a 2px solid
+outline, offset 2px, coloured by `--focus-ring` (`01-base.css`). The token
+follows the **surface**, not the scheme: `#0f766e` on light grounds, `#6fa090`
+on dark ones. The workspace panels stay light in dark mode, so they reset it to
+the light value; the workspace rail is dark in both schemes, so it always takes
+the dark value. Measured across the site, every ring is 4.4:1 or better against
+what sits behind it (the threshold is 3:1).
+
+New components must not write their own `outline`. When an inner element has
+to lose its outline — the input inside a search pill — draw the same ring on the
+outer element with `:has(…:focus-visible)`.

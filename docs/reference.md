@@ -331,6 +331,18 @@ The product is split into two subsystems:
   over 20 undecided candidates or the oldest over 7 days, linking to
   `/workspace/editorial-round`). Thresholds are constants in
   `src/lib/operations-metrics.ts`; see [`docs/operations.md`](operations.md).
+- **Structured data (JSON-LD)** — signal pages carry a schema.org
+  `NewsArticle` (isBasedOn the original announcement, further source
+  references as citation, the share card as image), digest pages a
+  `CollectionPage` whose `ItemList` is the issue's signals, skill and
+  knowledge pages an `Article` (knowledge `about` a `DefinedTerm`), every
+  detail page a `BreadcrumbList`, and the home page a `WebSite`
+  (`src/lib/structured-data.ts`, rendered by `src/components/json-ld.tsx`).
+  Public fields only; drafts emit none.
+- **Keyboard access** — every page's first Tab stop is a 跳到正文 skip link
+  (to `#main-content`, or `#workspace-content` past the workspace rail), and
+  every focusable element draws one `:focus-visible` ring coloured by
+  `--focus-ring`, measured at 4.4:1 or better in both schemes.
 - **Persistence** — local JSON by default, with an optional SQLite driver.
 - **Security boundary** — optional token protection for workspace and internal
   API routes, with internal-only fields kept off public pages and feeds.

@@ -742,6 +742,8 @@ Forbidden on public pages:
   - user-facing page framing for published content
 - `UserArticleLayout`
   - user-facing technology detail article layout
+  - its reading column is a `<div>`; the page's only `<main>` is the
+    layout's
 - `MetadataRow`
   - compact metadata row, used with different page-level styling
 - `TagList`
@@ -880,6 +882,11 @@ Forbidden on public pages:
     through `DossierCatalogNote`; a page-specific sibling of
     `RelatedItemsSection` (kept unchanged, since it is still shared with
     the not-yet-migrated skill and knowledge detail pages)
+- `SkipLink`
+  - every page's first Tab stop, 跳到正文, rendered by `layout.tsx`; it lands
+    on `#main-content` (the layout's `<main>`), or on `#workspace-content`
+    (WorkspacePageShell's content column) on workspace pages. The ids live in
+    `src/lib/skip-link-targets.ts`
 - `IssuePager`
   - user-facing previous / next pager shared by the daily digest and weekly
     review pages; takes `unit` (期 / 周) and two optional `{ href, label }`
