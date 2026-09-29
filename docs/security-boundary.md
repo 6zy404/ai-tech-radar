@@ -64,6 +64,10 @@ Public routes can be exposed:
   (published signals only) and adds no route.
 - `/feed.xml`
 - `/feed.json`
+- `*/opengraph-image` on the signal, digest, weekly-review week, skill,
+  knowledge and topic routes (1200×630 share images painted from the same
+  public fields the page renders; anything the page would 404 on gets the
+  site card)
 - `GET /api/health` (liveness for an external monitor; reports the build id,
   uptime, published-signal count and search-model state — nothing a reader
   could not infer from the site, no paths or env)

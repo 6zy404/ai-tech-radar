@@ -428,7 +428,12 @@ Workspace deployment boundary:
     follow-up questions (`src/lib/reading-time.ts`); switching 中文/原文
     changes it
   - a 1200×630 share image in `<head>` (`opengraph-image`), with the large
-    twitter card
+    twitter card; the digest, weekly-review week, skill, knowledge and topic
+    hub pages carry one too (2026-09-29, one shared renderer)
+  - a 本页目录 as the last aside panel (`PageToc`), listing only the
+    sections rendered on this page, hidden below three; sticky at 86px while
+    the panels above it scroll away; below 920px it moves to a folded
+    `<details>` at the top of the reading column (2026-09-30)
   - productized priority label and short explanation
   - Content Intelligence modules for why it matters, who should care, technical context, impact areas, reading difficulty, learning path, and follow-up questions
   - tags; the 主题标签 reference panel renders follow-toggle chips
@@ -626,6 +631,11 @@ Workspace deployment boundary:
     the header, the description and the search box — the "no query yet" empty
     state was removed on 2026-08-01 because its heading repeated the input's
     placeholder and its body repeated the page description
+  - a row of type chips (全部 · 信号 N · 技能 N · 知识 N · 快讯 N,
+    `DossierCategoryChips` rendered as links) above the result summary;
+    `?type=` renders one group only, counts stay unfiltered, an empty group
+    is a disabled dashed chip, the news group keeps its disclaimer, and the
+    semantic-only notice is judged on the visible groups (2026-09-30)
   - does not show internal quality, reviewer, delivery, or source data
 - `/topics`
   - user-facing topic index (按话题浏览): every topic with at least one
@@ -865,6 +875,15 @@ Forbidden on public pages:
     `DossierRegisterRow` remains unused until a page needs a ledger-style
     row. See `docs/design-system.md` → "Dossier direction" for the full
     specification and remaining adoption order.
+  - `DossierCategoryChips` renders links when its options carry `href`
+    (`/search`, with `disabled` for empty groups) and toggle buttons when
+    given `onChange` (`/network`, `/technologies`)
+- `PageToc` (`page-toc.tsx`)
+  - on-page table of contents for long detail pages: `panel` variant for
+    the aside, `disclosure` variant (`<details>`) for narrow widths;
+    highlights the current section and moves focus to the heading it jumps
+    to. Used by the signal page; the skill and knowledge pages can pass their
+    own entries
 - `DossierTechnologyCard`
   - user-facing dossier-styled index card for `/technologies`; a
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it

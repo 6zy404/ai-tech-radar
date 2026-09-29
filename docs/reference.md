@@ -99,13 +99,33 @@ The product is split into two subsystems:
   row shows 约 N 分钟读完 / About N min read, computed from the prose the
   page shows in the current language (Chinese 400 characters/min, English
   200 words/min, rounded up, minimum 1; `src/lib/reading-time.ts`). Every
-  published signal also serves a 1200×630 share image through its
-  `opengraph-image` route (og:image / twitter:image, with
-  `summary_large_image` on signal pages only): dossier colours, the Chinese
-  title (original as fallback), type, source, publisher type and date — no
-  priority, no internal fields; an unknown slug gets a site card. The CJK
-  glyphs come from a Noto Serif SC Bold subset under `assets/fonts/` (OFL,
-  1.16 MB). Every public page also announces its RSS / JSON feeds with
+  published signal, digest (`/digest/[date]`, `/digest/today`), weekly
+  review week (`/digest/weekly/[week]`), skill, knowledge item and topic hub
+  serves a 1200×630 share image through its own `opengraph-image` route
+  (og:image / twitter:image with `summary_large_image`; list pages keep the
+  plain summary card), painted by one renderer
+  (`src/lib/share-card-image.tsx`) from builders in `src/lib/share-card.ts`:
+  dossier colours, public fields only — no priority, no internal fields;
+  anything the page would 404 on gets the site card. The digest card leads
+  with the editorial summary's first sentence and falls back to the title
+  when that sentence has a character outside the font subset (checked
+  against the font's cmap, `src/lib/font-cmap.ts`). The CJK glyphs come from
+  a Noto Serif SC Bold subset under `assets/fonts/` (OFL, 1.16 MB; GB2312
+  level 1 plus every character on the site when it was cut); check coverage
+  with `node assets/fonts/check-share-card-font.cjs . <data dir>`.
+- **本页目录 on the signal page** (2026-09-30) — the technology detail page's
+  aside ends with a table of the sections the page actually renders (omitted
+  below three; the AI widgets and the foot 来源参考 are not listed). The
+  current section is highlighted as the reader scrolls (IntersectionObserver,
+  `aria-current="location"`); a click scrolls smoothly, or instantly under
+  reduced motion, lands the section 86px down, updates the hash without a
+  history entry and moves focus to its heading. With a table in it the aside
+  is no longer one sticky block: the panels above scroll away and only the
+  table stays pinned. Below 920px it is a folded 「本页目录 · N 节」
+  `<details>` at the top of the reading column. Entry selection is
+  `selectPageTocEntries` / `getTechnologyTocCandidates` in
+  `src/lib/page-toc.ts`; the component `PageToc` takes any entry list, but
+  is mounted on the signal page only. Every public page also announces its RSS / JSON feeds with
   `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
   `feeds` option in `src/lib/site-metadata.ts`).
 - **Publisher type on the signal page** — the technology detail page's source
@@ -248,6 +268,13 @@ The product is split into two subsystems:
   `src/lib/search-highlight.ts`); results found by meaning alone carry no
   marks. A hit in the original-language title a card does not display
   (e.g. "agent" on a card titled 智能体) is not shown — a known gap.
+  Results can be narrowed to one group with
+  `?type=technologies|skills|knowledge|news` (`src/lib/search-filter.ts`,
+  2026-09-30); a row of link chips above the summary shows each group's
+  unfiltered count, an empty group is shown disabled, and an unknown value
+  means no filter. Filtering is server-side, so it works without JS; every
+  group is still computed, because the counts and the pool-wide semantic
+  cutoff need them.
 - **Skill/Knowledge workspace editing (v0)** — `/workspace/skills` and
   `/workspace/knowledge` manage the skill and knowledge content pools:
   create new entries, or edit the bundled `src/data` seed entries via

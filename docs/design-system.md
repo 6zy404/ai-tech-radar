@@ -1868,3 +1868,16 @@ what sits behind it (the threshold is 3:1).
 New components must not write their own `outline`. When an inner element has
 to lose its outline — the input inside a search pill — draw the same ring on the
 outer element with `:has(…:focus-visible)`.
+
+## An on-page table of contents (2026-09-30)
+
+An aside taller than the viewport cannot be sticky as one block: its bottom is
+never reachable. With the 本页目录 in it, the signal page's aside stops being
+sticky and only the table is pinned
+(`.user-article-layout__aside:has(> .page-toc--panel)`); pages without a
+table keep the whole aside sticky. Anchor targets carry
+`scroll-margin-top: 86px`, the same offset the table sticks at, so a jump
+lands clear of the nav. Table links draw no outline of their own and use the
+global `--focus-ring`. Below 920px the table becomes a `<details>` whose
+summary carries a drawn chevron and a 44px row, because a bare
+「本页目录 · N 节」 line does not read as something that opens.
