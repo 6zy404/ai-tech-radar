@@ -4,7 +4,8 @@ import {
   cleanFeedText,
   cleanUrl,
   decodeHtmlEntities,
-  htmlToPlainText
+  htmlToPlainText,
+  isFeedBoilerplateOnly
 } from "./text-sanitize";
 
 describe("decodeHtmlEntities", () => {
@@ -107,6 +108,66 @@ describe("cleanFeedText", () => {
     expect(
       cleanFeedText("<p>正文第一句。</p><a href='x'>点击查看原文></a>")
     ).toBe("正文第一句。");
+  });
+
+  it("reduces the phrase alone to nothing, with or without its arrow", () => {
+    expect(cleanFeedText("点击查看原文>")).toBe("");
+    expect(cleanFeedText("  点击查看原文  ")).toBe("");
+    expect(cleanFeedText("点击查看原文 ›")).toBe("");
+    expect(cleanFeedText("点击查看原文&raquo;")).toBe("");
+    expect(cleanFeedText("点击查看原文＞")).toBe("");
+  });
+
+  it("removes a trailing phrase after body text, and a repeated one", () => {
+    expect(cleanFeedText("正文第一句。 点击查看原文>")).toBe("正文第一句。");
+    expect(cleanFeedText("正文。 点击查看原文> 点击查看原文>")).toBe("正文。");
+  });
+
+  it("leaves the phrase alone mid-text", () => {
+    const middle = "点击查看原文> 之后还有一段正文。";
+
+    expect(cleanFeedText(middle)).toBe(middle);
+    expect(cleanFeedText("前文 点击查看原文 后文")).toBe(
+      "前文 点击查看原文 后文"
+    );
+  });
+
+  it("leaves prose that merely ends in the same words", () => {
+    expect(cleanFeedText("完整报告请点击查看原文")).toBe(
+      "完整报告请点击查看原文"
+    );
+  });
+
+  it("handles other languages: strips the InfoQ tail, keeps unlisted phrases", () => {
+    expect(
+      cleanFeedText(
+        "<p>Anthropic publishes three measurements.</p><div align='right'><a href='x'>点击查看原文></a></div>"
+      )
+    ).toBe("Anthropic publishes three measurements.");
+    expect(cleanFeedText("A short note. Read the original >")).toBe(
+      "A short note. Read the original >"
+    );
+    expect(cleanFeedText("リリースノート。 詳細はこちら>")).toBe(
+      "リリースノート。 詳細はこちら>"
+    );
+  });
+});
+
+describe("isFeedBoilerplateOnly", () => {
+  it("recognises a stored InfoQ original, raw or already cleaned", () => {
+    expect(
+      isFeedBoilerplateOnly(
+        "<div align='right'><a href='https://www.infoq.cn/article/x?utm_source=rss&utm_medium=article'>点击查看原文></a></div>"
+      )
+    ).toBe(true);
+    expect(isFeedBoilerplateOnly("点击查看原文>")).toBe(true);
+  });
+
+  it("is false for real text, empty text and markup with no phrase", () => {
+    expect(isFeedBoilerplateOnly("正文。 点击查看原文>")).toBe(false);
+    expect(isFeedBoilerplateOnly("")).toBe(false);
+    expect(isFeedBoilerplateOnly(undefined)).toBe(false);
+    expect(isFeedBoilerplateOnly("<div></div>")).toBe(false);
   });
 });
 

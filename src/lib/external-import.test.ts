@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { evaluateCandidateQuality } from "@/lib/quality-signals";
 import type { ExternalSource } from "@/types/content";
 
 import {
@@ -269,6 +270,28 @@ describe("feed text and links — the 2026-09-29 escaped-HTML case", () => {
     // in the pool keep their id — and their review state — on the next import.
     expect(candidate.id).toBe(
       "candidate-rss-https-www-infoq-cn-article-abc-utm-source-rss-amp-utm-medium-article"
+    );
+  });
+
+  it("imports a link-only InfoQ description as no summary, so the quality check says so", async () => {
+    const link =
+      "https://www.infoq.cn/article/xyz?utm_source=rss&amp;utm_medium=article";
+
+    stubFeed(`<?xml version="1.0"?><rss><channel><title>InfoQ</title>
+      <item>
+        <title>微软正式发布 Agent Framework Harness</title>
+        <link>${link}</link>
+        <description>&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;${link}&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;</description>
+        <pubDate>Tue, 29 Sep 2026 11:24:14 GMT</pubDate>
+      </item>
+    </channel></rss>`);
+
+    const [candidate] = await importCandidatesForExternalSource(makeSource({}));
+
+    expect(candidate.originalSummary).toBe("");
+    expect(candidate.originalContent).toBe("");
+    expect(evaluateCandidateQuality(candidate).flags).toEqual(
+      expect.arrayContaining(["missing_summary", "missing_content"])
     );
   });
 
