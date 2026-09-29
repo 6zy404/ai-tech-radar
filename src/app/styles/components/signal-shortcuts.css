@@ -1,0 +1,180 @@
+/* components/signal-shortcuts: the j / k / s / x / ? shortcuts on the
+   精选 / 我关注的 / 稍后读 signal lists (use-signal-shortcuts.ts,
+   signal-shortcut-help.tsx). Every colour is a dossier token, so the dark
+   scheme follows from dossier-scope.css with no rules of its own. */
+
+/* j / k scroll the current card into view with block: "nearest"; the
+   margin keeps it clear of the sticky top nav instead of sliding under it. */
+.dossier-technology-card {
+  scroll-margin-top: 96px;
+  scroll-margin-bottom: 24px;
+}
+
+/* The card the shortcuts are on. An outline rather than a border change, so
+   the card does not move by a pixel; the offset keeps it off the dashed
+   border a read card already has. */
+.dossier-technology-card--current {
+  outline: 2px solid var(--dossier-accent);
+  outline-offset: 3px;
+}
+
+/* -- the visible hint -- */
+.signal-shortcut-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.signal-shortcut-hint:hover {
+  border-color: var(--dossier-line);
+  color: var(--dossier-accent);
+}
+
+/* Narrow screens are almost always touch, where the keys do not exist. */
+@media (max-width: 640px) {
+  .signal-shortcut-hint {
+    display: none;
+  }
+}
+
+.signal-shortcut-hint kbd,
+.signal-shortcut-help kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 1px 6px;
+  border: 1px solid var(--dossier-line);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  background: var(--dossier-ground);
+  color: var(--dossier-ink);
+  font-family: ui-monospace, monospace;
+  font-size: 11.5px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Rows that carry the hint beside what was already there. */
+.saved-signals__toolbar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.my-radar__group-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* -- the ? overlay -- */
+.signal-shortcut-help {
+  width: min(420px, calc(100vw - 32px));
+  padding: 0;
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+  box-shadow:
+    0 1px 2px rgba(43, 42, 34, 0.08),
+    0 18px 40px -18px rgba(43, 42, 34, 0.45);
+}
+
+/* Dark enough to separate the panel from a dark page too; at 0.35 the dark
+   scheme read as the panel sitting flat on the page. */
+.signal-shortcut-help::backdrop {
+  background: rgba(20, 20, 16, 0.5);
+}
+
+.signal-shortcut-help__panel {
+  padding: 20px 22px 18px;
+}
+
+.signal-shortcut-help__title {
+  margin: 0 0 14px;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 19px;
+  letter-spacing: 0;
+}
+
+.signal-shortcut-help__list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.signal-shortcut-help__row {
+  display: grid;
+  grid-template-columns: 7.5em 1fr;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--dossier-line);
+}
+
+.signal-shortcut-help__row dt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.signal-shortcut-help__row dd {
+  margin: 0;
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+}
+
+.signal-shortcut-help__or {
+  margin: 0 4px 0 0;
+  color: var(--dossier-muted);
+  font-size: 12px;
+}
+
+.signal-shortcut-help__note {
+  margin: 12px 0 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.signal-shortcut-help__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 14px 0 0;
+}
+
+.signal-shortcut-help__close {
+  padding: 5px 14px;
+  border: 1px solid var(--dossier-accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--dossier-accent);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Heard, not seen: what s / x just did, for a screen reader. */
+.signal-shortcut-help__live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

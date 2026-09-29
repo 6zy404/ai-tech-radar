@@ -28,6 +28,11 @@ interface DossierTechnologyCardProps {
   context?: TechnologyContentContext;
   /** Dims the card once the reader marked the signal read (P4 v0.4). */
   isRead?: boolean;
+  /**
+   * Outlines the card the keyboard shortcuts are on (j / k). Surfaces
+   * without shortcuts never pass it.
+   */
+  isCurrent?: boolean;
   /** The 稍后读 / 已读 toggles; omitted on surfaces without reading state. */
   readingActions?: ReactNode;
   /**
@@ -55,6 +60,7 @@ export function DossierTechnologyCard({
   mode,
   context = "preview",
   isRead = false,
+  isCurrent = false,
   readingActions,
   matchLine
 }: DossierTechnologyCardProps) {
@@ -88,7 +94,7 @@ export function DossierTechnologyCard({
     <DossierCard
       className={`dossier-technology-card${
         isRead ? " dossier-technology-card--read" : ""
-      }`}
+      }${isCurrent ? " dossier-technology-card--current" : ""}`}
     >
       <div className="dossier-technology-card__topline">
         <span className="dossier-technology-card__catalog">
@@ -108,7 +114,11 @@ export function DossierTechnologyCard({
       {matchLine}
 
       <h2 className="dossier-technology-card__title">
-        <Link href={`/technologies/${technology.slug}`}>
+        {/* data-signal-id is what the list shortcuts focus (j / k). */}
+        <Link
+          href={`/technologies/${technology.slug}`}
+          data-signal-id={technology.id}
+        >
           <UnbreakableTitle text={title} />
         </Link>
       </h2>

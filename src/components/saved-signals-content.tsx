@@ -6,7 +6,12 @@ import { useState } from "react";
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
 import { ReadFilterToggle } from "@/components/read-filter-toggle";
 import { SignalReadingActions } from "@/components/signal-reading-actions";
+import {
+  SignalShortcutHelp,
+  SignalShortcutHint
+} from "@/components/signal-shortcut-help";
 import { useReadingState } from "@/components/use-reading-state";
+import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
 import {
   applyReadFilter,
   countReadTechnologies,
@@ -46,6 +51,18 @@ export function SavedSignalsContent({
     readIds,
     hideRead
   );
+  const shortcuts = useSignalShortcuts({
+    signals: shownTechnologies.map((item) => ({
+      id: item.id,
+      href: `/technologies/${item.slug}`
+    })),
+    isRead,
+    isSaved,
+    toggleRead,
+    toggleSaved,
+    // Nothing to move between until the local list has been read.
+    enabled: isLoaded && savedTechnologies.length > 0
+  });
 
   if (!isLoaded) {
     return (
@@ -83,11 +100,14 @@ export function SavedSignalsContent({
           已攒下 {savedTechnologies.length} 条信号。
         </p>
 
-        <ReadFilterToggle
-          readCount={readCount}
-          hideRead={hideRead}
-          onToggle={() => setHideRead((current) => !current)}
-        />
+        <div className="saved-signals__toolbar-controls">
+          <ReadFilterToggle
+            readCount={readCount}
+            hideRead={hideRead}
+            onToggle={() => setHideRead((current) => !current)}
+          />
+          <SignalShortcutHint onOpen={shortcuts.openHelp} />
+        </div>
       </div>
 
       <div className="dossier-technology-list">
@@ -97,6 +117,7 @@ export function SavedSignalsContent({
             technology={item}
             mode="zh"
             isRead={isRead(item.id)}
+            isCurrent={shortcuts.currentId === item.id}
             readingActions={
               <SignalReadingActions
                 isRead={isRead(item.id)}
@@ -118,6 +139,12 @@ export function SavedSignalsContent({
           <p>关掉「隐藏已读」可以回看，或者取消「稍后读」把它们清出列表。</p>
         </div>
       ) : null}
+
+      <SignalShortcutHelp
+        open={shortcuts.isHelpOpen}
+        onClose={shortcuts.closeHelp}
+        announcement={shortcuts.announcement}
+      />
     </div>
   );
 }

@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
 import { SignalReadingActions } from "@/components/signal-reading-actions";
+import {
+  SignalShortcutHelp,
+  SignalShortcutHint
+} from "@/components/signal-shortcut-help";
 import { useReadingState } from "@/components/use-reading-state";
+import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
 import { topicFeedPath } from "@/lib/feed-paths";
 import {
   followedTagsChangedEventName,
@@ -131,6 +136,19 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
         )
     }))
     .filter((group) => group.items.length > 0);
+  // j / k walk the cards in reading order: group by group, top to bottom.
+  const shortcuts = useSignalShortcuts({
+    signals: groupedTechnologies.flatMap((group) =>
+      group.items.map(({ technology }) => ({
+        id: technology.id,
+        href: `/technologies/${technology.slug}`
+      }))
+    ),
+    isRead: readingState.isRead,
+    isSaved: readingState.isSaved,
+    toggleRead: readingState.toggleRead,
+    toggleSaved: readingState.toggleSaved
+  });
 
   return (
     <div className="my-radar">
@@ -227,10 +245,20 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
         </section>
       ) : null}
 
-      {groupedTechnologies.map((group) => (
+      {groupedTechnologies.map((group, groupIndex) => (
         <section key={group.level} className="my-radar__group">
           <div className="my-radar__group-header">
-            <h2>{group.title}</h2>
+            {/* The shortcut hint sits beside the first group's title: this
+                view has no count row to carry it, and a line of its own
+                would push every card down. */}
+            {groupIndex === 0 ? (
+              <div className="my-radar__group-title-row">
+                <h2>{group.title}</h2>
+                <SignalShortcutHint onOpen={shortcuts.openHelp} />
+              </div>
+            ) : (
+              <h2>{group.title}</h2>
+            )}
             <p>{group.lede}</p>
           </div>
           <div className="dossier-technology-list">
@@ -246,6 +274,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
                     </p>
                   }
                   isRead={readingState.isRead(technology.id)}
+                  isCurrent={shortcuts.currentId === technology.id}
                   readingActions={
                     <SignalReadingActions
                       isRead={readingState.isRead(technology.id)}
@@ -267,6 +296,12 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
           </div>
         </section>
       ))}
+
+      <SignalShortcutHelp
+        open={shortcuts.isHelpOpen}
+        onClose={shortcuts.closeHelp}
+        announcement={shortcuts.announcement}
+      />
     </div>
   );
 }

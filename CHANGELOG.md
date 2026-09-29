@@ -100,6 +100,43 @@ For per-topic deep dives, see the `docs/` directory.
 - Clicking a button draws no ring. Clicking into a text field does, because
   browsers always match `:focus-visible` for text inputs; `/search` and
   `/ask` behaved this way before.
+## Keyboard shortcuts on the signal lists
+
+- **2026-09-29.** The 精选 / 我关注的 / 稍后读 views on `/technologies` take
+  `j` / `k` (next / previous signal), `Enter` / `o` (open it), `s` (稍后读 on
+  or off), `x` (已读 on or off) and `?` (a short list of these keys; `Esc`
+  closes it). The 全部快讯 and 按话题 views do not: they are not lists of
+  signal cards with reading marks. The marks go through the existing
+  `useReadingState` / `reading-state.ts`; nothing new is stored.
+- **The current card is the focused one.** `j` / `k` move DOM focus to the
+  card's title link, so a screen reader reads the title, `Enter` follows the
+  link natively and `Tab` continues from there; the card also gets a 2px
+  accent outline (`isCurrent` on `DossierTechnologyCard`) and scrolls with
+  `block: "nearest"` plus a `scroll-margin-top` that keeps it out from under
+  the sticky nav. Tabbing onto a card makes it current too; a mouse click on
+  one of its buttons does not (only `:focus-visible` counts). At either end
+  the current card stays put; marking the current card read while 隐藏已读 is
+  on hands focus to the card that took its place. `s` / `x` announce what
+  they did in a polite live region.
+- **What is left alone.** Anything typed into an input, textarea, select or
+  contenteditable; any press with Ctrl, Meta or Alt; input-method
+  composition; upper-case letters; and `Enter` on a link or button, which
+  keeps its own meaning. The rules are pure (`resolveSignalShortcut`,
+  `stepSignalId`, `reconcileCurrentSignalId` in `src/lib/signal-shortcuts.ts`,
+  17 tests); the hook is `src/components/use-signal-shortcuts.ts`.
+- **The one visible trace** is a quiet 「快捷键 ?」 button at the end of a row
+  that was already there — the count row on 精选 and 稍后读, beside the first
+  priority group's title on 我关注的 — which opens the same list. It is hidden
+  below 640px. The list is a native modal `<dialog>`
+  (`src/components/signal-shortcut-help.tsx`), so focus is trapped and the page
+  behind it is inert.
+- **A bug found by pressing the keys.** The first version synced the dialog's
+  state from its `close` event. That event is queued as a task, and in a
+  backgrounded tab it had not fired 100ms after `close()`, so after `Esc` the
+  component still thought the dialog was open and every list key was
+  ignored. Each way out (`Esc` through the synchronous `cancel` event, the
+  关闭 button, a click on the backdrop) now updates the state itself, and
+  the key handler reads whether the dialog is open from the DOM.
 
 ## Previous / next on the digest and the weekly review
 

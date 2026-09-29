@@ -7,8 +7,13 @@ import { DossierSearchInput } from "@/components/dossier-search-input";
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
 import { ReadFilterToggle } from "@/components/read-filter-toggle";
 import { SignalReadingActions } from "@/components/signal-reading-actions";
+import {
+  SignalShortcutHelp,
+  SignalShortcutHint
+} from "@/components/signal-shortcut-help";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { useReadingState } from "@/components/use-reading-state";
+import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
@@ -64,6 +69,16 @@ export function TechnologyBrowser({
     readIds,
     hideRead
   );
+  const shortcuts = useSignalShortcuts({
+    signals: filteredTechnologies.map((item) => ({
+      id: item.id,
+      href: `/technologies/${item.slug}`
+    })),
+    isRead,
+    isSaved,
+    toggleRead,
+    toggleSaved
+  });
 
   const typeOptions = [
     { value: "", label: "全部类型" },
@@ -134,6 +149,7 @@ export function TechnologyBrowser({
               onToggle={() => setHideRead((current) => !current)}
             />
             <TechnologyLanguageSwitch mode={mode} onChange={setMode} />
+            <SignalShortcutHint onOpen={shortcuts.openHelp} />
           </div>
         </div>
       </div>
@@ -145,6 +161,7 @@ export function TechnologyBrowser({
             technology={item}
             mode={mode}
             isRead={isRead(item.id)}
+            isCurrent={shortcuts.currentId === item.id}
             readingActions={
               <SignalReadingActions
                 isRead={isRead(item.id)}
@@ -175,6 +192,12 @@ export function TechnologyBrowser({
           )}
         </div>
       ) : null}
+
+      <SignalShortcutHelp
+        open={shortcuts.isHelpOpen}
+        onClose={shortcuts.closeHelp}
+        announcement={shortcuts.announcement}
+      />
     </div>
   );
 }
