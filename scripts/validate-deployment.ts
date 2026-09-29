@@ -17,6 +17,12 @@ import {
 import { maskEndpointUrl } from "../src/lib/delivery-workflow";
 import { getLocalDataDirPath } from "../src/lib/local-data";
 import {
+  declaresRenderMode,
+  findUndeclaredMetadataRoutes,
+  isGeneratedMetadataRoute,
+  mustDeclareRenderMode
+} from "../src/lib/metadata-route-render-mode";
+import {
   checkWorkspaceAccess,
   isProtectedWorkspacePath,
   isWorkspaceAccessEnabled,
@@ -107,10 +113,7 @@ function assertPagesDeclareTheirRenderMode() {
   );
 
   const undeclared = [...pageFilePaths, ...getRouteFilePaths]
-    .filter(
-      (filePath) =>
-        !readFileSync(filePath, "utf8").includes("export const dynamic")
-    )
+    .filter((filePath) => !declaresRenderMode(readFileSync(filePath, "utf8")))
     .map((filePath) =>
       path.relative(process.cwd(), filePath).split(path.sep).join("/")
     );
@@ -119,6 +122,39 @@ function assertPagesDeclareTheirRenderMode() {
     undeclared,
     [],
     `These pages and GET route handlers do not declare "export const dynamic", so next build will prerender them and they will never pick up a content change: ${undeclared.join(", ")}`
+  );
+}
+
+/**
+ * The same decision for generated metadata routes — share images, icons, the
+ * sitemap. `/digest/today/opengraph-image` was prerendered and froze on the
+ * build day's issue until 2026-09-30 because the check above only read
+ * `page.tsx`. The rule itself (which routes need it, and why a route under
+ * `[slug]` usually does not) lives in `src/lib/metadata-route-render-mode.ts`.
+ */
+function assertMetadataRoutesDeclareTheirRenderMode() {
+  const files = listFilesRecursive(path.join(process.cwd(), "src", "app")).map(
+    (filePath) => ({
+      path: path.relative(process.cwd(), filePath).split(path.sep).join("/"),
+      source: readFileSync(filePath, "utf8")
+    })
+  );
+  const metadataRoutes = files.filter((file) =>
+    isGeneratedMetadataRoute(file.path)
+  );
+
+  // Guards against the check going vacuous, e.g. after a directory move.
+  assert.ok(
+    metadataRoutes.some((file) => mustDeclareRenderMode(file)),
+    "Expected at least one generated metadata route under src/app that must declare its render mode."
+  );
+
+  const undeclared = findUndeclaredMetadataRoutes(metadataRoutes);
+
+  assert.deepEqual(
+    undeclared,
+    [],
+    `These metadata routes have no dynamic segment (or list their params with generateStaticParams) but do not declare "export const dynamic", so next build will prerender them and freeze them on the build day: ${undeclared.join(", ")}`
   );
 }
 
@@ -427,6 +463,7 @@ function main() {
   assertClientBuildDoesNotContainWorkspaceSecret();
   assertMiddlewareIsInDiscoverableLocation();
   assertPagesDeclareTheirRenderMode();
+  assertMetadataRoutesDeclareTheirRenderMode();
   assertPublicBuildExcludesEveryGuardedPrefix();
 
   console.log("Deployment readiness validation passed.");
