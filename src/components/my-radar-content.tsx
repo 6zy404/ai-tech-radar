@@ -11,6 +11,7 @@ import {
 } from "@/components/signal-shortcut-help";
 import { useReadingState } from "@/components/use-reading-state";
 import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
+import { useVisitBaseline } from "@/components/visit-baseline";
 import { topicFeedPath } from "@/lib/feed-paths";
 import {
   followedTagsChangedEventName,
@@ -20,6 +21,7 @@ import {
 } from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
+import { isNewSinceLastVisit, toVisitKeys } from "@/lib/visit-state";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
 
 interface MyRadarContentProps {
@@ -51,6 +53,11 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
   const readingState = useReadingState();
+  // Recorded here as well as on 精选: this view also receives the whole
+  // published list, and a reader may open it directly.
+  const visitBaselineKeys = useVisitBaseline(
+    toVisitKeys(technologies.map((technology) => technology.id))
+  );
 
   const handleExportFollows = async () => {
     const code = followedTagIds.join(",");
@@ -274,6 +281,11 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
                     </p>
                   }
                   isRead={readingState.isRead(technology.id)}
+                  isNew={isNewSinceLastVisit(
+                    visitBaselineKeys,
+                    technology.id,
+                    readingState.readIds
+                  )}
                   isCurrent={shortcuts.currentId === technology.id}
                   readingActions={
                     <SignalReadingActions

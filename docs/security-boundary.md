@@ -10,8 +10,8 @@ Public routes can be exposed:
 - `/technologies` (five views via `?view=`: 精选 default, 全部快讯 — the
   auto-aggregated news fast lane, see "News Fast Lane Boundary" below for
   the exact candidate-field allowlist — 按话题, 我关注的, and 稍后读 —
-  followed topics and reading marks (已读 / 稍后读) are browser-localStorage
-  only, the route serves the same published content to everyone and holds no
+  followed topics, reading marks (已读 / 稍后读) and the last-visit set
+  behind the 新 stamps are browser-localStorage only, the route serves the same published content to everyone and holds no
   per-reader server state; `/news`, `/timeline`, and `/radar` redirect here
   to the matching view)
 - `/technologies/[slug]`

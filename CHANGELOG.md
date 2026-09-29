@@ -53,6 +53,39 @@ For per-topic deep dives, see the `docs/` directory.
   stylesheet has all 35 print rules inside that block. Verified by printing
   through CDP `Page.printToPDF` in both colour schemes and reading every page.
 
+## 新: signals published since your last visit
+
+- **2026-09-30.** On the 精选 and 我关注的 views and the home page's priority
+  signals, a card the reader has not seen before carries a small 新 tab, and
+  the 精选 count row adds 「上次来访后新增 N 条」. Like the read / read-later
+  marks and followed topics it lives in one localStorage key
+  (`ai-tech-radar:visit-state`, `src/lib/visit-state.ts`): no account, no
+  server state, and the served HTML is identical for everyone — checked on
+  `/`, `/technologies` and `?view=followed`, where the markup contains
+  neither the stamp nor the line.
+- **"New" means "not known at your last visit", not "published after it".**
+  `publishDate` is the source's date, and signals reach the site later:
+  85 of 91 published signals entered the workspace a day or more after their
+  publishDate (median two days), so comparing dates would almost never mark
+  anything for a reader who comes daily. The key stores the published list
+  the browser saw — as 7-character hashes of the ids, since the ids run to
+  ~100 characters (0.9 KB stored for 91 signals).
+- **A visit is a run of loads with no gap over 30 minutes.** At the start of
+  a visit, the list remembered from the last one becomes the fixed baseline;
+  reloads, new tabs and other list pages within the visit keep it, so marks
+  do not vanish on refresh. A first visit marks nothing. A signal marked read
+  is never new, and the stamp and the count drop the moment it is marked.
+  Only pages that hold the whole published list record a visit; a detail
+  page recording its handful of ids would have made the next home visit
+  mark nearly everything.
+- **The tab sits on the card's top edge, out of flow.** In the card's
+  topline it squeezed the catalog span onto a second line (+8px on a 1440
+  card) after mount. Measured with every 新 element hidden and shown: 0px
+  difference in any card's top or height on `/`, 精选 and 我关注的 at 1440
+  light, 1440 dark and 390 — the check itself flags an 80px probe. The count
+  text uses the count's size and line height, so it only adds width. Filled
+  accent with ground text: 6.87:1 light, 5.61:1 dark.
+
 ## Search results can be narrowed to one type
 
 - **2026-09-30.** `/search` takes `?type=technologies|skills|knowledge|news`

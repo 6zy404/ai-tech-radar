@@ -5,6 +5,7 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
+import { NewStamp } from "@/components/visit-baseline";
 import {
   getReadingDifficultyLabel,
   getTechnologyAudience,
@@ -28,6 +29,11 @@ interface DossierTechnologyCardProps {
   context?: TechnologyContentContext;
   /** Dims the card once the reader marked the signal read (P4 v0.4). */
   isRead?: boolean;
+  /**
+   * Adds the 新 stamp: the signal is new since the reader's last visit
+   * (`src/lib/visit-state.ts`). Never true on the server render.
+   */
+  isNew?: boolean;
   /**
    * Outlines the card the keyboard shortcuts are on (j / k). Surfaces
    * without shortcuts never pass it.
@@ -60,6 +66,7 @@ export function DossierTechnologyCard({
   mode,
   context = "preview",
   isRead = false,
+  isNew = false,
   isCurrent = false,
   readingActions,
   matchLine
@@ -96,6 +103,10 @@ export function DossierTechnologyCard({
         isRead ? " dossier-technology-card--read" : ""
       }${isCurrent ? " dossier-technology-card--current" : ""}`}
     >
+      {/* Pinned to the card's top edge, out of flow: it appears after mount,
+          and in the topline it squeezed the catalog span onto a second line
+          (measured 2026-09-30: +8px on a 1440 card), moving the grid. */}
+      {isNew && !isRead ? <NewStamp /> : null}
       <div className="dossier-technology-card__topline">
         <span className="dossier-technology-card__catalog">
           {getTechnologyTypeLabel(technology.type, effectiveMode)} · 第{" "}

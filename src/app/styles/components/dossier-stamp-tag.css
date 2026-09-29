@@ -60,6 +60,28 @@
   border-color: var(--dossier-line);
 }
 
+/* 新: the signal is new since the reader's last visit (src/lib/visit-state.ts).
+   Filled in the accent green so it is not read as a second priority stamp
+   (stamp red, outlined) or as an active filter chip (stamp red, filled).
+   Measured 2026-09-30: ground on accent is 6.87:1 light, 5.61:1 dark. */
+.dossier-stamp-tag--new {
+  color: var(--dossier-ground);
+  background: var(--dossier-accent);
+  border-color: var(--dossier-accent);
+  font-weight: 600;
+}
+
+/* On a card it is a tab pinned across the card's top edge, out of flow. It
+   only appears after mount (the served page is the same for everyone), and
+   in the card's own rows it pushed text onto a second line and moved the
+   grid. Centred on the 1px border; left edge on the card's 18px padding. */
+.dossier-card > .dossier-stamp-tag--new {
+  position: absolute;
+  top: -11px;
+  left: 18px;
+  line-height: 12px;
+}
+
 /*
  * A stamp is a label, not a column: as a flex item it was shrinking to make
  * room for a wrapping title, so the same 印证 rendered 48x26 beside a

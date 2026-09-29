@@ -323,7 +323,8 @@ Workspace deployment boundary:
   - explains the public value proposition: what to read first, why it matters, and what background is needed
   - provides three public entry cards for Daily Digest, Technology Signals, and Skills / Knowledge
   - highlights the latest published Daily Digest as the primary start point
-  - highlights high-priority published technology signals
+  - highlights high-priority published technology signals; each card the
+    reader has not seen before carries the same 新 stamp as the signal list
   - links readers into Skills and Knowledge as understanding paths
   - links to `/digest/today`, `/technologies`, `/skills`, and `/knowledge`
   - shows a compact latest-news board (今日快讯) linking to
@@ -388,6 +389,12 @@ Workspace deployment boundary:
     curated view's count/language toolbar and the saved view's lede line —
     rather than on one of its own, so appearing after the reader's first mark
     does not move the card grid (2026-07-30)
+  - 新 since the last visit (2026-09-30) on the 精选 and 我关注的 views: a
+    signal the reader's previous visit did not know about carries a 新
+    stamp riding the card's top edge (absolutely positioned, so it appears
+    after mount without moving the grid), and the 精选 count row adds
+    上次来访后新增 N 条, following the filters and hidden at 0. A first visit
+    marks nothing; 已读 signals are never new
   - keyboard shortcuts apply to the same three views: j / k / Enter / o /
     s / x / ?, the current card is the focused one (`isCurrent` outline on
     `DossierTechnologyCard`), and a quiet 「快捷键 ?」 button sits at the end
@@ -807,6 +814,11 @@ Forbidden on public pages:
 - `SignalShortcutHelp` / `SignalShortcutHint` (`signal-shortcut-help.tsx`)
   - the ? shortcut list (native modal `<dialog>` with the off switch) and
     the quiet 「快捷键 ?」 button that opens it, on the three signal-list views
+- `VisitBaselineProvider` / `useVisitBaseline` / `NewSignalStamp`
+  (`visit-baseline.tsx`)
+  - the last-visit baseline for the 新 stamps: records the visit on the
+    pages that hold the full published list (home, 精选, 我关注的) and
+    answers "is this signal new" from `src/lib/visit-state.ts`
 - `HighlightedText`
   - renders text with literal search hits wrapped in `<mark>` (segments from
     `highlightSearchTerms` in `src/lib/search-highlight.ts`); used by
