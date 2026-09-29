@@ -3,8 +3,11 @@ import {
   getDigestTechnologySections
 } from "@/lib/digest-workflow";
 import { findIssueNeighbors } from "@/lib/issue-neighbors";
+import type { DigestShareCardInput } from "@/lib/share-card";
 import { getAllKnowledge, getAllSkills, getAllTags } from "@/lib/content";
+import { contentBodyToPlainText } from "@/lib/content-body";
 import {
+  containsInternalPublicCopy,
   getPublicDigestSummary,
   getPublicDigestTitle
 } from "@/lib/public-copy";
@@ -33,6 +36,30 @@ export function toPublicDigestView(digest: DailyDigest): PublicDigestView {
     title: getPublicDigestTitle(digest),
     summary: getPublicDigestSummary(digest),
     sourceNames: digest.sourceNames
+  };
+}
+
+// What the digest share card shows: the public title, the editorial summary
+// (the page's 今日概览, under the same internal-copy guard as every other
+// public digest string), the issue date, and the two section counts from the
+// hero's meta row — counted the same way the page counts them, so the card
+// cannot disagree with the page it links to.
+export function toDigestShareCardInput(
+  digest: DailyDigest
+): DigestShareCardInput {
+  const { highPriorityTechnologies, watchTechnologies } =
+    getDigestTechnologySections(digest);
+  const editorialSummary = digest.editorialSummary?.trim();
+
+  return {
+    date: digest.date,
+    title: getPublicDigestTitle(digest),
+    lede:
+      editorialSummary && !containsInternalPublicCopy(editorialSummary)
+        ? contentBodyToPlainText(editorialSummary)
+        : undefined,
+    highPriorityCount: highPriorityTechnologies.length,
+    watchCount: watchTechnologies.length
   };
 }
 

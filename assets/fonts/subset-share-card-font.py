@@ -9,7 +9,7 @@ for hi in range(0xB0, 0xD8):
         except UnicodeDecodeError: pass
 lvl1 = len(chars)
 repo = sys.argv[1]
-files = glob.glob(repo + "/config/technology-workspace.json") + glob.glob(repo + "/src/data/*.ts") + glob.glob(repo + "/src/lib/technology-localization.ts") + glob.glob(repo + "/src/lib/share-card.ts")
+files = glob.glob(repo + "/config/technology-workspace.json") + glob.glob(repo + "/config/skill-workspace.json") + glob.glob(repo + "/config/knowledge-workspace.json") + glob.glob(repo + "/config/daily-digests.json") + glob.glob(repo + "/src/data/*.ts") + glob.glob(repo + "/src/lib/technology-localization.ts") + glob.glob(repo + "/src/lib/content-labels.ts") + glob.glob(repo + "/src/lib/weekly-review.ts") + glob.glob(repo + "/src/lib/share-card.ts")
 extra = set()
 for f in files:
     for ch in open(f, encoding="utf-8").read():

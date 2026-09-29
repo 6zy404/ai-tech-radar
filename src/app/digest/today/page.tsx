@@ -29,7 +29,8 @@ export function generateMetadata(): Metadata {
   return buildPageMetadata({
     title: latest ? getPublicDigestTitle(latest) : "技术简报",
     description: latest ? getPublicDigestSummaryPlainText(latest) : undefined,
-    path: "/digest/today"
+    path: "/digest/today",
+    largeImage: true
   });
 }
 

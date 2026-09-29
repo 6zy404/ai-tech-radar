@@ -41,7 +41,8 @@ export async function generateMetadata({
     title: getPublicDigestTitle(digest),
     description: getPublicDigestSummaryPlainText(digest),
     path: `/digest/${digest.date}`,
-    type: "article"
+    type: "article",
+    largeImage: true
   });
 }
 

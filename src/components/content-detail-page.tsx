@@ -217,7 +217,8 @@ export function buildContentDetailMetadata<TItem extends DetailItem>(
     title: `${item.title} · ${kind.noun}`,
     description: item.summary,
     path: `${kind.publicPath}/${item.slug}`,
-    type: "article"
+    type: "article",
+    largeImage: true
   });
 }
 

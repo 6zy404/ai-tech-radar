@@ -48,6 +48,54 @@ For per-topic deep dives, see the `docs/` directory.
   the same component. `DossierRelatedItemsSection`, `RelationshipGraph` and
   `TechnologyEvolutionLine` gained an optional `id` for the anchors.
 
+## Share cards on every public detail page
+
+- **2026-09-29.** Only signal pages had a 1200×630 share image. Links to a
+  digest, a weekly review, a skill, a knowledge item or a topic unfurled with
+  no picture. All six now carry one: `/digest/[date]`, `/digest/today`,
+  `/digest/weekly/[week]`, `/skills/[slug]`, `/knowledge/[slug]` and
+  `/topics/[tagId]` each gained an `opengraph-image` route, and their
+  metadata passes `largeImage` so X shows `summary_large_image`, as the
+  signal page already did. `twitter:image` needed nothing: Next copies it
+  from the og image. List pages and `/digest/weekly` (the current week) are
+  unchanged — they still have no image and a small card.
+- **One painter.** The signal route's JSX moved to
+  `src/lib/share-card-image.tsx` (`renderShareCardImage`), and every route
+  now only picks a builder from `src/lib/share-card.ts`. The move was proven
+  to change nothing: four signal cards (short, medium and long titles, and an
+  unknown slug) rendered before and after are **byte-identical PNGs** with the
+  same `Cache-Control` — the renderer is deterministic, re-fetching the same
+  card twice gives the same bytes, so a byte compare is a fair test.
+- **What each card says**, all fields the page itself renders: digest — the
+  first sentence of the editorial summary (the page's 今日概览), the two
+  section counts and the issue date; weekly — the week range, its counts
+  and the year; skill — type, heat, learning cost; knowledge — category,
+  difficulty; topic — name and the /topics index's three counts. The digest
+  card does not use the title because all 31 published titles are the
+  generated `技术简报 - <date>`, which repeated the stamp and the date beside
+  it three times over.
+- **Falling back.** An unknown slug, a draft, an archived digest, a
+  non-Monday week key or a topic with nothing published gets the site card —
+  never something the page would 404 on. Measured: all seven fallback cases
+  are byte-identical to the site card. `/digest/today`'s card is cached 300 s
+  instead of 3,600 s, since the issue behind that URL changes on publish.
+- **The font.** No recut: a new cmap reader (`src/lib/font-cmap.ts`, and a
+  plain-Node copy in `assets/fonts/check-share-card-font.cjs`, which needs no
+  fontTools) found **0** characters missing from the text any card paints,
+  on this worktree's data and on the live data; the only character a recut
+  would add is 阈, in two bodies. The subset stays 1,159,344 bytes. The cut
+  script's source list gained the skill, knowledge and digest stores.
+- **A missing character is not a box, it is worse.** Tested with 龘靐齉 in
+  a digest summary: next/og fetched stand-ins from Google Fonts — two in a
+  light sans among the bold serif, 齉 still a box — and the first render
+  took **16 s**. The editorial summary is new free text every issue, so the
+  digest card checks its sentence against the subset and uses the title
+  when a character is missing (0.5 s, verified with the same characters).
+- Tests: `share-card.test.ts` (31 → 32 with the veto) covers every builder
+  and every fallback, proven to fire by breaking the skill fallback;
+  `font-cmap.test.ts` reads the real subset. The glyph check in the script
+  was proven to fire on 龘靐齉 as well.
+
 ## 必备 relations keep their direction when saved from either side
 
 - **2026-09-29.** `requires` (必备) is the one relation type read with its

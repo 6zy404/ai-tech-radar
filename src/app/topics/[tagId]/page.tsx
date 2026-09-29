@@ -46,7 +46,8 @@ export async function generateMetadata({
               title: `${siteName} · 话题：${hub.tag.name}`
             }
           ]
-        : []
+        : [],
+    largeImage: true
   });
 }
 

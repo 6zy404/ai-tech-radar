@@ -1,5 +1,14 @@
-import type { TechnologyItem } from "@/types/content";
+import type { TopicHubData } from "@/lib/topic-hub";
+import type { WeeklyReviewData } from "@/lib/weekly-review";
+import type { KnowledgeItem, SkillItem, TechnologyItem } from "@/types/content";
 
+import {
+  difficultyLabels,
+  heatLabels,
+  knowledgeCategoryLabels,
+  learningCostLabels,
+  skillTypeLabels
+} from "@/lib/content-labels";
 import { siteDescription, siteName } from "@/lib/site-metadata";
 import {
   getPreferredTechnologyTitle,
@@ -8,9 +17,12 @@ import {
 } from "@/lib/technology-localization";
 
 /**
- * What the 1200×630 share card for a signal page says, and how its title is
- * broken into lines. Kept free of JSX and fonts so the choices — which public
- * fields appear, where a long title wraps, when it is cut — are testable.
+ * What the 1200×630 share card for a public detail page says, and how its
+ * title is broken into lines. One layout serves every kind — signal, digest,
+ * weekly review, skill, knowledge, topic — and the site card they all fall
+ * back to; `src/lib/share-card-image.tsx` paints it. Kept free of JSX and
+ * fonts so the choices — which public fields appear, where a long title
+ * wraps, when it is cut — are testable.
  *
  * Satori (behind `next/og`) wraps text itself but cannot clamp to a number of
  * lines, so a long title would run off the card. The title is therefore laid
@@ -36,15 +48,22 @@ export interface ShareCardTitleLayout {
   truncated: boolean;
 }
 
+export type ShareCardKind =
+  "signal" | "digest" | "weekly" | "skill" | "knowledge" | "topic" | "site";
+
 export interface ShareCard {
-  kind: "signal" | "site";
+  kind: ShareCardKind;
   siteName: string;
   /** Short stamp in the top-right corner, e.g. 技术信号 · 模型. */
   stamp: string;
   title: ShareCardTitleLayout;
-  /** One line under the title: source and publisher type, or the tagline. */
+  /** One line under the title: source and publisher type, counts, or the tagline. */
   byline: string;
-  /** Publish date for a signal; absent on the site card. */
+  /**
+   * Right end of the byline row: a signal's publish date, a digest's issue
+   * date, a weekly review's year. Absent on the other cards, which gives the
+   * byline the full width.
+   */
   date?: string;
 }
 
@@ -312,6 +331,30 @@ export const shareCardBylineFontSize = 28;
 /** Room the date takes at the right end of the byline row, gap included. */
 const shareCardDateReserve = 230;
 
+/** The byline, cut to the width the date (when there is one) leaves it. */
+function fitByline(text: string, hasDate: boolean): string {
+  const width = hasDate
+    ? shareCardTitleWidth - shareCardDateReserve
+    : shareCardTitleWidth;
+
+  return fitSingleLine(text, width / shareCardBylineFontSize);
+}
+
+/**
+ * The generic card every builder falls back to when its page would 404: an
+ * unknown slug, an unpublished record, a topic with nothing published. A
+ * share image must never name something the page itself would not show.
+ */
+export function buildSiteShareCard(): ShareCard {
+  return {
+    kind: "site",
+    siteName,
+    stamp: "技术雷达",
+    title: layoutShareCardTitle(siteDescription),
+    byline: "技术信号 · 技能 · 背景知识"
+  };
+}
+
 /**
  * The card for one published signal, or the generic site card when the slug
  * resolves to nothing. Reads only public `TechnologyItem` fields — the same
@@ -322,13 +365,7 @@ export function buildShareCard(
   technology: TechnologyItem | undefined
 ): ShareCard {
   if (!technology) {
-    return {
-      kind: "site",
-      siteName,
-      stamp: "技术雷达",
-      title: layoutShareCardTitle(siteDescription),
-      byline: "技术信号 · 技能 · 背景知识"
-    };
+    return buildSiteShareCard();
   }
 
   const typeLabel = getTechnologyTypeLabel(technology.type, "zh");
@@ -340,10 +377,166 @@ export function buildShareCard(
     siteName,
     stamp: `技术信号 · ${typeLabel}`,
     title: layoutShareCardTitle(getPreferredTechnologyTitle(technology)),
-    byline: fitSingleLine(
-      `来源 ${source} · ${publisherLabel}`,
-      (shareCardTitleWidth - shareCardDateReserve) / shareCardBylineFontSize
-    ),
+    byline: fitByline(`来源 ${source} · ${publisherLabel}`, true),
     date: technology.publishDate
+  };
+}
+
+const sentenceEnds = new Set("。！？!?".split(""));
+const sentenceClosers = new Set("”’」』）)".split(""));
+
+/**
+ * The text up to and including the first 。！？ (with any closing quote
+ * after it). An ASCII full stop does not end a sentence here: it is far
+ * more often a version number or a decimal — v0.26.0, 3.7 倍.
+ */
+export function firstSentence(text: string): string {
+  const chars = Array.from(text.replace(/\s+/g, " ").trim());
+  let end = chars.findIndex((char) => sentenceEnds.has(char));
+
+  if (end === -1) {
+    return chars.join("");
+  }
+
+  while (end + 1 < chars.length && sentenceClosers.has(chars[end + 1])) {
+    end += 1;
+  }
+
+  return chars.slice(0, end + 1).join("");
+}
+
+/**
+ * What a digest card needs, all of it already on the public digest page:
+ * the public title (after `getPublicDigestTitle`), the first sentence of
+ * the editorial summary when there is one (the page's 今日概览), the issue
+ * date, and the two section counts the hero's meta row shows.
+ */
+export interface DigestShareCardInput {
+  date: string;
+  title: string;
+  lede?: string;
+  highPriorityCount: number;
+  watchCount: number;
+}
+
+/**
+ * A published digest, or the site card when there is none to show. The
+ * card's headline is the editorial summary's first sentence, not the title:
+ * every published title is the generated `技术简报 - <date>`, which would
+ * repeat the stamp and the date printed beside it. A digest without an
+ * editorial summary keeps its title.
+ *
+ * The summary is new free text every issue, so it can use a character the
+ * font subset lacks. next/og would then fetch a stand-in from Google Fonts —
+ * a light sans among bold serif, a box when even that fails, and 16s for the
+ * first render in a 2026-09-29 test, past a link-preview crawler's patience.
+ * `canDraw` lets the caller veto such a sentence; the title (fixed words
+ * and a date) is then used instead.
+ */
+export function buildDigestShareCard(
+  digest: DigestShareCardInput | undefined,
+  { canDraw = () => true }: { canDraw?: (text: string) => boolean } = {}
+): ShareCard {
+  if (!digest) {
+    return buildSiteShareCard();
+  }
+
+  const sentence = digest.lede ? firstSentence(digest.lede) : "";
+  const lede = sentence && canDraw(sentence) ? sentence : "";
+
+  return {
+    kind: "digest",
+    siteName,
+    stamp: "技术简报",
+    title: layoutShareCardTitle(lede || digest.title),
+    byline: fitByline(
+      `${digest.highPriorityCount} 条立即关注 · ${digest.watchCount} 条值得跟踪`,
+      true
+    ),
+    date: digest.date
+  };
+}
+
+/**
+ * A week of the weekly review, or the site card for a week the page would
+ * 404 on (no such week, or none of its signals shown). The range label
+ * carries no year, so the year sits where the other cards put their date.
+ */
+export function buildWeeklyShareCard(
+  week: WeeklyReviewData | undefined
+): ShareCard {
+  if (!week || week.totalCount === 0) {
+    return buildSiteShareCard();
+  }
+
+  return {
+    kind: "weekly",
+    siteName,
+    stamp: "本周回顾",
+    title: layoutShareCardTitle(week.rangeLabel),
+    byline: fitByline(
+      `${week.totalCount} 条信号 · ${week.highPriorityCount} 条立即关注 · ${week.watchCount} 条值得跟踪 · ${week.topicCount} 个话题`,
+      true
+    ),
+    date: `${week.weekStart.slice(0, 4)} 年`
+  };
+}
+
+/**
+ * A published skill: its type in the stamp, and heat and learning cost —
+ * the two chips on the skill page's hero — as the byline.
+ */
+export function buildSkillShareCard(skill: SkillItem | undefined): ShareCard {
+  if (!skill) {
+    return buildSiteShareCard();
+  }
+
+  return {
+    kind: "skill",
+    siteName,
+    stamp: `技能 · ${skillTypeLabels[skill.skillType]}`,
+    title: layoutShareCardTitle(skill.title),
+    byline: fitByline(
+      `${heatLabels[skill.heatLevel]} · ${learningCostLabels[skill.learningCost]}`,
+      false
+    )
+  };
+}
+
+/** A published knowledge item: category in the stamp, difficulty below. */
+export function buildKnowledgeShareCard(
+  knowledge: KnowledgeItem | undefined
+): ShareCard {
+  if (!knowledge) {
+    return buildSiteShareCard();
+  }
+
+  return {
+    kind: "knowledge",
+    siteName,
+    stamp: `知识 · ${knowledgeCategoryLabels[knowledge.category]}`,
+    title: layoutShareCardTitle(knowledge.title),
+    byline: fitByline(`难度 ${difficultyLabels[knowledge.difficulty]}`, false)
+  };
+}
+
+/**
+ * A topic hub, with the same three counts the /topics index prints for it.
+ * `getTopicHub` already returns nothing for an unknown or empty topic.
+ */
+export function buildTopicShareCard(hub: TopicHubData | undefined): ShareCard {
+  if (!hub) {
+    return buildSiteShareCard();
+  }
+
+  return {
+    kind: "topic",
+    siteName,
+    stamp: "话题",
+    title: layoutShareCardTitle(hub.tag.name),
+    byline: fitByline(
+      `收录 ${hub.technologies.length} 信号 · ${hub.skills.length} 技能 · ${hub.knowledge.length} 知识`,
+      false
+    )
   };
 }

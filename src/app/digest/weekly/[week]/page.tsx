@@ -35,7 +35,8 @@ export async function generateMetadata({
     title: `${data.rangeLabel} · 本周回顾`,
     description: `这一周有 ${data.totalCount} 条已发布技术信号：立即关注 ${data.highPriorityCount} 条，值得跟踪 ${data.watchCount} 条，覆盖 ${data.topicCount} 个话题。`,
     path: `/digest/weekly/${data.weekKey}`,
-    feeds: [weeklyReviewFeed]
+    feeds: [weeklyReviewFeed],
+    largeImage: true
   });
 }
 
