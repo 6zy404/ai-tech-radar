@@ -120,6 +120,46 @@ For per-topic deep dives, see the `docs/` directory.
   and an over-long title with wide capitals, which is cut cleanly inside the
   card.
 
+## `/network?focus=`: a link into the network with one node already selected
+
+- **2026-09-29.** `/network?focus=<node id>` opens the whole-network view with
+  that node selected, its direct connections highlighted and the side panel
+  open. Until now the selection existed only after a click on the page, so
+  nothing could link a reader to "this item, in the network".
+- **The page resolves the id, not the client.** `resolveNetworkFocus` in
+  `src/lib/network-focus.ts` (pure, 11 tests) accepts only an id present in
+  the published graph the page is rendering. An unknown id, a draft, a
+  repeated or oversized parameter all resolve to "no focus", and the page
+  renders exactly as it does without one. Nothing is written to storage: the
+  same URL shows every reader the same thing.
+- **The selection is server-rendered**, so it is there before the layout
+  runs and stays through the 700ms glide into the settled layout. Once the
+  glide ends — at once under `prefers-reduced-motion` — a node below the fold
+  is scrolled into view with `block: "nearest"` and a 96px scroll margin.
+  `center` was tried first and measured wrong: the side panel is sticky only
+  within the canvas's height, so centering a node near the canvas's bottom
+  edge pushed the panel's kind and title under the top nav (1440×900, a node
+  at 1006px scrolled to 405px). With `nearest` the same node lands at 776px
+  and the panel header stays at 157px.
+- **The address bar follows the selection.** Clicking another node sets
+  `?focus=` with `history.replaceState`, deselecting removes it; other
+  parameters and the hash are kept, and no history entries are added (checked:
+  `history.length` unchanged after select + deselect). A link with an unknown
+  id is cleaned to `/network` on load.
+- **`RelationshipGraph` links out.** The shared per-item relationship view
+  takes an optional `centerId` and ends with a low-key 在关系网络中查看 → link
+  (`.action-link`, the same link style as the network panel's 查看详情). The
+  technology, skill and knowledge detail pages all pass it, so the link
+  appears on all three. The technology page passes it only for a published
+  record: the workspace preview renders the same component for drafts, and a
+  draft's id would open an unfocused network.
+- Verified with typecheck and the full vitest suite. The link was followed
+  once from each kind of detail page, and each landed on `/network` with the
+  right node selected and in view. Screenshots cover the relationship section
+  on all three pages at 1440 and 390, light and dark; `/network?focus=` at the
+  same widths and themes; a signal whose node sits below the fold, with and
+  without reduced motion; and an unknown id.
+
 ## 先读这些: skill and knowledge pages name what to read first
 
 - **2026-09-29.** The public skill and knowledge detail pages (one component,

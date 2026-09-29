@@ -330,6 +330,7 @@ export function TechnologyDetailContent({
 
       <RelationshipGraph
         centerTitle={title}
+        centerId={technology.status === "published" ? technology.id : undefined}
         nodes={graphNodes}
         heading="在技术网络中的位置"
         hint="当前技术与相邻技术、技能和背景知识的连接，点击节点可继续探索。"

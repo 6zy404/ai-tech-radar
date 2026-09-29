@@ -418,6 +418,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
 
             <RelationshipGraph
               centerTitle={item.title}
+              centerId={item.id}
               nodes={graphNodes}
               sectionClassName="skill-detail-section"
               hint={kind.graphHint}
