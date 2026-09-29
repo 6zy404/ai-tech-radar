@@ -285,8 +285,12 @@ The product is split into two subsystems:
   Keyword-matched results mark each literal hit of the query with `<mark>`
   in their title, summary and tag chips (`highlightSearchTerms` in
   `src/lib/search-highlight.ts`); results found by meaning alone carry no
-  marks. A hit in the original-language title a card does not display
-  (e.g. "agent" on a card titled 智能体) is not shown — a known gap.
+  marks. When a query term matches only the original-language title a
+  signal card does not display (e.g. "agent" on a card titled 智能体), the
+  card adds 原标题：… under its title — 72 characters around the hit, the
+  hit marked — judged per term (`src/lib/search-original-title.ts`,
+  2026-09-30). Still unmarked: a hit in the other language's summary, or in
+  the part of a summary cut at 160 characters.
   Results can be narrowed to one group with
   `?type=technologies|skills|knowledge|news` (`src/lib/search-filter.ts`,
   2026-09-30); a row of link chips above the summary shows each group's

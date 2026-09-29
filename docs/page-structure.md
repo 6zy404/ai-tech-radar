@@ -638,6 +638,9 @@ Workspace deployment boundary:
     no marks; a notice appears when no result matched literally
   - the result summary links the query across to `/ask` (pre-filled, not
     submitted)
+  - a signal card whose keyword hit is only in the original-language title
+    it does not display adds 原标题：… under the title, the hit marked
+    (2026-09-30)
   - searches the four public content pools: published technology signals,
     skills, knowledge, and the news fast lane; results render grouped per
     content type with counts
@@ -828,6 +831,10 @@ Forbidden on public pages:
 - `SignalShortcutHelp` / `SignalShortcutHint` (`signal-shortcut-help.tsx`)
   - the ? shortcut list (native modal `<dialog>` with the off switch) and
     the quiet 「快捷键 ?」 button that opens it, on the three signal-list views
+- `SiteSearchForm` (`site-search-form.tsx`)
+  - the GET search form (`action="/search"`, `name="q"`) shared by
+    `/search` and the 404 page, which gained it on 2026-09-30; works
+    without JS, never autofocuses
 - `VisitBaselineProvider` / `useVisitBaseline` / `NewSignalStamp`
   (`visit-baseline.tsx`)
   - the last-visit baseline for the 新 stamps: records the visit on the
