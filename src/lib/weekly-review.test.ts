@@ -1,7 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { makeTechnologyItem } from "@/lib/test-factories";
-import { getWeeklyReview, getWeeklyReviewArchive } from "@/lib/weekly-review";
+import {
+  getWeeklyReview,
+  getWeeklyReviewArchive,
+  getWeeklyReviewNeighbors
+} from "@/lib/weekly-review";
 import type {
   PriorityLevel,
   TechnologyItem,
@@ -220,5 +224,59 @@ describe("getWeeklyReviewArchive", () => {
     expect(archive[0].watchCount).toBe(1);
     // low_priority "prev-low" is excluded from the count.
     expect(archive[0].totalCount).toBe(2);
+  });
+});
+
+describe("getWeeklyReviewNeighbors", () => {
+  // Shown signals in the weeks of 07-06, 07-20 (current) and 08-03 (future);
+  // 07-13 has only a low_priority signal, so it is an empty week.
+  beforeEach(() => {
+    getAllTechnologiesMock.mockReturnValue([
+      tech({
+        id: "w0706",
+        slug: "w0706",
+        publishDate: "2026-07-08",
+        importanceLevel: "important"
+      }),
+      tech({
+        id: "w0713-low",
+        slug: "w0713-low",
+        publishDate: "2026-07-15",
+        importanceLevel: "signal"
+      }),
+      tech({
+        id: "w0720",
+        slug: "w0720",
+        publishDate: "2026-07-21",
+        importanceLevel: "critical"
+      }),
+      tech({
+        id: "w0803-future",
+        slug: "w0803-future",
+        publishDate: "2026-08-04",
+        importanceLevel: "critical"
+      })
+    ]);
+  });
+
+  it("skips an empty week and never pages past the current week", () => {
+    expect(getWeeklyReviewNeighbors("2026-07-20")).toEqual({
+      previous: { weekKey: "2026-07-06", rangeLabel: "7 月 6 日 – 7 月 12 日" },
+      next: undefined
+    });
+  });
+
+  it("links the oldest week forward only", () => {
+    expect(getWeeklyReviewNeighbors("2026-07-06")).toEqual({
+      previous: undefined,
+      next: { weekKey: "2026-07-20", rangeLabel: "7 月 20 日 – 7 月 26 日" }
+    });
+  });
+
+  it("resolves neighbours for an empty week that is not itself listed", () => {
+    expect(getWeeklyReviewNeighbors("2026-07-13")).toEqual({
+      previous: { weekKey: "2026-07-06", rangeLabel: "7 月 6 日 – 7 月 12 日" },
+      next: { weekKey: "2026-07-20", rangeLabel: "7 月 20 日 – 7 月 26 日" }
+    });
   });
 });

@@ -1,4 +1,8 @@
-import { getDigestTechnologySections } from "@/lib/digest-workflow";
+import {
+  getDailyDigests,
+  getDigestTechnologySections
+} from "@/lib/digest-workflow";
+import { findIssueNeighbors } from "@/lib/issue-neighbors";
 import { getAllKnowledge, getAllSkills, getAllTags } from "@/lib/content";
 import {
   getPublicDigestSummary,
@@ -61,4 +65,25 @@ export function getDailyDigestRenderData(
       .filter((item): item is KnowledgeItem => Boolean(item)),
     tags: getAllTags()
   };
+}
+
+export interface PublicDigestNeighbors {
+  previousDate?: string;
+  nextDate?: string;
+}
+
+// The published digests either side of `date`, for the 上一期 / 下一期 pager.
+// Only dates cross into the page: drafts and archived digests never count as
+// a neighbour, so the pager cannot link to a page that would 404.
+export function getPublishedDigestNeighbors(
+  date: string
+): PublicDigestNeighbors {
+  const { previous, next } = findIssueNeighbors(
+    getDailyDigests()
+      .filter((digest) => digest.status === "published")
+      .map((digest) => digest.date),
+    date
+  );
+
+  return { previousDate: previous, nextDate: next };
 }

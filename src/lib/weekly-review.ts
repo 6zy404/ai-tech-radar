@@ -1,5 +1,6 @@
 import { getAllTechnologies } from "@/lib/content";
 import { getTodayDateString } from "@/lib/digest-store";
+import { findIssueNeighbors } from "@/lib/issue-neighbors";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
   getPreferredTechnologySummary,
@@ -298,4 +299,40 @@ export function getWeeklyReviewArchive(
         totalCount: counts.highPriorityCount + counts.watchCount
       };
     });
+}
+
+export interface WeeklyReviewNeighbor {
+  weekKey: string;
+  rangeLabel: string;
+}
+
+export interface WeeklyReviewNeighbors {
+  previous?: WeeklyReviewNeighbor;
+  next?: WeeklyReviewNeighbor;
+}
+
+/**
+ * The weeks either side of `weekKey` for the 上一周 / 下一周 pager. Same rule
+ * as the archive — only weeks with at least one shown signal, so empty weeks
+ * are skipped — and never later than the current week, so the pager cannot
+ * lead into the future even if a signal carries a future publish date.
+ */
+export function getWeeklyReviewNeighbors(
+  weekKey: string
+): WeeklyReviewNeighbors {
+  const archive = getWeeklyReviewArchive();
+  const { previous, next } = findIssueNeighbors(
+    archive.map((entry) => entry.weekKey),
+    weekKey,
+    { maxKey: getWeekStartKey(getTodayDateString()) }
+  );
+  const toNeighbor = (key: string | undefined) => {
+    const entry = archive.find((candidate) => candidate.weekKey === key);
+
+    return entry
+      ? { weekKey: entry.weekKey, rangeLabel: entry.rangeLabel }
+      : undefined;
+  };
+
+  return { previous: toNeighbor(previous), next: toNeighbor(next) };
 }
