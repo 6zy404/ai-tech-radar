@@ -6,6 +6,8 @@ import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import type { RelationListItem } from "@/types/content";
 
 interface DossierRelatedItemsSectionProps {
+  /** Anchor for the page's table of contents. */
+  id?: string;
   title: string;
   description?: string;
   items: RelationListItem[];
@@ -26,6 +28,7 @@ interface DossierRelatedItemsSectionProps {
  * shared with the not-yet-migrated skill and knowledge detail pages.
  */
 export function DossierRelatedItemsSection({
+  id,
   title,
   description,
   items,
@@ -37,7 +40,7 @@ export function DossierRelatedItemsSection({
   }
 
   return (
-    <section className="dossier-related-section" aria-label={title}>
+    <section id={id} className="dossier-related-section" aria-label={title}>
       <div className="dossier-related-section__header">
         <h2>{title}</h2>
         {description ? <p>{description}</p> : null}

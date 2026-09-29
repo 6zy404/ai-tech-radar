@@ -1,0 +1,176 @@
+import { describe, expect, it } from "vitest";
+
+import {
+  PAGE_TOC_MIN_ENTRIES,
+  getTechnologyTocCandidates,
+  pickActiveTocId,
+  selectPageTocEntries,
+  technologyTocIds,
+  type TechnologyTocInput
+} from "@/lib/page-toc";
+
+const emptySignal: TechnologyTocInput = {
+  hasEvolution: false,
+  hasBody: false,
+  hasWhyItMatters: false,
+  hasTechnicalContext: false,
+  hasAudience: false,
+  learningPathCount: 0,
+  graphNodeCount: 0,
+  relatedTechnologyCount: 0,
+  similarSignalCount: 0,
+  relatedSkillCount: 0,
+  relatedKnowledgeCount: 0,
+  followUpQuestionCount: 0
+};
+
+const fullSignal: TechnologyTocInput = {
+  hasEvolution: true,
+  hasBody: true,
+  hasWhyItMatters: true,
+  hasTechnicalContext: true,
+  hasAudience: true,
+  learningPathCount: 3,
+  graphNodeCount: 5,
+  relatedTechnologyCount: 1,
+  similarSignalCount: 2,
+  relatedSkillCount: 2,
+  relatedKnowledgeCount: 2,
+  followUpQuestionCount: 3
+};
+
+function tocFor(input: Partial<TechnologyTocInput>) {
+  return selectPageTocEntries(
+    getTechnologyTocCandidates({ ...emptySignal, ...input })
+  );
+}
+
+describe("selectPageTocEntries", () => {
+  it("keeps only the rendered sections, in page order", () => {
+    expect(
+      selectPageTocEntries([
+        { id: "a", label: "A", present: true },
+        { id: "b", label: "B", present: false },
+        { id: "c", label: "C", present: true },
+        { id: "d", label: "D", present: true }
+      ])
+    ).toEqual([
+      { id: "a", label: "A" },
+      { id: "c", label: "C" },
+      { id: "d", label: "D" }
+    ]);
+  });
+
+  it("shows nothing below the minimum", () => {
+    expect(PAGE_TOC_MIN_ENTRIES).toBe(3);
+    expect(
+      selectPageTocEntries([
+        { id: "a", label: "A", present: true },
+        { id: "b", label: "B", present: true },
+        { id: "c", label: "C", present: false }
+      ])
+    ).toEqual([]);
+  });
+});
+
+describe("getTechnologyTocCandidates", () => {
+  it("lists every reading section of a fully enriched signal, in page order", () => {
+    expect(tocFor(fullSignal).map((entry) => entry.label)).toEqual([
+      "版本脉络",
+      "信号正文",
+      "为什么重要",
+      "技术背景",
+      "谁该关注",
+      "学习路径",
+      "关系网络",
+      "相关技术",
+      "内容相近的信号",
+      "相关技能",
+      "相关知识",
+      "后续问题"
+    ]);
+  });
+
+  it("gives every entry a distinct id", () => {
+    const ids = getTechnologyTocCandidates(fullSignal).map((c) => c.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(new Set(Object.values(technologyTocIds))).toEqual(new Set(ids));
+  });
+
+  it("leaves out a section the page does not render", () => {
+    const labels = tocFor({
+      ...fullSignal,
+      hasEvolution: false,
+      similarSignalCount: 0,
+      relatedTechnologyCount: 0
+    }).map((entry) => entry.label);
+
+    expect(labels).not.toContain("版本脉络");
+    expect(labels).not.toContain("内容相近的信号");
+    expect(labels).not.toContain("相关技术");
+    expect(labels).toContain("信号正文");
+  });
+
+  it("drops the whole table for a signal with fewer than three sections", () => {
+    expect(tocFor({ hasBody: true, hasWhyItMatters: true })).toEqual([]);
+    expect(
+      tocFor({ hasBody: true, hasWhyItMatters: true, graphNodeCount: 1 })
+    ).toHaveLength(3);
+  });
+});
+
+describe("pickActiveTocId", () => {
+  const sections = [
+    { id: "a", top: -900 },
+    { id: "b", top: -200 },
+    { id: "c", top: 90 },
+    { id: "d", top: 600 }
+  ];
+
+  it("is the last section whose top passed the line", () => {
+    expect(
+      pickActiveTocId(sections, { activationLine: 100, atBottom: false })
+    ).toBe("c");
+    expect(
+      pickActiveTocId(sections, { activationLine: 80, atBottom: false })
+    ).toBe("b");
+  });
+
+  it("is nothing while the reader is above the first section", () => {
+    expect(
+      pickActiveTocId(
+        [
+          { id: "a", top: 400 },
+          { id: "b", top: 900 }
+        ],
+        { activationLine: 100, atBottom: false }
+      )
+    ).toBeUndefined();
+    expect(
+      pickActiveTocId([], { activationLine: 100, atBottom: true })
+    ).toBeUndefined();
+  });
+
+  it("gives the foot of the page to the last section", () => {
+    expect(
+      pickActiveTocId(sections, { activationLine: 100, atBottom: true })
+    ).toBe("d");
+  });
+
+  it("keeps a clicked entry that could not scroll up to the line", () => {
+    expect(
+      pickActiveTocId(sections, {
+        activationLine: 100,
+        atBottom: true,
+        pinnedId: "c"
+      })
+    ).toBe("c");
+    expect(
+      pickActiveTocId(sections, {
+        activationLine: 100,
+        atBottom: false,
+        pinnedId: "gone"
+      })
+    ).toBe("c");
+  });
+});

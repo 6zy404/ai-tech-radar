@@ -1,0 +1,184 @@
+// 本页目录: which sections of a long detail page go into its table of
+// contents, and which one the reader is in. Pure functions only — the
+// component (`src/components/page-toc.tsx`) supplies the geometry.
+
+export interface PageTocEntry {
+  /** The section's element id; the entry links to `#id`. */
+  id: string;
+  label: string;
+}
+
+export interface PageTocCandidate extends PageTocEntry {
+  /** Whether the page actually renders this section right now. */
+  present: boolean;
+}
+
+/**
+ * Below this many sections a table of contents repeats what the reader can
+ * already see, so none is shown.
+ */
+export const PAGE_TOC_MIN_ENTRIES = 3;
+
+/**
+ * The rendered sections, in page order; an empty list when there are too
+ * few of them to be worth a table of contents.
+ */
+export function selectPageTocEntries(
+  candidates: PageTocCandidate[],
+  minEntries = PAGE_TOC_MIN_ENTRIES
+): PageTocEntry[] {
+  const entries = candidates
+    .filter((candidate) => candidate.present)
+    .map(({ id, label }) => ({ id, label }));
+
+  return entries.length >= minEntries ? entries : [];
+}
+
+/** Element ids of the signal page's sections, one place for both sides. */
+export const technologyTocIds = {
+  evolution: "section-evolution",
+  body: "section-body",
+  whyItMatters: "section-why-it-matters",
+  technicalContext: "section-technical-context",
+  audience: "section-audience",
+  learningPath: "section-learning-path",
+  graph: "section-graph",
+  relatedTechnologies: "section-related-technologies",
+  similarSignals: "section-similar-signals",
+  relatedSkills: "section-related-skills",
+  relatedKnowledge: "section-related-knowledge",
+  followUpQuestions: "section-follow-up-questions"
+} as const;
+
+export interface TechnologyTocInput {
+  hasEvolution: boolean;
+  hasBody: boolean;
+  hasWhyItMatters: boolean;
+  hasTechnicalContext: boolean;
+  hasAudience: boolean;
+  learningPathCount: number;
+  graphNodeCount: number;
+  relatedTechnologyCount: number;
+  similarSignalCount: number;
+  relatedSkillCount: number;
+  relatedKnowledgeCount: number;
+  followUpQuestionCount: number;
+}
+
+/**
+ * The signal page's reading sections, each marked present exactly when the
+ * page renders it. The three AI widgets are left out on purpose: they are
+ * tools a reader triggers, empty until then, not sections to read. So is the
+ * 来源参考 block at the foot, which repeats the aside's source panel.
+ */
+export function getTechnologyTocCandidates(
+  input: TechnologyTocInput
+): PageTocCandidate[] {
+  const ids = technologyTocIds;
+
+  return [
+    { id: ids.evolution, label: "版本脉络", present: input.hasEvolution },
+    { id: ids.body, label: "信号正文", present: input.hasBody },
+    {
+      id: ids.whyItMatters,
+      label: "为什么重要",
+      present: input.hasWhyItMatters
+    },
+    {
+      id: ids.technicalContext,
+      label: "技术背景",
+      present: input.hasTechnicalContext
+    },
+    { id: ids.audience, label: "谁该关注", present: input.hasAudience },
+    {
+      id: ids.learningPath,
+      label: "学习路径",
+      present: input.learningPathCount > 0
+    },
+    { id: ids.graph, label: "关系网络", present: input.graphNodeCount > 0 },
+    {
+      id: ids.relatedTechnologies,
+      label: "相关技术",
+      present: input.relatedTechnologyCount > 0
+    },
+    {
+      id: ids.similarSignals,
+      label: "内容相近的信号",
+      present: input.similarSignalCount > 0
+    },
+    {
+      id: ids.relatedSkills,
+      label: "相关技能",
+      present: input.relatedSkillCount > 0
+    },
+    {
+      id: ids.relatedKnowledge,
+      label: "相关知识",
+      present: input.relatedKnowledgeCount > 0
+    },
+    {
+      id: ids.followUpQuestions,
+      label: "后续问题",
+      present: input.followUpQuestionCount > 0
+    }
+  ];
+}
+
+export interface TocSectionGeometry {
+  id: string;
+  /** Distance of the section's top edge from the viewport top, in px. */
+  top: number;
+}
+
+export interface ActiveTocOptions {
+  /**
+   * A section becomes current once its top edge has scrolled up to this
+   * line (px from the viewport top). Set just below where an anchor jump
+   * lands the section, so the section a reader jumped to is the current one.
+   */
+  activationLine: number;
+  /** The page cannot scroll any further. */
+  atBottom: boolean;
+  /**
+   * The entry the reader last clicked, until they scroll by hand. Near the
+   * foot of the page a short section cannot scroll up to the line, and
+   * without this the highlight would land on a different entry from the one
+   * just clicked.
+   */
+  pinnedId?: string;
+}
+
+/**
+ * The section the reader is in: the last one whose top has passed the
+ * activation line. `undefined` while the reader is still above the first
+ * section (in the hero). At the foot of the page the last section wins,
+ * since it may be too short ever to reach the line.
+ */
+export function pickActiveTocId(
+  sections: TocSectionGeometry[],
+  { activationLine, atBottom, pinnedId }: ActiveTocOptions
+): string | undefined {
+  if (sections.length === 0) {
+    return undefined;
+  }
+
+  if (pinnedId && sections.some((section) => section.id === pinnedId)) {
+    return pinnedId;
+  }
+
+  if (atBottom) {
+    return sections[sections.length - 1].id;
+  }
+
+  let active: string | undefined;
+
+  for (const section of sections) {
+    if (section.top <= activationLine) {
+      active = section.id;
+    } else {
+      break;
+    }
+  }
+
+  return active;
+}

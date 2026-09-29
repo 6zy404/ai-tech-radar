@@ -46,6 +46,42 @@ For per-topic deep dives, see the `docs/` directory.
   screenshotted; the screenshot tool then stopped drawing, so the rest of that
   page and the editor were checked by DOM only.
 
+## 本页目录 on the signal page
+
+- **2026-09-30.** `/technologies/[slug]` has up to twelve reading sections
+  and nothing to jump between them with. Its aside now ends with a 本页目录
+  that lists the sections the page actually renders — 版本脉络 through
+  后续问题 — and is omitted when fewer than three are present. The three AI
+  widgets and the foot-of-page 来源参考 are left out: the widgets are tools,
+  empty until a reader asks, and the source block repeats the aside's own.
+- **Which entries appear** is a pure function (`getTechnologyTocCandidates` +
+  `selectPageTocEntries` in `src/lib/page-toc.ts`), fed from the same
+  conditions the sections render on, with 10 unit tests. The component
+  (`src/components/page-toc.tsx`) takes any entry list, so the skill and
+  knowledge pages can use it later; it is mounted on the signal page only.
+- **Reading position.** An IntersectionObserver asks for a recount whenever a
+  section's visibility changes; the current entry (`aria-current="location"`)
+  is the last section whose top has scrolled up to the landing line, the last
+  one at the foot of the page, or the one just clicked until the reader
+  scrolls by hand — a short section near the foot cannot reach the line.
+  A click scrolls smoothly (instantly under `prefers-reduced-motion`), lands
+  the section 86px down, clear of the sticky nav (`scroll-margin-top`),
+  updates the hash without a history entry, and moves focus to the section's
+  `h2`, so keyboard reading continues from there.
+- **The aside stops being one sticky block when it holds a table.** With the
+  table it is about 1,000px tall at 1440, taller than the viewport, so its
+  foot could never be reached. Now the panels above scroll away and only the
+  table stays pinned at 86px. An aside without a table is unchanged.
+- **Below 920px**, where the aside drops under the article, the table becomes
+  a folded 「本页目录 · N 节」 `<details>` at the top of the reading column,
+  with a drawn chevron and a 44px row; choosing an entry folds it before
+  scrolling, so the fold does not pull the target out of place.
+- **Checked** at 1440 light and dark and at 390 (viewport captures at several
+  scroll offsets over CDP, since a full-page capture flattens sticky
+  positioning), and on the workspace preview, which renders drafts through
+  the same component. `DossierRelatedItemsSection`, `RelationshipGraph` and
+  `TechnologyEvolutionLine` gained an optional `id` for the anchors.
+
 ## Imported text and links are cleaned of HTML and entities
 
 - **2026-09-29.** The 全部快讯 view was showing readers raw markup — Simon

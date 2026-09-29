@@ -1,0 +1,128 @@
+/* components/page-toc: 本页目录 on long detail pages (page-toc.tsx). The
+   panel variant sits last in the aside and follows the reader down the page;
+   the disclosure variant is a folded <details> at the top of the reading
+   column for widths where the aside has dropped below the article. Every
+   colour is a dossier token, so the dark scheme needs no rules of its own. */
+
+/* An anchor jump lands a section's top here: just under the sticky top nav,
+   level with the top the sticky table itself holds. */
+.user-article-layout__main > [id] {
+  scroll-margin-top: 86px;
+}
+
+/* With a table in it, the aside stops being one sticky block: it is taller
+   than the viewport, so its foot would be out of reach for the whole page.
+   Instead the panels above scroll away and only the table stays pinned,
+   which needs the aside to run the full height of the body. */
+.user-article-layout__aside:has(> .page-toc--panel) {
+  position: static;
+  align-self: stretch;
+  align-content: start;
+}
+
+.user-article-layout__aside > .page-toc--panel {
+  position: sticky;
+  top: 86px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+}
+
+.page-toc__list {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--dossier-line);
+  list-style: none;
+}
+
+.page-toc__link {
+  display: block;
+  margin-left: -1px;
+  padding: 5px 0 5px 12px;
+  border-left: 2px solid transparent;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.page-toc__link:hover {
+  color: var(--dossier-accent);
+}
+
+.page-toc__link[aria-current="location"] {
+  border-left-color: var(--dossier-accent);
+  color: var(--dossier-ink);
+  font-weight: 700;
+}
+
+/* -- the folded variant, narrow widths only -- */
+.page-toc--disclosure {
+  border: 1px solid var(--dossier-line);
+  border-radius: 2px;
+  background: var(--dossier-surface);
+}
+
+/* 44px tall at the least: on a phone this row is a touch target. */
+.page-toc__summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* A flex summary loses the native disclosure triangle, so draw one. */
+.page-toc__summary::-webkit-details-marker {
+  display: none;
+}
+
+.page-toc__summary::before {
+  content: "";
+  flex: none;
+  margin-right: 2px;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--dossier-muted);
+  border-bottom: 1.5px solid var(--dossier-muted);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+.page-toc--disclosure[open] .page-toc__summary::before {
+  transform: rotate(45deg);
+}
+
+.page-toc__count {
+  color: var(--dossier-muted);
+  font-size: 12.5px;
+  font-weight: 400;
+}
+
+.page-toc--disclosure .page-toc__list {
+  margin: 0 16px 14px;
+}
+
+/* One table per width: the panel while the aside stands beside the article,
+   the folded one once it has dropped below (the breakpoint is the signal
+   page's own, 24-technology-detail / user-article-layout). */
+@media (min-width: 921px) {
+  .technology-detail-reading .page-toc--disclosure {
+    display: none;
+  }
+}
+
+@media (max-width: 920px) {
+  .technology-detail-reading .page-toc--panel {
+    display: none;
+  }
+}

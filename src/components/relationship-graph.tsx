@@ -20,6 +20,8 @@ interface RelationshipGraphProps {
   nodes: RelationshipGraphNode[];
   /** Outer section chrome class, so the graph fits the host page's card language. */
   sectionClassName?: string;
+  /** Anchor for the page's table of contents. */
+  id?: string;
   heading?: string;
   hint?: string;
 }
@@ -49,6 +51,7 @@ export function RelationshipGraph({
   centerId,
   nodes,
   sectionClassName = "user-article-section",
+  id,
   heading = "在关系网络中的位置",
   hint = "当前条目与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
 }: RelationshipGraphProps) {
@@ -65,7 +68,7 @@ export function RelationshipGraph({
     .filter((group) => group.items.length > 0);
 
   return (
-    <section className={`tech-graph ${sectionClassName}`.trim()}>
+    <section id={id} className={`tech-graph ${sectionClassName}`.trim()}>
       <p className="technology-detail-section__eyebrow">关系网络</p>
       <h2>{heading}</h2>
       <p className="tech-graph__hint">{hint}</p>

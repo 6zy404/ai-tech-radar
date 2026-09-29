@@ -4,10 +4,13 @@ import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 
 interface TechnologyEvolutionLineProps {
   chain: TechnologyEvolutionChain;
+  /** Anchor for the page's table of contents. */
+  id?: string;
 }
 
 export function TechnologyEvolutionLine({
-  chain
+  chain,
+  id
 }: TechnologyEvolutionLineProps) {
   const { steps, currentIndex, laterCount } = chain;
   const latest = steps[steps.length - 1];
@@ -15,7 +18,10 @@ export function TechnologyEvolutionLine({
   const currentStep = steps[currentIndex];
 
   return (
-    <section className="user-article-section technology-detail-section technology-evolution">
+    <section
+      id={id}
+      className="user-article-section technology-detail-section technology-evolution"
+    >
       <p className="technology-detail-section__eyebrow">版本脉络</p>
       <h2>{hasLater ? "这条信号已有后续" : "这条信号的版本脉络"}</h2>
       <p className="technology-detail-section__lede">
