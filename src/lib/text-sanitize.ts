@@ -280,6 +280,28 @@ function stripFeedBoilerplateOnce(text: string): string {
   ].reduce((current, pattern) => current.replace(pattern, "").trim(), text);
 }
 
+/**
+ * Removes a trailing feed sentence (`trailingFeedBoilerplateSentences`) from
+ * already-stored text and nothing else: no tag stripping, no whitespace
+ * collapse, so a Markdown body keeps its line breaks. For repairing records
+ * saved before a sentence was known (`scripts/fix-github-blog-footer.ts`).
+ */
+export function stripTrailingFeedSentences(value: string): string {
+  let current = value;
+
+  for (;;) {
+    const next = trailingFeedBoilerplateSentences
+      .reduce((text, pattern) => text.replace(pattern, ""), current)
+      .trimEnd();
+
+    if (next === current.trimEnd()) {
+      return next === value.trimEnd() ? value : next;
+    }
+
+    current = next;
+  }
+}
+
 function stripFeedBoilerplate(text: string): string {
   let current = text;
 

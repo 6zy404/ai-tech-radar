@@ -43,6 +43,21 @@ For per-topic deep dives, see the `docs/` directory.
   placeholders only as the whole text, so the candidate is now flagged. 8
   unit tests and two feed-to-quality-check tests, each shown to fail with its
   pattern disabled.
+- **The news lane needed no change**: `src/lib/news.ts` already re-cleans
+  every candidate summary with `cleanFeedText`, so stored summaries lose the
+  footer as soon as this ships, and one that was only boilerplate (the InfoQ
+  link, "No content.") maps to no summary, which the card omits. A new
+  `news.test.ts` pins both; it fails against the previous sanitizer.
+- **Signals converted before the fix keep the footer** in their `original` /
+  `en` summary, shown by the 原文 mode: 1 published signal, 2 fields on a
+  worktree copy (`seclab-fuzzing-taskflow`). `scripts/fix-github-blog-footer.ts`
+  removes it — dry run by default, `--apply` to write, published records
+  only, `summary` / `content` × `original` / `en`, never `zh`, and a field
+  that would be left empty is skipped. It uses the new
+  `stripTrailingFeedSentences`, which removes the sentence without flattening
+  a Markdown body the way `cleanFeedText` would. Applied to a copy: one
+  record changed, only its summary, and a rerun reports nothing to do. Rules
+  and 5 tests in `src/lib/github-blog-footer-repair.ts`.
 
 ## Search shows the original title it matched; the 404 page has a search box
 
