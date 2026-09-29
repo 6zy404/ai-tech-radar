@@ -268,6 +268,45 @@ export function wrapUnits(units: string[], maxEm: number): string[] {
   return lines;
 }
 
+function isPunctuation(char: string): boolean {
+  return closingPunctuation.has(char) || openingPunctuation.has(char);
+}
+
+/**
+ * Joins the last break unit to the one before it (and the space between
+ * them, if any) when the last one holds a single character, punctuation
+ * aside — 理, 定。 — so it can never end up alone on the title's last line.
+ *
+ * Greedy filling only puts the two on different lines when the last one
+ * would otherwise be that orphan, so a title that had none lays out exactly
+ * as before; with one, the character before it moves down to keep it
+ * company. The caller must not use the result when the joined unit is wider
+ * than a line, since that would break it character by character.
+ */
+export function bindTrailingUnit(units: string[]): string[] {
+  const last = units.length - 1;
+
+  if (last < 1) {
+    return units;
+  }
+
+  const letters = Array.from(units[last]).filter(
+    (char) => !isPunctuation(char)
+  );
+
+  if (letters.length > 1) {
+    return units;
+  }
+
+  const previous = units[last - 1] === " " ? last - 2 : last - 1;
+
+  if (previous < 0) {
+    return units;
+  }
+
+  return [...units.slice(0, previous), units.slice(previous).join("")];
+}
+
 /** Shortens a line until it and a trailing ellipsis fit. */
 export function withEllipsis(line: string, maxEm: number): string {
   const chars = Array.from(line.trimEnd());
@@ -299,9 +338,14 @@ export function layoutShareCardTitle(
 ): ShareCardTitleLayout {
   const title = rawTitle.replace(/\s+/g, " ").trim();
   const units = splitIntoBreakUnits(title);
+  const bound = bindTrailingUnit(units);
 
   for (const step of titleSteps) {
-    const lines = wrapUnits(units, widthPx / step.fontSize);
+    const maxEm = widthPx / step.fontSize;
+    const lines = wrapUnits(
+      estimateTextWidth(bound[bound.length - 1] ?? "") <= maxEm ? bound : units,
+      maxEm
+    );
 
     if (lines.length <= step.maxLines) {
       return { fontSize: step.fontSize, lines, truncated: false };

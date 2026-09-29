@@ -5,6 +5,7 @@ import { skillItems } from "@/data/skills";
 import { topicTags } from "@/data/tags";
 import { technologyItems } from "@/data/technologies";
 import {
+  bindTrailingUnit,
   buildDigestShareCard,
   buildKnowledgeShareCard,
   buildShareCard,
@@ -104,6 +105,91 @@ describe("layoutShareCardTitle", () => {
 
     expectLinesFit(layout.lines, layout.fontSize);
     expect(layout.lines.length).toBeGreaterThan(1);
+  });
+
+  it("does not leave one character alone on the last line", () => {
+    expect(
+      layoutShareCardTitle("长时程智能体的记忆与上下文管理").lines
+    ).toEqual(["长时程智能体的记忆与上下文", "管理"]);
+    expect(
+      layoutShareCardTitle(
+        "这一期的十条里，有六条在回答同一个问题：哪些事不该让模型自己决定。"
+      ).lines
+    ).toEqual([
+      "这一期的十条里，有六条在回答同一",
+      "个问题：哪些事不该让模型自己",
+      "决定。"
+    ]);
+  });
+
+  it("lays out a title with no orphan exactly as plain greedy filling does", () => {
+    const isOrphan = (line: string) =>
+      Array.from(line).filter((char) => !"，。）".includes(char)).length <= 1;
+    // The layout before orphans were handled: the first size whose greedy
+    // wrap fits its line budget.
+    const greedy = (title: string) => {
+      for (const [fontSize, maxLines] of [
+        [68, 2],
+        [60, 3],
+        [52, 4]
+      ]) {
+        const lines = wrapUnits(
+          splitIntoBreakUnits(title),
+          shareCardTitleWidth / fontSize
+        );
+
+        if (lines.length <= maxLines) {
+          return { fontSize, lines };
+        }
+      }
+    };
+    let orphansFixed = 0;
+
+    for (let length = 1; length <= 72; length += 1) {
+      for (const ending of ["", "。", "）"]) {
+        const title = "测".repeat(length) + ending;
+        const layout = layoutShareCardTitle(title);
+        const before = greedy(title);
+
+        if (!before) {
+          expect(layout.truncated).toBe(true);
+          continue;
+        }
+
+        const last = before.lines[before.lines.length - 1];
+
+        expect(layout.fontSize).toBe(before.fontSize);
+        expect(layout.lines.length).toBe(before.lines.length);
+        expectLinesFit(layout.lines, layout.fontSize);
+
+        if (before.lines.length > 1 && isOrphan(last)) {
+          orphansFixed += 1;
+          expect(isOrphan(layout.lines[layout.lines.length - 1])).toBe(false);
+        } else {
+          expect(layout.lines).toEqual(before.lines);
+        }
+      }
+    }
+
+    // The sweep crosses every line boundary at every size, so it must have
+    // met orphans; were it not to, the test would prove nothing.
+    expect(orphansFixed).toBeGreaterThan(5);
+  });
+});
+
+describe("bindTrailingUnit", () => {
+  it("joins a one-character last unit, closing mark included, to the one before", () => {
+    expect(bindTrailingUnit(["自", "己", "决", "定。"])).toEqual([
+      "自",
+      "己",
+      "决定。"
+    ]);
+    expect(bindTrailingUnit(["K3", " ", "首"])).toEqual(["K3 首"]);
+  });
+
+  it("leaves a longer last unit, or a lone unit, alone", () => {
+    expect(bindTrailingUnit(["the", " ", "AI"])).toEqual(["the", " ", "AI"]);
+    expect(bindTrailingUnit(["理"])).toEqual(["理"]);
   });
 });
 
