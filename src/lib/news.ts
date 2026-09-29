@@ -5,6 +5,7 @@ import {
 import { compactText } from "@/lib/compact-text";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
 import { getTodayDateString } from "@/lib/digest-store";
+import { cleanFeedText, cleanUrl, htmlToPlainText } from "@/lib/text-sanitize";
 import type { DuplicateGroup, ImportedCandidate } from "@/types/content";
 
 /**
@@ -88,8 +89,14 @@ function buildDuplicateExclusionSet(groups: DuplicateGroup[]): Set<string> {
   return excluded;
 }
 
+/**
+ * The importers clean summaries now, but the candidate snapshot is a rolling
+ * window: items imported before the fix stay in it until their source is
+ * imported again. Cleaning here too keeps their markup off the public page in
+ * the meantime — and costs nothing on text that is already clean.
+ */
 function truncateSummary(value: string | undefined): string | undefined {
-  const trimmed = value?.trim();
+  const trimmed = cleanFeedText(value);
 
   if (!trimmed) {
     return undefined;
@@ -117,12 +124,14 @@ function toPublicNewsItem(
       )
     : undefined;
 
+  const sourceUrl = cleanUrl(candidate.sourceUrl);
+
   return {
-    key: `${newsDate}::${candidate.sourceUrl}`,
-    title: candidate.originalTitle,
+    key: `${newsDate}::${sourceUrl}`,
+    title: htmlToPlainText(candidate.originalTitle),
     summary: truncateSummary(candidate.originalSummary),
     sourceName: candidate.sourceName,
-    sourceUrl: candidate.sourceUrl,
+    sourceUrl,
     publishDate: newsDate,
     tags: getPublicTagNames(candidate.tags),
     publishedTechnology: publishedTechnology

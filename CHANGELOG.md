@@ -12,6 +12,55 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Imported text and links are cleaned of HTML and entities
+
+- **2026-09-29.** The 全部快讯 view was showing readers raw markup — Simon
+  Willison's summaries rendered as `<p>On Friday … <a href="…">` — and 17
+  published InfoQ signals linked to `?utm_source=rss&amp;utm_medium=article`.
+  Both came from the importers.
+- **Root cause.** The XML parser runs with `processEntities: false`, so a feed
+  that escapes its HTML (the usual `<description>` / Atom `type="html"`)
+  arrives as `&lt;p&gt;…`. The old `stripHtml` removed tags _first_ and decoded
+  entities _second_: nothing looked like a tag yet, and decoding then produced
+  the tags that were stored. Its decoder also knew seven entities, so
+  `&rsquo;` and friends survived, and nothing decoded links at all — neither
+  the RSS `<link>` nor the Atom `href`. Measured on a read-only copy of the
+  live data: 96 of 146 candidates carried tags or entities (ten sources;
+  InfoQ, Simon Willison and Google AI Blog in the summary itself), 12
+  candidate links and 17 published `sourceUrl`s carried `&amp;`, and 13
+  published signals kept HTML in their `original` / `en` text.
+- **One shared cleaner**, `src/lib/text-sanitize.ts`: `htmlToPlainText`
+  alternates stripping and one-layer decoding until the text stops changing
+  (capped at three rounds), strips only real HTML element names — so a literal
+  `<think>` or `a < b` survives — removes inline elements without a gap and
+  block elements as a space, drops a tag that truncation cut off, and decodes
+  named, decimal and hex references. `cleanFeedText` also removes InfoQ's
+  link-only 「点击查看原文>」 description, which leaves such a candidate with
+  no summary, which is the truth. `cleanUrl` decodes a link and keeps the
+  result only if it is still an http(s) URL; a clean URL comes back byte for
+  byte. Every importer (RSS, Atom, GitHub release, official blog) now uses it.
+- **Candidate ids do not move.** They are still seeded from the link as the
+  feed wrote it, `&amp;` included; seeding from the decoded link would give
+  every pooled candidate a new id on the next import, and the review state is
+  keyed by id. A test pins this.
+- **Display-side fallback.** `src/lib/news.ts` runs the same cleaner on the
+  title, summary and link, so candidates imported before the fix stop showing
+  markup before their source is imported again. Verified on the unrepaired
+  data: the news view's text has no tags or entities and no `&amp;` in any
+  href.
+- **Repairing what is already stored**: `scripts/repair-entities.ts` (via
+  `scripts/run-ts.cjs`), dry run unless `--apply`. It touches candidate
+  `sourceUrl` / `originalTitle` / `originalSummary` / `originalContent` and
+  signal `sourceUrl` / `sourceReferences[].sourceUrl`, only where a field
+  visibly carries markup and cleaning changes it, so a second run reports 0.
+  `--published-text` additionally cleans published `title` / `summary` /
+  `content` in `original` and `en`, but never empties one (InfoQ's
+  boilerplate-only `original` fields are left for an editor). Candidate ids,
+  `rawPayload` and workflow-event history are never changed. On this
+  worktree's copy: 162 fields (145 candidate, 17 signal links), the file diff
+  exactly 162 lines, second run 0. The rules live in `src/lib/entity-repair.ts`
+  and are unit-tested.
+
 ## Structured data (JSON-LD) on the public pages
 
 - **2026-09-29.** Signal, digest, skill and knowledge pages, and the home

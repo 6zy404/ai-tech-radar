@@ -1,7 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+import type { ExternalSource } from "@/types/content";
 
 import {
   fetchWithRetry,
+  importCandidatesForExternalSource,
   isRetryableStatus,
   resolveImportFetchSettings,
   type ImportFetchSettings
@@ -205,5 +208,94 @@ describe("fetchWithRetry", () => {
         }
       })
     ).rejects.toThrow("outer ← inner");
+  });
+});
+
+function makeSource(overrides: Partial<ExternalSource>): ExternalSource {
+  return {
+    id: "source-test",
+    name: "Test Feed",
+    type: "rss",
+    url: "https://feeds.example.com/rss",
+    enabled: true,
+    language: "en",
+    publisherType: "media",
+    defaultTags: [],
+    defaultNormalizedType: "unknown",
+    lastImportStatus: "never_run",
+    createdAt: "2026-09-29T00:00:00.000Z",
+    updatedAt: "2026-09-29T00:00:00.000Z",
+    ...overrides
+  };
+}
+
+function stubFeed(xml: string) {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response(xml, { status: 200 }))
+  );
+}
+
+describe("feed text and links — the 2026-09-29 escaped-HTML case", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("cleans an RSS description the feed escaped, and decodes its link", async () => {
+    const link =
+      "https://www.infoq.cn/article/abc?utm_source=rss&amp;utm_medium=article";
+
+    stubFeed(`<?xml version="1.0"?><rss><channel><title>InfoQ</title>
+      <item>
+        <title>AI 数据平台，要补的恰恰是“模型不知道的事”</title>
+        <link>${link}</link>
+        <guid>${link}</guid>
+        <description>&lt;p&gt;Keynote at the &lt;a href=&quot;https://x.dev&quot;&gt;Congress&lt;/a&gt; &amp;mdash; notes&lt;/p&gt;&lt;div align=&#39;right&#39;&gt;&lt;a href=&#39;${link}&#39;&gt;点击查看原文&gt;&lt;/a&gt;&lt;/div&gt;</description>
+        <pubDate>Tue, 29 Sep 2026 11:24:14 GMT</pubDate>
+      </item>
+    </channel></rss>`);
+
+    const [candidate] = await importCandidatesForExternalSource(makeSource({}));
+
+    expect(candidate.originalTitle).toBe(
+      "AI 数据平台，要补的恰恰是“模型不知道的事”"
+    );
+    expect(candidate.originalSummary).toBe("Keynote at the Congress — notes");
+    expect(candidate.originalContent).toBe("Keynote at the Congress — notes");
+    expect(candidate.sourceUrl).toBe(
+      "https://www.infoq.cn/article/abc?utm_source=rss&utm_medium=article"
+    );
+    // The id is still seeded from the link as written, so candidates already
+    // in the pool keep their id — and their review state — on the next import.
+    expect(candidate.id).toBe(
+      "candidate-rss-https-www-infoq-cn-article-abc-utm-source-rss-amp-utm-medium-article"
+    );
+  });
+
+  it("cleans an Atom entry's escaped HTML content, keeping the id stable", async () => {
+    stubFeed(`<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">
+      <title>Release notes</title>
+      <entry>
+        <title>v0.35.0</title>
+        <link rel="alternate" href="https://github.com/o/r/releases/tag/v0.35.0?a=1&amp;b=2"/>
+        <updated>2026-09-29T01:54:15Z</updated>
+        <content type="html">&lt;h2&gt;Decision models&lt;/h2&gt;
+&lt;p&gt;Supports &lt;code&gt;/v1/systemone&lt;/code&gt;, via TypeSafe&amp;rsquo;s API.&lt;/p&gt;</content>
+      </entry>
+    </feed>`);
+
+    const [candidate] = await importCandidatesForExternalSource(
+      makeSource({ type: "atom" })
+    );
+
+    expect(candidate.originalSummary).toBe(
+      "Decision models Supports /v1/systemone, via TypeSafe’s API."
+    );
+    expect(candidate.sourceUrl).toBe(
+      "https://github.com/o/r/releases/tag/v0.35.0?a=1&b=2"
+    );
+    expect(candidate.id).toBe(
+      "candidate-rss-https-github-com-o-r-releases-tag-v0-35-0-a-1-amp-b-2"
+    );
   });
 });

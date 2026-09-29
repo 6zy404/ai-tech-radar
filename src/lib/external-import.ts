@@ -1,6 +1,12 @@
 import { XMLParser } from "fast-xml-parser";
 
 import { normalizeCandidateId, normalizeCandidateTags } from "@/lib/importers";
+import {
+  cleanFeedText,
+  cleanUrl,
+  decodeHtmlEntities,
+  htmlToPlainText
+} from "@/lib/text-sanitize";
 import type {
   CandidateNormalizedType,
   ExternalSource,
@@ -103,37 +109,6 @@ function ensureArray<T>(value: T | T[] | undefined): T[] {
   }
 
   return value === undefined ? [] : [value];
-}
-
-function decodeHtmlEntities(value: string): string {
-  return value
-    .replace(/鈥檚/g, "'s")
-    .replace(/鈥檙e/g, "'re")
-    .replace(/鈥檝e/g, "'ve")
-    .replace(/鈥檒l/g, "'ll")
-    .replace(/鈥檛/g, "'t")
-    .replace(/&#x27;|&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&#x2F;/g, "/");
-}
-
-function stripHtml(value: string | undefined): string {
-  if (!value) {
-    return "";
-  }
-
-  return decodeHtmlEntities(
-    value
-      .replace(/<script[\s\S]*?<\/script>/gi, " ")
-      .replace(/<style[\s\S]*?<\/style>/gi, " ")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-  );
 }
 
 function getXmlText(value: unknown): string {
@@ -656,20 +631,24 @@ async function fetchRssFeedCandidates(
     );
 
     return items.map((item) => {
-      const title = stripHtml(String(item.title ?? ""));
-      const summary = stripHtml(
+      const title = htmlToPlainText(String(item.title ?? ""));
+      const summary = cleanFeedText(
         getXmlText(item.description ?? item.summary ?? item["content:encoded"])
       );
-      const content = stripHtml(
+      const content = cleanFeedText(
         getXmlText(item["content:encoded"] ?? item.description ?? summary)
       );
       const categories = ensureArray(item.category)
-        .map((category) => stripHtml(String(category ?? "")))
+        .map((category) => htmlToPlainText(String(category ?? "")))
         .filter(Boolean);
-      const sourceUrl = String(item.link ?? item.guid ?? config.sourceUrl);
+      // The id is seeded from the link as the feed wrote it, entities and
+      // all: deriving it from the decoded URL would give every existing
+      // candidate a new id, and the review state is keyed by id.
+      const rawSourceUrl = String(item.link ?? item.guid ?? config.sourceUrl);
+      const sourceUrl = cleanUrl(rawSourceUrl);
       const candidateSeed = getRssGuidOrLink(
         item,
-        sourceUrl || `${title}-${config.sourceName}`
+        rawSourceUrl || `${title}-${config.sourceName}`
       );
       const combinedText = [title, summary, content, config.sourceName].join(
         " "
@@ -687,7 +666,7 @@ async function fetchRssFeedCandidates(
           String(item.language ?? channel.language ?? "en")
         ),
         publishDate: toIsoDate(String(item.pubDate ?? item.isoDate ?? "")),
-        publisherName: stripHtml(
+        publisherName: htmlToPlainText(
           String(item["dc:creator"] ?? item.author ?? config.publisherName)
         ),
         normalizedType: inferNormalizedType(combinedText),
@@ -696,7 +675,9 @@ async function fetchRssFeedCandidates(
         relatedCandidateIds: [],
         rawPayload: {
           sourceId: config.id,
-          feedTitle: stripHtml(String(channel.title ?? config.sourceName)),
+          feedTitle: htmlToPlainText(
+            String(channel.title ?? config.sourceName)
+          ),
           feedUrl: config.sourceUrl,
           item
         }
@@ -712,26 +693,28 @@ async function fetchRssFeedCandidates(
     );
 
     return entries.map((entry) => {
-      const sourceUrl = getAtomEntryLink(entry) || config.sourceUrl;
-      const content = stripHtml(
+      // As in the RSS branch, the id keeps the link as the feed wrote it.
+      const rawSourceUrl = getAtomEntryLink(entry) || config.sourceUrl;
+      const sourceUrl = cleanUrl(rawSourceUrl);
+      const content = cleanFeedText(
         getXmlText(entry.content ?? entry.summary ?? entry.title)
       );
-      const summary = stripHtml(getXmlText(entry.summary ?? content));
-      const title = stripHtml(String(entry.title ?? ""));
+      const summary = cleanFeedText(getXmlText(entry.summary ?? content));
+      const title = htmlToPlainText(String(entry.title ?? ""));
       const categories = ensureArray(entry.category)
         .map((category) => {
           if (typeof category === "object" && category) {
             const record = category as Record<string, unknown>;
 
-            return stripHtml(String(record.term ?? record.label ?? ""));
+            return htmlToPlainText(String(record.term ?? record.label ?? ""));
           }
 
-          return stripHtml(String(category ?? ""));
+          return htmlToPlainText(String(category ?? ""));
         })
         .filter(Boolean);
       const publisher =
         typeof entry.author === "object"
-          ? stripHtml(
+          ? htmlToPlainText(
               String((entry.author as Record<string, unknown>).name ?? "")
             )
           : config.publisherName;
@@ -740,7 +723,7 @@ async function fetchRssFeedCandidates(
       );
 
       return {
-        id: `candidate-rss-${normalizeCandidateId(sourceUrl || title)}`,
+        id: `candidate-rss-${normalizeCandidateId(rawSourceUrl || title)}`,
         sourceType: "rss-feed",
         sourceName: config.sourceName,
         sourceUrl,
@@ -756,7 +739,7 @@ async function fetchRssFeedCandidates(
         relatedCandidateIds: [],
         rawPayload: {
           sourceId: config.id,
-          feedTitle: stripHtml(String(feed.title ?? config.sourceName)),
+          feedTitle: htmlToPlainText(String(feed.title ?? config.sourceName)),
           feedUrl: config.sourceUrl,
           entry
         }
@@ -790,10 +773,10 @@ async function fetchGitHubReleaseCandidates(
     .filter((release) => !release.draft)
     .slice(0, config.maxItems)
     .map((release) => {
-      const title = stripHtml(
+      const title = htmlToPlainText(
         `${config.repository} ${release.name || release.tag_name}`
       );
-      const content = stripHtml(release.body ?? "");
+      const content = cleanFeedText(release.body ?? "");
       const summary = trimToLength(content, 260);
       const seededTags = [
         release.prerelease ? "pre-release" : "release",
@@ -807,7 +790,7 @@ async function fetchGitHubReleaseCandidates(
         )}`,
         sourceType: "github-release",
         sourceName: config.sourceName,
-        sourceUrl: release.html_url,
+        sourceUrl: cleanUrl(release.html_url),
         originalTitle: title,
         originalSummary: summary,
         originalContent: trimToLength(content || summary, 1800),
@@ -848,30 +831,18 @@ function extractAnthropicListingItems(
 
     return {
       href,
-      date: window
-        .match(/<time[^>]*>(.*?)<\/time>/i)?.[1]
-        ?.replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim(),
-      excerpt: window
-        .match(/<p[^>]*>(.*?)<\/p>/i)?.[1]
-        ?.replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
+      date:
+        htmlToPlainText(window.match(/<time[^>]*>(.*?)<\/time>/i)?.[1]) ||
+        undefined,
+      excerpt:
+        htmlToPlainText(window.match(/<p[^>]*>(.*?)<\/p>/i)?.[1]) || undefined
     };
   });
 }
 
 function extractReadableParagraphs(html: string): string[] {
   return [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
-    .map((match) =>
-      decodeHtmlEntities(
-        match[1]
-          .replace(/<[^>]+>/g, " ")
-          .replace(/\s+/g, " ")
-          .trim()
-      )
-    )
+    .map((match) => htmlToPlainText(match[1]))
     .filter((paragraph) => {
       if (paragraph.length < 60) {
         return false;
@@ -892,14 +863,18 @@ async function fetchOfficialBlogCandidates(
   const results: ImportedCandidate[] = [];
 
   for (const preview of previews) {
-    const articleUrl = new URL(preview.href, config.baseUrl).toString();
+    const articleUrl = new URL(
+      decodeHtmlEntities(preview.href),
+      config.baseUrl
+    ).toString();
     const articleHtml = await fetchText(articleUrl);
     const title =
       decodeHtmlEntities(
         articleHtml.match(
           /<meta property="og:title" content="([^"]+)"/i
         )?.[1] ?? ""
-      ) || stripHtml(articleHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "");
+      ) ||
+      htmlToPlainText(articleHtml.match(/<title>(.*?)<\/title>/i)?.[1] ?? "");
     const paragraphs = extractReadableParagraphs(articleHtml);
     const summary = trimToLength(
       preview.excerpt || paragraphs[0] || "未能从来源页面提取摘要。",
