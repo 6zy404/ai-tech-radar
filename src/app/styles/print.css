@@ -1,0 +1,384 @@
+/* print: every print rule on the site, and nothing else (2026-09-30).
+
+   Until this file there was no @media print anywhere, so printing a signal
+   or a digest (or saving it as PDF) printed the sticky nav, the theme and
+   search buttons, the three AI widgets, the table of contents, the pager,
+   the follow chips and the 44px dossier grid — on a dark page, in dark.
+
+   Scope: the public reading pages — /technologies/[slug], /digest/[date],
+   /digest/today, /digest/weekly and /digest/weekly/[week], /skills/[slug],
+   /knowledge/[slug]. The rules are written against the shared primitives
+   (.dossier, .user-article-*, .skill-detail-*, .dossier-card), so any other
+   public page degrades the same way rather than needing its own rules.
+
+   Everything is inside one @media print block, imported last, so no screen
+   rule can change: this file is inert on screen by construction. Rules
+   win by coming last and, where a component rule is more specific or a
+   dark-mode rule keys off :root[data-theme="dark"], by !important — which
+   is acceptable here because nothing comes after this file. */
+
+@media print {
+  @page {
+    margin: 16mm 15mm 18mm;
+  }
+
+  /* ---- Light, whatever the reader chose on screen ----
+     Dark mode is an attribute (`data-theme` on <html>), not a media query,
+     so print cannot switch it off. Instead the tokens every dossier rule
+     reads are redeclared to a print palette under both selectors, and the
+     few hardcoded backgrounds are cleared below. */
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light !important;
+  }
+
+  .dossier,
+  :root[data-theme="dark"] .dossier {
+    --dossier-ground: #fff;
+    --dossier-surface: #fff;
+    --dossier-line: #c4c2b6;
+    --dossier-ink: #151510;
+    --dossier-muted: #4d4b40;
+    --dossier-accent: #24433b;
+    --dossier-stamp: #7a2f20;
+    --surface: #fff;
+    --surface-strong: #fff;
+    --text: #151510;
+    --muted: #4d4b40;
+    --line: #c4c2b6;
+    --accent: #24433b;
+    --accent-soft: transparent;
+    --user-ink: #151510;
+    --user-accent: #24433b;
+    --label-amber: #6e470e;
+    --shadow: none;
+    --user-shadow: none;
+  }
+
+  html,
+  body,
+  :root[data-theme="dark"] body {
+    background: #fff !important;
+    color: #151510 !important;
+  }
+
+  /* No ground, no grid, no panels, no shadows: ink on paper. Borders stay,
+     as hairlines, because they are what separates one card from the next
+     once the panel colours are gone. */
+  .dossier,
+  .dossier *,
+  .main-content {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .dossier code {
+    border: 1px solid var(--dossier-line) !important;
+  }
+
+  /* ---- One column, full measure ----
+     The paper is narrower than the 920px breakpoint anyway, but a reader
+     can print at a small scale, which widens the viewport the layout sees. */
+  .main-content,
+  .user-shell,
+  .dossier {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  /* The screen stretches the content area to the viewport. */
+  .main-content {
+    min-height: 0 !important;
+  }
+
+  .user-article-layout,
+  .user-article-layout__body,
+  .skill-detail-layout,
+  .skill-detail-layout__body {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .user-article-layout__aside,
+  .skill-detail-aside {
+    position: static !important;
+    width: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin-top: 22px !important;
+  }
+
+  /* Vertical stacks print as block flow, not grid. Chrome fragments a grid
+     badly: an item pushed to the next page by break-inside: avoid kept its
+     old place in the grid's height, so the section after it printed on top
+     of it (seen on the digest, the last 背景知识 card over 来源参考). Each
+     former grid gap becomes a top margin of the same size. */
+  .user-shell,
+  .daily-digest-reading,
+  .weekly-review,
+  .user-article-layout__main,
+  .user-article-layout__aside,
+  .skill-detail-main,
+  .skill-detail-aside,
+  .user-article-section,
+  .dossier-related-section,
+  .daily-digest-summary-panel,
+  .daily-digest-section,
+  .digest-reference-section,
+  .weekly-review-group,
+  .digest-technology-list,
+  .digest-reference-list,
+  .weekly-review-group__list,
+  .skill-detail-related-list,
+  .content-body,
+  .content-body__list {
+    display: block !important;
+  }
+
+  /* Sections become blocks of text, not boxed panels. Their spacing is a
+     top margin only, set by the stack rules below: a bottom margin on the
+     aside's last panel was enough to push a blank sheet out of the printer. */
+  .user-article-hero,
+  .user-article-section,
+  .skill-detail-hero,
+  .skill-detail-section,
+  .skill-detail-aside-card,
+  .source-reference,
+  .user-reference-panel,
+  .dossier-related-section,
+  .daily-digest-summary-panel,
+  .daily-digest-section,
+  .digest-reference-section,
+  .weekly-review-group,
+  .weekly-review__stats {
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  :is(
+      .user-shell,
+      .daily-digest-reading,
+      .weekly-review,
+      .user-article-layout__main,
+      .user-article-layout__aside,
+      .skill-detail-main,
+      .skill-detail-aside
+    )
+    > *
+    + * {
+    margin-top: 22px !important;
+  }
+
+  :is(
+      .user-article-section,
+      .dossier-related-section,
+      .daily-digest-summary-panel,
+      .daily-digest-section,
+      .digest-reference-section,
+      .weekly-review-group,
+      .digest-technology-list,
+      .digest-reference-list,
+      .weekly-review-group__list,
+      .skill-detail-related-list
+    )
+    > *
+    + * {
+    margin-top: 12px !important;
+  }
+
+  .content-body > * + * {
+    margin-top: 14px !important;
+  }
+
+  /* On screen a heading adds its own 6px to the gap above it. */
+  .content-body > * + .content-body__heading {
+    margin-top: 20px !important;
+  }
+
+  .content-body__list > li + li {
+    margin-top: 8px;
+  }
+
+  /* The page header closes with a rule; it is the one bottom margin left. */
+  .user-article-hero,
+  .skill-detail-hero,
+  .daily-digest-brief-header,
+  .user-page-header {
+    border-bottom: 1px solid var(--dossier-line) !important;
+    padding-bottom: 14px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* The signal page's aside panels hold one value each (阅读难度 · 进阶).
+     Set at heading size, as on screen, a one-word value took a heading's
+     worth of paper; on paper it reads as a labelled line. */
+  .user-article-layout__aside .user-reference-panel h2 {
+    margin: 2px 0 0 !important;
+    font-size: 1.05rem !important;
+  }
+
+  /* The digest's sources: ten of them took three sheets as full-width
+     cards. Two columns of compact entries hold the same text. */
+  .digest-source-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .digest-source-chip {
+    padding: 8px 12px !important;
+  }
+
+  .digest-source-chip h3,
+  .digest-source-chip p {
+    margin: 0 0 2px !important;
+  }
+
+  /* ---- Page breaks ----
+     A heading, and the eyebrow above it, stay with what follows. */
+  h1,
+  h2,
+  h3,
+  h4,
+  .eyebrow,
+  .skill-detail-kicker,
+  .technology-detail-section__eyebrow,
+  .dossier-related-section__header,
+  .skill-detail-section__header,
+  .daily-digest-section__header,
+  .weekly-review-group__heading,
+  .digest-technology-card__topline {
+    break-after: avoid;
+  }
+
+  .dossier-related-section__header,
+  .skill-detail-section__header,
+  .daily-digest-section__header,
+  .weekly-review-group__heading {
+    break-inside: avoid;
+  }
+
+  /* Cards stay whole — except the digest's featured cards, which run to
+     half a page each: kept whole, every one that does not fit leaves half
+     a page blank. They split between paragraphs instead. */
+  .dossier-card,
+  .digest-source-chip,
+  .weekly-review-stat,
+  .source-reference,
+  .dossier-catalog-note,
+  li,
+  pre,
+  blockquote,
+  img {
+    break-inside: avoid;
+  }
+
+  .dossier-card.digest-technology-card--featured {
+    break-inside: auto;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* ---- Where a link goes, on paper ----
+     Only the body text and the source blocks, and only external links:
+     appending every internal href would bury the page in URLs. */
+  .content-body a[href^="http"]::after,
+  .source-reference a[href^="http"]::after,
+  .digest-source-chip a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-size: 0.78em;
+    font-weight: normal;
+    word-break: break-all;
+    color: var(--dossier-muted);
+  }
+
+  /* In a source block the link is a line of its own, so its URL is too.
+     The link is inline-flex on screen, which would make its ::after a
+     flex item beside the text rather than a line under it. */
+  .source-reference a[href^="http"],
+  .digest-source-chip a[href^="http"] {
+    display: block !important;
+  }
+
+  .source-reference a[href^="http"]::after,
+  .digest-source-chip a[href^="http"]::after {
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* A source block that already prints its URL needs no second copy. */
+  .source-reference:has(.source-reference__url) a::after {
+    content: none;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* ---- What does not print ----
+     Last in the file, so no display rule above (the block-flow one, say)
+     can bring a hidden element back.
+     Site chrome, controls that do nothing on paper, and navigation to
+     other pages. Content that repeats elsewhere on the same page goes too:
+     the relationship map lists the same items as the related sections
+     below it, and the follow chips repeat the hero's tags.
+     An element with no class of its own to select is marked in the JSX
+     with data-print="hide" (so far: the 阅读路径 card on skill and
+     knowledge pages, content-detail-page.tsx). */
+  .skip-link,
+  .top-nav,
+  .technology-language-switch,
+  .technology-compare-widget,
+  .page-toc,
+  .followable-tag-list,
+  .user-reference-panel:has(.followable-tag-list),
+  .skill-detail-aside-card:has(.followable-tag-list),
+  .tech-graph,
+  .issue-pager,
+  .signal-reading-actions,
+  .signal-shortcut-hint,
+  .signal-shortcut-help,
+  .daily-digest-personal-bar,
+  .daily-digest-feeds,
+  .digest-feed-links,
+  .digest-technology-card__open,
+  .digest-reference-item__link,
+  .dossier-related-section__link,
+  .skill-detail-related-card__link,
+  .user-page-header__actions,
+  .weekly-review-archive,
+  .weekly-review-group:has(.digest-feed-links),
+  [data-print="hide"] {
+    display: none !important;
+  }
+
+  /* Related entries print as a reference list: relation, title and the note
+     on why they are linked. Their summaries and tags are the other page's
+     content, and a skill page links to thirty-odd signals — printed whole,
+     that was 19 sheets for one skill. */
+  .skill-detail-related-card h3 + p,
+  .skill-detail-related-card .tag-row {
+    display: none !important;
+  }
+
+  /* The signal page names its source twice: in the aside panel and at the
+     foot of the article. On a single column those print one after the
+     other, so the aside copy goes when the article has its own. */
+  .user-article-layout:has(.user-article-layout__main .source-reference)
+    .user-article-layout__aside
+    .source-reference {
+    display: none !important;
+  }
+}

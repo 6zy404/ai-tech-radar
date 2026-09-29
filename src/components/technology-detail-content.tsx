@@ -256,7 +256,8 @@ export function TechnologyDetailContent({
             linkLabel={copy.sourceLinkLabel}
           />
 
-          <section className="user-reference-panel">
+          {/* The hero already prints this label and sentence. */}
+          <section className="user-reference-panel" data-print="hide">
             <p className="eyebrow user-eyebrow">优先级</p>
             <h2>{priorityLabel}</h2>
             <p className="user-reference-panel__copy">{prioritySummary}</p>

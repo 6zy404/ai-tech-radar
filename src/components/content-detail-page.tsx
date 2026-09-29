@@ -515,7 +515,8 @@ export function ContentDetailPage<TItem extends DetailItem>({
               </section>
             ) : null}
 
-            <section className="skill-detail-aside-card">
+            {/* How to move around the site: nothing to act on in print. */}
+            <section className="skill-detail-aside-card" data-print="hide">
               <p className="skill-detail-kicker">阅读路径</p>
               <p>{kind.readingPath}</p>
             </section>
