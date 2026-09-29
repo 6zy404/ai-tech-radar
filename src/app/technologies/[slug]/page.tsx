@@ -38,7 +38,8 @@ export async function generateMetadata({
     title: getPreferredTechnologyTitle(technology),
     description: getPreferredTechnologySummary(technology),
     path: `/technologies/${technology.slug}`,
-    type: "article"
+    type: "article",
+    largeImage: true
   });
 }
 
