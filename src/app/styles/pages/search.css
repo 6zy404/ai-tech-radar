@@ -93,3 +93,10 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+/* Inside a tag chip the inherited colour is the chip's teal, and teal on the
+   stamp tint measured 3.45:1 in the light theme. The hit takes the ink
+   colour instead: 9.1:1 light, 7.1:1 dark (dark chips are already ink). */
+.news-card__tags .search-hit {
+  color: var(--dossier-ink);
+}

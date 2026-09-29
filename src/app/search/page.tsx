@@ -4,6 +4,7 @@ import { NewsCardSignalLink, NewsCardTags } from "@/components/news-card-parts";
 import { SearchGlyph } from "@/components/search-glyph";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { HighlightedText } from "@/components/highlighted-text";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   searchPublicContentHybrid,
@@ -12,8 +13,6 @@ import {
 import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
-
-import { HighlightedText } from "./highlighted-text";
 
 interface SearchPageProps {
   searchParams: Promise<{ q?: string }>;
@@ -79,7 +78,7 @@ function SearchResultCard({
       {item.meta ? (
         <div className="search-result__meta">{item.meta}</div>
       ) : null}
-      <NewsCardTags tags={item.tags} />
+      <NewsCardTags tags={item.tags} terms={hitTerms} />
     </DossierCard>
   );
 }
@@ -107,7 +106,7 @@ function SearchNewsCard({
         <span className="news-card__source">{item.sourceName}</span>
         <span>{item.publishDate}</span>
       </div>
-      <NewsCardTags tags={item.tags} />
+      <NewsCardTags tags={item.tags} terms={terms} />
       <NewsCardSignalLink technology={item.publishedTechnology} />
     </DossierCard>
   );

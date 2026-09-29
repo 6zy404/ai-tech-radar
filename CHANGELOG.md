@@ -135,7 +135,7 @@ For per-topic deep dives, see the `docs/` directory.
   page already renders. `src/lib/news.ts` is unchanged.
 - **The splitting is a pure function**, `highlightSearchTerms` in
   `src/lib/search-highlight.ts`. It returns plain / matched segments, and the
-  page renders them as React children (`src/app/search/highlighted-text.tsx`),
+  page renders them as React children (`src/components/highlighted-text.tsx`),
   so nothing is parsed as HTML. It matches the way keyword search does: a
   plain lower-cased substring, no regex, so `c++` or `(v2.0)` are only text.
   Overlapping and touching hits merge into one mark (「模型推理」). Lower-casing
@@ -146,14 +146,20 @@ For per-topic deep dives, see the `docs/` directory.
   (the colour of the 关键词 stamp) plus a 1px stamp-coloured underline. The
   text keeps its own colour. Measured: text on the mark 10.0:1 light and
   8.6:1 dark, underline against the card 7.1:1 and 5.2:1.
-- **Known gap, measured on the worktree data**: a keyword result can show no
-  mark at all, because keyword search also matches text the card does not
-  show. For 「agent」, 29 of 37 keyword cards are unmarked: the hit is in the
-  English original title or summary while the card shows the Chinese 智能体.
-  For 「推理」, 25 of 51 are unmarked, mostly because the hit is in the tag
-  推理与部署. Tag chips are rendered by the shared `NewsCardTags` and are not
-  marked yet.
-- Looked at top to bottom for 「agent」 and 「模型 推理」 at 1440 and 390, light
+- **Tag chips are marked too.** Keyword search matches tag names as well, so
+  a result found through its tag used to carry the 关键词 stamp with nothing
+  marked anywhere on it. The shared `NewsCardTags` takes an optional `terms`
+  prop that only the search page passes; the 全部快讯 view renders 0 marks,
+  unchanged. `HighlightedText` moved to `src/components/` so that component
+  can use it. Inside a chip the hit takes the ink colour: the chip's teal on
+  the stamp tint measured 3.45:1 in the light theme; ink measures 9.1:1
+  light and 7.1:1 dark.
+- **Measured on the worktree data**, keyword cards with no mark at all:
+  「推理」 25 of 51 before tag marks, 3 after; 「模型 推理」 5 → 0. 「agent」
+  stays at 29 of 37: there the hit is in the English original title or
+  summary, and the card shows the Chinese 智能体. That remaining gap is known
+  and was deliberately left alone.
+- Looked at top to bottom for 「agent」, 「模型 推理」 and 「推理」 at 1440 and 390, light
   and dark. The browser pane was hidden and painted blank, so the captures
   came from headless Chrome over the DevTools protocol, with an exact 390
   viewport (`innerWidth` 390, `scrollWidth` 390).
