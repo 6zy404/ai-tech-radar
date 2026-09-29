@@ -30,6 +30,7 @@ import {
   getTechnologyWhyItMatters
 } from "@/lib/content-intelligence";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
+import { estimateReadingMinutes, formatReadingTime } from "@/lib/reading-time";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 import {
   getPriorityLevelLabel,
@@ -110,6 +111,20 @@ export function TechnologyDetailContent({
   const impactAreas = getTechnologyImpactAreas(technology);
   const learningPath = getTechnologyLearningPath(technology);
   const followUpQuestions = getTechnologyFollowUpQuestions(technology);
+  // Only the reading column's own prose: the hero summary, the body and the
+  // editorial sections below it, each in the language it is shown in right
+  // now. Chips, relation notes and the AI widgets (empty until a reader asks)
+  // are not counted.
+  const readingTimeLabel = formatReadingTime(
+    estimateReadingMinutes(body, [
+      summary,
+      whyItMatters ?? "",
+      technicalContext ?? "",
+      ...learningPath,
+      ...followUpQuestions
+    ]),
+    mode
+  );
   const readingDifficultyLabel = getReadingDifficultyLabel(
     technology.readingDifficulty
   );
@@ -185,6 +200,7 @@ export function TechnologyDetailContent({
             <div className="technology-detail-hero__meta">
               <span>{technology.sourceName}</span>
               <span>{technology.publishDate}</span>
+              <span>{readingTimeLabel}</span>
               <DossierStampTag>{priorityLabel}</DossierStampTag>
             </div>
 

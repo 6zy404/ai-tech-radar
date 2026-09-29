@@ -12,6 +12,33 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Reading time on the signal page
+
+- **2026-09-29.** The technology detail hero's meta row gains 「约 N 分钟读完」
+  between the date and the priority stamp — an existing `<span>` in the
+  existing row, no new style. In 原文 mode it reads `About N min read`, like
+  the priority stamp beside it switches to English.
+- **What is counted** is the reading column's own prose, each part in the
+  language it is currently shown in: the hero summary, the 信号正文 body, 为什么
+  重要 (including its priority-copy fallback when a record has none), 技术背景,
+  学习路径 and 后续问题. Not counted: the title, the audience and impact chips,
+  relation notes on the related cards, and the three AI widgets, which are
+  empty until a reader asks. The editorial sections are single-language
+  (Chinese), so in 原文 mode they still count as Chinese.
+- **How** (`src/lib/reading-time.ts`, 12 tests): Chinese per character at 400
+  a minute, English per word at 200 a minute (`CHINESE_CHARACTERS_PER_MINUTE`
+  / `ENGLISH_WORDS_PER_MINUTE`), the two added before rounding up, never under
+  a minute. The body is flattened by `contentBodyToPlainText`, the same parser
+  the page renders it with, so headings, `**`, backticks and list numbers are
+  not counted — the test for that was checked to fail when the flattening is
+  skipped.
+- **Measured** over the 91 published signals in this worktree's data: in 中文
+  mode 2 / 4 / 7 minutes (min / median / max; 14 at 2, 19 at 3, 24 at 4, 23 at
+  5, 9 at 6, 2 at 7); in 原文 mode 1 / 2 / 5, because most English originals
+  are the feed's short announcement while the Chinese body is the editorial
+  write-up. 77 of 91 show a different number after the switch.
+- Pure derived view: no persisted data, no internal fields.
+
 ## 先读这些: skill and knowledge pages name what to read first
 
 - **2026-09-29.** The public skill and knowledge detail pages (one component,
