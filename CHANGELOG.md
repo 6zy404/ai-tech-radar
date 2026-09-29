@@ -100,6 +100,7 @@ For per-topic deep dives, see the `docs/` directory.
 - Clicking a button draws no ring. Clicking into a text field does, because
   browsers always match `:focus-visible` for text inputs; `/search` and
   `/ask` behaved this way before.
+
 ## Keyboard shortcuts on the signal lists
 
 - **2026-09-29.** The 精选 / 我关注的 / 稍后读 views on `/technologies` take
