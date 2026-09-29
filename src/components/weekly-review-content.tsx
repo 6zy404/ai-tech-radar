@@ -2,17 +2,27 @@ import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { IssuePager } from "@/components/issue-pager";
 import { weeklyReviewFeedPath } from "@/lib/feed-paths";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import type {
   WeeklyReviewArchiveEntry,
   WeeklyReviewData,
-  WeeklyReviewGroup
+  WeeklyReviewGroup,
+  WeeklyReviewNeighbor,
+  WeeklyReviewNeighbors
 } from "@/lib/weekly-review";
 
 interface WeeklyReviewContentProps {
   data: WeeklyReviewData;
   archive: WeeklyReviewArchiveEntry[];
+  neighbors: WeeklyReviewNeighbors;
+}
+
+function toPagerTarget(neighbor: WeeklyReviewNeighbor | undefined) {
+  return neighbor
+    ? { href: `/digest/weekly/${neighbor.weekKey}`, label: neighbor.rangeLabel }
+    : undefined;
 }
 
 const groupLede: Record<WeeklyReviewGroup["level"], string> = {
@@ -22,7 +32,8 @@ const groupLede: Record<WeeklyReviewGroup["level"], string> = {
 
 export function WeeklyReviewContent({
   data,
-  archive
+  archive,
+  neighbors
 }: WeeklyReviewContentProps) {
   return (
     <div className="weekly-review">
@@ -91,6 +102,13 @@ export function WeeklyReviewContent({
           </Link>
         </div>
       )}
+
+      <IssuePager
+        unit="周"
+        ariaLabel="周回顾翻页"
+        previous={toPagerTarget(neighbors.previous)}
+        next={toPagerTarget(neighbors.next)}
+      />
 
       {archive.length > 0 ? (
         <section className="weekly-review-archive">

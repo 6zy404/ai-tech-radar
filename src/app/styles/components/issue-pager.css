@@ -1,0 +1,58 @@
+/* components/issue-pager: 上一期 / 下一期 at the foot of a daily digest, and
+   上一周 / 下一周 on the weekly review. One primitive for both siblings. Each
+   side is a paper tile with the same skin as the weekly archive rows, because
+   the pager sits on the page ground between cards, where a bare link row or a
+   hairline would not read. The link colour comes from `.action-link`. */
+
+.issue-pager {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.issue-pager__link {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 10px;
+  background: var(--dossier-surface);
+  text-decoration: none;
+}
+
+.issue-pager__link:hover {
+  border-color: var(--dossier-accent);
+}
+
+.issue-pager__link--next {
+  text-align: right;
+}
+
+.issue-pager__direction {
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+  font-weight: 600;
+}
+
+/* Bold sans like `.weekly-review-archive__range`, not the monospace the
+   digest archive uses for bare dates: the week label is Chinese, and a
+   monospace face spreads it out. Tabular numerals keep dates aligned. */
+.issue-pager__label {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* Side by side, a phone gives each tile ~170px, and a week label broke
+   inside a date (9 月 7 日 – 9 月 / 13 日). Stacked, it fits on one line. */
+@media (max-width: 640px) {
+  .issue-pager {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .issue-pager > span[aria-hidden="true"] {
+    display: none;
+  }
+}

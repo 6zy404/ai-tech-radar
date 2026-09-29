@@ -12,6 +12,45 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Previous / next on the digest and the weekly review
+
+- **2026-09-29.** Every public digest page (`/digest/[date]`, and the issue
+  `/digest/today` shows) ends with 「← 上一期 / 下一期 →」, and both
+  weekly-review pages (`/digest/weekly`, `/digest/weekly/[week]`) with
+  「← 上一周 / 下一周 →」. Each link names the other issue — its date, or its
+  week range — so a reader can tell where it goes before following it. A side
+  with no neighbour is left out.
+- **Which issues count.** Digests: published ones only. Drafts and archived
+  digests are stepped over, so 09-19 links to 09-09 and 09-24 across the
+  archived 09-10…09-18 and 09-20…09-22, and the pager can never lead to a page
+  that 404s. Weeks: the same rule as the 往期周回顾 list, a week with at least
+  one shown signal, so empty weeks are skipped, and never later than the
+  current week, even if a signal carries a future publish date. Only dates and
+  range labels reach the page (`getPublishedDigestNeighbors` in
+  `src/lib/digest-view.ts`, `getWeeklyReviewNeighbors` in
+  `src/lib/weekly-review.ts`), so no digest status or internal field enters the
+  RSC payload.
+- **One primitive for the two siblings.** `IssuePager`
+  (`src/components/issue-pager.tsx`, `styles/components/issue-pager.css`)
+  renders both, over the pure `findIssueNeighbors`
+  (`src/lib/issue-neighbors.ts`). Each side is a paper tile with the weekly
+  archive row's skin. A bare link row was tried first and read as orphaned:
+  the pager sits on the page ground between two paper cards, where a hairline
+  is invisible. It sits right after the issue's content, before 订阅 on the
+  digest and before 往期周回顾 on the weekly review. The workspace digest
+  preview passes no neighbours and shows no pager.
+- **Two things the screenshots caught.** The week label started in the
+  monospace face the digest archive uses for bare dates, which spread the
+  Chinese out. It now uses the archive row's bold sans with tabular numerals.
+  At 390px the two tiles side by side broke a week label inside a date
+  (「9 月 7 日 – 9 月 / 13 日」), so below 640px they stack.
+- **Verified**: 10 new tests (first, last, middle, gaps and empty weeks, the
+  future cap, draft and archived digests stepped over), typecheck, and
+  screenshots of the first, middle and last digest and the current, oldest
+  and middle week at 1440 and 390, light and dark, with no horizontal overflow.
+  ESLint could not run in this worktree: the shared `node_modules` is missing
+  `@eslint-community/eslint-utils`.
+
 ## Reading time on the signal page
 
 - **2026-09-29.** The technology detail hero's meta row gains 「约 N 分钟读完」

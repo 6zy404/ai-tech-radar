@@ -2,7 +2,11 @@ import Link from "next/link";
 
 import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
-import { getWeeklyReview, getWeeklyReviewArchive } from "@/lib/weekly-review";
+import {
+  getWeeklyReview,
+  getWeeklyReviewArchive,
+  getWeeklyReviewNeighbors
+} from "@/lib/weekly-review";
 import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
@@ -47,7 +51,11 @@ export default function WeeklyReviewPage() {
         </Link>
       }
     >
-      <WeeklyReviewContent data={data} archive={archive} />
+      <WeeklyReviewContent
+        data={data}
+        archive={archive}
+        neighbors={getWeeklyReviewNeighbors(data.weekKey)}
+      />
     </UserPageShell>
   );
 }

@@ -5,6 +5,7 @@ import { UserPageShell } from "@/components/user-page-shell";
 import { getTodayDateString } from "@/lib/digest-store";
 import {
   getDailyDigestRenderData,
+  getPublishedDigestNeighbors,
   toPublicDigestView
 } from "@/lib/digest-view";
 import {
@@ -53,6 +54,7 @@ export default function TodayDigestPage() {
           digest={toPublicDigestView(latestDigest)}
           previewNotice={previewNotice}
           showDeliveryLinks
+          neighbors={getPublishedDigestNeighbors(latestDigest.date)}
           {...getDailyDigestRenderData(latestDigest)}
         />
       ) : (

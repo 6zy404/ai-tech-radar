@@ -5,6 +5,7 @@ import { UserPageShell } from "@/components/user-page-shell";
 import { getPublishedDailyDigestByDate } from "@/lib/digest-workflow";
 import {
   getDailyDigestRenderData,
+  getPublishedDigestNeighbors,
   toPublicDigestView
 } from "@/lib/digest-view";
 import {
@@ -64,6 +65,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
       <DailyDigestContent
         digest={toPublicDigestView(digest)}
         showDeliveryLinks
+        neighbors={getPublishedDigestNeighbors(digest.date)}
         {...getDailyDigestRenderData(digest)}
       />
     </UserPageShell>

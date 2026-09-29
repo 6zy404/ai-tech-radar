@@ -7,11 +7,15 @@ import { ContentBody } from "@/components/content-body";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { IssuePager } from "@/components/issue-pager";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { compactText } from "@/lib/compact-text";
 import { getDigestTechnologyIntelligenceSummary } from "@/lib/content-intelligence";
-import type { PublicDigestView } from "@/lib/digest-view";
+import type {
+  PublicDigestNeighbors,
+  PublicDigestView
+} from "@/lib/digest-view";
 import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
 import {
   followedTagsChangedEventName,
@@ -44,6 +48,8 @@ interface DailyDigestContentProps {
   tags: TopicTag[];
   previewNotice?: string;
   showDeliveryLinks?: boolean;
+  /** Published neighbours for the 上一期 / 下一期 pager; public pages only. */
+  neighbors?: PublicDigestNeighbors;
 }
 
 interface DigestTechnologyCardProps {
@@ -368,7 +374,8 @@ export function DailyDigestContent({
   knowledge,
   tags,
   previewNotice,
-  showDeliveryLinks = false
+  showDeliveryLinks = false,
+  neighbors
 }: DailyDigestContentProps) {
   const publicTitle = digest.title;
   const publicSummary = digest.summary;
@@ -594,6 +601,29 @@ export function DailyDigestContent({
         digest={digest}
         technologies={selectedTechnologies}
       />
+
+      {neighbors ? (
+        <IssuePager
+          unit="期"
+          ariaLabel="简报翻页"
+          previous={
+            neighbors.previousDate
+              ? {
+                  href: `/digest/${neighbors.previousDate}`,
+                  label: neighbors.previousDate
+                }
+              : undefined
+          }
+          next={
+            neighbors.nextDate
+              ? {
+                  href: `/digest/${neighbors.nextDate}`,
+                  label: neighbors.nextDate
+                }
+              : undefined
+          }
+        />
+      ) : null}
 
       {showDeliveryLinks ? (
         <section className="daily-digest-section daily-digest-feeds">

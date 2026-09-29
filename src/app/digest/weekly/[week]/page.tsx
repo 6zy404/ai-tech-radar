@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 
 import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
-import { getWeeklyReview, getWeeklyReviewArchive } from "@/lib/weekly-review";
+import {
+  getWeeklyReview,
+  getWeeklyReviewArchive,
+  getWeeklyReviewNeighbors
+} from "@/lib/weekly-review";
 import type { Metadata } from "next";
 import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
@@ -59,7 +63,11 @@ export default async function WeeklyReviewWeekPage({
         </Link>
       }
     >
-      <WeeklyReviewContent data={data} archive={archive} />
+      <WeeklyReviewContent
+        data={data}
+        archive={archive}
+        neighbors={getWeeklyReviewNeighbors(data.weekKey)}
+      />
     </UserPageShell>
   );
 }

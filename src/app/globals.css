@@ -79,6 +79,7 @@
 @import "./styles/pages/skill-knowledge-detail.css";
 @import "./styles/pages/skill-knowledge-library.css";
 @import "./styles/components/daily-digest-content.css";
+@import "./styles/components/issue-pager.css";
 @import "./styles/components/workspace-page-shell.css";
 @import "./styles/components/technology-ai-widgets.css";
 @import "./styles/27-skill-detail.css";
