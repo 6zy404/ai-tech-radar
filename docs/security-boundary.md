@@ -110,6 +110,11 @@ Allowed to cross the boundary:
 - a link to the published technology page when the candidate was converted
   and published (slug + public title only)
 
+The title, summary and source URL pass through `src/lib/text-sanitize.ts`
+(tags stripped, entities decoded) before entering the public shape, both at
+import and again in `src/lib/news.ts`, so a feed that ships escaped HTML
+cannot put markup in front of readers.
+
 Never crosses the boundary:
 
 - `rawPayload`, `originalContent`, `importStatus`, `normalizedType`
