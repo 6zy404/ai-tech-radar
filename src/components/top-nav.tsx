@@ -67,68 +67,67 @@ export function TopNav() {
     }
   }, [searchOpen]);
 
+  const navList = (
+    <ul className="top-nav__list">
+      {primaryNavItems.map((item) => (
+        <li key={item.href}>
+          <Link
+            href={item.href}
+            className={navLinkClassName(pathname, item.href)}
+            aria-current={
+              isActiveNavItem(pathname, item.href) ? "page" : undefined
+            }
+            onClick={closeMenu}
+          >
+            {item.label}
+          </Link>
+        </li>
+      ))}
+      {showWorkspaceLink ? (
+        <>
+          <li className="top-nav__separator" aria-hidden="true" />
+          <li>
+            <Link
+              href={workspaceNavItem.href}
+              className={navLinkClassName(
+                pathname,
+                workspaceNavItem.href,
+                true
+              )}
+              aria-current={
+                isActiveNavItem(pathname, workspaceNavItem.href)
+                  ? "page"
+                  : undefined
+              }
+              onClick={closeMenu}
+            >
+              {workspaceNavItem.label}
+            </Link>
+          </li>
+        </>
+      ) : null}
+    </ul>
+  );
+
+  // The links render twice and CSS shows one: the inline nav between the brand
+  // and the actions above 900px, and the panel below the whole row at 900px
+  // and under, whose toggle sits last in the row. A single <nav> moved with
+  // `order` would leave the tab order off the visual order at one width or the
+  // other (WCAG 2.4.3): after the search and theme buttons on desktop, or
+  // before the menu button that opens it on a phone. The hidden copy is
+  // display:none, so it is out of both the tab order and the accessibility
+  // tree.
   return (
     <header className="top-nav">
-      <div className="top-nav__inner">
+      <div
+        className={`top-nav__inner${searchOpen ? " top-nav__inner--searching" : ""}`}
+      >
         <Link href="/" className="brand" onClick={closeMenu}>
           AI Tech Radar
         </Link>
 
-        <button
-          type="button"
-          className="top-nav__toggle"
-          aria-label={menuOpen ? "收起菜单" : "展开菜单"}
-          aria-expanded={menuOpen}
-          aria-controls="top-nav-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span className="top-nav__toggle-bars" aria-hidden="true" />
-        </button>
-
-        <nav
-          id="top-nav-menu"
-          className={`top-nav__menu${menuOpen ? " top-nav__menu--open" : ""}`}
-          aria-label="主导航"
-        >
-          <ul className="top-nav__list">
-            {primaryNavItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={navLinkClassName(pathname, item.href)}
-                  aria-current={
-                    isActiveNavItem(pathname, item.href) ? "page" : undefined
-                  }
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            {showWorkspaceLink ? (
-              <>
-                <li className="top-nav__separator" aria-hidden="true" />
-                <li>
-                  <Link
-                    href={workspaceNavItem.href}
-                    className={navLinkClassName(
-                      pathname,
-                      workspaceNavItem.href,
-                      true
-                    )}
-                    aria-current={
-                      isActiveNavItem(pathname, workspaceNavItem.href)
-                        ? "page"
-                        : undefined
-                    }
-                    onClick={closeMenu}
-                  >
-                    {workspaceNavItem.label}
-                  </Link>
-                </li>
-              </>
-            ) : null}
-          </ul>
+        <nav className="top-nav__menu" aria-label="主导航">
+          {navList}
         </nav>
 
         <div className="top-nav__actions">
@@ -169,7 +168,26 @@ export function TopNav() {
           </div>
 
           <ThemeToggle />
+
+          <button
+            type="button"
+            className="top-nav__toggle"
+            aria-label={menuOpen ? "收起菜单" : "展开菜单"}
+            aria-expanded={menuOpen}
+            aria-controls="top-nav-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className="top-nav__toggle-bars" aria-hidden="true" />
+          </button>
         </div>
+
+        <nav
+          id="top-nav-menu"
+          className={`top-nav__menu top-nav__menu--panel${menuOpen ? " top-nav__menu--open" : ""}`}
+          aria-label="主导航"
+        >
+          {navList}
+        </nav>
       </div>
     </header>
   );

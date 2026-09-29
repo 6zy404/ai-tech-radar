@@ -110,6 +110,12 @@
   align-items: center;
 }
 
+/* The copy of the links the menu button opens; only shown at 900px and under
+   (see the comment in top-nav.tsx for why there are two). */
+.top-nav__menu--panel {
+  display: none;
+}
+
 .top-nav__separator {
   width: 1px;
   height: 18px;
@@ -129,6 +135,7 @@
   background: rgba(255, 255, 255, 0.7);
   color: #344054;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .top-nav__search {
@@ -245,6 +252,35 @@
     width: auto;
     height: 1px;
     margin: 6px 0;
+  }
+
+  .top-nav__actions {
+    margin-left: auto;
+  }
+}
+
+/* On a phone the brand, a 120px search box and three buttons do not fit one
+   row: they need 371px, and a 390px screen has 358 inside its margins. So
+   while the box is open it takes the brand's place and the rest of the row. */
+@media (max-width: 480px) {
+  .top-nav__inner--searching .brand {
+    display: none;
+  }
+
+  .top-nav__inner--searching .top-nav__actions,
+  .top-nav__inner--searching .top-nav__search {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .top-nav__inner--searching .top-nav__search {
+    margin-left: 0;
+  }
+
+  .top-nav__search--open form {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
   }
 }
 

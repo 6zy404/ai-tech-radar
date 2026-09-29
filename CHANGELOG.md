@@ -161,6 +161,40 @@ For per-topic deep dives, see the `docs/` directory.
   pages screenshotted top to bottom in 原文 mode, the news lane and the search
   page checked for the phrase. Not yet run against the live data.
 
+## Narrow top bar: the menu button moves to the right end
+
+- **2026-09-30.** At 900px and under the top bar read
+  `[AI Tech Radar  ☰  ………  🔍 ☀]`: the menu button sat after the brand,
+  cut off from the other two buttons. It is now last:
+  `[AI Tech Radar  ………  🔍 ☀ ☰]`, in the same 8px-gapped group. Above
+  900px nothing moved: at 901 and 1440 the header, brand, links, search box
+  and buttons have the same boxes as before, and the Tab order is the same.
+- **The DOM moved with the button, not just the picture.** A CSS `order`
+  change would have left Tab going 菜单 → 搜索 → 主题 while the row reads
+  搜索 → 主题 → 菜单 (WCAG 2.4.3). One `<nav>` cannot sit in both places
+  either: it belongs between the brand and the buttons on desktop, and after
+  the menu button on a phone, where otherwise Tab from the button that just
+  opened the menu leaves the header without entering it. So the link list
+  renders twice from one element in `top-nav.tsx`, the inline nav and the
+  `#top-nav-menu` panel, and CSS shows one; the other is `display:none`,
+  outside the tab order and the accessibility tree. Measured by pressing Tab
+  from the top of the page at 320–1440: brand → search → theme → menu →
+  links on narrow screens, brand → links → search → theme on desktop.
+- **Two side effects of the old order are gone.** With the menu open, the
+  search and theme buttons used to drop to a third row under the link list;
+  they now stay on the first row. And opening search at 390px and under
+  used to wrap those buttons onto a second row, because the brand, a 120px
+  box and three buttons need 371px and a 390px screen has 358 inside its
+  margins. At 480px and under the open search box now takes the brand's
+  place and the rest of the row (232px at 390, 162px at 320), and closing
+  it brings the brand back.
+- Checked with headless Chrome over CDP at 320, 360, 390, 768, 900, 901 and
+  1440 — closed, menu open, search open, both open — on `/` and
+  `/workspace` (same TopNav), light and dark: no horizontal overflow at any
+  width, and the menu button stays 40×36. Not changed: there was no Esc or
+  click-outside handler for the menu before, and there still is not; a link
+  click closes it as before.
+
 ## 新: signals published since your last visit
 
 - **2026-09-30.** On the 精选 and 我关注的 views and the home page's priority
