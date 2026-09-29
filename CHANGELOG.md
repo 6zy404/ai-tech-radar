@@ -12,40 +12,6 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
-## 必备 relations keep their direction when saved from either side
-
-- **2026-09-29.** `requires` (必备) is the one relation type read with its
-  direction — `from` needs `to` first, which is what 先读这些 walks
-  (`src/lib/prerequisite-chain.ts`) — but every editor save wrote the edited
-  entity as `from`. Saving a pair from the depended-on side stored it
-  backwards. Measured: 2 of the 19 skill/knowledge `requires` edges, both
-  saved from 完成判定与验收信号, so that knowledge page claimed 智能体工作流设计
-  and 智能体可观测性与评测运维 as its prerequisites while their notes said the
-  opposite. Both are overrides in `config/link-relation-workspace.json`, not
-  seed relations.
-- **The editor.** When a related item's type is 必备, `RelationCheckboxItem`
-  (shared by the skill, knowledge and technology-draft editors) shows a
-  direction select — 我需要先读它 / 它需要先读我 — shown by CSS `:has` so the
-  form stays uncontrolled. It is prefilled from the **stored** direction
-  (`buildRelationDefaults` now returns it), so a save that touches nothing
-  changes nothing. Other types carry no direction and are unaffected.
-- **The sync.** `planLinkRelationSync` writes `from`/`to` from the chosen
-  direction, and for `requires` only, the direction now counts in both
-  comparisons: flipping it is a change, and flipping it back to the seed's
-  direction removes the override. `PUT /api/workspace/relations` accepts an
-  optional `direction`; an absent one keeps the old behaviour.
-- **The two edges.** `scripts/fix-requires-direction.ts` reverses exactly
-  `rel-ws-254bb11a` and `rel-ws-7f2d6840`, only while they still hold the
-  reversed value; it is a dry run unless given `--apply`, and a second run
-  reports nothing to do.
-- **Verified.** 7 new unit tests; dropping the direction clause fails 2 of
-  them. On a dev server over a copy of the data with the script applied, the
-  skill pages list 完成判定与验收信号 under 先读这些 and the knowledge page
-  no longer has the section; through the API, an unchanged re-save changed 0
-  pairs, a flip 1, a flip back 1. The skill page's first 2,200px were
-  screenshotted; the screenshot tool then stopped drawing, so the rest of that
-  page and the editor were checked by DOM only.
-
 ## 本页目录 on the signal page
 
 - **2026-09-30.** `/technologies/[slug]` has up to twelve reading sections
@@ -81,6 +47,40 @@ For per-topic deep dives, see the `docs/` directory.
   positioning), and on the workspace preview, which renders drafts through
   the same component. `DossierRelatedItemsSection`, `RelationshipGraph` and
   `TechnologyEvolutionLine` gained an optional `id` for the anchors.
+
+## 必备 relations keep their direction when saved from either side
+
+- **2026-09-29.** `requires` (必备) is the one relation type read with its
+  direction — `from` needs `to` first, which is what 先读这些 walks
+  (`src/lib/prerequisite-chain.ts`) — but every editor save wrote the edited
+  entity as `from`. Saving a pair from the depended-on side stored it
+  backwards. Measured: 2 of the 19 skill/knowledge `requires` edges, both
+  saved from 完成判定与验收信号, so that knowledge page claimed 智能体工作流设计
+  and 智能体可观测性与评测运维 as its prerequisites while their notes said the
+  opposite. Both are overrides in `config/link-relation-workspace.json`, not
+  seed relations.
+- **The editor.** When a related item's type is 必备, `RelationCheckboxItem`
+  (shared by the skill, knowledge and technology-draft editors) shows a
+  direction select — 我需要先读它 / 它需要先读我 — shown by CSS `:has` so the
+  form stays uncontrolled. It is prefilled from the **stored** direction
+  (`buildRelationDefaults` now returns it), so a save that touches nothing
+  changes nothing. Other types carry no direction and are unaffected.
+- **The sync.** `planLinkRelationSync` writes `from`/`to` from the chosen
+  direction, and for `requires` only, the direction now counts in both
+  comparisons: flipping it is a change, and flipping it back to the seed's
+  direction removes the override. `PUT /api/workspace/relations` accepts an
+  optional `direction`; an absent one keeps the old behaviour.
+- **The two edges.** `scripts/fix-requires-direction.ts` reverses exactly
+  `rel-ws-254bb11a` and `rel-ws-7f2d6840`, only while they still hold the
+  reversed value; it is a dry run unless given `--apply`, and a second run
+  reports nothing to do.
+- **Verified.** 7 new unit tests; dropping the direction clause fails 2 of
+  them. On a dev server over a copy of the data with the script applied, the
+  skill pages list 完成判定与验收信号 under 先读这些 and the knowledge page
+  no longer has the section; through the API, an unchanged re-save changed 0
+  pairs, a flip 1, a flip back 1. The skill page's first 2,200px were
+  screenshotted; the screenshot tool then stopped drawing, so the rest of that
+  page and the editor were checked by DOM only.
 
 ## Imported text and links are cleaned of HTML and entities
 
