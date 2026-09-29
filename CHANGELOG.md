@@ -12,6 +12,47 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Share-card orphans, a card for this week, an opaque signal aside
+
+- **2026-09-30.** Three small defects, one of which turned out to be a fourth.
+- **No title ends on one character.** The share-card title is laid out in
+  `src/lib/share-card.ts` (Satori only paints the lines), and greedy filling
+  left 8 of 182 cards with a last line of one character, punctuation aside —
+  长时程智能体的记忆与上下文管 / 理, …让模型自己决 / 定。. `bindTrailingUnit`
+  now joins the last break unit to the one before it when the last holds a
+  single character, so the two move down together. Greedy filling only ever
+  separated them to make that orphan, so no other title can change, and
+  nothing did: every public card (91 signals, 16 skills, 19 knowledge, 31
+  digests plus today, 14 weeks, 10 topics, an unknown slug) was fetched before
+  and after from a dev server — **174 byte-identical PNGs, 9 changed**, the
+  9 being exactly the 8 orphan cards and `/digest/today` showing one of
+  them; after, 0 orphans across all 182 layouts. Seven cards re-fetched
+  unchanged gave the same bytes, so the compare can tell. A sweep test (every
+  length 1–72 of a CJK title, three endings) asserts that size, line count and
+  every non-orphan layout match plain greedy filling, and was proven to fire
+  by disabling the binding (2 failures).
+- **`/digest/weekly` has a share card.** The current week had none while
+  every `/digest/weekly/[week]` did. Its new `opengraph-image` reuses
+  `buildWeeklyShareCard` on `getWeeklyReview()` — the site card while the week
+  has no shown signal, byte-identical to that week's `[week]` card — cached
+  300 s, since the week behind the URL changes with each publish and every
+  Monday; the page's metadata now passes `largeImage`.
+- **`/digest/today`'s card was frozen at build time.** Found while adding the
+  weekly one: a metadata image route with no params and no `dynamic` export
+  is prerendered by `next build`, and the live build's prerender manifest lists
+  `/digest/today/opengraph-image` with `initialRevalidateSeconds: false` —
+  the card showed whichever issue was latest at the last deploy, whatever its
+  300 s `Cache-Control` said. Both parameterless routes now export
+  `dynamic = "force-dynamic"`. Not verified by a build here (heavy jobs are the
+  owner's); check the prerender manifest after the next one.
+- **The signal page's aside is opaque.** Its panels were
+  `rgba(255, 255, 255, 0.82)` in light mode, so the dossier grid showed
+  through, plainest behind the sticky 本页目录. They now use
+  `--dossier-surface` like every other dossier panel (light `#f8f6ee`, dark
+  `#2a2b23`), which also made the dark-mode override that existed only to
+  beat the old rule redundant; it is gone. Dark computes the same as before;
+  the skill and knowledge asides already used the token and are unchanged.
+
 ## Reading pages print cleanly
 
 - **2026-09-30.** The site had no `@media print` at all, so printing a signal,
