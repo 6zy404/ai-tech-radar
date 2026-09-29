@@ -394,6 +394,13 @@ The product is split into two subsystems:
   (to `#main-content`, or `#workspace-content` past the workspace rail), and
   every focusable element draws one `:focus-visible` ring coloured by
   `--focus-ring`, measured at 4.4:1 or better in both schemes.
+- **Print** (2026-09-30) — the signal, digest, weekly-review, skill and
+  knowledge pages print (or save as PDF) as reading copies: light colours in
+  either scheme, no nav, buttons, AI widgets, 本页目录, relationship graph,
+  pager or subscribe blocks, and outbound links in the body and source
+  references followed by their URL. A4 page counts dropped from 7 → 4
+  (signal), 12 → 9 (digest), 19 → 11 (skill). Every rule is in
+  `src/app/styles/print.css`, one `@media print` block.
 - **Persistence** — local JSON by default, with an optional SQLite driver.
 - **Security boundary** — optional token protection for workspace and internal
   API routes, with internal-only fields kept off public pages and feeds.
