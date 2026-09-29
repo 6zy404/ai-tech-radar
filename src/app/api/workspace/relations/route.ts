@@ -5,6 +5,7 @@ import {
   type LinkRelationTargetUpdate,
   syncLinkRelationsForEntity
 } from "@/lib/link-relation-workflow";
+import type { RelationDirection } from "@/lib/relation-defaults";
 import type { ContentKind, RelationType } from "@/types/content";
 
 const contentKinds: ContentKind[] = ["technology", "skill", "knowledge"];
@@ -34,7 +35,10 @@ function parseTargets(value: unknown): LinkRelationTargetUpdate[] {
       toId: typeof item.toId === "string" ? item.toId.trim() : "",
       toType: item.toType as ContentKind,
       relationType: item.relationType as RelationType,
-      note: typeof item.note === "string" ? item.note : undefined
+      note: typeof item.note === "string" ? item.note : undefined,
+      ...(item.direction === "incoming" || item.direction === "outgoing"
+        ? { direction: item.direction as RelationDirection }
+        : {})
     }))
     .filter(
       (item) =>

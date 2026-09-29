@@ -3,7 +3,8 @@
 import {
   getRelationDefaultKey,
   type RelationDefault,
-  type RelationDefaultsMap
+  type RelationDefaultsMap,
+  type RelationDirection
 } from "@/lib/relation-defaults";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
 import type { ContentKind, RelationType } from "@/types/content";
@@ -31,11 +32,18 @@ interface RelationCheckboxItemProps {
   relationDefault?: RelationDefault;
 }
 
+const directionLabels: Record<RelationDirection, string> = {
+  outgoing: "我需要先读它",
+  incoming: "它需要先读我"
+};
+
 /**
  * One related-content checkbox with an attached relation-type select and
  * note input that unfold (via CSS `:has`) while the checkbox is checked.
- * Stays uncontrolled: the relation inputs are read from FormData with
- * `collectRelationTargets` on submit.
+ * A direction select joins them while the type is 必备 — the one type read
+ * with its direction — prefilled with the stored direction, so a save from
+ * the depended-on side no longer flips it. Stays uncontrolled: the relation
+ * inputs are read from FormData with `collectRelationTargets` on submit.
  */
 export function RelationCheckboxItem({
   name,
@@ -46,6 +54,7 @@ export function RelationCheckboxItem({
   relationDefault
 }: RelationCheckboxItemProps) {
   const relationType = relationDefault?.relationType ?? "related-to";
+  const direction = relationDefault?.direction ?? "outgoing";
 
   return (
     <div className="relation-checkbox-item">
@@ -73,6 +82,19 @@ export function RelationCheckboxItem({
             </option>
           ))}
         </select>
+        <select
+          key={direction}
+          className="relation-checkbox-item__direction"
+          name={`relationDirection:${targetType}:${option.id}`}
+          defaultValue={direction}
+          aria-label={`与「${option.title}」的必备方向`}
+        >
+          {(["outgoing", "incoming"] as const).map((value) => (
+            <option key={value} value={value}>
+              {directionLabels[value]}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           name={`relationNote:${targetType}:${option.id}`}
@@ -92,6 +114,7 @@ export interface RelationTargetPayload {
   toType: ContentKind;
   relationType: RelationType;
   note?: string;
+  direction?: RelationDirection;
 }
 
 /**
@@ -123,12 +146,19 @@ export function collectRelationTargets(
       const note = String(
         formData.get(`relationNote:${group.targetType}:${toId}`) ?? ""
       ).trim();
+      const direction =
+        relationType === "requires" &&
+        formData.get(`relationDirection:${group.targetType}:${toId}`) ===
+          "incoming"
+          ? "incoming"
+          : undefined;
 
       targets.push({
         toId,
         toType: group.targetType,
         relationType: relationType as RelationType,
-        ...(note ? { note } : {})
+        ...(note ? { note } : {}),
+        ...(direction ? { direction } : {})
       });
     }
   }

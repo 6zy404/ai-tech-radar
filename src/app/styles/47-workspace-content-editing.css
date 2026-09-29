@@ -51,6 +51,19 @@
   padding: 3px 6px;
 }
 
+/* 必备 is the one relation type read with its direction, so its direction
+   select shows only while the type select has it chosen. */
+.relation-checkbox-item__direction {
+  display: none;
+}
+
+.relation-checkbox-item__relation:has(
+    select[name^="relationType:"] option[value="requires"]:checked
+  )
+  .relation-checkbox-item__direction {
+  display: block;
+}
+
 .relation-checkbox-item__relation input[type="text"] {
   flex: 1 1 auto;
   min-width: 0;

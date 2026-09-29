@@ -258,3 +258,174 @@ describe("planLinkRelationSync", () => {
     expect(nextOverrides).toHaveLength(0);
   });
 });
+
+describe("planLinkRelationSync — requires direction", () => {
+  // `otherSeed` stores skill-c → knowledge-b: the skill needs the knowledge
+  // first. Edited here from the depended-on side, knowledge-b.
+  const knowledgeSide = { id: "knowledge-b", type: "knowledge" as const };
+
+  it("stores the target as `from` when the direction is incoming", () => {
+    const { nextOverrides } = planLinkRelationSync([], [], knowledgeSide, [
+      {
+        toId: "skill-x",
+        toType: "skill",
+        relationType: "requires",
+        direction: "incoming"
+      }
+    ]);
+
+    expect(nextOverrides).toHaveLength(1);
+    expect(nextOverrides[0]).toMatchObject({
+      fromId: "skill-x",
+      fromType: "skill",
+      toId: "knowledge-b",
+      toType: "knowledge",
+      relationType: "requires"
+    });
+  });
+
+  it("keeps the seed when saved from the depended-on side unchanged", () => {
+    const { nextOverrides, changedPairKeys } = planLinkRelationSync(
+      [otherSeed],
+      [],
+      knowledgeSide,
+      [
+        {
+          toId: "skill-c",
+          toType: "skill",
+          relationType: "requires",
+          direction: "incoming"
+        }
+      ]
+    );
+
+    expect(changedPairKeys).toHaveLength(0);
+    expect(nextOverrides).toHaveLength(0);
+  });
+
+  it("counts a flipped direction as a change and writes the override", () => {
+    const { nextOverrides, changedPairKeys } = planLinkRelationSync(
+      [otherSeed],
+      [],
+      knowledgeSide,
+      [
+        {
+          toId: "skill-c",
+          toType: "skill",
+          relationType: "requires",
+          direction: "outgoing"
+        }
+      ]
+    );
+
+    expect(changedPairKeys).toHaveLength(1);
+    expect(nextOverrides[0]).toMatchObject({
+      fromId: "knowledge-b",
+      toId: "skill-c",
+      relationType: "requires"
+    });
+  });
+
+  it("flips an existing override in place, keeping its id", () => {
+    const reversed: LinkRelation = {
+      id: "rel-ws-rev",
+      fromId: "knowledge-b",
+      fromType: "knowledge",
+      toId: "skill-x",
+      toType: "skill",
+      relationType: "requires",
+      note: "kept"
+    };
+
+    const { nextOverrides, changedPairKeys } = planLinkRelationSync(
+      [],
+      [reversed],
+      knowledgeSide,
+      [
+        {
+          toId: "skill-x",
+          toType: "skill",
+          relationType: "requires",
+          note: "kept",
+          direction: "incoming"
+        }
+      ]
+    );
+
+    expect(changedPairKeys).toHaveLength(1);
+    expect(nextOverrides).toEqual([
+      {
+        id: "rel-ws-rev",
+        fromId: "skill-x",
+        fromType: "skill",
+        toId: "knowledge-b",
+        toType: "knowledge",
+        relationType: "requires",
+        note: "kept"
+      }
+    ]);
+  });
+
+  it("removes the override when flipped back to the seed direction", () => {
+    const flipped: LinkRelation = {
+      id: "rel-ws-flip",
+      fromId: "knowledge-b",
+      fromType: "knowledge",
+      toId: "skill-c",
+      toType: "skill",
+      relationType: "requires"
+    };
+
+    const { nextOverrides, changedPairKeys } = planLinkRelationSync(
+      [otherSeed],
+      [flipped],
+      knowledgeSide,
+      [
+        {
+          toId: "skill-c",
+          toType: "skill",
+          relationType: "requires",
+          direction: "incoming"
+        }
+      ]
+    );
+
+    expect(changedPairKeys).toHaveLength(1);
+    expect(nextOverrides).toHaveLength(0);
+  });
+
+  it("ignores direction for every other relation type", () => {
+    // Stored from the other side; the same type and note is the same value.
+    const override: LinkRelation = {
+      id: "rel-ws-uses",
+      fromId: "skill-x",
+      fromType: "skill",
+      toId: "knowledge-b",
+      toType: "knowledge",
+      relationType: "uses",
+      note: "n"
+    };
+
+    const unchanged = planLinkRelationSync([], [override], knowledgeSide, [
+      { toId: "skill-x", toType: "skill", relationType: "uses", note: "n" }
+    ]);
+
+    expect(unchanged.changedPairKeys).toHaveLength(0);
+    expect(unchanged.nextOverrides).toEqual([override]);
+
+    // A stray `incoming` on a non-requires type does not reverse the write.
+    const written = planLinkRelationSync([], [], knowledgeSide, [
+      {
+        toId: "skill-y",
+        toType: "skill",
+        relationType: "extends",
+        direction: "incoming"
+      }
+    ]);
+
+    expect(written.nextOverrides[0]).toMatchObject({
+      fromId: "knowledge-b",
+      toId: "skill-y"
+    });
+  });
+});

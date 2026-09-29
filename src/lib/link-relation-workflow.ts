@@ -8,7 +8,8 @@ import {
 } from "@/lib/repositories/local-json-store";
 import {
   getRelationDefaultKey,
-  type RelationDefaultsMap
+  type RelationDefaultsMap,
+  type RelationDirection
 } from "@/lib/relation-defaults";
 import { tryRecordWorkflowEvent } from "@/lib/workflow-events";
 import type { ContentKind, LinkRelation, RelationType } from "@/types/content";
@@ -23,6 +24,11 @@ export interface LinkRelationTargetUpdate {
   toType: ContentKind;
   relationType: RelationType;
   note?: string;
+  /**
+   * Read only for `requires`: `incoming` stores the target as `from`
+   * ("it needs to read me first"). Absent means `outgoing`.
+   */
+  direction?: RelationDirection;
 }
 
 const linkRelationWorkspaceStorePath = getLocalStoreFilePath(
@@ -245,7 +251,8 @@ export function buildRelationDefaults(
     if (relation) {
       defaults[getRelationDefaultKey(target.type, target.id)] = {
         relationType: relation.relationType,
-        ...(relation.note ? { note: relation.note } : {})
+        ...(relation.note ? { note: relation.note } : {}),
+        direction: isFromEntity(relation, from) ? "outgoing" : "incoming"
       };
     }
   }
@@ -253,13 +260,40 @@ export function buildRelationDefaults(
   return defaults;
 }
 
+function isFromEntity(
+  relation: LinkRelation,
+  entity: { id: string; type: ContentKind }
+): boolean {
+  return relation.fromId === entity.id && relation.fromType === entity.type;
+}
+
+/**
+ * Whether a stored relation already holds the desired value. Pairs are keyed
+ * unordered, so direction only counts for `requires` — the one type read
+ * with its direction (`src/lib/prerequisite-chain.ts`). For every other type
+ * a relation stored from the other side is the same value.
+ */
+function holdsValue(
+  relation: LinkRelation,
+  relationType: RelationType,
+  note: string,
+  desiredFrom: { id: string; type: ContentKind }
+): boolean {
+  return (
+    relation.relationType === relationType &&
+    (relation.note ?? "") === note &&
+    (relationType !== "requires" || isFromEntity(relation, desiredFrom))
+  );
+}
+
 /**
  * Pure sync core: computes the next override list for one entity's edited
  * relation targets. Per target pair, the desired value is compared against
  * the seed relation for that pair:
  *
- * - equal to the seed (same type and note) → any override is removed, the
- *   seed carries the pair again (clean copy-on-write revert)
+ * - equal to the seed (same type and note, and for `requires` the same
+ *   direction) → any override is removed, the seed carries the pair again
+ *   (clean copy-on-write revert)
  * - the generic default (`related-to`, empty note) with no seed entry →
  *   any override is removed, nothing worth persisting
  * - anything else → an override entry is written (reusing the existing
@@ -298,12 +332,16 @@ export function planLinkRelationSync(
       target.toType
     );
     const note = target.note?.trim() ?? "";
+    const other = { id: target.toId, type: target.toType };
+    const reversed =
+      target.relationType === "requires" && target.direction === "incoming";
+    const desiredFrom = reversed ? other : from;
+    const desiredTo = reversed ? from : other;
     const seed = seedsByPair.get(pairKey);
     const existingOverride = overridesByPair.get(pairKey);
     const matchesSeed =
       seed !== undefined &&
-      seed.relationType === target.relationType &&
-      (seed.note ?? "") === note;
+      holdsValue(seed, target.relationType, note, desiredFrom);
     const isEmptyDefault =
       seed === undefined && target.relationType === "related-to" && !note;
 
@@ -317,18 +355,17 @@ export function planLinkRelationSync(
 
     if (
       existingOverride &&
-      existingOverride.relationType === target.relationType &&
-      (existingOverride.note ?? "") === note
+      holdsValue(existingOverride, target.relationType, note, desiredFrom)
     ) {
       continue;
     }
 
     overridesByPair.set(pairKey, {
       id: existingOverride?.id ?? `rel-ws-${randomUUID().slice(0, 8)}`,
-      fromId: from.id,
-      fromType: from.type,
-      toId: target.toId,
-      toType: target.toType,
+      fromId: desiredFrom.id,
+      fromType: desiredFrom.type,
+      toId: desiredTo.id,
+      toType: desiredTo.type,
       relationType: target.relationType,
       ...(note ? { note } : {})
     });
