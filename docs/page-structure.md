@@ -428,6 +428,11 @@ Workspace deployment boundary:
     personal radar in place (hero tags stay static)
   - related knowledge as background for understanding the signal, with per-item explanations when available
   - related skills as a practical path for evaluating or acting on the signal, with per-item explanations when available
+  - a 内容相近的信号 section right after 相关技术, the same
+    `DossierRelatedItemsSection` cards stamped 自动匹配 with the other
+    signal's summary as the note; rendered only when at least one signal
+    clears the similarity floor, and never on the workspace preview (drafts
+    are not in the embedded pool)
   - a compare widget (between the related-technologies and related-skills sections) that lets a reader request a live AI-generated comparison against another published technology; always shown with a persistent "AI-generated, not reviewed" disclaimer — the first client-triggered live-generation call anywhere in the User-facing Product (every other data flow on this page is a static server read)
   - an explain widget (between the technical-context and who-should-care sections) that lets a reader pick their experience level (入门 / 进阶 / 资深) and request a live AI-generated explanation of the current technology tailored to that level, cached per technology × level; same persistent "AI-generated, not reviewed" disclaimer discipline as the compare widget
   - a learning-path widget (between the editor-curated learning-path section and the relationship graph) that lets a reader request a live AI-generated learning path grounded in the technology's related knowledge and skills from the content graph, cached per technology; same disclaimer discipline
@@ -455,10 +460,15 @@ Workspace deployment boundary:
     fields
   - ends with a low-key 订阅 block linking the weekly-review RSS feed
     (`/digest/weekly/feed.xml`)
+  - ends its content with 上一周 / 下一周 (`IssuePager`, same primitive as
+    the digest), before 往期周回顾: only weeks with shown signals (the
+    archive's rule), never past the current week, each link carrying the
+    week range; below 640px the two tiles stack
 - `/digest/weekly/[week]`
   - a specific past/other natural week keyed by its canonical Monday date
     (`YYYY-MM-DD`, e.g. `/digest/weekly/2026-07-13`); same layout as
     `/digest/weekly` plus a 回到本周回顾 link
+  - the same 上一周 / 下一周 pager as `/digest/weekly`
   - `notFound()` for a non-canonical (non-Monday) key, an invalid date, or a
     week with no shown signals
 - `/digest/today`
@@ -481,6 +491,11 @@ Workspace deployment boundary:
   - both signal sections (`今日立即关注` / `值得跟踪`) use the same two-column
     grid, and the P4 命中关注 line renders **inside** its card
   - links to public RSS and JSON feed surfaces without making feeds dominate the reading page
+  - ends with 上一期 / 下一期 (`IssuePager`), between the source references
+    and 订阅简报: published digests only, drafts and archived digests
+    stepped over, each link carrying the other issue's date; a side with no
+    neighbour is omitted. `/digest/today` shows the same pager for the issue
+    it displays
   - personalized view (P4 v0.2, shared with `/digest/today` via
     `DailyDigestContent`): items matching the reader's followed topics carry a
     命中关注 line, and a 只看我关注的 toggle filters the signal sections
@@ -865,6 +880,10 @@ Forbidden on public pages:
     through `DossierCatalogNote`; a page-specific sibling of
     `RelatedItemsSection` (kept unchanged, since it is still shared with
     the not-yet-migrated skill and knowledge detail pages)
+- `IssuePager`
+  - user-facing previous / next pager shared by the daily digest and weekly
+    review pages; takes `unit` (期 / 周) and two optional `{ href, label }`
+    targets, renders nothing when both are absent
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
   - consumes a public-safe `PublicDigestView` (mapped by `toPublicDigestView`

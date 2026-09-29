@@ -122,6 +122,16 @@ The product is split into two subsystems:
   release leads with "这条信号已有后续" and names the latest one. Pure derived
   view (`getTechnologyEvolutionChain` in `src/lib/technology-evolution.ts`),
   no new persisted data. Signals outside a release line render nothing.
+- **Similar signals (内容相近的信号)** — the technology detail page lists up
+  to three other published signals closest to it in the search embedding
+  space (`src/lib/similar-signals.ts`): the same local passage vectors as
+  `/search`, centered on the pool's mean vector, kept only above a
+  pool-relative floor (2.5 standard deviations over all pairwise scores; 42
+  of 91 signals show it, measured 2026-09-29), excluding the signal's
+  相关技术 and its 版本脉络 line. Labelled 按内容自动匹配、未经编辑挑选.
+  Omitted, with no placeholder, when the model or vectors are not ready
+  within `SEARCH_SEMANTIC_TIMEOUT_MS`. Pure derived view, no LLM, no
+  persisted data.
 - **Topic hub (`/topics/[tagId]`)** — a per-topic drill-down page merging what
   `/network`, the 按话题 view, and `/search` each show in fragments for one
   topic tag: the tag's published technology signals, tagged skills, tagged
@@ -277,6 +287,12 @@ The product is split into two subsystems:
   capped at 12, each linking to `/digest/weekly/[week]` and listing that
   week's 立即关注 / 值得跟踪 titles. Linked from a 订阅 block at the foot of
   both weekly-review pages.
+  Both the daily digest pages and the weekly-review pages end with a shared
+  previous / next pager (`IssuePager`), each link naming the other issue's
+  date or week range: digests step between published issues only (drafts
+  and archived digests are skipped), weeks between weeks with at least one
+  shown signal, never past the current week (`findIssueNeighbors` in
+  `src/lib/issue-neighbors.ts`).
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
@@ -344,6 +360,10 @@ Public, user-facing routes:
 - `/topics/[tagId]/feed.xml` — per-topic RSS feed of that topic's published
   technology signals (404 for unknown topics or topics with no published
   signals)
+- `/technologies/feed.xml` — RSS of the newest 50 published technology
+  signals, newest first (`renderAllSignalsRssXml` in `src/lib/signal-feed.ts`,
+  sharing its item renderer with the per-topic feed); announced on every
+  `/technologies` view and linked from its header (RSS 订阅)
 - `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
 - `/digest/weekly/feed.xml` — weekly-review RSS (published signals only)

@@ -43,6 +43,11 @@ Public routes can be exposed:
   signals only — same published-content boundary as `/feed.xml`; imported
   candidates, drafts, and internal fields never enter it; 404 for unknown
   or signal-less topics)
+- `/technologies/feed.xml` (RSS of the newest 50 published technology
+  signals — same published-content boundary as the topic feed and rendered
+  by the same `renderSignalRssXml`; imported candidates, drafts, archived
+  records and internal fields never enter it; the item list re-checks
+  `status === "published"` locally)
 - `/search` (keyword plus local-embedding search over published technology
   signals, skills, knowledge, and the news fast lane; matching covers only
   title / summary / tag display names, results are identical for everyone,
@@ -55,6 +60,8 @@ Public routes can be exposed:
   `.cache/search-embeddings.json` holds vectors of already-public text
   only. It is unauthenticated and unthrottled because a query costs local
   CPU, about 10–20ms once the model is loaded, not a provider bill)
+  The 内容相近的信号 section on signal pages reads the same vectors
+  (published signals only) and adds no route.
 - `/feed.xml`
 - `/feed.json`
 - `GET /api/health` (liveness for an external monitor; reports the build id,
