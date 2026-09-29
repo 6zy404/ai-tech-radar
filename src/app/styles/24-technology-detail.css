@@ -104,7 +104,9 @@
 .technology-detail-reading .user-article-layout__aside .source-reference,
 .technology-detail-reading .user-article-layout__aside .user-reference-panel {
   padding: 18px;
-  background: rgba(255, 255, 255, 0.82);
+  /* Opaque paper, like every other dossier panel: at 0.82 the page grid
+     showed through, most visibly behind the sticky 本页目录. */
+  background: var(--dossier-surface);
   box-shadow: none;
 }
 

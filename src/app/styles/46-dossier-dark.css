@@ -16,15 +16,6 @@
      gradient in dark mode and nothing else, so the teal border and the 26px
      radius stayed on a dark ground — dark was half-converted. The header
      carries no panel in either scheme now, so no override is needed. */
-/* Technology detail aside: a higher-specificity light background won
-     over the dossier surface override. */
-:root[data-theme="dark"] .dossier .user-article-layout__aside .source-reference,
-:root[data-theme="dark"]
-  .dossier
-  .user-article-layout__aside
-  .user-reference-panel {
-  background: var(--dossier-surface);
-}
 /* Hardcoded body-copy inks that never flipped. */
 :root[data-theme="dark"] .dossier .user-article-section p,
 :root[data-theme="dark"] .dossier .content-intelligence-list,
