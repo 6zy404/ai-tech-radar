@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import { ErrorShellRepair } from "@/components/error-shell-repair";
 import { SkipLink } from "@/components/skip-link";
 import { TopNav } from "@/components/top-nav";
 import {
@@ -52,6 +53,9 @@ const themeBootstrapScript = `(function(){try{var s=localStorage.getItem(${JSON.
   themeStorageKey
 )});var t=(s==="light"||s==="dark")?s:(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;}catch(e){}})();`;
 
+// Also handed to ErrorShellRepair, which restores it on Next's error shell.
+const documentLang = "zh-CN";
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     // `suppressHydrationWarning` is required here, not cosmetic: the script
@@ -60,11 +64,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     // HTML. Without it React logs a hydration mismatch on every page load. It
     // suppresses the warning for this element's attributes only — children are
     // still checked normally.
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang={documentLang} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
       <body>
+        <ErrorShellRepair lang={documentLang} />
         <SkipLink />
         <TopNav />
         <main id={mainContentId} className="main-content" tabIndex={-1}>

@@ -59,6 +59,53 @@ For per-topic deep dives, see the `docs/` directory.
   record changed, only its summary, and a rerun reports nothing to do. Rules
   and 5 tests in `src/lib/github-blog-footer-repair.ts`.
 
+## Missing-item 404s keep the reader's colour scheme; share-image routes join the render-mode check
+
+- **2026-09-30.** A `notFound()` from a dynamic page — an unknown signal,
+  skill or knowledge slug, a digest date with no issue, a non-Monday or empty
+  week, a topic with no content — served Next's error shell,
+  `<html id="__next_error__">`, with no `lang` and no theme script, while an
+  unmatched path such as `/no-such-page` served the full layout. The status
+  was 404 either way. **This is upstream behaviour in Next 15.5**, reproduced
+  with a route that does nothing but `await params` and `notFound()`: server
+  rendering has no error boundaries, so the throw fails the shell, and Next
+  answers with an empty error document that the browser then renders from
+  scratch. That client render brings back the nav, the 404 page and `lang`,
+  but a script React inserts does not execute, so a dark reader got a light
+  page.
+- **What changed**: `ErrorShellRepair` (`src/components/error-shell-repair.tsx`,
+  mounted in the root layout) notices, when its module loads, that the
+  document arrived as the error shell — React removes the id once it commits,
+  so an effect alone cannot tell — and applies the theme through
+  `resolveTheme` / `applyTheme` from `src/lib/theme.ts`, the same resolution
+  as the inline script. On every other page it renders nothing and does
+  nothing. Checked on all six routes under an OS dark scheme with no stored
+  choice (dark) and with `light` stored (light), matching `/no-such-page`; a
+  real signal page is unchanged, with no hydration warnings.
+- **What it does not fix**: the served HTML is still Next's empty shell, so
+  a reader without JavaScript, or a screen reader before the bundle runs,
+  still gets no content and no `lang`. Three ways to get a server-rendered
+  404 were measured and not taken. Wrapping the route in `<Suspense>` renders
+  the full layout but answers **200**. `dynamicParams = false` with
+  `generateStaticParams` routes a miss to the real not-found page, but a slug
+  published after the build would then 404 too. A middleware that checks the
+  item exists and rewrites a miss to an unmatched path works (prototyped in
+  dev: 404, full layout), but it would move content lookups into the
+  workspace-guard middleware, switch it to the Node runtime, and repeat each
+  page's existence rule; for a noindex page that was judged not worth it.
+- **`validate:deployment` now covers generated metadata routes.** It only
+  read `page.tsx`, which is how `/digest/today/opengraph-image` was
+  prerendered and froze on the build day's issue. A share image, twitter
+  image, icon, apple-icon, sitemap or manifest route with no dynamic segment
+  — or with `generateStaticParams` — must now declare `export const dynamic`
+  (`src/lib/metadata-route-render-mode.ts`, unit-tested). Routes under
+  `[slug]` are exempt: the live build's prerender manifest lists no dynamic
+  routes and held no cached output for any of the seven such images. `robots`
+  is exempt because it holds no content. Proven to fire by deleting the
+  `dynamic` line from the today image: the validator failed naming that file.
+  The page check also stopped accepting `export const dynamicParams` as a
+  declaration.
+
 ## Search shows the original title it matched; the 404 page has a search box
 
 - **2026-09-30.** Keyword search matches a signal's title in both languages,
