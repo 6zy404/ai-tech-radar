@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NewsCardSignalLink, NewsCardTags } from "@/components/news-card-parts";
 import { SearchGlyph } from "@/components/search-glyph";
 import { DossierCard } from "@/components/dossier-card";
+import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { HighlightedText } from "@/components/highlighted-text";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -11,11 +12,22 @@ import {
   type HybridSearchResultLink
 } from "@/lib/hybrid-search";
 import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
+import {
+  buildSearchHref,
+  filterSearchResults,
+  getSearchTypeCounts,
+  hasOnlySemanticMatches,
+  parseSearchType,
+  searchResultTypeLabels,
+  searchResultTypes,
+  type SearchResultType,
+  type SearchTypeCounts
+} from "@/lib/search-filter";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
 interface SearchPageProps {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string | string[]; type?: string | string[] }>;
 }
 
 export const dynamic = "force-dynamic";
@@ -23,11 +35,13 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   searchParams
 }: SearchPageProps): Promise<Metadata> {
-  const { q } = await searchParams;
+  const { q, type: rawType } = await searchParams;
   const query = typeof q === "string" ? q.trim() : "";
+  const type = parseSearchType(rawType);
+  const typeSuffix = type ? ` · ${searchResultTypeLabels[type]}` : "";
 
   return buildPageMetadata({
-    title: query ? `搜索「${query}」` : "站内搜索",
+    title: query ? `搜索「${query}」${typeSuffix}` : "站内搜索",
     description:
       "在已发布的技术信号、技能、知识和快讯里按关键词与语义相近同时查找。",
     path: "/search",
@@ -139,21 +153,59 @@ function SearchResultGroup({
   );
 }
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const { q } = await searchParams;
-  const results = await searchPublicContentHybrid(q);
-  const hasQuery = results.query.length > 0;
-  const graphResults = [
-    ...results.technologies,
-    ...results.skills,
-    ...results.knowledge
+/**
+ * One row of links, one per result group, counted on the unfiltered results.
+ * A group with nothing in it stays in the row, muted and not a link, so the
+ * row has the same entries for every query.
+ */
+function SearchTypeFilter({
+  query,
+  active,
+  counts
+}: {
+  query: string;
+  active: SearchResultType | undefined;
+  counts: SearchTypeCounts;
+}) {
+  const options = [
+    { value: "all", label: "全部", href: buildSearchHref(query) },
+    ...searchResultTypes.map((type) => {
+      const empty = counts[type] === 0 && active !== type;
+
+      return {
+        value: type,
+        label: `${searchResultTypeLabels[type]} ${counts[type]}`,
+        href: empty ? undefined : buildSearchHref(query, type),
+        disabled: empty
+      };
+    })
   ];
-  // Every graph result came from meaning alone: say so, because on a query the
-  // site has nothing for, those are the nearest items rather than matches.
-  const onlySemantic =
-    results.news.length === 0 &&
-    graphResults.length > 0 &&
-    graphResults.every((item) => item.matchedBy === "semantic");
+
+  return (
+    <DossierCategoryChips
+      className="search-type-filter"
+      ariaLabel="按类型筛选结果"
+      options={options}
+      active={active ?? "all"}
+    />
+  );
+}
+
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const { q, type: rawType } = await searchParams;
+  const activeType = parseSearchType(rawType);
+  const allResults = await searchPublicContentHybrid(
+    typeof q === "string" ? q : undefined
+  );
+  const counts = getSearchTypeCounts(allResults);
+  const results = filterSearchResults(allResults, activeType);
+  const hasQuery = results.query.length > 0;
+  // Every visible graph result came from meaning alone: say so, because on a
+  // query the site has nothing for, those are the nearest items rather than
+  // matches. Judged on what is shown, so a filter can change the answer.
+  const onlySemantic = hasOnlySemanticMatches(results);
+  // Only reachable by a hand-written URL: the row never links an empty group.
+  const activeTypeEmpty = activeType !== undefined && counts[activeType] === 0;
 
   return (
     <UserPageShell
@@ -181,6 +233,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       {hasQuery ? (
         results.totalCount > 0 ? (
           <>
+            <SearchTypeFilter
+              query={results.query}
+              active={activeType}
+              counts={counts}
+            />
             <p className="search-page__summary">
               「{results.query}」共找到 {results.totalCount} 条内容。
               <Link
@@ -195,11 +252,25 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 {`没有标题或摘要里含「${results.query}」的内容，下面是按意思找到的相近条目，未必切题。`}
               </p>
             ) : null}
-            {results.semanticAvailable ? null : (
+            {/* News is keyword-only, so the notice says nothing about it. */}
+            {results.semanticAvailable || activeType === "news" ? null : (
               <p className="search-group__notice">
                 语义检索暂时不可用，下面只按关键词匹配。
               </p>
             )}
+            {activeTypeEmpty ? (
+              <div className="empty-state empty-state--actionable">
+                <strong>
+                  {`${searchResultTypeLabels[activeType]}里没有与「${results.query}」相关的内容。`}
+                </strong>
+                <Link
+                  href={buildSearchHref(results.query)}
+                  className="action-link"
+                >
+                  {`查看全部 ${results.totalCount} 条结果`}
+                </Link>
+              </div>
+            ) : null}
             <SearchResultGroup
               title="技术信号"
               count={results.technologies.length}

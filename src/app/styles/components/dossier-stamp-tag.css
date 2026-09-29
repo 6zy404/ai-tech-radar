@@ -84,3 +84,17 @@
   flex-shrink: 0;
   white-space: nowrap;
 }
+
+/* A filter chip with nothing behind it (a /search group with 0 results): it
+   keeps its place in the row so the row reads the same for every query, but
+   it is not a link, so it must not answer the pointer either. A dashed
+   border and faded label mark it as unavailable; the hover rule above is
+   matched and cancelled rather than excluded so its selector stays as is. */
+.dossier-stamp-tag--interactive.dossier-stamp-tag--disabled,
+.dossier-stamp-tag--interactive.dossier-stamp-tag--disabled:hover {
+  cursor: default;
+  border-style: dashed;
+  border-color: var(--dossier-line);
+  color: var(--dossier-muted);
+  opacity: 0.6;
+}

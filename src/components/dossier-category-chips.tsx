@@ -3,38 +3,54 @@ import { DossierStampTag } from "@/components/dossier-stamp-tag";
 export interface DossierCategoryOption {
   value: string;
   label: string;
+  /** Link target; when every option has one, the chips need no JS. */
+  href?: string;
+  /** Drawn but not selectable (e.g. a category with no results). */
+  disabled?: boolean;
 }
 
 interface DossierCategoryChipsProps {
   options: DossierCategoryOption[];
   active: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   className?: string;
+  /** Names the row for assistive tech when the chips are links. */
+  ariaLabel?: string;
 }
 
 /**
- * Staged stamp-style category filter chips — the confirmed direction,
- * matching the tag-filter chips already used on /technologies and
- * /radar. Not yet used by any page; see docs/design-system.md →
- * "Dossier direction (staged)".
+ * Stamp-style category filter chips, matching the tag-filter chips on
+ * /technologies. Toggle buttons when given `onChange` (/network,
+ * /technologies); links when the options carry `href` (/search, which is
+ * server-rendered and must filter without JS).
  */
 export function DossierCategoryChips({
   options,
   active,
   onChange,
-  className = ""
+  className = "",
+  ariaLabel
 }: DossierCategoryChipsProps) {
-  return (
-    <div className={`dossier-category-chips ${className}`.trim()}>
-      {options.map((option) => (
-        <DossierStampTag
-          key={option.value}
-          active={option.value === active}
-          onClick={() => onChange(option.value)}
-        >
-          {option.label}
-        </DossierStampTag>
-      ))}
-    </div>
+  const chips = options.map((option) => (
+    <DossierStampTag
+      key={option.value}
+      active={option.value === active}
+      href={option.href}
+      disabled={option.disabled}
+      onClick={
+        onChange && !option.href ? () => onChange(option.value) : undefined
+      }
+    >
+      {option.label}
+    </DossierStampTag>
+  ));
+  const classes = `dossier-category-chips ${className}`.trim();
+
+  return ariaLabel ? (
+    <nav className={classes} aria-label={ariaLabel}>
+      {chips}
+    </nav>
+  ) : (
+    <div className={classes}>{chips}</div>
   );
 }

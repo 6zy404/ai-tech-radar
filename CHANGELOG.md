@@ -96,6 +96,38 @@ For per-topic deep dives, see the `docs/` directory.
   `font-cmap.test.ts` reads the real subset. The glyph check in the script
   was proven to fire on 龘靐齉 as well.
 
+## Search results can be narrowed to one type
+
+- **2026-09-30.** `/search` takes `?type=technologies|skills|knowledge|news`
+  (the result groups' own ids) and renders only that group. A row of chips
+  above the result summary — 全部 · 信号 N · 技能 N · 知识 N · 快讯 N — links
+  between them. Filtering is server-side and the chips are plain links, so the
+  page still works without JS. Any other value, including an array from a
+  repeated parameter, reads as no filter (`parseSearchType` in the new
+  `src/lib/search-filter.ts`).
+- **Counts come from the unfiltered results**, so a chip says what clicking it
+  will show. A group with 0 results stays in the row, drawn dashed and faded
+  and not a link, so the row has the same five entries for every query. A
+  hand-written URL for an empty group gets an empty state that links back to
+  all results. The summary line keeps the unfiltered total.
+- **What still holds under a filter.** The news group keeps its fixed
+  「自动聚合，未经编辑精选」 disclaimer when shown alone. The 「只按意思找到」
+  notice is judged on the visible groups (`hasOnlySemanticMatches`), so it can
+  appear on 技能 and not on 全部. The 「语义检索暂时不可用」 notice is not shown
+  on 快讯, which is keyword-only anyway. The 问雷达 link is unchanged.
+- **Every group is still computed when one is shown.** Measured warm on the
+  dev server over five queries: query embedding 7–9ms, cosine over the 126
+  vectors 0.1ms, keyword + fusion ranking for the three graph groups 0.2–0.4ms,
+  news matching 3–7ms. Skipping groups would save well under 10ms and would
+  break two things: the counts need every group, and the semantic cutoff is
+  a z-score over the **whole** pool, so scoring one group alone would change
+  which of its items qualify.
+- **Shared components.** `DossierStampTag` gained `href` (renders a `Link`,
+  `aria-current="page"` when active) and `disabled`; `DossierCategoryChips`
+  passes both through and takes an optional `ariaLabel` (then renders a
+  `<nav>`). Existing button callers (`/network`, `/technologies`) are
+  unchanged.
+
 ## 必备 relations keep their direction when saved from either side
 
 - **2026-09-29.** `requires` (必备) is the one relation type read with its
