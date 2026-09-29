@@ -24,10 +24,10 @@
   线上核对：新分享图 200、`?type=` 生效、目录渲染、内部前缀仍 404。
 - **2026-09-30 再部署**（构建 `HZwjQDZH…`，停机 1.7 秒，`main` `efdeebb`）：
   「上次来访后」的新信号标记（K）、阅读页打印样式（M）、InfoQ 样板修复（P）。
-- **main 上已合、未部署**：窄屏菜单按钮移到最右（S）、分享卡去孤字 + 本周页分享卡 +
-  `/digest/today` 分享卡不再冻结 + 信号页侧栏不透明（N）、技能 / 知识页本页目录（O）。
-  下次部署后看 `.next/prerender-manifest.json`：`/digest/today/opengraph-image` 与
-  `/digest/weekly/opengraph-image` 不应在 routes 里。
+- **2026-09-30 第三次部署**（构建 `jBXzECK7…`，停机 1.7 秒，`main` `474ba46`）：
+  窄屏菜单按钮移到最右（S）、分享卡去孤字 + 本周页分享卡 + 信号页侧栏不透明（N）、
+  技能 / 知识页本页目录（O）。预渲染清单现在只剩 icon / favicon / 404 / robots，
+  `/digest/today` 与 `/digest/weekly` 的分享卡按请求生成，不再冻结。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
   不健康自动回滚）；`npm run deploy:rollback` 回到上一版。说明在
   `docs/deployment.md` →「Deploy with one command」。八次实跑停机 1.7–2.3 秒（最近一次 2.3）。
