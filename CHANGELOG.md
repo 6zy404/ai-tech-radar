@@ -78,6 +78,48 @@ For per-topic deep dives, see the `docs/` directory.
   lands — asks X for the large card; a large card with no image has nothing
   to fill it.
 
+## Signal pages get a share card
+
+- **2026-09-29.** Every published signal page now declares a 1200×630 Open
+  Graph image (`src/app/technologies/[slug]/opengraph-image.tsx`, Next file
+  convention, `next/og`). Next adds it as both `og:image` and
+  `twitter:image`. The card: the site mark and name, a 技术信号 · <type>
+  stamp, the Chinese title (the original when there is none), and 来源
+  <source> · <publisher type> with the publish date. Dossier light tokens
+  only — ground `#e6e7de`, surface `#f8f6ee`, ink `#2b2a22`, stamp `#8a3b2a`,
+  pine rule `#34524a`. An unknown slug gets a generic site card with `200`,
+  never a 500.
+- **Deliberately no priority band.** 立即关注 demotes as a signal ages, and a
+  platform keeps a share image for weeks, so the card carries only fields
+  that do not change with time.
+- **The title layout is done before Satori sees it.** Satori wraps but cannot
+  clamp, so `src/lib/share-card.ts` estimates glyph widths (generous for
+  Latin), breaks between CJK characters or whole Latin words, keeps closing
+  punctuation off a line start, and steps 68 → 60 → 52px before it cuts the
+  fourth line with an ellipsis. The first width table was not generous
+  enough: a rendered 60px line measured 16.4em against a 16.2em estimate, so
+  the Latin widths were raised. 12 tests, including one asserting that no
+  field outside the card's allowlist (`intelligenceStatus`, priority, source
+  URL) reaches it.
+- **Font**: `next/og` ships Latin only. `assets/fonts/` now holds a 1.16 MB
+  subset of Noto Serif SC Bold (SIL OFL 1.1): GB2312 level 1 plus every
+  character in the content at the time, 3,896 in all. A character outside it
+  falls back to `next/og`'s own Google Fonts fetch. Source, license and the
+  recut command are in `assets/fonts/README.md`.
+- **Cache lifetime overridden.** `next/og` answers
+  `immutable, max-age=31536000` in production, while the `?hash` Next
+  appends to the og:image URL tracks the source file, not the signal — an
+  edited title would have stayed stale for a year. The route sets
+  `public, max-age=3600` (300 for the fallback card); a render measured
+  0.08–0.14s on a production build.
+- **Verified** on a production build (`NEXT_DIST_DIR=.next-og`, port 3317,
+  since removed): the route is dynamic, returns `image/png`, and the page head
+  carries the image. Six cards were looked at — a short title, a
+  58-character mixed title, a two-line Chinese title, an unknown slug, and
+  (from a temporarily edited worktree copy of the data) an English-only title
+  and an over-long title with wide capitals, which is cut cleanly inside the
+  card.
+
 ## 先读这些: skill and knowledge pages name what to read first
 
 - **2026-09-29.** The public skill and knowledge detail pages (one component,
