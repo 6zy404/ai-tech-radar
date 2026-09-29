@@ -55,7 +55,7 @@
 没有用它，31 条全部人工读原文处置。
 
 ~~两条「必备」关系存反~~：2026-09-29 编辑器可以选方向了；两条边由
-`scripts/fix-requires-direction.ts` 修正（线上：待执行）。
+`scripts/fix-requires-direction.ts` 修正，2026-09-29 已对线上执行，复跑无事可做。
 
 另一件顺手：8 条 InfoQ 信号的原文（`summary/content.original`）整段只是「点击查看
 原文」样板，修复脚本特意没动：`doordash-feature-flag-cleanup-agents`、
