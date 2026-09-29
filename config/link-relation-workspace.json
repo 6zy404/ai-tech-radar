@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T03:11:04.033Z",
+  "updatedAt": "2026-09-29T22:23:02.533Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -2028,19 +2028,19 @@
     },
     {
       "id": "rel-ws-254bb11a",
-      "fromId": "knowledge-ws-e251051e",
-      "fromType": "knowledge",
-      "toId": "skill-ws-f741f122",
-      "toType": "skill",
+      "fromId": "skill-ws-f741f122",
+      "fromType": "skill",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
       "relationType": "requires",
       "note": "轨迹回放要能定位「在哪一步失败」，前提是每一步先有明确的完成判据。"
     },
     {
       "id": "rel-ws-7f2d6840",
-      "fromId": "knowledge-ws-e251051e",
-      "fromType": "knowledge",
-      "toId": "skill-agent-design",
-      "toType": "skill",
+      "fromId": "skill-agent-design",
+      "fromType": "skill",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
       "relationType": "requires",
       "note": "工作流每一步的交接点，本质上就是上一步的验收标准。"
     },
@@ -7866,6 +7866,105 @@
       "toType": "skill",
       "relationType": "supports",
       "note": "隔离的工作树解决并行时互相污染状态的问题。"
+    },
+    {
+      "id": "rel-ws-cbead338",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "闭源前沿那一侧的电脑操作能力；Holo4 是可以自己部署的那一侧。"
+    },
+    {
+      "id": "rel-ws-d087a30d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "Holotron4 Nano 基于 NVIDIA 的 Nemotron 3 Nano Omni 继续训练。"
+    },
+    {
+      "id": "rel-ws-4dcd4478",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同样是能在本地跑的智能体模型，可以并排看许可证与能力边界。"
+    },
+    {
+      "id": "rel-ws-962a98e1",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "解释为什么 35B-A3B 推理便宜、却在长流程任务上输给稠密的 27B。"
+    },
+    {
+      "id": "rel-ws-b7a3bf0a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "27B 拿到前沿八成分数，是按约束挑模型的具体案例。"
+    },
+    {
+      "id": "rel-ws-99635d77",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "harness 在数百步里记住进度，就是长时程记忆问题。"
+    },
+    {
+      "id": "rel-ws-374ad130",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "四种量化格式决定它能跑在什么显卡上。"
+    },
+    {
+      "id": "rel-ws-e0c8fbd2",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "读发布要把分数、对比对象与许可证放在一起。"
+    },
+    {
+      "id": "rel-ws-800d3a6e",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "自有部署、接 API 还是用闭源模型，是自建与采购的边界。"
+    },
+    {
+      "id": "rel-ws-cad64054",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "skill-ws-b47fabd1",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "屏幕输入怎么组织与核验，决定分数能否复现。"
+    },
+    {
+      "id": "rel-ws-dcf1703a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "厂商数字要用自己的任务集复测。"
     }
   ]
 }

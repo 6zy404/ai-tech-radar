@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T02:59:12.277Z",
+  "updatedAt": "2026-09-29T22:20:08.661Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -2952,6 +2952,120 @@
       "importStatus": "converted",
       "reviewedAt": "2026-09-28T02:59:12.277Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article"
+    },
+    "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T04:53:31.672Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-0-rc1": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T04:53:31.712Z"
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-0-rc0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T04:53:31.750Z"
+    },
+    "candidate-rss-https-www-qbitai-com-p-499098": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:55.796Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-uwfvftwwh5qupo2lbxf6-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:55.889Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-dxtimf8q7tadgd4tzp6m-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:55.972Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-amyfvbwtlvyapfszqkx3-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.056Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-mdiczbgjphnmu6e0qbx1-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.137Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-xf5kzxv681stvdrzsstj-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.219Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-0": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.302Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-498877": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.378Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-498787": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.461Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-lzlgofwubqu4dfjo4q74-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.543Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-7zcxyr8abkdqqo682cjm-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.623Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-wg5uvlds5e3k2imtcuyj-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.707Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-zl0e1suod95yjfbonz2a-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.789Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-5xfeqshw0hwfud95jpwe-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.869Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-how-we-will-do-better-for-australia": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:56.947Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-lenfest-ai-collaborative-expansion": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:57.037Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-form-codex-originals": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:57.120Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-basis-tax-workbook-with-astra": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-29T22:19:57.206Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-hcompany-holo4": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-29T22:20:08.401Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-oooae7xy816xadlrkv8v-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-29T22:20:08.661Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-oooae7xy816xadlrkv8v-utm-source-rss-amp-utm-medium-article",
+      "blind": true
     }
   }
 }
