@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { SiteSearchForm } from "@/components/site-search-form";
 import { UserPageShell } from "@/components/user-page-shell";
 
 // Until 2026-09-24 every notFound() on the site — an unknown signal slug, a
@@ -20,6 +21,7 @@ export default function NotFound() {
       sectionLabel="未收录"
       className="dossier"
     >
+      <SiteSearchForm />
       <section className="empty-state empty-state--actionable">
         <strong>可以从这里继续。</strong>
         <p>

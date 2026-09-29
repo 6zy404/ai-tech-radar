@@ -26,6 +26,12 @@ export interface SearchResultLink {
   href: string;
   tags: string[];
   meta?: string;
+  /**
+   * The title in the language the card does not show, when it differs.
+   * Keyword search matches it, so the search page can say why a card with
+   * no visible hit was found (`src/lib/search-original-title.ts`).
+   */
+  originalTitle?: string;
 }
 
 export interface PublicSearchResults {
@@ -129,6 +135,7 @@ export function getSearchDocuments(): SearchDocument[] {
     const tagNames = getTagDisplayNames(technology.tags);
     const title = getPreferredTechnologyTitle(technology);
     const summary = getPreferredTechnologySummary(technology);
+    const originalTitle = technology.title.original.trim();
 
     documents.push({
       group: "technologies",
@@ -139,7 +146,11 @@ export function getSearchDocuments(): SearchDocument[] {
         summary: truncateSummary(summary),
         href: `/technologies/${technology.slug}`,
         tags: tagNames,
-        meta: `${technology.sourceName} · ${technology.publishDate}`
+        meta: `${technology.sourceName} · ${technology.publishDate}`,
+        originalTitle:
+          originalTitle && originalTitle !== title.trim()
+            ? originalTitle
+            : undefined
       },
       titleText: buildHaystack([
         technology.title.original,

@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 import { NewsCardSignalLink, NewsCardTags } from "@/components/news-card-parts";
-import { SearchGlyph } from "@/components/search-glyph";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { HighlightedText } from "@/components/highlighted-text";
+import { SiteSearchForm } from "@/components/site-search-form";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   searchPublicContentHybrid,
@@ -25,6 +25,7 @@ import {
 } from "@/lib/search-filter";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
+import { getOriginalTitleExcerpt } from "@/lib/search-original-title";
 
 interface SearchPageProps {
   searchParams: Promise<{ q?: string | string[]; type?: string | string[] }>;
@@ -75,6 +76,9 @@ function SearchResultCard({
   // A result found by meaning alone has no literal hit to point at; marking
   // a stray substring there would claim a match that did not happen.
   const hitTerms = item.matchedBy === "semantic" ? [] : terms;
+  // Keyword search also matches the title the card does not show; when a
+  // term hit only that, show it, or the card has no visible reason.
+  const originalTitle = getOriginalTitleExcerpt(item, hitTerms);
 
   return (
     <DossierCard className="search-result">
@@ -84,6 +88,12 @@ function SearchResultCard({
           <HighlightedText text={item.title} terms={hitTerms} />
         </Link>
       </h3>
+      {originalTitle ? (
+        <div className="search-result__original-title">
+          原标题：
+          <HighlightedText text={originalTitle} terms={hitTerms} />
+        </div>
+      ) : null}
       {item.summary ? (
         <p>
           <HighlightedText text={item.summary} terms={hitTerms} />
@@ -214,21 +224,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       sectionLabel="搜索"
       className="search-page dossier"
     >
-      <form className="search-form" action="/search" method="get">
-        <div className="dossier-search">
-          <SearchGlyph />
-          <input
-            type="search"
-            name="q"
-            defaultValue={results.query}
-            placeholder="输入关键词，如：推理、Agent、上下文"
-            aria-label="搜索关键词"
-          />
-        </div>
-        <button type="submit" className="action-button action-button--primary">
-          搜索
-        </button>
-      </form>
+      <SiteSearchForm defaultValue={results.query} />
 
       {hasQuery ? (
         results.totalCount > 0 ? (

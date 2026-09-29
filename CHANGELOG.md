@@ -12,6 +12,42 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Search shows the original title it matched; the 404 page has a search box
+
+- **2026-09-30.** Keyword search matches a signal's title in both languages,
+  but a result card shows only the preferred one, so `agent` found
+  「智能体入侵技术复盘…」 through its English title and left nothing marked on
+  the card — the gap `docs/reference.md` listed as known. A keyword-matched
+  card now adds a line under its title, 原标题：…, when a query term hits the
+  original title and appears nowhere the card displays (title, summary,
+  tags), with the hit marked. It is judged per term, so for `agent 推理` a
+  card whose summary already marks 推理 still explains `agent`. Results found
+  by meaning alone never get it, and the news group, which has one title, is
+  untouched. Measured on `agent`: 17 of 33 signal cards gain the line, the 4
+  news cards none.
+- **Long titles are excerpted around the hit, not cut at the head**
+  (`excerptAroundTerms` in `src/lib/search-original-title.ts`, 72 characters
+  with ellipses; 15 of 91 original titles are longer). The window covers the
+  first hit and as many later ones as fit, splits the rest of the room on
+  both sides, backs off to a space rather than halving a latin word, and never
+  splits a surrogate pair. 18 unit tests cover when the line appears, the
+  excerpt and several terms.
+- The line is set like the meta row (13px, `--muted`; 5.97:1 light, 5.42:1
+  dark) and is a `<div>` for the same reason the meta row is: every `<p>` in
+  the public shell is held at body size by an `!important` rule. Its hit
+  takes the ink colour, as in the tag chips — muted text on the stamp tint
+  measured 4.05:1 in the dark theme; ink measures 10.1 / 8.6.
+- **The 404 page carries the site-search form** above its three links. The
+  search page's form moved into `SiteSearchForm`
+  (`src/components/site-search-form.tsx`), rendered by both: a plain GET to
+  `/search`, so it works without JavaScript, and no autofocus, so a screen
+  reader starts at the heading.
+- Found, not fixed: a `notFound()` inside a dynamic route
+  (`/technologies/<unknown slug>`) renders under Next's error shell —
+  `<html id="__next_error__">` with no `lang` and no theme script, so that 404
+  ignores the dark theme — on the live site as well as in dev; an unknown
+  top-level path renders normally.
+
 ## Share-card orphans, a card for this week, an opaque signal aside
 
 - **2026-09-30.** Three small defects, one of which turned out to be a fourth.

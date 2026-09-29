@@ -100,3 +100,21 @@
 .news-card__tags .search-hit {
   color: var(--dossier-ink);
 }
+
+/* 原标题 line (2026-09-30): the undisplayed title a keyword hit came from,
+   shown only when the card has no visible hit for that term. Set like the
+   meta row — label size, muted — and pulled up under the title it glosses.
+   A <div>, like the meta row: every <p> in the public shell is held at body
+   size by an !important rule in 28-typography.css. */
+.search-result__original-title {
+  margin-top: -4px;
+  color: var(--muted);
+  font-size: var(--fs-label);
+  overflow-wrap: anywhere;
+}
+
+/* Muted text on the stamp tint measured 4.05:1 in the dark theme. The hit
+   takes the ink colour, as it does in the tag chips above. */
+.search-result__original-title .search-hit {
+  color: var(--dossier-ink);
+}
