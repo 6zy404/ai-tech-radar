@@ -32,9 +32,8 @@ For per-topic deep dives, see the `docs/` directory.
   `summary.original` (5) and `content.original` (8) were the raw link while
   editors wrote the `zh`. The 原文 reading mode shows `original` with no
   fallback, so a reader switching to it got that one line, and keyword search
-  indexed it (a search for the phrase matched 4 signals). `repair-entities.ts
-  --published-text` skipped them on 09-29 because cleaning would have emptied
-  them. `scripts/fix-boilerplate-originals.ts` (dry run by default, `--apply`
+  indexed it (a search for the phrase matched 4 signals). The 09-29 entity
+  repair skipped them on purpose, because cleaning would have emptied them. `scripts/fix-boilerplate-originals.ts` (dry run by default, `--apply`
   to write) copies `zh` over an `original` that is boilerplate and nothing
   else: these sources are Chinese, so there is no other original to restore,
   and clearing it instead would have left the 原文 mode blank. Titles, fields
