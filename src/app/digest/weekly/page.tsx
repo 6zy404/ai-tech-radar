@@ -3,14 +3,15 @@ import Link from "next/link";
 import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getWeeklyReview, getWeeklyReviewArchive } from "@/lib/weekly-review";
-import { buildPageMetadata } from "@/lib/site-metadata";
+import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = buildPageMetadata({
   title: "本周回顾",
   description: "按自然周汇总的已发布技术信号。",
-  path: "/digest/weekly"
+  path: "/digest/weekly",
+  feeds: [weeklyReviewFeed]
 });
 
 export default function WeeklyReviewPage() {

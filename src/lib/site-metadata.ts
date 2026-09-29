@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 
+import {
+  jsonFeedPath,
+  rssFeedPath,
+  weeklyReviewFeedPath
+} from "@/lib/feed-paths";
+
 /**
  * One place for what search engines and share cards see. Until 2026-09-24
  * every public page shared a single title and a description that called the
@@ -50,6 +56,57 @@ export function compactDescription(
   return `${head.slice(0, cut).trim()}…`;
 }
 
+/** A feed a page announces with `<link rel="alternate">`. */
+export interface PageFeed {
+  /** Path from the site root, e.g. `/topics/agents/feed.xml`. */
+  path: string;
+  /** What a feed reader lists it as. */
+  title: string;
+  /** Defaults to `rss`; only the digest also has a JSON Feed. */
+  format?: "rss" | "json";
+}
+
+const feedMimeTypes: Record<NonNullable<PageFeed["format"]>, string> = {
+  rss: "application/rss+xml",
+  json: "application/feed+json"
+};
+
+/** The digest feeds, announced on every page. */
+export const siteFeeds: readonly PageFeed[] = [
+  { path: rssFeedPath, title: `${siteName} · 技术简报` },
+  {
+    path: jsonFeedPath,
+    title: `${siteName} · 技术简报（JSON）`,
+    format: "json"
+  }
+];
+
+/** Announced by `/digest/weekly` and `/digest/weekly/[week]`. */
+export const weeklyReviewFeed: PageFeed = {
+  path: weeklyReviewFeedPath,
+  title: `${siteName} · 本周回顾`
+};
+
+type FeedAlternateTypes = Record<string, { url: string; title: string }[]>;
+
+/**
+ * The `alternates.types` value for a page: its own feeds first, so a reader
+ * that takes the first `rel="alternate"` subscribes to what the page is
+ * about, then the site-wide digest feeds.
+ */
+export function buildFeedAlternateTypes(
+  pageFeeds: readonly PageFeed[] = []
+): FeedAlternateTypes {
+  const types: FeedAlternateTypes = {};
+
+  for (const feed of [...pageFeeds, ...siteFeeds]) {
+    const mimeType = feedMimeTypes[feed.format ?? "rss"];
+    (types[mimeType] ??= []).push({ url: feed.path, title: feed.title });
+  }
+
+  return types;
+}
+
 export interface PageMetadataInput {
   /** Page title without the site name; the layout template appends it. */
   title?: string;
@@ -61,6 +118,18 @@ export interface PageMetadataInput {
   type?: "website" | "article";
   /** Set when the page has nothing worth indexing (search results, a query). */
   noIndex?: boolean;
+  /**
+   * Feeds specific to this page, announced ahead of the digest feeds. Pass
+   * only a feed that exists — the topic feed 404s for a topic with no
+   * published signal.
+   */
+  feeds?: readonly PageFeed[];
+  /**
+   * Set when the page has a wide share image (an `opengraph-image` route),
+   * so X renders it as a large card. Pages without one keep the small
+   * card: a large card with no image has nothing to fill it with.
+   */
+  largeImage?: boolean;
 }
 
 export function buildPageMetadata({
@@ -68,7 +137,9 @@ export function buildPageMetadata({
   description,
   path,
   type = "website",
-  noIndex = false
+  noIndex = false,
+  feeds = [],
+  largeImage = false
 }: PageMetadataInput): Metadata {
   const resolvedDescription = compactDescription(
     description ?? siteDescription
@@ -78,7 +149,10 @@ export function buildPageMetadata({
   return {
     title: title ? title : { absolute: siteName },
     description: resolvedDescription,
-    alternates: { canonical: path },
+    // Next replaces the layout's `alternates` wholesale instead of merging
+    // it, so the digest feeds the layout declares are repeated here, or every
+    // page with its own metadata would drop them.
+    alternates: { canonical: path, types: buildFeedAlternateTypes(feeds) },
     openGraph: {
       title: fullTitle,
       description: resolvedDescription,
@@ -88,7 +162,7 @@ export function buildPageMetadata({
       type
     },
     twitter: {
-      card: "summary",
+      card: largeImage ? "summary_large_image" : "summary",
       title: fullTitle,
       description: resolvedDescription
     },
