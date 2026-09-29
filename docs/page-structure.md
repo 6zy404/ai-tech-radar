@@ -414,6 +414,13 @@ Workspace deployment boundary:
     reader can tell a vendor announcement from an open-source release before
     reading. Added 2026-07-29; the chip is a classification, which is why it
     is set apart from the publisher _name_ sitting beside it
+  - a reading-time estimate in the hero meta row (约 N 分钟读完 / About N min
+    read) from the prose the reading column shows in the current language —
+    summary, body, why-it-matters, technical context, learning path,
+    follow-up questions (`src/lib/reading-time.ts`); switching 中文/原文
+    changes it
+  - a 1200×630 share image in `<head>` (`opengraph-image`), with the large
+    twitter card
   - productized priority label and short explanation
   - Content Intelligence modules for why it matters, who should care, technical context, impact areas, reading difficulty, learning path, and follow-up questions
   - tags; the 主题标签 reference panel renders follow-toggle chips
@@ -558,6 +565,12 @@ Workspace deployment boundary:
     with the node's title, a link to its own detail page, and its connection
     list (relation-type pill + linked title per connection); clicking again
     deselects
+  - `/network?focus=<node id>` opens with that node selected and its panel
+    open, scrolling to it after the glide if it sits below the fold
+    (respecting `prefers-reduced-motion`); an unknown or unpublished id is
+    treated as no parameter. Selecting / deselecting in the page syncs the
+    parameter with `history.replaceState` — no history entries, no
+    localStorage (`src/lib/network-focus.ts`)
   - the connection list is **grouped by kind** (技术 · N / 技能 · N / 知识 · N,
     the same label the detail pages' per-item relationship view uses) and every
     row is a two-column grid — pill on the left, title wrapping in its own
@@ -603,6 +616,9 @@ Workspace deployment boundary:
     fields; not in the nav — linked from each topic hub's header and from
     the 按话题 view
 - `/topics/[tagId]`
+  - its `<head>` announces the per-topic feed only when the 订阅此话题 block
+    is shown (the feed 404s otherwise); every public page announces the digest
+    RSS and JSON feeds
   - user-facing topic hub: a drill-down destination, not a global nav entry
     — reached via "查看专题" links on `FollowableTagList` chips
     (technology/skill/knowledge detail pages) or from `/topics`
@@ -768,6 +784,10 @@ Forbidden on public pages:
     the per-kind border, so the per-chip label used to be the only thing
     carrying it, and repeating the kind under a heading that already states it
     is the repetition this project keeps removing
+  - optional `centerId`: when given, the view ends with a 在关系网络中查看 →
+    `action-link` to `/network?focus=<centerId>`; all three detail pages pass
+    it, the technology page only when the record is published (the workspace
+    preview renders drafts through the same component)
   - it was a ring until 2026-08-04: nodes sat on a fixed radius that never grew
     with the node count while each node box was sized by its own label, so the
     layout collapsed on items with many relations (6 overlapping pairs at

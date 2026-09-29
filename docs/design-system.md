@@ -600,7 +600,10 @@ Decided specifics:
   the primary dev machine (same class of issue as the npm/Hugging Face
   mirror workarounds elsewhere in this project), so any real
   implementation must self-host pre-subsetted `woff2` files rather than
-  rely on `next/font/google` fetching live.
+  rely on `next/font/google` fetching live. The share card (2026-09-29) is
+  the first self-hosted CJK font: `assets/fonts/NotoSerifSC-Bold.share-card.otf`
+  (GB2312 level 1 + the site's own characters, 1.16 MB, OFL), used only by
+  `next/og` — the pages themselves still use system fonts.
 - **Relation vocabulary**: `RelationType` labels rewritten to read as
   native Chinese rather than translated English, and to use the _same_
   word from both directions instead of an English-shaped passive mirror

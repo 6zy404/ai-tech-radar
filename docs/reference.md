@@ -66,7 +66,9 @@ The product is split into two subsystems:
   `/network` renders the full graph in one view with a hand-written
   force-directed layout, search-highlight, a category filter, hover-over-edge
   relation labels, draggable nodes, and click-to-focus exploration of any
-  node's direct connections.
+  node's direct connections, deep-linkable as `/network?focus=<node id>`
+  from a 在关系网络中查看 link on every detail page's relationship view
+  (`src/lib/network-focus.ts`).
 - **先读这些 (prerequisite reading chain)** — on skill and knowledge detail
   pages with `requires` (必备) prerequisites, the reading column opens with
   the items to read first: up to 3 levels, the farthest first, published
@@ -90,6 +92,19 @@ The product is split into two subsystems:
   written by every editorial round, required by the publish gate, and never
   displayed anywhere public, while skill and knowledge bodies rendered as a
   single paragraph with their `**` markers visible.
+- **Signal page reading time and share card** (2026-09-29) — the hero meta
+  row shows 约 N 分钟读完 / About N min read, computed from the prose the
+  page shows in the current language (Chinese 400 characters/min, English
+  200 words/min, rounded up, minimum 1; `src/lib/reading-time.ts`). Every
+  published signal also serves a 1200×630 share image through its
+  `opengraph-image` route (og:image / twitter:image, with
+  `summary_large_image` on signal pages only): dossier colours, the Chinese
+  title (original as fallback), type, source, publisher type and date — no
+  priority, no internal fields; an unknown slug gets a site card. The CJK
+  glyphs come from a Noto Serif SC Bold subset under `assets/fonts/` (OFL,
+  1.16 MB). Every public page also announces its RSS / JSON feeds with
+  `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
+  `feeds` option in `src/lib/site-metadata.ts`).
 - **Publisher type on the signal page** — the technology detail page's source
   row carries the publisher's _type_ (大型科技公司 / 创业公司 / 研究实验室 /
   开源社区 / 媒体) as a hairline chip beside the publisher name, on both the
@@ -319,7 +334,7 @@ Public, user-facing routes:
 - `/digest` (archive), `/digest/today`, `/digest/[date]`,
   `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
 - `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
-- `/network`
+- `/network` (`?focus=<node id>` preselects a node)
 - `/topics` — topic index: every topic with at least one published signal,
   skill or knowledge item (the same rule as the hub's `notFound()`), with its
   description and the three counts, ordered by signal count then name; not a
