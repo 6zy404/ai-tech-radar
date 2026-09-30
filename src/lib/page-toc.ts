@@ -190,6 +190,58 @@ export function getContentDetailTocCandidates(
   ];
 }
 
+/**
+ * The digest page's sections (`DailyDigestContent`): element id and h2 text,
+ * one place for both the page and its table, so the two cannot drift apart.
+ * The skill and knowledge lists keep the signal page's ids, as on the skill
+ * and knowledge pages.
+ */
+export const digestTocSections = {
+  summary: { id: "section-summary", label: "今日概览" },
+  highPriority: { id: "section-high-priority", label: "今日立即关注" },
+  watch: { id: "section-watch", label: "值得跟踪" },
+  skills: { id: technologyTocIds.relatedSkills, label: "值得关注的技能" },
+  knowledge: { id: technologyTocIds.relatedKnowledge, label: "背景知识" },
+  sources: { id: "section-sources", label: "来源参考" }
+} as const;
+
+export interface DigestTocInput {
+  hasSummary: boolean;
+  /**
+   * Cards the page shows right now, after the 只看我关注的 filter: a section
+   * the filter empties is not rendered at all, so its entry must go too.
+   */
+  visibleHighPriorityCount: number;
+  visibleWatchCount: number;
+  skillCount: number;
+  knowledgeCount: number;
+  sourceCount: number;
+}
+
+/**
+ * The digest page's sections, each present only when it has something to
+ * read. A section with no items still renders a one-line 「暂未选入」 note on
+ * the page; the table leaves it out rather than send the reader to it. The
+ * 上一期 / 下一期 pager and 订阅简报 block are navigation, not sections.
+ */
+export function getDigestTocCandidates(
+  input: DigestTocInput
+): PageTocCandidate[] {
+  const sections = digestTocSections;
+
+  return [
+    { ...sections.summary, present: input.hasSummary },
+    {
+      ...sections.highPriority,
+      present: input.visibleHighPriorityCount > 0
+    },
+    { ...sections.watch, present: input.visibleWatchCount > 0 },
+    { ...sections.skills, present: input.skillCount > 0 },
+    { ...sections.knowledge, present: input.knowledgeCount > 0 },
+    { ...sections.sources, present: input.sourceCount > 0 }
+  ];
+}
+
 export interface TocSectionGeometry {
   id: string;
   /** Distance of the section's top edge from the viewport top, in px. */

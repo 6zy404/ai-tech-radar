@@ -3,12 +3,15 @@ import { describe, expect, it } from "vitest";
 import {
   PAGE_TOC_MIN_ENTRIES,
   contentDetailTocIds,
+  digestTocSections,
   getContentDetailTocCandidates,
+  getDigestTocCandidates,
   getTechnologyTocCandidates,
   pickActiveTocId,
   selectPageTocEntries,
   technologyTocIds,
   type ContentDetailTocInput,
+  type DigestTocInput,
   type TechnologyTocInput
 } from "@/lib/page-toc";
 
@@ -208,6 +211,69 @@ describe("getTechnologyTocCandidates", () => {
     expect(
       tocFor({ hasBody: true, hasWhyItMatters: true, graphNodeCount: 1 })
     ).toHaveLength(3);
+  });
+});
+
+describe("getDigestTocCandidates", () => {
+  const fullDigest: DigestTocInput = {
+    hasSummary: true,
+    visibleHighPriorityCount: 4,
+    visibleWatchCount: 6,
+    skillCount: 8,
+    knowledgeCount: 8,
+    sourceCount: 7
+  };
+
+  it("lists every section of a full issue in page order, by its h2", () => {
+    expect(selectPageTocEntries(getDigestTocCandidates(fullDigest))).toEqual([
+      { id: "section-summary", label: "今日概览" },
+      { id: "section-high-priority", label: "今日立即关注" },
+      { id: "section-watch", label: "值得跟踪" },
+      { id: technologyTocIds.relatedSkills, label: "值得关注的技能" },
+      { id: technologyTocIds.relatedKnowledge, label: "背景知识" },
+      { id: "section-sources", label: "来源参考" }
+    ]);
+  });
+
+  it("drops a section the 只看我关注的 filter has emptied", () => {
+    const ids = selectPageTocEntries(
+      getDigestTocCandidates({ ...fullDigest, visibleHighPriorityCount: 0 })
+    ).map((entry) => entry.id);
+
+    expect(ids).not.toContain(digestTocSections.highPriority.id);
+    expect(ids).toContain(digestTocSections.watch.id);
+  });
+
+  it("leaves out sections that only say nothing was selected", () => {
+    const ids = selectPageTocEntries(
+      getDigestTocCandidates({
+        ...fullDigest,
+        hasSummary: false,
+        skillCount: 0,
+        sourceCount: 0
+      })
+    ).map((entry) => entry.id);
+
+    expect(ids).toEqual([
+      digestTocSections.highPriority.id,
+      digestTocSections.watch.id,
+      digestTocSections.knowledge.id
+    ]);
+  });
+
+  it("shows no table for an issue with fewer than three sections", () => {
+    expect(
+      selectPageTocEntries(
+        getDigestTocCandidates({
+          hasSummary: false,
+          visibleHighPriorityCount: 1,
+          visibleWatchCount: 0,
+          skillCount: 0,
+          knowledgeCount: 0,
+          sourceCount: 1
+        })
+      )
+    ).toEqual([]);
   });
 });
 

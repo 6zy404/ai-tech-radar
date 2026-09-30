@@ -8,6 +8,7 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
+import { PageToc } from "@/components/page-toc";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { compactText } from "@/lib/compact-text";
@@ -22,6 +23,11 @@ import {
   readFollowedTagIds
 } from "@/lib/followed-tags";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
+import {
+  digestTocSections,
+  getDigestTocCandidates,
+  selectPageTocEntries
+} from "@/lib/page-toc";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
@@ -269,6 +275,7 @@ function DigestTechnologyCard({
 function DigestReferenceList<
   T extends { id: string; title: string; slug: string; summary: string }
 >({
+  id,
   title,
   description,
   emptyText,
@@ -276,6 +283,7 @@ function DigestReferenceList<
   hrefPrefix,
   linkLabel
 }: {
+  id: string;
   title: string;
   description: string;
   emptyText: string;
@@ -284,7 +292,7 @@ function DigestReferenceList<
   linkLabel: string;
 }) {
   return (
-    <section className="digest-reference-section">
+    <section id={id} className="digest-reference-section">
       <div className="daily-digest-section__header">
         <h2>{title}</h2>
         <p>{description}</p>
@@ -316,18 +324,17 @@ function DigestReferenceList<
 }
 
 function DigestSourceReferences({
-  digest,
-  technologies
+  references
 }: {
-  digest: PublicDigestView;
-  technologies: TechnologyItem[];
+  references: DigestSourceReference[];
 }) {
-  const references = getDigestSourceReferences(digest, technologies);
-
   return (
-    <section className="daily-digest-section daily-digest-sources">
+    <section
+      id={digestTocSections.sources.id}
+      className="daily-digest-section daily-digest-sources"
+    >
       <div className="daily-digest-section__header daily-digest-section__header--compact">
-        <h2>来源参考</h2>
+        <h2>{digestTocSections.sources.label}</h2>
         <p>本期简报中已发布技术信号所代表的公开来源。</p>
       </div>
       {references.length > 0 ? (
@@ -383,10 +390,11 @@ export function DailyDigestContent({
     ...highPriorityTechnologies,
     ...watchTechnologies
   ];
-  const sourceCount = getDigestSourceReferences(
+  const sourceReferences = getDigestSourceReferences(
     digest,
     selectedTechnologies
-  ).length;
+  );
+  const sourceCount = sourceReferences.length;
 
   // Personalized digest view (P4): highlight and optionally filter by the
   // reader's followed topics. Follows stay in browser localStorage only —
@@ -437,6 +445,19 @@ export function DailyDigestContent({
     visibleHighPriorityTechnologies.length === 0 &&
     visibleWatchTechnologies.length === 0;
 
+  // Built from the counts the sections below render on, after the filter,
+  // so an entry never points at a section the filter has removed.
+  const tocEntries = selectPageTocEntries(
+    getDigestTocCandidates({
+      hasSummary: Boolean(publicSummary),
+      visibleHighPriorityCount: visibleHighPriorityTechnologies.length,
+      visibleWatchCount: visibleWatchTechnologies.length,
+      skillCount: skills.length,
+      knowledgeCount: knowledge.length,
+      sourceCount
+    })
+  );
+
   return (
     <div className="daily-digest daily-digest-reading dossier">
       {/* Same hero primitive as /technologies/[slug] (user-article-hero), so
@@ -460,9 +481,20 @@ export function DailyDigestContent({
         </div>
       </section>
 
+      {/* The page is one column with no aside, so the table is the folded
+          variant at every width, above the first section it lists. */}
+      <PageToc entries={tocEntries} variant="disclosure" />
+
       {publicSummary ? (
-        <section className="daily-digest-summary-panel">
-          <p className="eyebrow user-eyebrow">今日概览</p>
+        <section
+          id={digestTocSections.summary.id}
+          className="daily-digest-summary-panel"
+        >
+          {/* An h2 styled as the eyebrow it was: the section needs a heading
+              for the table to move focus to, and the outline gains one. */}
+          <h2 className="eyebrow user-eyebrow">
+            {digestTocSections.summary.label}
+          </h2>
           {/* Rendered through ContentBody like every other long-form body on
               the site. It was a bare <p> until 2026-08-09, so an editorial
               summary written with the same Markdown subset used everywhere
@@ -506,9 +538,12 @@ export function DailyDigestContent({
       ) : null}
 
       {filterActive && visibleHighPriorityTechnologies.length === 0 ? null : (
-        <section className="daily-digest-section">
+        <section
+          id={digestTocSections.highPriority.id}
+          className="daily-digest-section"
+        >
           <div className="daily-digest-section__header">
-            <h2>今日立即关注</h2>
+            <h2>{digestTocSections.highPriority.label}</h2>
             <p>精选评级最高的已发布技术信号，编辑置顶的条目优先展示。</p>
           </div>
           {visibleHighPriorityTechnologies.length > 0 ? (
@@ -531,9 +566,12 @@ export function DailyDigestContent({
       )}
 
       {filterActive && visibleWatchTechnologies.length === 0 ? null : (
-        <section className="daily-digest-section">
+        <section
+          id={digestTocSections.watch.id}
+          className="daily-digest-section"
+        >
           <div className="daily-digest-section__header daily-digest-section__header--secondary">
-            <h2>值得跟踪</h2>
+            <h2>{digestTocSections.watch.label}</h2>
             <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
           </div>
           {/* Same two-column grid as 今日立即关注 above. Until 2026-07-29 this
@@ -580,7 +618,8 @@ export function DailyDigestContent({
       ) : null}
 
       <DigestReferenceList
-        title="值得关注的技能"
+        id={digestTocSections.skills.id}
+        title={digestTocSections.skills.label}
         description="帮助读者判断接下来该尝试、评估或学习什么的技能。"
         emptyText="本期简报暂未选入相关技能。"
         items={skills}
@@ -589,7 +628,8 @@ export function DailyDigestContent({
       />
 
       <DigestReferenceList
-        title="背景知识"
+        id={digestTocSections.knowledge.id}
+        title={digestTocSections.knowledge.label}
         description="解释今天所选变化背后背景的概念。"
         emptyText="本期简报暂未选入相关背景概念。"
         items={knowledge}
@@ -597,10 +637,7 @@ export function DailyDigestContent({
         linkLabel="查看概念"
       />
 
-      <DigestSourceReferences
-        digest={digest}
-        technologies={selectedTechnologies}
-      />
+      <DigestSourceReferences references={sourceReferences} />
 
       {neighbors ? (
         <IssuePager

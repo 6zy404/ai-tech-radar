@@ -103,6 +103,14 @@
   padding: 20px;
 }
 
+/* 今日概览 became an h2 on 2026-09-30, so 本页目录 has a heading to move
+   focus to; it keeps the eyebrow's look. The one thing an older
+   `.daily-digest-summary-panel h2` rule (25-digest-reading, written when the
+   panel had a real title) still wins is the letter-spacing. */
+.daily-digest-summary-panel > h2.eyebrow {
+  letter-spacing: 0.12em;
+}
+
 .daily-digest-section__header {
   display: grid;
   grid-template-columns: minmax(180px, 0.35fr) minmax(0, 1fr);

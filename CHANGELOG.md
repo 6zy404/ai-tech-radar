@@ -12,6 +12,44 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 本页目录 on the digest page
+
+- **2026-09-30.** The digest pages (`/digest/[date]`, `/digest/today`) are the
+  longest reading pages on the site — about 7,900px at 1440 and 18,600px at
+  390 on the 09-28 issue — and were the last detail pages without a table of
+  contents. They now mount the same `PageToc` as the signal, skill and
+  knowledge pages, fed by `getDigestTocCandidates` in `src/lib/page-toc.ts`
+  (4 new unit tests): 今日概览, 今日立即关注, 值得跟踪, 值得关注的技能,
+  背景知识 and 来源参考, each by its own h2 — the ids and labels live in one
+  `digestTocSections` object that the page's headings also read, so the two
+  cannot drift. The pager and 订阅简报 are navigation and are not listed.
+- **Only sections with something to read are listed.** A section with no
+  items still renders a one-line 「暂未选入」 note; the table leaves it out.
+  The table is built from the counts after the 只看我关注的 filter, so a
+  section the filter removes leaves the table too (checked in the browser:
+  6 → 5 entries with a topic that only matches 立即关注, 4 with one that
+  matches nothing, every link resolving in each state). Measured on this
+  worktree's data copy: all 31 published issues show a table, 22 with six
+  entries and 9 with five (no 值得跟踪).
+- **Placement: the folded variant, at every width.** The digest is one
+  978px column with no aside, so there is nowhere for the pinned panel to go
+  without redrawing the page — an aside would squeeze the two-column card
+  grids to about 330px a card. The table is the 「本页目录 · N 节」
+  `<details>` between the hero and 今日概览, as on the other pages below
+  their breakpoint; jumping, highlighting, the hash without a history entry
+  and focus on the heading behave the same. The trade-off: on a wide screen
+  there is no table following the reader down the page. `scroll-margin-top`
+  in `components/page-toc.css` now also covers `.daily-digest-reading`.
+- **今日概览 is an h2 now**, so the table has a heading to move focus to; it
+  was a `<p>` eyebrow. Its computed style was diffed before and after: an old
+  `.daily-digest-summary-panel h2` rule (25-digest-reading) changed only the
+  letter-spacing, which a rule in `components/daily-digest-content.css`
+  puts back; the remaining differences are the width of a block element.
+- **Checked** at 1440 light and dark and at 390, top to bottom, on the 09-28
+  issue; on `/digest/today` and on the workspace preview
+  (`/workspace/digests/[date]/preview`), which renders the same component.
+  Print already hid `.page-toc`.
+
 ## The narrow-screen menu closes on Esc and outside clicks; two more feed boilerplates
 
 - **2026-09-30.** On `/workspace/*` the 内部工作台 entry never looked current:

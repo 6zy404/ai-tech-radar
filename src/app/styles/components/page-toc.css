@@ -1,7 +1,9 @@
 /* components/page-toc: 本页目录 on long detail pages (page-toc.tsx): the
    signal page (.user-article-layout) and the skill and knowledge pages
    (.skill-detail-layout), whose reading column and aside have classes of
-   their own, so every layout rule below names both. The
+   their own, so every layout rule below names both. The daily digest
+   (.daily-digest-reading) is one column with no aside, so it takes only the
+   folded variant, at every width, and none of the aside rules. The
    panel variant sits last in the aside and follows the reader down the page;
    the disclosure variant is a folded <details> at the top of the reading
    column for widths where the aside has dropped below the article. Every
@@ -9,7 +11,8 @@
 
 /* An anchor jump lands a section's top here: just under the sticky top nav,
    level with the top the sticky table itself holds. */
-:is(.user-article-layout__main, .skill-detail-main) > [id] {
+:is(.user-article-layout__main, .skill-detail-main, .daily-digest-reading)
+  > [id] {
   scroll-margin-top: 86px;
 }
 
