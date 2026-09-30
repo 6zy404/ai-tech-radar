@@ -39,7 +39,9 @@ Public routes can be exposed:
 - `/topics/[tagId]` (topic hub; a drill-down destination reached via
   `FollowableTagList` chip links or `/topics`, not a global nav entry —
   merges a tag's published technologies, skills, knowledge, and direct
-  `getContentGraph()` neighbors; `notFound()` for an unknown or empty tag)
+  `getContentGraph()` neighbors; `notFound()` for an unknown or empty tag;
+  its 关注此话题 switch writes the same browser-localStorage follow state as
+  the tag chips, with no server-side state)
 - `/topics/[tagId]/feed.xml` (per-topic RSS of published technology
   signals only — same published-content boundary as `/feed.xml`; imported
   candidates, drafts, and internal fields never enter it; 404 for unknown
@@ -462,6 +464,8 @@ tool calls. Like the other three it is checked before the body is read.
 - **Arriving from `/search`** pre-fills the question but does not submit it,
   so a navigation never spends a model call. A suggested example question is
   filled into the box on click, not submitted, for the same reason.
+- **复制答案** assembles its text from what the page already shows and
+  sends no request.
 
 ## Remaining Production Gaps
 

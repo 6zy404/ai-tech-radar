@@ -98,7 +98,10 @@ The product is split into two subsystems:
 - **Signal page reading time and share card** (2026-09-29) — the hero meta
   row shows 约 N 分钟读完 / About N min read, computed from the prose the
   page shows in the current language (Chinese 400 characters/min, English
-  200 words/min, rounded up, minimum 1; `src/lib/reading-time.ts`). Every
+  200 words/min, rounded up, minimum 1; `src/lib/reading-time.ts`). The
+  skill and knowledge pages show the same line in their hero meta row,
+  counted from the hero summary and the body
+  (`estimateContentDetailReadingMinutes`, 2026-09-30). Every
   published signal, digest (`/digest/[date]`, `/digest/today`), weekly
   review (`/digest/weekly` and `/digest/weekly/[week]`), skill, knowledge item and topic hub
   serves a 1200×630 share image through its own `opengraph-image` route
@@ -207,8 +210,11 @@ The product is split into two subsystems:
   (P4 v0.2): items matching followed topics get a "命中关注：X" line, and a
   "只看我关注的" toggle filters the signal sections client-side — the served
   digest stays identical for everyone. Topic-level tracking without accounts
-  (P4 v0.3): every topic hub carries a 订阅此话题 block linking its per-topic
-  RSS feed (`/topics/[tagId]/feed.xml`, published signals only), the 我关注的
+  (P4 v0.3): every topic hub carries a 跟进此话题 block — a 关注此话题
+  switch (站内 · 我的雷达, the same localStorage follow state as the tag
+  chips; `TopicFollowToggle`, 2026-09-30) beside its per-topic RSS feed
+  (站外 · RSS 阅读器, `/topics/[tagId]/feed.xml`, published signals only,
+  shown only when the topic has any), the 我关注的
   view lists feed links for followed topics, and followed-topic state can be
   exported/imported as a plain comma-separated 关注码 for cross-device use —
   still no accounts, no server-side profile. Reading marks (P4 v0.4): every
@@ -269,7 +275,13 @@ The product is split into two subsystems:
   built by fixed rules from published content (`buildAskExamples` in
   `src/lib/ask-examples.ts` — the newest signals, a linked signal pair, and
   the most-cited knowledge / topic / skill); clicking one fills the box
-  without asking.
+  without asking. Once an answer is done, a quiet 复制答案 button copies
+  plain text: the question, the answer as shown, the cited sources with
+  absolute links, and the AI disclaimer; an invalid citation is written
+  `[n?]` with a note, and when the clipboard is refused a selected
+  read-only text box appears instead. It is built only from what the page
+  already shows and sends no request (`buildAskCopyText` in
+  `src/lib/ask-answer-copy.ts`, 2026-09-30).
 - **Site-wide search (hybrid)** — public `/search` (an inline search icon
   in `TopNav` opens the query box) over published technology signals,
   skills, knowledge, and the sanitized news fast lane. Two halves, merged per

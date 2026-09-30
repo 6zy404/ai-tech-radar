@@ -558,6 +558,8 @@ Workspace deployment boundary:
   - does not show internal quality, reviewer, delivery, or source data
 - `/skills/[slug]`
   - user-facing skill detail
+  - the hero meta row shows 约 N 分钟读完 (summary + body), in the same
+    style as the signal page's (2026-09-30)
   - explains what the skill helps readers do, with the body rendered through
     the shared `ContentBody` component
   - every section on the page is about this skill. Two template sections — a
@@ -581,6 +583,8 @@ Workspace deployment boundary:
   - does not show internal quality, reviewer, delivery, or source data
 - `/knowledge/[slug]`
   - user-facing knowledge detail
+  - the hero meta row shows 约 N 分钟读完 (summary + body), in the same
+    style as the signal page's (2026-09-30)
   - explains why the concept is foundational, with the body rendered through
     the shared `ContentBody` component
   - like its skill sibling, every section is about this concept. The last
@@ -675,8 +679,8 @@ Workspace deployment boundary:
     fields; not in the nav — linked from each topic hub's header and from
     the 按话题 view
 - `/topics/[tagId]`
-  - its `<head>` announces the per-topic feed only when the 订阅此话题 block
-    is shown (the feed 404s otherwise); every public page announces the digest
+  - its `<head>` announces the per-topic feed only when the RSS column of
+    the 跟进此话题 block is shown (the feed 404s otherwise); every public page announces the digest
     RSS and JSON feeds
   - user-facing topic hub: a drill-down destination, not a global nav entry
     — reached via "查看专题" links on `FollowableTagList` chips
@@ -696,8 +700,13 @@ Workspace deployment boundary:
     any of the three pools (`getTopicHub` in `src/lib/topic-hub.ts`)
   - published-content only; no internal fields, no new AI calls, no new
     persisted data — a pure derived view like `/network`'s content graph
-  - carries a 订阅此话题 block (when the topic has published signals)
-    linking the per-topic RSS feed
+  - carries a 跟进此话题 block in two columns, each naming where it
+    works: 站内 · 我的雷达 holds the 关注此话题 switch (`TopicFollowToggle`,
+    same localStorage follow state as the tag chips, a 查看 link to
+    `/technologies?view=followed` once followed, no layout shift on mount),
+    and 站外 · RSS 阅读器 links the per-topic RSS feed (only when the topic
+    has published signals); the columns stack when two 320px columns do
+    not fit (2026-09-30)
 - `/topics/[tagId]/feed.xml`
   - per-topic RSS 2.0 feed (`renderTopicRssXml` in `src/lib/topic-feed.ts`)
     of the topic's published technology signals only, newest first, with
@@ -792,6 +801,10 @@ Forbidden on public pages:
   - compact metadata row, used with different page-level styling
 - `TagList`
   - safe public tag rendering helper
+- `TopicFollowToggle` (`topic-follow-toggle.tsx`)
+  - the 关注此话题 switch on the topic hub; sets (rather than toggles) the
+    follow through `setTagFollowed` in `src/lib/followed-tags.ts`, so a
+    change made in another tab cannot invert what the button says
 - `FollowableTagList`
   - user-facing client component rendering an item's tags as the same
     follow/unfollow toggle chips used on the 我关注的 view
