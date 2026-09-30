@@ -15,8 +15,16 @@ import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
 import {
   applyReadFilter,
   countReadTechnologies,
-  selectSavedTechnologies
+  selectSavedTechnologies,
+  writeMarkedTechnologyIds
 } from "@/lib/reading-state";
+import {
+  countExportableMarks,
+  decodeReadingCode,
+  describeReadingImport,
+  encodeReadingCode,
+  mergeReadingCode
+} from "@/lib/reading-transfer";
 import type { TechnologyItem, TopicTag } from "@/types/content";
 
 interface SavedSignalsContentProps {
@@ -34,6 +42,7 @@ export function SavedSignalsContent({
   tags
 }: SavedSignalsContentProps) {
   const [hideRead, setHideRead] = useState(false);
+  const [transferMessage, setTransferMessage] = useState("");
   const {
     savedIds,
     readIds,
@@ -64,6 +73,71 @@ export function SavedSignalsContent({
     enabled: isLoaded && savedTechnologies.length > 0
   });
 
+  const publishedIds = technologies.map((item) => item.id);
+  const canExport =
+    countExportableMarks({ savedIds, readIds }, publishedIds) > 0;
+
+  // Same mechanics as the 关注码 in my-radar-content.tsx: clipboard first,
+  // a prompt to copy from when the clipboard is refused, a prompt to paste
+  // into. The code never leaves the browser.
+  const handleExport = async () => {
+    const code = encodeReadingCode({ savedIds, readIds }, publishedIds);
+
+    try {
+      await navigator.clipboard.writeText(code);
+      setTransferMessage(
+        "阅读码已复制，在另一台设备的「稍后读」里点「导入阅读码」粘贴即可。"
+      );
+    } catch {
+      window.prompt("复制这段阅读码，在另一台设备上导入：", code);
+      setTransferMessage("");
+    }
+  };
+
+  const handleImport = () => {
+    const raw = window.prompt("粘贴另一台设备导出的阅读码：");
+
+    if (raw === null) {
+      return;
+    }
+
+    const decoded = decodeReadingCode(raw);
+
+    if (!decoded) {
+      setTransferMessage(
+        "阅读码无效：应以 rm1: 开头。话题的关注码请到「我关注的」导入。"
+      );
+      return;
+    }
+
+    const result = mergeReadingCode(decoded, publishedIds, {
+      savedIds,
+      readIds
+    });
+
+    writeMarkedTechnologyIds("saved", result.next.savedIds);
+    writeMarkedTechnologyIds("read", result.next.readIds);
+    setTransferMessage(describeReadingImport(result));
+  };
+
+  const transferControls = (
+    <div className="reading-transfer" role="group" aria-label="换设备">
+      {canExport ? (
+        <button type="button" onClick={handleExport}>
+          导出阅读码
+        </button>
+      ) : null}
+      <button type="button" onClick={handleImport}>
+        导入阅读码
+      </button>
+    </div>
+  );
+  const transferStatus = transferMessage ? (
+    <p className="reading-transfer__message" role="status">
+      {transferMessage}
+    </p>
+  ) : null;
+
   if (!isLoaded) {
     return (
       <div className="saved-signals">
@@ -83,6 +157,9 @@ export function SavedSignalsContent({
             在<Link href="/technologies">「精选」</Link>
             里看到想回头细读的信号，点一下「稍后读」，它就会攒到这里。标记只保存在这台设备的浏览器里。
           </p>
+          <p>换了设备？把旧设备上导出的阅读码导入进来。</p>
+          {transferControls}
+          {transferStatus}
         </div>
       </div>
     );
@@ -107,8 +184,11 @@ export function SavedSignalsContent({
             onToggle={() => setHideRead((current) => !current)}
           />
           <SignalShortcutHint onOpen={shortcuts.openHelp} />
+          {transferControls}
         </div>
       </div>
+
+      {transferStatus}
 
       <div className="dossier-technology-list">
         {shownTechnologies.map((item) => (

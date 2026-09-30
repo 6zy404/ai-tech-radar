@@ -96,6 +96,35 @@ For per-topic deep dives, see the `docs/` directory.
   each (headless Chrome over the DevTools protocol; the browser pane was
   hidden). No horizontal overflow at 390.
 
+## Reading marks move between devices as a 阅读码
+
+- **2026-09-30.** The 已读 / 稍后读 marks lived only in one browser's
+  localStorage, so a reader who switched devices lost the read-later list.
+  The 稍后读 view now has 导出阅读码 / 导入阅读码: on the count row beside
+  隐藏已读 once there are marks, and inside the empty state, which is what a
+  reader sees first on a new device. Same mechanics and boundary as the
+  关注码: clipboard (a prompt to copy from when refused), a prompt to paste
+  into, nothing sent to the server.
+- **Format** `rm1:s=<key>.<key>…;r=<key>.<key>…` (`src/lib/reading-transfer.ts`).
+  A key is the signal id's 32-bit FNV-1a hash in base 36 (`toVisitKey`, ≤ 7
+  characters): ids average 77 characters and run to 137 over the 92
+  published signals, so raw ids would make the code eleven times longer. 4
+  saved + 3 read marks export as 59 characters.
+- **Import checks every key against the published signals the page holds.**
+  A key that matches none (unknown, archived since the export), matches two
+  (a hash collision — a real one is pinned in the tests), or is malformed is
+  ignored and counted, never guessed. Imported marks are merged, never
+  replacing: local marks keep their order, new read-later marks are appended
+  and so show as recently saved. The reader is told what happened, e.g.
+  「导入 7 条（稍后读 4 · 已读 3），忽略 1 条无法识别或已下线的信号。」
+  Whitespace, line breaks, upper case and full-width punctuation from a
+  Chinese input method are tolerated; a 关注码 pasted here is refused with a
+  pointer to 我关注的.
+- Verified in the browser: marked 4 + 3 on 精选, exported, cleared
+  localStorage, imported a mangled copy with one unknown key — the list came
+  back in the same order, 隐藏已读 hid the read one, and on 精选 the imported
+  read signals carry no 新 stamp while an unread new one does. 20 unit tests.
+
 ## The narrow-screen menu closes on Esc and outside clicks; two more feed boilerplates
 
 - **2026-09-30.** On `/workspace/*` the 内部工作台 entry never looked current:
