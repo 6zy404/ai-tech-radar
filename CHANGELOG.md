@@ -12,6 +12,33 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-01
+
+- **2026-10-01.** 24 undecided candidates, all dispositioned blind
+  (`blind: true`): 3 converted, 5 marked reviewed, 16 rejected. Published: **GPT-6.1
+  Sol** (DevDay recap and dots folded in), **Claude Sonnet 5.5** (the InfoQ
+  candidate, numbers checked against Anthropic's release page) and **NVIDIA
+  Kumo Tabular**. Digest 2026-10-01 leads with Sonnet 5.5, adds Holo4 (the
+  09-30 round published no digest) and excludes six signals earlier digests
+  already carried.
+- **The primary contradicted the secondary twice.** `openai.com` still returns
+  403 to a plain fetch, so the Sol draft was first written from Simon
+  Willison's DevDay live blog. The release page later loaded in the browser
+  pane and showed two things the first draft had wrong: both Ultrafast
+  versions shipped the same day (Willison noted Sol's as "coming soon"), and
+  the page does carry a Sol-vs-Astra comparison (OSWorld 2.0 within 2.1
+  points at about a seventh of the cost). Both corrected before the round
+  closed. The headline point stood: input and output prices are identical to
+  GPT-6 Sol's a week earlier; only cached input halved.
+- **Bun's Zig → Rust rewrite was rejected as stale**, following the 09-30
+  precedent (Cloudflare ADLC): InfoQ's piece is dated 09-29, Bun's own post
+  07-08. IQuest-Q1 (open 320B MoE) was marked reviewed — the article gives no
+  benchmark for the model itself.
+- **A title broke inside a word at 1265px** (「不｜训练」, then 「免｜训练」): the
+  Latin run `Kumo Tabular：` leaves room for one character on line two. The
+  published title starts the clause with the two-character word 无需, so the
+  break falls between words at 1265px and 390px.
+
 ## 精选 filters in the address, and a sort switch
 
 - **2026-10-01.** The curated view on `/technologies` kept its search box and

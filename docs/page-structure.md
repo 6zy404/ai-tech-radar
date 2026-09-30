@@ -403,6 +403,12 @@ Workspace deployment boundary:
     after mount without moving the grid), and the 精选 count row adds
     上次来访后新增 N 条, following the filters and hidden at 0. A first visit
     marks nothing; 已读 signals are never new
+  - 精选's search, type, tag and priority filters and its sort order are in
+    the URL (`?q=&type=&tag=&priority=&sort=`, parsed on the server, synced
+    with replaceState, invalid values dropped); a 排序 · 最新发布 / 按优先级档位
+    chip pair opens the toolbar's control group, before 隐藏已读 and the
+    language switch, and wraps under the count below ~640px. Shortcuts, read
+    marks and 新 stamps follow the sorted order (2026-10-01)
   - keyboard shortcuts apply to the same three views: j / k / Enter / o /
     s / x / ?, the current card is the focused one (`isCurrent` outline on
     `DossierTechnologyCard`), and a quiet 「快捷键 ?」 button sits at the end
@@ -445,6 +451,12 @@ Workspace deployment boundary:
   - a 1200×630 share image in `<head>` (`opengraph-image`), with the large
     twitter card; the digest, weekly-review week, skill, knowledge and topic
     hub pages carry one too (2026-09-29, one shared renderer)
+  - a 收录于 section between 后续问题 and the foot 来源参考 (2026-10-01): one
+    `DossierRegisterRow` per published digest that shows the signal, newest
+    first, tagged 立即关注 / 值得跟踪, then a row for the weekly review of its
+    week; a row whose title already names its date drops the date column.
+    Omitted, with no placeholder, when no published digest carried the
+    signal, and on the workspace preview. Listed in 本页目录
   - a 本页目录 as the last aside panel (`PageToc`), listing only the
     sections rendered on this page, hidden below three; sticky at 86px while
     the panels above it scroll away; below 920px it moves to a folded
@@ -925,8 +937,8 @@ Forbidden on public pages:
   - reusable component slice for the "编辑桌" (dossier) design direction;
     adopted on `/technologies` and `/technologies/[slug]` (see
     `DossierTechnologyCard` and `DossierRelatedItemsSection` below) —
-    `DossierRegisterRow` remains unused until a page needs a ledger-style
-    row. See `docs/design-system.md` → "Dossier direction" for the full
+    `DossierRegisterRow` is used by the 按话题 view and the signal page's
+    收录于 section. See `docs/design-system.md` → "Dossier direction" for the full
     specification and remaining adoption order.
   - `DossierCategoryChips` renders links when its options carry `href`
     (`/search`, with `disabled` for empty groups) and toggle buttons when

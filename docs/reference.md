@@ -124,6 +124,18 @@ The product is split into two subsystems:
   until 2026-09-30. Every public page also announces its RSS / JSON feeds
   with `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
   `feeds` option in `src/lib/site-metadata.ts`).
+- **收录于 on the signal page** (2026-10-01) — the technology detail page
+  ends, before 来源参考, with the published digests that carried the signal,
+  newest first, each linking to `/digest/[date]` and tagged with its section
+  (立即关注 / 值得跟踪), then the weekly review of its week
+  (`/digest/weekly/[week]`) when that review lists it. Membership is the
+  digest page's own `getDigestTechnologySections` (manual additions,
+  exclusions and pins included), so it cannot claim an issue that does not
+  show the signal; only the date, public title and section cross
+  (`src/lib/signal-digest-appearances.ts`). Rendered only when at least one
+  published digest carried the signal — the weekly review alone would put it
+  on nearly every page (measured 2026-10-01: 91 of 92 signals have one); never
+  on the workspace preview. Listed in 本页目录; kept in print.
 - **本页目录 on the signal, skill, knowledge and digest pages** (2026-09-30) — the technology detail page's
   aside ends with a table of the sections the page actually renders (omitted
   below three; the AI widgets and the foot 来源参考 are not listed). The
@@ -197,6 +209,14 @@ The product is split into two subsystems:
   knowledge and skills from the content graph. Results are cached per
   technology and shown with the same disclaimer
   (`POST /api/technologies/learning-path`).
+- **精选 filters in the address** (2026-10-01) — the curated view keeps its
+  search and type / tag / priority filters in `?q=&type=&tag=&priority=&sort=`,
+  read on the server so a shared link renders filtered, and kept in step with
+  `history.replaceState` (no history entries). Unknown values are treated as
+  absent; defaults are never written. A 排序 switch — 最新发布 (default) /
+  按优先级档位 (Ranking v0 bands, newest first within a band) — sits on the
+  existing toolbar row; the order is the same for every reader
+  (`src/lib/technology-browser-query.ts`).
 - **Personal radar (P4 v0)** — readers follow topic tags (stored only in
   browser localStorage, no accounts) and the 我关注的 view on
   `/technologies?view=followed` aggregates matching published signals into
@@ -452,6 +472,7 @@ Public, user-facing routes:
 
 - `/`, `/technologies` (精选/全部快讯/按话题/我关注的/稍后读 five views via
   `?view=`),
+  精选 also takes `?q=&type=&tag=&priority=&sort=`,
   `/technologies/[slug]`
 - `/digest` (archive), `/digest/today`, `/digest/[date]`,
   `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
