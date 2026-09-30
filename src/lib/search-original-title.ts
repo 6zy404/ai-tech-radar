@@ -80,6 +80,28 @@ function isHighSurrogate(code: number): boolean {
 }
 
 /**
+ * Where a clause ends: CJK punctuation, or latin punctuation followed by a
+ * space (so `30.9%` and `Apache 2.0` are not clause ends).
+ */
+function isClauseEnd(text: string, index: number): boolean {
+  return (
+    /[。！？；，、：]/.test(text[index]) ||
+    (/[.,;:!?]/.test(text[index]) && /\s/.test(text[index + 1] ?? ""))
+  );
+}
+
+export interface ExcerptOptions {
+  ellipsis?: string;
+  /**
+   * Move each cut edge inward to the nearest clause end, when one lies in
+   * the outer half of that side's room, so a long excerpt of Chinese prose
+   * does not start or stop inside a word (the defect `compactText` exists
+   * for). Off for titles, which have few clauses and little room.
+   */
+  clauseBoundaries?: boolean;
+}
+
+/**
  * Shorten `text` to `maxLength` (ellipses included) so the hits of `terms`
  * stay visible: the window covers the first hit and as many later ones as
  * fit, with the remaining room split evenly before and after, and an
@@ -91,7 +113,7 @@ export function excerptAroundTerms(
   text: string,
   terms: string[],
   maxLength = originalTitleMaxLength,
-  ellipsis = "…"
+  { ellipsis = "…", clauseBoundaries = false }: ExcerptOptions = {}
 ): string {
   const trimmed = text.trim();
 
@@ -166,6 +188,27 @@ export function excerptAroundTerms(
 
     if (space !== -1 && space >= spanEnd) {
       end = space;
+    }
+  }
+
+  if (clauseBoundaries && start > 0) {
+    const limit = start + Math.floor((spanStart - start) / 2);
+
+    for (let index = start - 1; index < limit; index += 1) {
+      if (isClauseEnd(trimmed, index)) {
+        start = index + 1;
+        break;
+      }
+    }
+  }
+  if (clauseBoundaries && end < length) {
+    const limit = end - Math.floor((end - spanEnd) / 2);
+
+    for (let index = end; index >= limit; index -= 1) {
+      if (isClauseEnd(trimmed, index)) {
+        end = index;
+        break;
+      }
     }
   }
 

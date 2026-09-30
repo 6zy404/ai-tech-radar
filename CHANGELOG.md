@@ -50,6 +50,52 @@ For per-topic deep dives, see the `docs/` directory.
   (`/workspace/digests/[date]/preview`), which renders the same component.
   Print already hid `.page-toc`.
 
+## Search shows a hit past the summary's cut, or in the other language's summary
+
+- **2026-09-30.** The last two places a keyword hit could hide on a `/search`
+  card, both listed as known in `docs/reference.md`: the part of a summary cut
+  at 160 characters, and the summary in the language the card does not show.
+  Measured on the worktree data, cards left with a query term visible nowhere
+  on them: `agent` 12 of 34 → 0, `推理` 3 of 51 → 0, `评测` 3 of 13 → 0,
+  `benchmark` 3 of 6 → 0, `open-source` 2 of 2 → 0.
+- **Past the cut, the summary moves; no second line.** When a term the card
+  shows nowhere else hits only after the cut, the summary is shown as a
+  160-character excerpt around the hit (…开头), instead of from its head.
+  Summaries run only a little past the limit — 59 of 92 signals, mostly
+  165–195 characters — so moving the window drops one clause from the front,
+  while an extra 「摘要中：…」 line would repeat most of the summary already on
+  the card. Skill and knowledge summaries never exceed 160, so in practice
+  this is signal cards. If moving would only trade one hidden term for
+  another, the head stays.
+- **The moved window starts and ends at a clause.** `excerptAroundTerms`
+  takes an opt-in `clauseBoundaries` option: each cut edge moves inward to the
+  nearest clause end (CJK punctuation, or latin punctuation followed by a
+  space, so `30.9%` and `2.0` are not clause ends) when one lies in the outer
+  half of that side's room — the same mid-word defect `compactText` exists
+  for. The 原标题 line does not use it; its output is unchanged.
+- **Another language's summary gets a 原文摘要 line**, under the summary,
+  built like the 原标题 line: per term, 72 characters around the hit, only
+  for terms no other visible text explains — title, summary (after any move),
+  tags and the 原标题 line; when the original title has the term, the 原标题
+  line explains it alone. Same style as the 原标题 line (label size, muted,
+  hit in ink colour).
+- Results found by meaning alone pass no terms and get neither. The news
+  group is untouched: it has one language, and its haystack is the summary
+  it already shows. `src/lib/news.ts` is unchanged; the new link fields
+  (`fullSummary`, `originalSummary`) are already-public text on the search
+  page's server component, and 问雷达's tool picks its fields by name, so
+  neither reaches the model.
+- **Where**: `src/lib/search-card-text.ts` (new, pure: which summary to show,
+  which terms need the 原文摘要 line), `src/lib/search.ts` (the two link
+  fields), `src/lib/search-original-title.ts` (the option), the card in
+  `src/app/search/page.tsx`, one selector in `pages/search.css`. 23 new unit
+  tests; removing the window move and the 原文摘要 line fails 6 of them, turning
+  the clause option off fails the clause test.
+- Looked at top to bottom for `agent`, `推理`, `benchmark` and `评测` at 1440
+  light and dark and 390 light and dark, plus close-ups of an affected card in
+  each (headless Chrome over the DevTools protocol; the browser pane was
+  hidden). No horizontal overflow at 390.
+
 ## The narrow-screen menu closes on Esc and outside clicks; two more feed boilerplates
 
 - **2026-09-30.** On `/workspace/*` the 内部工作台 entry never looked current:

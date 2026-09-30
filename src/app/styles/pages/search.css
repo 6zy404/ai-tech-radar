@@ -105,8 +105,10 @@
    shown only when the card has no visible hit for that term. Set like the
    meta row — label size, muted — and pulled up under the title it glosses.
    A <div>, like the meta row: every <p> in the public shell is held at body
-   size by an !important rule in 28-typography.css. */
-.search-result__original-title {
+   size by an !important rule in 28-typography.css. The 原文摘要 line, added
+   the same day, is the same thing for the summary, under the summary. */
+.search-result__original-title,
+.search-result__original-summary {
   margin-top: -4px;
   color: var(--muted);
   font-size: var(--fs-label);
@@ -115,6 +117,7 @@
 
 /* Muted text on the stamp tint measured 4.05:1 in the dark theme. The hit
    takes the ink colour, as it does in the tag chips above. */
-.search-result__original-title .search-hit {
+.search-result__original-title .search-hit,
+.search-result__original-summary .search-hit {
   color: var(--dossier-ink);
 }

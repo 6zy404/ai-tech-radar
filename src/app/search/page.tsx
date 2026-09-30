@@ -25,7 +25,7 @@ import {
 } from "@/lib/search-filter";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
-import { getOriginalTitleExcerpt } from "@/lib/search-original-title";
+import { getSearchCardText } from "@/lib/search-card-text";
 
 interface SearchPageProps {
   searchParams: Promise<{ q?: string | string[]; type?: string | string[] }>;
@@ -76,9 +76,13 @@ function SearchResultCard({
   // A result found by meaning alone has no literal hit to point at; marking
   // a stray substring there would claim a match that did not happen.
   const hitTerms = item.matchedBy === "semantic" ? [] : terms;
-  // Keyword search also matches the title the card does not show; when a
-  // term hit only that, show it, or the card has no visible reason.
-  const originalTitle = getOriginalTitleExcerpt(item, hitTerms);
+  // Keyword search also matches the summary past the card's cut and the
+  // title and summary the card does not show. When a term hit only one of
+  // those, the card shows it, or the card has no visible reason.
+  const { summary, originalTitle, originalSummary } = getSearchCardText(
+    item,
+    hitTerms
+  );
 
   return (
     <DossierCard className="search-result">
@@ -94,10 +98,16 @@ function SearchResultCard({
           <HighlightedText text={originalTitle} terms={hitTerms} />
         </div>
       ) : null}
-      {item.summary ? (
+      {summary ? (
         <p>
-          <HighlightedText text={item.summary} terms={hitTerms} />
+          <HighlightedText text={summary} terms={hitTerms} />
         </p>
+      ) : null}
+      {originalSummary ? (
+        <div className="search-result__original-summary">
+          原文摘要：
+          <HighlightedText text={originalSummary} terms={hitTerms} />
+        </div>
       ) : null}
       {item.meta ? (
         <div className="search-result__meta">{item.meta}</div>

@@ -144,6 +144,42 @@ describe("excerptAroundTerms", () => {
     expect(excerpt).not.toMatch(/(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/);
   });
 
+  it("does not move to clause ends unless asked", () => {
+    const text = `${"甲".repeat(30)}，${"乙".repeat(30)}命中${"丙".repeat(30)}，${"丁".repeat(30)}`;
+
+    expect(excerptAroundTerms(text, ["命中"], 40)).toBe(
+      `…${"乙".repeat(18)}命中${"丙".repeat(18)}…`
+    );
+  });
+
+  it("moves each cut edge to a clause end in its outer half", () => {
+    const text = `${"甲".repeat(30)}，${"乙".repeat(12)}命中${"丙".repeat(12)}，${"丁".repeat(30)}`;
+    const excerpt = excerptAroundTerms(text, ["命中"], 40, {
+      clauseBoundaries: true
+    });
+
+    expect(excerpt).toBe(`…${"乙".repeat(12)}命中${"丙".repeat(12)}…`);
+  });
+
+  it("keeps the cut when the clause end is too close to the hit", () => {
+    const text = `${"甲".repeat(30)}${"乙".repeat(17)}，命中${"丙".repeat(40)}`;
+    const excerpt = excerptAroundTerms(text, ["命中"], 40, {
+      clauseBoundaries: true
+    });
+
+    // The only clause end sits right before the hit, in the inner half.
+    expect(excerpt.startsWith(`…${"乙".repeat(17)}`)).toBe(true);
+  });
+
+  it("does not take a decimal point for a clause end", () => {
+    const text = `${"甲".repeat(20)} version 2.0 ${"乙".repeat(12)}命中${"丙".repeat(40)}`;
+    const excerpt = excerptAroundTerms(text, ["命中"], 40, {
+      clauseBoundaries: true
+    });
+
+    expect(excerpt).not.toMatch(/^…0/);
+  });
+
   it("falls back to the head without a hit", () => {
     const excerpt = excerptAroundTerms(long, ["absent"], 20);
 

@@ -6,6 +6,7 @@ import {
 } from "@/lib/content";
 import { compactText } from "@/lib/compact-text";
 import { getPublicNewsItems, type PublicNewsItem } from "@/lib/news";
+import { searchSummaryMaxLength } from "@/lib/search-card-text";
 import {
   getPreferredTechnologySummary,
   getPreferredTechnologyTitle
@@ -32,6 +33,14 @@ export interface SearchResultLink {
    * no visible hit was found (`src/lib/search-original-title.ts`).
    */
   originalTitle?: string;
+  /**
+   * The whole summary, present only when `summary` is cut short. Keyword
+   * search matches all of it, so the search page can move the excerpt to a
+   * hit past the cut (`src/lib/search-card-text.ts`).
+   */
+  fullSummary?: string;
+  /** The summary in the language the card does not show, when it differs. */
+  originalSummary?: string;
 }
 
 export interface PublicSearchResults {
@@ -44,7 +53,7 @@ export interface PublicSearchResults {
   totalCount: number;
 }
 
-const maxSummaryLength = 160;
+const maxSummaryLength = searchSummaryMaxLength;
 
 export function normalizeSearchQuery(rawQuery: string | undefined): string {
   return rawQuery?.trim().replace(/\s+/g, " ") ?? "";
@@ -76,6 +85,23 @@ function truncateSummary(value: string | undefined): string | undefined {
   }
 
   return compactText(trimmed, maxSummaryLength);
+}
+
+/** The untruncated summary, when `truncateSummary` cuts it. */
+function fullSummaryIfCut(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+
+  return trimmed && trimmed.length > maxSummaryLength ? trimmed : undefined;
+}
+
+/** `value` trimmed, unless it is empty or the same as what the card shows. */
+function differentText(
+  value: string,
+  shown: string | undefined
+): string | undefined {
+  const trimmed = value.trim();
+
+  return trimmed && trimmed !== shown?.trim() ? trimmed : undefined;
 }
 
 function getTagDisplayNames(tagIds: string[]): string[] {
@@ -135,7 +161,6 @@ export function getSearchDocuments(): SearchDocument[] {
     const tagNames = getTagDisplayNames(technology.tags);
     const title = getPreferredTechnologyTitle(technology);
     const summary = getPreferredTechnologySummary(technology);
-    const originalTitle = technology.title.original.trim();
 
     documents.push({
       group: "technologies",
@@ -144,13 +169,12 @@ export function getSearchDocuments(): SearchDocument[] {
         key: technology.id,
         title,
         summary: truncateSummary(summary),
+        fullSummary: fullSummaryIfCut(summary),
         href: `/technologies/${technology.slug}`,
         tags: tagNames,
         meta: `${technology.sourceName} · ${technology.publishDate}`,
-        originalTitle:
-          originalTitle && originalTitle !== title.trim()
-            ? originalTitle
-            : undefined
+        originalTitle: differentText(technology.title.original, title),
+        originalSummary: differentText(technology.summary.original, summary)
       },
       titleText: buildHaystack([
         technology.title.original,
@@ -182,6 +206,7 @@ export function getSearchDocuments(): SearchDocument[] {
         key: skill.id,
         title: skill.title,
         summary: truncateSummary(skill.summary),
+        fullSummary: fullSummaryIfCut(skill.summary),
         href: `/skills/${skill.slug}`,
         tags: tagNames
       },
@@ -205,6 +230,7 @@ export function getSearchDocuments(): SearchDocument[] {
         key: knowledgeItem.id,
         title: knowledgeItem.title,
         summary: truncateSummary(knowledgeItem.summary),
+        fullSummary: fullSummaryIfCut(knowledgeItem.summary),
         href: `/knowledge/${knowledgeItem.slug}`,
         tags: tagNames
       },
