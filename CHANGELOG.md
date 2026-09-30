@@ -12,6 +12,38 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 复制答案 on 问雷达
+
+- **2026-09-30.** An answer on `/ask` could be read but not taken away with
+  its sources: selecting the text lost the links behind the [n] marks. Once
+  an answer is final, a quiet 复制答案 button now sits under the source list
+  and copies plain text: 「问：…」, the answer as the page shows it (bold
+  markers dropped, one blank line between paragraphs, the [n] marks kept),
+  「出处：」 with one line per cited source — `[n] 标题（种类） https://…`,
+  resolved against `window.location.origin` — and the AI disclaimer last.
+  Sources that were retrieved but never cited are left out, the same split
+  as the page's 引用 block.
+- **An invalid citation stays visibly invalid.** A number no retrieved item
+  carries, or one the server flagged, is struck through on the page; in the
+  copy it becomes `[n?]`, stays out of the source list, and a line
+  「注：[n?] 不对应任何检索到的条目，是无效编号。」 says so. The test is the
+  page's own (`isInvalidCitation`), so the two cannot disagree.
+- **Nothing new is fetched.** The text is assembled from the component's
+  state by `buildAskCopyText` in `src/lib/ask-answer-copy.ts` (10 unit
+  tests), which also now supplies the page's paragraph split
+  (`toAnswerParagraphs`) and kind labels, so the copy and the rendering read
+  one source. The button is absent while the answer streams and after an
+  error: a half-streamed answer has not had its citations checked by the
+  `done` event.
+- **When the clipboard is refused** — the desktop app's browser pane
+  refuses it, which is how this path was verified for real — the text
+  appears in a read-only box, focused and selected, with a `role="status"`
+  line saying to press Ctrl+C. A `prompt()`, which the 关注码 and 阅读码 use,
+  would have flattened the line breaks. Checked in the browser against a
+  stubbed answer stream: no button mid-stream; after `done` with one invalid
+  citation, the copied text matched the layout above; the box fits at 390
+  with no horizontal overflow, and reads correctly in both schemes.
+
 ## 本页目录 on the digest page
 
 - **2026-09-30.** The digest pages (`/digest/[date]`, `/digest/today`) are the

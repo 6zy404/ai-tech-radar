@@ -1,17 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import {
+  askSourceKindLabels as kindLabels,
+  buildAskCopyText,
+  toAnswerParagraphs
+} from "@/lib/ask-answer-copy";
 import type { AskEvent, AskSource } from "@/lib/ask-radar";
 import { splitAnswerWithCitations } from "@/lib/ask-radar-citations";
-
-const kindLabels: Record<AskSource["kind"], string> = {
-  technology: "技术信号",
-  skill: "技能",
-  knowledge: "知识"
-};
 
 interface AskState {
   question: string;
@@ -67,11 +66,7 @@ function AnswerText({
   invalid: number[];
 }) {
   const byRef = new Map(sources.map((source) => [source.ref, source]));
-  const paragraphs = text
-    .replace(/\*\*/g, "")
-    .split(/\n+/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean);
+  const paragraphs = toAnswerParagraphs(text);
 
   return (
     <div className="ask-radar__answer-text">
@@ -126,6 +121,74 @@ function SourceList({ sources }: { sources: AskSource[] }) {
         </li>
       ))}
     </ol>
+  );
+}
+
+/**
+ * 复制答案: formats what is already on the page — no request, no model call.
+ * Clipboard first; when the browser refuses it, the text appears in a
+ * read-only box, selected, to copy by hand (a prompt() would flatten the
+ * line breaks). Keyed per question, so a new answer starts it fresh.
+ */
+function CopyAnswer({ state }: { state: AskState }) {
+  const [message, setMessage] = useState("");
+  const [fallbackText, setFallbackText] = useState("");
+  const fallbackRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (fallbackText) {
+      fallbackRef.current?.focus();
+      fallbackRef.current?.select();
+    }
+  }, [fallbackText]);
+
+  async function handleCopy() {
+    const text = buildAskCopyText({
+      question: state.question,
+      answer: state.answer,
+      sources: state.sources,
+      cited: state.cited,
+      invalid: state.invalid,
+      origin: window.location.origin,
+      disclaimer: aiGeneratedDisclaimer
+    });
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setFallbackText("");
+      setMessage("已复制：问题、答案、出处链接和免责声明。");
+    } catch {
+      setFallbackText(text);
+      setMessage(
+        "浏览器没有允许写入剪贴板。内容已在下面的文本框里选中，按 Ctrl+C（Mac 上 ⌘C）复制。"
+      );
+    }
+  }
+
+  return (
+    <div className="ask-radar__copy">
+      <button
+        type="button"
+        className="ask-radar__copy-button"
+        onClick={() => void handleCopy()}
+      >
+        复制答案
+      </button>
+      <p className="ask-radar__copy-status" role="status">
+        {message}
+      </p>
+      {fallbackText ? (
+        <textarea
+          ref={fallbackRef}
+          className="ask-radar__copy-fallback"
+          readOnly
+          value={fallbackText}
+          rows={Math.min(12, fallbackText.split("\n").length)}
+          aria-label="答案全文，选中后复制"
+          onFocus={(event) => event.currentTarget.select()}
+        />
+      ) : null}
+    </div>
   );
 }
 
@@ -311,6 +374,12 @@ export function AskRadar({
               <summary>检索到但没有引用（{uncitedSources.length}）</summary>
               <SourceList sources={uncitedSources} />
             </details>
+          ) : null}
+
+          {/* Only once the answer is final: a half-streamed answer copied
+              mid-way would carry citations the done event has not checked. */}
+          {state.done && !running && !state.error && state.answer ? (
+            <CopyAnswer key={state.question} state={state} />
           ) : null}
         </section>
       ) : null}

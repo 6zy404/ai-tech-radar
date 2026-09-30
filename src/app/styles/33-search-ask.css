@@ -214,3 +214,57 @@
 .ask-radar__source-kind {
   color: var(--dossier-muted);
 }
+
+/* 复制答案 — shown once the answer is final; as quiet as the 阅读码 buttons. */
+.ask-radar__copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  min-width: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--dossier-line);
+}
+
+.ask-radar__copy-button {
+  padding: 3px 10px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: var(--fs-label);
+  cursor: pointer;
+}
+
+.ask-radar__copy-button:hover {
+  border-color: currentColor;
+  color: var(--dossier-accent);
+}
+
+.ask-radar__copy-status {
+  flex: 1 1 16em;
+  min-width: 0;
+  margin: 0;
+  color: var(--dossier-muted);
+  font-size: 13px;
+}
+
+.ask-radar__copy-status:empty {
+  display: none;
+}
+
+.ask-radar__copy-fallback {
+  box-sizing: border-box;
+  flex-basis: 100%;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--dossier-line);
+  background: var(--dossier-surface);
+  color: var(--dossier-ink);
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+}
