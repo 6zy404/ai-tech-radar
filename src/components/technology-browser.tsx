@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierSearchInput } from "@/components/dossier-search-input";
@@ -19,6 +19,14 @@ import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
 import {
+  defaultTechnologyBrowserQuery,
+  priorityLevelOrder,
+  sortTechnologiesForBrowser,
+  withTechnologyBrowserQuery,
+  type TechnologyBrowserQuery,
+  type TechnologyBrowserSort
+} from "@/lib/technology-browser-query";
+import {
   countNewSinceLastVisit,
   isNewSinceLastVisit,
   toVisitKeys
@@ -33,33 +41,64 @@ import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
 interface TechnologyBrowserProps {
   technologies: TechnologyItem[];
   tags: TopicTag[];
+  /** Filters and sort from the address, already validated by the page. */
+  initialQuery?: TechnologyBrowserQuery;
 }
 
-const priorityLevels: PriorityLevel[] = [
-  "high_priority",
-  "watch",
-  "low_priority"
+// The labels say what the order is built from: the publish date, or the
+// fixed Ranking v0 bands every reader sees. Neither is a recommendation.
+const sortOptions: { value: TechnologyBrowserSort; label: string }[] = [
+  { value: "latest", label: "最新发布" },
+  { value: "priority", label: "按优先级档位" }
 ];
 
 export function TechnologyBrowser({
   technologies,
-  tags
+  tags,
+  initialQuery = defaultTechnologyBrowserQuery
 }: TechnologyBrowserProps) {
   const [mode, setMode] = useState<TechnologyContentMode>("zh");
-  const [searchText, setSearchText] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [tagFilter, setTagFilter] = useState("");
-  const [priorityFilter, setPriorityFilter] = useState("");
+  const [searchText, setSearchText] = useState(initialQuery.q);
+  const [typeFilter, setTypeFilter] = useState(initialQuery.type);
+  const [tagFilter, setTagFilter] = useState(initialQuery.tag);
+  const [priorityFilter, setPriorityFilter] = useState<PriorityLevel | "">(
+    initialQuery.priority
+  );
+  const [sort, setSort] = useState<TechnologyBrowserSort>(initialQuery.sort);
   const [hideRead, setHideRead] = useState(false);
   const deferredSearchText = useDeferredValue(searchText);
+
+  // Keep the address in step with the filters so a filtered list can be
+  // reloaded and shared. replaceState, not a navigation: the page does not
+  // re-render on the server, and narrowing a list adds no history entries.
+  useEffect(() => {
+    const { pathname, search, hash } = window.location;
+    const next = withTechnologyBrowserQuery(window.location.href, {
+      q: deferredSearchText,
+      type: typeFilter,
+      tag: tagFilter,
+      priority: priorityFilter,
+      sort
+    });
+
+    if (next !== `${pathname}${search}${hash}`) {
+      window.history.replaceState(window.history.state, "", next);
+    }
+  }, [deferredSearchText, typeFilter, tagFilter, priorityFilter, sort]);
   const { readIds, isRead, isSaved, toggleRead, toggleSaved } =
     useReadingState();
   const visitBaselineKeys = useVisitBaseline(
     toVisitKeys(technologies.map((item) => item.id))
   );
 
+  const priorityById = new Map(
+    technologies.map((item) => [
+      item.id,
+      evaluateTechnologyPriority(item).priorityLevel
+    ])
+  );
   const matchedTechnologies = technologies.filter((item) => {
-    const priority = evaluateTechnologyPriority(item).priorityLevel;
+    const priority = priorityById.get(item.id);
     const matchesSearch =
       deferredSearchText.length === 0 ||
       getTechnologySearchText(item).includes(deferredSearchText.toLowerCase());
@@ -73,10 +112,10 @@ export function TechnologyBrowser({
   });
 
   const readCount = countReadTechnologies(matchedTechnologies, readIds);
-  const filteredTechnologies = applyReadFilter(
-    matchedTechnologies,
-    readIds,
-    hideRead
+  const filteredTechnologies = sortTechnologiesForBrowser(
+    applyReadFilter(matchedTechnologies, readIds, hideRead),
+    sort,
+    (item) => priorityById.get(item.id) ?? "low_priority"
   );
   const newCount = countNewSinceLastVisit(
     filteredTechnologies,
@@ -111,7 +150,7 @@ export function TechnologyBrowser({
 
   const priorityOptions = [
     { value: "", label: "全部优先级" },
-    ...priorityLevels.map((level) => ({
+    ...priorityLevelOrder.map((level) => ({
       value: level,
       label: getPriorityLevelLabel(level, "zh")
     }))
@@ -144,7 +183,11 @@ export function TechnologyBrowser({
           <DossierCategoryChips
             options={priorityOptions}
             active={priorityFilter}
-            onChange={setPriorityFilter}
+            onChange={(value) =>
+              setPriorityFilter(
+                priorityLevelOrder.find((level) => level === value) ?? ""
+              )
+            }
           />
         </div>
 
@@ -164,6 +207,25 @@ export function TechnologyBrowser({
             ) : null}
           </div>
           <div className="dossier-technology-browser__toolbar-controls">
+            <div
+              className="dossier-technology-browser__sort"
+              role="group"
+              aria-labelledby="technology-browser-sort-label"
+            >
+              <span
+                id="technology-browser-sort-label"
+                className="dossier-technology-browser__sort-label"
+              >
+                排序
+              </span>
+              <DossierCategoryChips
+                options={sortOptions}
+                active={sort}
+                onChange={(value) =>
+                  setSort(value === "priority" ? "priority" : "latest")
+                }
+              />
+            </div>
             <ReadFilterToggle
               readCount={readCount}
               hideRead={hideRead}

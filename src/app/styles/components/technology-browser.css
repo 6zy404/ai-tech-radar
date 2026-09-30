@@ -28,3 +28,19 @@
   font-size: 0.9rem;
   line-height: 1.45;
 }
+
+/* The curated view's sort switch (2026-10-01). It shares the toolbar row with
+   the read filter and the language switch; the label keeps its two chips from
+   reading as a third language option. */
+.dossier-technology-browser__sort {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.dossier-technology-browser__sort-label {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--dossier-muted);
+}

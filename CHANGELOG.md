@@ -12,6 +12,42 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 精选 filters in the address, and a sort switch
+
+- **2026-10-01.** The curated view on `/technologies` kept its search box and
+  its type / tag / priority chips in component state only, so a reload
+  cleared them and a filtered list could not be shared. They now live in the
+  address as `?q=&type=&tag=&priority=&sort=`, beside the tab strip's
+  `?view=` (which this view never writes; the curated tab carries no
+  `view`). A change updates the address with `history.replaceState` —
+  narrowing a list adds no history entries — and the page reads the same
+  parameters on the server and hands them to the browser as initial state,
+  so a filtered link renders filtered in the first HTML, with the matching
+  chips pressed and no flash of the full list.
+- **Anything the page cannot show is treated as absent**: an unknown type or
+  tag id, a misspelt priority, a whitespace-only or 200+-character search,
+  `sort=latest` (the default). On the first render the address is rewritten
+  without them. Defaults are never written, so the unfiltered list stays a
+  bare `/technologies`. Parsing, serializing and sorting are pure functions
+  in `src/lib/technology-browser-query.ts` (12 tests), shaped after
+  `src/lib/network-focus.ts`.
+- **A sort switch on the existing toolbar row**: 排序 · 最新发布 (default, the
+  order the page already had) / 按优先级档位 — the deterministic Ranking v0
+  bands, 立即关注 → 值得跟踪 → 背景参考, newest first inside each band. The
+  label names what the order is built from, so it cannot read as a
+  recommendation; every reader sees the same order. It sits at the start of
+  the toolbar's control group, before 隐藏已读 and the language switch; at
+  1440 the row holds it with no new line, below about 640px the group wraps
+  as it already did.
+- The read marks, 隐藏已读, the 新 stamps and the j / k shortcuts run on the
+  sorted list, so the shortcuts step through cards in the order they are
+  shown. Checked in the dev server: an invalid parameter set is cleaned,
+  server HTML for `?priority=high_priority&sort=priority&tag=tag-retrieval`
+  already shows 1 signal with the three chips pressed, the 92-card priority
+  sort has no band or date inversion, filter clicks leave `history.length`
+  unchanged, j j → x → 隐藏已读 hides the second card in sorted order, and
+  390px has no horizontal overflow.
+
 ## 复制答案 on 问雷达
 
 - **2026-09-30.** An answer on `/ask` could be read but not taken away with

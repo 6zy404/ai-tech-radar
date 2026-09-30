@@ -9,6 +9,10 @@ import { UserPageShell } from "@/components/user-page-shell";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
 import type { Metadata } from "next";
 import { buildPageMetadata, signalFeed } from "@/lib/site-metadata";
+import {
+  parseTechnologyBrowserQuery,
+  type TechnologyBrowserSearchParams
+} from "@/lib/technology-browser-query";
 
 export const dynamic = "force-dynamic";
 
@@ -35,10 +39,14 @@ export async function generateMetadata({
 type TechnologyView = "curated" | "news" | "timeline" | "followed" | "saved";
 
 interface TechnologiesPageProps {
-  searchParams: Promise<{ view?: string }>;
+  // `view` picks the tab; the curated view also reads its filters and sort
+  // (q, type, tag, priority, sort) from here — see technology-browser-query.
+  searchParams: Promise<TechnologyBrowserSearchParams>;
 }
 
-function parseView(raw: string | undefined): TechnologyView {
+function parseView(value: string | string[] | undefined): TechnologyView {
+  const raw = Array.isArray(value) ? value[0] : value;
+
   if (
     raw === "news" ||
     raw === "timeline" ||
@@ -77,7 +85,8 @@ const viewDescriptions: Record<TechnologyView, string> = {
 export default async function TechnologiesPage({
   searchParams
 }: TechnologiesPageProps) {
-  const view = parseView((await searchParams).view);
+  const params = await searchParams;
+  const view = parseView(params.view);
   const technologies = getAllTechnologies();
   const tags = getAllTags();
 
@@ -124,7 +133,14 @@ export default async function TechnologiesPage({
       ) : view === "saved" ? (
         <SavedSignalsContent technologies={technologies} tags={tags} />
       ) : (
-        <TechnologyBrowser technologies={technologies} tags={tags} />
+        <TechnologyBrowser
+          technologies={technologies}
+          tags={tags}
+          initialQuery={parseTechnologyBrowserQuery(params, {
+            types: technologies.map((item) => item.type),
+            tagIds: tags.map((tag) => tag.id)
+          })}
+        />
       )}
     </UserPageShell>
   );
