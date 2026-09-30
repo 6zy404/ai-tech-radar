@@ -55,3 +55,27 @@ export function toggleFollowedTagId(tagId: string): string[] {
 
   return next;
 }
+
+// The follow set with `tagId` in or out, whatever it was before. Unlike a
+// toggle, the outcome does not depend on the current state, so a control
+// whose view of the state is stale (another tab changed it) still does what
+// its label said.
+export function withTagFollowed(
+  tagIds: string[],
+  tagId: string,
+  followed: boolean
+): string[] {
+  if (followed) {
+    return tagIds.includes(tagId) ? [...tagIds] : [...tagIds, tagId];
+  }
+
+  return tagIds.filter((id) => id !== tagId);
+}
+
+export function setTagFollowed(tagId: string, followed: boolean): string[] {
+  const next = withTagFollowed(readFollowedTagIds(), tagId, followed);
+
+  writeFollowedTagIds(next);
+
+  return next;
+}

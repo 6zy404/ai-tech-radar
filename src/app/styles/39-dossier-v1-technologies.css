@@ -207,6 +207,58 @@
   color: var(--muted);
 }
 
+/* 跟进此话题 (2026-09-30): the on-site follow and the RSS feed side by side,
+   each under a label naming where it takes effect; stacked when narrow. */
+.topic-hub-follow__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 18px 36px;
+}
+
+.topic-hub-follow__option {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.topic-hub-follow__label {
+  margin: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--dossier-muted);
+}
+
+.topic-follow-toggle {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+/* A fixed line height: with `normal`, the ✓ falls back to another font with a
+   taller line box and the button grew 2px on following, moving the page. */
+.topic-follow-toggle .my-radar__tag-toggle {
+  line-height: 18px;
+}
+
+/* Both hints share one cell, so it is as tall as the longer and the swap
+   after mount (or on click) moves nothing below it. */
+.topic-follow-toggle__hints {
+  display: grid;
+  min-width: 0;
+}
+
+.topic-follow-toggle__hint {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+  visibility: hidden;
+}
+
+.topic-follow-toggle__hint[data-visible] {
+  visibility: visible;
+}
+
 /* Same two-column row as the /network side panel (2026-09-28): the stamp in a
    column as wide as the stamp, the title wrapping in its own. As a flex row the
    stamp shrank for a long title at 390px — 「技术 · 借助」 on two lines,

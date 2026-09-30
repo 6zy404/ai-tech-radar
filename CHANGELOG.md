@@ -68,6 +68,39 @@ For per-topic deep dives, see the `docs/` directory.
   minutes (min / median / max; 5 at 1, 14 at 2, 15 at 3, 1 at 4 —
   检索流水线调优).
 
+## 关注此话题 on the topic hub
+
+- **2026-09-30.** A topic hub (`/topics/[tagId]`) offered an RSS feed for its
+  topic but no way to add it to the reader's own radar — that took a detail
+  page's tag chip or the 我关注的 view. The page's 订阅此话题 block is now
+  **跟进此话题**, two columns each labelled by where it takes effect:
+  **站内 · 我的雷达** with a 「+ 关注此话题 / ✓ 关注此话题」 toggle
+  (`TopicFollowToggle`, `src/components/topic-follow-toggle.tsx`), and
+  **站外 · RSS 阅读器** with the feed link and its hint unchanged. 关注 and
+  订阅 had been easy to confuse: one lives in this browser and shapes the
+  我关注的 view and the digest's 命中关注 lines, the other is read in another
+  app. The feed column is still left out when the feed would 404; the follow
+  column is always there. The columns stack when there is no room for two of
+  320px.
+- **Same state, no second store.** The toggle reads and writes
+  `src/lib/followed-tags.ts` and listens for the same change event and
+  `storage` event as `FollowableTagList`, so following on the hub shows on
+  the 我关注的 view and the detail pages' chips, and the reverse (checked in
+  the browser both ways). It calls a new `setTagFollowed(tagId, followed)`
+  rather than the toggle, so a button whose view is stale — another tab
+  changed the follow set — still does what its label said; the pure
+  `withTagFollowed` behind it has 5 unit tests. Once followed, the hint links
+  to `/technologies?view=followed`, as the chip list's hint does.
+- **Nothing moves when the stored state arrives.** The server renders the
+  not-followed state for everyone. Both hint lines are rendered in one grid
+  cell with only one visible, so the cell is as tall as the longer one; the
+  button got a fixed line height because the ✓ falls back to a font with a
+  taller line box and grew it by 2px. Measured by the top of the next
+  section before and after following: 512.5px → 512.5px at 1440, 716.1px →
+  716.1px at 390. Both are `<div>`s, not `<p>`: `.user-shell p` pins every
+  paragraph to body size with `!important`, which first rendered the 12px
+  labels at 16px.
+
 ## 本页目录 on the digest page
 
 - **2026-09-30.** The digest pages (`/digest/[date]`, `/digest/today`) are the

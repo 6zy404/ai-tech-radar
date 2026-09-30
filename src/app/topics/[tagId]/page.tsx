@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { TopicFollowToggle } from "@/components/topic-follow-toggle";
 import { UserPageShell } from "@/components/user-page-shell";
 import { difficultyLabels, heatLabels } from "@/lib/content-labels";
 import { topicFeedPath } from "@/lib/feed-paths";
@@ -37,7 +38,7 @@ export async function generateMetadata({
     description: hub.tag.description,
     path: `/topics/${hub.tag.id}`,
     // The feed route 404s for a topic with no published signal, which is
-    // also when the 订阅此话题 block below is left out.
+    // also when the RSS column of 跟进此话题 below is left out.
     feeds:
       hub.technologies.length > 0
         ? [
@@ -79,20 +80,35 @@ export default async function TopicHubPage({ params }: TopicHubPageProps) {
         </Link>
       }
     >
-      {technologies.length > 0 ? (
-        <section className="topic-hub-section">
-          <div className="topic-hub-section__heading">
-            <h2>订阅此话题</h2>
-            <span>更新自动送达</span>
+      {/* 关注 (the on-site radar, this browser only) and 订阅 (an RSS feed
+          read elsewhere) are different things, so each column is labelled by
+          where it takes effect. The feed column is left out when the feed
+          would 404. */}
+      <section className="topic-hub-section topic-hub-follow">
+        <div className="topic-hub-section__heading">
+          <h2>跟进此话题</h2>
+          <span>
+            {technologies.length > 0 ? "站内关注 · 站外订阅" : "站内关注"}
+          </span>
+        </div>
+        <div className="topic-hub-follow__options">
+          <div className="topic-hub-follow__option">
+            <div className="topic-hub-follow__label">站内 · 我的雷达</div>
+            <TopicFollowToggle tagId={tag.id} tagName={tag.name} />
           </div>
-          <div className="digest-feed-links">
-            <Link href={topicFeedPath(tag.id)}>RSS 订阅源</Link>
-            <span className="topic-hub-subscribe-hint">
-              {`把这个订阅源加进任何 RSS 阅读器，「${tag.name}」下新发布的技术信号会自动送达，无需账号。`}
-            </span>
-          </div>
-        </section>
-      ) : null}
+          {technologies.length > 0 ? (
+            <div className="topic-hub-follow__option">
+              <div className="topic-hub-follow__label">站外 · RSS 阅读器</div>
+              <div className="digest-feed-links">
+                <Link href={topicFeedPath(tag.id)}>RSS 订阅源</Link>
+                <span className="topic-hub-subscribe-hint">
+                  {`把这个订阅源加进任何 RSS 阅读器，「${tag.name}」下新发布的技术信号会自动送达，无需账号。`}
+                </span>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </section>
 
       {technologies.length > 0 ? (
         <section className="topic-hub-section">
