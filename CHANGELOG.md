@@ -48,6 +48,45 @@ For per-topic deep dives, see the `docs/` directory.
   unchanged, j j → x → 隐藏已读 hides the second card in sorted order, and
   390px has no horizontal overflow.
 
+## 收录于 on the signal page
+
+- **2026-10-01.** A signal page did not say which technology briefs had
+  carried it. It now ends, just before 来源参考, with a 收录于 section: one
+  ledger row per published digest that shows the signal, newest first, each
+  linking to `/digest/[date]` and tagged with the section it sat in
+  (立即关注 / 值得跟踪), then one row for the weekly review of its week
+  (`/digest/weekly/[week]`), tagged with the level that review shows it at.
+  It sits at the foot because it is the signal's publication record, the
+  same register as the source reference beside it; it is listed in 本页目录
+  and is kept when printing, like the source block.
+- **Membership is the issue pages' own rule, not a copy of it.**
+  `src/lib/signal-digest-appearances.ts` asks `getDigestTechnologySections`
+  — what `/digest/[date]` renders — for every published digest, so manual
+  additions, exclusions and pins count exactly as on the page, ids that are
+  not published signals drop out, and only the first digest stored for a
+  date counts (the one the route serves). The weekly row comes from
+  `getWeeklyReview` for the signal's week and appears only when that review
+  lists the signal. Only the date, the public title (through
+  `getPublicDigestTitle`, the digest page's own cleaning) and the section
+  leave the module; editorial notes and the adjustment id lists never do.
+  12 unit tests.
+- **The section appears only when a published digest carried the signal.**
+  The weekly review takes in every high- and watch-level signal by itself,
+  so a weekly row alone would have put the same section on nearly every
+  page. Measured on the worktree's data: 91 of 92 published signals were in
+  at least one digest (77 in one, 9 in two, 2 in three, 2 in four, 1 in
+  five); the one without, Holo4 (published 09-30), renders no section and no
+  table entry. The workspace preview never renders it: drafts are in no
+  issue, and the preview does not pass the data.
+- **Rows use the existing `DossierRegisterRow`** inside the reading column's
+  usual section panel. All 31 published digest titles are
+  「技术简报 - <date>」, so a row whose title already names its date drops
+  the date column instead of printing the date twice; at 640px and under
+  the row keeps its own one-column layout, so the weekly range is never
+  split across lines. Checked at 1440 (light and dark) and 390, on a signal
+  with five issues (GPT-Live) and one with none (Holo4), with no horizontal
+  overflow.
+
 ## 复制答案 on 问雷达
 
 - **2026-09-30.** An answer on `/ask` could be read but not taken away with

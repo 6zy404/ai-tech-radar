@@ -9,6 +9,7 @@ import {
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";
+import { getSignalIssueAppearances } from "@/lib/signal-digest-appearances";
 import { getSimilarSignals } from "@/lib/similar-signals";
 import { buildTechnologyJsonLd } from "@/lib/structured-data";
 import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
@@ -113,6 +114,7 @@ export default async function TechnologyDetailPage({
           compareCandidates={compareCandidates}
           evolutionChain={evolutionChain}
           similarSignals={similarSignals}
+          issueAppearances={getSignalIssueAppearances(technology)}
         />
       </UserPageShell>
       {structuredData ? <JsonLd data={structuredData} /> : null}

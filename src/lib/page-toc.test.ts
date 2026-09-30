@@ -27,7 +27,8 @@ const emptySignal: TechnologyTocInput = {
   similarSignalCount: 0,
   relatedSkillCount: 0,
   relatedKnowledgeCount: 0,
-  followUpQuestionCount: 0
+  followUpQuestionCount: 0,
+  digestAppearanceCount: 0
 };
 
 const fullSignal: TechnologyTocInput = {
@@ -42,7 +43,8 @@ const fullSignal: TechnologyTocInput = {
   similarSignalCount: 2,
   relatedSkillCount: 2,
   relatedKnowledgeCount: 2,
-  followUpQuestionCount: 3
+  followUpQuestionCount: 3,
+  digestAppearanceCount: 2
 };
 
 function tocFor(input: Partial<TechnologyTocInput>) {
@@ -182,7 +184,8 @@ describe("getTechnologyTocCandidates", () => {
       "内容相近的信号",
       "相关技能",
       "相关知识",
-      "后续问题"
+      "后续问题",
+      "收录于"
     ]);
   });
 

@@ -47,7 +47,8 @@ export const technologyTocIds = {
   similarSignals: "section-similar-signals",
   relatedSkills: "section-related-skills",
   relatedKnowledge: "section-related-knowledge",
-  followUpQuestions: "section-follow-up-questions"
+  followUpQuestions: "section-follow-up-questions",
+  digestAppearances: "section-digest-appearances"
 } as const;
 
 export interface TechnologyTocInput {
@@ -63,6 +64,8 @@ export interface TechnologyTocInput {
   relatedSkillCount: number;
   relatedKnowledgeCount: number;
   followUpQuestionCount: number;
+  /** Published digests that carried the signal; 0 on the workspace preview. */
+  digestAppearanceCount: number;
 }
 
 /**
@@ -120,6 +123,11 @@ export function getTechnologyTocCandidates(
       id: ids.followUpQuestions,
       label: "后续问题",
       present: input.followUpQuestionCount > 0
+    },
+    {
+      id: ids.digestAppearances,
+      label: "收录于",
+      present: input.digestAppearanceCount > 0
     }
   ];
 }

@@ -75,3 +75,44 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* 收录于: a ledger of the issues that carried the signal, one
+   DossierRegisterRow each, inside the reading column's section panel. */
+.signal-issue-appearances__note {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+}
+
+.signal-issue-appearances__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--dossier-line);
+}
+
+/* A row without a date (the title already names it, or the weekly row)
+   drops the empty date column instead of indenting the title by it. At
+   640px and under the row's own one-column layout applies. */
+@media (min-width: 641px) {
+  .signal-issue-appearances__list
+    .dossier-register-row:has(> span[aria-hidden="true"]:first-child) {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.signal-issue-appearances__list
+  .dossier-register-row
+  > span[aria-hidden="true"]:first-child {
+  display: none;
+}
+
+.signal-issue-appearances__list a {
+  color: var(--dossier-ink);
+  text-decoration: none;
+}
+
+.signal-issue-appearances__list a:hover {
+  text-decoration: underline;
+}

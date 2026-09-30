@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { DossierRegisterRow } from "@/components/dossier-register-row";
 import { DossierRelatedItemsSection } from "@/components/dossier-related-items-section";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import {
@@ -37,6 +38,12 @@ import {
 } from "@/lib/page-toc";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { estimateReadingMinutes, formatReadingTime } from "@/lib/reading-time";
+// Type-only: the module reads the digest store, which a client component
+// must not bundle. The data arrives as a prop from the server page.
+import type {
+  SignalIssueAppearances,
+  SignalIssueSection
+} from "@/lib/signal-digest-appearances";
 import type { SimilarSignalLink } from "@/lib/similar-signals";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 import {
@@ -61,6 +68,12 @@ import type {
   TopicTag
 } from "@/types/content";
 
+// The section headings as the digest and weekly pages print them, minus 今日.
+const issueSectionLabels: Record<SignalIssueSection, string> = {
+  high_priority: "立即关注",
+  watch: "值得跟踪"
+};
+
 interface TechnologyDetailContentProps {
   technology: TechnologyItem;
   tags: TopicTag[];
@@ -71,6 +84,8 @@ interface TechnologyDetailContentProps {
   evolutionChain?: TechnologyEvolutionChain;
   /** Omitted by the workspace preview: drafts are not in the embedded pool. */
   similarSignals?: SimilarSignalLink[];
+  /** Omitted by the workspace preview: a draft is in no published issue. */
+  issueAppearances?: SignalIssueAppearances;
 }
 
 export function TechnologyDetailContent({
@@ -81,7 +96,8 @@ export function TechnologyDetailContent({
   relatedKnowledge,
   compareCandidates,
   evolutionChain,
-  similarSignals = []
+  similarSignals = [],
+  issueAppearances
 }: TechnologyDetailContentProps) {
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
@@ -198,7 +214,8 @@ export function TechnologyDetailContent({
       similarSignalCount: similarSignals.length,
       relatedSkillCount: localizedRelatedSkills.length,
       relatedKnowledgeCount: localizedRelatedKnowledge.length,
-      followUpQuestionCount: followUpQuestions.length
+      followUpQuestionCount: followUpQuestions.length,
+      digestAppearanceCount: issueAppearances?.digests.length ?? 0
     })
   );
 
@@ -450,6 +467,48 @@ export function TechnologyDetailContent({
               <li key={item}>{item}</li>
             ))}
           </ul>
+        </section>
+      ) : null}
+
+      {/* The signal's publication record, beside the one for its source:
+          which briefs carried it, then the review of its week. */}
+      {issueAppearances && issueAppearances.digests.length > 0 ? (
+        <section
+          id={tocIds.digestAppearances}
+          className="user-article-section technology-detail-section signal-issue-appearances"
+        >
+          <p className="technology-detail-section__eyebrow">发布记录</p>
+          <h2>收录于</h2>
+          <p className="signal-issue-appearances__note">
+            收录这条信号的技术简报，新的在前
+            {issueAppearances.weekly ? "；最后一行是它那一周的周回顾" : ""}
+            。标签是它在那一期所在的栏目。
+          </p>
+          <ol className="signal-issue-appearances__list">
+            {issueAppearances.digests.map((digest) => (
+              <li key={digest.date}>
+                <DossierRegisterRow
+                  // A title that already names the date (every issue so
+                  // far) would print it twice.
+                  date={
+                    digest.title.includes(digest.date) ? undefined : digest.date
+                  }
+                  title={digest.title}
+                  href={digest.href}
+                  tag={issueSectionLabels[digest.section]}
+                />
+              </li>
+            ))}
+            {issueAppearances.weekly ? (
+              <li>
+                <DossierRegisterRow
+                  title={`周回顾 · ${issueAppearances.weekly.rangeLabel}`}
+                  href={issueAppearances.weekly.href}
+                  tag={issueSectionLabels[issueAppearances.weekly.section]}
+                />
+              </li>
+            ) : null}
+          </ol>
         </section>
       ) : null}
 
