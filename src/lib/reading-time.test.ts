@@ -4,6 +4,7 @@ import {
   CHINESE_CHARACTERS_PER_MINUTE,
   ENGLISH_WORDS_PER_MINUTE,
   countReadingUnits,
+  estimateContentDetailReadingMinutes,
   estimateReadingMinutes,
   formatReadingTime
 } from "@/lib/reading-time";
@@ -106,6 +107,43 @@ describe("estimateReadingMinutes", () => {
     // Exactly one minute of Chinese plus 200 words is two minutes; one stray
     // counted marker would push it over into three.
     expect(estimateReadingMinutes(body, [chineseToFill, words])).toBe(2);
+  });
+});
+
+describe("estimateContentDetailReadingMinutes", () => {
+  it("counts the summary together with the body", () => {
+    const half = "字".repeat(CHINESE_CHARACTERS_PER_MINUTE / 2 + 1);
+
+    expect(
+      estimateContentDetailReadingMinutes({ summary: "", content: half })
+    ).toBe(1);
+    expect(
+      estimateContentDetailReadingMinutes({ summary: half, content: half })
+    ).toBe(2);
+  });
+
+  it("flattens the body the way the page renders it", () => {
+    // 400 characters of Chinese exactly, split across a heading, bold text
+    // and a numbered list: one minute. Counted raw, the list numbers would
+    // add words and push it to two.
+    const body = [
+      "## " + "字".repeat(100),
+      "",
+      "**" + "字".repeat(100) + "**",
+      "",
+      "1. " + "字".repeat(100),
+      "2. " + "字".repeat(99)
+    ].join("\n");
+
+    expect(
+      estimateContentDetailReadingMinutes({ summary: "字", content: body })
+    ).toBe(1);
+  });
+
+  it("never reports less than a minute for an empty record", () => {
+    expect(
+      estimateContentDetailReadingMinutes({ summary: "", content: "" })
+    ).toBe(1);
   });
 });
 

@@ -47,10 +47,20 @@
   box-shadow: var(--shadow-soft);
 }
 
+/* The same row as .technology-detail-hero__meta: plain caption text (here the
+   reading time) in the dossier's small monospace, then the stamps, which set
+   their own font. No margin-top: the hero is a grid and its gap spaces it. */
 .skill-detail-hero__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.dossier .skill-detail-hero__meta {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
 }
 
 .skill-detail-section {

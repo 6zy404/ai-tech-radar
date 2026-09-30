@@ -69,3 +69,15 @@ export function formatReadingTime(
     ? `About ${minutes} min read`
     : `约 ${minutes} 分钟读完`;
 }
+
+// The skill and knowledge detail pages (`ContentDetailPage`). Their reading
+// column's own prose is the hero summary and the body; everything else on the
+// page is another record's card (related signals, the other kind's entries,
+// the 先读这些 chain) or a relation note on one, which the signal page does
+// not count either. Both kinds are Chinese-only, so there is no mode.
+export function estimateContentDetailReadingMinutes(item: {
+  summary: string;
+  content: string;
+}): number {
+  return estimateReadingMinutes(item.content, [item.summary]);
+}

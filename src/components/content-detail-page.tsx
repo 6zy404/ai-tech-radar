@@ -36,6 +36,10 @@ import {
   selectPageTocEntries
 } from "@/lib/page-toc";
 import { getPrerequisiteChain } from "@/lib/prerequisite-chain";
+import {
+  estimateContentDetailReadingMinutes,
+  formatReadingTime
+} from "@/lib/reading-time";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import {
   getPreferredTechnologySummary,
@@ -392,6 +396,12 @@ export function ContentDetailPage<TItem extends DetailItem>({
           </h1>
           <p>{item.summary}</p>
           <div className="skill-detail-hero__meta">
+            <span>
+              {formatReadingTime(
+                estimateContentDetailReadingMinutes(item),
+                "zh"
+              )}
+            </span>
             {kind.stamps(item).map((stamp) => (
               <DossierStampTag
                 key={stamp.label}

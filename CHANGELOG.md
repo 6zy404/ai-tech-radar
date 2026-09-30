@@ -44,6 +44,30 @@ For per-topic deep dives, see the `docs/` directory.
   citation, the copied text matched the layout above; the box fits at 390
   with no horizontal overflow, and reads correctly in both schemes.
 
+## Reading time on the skill and knowledge pages
+
+- **2026-09-30.** `/skills/[slug]` and `/knowledge/[slug]` show 「约 N 分钟读完」
+  in the hero's meta row, before the stamps, as the signal page has since
+  09-29. The two pages are rendered by one `ContentDetailPage`, so this is one
+  change for both kinds.
+- **What is counted** is the hero summary and the body — the page's own
+  prose. Not counted, as on the signal page: the related-signal cards, the
+  other kind's entries and the 先读这些 chain (another record's summary, or a
+  relation note), the profile panel, and the 阅读路径 aside, which explains the
+  site rather than the record. Both kinds are Chinese-only, so the label has
+  no 原文 variant. The selection is `estimateContentDetailReadingMinutes` in
+  `src/lib/reading-time.ts` over the existing `estimateReadingMinutes`, with 3
+  new tests; the summary test was checked to fail when the summary is dropped.
+- **Same row, same look.** `.skill-detail-hero__meta` now takes the signal
+  row's type (`ui-monospace` 12px in `--dossier-muted`), its `10px 14px` gap and
+  centred alignment; the stamps set their own font and are unchanged. Computed
+  styles of the two rows match at 1440. At 390 the second stamp wraps to its
+  own line, as the signal row's stamp does. The row is not hidden in print on
+  either page, so the time prints on both.
+- **Measured** over the 35 published pages in this worktree's data: 1 / 2 / 4
+  minutes (min / median / max; 5 at 1, 14 at 2, 15 at 3, 1 at 4 —
+  检索流水线调优).
+
 ## 本页目录 on the digest page
 
 - **2026-09-30.** The digest pages (`/digest/[date]`, `/digest/today`) are the
