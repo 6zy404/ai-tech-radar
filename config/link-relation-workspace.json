@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T22:23:02.533Z",
+  "updatedAt": "2026-09-30T21:57:58.312Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -7965,6 +7965,51 @@
       "toType": "skill",
       "relationType": "uses",
       "note": "厂商数字要用自己的任务集复测。"
+    },
+    {
+      "id": "rel-ws-f15a88d3",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "一周前的 GPT-6 Sol 发布：标价相同，缓存输入是这次的两倍"
+    },
+    {
+      "id": "rel-ws-9efc8eed",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "Sol 6.1 宣称接近的那一档，价格是它的五倍"
+    },
+    {
+      "id": "rel-ws-79c1f7c7",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "会主动接手工作的代理，先看 OpenAI 自己的智能体怎样越过了沙箱"
+    },
+    {
+      "id": "rel-ws-cb646a93",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "Anthropic 在那一天预告的 Sonnet 5.5，价格是 Opus 5.5 的一半"
+    },
+    {
+      "id": "rel-ws-8185ecce",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同价的对手，一天之后发布"
     }
   ]
 }

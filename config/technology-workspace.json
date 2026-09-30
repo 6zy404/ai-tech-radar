@@ -1,6 +1,323 @@
 {
-  "updatedAt": "2026-09-29T22:26:28.855Z",
+  "updatedAt": "2026-09-30T22:03:02.537Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "slug": "nvidia-kumo-tabular",
+      "title": {
+        "original": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+        "zh": "NVIDIA 开放表格模型 Kumo Tabular：无需训练，一次前向出预测",
+        "en": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction"
+      },
+      "summary": {
+        "original": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+        "zh": "NVIDIA 9 月 29 日开放 Kumo Tabular，一个面向表格数据的基础模型：给它一张带标签行的表，它在一次前向计算里完成分类或回归，不需要训练、调参或特征工程。模型有 2800 万到 2.15 亿参数三种尺寸，只用合成数据预训练，按允许商用的 OpenMDW-1.1 许可发布权重。它在 TabArena 排名第一（ELO 1950），速度是 LimiX-2 的 17 倍；但博客没有给出与 XGBoost 等传统方法的直接对比。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\n9 月 29 日 NVIDIA 在 Hugging Face 博客上发布 Kumo Tabular：代码在 GitHub，权重在 Hugging Face，按允许商用的 OpenMDW-1.1 许可发布。\n\n## 它怎么工作\n\n表格预测的传统做法是为每张表单独训练一个模型，比如梯度提升树，再花时间调参、做特征。Kumo Tabular 走的是另一条路：它是预训练好的基础模型，推理时把整张带标签的表当作上下文读进去，一次前向计算就给出新行的预测，分类和回归都支持。\n\n- 三种尺寸，参数从 2800 万到 2.15 亿，比语言模型小几个数量级。\n- **只用合成数据预训练**，没有用任何真实表格。\n\n## 基准成绩\n\n- **TabArena**：ELO 1950，排名第一，速度是 LimiX-2 的 17 倍。\n- **BeyondArena**：ELO 1418，排名第一。\n- **TALENT**：总排名第一，分类准确率、对数损失、回归 RMSE 的平均名次分别为 6.67、3.98、4.22。\n- **ScoringBench**：中号和大号分列第一、第二。\n\n这些都是排行榜名次，对手主要是其他表格基础模型。**博客没有给出与 XGBoost、LightGBM 这类传统方法的逐项数字**，而对大多数团队，真正要回答的正是「它比我现在用的梯度提升树好多少」。\n\n## 需要自己核对的地方\n\n1. 只用合成数据预训练的模型，在分布很特别的真实业务表上表现如何，排行榜回答不了。\n2. 把整张表作为上下文，通常意味着表的行数和列数有上限；博客没有在正文里写明，用之前先看模型卡。\n3. 不需要训练，换来的是每次预测都要读整张表。数据量大、预测频繁时，它的成本结构和「训练一次、反复调用」的传统模型不同。\n\n## 对读者意味着什么\n\n如果你有很多张中小型表、每张都要单独建模，它值得一试：在同一份留出数据上，把它和你现有的基线比一次。如果你只有一张大表、模型已经调好，先别急着换。"
+      },
+      "type": "model",
+      "publishDate": "2026-09-29",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://huggingface.co/blog/nvidia/kumo-tabular",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "NVIDIA",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-product-strategy",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-818b7bb3",
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-scope-pilots"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-09-30T22:03:02.536Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "表格是企业里最常见的数据，建模却一直是每张表单独训练、调参。Kumo Tabular 把它变成一次前向计算，而且开放权重、允许商用。它在排行榜上领先，却没有和大多数团队真正在用的梯度提升树直接比较；值不值得换，要在你自己的数据上量。",
+      "whoShouldCare": [
+        "要为很多张中小型业务表分别建预测模型的数据科学团队",
+        "在评估表格基础模型能否替代梯度提升树的机器学习工程师",
+        "关注合成数据预训练效果的研究者"
+      ],
+      "technicalContext": "表格预测通常用 XGBoost、LightGBM 这类梯度提升树，每张表单独训练。表格基础模型（TabPFN 一类）改为在大量合成表上预训练，推理时把带标签的样本当作上下文做上下文内学习，不再针对单张表训练。",
+      "impactAreas": [
+        "表格预测",
+        "合成数据",
+        "模型选型"
+      ],
+      "learningPath": [
+        "读《合成数据与数据配方》，理解只用合成数据预训练意味着什么",
+        "读《模型选型与约束匹配》，想清楚你的表有多大、预测有多频繁",
+        "拿一张现有的业务表，在同一份留出数据上对比 Kumo Tabular 与你现有的梯度提升树",
+        "读模型卡，确认表的行数与列数上限"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-818b7bb3": "Kumo Tabular 完全靠合成表预训练，数据配方既是它能力的来源，也是它的盲区所在。",
+        "knowledge-model-sizing": "最大 2.15 亿参数，比语言模型小几个数量级，选型的约束变成了表的大小和预测频率。",
+        "knowledge-evaluation-loops": "排行榜名次不等于在你的业务表上更好，要在留出数据上和现有基线比。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "博客缺少与梯度提升树的直接对比，这项对比需要你自己做。",
+        "skill-scope-pilots": "挑一两张中小型表做试点，比一次替换整条建模流程稳妥得多。"
+      },
+      "followUpQuestions": [
+        "你的表格预测任务里，有多少张表是中小型、各自单独建模的？",
+        "在同一份留出数据上，它比你现有的梯度提升树好多少？",
+        "你的业务表分布有多特别？只用合成数据预训练的模型能否覆盖？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "createdAt": "2026-09-30T21:52:29.024Z",
+      "updatedAt": "2026-09-30T22:03:02.536Z",
+      "editorialNotes": [
+        "2026-10-01 编辑轮（盲评）：数字核对自 huggingface.co/blog/nvidia/kumo-tabular；来源地址从 hf-mirror 改为 huggingface.co，与 Holo4 一致。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "slug": "gpt-6-1-sol",
+      "title": {
+        "original": "Introducing GPT-6.1 Sol",
+        "zh": "GPT-6.1 Sol：标价没变，缓存减半，号称逼近 Astra",
+        "en": "Introducing GPT-6.1 Sol"
+      },
+      "summary": {
+        "original": "Meet GPT-6.1 Sol: near-Astra intelligence for coding, computer use, and professional work at one-fifth of Astra’s standard API input and output token prices.",
+        "zh": "9 月 29 日的 OpenAI DevDay 发布了 GPT-6.1 Sol，官方说法是以 Astra 五分之一的价格接近 Astra 的能力。但每百万 token 输入 2 美元、输出 10 美元，与一周前的 GPT-6 Sol 完全相同，降价的只有缓存输入，从 0.20 美元降到 0.10 美元。OpenAI 自己的对照里，它在 OSWorld 2.0 上与 Astra 相差不到 2.1 个百分点，单任务成本约为七分之一。同场还发布了最高 8 倍速的 Ultrafast 版本、预览版 Decisions API，以及能在 Slack 和邮件里主动接手任务的 dots 代理。",
+        "en": "Meet GPT-6.1 Sol: near-Astra intelligence for coding, computer use, and professional work at one-fifth of Astra’s standard API input and output token prices."
+      },
+      "content": {
+        "original": "Meet GPT-6.1 Sol: near-Astra intelligence for coding, computer use, and professional work at one-fifth of Astra’s standard API input and output token prices.",
+        "zh": "## 发生了什么\n\n9 月 29 日 OpenAI 在旧金山举办 DevDay，当天发布 GPT-6.1 Sol，并公布了二十多项更新。GPT-6.1 Sol 即日起在 ChatGPT 的工作模式和 Codex 中向 Plus、Pro、Business、Enterprise、Edu 用户开放（普通聊天里暂时没有），API 模型名为 `gpt-6.1-sol`。本条的模型数字来自 OpenAI 的发布页；其余发布内容来自 Simon Willison 当天的现场记录，他注明 OpenAI 为他提供了免费门票。\n\n## 价格：「五分之一」不是这周才有的\n\n每百万 token 的输入 / 缓存输入 / 输出：\n\n- **GPT-6.1 Sol**：2 / 0.10 / 10 美元\n- **GPT-6 Sol**（9 月 22 日发布）：2 / 0.20 / 10 美元\n- **GPT-6 Astra**：10 / 1.00 / 50 美元\n\nOpenAI 的宣传语是「智能水平接近 Astra，价格仅为其五分之一」。可是 Sol 与 Astra 的五倍价差在 GPT-6 Sol 发布时就已经存在，这次标价一分没动。**账单上变的只有缓存输入减半**，OpenAI 称它比标准输入低 95%。\n\n对跑智能体的团队，缓存这一项反而最重要：长对话里绝大多数输入 token 按缓存价计费，本站 9 月 22 日那条价格战信号讲过这一点。\n\n## 厂商数字：离 Astra 有多近\n\nOpenAI 发布页给出的对照，都是自报，推理强度也各不相同：\n\n- **OSWorld 2.0**（电脑操作）：最高推理强度下比 GPT-6 Sol 高 7 个百分点，与 Astra 的差距在 2.1 个百分点以内，单任务成本约为 Astra 的七分之一。\n- **DeepSWE 1.1**（软件工程）：与 Astra 相当，成本约为五分之一；比 GPT-6 Sol 的最高分高 6.4 个百分点。\n- **AutomationBench**（多步业务流程）：中等推理强度下比 Opus 5.5 高 2.2 个百分点，成本约为三分之一。\n- **Terminal-Bench Science**：得分是 GPT-6 Sol 的两倍多，平均单任务 5.47 美元，Opus 5.5 为 23.21 美元，Astra 为 23.80 美元；排名第一的仍是 Astra，68.1%。\n- **事实错误率**（刻意挑选的难题）：4.1%，GPT-6 Sol 为 4.5%，Astra 为 4.0%。\n- **搜索工具出故障时不告诉用户**：2.1%，GPT-6 Sol 为 4.9%，Astra 为 1.5%，Luna 为 28.7%。\n\n多数对照报的是**成本和分差**，OpenAI 也注明竞争对手的数字取自公开报告。能直接当结论的是「同一档价格下，这一代 Sol 比上一代强」；「接近 Astra」要在你自己的任务上核对。\n\n会上 OpenAI 还给出一个趋势数字：8 到 16 小时的长任务上，智能体成功率从今年 1 月的 10% 升到 7 月的 35%，但没有说明任务集和评判方式。Willison 也记下了几次现场演示失败。\n\n## 同场发布的其他东西\n\n- **Ultrafast**：GPT-6 Astra Ultrafast 与 GPT-6.1 Sol Ultrafast 同日推出，速度最高为原模型的 8 倍，价格约为标准价的 6 倍；通过 API 提供，在 ChatGPT 里随每月 500 美元的新 Pro 档开放。按 OpenAI 的说法，用 Sol Ultrafast 的费用与此前用 Astra 大致相同。\n- **Decisions API**（预览）：调用方给出一组预设选项，模型在不到一秒内从中选一个，适合路由、分类这类闭集判断。\n- **dots**：由 Astra 驱动的个人代理，可以接入 Slack、Teams 和邮件，按用户设定的授权级别自己接手任务；当天向 ChatGPT Pro 与 Enterprise 用户开放，并计划推出法律、金融方向的专用版本。配套的 ChatGPT Space 是团队和各自的 dots 共用的工作区。\n- **Codex**：改为完全在云端运行，并开源了它的运行框架。安全方面有专做代码扫描的 Daybreak 模型、定时扫描与自动去重（OpenAI 称内部安全发现里 36% 是重复的），以及一个开源命令行工具。\n- **Agents API** 加入了电脑操作，OpenAI 称 Astra 的电脑操作延迟降了一半。\n\n## 对读者意味着什么\n\n1. 如果你已经在用 GPT-6 Sol，换到 6.1 的账面收益只来自缓存输入减半；能力上的收益要看你的任务像不像上面那几项评估。\n2. 「接近 Astra」需要在你自己的任务上验证：用同一组任务、同一个推理强度跑 Sol 6.1 和 Astra，比较结果和花费。\n3. dots 这类会主动接手工作的代理，授权范围就是它的风险边界。本站 9 月 27 日那条信号记录过 OpenAI 自己的智能体借 DNS 出了沙箱。上线之前，先想清楚它能替你发哪些消息。"
+      },
+      "type": "model",
+      "publishDate": "2026-09-29",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/introducing-gpt-6-1-sol",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-human-loop"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-ws-a9e80194",
+        "skill-ws-c183c9b9"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-09-30T22:01:03.920Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这次 DevDay 的主角 GPT-6.1 Sol 标价没有变，账单上的变化只有缓存输入减半；宣传语里的「五分之一」一周前就已成立。真正值得跟的是另外两件事：会主动接手工作的 dots 代理，以及 8 倍速度、6 倍单价的 Ultrafast。前者把授权问题推到台前，后者给「快」明码标了价。",
+      "whoShouldCare": [
+        "在 GPT-6 Sol 上跑智能体、要决定是否换到 6.1 的工程团队",
+        "考虑让代理接入 Slack、邮件等内部系统的 IT 与安全负责人",
+        "对延迟敏感、在评估付费提速是否划算的产品团队"
+      ],
+      "technicalContext": "OpenAI 的 GPT-6 系列按档位分为 Astra（最顶档）、Sol 和 Luna。API 价格分输入、缓存输入、输出三项；智能体每轮都会重发完整上下文，所以缓存价往往比标价更决定成本。Ultrafast 这类加速档用更高的单价换取更快的生成速度，适合交互延迟敏感的场景。",
+      "impactAreas": [
+        "模型选型",
+        "推理成本",
+        "智能体权限"
+      ],
+      "learningPath": [
+        "先读本站 9 月 22 日的价格战信号，把 GPT-6 Sol 与 6.1 Sol 的价格并排放",
+        "读《旗舰模型发布解读与换代判断》，把这次的说法分成可验证与不可验证两类",
+        "在自己的任务上同时跑 Sol 6.1 与 Astra，记录结果与花费",
+        "读本站 OpenAI 智能体借 DNS 出沙箱的信号，再看 dots 的授权设计"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "「接近 Astra」如果成立，大多数任务选 Sol 就够，顶档的五倍价差只该留给真正需要它的任务。",
+        "knowledge-latency-tradeoffs": "Ultrafast 把速度明码标价：8 倍速度、6 倍单价，值不值取决于延迟对你的产品有多关键。",
+        "knowledge-human-loop": "dots 按用户设定的授权级别自己接手任务，人在回路的位置就是那条授权线。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "这次的宣传语和账面价格说的不是一回事，正需要这项技能把它们拆开。",
+        "skill-ws-a9e80194": "缓存价减半与 Ultrafast 的 6 倍单价，都会改变推理预算的算法。",
+        "skill-ws-c183c9b9": "能读邮件、能在 Slack 发言的代理，提示注入的入口也随之变多。"
+      },
+      "followUpQuestions": [
+        "你的输入 token 里有多少命中缓存？换到 6.1 Sol 实际能省多少？",
+        "在你的任务上，Sol 6.1 与 Astra 的差距有多大？",
+        "如果让代理替你接手邮件和 Slack，你会把授权线画在哪里？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "createdAt": "2026-09-30T21:52:30.307Z",
+      "updatedAt": "2026-09-30T22:01:03.920Z",
+      "editorialNotes": [
+        "2026-10-01 编辑轮（盲评）：DevDay 回顾、dots 两条候选并入本条。模型数字在浏览器里核对自 openai.com 发布页（直接抓取仍 403）；其余来自 Simon Willison 现场记录。Ultrafast 两个版本同日推出，以发布页为准，Willison 记为 Sol 随后。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "slug": "claude-sonnet-5-5",
+      "title": {
+        "original": "Agent 编程能力从 10% 飙到 70%，Anthropic 新模型却遭遇灵魂拷问：我什么时候才会用它？",
+        "zh": "Claude Sonnet 5.5：终端任务从 10% 到 71%，按任务算未必更便宜"
+      },
+      "summary": {
+        "original": "Anthropic 9 月 28 日发布 Claude Sonnet 5.5，每百万 token 输入 2 美元、输出 10 美元，是 Opus 5.5 的一半，也与 GPT-6 Sol 同价。它在 Terminal-Bench 4.0 上从 Sonnet 5 的 10.3% 升到 70.6%，超过 Opus 5.5 的 66.4%，但在 FrontierCode 与 OSWorld 上仍略低于 Opus 5.5。Anthropic 称单任务成本最多低 30%；而 Artificial Analysis 在最高推理档测得单任务 7.60 美元，比 Sonnet 5 高约 50%。",
+        "zh": "Anthropic 9 月 28 日发布 Claude Sonnet 5.5，每百万 token 输入 2 美元、输出 10 美元，是 Opus 5.5 的一半，也与 GPT-6 Sol 同价。它在 Terminal-Bench 4.0 上从 Sonnet 5 的 10.3% 升到 70.6%，超过 Opus 5.5 的 66.4%，但在 FrontierCode 与 OSWorld 上仍略低于 Opus 5.5。Anthropic 称单任务成本最多低 30%；而 Artificial Analysis 在最高推理档测得单任务 7.60 美元，比 Sonnet 5 高约 50%。"
+      },
+      "content": {
+        "original": "## 发生了什么\n\n9 月 28 日 Anthropic 发布 Claude Sonnet 5.5（模型 ID `claude-sonnet-5-5`），通过 Claude 平台以及 AWS、Google Cloud、Microsoft Azure 提供。本站 9 月 22 日的价格战信号里，Anthropic 预告过 Sonnet 5.5 即将推出，这就是它。本条的数字来自 Anthropic 的发布页，成本上的反面数字来自 InfoQ 转述的 Artificial Analysis 测量。\n\n## 价格\n\n每百万 token 的输入 / 输出 / 缓存读取 / 缓存写入：\n\n- **Sonnet 5.5**：2 / 10 / 0.20 / 2.50 美元\n- **Opus 5.5**：4 / 20 / 0.20 / 5 美元\n\n标价是 Opus 5.5 的一半，与 OpenAI 的 GPT-6 Sol 相同。缓存读取两者一样，都是 0.20 美元，所以在缓存命中率很高的智能体对话里，Sonnet 与 Opus 的实际价差会比标价显示的小。\n\n## 基准：终端任务跳了一大截，其他地方仍在 Opus 之下\n\nAnthropic 发布页的对比，依次为 Sonnet 5.5 / Sonnet 5 / Opus 5.5：\n\n- **Terminal-Bench 4.0**：70.6% / 10.3% / 66.4%\n- **CursorBench 4.0**：55.5% / 34.1% / 57.8%\n- **FrontierCode 1.1**（Max 档）：46.2% / 42.4% / 54.4%，GPT-6 Sol 为 49.3%\n- **OSWorld 2.1**：80.1% / 57.0% / 81.8%\n- **Humanity's Last Exam**（带工具）：64.5% / 54.9% / 67.7%\n\n最醒目的是 Terminal-Bench：从 10.3% 到 70.6%，还超过了 Opus 5.5。其余几项它都略低于 Opus 5.5，FrontierCode 上也低于 GPT-6 Sol。**这些都是厂商自报的数字**，而且同一张表里各模型的推理档位不一定相同。\n\n## 「更便宜」取决于你开到哪一档\n\nAnthropic 称 Sonnet 5.5 的输出速度比 Sonnet 5 快三成以上，单任务成本最多低 30%。但据 InfoQ 转述，Artificial Analysis 把推理强度调到 Max 之后，单任务成本达到 7.60 美元，比 Sonnet 5 高约 50%。两个说法可以同时成立：低档位下它用更少的工具调用和迭代完成任务，高档位下思考 token 又把省下的钱吃了回去。\n\n默认档位也因此重要：Claude 应用里默认是 Medium，Claude 平台上默认是 High。\n\n## 安全上的两处变化\n\n- 网络安全方面的防护与 Opus 5.5 相当，更高风险的请求会回退到 Sonnet 5 处理。\n- 这是第一个带防蒸馏分类器的 Sonnet，用来阻止别人通过它的输出批量提取推理过程。\n\n## 对读者意味着什么\n\n1. 做终端、命令行类智能体任务的团队，值得先在自己的任务上把 Sonnet 5.5 和 Opus 5.5 并排跑一次：在这一类任务上，便宜的那个反而更强。\n2. 比成本时按任务算，不要按单价算；并且记下所用的推理档位，否则厂商和第三方的结论会互相矛盾。\n3. InfoQ 的文章提出了一个实际问题：已经在用 Opus 5.5 的订阅用户，换到 Sonnet 5.5 的理由不多。它最清楚的位置是高频、目标明确的 API 任务。",
+        "zh": "## 发生了什么\n\n9 月 28 日 Anthropic 发布 Claude Sonnet 5.5（模型 ID `claude-sonnet-5-5`），通过 Claude 平台以及 AWS、Google Cloud、Microsoft Azure 提供。本站 9 月 22 日的价格战信号里，Anthropic 预告过 Sonnet 5.5 即将推出，这就是它。本条的数字来自 Anthropic 的发布页，成本上的反面数字来自 InfoQ 转述的 Artificial Analysis 测量。\n\n## 价格\n\n每百万 token 的输入 / 输出 / 缓存读取 / 缓存写入：\n\n- **Sonnet 5.5**：2 / 10 / 0.20 / 2.50 美元\n- **Opus 5.5**：4 / 20 / 0.20 / 5 美元\n\n标价是 Opus 5.5 的一半，与 OpenAI 的 GPT-6 Sol 相同。缓存读取两者一样，都是 0.20 美元，所以在缓存命中率很高的智能体对话里，Sonnet 与 Opus 的实际价差会比标价显示的小。\n\n## 基准：终端任务跳了一大截，其他地方仍在 Opus 之下\n\nAnthropic 发布页的对比，依次为 Sonnet 5.5 / Sonnet 5 / Opus 5.5：\n\n- **Terminal-Bench 4.0**：70.6% / 10.3% / 66.4%\n- **CursorBench 4.0**：55.5% / 34.1% / 57.8%\n- **FrontierCode 1.1**（Max 档）：46.2% / 42.4% / 54.4%，GPT-6 Sol 为 49.3%\n- **OSWorld 2.1**：80.1% / 57.0% / 81.8%\n- **Humanity's Last Exam**（带工具）：64.5% / 54.9% / 67.7%\n\n最醒目的是 Terminal-Bench：从 10.3% 到 70.6%，还超过了 Opus 5.5。其余几项它都略低于 Opus 5.5，FrontierCode 上也低于 GPT-6 Sol。**这些都是厂商自报的数字**，而且同一张表里各模型的推理档位不一定相同。\n\n## 「更便宜」取决于你开到哪一档\n\nAnthropic 称 Sonnet 5.5 的输出速度比 Sonnet 5 快三成以上，单任务成本最多低 30%。但据 InfoQ 转述，Artificial Analysis 把推理强度调到 Max 之后，单任务成本达到 7.60 美元，比 Sonnet 5 高约 50%。两个说法可以同时成立：低档位下它用更少的工具调用和迭代完成任务，高档位下思考 token 又把省下的钱吃了回去。\n\n默认档位也因此重要：Claude 应用里默认是 Medium，Claude 平台上默认是 High。\n\n## 安全上的两处变化\n\n- 网络安全方面的防护与 Opus 5.5 相当，更高风险的请求会回退到 Sonnet 5 处理。\n- 这是第一个带防蒸馏分类器的 Sonnet，用来阻止别人通过它的输出批量提取推理过程。\n\n## 对读者意味着什么\n\n1. 做终端、命令行类智能体任务的团队，值得先在自己的任务上把 Sonnet 5.5 和 Opus 5.5 并排跑一次：在这一类任务上，便宜的那个反而更强。\n2. 比成本时按任务算，不要按单价算；并且记下所用的推理档位，否则厂商和第三方的结论会互相矛盾。\n3. InfoQ 的文章提出了一个实际问题：已经在用 Opus 5.5 的订阅用户，换到 Sonnet 5.5 的理由不多。它最清楚的位置是高频、目标明确的 API 任务。"
+      },
+      "type": "model",
+      "publishDate": "2026-09-28",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/PSvHjyoJTC9bSLWYxpfF?utm_source=rss&utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "Anthropic",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-model-evaluation",
+        "skill-ws-a9e80194"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-09-30T21:58:11.355Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "Sonnet 5.5 把 Opus 一半的价格和在终端任务上反超 Opus 的成绩放到了一起，「默认用哪一档」的问题因此重新打开。但厂商说单任务更便宜，第三方在最高推理档测出更贵：决定账单的仍然是你开到哪一档。",
+      "whoShouldCare": [
+        "在 Claude 上跑编程或终端类智能体的工程团队",
+        "负责模型路由、按任务分配 Sonnet 与 Opus 的平台团队",
+        "在 Claude 与 GPT-6 Sol 之间比价的技术决策者"
+      ],
+      "technicalContext": "Anthropic 的模型按档位分为 Fable（最顶档）、Opus、Sonnet 和 Haiku。推理模型有推理强度档位，档位越高思考 token 越多，而思考 token 按输出计费。Terminal-Bench 衡量模型在命令行环境里完成多步任务的能力，OSWorld 衡量它操作图形界面的能力。",
+      "impactAreas": [
+        "模型选型",
+        "推理成本",
+        "编程智能体"
+      ],
+      "learningPath": [
+        "先读本站 9 月 22 日的价格战信号，看 Opus 5.5 的价格与 max 档的反例",
+        "读《旗舰模型发布解读与换代判断》，区分同档对比和跨档对比",
+        "在自己的终端类任务上并排跑 Sonnet 5.5 与 Opus 5.5，记下各自的推理档位与单任务花费",
+        "读《完成判定与验收信号》，想清楚你的任务怎样才算做完"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "在终端任务上便宜的一档反超了贵的一档，说明选型要按任务类型来，而不是按档位高低。",
+        "knowledge-evaluation-loops": "厂商的表和第三方的测量结论相反时，只有在自己任务上的评估闭环能给出答案。",
+        "knowledge-ws-e251051e": "比较单任务成本的前提是知道任务什么时候算完成；判定不清，成本就无从比较。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "发布页的表格里既有同档对比也有跨档对比，正需要这项技能去拆。",
+        "skill-model-evaluation": "「最多便宜 30%」和「贵约 50%」，要在你的任务上重新测一次。",
+        "skill-ws-a9e80194": "默认推理档位在应用里是 Medium、在平台上是 High，这一差别直接影响容量与预算。"
+      },
+      "followUpQuestions": [
+        "你的任务更像终端操作还是长代码生成？在哪一类上 Sonnet 5.5 追平了 Opus？",
+        "你现在默认用哪个推理档位？换档之后单任务成本变了多少？",
+        "Sonnet 5.5 与 GPT-6 Sol 同价，你会用什么任务来决定选哪一个？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-09-30T21:52:29.478Z",
+      "updatedAt": "2026-09-30T21:58:11.355Z",
+      "editorialNotes": [
+        "2026-10-01 编辑轮（盲评）：数字核对自 Anthropic 发布页 anthropic.com/claude-sonnet-5-5；InfoQ 原文字段只有「点击查看原文」样板，按 09-30 先例设为与中文一致。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
       "slug": "holo4-open-computer-use-agents",

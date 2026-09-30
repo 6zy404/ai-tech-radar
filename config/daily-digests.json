@@ -1,6 +1,145 @@
 {
-  "updatedAt": "2026-09-29T04:53:31.797Z",
+  "updatedAt": "2026-09-30T21:59:00.029Z",
   "digests": [
+    {
+      "id": "digest-2026-10-01",
+      "date": "2026-10-01",
+      "status": "published",
+      "title": "技术简报 - 2026-10-01",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "九月最后两天，两家实验室又改了一次次顶档的格局。Anthropic 的 Sonnet 5.5 以 Opus 一半的价格，在终端任务上反超了 Opus；一天后 OpenAI 的 GPT-6.1 Sol 标价没动，只把缓存输入减半，宣传语里的「五分之一」一周前就已成立。两条放在一起读，结论相同：比价要按任务、按推理档位、按缓存命中率来算。另外两条是开放模型：Holo4 做电脑操作，最强的一款却不能商用；NVIDIA 的 Kumo Tabular 把表格预测变成一次前向计算，只是还没和梯度提升树正面比过。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-a9e80194",
+        "skill-scope-pilots",
+        "skill-ws-2152c7f1",
+        "skill-ws-b47fabd1",
+        "skill-ws-c183c9b9"
+      ],
+      "knowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-36346103",
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-a28a8a56"
+      ],
+      "sourceNames": [
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-10-01T12:00:00.000Z",
+      "updatedAt": "2026-09-30T21:59:00.028Z",
+      "publishedAt": "2026-09-30T21:59:00.028Z",
+      "editorialNotes": [
+        "2026-10-01 编辑轮：排除 6 条已上过往期简报的信号；置顶 Sonnet 5.5。"
+      ]
+    },
+    {
+      "id": "digest-2026-09-30",
+      "date": "2026-09-30",
+      "status": "draft",
+      "title": "技术简报 - 2026-09-30",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 4 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-497382"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-497382",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
+        "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-www-qbitai-com-p-473669"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c",
+        "skill-ws-f741f122",
+        "skill-agent-design",
+        "skill-ws-c183c9b9",
+        "skill-ws-2152c7f1",
+        "skill-ws-7796779a",
+        "skill-ws-d7c9d1d8"
+      ],
+      "knowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-89b98df3",
+        "knowledge-human-loop",
+        "knowledge-system-design",
+        "knowledge-ws-34da6116",
+        "knowledge-ws-e251051e",
+        "knowledge-latency-tradeoffs"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文"
+      ],
+      "generatedAt": "2026-09-30T12:00:00.000Z",
+      "updatedAt": "2026-09-30T00:07:45.988Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
     {
       "id": "digest-2026-09-29",
       "date": "2026-09-29",

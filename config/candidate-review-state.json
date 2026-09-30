@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T22:20:08.661Z",
+  "updatedAt": "2026-09-30T21:52:30.653Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -3065,6 +3065,129 @@
       "importStatus": "converted",
       "reviewedAt": "2026-09-29T22:20:08.661Z",
       "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-oooae7xy816xadlrkv8v-utm-source-rss-amp-utm-medium-article",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-499239": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:28.130Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-499188": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-30T21:52:28.205Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-499140": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:28.269Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-499135": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:28.328Z",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-30T21:52:29.028Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "blind": true
+    },
+    "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-getting-the-source-right-not-just-the-fact-source": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-30T21:52:29.134Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ywxyacetw4archqbsje0-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.193Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-he0zfgeystxf9koh70ap-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.253Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-30T21:52:29.482Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ftfzzj6jgxha7grhhljf-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.588Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-0x1uoewoj16s1vnmtsup-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.650Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-video-hsajfo3dkr9xc0leev30-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.710Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-vwo5ooktoq5wyfe18wib-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.767Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-o5pkyu5hfr2dgrxp6zre-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.829Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-v0naydpc0bz2t8hmwfv2-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.893Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-wljhyzkdudt5wsyz06fp-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:29.987Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-srmksf6vofrt6lluudzb-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:30.045Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-imwphlbhtujohmzjah8q-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:30.105Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-09-30T21:52:30.311Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-devday-2026-recap": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-30T21:52:30.419Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-introducing-dots": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-30T21:52:30.477Z",
+      "blind": true
+    },
+    "candidate-rss-https-simonwillison-net-2026-sep-29-openai-devday-2026-live-blog": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:30.539Z",
+      "blind": true
+    },
+    "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-winner-future-vision-xprize": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-09-30T21:52:30.595Z",
+      "blind": true
+    },
+    "candidate-rss-https-openai-com-index-towards-safety-cases-for-frontier-ai-training": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-09-30T21:52:30.653Z",
       "blind": true
     }
   }
