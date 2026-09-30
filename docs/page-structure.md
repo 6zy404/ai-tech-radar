@@ -384,7 +384,9 @@ Workspace deployment boundary:
     row; guided empty states for "nothing saved yet" and "saved but all
     read"; marks live only in browser localStorage
     (`src/lib/reading-state.ts`), so the served page is identical for
-    everyone
+    everyone. The count row ends with 导出阅读码 / 导入阅读码, and the
+    empty state offers the import (2026-09-30); the result shows in one
+    `role="status"` line
   - reading marks (P4 v0.4) apply across the 精选 / 我关注的 / 稍后读 views:
     each signal card carries a 稍后读 and a 已读 toggle
     (`SignalReadingActions`), a read card recedes (transparent surface,
@@ -512,6 +514,9 @@ Workspace deployment boundary:
     counts, and the preview notice. Until 2026-07-29 this page hand-rolled a
     two-column header whose 174px right column held only the counts — see
     `CHANGELOG.md` → "The daily digest page rejoins the house style"
+  - a folded 本页目录 `<details>` between the hero and `今日概览` at every
+    width (the page has no aside), listing only the sections with items and
+    rebuilt when 只看我关注的 hides a section (2026-09-30)
   - `今日概览` carries the digest's **editorial summary** and is omitted when
     there is none; before 2026-07-29 it rendered a sentence hardcoded in the
     component, identical on every digest, while the real summary sat in the
@@ -640,7 +645,9 @@ Workspace deployment boundary:
     submitted)
   - a signal card whose keyword hit is only in the original-language title
     it does not display adds 原标题：… under the title, the hit marked
-    (2026-09-30)
+    (2026-09-30); a hit only in the other language's summary adds
+    原文摘要：… under the summary, and a hit past the summary's 160-character
+    cut moves the shown window to it (2026-09-30)
   - searches the four public content pools: published technology signals,
     skills, knowledge, and the news fast lane; results render grouped per
     content type with counts
@@ -917,7 +924,7 @@ Forbidden on public pages:
     highlights the current section and moves focus to the heading it jumps
     to. Used by the signal page and, through `ContentDetailPage`, the skill
     and knowledge pages (sidebar panel last, folded at the top of the body
-    at 980px and under); `labelClassName` lets a host restyle the label
+    at 980px and under), and the digest pages (folded only); `labelClassName` lets a host restyle the label
 - `DossierTechnologyCard`
   - user-facing dossier-styled index card for `/technologies`; a
     page-specific sibling of `TechnologyListCard` (kept unchanged, since it

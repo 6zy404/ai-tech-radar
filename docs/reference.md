@@ -121,7 +121,7 @@ The product is split into two subsystems:
   until 2026-09-30. Every public page also announces its RSS / JSON feeds
   with `<link rel="alternate">` (feed autodiscovery; `buildPageMetadata`'s
   `feeds` option in `src/lib/site-metadata.ts`).
-- **本页目录 on the signal, skill and knowledge pages** (2026-09-30) — the technology detail page's
+- **本页目录 on the signal, skill, knowledge and digest pages** (2026-09-30) — the technology detail page's
   aside ends with a table of the sections the page actually renders (omitted
   below three; the AI widgets and the foot 来源参考 are not listed). The
   current section is highlighted as the reader scrolls (IntersectionObserver,
@@ -136,6 +136,10 @@ The product is split into two subsystems:
   `PageToc` with `getContentDetailTocCandidates` (先读这些, the body,
   关系网络, the related signals and the other kind's entries), switching to
   the folded version at 980px, their own aside breakpoint (2026-09-30).
+  The digest pages (`/digest/[date]`, `/digest/today`) have no aside, so
+  they mount the same `PageToc` folded between the hero and 今日概览 at
+  every width, with entries from `getDigestTocCandidates`, counted after the
+  只看我关注的 filter (2026-09-30).
 - **Publisher type on the signal page** — the technology detail page's source
   row carries the publisher's _type_ (大型科技公司 / 创业公司 / 研究实验室 /
   开源社区 / 媒体) as a hairline chip beside the publisher name, on both the
@@ -214,7 +218,11 @@ The product is split into two subsystems:
   (`/technologies?view=saved`) lists what the reader saved, most recent
   first. Marks are manual — opening a signal never marks it read — and live
   only in browser localStorage (`src/lib/reading-state.ts`), so the served
-  page stays identical for everyone.
+  page stays identical for everyone. The 稍后读 view exports and imports
+  them as a 阅读码 (`rm1:`, hashed signal ids; checked against the published
+  signals and merged, never overwritten, on import;
+  `src/lib/reading-transfer.ts`, 2026-09-30) — in the browser only, never
+  through the server, and separate from the 关注码.
   新 since the last visit (2026-09-30): on the home page's priority cards
   and the 精选 / 我关注的 views, a signal the reader has not seen before
   carries a 新 stamp on its top edge, and the 精选 count row adds
@@ -289,8 +297,12 @@ The product is split into two subsystems:
   signal card does not display (e.g. "agent" on a card titled 智能体), the
   card adds 原标题：… under its title — 72 characters around the hit, the
   hit marked — judged per term (`src/lib/search-original-title.ts`,
-  2026-09-30). Still unmarked: a hit in the other language's summary, or in
-  the part of a summary cut at 160 characters.
+  2026-09-30). When a hit sits only in the part of a summary cut at 160
+  characters, the summary is shown around the hit instead (160 characters,
+  starting and ending at a clause); when it sits only in the other
+  language's summary, the card adds 原文摘要：… (72 characters, the hit
+  marked), judged per term (`src/lib/search-card-text.ts`, 2026-09-30).
+  The news group and meaning-only results still carry no marks.
   Results can be narrowed to one group with
   `?type=technologies|skills|knowledge|news` (`src/lib/search-filter.ts`,
   2026-09-30); a row of link chips above the summary shows each group's

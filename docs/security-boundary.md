@@ -11,7 +11,8 @@ Public routes can be exposed:
   auto-aggregated news fast lane, see "News Fast Lane Boundary" below for
   the exact candidate-field allowlist — 按话题, 我关注的, and 稍后读 —
   followed topics, reading marks (已读 / 稍后读) and the last-visit set
-  behind the 新 stamps are browser-localStorage only, the route serves the same published content to everyone and holds no
+  behind the 新 stamps are browser-localStorage only (the 阅读码 export /
+  import runs in the browser too), the route serves the same published content to everyone and holds no
   per-reader server state; `/news`, `/timeline`, and `/radar` redirect here
   to the matching view)
 - `/technologies/[slug]`
