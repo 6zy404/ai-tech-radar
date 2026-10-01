@@ -90,6 +90,7 @@ export function TopicTimelineSection({
                 {topic.entries.map((entry) => (
                   <li key={entry.slug} className="dossier-timeline-node">
                     <DossierRegisterRow
+                      headingLevel={3}
                       title={entry.title}
                       date={entry.publishDate}
                       href={`/technologies/${entry.slug}`}
