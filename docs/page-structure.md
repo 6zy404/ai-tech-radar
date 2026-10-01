@@ -1013,6 +1013,13 @@ Forbidden on public pages:
     `/knowledge`; cards are rendered on the server and passed in, the
     component hides non-matching ones and empty groups (rules in
     `src/lib/library-filter.ts`)
+- `ReadingProgress` (`reading-progress.tsx`)
+  - the progress line under the top nav and the 返回顶部 button on the long
+    reading pages; each host passes `regionSelector` for its reading region
+    and mounts it with one line (`UserArticleLayout`, `ContentDetailPage`,
+    `DailyDigestContent`, `WeeklyReviewContent`); renders nothing under
+    `/workspace`, so the workspace previews that reuse those components do
+    not get it
 - `IssuePager`
   - user-facing previous / next pager shared by the daily digest, weekly
     review and signal pages; takes `unit` (期 / 周 / 条) and two optional

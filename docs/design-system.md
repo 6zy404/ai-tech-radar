@@ -653,9 +653,12 @@ pages" below):
 - `DossierCatalogNote` (`src/components/dossier-catalog-note.tsx`) — the
   "附注" cross-reference annotation block.
 - `DossierRegisterRow` (`src/components/dossier-register-row.tsx`) — a
-  compact date + title + tag row for archive/timeline/relation lists.
-  **Still unused** — no adopted page has needed a ledger-style row yet;
-  the topic timeline is its likely first real consumer.
+  compact date + title + tag row (按话题, 收录于); `headingLevel` 3 | 4,
+  default 4, both styled by `.dossier-register-row__title` (2026-10-02).
+- `.quiet-button` (`33-search-ask.css`) — the borderless-until-hover 12px
+  UI-face button for controls on a busy row (阅读码, 快捷键 ?). The outlined
+  monospace copy button (复制答案, 复制链接) is a separate rule on purpose: the
+  three "copies" were two different looks (2026-10-02).
 - `DossierSearchInput` (`src/components/dossier-search-input.tsx`) —
   the confirmed icon-pill search box.
 - `DossierCategoryChips` (`src/components/dossier-category-chips.tsx`) —

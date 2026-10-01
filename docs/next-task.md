@@ -127,10 +127,6 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
   时仍没有内容。没选的三种：Suspense（状态码变 200）、`dynamicParams=false`（构建后新 slug
   也 404）、middleware 预检 + rewrite（要把内容查询放进工作台守卫、改 Node runtime）。
   Next 升级后再看。
-- `DossierRegisterRow` 的标题固定是 h4，放在「收录于」的 h2 下会跳过 h3（B 报告）；要给组件加标题级别参数。
-- 安静按钮样式有三条几乎相同的规则（`.ask-radar__copy-button` 已并入 `.copy-link-button`、`.reading-transfer button`、
-  `.signal-shortcut-hint`），可合成一条（D 报告）。
-- `DossierSearchInput` 不支持 `name`，所以没有 JS 时技能 / 知识页的筛选框无法提交（`?q=` 本身可用；F 报告）。
 - 已知不改：390px 下技能《检索流水线调优》标题断成「检索流水线调 / 优」
   （ICU 词典缺口，种子标题被三条正文引用）。
 

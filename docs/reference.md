@@ -157,6 +157,17 @@ The product is split into two subsystems:
   request, no storage; hidden in print and on draft previews
   (`src/components/copy-link-button.tsx`, `section-link.tsx`,
   `src/lib/page-link.ts`).
+- **Reading progress and 返回顶部** (2026-10-02) — the signal, skill,
+  knowledge, digest (`/digest/[date]`, `/digest/today`) and weekly-review
+  pages show a 3px progress line fixed just under the top nav, measuring the
+  page's reading region rather than the whole page (the signal page's reading
+  column, `.skill-detail-main`, the digest root, the weekly-review root),
+  and, once the reader is more than one screen down, a round 返回顶部 button
+  bottom-right that scrolls to the top (instantly under reduced motion) and
+  moves focus to `#main-content`. Both are `position: fixed`, so the page
+  does not move; the line is `aria-hidden`; neither prints; nothing under
+  `/workspace`. No request, no storage (`src/components/reading-progress.tsx`,
+  `src/lib/reading-progress.ts`).
 - **本页目录 on the signal, skill, knowledge and digest pages** (2026-09-30) — the technology detail page's
   aside ends with a table of the sections the page actually renders (omitted
   below three; the AI widgets and the foot 来源参考 are not listed). The
