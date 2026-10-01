@@ -55,7 +55,9 @@
   font-variant-numeric: tabular-nums;
 }
 
-.dossier-register-row h4 {
+/* A class, not h4: the title's level follows the list it sits in
+   (h3 under 收录于's h2). */
+.dossier-register-row__title {
   margin: 0;
   font-size: 14.5px;
   font-weight: 700;

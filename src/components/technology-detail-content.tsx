@@ -543,6 +543,7 @@ export function TechnologyDetailContent({
                   title={digest.title}
                   href={digest.href}
                   tag={issueSectionLabels[digest.section]}
+                  headingLevel={3}
                 />
               </li>
             ))}
@@ -552,6 +553,7 @@ export function TechnologyDetailContent({
                   title={`周回顾 · ${issueAppearances.weekly.rangeLabel}`}
                   href={issueAppearances.weekly.href}
                   tag={issueSectionLabels[issueAppearances.weekly.section]}
+                  headingLevel={3}
                 />
               </li>
             ) : null}

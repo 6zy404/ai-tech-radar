@@ -6,6 +6,9 @@ interface DossierRegisterRowProps {
   href?: string;
   tag?: string;
   className?: string;
+  /** The title's heading level, one below the heading of the list it sits
+   * in. Defaults to 4, what every row rendered before the prop existed. */
+  headingLevel?: 3 | 4;
 }
 
 /**
@@ -18,14 +21,16 @@ export function DossierRegisterRow({
   date,
   href,
   tag,
-  className = ""
+  className = "",
+  headingLevel = 4
 }: DossierRegisterRowProps) {
   const titleNode = href ? <Link href={href}>{title}</Link> : title;
+  const Heading = headingLevel === 3 ? "h3" : "h4";
 
   return (
     <div className={`dossier-register-row ${className}`.trim()}>
       {date ? <time>{date}</time> : <span aria-hidden="true" />}
-      <h4>{titleNode}</h4>
+      <Heading className="dossier-register-row__title">{titleNode}</Heading>
       {tag ? <span className="dossier-register-row__tag">{tag}</span> : null}
     </div>
   );
