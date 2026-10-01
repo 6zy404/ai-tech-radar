@@ -244,6 +244,27 @@
   color: var(--dossier-accent);
 }
 
+/* The quieter one: no border until hovered, the UI face at 12px. For a
+   control on a row that already carries other things — 导出 / 导入阅读码
+   on the 稍后读 view and the 「快捷键 ?」 hint on the signal lists. It is not
+   merged with the outlined copy button above, which keeps a visible border,
+   the monospace face at --fs-label and 10px of side padding. */
+.quiet-button {
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.quiet-button:hover {
+  border-color: var(--dossier-line);
+  color: var(--dossier-accent);
+}
+
 .ask-radar__copy-status {
   flex: 1 1 16em;
   min-width: 0;

@@ -170,7 +170,7 @@ export function SignalShortcutHint({ onOpen }: SignalShortcutHintProps) {
   return (
     <button
       type="button"
-      className="signal-shortcut-hint"
+      className="signal-shortcut-hint quiet-button"
       onClick={onOpen}
       aria-haspopup="dialog"
     >

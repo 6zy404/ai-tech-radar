@@ -132,30 +132,15 @@
 }
 
 /* The 阅读码 export / import on the 稍后读 view: the reading-marks sibling of
-   .my-radar__transfer. Quiet like the shortcut hint beside it, because it
-   sits on a row that already carries the count and the read filter. */
+   .my-radar__transfer. Its buttons are .quiet-button, like the shortcut
+   hint beside them, because the row already carries the count and the read
+   filter. */
 .reading-transfer {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 4px;
-}
-
-.reading-transfer button {
-  padding: 3px 8px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.reading-transfer button:hover {
-  border-color: var(--dossier-line);
-  color: var(--dossier-accent);
 }
 
 .dossier-empty-state .reading-transfer {

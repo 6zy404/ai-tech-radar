@@ -18,24 +18,13 @@
   outline-offset: 3px;
 }
 
-/* -- the visible hint -- */
+/* -- the visible hint --
+   Its look is .quiet-button (33-search-ask.css); this only lays out the
+   label and its <kbd>. */
 .signal-shortcut-hint {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 3px 8px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--dossier-muted);
-  font-family: system-ui, "PingFang SC", sans-serif;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.signal-shortcut-hint:hover {
-  border-color: var(--dossier-line);
-  color: var(--dossier-accent);
 }
 
 /* Narrow screens are almost always touch, where the keys do not exist. */

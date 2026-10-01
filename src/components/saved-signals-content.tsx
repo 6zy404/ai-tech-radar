@@ -123,11 +123,11 @@ export function SavedSignalsContent({
   const transferControls = (
     <div className="reading-transfer" role="group" aria-label="换设备">
       {canExport ? (
-        <button type="button" onClick={handleExport}>
+        <button type="button" className="quiet-button" onClick={handleExport}>
           导出阅读码
         </button>
       ) : null}
-      <button type="button" onClick={handleImport}>
+      <button type="button" className="quiet-button" onClick={handleImport}>
         导入阅读码
       </button>
     </div>
