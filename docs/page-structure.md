@@ -457,6 +457,15 @@ Workspace deployment boundary:
     week; a row whose title already names its date drops the date column.
     Omitted, with no placeholder, when no published digest carried the
     signal, and on the workspace preview. Listed in 本页目录
+  - a 上一条 / 下一条 pager (`IssuePager`, unit 条) as the last block of the
+    reading column, after 来源参考 — the digest page's place for its pager:
+    ← the older signal, → the newer one, in the 精选 list's default order
+    (`getSignalNeighbors`), each tile carrying the other signal's title
+    (≤ 40 characters, cut at a clause); a side with no neighbour is left
+    empty. Not on the workspace preview; hidden in print (2026-10-02)
+  - a 复制链接 button ends the hero meta row, and every section 本页目录
+    lists has a faint 「#」 beside its h2 that copies the section's address
+    (2026-10-02); the skill, knowledge and digest pages carry the same two
   - a 本页目录 as the last aside panel (`PageToc`), listing only the
     sections rendered on this page, hidden below three; sticky at 86px while
     the panels above it scroll away; below 920px it moves to a folded
@@ -565,6 +574,13 @@ Workspace deployment boundary:
     sat between them until 2026-07-30 — see `CHANGELOG.md` → "Closing out the
     page-top round" for the rule that removed it. `/knowledge` is built the
     same way and shares its CSS
+  - a filter box (`LibraryFilter`) follows the stats row on the page
+    ground, no panel: title, summary, tag names and the 技能方向 heading,
+    every term required; a group with no match is hidden whole, the stats
+    row keeps the library totals, and a status line under the box gives
+    筛出 N / M 项技能 or, with no match, a link to
+    `/search?q=…&type=skills`. `?q=` is read on the server and synced with
+    replaceState (2026-10-02)
   - presents skills as practical abilities for evaluating new AI technology signals
   - shows skill type, heat, learning cost, related published technology examples, and public tags
   - does not show internal quality, reviewer, delivery, or source data
@@ -590,6 +606,8 @@ Workspace deployment boundary:
     readers can add the skill's topics to their personal radar in place
 - `/knowledge`
   - user-facing knowledge index
+  - the same filter box as `/skills` (`LibraryFilter`), matching the
+    category stamp (2026-10-02)
   - presents durable concepts that help readers understand fast-moving AI signals
   - shows category, difficulty, related skill count, related published technology examples, and public tags
   - does not show internal quality, reviewer, delivery, or source data
@@ -983,10 +1001,23 @@ Forbidden on public pages:
     on `#main-content` (the layout's `<main>`), or on `#workspace-content`
     (WorkspacePageShell's content column) on workspace pages. The ids live in
     `src/lib/skip-link-targets.ts`
+- `CopyLinkButton` (`copy-link-button.tsx`)
+  - the 复制链接 button in the four detail heroes; takes the page's public
+    path
+- `SectionHeading` / `SectionLink` (`section-link.tsx`)
+  - a section h2 with its 「#」 beside it in a flex row; without `sharePath`
+    it renders a bare h2. `TechnologyEvolutionLine`, `RelationshipGraph`
+    and `DossierRelatedItemsSection` pass an optional `sharePath` through
+- `LibraryFilter` (`library-filter.tsx`)
+  - the filter box and grouped card list shared by `/skills` and
+    `/knowledge`; cards are rendered on the server and passed in, the
+    component hides non-matching ones and empty groups (rules in
+    `src/lib/library-filter.ts`)
 - `IssuePager`
-  - user-facing previous / next pager shared by the daily digest and weekly
-    review pages; takes `unit` (期 / 周) and two optional `{ href, label }`
-    targets, renders nothing when both are absent
+  - user-facing previous / next pager shared by the daily digest, weekly
+    review and signal pages; takes `unit` (期 / 周 / 条) and two optional
+    `{ href, label }` targets, renders nothing when both are absent; ← is
+    always the older issue or signal
 - `DailyDigestContent`
   - user-facing digest renderer shared by public digest pages and workspace preview
   - consumes a public-safe `PublicDigestView` (mapped by `toPublicDigestView`

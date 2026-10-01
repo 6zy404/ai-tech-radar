@@ -136,6 +136,27 @@ The product is split into two subsystems:
   published digest carried the signal — the weekly review alone would put it
   on nearly every page (measured 2026-10-01: 91 of 92 signals have one); never
   on the workspace preview. Listed in 本页目录; kept in print.
+- **上一条 / 下一条 on the signal page** (2026-10-02) — the technology
+  detail page ends, after 来源参考, with the same `IssuePager` as the digest
+  and weekly-review pages (unit 条): ← 上一条 is the older signal and 下一条 →
+  the newer one, the same direction as ← 上一期 on the digest pages; each tile
+  names the other signal's title, cut at a clause past 40 characters.
+  Neighbours are read by position off `getAllTechnologies()` — the array the
+  精选 list renders by default, so same-day signals keep its order — not
+  re-sorted (`src/lib/signal-neighbors.ts`). Publish order only; unrelated
+  to 版本脉络. Never on the workspace preview; hidden in print.
+- **复制链接 and section links** (2026-10-02) — the signal, skill, knowledge
+  and digest pages end their hero meta row with a quiet 复制链接 button that
+  copies the page's canonical address (`getSiteUrl()` + the page's own path,
+  never the address bar; `/digest/today` copies `/digest/<date>`), reads
+  已复制 for two seconds and announces it through a status line; if the
+  clipboard is refused the address appears selected in a read-only box. Every
+  section with a 本页目录 id carries a faint 「#」 beside its h2 (outside the
+  heading, so its text and accessible name are unchanged) that copies
+  `<canonical>#<id>` and replaces the hash without a history entry. No
+  request, no storage; hidden in print and on draft previews
+  (`src/components/copy-link-button.tsx`, `section-link.tsx`,
+  `src/lib/page-link.ts`).
 - **本页目录 on the signal, skill, knowledge and digest pages** (2026-09-30) — the technology detail page's
   aside ends with a table of the sections the page actually renders (omitted
   below three; the AI widgets and the foot 来源参考 are not listed). The
@@ -191,6 +212,16 @@ The product is split into two subsystems:
   `/topics` index (`getTopicIndex`, same file), or the 按话题 view's
   查看全部话题 link — no global nav entry. Pure derived view (`getTopicHub` in
   `src/lib/topic-hub.ts`), no new persisted data or AI calls.
+- **Filter box on /skills and /knowledge** (2026-10-02) — both index pages
+  carry one shared filter box (`LibraryFilter` on `DossierSearchInput`)
+  under the stats row. It matches title, summary, tag names and the category
+  the entry is filed under (a skill's 技能方向 heading, a concept's category),
+  case-insensitive, every space-separated term required — /search's keyword
+  rule (`src/lib/library-filter.ts`). Groups with no match are hidden; a
+  status line reads 筛出 N / M, or on no match links the words to
+  `/search?q=…&type=skills|knowledge`. The filter lives in `?q=`, read on the
+  server for the first paint and synced with `history.replaceState`; no
+  storage, and a bare page renders every card.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
@@ -476,7 +507,8 @@ Public, user-facing routes:
   `/technologies/[slug]`
 - `/digest` (archive), `/digest/today`, `/digest/[date]`,
   `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
-- `/skills`, `/skills/[slug]`, `/knowledge`, `/knowledge/[slug]`
+- `/skills` (`?q=` filter), `/skills/[slug]`, `/knowledge` (`?q=` filter),
+  `/knowledge/[slug]`
 - `/network` (`?focus=<node id>` preselects a node)
 - `/topics` — topic index: every topic with at least one published signal,
   skill or knowledge item (the same rule as the hub's `notFound()`), with its

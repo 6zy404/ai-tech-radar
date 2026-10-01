@@ -35,6 +35,8 @@
   阅读码导出导入、问雷达复制答案、技能 / 知识页阅读时长、话题页关注此话题。线上逐项核对在，五个内部前缀仍 404。
 - **2026-10-02 部署**（构建 `NITBbmKD…`，停机约 3 秒，`main` `5475572`）：精选筛选写进网址 + 排序切换（A）、
   信号页「收录于」（B）。线上核对：`?priority=&sort=` 首屏即筛好，信号页有「收录于」，内部前缀仍 404。
+- **已合并、未部署**（2026-10-02）：信号页上一条 / 下一条（C，← 更早，与简报一致）、详情页复制链接与本节「#」（D）、
+  技能 / 知识页筛选框（F）。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
   不健康自动回滚）；`npm run deploy:rollback` 回到上一版。说明在
   `docs/deployment.md` →「Deploy with one command」。十次实跑停机 1.7–3 秒（最近一次约 3）。
@@ -55,7 +57,7 @@
 - **内容**（2026-09-28 经公开 getter 实测；10-01 起信号 95、简报 32 期）：已发布信号 91、
   技能 16、知识 19、技术简报 31 期（最近 10-01）、在用信源 13；图谱 126 节点 /
   890 边，兜底「关联」占 11.5%。技能/知识池零占位。
-- **闸门**：typecheck / vitest 807 / `validate:all` 22 个全绿（2026-10-02）；
+- **闸门**：typecheck / vitest 849 / `validate:all` 22 个全绿（2026-10-02）；
   lint / format 最近一次全绿在 2026-09-29。CI 跑单测与全部 validator。类型检查自 09-28 起覆盖测试文件
   （33 个）。
 - **重活一次只跑一个**（CLAUDE.md →「Parallel windows」）：一次 `css:diff`
@@ -126,6 +128,9 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
   也 404）、middleware 预检 + rewrite（要把内容查询放进工作台守卫、改 Node runtime）。
   Next 升级后再看。
 - `DossierRegisterRow` 的标题固定是 h4，放在「收录于」的 h2 下会跳过 h3（B 报告）；要给组件加标题级别参数。
+- 安静按钮样式有三条几乎相同的规则（`.ask-radar__copy-button` 已并入 `.copy-link-button`、`.reading-transfer button`、
+  `.signal-shortcut-hint`），可合成一条（D 报告）。
+- `DossierSearchInput` 不支持 `name`，所以没有 JS 时技能 / 知识页的筛选框无法提交（`?q=` 本身可用；F 报告）。
 - 已知不改：390px 下技能《检索流水线调优》标题断成「检索流水线调 / 优」
   （ICU 词典缺口，种子标题被三条正文引用）。
 
