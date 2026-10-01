@@ -360,6 +360,9 @@
   .user-page-header__actions,
   .weekly-review-archive,
   .weekly-review-group:has(.digest-feed-links),
+  .copy-link,
+  .section-link,
+  .section-link__status,
   [data-print="hide"] {
     display: none !important;
   }

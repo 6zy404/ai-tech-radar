@@ -226,7 +226,8 @@
   border-top: 1px solid var(--dossier-line);
 }
 
-.ask-radar__copy-button {
+.ask-radar__copy-button,
+.copy-link-button {
   padding: 3px 10px;
   border: 1px solid var(--dossier-line);
   border-radius: 4px;
@@ -237,7 +238,8 @@
   cursor: pointer;
 }
 
-.ask-radar__copy-button:hover {
+.ask-radar__copy-button:hover,
+.copy-link-button:hover {
   border-color: currentColor;
   color: var(--dossier-accent);
 }

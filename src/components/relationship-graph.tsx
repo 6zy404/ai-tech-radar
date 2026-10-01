@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { SectionHeading } from "@/components/section-link";
 import { buildNetworkFocusHref } from "@/lib/network-focus";
 
 export interface RelationshipGraphNode {
@@ -22,6 +23,11 @@ interface RelationshipGraphProps {
   sectionClassName?: string;
   /** Anchor for the page's table of contents. */
   id?: string;
+  /**
+   * The host page's public path. Given (with `id`), the heading gets a 「#」
+   * that copies the section's address; omitted, the heading is a bare h2.
+   */
+  sharePath?: string;
   heading?: string;
   hint?: string;
 }
@@ -52,6 +58,7 @@ export function RelationshipGraph({
   nodes,
   sectionClassName = "user-article-section",
   id,
+  sharePath,
   heading = "在关系网络中的位置",
   hint = "当前条目与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
 }: RelationshipGraphProps) {
@@ -70,7 +77,9 @@ export function RelationshipGraph({
   return (
     <section id={id} className={`tech-graph ${sectionClassName}`.trim()}>
       <p className="technology-detail-section__eyebrow">关系网络</p>
-      <h2>{heading}</h2>
+      <SectionHeading sectionId={id} sharePath={sharePath}>
+        {heading}
+      </SectionHeading>
       <p className="tech-graph__hint">{hint}</p>
       <div className="tech-graph__map">
         {/* A <div>, not a <p>: every host section styles its own paragraphs

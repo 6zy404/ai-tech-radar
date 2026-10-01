@@ -1,16 +1,23 @@
 import Link from "next/link";
 
+import { SectionHeading } from "@/components/section-link";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 
 interface TechnologyEvolutionLineProps {
   chain: TechnologyEvolutionChain;
   /** Anchor for the page's table of contents. */
   id?: string;
+  /**
+   * The host page's public path. Given (with `id`), the heading gets a 「#」
+   * that copies the section's address; omitted, the heading is a bare h2.
+   */
+  sharePath?: string;
 }
 
 export function TechnologyEvolutionLine({
   chain,
-  id
+  id,
+  sharePath
 }: TechnologyEvolutionLineProps) {
   const { steps, currentIndex, laterCount } = chain;
   const latest = steps[steps.length - 1];
@@ -23,7 +30,9 @@ export function TechnologyEvolutionLine({
       className="user-article-section technology-detail-section technology-evolution"
     >
       <p className="technology-detail-section__eyebrow">版本脉络</p>
-      <h2>{hasLater ? "这条信号已有后续" : "这条信号的版本脉络"}</h2>
+      <SectionHeading sectionId={id} sharePath={sharePath}>
+        {hasLater ? "这条信号已有后续" : "这条信号的版本脉络"}
+      </SectionHeading>
       <p className="technology-detail-section__lede">
         {hasLater
           ? `你正在读的是这条线上较早的一条，之后还有 ${laterCount} 条，最新的是「${latest.title}」。`

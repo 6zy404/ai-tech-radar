@@ -127,6 +127,7 @@
 @import "./styles/components/action-button.css";
 @import "./styles/components/signal-shortcuts.css";
 @import "./styles/components/page-toc.css";
+@import "./styles/components/copy-link.css";
 /* Print rules, all of them, inside one @media print — last, so they win
    without touching any screen rule. */
 @import "./styles/print.css";

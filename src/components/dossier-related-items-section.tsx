@@ -3,11 +3,17 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { SectionHeading } from "@/components/section-link";
 import type { RelationListItem } from "@/types/content";
 
 interface DossierRelatedItemsSectionProps {
   /** Anchor for the page's table of contents. */
   id?: string;
+  /**
+   * The host page's public path. Given (with `id`), the heading gets a 「#」
+   * that copies the section's address; omitted, the heading is a bare h2.
+   */
+  sharePath?: string;
   title: string;
   description?: string;
   items: RelationListItem[];
@@ -29,6 +35,7 @@ interface DossierRelatedItemsSectionProps {
  */
 export function DossierRelatedItemsSection({
   id,
+  sharePath,
   title,
   description,
   items,
@@ -42,7 +49,9 @@ export function DossierRelatedItemsSection({
   return (
     <section id={id} className="dossier-related-section" aria-label={title}>
       <div className="dossier-related-section__header">
-        <h2>{title}</h2>
+        <SectionHeading sectionId={id} sharePath={sharePath}>
+          {title}
+        </SectionHeading>
         {description ? <p>{description}</p> : null}
       </div>
 

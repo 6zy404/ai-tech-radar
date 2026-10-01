@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { ContentBody } from "@/components/content-body";
+import { CopyLinkButton } from "@/components/copy-link-button";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
 import { PageToc } from "@/components/page-toc";
+import { SectionHeading } from "@/components/section-link";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { compactText } from "@/lib/compact-text";
@@ -281,7 +283,8 @@ function DigestReferenceList<
   emptyText,
   items,
   hrefPrefix,
-  linkLabel
+  linkLabel,
+  sharePath
 }: {
   id: string;
   title: string;
@@ -290,11 +293,14 @@ function DigestReferenceList<
   items: T[];
   hrefPrefix: string;
   linkLabel: string;
+  sharePath?: string;
 }) {
   return (
     <section id={id} className="digest-reference-section">
       <div className="daily-digest-section__header">
-        <h2>{title}</h2>
+        <SectionHeading sectionId={id} sharePath={sharePath}>
+          {title}
+        </SectionHeading>
         <p>{description}</p>
       </div>
       {items.length > 0 ? (
@@ -324,9 +330,11 @@ function DigestReferenceList<
 }
 
 function DigestSourceReferences({
-  references
+  references,
+  sharePath
 }: {
   references: DigestSourceReference[];
+  sharePath?: string;
 }) {
   return (
     <section
@@ -334,7 +342,12 @@ function DigestSourceReferences({
       className="daily-digest-section daily-digest-sources"
     >
       <div className="daily-digest-section__header daily-digest-section__header--compact">
-        <h2>{digestTocSections.sources.label}</h2>
+        <SectionHeading
+          sectionId={digestTocSections.sources.id}
+          sharePath={sharePath}
+        >
+          {digestTocSections.sources.label}
+        </SectionHeading>
         <p>本期简报中已发布技术信号所代表的公开来源。</p>
       </div>
       {references.length > 0 ? (
@@ -395,6 +408,10 @@ export function DailyDigestContent({
     selectedTechnologies
   );
   const sourceCount = sourceReferences.length;
+  // The issue's own dated address, also from /digest/today, which shows a
+  // different issue tomorrow. The workspace preview (no delivery links) gets
+  // neither 复制链接 nor the 「#」s: a draft has no public address.
+  const sharePath = showDeliveryLinks ? `/digest/${digest.date}` : undefined;
 
   // Personalized digest view (P4): highlight and optionally filter by the
   // reader's followed topics. Follows stay in browser localStorage only —
@@ -474,6 +491,7 @@ export function DailyDigestContent({
             <span>{highPriorityTechnologies.length} 条立即关注</span>
             <span>{watchTechnologies.length} 条值得跟踪</span>
             <span>{sourceCount} 个来源</span>
+            {sharePath ? <CopyLinkButton sharePath={sharePath} /> : null}
           </div>
           {previewNotice ? (
             <p className="daily-digest-brief-header__notice">{previewNotice}</p>
@@ -492,9 +510,13 @@ export function DailyDigestContent({
         >
           {/* An h2 styled as the eyebrow it was: the section needs a heading
               for the table to move focus to, and the outline gains one. */}
-          <h2 className="eyebrow user-eyebrow">
+          <SectionHeading
+            sectionId={digestTocSections.summary.id}
+            sharePath={sharePath}
+            className="eyebrow user-eyebrow"
+          >
             {digestTocSections.summary.label}
-          </h2>
+          </SectionHeading>
           {/* Rendered through ContentBody like every other long-form body on
               the site. It was a bare <p> until 2026-08-09, so an editorial
               summary written with the same Markdown subset used everywhere
@@ -543,7 +565,12 @@ export function DailyDigestContent({
           className="daily-digest-section"
         >
           <div className="daily-digest-section__header">
-            <h2>{digestTocSections.highPriority.label}</h2>
+            <SectionHeading
+              sectionId={digestTocSections.highPriority.id}
+              sharePath={sharePath}
+            >
+              {digestTocSections.highPriority.label}
+            </SectionHeading>
             <p>精选评级最高的已发布技术信号，编辑置顶的条目优先展示。</p>
           </div>
           {visibleHighPriorityTechnologies.length > 0 ? (
@@ -571,7 +598,12 @@ export function DailyDigestContent({
           className="daily-digest-section"
         >
           <div className="daily-digest-section__header daily-digest-section__header--secondary">
-            <h2>{digestTocSections.watch.label}</h2>
+            <SectionHeading
+              sectionId={digestTocSections.watch.id}
+              sharePath={sharePath}
+            >
+              {digestTocSections.watch.label}
+            </SectionHeading>
             <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
           </div>
           {/* Same two-column grid as 今日立即关注 above. Until 2026-07-29 this
@@ -625,6 +657,7 @@ export function DailyDigestContent({
         items={skills}
         hrefPrefix="/skills"
         linkLabel="查看技能"
+        sharePath={sharePath}
       />
 
       <DigestReferenceList
@@ -635,9 +668,13 @@ export function DailyDigestContent({
         items={knowledge}
         hrefPrefix="/knowledge"
         linkLabel="查看概念"
+        sharePath={sharePath}
       />
 
-      <DigestSourceReferences references={sourceReferences} />
+      <DigestSourceReferences
+        references={sourceReferences}
+        sharePath={sharePath}
+      />
 
       {neighbors ? (
         <IssuePager

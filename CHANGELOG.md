@@ -42,6 +42,48 @@ For per-topic deep dives, see the `docs/` directory.
   overflow. The digest and weekly-review pagers are unchanged — only the
   unit type widened.
 
+## 复制链接 and section links on the detail pages
+
+- **2026-10-02.** The four public detail pages — signal, skill, knowledge,
+  digest — end their hero meta row with a quiet 复制链接 button
+  (`src/components/copy-link-button.tsx`). It copies the page's canonical
+  address: the site URL (`getSiteUrl`, the source `metadataBase` and the
+  canonical `<link>` already use) joined to the page's own path, never the
+  address bar. On `/digest/today` that is the dated issue, `/digest/<date>`,
+  so a link shared today still opens the same issue tomorrow. The button reads
+  已复制 for two seconds and a status line announces it; when the browser
+  refuses the clipboard the address appears selected in a read-only box, the
+  same fallback as 复制答案 on `/ask`. No request, no storage
+  (`buildPageLinkUrl` in `src/lib/page-link.ts`).
+- **Every section 本页目录 lists gets a 「#」 beside its h2**
+  (`SectionHeading` / `SectionLink`, `src/components/section-link.tsx`): a
+  click copies `<canonical>#<section id>` and puts the hash in the address bar
+  with `replaceState`, no history entry, as 本页目录 does; without JS it is a
+  plain anchor. Faint until the heading is hovered or the link has focus (and
+  at 0.75 on touch screens, which have no hover); its accessible name is
+  「复制「为什么重要」一节的链接」. The link sits **beside** the h2, in a flex row,
+  not inside it, so the heading's text and accessible name stay the title
+  alone. The shared section components (`TechnologyEvolutionLine`,
+  `RelationshipGraph`, `DossierRelatedItemsSection`) take an optional
+  `sharePath`; without it they render exactly as before. 收录于 has no 「#」
+  yet — it sits in code another branch is changing.
+- **Wrapping the h2 changed one measurement, and it was caught by measuring.**
+  Section heights and heading offsets were recorded on all four pages at
+  1440px before the change and compared after. Every section matched except
+  the skill and knowledge pages' related-entry sections, each 12px taller: the
+  h2 was the last child of their header, and its 12px bottom margin used to
+  collapse into the header's 18px; a flex item's margin cannot collapse.
+  Zeroing that one margin brought every number back. The digest hero is 3px
+  taller, because the button is taller than the count text beside it.
+- **Not on the workspace previews**: a draft has no public address. The
+  digest preview shows neither control; the signal preview shows them only
+  when the record is already published, since its address then exists. Both
+  are hidden in print.
+- The button reuses the quiet `.ask-radar__copy-button` rule (the selector was
+  added to it in `33-search-ask.css`). There are now three near-identical quiet
+  button rules on the site (that one, `.reading-transfer button`,
+  `.signal-shortcut-hint`); merging them is left for later.
+
 ## Editorial round 2026-10-01
 
 - **2026-10-01.** 24 undecided candidates, all dispositioned blind

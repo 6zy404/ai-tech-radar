@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { ContentBody } from "@/components/content-body";
+import { CopyLinkButton } from "@/components/copy-link-button";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
@@ -12,6 +13,7 @@ import {
   RelationshipGraph,
   type RelationshipGraphNode
 } from "@/components/relationship-graph";
+import { SectionHeading } from "@/components/section-link";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -282,11 +284,13 @@ function RelatedCard({
 
 function RelatedSection({
   id,
+  sharePath,
   eyebrow,
   heading,
   children
 }: {
   id: string;
+  sharePath: string;
   eyebrow: string;
   heading: string;
   children: ReactNode;
@@ -296,7 +300,9 @@ function RelatedSection({
       <div className="skill-detail-section__header">
         <div>
           <p>{eyebrow}</p>
-          <h2>{heading}</h2>
+          <SectionHeading sectionId={id} sharePath={sharePath}>
+            {heading}
+          </SectionHeading>
         </div>
       </div>
       <div className="skill-detail-related-list">{children}</div>
@@ -312,6 +318,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
   item: TItem;
 }) {
   const tags = getTagsByIds(item.tags);
+  const sharePath = `${kind.publicPath}/${item.slug}`;
   const relatedTechnologies: TechnologyItem[] = getAllTechnologies().filter(
     (technology) => item.relatedTechnologyIds.includes(technology.id)
   );
@@ -410,6 +417,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
                 {stamp.label}
               </DossierStampTag>
             ))}
+            <CopyLinkButton sharePath={sharePath} />
           </div>
           {tags.length > 0 ? <TagList tags={tags} limit={4} /> : null}
         </section>
@@ -421,6 +429,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
             {prerequisites.length > 0 ? (
               <RelatedSection
                 id={tocIds.prerequisites}
+                sharePath={sharePath}
                 eyebrow="阅读顺序"
                 heading="先读这些"
               >
@@ -456,7 +465,9 @@ export function ContentDetailPage<TItem extends DetailItem>({
                 id={tocIds.body}
                 className="skill-detail-section skill-detail-section--lead"
               >
-                <h2>{kind.leadHeading}</h2>
+                <SectionHeading sectionId={tocIds.body} sharePath={sharePath}>
+                  {kind.leadHeading}
+                </SectionHeading>
                 <ContentBody body={item.content} />
               </section>
             ) : null}
@@ -467,12 +478,14 @@ export function ContentDetailPage<TItem extends DetailItem>({
               nodes={graphNodes}
               sectionClassName="skill-detail-section"
               id={tocIds.graph}
+              sharePath={sharePath}
               hint={kind.graphHint}
             />
 
             {relatedTechnologies.length > 0 ? (
               <RelatedSection
                 id={tocIds.relatedTechnologies}
+                sharePath={sharePath}
                 eyebrow={kind.technologySection.eyebrow}
                 heading={kind.technologySection.heading}
               >
@@ -511,6 +524,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
             {relatedEntries.length > 0 ? (
               <RelatedSection
                 id={tocIds.relatedEntries[kind.kind]}
+                sharePath={sharePath}
                 eyebrow={kind.related.eyebrow}
                 heading={kind.related.heading}
               >

@@ -19,6 +19,8 @@ import { TechnologyCompareWidget } from "@/components/technology-compare-widget"
 import { TechnologyExplainWidget } from "@/components/technology-explain-widget";
 import { TechnologyLearningPathWidget } from "@/components/technology-learning-path-widget";
 import { ContentBody } from "@/components/content-body";
+import { CopyLinkButton } from "@/components/copy-link-button";
+import { SectionHeading } from "@/components/section-link";
 import { TechnologyEvolutionLine } from "@/components/technology-evolution-line";
 import { TechnologyLanguageSwitch } from "@/components/technology-language-switch";
 import { UserArticleLayout } from "@/components/user-article-layout";
@@ -115,6 +117,12 @@ export function TechnologyDetailContent({
   const mode = getEffectiveTechnologyMode(technology, requestedMode, "detail");
   const copy = getTechnologyDetailCopy(mode);
   const ranking = evaluateTechnologyPriority(technology);
+  // The workspace preview renders drafts through this component: a draft has
+  // no public address to copy, so it gets neither 复制链接 nor the 「#」s.
+  const sharePath =
+    technology.status === "published"
+      ? `/technologies/${technology.slug}`
+      : undefined;
 
   const title = getLocalizedTechnologyText(
     technology.title,
@@ -253,6 +261,7 @@ export function TechnologyDetailContent({
               <span>{technology.publishDate}</span>
               <span>{readingTimeLabel}</span>
               <DossierStampTag>{priorityLabel}</DossierStampTag>
+              {sharePath ? <CopyLinkButton sharePath={sharePath} /> : null}
             </div>
 
             <p className="technology-detail-hero__priority-copy">
@@ -307,7 +316,11 @@ export function TechnologyDetailContent({
       <PageToc entries={tocEntries} variant="disclosure" />
 
       {evolutionChain ? (
-        <TechnologyEvolutionLine chain={evolutionChain} id={tocIds.evolution} />
+        <TechnologyEvolutionLine
+          chain={evolutionChain}
+          id={tocIds.evolution}
+          sharePath={sharePath}
+        />
       ) : null}
 
       {body ? (
@@ -316,7 +329,9 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section"
         >
           <p className="technology-detail-section__eyebrow">记录</p>
-          <h2>信号正文</h2>
+          <SectionHeading sectionId={tocIds.body} sharePath={sharePath}>
+            信号正文
+          </SectionHeading>
           <ContentBody body={body} />
         </section>
       ) : null}
@@ -327,7 +342,9 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section"
         >
           <p className="technology-detail-section__eyebrow">为什么是现在</p>
-          <h2>为什么重要</h2>
+          <SectionHeading sectionId={tocIds.whyItMatters} sharePath={sharePath}>
+            为什么重要
+          </SectionHeading>
           <p className="technology-detail-section__lede">{whyItMatters}</p>
         </section>
       ) : null}
@@ -338,7 +355,12 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section"
         >
           <p className="technology-detail-section__eyebrow">背景</p>
-          <h2>技术背景</h2>
+          <SectionHeading
+            sectionId={tocIds.technicalContext}
+            sharePath={sharePath}
+          >
+            技术背景
+          </SectionHeading>
           <p className="technology-detail-section__lede">{technicalContext}</p>
         </section>
       ) : null}
@@ -351,7 +373,9 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section"
         >
           <p className="technology-detail-section__eyebrow">关注人群</p>
-          <h2>谁该关注</h2>
+          <SectionHeading sectionId={tocIds.audience} sharePath={sharePath}>
+            谁该关注
+          </SectionHeading>
           {audienceItems.length > 0 ? (
             <div className="technology-detail-chip-row">
               {audienceItems.map((item) => (
@@ -388,7 +412,9 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section"
         >
           <p className="technology-detail-section__eyebrow">下一步</p>
-          <h2>学习路径</h2>
+          <SectionHeading sectionId={tocIds.learningPath} sharePath={sharePath}>
+            学习路径
+          </SectionHeading>
           <ol className="technology-detail-learning-list">
             {learningPath.map((item) => (
               <li key={item}>{item}</li>
@@ -401,6 +427,7 @@ export function TechnologyDetailContent({
 
       <RelationshipGraph
         id={tocIds.graph}
+        sharePath={sharePath}
         centerTitle={title}
         centerId={technology.status === "published" ? technology.id : undefined}
         nodes={graphNodes}
@@ -410,6 +437,7 @@ export function TechnologyDetailContent({
 
       <DossierRelatedItemsSection
         id={tocIds.relatedTechnologies}
+        sharePath={sharePath}
         title="相关技术"
         description="与该信号在工作流或主题上相邻的其他技术，可顺着这条线继续了解。"
         items={relatedTechnologies}
@@ -421,6 +449,7 @@ export function TechnologyDetailContent({
 
       <DossierRelatedItemsSection
         id={tocIds.similarSignals}
+        sharePath={sharePath}
         title="内容相近的信号"
         description="按内容自动匹配，未经编辑挑选；已在相关技术和版本脉络里的不再重复。"
         items={similarSignals.map((item) => ({
@@ -441,6 +470,7 @@ export function TechnologyDetailContent({
 
       <DossierRelatedItemsSection
         id={tocIds.relatedSkills}
+        sharePath={sharePath}
         title={copy.relatedSkillsTitle}
         description={copy.relatedSkillsDescription}
         items={localizedRelatedSkills}
@@ -452,6 +482,7 @@ export function TechnologyDetailContent({
 
       <DossierRelatedItemsSection
         id={tocIds.relatedKnowledge}
+        sharePath={sharePath}
         title={copy.relatedKnowledgeTitle}
         description={copy.relatedKnowledgeDescription}
         items={localizedRelatedKnowledge}
@@ -467,7 +498,12 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section"
         >
           <p className="technology-detail-section__eyebrow">延伸思考</p>
-          <h2>后续问题</h2>
+          <SectionHeading
+            sectionId={tocIds.followUpQuestions}
+            sharePath={sharePath}
+          >
+            后续问题
+          </SectionHeading>
           <ul className="technology-detail-question-list">
             {followUpQuestions.map((item) => (
               <li key={item}>{item}</li>

@@ -1,0 +1,130 @@
+/* components/copy-link: 复制链接 in the hero of the four public detail pages
+   (copy-link-button.tsx) and the 「#」 beside their section headings
+   (section-link.tsx). Every colour is a dossier token, so the dark scheme
+   follows from dossier-scope.css. The button's own look is the shared quiet
+   one, declared once with .ask-radar__copy-button in 33-search-ask.css. */
+
+.copy-link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-width: 0;
+}
+
+/* When the clipboard was refused the box takes a line of its own. */
+.copy-link:has(.copy-link__fallback) {
+  flex-basis: 100%;
+}
+
+.copy-link-button {
+  white-space: nowrap;
+}
+
+/* Heard, not seen: the button itself says 已复制. */
+.copy-link__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.copy-link__status--shown {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  flex-basis: 100%;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 12px;
+  white-space: normal;
+}
+
+.copy-link__fallback {
+  box-sizing: border-box;
+  width: min(100%, 36em);
+  padding: 4px 8px;
+  border: 1px solid var(--dossier-line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--dossier-ink);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+/* -- the 「#」 beside a section heading -- */
+
+/* The link sits beside the h2, not in it, so the heading's text and
+   accessible name stay the title alone. No gap: an empty status span would
+   still take one. */
+.section-heading-row {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.section-heading-row > h2 {
+  min-width: 0;
+}
+
+/* A flex item's margin cannot collapse. Here the h2 is the last thing in the
+   header, and its 12px used to collapse into the header's own 18px; kept,
+   the row would add it on top and push every list down by 12px. Everywhere
+   else the h2's margin meets a sibling with none, so nothing changes. */
+.skill-detail-section__header .section-heading-row > h2 {
+  margin-bottom: 0;
+}
+
+/* Faint until the heading is hovered or the link has focus. */
+.section-link {
+  flex: none;
+  margin-left: 0.4em;
+  padding: 0 4px;
+  border-radius: 3px;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0.45;
+  transition: opacity 120ms ease;
+}
+
+.section-heading-row:hover .section-link,
+.section-link:hover,
+.section-link:focus-visible {
+  color: var(--dossier-accent);
+  opacity: 1;
+}
+
+/* No hover on a touch screen, so it cannot wait for one. */
+@media (hover: none) {
+  .section-link {
+    opacity: 0.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-link {
+    transition: none;
+  }
+}
+
+/* 今日概览's heading is an eyebrow-sized h2; a 14px 「#」 would outweigh it. */
+.daily-digest-summary-panel .section-link {
+  font-size: 12px;
+}
+
+.section-link__status:not(:empty) {
+  margin-left: 0.3em;
+  color: var(--dossier-accent);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+}
