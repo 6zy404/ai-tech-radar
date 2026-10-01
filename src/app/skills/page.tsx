@@ -2,6 +2,10 @@ import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import {
+  LibraryFilter,
+  type LibraryFilterSection
+} from "@/components/library-filter";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -12,6 +16,10 @@ import {
   getAllTechnologies,
   getTagsByIds
 } from "@/lib/content";
+import {
+  buildLibraryFilterText,
+  parseLibraryFilterQuery
+} from "@/lib/library-filter";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
   KnowledgeItem,
@@ -91,7 +99,13 @@ function getRelatedKnowledge(
   );
 }
 
-export default function SkillsPage() {
+export default async function SkillsPage({
+  searchParams
+}: {
+  searchParams: Promise<{ q?: string | string[] }>;
+}) {
+  const { q } = await searchParams;
+  const initialQuery = parseLibraryFilterQuery(q);
   const skills = getAllSkills();
   const technologies = getAllTechnologies();
   const knowledgeItems = getAllKnowledge();
@@ -110,6 +124,78 @@ export default function SkillsPage() {
       items: skills.filter((skill) => skill.skillType === section.id)
     }))
     .filter((section) => section.items.length > 0);
+
+  const filterSections: LibraryFilterSection[] = groupedSkills.map(
+    (section) => ({
+      id: section.id,
+      header: (
+        <div className="skills-library-section__header">
+          <div>
+            <p className="eyebrow user-eyebrow">技能方向</p>
+            <h2>{section.title}</h2>
+          </div>
+          <p>{section.focus}</p>
+        </div>
+      ),
+      items: section.items.map((skill) => {
+        const relatedTechnologies = getRelatedTechnologies(skill, technologies);
+        const relatedKnowledge = getRelatedKnowledge(skill, knowledgeItems);
+        const tags = getTagsByIds(skill.tags);
+
+        return {
+          id: skill.id,
+          // What the reader sees for this skill: its card, and the 技能方向
+          // heading it is filed under.
+          text: buildLibraryFilterText([
+            skill.title,
+            skill.summary,
+            ...tags.map((tag) => tag.name),
+            section.title
+          ]),
+          card: (
+            <DossierCard className="skill-library-card">
+              <div className="dossier-technology-card__chips">
+                <DossierStampTag>{heatLabels[skill.heatLevel]}</DossierStampTag>
+                <DossierStampTag className="dossier-stamp-tag--muted">
+                  {learningCostLabels[skill.learningCost]}
+                </DossierStampTag>
+              </div>
+              <h3>
+                <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
+              </h3>
+              <p className="skill-library-card__summary">{skill.summary}</p>
+              <RelationDensity
+                items={[
+                  { n: relatedTechnologies.length, label: "技术" },
+                  { n: relatedKnowledge.length, label: "背景知识" }
+                ]}
+              />
+              {relatedTechnologies.length > 0 ? (
+                <div className="skill-library-card__signals">
+                  <span>用这些来练习</span>
+                  {relatedTechnologies.slice(0, 2).map((technology) => (
+                    <Link
+                      href={`/technologies/${technology.slug}`}
+                      key={technology.id}
+                    >
+                      {getPreferredTechnologyTitle(technology)}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+              {tags.length > 0 ? <TagList tags={tags} limit={3} /> : null}
+              <Link
+                className="skill-library-card__link"
+                href={`/skills/${skill.slug}`}
+              >
+                查看技能
+              </Link>
+            </DossierCard>
+          )
+        };
+      })
+    })
+  );
 
   return (
     <UserPageShell
@@ -154,87 +240,15 @@ export default function SkillsPage() {
             </dl>
           </section>
 
-          <div className="skills-library-groups">
-            {groupedSkills.map((section) => (
-              <section className="skills-library-section" key={section.id}>
-                <div className="skills-library-section__header">
-                  <div>
-                    <p className="eyebrow user-eyebrow">技能方向</p>
-                    <h2>{section.title}</h2>
-                  </div>
-                  <p>{section.focus}</p>
-                </div>
-
-                <div className="skills-library-card-grid">
-                  {section.items.map((skill) => {
-                    const relatedTechnologies = getRelatedTechnologies(
-                      skill,
-                      technologies
-                    );
-                    const relatedKnowledge = getRelatedKnowledge(
-                      skill,
-                      knowledgeItems
-                    );
-                    const tags = getTagsByIds(skill.tags);
-
-                    return (
-                      <DossierCard
-                        className="skill-library-card"
-                        key={skill.id}
-                      >
-                        <div className="dossier-technology-card__chips">
-                          <DossierStampTag>
-                            {heatLabels[skill.heatLevel]}
-                          </DossierStampTag>
-                          <DossierStampTag className="dossier-stamp-tag--muted">
-                            {learningCostLabels[skill.learningCost]}
-                          </DossierStampTag>
-                        </div>
-                        <h3>
-                          <Link href={`/skills/${skill.slug}`}>
-                            {skill.title}
-                          </Link>
-                        </h3>
-                        <p className="skill-library-card__summary">
-                          {skill.summary}
-                        </p>
-                        <RelationDensity
-                          items={[
-                            { n: relatedTechnologies.length, label: "技术" },
-                            { n: relatedKnowledge.length, label: "背景知识" }
-                          ]}
-                        />
-                        {relatedTechnologies.length > 0 ? (
-                          <div className="skill-library-card__signals">
-                            <span>用这些来练习</span>
-                            {relatedTechnologies
-                              .slice(0, 2)
-                              .map((technology) => (
-                                <Link
-                                  href={`/technologies/${technology.slug}`}
-                                  key={technology.id}
-                                >
-                                  {getPreferredTechnologyTitle(technology)}
-                                </Link>
-                              ))}
-                          </div>
-                        ) : null}
-                        {tags.length > 0 ? (
-                          <TagList tags={tags} limit={3} />
-                        ) : null}
-                        <Link
-                          className="skill-library-card__link"
-                          href={`/skills/${skill.slug}`}
-                        >
-                          查看技能
-                        </Link>
-                      </DossierCard>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
-          </div>
+          <LibraryFilter
+            kind="skills"
+            label="筛选技能"
+            placeholder="按标题、摘要、标签或技能方向筛选"
+            countUnit="项技能"
+            noun="技能"
+            initialQuery={initialQuery}
+            sections={filterSections}
+          />
         </>
       )}
     </UserPageShell>

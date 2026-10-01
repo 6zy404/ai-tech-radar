@@ -153,3 +153,57 @@
 :root[data-theme="dark"] .dossier .skill-library-card__meta span:first-child {
   color: var(--dossier-ink);
 }
+
+/* The filter box (LibraryFilter, shared by /skills and /knowledge). It sits
+   on the page ground under the stats row, on the same left edge, with no
+   panel of its own: the page top stays a label, a sentence and a caption,
+   and this is the first control of the list below it. The page shell is a
+   grid with its own 30px gap, which is the whole distance from the stats row. */
+.library-filter {
+  width: min(1040px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+/* Narrows with the column it sits in: 27-skill-detail.css switches the
+   intro and the groups to `100% - 24px` below 760px, and without this the
+   box sat 4px inside the stats row above it. */
+@media (max-width: 760px) {
+  .library-filter {
+    width: min(100% - 24px, 1040px);
+  }
+}
+
+.library-filter__field {
+  display: block;
+  max-width: 440px;
+}
+
+/* The box's name for assistive tech; the placeholder says the same thing
+   on screen. */
+.library-filter__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.library-filter__status {
+  margin: 10px 0 0;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* Empty while the box is empty, but kept in the tree so it is already a
+   live region when the first result count arrives. */
+.library-filter__status:empty {
+  margin: 0;
+}
+
+.library-filter__status a {
+  margin-left: 4px;
+  color: var(--dossier-accent);
+}

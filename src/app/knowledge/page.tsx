@@ -3,6 +3,10 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import {
+  LibraryFilter,
+  type LibraryFilterSection
+} from "@/components/library-filter";
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
@@ -17,6 +21,10 @@ import {
   getAllTechnologies,
   getTagsByIds
 } from "@/lib/content";
+import {
+  buildLibraryFilterText,
+  parseLibraryFilterQuery
+} from "@/lib/library-filter";
 import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
 import type {
   DifficultyLevel,
@@ -94,7 +102,13 @@ function getKnowledgeOutcome(item: KnowledgeItem): string {
   return categoryOutcomes[item.category];
 }
 
-export default function KnowledgePage() {
+export default async function KnowledgePage({
+  searchParams
+}: {
+  searchParams: Promise<{ q?: string | string[] }>;
+}) {
+  const { q } = await searchParams;
+  const initialQuery = parseLibraryFilterQuery(q);
   const knowledgeItems = getAllKnowledge();
   const technologies = getAllTechnologies();
   const skills = getAllSkills();
@@ -113,6 +127,89 @@ export default function KnowledgePage() {
       items: knowledgeItems.filter((item) => item.difficulty === section.id)
     }))
     .filter((section) => section.items.length > 0);
+
+  const filterSections: LibraryFilterSection[] = groupedKnowledge.map(
+    (section) => ({
+      id: section.id,
+      header: (
+        <div className="skills-library-section__header">
+          <div>
+            <p className="eyebrow user-eyebrow">
+              {difficultyLabels[section.id]}
+            </p>
+            <h2>{section.title}</h2>
+          </div>
+          <p>{section.description}</p>
+        </div>
+      ),
+      items: section.items.map((item) => {
+        const relatedTechnologies = getRelatedTechnologies(item, technologies);
+        const relatedTechnologyPreview = relatedTechnologies.slice(0, 2);
+        const relatedSkillTotal = getRelatedSkillCount(item, skills);
+        const tags = getTagsByIds(item.tags);
+
+        return {
+          id: item.id,
+          // What the reader sees for this concept: its card, including the
+          // category stamp.
+          text: buildLibraryFilterText([
+            item.title,
+            item.summary,
+            ...tags.map((tag) => tag.name),
+            knowledgeCategoryLabels[item.category]
+          ]),
+          card: (
+            <DossierCard className="skill-library-card knowledge-library-card">
+              <div className="dossier-technology-card__chips">
+                <DossierStampTag>
+                  {knowledgeCategoryLabels[item.category]}
+                </DossierStampTag>
+                <DossierStampTag className="dossier-stamp-tag--muted">
+                  {difficultyLabels[item.difficulty]}
+                </DossierStampTag>
+              </div>
+              <h2>
+                <Link href={`/knowledge/${item.slug}`}>
+                  <UnbreakableTitle text={item.title} />
+                </Link>
+              </h2>
+              <p>{item.summary}</p>
+              <DossierCatalogNote label="帮助你理解">
+                {getKnowledgeOutcome(item)}
+              </DossierCatalogNote>
+              <RelationDensity
+                items={[
+                  { n: relatedTechnologies.length, label: "技术" },
+                  { n: relatedSkillTotal, label: "技能" }
+                ]}
+              />
+              {relatedTechnologyPreview.length > 0 ? (
+                <div className="skill-library-card__signals">
+                  <span>可解释信号</span>
+                  <ul>
+                    {relatedTechnologyPreview.map((technology) => (
+                      <li key={technology.id}>
+                        <Link href={`/technologies/${technology.slug}`}>
+                          {getPreferredTechnologyTitle(technology)}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <TagList tags={tags} limit={3} />
+              <Link
+                className="skill-library-card__link"
+                href={`/knowledge/${item.slug}`}
+              >
+                查看概念
+              </Link>
+            </DossierCard>
+          )
+        };
+      })
+    })
+  );
 
   return (
     <UserPageShell
@@ -157,91 +254,15 @@ export default function KnowledgePage() {
             </dl>
           </section>
 
-          <div className="skills-library-groups">
-            {groupedKnowledge.map((section) => (
-              <section key={section.id} className="skills-library-section">
-                <div className="skills-library-section__header">
-                  <div>
-                    <p className="eyebrow user-eyebrow">
-                      {difficultyLabels[section.id]}
-                    </p>
-                    <h2>{section.title}</h2>
-                  </div>
-                  <p>{section.description}</p>
-                </div>
-                <div className="skills-library-card-grid">
-                  {section.items.map((item) => {
-                    const relatedTechnologies = getRelatedTechnologies(
-                      item,
-                      technologies
-                    );
-                    const relatedTechnologyPreview = relatedTechnologies.slice(
-                      0,
-                      2
-                    );
-                    const relatedSkillTotal = getRelatedSkillCount(
-                      item,
-                      skills
-                    );
-
-                    return (
-                      <DossierCard
-                        className="skill-library-card knowledge-library-card"
-                        key={item.id}
-                      >
-                        <div className="dossier-technology-card__chips">
-                          <DossierStampTag>
-                            {knowledgeCategoryLabels[item.category]}
-                          </DossierStampTag>
-                          <DossierStampTag className="dossier-stamp-tag--muted">
-                            {difficultyLabels[item.difficulty]}
-                          </DossierStampTag>
-                        </div>
-                        <h2>
-                          <Link href={`/knowledge/${item.slug}`}>
-                            <UnbreakableTitle text={item.title} />
-                          </Link>
-                        </h2>
-                        <p>{item.summary}</p>
-                        <DossierCatalogNote label="帮助你理解">
-                          {getKnowledgeOutcome(item)}
-                        </DossierCatalogNote>
-                        <RelationDensity
-                          items={[
-                            { n: relatedTechnologies.length, label: "技术" },
-                            { n: relatedSkillTotal, label: "技能" }
-                          ]}
-                        />
-                        {relatedTechnologyPreview.length > 0 ? (
-                          <div className="skill-library-card__signals">
-                            <span>可解释信号</span>
-                            <ul>
-                              {relatedTechnologyPreview.map((technology) => (
-                                <li key={technology.id}>
-                                  <Link
-                                    href={`/technologies/${technology.slug}`}
-                                  >
-                                    {getPreferredTechnologyTitle(technology)}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ) : null}
-                        <TagList tags={getTagsByIds(item.tags)} limit={3} />
-                        <Link
-                          className="skill-library-card__link"
-                          href={`/knowledge/${item.slug}`}
-                        >
-                          查看概念
-                        </Link>
-                      </DossierCard>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
-          </div>
+          <LibraryFilter
+            kind="knowledge"
+            label="筛选概念"
+            placeholder="按标题、摘要、标签或类别筛选"
+            countUnit="个概念"
+            noun="概念"
+            initialQuery={initialQuery}
+            sections={filterSections}
+          />
         </>
       )}
     </UserPageShell>

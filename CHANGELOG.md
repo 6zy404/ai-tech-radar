@@ -84,6 +84,43 @@ For per-topic deep dives, see the `docs/` directory.
   button rules on the site (that one, `.reading-transfer button`,
   `.signal-shortcut-hint`); merging them is left for later.
 
+## A filter box on /skills and /knowledge
+
+- **2026-10-02.** Both index pages gain a filter box under the stats row
+  (`LibraryFilter`, `src/components/library-filter.tsx`, built on the same
+  `DossierSearchInput` as `/network` and 精选). The two pages are siblings,
+  so they share the one component: each passes its grouped sections, with
+  every card still rendered on the server exactly as before, and the
+  component shows the ones that match.
+- **The rule is /search's keyword rule**: whitespace collapsed, case
+  ignored, every space-separated term must appear. It matches what the
+  reader can see for an entry — title, summary, tag names, and the category
+  it is filed under (a skill's 技能方向 heading, a concept's category stamp).
+  The pure functions are in `src/lib/library-filter.ts`, restated rather
+  than imported because `search.ts` reads the content stores and this runs
+  in the browser; a test checks the normalisation agrees with
+  `normalizeSearchQuery`.
+- **A group with no matching card is hidden whole.** The group headings carry
+  no count today and do not gain one; instead a line under the box reads
+  筛出 N / M 项技能 (or 个概念) while a filter is set. The stats row keeps
+  the library totals: it describes the collection, not the view. With no
+  match, that line says so and links the same words to
+  `/search?q=…&type=skills` (or `knowledge`), where the semantic half may
+  still find something.
+- **The filter is in the address**, `?q=`, read on the server so a filtered
+  link renders filtered in the first HTML (measured: 6 of 16 cards for
+  `/skills?q=智能体`, 0 of 19 with the guidance line for
+  `/knowledge?q=quantum`), and kept in step with `history.replaceState` —
+  no history entries, no storage. Without JS a bare page still renders every
+  card. A blank, overlong (> 200) or repeated parameter reads as no filter.
+- **Below 760px the box narrows with its column.** `27-skill-detail.css`
+  switches the intro and the groups to `100% - 24px` there; the box first
+  shipped without that and sat 4px inside the stats row, caught by measuring
+  edges at 375px.
+- Verified in the browser pane and headless Chrome: both pages at 1440 light
+  and dark, with results and with none, plus 375px with results and with
+  none; cards compared against the live site's unchanged cards.
+
 ## Editorial round 2026-10-01
 
 - **2026-10-01.** 24 undecided candidates, all dispositioned blind
