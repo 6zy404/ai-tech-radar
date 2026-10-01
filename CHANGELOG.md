@@ -90,6 +90,48 @@ For per-topic deep dives, see the `docs/` directory.
   the unchanged code with the model ready. A capture of a page with an
   async-loaded section is only a baseline once that section has settled.
 
+## 信源一览 (`/sources`)
+
+- **2026-10-02.** A new public page answers "who are these signals from":
+  every publisher behind a published signal, with its signal count, its
+  newest signal (title, date, link) and the feeds it came through, in
+  sections by publisher type — 大型科技公司 16 publishers / 42 signals,
+  创业公司 16 / 23, 开源社区 6 / 16, 研究实验室 9 / 11, 媒体 1 / 3 (95
+  signals, 48 publishers, 13 feeds, measured on a copy of the live data).
+  Most signals first within a section, then by name. A row of jump chips
+  (`DossierCategoryChips` as links) leads to each section, because 48 cards
+  run to several screens; every card's publisher name is a fragment target
+  (`/sources#publisher-openai`) for links from elsewhere later. Not in the
+  nav; listed in the sitemap; announces the all-signals RSS feed.
+- **The boundary is the point.** `/workspace/sources` already shows the
+  configured sources — feed URLs, import status, health, quality level — and
+  none of that may reach a reader. `src/lib/source-directory.ts` is a pure
+  function over `getAllTechnologies()` that reads five fields the signal page
+  already shows (publisherName, publisherType, sourceName, publishDate, slug)
+  plus the public title, re-checks `status === "published"`, and returns six
+  fields per publisher; a unit test pins the exact key set and that no URL or
+  workflow value survives. It never imports the source, import or candidate
+  workflows. `/sources` is outside `protectedPathPrefixes` (`/workspace/sources`
+  is inside) and outside `build:public`'s excluded directories.
+- **Grouped by publisherName, not sourceName.** The publisher is the
+  organisation behind the announcement; the source is only the feed it came
+  through. OpenAI's 11 signals arrive via OpenAI News, Simon Willison Blog and
+  量子位; grouping by feed would split one organisation three ways and file
+  NVIDIA, Liquid AI and Ai2 under "Hugging Face Blog". Names that differ only
+  in case or surrounding space merge; an empty publisherName falls back to the
+  sourceName (0 such signals today). A publisher whose signals disagree on
+  type takes the most frequent one, a tie going to the newest signal
+  (IBM Research: one big-tech, one research-lab → research-lab).
+- **No "this publisher's signals" link yet.** `/technologies?q=<name>` was
+  measured and does not work: `q` matches title, summary and body, not the
+  publisher — OpenAI has 11 signals and `q=openai` matches 26; vLLM Project
+  has 5 and matches 0. A real filter needs a `publisher` parameter in the
+  精选 view.
+- 9 unit tests. Checked at 1440 and 390 in both schemes; no horizontal
+  scroll at 375; a section hash lands its heading 86px down, clear of the
+  sticky nav; the served HTML carries no external link and none of the
+  internal field names.
+
 ## 上一条 / 下一条 on the signal page
 
 - **2026-10-02.** A signal page was a dead end: past 来源参考 the only way on
