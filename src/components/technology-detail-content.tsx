@@ -520,7 +520,12 @@ export function TechnologyDetailContent({
           className="user-article-section technology-detail-section signal-issue-appearances"
         >
           <p className="technology-detail-section__eyebrow">发布记录</p>
-          <h2>收录于</h2>
+          <SectionHeading
+            sectionId={tocIds.digestAppearances}
+            sharePath={sharePath}
+          >
+            收录于
+          </SectionHeading>
           <p className="signal-issue-appearances__note">
             收录这条信号的技术简报，新的在前
             {issueAppearances.weekly ? "；最后一行是它那一周的周回顾" : ""}
@@ -567,24 +572,25 @@ export function TechnologyDetailContent({
 
       {/* Last, as on the digest page: the article ends with its source, and
           the pager leads away from it. Publish order, as in the 精选 list —
-          not the 版本脉络 line. */}
+          not the 版本脉络 line. ← is the older signal, as ← 上一期 is the
+          older issue on the digest and weekly pages. */}
       {neighbors ? (
         <IssuePager
           unit="条"
           ariaLabel="信号翻页"
           previous={
-            neighbors.newer
-              ? {
-                  href: `/technologies/${neighbors.newer.slug}`,
-                  label: neighbors.newer.title
-                }
-              : undefined
-          }
-          next={
             neighbors.older
               ? {
                   href: `/technologies/${neighbors.older.slug}`,
                   label: neighbors.older.title
+                }
+              : undefined
+          }
+          next={
+            neighbors.newer
+              ? {
+                  href: `/technologies/${neighbors.newer.slug}`,
+                  label: neighbors.newer.title
                 }
               : undefined
           }

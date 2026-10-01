@@ -16,13 +16,15 @@ For per-topic deep dives, see the `docs/` directory.
 
 - **2026-10-02.** A signal page was a dead end: past 来源参考 the only way on
   was back to the list. It now ends with the same pager the digest and the
-  weekly review use (`IssuePager`, new unit 条): ← 上一条 is the signal
-  above it in the 精选 list, 下一条 → the one below, each tile naming the
-  other signal's title. It sits after 来源参考, the digest page's place for
-  its pager: the article ends with its source, and the pager leads away
-  from it. A side with no neighbour leaves its slot empty, so the newest
-  signal shows only 下一条 on the right and the oldest only 上一条 on the
-  left. Hidden in print by the existing `.issue-pager` rule; never on the
+  weekly review use (`IssuePager`, new unit 条): ← 上一条 is the older signal
+  (the one below it in the 精选 list), 下一条 → the newer one, each tile
+  naming the other signal's title — the same direction as ← 上一期 on the
+  digest and weekly pages, chosen by the owner over the list's top-to-bottom
+  reading so that one component means one thing. It sits after 来源参考, the
+  digest page's place for its pager: the article ends with its source, and
+  the pager leads away from it. A side with no neighbour leaves its slot
+  empty, so the newest signal shows only ← 上一条 and the oldest only
+  下一条 →. Hidden in print by the existing `.issue-pager` rule; never on the
   workspace preview, which does not pass the data.
 - **The order is the list's, read off by position, not re-sorted.** 精选's
   default 最新发布 keeps `getAllTechnologies()` as it comes — publish date
