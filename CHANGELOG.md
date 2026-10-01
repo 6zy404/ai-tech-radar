@@ -49,6 +49,47 @@ For per-topic deep dives, see the `docs/` directory.
   跳到正文 lands — so the next Tab starts at the top. Both are hidden in
   print.
 
+## Three small fixes: one quiet button, a filter that submits without JS, 收录于's heading level
+
+- **2026-10-02.** Three follow-ups left in `docs/next-task.md`, each in its
+  own commit, none meant to change what a reader sees.
+- **`.quiet-button`.** The 导出 / 导入阅读码 buttons
+  (`.reading-transfer button`) and the 「快捷键 ?」 hint
+  (`.signal-shortcut-hint`) carried the same eight declarations and the
+  same hover in two files. They are now one class in `33-search-ask.css`; the hint keeps only its own inline-flex layout for
+  the `<kbd>`. The note had counted three copies, but the third —
+  问雷达's 复制答案 with 复制链接, already one rule — is a different button:
+  a visible border, the monospace face at `--fs-label` (13px) and 10px of
+  side padding against 12px system-ui, a transparent border and 8px. Merging
+  it would have changed one look or the other, so it stays its own rule.
+- **The /skills and /knowledge filter submits without JS.**
+  `DossierSearchInput` takes an optional `name` (omitted, its markup is
+  byte-for-byte what /network and 精选 served before), and `LibraryFilter`
+  puts the field in a `<form method="get">` with `name="q"`. Without JS,
+  Enter loads `?q=`, which the server already read for the first paint; with
+  JS the submit is cancelled and the list filters as you type, as before.
+  A native `form.submit()` landed on `/skills?q=检索` rendered 1 / 16; curl
+  of both pages with and without `?q=` gave 16 → 1 and 19 → 3 cards.
+- **收录于's rows are h3.** `DossierRegisterRow` always rendered an h4, which
+  under 收录于's h2 skipped a level. It takes `headingLevel` (3 or 4,
+  default 4), the signal page passes 3, and the title's rule is now the class
+  `.dossier-register-row__title` instead of `.dossier-register-row h4`.
+  The 按话题 view still renders h4 — under an **h2** topic heading, so it
+  skips a level too; left as it was, to be changed on its own.
+- **How "looks the same" was checked**, without `css:diff`: every computed
+  property and box of each affected element and its descendants, captured in
+  the dev server in light and dark before the change and diffed after — the
+  稍后读 toolbar and empty state, the 精选 hint, 问雷达's copy row, the /skills
+  filter and first group, /network's search box, 收录于 at 1440 and 390 and
+  the 按话题 rows. All read 0; hover colour and border match on both quiet
+  buttons. The harness was proven to fire (a 1px padding probe read 14, a
+  font-weight probe on the row title read 8). One false alarm is worth
+  keeping: the first signal-page capture was taken before the embedding model
+  had loaded, so 内容相近的信号 was missing above 收录于 and every row read
+  401.75px higher — exactly that section plus its gap. It was retaken against
+  the unchanged code with the model ready. A capture of a page with an
+  async-loaded section is only a baseline once that section has settled.
+
 ## 上一条 / 下一条 on the signal page
 
 - **2026-10-02.** A signal page was a dead end: past 来源参考 the only way on
