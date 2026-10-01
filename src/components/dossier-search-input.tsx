@@ -3,6 +3,8 @@ interface DossierSearchInputProps {
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
+  /** Set it when the box sits in a <form> that must submit without JS. */
+  name?: string;
 }
 
 /**
@@ -15,13 +17,15 @@ export function DossierSearchInput({
   value,
   onChange,
   placeholder,
-  className = ""
+  className = "",
+  name
 }: DossierSearchInputProps) {
   return (
     <div className={`dossier-search ${className}`.trim()}>
       <SearchGlyph />
       <input
         type="search"
+        name={name}
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}

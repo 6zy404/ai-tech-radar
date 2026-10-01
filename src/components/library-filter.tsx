@@ -85,14 +85,20 @@ export function LibraryFilter({
   return (
     <>
       <div className="library-filter">
-        <label className="library-filter__field">
-          <span className="library-filter__label">{label}</span>
-          <DossierSearchInput
-            value={query}
-            onChange={setQuery}
-            placeholder={placeholder}
-          />
-        </label>
+        {/* Without JS, Enter submits the box as ?q=, which the server
+            already reads; with JS the list filters as you type, so the
+            submit is cancelled rather than reloading the page. */}
+        <form method="get" onSubmit={(event) => event.preventDefault()}>
+          <label className="library-filter__field">
+            <span className="library-filter__label">{label}</span>
+            <DossierSearchInput
+              name="q"
+              value={query}
+              onChange={setQuery}
+              placeholder={placeholder}
+            />
+          </label>
+        </form>
         <p className="library-filter__status" role="status">
           {!isFiltering ? null : matchCount > 0 ? (
             <>
