@@ -67,6 +67,7 @@ Used by:
 - `/skills`
 - `/knowledge`
 - `/topics`
+- `/sources`
 
 Purpose:
 
@@ -341,6 +342,8 @@ Workspace deployment boundary:
     `?view=` query param and a tab strip at the top of the page; `/news`,
     `/timeline`, and `/radar` each redirect here to the matching view
     (`src/app/{news,timeline,radar}/page.tsx` are one-line `redirect()`s)
+  - the header's actions carry 信源一览 → `/sources` and RSS 订阅
+    (2026-10-02)
   - 精选 (default, no `view` param, `TechnologyBrowser`): user-facing
     published technology list; bilingual content preference for title and
     summary; uses a compact signal-stream layout on desktop so users scan
@@ -708,6 +711,17 @@ Workspace deployment boundary:
     derived view (`getTopicIndex` in `src/lib/topic-hub.ts`), no internal
     fields; not in the nav — linked from each topic hub's header and from
     the 按话题 view
+- `/sources`
+  - user-facing publisher directory (信源一览): every publisher behind a
+    published signal as a `DossierCard` — name (a fragment target,
+    `#publisher-<name>`), 收录 · N 信号 · M 信源, its newest signals (up to
+    three, date and linked title; a one-signal publisher shows just that
+    one) and 经由 <feed names> — in sections by publisher type, most signals
+    first, opened by a row of jump chips (`DossierCategoryChips` as links)
+  - built from the `/skills` list skeleton's classes like `/topics`; pure
+    derived view (`src/lib/source-directory.ts`); never shows feed URLs,
+    import status, source health or quality; not in the nav — reached from
+    the `/technologies` header (2026-10-02)
 - `/topics/[tagId]`
   - its `<head>` announces the per-topic feed only when the RSS column of
     the 跟进此话题 block is shown (the feed 404s otherwise); every public page announces the digest

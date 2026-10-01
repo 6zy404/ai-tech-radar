@@ -34,6 +34,13 @@ Public routes can be exposed:
 - `/knowledge`
 - `/knowledge/[slug]`
 - `/network`
+- `/sources` (publisher directory; derived only from published signals'
+  publisherName / publisherType / sourceName / publishDate / slug / public
+  title by `src/lib/source-directory.ts`, whose test pins the output fields.
+  Distinct from the internal `/workspace/sources`: no feed URL, import
+  status, source health, quality metric or candidate reaches it. Outside
+  `protectedPathPrefixes` and outside `build:public`'s excluded
+  directories; `validate:deployment` asserts it stays public)
 - `/topics` (topic index; published counts per topic from the same three
   public pools as the hubs, no internal fields; not a nav entry)
 - `/topics/[tagId]` (topic hub; a drill-down destination reached via

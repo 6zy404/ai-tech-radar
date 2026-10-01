@@ -233,6 +233,17 @@ The product is split into two subsystems:
   `/search?q=…&type=skills|knowledge`. The filter lives in `?q=`, read on the
   server for the first paint and synced with `history.replaceState`; no
   storage, and a bare page renders every card.
+- **信源一览 (`/sources`)** (2026-10-02) — every publisher behind a
+  published signal, grouped by `publisherName` (the organisation behind the
+  announcement, not the feed it came through), with its signal count, its
+  newest signals (up to three, date and linked title) and the feeds it
+  arrived via, in sections by publisher type with jump chips; most signals
+  first. A pure derived view over published signals' public fields
+  (`buildSourceDirectory` in `src/lib/source-directory.ts`) — it never reads
+  the source configuration, import runs, source health or candidates that
+  `/workspace/sources` shows. Reached from a 信源一览 link beside RSS 订阅 in
+  the `/technologies` header; not a nav entry; in the sitemap.
+  `validate:deployment` and `validate:workspace-boundary` cover it.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
@@ -521,6 +532,8 @@ Public, user-facing routes:
 - `/skills` (`?q=` filter), `/skills/[slug]`, `/knowledge` (`?q=` filter),
   `/knowledge/[slug]`
 - `/network` (`?focus=<node id>` preselects a node)
+- `/sources` — publisher directory derived from published signals (not a
+  nav entry; linked from the `/technologies` header)
 - `/topics` — topic index: every topic with at least one published signal,
   skill or knowledge item (the same rule as the hub's `notFound()`), with its
   description and the three counts, ordered by signal count then name; not a
