@@ -12,6 +12,36 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 上一条 / 下一条 on the signal page
+
+- **2026-10-02.** A signal page was a dead end: past 来源参考 the only way on
+  was back to the list. It now ends with the same pager the digest and the
+  weekly review use (`IssuePager`, new unit 条): ← 上一条 is the signal
+  above it in the 精选 list, 下一条 → the one below, each tile naming the
+  other signal's title. It sits after 来源参考, the digest page's place for
+  its pager: the article ends with its source, and the pager leads away
+  from it. A side with no neighbour leaves its slot empty, so the newest
+  signal shows only 下一条 on the right and the oldest only 上一条 on the
+  left. Hidden in print by the existing `.issue-pager` rule; never on the
+  workspace preview, which does not pass the data.
+- **The order is the list's, read off by position, not re-sorted.** 精选's
+  default 最新发布 keeps `getAllTechnologies()` as it comes — publish date
+  newest first, same-day signals in pool order, not slug order — so
+  `src/lib/signal-neighbors.ts` takes that array and returns the items
+  either side of the current one. A second sort with its own tie-break
+  would disagree with the list on any day with two signals. It is publish
+  order only; the 版本脉络 (`supersedes`) line plays no part. 8 unit tests,
+  one of them walking the whole list through the neighbours and comparing it
+  with `sortTechnologiesForBrowser(…, "latest")`. Checked against the
+  rendered list in the worktree's dev server: all 95 signal pages page to
+  exactly the cards above and below them on `/technologies`.
+- **Titles longer than 40 characters are cut at a clause** (`compactText`),
+  which keeps the headline before the colon: 16 of 95 were (「Claude Sonnet
+  5.5：终端任务从 10% 到 71%…」). Checked at 1440 and 390, light and dark,
+  on a middle signal, the newest and the oldest, with no horizontal
+  overflow. The digest and weekly-review pagers are unchanged — only the
+  unit type widened.
+
 ## Editorial round 2026-10-01
 
 - **2026-10-01.** 24 undecided candidates, all dispositioned blind

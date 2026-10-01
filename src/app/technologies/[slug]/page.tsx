@@ -10,6 +10,7 @@ import {
   getTechnologyBySlug
 } from "@/lib/content";
 import { getSignalIssueAppearances } from "@/lib/signal-digest-appearances";
+import { getSignalNeighbors } from "@/lib/signal-neighbors";
 import { getSimilarSignals } from "@/lib/similar-signals";
 import { buildTechnologyJsonLd } from "@/lib/structured-data";
 import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
@@ -115,6 +116,7 @@ export default async function TechnologyDetailPage({
           evolutionChain={evolutionChain}
           similarSignals={similarSignals}
           issueAppearances={getSignalIssueAppearances(technology)}
+          neighbors={getSignalNeighbors(technology.id)}
         />
       </UserPageShell>
       {structuredData ? <JsonLd data={structuredData} /> : null}

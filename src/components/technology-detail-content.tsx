@@ -10,6 +10,7 @@ import {
   type RelationshipGraphNode
 } from "@/components/relationship-graph";
 import { FollowableTagList } from "@/components/followable-tag-list";
+import { IssuePager } from "@/components/issue-pager";
 import { PageToc } from "@/components/page-toc";
 import { SourceReference } from "@/components/source-reference";
 import { TagList } from "@/components/tag-list";
@@ -44,6 +45,8 @@ import type {
   SignalIssueAppearances,
   SignalIssueSection
 } from "@/lib/signal-digest-appearances";
+// Type-only for the same reason: the module reads the published pool.
+import type { SignalNeighbors } from "@/lib/signal-neighbors";
 import type { SimilarSignalLink } from "@/lib/similar-signals";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 import {
@@ -86,6 +89,8 @@ interface TechnologyDetailContentProps {
   similarSignals?: SimilarSignalLink[];
   /** Omitted by the workspace preview: a draft is in no published issue. */
   issueAppearances?: SignalIssueAppearances;
+  /** Omitted by the workspace preview: a draft has no place in the list. */
+  neighbors?: SignalNeighbors;
 }
 
 export function TechnologyDetailContent({
@@ -97,7 +102,8 @@ export function TechnologyDetailContent({
   compareCandidates,
   evolutionChain,
   similarSignals = [],
-  issueAppearances
+  issueAppearances,
+  neighbors
 }: TechnologyDetailContentProps) {
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
@@ -522,6 +528,32 @@ export function TechnologyDetailContent({
         linkLabel={copy.sourceLinkLabel}
         showUrl
       />
+
+      {/* Last, as on the digest page: the article ends with its source, and
+          the pager leads away from it. Publish order, as in the 精选 list —
+          not the 版本脉络 line. */}
+      {neighbors ? (
+        <IssuePager
+          unit="条"
+          ariaLabel="信号翻页"
+          previous={
+            neighbors.newer
+              ? {
+                  href: `/technologies/${neighbors.newer.slug}`,
+                  label: neighbors.newer.title
+                }
+              : undefined
+          }
+          next={
+            neighbors.older
+              ? {
+                  href: `/technologies/${neighbors.older.slug}`,
+                  label: neighbors.older.title
+                }
+              : undefined
+          }
+        />
+      ) : null}
     </UserArticleLayout>
   );
 }
