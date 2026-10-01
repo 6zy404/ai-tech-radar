@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
+import { ReadingProgress } from "@/components/reading-progress";
 import { weeklyReviewFeedPath } from "@/lib/feed-paths";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import type {
@@ -149,6 +150,7 @@ export function WeeklyReviewContent({
           </span>
         </div>
       </section>
+      <ReadingProgress regionSelector=".weekly-review" />
     </div>
   );
 }

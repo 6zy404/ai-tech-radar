@@ -9,6 +9,7 @@ import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { FollowableTagList } from "@/components/followable-tag-list";
 import { PageToc } from "@/components/page-toc";
+import { ReadingProgress } from "@/components/reading-progress";
 import {
   RelationshipGraph,
   type RelationshipGraphNode
@@ -589,6 +590,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
             />
           </aside>
         </div>
+        <ReadingProgress regionSelector=".skill-detail-main" />
       </div>
     </UserPageShell>
   );

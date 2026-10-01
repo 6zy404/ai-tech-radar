@@ -1,0 +1,74 @@
+/* components/reading-progress: the progress line under the top nav and the
+   返回顶部 button on the long reading pages (reading-progress.tsx). Both are
+   fixed, so neither takes space in the page. Every colour is a dossier
+   token, so the dark scheme follows from dossier-scope.css. */
+
+/* `top` is set from the nav's measured bottom, which changes when the nav
+   wraps or its narrow-screen menu opens; 0 is only the first-paint value. */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 3px;
+  background: var(--dossier-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+/* Bottom right: the Next dev indicator holds the bottom left. Hidden with
+   visibility, so it is out of the Tab order until it shows. */
+.reading-progress-top {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--dossier-line);
+  border-radius: 50%;
+  background: var(--dossier-surface);
+  color: var(--dossier-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease,
+    visibility 150ms;
+}
+
+.reading-progress-top--shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.reading-progress-top:hover {
+  border-color: var(--dossier-accent);
+}
+
+@media (max-width: 640px) {
+  .reading-progress-top {
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress-top {
+    transform: none;
+    transition: none;
+  }
+}

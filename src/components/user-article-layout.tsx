@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { ReadingProgress } from "@/components/reading-progress";
+
 interface UserArticleLayoutProps {
   hero: ReactNode;
   children: ReactNode;
@@ -28,6 +30,7 @@ export function UserArticleLayout({
           <aside className="user-article-layout__aside">{aside}</aside>
         ) : null}
       </div>
+      <ReadingProgress regionSelector=".user-article-layout__main" />
     </article>
   );
 }

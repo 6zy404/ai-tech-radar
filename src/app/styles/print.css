@@ -363,6 +363,8 @@
   .copy-link,
   .section-link,
   .section-link__status,
+  .reading-progress,
+  .reading-progress-top,
   [data-print="hide"] {
     display: none !important;
   }

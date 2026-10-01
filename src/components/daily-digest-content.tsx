@@ -10,6 +10,7 @@ import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
 import { PageToc } from "@/components/page-toc";
+import { ReadingProgress } from "@/components/reading-progress";
 import { SectionHeading } from "@/components/section-link";
 import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
@@ -715,6 +716,7 @@ export function DailyDigestContent({
           </div>
         </section>
       ) : null}
+      <ReadingProgress regionSelector=".daily-digest" />
     </div>
   );
 }

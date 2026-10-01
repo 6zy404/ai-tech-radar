@@ -12,6 +12,43 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Reading progress line and 返回顶部 on the long reading pages
+
+- **2026-10-02.** The signal, skill, knowledge, digest (`/digest/[date]`,
+  `/digest/today`) and weekly-review pages carry a 3px progress line just
+  under the top nav and, once the reader is more than a screen down, a round
+  返回顶部 button in the bottom-right corner (`ReadingProgress`,
+  `src/components/reading-progress.tsx`; arithmetic in
+  `src/lib/reading-progress.ts`, 5 unit tests). Lists, the home page,
+  `/search`, `/ask` and `/network` do not mount it; under `/workspace` it
+  renders nothing, so the draft and digest previews, which reuse the same
+  components, do not get it either. No request, no storage.
+- **The line measures the reading region, not the page.** Each page names
+  its region: the signal page's reading column
+  (`.user-article-layout__main`, the hero and the aside excluded — below
+  920px the aside drops under the article and the line is full before it),
+  the skill and knowledge pages' `.skill-detail-main`, the digest's
+  `.daily-digest` and the weekly review's `.weekly-review`. The last two
+  have no reading-column wrapper, so their hero and their subscribe block
+  count. It reads 0 while the region still starts below the nav and 1 once
+  its bottom reaches the foot of the window; the nav's height is measured
+  rather than assumed, so it follows the nav when it wraps or its narrow
+  menu opens.
+- **Neither moves the page.** Both are `position: fixed`. Document height and
+  a hash of every element box under `<main>` were taken on six pages at 1440
+  and 390 before mounting and after: identical (the comparison was first
+  shown to fire — a 1px margin on the hero changed both). They sit inside the page's
+  `.dossier` element to inherit its colour tokens, so dark mode needs no
+  rules of its own.
+- **Accessibility.** The line is `aria-hidden`: a screen reader already
+  knows where it is in the page, and a progressbar whose value changes on
+  every scroll frame would only be noise. The button is named 返回顶部,
+  44px, hidden with `visibility` (out of the Tab order) until it shows, and
+  takes the site's `:focus-visible` ring. It scrolls smoothly, or jumps
+  under `prefers-reduced-motion`, and moves focus to `#main-content` — where
+  跳到正文 lands — so the next Tab starts at the top. Both are hidden in
+  print.
+
 ## 上一条 / 下一条 on the signal page
 
 - **2026-10-02.** A signal page was a dead end: past 来源参考 the only way on
