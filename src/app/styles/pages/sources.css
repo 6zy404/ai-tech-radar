@@ -24,3 +24,42 @@
   color: var(--dossier-stamp);
   font-weight: 750;
 }
+
+/* The publisher's newest signals: date in its own column so the titles
+   start on one edge, as on the 收录于 rows of a signal page. */
+.sources-card__recent ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sources-card__recent li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+}
+
+/* Below this the date column took a third of a 280px card and wrapped every
+   title to three or four lines; the date goes above its title instead. */
+@media (max-width: 560px) {
+  .sources-card__recent li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}
+
+.sources-card__recent time {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* A card shorter than its row-mate would otherwise spread the leftover
+   height between its rows; keep the rows packed at the top. */
+.sources-card {
+  align-content: start;
+}

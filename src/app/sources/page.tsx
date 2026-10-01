@@ -129,16 +129,24 @@ export default function SourcesPage() {
                           { n: entry.sourceNames.length, label: "信源" }
                         ]}
                       />
-                      <div className="skill-library-card__signals">
+                      <div className="skill-library-card__signals sources-card__recent">
                         <span>
-                          最新一条 ·{" "}
-                          <time dateTime={entry.latest.publishDate}>
-                            {entry.latest.publishDate}
-                          </time>
+                          {entry.recent.length === 1
+                            ? "最新一条"
+                            : `最近 ${entry.recent.length} 条`}
                         </span>
-                        <Link href={`/technologies/${entry.latest.slug}`}>
-                          {entry.latest.title}
-                        </Link>
+                        <ol>
+                          {entry.recent.map((item) => (
+                            <li key={item.slug}>
+                              <time dateTime={item.publishDate}>
+                                {item.publishDate}
+                              </time>
+                              <Link href={`/technologies/${item.slug}`}>
+                                {item.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ol>
                       </div>
                       <p className="sources-card__via">
                         <span>经由</span> {entry.sourceNames.join(" · ")}

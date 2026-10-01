@@ -97,11 +97,16 @@ export default async function TechnologiesPage({
       sectionLabel="已发布信号"
       className="technology-list-page dossier"
       actions={
-        // A plain anchor: the feed is a route handler, not a page, so
-        // client-side navigation and prefetch have nothing to load.
-        <a href={signalFeed.path} className="action-link">
-          RSS 订阅
-        </a>
+        <>
+          <Link href="/sources" className="action-link">
+            信源一览
+          </Link>
+          {/* A plain anchor: the feed is a route handler, not a page, so
+              client-side navigation and prefetch have nothing to load. */}
+          <a href={signalFeed.path} className="action-link">
+            RSS 订阅
+          </a>
+        </>
       }
     >
       <div

@@ -18,8 +18,8 @@ import {
 } from "@/lib/technology-localization";
 import type { PublisherType, TechnologyItem } from "@/types/content";
 
-/** The publisher's newest published signal. */
-export interface SourceDirectoryLatest {
+/** One of the publisher's published signals, as the card lists it. */
+export interface SourceDirectorySignal {
   title: string;
   slug: string;
   publishDate: string;
@@ -31,7 +31,11 @@ export interface SourceDirectoryEntry {
   publisherType: PublisherType;
   publisherTypeLabel: string;
   signalCount: number;
-  latest: SourceDirectoryLatest;
+  /**
+   * Its newest signals, newest first: at most `recentSignalLimit`, and only
+   * as many as it has — a one-signal publisher gets a list of one.
+   */
+  recent: SourceDirectorySignal[];
   /** The feeds its signals came through, most-used first. */
   sourceNames: string[];
 }
@@ -54,6 +58,9 @@ export interface SourceDirectorySection {
   signalCount: number;
   entries: SourceDirectoryEntry[];
 }
+
+/** How many signals a card lists. */
+export const recentSignalLimit = 3;
 
 // Tie order for sections with the same signal count.
 const publisherTypeOrder: PublisherType[] = [
@@ -144,11 +151,11 @@ export function buildSourceDirectory(
       publisherType,
       publisherTypeLabel: getPublisherTypeLabel(publisherType, "zh"),
       signalCount: items.length,
-      latest: {
-        title: getPreferredTechnologyTitle(latest),
-        slug: latest.slug,
-        publishDate: latest.publishDate
-      },
+      recent: newestFirst.slice(0, recentSignalLimit).map((item) => ({
+        title: getPreferredTechnologyTitle(item),
+        slug: item.slug,
+        publishDate: item.publishDate
+      })),
       sourceNames
     };
   });

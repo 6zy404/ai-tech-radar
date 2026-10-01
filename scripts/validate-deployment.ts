@@ -303,6 +303,7 @@ function assertPublicSourceDoesNotUseInternalTerms() {
     path.join(process.cwd(), "src", "app", "page.tsx"),
     path.join(process.cwd(), "src", "app", "technologies"),
     path.join(process.cwd(), "src", "app", "digest"),
+    path.join(process.cwd(), "src", "app", "sources"),
     path.join(process.cwd(), "src", "app", "feed.xml"),
     path.join(process.cwd(), "src", "app", "feed.json"),
     path.join(process.cwd(), "src", "components", "daily-digest-content.tsx"),
@@ -424,6 +425,7 @@ function main() {
     "/technologies/model-context-protocol",
     "/digest/today",
     "/digest/2026-05-23",
+    "/sources",
     "/feed.xml",
     "/feed.json"
   ]) {

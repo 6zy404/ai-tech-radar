@@ -94,7 +94,9 @@ For per-topic deep dives, see the `docs/` directory.
 
 - **2026-10-02.** A new public page answers "who are these signals from":
   every publisher behind a published signal, with its signal count, its
-  newest signal (title, date, link) and the feeds it came through, in
+  newest signals (up to three, date and linked title — a one-signal
+  publisher lists just that one, no empty slot) and the feeds it came
+  through, in
   sections by publisher type — 大型科技公司 16 publishers / 42 signals,
   创业公司 16 / 23, 开源社区 6 / 16, 研究实验室 9 / 11, 媒体 1 / 3 (95
   signals, 48 publishers, 13 feeds, measured on a copy of the live data).
@@ -102,17 +104,26 @@ For per-topic deep dives, see the `docs/` directory.
   (`DossierCategoryChips` as links) leads to each section, because 48 cards
   run to several screens; every card's publisher name is a fragment target
   (`/sources#publisher-openai`) for links from elsewhere later. Not in the
-  nav; listed in the sitemap; announces the all-signals RSS feed.
+  nav; reached from a 信源一览 link beside RSS 订阅 in the `/technologies`
+  header; listed in the sitemap; announces the all-signals RSS feed. Below
+  560px a signal's date moves above its title — beside it, the date column
+  took a third of the card and wrapped every title to three or four lines.
 - **The boundary is the point.** `/workspace/sources` already shows the
   configured sources — feed URLs, import status, health, quality level — and
   none of that may reach a reader. `src/lib/source-directory.ts` is a pure
   function over `getAllTechnologies()` that reads five fields the signal page
   already shows (publisherName, publisherType, sourceName, publishDate, slug)
   plus the public title, re-checks `status === "published"`, and returns six
-  fields per publisher; a unit test pins the exact key set and that no URL or
+  fields per publisher (the recent list carries title, slug and date only); a unit test pins the exact key set and that no URL or
   workflow value survives. It never imports the source, import or candidate
   workflows. `/sources` is outside `protectedPathPrefixes` (`/workspace/sources`
   is inside) and outside `build:public`'s excluded directories.
+  `validate:deployment` now lists `/sources` among the routes that must stay
+  public and scans `src/app/sources` for internal field names, and
+  `validate:workspace-boundary` scans it for workspace components. Each was
+  proven to fire: `rawPayload` and `WorkspacePageShell` written into the
+  page, and `/sources` added to `protectedPathPrefixes`, each failed its
+  validator, and both passed again once restored.
 - **Grouped by publisherName, not sourceName.** The publisher is the
   organisation behind the announcement; the source is only the feed it came
   through. OpenAI's 11 signals arrive via OpenAI News, Simon Willison Blog and
@@ -122,13 +133,14 @@ For per-topic deep dives, see the `docs/` directory.
   sourceName (0 such signals today). A publisher whose signals disagree on
   type takes the most frequent one, a tie going to the newest signal
   (IBM Research: one big-tech, one research-lab → research-lab).
-- **No "this publisher's signals" link yet.** `/technologies?q=<name>` was
-  measured and does not work: `q` matches title, summary and body, not the
+- **The card lists the signals itself instead of linking to a filtered
+  list.** `/technologies?q=<name>` was measured and does not work: `q` matches title, summary and body, not the
   publisher — OpenAI has 11 signals and `q=openai` matches 26; vLLM Project
-  has 5 and matches 0. A real filter needs a `publisher` parameter in the
-  精选 view.
-- 9 unit tests. Checked at 1440 and 390 in both schemes; no horizontal
-  scroll at 375; a section hash lands its heading 86px down, clear of the
+  has 5 and matches 0. A real filter would need a `publisher` parameter in
+  the 精选 view; the owner chose the recent list on the card.
+- 10 unit tests. Checked at 1440, 500 and 375 in both schemes; no
+  horizontal scroll at 375 (the page is about 7,600px tall at 1440 and
+  16,400px at 375 — the jump chips are what makes that navigable); a section hash lands its heading 86px down, clear of the
   sticky nav; the served HTML carries no external link and none of the
   internal field names.
 

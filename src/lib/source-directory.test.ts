@@ -3,7 +3,8 @@ import { describe, expect, it } from "vitest";
 import {
   buildSourceDirectory,
   getSourceDirectoryAnchor,
-  groupSourceDirectoryByPublisherType
+  groupSourceDirectoryByPublisherType,
+  recentSignalLimit
 } from "@/lib/source-directory";
 import { makeTechnologyItem } from "@/lib/test-factories";
 import type { TechnologyItem } from "@/types/content";
@@ -49,17 +50,39 @@ describe("buildSourceDirectory", () => {
     const openai = directory.entries[0];
     expect(openai.signalCount).toBe(3);
     expect(openai.sourceNames).toEqual(["OpenAI News", "量子位"]);
-    expect(openai.latest).toEqual({
-      title: "Title b",
-      slug: "b",
-      publishDate: "2026-09-20"
-    });
+    expect(openai.recent).toEqual([
+      { title: "Title b", slug: "b", publishDate: "2026-09-20" },
+      { title: "Title a", slug: "a", publishDate: "2026-09-01" },
+      { title: "Title c", slug: "c", publishDate: "2026-08-01" }
+    ]);
+    // A one-signal publisher lists exactly that signal — no empty slots.
+    expect(directory.entries[1].recent).toHaveLength(1);
     expect(directory.totals).toEqual({
       publishers: 2,
       signals: 4,
       sources: 3,
       publisherNameFallbacks: 0
     });
+  });
+
+  it("lists at most three recent signals, newest first", () => {
+    const directory = buildSourceDirectory(
+      ["01", "05", "03", "04", "02"].map((day) =>
+        signal(`s${day}`, {
+          publisherName: "Busy",
+          publishDate: `2026-09-${day}`
+        })
+      )
+    );
+
+    const [entry] = directory.entries;
+    expect(recentSignalLimit).toBe(3);
+    expect(entry.signalCount).toBe(5);
+    expect(entry.recent.map((item) => item.slug)).toEqual([
+      "s05",
+      "s04",
+      "s03"
+    ]);
   });
 
   it("merges names that differ only in case or surrounding space", () => {
@@ -147,17 +170,19 @@ describe("buildSourceDirectory", () => {
     const [entry] = directory.entries;
     expect(Object.keys(entry).sort()).toEqual(
       [
-        "latest",
         "publisherName",
         "publisherType",
         "publisherTypeLabel",
+        "recent",
         "signalCount",
         "sourceNames"
       ].sort()
     );
-    expect(Object.keys(entry.latest).sort()).toEqual(
-      ["publishDate", "slug", "title"].sort()
-    );
+    for (const item of entry.recent) {
+      expect(Object.keys(item).sort()).toEqual(
+        ["publishDate", "slug", "title"].sort()
+      );
+    }
     expect(Object.keys(directory).sort()).toEqual(["entries", "totals"]);
     const serialized = JSON.stringify(directory);
     expect(serialized).not.toContain("http");
