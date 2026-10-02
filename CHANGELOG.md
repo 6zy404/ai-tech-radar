@@ -12,6 +12,30 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A deploy that failed because the account was locked
+
+- **2026-10-02.** The site was down for about 20 minutes (04:12–04:32).
+  `npm run deploy` built cleanly (44 routes, 0 workspace), stopped the
+  server and swapped directories, but the scheduled task
+  `ai-tech-radar-server` never started: Task Scheduler logged event 104 /
+  101, `LogonUserS4U` failing with 2147944309 — Win32 1909, account locked
+  out. The automatic rollback could not help, because the previous build
+  failed to start for the same reason, and two manual `Start-ScheduledTask`
+  calls fell inside the same lock.
+- **The cause was this session's own tooling.** The Security log held 46
+  failed logons (4625, logon type 2) for Administrator from `chrome.exe`,
+  in two runs (02:16–02:36 and 03:44–04:09) that match the feature windows'
+  headless-Chrome screenshot passes; the lockout policy is 10 failures in 10
+  minutes → a 10-minute lock (`net accounts`), and it tripped at 02:18,
+  03:51 and 04:09. Why headless Chrome attempts an interactive logon is not
+  established. The lock expired on its own; `Start-ScheduledTask` then
+  worked, and a redeploy with no failed logon in the previous 15 minutes
+  went through in 3.1 seconds.
+- **What changes**: check for 4625 events in the last 10 minutes before any
+  deploy or restart, prefer the preview pane over headless Chrome for
+  screenshots, and read the Task Scheduler log before assuming a build is
+  broken when the server will not start.
+
 ## Reading progress line and 返回顶部 on the long reading pages
 
 - **2026-10-02.** The signal, skill, knowledge, digest (`/digest/[date]`,
