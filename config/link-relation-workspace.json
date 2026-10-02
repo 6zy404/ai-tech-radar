@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-30T21:57:58.312Z",
+  "updatedAt": "2026-10-02T00:42:59.064Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -8010,6 +8010,78 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "同价的对手，一天之后发布"
+    },
+    {
+      "id": "rel-ws-e29dffe6",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "Argon 的正价 4 / 20 美元，正是这一天 Opus 5.5 降到的价格"
+    },
+    {
+      "id": "rel-ws-b913fa88",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "首发价与 GPT-6.1 Sol 相同，两天之内先后发布"
+    },
+    {
+      "id": "rel-ws-65ef984b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "Terminal-bench 4.0 上 Sonnet 5.5 的 70.6% 高于 Argon 的 57.4%"
+    },
+    {
+      "id": "rel-ws-1c7483df",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "DeepSeek 训练基础设施的另一半：那条讲沙盒，这条讲算子"
+    },
+    {
+      "id": "rel-ws-51eaa6f1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同样是在英伟达之外的芯片上把算子做到接近满载"
+    },
+    {
+      "id": "rel-ws-64dffa7f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "智能体借 DNS 出沙箱的那次事故，正是 AX 这类沙箱要防的"
+    },
+    {
+      "id": "rel-ws-1763cf69",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同样是为智能体准备隔离运行环境，一个用于训练，一个用于运行"
+    },
+    {
+      "id": "rel-ws-f704f233",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "Google 的另一半智能体工具：ADK 写逻辑，AX 管运行"
     }
   ]
 }
