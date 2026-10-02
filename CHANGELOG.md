@@ -12,6 +12,37 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-02
+
+- **2026-10-02.** 30 undecided candidates from the 10-01 import, all
+  dispositioned blind: 4 converted, 6 marked reviewed, 20 rejected.
+  Published: **Gemini 4 Argon** (numbers from Google's release page and
+  VentureBeat's comparison table), **DeepSeek's Ascend kernels**
+  (DeepGEMM-Ascend checked against its GitHub README), **Olmo-core 3**
+  (Allen AI's Hugging Face post) and **Google AX** (its GitHub README).
+  Digest 2026-10-02 leads with Argon and excludes six signals earlier
+  digests carried. DeepSeek's DSec piece was rejected as already published
+  (09-23); 量子位's copies of Gemini 4 and the Ascend release as duplicates;
+  OpenAI's distillation report was marked reviewed because `openai.com`
+  still returns 403.
+- **The angle on Argon is where it trails.** It leads on DeepSWE,
+  AutomationBench and the legal and finance agent evaluations, but scores
+  57.4% on Terminal-bench 4.0 against Opus 5.5's 66.4% and Sonnet 5.5's
+  70.6%, and is open only to Fairwind cyber defenders. Its introductory
+  price matches GPT-6.1 Sol and Sonnet 5.5; the price after it matches
+  Opus 5.5.
+- **Two titles took four rewrites each.** At 390px the line after
+  `Argon：` holds one character and the segmenter splits two-character
+  words, so 「多｜项」 and then 「评｜测」 broke; an English word after the
+  colon moves the whole run. The DeepSeek title split 英伟达, then 算子库,
+  then 利用率 at one width or the other, and ended on 「NVIDIA 版」. Measured
+  in the preview pane under a 1265 and a 390 viewport emulation, calibrated
+  first on the Sonnet 5.5 title's known breaks; no headless Chrome was used
+  (it caused the account lockout earlier that night).
+- **Not verified live**: the reading-progress line and 返回顶部 on scroll.
+  The preview pane paused `requestAnimationFrame` throughout, and the
+  component updates on it.
+
 ## A deploy that failed because the account was locked
 
 - **2026-10-02.** The site was down for about 20 minutes (04:12–04:32).
