@@ -12,6 +12,31 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-08
+
+- **2026-10-08.** 54 undecided candidates (six days since the last round),
+  all dispositioned blind: 6 converted and published, 21 marked reviewed,
+  27 rejected. Published: **Claude Haiku 5.5** (prices and benchmarks from
+  Anthropic's page, the 1.25× tokenizer from Simon Willison's test),
+  **ThinkingBox** (Microsoft; 67.24% of failures end with no error),
+  **OpenAI's math results repository** (openai.com returned 403; numbers from
+  `github.com/openai/math`; 量子位's 「three more Millennium problems」 not
+  adopted), **Nemotron's IMO / IOI results** (IMO officially graded, IOI
+  self-run — said in the title), **EmbeddingGemma 2** and **Cloudflare's Clef**
+  decision models via Ollama v0.35.1, with Liquid AI's d1 folded in. Digest
+  2026-10-08 leads with ThinkingBox around one theme — self-reported numbers
+  against checked ones — and excludes four signals earlier issues carried.
+- **A defaced feed item was live on the news lane.** 量子位's feed carried an
+  item titled 「hacked by trenggalek6etar」 linking to a hijacked article; as an
+  undecided candidate it was on the public 全部快讯 view until this round
+  rejected it first. Nothing in auto-triage catches this kind of title.
+- **Titles were reworded for line breaks at 1265px and 390px.** Four of six
+  first drafts broke inside a word or ran to four lines. At 390px the hero
+  h1 is about 225–244px wide, so a long latin name (ThinkingBox,
+  EmbeddingGemma) cannot fit on a line and is split mid-word; those titles
+  no longer lead with the name. Measured with an in-page simulator that
+  rebuilds the `.nowrap-run` spans and reproduced the real page line for line.
+
 ## Deploys wait out an account lockout
 
 - **2026-10-08.** `npm run deploy` and `deploy:rollback` now refuse to stop
@@ -64,7 +89,7 @@ For per-topic deep dives, see the `docs/` directory.
   跟进此话题 and the signal list: a small static picture of the topic's
   neighbourhood, nodes linking to their pages, edges coloured by relation,
   ending with 在关系网络中查看 → `/network?focus=<the topic's best-connected
-  item>`. Server component, no client JS: the layout is
+item>`. Server component, no client JS: the layout is
   `settleForceLayout` from `src/lib/network-layout.ts`, run once per
   request, and the canvas, dots and kind colours are `/network`'s own
   classes. Selection and layout in `src/lib/topic-graph.ts`; the component

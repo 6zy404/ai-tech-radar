@@ -411,7 +411,9 @@ Workspace deployment boundary:
     with replaceState, invalid values dropped); a 排序 · 最新发布 / 按优先级档位
     chip pair opens the toolbar's control group, before 隐藏已读 and the
     language switch, and wraps under the count below ~640px. Shortcuts, read
-    marks and 新 stamps follow the sorted order (2026-10-01)
+    marks and 新 stamps follow the sorted order (2026-10-01). `?publisher=`
+    (from a /sources card or a signal page) adds a 全部发布方 · <name> chip
+    row under the priority chips, kept for the visit (2026-10-08)
   - keyboard shortcuts apply to the same three views: j / k / Enter / o /
     s / x / ?, the current card is the focused one (`isCurrent` outline on
     `DossierTechnologyCard`), and a quiet 「快捷键 ?」 button sits at the end
@@ -445,7 +447,9 @@ Workspace deployment boundary:
     the aside panel and the 来源参考 block at the foot of the article — so a
     reader can tell a vendor announcement from an open-source release before
     reading. Added 2026-07-29; the chip is a classification, which is why it
-    is set apart from the publisher _name_ sitting beside it
+    is set apart from the publisher _name_ sitting beside it. Since
+    2026-10-08 the name links to `/sources#publisher-<slug>`, hairline
+    underlined (plain text on the draft preview)
   - a reading-time estimate in the hero meta row (约 N 分钟读完 / About N min
     read) from the prose the reading column shows in the current language —
     summary, body, why-it-matters, technical context, learning path,
@@ -714,7 +718,7 @@ Workspace deployment boundary:
 - `/sources`
   - user-facing publisher directory (信源一览): every publisher behind a
     published signal as a `DossierCard` — name (a fragment target,
-    `#publisher-<name>`), 收录 · N 信号 · M 信源, its newest signals (up to
+    `#publisher-<slug>`), 收录 · N 信号 · M 信源, its newest signals (up to
     three, date and linked title; a one-signal publisher shows just that
     one) and 经由 <feed names> — in sections by publisher type, most signals
     first, opened by a row of jump chips (`DossierCategoryChips` as links)
@@ -722,6 +726,9 @@ Workspace deployment boundary:
     derived view (`src/lib/source-directory.ts`); never shows feed URLs,
     import status, source health or quality; not in the nav — reached from
     the `/technologies` header (2026-10-02)
+  - cards with more signals than they list end with 看全部 N 条 →
+    (`/technologies?publisher=<slug>`); publishers are grouped by slug
+    (2026-10-08)
 - `/topics/[tagId]`
   - its `<head>` announces the per-topic feed only when the RSS column of
     the 跟进此话题 block is shown (the feed 404s otherwise); every public page announces the digest
@@ -737,6 +744,11 @@ Workspace deployment boundary:
     a "图谱关联" section listing the topic's direct graph neighbors (via
     `getContentGraph()`, excluding nodes already shown in the three
     sections above) with their relation-type label
+  - a 话题图谱 section after 跟进此话题 (2026-10-08): a capped neighbourhood
+    graph of at most 16 nodes (filled dots = topic items, rings = outside
+    neighbours, labels hidden below 640px, edges by relation family with a
+    text legend), aria-hidden with the lists below as its text alternative,
+    hidden in print; ends with 在关系网络中查看
   - each 图谱关联 row is the same two-column grid as the `/network` side
     panel's connection list: the relation stamp on the left never wraps, the
     title wraps in its own column (2026-09-29)
@@ -864,7 +876,13 @@ Forbidden on public pages:
     `publisherTypeLabel` prop adds the publisher-type chip to the meta row
     (used by both instances on the technology detail page, absent everywhere
     else). The meta row is `flex-wrap`, so the chip wraps rather than
-    overflowing on a narrow aside
+    overflowing on a narrow aside. The optional `publisherHref` prop links
+    the publisher name to its /sources card, hairline-underlined; the
+    technology detail page passes it for published records only, so the
+    draft preview keeps plain text (2026-10-08)
+- `TopicMiniGraph` (`topic-mini-graph.tsx`)
+  - the server-rendered 话题图谱 on the topic hub; reuses /network's canvas
+    and node classes, layout from `src/lib/topic-graph.ts`
 - `PageShell`
   - legacy shared page framing for non-refactored foundation pages
 - `TopNav`

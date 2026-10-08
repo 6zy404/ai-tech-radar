@@ -223,6 +223,12 @@ The product is split into two subsystems:
   `/topics` index (`getTopicIndex`, same file), or the 按话题 view's
   查看全部话题 link — no global nav entry. Pure derived view (`getTopicHub` in
   `src/lib/topic-hub.ts`), no new persisted data or AI calls.
+  Since 2026-10-08 it opens with a 话题图谱: a static picture of at most 16
+  nodes (up to 10 of the topic's best-connected items plus the outside
+  neighbours most linked to them), laid out once on the server with
+  /network's force layout plus a label-separation pass, edges coloured by
+  relation family, linking to `/network?focus=<its best-connected item>`
+  (`src/lib/topic-graph.ts`, `src/components/topic-mini-graph.tsx`).
 - **Filter box on /skills and /knowledge** (2026-10-02) — both index pages
   carry one shared filter box (`LibraryFilter` on `DossierSearchInput`)
   under the stats row. It matches title, summary, tag names and the category
@@ -244,6 +250,10 @@ The product is split into two subsystems:
   `/workspace/sources` shows. Reached from a 信源一览 link beside RSS 订阅 in
   the `/technologies` header; not a nav entry; in the sitemap.
   `validate:deployment` and `validate:workspace-boundary` cover it.
+  A card links 看全部 N 条 → to `/technologies?publisher=<slug>` when it
+  lists fewer signals than it counts; publishers are grouped by that slug.
+  The signal page's publisher name links to its card (published records
+  only; 2026-10-08).
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
@@ -263,13 +273,17 @@ The product is split into two subsystems:
   technology and shown with the same disclaimer
   (`POST /api/technologies/learning-path`).
 - **精选 filters in the address** (2026-10-01) — the curated view keeps its
-  search and type / tag / priority filters in `?q=&type=&tag=&priority=&sort=`,
+  search and type / tag / priority filters in
+  `?q=&type=&tag=&priority=&publisher=&sort=`,
   read on the server so a shared link renders filtered, and kept in step with
   `history.replaceState` (no history entries). Unknown values are treated as
   absent; defaults are never written. A 排序 switch — 最新发布 (default) /
   按优先级档位 (Ranking v0 bands, newest first within a band) — sits on the
   existing toolbar row; the order is the same for every reader
-  (`src/lib/technology-browser-query.ts`).
+  (`src/lib/technology-browser-query.ts`). `publisher` (2026-10-08) is the
+  publisher slug a /sources card uses for its `#publisher-<slug>` anchor
+  (`getPublisherSlug`); it arrives only by link and then shows as a
+  全部发布方 · <name> chip row.
 - **Personal radar (P4 v0)** — readers follow topic tags (stored only in
   browser localStorage, no accounts) and the 我关注的 view on
   `/technologies?view=followed` aggregates matching published signals into
@@ -525,7 +539,7 @@ Public, user-facing routes:
 
 - `/`, `/technologies` (精选/全部快讯/按话题/我关注的/稍后读 five views via
   `?view=`),
-  精选 also takes `?q=&type=&tag=&priority=&sort=`,
+  精选 also takes `?q=&type=&tag=&priority=&publisher=&sort=`,
   `/technologies/[slug]`
 - `/digest` (archive), `/digest/today`, `/digest/[date]`,
   `/digest/weekly` (本周回顾), `/digest/weekly/[week]` (per-week review)
