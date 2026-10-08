@@ -27,6 +27,37 @@ For per-topic deep dives, see the `docs/` directory.
   chrome.exe ×46, 52 in all) and throws with the clear-at time. The
   rehearsal stubs the check, since it reads the machine's real log.
 
+## Publisher links: `?publisher=` on 精选, the signal page to /sources
+
+- **2026-10-08.** The 精选 view takes `?publisher=<slug>`, the same slug a
+  /sources card carries in its `#publisher-<slug>` anchor
+  (`getPublisherSlug` in `src/lib/source-directory.ts`; CJK names keep their
+  characters, so 量子位 is `?publisher=%E9%87%8F%E5%AD%90%E4%BD%8D`). The
+  slug rather than the display name because it is what the anchor already
+  uses, so the card, its anchor and the filtered list are one key; measured
+  on the 99 published signals, the 49 publishers give 49 distinct slugs, and
+  /sources now groups by the slug, so two spellings that slug alike are one
+  card by construction. Same rules as the other filters: read on the server,
+  synced with `replaceState`, an unknown slug is absent, the default is never
+  written.
+- **No chip row of its own.** Fifty publishers is too many chips, so the
+  filter only arrives by link; when it does, a fourth chip row
+  「全部发布方 · <name>」 appears under the priority chips and stays for the
+  visit, so clearing it does not pull the row out from under the pointer.
+- **「看全部 N 条 →」 on a /sources card** only when the publisher has more
+  signals than the card lists (6 of 49 today: OpenAI 11, Google DeepMind 8,
+  Hugging Face 5, vLLM Project 5, GitHub 4, Simon Willison 4). On the rest
+  the card already lists every signal. Same `skill-library-card__link` as
+  /skills and /topics.
+- **The publisher name on a signal page links to its /sources card**, in
+  both `SourceReference` instances (aside and the foot 来源参考), with a
+  hairline underline — it sits in a muted meta row and is not bold like
+  打开原始来源. Published records only: the workspace preview of a draft
+  renders it as plain text, since its publisher may have no card.
+- Verified in the preview pane: filter, clear and re-select update the
+  address; `?publisher=nobody` is dropped; the link lands on the card 86px
+  down; light and dark.
+
 ## Editorial round 2026-10-02
 
 - **2026-10-02.** 30 undecided candidates from the 10-01 import, all

@@ -19,6 +19,10 @@ import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
 import {
+  getPublisherSlug,
+  getSignalPublisherName
+} from "@/lib/source-directory";
+import {
   defaultTechnologyBrowserQuery,
   priorityLevelOrder,
   sortTechnologiesForBrowser,
@@ -64,6 +68,9 @@ export function TechnologyBrowser({
   const [priorityFilter, setPriorityFilter] = useState<PriorityLevel | "">(
     initialQuery.priority
   );
+  const [publisherFilter, setPublisherFilter] = useState(
+    initialQuery.publisher
+  );
   const [sort, setSort] = useState<TechnologyBrowserSort>(initialQuery.sort);
   const [hideRead, setHideRead] = useState(false);
   const deferredSearchText = useDeferredValue(searchText);
@@ -78,13 +85,21 @@ export function TechnologyBrowser({
       type: typeFilter,
       tag: tagFilter,
       priority: priorityFilter,
+      publisher: publisherFilter,
       sort
     });
 
     if (next !== `${pathname}${search}${hash}`) {
       window.history.replaceState(window.history.state, "", next);
     }
-  }, [deferredSearchText, typeFilter, tagFilter, priorityFilter, sort]);
+  }, [
+    deferredSearchText,
+    typeFilter,
+    tagFilter,
+    priorityFilter,
+    publisherFilter,
+    sort
+  ]);
   const { readIds, isRead, isSaved, toggleRead, toggleSaved } =
     useReadingState();
   const visitBaselineKeys = useVisitBaseline(
@@ -107,8 +122,17 @@ export function TechnologyBrowser({
     const matchesTag = tagFilter.length === 0 || item.tags.includes(tagFilter);
     const matchesPriority =
       priorityFilter.length === 0 || priority === priorityFilter;
+    const matchesPublisher =
+      publisherFilter.length === 0 ||
+      getPublisherSlug(getSignalPublisherName(item)) === publisherFilter;
 
-    return matchesSearch && matchesType && matchesTag && matchesPriority;
+    return (
+      matchesSearch &&
+      matchesType &&
+      matchesTag &&
+      matchesPriority &&
+      matchesPublisher
+    );
   });
 
   const readCount = countReadTechnologies(matchedTechnologies, readIds);
@@ -156,6 +180,27 @@ export function TechnologyBrowser({
     }))
   ];
 
+  // About fifty publishers is too many chips for a row of their own, so the
+  // publisher filter only arrives by link (a /sources card, a signal page).
+  // The row it arrived with stays for the visit: clearing it leaves
+  // 全部发布方 lit rather than pulling the row out from under the pointer.
+  const linkedPublisher = initialQuery.publisher
+    ? technologies.find(
+        (item) =>
+          getPublisherSlug(getSignalPublisherName(item)) ===
+          initialQuery.publisher
+      )
+    : undefined;
+  const publisherOptions = linkedPublisher
+    ? [
+        { value: "", label: "全部发布方" },
+        {
+          value: initialQuery.publisher,
+          label: getSignalPublisherName(linkedPublisher)
+        }
+      ]
+    : [];
+
   return (
     <div className="dossier-technology-browser">
       {/* Search, filters, the result count and the read filter are one control
@@ -189,6 +234,13 @@ export function TechnologyBrowser({
               )
             }
           />
+          {publisherOptions.length > 0 ? (
+            <DossierCategoryChips
+              options={publisherOptions}
+              active={publisherFilter}
+              onChange={setPublisherFilter}
+            />
+          ) : null}
         </div>
 
         {/* The read filter lives on this row rather than on one of its own.

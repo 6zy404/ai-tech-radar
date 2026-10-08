@@ -10,6 +10,10 @@ import { getAllTags, getAllTechnologies } from "@/lib/content";
 import type { Metadata } from "next";
 import { buildPageMetadata, signalFeed } from "@/lib/site-metadata";
 import {
+  getPublisherSlug,
+  getSignalPublisherName
+} from "@/lib/source-directory";
+import {
   parseTechnologyBrowserQuery,
   type TechnologyBrowserSearchParams
 } from "@/lib/technology-browser-query";
@@ -40,7 +44,8 @@ type TechnologyView = "curated" | "news" | "timeline" | "followed" | "saved";
 
 interface TechnologiesPageProps {
   // `view` picks the tab; the curated view also reads its filters and sort
-  // (q, type, tag, priority, sort) from here — see technology-browser-query.
+  // (q, type, tag, priority, publisher, sort) from here — see
+  // technology-browser-query.
   searchParams: Promise<TechnologyBrowserSearchParams>;
 }
 
@@ -143,7 +148,10 @@ export default async function TechnologiesPage({
           tags={tags}
           initialQuery={parseTechnologyBrowserQuery(params, {
             types: technologies.map((item) => item.type),
-            tagIds: tags.map((tag) => tag.id)
+            tagIds: tags.map((tag) => tag.id),
+            publishers: technologies.map((item) =>
+              getPublisherSlug(getSignalPublisherName(item))
+            )
           })}
         />
       )}

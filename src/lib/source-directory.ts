@@ -75,8 +75,11 @@ function compareNames(left: string, right: string): number {
   return left.localeCompare(right, "zh-CN");
 }
 
+// The slug, so a card, its #publisher-… anchor and /technologies?publisher=…
+// are one-to-one: two spellings that slug alike ("Hugging Face", "hugging
+// face") are one publisher. A name with no letters or digits keeps its own key.
 function groupKey(name: string): string {
-  return name.trim().toLocaleLowerCase();
+  return getPublisherSlug(name) || name.trim().toLocaleLowerCase();
 }
 
 /**
@@ -109,9 +112,8 @@ export function buildSourceDirectory(
   let publisherNameFallbacks = 0;
 
   for (const item of published) {
-    const publisherName = item.publisherName?.trim() ?? "";
-    const name = publisherName || item.sourceName.trim();
-    if (!publisherName) {
+    const name = getSignalPublisherName(item);
+    if (!item.publisherName?.trim()) {
       publisherNameFallbacks += 1;
     }
     if (!name) {
@@ -147,7 +149,7 @@ export function buildSourceDirectory(
       .map(([sourceName]) => sourceName);
 
     return {
-      publisherName: latest.publisherName?.trim() || latest.sourceName.trim(),
+      publisherName: getSignalPublisherName(latest),
       publisherType,
       publisherTypeLabel: getPublisherTypeLabel(publisherType, "zh"),
       signalCount: items.length,
@@ -206,12 +208,42 @@ export function groupSourceDirectoryByPublisherType(
   );
 }
 
-/** The card's fragment id, so `/sources#…` can point at one publisher. */
-export function getSourceDirectoryAnchor(publisherName: string): string {
-  const slug = publisherName
+/**
+ * The name a signal is filed under here: its publisher, or the feed it came
+ * through when the publisher is blank.
+ */
+export function getSignalPublisherName(
+  item: Pick<TechnologyItem, "publisherName" | "sourceName">
+): string {
+  return item.publisherName?.trim() || item.sourceName.trim();
+}
+
+/**
+ * The publisher's slug: lower case, every run of anything but letters and
+ * digits one hyphen. Letters include CJK, so 量子位 stays 量子位. It is the
+ * card's anchor after `publisher-` and the `/technologies?publisher=` value.
+ */
+export function getPublisherSlug(publisherName: string): string {
+  return publisherName
     .trim()
     .toLocaleLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-+|-+$/g, "");
-  return `publisher-${slug}`;
+}
+
+/** The card's fragment id, so `/sources#…` can point at one publisher. */
+export function getSourceDirectoryAnchor(publisherName: string): string {
+  return `publisher-${getPublisherSlug(publisherName)}`;
+}
+
+/** The publisher's card on /sources. */
+export function getSourceDirectoryHref(publisherName: string): string {
+  return `/sources#${getSourceDirectoryAnchor(publisherName)}`;
+}
+
+/** The 精选 list narrowed to this publisher's signals. */
+export function getPublisherSignalsHref(publisherName: string): string {
+  return `/technologies?publisher=${encodeURIComponent(
+    getPublisherSlug(publisherName)
+  )}`;
 }

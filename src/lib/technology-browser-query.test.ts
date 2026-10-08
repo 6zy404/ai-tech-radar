@@ -6,11 +6,17 @@ import {
   sortTechnologiesForBrowser,
   withTechnologyBrowserQuery
 } from "@/lib/technology-browser-query";
+import {
+  getPublisherSignalsHref,
+  getPublisherSlug,
+  getSourceDirectoryAnchor
+} from "@/lib/source-directory";
 import type { PriorityLevel } from "@/types/content";
 
 const options = {
   types: ["model", "tool"],
-  tagIds: ["agents", "rag"]
+  tagIds: ["agents", "rag"],
+  publishers: ["openai", "量子位"]
 };
 
 describe("parseTechnologyBrowserQuery", () => {
@@ -28,6 +34,7 @@ describe("parseTechnologyBrowserQuery", () => {
           type: "tool",
           tag: "agents",
           priority: "watch",
+          publisher: "量子位",
           sort: "priority",
           view: "news"
         },
@@ -38,6 +45,7 @@ describe("parseTechnologyBrowserQuery", () => {
       type: "tool",
       tag: "agents",
       priority: "watch",
+      publisher: "量子位",
       sort: "priority"
     });
   });
@@ -50,6 +58,7 @@ describe("parseTechnologyBrowserQuery", () => {
           type: "spaceship",
           tag: "Agents",
           priority: "urgent",
+          publisher: "OpenAI",
           sort: "latest"
         },
         options
@@ -83,7 +92,7 @@ describe("withTechnologyBrowserQuery", () => {
   it("leaves the unfiltered list as a bare path", () => {
     expect(
       withTechnologyBrowserQuery(
-        "/technologies?q=old&sort=priority",
+        "/technologies?q=old&publisher=openai&sort=priority",
         defaultTechnologyBrowserQuery
       )
     ).toBe("/technologies");
@@ -96,10 +105,11 @@ describe("withTechnologyBrowserQuery", () => {
         type: "",
         tag: "rag",
         priority: "high_priority",
+        publisher: "openai",
         sort: "priority"
       })
     ).toBe(
-      "/technologies?q=agent+%E6%A1%86%E6%9E%B6&tag=rag&priority=high_priority&sort=priority"
+      "/technologies?q=agent+%E6%A1%86%E6%9E%B6&tag=rag&priority=high_priority&publisher=openai&sort=priority"
     );
   });
 
@@ -127,6 +137,7 @@ describe("withTechnologyBrowserQuery", () => {
       type: "model",
       tag: "agents",
       priority: "low_priority" as const,
+      publisher: "量子位",
       sort: "priority" as const
     };
     const href = withTechnologyBrowserQuery("/technologies", query);
@@ -135,6 +146,41 @@ describe("withTechnologyBrowserQuery", () => {
     );
 
     expect(parseTechnologyBrowserQuery(params, options)).toEqual(query);
+  });
+});
+
+describe("the publisher filter and /sources", () => {
+  it("accepts exactly the slug a /sources card links with", () => {
+    const names = ["OpenAI", "量子位", "METR / Redwood Research"];
+    const publishers = names.map(getPublisherSlug);
+
+    for (const name of names) {
+      const href = getPublisherSignalsHref(name);
+      const params = Object.fromEntries(
+        new URL(href, "http://localhost").searchParams
+      );
+      const { publisher } = parseTechnologyBrowserQuery(params, {
+        ...options,
+        publishers
+      });
+
+      expect(publisher).toBe(getPublisherSlug(name));
+      // The same string the card's fragment id carries.
+      expect(getSourceDirectoryAnchor(name)).toBe(`publisher-${publisher}`);
+      // Writing it back leaves the address as the card linked it.
+      expect(
+        withTechnologyBrowserQuery(href, {
+          ...defaultTechnologyBrowserQuery,
+          publisher
+        })
+      ).toBe(href);
+    }
+  });
+
+  it("does not take the display name in place of the slug", () => {
+    expect(
+      parseTechnologyBrowserQuery({ publisher: "OpenAI" }, options).publisher
+    ).toBe("");
   });
 });
 

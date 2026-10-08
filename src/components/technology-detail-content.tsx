@@ -41,6 +41,7 @@ import {
 } from "@/lib/page-toc";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { estimateReadingMinutes, formatReadingTime } from "@/lib/reading-time";
+import { getSourceDirectoryHref } from "@/lib/source-directory";
 // Type-only: the module reads the digest store, which a client component
 // must not bundle. The data arrives as a prop from the server page.
 import type {
@@ -122,6 +123,12 @@ export function TechnologyDetailContent({
   const sharePath =
     technology.status === "published"
       ? `/technologies/${technology.slug}`
+      : undefined;
+  // The same rule for the publisher's /sources card: a draft's publisher may
+  // have no published signal, and so no card to land on.
+  const publisherHref =
+    technology.status === "published" && technology.publisherName?.trim()
+      ? getSourceDirectoryHref(technology.publisherName)
       : undefined;
 
   const title = getLocalizedTechnologyText(
@@ -283,6 +290,7 @@ export function TechnologyDetailContent({
             sourceName={technology.sourceName}
             sourceUrl={technology.sourceUrl}
             publisherName={technology.publisherName}
+            publisherHref={publisherHref}
             publisherTypeLabel={publisherTypeLabel}
             publishDate={technology.publishDate}
             linkLabel={copy.sourceLinkLabel}
@@ -566,6 +574,7 @@ export function TechnologyDetailContent({
         sourceName={technology.sourceName}
         sourceUrl={technology.sourceUrl}
         publisherName={technology.publisherName}
+        publisherHref={publisherHref}
         publisherTypeLabel={publisherTypeLabel}
         publishDate={technology.publishDate}
         linkLabel={copy.sourceLinkLabel}

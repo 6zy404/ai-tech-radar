@@ -14,6 +14,23 @@
   font-size: 0.88rem;
 }
 
+/* The publisher name, when it links to its /sources card: one item of the
+   meta row, not the block's "打开原始来源" action, so none of the margin,
+   flex or weight `.source-reference a` gives that link. */
+.source-reference .source-reference__publisher {
+  display: inline;
+  margin-top: 0;
+  font-weight: inherit;
+  /* Unlike that link it is not bold, so nothing else marks it as one. */
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 0.2em;
+}
+
+.dossier .source-reference .source-reference__publisher {
+  text-decoration-color: var(--dossier-line);
+}
+
 /* the publisher *type* is a classification, not another name — a hairline
    chip keeps it from reading as part of the publisher name beside it */
 .source-reference__publisher-type {

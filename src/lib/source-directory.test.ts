@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildSourceDirectory,
+  getPublisherSignalsHref,
+  getPublisherSlug,
+  getSignalPublisherName,
   getSourceDirectoryAnchor,
+  getSourceDirectoryHref,
   groupSourceDirectoryByPublisherType,
   recentSignalLimit
 } from "@/lib/source-directory";
@@ -223,6 +227,48 @@ describe("getSourceDirectoryAnchor", () => {
     );
     expect(getSourceDirectoryAnchor("阿里巴巴通义千问")).toBe(
       "publisher-阿里巴巴通义千问"
+    );
+  });
+});
+
+describe("publisher slugs and links", () => {
+  it("files a signal under its publisher, or its feed when that is blank", () => {
+    expect(
+      getSignalPublisherName({ publisherName: " OpenAI ", sourceName: "x" })
+    ).toBe("OpenAI");
+    expect(
+      getSignalPublisherName({ publisherName: "  ", sourceName: " 量子位 " })
+    ).toBe("量子位");
+  });
+
+  it("merges spellings that slug alike, so one anchor is one card", () => {
+    const directory = buildSourceDirectory([
+      signal("a", { publisherName: "Dharma-AI", publishDate: "2026-09-01" }),
+      signal("b", { publisherName: "Dharma AI", publishDate: "2026-09-02" })
+    ]);
+
+    expect(directory.entries).toHaveLength(1);
+    expect(directory.entries[0].signalCount).toBe(2);
+  });
+
+  it("links the card, the anchor and the filter with one slug", () => {
+    expect(getPublisherSlug("Hugging Face")).toBe("hugging-face");
+    expect(getSourceDirectoryHref("Hugging Face")).toBe(
+      "/sources#publisher-hugging-face"
+    );
+    expect(getPublisherSignalsHref("Hugging Face")).toBe(
+      "/technologies?publisher=hugging-face"
+    );
+    expect(getPublisherSignalsHref("量子位")).toBe(
+      `/technologies?publisher=${encodeURIComponent("量子位")}`
+    );
+    // Every member of a group reaches the card the directory renders.
+    const [entry] = buildSourceDirectory([
+      signal("a", { publisherName: "hugging face" }),
+      signal("b", { publisherName: "Hugging Face" })
+    ]).entries;
+    expect(getSourceDirectoryAnchor(entry.publisherName)).toBe(
+      getSourceDirectoryAnchor("hugging face")
     );
   });
 });

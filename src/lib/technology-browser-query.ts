@@ -1,12 +1,16 @@
-// `/technologies?q=&type=&tag=&priority=&sort=` — the curated view's filters
-// and sort order, kept in the address so a filtered list survives a reload and
-// can be shared.
+// `/technologies?q=&type=&tag=&priority=&publisher=&sort=` — the curated
+// view's filters and sort order, kept in the address so a filtered list
+// survives a reload and can be shared.
 //
 // The parameters only ever pick among options the page already renders: an
 // unknown type or tag, a misspelt priority, anything malformed resolves to
 // "no filter", exactly as if the parameter were absent. `view` belongs to the
 // page's tab strip and is never read or written here. Nothing here touches
 // storage; the same URL shows every reader the same list.
+//
+// `publisher` is the publisher's slug (getPublisherSlug in source-directory),
+// the same string as the /sources card's #publisher-… anchor, so a link from a
+// card and the card itself always name the same set of signals.
 
 import type { PriorityLevel } from "@/types/content";
 
@@ -17,6 +21,8 @@ export interface TechnologyBrowserQuery {
   type: string;
   tag: string;
   priority: PriorityLevel | "";
+  /** A publisher slug; see getPublisherSlug. */
+  publisher: string;
   sort: TechnologyBrowserSort;
 }
 
@@ -25,10 +31,18 @@ export const defaultTechnologyBrowserQuery: TechnologyBrowserQuery = {
   type: "",
   tag: "",
   priority: "",
+  publisher: "",
   sort: "latest"
 };
 
-const QUERY_KEYS = ["q", "type", "tag", "priority", "sort"] as const;
+const QUERY_KEYS = [
+  "q",
+  "type",
+  "tag",
+  "priority",
+  "publisher",
+  "sort"
+] as const;
 
 // A search box entry, not a document. Longer than this is not a query.
 const MAX_SEARCH_LENGTH = 200;
@@ -51,6 +65,8 @@ export interface TechnologyBrowserQueryOptions {
   types: readonly string[];
   /** Tag ids the tag chips offer. */
   tagIds: readonly string[];
+  /** Publisher slugs of the signals in the rendered list. */
+  publishers: readonly string[];
 }
 
 function first(value: SearchParamValue): string | undefined {
@@ -85,6 +101,7 @@ export function parseTechnologyBrowserQuery(
     type: oneOf(params.type, options.types) ?? "",
     tag: oneOf(params.tag, options.tagIds) ?? "",
     priority: oneOf(params.priority, priorityLevelOrder) ?? "",
+    publisher: oneOf(params.publisher, options.publishers) ?? "",
     sort: oneOf(params.sort, ["priority"] as const) ?? "latest"
   };
 }
@@ -115,6 +132,9 @@ export function withTechnologyBrowserQuery(
   }
   if (query.priority) {
     url.searchParams.set("priority", query.priority);
+  }
+  if (query.publisher) {
+    url.searchParams.set("publisher", query.publisher);
   }
   if (query.sort !== "latest") {
     url.searchParams.set("sort", query.sort);

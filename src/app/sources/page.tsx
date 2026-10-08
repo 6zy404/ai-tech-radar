@@ -8,6 +8,7 @@ import { getAllTechnologies } from "@/lib/content";
 import { buildPageMetadata, signalFeed } from "@/lib/site-metadata";
 import {
   buildSourceDirectory,
+  getPublisherSignalsHref,
   getSourceDirectoryAnchor,
   groupSourceDirectoryByPublisherType
 } from "@/lib/source-directory";
@@ -151,6 +152,17 @@ export default function SourcesPage() {
                       <p className="sources-card__via">
                         <span>经由</span> {entry.sourceNames.join(" · ")}
                       </p>
+                      {/* Only where the card lists fewer than it counts:
+                          on the rest the list above is already every
+                          signal, and the link would lead to the same few. */}
+                      {entry.signalCount > entry.recent.length ? (
+                        <Link
+                          href={getPublisherSignalsHref(entry.publisherName)}
+                          className="skill-library-card__link"
+                        >
+                          看全部 {entry.signalCount} 条 →
+                        </Link>
+                      ) : null}
                     </DossierCard>
                   ))}
                 </div>
