@@ -346,6 +346,7 @@
   .user-reference-panel:has(.followable-tag-list),
   .skill-detail-aside-card:has(.followable-tag-list),
   .tech-graph,
+  .topic-graph,
   .issue-pager,
   .signal-reading-actions,
   .signal-shortcut-hint,

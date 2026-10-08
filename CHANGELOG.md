@@ -58,6 +58,49 @@ For per-topic deep dives, see the `docs/` directory.
   address; `?publisher=nobody` is dropped; the link lands on the card 86px
   down; light and dark.
 
+## 话题图谱 on the topic hub (2026-10-08)
+
+- **2026-10-08.** `/topics/[tagId]` gains a 话题图谱 section between
+  跟进此话题 and the signal list: a small static picture of the topic's
+  neighbourhood, nodes linking to their pages, edges coloured by relation,
+  ending with 在关系网络中查看 → `/network?focus=<the topic's best-connected
+  item>`. Server component, no client JS: the layout is
+  `settleForceLayout` from `src/lib/network-layout.ts`, run once per
+  request, and the canvas, dots and kind colours are `/network`'s own
+  classes. Selection and layout in `src/lib/topic-graph.ts`; the component
+  is `src/components/topic-mini-graph.tsx`.
+- **Capped, because the whole neighbourhood is most of the site.** Measured
+  over the 134-node / 953-edge graph: a topic's own items run 2–68 and its
+  direct neighbours 11–96, so own + neighbours is 13–130 nodes and 25–926
+  edges — for eight of ten topics nearly all of `/network`. The picture
+  holds at most 16 nodes: up to 10 of the topic's items, ranked by links to
+  other items in the same topic, then the outside neighbours with the most
+  links to those 10 (a neighbour linked only to items left out is not drawn).
+  Real result: 知识图谱 2 + 11, 检索 7 + 9, the other eight 10 + 6. A caption
+  states both totals, and the lists below stay the complete record.
+- **Topic items are filled dots, outside neighbours hollow rings.** Edges are
+  coloured by relation family, not by each of the eight types: 渊源·续作·延伸
+  (`--dossier-stamp`), 必备·借助 (`--dossier-accent`), 释义·印证
+  (`--dossier-ink`, dashed), 关联 (`--dossier-muted`, dotted). Against the
+  canvas they measure 7.1 / 7.9 / 13.3 / 5.9 :1 light and 5.2 / 4.8 / 11.5 /
+  5.4 :1 dark; the legend names every type in text, and each edge carries a
+  `<title>`.
+- **Labels are always shown, which the force layout alone could not keep
+  apart.** It spaces dots, not the names under them: at 1440px the first
+  version had 0–4 colliding label pairs per topic. A deterministic pass after
+  the layout (`separateFootprints`) pushes apart the dot+label rectangles,
+  sized from the title for a 560px canvas; the canvas is capped at 560px and,
+  through a container query, never squeezed below it to keep the legend
+  beside it (at 900px the grid had shrunk it to 479px and 27 pairs collided).
+  Measured in the preview pane over all ten topics at 1440, 1024, 900, 800,
+  700, 660 and 641px: 0 label/label and 0 label/dot overlaps, nothing outside
+  the canvas, no horizontal scroll. Below 640px the names are hidden and the
+  dots stay.
+- The canvas is `aria-hidden` with its links out of the Tab order — the
+  three content lists and 图谱关联 already name every node — and the section
+  is hidden in print. Pure derived view: public graph fields only, no new
+  persisted data.
+
 ## Editorial round 2026-10-02
 
 - **2026-10-02.** 30 undecided candidates from the 10-01 import, all

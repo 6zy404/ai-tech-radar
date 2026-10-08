@@ -120,6 +120,7 @@
 @import "./styles/44-dossier-v6-home.css";
 @import "./styles/45-dossier-v7-network.css";
 @import "./styles/components/content-network-graph.css";
+@import "./styles/components/topic-mini-graph.css";
 @import "./styles/46-dossier-dark.css";
 @import "./styles/components/dossier-scope.css";
 @import "./styles/components/top-nav.css";

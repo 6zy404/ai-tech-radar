@@ -4,6 +4,7 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { TopicFollowToggle } from "@/components/topic-follow-toggle";
+import { TopicMiniGraph } from "@/components/topic-mini-graph";
 import { UserPageShell } from "@/components/user-page-shell";
 import { difficultyLabels, heatLabels } from "@/lib/content-labels";
 import { topicFeedPath } from "@/lib/feed-paths";
@@ -66,7 +67,7 @@ export default async function TopicHubPage({ params }: TopicHubPageProps) {
     notFound();
   }
 
-  const { tag, technologies, skills, knowledge, relatedNodes } = hub;
+  const { tag, technologies, skills, knowledge, relatedNodes, graph } = hub;
 
   return (
     <UserPageShell
@@ -109,6 +110,8 @@ export default async function TopicHubPage({ params }: TopicHubPageProps) {
           ) : null}
         </div>
       </section>
+
+      <TopicMiniGraph graph={graph} topicName={tag.name} />
 
       {technologies.length > 0 ? (
         <section className="topic-hub-section">

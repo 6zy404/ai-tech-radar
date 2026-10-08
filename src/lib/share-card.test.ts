@@ -429,7 +429,8 @@ describe("buildTopicShareCard", () => {
       ],
       skills: skillItems.slice(0, 2),
       knowledge: [],
-      relatedNodes: []
+      relatedNodes: [],
+      graph: { nodes: [], edges: [], topicNodeTotal: 0, neighborTotal: 0 }
     };
     const card = buildTopicShareCard(hub);
 

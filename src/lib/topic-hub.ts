@@ -9,6 +9,7 @@ import {
   getPreferredTechnologySummary,
   getPreferredTechnologyTitle
 } from "@/lib/technology-localization";
+import { buildTopicGraph, type TopicGraphData } from "@/lib/topic-graph";
 import type {
   ContentKind,
   KnowledgeItem,
@@ -47,6 +48,8 @@ export interface TopicHubData {
   skills: SkillItem[];
   knowledge: KnowledgeItem[];
   relatedNodes: TopicHubRelatedNode[];
+  /** 话题图谱：有上限的小图，见 `buildTopicGraph`。 */
+  graph: TopicGraphData;
 }
 
 export function getTopicHub(tagId: string): TopicHubData | undefined {
@@ -125,7 +128,8 @@ export function getTopicHub(tagId: string): TopicHubData | undefined {
     })),
     skills,
     knowledge,
-    relatedNodes
+    relatedNodes,
+    graph: buildTopicGraph(topicNodeIds, graph)
   };
 }
 
