@@ -215,7 +215,15 @@ What a deploy does, in order:
 
 1. **Preflight, before anything changes.** The scheduled task must serve this
    checkout, and the process on port 3000 must be a `node` started out of this
-   checkout's `node_modules`. Run from a git worktree, it refuses.
+   checkout's `node_modules`. Run from a git worktree, it refuses. It also
+   refuses while the Security log holds any failed logon (event 4625) from
+   the last 10 minutes (`-LockoutWindowMinutes`), naming the account and
+   process and the time it may run again. On 2026-10-02 headless Chrome
+   failed an Administrator logon once per process, the 10-in-10-minutes
+   policy locked the account, and the server task — which logs on as that
+   account — could not start for 20 minutes; rolling back cannot help,
+   because the previous build starts the same way. `deploy:rollback` runs
+   the same check. If the log cannot be read, it warns and continues.
 2. **Build into `.next-new`** with `npm run build:public` while the server keeps
    serving. A failed build stops here; the server was never touched.
 3. **Swap** — stop the task, end the process tree holding the port

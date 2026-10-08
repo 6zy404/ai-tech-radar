@@ -12,6 +12,21 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Deploys wait out an account lockout
+
+- **2026-10-08.** `npm run deploy` and `deploy:rollback` now refuse to stop
+  the server while the Security log holds a failed logon (event 4625) from
+  the last 10 minutes, and say which account and process failed and when
+  the window clears (`Assert-NoRecentLogonFailures` in
+  `scripts/deploy.ps1`). The 2026-10-02 outage was 20 minutes of a locked
+  Administrator account — headless Chrome failing a logon per process — in
+  which the server task could not start and the automatic rollback could
+  not help.
+- **Checked against the real log**: with the default window it reports no
+  failures; widened to a week it finds the 10-02 run (Administrator /
+  chrome.exe ×46, 52 in all) and throws with the clear-at time. The
+  rehearsal stubs the check, since it reads the machine's real log.
+
 ## Editorial round 2026-10-02
 
 - **2026-10-02.** 30 undecided candidates from the 10-01 import, all

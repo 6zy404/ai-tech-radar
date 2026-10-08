@@ -71,7 +71,8 @@ param(
     [int]$Port = 3000,
     [int]$HealthTimeoutSeconds = 90,
     [int]$LogMaxKB = 1024,
-    [int]$LogKeep = 3
+    [int]$LogKeep = 3,
+    [int]$LockoutWindowMinutes = 10
 )
 
 $ErrorActionPreference = "Stop"
@@ -239,6 +240,43 @@ function Assert-TaskServesCheckout {
     if ($arguments -notmatch $pattern) {
         throw "计划任务 $TaskName 服务的不是这个检出（$RepoRoot）。请在它服务的检出里运行本脚本。"
     }
+}
+
+# On 2026-10-02 the site was down 20 minutes after a deploy whose build was
+# fine: headless Chrome had failed an Administrator logon once per process,
+# the lockout policy (10 failures in 10 minutes) locked the account, and the
+# server task, which logs on as that account, could not start. Rolling back
+# cannot help, because the previous build starts the same way. So nothing is
+# stopped while failed logons are still inside the lockout window.
+function Assert-NoRecentLogonFailures {
+    param([int]$WindowMinutes = $LockoutWindowMinutes)
+
+    $since = (Get-Date).AddMinutes(-$WindowMinutes)
+
+    try {
+        $failures = @(Get-WinEvent -FilterHashtable @{ LogName = "Security"; Id = 4625; StartTime = $since } -ErrorAction Stop)
+    } catch {
+        if ($_.FullyQualifiedErrorId -like "NoMatchingEventsFound*") {
+            Write-Ok "最近 $WindowMinutes 分钟没有失败登录"
+            return
+        }
+
+        Write-Problem "读不到安全日志（$($_.Exception.Message)），跳过账户锁定检查"
+        return
+    }
+
+    # Property 5 is the target account, 18 the process that tried to log on.
+    $sources = ($failures | Group-Object {
+            $account = [string]$_.Properties[5].Value
+            if (-not $account -or $account -eq "-") { $account = "?" }
+            "$account / " + (Split-Path -Leaf ([string]$_.Properties[18].Value))
+        } |
+        Sort-Object Count -Descending |
+        ForEach-Object { "$($_.Name) ×$($_.Count)" }) -join "，"
+    $latest = ($failures | Sort-Object TimeCreated -Descending | Select-Object -First 1).TimeCreated
+    $clearAt = $latest.AddMinutes($WindowMinutes).ToString("HH:mm:ss")
+
+    throw "最近 $WindowMinutes 分钟有 $($failures.Count) 次失败登录（$sources；最近一次 $($latest.ToString('HH:mm:ss'))）。账户被锁时服务任务起不来，回滚也救不了。等到 $clearAt 之后、且这期间没有新的失败登录再运行。"
 }
 
 # "It is a node process" is not enough to end it. On 2026-09-28 a rehearsal of
@@ -584,6 +622,7 @@ function Invoke-Deploy {
     Write-Step "部署前检查"
     Assert-TaskServesCheckout
     Assert-PortHeldByThisCheckout
+    Assert-NoRecentLogonFailures
 
     if (-not (Test-Path -LiteralPath (Resolve-RepoPath $script:ServingDir))) {
         throw "没有 $($script:ServingDir)。如果上一次部署中断过，先把 $($script:OldDir) 改名回 $($script:ServingDir)。"
@@ -717,6 +756,7 @@ function Invoke-Rollback {
     Write-Step "回滚前检查"
     Assert-TaskServesCheckout
     Assert-PortHeldByThisCheckout
+    Assert-NoRecentLogonFailures
 
     $currentBuildId = Get-BuildId $script:ServingDir
     $targetBuildId = Get-BuildId $script:OldDir

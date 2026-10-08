@@ -161,6 +161,9 @@ if ($Port -ne 3199 -or $RepoRoot -ne $rehearsalRepo) {
 $rehearsalRealStop = ${function:Stop-Server}
 
 function Assert-TaskServesCheckout { }
+# Reads the real Security log; a failed logon elsewhere on the machine must not
+# fail a rehearsal. Its own check is exercised by hand, see deployment.md.
+function Assert-NoRecentLogonFailures { }
 function Stop-Server { Assert-PortHeldByThisCheckout; Stop-RehearsalListener }
 function Start-Server { Start-RehearsalServer -ScriptPath $rehearsalServerInside }
 
