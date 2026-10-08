@@ -1,6 +1,156 @@
 {
-  "updatedAt": "2026-10-02T00:44:00.084Z",
+  "updatedAt": "2026-10-08T15:30:01.660Z",
   "digests": [
+    {
+      "id": "digest-2026-10-08",
+      "date": "2026-10-08",
+      "status": "published",
+      "title": "技术简报 - 2026-10-08",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "这一期的六条信号，都要分清两种数字：自己报的，和核验过的。ThinkingBox 按数据库最终状态给智能体评分，做错的任务里有三分之二没有报错就结束了。OpenAI 公开 719 篇数学结果，有 Lean 证明的只占四成，第二天就撤回了三篇。Nemotron 的两枚金牌，IMO 由官方评分，IOI 是自测。Claude Haiku 5.5 的标价降到十分之一，新分词器又多用两成五 token。另有两个开放模型：把文字、图片、音频放进同一向量空间的 EmbeddingGemma 2，以及与 Jev 互有胜负的决策模型 Clef。",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+        "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+        "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+        "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article"
+      ],
+      "pinnedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox"
+      ],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+        "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+        "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+        "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1"
+      ],
+      "skillIds": [
+        "skill-model-evaluation",
+        "skill-agent-design",
+        "skill-ws-dddaf80c",
+        "skill-retrieval-tuning",
+        "skill-ws-7796779a",
+        "skill-ws-84837d46",
+        "skill-ws-a9e80194",
+        "skill-ws-b47fabd1"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-e251051e",
+        "knowledge-api-contracts",
+        "knowledge-human-loop",
+        "knowledge-rag-basics",
+        "knowledge-tool-use"
+      ],
+      "sourceNames": [
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "Ollama Releases",
+        "OpenAI News",
+        "Simon Willison Blog"
+      ],
+      "generatedAt": "2026-10-08T12:00:00.000Z",
+      "updatedAt": "2026-10-08T15:30:01.659Z",
+      "lastRegeneratedAt": "2026-10-08T15:29:45.814Z",
+      "publishedAt": "2026-10-08T15:30:01.659Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：54 条候选全部处置，发布 6 条；排除 4 条往期已收录的信号；头条 ThinkingBox。"
+      ]
+    },
+    {
+      "id": "digest-2026-10-07",
+      "date": "2026-10-07",
+      "status": "draft",
+      "title": "技术简报 - 2026-10-07",
+      "summary": "今日 4 条立即关注，6 条值得跟踪，覆盖 5 个来源。",
+      "editorialSummary": "",
+      "highPriorityTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546"
+      ],
+      "watchTechnologyIds": [
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
+      ],
+      "manuallyAddedTechnologyIds": [],
+      "excludedTechnologyIds": [],
+      "pinnedTechnologyIds": [],
+      "orderedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-498546",
+        "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+        "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations"
+      ],
+      "skillIds": [
+        "skill-ws-dddaf80c",
+        "skill-model-evaluation",
+        "skill-ws-c183c9b9",
+        "skill-ws-f741f122",
+        "skill-ws-a9e80194",
+        "skill-agent-design",
+        "skill-scope-pilots",
+        "skill-tool-integration"
+      ],
+      "knowledgeIds": [
+        "knowledge-evaluation-loops",
+        "knowledge-human-loop",
+        "knowledge-model-sizing",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-e251051e",
+        "knowledge-system-design",
+        "knowledge-latency-tradeoffs",
+        "knowledge-ws-a28a8a56"
+      ],
+      "sourceNames": [
+        "量子位",
+        "Google DeepMind Blog",
+        "Hugging Face Blog",
+        "InfoQ 中文",
+        "OpenAI News"
+      ],
+      "generatedAt": "2026-10-07T12:00:00.000Z",
+      "updatedAt": "2026-10-07T15:21:21.419Z",
+      "editorialNotes": [
+        "由已发布技术记录按 Ranking v0 优先级生成。",
+        "Daily Digest v0 默认排除低优先级条目。"
+      ]
+    },
     {
       "id": "digest-2026-10-02",
       "date": "2026-10-02",

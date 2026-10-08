@@ -1,6 +1,641 @@
 {
-  "updatedAt": "2026-10-02T00:47:52.644Z",
+  "updatedAt": "2026-10-08T15:33:45.107Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "slug": "embeddinggemma-2",
+      "title": {
+        "original": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+        "zh": "谷歌开放新嵌入模型：图片音频文字同一个空间",
+        "en": "EmbeddingGemma 2: an open, lightweight multimodal embedding model"
+      },
+      "summary": {
+        "original": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+        "zh": "Google 10 月 6 日发布开放权重的 EmbeddingGemma 2：基于 Gemma 4，共 740M 参数，文字、图片、音频、视频与代码嵌入同一个空间，视觉与音频编码器可选，只处理文字时只需 270M。上下文 8K，是上一代的 4 倍。代码检索 MTEB 从 68.76 升到 78.68，多语言文本几乎持平。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\n10 月 6 日 Google 发布 EmbeddingGemma 2，一个开放权重的轻量级多模态嵌入模型，基于 Gemma 4。本条的数字来自 Google 的发布文章与 Hugging Face 上的模型卡。\n\n## 模块化的 740M\n\n- 总参数 **740M**，按需组合：\n  - 只处理文字：**270M**（130M 主干加 140M 嵌入层）\n  - 可选视觉编码器 170M\n  - 可选音频编码器 300M\n- 文字、图片、音频、视频和代码进入**同一个向量空间**，支持图文混合输入\n- 上下文 **8K token**，是 EmbeddingGemma 1 的 4 倍，约能放 5.5 分钟音频、29 张图或 58 帧视频\n- 向量 768 维，可以截断到 512、256 或 128 维，存储最多省 6 倍\n\n## 基准：代码大涨，文字持平\n\n与 EmbeddingGemma 1 对比：\n\n- **MTEB 代码 v1**：78.68，上一代 68.76\n- **MTEB 多语言 v2**：61.36，上一代 61.15，基本没变\n\n新增的多模态成绩：MMEB v2 总分 59.01（图片 57.28、文档图像 67.84、视频 50.67），音频的 MAEB 49.39。\n\n截断有代价：截到 128 维时，代码检索从 78.68 降到 71.41，MMEB 总分从 59.01 降到 45.65。Google 称它「胜过两倍大小的专用模型」，但没有给出对比数字。\n\n## 端侧\n\n在 Pixel 11 Pro 上量化运行，只用文字时约占 191 MB 内存，多模态约 567 MB，没有给出延迟。Hugging Face、Kaggle、Ollama、llama.cpp、transformers.js、MLX、vLLM 都已可用。\n\n许可标为 Apache 2.0，但许可链接指向的是 Gemma 4 许可，商用前值得核对。\n\n## 对读者意味着什么\n\n1. 做代码检索的团队，值得在自己的代码库上换上它测一次，提升幅度最大的是这一块。\n2. 想做图文、音视频统一检索又受限于端侧资源的应用，有了一个几百 MB 的选项。\n3. 用截断维度省存储之前，先在自己的数据上量一下召回损失：128 维的损失并不小。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-06",
+      "sourceName": "Google DeepMind Blog",
+      "sourceUrl": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Google DeepMind",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-retrieval",
+        "tag-multimodal",
+        "tag-on-device"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-rag-basics",
+        "knowledge-model-sizing",
+        "knowledge-ws-c761533e"
+      ],
+      "relatedSkillIds": [
+        "skill-retrieval-tuning",
+        "skill-ws-d7c9d1d8",
+        "skill-ws-b47fabd1"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-08T15:33:45.107Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "一个几百 MB、能在手机上跑的开放模型，把文字、图片、音频和代码放进同一个向量空间。代码检索提升明显，但纯文本几乎没变；截断维度能省存储，也会掉召回。",
+      "whoShouldCare": [
+        "搭检索增强生成或语义搜索的工程团队",
+        "做代码检索、代码库问答的开发工具团队",
+        "需要在设备上做多模态检索的移动与端侧应用"
+      ],
+      "technicalContext": "嵌入模型把内容转成向量，相近的内容向量也相近，检索时比较向量距离。共享向量空间意味着可以用文字查图片或音频。Matryoshka 式训练让向量可以截短使用，用精度换存储。",
+      "impactAreas": [
+        "检索",
+        "多模态",
+        "端侧部署"
+      ],
+      "learningPath": [
+        "读《检索增强生成基础》，了解嵌入模型在检索链路里的位置",
+        "读《检索流水线调优》，准备一份自己的检索评测集",
+        "用 768 维与 256 维各跑一次，对比召回与存储",
+        "读《端侧模型部署与硬件适配》，评估 191 MB 与 567 MB 两种配置"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-rag-basics": "嵌入模型决定检索能找回什么，是检索增强生成的第一环。",
+        "knowledge-model-sizing": "只需文字时用 270M，需要图片音频再加编码器：按需求配大小。",
+        "knowledge-ws-c761533e": "端侧做嵌入、云端做生成，是这类小嵌入模型最常见的用法。"
+      },
+      "relatedSkillExplanations": {
+        "skill-retrieval-tuning": "代码检索大涨、文字持平、截断掉分，都要在自己的数据上验证。",
+        "skill-ws-d7c9d1d8": "Pixel 上 191 MB 与 567 MB 的内存占用，是端侧部署要先算的账。",
+        "skill-ws-b47fabd1": "图片和文档图像进入同一个空间后，视觉输入怎么切分、怎么核验要重新考虑。"
+      },
+      "followUpQuestions": [
+        "你的检索里代码、文字、图片各占多少？哪一块会受益最大？",
+        "截到 256 维时，你的召回掉了多少？省下的存储值不值？",
+        "许可链接指向 Gemma 4 许可，你的使用场景是否受其中条款限制？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "createdAt": "2026-10-08T15:23:55.999Z",
+      "updatedAt": "2026-10-08T15:33:45.107Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：数字核对自 blog.google 发布文章（deepmind.google 链接跳转至此）与 huggingface.co/google/embeddinggemma-2 模型卡；许可标注与链接不一致，正文已提示。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "slug": "nemotron-imo-ioi-2026",
+      "title": {
+        "original": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
+        "zh": "Nemotron 竞赛模型：IMO 金牌官方评定，IOI 金牌自测",
+        "en": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO"
+      },
+      "summary": {
+        "original": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
+        "zh": "NVIDIA 用同一模型家族的微调版参加 2026 年 IMO 与 IOI。IMO 拿到 30 分（金牌线 29），由 IMO 官方评分员打分，纯自然语言、不用证明器与工具。IOI 自测 535.4 分（金牌线 361.12），按比赛限制自己跑，不进官方排名。550B 总参数、55B 激活的模型权重与训练数据已开放，训练算力未披露。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\n10 月 7 日 NVIDIA 在 Hugging Face 博客介绍了用 Nemotron 模型家族参加 2026 年国际数学奥林匹克（IMO）和国际信息学奥林匹克（IOI）的结果。两项都过了金牌线，但认定方式不同，读的时候要分开。\n\n## 两个金牌，两种分量\n\n- **IMO 2026**：42 分里拿到 30 分，金牌线 29 分，6 题中 4 题满分。**由 IMO 官方评分员评分**。全程自然语言，不用形式化证明器、工具或联网。\n- **IOI 2026**：600 分里自测 535.4 分，金牌线 361.12 分，人类最高分 498.27 分。**这是 NVIDIA 按比赛限制自己跑出的分数**，不在官方排名里。\n\nIMO 的成绩可以当作外部认定；IOI 的分数更高，但只是厂商自测。\n\n## 用的是什么模型\n\n- **Nemotron-3-Ultra-CC**：总参数 550B、激活 55B 的混合专家模型，只做了监督微调，以 NVFP4 精度发布。它的 safetensors 元数据写的是 335B，与公布的参数量对不上，NVIDIA 没有解释。\n- **Nemotron-3-Nano-CC**：总参数 30B、激活 3B，用于 IOI 2025 的对照实验。\n\nNano 在 IOI 2025 上的分数变化说明了提升来自哪里：基础模型 130 分，监督微调后 280 分，强化学习后 291 分，加上「生成-验证-修正」的推理流程后 468 分（金牌线 438.3）。最大的一步不是训练，而是推理时的验证与修正。NVIDIA 也报告，组合互补的监督微调与强化学习检查点，比单纯多采样更有效。\n\n## 公开了什么\n\n- Ultra-CC 权重（OpenMDW-1.1 许可，9 月 3 日已上 Hugging Face）\n- IMO 用的监督微调与强化学习检查点、两份 IMO 数据集（41.5 万条证明类监督样本、9597 道强化学习题）\n- 200 题的 Nemotron-IMO-Bench，以及 NeMo Skills 里的完整流程\n\n**没有公开训练算力。**\n\n## 对读者意味着什么\n\n1. 看竞赛成绩时，先问是谁评的分：官方评分员、第三方，还是自测。\n2. Nano 的数据说明，推理阶段的验证循环可以比再训练一轮带来更大的提升，这个做法可以搬到自己的任务上。\n3. 数据与流程开放，想复现或做后训练的团队有了一份完整的参考配方。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-07",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/nvidia/nemotron-ioi-and-imo-2026",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "NVIDIA",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-818b7bb3",
+        "knowledge-ws-34da6116"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-84837d46",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-08T15:33:44.988Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "一份开放权重、开放数据的竞赛级配方，而且两项成绩的分量不同：IMO 由官方评分，IOI 是自测。它的消融数据还说明，推理时的验证与修正循环带来的提升比强化学习更大。",
+      "whoShouldCare": [
+        "做模型后训练、数学或代码推理的研究与工程团队",
+        "想在自己任务上加验证循环的应用团队",
+        "需要判断竞赛类成绩可信度的读者"
+      ],
+      "technicalContext": "混合专家模型（MoE）每次只激活一部分参数，550B 总参数里每个 token 只用 55B。NVFP4 是 NVIDIA 的 4 位浮点格式，用来降低显存与带宽。生成-验证-修正指模型先给出答案，再检查、再改，循环多轮。",
+      "impactAreas": [
+        "后训练",
+        "推理时计算",
+        "模型评估"
+      ],
+      "learningPath": [
+        "读《混合专家模型（MoE）架构》，理解总参数与激活参数的区别",
+        "读《合成数据与数据配方》，看 41.5 万条证明样本这类数据怎么构造",
+        "对照 Nano 在 IOI 2025 上 130 → 280 → 291 → 468 的变化，分清训练与推理各贡献多少",
+        "读本站 Gowers 的信号，了解数学家对模型证明能力的看法"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "Ultra-CC 是 550B 总参数、55B 激活的混合专家模型。",
+        "knowledge-ws-818b7bb3": "两份 IMO 数据集与 2.2 万道编程题，就是这次公开的数据配方。",
+        "knowledge-ws-34da6116": "权重以 NVFP4 发布，4 位精度决定了它在什么硬件上跑得动。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-84837d46": "监督微调与强化学习检查点组合使用，是这次报告里最可借鉴的后训练做法。",
+        "skill-model-evaluation": "官方评分与自测的区别，是评估任何成绩时都要先问的问题。"
+      },
+      "followUpQuestions": [
+        "550B 与 335B 的参数量差异是怎么回事？",
+        "生成-验证-修正循环在你的任务上能不能用？验证器从哪里来？",
+        "没有公开训练算力，复现这套配方大概需要多少资源？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "createdAt": "2026-10-08T15:23:55.696Z",
+      "updatedAt": "2026-10-08T15:33:44.988Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：数字核对自 huggingface.co/blog/nvidia/nemotron-ioi-and-imo-2026 与 Ultra-CC 模型卡；发布方设为 NVIDIA，不是转载它的 Hugging Face。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "slug": "thinkingbox-agent-end-state",
+      "title": {
+        "original": "The Agent Said It Was Done. The Database Disagreed.",
+        "zh": "智能体做错的任务，三分之二没有报错",
+        "en": "The Agent Said It Was Done. The Database Disagreed."
+      },
+      "summary": {
+        "original": "The Agent Said It Was Done. The Database Disagreed.",
+        "zh": "Microsoft 发布 ThinkingBox-Bench：507 个有状态的业务流程，按后端最终状态评分，而不是看智能体怎么说。12 个模型的 121,680 次运行里有 79,853 次没通过，其中 67.24% 正常结束、调用过改写状态的工具、也没有报错。Kimi-K3 有 93.89% 的任务至少做对一次，但 20 次全对的只有 13.41%。代码与数据均已开源。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "## 发生了什么\n\n10 月 3 日 Microsoft 在 Hugging Face 博客发布 ThinkingBox：一个给智能体跑业务流程的沙盒，以及配套的评测 ThinkingBox-Bench。它的评分对象是后端数据库的最终状态和副作用，而不是智能体最后那句「已完成」。代码以 MIT 许可开源（`microsoft/thinkingbox`），数据集以 CDLA-Permissive-2.0 发布，论文为 arXiv:2608.19741。\n\n## 评测怎么做\n\n- 507 个有状态的业务流程，每个从干净的后端开始，重复跑 20 次\n- 测了 18 个模型，10 个闭源、8 个开放权重\n- 判定看三件事：字段值是否正确、该有的效果是否都有、有没有多出不该有的效果\n\n## 最重要的数字：没有报错的失败\n\n在 12 个模型、121,680 次运行的消融实验里，79,853 次没有通过检查。这些失败里：\n\n- **67.24%** 是「干净地结束」：调用过改写状态的工具、没有报错、报告完成\n- 其中 77.61% 写错了字段值，43.30% 产生了多余的副作用，25.36% 漏掉了必须的效果\n\n换句话说，三次失败里有两次，从智能体的输出和日志上看不出任何问题。只看「是否报错」或「是否声称完成」的监控，会把这些当作成功。\n\n## 至少做对一次，和每次都做对\n\n- Claude Opus 5.5 的单次通过率最高，67.16%\n- Kimi-K3 在 507 个任务里有 476 个至少做对一次（93.89%），但 20 次全对的只有 68 个（13.41%）\n- Claude Opus 5 有 241 个任务 20 次全对（47.53%）\n\n这和本站 9 月 15 日 IBM 的一致性差距信号是同一个现象：平均成绩和可靠成绩之间隔着一大段。按「每个可靠完成的任务」折算成本，估算最低的是 GPT-5.4，约 6.80 美元。\n\n## 对读者意味着什么\n\n1. 给智能体做验收时，检查它改过的数据，而不是它的回复。没有报错不等于做对。\n2. 评估时多跑几次，看全对率，不只看平均通过率。\n3. ThinkingBox 的环境与数据是开放的，可以拿来跑自己的候选模型，但流程是通用业务场景，和你的系统未必相同。"
+      },
+      "type": "tool",
+      "publishDate": "2026-10-03",
+      "sourceName": "Hugging Face Blog",
+      "sourceUrl": "https://hf-mirror.com/blog/microsoft/thinkingbox",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Microsoft",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-observability",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-e251051e",
+        "knowledge-evaluation-loops",
+        "knowledge-tool-use"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-f741f122",
+        "skill-model-evaluation",
+        "skill-agent-design"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-08T15:33:44.889Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它给「智能体说做完了」和「真的做完了」之间的差距量出了大小：三分之二的失败没有任何报错。只看日志和自述的验收方式，会把这部分错误当成功放过去。",
+      "whoShouldCare": [
+        "让智能体直接改写业务数据的工程团队",
+        "负责智能体上线验收和监控的平台与运维团队",
+        "在多个模型之间选型、需要看可靠性而不只是平均分的决策者"
+      ],
+      "technicalContext": "有状态的流程会改写数据库或外部系统。按最终状态评分，是把任务前后的数据做比对，检查字段值、遗漏和多余的写入。pass@1 是单次通过率；20 次全对衡量的是同一任务能否稳定完成。",
+      "impactAreas": [
+        "智能体验收",
+        "评测方法",
+        "可观测性"
+      ],
+      "learningPath": [
+        "读《完成判定与验收信号》，弄清楚任务完成该看什么证据",
+        "读本站 9 月 15 日的一致性差距信号，对比平均成功率与全对率",
+        "挑一个自己的智能体流程，写一个按数据库最终状态判定的检查",
+        "读《智能体可观测性与评测运维》，把这类检查放进持续评测"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-e251051e": "ThinkingBox 的核心就是不信自述、看最终状态，这正是完成判定要解决的问题。",
+        "knowledge-evaluation-loops": "20 次重复与全对率，是把一次性成绩变成可靠性度量的评估闭环。",
+        "knowledge-tool-use": "失败多数发生在调用了改写状态的工具之后：工具调用成功不等于结果正确。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-f741f122": "三分之二的失败没有报错，靠错误率告警的监控看不到它们。",
+        "skill-model-evaluation": "同一模型做对过一次和每次都做对差得很远，评估要两样都看。",
+        "skill-agent-design": "在流程末尾加一个按数据核对的验收步骤，比让智能体自报更可靠。"
+      },
+      "followUpQuestions": [
+        "你的智能体改写数据后，有没有一个不依赖它自述的检查？",
+        "同一个任务跑 20 次，你的系统全对率是多少？",
+        "多余的副作用（43.30%）在你的业务里会造成什么后果？谁会先发现？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "createdAt": "2026-10-08T15:23:55.095Z",
+      "updatedAt": "2026-10-08T15:33:44.889Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：数字核对自 huggingface.co/blog/microsoft/thinkingbox；发布方按文章署名设为 Microsoft，不是转载它的 Hugging Face。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "slug": "claude-haiku-5-5",
+      "title": {
+        "original": "Claude Haiku 5.5",
+        "zh": "Claude Haiku 5.5：标价降了九成，token 却多用两成五",
+        "en": "Claude Haiku 5.5"
+      },
+      "summary": {
+        "original": "As previously promised, here's Anthropic's new fast, low cost model: Introducing Claude Haiku 5.5. The previous Haiku, 4.5, was very much showing its age. It came out almost a year ago, and was priced at $1/million input and $5/million output - relatively exp…",
+        "zh": "Anthropic 10 月 7 日发布 Claude Haiku 5.5，10 万 token 以内每百万输入 0.10 美元、输出 0.50 美元，是 Haiku 4.5 的十分之一。它在 OSWorld 2.1 上从 15.7% 升到 72.4%，Terminal-Bench 4.0 从 0 升到 39.2%，但仍明显低于 Sonnet 5.5。Simon Willison 实测新分词器对同一段提示多用约 1.25 倍 token，而且推理无法关闭。"
+      },
+      "content": {
+        "original": "As previously promised, here's Anthropic's new fast, low cost model: Introducing Claude Haiku 5.5. The previous Haiku, 4.5, was very much showing its age. It came out almost a year ago, and was priced at $1/million input and $5/million output - relatively expensive even back then, and a full 10x the price of OpenAI's GPT-6 Luna, released last month. The new Haiku exactly matches the price of GPT-6 Luna - $0.10/$0.50 - up to 100,000 tokens. Beyond 100,000 tokens the price increases 5x to $0.50/$2.50. Luna itself has a price increase at 272,000 tokens but only to $0.20/$0.75. Haiku 5.5 also uses a new, less generous tokenizer. My Claude Token Counter tool shows that the same long prompt uses around 1.25x as many tokens with Haiku 5.5 compared to Haiku 4.5, so there's a hidden price increase there. If your workloads fit in 100,000 tokens, Haiku is the same price as Luna and reports higher benchmark scores. Above 100,000 tokens, Luna looks like a much better deal. The most recent release of llm-anthropic finally fixed it so I don't need to ship a new version of that plugin for every new model. I tested the new model like this: llm install -U llm-anthropic llm anthropic refresh llm -m claude-haiku-5.5 \"Generate an SVG of a pelican riding a bicycle\" -o thinking_effort low Pelicans Here are pelicans for low, medium, high, xhigh, and max. The new Haiku doesn't let you disable reasoning, and defaults to medium. I got a good bicycle frame for everything beyond low. The low effort pelican cost 0.0936 cents and took 7 seconds. This max effort pelican (with a reasoning trace that start…",
+        "zh": "## 发生了什么\n\n10 月 7 日 Anthropic 发布 Claude Haiku 5.5（模型 ID `claude-haiku-5-5`），在 Claude 平台以及 AWS、Google Cloud、Azure 上提供。本条的价格与基准来自 Anthropic 的发布页，实测与保留意见来自 Simon Willison 当天的文章。\n\n## 价格分两段\n\n每百万 token 的输入 / 输出：\n\n- **提示在 10 万 token 以内**：0.10 / 0.50 美元，缓存读取 0.01 美元\n- **提示超过 10 万 token**：0.50 / 2.50 美元，缓存读取 0.05 美元\n- 对照：Haiku 4.5 为 1 / 5 美元，Sonnet 5.5 为 2 / 10 美元\n\nAnthropic 的说法是平均比 Haiku 4.5 便宜约 75%，而不是标价上的九成。差额来自两处：新的分词器让同一个任务多用一些 token；Haiku 5.5 是第一个带推理档位（low 到 max）的 Haiku，默认 medium，而且推理不能关掉。\n\n## 基准：小模型的跨代跳跃\n\nAnthropic 发布页的对比，依次为 Haiku 5.5 / Haiku 4.5 / Sonnet 5.5：\n\n- **OSWorld 2.1**（离线）：72.4% / 15.7% / 83.9%\n- **Terminal-Bench 4.0**：39.2% / 0.0% / 70.6%\n- **Humanity's Last Exam**（带工具）：57.4% / 18.7% / 64.5%\n- **GDPval-AA v2.1**：1620 / 735 / 1840\n\n都是厂商自报的数字。终端任务上它仍只有 Sonnet 5.5 的一半出头，Anthropic 自己也建议复杂的智能体编程用 Sonnet 或 Opus，Haiku 5.5 的定位是子智能体、摘要与上下文压缩。\n\n## 实测里的两个保留意见\n\n- **新分词器**：Simon Willison 用同一段提示比较，Haiku 5.5 的 token 数约为 Haiku 4.5 的 1.25 倍，他称之为「隐性涨价」。标价降了九成，这一项把一部分吃了回去。\n- **长提示不划算**：超过 10 万 token 后单价升到 0.50 / 2.50 美元，而 OpenAI 的 GPT-6 Luna 同样是 0.10 / 0.50 美元，要到 27.2 万 token 以上才升价。\n\n他用「骑自行车的鹈鹕」SVG 测试各个推理档位：low 档约 0.09 美分、7 秒，max 档约 3.4 美分、5 分多钟；除 low 档外的结果他都认为可用。\n\n## 同一天的另外两项变化\n\n- Sonnet 5.5 的缓存读取价格减半到每百万 0.10 美元，Anthropic 称多数智能体任务因此便宜约两成。\n- Max 与 Team 订阅附带每月 API 额度，从 100 美元到 500 美元不等。\n\n## 对读者意味着什么\n\n1. 已经用 Haiku 4.5 做分类、摘要、子任务的团队，换代的理由很充分，但要按自己的提示重新算 token 数，不要直接按标价折算。\n2. 提示常常超过 10 万 token 的场景，先和 GPT-6 Luna 比一次长上下文的单价。\n3. 推理关不掉意味着延迟有下限：对延迟敏感的调用，从 low 档开始测。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-07",
+      "sourceName": "Simon Willison Blog",
+      "sourceUrl": "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Anthropic",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-inference",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-evaluation-loops"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-dddaf80c",
+        "skill-ws-a9e80194",
+        "skill-agent-design"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-08T15:31:40.453Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "最便宜的一档第一次在操作电脑和终端任务上有了可用的成绩，子智能体、批量摘要这类调用的成本结构会跟着变。但新分词器和关不掉的推理意味着账单不会按标价降九成，要按自己的提示重新算。",
+      "whoShouldCare": [
+        "用小模型做分类、摘要、子任务分发的工程团队",
+        "负责模型路由、在 Haiku 与 Sonnet 之间分配流量的平台团队",
+        "处理长文档、提示常超过 10 万 token 的应用"
+      ],
+      "technicalContext": "Anthropic 的模型按档位分为 Fable、Opus、Sonnet 和 Haiku，Haiku 是最便宜、最快的一档。分词器决定一段文字被切成多少 token，换分词器后同样的文字可能计费更多。推理档位越高，思考 token 越多，而思考 token 按输出计费。",
+      "impactAreas": [
+        "模型选型",
+        "推理成本",
+        "子智能体"
+      ],
+      "learningPath": [
+        "先读本站 9 月 28 日的 Claude Sonnet 5.5 信号，看同一代里上一档的成绩与价格",
+        "读《模型选型与约束匹配》，想清楚哪些调用真的需要大模型",
+        "拿自己的 20 条典型提示，分别统计 Haiku 4.5 与 5.5 的 token 数与费用",
+        "读《推理服务容量规划》，把推理档位带来的延迟下限算进容量"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "Haiku 5.5 的定位是子智能体与摘要，复杂编程仍建议用上一档：选型要按任务来。",
+        "knowledge-latency-tradeoffs": "推理不能关闭，默认 medium，low 档也要几秒：延迟敏感的调用要单独测。",
+        "knowledge-evaluation-loops": "标价降九成、厂商说平均降 75%、实测分词多 25%，只有在自己的任务上测一次才知道账单怎么变。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-dddaf80c": "这次的对比表里有同档跨代、也有跨档比较，正需要这项技能来拆。",
+        "skill-ws-a9e80194": "价格在 10 万 token 处分段，长提示占比决定了实际单价。",
+        "skill-agent-design": "便宜的一档可用之后，主智能体加若干 Haiku 子智能体的拆法值得重新评估。"
+      },
+      "followUpQuestions": [
+        "你的提示里有多少超过 10 万 token？按分段价算，实际单价是多少？",
+        "换成 Haiku 5.5 后，同样的提示 token 数变了多少？",
+        "哪些子任务可以从 Sonnet 下放到 Haiku 5.5？用什么指标判断没有变差？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "createdAt": "2026-10-08T15:23:54.780Z",
+      "updatedAt": "2026-10-08T15:31:40.453Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：价格与基准核对自 anthropic.com/claude-haiku-5-5，实测与分词器倍数来自 Simon Willison 原文；上下文窗口两处来源都没有写，正文不提。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "slug": "cloudflare-clef-decision-models",
+      "title": {
+        "original": "Ollama v0.35.1: Clef decision models",
+        "zh": "Cloudflare 开放 Clef：意图分类胜过 Jev，推理判断落后",
+        "en": "Ollama v0.35.1: Clef decision models"
+      },
+      "summary": {
+        "original": "Clef decision models Ollama now supports Clef and Clef Flash, Cloudflare's new open-source decision models, through /v1/systemone. Clef (27B) and Clef Flash (9B) are multimodal: requests can now include images alongside the text state, shared by all questions…",
+        "zh": "Ollama v0.35.1 支持 Cloudflare 的开放决策模型 Clef（27B，Apache 2.0）与 Clef Flash（9B），并新增 /v1/systemone 接口：输入状态与带类型的问题，一次前向返回概率，不生成文字。与 9 月的 Jev 相比，Clef 在 BANKING77 与 CLINC150 上领先，在 ANLI 上落后，中位延迟 209 毫秒对 524 毫秒。同周 Liquid AI 也开放了 d1 决策模型。"
+      },
+      "content": {
+        "original": "Clef decision models Ollama now supports Clef and Clef Flash, Cloudflare's new open-source decision models, through /v1/systemone. Clef (27B) and Clef Flash (9B) are multimodal: requests can now include images alongside the text state, shared by all questions and scored jointly with it. curl http://localhost:11434/v1/systemone -d '{ \"model\": \"clef-flash\", \"state\": \"The user took this screenshot.\", \"images\": [\"<base64-encoded image>\"], \"questions\": { \"has_ollama\": {\"type\": \"noul\", \"instructions\": \"Does this image contain Ollama?\"} } }' { \"model\": \"clef-flash\", \"answers\": { \"has_ollama\": { \"type\": \"noul\", \"noul\": 0.958 } }, \"usage\": { \"input_tokens\": 548, \"output_tokens\": 0 } } What's Changed Models using web search can now perform up to ten searches per response, up from three Modelfiles now support CAPABILITY declarations, so model creators can explicitly declare what a model can do. Declarations are preserved when creating from GGUF or safetensors, through model inheritance, and on Modelfile export ollama show and the model list now report only decision as the capability for decision models, so clients no longer offer them for general chat, tools, or thinking Updated llama.cpp and the MLX engine Full Changelog: v0.35.0...v0.35.1",
+        "zh": "## 发生了什么\n\nOllama 在 v0.35.1 中加入了对 Cloudflare 开放决策模型 Clef 与 Clef Flash 的支持。本站 9 月 21 日报道过 TypeSafe AI 的 Jev，它开创了「决策模型」这一类：输入文字，输出的不是文字，而是各个选项的概率。Clef 是这一类的第二个主要选手。数字来自 Ollama 的发布说明与模型库页面。\n\n## Clef 是什么\n\n- **Clef**：27B，从 Qwen3.8-27B 微调而来，支持文字与图片，模型文件 18 GB，Apache 2.0 许可\n- **Clef Flash**：9B，模型库页面没有写许可\n- 问题有三种类型：选择题（2 到 26 个选项）、是非题、打分题，全部在一次非自回归的前向里算完\n- 返回的「置信度」衡量的是概率有多集中，**不是答案对不对的概率**\n\n## Ollama 为它改了什么\n\n- 新增 `/v1/systemone` 接口，专门接收状态与问题、返回概率\n- 新增「决策」能力标记，客户端不会再把这类模型当成聊天、工具调用或思考模型来用\n- 同一版本里，联网搜索模型每次回答最多可搜 10 次，原来是 3 次\n\n## 与 Jev 对比\n\n依次为 Clef / Clef Flash / Jev：\n\n- **BANKING77**（意图分类）：94.2 / 90.9 / 79.7\n- **CLINC150**（意图分类）：97.4 / 66.8 / 89.3\n- **ANLI**（推理判断）：69.8 / 59.1 / 74.8，Jev 领先\n- **中位延迟**：209 / 39 / 524 毫秒\n\n意图分类上 Clef 明显领先，推理判断上 Jev 仍更好，业务流程类任务两者大致持平。Clef Flash 很快，但在 CLINC150 上掉得很多。模型库页面关于上下文长度前后矛盾（256K 与 64K），以实际测试为准。\n\n## 同一周的另一个：Liquid AI d1\n\n10 月 7 日 Liquid AI 也开放了 d1 决策模型：基于 LFM2.5-VL-3B 的 d1-3B 支持文字与图片，在 Jetson Thor 上 16 毫秒、RTX 4090 上 8 毫秒；实验性的 d1-omni-600M 还能接音频。博客只写了「开放权重」，没有写许可。决策模型从一家变成了三家。\n\n## 对读者意味着什么\n\n1. 路由、意图识别、审核、打分这类只需要选项而不需要文字的调用，可以用决策模型替换生成模型，延迟与成本都低得多。\n2. 三家各有长处：先用自己的分类数据比一次，不要只看厂商的表。\n3. 把置信度当作「模型有多确定」，不要当作「答案有多可能对」；需要校准时得自己做。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-02",
+      "sourceName": "Ollama Releases",
+      "sourceUrl": "https://github.com/ollama/ollama/releases/tag/v0.35.1",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "Cloudflare",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-on-device",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-model-sizing",
+        "knowledge-latency-tradeoffs",
+        "knowledge-api-contracts"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-7796779a",
+        "skill-model-evaluation",
+        "skill-agent-design"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-08T15:30:59.348Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "决策模型从 Jev 一家变成了 Clef、d1 三家，Ollama 也为它们开了专用接口。智能体里大量「选哪个、是不是、打几分」的调用，可以从生成模型换成一次前向的概率输出。",
+      "whoShouldCare": [
+        "在智能体里做路由、意图识别或审核的工程团队",
+        "本地部署模型、用 Ollama 做推理的开发者",
+        "需要低延迟分类与打分的端侧应用"
+      ],
+      "technicalContext": "普通语言模型逐个生成 token，决策模型只做一次前向，直接给出每个选项的概率，所以延迟低、输出可以直接解析。非自回归指不逐字生成。置信度是概率分布的集中程度，与准确率之间需要校准才能对应。",
+      "impactAreas": [
+        "推理成本",
+        "智能体路由",
+        "本地部署"
+      ],
+      "learningPath": [
+        "先读本站 9 月 21 日的 Jev 信号，了解决策模型这一类的来历",
+        "读《模型选型与约束匹配》，列出自己系统里只需要选项输出的调用",
+        "用 Ollama 拉取 clef 或 clef-flash，在自己的分类数据上和现有做法对比",
+        "读《API 契约与接口边界》，想清楚 /v1/systemone 这类新接口怎么接入现有服务"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-model-sizing": "27B 的 Clef 与 9B 的 Clef Flash 在速度与准确率上取舍明显。",
+        "knowledge-latency-tradeoffs": "一次前向的 39 到 209 毫秒，对比生成模型的数秒，是决策模型最直接的价值。",
+        "knowledge-api-contracts": "决策模型有自己的接口与问题类型，接入时要按新的输入输出契约来设计。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-7796779a": "Ollama 为决策模型新加了接口与能力标记，引擎支持决定了你能不能用上。",
+        "skill-model-evaluation": "三家模型在不同数据集上互有胜负，必须在自己的数据上比。",
+        "skill-agent-design": "把智能体里的路由与判断步骤交给决策模型，生成模型只留给要写文字的地方。"
+      },
+      "followUpQuestions": [
+        "你的智能体里有多少调用其实只需要一个选项或一个分数？",
+        "Clef、Clef Flash 与 Jev 在你的数据上谁更准？延迟差多少？",
+        "你会怎样把置信度校准成可用的准确率估计？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "createdAt": "2026-10-08T15:23:56.292Z",
+      "updatedAt": "2026-10-08T15:30:59.348Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：数字核对自 github.com/ollama/ollama/releases/tag/v0.35.1 与 ollama.com/library/clef；d1 的数字来自 huggingface.co/blog/LiquidAI/open-d1（该候选标为已看，并入本条）。发布方从 github-actions[bot] 改为模型作者 Cloudflare。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "slug": "openai-math-results-repository",
+      "title": {
+        "original": "Sharing AI progress in mathematics",
+        "zh": "OpenAI 公开 719 篇数学结果：四成有 Lean 证明，第二天就撤回三篇",
+        "en": "Sharing AI progress in mathematics"
+      },
+      "summary": {
+        "original": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof formalizations and research details on GitHub.",
+        "zh": "OpenAI 10 月 6 日在 GitHub 公开 openai/math：一个未发布的内部模型针对约 4000 个问题写出的 719 篇稿件，平均每个结果约 3 小时思考算力。其中 300 篇有 Lean 形式化证明，约占 42%；OpenAI 自己说其余的可能有问题。仓库记录显示，第二天就因符号错误撤回 3 篇、修订 14 篇。"
+      },
+      "content": {
+        "original": "OpenAI publishes new results on open problems in mathematics from an internal frontier model and shares Lean proof formalizations and research details on GitHub.",
+        "zh": "## 发生了什么\n\n10 月 6 日 OpenAI 发布「Sharing AI progress in mathematics」，材料放在 GitHub 仓库 `openai/math`：一个尚未发布的内部前沿模型在开放数学问题上的结果，连同 Lean 形式化证明与部分推理摘要。OpenAI 官网页面对抓取返回 403，本条的数字来自仓库的 README、history.md 与 lean 目录说明。\n\n## 规模与可核验的部分\n\n- 约 4000 个问题交给内部模型，产出 **719 篇稿件**，分为 372 个家族\n- 平均每个结果约用了 ChatGPT Pro 档 3 小时的思考算力\n- **300 篇**（约 42%）的主结果有 Lean 形式化证明，按仓库说明可以用 Comparator 校验\n- OpenAI 明说：没有形式化的结果「可能有问题」\n\n也就是说，近六成的结果目前只能靠人读。可核验的那四成，才是这批材料最可靠的部分。\n\n## 例外与亮点\n\n仓库列出两项不按标准流程处理的结果：黎曼 ζ 函数在 Re(s) > 11/12 上的无零点区域（文稿经过人工编辑），以及 CM 阿贝尔簇上的 Hodge 猜想。另有 10 个家族公开了删节的推理摘要，包括 π 的无理性指数、Mahler 猜想、特征 2 下 Kaplansky 直接有限性等。\n\n量子位称这批结果涉及「又三个千禧年难题」，但仓库里能看到的标题都是部分情形或特殊情形，例如 CM 阿贝尔簇上的 Hodge 猜想、从低 Selmer 余秩出发的 BSD。本站不采用这一说法。\n\n## 第二天就开始更正\n\n仓库的更正记录显示，10 月 7 日因一个符号错误撤回了 3 篇稿件，其中包括《K3 曲面乘积的有理 Hodge 猜想》，另有 14 篇被修订。这说明两件事：公开材料确实在被检查，而没有形式化证明的结果需要按「待核验」对待。\n\n同一周，据量子位报道，包括陶哲轩在内的 25 位菲尔兹奖得主联名批评把数学当作 AI 基准。\n\n## 对读者意味着什么\n\n1. 读这类成果时，先分清哪些有机器可检的证明、哪些没有。这批材料自己就给出了比例：42% 对 58%。\n2. 「解决某某猜想」的标题要回到仓库看具体是哪个情形。\n3. 3 小时一个结果的算力，说明这还不是普通用户能复现的能力，而是内部模型在大算力下的产出。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-06",
+      "sourceName": "OpenAI News",
+      "sourceUrl": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+      "sourceLanguage": "en",
+      "translationStatus": "done",
+      "publisherName": "OpenAI",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-workflow"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-human-loop",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-08T15:29:33.158Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这是迄今规模最大的一次模型数学成果公开，而且附带了能机器核验的那一部分。它同时给出了一个读这类新闻的标尺：只有 42% 有形式化证明，第二天就撤回了 3 篇。",
+      "whoShouldCare": [
+        "关注 AI 在科研中能做什么的研究者与技术决策者",
+        "做形式化验证、Lean 或定理证明相关工作的工程师",
+        "需要判断「AI 解决难题」类报道可信度的读者"
+      ],
+      "technicalContext": "Lean 是一种定理证明器：用它写下的证明可以由计算机逐步检查，不依赖人去读。形式化覆盖率低，意味着其余结果仍要靠数学家审阅。千禧年难题是克雷研究所列出的七个问题，解决部分情形与解决原问题不是一回事。",
+      "impactAreas": [
+        "科研辅助",
+        "形式化验证",
+        "模型能力评估"
+      ],
+      "learningPath": [
+        "先读本站 9 月 8 日的纳维-斯托克斯信号，看上一次类似成果的争议在哪里",
+        "读本站菲尔兹奖得主 Gowers 的信号，了解数学家认为模型强在哪、弱在哪",
+        "打开 openai/math 仓库，任选一个有 Lean 证明的结果，看它到底证了什么",
+        "读《人在回路的审查》，想清楚没有形式化的那 58% 该由谁、怎样审"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-human-loop": "没有 Lean 证明的结果只能靠人读，撤回与修订正是人工审查发现的。",
+        "knowledge-evaluation-loops": "公开、更正、再公开，是这批成果正在经历的评估闭环。",
+        "knowledge-ws-e251051e": "一个数学结果「做完」的验收信号，是能被检查的证明，而不是模型的陈述。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "评估模型的研究能力，要分开看可核验与不可核验的产出。",
+        "skill-ws-dddaf80c": "这批结果来自未发布的内部模型，读发布材料时要分清内部能力与可用产品。"
+      },
+      "followUpQuestions": [
+        "300 篇有 Lean 证明的结果里，有多少是新结论，有多少是已知结论的新证明？",
+        "撤回的 3 篇是怎么被发现的？是人读出来的，还是形式化时暴露的？",
+        "如果你的领域也有形式化工具，模型产出的结果有多少能被机器检查？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "createdAt": "2026-10-08T15:23:55.392Z",
+      "updatedAt": "2026-10-08T15:29:33.158Z",
+      "editorialNotes": [
+        "2026-10-08 编辑轮（盲评）：openai.com 返回 403，数字核对自 github.com/openai/math 的 README、history.md、lean/README.md；量子位「三个千禧年难题」的说法与仓库标题不符，未采用。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
+        "draft-candidate-rss-https-www-qbitai-com-p-474381",
+        "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
       "slug": "deepseek-ascend-open-kernels",

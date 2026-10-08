@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T00:42:59.064Z",
+  "updatedAt": "2026-10-08T15:29:33.729Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -8082,6 +8082,105 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "Google 的另一半智能体工具：ADK 写逻辑，AX 管运行"
+    },
+    {
+      "id": "rel-ws-4dc72bbd",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "同一代上一档：终端任务 70.6% 对 39.2%，价格是它的 20 倍"
+    },
+    {
+      "id": "rel-ws-1eedd4f6",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "长提示定价要和那天降价后的 GPT-6 Luna 比"
+    },
+    {
+      "id": "rel-ws-fcb2d8a7",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一个现象的另一组数字：做对过一次与每次都做对相差很远"
+    },
+    {
+      "id": "rel-ws-74281bc2",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "智能体的自述与实际状态不一致，这里按数据库最终状态量出了比例"
+    },
+    {
+      "id": "rel-ws-982efb2b",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "上一次 OpenAI 公开数学成果，这次换成了带 Lean 证明的仓库"
+    },
+    {
+      "id": "rel-ws-19fc10ba",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "数学家对模型证明能力的判断，可用来读这批结果"
+    },
+    {
+      "id": "rel-ws-bb2bf328",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同期的公开模型；这批结果来自一个未发布的内部模型"
+    },
+    {
+      "id": "rel-ws-8f01c339",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一周的另一份数学成绩：IMO 金牌由官方评分"
+    },
+    {
+      "id": "rel-ws-11a86085",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "数学家眼中模型擅长与不擅长的部分"
+    },
+    {
+      "id": "rel-ws-6aa6433e",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "决策模型这一类的开创者；Clef 在意图分类上领先，ANLI 上落后"
+    },
+    {
+      "id": "rel-ws-98e0439c",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "toType": "technology",
+      "relationType": "related-to",
+      "note": "同一周 Liquid AI 的 d1 也基于 LFM2.5-VL 系列"
     }
   ]
 }
