@@ -1237,6 +1237,16 @@ the same hazard.
 all three aside-bearing detail pages, leaving 73–85% of the right side empty.
 Sharing one skeleton turns that into a single decision instead of three.
 
+The narrow-screen insets live in one block in
+`components/user-page-shell.css` (`@media (max-width: 480px)`, 2026-10-09).
+It is scoped with `.user-shell--detail:has(.user-article-hero,
+.skill-detail-hero)`, because `user-shell--detail dossier` is also the home
+page's shell; a plain `.user-shell--detail` rule would reach the home page.
+Between 481 and 1439px the skill and knowledge heroes are still wider than
+the signal and digest heroes (6px at 640 and below, 31px at 768), as before;
+only ≤480 and 1440 share one geometry. Known edge: the title is wider at 480
+(390px) than at 481 (335px).
+
 ### Colours that are fine on one surface (2026-07-29, second sweep)
 
 `.empty-state--actionable` hardcodes a near-white fill and a slate dashed

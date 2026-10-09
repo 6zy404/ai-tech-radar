@@ -124,6 +124,15 @@ title and the pages ran 50px wider than `/technologies/[slug]`; their visual
 properties had matched the whole time, which is why it went unnoticed. See
 `docs/design-system.md` → "One skeleton for every public detail page".
 
+Below 481px the insets shrink (2026-10-09): page margin 10, outer frame
+padding 8, inner frame padding 8, hero side padding 16 (top and bottom stay
+22). Every frame keeps its border, so the graph paper still shows as two thin
+bands. All four page types put the hero at x=28, 334px wide at 390, and the
+h1 is 300px; it was 244. The skill and knowledge pages have no inner frame,
+so their `.skill-detail-layout` is narrowed by exactly what that frame takes
+(`100% - 18px`). The home page renders the same shell classes and is not
+affected.
+
 ## Internal Workspace routes
 
 - `/workspace`
