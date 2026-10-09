@@ -185,3 +185,25 @@ describe("buildPublishedSignalFingerprints", () => {
     ]);
   });
 });
+
+describe("defacement_title candidate quality flag", () => {
+  it("fires on a defacement signature", () => {
+    const signals = evaluateCandidateQuality(
+      makeImportedCandidate({ originalTitle: "hacked by trenggalek6etar" })
+    );
+
+    expect(signals.flags).toContain("defacement_title");
+    expect(signals.isDefacementTitle).toBe(true);
+  });
+
+  it("does not fire on a headline about a hack", () => {
+    const signals = evaluateCandidateQuality(
+      makeImportedCandidate({
+        originalTitle: "How the router was hacked by researchers"
+      })
+    );
+
+    expect(signals.flags).not.toContain("defacement_title");
+    expect(signals.isDefacementTitle).toBe(false);
+  });
+});

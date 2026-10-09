@@ -4,6 +4,7 @@ import {
 } from "@/lib/candidate-workflow";
 import { compactText } from "@/lib/compact-text";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
+import { isDefacementTitle } from "@/lib/defacement-title";
 import { getTodayDateString } from "@/lib/digest-store";
 import { cleanFeedText, cleanUrl, htmlToPlainText } from "@/lib/text-sanitize";
 import type { DuplicateGroup, ImportedCandidate } from "@/types/content";
@@ -157,6 +158,12 @@ export function getPublicNewsItems(now = new Date()): PublicNewsItem[] {
     }
 
     if (isFallbackCandidate(candidate)) {
+      continue;
+    }
+
+    // Auto-triage rejects these only after a scheduled import; a manual import
+    // would otherwise show one until the next runner pass.
+    if (isDefacementTitle(candidate.originalTitle)) {
       continue;
     }
 

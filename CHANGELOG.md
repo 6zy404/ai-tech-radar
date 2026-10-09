@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Auto-triage rejects defacement signatures
+
+- **2026-10-09.** A third auto-reject reason, `defacement_title` (疑似篡改),
+  next to `prerelease_version` and `already_published`: the title opens with
+  a defacer's signature — `hacked` / `defaced` / `pwned` / `owned` (and
+  leetspeak, odd spacing, `_`/`-` joins, Indonesian `di hack oleh`)
+  followed directly by `by` / `oleh` — and the whole title is at most eight
+  words. Built for the 2026-10-08 量子位 item 「hacked by trenggalek6etar」,
+  which sat public on the 全部快讯 view until an editor rejected it
+  (`isDefacementTitle` in `src/lib/defacement-title.ts`).
+- **Why start-anchored and short.** It rejects without a person looking, so a
+  headline that merely reports a hack ("How the router was hacked by
+  researchers") or opens with the phrase and runs on ("Owned by the community:
+  why …") must not match. Swept over all 846 distinct titles the candidate
+  snapshot has ever held (its git history): one hit, the defaced item. The
+  tests carry eight real headlines containing "by" or an intrusion word as
+  negatives. Known residue: a short real headline opening "Hacked by …" would
+  match; an editor can reopen it, and the runner never re-rejects a reopened
+  item.
+- **Same behaviour as the other two.** Only `new` candidates with no
+  review-state entry are touched; each rejection is a
+  `candidate.status_updated` event with `actorType: "task_runner"` and
+  `metadata.reason: "defacement_title"`. The flag shows as a 疑似篡改 chip
+  (warning colour) wherever quality flags are listed — the editorial-round
+  console and the candidate cards — and in the runner's
+  「自动分诊：拒绝 N 条（…）」 line, which now takes its labels from
+  `getCandidateQualityFlagLabel` instead of a second copy.
+- **The news lane also hides them before the runner gets there.** Auto-triage
+  runs only after the scheduled import, so a manual import could still show
+  one until the next pass; `getPublicNewsItems` skips a candidate whose title
+  passes the same predicate. Proven to fire: disabling that line fails both
+  news-lane tests.
+
 ## Editorial round 2026-10-08
 
 - **2026-10-08.** 54 undecided candidates (six days since the last round),

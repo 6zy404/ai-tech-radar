@@ -53,7 +53,11 @@ beforeEach(() => {
           "<div align='right'><a href='https://www.infoq.cn/article/x'>点击查看原文></a></div>"
         ),
         candidate("empty-release", "No content."),
-        candidate("plain", "A plain summary.")
+        candidate("plain", "A plain summary."),
+        {
+          ...candidate("defaced", ""),
+          originalTitle: "hacked by trenggalek6etar"
+        }
       ]
     })
   );
@@ -74,6 +78,17 @@ afterEach(() => {
 });
 
 describe("news lane summaries", () => {
+  it("hides a defacement signature before auto-triage has rejected it", async () => {
+    vi.resetModules();
+    const { getPublicNewsItems } = await import("@/lib/news");
+
+    const items = getPublicNewsItems(new Date("2026-09-30T12:00:00+08:00"));
+
+    expect(
+      items.some((item) => item.sourceUrl === "https://example.com/defaced")
+    ).toBe(false);
+  });
+
   it("drops stored feed boilerplate, and leaves no summary when that was all", async () => {
     vi.resetModules();
     const { getPublicNewsItems } = await import("@/lib/news");

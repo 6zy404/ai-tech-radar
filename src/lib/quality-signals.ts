@@ -3,6 +3,7 @@ import {
   countTitleTokens,
   normalizeUrlForComparison
 } from "@/lib/candidate-duplicate-rules";
+import { isDefacementTitle } from "@/lib/defacement-title";
 import type {
   CandidateQualityFlag,
   CandidateQualitySignals,
@@ -286,6 +287,7 @@ export function evaluateCandidateQuality(
     candidate,
     options.publishedSignals ?? []
   );
+  const isDefacement = isDefacementTitle(candidate.originalTitle);
   const isConvertible =
     Boolean(options.canConvert) &&
     hasTitle &&
@@ -340,6 +342,10 @@ export function evaluateCandidateQuality(
     flags.push("already_published");
   }
 
+  if (isDefacement) {
+    flags.push("defacement_title");
+  }
+
   if (isConvertible) {
     flags.push("ready_for_review");
   } else if (options.canConvert === false) {
@@ -358,6 +364,7 @@ export function evaluateCandidateQuality(
     isTooShort,
     isPrerelease,
     isAlreadyPublished,
+    isDefacementTitle: isDefacement,
     isConvertible,
     flags
   };

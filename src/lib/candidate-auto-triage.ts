@@ -8,16 +8,19 @@ import {
   evaluateCandidateQuality,
   type PublishedSignalFingerprint
 } from "@/lib/quality-signals";
+import { getCandidateQualityFlagLabel } from "@/lib/quality-display";
 import { getPublishedTechnologyWorkspaceRecords } from "@/lib/technology-draft-workflow";
 import type { CandidateQualityFlag, ImportedCandidate } from "@/types/content";
 
 /**
  * The only flags that reject a candidate without a person looking at it.
  *
- * Both are facts about the item rather than judgments about its worth, and
- * every editorial round since 2026-07-27 has rejected them by hand without
- * exception — pre-release tags are superseded by their stable tag within days,
- * and an already-published announcement has nothing left to add.
+ * All three are facts about the item rather than judgments about its worth.
+ * Every editorial round since 2026-07-27 has rejected the first two by hand
+ * without exception — pre-release tags are superseded by their stable tag
+ * within days, and an already-published announcement has nothing left to add.
+ * The third, a defacement signature ("hacked by …", 2026-10-08), is not news
+ * at all, and leaving it undecided keeps it on the public news lane.
  *
  * Deliberately NOT here: `missing_summary` / `missing_content`. The Hugging
  * Face and DeepMind feeds ship no description at all, and several published
@@ -28,7 +31,8 @@ import type { CandidateQualityFlag, ImportedCandidate } from "@/types/content";
  */
 export const AUTO_REJECT_FLAGS: readonly CandidateQualityFlag[] = [
   "prerelease_version",
-  "already_published"
+  "already_published",
+  "defacement_title"
 ];
 
 export interface AutoRejection {
@@ -74,11 +78,6 @@ export function selectAutoRejections(
   return rejections;
 }
 
-const flagLabels: Partial<Record<CandidateQualityFlag, string>> = {
-  prerelease_version: "预发布版本",
-  already_published: "已发布过"
-};
-
 export function buildAutoTriageMessage(rejections: AutoRejection[]): string {
   if (rejections.length === 0) {
     return "自动分诊：没有符合自动拒绝规则的候选。";
@@ -87,7 +86,7 @@ export function buildAutoTriageMessage(rejections: AutoRejection[]): string {
   const counts = new Map<string, number>();
 
   for (const rejection of rejections) {
-    const label = flagLabels[rejection.flag] ?? rejection.flag;
+    const label = getCandidateQualityFlagLabel(rejection.flag);
     counts.set(label, (counts.get(label) ?? 0) + 1);
   }
 

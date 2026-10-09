@@ -79,6 +79,37 @@ describe("selectAutoRejections", () => {
     expect(selectAutoRejections([stable, proto], published)).toEqual([]);
   });
 
+  it("rejects a defacement signature", () => {
+    // The real 2026-10-08 item from the 量子位 feed.
+    const candidate = makeImportedCandidate({
+      id: "qbitai-defaced",
+      originalTitle: "hacked by trenggalek6etar",
+      originalSummary: "",
+      sourceUrl: "https://www.qbitai.com/2026/10/502081.html",
+      importStatus: "new"
+    });
+
+    expect(selectAutoRejections([candidate], published)).toEqual([
+      {
+        candidateId: "qbitai-defaced",
+        title: "hacked by trenggalek6etar",
+        flag: "defacement_title"
+      }
+    ]);
+    expect(
+      selectAutoRejections([candidate], published, new Set(["qbitai-defaced"]))
+    ).toEqual([]);
+  });
+
+  it("keeps a headline that only mentions being hacked", () => {
+    const candidate = makeImportedCandidate({
+      originalTitle: "How the router was hacked by researchers",
+      importStatus: "new"
+    });
+
+    expect(selectAutoRejections([candidate], published)).toEqual([]);
+  });
+
   it("keeps title-only items, which have produced published signals", () => {
     const titleOnly = makeImportedCandidate({
       originalTitle: "Bringing Nunchaku 4-bit Diffusion Inference",
@@ -123,9 +154,10 @@ describe("buildAutoTriageMessage", () => {
       buildAutoTriageMessage([
         { candidateId: "a", title: "a", flag: "prerelease_version" },
         { candidateId: "b", title: "b", flag: "prerelease_version" },
-        { candidateId: "c", title: "c", flag: "already_published" }
+        { candidateId: "c", title: "c", flag: "already_published" },
+        { candidateId: "d", title: "d", flag: "defacement_title" }
       ])
-    ).toBe("自动分诊：拒绝 3 条（预发布版本 2，已发布过 1）。");
+    ).toBe("自动分诊：拒绝 4 条（预发布版本 2，已发布过 1，疑似篡改 1）。");
   });
 
   it("says so when nothing matched", () => {

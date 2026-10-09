@@ -40,6 +40,7 @@ export function getCandidateQualityFlagLabel(
     too_short: "内容过短",
     prerelease_version: "预发布版本",
     already_published: "已发布过",
+    defacement_title: "疑似篡改",
     ready_for_review: "可审核",
     not_convertible: "转换受阻"
   };
@@ -56,6 +57,7 @@ export function getCandidateQualityFlagClass(
 
   if (
     flag === "not_convertible" ||
+    flag === "defacement_title" ||
     flag === "possible_duplicate" ||
     flag === "already_published"
   ) {
