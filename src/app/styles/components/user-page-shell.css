@@ -33,3 +33,39 @@
 .user-shell--detail {
   gap: 24px;
 }
+
+/* Narrow-screen insets of the public detail pages (2026-10-09). At 390px the
+   title sat inside four nested insets — page margin 20, outer frame 14, inner
+   frame 14, hero 22, plus four 1px borders — that left the h1 244px of 390, so
+   a 36px title held under seven CJK characters per line. Each inset is
+   trimmed, none removed: both graph-paper frames and the paper hero keep a
+   visible edge, and the h1 reaches 300px.
+   Scoped with :has() because the home page renders the same shell classes
+   (`user-shell--detail dossier`) and is not a detail page. The skill and
+   knowledge pages have no inner frame; their layout is narrowed by exactly
+   what the inner frame takes on the signal and digest pages (8px padding +
+   1px border per side), so all four heroes share one width. */
+@media (max-width: 480px) {
+  .main-content:has(
+    > .user-shell--detail :is(.user-article-hero, .skill-detail-hero)
+  ) {
+    width: min(1260px, calc(100% - 20px));
+  }
+
+  .user-shell--detail:has(:is(.user-article-hero, .skill-detail-hero)) {
+    padding-inline: 8px;
+  }
+
+  .user-shell--detail:has(:is(.user-article-hero, .skill-detail-hero))
+    > .dossier {
+    padding-inline: 8px;
+  }
+
+  .user-shell--detail:has(.skill-detail-hero) > .skill-detail-layout {
+    width: calc(100% - 18px);
+  }
+
+  .user-shell--detail :is(.user-article-hero, .skill-detail-hero) {
+    padding-inline: 16px;
+  }
+}

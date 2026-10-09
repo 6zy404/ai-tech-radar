@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Detail-page titles get wider on phones
+
+- **2026-10-09.** At 390px the title on every public detail page sat inside
+  four nested insets — page margin 20, outer graph-paper frame 14, inner frame
+  14, paper hero 22, plus four 1px borders — 146px of 390, leaving the h1
+  244px. At ≤ 480px they are now 10 / 8 / 8 / 16 (hero side padding only; its
+  top and bottom stay 22), and the h1 is **300px** on `/technologies/[slug]`,
+  `/skills/[slug]`, `/knowledge/[slug]`, `/digest/[date]` and `/digest/today`.
+  Measured titles: claude-sonnet-5-5 6 → 4 lines,
+  thinkingbox-agent-end-state 4 → 3, embeddinggemma-2 4 → 3,
+  nemotron-imo-ioi-2026 5 → 4; no line breaks inside a word before or after,
+  `scrollWidth == innerWidth` on all of them. Every inset is trimmed and none
+  removed, so both frames and the paper keep a visible edge (10 / 19 / 28px
+  from the screen edge), in light and dark.
+- **One rule set, scoped by `:has()`.** The block lives in
+  `components/user-page-shell.css`. It needs `:has(.user-article-hero,
+.skill-detail-hero)` because the home page renders the same shell classes
+  (`user-shell--detail dossier`) and is not a detail page; it is unchanged.
+  The skill and knowledge pages have no inner frame, so their hero is wider
+  than the signal and digest heroes at narrow widths (6px at 390, 31px at 768;
+  they only meet at the 1440 geometry). At ≤ 480px the layout is narrowed by
+  exactly what the inner frame takes (`100% - 18px`), so all four heroes now
+  sit at x=28, 334px wide. 481–1439px is left as it was.
+- **Verified in the preview pane, not headless Chrome.** The h1 → hero →
+  layout → shell → main chain plus every element box under `main` was
+  captured at 1440 and 768 on all five routes before and after: 10 page/width
+  pairs, 4,790 boxes, zero differences. 481px was compared the same way, home
+  included, also with zero differences. The diff was shown to fire: with the
+  breakpoint widened to 800px, all five 768px captures differed (every chain,
+  300–750 boxes each) while 1440 stayed clean. Known edge: between 480 and
+  481px the title is wider on the narrower screen (390 vs 335px), because the
+  wider rule set is unchanged.
+
 ## Auto-triage rejects defacement signatures
 
 - **2026-10-09.** A third auto-reject reason, `defacement_title` (疑似篡改),
