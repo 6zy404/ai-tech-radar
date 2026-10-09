@@ -85,8 +85,7 @@
 （Claude Haiku 5.5、ThinkingBox、OpenAI 数学成果仓库、Nemotron IMO / IOI、EmbeddingGemma 2、Clef），标已看 21、拒 27，
 出了 10-08 简报（头条 ThinkingBox）。
 
-**新发现**：量子位 feed 混进一条被篡改的「hacked by …」，处置前一直挂在公开快讯页上（10-08 先拒掉了）。可以给自动分诊加一条
-规则：标题像篡改签名（hacked by / defaced by 等）就自动拒。做完的效果：同类条目不再在处置前公开。
+~~篡改标题自动拒~~：2026-10-09 已做，第三条自动拒规则 `defacement_title`，快讯页也先行隐藏。
 
 ~~两条「必备」关系存反~~：2026-09-29 编辑器可以选方向了；两条边由
 `scripts/fix-requires-direction.ts` 修正，2026-09-29 已对线上执行，复跑无事可做。

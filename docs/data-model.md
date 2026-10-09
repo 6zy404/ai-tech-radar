@@ -139,6 +139,7 @@ Flag values:
 - `too_short`
 - `prerelease_version`
 - `already_published`
+- `defacement_title`
 - `ready_for_review`
 - `not_convertible`
 
@@ -150,14 +151,21 @@ rejected them by hand. Since 2026-09-19 it also reads the tag in a GitHub
 release URL, because Ollama's feed titles a release `v0.34.3` while the tag is
 `v0.34.3-rc0` — a trap hit by hand twice before.
 
-**Two flags now reject automatically** (2026-09-19): `prerelease_version` and
-`already_published` are acted on by the task runner right after the scheduled
+**Three flags now reject automatically**: `prerelease_version` and
+`already_published` (2026-09-19), and `defacement_title` (2026-10-09), are acted on by the task runner right after the scheduled
 import (`runCandidateAutoTriage` in `src/lib/candidate-auto-triage.ts`). Only
 `new` candidates are touched, so an editor who reopens an auto-rejected item
 is never overridden; each rejection is a `candidate.status_updated` event with
 `actorType: "task_runner"` and `metadata.reason`. Every other flag still only
 makes the batch visible — notably `missing_summary` / `missing_content`,
 because feeds that ship no description have produced published signals.
+
+`defacement_title` (2026-10-09) fires when the title opens with a defacer's
+signature — hacked / defaced / pwned / owned (leetspeak and Indonesian
+「di hack」 included) followed directly by 「by」 / 「oleh」 — and is at most
+eight words (`isDefacementTitle` in `src/lib/defacement-title.ts`). It was
+built for the 2026-10-08 量子位 item 「hacked by trenggalek6etar」; across all
+846 titles the snapshot has ever held it matches only that item.
 
 `already_published` (added 2026-07-28) fires when the same announcement is
 already on the site. It exists because duplicate detection compares only
@@ -1150,7 +1158,7 @@ may reach a public surface.
 Mapping rules (enforced in `src/lib/news.ts`): last 7 days only (max 200
 items), rejected candidates excluded, `fallback`-tagged placeholder
 candidates excluded, non-primary members of open/resolved duplicate groups
-excluded. `rawPayload`, `originalContent`, `importStatus`, `normalizedType`,
+excluded, titles matching `isDefacementTitle` excluded. `rawPayload`, `originalContent`, `importStatus`, `normalizedType`,
 candidate IDs, and duplicate internals never enter the public shape. All
 fast-lane surfaces render the fixed 自动聚合 disclaimer.
 

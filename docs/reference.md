@@ -46,9 +46,12 @@ The product is split into two subsystems:
   Boundary" records the two alternatives that were measured and rejected.
 - **Review** — candidate review workflow with filters, deterministic and
   explainable duplicate detection, and duplicate-group resolution. Right after
-  each scheduled import the task runner **auto-rejects** exactly two kinds of
-  candidate — pre-release version tags and announcements already published on
-  the site (`src/lib/candidate-auto-triage.ts`) — because every round rejected
+  each scheduled import the task runner **auto-rejects** exactly three kinds of
+  candidate — pre-release version tags, announcements already published on
+  the site, and defacement signatures (a title opening 「hacked by …」 and no
+  longer than eight words, `src/lib/defacement-title.ts`; the 全部快讯 lane
+  also hides these before the runner gets to them, 2026-10-09)
+  (`src/lib/candidate-auto-triage.ts`) — because every round rejected
   them by hand while they sat public on the news lane. Everything else still
   waits for an editor; title-only items are deliberately not auto-rejected.
 - **Drafting & publishing** — candidate → draft conversion, lightweight draft
