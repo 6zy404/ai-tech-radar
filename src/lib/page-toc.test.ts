@@ -139,6 +139,28 @@ describe("getContentDetailTocCandidates", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  it("lists 正文里提到它的信号 after the related signals, only when it has rows", () => {
+    const knowledge = {
+      ...fullSkill,
+      kind: "knowledge" as const,
+      headings: { ...skillHeadings, bodyMentions: "正文里提到它的信号" }
+    };
+    const ids = (count: number) =>
+      selectPageTocEntries(
+        getContentDetailTocCandidates({ ...knowledge, bodyMentionCount: count })
+      ).map((entry) => entry.id);
+
+    expect(ids(3)).toEqual([
+      "section-prerequisites",
+      "section-body",
+      "section-graph",
+      "section-related-technologies",
+      contentDetailTocIds.bodyMentions,
+      "section-related-skills"
+    ]);
+    expect(ids(0)).not.toContain(contentDetailTocIds.bodyMentions);
+  });
+
   it("shares the signal page's ids for the sections both have", () => {
     expect(contentDetailTocIds.body).toBe(technologyTocIds.body);
     expect(contentDetailTocIds.graph).toBe(technologyTocIds.graph);

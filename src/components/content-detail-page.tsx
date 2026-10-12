@@ -6,6 +6,7 @@ import { ContentBody } from "@/components/content-body";
 import { CopyLinkButton } from "@/components/copy-link-button";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
+import { DossierRegisterRow } from "@/components/dossier-register-row";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { FollowableTagList } from "@/components/followable-tag-list";
 import { PageToc } from "@/components/page-toc";
@@ -33,6 +34,11 @@ import {
   learningCostValues,
   skillTypeLabels
 } from "@/lib/content-labels";
+import { buildKnowledgeLinkTargets } from "@/lib/knowledge-autolink";
+import {
+  getKnowledgeMentions,
+  type KnowledgeMentionRow
+} from "@/lib/knowledge-mentions";
 import {
   contentDetailTocIds as tocIds,
   getContentDetailTocCandidates,
@@ -118,6 +124,18 @@ export interface ContentDetailKind<TItem extends DetailItem> {
   leadHeading: string;
   graphHint: string;
   technologySection: { eyebrow: string; heading: string; noteLabel: string };
+  /**
+   * Knowledge only: the signals whose body links this page, minus the ones
+   * technologySection already lists. Skills have no body links.
+   */
+  bodyMentions?: {
+    eyebrow: string;
+    heading: string;
+    note: string;
+    /** Appended when the section above lists any signal. */
+    excludedNote: string;
+    getRows: (item: TItem) => KnowledgeMentionRow[];
+  };
   related: {
     eyebrow: string;
     heading: string;
@@ -191,6 +209,19 @@ export const knowledgeDetailKind: ContentDetailKind<KnowledgeItem> = {
     eyebrow: "可解释",
     heading: "这个概念能解释的技术信号",
     noteLabel: "这个概念在这里如何体现"
+  },
+  bodyMentions: {
+    eyebrow: "自动匹配",
+    heading: "正文里提到它的信号",
+    note: "按正文自动匹配，未经编辑挑选",
+    excludedNote: "上一节已列出的不再重复",
+    getRows: (knowledge) =>
+      getKnowledgeMentions(
+        knowledge.id,
+        getAllTechnologies(),
+        buildKnowledgeLinkTargets(getAllKnowledge()),
+        knowledge.relatedTechnologyIds
+      )
   },
   related: {
     eyebrow: "搭配技能",
@@ -311,6 +342,75 @@ function RelatedSection({
   );
 }
 
+// Six rows open, the rest behind 再看 N 条; on 2026-10-12 three pages fold
+// (14, 9 and 8 rows).
+const bodyMentionsShown = 6;
+
+function BodyMentionRow({ row }: { row: KnowledgeMentionRow }) {
+  return (
+    <li>
+      <DossierRegisterRow
+        title={row.title}
+        date={row.publishDate}
+        href={`/technologies/${row.slug}`}
+        headingLevel={3}
+      >
+        {row.excerpt.before}
+        <strong>{row.excerpt.match}</strong>
+        {row.excerpt.after}
+      </DossierRegisterRow>
+    </li>
+  );
+}
+
+function BodyMentionsSection({
+  id,
+  sharePath,
+  eyebrow,
+  heading,
+  note,
+  rows
+}: {
+  id: string;
+  sharePath: string;
+  eyebrow: string;
+  heading: string;
+  note: string;
+  rows: KnowledgeMentionRow[];
+}) {
+  const shown = rows.slice(0, bodyMentionsShown);
+  const rest = rows.slice(bodyMentionsShown);
+
+  return (
+    <section id={id} className="skill-detail-section knowledge-mentions">
+      <div className="skill-detail-section__header">
+        <div>
+          <p>{eyebrow}</p>
+          <SectionHeading sectionId={id} sharePath={sharePath}>
+            {heading}
+          </SectionHeading>
+        </div>
+      </div>
+      <p className="knowledge-mentions__note">{note}</p>
+      <ul className="knowledge-mentions__list">
+        {shown.map((row) => (
+          <BodyMentionRow key={row.id} row={row} />
+        ))}
+      </ul>
+      {rest.length > 0 ? (
+        <details className="knowledge-mentions__more" data-print="hide">
+          <summary>再看 {rest.length} 条</summary>
+          <ul className="knowledge-mentions__list">
+            {rest.map((row) => (
+              <BodyMentionRow key={row.id} row={row} />
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </section>
+  );
+}
+
 export function ContentDetailPage<TItem extends DetailItem>({
   kind,
   item
@@ -370,6 +470,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
       note: allEntryRelations[index].note
     }))
   ];
+  const bodyMentionRows = kind.bodyMentions?.getRows(item) ?? [];
   // Same conditions the sections below render on, so the table lists exactly
   // what is on the page.
   const tocEntries = selectPageTocEntries(
@@ -379,10 +480,12 @@ export function ContentDetailPage<TItem extends DetailItem>({
       hasBody: Boolean(item.content),
       graphNodeCount: graphNodes.length,
       relatedTechnologyCount: relatedTechnologies.length,
+      bodyMentionCount: bodyMentionRows.length,
       relatedEntryCount: relatedEntries.length,
       headings: {
         body: kind.leadHeading,
         relatedTechnologies: kind.technologySection.heading,
+        bodyMentions: kind.bodyMentions?.heading,
         relatedEntries: kind.related.heading
       }
     })
@@ -520,6 +623,21 @@ export function ContentDetailPage<TItem extends DetailItem>({
                   />
                 ))}
               </RelatedSection>
+            ) : null}
+
+            {kind.bodyMentions && bodyMentionRows.length > 0 ? (
+              <BodyMentionsSection
+                id={tocIds.bodyMentions}
+                sharePath={sharePath}
+                eyebrow={kind.bodyMentions.eyebrow}
+                heading={kind.bodyMentions.heading}
+                note={
+                  relatedTechnologies.length > 0
+                    ? `${kind.bodyMentions.note}；${kind.bodyMentions.excludedNote}。`
+                    : `${kind.bodyMentions.note}。`
+                }
+                rows={bodyMentionRows}
+              />
             ) : null}
 
             {relatedEntries.length > 0 ? (

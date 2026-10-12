@@ -142,6 +142,8 @@ export const contentDetailTocIds = {
   body: technologyTocIds.body,
   graph: technologyTocIds.graph,
   relatedTechnologies: technologyTocIds.relatedTechnologies,
+  /** Knowledge pages only: the signals whose body links the concept. */
+  bodyMentions: "section-body-mentions",
   /** A skill page lists knowledge here, a knowledge page skills. */
   relatedEntries: {
     skill: technologyTocIds.relatedKnowledge,
@@ -155,6 +157,8 @@ export interface ContentDetailTocInput {
   hasBody: boolean;
   graphNodeCount: number;
   relatedTechnologyCount: number;
+  /** Rows of 正文里提到它的信号; a skill page never has the section. */
+  bodyMentionCount?: number;
   relatedEntryCount: number;
   /**
    * The h2 of each section whose heading differs by kind, taken from the
@@ -163,6 +167,7 @@ export interface ContentDetailTocInput {
   headings: {
     body: string;
     relatedTechnologies: string;
+    bodyMentions?: string;
     relatedEntries: string;
   };
 }
@@ -189,6 +194,13 @@ export function getContentDetailTocCandidates(
       id: ids.relatedTechnologies,
       label: input.headings.relatedTechnologies,
       present: input.relatedTechnologyCount > 0
+    },
+    {
+      id: ids.bodyMentions,
+      label: input.headings.bodyMentions ?? "",
+      present:
+        (input.bodyMentionCount ?? 0) > 0 &&
+        Boolean(input.headings.bodyMentions)
     },
     {
       id: ids.relatedEntries[input.kind],

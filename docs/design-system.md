@@ -655,6 +655,9 @@ pages" below):
 - `DossierRegisterRow` (`src/components/dossier-register-row.tsx`) — a
   compact date + title + tag row (按话题, 收录于); `headingLevel` 3 | 4,
   default 4, both styled by `.dossier-register-row__title` (2026-10-02).
+  Optional `children` render a second line in the title's column
+  (`.dossier-register-row__detail`, muted 13.5px, bold in ink) — the
+  knowledge page's body-mention excerpts (2026-10-12).
 - `.quiet-button` (`33-search-ask.css`) — the borderless-until-hover 12px
   UI-face button for controls on a busy row (阅读码, 快捷键 ?). The outlined
   monospace copy button (复制答案, 复制链接) is a separate rule on purpose: the

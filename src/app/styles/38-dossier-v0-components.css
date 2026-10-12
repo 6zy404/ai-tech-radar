@@ -70,10 +70,34 @@
   white-space: nowrap;
 }
 
+/* An optional second line (正文里提到它的信号's excerpt), in the title's
+   column and close under it; its explicit column puts it on a row of its
+   own whether or not the row has a tag. */
+.dossier-register-row:has(> .dossier-register-row__detail) {
+  row-gap: 4px;
+}
+
+.dossier-register-row__detail {
+  grid-column: 2 / -1;
+  margin: 0;
+  color: var(--dossier-muted);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.dossier-register-row__detail strong {
+  color: var(--dossier-ink);
+  font-weight: 700;
+}
+
 @media (max-width: 640px) {
   .dossier-register-row {
     grid-template-columns: 1fr;
     gap: 4px;
+  }
+
+  .dossier-register-row__detail {
+    grid-column: 1 / -1;
   }
 }
 

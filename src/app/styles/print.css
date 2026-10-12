@@ -373,6 +373,9 @@
   .section-link__status,
   .reading-progress,
   .reading-progress-top,
+  /* 正文里提到它的信号 prints as date + title: the excerpt quotes the other
+     page, and the folded rows (再看 N 条) carry data-print="hide". */
+  .knowledge-mentions .dossier-register-row__detail,
   [data-print="hide"] {
     display: none !important;
   }

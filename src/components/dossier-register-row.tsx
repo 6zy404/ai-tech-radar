@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 interface DossierRegisterRowProps {
   title: string;
@@ -9,6 +10,8 @@ interface DossierRegisterRowProps {
   /** The title's heading level, one below the heading of the list it sits
    * in. Defaults to 4, what every row rendered before the prop existed. */
   headingLevel?: 3 | 4;
+  /** A second line under the title, in the title's column (an excerpt). */
+  children?: ReactNode;
 }
 
 /**
@@ -22,7 +25,8 @@ export function DossierRegisterRow({
   href,
   tag,
   className = "",
-  headingLevel = 4
+  headingLevel = 4,
+  children
 }: DossierRegisterRowProps) {
   const titleNode = href ? <Link href={href}>{title}</Link> : title;
   const Heading = headingLevel === 3 ? "h3" : "h4";
@@ -32,6 +36,9 @@ export function DossierRegisterRow({
       {date ? <time>{date}</time> : <span aria-hidden="true" />}
       <Heading className="dossier-register-row__title">{titleNode}</Heading>
       {tag ? <span className="dossier-register-row__tag">{tag}</span> : null}
+      {children ? (
+        <div className="dossier-register-row__detail">{children}</div>
+      ) : null}
     </div>
   );
 }

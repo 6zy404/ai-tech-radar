@@ -115,6 +115,15 @@ The product is split into two subsystems:
   language of the body mentions, and the 中文/原文 switch re-links. Underlined
   at half the text colour; plain text in print. 83 of 107 Chinese bodies
   carry at least one link (measured 2026-10-12).
+  The knowledge page reads the same links backwards (2026-10-12): a
+  正文里提到它的信号 section after 这个概念能解释的技术信号 lists the
+  published signals whose body links it, minus those already in that
+  section, newest first, each with an excerpt around the mention
+  (`getKnowledgeMentions` in `src/lib/knowledge-mentions.ts`, which walks
+  the body exactly as `ContentBody` does, so the two pages cannot
+  disagree). Six rows, the rest folded; omitted when empty. Measured that
+  day: 200 links in the Chinese bodies, 146 already hand-listed, 54 new
+  rows on 13 of 27 knowledge pages (14 at most). Pure derived view.
 - **Signal page reading time and share card** (2026-09-29) — the hero meta
   row shows 约 N 分钟读完 / About N min read, computed from the prose the
   page shows in the current language (Chinese 400 characters/min, English

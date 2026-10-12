@@ -247,3 +247,56 @@
     font-size: clamp(2rem, 12vw, 2.45rem);
   }
 }
+
+/* 正文里提到它的信号 (knowledge pages, 2026-10-12): register rows with an
+   excerpt, six shown and the rest folded. The note sits outside the header
+   because `.skill-detail-section__header p` is the eyebrow style. Coloured
+   and set like the signal page's section descriptions (their size is the
+   body size, fixed for every public <p> in 28-typography.css); two classes
+   to beat `.skill-detail-section > p`. */
+.knowledge-mentions > .knowledge-mentions__note {
+  margin: -8px 0 8px;
+  color: var(--dossier-muted);
+  font-family: system-ui, "PingFang SC", sans-serif;
+}
+
+.knowledge-mentions__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.knowledge-mentions__more > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 10px 4px;
+  color: var(--dossier-ink);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* The page-toc disclosure's chevron, drawn the same way. */
+.knowledge-mentions__more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.knowledge-mentions__more > summary::before {
+  content: "";
+  flex: none;
+  margin-right: 2px;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--dossier-muted);
+  border-bottom: 1.5px solid var(--dossier-muted);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+.knowledge-mentions__more[open] > summary::before {
+  transform: rotate(45deg);
+}

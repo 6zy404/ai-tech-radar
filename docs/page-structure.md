@@ -649,6 +649,18 @@ Workspace deployment boundary:
     covering 6 pages each — was removed on 2026-08-01, closing out the batch
     that took 如何继续学习 on 07-30
   - links to published technology signals explained by the concept
+  - a 正文里提到它的信号 section right after them (2026-10-12): the
+    published signals whose body links this page — the signal page's own
+    knowledge links read backwards (`src/lib/knowledge-mentions.ts` walks
+    each body as `ContentBody` does, through the same linker), minus the
+    signals the section above already lists. One `DossierRegisterRow` per
+    signal, newest first: date, title, and an excerpt of about 80
+    characters cut at clauses with the mention in bold, from the body the
+    signal page shows first. Six rows open, the rest in a native
+    `<details>` 「再看 N 条」. Labelled 自动匹配 / 按正文自动匹配，未经编辑挑选;
+    omitted, and absent from 本页目录, when there is no row (14 of 27 pages,
+    measured 2026-10-12). Prints date and title only. Not on skill pages;
+    the aside's 技术信号 count still counts the hand-kept list only
   - links to skills that use the concept
   - the 主题 tags card renders follow-toggle chips (`FollowableTagList`) so
     readers can add the concept's topics to their personal radar in place
@@ -1019,8 +1031,9 @@ Forbidden on public pages:
   - reusable component slice for the "编辑桌" (dossier) design direction;
     adopted on `/technologies` and `/technologies/[slug]` (see
     `DossierTechnologyCard` and `DossierRelatedItemsSection` below) —
-    `DossierRegisterRow` is used by the 按话题 view and the signal page's
-    收录于 section. See `docs/design-system.md` → "Dossier direction" for the full
+    `DossierRegisterRow` is used by the 按话题 view, the signal page's
+    收录于 section and the knowledge page's 正文里提到它的信号 (whose
+    excerpt is the row's optional `children` line). See `docs/design-system.md` → "Dossier direction" for the full
     specification and remaining adoption order.
   - `DossierCategoryChips` renders links when its options carry `href`
     (`/search`, with `disabled` for empty groups) and toggle buttons when

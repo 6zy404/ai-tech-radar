@@ -94,6 +94,45 @@ For per-topic deep dives, see the `docs/` directory.
   without JS. Checked in the preview pane top to bottom at 1440 and 390,
   light and dark; no horizontal overflow, no console errors.
 
+## The knowledge page lists the signals whose body mentions it
+
+- **2026-10-12.** Signal bodies have linked the first mention of a
+  knowledge concept to its page since this morning, but the knowledge page
+  showed only its hand-kept 这个概念能解释的技术信号, so a reader on
+  /knowledge/[slug] could not see the signals that point at it. A new
+  section, 正文里提到它的信号, sits right after that list: the published
+  signals whose body links the page, minus those the list above already
+  has, newest first. Each row is a `DossierRegisterRow` (date, title) with
+  an excerpt of about 80 characters around the mention, cut at clauses
+  (`excerptAroundTerms`, the search page's), the mention in bold. Six rows
+  are open and the rest sit in a native `<details>` 「再看 N 条」; the
+  section is labelled 自动匹配 and 按正文自动匹配，未经编辑挑选, like the
+  signal page's 内容相近的信号.
+- **No matching rule of its own.** `src/lib/knowledge-mentions.ts` walks a
+  body exactly as `ContentBody` does — headings and inline code skipped,
+  every other run through one `createKnowledgeLinker` with every target —
+  so "this signal mentions the concept" means "the signal page links it",
+  overlaps and `except` phrases included. It reads the body the signal page
+  shows first (`getPreferredTechnologyText`), which is also the text the
+  excerpt quotes. When an earlier unlinked occurrence of the phrase sits in
+  the same run (提示词微调 before 微调), the excerpt starts after it so the
+  bold lands on the linked one; a test pins it.
+- **Measured** on main's data that day: the Chinese bodies carry 200
+  links; 146 already point at a signal the knowledge page lists by hand,
+  leaving 54 new rows across 13 of the 27 pages (工具使用与函数调用 14,
+  模型量化 9, MoE 8, KV 缓存 5, …). The other 14 pages render no section and
+  no 本页目录 entry. Some mentions are in passing or negative (「不是一篇可复现
+  的论文」), which is why the heading says 提到, not 解释.
+- 本页目录 gains the entry when the section renders
+  (`contentDetailTocIds.bodyMentions`). Print keeps date and title and drops
+  the excerpts and the folded rows. Reading time, the aside's 技术信号 count
+  and the skill pages are unchanged. `DossierRegisterRow` gains optional
+  `children`, a second line in the title's column.
+- Checked in the preview pane at 1440 and 390, light and dark, on
+  工具使用与函数调用 (14 rows, 8 folded), 监督微调与参数高效微调（LoRA） (2 rows)
+  and 评估闭环 (none: no section, no 本页目录 entry), plus one skill page
+  (unchanged); no horizontal overflow, the 再看 row is 44px tall.
+
 ## Eight knowledge items for the concepts the signals keep naming
 
 - **2026-10-12.** The 107 published signals cited the general knowledge
