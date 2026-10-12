@@ -36,6 +36,31 @@ For per-topic deep dives, see the `docs/` directory.
   `proxy-env.test.mjs` made `npm run typecheck` exit 2 with TS2322 at that
   line; reverting brought it back to 0.
 
+## Triage prompt v3: the AI scope and the recently published titles
+
+- **2026-10-12.** A third triage prompt, `candidate-triage-v3`, beside v1 and
+  v2 (`src/lib/candidate-llm-triage.ts`). It keeps v2's article excerpt and
+  adds the two things the same-day re-check of v2 pointed at: a note that the
+  site covers AI technology only (front-end frameworks, languages and general
+  developer tools are `reject`), and the titles of the signals published in
+  the 30 days before the decision, with a second report of one of them called
+  `reject`. v3's rubric drops 「与已发布内容讲同一件事」 from its `review`
+  examples so the rules agree; v1 and v2 are unchanged and a test pins both
+  prompts by hash. `TRIAGE_PROMPT_VERSION` stays v2 — the console does not use
+  v3, and does not pass titles yet.
+- **Eval.** `npm run eval:triage -- --prompt v3` builds each row's title list
+  from the technology workspace store as of that row's `decidedAt` (a record
+  counts from its `createdAt`, its conversion time), excluding the row's own
+  signal. One run on the 254-row fresh split: accuracy 72.8% (v2 64.2%),
+  publish 27/33 found with 27/57 right (v2 24/33, 24/69), publish-vs-not
+  85.8%, publish-on-reject errors 17 → 5. **Not a held-out number**: v3 was
+  written from v2's errors on these rows, so it has to be judged on blind
+  rounds decided after it. Costs seen in the same run: 3 real publishes
+  rejected as "already published" (2 of them at confidence 0.85), half of the
+  "already published" rejections leaned on a title from the same round, which
+  the console would not have, and prompt tokens rise from ~2,060 to ~3,500 per
+  item. Details in `eval/triage/README.md` → "Prompt v3".
+
 ## Reading the candidate snapshot no longer refills InfoQ's escaped link markup
 
 - **2026-10-12.** All 12 InfoQ 中文 candidates in the live snapshot held the

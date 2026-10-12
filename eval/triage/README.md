@@ -37,6 +37,7 @@ from the same editorial round as the item under test.
 npm run build:triage-dataset          # only needed after new rounds are committed
 npm run eval:triage -- --limit 40     # a sample spread across the whole period
 npm run eval:triage                   # the full test split
+npm run eval:triage -- --prompt v3 --fresh   # a given prompt on the blind rows
 ```
 
 It uses whatever `LLM_*` variables are set (it reads `.env.local`). With the
@@ -216,6 +217,79 @@ and one was later published (智谱 ZCode's open-sourcing, framed by its source
 as an incident). **No prompt change made from this run** — the two error
 groups suggest a v3 (state the AI scope; pass recently published titles), to
 be judged on blind rounds after it is written, not on these rows.
+
+## Prompt v3: the scope, and what is already on the site (2026-10-12)
+
+`candidate-triage-v3` keeps v2's article reading and changes two things, both
+taken from v2's errors in the section above:
+
+- **Scope.** A note that the site covers AI technology only — models, agents,
+  inference and deployment, AI engineering tooling, AI research — and that
+  front-end frameworks, programming languages and general developer tools are
+  `reject` even when the release is substantial.
+- **What was already published.** The end of the system prompt lists the
+  signals the site published in the 30 days before the decision (Chinese
+  title, plus the original when it differs), and a second report of one of
+  them is `reject`. The next release of the same line is not. v3's rubric head
+  drops 「与已发布内容讲同一件事」 from its `review` examples so the two rules do
+  not contradict each other; v1 and v2 keep it, and a test pins both of their
+  prompts by hash.
+
+`TRIAGE_PROMPT_VERSION` is still v2: the console does not use v3 yet, and its
+call site does not pass titles yet (`runCandidateTriage`'s `publishedTitles`,
+filled by `selectRecentPublishedTitles`).
+
+**No future leakage in the eval.** Each row's list is built from the
+technology workspace store as of that row's `decidedAt`. A published record
+counts from its `createdAt`, the moment its candidate was converted — on all
+107 published records that equals the decision time to within 7ms. The row's
+own signal is excluded (it would otherwise sit 3ms before its own decision),
+and so is the one archived record. Each row saw 15–40 titles, median 32.
+
+```bash
+npm run eval:triage -- --prompt v3 --fresh
+```
+
+| fresh set, 254 items (33 / 63 / 158)     | v1 (feed) | v2 (article) | v3 (scope + published) |
+| ---------------------------------------- | --------: | -----------: | ---------------------: |
+| accuracy                                 |     67.7% |        64.2% |              **72.8%** |
+| macro-F1                                 |     0.529 |        0.564 |              **0.636** |
+| publish recall                           |      5/33 |        24/33 |              **27/33** |
+| publish precision                        |      5/18 |        24/69 |              **27/57** |
+| publish vs not, accuracy                 |     83.9% |        78.7% |              **85.8%** |
+| "publish" on an item the editor rejected |         6 |           17 |                  **5** |
+| reject at confidence ≥ 0.85              |    99/101 |      106/112 |                124/135 |
+| — of which actually published            |         0 |            1 |                      2 |
+| only rows decided ≥ 09-29: publish       |      3/16 |        12/16 |              **15/16** |
+| prompt tokens, whole set                 |      389k |         523k |               **890k** |
+
+**This is not a held-out number, and it must not be quoted as one.** v3 was
+written after reading v2's errors on exactly these 254 rows; the scope note
+names the categories those errors fell into. The run was made once, after the
+prompt was committed, and nothing was changed after it. v3 has to be judged on
+blind rounds decided after commit `67dc03c`.
+
+What the run shows, read with that in mind:
+
+- **The scope note does what it says.** Of v2's 17 publish-on-reject errors,
+  v3 rejects 11 — all six front-end / language releases among them — and still
+  suggests publish for 5 (three Ollama releases, the Ascend kernels, RL
+  environments on the Hub). Its 30 wrong "publish" calls are now mostly items
+  the editor marked _reviewed_ (25), the boundary the labels are loosest on.
+- **The published list cuts both ways.** 12 rejections cite an
+  already-published signal: 6 were rejected by the editor, 3 reviewed, and **3
+  were published** — follow-up reporting on the OpenAI agent incident and a
+  roundup that included GPT-6 Sol, judged "the same story" as earlier signals.
+  Two of those three were at confidence 0.85, so the confident-reject band is
+  no longer clean: 124 of 135 at ≥ 0.85, two of them published.
+- **Half of that effect would not exist in the console.** 6 of the 12
+  "already published" rejections leaned on a title converted earlier the same
+  day, i.e. in the same round. The eval gives each row the list as of its own
+  decision; the console generates suggestions before a round starts, so it
+  would not have those titles.
+- **Cost.** About 3,500 prompt tokens per item against v2's 2,060, almost all
+  of it the title list. It sits at the end of the system prompt so the rubric
+  and examples stay a cacheable prefix.
 
 ## Known limits, stated up front
 
