@@ -52,6 +52,9 @@ For per-topic deep dives, see the `docs/` directory.
   the release), and the model's limitations named what the source lacked.
   One mistyped knowledge id was caught and dropped. Weak spots: one title ran
   to 49 characters, and some tags were loose (开放权重 on an MCP release).
+- **The publish gate no longer reports 「尚未生成富化建议」 on an AI draft**
+  (`record.aiDraft` set): the draft already carries the fields that warning
+  exists to prompt for, so it fired on every one of them.
 - The first trial run showed two prompt gaps — learning-path steps written as
   bare 《titles》, and no space between Chinese and Latin (「OpenAI放出」) —
   fixed before the second run. Also fixed after looking at the console: the
