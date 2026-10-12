@@ -19,6 +19,27 @@
   gap: 12px;
 }
 
+/* Topics used to follow each other with no gap at all: the next heading
+   sat 16px under the previous list's last row (2026-10-12). */
+.timeline-topic + .timeline-topic {
+  margin-top: 40px;
+}
+
+/* The jump chips above the first topic, kept as far from it as one topic is
+   from the next. */
+.topic-timeline-jump {
+  margin-bottom: 40px;
+}
+
+/* The jump chips land here; clear the sticky nav, as 本页目录 does. */
+.timeline-topic__heading h2[id] {
+  scroll-margin-top: 86px;
+}
+
+.timeline-topic__more {
+  margin: 0;
+}
+
 .timeline-topic__heading {
   display: flex;
   flex-wrap: wrap;

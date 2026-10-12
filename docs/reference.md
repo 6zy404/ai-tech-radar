@@ -374,6 +374,14 @@ The product is split into two subsystems:
   Published-signal data only (no news fast-lane noise); reuses
   `getAllTechnologies` / `getAllTags` and the bilingual title/summary
   helpers, no new data or route.
+  Since 2026-10-12 each topic lists its newest five signals
+  (`TIMELINE_TOPIC_LIMIT` in `src/components/topic-timeline-section.tsx`),
+  its count reads 「N 条信号 · 最近 5 条」 when cut, and it ends with
+  查看专题 · 共 N 条 → (查看专题 → when not cut) to `/topics/[tagId]`, which
+  keeps the full list. A row of jump chips (`#topic-<tagId>`, the /sources
+  pattern) opens the view. A signal is listed under every topic it carries,
+  so the full lists ran to 322 rows for 107 signals: 54,479px at 1440,
+  115,766px at 390; now 91 rows, 19,089px and 37,569px.
 - **问雷达 (`/ask`)** — a public, single-turn question box answered only
   from published signals, skills and knowledge, with every claim cited. The
   model (DeepSeek or any OpenAI-compatible endpoint; a search-only mock when

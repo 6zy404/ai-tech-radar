@@ -382,7 +382,13 @@ Workspace deployment boundary:
     fast-lane items, no internal fields; guided empty state when no
     published signals exist yet
     — opens with a 查看全部话题 link to `/topics` above the first topic
-    (omitted in the empty state)
+    (omitted in the empty state), then a row of jump chips
+    (`DossierCategoryChips` as links, 「名称 · N」, to `#topic-<tagId>`; the
+    heading clears the sticky nav at 86px). Each topic shows its newest
+    five signals; the count reads 「N 条信号 · 最近 5 条」 when cut, and the
+    topic ends with 查看专题 · 共 N 条 → (查看专题 → when not cut) to
+    `/topics/[tagId]`, which has the full list. Topics are 40px apart. No
+    folding or client state: every row is server-rendered (2026-10-12)
   - 我关注的 (`?view=followed`, `MyRadarContent`): readers follow topic tags
     via toggle chips; follows live only in browser localStorage (no
     accounts, no server-side profile); aggregates published technologies

@@ -67,6 +67,33 @@ For per-topic deep dives, see the `docs/` directory.
   optional fourth argument (default `getAllLinkRelations()`), so tests pass
   their own. 9 new tests.
 
+## The 按话题 view shows five signals per topic
+
+- **2026-10-12.** After the topics went from 10 to 19 the same day, the
+  按话题 view on `/technologies?view=timeline` listed every signal under
+  every topic it carries: 322 rows for 107 signals, 54,479px tall at 1440
+  and 115,766px at 390. Each topic now shows its newest five
+  (`TIMELINE_TOPIC_LIMIT`), its count adds 「· 最近 5 条」 when cut, and it
+  ends with 查看专题 · 共 N 条 → (查看专题 → when nothing was cut, since the
+  hub also has skills and knowledge) to `/topics/[tagId]`, which already
+  lists every signal. Measured after: 91 rows, **19,089px** at 1440 and
+  **37,569px** at 390 (estimated beforehand at 17,700 and 35,300; the
+  estimate left out the 40px gaps and the chip row).
+- A row of jump chips opens the view (`DossierCategoryChips` as links,
+  「工作流 · 38」, the same pattern as /sources); the headings carry
+  `id="topic-<tagId>"` and `scroll-margin-top: 86px`, and a jump lands the
+  heading 86px from the top. At 390 the 19 chips wrap to 10 rows (372px).
+  No 本页目录: it is a detail-page component and would repeat the same 19
+  links.
+- Topics used to follow each other with no gap — the next heading sat 16px
+  under the previous list's last row. They are 40px apart now, and the chip
+  row sits 40px above the first.
+- Chosen from three options shown as a mockup (five with summaries, five
+  without, three with summaries); summaries kept. Everything is
+  server-rendered: no folding, nothing hidden that a reader cannot reach
+  without JS. Checked in the preview pane top to bottom at 1440 and 390,
+  light and dark; no horizontal overflow, no console errors.
+
 ## Eight knowledge items for the concepts the signals keep naming
 
 - **2026-10-12.** The 107 published signals cited the general knowledge
