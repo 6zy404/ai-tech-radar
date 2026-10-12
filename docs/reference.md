@@ -656,6 +656,7 @@ npm run measure:news-lane # who the public 全部快讯 view is currently showin
 node scripts/run-ts.cjs scripts/repair-entities.ts [--apply] [--published-text] # one-off: strip HTML / decode entities left in stored imports (dry run by default)
 node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off: InfoQ 「点击查看原文」-only originals → their Chinese text (dry run by default)
 node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)
+node scripts/run-ts.cjs scripts/retag-signals.ts [--apply]           # one-off: put the nine 2026-10-12 topics on published signals, skills and knowledge, and narrow 智能体 / 前沿模型 / 推理与部署 (dry run by default)
 npm run check:pipeline   # Windows toast when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
 npm run build:triage-dataset # rebuild the triage eval set from git history
 npm run eval:triage      # score LLM triage against real editorial decisions (-- --limit N for a sample)

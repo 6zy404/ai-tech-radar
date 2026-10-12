@@ -12,6 +12,12 @@ export default defineConfig({
     environment: "node",
     // `scripts/**` is included for the launcher helpers, which must be plain
     // `.mjs`: they run before any TypeScript tooling exists in the process.
-    include: ["src/**/*.test.ts", "scripts/**/*.test.mjs"]
+    // `.test.ts` covers the pure tables and helpers of one-off TypeScript
+    // scripts such as `retag-signals.ts`.
+    include: [
+      "src/**/*.test.ts",
+      "scripts/**/*.test.ts",
+      "scripts/**/*.test.mjs"
+    ]
   }
 });

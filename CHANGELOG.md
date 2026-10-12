@@ -12,6 +12,55 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Nine narrower topics, and the broad ones narrowed
+
+- **2026-10-12.** `src/data/tags.ts` had 10 topics, and on the 107
+  published signals 智能体 sat on 61 (57%), 前沿模型 on 49 (46%) and
+  推理与部署 on 39 (36%). The topic pages, the 按话题 view, 我关注的 and
+  the per-topic feeds all run on these tags, so the largest topics could
+  hardly narrow anything. Nine topics were added, each read off the 107
+  signals rather than guessed: 安全与对齐 `tag-ai-safety` (16 signals),
+  开放权重模型 `tag-open-weights` (14), 智能体运行时与协议
+  `tag-agent-infra` (13), AI 与科研 `tag-ai-for-science` (12), 编码智能体
+  `tag-coding-agents` (11), 价格与成本 `tag-model-pricing` (10), 基准与评测
+  `tag-benchmarks` (10), 训练与后训练 `tag-training` (9) and 量化与推测解码
+  `tag-efficient-inference` (7). 开放权重 was given only to signals whose
+  body names an open release or licence. Every new name is inside the share
+  card font subset, so the subset was not recut.
+- **No topic id was removed.** Readers' follows, 关注码 and the per-topic
+  feed addresses refer to the ids. Instead, the three broad topics were
+  taken off 58 signals where they had been attached loosely: 前沿模型 −22
+  (engine releases, incidents, eval papers, training frameworks), 智能体 −24
+  (model launches that only quoted an agent benchmark, and the 10 coding
+  agent signals, which moved to their own topic), 推理与部署 −12 (signals
+  tagged for their price). Afterwards the largest topics are 工作流 38
+  (36%), 智能体 37 (35%), 可观测性 29, 前沿模型 27 and 推理与部署 27; none
+  passes 40%. 可观测性's description now reads 生产环境里的追踪、监控与事后复盘,
+  so it no longer overlaps 基准与评测; its id and signals are unchanged.
+  Two other options were put to the owner and not taken: adding the new
+  topics alongside untouched broad ones (智能体 would have stayed at 57%),
+  and also taking 智能体 off the 13 runtime signals (智能体 23%, but its
+  followers would have lost 22 agent signals at once).
+- **`scripts/retag-signals.ts`** applies it: an explicit table of 96 signal
+  ids, each with its additions and removals, plus 16 additions on 15 skill
+  and knowledge entries (additions only). Dry run by default, `--apply` to
+  write. It rewrites only the `tags` field, in place: the workflow's
+  `updateTechnologyWorkspaceRecord` would also bump `updatedAt` and re-sort
+  the store by it, and same-day signals take their public order (精选,
+  上一条 / 下一条) from store order. The dry run prints each topic's count
+  before and after. Run on this worktree's copy of the data (identical to
+  the live data that day): 111 records changed, only `tags` differed and the
+  record order was identical; a second run found nothing to do.
+  `vitest.config.ts` now includes `scripts/**/*.test.ts` so the script's
+  10 tests run; one was shown to fail when a removal of 工作流 was injected.
+- **Checked in the preview pane at 1280px**, top to bottom: `/topics` (19
+  cards, counts as above), `/topics/tag-coding-agents` (11 signals, topic
+  graph, neighbours), `/topics/tag-ai-safety` (16 signals plus one skill
+  and one knowledge entry), the 按话题 view (19 sections; it now lists 322
+  signal rows instead of 278, since a signal appears once per topic), and
+  a retagged signal's tag panel. Each new topic's RSS feed and share card
+  answer 200. The live `--apply` is left to the owner window.
+
 ## The two script test files are type-checked
 
 - **2026-10-12.** `scripts/proxy-env.test.mjs` and

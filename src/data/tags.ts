@@ -29,7 +29,7 @@ export const topicTags: TopicTag[] = [
   {
     id: "tag-observability",
     name: "可观测性",
-    description: "面向 AI 系统的评估、追踪和监控。"
+    description: "生产环境里的追踪、监控与事后复盘。"
   },
   {
     id: "tag-knowledge-graph",
@@ -50,5 +50,52 @@ export const topicTags: TopicTag[] = [
     id: "tag-frontier-models",
     name: "前沿模型",
     description: "旗舰大模型的代际更新、能力边界与性价比变化。"
+  },
+  {
+    id: "tag-ai-safety",
+    name: "安全与对齐",
+    description:
+      "模型与智能体的安全事件、红队、对齐方法，以及网络安全能力的管控。"
+  },
+  {
+    id: "tag-open-weights",
+    name: "开放权重模型",
+    description: "公开权重的模型发布、许可条款与开放生态。"
+  },
+  {
+    id: "tag-agent-infra",
+    name: "智能体运行时与协议",
+    description:
+      "智能体的运行时、编排框架、沙箱与 MCP 等协议：智能体跑在哪里、怎样接工具。"
+  },
+  {
+    id: "tag-ai-for-science",
+    name: "AI 与科研",
+    description: "用 AI 做数学、生物医学等科学研究，以及 AI 加速研究本身。"
+  },
+  {
+    id: "tag-coding-agents",
+    name: "编码智能体",
+    description: "用智能体写代码、审代码、改代码，以及它给工程流程带来的变化。"
+  },
+  {
+    id: "tag-model-pricing",
+    name: "价格与成本",
+    description: "模型定价、算力与 token 成本，以及按任务算的真实花费。"
+  },
+  {
+    id: "tag-benchmarks",
+    name: "基准与评测",
+    description: "基准本身的设计与可信度、第三方评测和评测口径。"
+  },
+  {
+    id: "tag-training",
+    name: "训练与后训练",
+    description: "预训练、强化学习、微调与合成数据，以及训练框架和环境。"
+  },
+  {
+    id: "tag-efficient-inference",
+    name: "量化与推测解码",
+    description: "量化、推测解码等让模型更省显存、出字更快的技术。"
   }
 ];
