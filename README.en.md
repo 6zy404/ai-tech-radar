@@ -76,7 +76,9 @@ Every relation between technologies, skills, and knowledge carries one of eight
 types (builds-on, uses, explains, requires, extends, supersedes, supports,
 related-to) plus a note. Editorial changes are stored as copy-on-write
 overrides; the bundled seed data stays read-only. The generic `related-to`
-fallback accounts for about 12% of edges. The same graph drives the version
+fallback accounts for 6.1% of edges (measured on 2026-10-12 after every
+fallback pair was read and typed; it was 18.1% before), and the publish
+check warns about a related item left without a type. The same graph drives the version
 line on signal pages, the topic pages, and the grounding for AI-generated
 learning paths.
 

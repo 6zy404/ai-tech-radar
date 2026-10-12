@@ -1420,6 +1420,12 @@ Warnings:
 - short summary
 - short content
 - empty editorial notes
+- related items with no relation type, which would render as the fallback
+  关联 (`untyped-relations`, 2026-10-12)
+- every topic tag one of the three broad topics, AI 智能体 / 前沿模型 /
+  推理与部署 (`broad-topics-only`, 2026-10-12)
+- `translationStatus` disagreeing with the coverage derived from the
+  content
 - missing `whyItMatters`
 - missing `whoShouldCare`
 - missing related knowledge explanations

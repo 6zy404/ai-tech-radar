@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Every fallback 关联 read and typed
+
+- **2026-10-12.** Measured through `getContentGraph`: 150 nodes, 1124
+  edges, 203 of them the fallback 关联 (18.1%; the README still said about
+  12%) — 101 technology–technology, 52 knowledge–technology, 50
+  skill–technology. 96 had no relation entry at all, because the editor
+  does not store a pair left on its default type; 107 were stored as 关联
+  with a note.
+- Every pair was read once, both titles and summaries, and given a type by
+  the definitions in `docs/data-model.md` → LinkRelation: 印证 73, 延伸 32,
+  借助 13, 释义 10, 必备 4, 渊源 2. None is 续作 — no pair is a later release
+  of the same line. 69 stay 关联 on purpose: same-week comparisons and
+  analogies, where 印证 would claim more than the pair supports. Existing
+  notes are kept word for word; new entries carry none.
+- Seven published signals had an empty `relatedTechnologyIds` (EmbeddingGemma
+  2, Olmo-core 3, Kumo Tabular, the DeepSeek-V4 blind spot, the GPU
+  allocator, NeMo Automodel, vLLM's Transformers backend). Each gets two
+  published signals. One of the pairs, NeMo Automodel ↔ Nemotron 开放数据,
+  already had an 延伸 override with a note that never showed, because
+  neither side listed the other.
+- After: 69 of 1137 edges (6.1%). `scripts/type-fallback-relations.ts`
+  holds the table and writes the overrides (an existing 关联 is retyped in
+  place, keeping its id, note and direction, except `requires`, which is
+  written from the signal to the knowledge it needs) and appends the
+  orphans' ids in place without touching `updatedAt`. Dry run by default,
+  `--apply` to write. On a copy of the data the apply changed only those
+  seven `relatedTechnologyIds` and kept the store order, and a second run
+  printed 没有需要写的. 14 tests.
+- What the new `untyped-relations` warning still sees afterwards: 37 pairs
+  on 17 signals, all of them pairs kept as 关联 without a note — the
+  editor cannot store a noteless 关联, so a deliberate one still reads as
+  untyped.
+
 ## The publish gate names untyped relations and broad-only topics
 
 - **2026-10-12.** Two new warnings on the workspace signal page; neither

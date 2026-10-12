@@ -56,7 +56,11 @@ The product is split into two subsystems:
   waits for an editor; title-only items are deliberately not auto-rejected.
 - **Drafting & publishing** — candidate → draft conversion, lightweight draft
   editing, deterministic Ranking v0 priority triage, and a Publish Quality Gate
-  with user-facing preview.
+  with user-facing preview. Since 2026-10-12 the gate also warns (never
+  blocks) when a related technology, skill or knowledge item has no relation
+  type — it would show as the fallback 关联 — and when every topic tag is one
+  of the three broad topics (AI 智能体 / 前沿模型 / 推理与部署), naming the
+  narrower ones to check (`src/lib/publish-readiness.ts`).
 - **Content intelligence** — editable explanation fields (why it matters, who
   should care, technical context, learning path, etc.) plus optional
   AI-assisted editorial enrichment behind a server-side LLM provider boundary
@@ -457,7 +461,10 @@ The product is split into two subsystems:
   reads (`findRelationBetween`, detail-page pills and 附注 notes,
   `RelationshipGraph` tooltips, `/network` edge labels, topic hubs) serve
   the merged view via `PUT /api/workspace/relations` +
-  `src/lib/link-relation-workflow.ts`.
+  `src/lib/link-relation-workflow.ts`. A pair left on the default type is
+  not stored at all, which is how the fallback 关联 reached 18.1% of the
+  graph's edges; on 2026-10-12 every such pair was read and typed by hand
+  (`scripts/type-fallback-relations.ts`), leaving 69 of 1137 (6.1%).
 - **Daily Digest** (public name since 2026-09-24: **技术简报**, no longer
   "每日" — the task runner still drafts one per day, but publishing is
   editor-gated and in practice happens a few times a month, so the nav, the
@@ -682,6 +689,7 @@ npm run measure:news-lane # who the public 全部快讯 view is currently showin
 node scripts/run-ts.cjs scripts/repair-entities.ts [--apply] [--published-text] # one-off: strip HTML / decode entities left in stored imports (dry run by default)
 node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off: InfoQ 「点击查看原文」-only originals → their Chinese text (dry run by default)
 node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)
+node scripts/run-ts.cjs scripts/type-fallback-relations.ts [--apply] # one-off: give the fallback 关联 edges a relation type, and two related signals to each of the seven signals that had none (dry run by default)
 node scripts/run-ts.cjs scripts/retag-signals.ts [--apply]           # one-off: put the nine 2026-10-12 topics on published signals, skills and knowledge, and narrow 智能体 / 前沿模型 / 推理与部署 (dry run by default)
 npm run check:pipeline   # Windows toast when the scheduled import stalls or candidates pile up (once per alert per day; -- --dry-run / -- --test)
 npm run build:triage-dataset # rebuild the triage eval set from git history
