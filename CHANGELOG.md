@@ -12,6 +12,28 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Six skills for the four topics that had none
+
+- **2026-10-12.** After the topic split, 编码智能体 (11 signals), AI 与科研
+  (12), 开放权重模型 (14) and 量化与推测解码 (7) had knowledge but no skill.
+  Six skills, each a procedure built from what these signals actually did
+  rather than a concept: 给编码智能体划定任务与验收, 按影响半径审查智能体写的代码,
+  核查 AI 科研成果的证据, 用智能体复现论文结论, 评估开放权重模型能否自托管 (its
+  body names how it divides the work with 模型与推理引擎的支持路径 and
+  端侧模型部署与硬件适配 — skills cannot link to skills), 验证量化与推测解码的实际
+  提速. Skills 16 → 22.
+- Links, all chosen by hand: 54 skill → signal pairs (47 signals) typed
+  印证 45 / 借助 9, and 22 skill → knowledge pairs typed 必备 from the
+  skill, so the knowledge lands in the skill page's 先读这些. None is 关联.
+  The knowledge side gets the id too (16 items): the knowledge page lists
+  its skills from its own `relatedSkillIds` only.
+- `scripts/add-skill-items.ts` holds the content and the table; dry run by
+  default, `--apply` to write. Signal and knowledge ids are appended in
+  place without touching `updatedAt`. On a copy of the data the apply
+  changed only `relatedSkillIds` on those records, every new record cleared
+  the skill publish gate with no warning, and a second run printed
+  没有需要写的内容. 11 tests.
+
 ## Every fallback 关联 read and typed
 
 - **2026-10-12.** Measured through `getContentGraph`: 150 nodes, 1124
