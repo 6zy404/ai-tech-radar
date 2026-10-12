@@ -978,6 +978,13 @@ Represents the internal workspace version of a technology record.
 - `createdAt`
 - `updatedAt`
 - `editorialNotes`
+- `aiDraft?` (2026-10-13) — set when 「AI 起草」 wrote the draft:
+  `generationMode`, `providerName`, `modelName`, `promptVersion`,
+  `generatedAt`, `sourceTextOrigin` (`page | github_release |
+candidate_fallback`), `sourceFetchError?`, `tokenUsage?`, `latencyMs`,
+  `warnings`. Workspace-only: `toUserFacingTechnologyItem` picks fields by
+  name and never copies it. The same run records `candidate.ai_drafted` (or
+  `candidate.ai_draft_failed`, with no draft written) as a `WorkflowEvent`.
 
 This object is used in the Internal Workspace so draft records, published records, and archived records can all be managed in one place.
 

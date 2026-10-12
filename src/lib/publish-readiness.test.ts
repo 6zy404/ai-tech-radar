@@ -409,4 +409,31 @@ describe("evaluateTechnologyPublishReadiness", () => {
       expect(codes(evaluate().warnings)).not.toContain("broad-topics-only");
     });
   });
+
+  describe("editorial enrichment suggestion", () => {
+    it("warns when no suggestion was generated", () => {
+      expect(codes(evaluate().warnings)).toContain(
+        "missing-editorial-enrichment-suggestion"
+      );
+    });
+
+    it("stays quiet for an 「AI 起草」 draft, which already has the fields", () => {
+      const record = makeWorkspaceRecord({
+        aiDraft: {
+          generationMode: "llm_assisted",
+          providerName: "openai_compatible",
+          modelName: "deepseek-chat",
+          promptVersion: "candidate-draft-v1",
+          generatedAt: "2026-10-13T00:00:00.000Z",
+          sourceTextOrigin: "page",
+          latencyMs: 10000,
+          warnings: []
+        }
+      });
+
+      expect(codes(evaluate(record).warnings)).not.toContain(
+        "missing-editorial-enrichment-suggestion"
+      );
+    });
+  });
 });

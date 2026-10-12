@@ -617,7 +617,9 @@ export function evaluateTechnologyPublishReadiness(
 
   const enrichmentReadiness = getEditorialEnrichmentReadinessState(record.id);
 
-  if (!enrichmentReadiness.hasSuggestion) {
+  // An 「AI 起草」 draft already carries model-written explanation fields, so
+  // "no suggestion generated" would be a false alarm on every one of them.
+  if (!enrichmentReadiness.hasSuggestion && !record.aiDraft) {
     warnings.push(
       issue(
         "warning",

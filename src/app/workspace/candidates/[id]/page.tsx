@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { AiDraftAction } from "@/components/editorial-round-actions";
 import { ImportedCandidateDetailContent } from "@/components/imported-candidate-detail-content";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import {
@@ -42,8 +43,11 @@ export default async function WorkspaceCandidateDetailPage({
     notFound();
   }
 
+  const canConvert = getCandidateDraftConversionReadiness(
+    candidate.id
+  ).canConvert;
   const candidateQuality = evaluateCandidateQuality(candidate, {
-    canConvert: getCandidateDraftConversionReadiness(candidate.id).canConvert,
+    canConvert,
     publishedSignals: buildPublishedSignalFingerprints(
       getPublishedTechnologyWorkspaceRecords()
     )
@@ -75,6 +79,11 @@ export default async function WorkspaceCandidateDetailPage({
         source={source}
         ranking={ranking}
         workflowEvents={getWorkflowEventsForEntity("candidate", candidate.id)}
+        extraActions={
+          canConvert && !candidate.convertedTechnologyId ? (
+            <AiDraftAction candidateId={candidate.id} afterSuccess="open" />
+          ) : null
+        }
       />
     </WorkspacePageShell>
   );

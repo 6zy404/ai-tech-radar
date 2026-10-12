@@ -548,6 +548,21 @@ The product is split into two subsystems:
   a code constant (`TRIAGE_PROMPT_VERSION` in
   `src/lib/candidate-llm-triage.ts`) so a reported number stays tied to the
   prompt it measured. See [`eval/triage/README.md`](../eval/triage/README.md).
+- **「AI 起草」 (2026-10-13)** — an undecided candidate on the editorial-round
+  console or its detail page can be drafted in one click
+  (`POST /api/workspace/candidates/[id]/ai-draft`): the server reads the
+  primary source (`src/lib/source-page-fetch.ts`; GitHub release pages
+  through the REST API), the model writes the Chinese title, summary, body,
+  explanation fields, type, publisher, topic ids and related knowledge and
+  skills with relation types (`src/lib/candidate-llm-draft.ts`, prompt
+  version `CANDIDATE_DRAFT_PROMPT_VERSION`), and the candidate is converted
+  with those fields in one write (`src/lib/candidate-llm-draft-workflow.ts`).
+  Unknown ids are dropped, the body is cut down to what `ContentBody`
+  renders, and any validation failure leaves no draft and no status change.
+  The draft stays `draft`; the model, prompt version, source origin, tokens
+  and latency are recorded on `aiDraft` and in an editorial note, workspace
+  only. Measured on 9 real candidates with `deepseek-chat`: 0 blocking
+  issues, about 6.4k + 2.1k tokens and 10–13 seconds each (CHANGELOG).
 - **Operations** — a workspace operations dashboard, a `WorkflowEvent` audit log,
   and per-subsystem `validate:*` checks. The dashboard pins two deterministic
   pipeline alerts above everything else: a stalled scheduled import (critical —

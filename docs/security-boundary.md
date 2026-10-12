@@ -368,6 +368,14 @@ never reaches a public page or feed. The eval script (`npm run eval:triage`)
 reads `.env.local` itself because a plain Node script does not get Next's env
 loading; the key is only ever read, never printed or written.
 
+「AI 起草」 (`POST /api/workspace/candidates/[id]/ai-draft`, 2026-10-13) is
+the same kind of caller: under `/api/workspace/*`, so guarded and absent from
+the public build. It fetches the candidate's source URL server-side (15-second
+timeout, 1.5 MB read cap) and sends the article text to the provider. The
+draft it writes stays `draft`; its `aiDraft` metadata (model, prompt version,
+tokens) and the generation events stay in the workspace — the public mapping
+picks fields by name and does not copy them.
+
 The current local JSON and SQLite stores may contain workspace-only suggestion metadata. They are not production secret stores. Production deployments should keep provider credentials in environment-managed secret storage and should not commit local data files containing real provider or delivery credentials.
 
 ## Public LLM Feature Boundary (Comparison v0 + Explanation v1 + Learning Path v2)

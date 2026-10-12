@@ -67,6 +67,9 @@ export interface EditorialRoundDraft {
   warningCount: number;
   isReady: boolean;
   topIssue?: string;
+  /** Set when 「AI 起草」 wrote the draft: the model, and whether it read
+   *  the source or fell back to the candidate's own fields. */
+  aiDraft?: { modelName: string; readSource: boolean };
 }
 
 export interface EditorialRoundDigest {
@@ -274,7 +277,16 @@ export function getEditorialRoundState(): EditorialRoundState {
         blockingCount: readiness.blockingErrors.length,
         warningCount: readiness.warnings.length,
         isReady: readiness.isReady,
-        topIssue
+        topIssue,
+        ...(record.aiDraft
+          ? {
+              aiDraft: {
+                modelName: record.aiDraft.modelName,
+                readSource:
+                  record.aiDraft.sourceTextOrigin !== "candidate_fallback"
+              }
+            }
+          : {})
       };
     })
     .sort((left, right) => right.blockingCount - left.blockingCount);

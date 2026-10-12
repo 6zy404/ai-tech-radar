@@ -174,6 +174,80 @@ function createMockCandidateTriageResponse(
   };
 }
 
+/**
+ * A fixed-shape draft built from the candidate title and the first ids the
+ * catalog lists, so 「AI 起草」 can run end to end without a key. Its prose
+ * says nothing about the item.
+ */
+function createMockCandidateDraftResponse(
+  request: LlmGenerateRequest
+): LlmGenerateResponse {
+  const title = extractPromptValue(request.userPrompt, "标题") || "这条候选";
+  const firstIds = (prefix: string, count: number) =>
+    [
+      ...request.systemPrompt.matchAll(
+        new RegExp(`^- (${prefix}[\\w-]+)｜`, "gm")
+      )
+    ]
+      .map((match) => match[1])
+      .slice(0, count);
+  const [knowledgeId] = firstIds("knowledge-", 1);
+  const [skillId] = firstIds("skill-", 1);
+
+  return {
+    providerName: "mock",
+    modelName: "mock-candidate-draft-v0",
+    tokenUsage: {
+      promptTokens: Math.ceil(
+        (request.systemPrompt.length + request.userPrompt.length) / 4
+      ),
+      completionTokens: 400,
+      totalTokens:
+        Math.ceil(
+          (request.systemPrompt.length + request.userPrompt.length) / 4
+        ) + 400
+    },
+    text: JSON.stringify({
+      title: `${title.slice(0, 40)}（本地 mock 草稿）`,
+      summary: `本地 mock 模型根据候选「${title.slice(0, 40)}」写出的占位摘要，只用于在没有密钥时跑通 AI 起草流程，内容不代表原文，发布前必须重写。`,
+      content: `## 发生了什么\n\n这是本地 mock 模型生成的占位正文，用来验证 AI 起草的流程。\n\n## 对读者意味着什么\n\n1. 打开原文核对事实。\n2. 重写这段正文。`,
+      slug: "mock-candidate-draft",
+      type: "tool",
+      publisherName: "Mock Publisher",
+      publisherType: "open-source-community",
+      whyItMatters: "本地 mock 输出，不代表原文。",
+      whoShouldCare: ["负责编辑轮的编辑"],
+      technicalContext: "本地 mock 输出。",
+      impactAreas: ["编辑流程"],
+      learningPath: ["阅读原文", "核对数字"],
+      followUpQuestions: ["原文的关键数字是什么？"],
+      readingDifficulty: "intermediate",
+      tags: ["tag-agent-infra", "tag-benchmarks"],
+      relatedKnowledge: knowledgeId
+        ? [
+            {
+              id: knowledgeId,
+              relationType: "explains",
+              note: "mock 附注",
+              explanation: "mock 说明"
+            }
+          ]
+        : [],
+      relatedSkills: skillId
+        ? [
+            {
+              id: skillId,
+              relationType: "supports",
+              note: "mock 附注",
+              explanation: "mock 说明"
+            }
+          ]
+        : [],
+      limitations: ["本地 mock 输出，不代表原文。"]
+    })
+  };
+}
+
 export function createMockLlmProvider(): LlmProvider {
   return {
     name: "mock",
@@ -204,6 +278,10 @@ export function createMockLlmProvider(): LlmProvider {
 
       if (request.userPrompt.startsWith("Purpose: candidate_triage")) {
         return createMockCandidateTriageResponse(request);
+      }
+
+      if (request.userPrompt.startsWith("Purpose: candidate_draft")) {
+        return createMockCandidateDraftResponse(request);
       }
 
       const title =

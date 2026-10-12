@@ -505,7 +505,16 @@ export function getCandidateDraftConversionReadiness(candidateId: string): {
 
 export function convertImportedCandidateToDraft(
   candidateId: string,
-  options: { blind?: boolean } = {}
+  options: {
+    blind?: boolean;
+    /**
+     * Fields written onto the draft in the same store write as the
+     * conversion, so a draft never exists half-filled. 「AI 起草」 passes the
+     * generated title, body, explanation fields and its own metadata here
+     * (candidate-llm-draft-workflow.ts).
+     */
+    draftFields?: Partial<TechnologyWorkspaceRecord>;
+  } = {}
 ): TechnologyWorkspaceRecord {
   const candidate = getImportedCandidateById(candidateId);
 
@@ -559,7 +568,7 @@ export function convertImportedCandidateToDraft(
     candidate,
     additionalSourceReferences
   );
-  const mergedRecordBase: TechnologyWorkspaceRecord = existingRecord
+  const convertedRecordBase: TechnologyWorkspaceRecord = existingRecord
     ? {
         ...existingRecord,
         ...nextRecord,
@@ -569,6 +578,18 @@ export function convertImportedCandidateToDraft(
         updatedAt: new Date().toISOString()
       }
     : nextRecord;
+  const mergedRecordBase: TechnologyWorkspaceRecord = options.draftFields
+    ? {
+        ...convertedRecordBase,
+        ...options.draftFields,
+        // Identity and workflow state stay the conversion's own.
+        id: convertedRecordBase.id,
+        status: convertedRecordBase.status,
+        sourceCandidateId: convertedRecordBase.sourceCandidateId,
+        createdAt: convertedRecordBase.createdAt,
+        updatedAt: convertedRecordBase.updatedAt
+      }
+    : convertedRecordBase;
   const mergedRecord: TechnologyWorkspaceRecord = {
     ...mergedRecordBase,
     priority: evaluateTechnologyPriority(mergedRecordBase)

@@ -235,6 +235,27 @@ generate suggestion) to draft these fields instead of writing them by hand;
 still requires an explicit Apply before anything lands on the draft (see
 [`docs/editorial-enrichment.md`](editorial-enrichment.md)).
 
+**Or skip Step 2's 转为草稿 and most of this step with 「AI 起草」**
+(2026-10-13). The button beside 转为草稿 on the console (and on the candidate
+detail page) reads the article — the page, or the release notes through the
+GitHub API — has the model write every field above except `importanceLevel`,
+and converts the candidate with them in one write. About 10–13 seconds and
+6k–10k tokens per candidate with `deepseek-chat`; several can run at once.
+It does not replace reading:
+
+- The draft's editorial note says whether the model **read the source** or
+  fell back to the feed's title and summary. A fallback draft is short and
+  should be treated like a title-only candidate.
+- The notes beginning 「AI 起草提示」 list what validation changed (dropped
+  ids, removed tables) and what the model said the source lacked. Read them
+  before the body.
+- Still check the six things under Step 8 — type, publisher, numbers, quotes,
+  title length. In the first trial the publisher was right on all 9, one title
+  ran to 49 characters, and some tags were loose.
+- `importanceLevel` stays `signal`; set it by hand.
+- A failure (bad JSON, missing body, model error) leaves the candidate exactly
+  as it was, with the reason under the button; convert by hand or try again.
+
 ## Step 4 — Publish the technology
 
 - UI: draft page → `Publish technology` (runs the Publish Quality Gate;
