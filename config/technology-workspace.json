@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T03:14:09.868Z",
+  "updatedAt": "2026-10-12T03:41:11.241Z",
   "records": [
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-502364",
@@ -34,7 +34,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
         "knowledge-evaluation-loops",
-        "knowledge-ws-68963f7f"
+        "knowledge-ws-68963f7f",
+        "knowledge-kv-cache"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -136,7 +137,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
         "knowledge-ws-89b98df3",
-        "knowledge-ws-e251051e"
+        "knowledge-ws-e251051e",
+        "knowledge-rl-post-training"
       ],
       "relatedSkillIds": [
         "skill-ws-84837d46",
@@ -243,7 +245,8 @@
       "relatedKnowledgeIds": [
         "knowledge-rag-basics",
         "knowledge-model-sizing",
-        "knowledge-ws-c761533e"
+        "knowledge-ws-c761533e",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-retrieval-tuning",
@@ -347,7 +350,10 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
         "knowledge-ws-818b7bb3",
-        "knowledge-ws-34da6116"
+        "knowledge-ws-34da6116",
+        "knowledge-rl-post-training",
+        "knowledge-fine-tuning",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-ws-84837d46",
@@ -559,7 +565,8 @@
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
         "knowledge-latency-tradeoffs",
-        "knowledge-evaluation-loops"
+        "knowledge-evaluation-loops",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -666,7 +673,9 @@
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
         "knowledge-latency-tradeoffs",
-        "knowledge-api-contracts"
+        "knowledge-api-contracts",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-7796779a",
@@ -773,7 +782,8 @@
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
         "knowledge-evaluation-loops",
-        "knowledge-ws-e251051e"
+        "knowledge-ws-e251051e",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -979,7 +989,8 @@
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
         "knowledge-ws-89b98df3",
-        "knowledge-evaluation-loops"
+        "knowledge-evaluation-loops",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -1085,7 +1096,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
         "knowledge-ws-34da6116",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-ws-84837d46",
@@ -1186,7 +1198,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
         "knowledge-tool-use",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -1294,7 +1307,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-818b7bb3",
         "knowledge-model-sizing",
-        "knowledge-evaluation-loops"
+        "knowledge-evaluation-loops",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -1396,7 +1410,9 @@
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
         "knowledge-latency-tradeoffs",
-        "knowledge-human-loop"
+        "knowledge-human-loop",
+        "knowledge-agent-sandboxing",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -1503,7 +1519,9 @@
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
         "knowledge-evaluation-loops",
-        "knowledge-ws-e251051e"
+        "knowledge-ws-e251051e",
+        "knowledge-distillation",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -1610,7 +1628,10 @@
         "knowledge-ws-36346103",
         "knowledge-model-sizing",
         "knowledge-ws-a28a8a56",
-        "knowledge-ws-34da6116"
+        "knowledge-ws-34da6116",
+        "knowledge-rl-post-training",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -2123,7 +2144,8 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-68963f7f",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-kv-cache"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -2342,7 +2364,8 @@
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
         "knowledge-ws-e251051e",
-        "knowledge-feedback-loops"
+        "knowledge-feedback-loops",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-agent-design",
@@ -2451,7 +2474,8 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
-        "knowledge-api-contracts"
+        "knowledge-api-contracts",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -2765,7 +2789,9 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
-        "knowledge-human-loop"
+        "knowledge-human-loop",
+        "knowledge-rl-post-training",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -2997,7 +3023,8 @@
         "knowledge-human-loop",
         "knowledge-tool-use",
         "knowledge-api-contracts",
-        "knowledge-ws-e251051e"
+        "knowledge-ws-e251051e",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-agent-design",
@@ -3358,7 +3385,8 @@
         "knowledge-ws-e251051e",
         "knowledge-human-loop",
         "knowledge-ws-a28a8a56",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-agent-design",
@@ -3481,7 +3509,8 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
-        "knowledge-api-contracts"
+        "knowledge-api-contracts",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-tool-integration",
@@ -3701,7 +3730,10 @@
         "knowledge-tool-use",
         "knowledge-ws-e251051e",
         "knowledge-latency-tradeoffs",
-        "knowledge-ws-c761533e"
+        "knowledge-ws-c761533e",
+        "knowledge-rl-post-training",
+        "knowledge-distillation",
+        "knowledge-fine-tuning"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -4575,7 +4607,9 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
-        "knowledge-human-loop"
+        "knowledge-human-loop",
+        "knowledge-rl-post-training",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -4683,7 +4717,11 @@
         "knowledge-ws-36346103",
         "knowledge-ws-68963f7f",
         "knowledge-ws-34da6116",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-kv-cache",
+        "knowledge-rl-post-training",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-7796779a",
@@ -4802,7 +4840,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-34da6116",
         "knowledge-ws-68963f7f",
-        "knowledge-ws-36346103"
+        "knowledge-ws-36346103",
+        "knowledge-rl-post-training"
       ],
       "relatedSkillIds": [
         "skill-ws-7796779a",
@@ -5016,7 +5055,9 @@
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
         "knowledge-ws-c761533e",
-        "knowledge-ws-36346103"
+        "knowledge-ws-36346103",
+        "knowledge-kv-cache",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -5118,7 +5159,8 @@
         "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-model-sizing"
+        "knowledge-model-sizing",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -5224,7 +5266,8 @@
         "knowledge-model-sizing",
         "knowledge-latency-tradeoffs",
         "knowledge-ws-a28a8a56",
-        "knowledge-ws-c761533e"
+        "knowledge-ws-c761533e",
+        "knowledge-kv-cache"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -5342,7 +5385,10 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-818b7bb3",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-rl-post-training",
+        "knowledge-agent-sandboxing",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -5453,7 +5499,8 @@
         "knowledge-human-loop",
         "knowledge-ws-89b98df3",
         "knowledge-ws-e251051e",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -5576,7 +5623,8 @@
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
         "knowledge-ws-e251051e",
-        "knowledge-ws-89b98df3"
+        "knowledge-ws-89b98df3",
+        "knowledge-rl-post-training"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -5803,7 +5851,9 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -6128,7 +6178,9 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
-        "knowledge-ws-89b98df3"
+        "knowledge-ws-89b98df3",
+        "knowledge-execution-based-eval",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -6587,7 +6639,9 @@
         "knowledge-ws-36346103",
         "knowledge-ws-68963f7f",
         "knowledge-latency-tradeoffs",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-kv-cache",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-a9e80194",
@@ -6698,7 +6752,8 @@
         "knowledge-system-design",
         "knowledge-api-contracts",
         "knowledge-human-loop",
-        "knowledge-ws-a28a8a56"
+        "knowledge-ws-a28a8a56",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-agent-design",
@@ -6816,7 +6871,8 @@
         "knowledge-ws-a28a8a56",
         "knowledge-system-design",
         "knowledge-ws-c761533e",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-2152c7f1",
@@ -7059,7 +7115,8 @@
         "knowledge-evaluation-loops",
         "knowledge-ws-89b98df3",
         "knowledge-human-loop",
-        "knowledge-model-sizing"
+        "knowledge-model-sizing",
+        "knowledge-kv-cache"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -7186,7 +7243,8 @@
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
         "knowledge-ws-818b7bb3",
-        "knowledge-evaluation-loops"
+        "knowledge-evaluation-loops",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -7414,7 +7472,8 @@
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
         "knowledge-ws-e251051e",
-        "knowledge-human-loop"
+        "knowledge-human-loop",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -7645,7 +7704,8 @@
         "knowledge-evaluation-loops",
         "knowledge-ws-e251051e",
         "knowledge-human-loop",
-        "knowledge-ws-89b98df3"
+        "knowledge-ws-89b98df3",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -7768,7 +7828,9 @@
         "knowledge-ws-89b98df3",
         "knowledge-ws-e251051e",
         "knowledge-system-design",
-        "knowledge-ws-818b7bb3"
+        "knowledge-ws-818b7bb3",
+        "knowledge-distillation",
+        "knowledge-fine-tuning"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -8110,7 +8172,8 @@
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
-        "knowledge-ws-e251051e"
+        "knowledge-ws-e251051e",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
@@ -8215,7 +8278,8 @@
         "knowledge-evaluation-loops",
         "knowledge-ws-e251051e",
         "knowledge-ws-a28a8a56",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -8328,7 +8392,8 @@
         "knowledge-ws-c761533e",
         "knowledge-latency-tradeoffs",
         "knowledge-ws-36346103",
-        "knowledge-system-design"
+        "knowledge-system-design",
+        "knowledge-kv-cache"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -8671,7 +8736,8 @@
         "knowledge-evaluation-loops",
         "knowledge-ws-a28a8a56",
         "knowledge-ws-e251051e",
-        "knowledge-feedback-loops"
+        "knowledge-feedback-loops",
+        "knowledge-agent-sandboxing"
       ],
       "relatedSkillIds": [
         "skill-agent-design",
@@ -8778,7 +8844,10 @@
         "knowledge-model-sizing",
         "knowledge-ws-34da6116",
         "knowledge-ws-c761533e",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-kv-cache",
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -9025,7 +9094,12 @@
         "knowledge-ws-68963f7f",
         "knowledge-model-sizing",
         "knowledge-ws-e251051e",
-        "knowledge-latency-tradeoffs"
+        "knowledge-latency-tradeoffs",
+        "knowledge-rl-post-training",
+        "knowledge-distillation",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -9245,7 +9319,8 @@
         "knowledge-model-sizing",
         "knowledge-evaluation-loops",
         "knowledge-ws-c761533e",
-        "knowledge-graph-thinking"
+        "knowledge-graph-thinking",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
@@ -9367,7 +9442,8 @@
         "knowledge-evaluation-loops",
         "knowledge-ws-e251051e",
         "knowledge-human-loop",
-        "knowledge-feedback-loops"
+        "knowledge-feedback-loops",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -9795,7 +9871,10 @@
         "knowledge-ws-818b7bb3",
         "knowledge-evaluation-loops",
         "knowledge-ws-36346103",
-        "knowledge-model-sizing"
+        "knowledge-model-sizing",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -10545,7 +10624,8 @@
         "knowledge-graph-thinking",
         "knowledge-feedback-loops",
         "knowledge-api-contracts",
-        "knowledge-evaluation-loops"
+        "knowledge-evaluation-loops",
+        "knowledge-reproducibility"
       ],
       "relatedSkillIds": [
         "skill-ws-f741f122",
@@ -10654,7 +10734,12 @@
         "knowledge-model-sizing",
         "knowledge-ws-34da6116",
         "knowledge-ws-68963f7f",
-        "knowledge-human-loop"
+        "knowledge-human-loop",
+        "knowledge-kv-cache",
+        "knowledge-rl-post-training",
+        "knowledge-distillation",
+        "knowledge-fine-tuning",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -10765,7 +10850,11 @@
         "knowledge-model-sizing",
         "knowledge-ws-34da6116",
         "knowledge-ws-68963f7f",
-        "knowledge-tool-use"
+        "knowledge-tool-use",
+        "knowledge-kv-cache",
+        "knowledge-distillation",
+        "knowledge-open-weights",
+        "knowledge-execution-based-eval"
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
@@ -10880,7 +10969,8 @@
         "knowledge-model-sizing",
         "knowledge-ws-68963f7f",
         "knowledge-ws-a28a8a56",
-        "knowledge-ws-34da6116"
+        "knowledge-ws-34da6116",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-agent-design",
@@ -11084,7 +11174,8 @@
         "knowledge-ws-36346103",
         "knowledge-ws-68963f7f",
         "knowledge-model-sizing",
-        "knowledge-ws-34da6116"
+        "knowledge-ws-34da6116",
+        "knowledge-open-weights"
       ],
       "relatedSkillIds": [
         "skill-ws-a9e80194",
@@ -11632,7 +11723,8 @@
         "knowledge-model-sizing",
         "knowledge-system-design",
         "knowledge-ws-36346103",
-        "knowledge-ws-68963f7f"
+        "knowledge-ws-68963f7f",
+        "knowledge-kv-cache"
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
@@ -11829,7 +11921,8 @@
         "tag-training"
       ],
       "relatedKnowledgeIds": [
-        "knowledge-ws-818b7bb3"
+        "knowledge-ws-818b7bb3",
+        "knowledge-fine-tuning"
       ],
       "relatedSkillIds": [
         "skill-ws-84837d46"

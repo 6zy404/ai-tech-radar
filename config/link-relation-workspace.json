@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T13:47:40.107Z",
+  "updatedAt": "2026-10-12T03:41:11.241Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -8190,6 +8190,910 @@
       "toType": "technology",
       "relationType": "extends",
       "note": "两家都把训练环境当作要专门建设的基础设施：DeepSeek 讲沙盒的产能，小米讲环境里的作弊防线。"
+    },
+    {
+      "id": "rel-ws-f1a72138",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9184161f",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5374c03a",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d5c9f093",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-57814dda",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d202b956",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d24ba1b1",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-376683b5",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-560533a0",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-15ddc87d",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4da16a86",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-485108",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b1e857dd",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-60468d11",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-da63a2da",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4fcc9d39",
+      "fromId": "knowledge-kv-cache",
+      "fromType": "knowledge",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4a68b514",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-2f530d1e",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-8a0f31cd",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b17e1225",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-fb3b75a7",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-42d73cca",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5e6fb5eb",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5cbb2410",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-6b8772ae",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-f23f1f52",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-32ab019c",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-3aaf63a2",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-e3447eeb",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-917adc47",
+      "fromId": "knowledge-rl-post-training",
+      "fromType": "knowledge",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-77d4adcf",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-40ef6c2f",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-a50c65c3",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-2e8fa07d",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-622c3691",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-7d95b542",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-c7352081",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-921cd2e1",
+      "fromId": "knowledge-distillation",
+      "fromType": "knowledge",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-0176b956",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-426106be",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-874b4f6b",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-076ce013",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-486fcce8",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-93c34a04",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d0e3c34b",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-safety-for-whom",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-88d2a170",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9341c170",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-49b32517",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-8c2ea042",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-08bae16d",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4d66ca86",
+      "fromId": "knowledge-fine-tuning",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4579075e",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-69a146f4",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-498546",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-f4411839",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-e25afd57",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-497382",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9fa236dd",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-agent-intrusion-technical-timeline",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d5c74703",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-security-incident-july-2026",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-33384bc3",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-bb5b4777",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-1c92e27a",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-blog-p-98465",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-44bb7f0b",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5608bcf3",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-46ee30bb",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9335a1b7",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-fae57d84",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-ac39e910",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-684fb2c0",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-44517dc6",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-1b7673aa",
+      "fromId": "knowledge-agent-sandboxing",
+      "fromType": "knowledge",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-ac698c7a",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-c76336f2",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b2fd2c46",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-a63a158e",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9782d994",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-674aacbe",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-65e8cee3",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-f7489744",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-56bdd5fa",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4603f06d",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-271bb77d",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-6c28ede6",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-2fc6dd2c",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b88745ed",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-a10206e6",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-15f8a15f",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5067f773",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-0",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-ce86c18e",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-8ad4d5db",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "skill-ws-2152c7f1",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-2be4e1af",
+      "fromId": "knowledge-open-weights",
+      "fromType": "knowledge",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-673e8e91",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-76bb0e1c",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b81504ba",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-0144da65",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-c50c67e1",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-1420e5bb",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d480f53a",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-8a23f7b6",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-60a6cff7",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-0fddfb8b",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b0bb7331",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-e9a566a1",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b908b94d",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5b9a59a8",
+      "fromId": "knowledge-execution-based-eval",
+      "fromType": "knowledge",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-5429adc6",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-632cc1ab",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-fabb695a",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b39d10c9",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9ad860d3",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-85741602",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-bf35b727",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9b812b11",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-8ba0934c",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-1abc9c4a",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-0f99deef",
+      "fromId": "knowledge-reproducibility",
+      "fromType": "knowledge",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "explains"
     }
   ]
 }
