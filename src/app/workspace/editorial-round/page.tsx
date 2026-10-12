@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import {
+  AiDraftAction,
   CandidateRoundActions,
   DigestRoundActions,
   DraftPublishAction,
@@ -68,6 +69,7 @@ function CandidateRow({
         ) : null}
       </div>
       <div className="editorial-round-row__actions">
+        <AiDraftAction candidateId={candidate.id} blind={blind} />
         <CandidateRoundActions candidateId={candidate.id} blind={blind} />
         <Link
           className="action-link"
@@ -262,6 +264,15 @@ export default async function EditorialRoundPage({
                         : ""}
                       {draft.topIssue ? ` · ${draft.topIssue}` : ""}
                     </span>
+                    {draft.aiDraft ? (
+                      <span className="editorial-round-row__meta">
+                        AI 起草 · {draft.aiDraft.modelName}
+                        {draft.aiDraft.readSource
+                          ? " · 已读原文"
+                          : " · 原文取不到，只用了候选自带内容"}
+                        ，发布前逐项核对
+                      </span>
+                    ) : null}
                   </div>
                   <div className="editorial-round-row__actions">
                     <Link

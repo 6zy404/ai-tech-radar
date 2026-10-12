@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { DetailInfoCard } from "@/components/detail-info-card";
 import { ImportedCandidateReviewActions } from "@/components/imported-candidate-review-actions";
@@ -32,6 +33,8 @@ interface ImportedCandidateDetailContentProps {
   source?: ExternalSource;
   ranking: TechnologyPriorityRanking;
   workflowEvents: WorkflowEvent[];
+  /** Rendered beside the review actions (the page passes 「AI 起草」). */
+  extraActions?: ReactNode;
 }
 
 export function ImportedCandidateDetailContent({
@@ -39,7 +42,8 @@ export function ImportedCandidateDetailContent({
   duplicateComparisons,
   source,
   ranking,
-  workflowEvents
+  workflowEvents,
+  extraActions
 }: ImportedCandidateDetailContentProps) {
   const conversionReadiness = getCandidateDraftConversionReadiness(
     candidate.id
@@ -85,6 +89,7 @@ export function ImportedCandidateDetailContent({
           canConvert={conversionReadiness.canConvert}
           conversionBlockedMessage={conversionReadiness.message}
         />
+        {extraActions}
       </section>
 
       <div className="candidate-review-layout">

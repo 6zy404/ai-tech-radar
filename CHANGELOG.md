@@ -12,6 +12,58 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 「AI 起草」: a candidate becomes a written draft in one click
+
+- **2026-10-13.** Every undecided candidate on `/workspace/editorial-round`,
+  and the candidate detail page, has an 「AI 起草」 button. The server reads
+  the primary source (the page, through the same extraction as triage, up to
+  12,000 characters; a `github.com/…/releases/tag/…` URL through the REST
+  API, which returns the notes as Markdown), asks the model for the Chinese
+  draft, validates it, and only then converts the candidate — with the
+  generated fields in the same store write. Title, summary, body,
+  为什么重要 / 谁该关注 / 技术背景 / 影响领域 / 学习路径 / 后续问题, type,
+  publisher, 2–4 topic ids, and 1–4 knowledge and skill items each with a
+  relation type and note (written to the relation overlay, so the
+  「关联没写类型」 warning does not fire). The original-language fields stay
+  as imported. The draft stays `draft`; publishing is unchanged.
+- **Failure leaves nothing behind.** Invalid JSON, an internal-only term, or
+  a missing title / summary / body returns one readable sentence and records
+  a `candidate.ai_draft_failed` event; no draft, no status change. Ids the
+  model invents (topics, knowledge, skills) are dropped with a warning. The
+  body is rewritten into what `ContentBody` renders: tables, fenced code and
+  blockquotes — the constructs the playbook recorded reaching readers
+  verbatim — are removed, bold wrapped around inline code is flattened, and
+  quotes around Chinese become 「」. A source that cannot be read falls back
+  to the candidate's own fields, and the draft says so.
+- **What the draft records, workspace-only:** `aiDraft` on the record (model,
+  prompt version `candidate-draft-v1` — a code constant, like
+  `TRIAGE_PROMPT_VERSION` —, where the source text came from, tokens,
+  latency, validation notes), one editorial note summarising it, a
+  `candidate.ai_drafted` event, and an 「AI 起草 · 模型 · 已读原文」 line on the
+  console's draft rows. `toUserFacingTechnologyItem` picks fields by name, so
+  none of it reaches a public page; a test pins that.
+- **Trial, 2026-10-13, deepseek-chat, on the worktree's data copy:** 9 real
+  candidates (量子位 ×3, InfoQ ×2, Hugging Face ×2, two GitHub releases). All
+  9 drafted with 0 blocking issues; 8 of 9 were left with exactly one gate
+  warning, 「尚未生成富化建议」, the ninth also had no skill explanations. Per
+  draft: 4.5k–8.1k prompt + 1.6k–2.6k completion tokens (mean 6.4k + 2.1k),
+  10.4–13.0 seconds. The publisher was the organisation every time (Google
+  for a 量子位 report, OpenAI for the manuscripts, Model Context Protocol for
+  the release), and the model's limitations named what the source lacked.
+  One mistyped knowledge id was caught and dropped. Weak spots: one title ran
+  to 49 characters, and some tags were loose (开放权重 on an MCP release).
+- The first trial run showed two prompt gaps — learning-path steps written as
+  bare 《titles》, and no space between Chinese and Latin (「OpenAI放出」) —
+  fixed before the second run. Also fixed after looking at the console: the
+  「正在读原文并起草」 line was set inside an async transition, which React
+  holds until the action ends, so it never showed.
+- Files: `src/lib/candidate-llm-draft.ts` (prompt and validator, pure),
+  `src/lib/candidate-llm-draft-workflow.ts`, `src/lib/source-page-fetch.ts`,
+  `POST /api/workspace/candidates/[id]/ai-draft` (behind the workspace guard,
+  absent from `build:public`), `AiDraftAction` in
+  `editorial-round-actions.tsx`; `convertImportedCandidateToDraft` takes
+  `draftFields`. 15 tests, mock provider, fetch injected.
+
 ## Six skills for the four topics that had none
 
 - **2026-10-12.** After the topic split, 编码智能体 (11 signals), AI 与科研

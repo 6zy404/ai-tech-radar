@@ -145,6 +145,82 @@ export function CandidateRoundActions({
   );
 }
 
+interface AiDraftActionProps {
+  candidateId: string;
+  /** Suggestions are hidden: record the conversion as blind. */
+  blind?: boolean;
+  /**
+   * `refresh` (the console): reload, the candidate moves to 待发布草稿 and
+   * the editor can start another one meanwhile. `open` (the candidate
+   * page): go straight to the written draft.
+   */
+  afterSuccess?: "refresh" | "open";
+  /** The console already has an accent button per row (转为草稿). */
+  accent?: boolean;
+}
+
+/**
+ * 「AI 起草」: the server reads the source, the model writes the Chinese
+ * draft, and the candidate is converted with it — or, on any failure,
+ * nothing changes and the reason shows here.
+ */
+export function AiDraftAction({
+  candidateId,
+  blind = false,
+  afterSuccess = "refresh",
+  accent = false
+}: AiDraftActionProps) {
+  const router = useRouter();
+  const [message, setMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
+
+  function draft() {
+    // Outside the transition: an update made inside an async transition is
+    // held until the action finishes, so the editor would never see it.
+    setMessage("正在读原文并起草，通常十几秒，最长两分钟……");
+    startTransition(async () => {
+      try {
+        const { response, result } = await postJson(
+          `/api/workspace/candidates/${candidateId}/ai-draft`,
+          blind ? { blind: true } : {}
+        );
+
+        if (!response.ok || !result.ok || !result.draftId) {
+          throw new Error(result.message ?? "AI 起草失败。");
+        }
+
+        if (afterSuccess === "open") {
+          router.push(`/workspace/technologies/${result.draftId}`);
+          return;
+        }
+
+        setMessage("");
+        router.refresh();
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "AI 起草失败。");
+      }
+    });
+  }
+
+  return (
+    <div className="editorial-round-actions">
+      <button
+        type="button"
+        className={`action-button${accent ? " action-button--accent" : ""}`}
+        onClick={draft}
+        disabled={isPending}
+      >
+        {isPending ? "起草中…" : "AI 起草"}
+      </button>
+      {message ? (
+        <p className="editorial-round-actions__message" role="status">
+          {message}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 interface DraftPublishActionProps {
   draftId: string;
 }

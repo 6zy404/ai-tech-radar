@@ -164,6 +164,13 @@ affected.
     group first (`groupCandidatesBySource`), so a round sees which feed is
     filling the pool; row content, order and actions within a group are
     unchanged (2026-09-29)
+  - each candidate row opens with 「AI 起草」 (`AiDraftAction`, 2026-10-13):
+    the model writes the draft from the source and the candidate moves to
+    草稿待发布, whose rows then carry an 「AI 起草 · 模型 · 已读原文」 line;
+    a failure shows its reason under the button and changes nothing. The
+    candidate detail page shows the same button under its review actions
+    (when the candidate can still be converted) and opens the draft on
+    success
   - pure read state (`getEditorialRoundState` in `src/lib/editorial-round.ts`),
     no new persisted data; the inline actions reuse the existing
     candidate/technology/digest API routes (no editor duplicated), so 写内容 /

@@ -72,6 +72,8 @@ export type WorkflowEventAction =
   | "candidate.status_updated"
   | "candidate.converted_to_draft"
   | "candidate.convert_failed"
+  | "candidate.ai_drafted"
+  | "candidate.ai_draft_failed"
   | "duplicate_group.updated"
   | "duplicate_group.resolved"
   | "draft.updated"
@@ -724,12 +726,38 @@ export interface DuplicateGroup {
   updatedAt: string;
 }
 
+/**
+ * How a draft was written by 「AI 起草」 (candidate-llm-draft-workflow.ts).
+ * Workspace-only: `toUserFacingTechnologyItem` picks public fields by name,
+ * so none of this reaches a public page or feed.
+ */
+export interface TechnologyAiDraftMetadata {
+  generationMode: "mock_llm" | "llm_assisted";
+  providerName: string;
+  modelName: string;
+  promptVersion: string;
+  generatedAt: string;
+  /** Where the model read the source: the page, the GitHub release API, or
+   *  only the candidate's own fields because the fetch failed. */
+  sourceTextOrigin: "page" | "github_release" | "candidate_fallback";
+  sourceFetchError?: string;
+  tokenUsage?: {
+    promptTokens?: number;
+    completionTokens?: number;
+    totalTokens?: number;
+  };
+  latencyMs: number;
+  /** Validation notes: ids dropped, fields cut, markup rewritten. */
+  warnings: string[];
+}
+
 export interface TechnologyWorkspaceRecord extends TechnologyItem {
   sourceCandidateId?: string;
   sourceReferences?: CandidateSourceReference[];
   createdAt: string;
   updatedAt: string;
   editorialNotes: string[];
+  aiDraft?: TechnologyAiDraftMetadata;
 }
 
 export type TechnologyDraft = TechnologyWorkspaceRecord;
