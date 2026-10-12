@@ -1,15 +1,38 @@
 import { describe, expect, it } from "vitest";
 
-import { evaluateTechnologyPublishReadiness } from "@/lib/publish-readiness";
+import {
+  countUntypedRelations,
+  evaluateTechnologyPublishReadiness,
+  getBroadOnlyTopicTags
+} from "@/lib/publish-readiness";
 import { makeWorkspaceRecord } from "@/lib/test-factories";
+import type { LinkRelation } from "@/types/content";
 
-// Isolate from bundled data by passing empty published/workspace sets, so the
-// duplicate-slug check only sees what each test sets up explicitly.
+// Isolate from bundled data by passing empty published/workspace sets and an
+// explicit relation list, so each check only sees what a test sets up.
 function evaluate(
   record = makeWorkspaceRecord(),
-  others: ReturnType<typeof makeWorkspaceRecord>[] = []
+  others: ReturnType<typeof makeWorkspaceRecord>[] = [],
+  relations: LinkRelation[] = []
 ) {
-  return evaluateTechnologyPublishReadiness(record, others, []);
+  return evaluateTechnologyPublishReadiness(record, others, [], relations);
+}
+
+function relation(
+  fromId: string,
+  fromType: LinkRelation["fromType"],
+  toId: string,
+  toType: LinkRelation["toType"],
+  relationType: LinkRelation["relationType"] = "supports"
+): LinkRelation {
+  return {
+    id: `rel-${fromId}-${toId}`,
+    fromId,
+    fromType,
+    toId,
+    toType,
+    relationType
+  };
 }
 
 function codes(issues: { code: string }[]): string[] {
@@ -260,6 +283,130 @@ describe("evaluateTechnologyPublishReadiness", () => {
       expect(codes(evaluate().warnings)).not.toContain(
         "nested-inline-markers-in-body"
       );
+    });
+  });
+
+  // 203 of 1124 graph edges were the fallback 关联 on 2026-10-12, 96 of them
+  // because no type was ever chosen: the editor does not store a pair left on
+  // its default, so nothing on the workspace page said so.
+  describe("related items without a relation type", () => {
+    const record = makeWorkspaceRecord({
+      id: "tech-a",
+      relatedTechnologyIds: ["tech-b", "tech-c"],
+      relatedSkillIds: ["skill-1"],
+      relatedKnowledgeIds: ["knowledge-1"]
+    });
+
+    it("counts every pair with no relation entry, per kind", () => {
+      expect(countUntypedRelations(record, [])).toEqual({
+        technology: 2,
+        skill: 1,
+        knowledge: 1
+      });
+
+      const result = evaluate(record);
+      const warning = result.warnings.find(
+        (item) => item.code === "untyped-relations"
+      );
+
+      expect(warning?.message).toContain("4 条");
+      expect(warning?.message).toContain("相关技术 2");
+      expect(result.isReady).toBe(true);
+    });
+
+    it("accepts a relation stored from either side", () => {
+      const relations = [
+        relation("tech-a", "technology", "tech-b", "technology"),
+        relation("tech-c", "technology", "tech-a", "technology", "extends"),
+        relation(
+          "knowledge-1",
+          "knowledge",
+          "tech-a",
+          "technology",
+          "explains"
+        ),
+        relation("tech-a", "technology", "skill-1", "skill", "uses")
+      ];
+
+      expect(countUntypedRelations(record, relations)).toEqual({});
+      expect(codes(evaluate(record, [], relations).warnings)).not.toContain(
+        "untyped-relations"
+      );
+    });
+
+    it("does not count a pair whose stored type is 关联 on purpose", () => {
+      const relations = [
+        relation("tech-a", "technology", "tech-b", "technology", "related-to")
+      ];
+
+      expect(countUntypedRelations(record, relations).technology).toBe(1);
+    });
+
+    it("matches the kind as well as the id", () => {
+      // A skill relation does not type a technology that happens to share
+      // its id.
+      const relations = [relation("tech-a", "technology", "tech-b", "skill")];
+
+      expect(countUntypedRelations(record, relations).technology).toBe(2);
+    });
+
+    it("ignores a self-reference and duplicate ids", () => {
+      const selfish = makeWorkspaceRecord({
+        id: "tech-a",
+        relatedTechnologyIds: ["tech-a", "tech-b", "tech-b"],
+        relatedSkillIds: [],
+        relatedKnowledgeIds: []
+      });
+
+      expect(countUntypedRelations(selfish, [])).toEqual({ technology: 1 });
+    });
+  });
+
+  // On 2026-10-12 AI 智能体 sat on 57% of the published signals and 前沿模型
+  // on 46%; nine narrower topics were added that day. The gate only checks
+  // that a tag id is canonical, so nothing stopped a new signal from going
+  // back to the broad ones alone.
+  describe("broad topics only", () => {
+    it("warns when every topic tag is one of the three broad ones", () => {
+      const record = makeWorkspaceRecord({
+        tags: ["tag-ai-agents", "tag-frontier-models"]
+      });
+      const warning = evaluate(record).warnings.find(
+        (item) => item.code === "broad-topics-only"
+      );
+
+      expect(warning?.message).toContain("AI 智能体、前沿模型");
+      expect(warning?.message).toContain("编码智能体");
+      expect(warning?.message).toContain("开放权重模型");
+    });
+
+    it("names each narrower topic once", () => {
+      const record = makeWorkspaceRecord({
+        tags: ["tag-frontier-models", "tag-inference"]
+      });
+      const message =
+        evaluate(record).warnings.find(
+          (item) => item.code === "broad-topics-only"
+        )?.message ?? "";
+
+      expect(message.split("价格与成本")).toHaveLength(2);
+    });
+
+    it("stays quiet once a narrower or another specific topic is there", () => {
+      expect(
+        getBroadOnlyTopicTags(["tag-ai-agents", "tag-coding-agents"])
+      ).toEqual([]);
+      expect(getBroadOnlyTopicTags(["tag-inference", "tag-retrieval"])).toEqual(
+        []
+      );
+    });
+
+    it("ignores ids that are not topic tags", () => {
+      expect(getBroadOnlyTopicTags(["ai", "tooling"])).toEqual([]);
+      expect(getBroadOnlyTopicTags(["ai", "tag-inference"])).toEqual([
+        "tag-inference"
+      ]);
+      expect(codes(evaluate().warnings)).not.toContain("broad-topics-only");
     });
   });
 });

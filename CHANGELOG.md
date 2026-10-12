@@ -12,6 +12,28 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The publish gate names untyped relations and broad-only topics
+
+- **2026-10-12.** Two new warnings on the workspace signal page; neither
+  blocks publishing. Measured on the 107 published signals the same day:
+  - **untyped-relations** — related technologies, skills or knowledge with
+    no relation entry for the pair (seed or override, from either side,
+    matching the kind as well as the id). Every public surface shows these
+    as the fallback 关联, and the relation editor does not even store a pair
+    left on its default type, so nothing on the page said so. 19 signals,
+    97 pairs. A pair stored as 关联 on purpose is not counted
+    (`countUntypedRelations` in `src/lib/publish-readiness.ts`).
+  - **broad-topics-only** — every topic tag is one of AI 智能体 / 前沿模型 /
+    推理与部署, the three topics the 2026-10-12 retag narrowed. The message
+    lists the narrower topics worth checking for those tags
+    (`narrowerTopicsByBroadTopic`). 6 signals.
+- The third check the task named — `translationStatus` against the coverage
+  derived from the content — already existed (two warnings since August,
+  with tests), so it was left as it was.
+- `evaluateTechnologyPublishReadiness` takes the merged relation list as an
+  optional fourth argument (default `getAllLinkRelations()`), so tests pass
+  their own. 9 new tests.
+
 ## Eight knowledge items for the concepts the signals keep naming
 
 - **2026-10-12.** The 107 published signals cited the general knowledge

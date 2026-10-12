@@ -1,8 +1,15 @@
+import { topicTags } from "@/data/tags";
 import { technologyItems } from "@/data/technologies";
 import { getEditorialEnrichmentReadinessState } from "@/lib/editorial-enrichment-store";
+import {
+  getAllLinkRelations,
+  getRelationPairKey
+} from "@/lib/link-relation-workflow";
 import { getTechnologyTranslationCoverage } from "@/lib/technology-localization";
 import type {
+  ContentKind,
   ImportanceLevel,
+  LinkRelation,
   PublisherType,
   SourceLanguage,
   TechnologyItem,
@@ -64,6 +71,97 @@ const technologyStatuses: TechnologyStatus[] = [
   "published",
   "archived"
 ];
+
+/* The three broad topics, each with the narrower topics added on 2026-10-12
+   that took most of its signals. Before that day 智能体 sat on 57% of the
+   published signals and 前沿模型 on 46%, so their topic pages narrowed
+   nothing; the publish gate checks only that a tag id is canonical, so a new
+   signal tagged with the broad ones alone would start the drift again. */
+export const narrowerTopicsByBroadTopic: Record<string, string[]> = {
+  "tag-ai-agents": [
+    "tag-agent-infra",
+    "tag-coding-agents",
+    "tag-ai-safety",
+    "tag-benchmarks"
+  ],
+  "tag-frontier-models": [
+    "tag-open-weights",
+    "tag-model-pricing",
+    "tag-benchmarks",
+    "tag-training",
+    "tag-ai-for-science"
+  ],
+  "tag-inference": [
+    "tag-efficient-inference",
+    "tag-model-pricing",
+    "tag-open-weights"
+  ]
+};
+
+const topicTagNames = new Map(topicTags.map((tag) => [tag.id, tag.name]));
+
+/**
+ * The record's topic tags when every one of them is a broad topic, else
+ * an empty list. Ids that are not topic tags are ignored.
+ */
+export function getBroadOnlyTopicTags(tags: string[]): string[] {
+  const topics = tags.filter((tag) => topicTagNames.has(tag));
+
+  return topics.length > 0 &&
+    topics.every((tag) => tag in narrowerTopicsByBroadTopic)
+    ? topics
+    : [];
+}
+
+const relationKindLabels: Record<ContentKind, string> = {
+  technology: "相关技术",
+  skill: "相关技能",
+  knowledge: "相关知识"
+};
+
+/**
+ * Related items with no relation entry for the pair, counted per kind. They
+ * reach every public surface as the fallback 关联 — the relation editor does
+ * not even store a pair left on its default type.
+ */
+export function countUntypedRelations(
+  record: Pick<
+    TechnologyWorkspaceRecord,
+    "id" | "relatedTechnologyIds" | "relatedSkillIds" | "relatedKnowledgeIds"
+  >,
+  relations: LinkRelation[]
+): Partial<Record<ContentKind, number>> {
+  const typedPairs = new Set(
+    relations.map((relation) =>
+      getRelationPairKey(
+        relation.fromId,
+        relation.fromType,
+        relation.toId,
+        relation.toType
+      )
+    )
+  );
+  const counts: Partial<Record<ContentKind, number>> = {};
+  const lists: [ContentKind, string[]][] = [
+    ["technology", record.relatedTechnologyIds ?? []],
+    ["skill", record.relatedSkillIds],
+    ["knowledge", record.relatedKnowledgeIds]
+  ];
+
+  for (const [kind, ids] of lists) {
+    for (const id of new Set(ids)) {
+      if (id === record.id) continue;
+
+      const pairKey = getRelationPairKey(record.id, "technology", id, kind);
+
+      if (!typedPairs.has(pairKey)) {
+        counts[kind] = (counts[kind] ?? 0) + 1;
+      }
+    }
+  }
+
+  return counts;
+}
 
 function hasText(value: string | undefined): boolean {
   return Boolean(value?.trim());
@@ -144,7 +242,8 @@ function isAllowed<T extends string>(
 export function evaluateTechnologyPublishReadiness(
   record: TechnologyWorkspaceRecord,
   workspaceRecords: TechnologyWorkspaceRecord[],
-  publishedTechnologies: TechnologyItem[] = technologyItems
+  publishedTechnologies: TechnologyItem[] = technologyItems,
+  linkRelations: LinkRelation[] = getAllLinkRelations()
 ): PublishReadinessResult {
   const blockingErrors: PublishReadinessIssue[] = [];
   const warnings: PublishReadinessIssue[] = [];
@@ -403,6 +502,49 @@ export function evaluateTechnologyPublishReadiness(
         "tags",
         "too-few-tags",
         "建议至少添加两个标签，让发布内容更易浏览。"
+      )
+    );
+  }
+
+  const broadOnly = getBroadOnlyTopicTags(record.tags);
+
+  if (broadOnly.length > 0) {
+    const narrower = [
+      ...new Set(broadOnly.flatMap((tag) => narrowerTopicsByBroadTopic[tag]))
+    ].map((tag) => topicTagNames.get(tag) ?? tag);
+
+    warnings.push(
+      issue(
+        "warning",
+        "tags",
+        "broad-topics-only",
+        `话题只用了宽话题（${broadOnly
+          .map((tag) => topicTagNames.get(tag) ?? tag)
+          .join(
+            "、"
+          )}），这些话题页已经收了太多信号。看看更细的是否适用：${narrower.join("、")}。`
+      )
+    );
+  }
+
+  const untyped = countUntypedRelations(record, linkRelations);
+  const untypedTotal = Object.values(untyped).reduce(
+    (sum, count) => sum + (count ?? 0),
+    0
+  );
+
+  if (untypedTotal > 0) {
+    const breakdown = (Object.keys(relationKindLabels) as ContentKind[])
+      .filter((kind) => untyped[kind])
+      .map((kind) => `${relationKindLabels[kind]} ${untyped[kind]}`)
+      .join("、");
+
+    warnings.push(
+      issue(
+        "warning",
+        "relations",
+        "untyped-relations",
+        `有 ${untypedTotal} 条关联没选关系类型（${breakdown}），公开页会一律显示成兜底的「关联」。在关联勾选项展开的类型里选一个更具体的。`
       )
     );
   }
