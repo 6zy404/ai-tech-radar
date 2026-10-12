@@ -12,6 +12,36 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Eight knowledge items for the concepts the signals keep naming
+
+- **2026-10-12.** The 107 published signals cited the general knowledge
+  items again and again (评估闭环 40 times, 模型选型 37, 系统设计 34, 人在回路
+  33) while classic concepts their bodies name — KV 缓存, 强化学习, 蒸馏, 微调,
+  沙箱, 开放权重, SWE-bench, 可复现 — had no page, and three of the topics
+  added the same day (编码智能体, AI 与科研, 开放权重模型) had no knowledge at
+  all. `scripts/add-knowledge-items.ts` adds eight, published, with fixed ids:
+  KV 缓存与长上下文推理 (12 signals), 强化学习后训练与可验证奖励 (12), 知识蒸馏
+  (6), 监督微调与参数高效微调（LoRA） (11), 智能体沙箱与执行隔离 (15), 开放权重与
+  模型许可 (17), 基于执行的代码评测 (11), 可复现性与可验证结果 (9). Each list was
+  read off a scan of the bodies and chosen by hand, not matched at run time;
+  the existing MoE, 量化, 推测解码, 合成数据, 红队 and 智能体记忆 items were
+  checked first and not duplicated. Bodies use the ContentBody subset (`##`
+  sections, bold, inline code, lists) and every record clears the workspace
+  publish gate with no warning.
+- **Both sides of each link are written**, so the new items appear in the
+  signal page's 相关知识 as well as on the knowledge page and the graph: 57
+  signals gain 93 ids in `relatedKnowledgeIds`, written in place with
+  `updatedAt` left alone (the workflow update would re-sort same-day
+  signals, as `retag-signals.ts` notes), and 113 `explains` (释义)
+  overrides without a note are added, 93 to signals and 20 to skills, so none
+  of the new edges falls back to 关联.
+- Dry run by default, `--apply` to write; run on a copy of the data, the
+  apply changed only `relatedKnowledgeIds` on the signals and kept their
+  order, and a second run reported nothing to do. Tests cover the plan
+  (published-only signals, skipped unknown skills, kept existing overrides,
+  slug collisions, idempotence) and the content (publish gate, body subset,
+  an alias entry for every item).
+
 ## A signal body links the knowledge it mentions
 
 - **2026-10-12.** The 信号正文 section on `/technologies/[slug]` now links
