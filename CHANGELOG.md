@@ -23,8 +23,12 @@ For per-topic deep dives, see the `docs/` directory.
   端侧模型部署与硬件适配 — skills cannot link to skills), 验证量化与推测解码的实际
   提速. Skills 16 → 22.
 - Links, all chosen by hand: 54 skill → signal pairs (47 signals) typed
-  印证 45 / 借助 9, and 22 skill → knowledge pairs typed 必备 from the
-  skill, so the knowledge lands in the skill page's 先读这些. None is 关联.
+  印证 45 / 借助 9, and 22 skill → knowledge pairs: 17 必备 from the skill,
+  so the knowledge lands in the skill page's 先读这些, and 5 释义. At most
+  three 必备 per skill, because 先读这些 also follows each item's own
+  prerequisites: with all five 必备, 自托管's list ran to seven entries and
+  wandered through 本地与云混合推理 into 工具使用; the existing skills list
+  0–3, and the new ones now list 2–3. None is 关联.
   The knowledge side gets the id too (16 items): the knowledge page lists
   its skills from its own `relatedSkillIds` only.
 - `scripts/add-skill-items.ts` holds the content and the table; dry run by
@@ -32,7 +36,7 @@ For per-topic deep dives, see the `docs/` directory.
   place without touching `updatedAt`. On a copy of the data the apply
   changed only `relatedSkillIds` on those records, every new record cleared
   the skill publish gate with no warning, and a second run printed
-  没有需要写的内容. 11 tests.
+  没有需要写的内容. 12 tests.
 
 ## Every fallback 关联 read and typed
 

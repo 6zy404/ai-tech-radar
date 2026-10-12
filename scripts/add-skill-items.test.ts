@@ -27,7 +27,12 @@ const item: NewSkillItem = {
     { slug: "sig-draft", relation: "supports" },
     { slug: "sig-gone", relation: "supports" }
   ],
-  knowledgeIds: ["k-a", "k-draft", "k-gone"]
+  knowledge: [
+    { id: "k-a", relation: "requires" },
+    { id: "k-other", relation: "explains" },
+    { id: "k-draft", relation: "requires" },
+    { id: "k-gone", relation: "requires" }
+  ]
 };
 
 function input(overrides: Partial<AdditionInput> = {}): AdditionInput {
@@ -75,13 +80,13 @@ describe("planSkillAddition", () => {
       createdAt: "NOW",
       updatedAt: "NOW",
       relatedTechnologyIds: ["a", "b"],
-      relatedKnowledgeIds: ["k-a"]
+      relatedKnowledgeIds: ["k-a", "k-other"]
     });
     expect(record).not.toHaveProperty("signals");
-    expect(record).not.toHaveProperty("knowledgeIds");
+    expect(record).not.toHaveProperty("knowledge");
     expect(plan.reports[0]).toMatchObject({
       signalCount: 2,
-      knowledgeCount: 1,
+      knowledgeCount: 2,
       missingSignals: ["sig-draft", "sig-gone"],
       missingKnowledge: ["k-draft", "k-gone"]
     });
@@ -105,11 +110,11 @@ describe("planSkillAddition", () => {
       relatedSkillIds: ["skill-test"]
     });
     expect(plan.knowledge[1]).toBe(before.knowledge[1]);
-    expect(plan.knowledge[2]).toBe(before.knowledge[2]);
-    expect(plan.knowledgeChanges).toBe(1);
+    expect(plan.knowledge[2].relatedSkillIds).toEqual(["skill-test"]);
+    expect(plan.knowledgeChanges).toBe(2);
   });
 
-  it("types every new pair: the planned relation to signals, requires to knowledge", () => {
+  it("types every new pair with its planned relation", () => {
     const plan = planSkillAddition(input(), [item], "NOW", nextId);
 
     expect(
@@ -121,7 +126,8 @@ describe("planSkillAddition", () => {
     ).toEqual([
       ["a", "technology", "supports"],
       ["b", "technology", "uses"],
-      ["k-a", "knowledge", "requires"]
+      ["k-a", "knowledge", "requires"],
+      ["k-other", "knowledge", "explains"]
     ]);
     for (const relation of plan.newRelations) {
       expect(relation).toMatchObject({
@@ -153,7 +159,7 @@ describe("planSkillAddition", () => {
     );
 
     expect(plan.keptRelations).toBe(1);
-    expect(plan.newRelations).toHaveLength(2);
+    expect(plan.newRelations).toHaveLength(3);
     expect(plan.relations[0].relationType).toBe("extends");
   });
 
@@ -202,6 +208,16 @@ describe("planSkillAddition", () => {
 });
 
 describe("newSkillItems", () => {
+  it("keeps 先读这些 short: one to three 必备 per skill", () => {
+    for (const entry of newSkillItems) {
+      const required = entry.knowledge.filter(
+        (link) => link.relation === "requires"
+      );
+      expect(required.length, entry.id).toBeGreaterThanOrEqual(1);
+      expect(required.length, entry.id).toBeLessThanOrEqual(3);
+    }
+  });
+
   const knownTags = new Set(topicTags.map((tag) => tag.id));
   const seedSlugs = skillItems.map((seed) => seed.slug);
 
@@ -248,9 +264,8 @@ describe("newSkillItems", () => {
     for (const entry of newSkillItems) {
       const slugs = entry.signals.map((signal) => signal.slug);
       expect(new Set(slugs).size, entry.id).toBe(slugs.length);
-      expect(new Set(entry.knowledgeIds).size, entry.id).toBe(
-        entry.knowledgeIds.length
-      );
+      const knowledgeIds = entry.knowledge.map((link) => link.id);
+      expect(new Set(knowledgeIds).size, entry.id).toBe(knowledgeIds.length);
       expect(entry.signals.length, entry.id).toBeGreaterThanOrEqual(5);
     }
   });

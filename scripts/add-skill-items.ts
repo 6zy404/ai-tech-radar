@@ -24,7 +24,11 @@
 //   signal is 印证 (`supports`, the signal is an instance of the practice) or
 //   借助 (`uses`, the skill uses the signal's tool); skill → knowledge is 必备
 //   (`requires`, from the skill, so the knowledge is read first and lands in
-//   the skill page's 先读这些). None falls back to 关联.
+//   the skill page's 先读这些) for at most three core items per skill, and
+//   释义 (`explains`) for the rest. 先读这些 also follows each item's own
+//   prerequisites, so five 必备 on 自托管 made a seven-entry list that wandered
+//   into 工具使用 via 本地与云混合推理; the existing skills list 0–3. None
+//   falls back to 关联.
 //
 // A second run changes nothing: an existing record is left as it is, a link
 // already present is skipped, a pair that already has an override keeps it.
@@ -44,6 +48,7 @@ import { tryRecordWorkflowEvent } from "../src/lib/workflow-events";
 import type { LinkRelation, SkillItem } from "../src/types/content";
 
 export type SignalRelation = "supports" | "uses";
+export type KnowledgeRelation = "requires" | "explains";
 
 export interface NewSkillItem extends Omit<
   SkillItem,
@@ -51,8 +56,11 @@ export interface NewSkillItem extends Omit<
 > {
   /** Published signals, by slug, each with the relation it gets. */
   signals: { slug: string; relation: SignalRelation }[];
-  /** Knowledge the skill requires, read first. */
-  knowledgeIds: string[];
+  /**
+   * Knowledge, each 必备 (`requires`, read first, shown in 先读这些) or
+   * 释义 (`explains`, background that is not a step before the skill).
+   */
+  knowledge: { id: string; relation: KnowledgeRelation }[];
 }
 
 const supports = (slug: string) => ({
@@ -60,6 +68,8 @@ const supports = (slug: string) => ({
   relation: "supports" as const
 });
 const uses = (slug: string) => ({ slug, relation: "uses" as const });
+const requires = (id: string) => ({ id, relation: "requires" as const });
+const explains = (id: string) => ({ id, relation: "explains" as const });
 
 export const newSkillItems: NewSkillItem[] = [
   {
@@ -114,11 +124,11 @@ export const newSkillItems: NewSkillItem[] = [
       supports("thinkingbox-agent-end-state"),
       supports("agent-token-spend-runaway")
     ],
-    knowledgeIds: [
-      "knowledge-ws-e251051e",
-      "knowledge-execution-based-eval",
-      "knowledge-agent-sandboxing",
-      "knowledge-human-loop"
+    knowledge: [
+      requires("knowledge-ws-e251051e"),
+      requires("knowledge-execution-based-eval"),
+      requires("knowledge-agent-sandboxing"),
+      explains("knowledge-human-loop")
     ]
   },
   {
@@ -161,10 +171,10 @@ export const newSkillItems: NewSkillItem[] = [
       supports("copilot-runtime-rust-port"),
       supports("doordash-feature-flag-cleanup-agents")
     ],
-    knowledgeIds: [
-      "knowledge-human-loop",
-      "knowledge-ws-e251051e",
-      "knowledge-system-design"
+    knowledge: [
+      requires("knowledge-human-loop"),
+      requires("knowledge-ws-e251051e"),
+      requires("knowledge-system-design")
     ]
   },
   {
@@ -208,7 +218,10 @@ Gowers 的观察可以当一条经验：近期轰动的模型数学成果几乎�
       supports("alphagenome-atlas-precomputed-variants"),
       supports("amie-real-time-video-consultation")
     ],
-    knowledgeIds: ["knowledge-reproducibility", "knowledge-evaluation-loops"]
+    knowledge: [
+      requires("knowledge-reproducibility"),
+      requires("knowledge-evaluation-loops")
+    ]
   },
   {
     id: "skill-paper-reproduction",
@@ -253,10 +266,10 @@ Gowers 的观察可以当一条经验：近期轰动的模型数学成果几乎�
       uses("aisi-evaleval-reproducible-evaluations"),
       supports("openai-research-acceleration-agents")
     ],
-    knowledgeIds: [
-      "knowledge-reproducibility",
-      "knowledge-execution-based-eval",
-      "knowledge-agent-sandboxing"
+    knowledge: [
+      requires("knowledge-reproducibility"),
+      requires("knowledge-execution-based-eval"),
+      requires("knowledge-agent-sandboxing")
     ]
   },
   {
@@ -312,12 +325,12 @@ Gowers 的观察可以当一条经验：近期轰动的模型数学成果几乎�
       supports("bigbang-v1-self-evolving-data"),
       supports("lfm2-5-encoders")
     ],
-    knowledgeIds: [
-      "knowledge-open-weights",
-      "knowledge-ws-34da6116",
-      "knowledge-model-sizing",
-      "knowledge-ws-c761533e",
-      "knowledge-distillation"
+    knowledge: [
+      requires("knowledge-open-weights"),
+      requires("knowledge-ws-34da6116"),
+      requires("knowledge-model-sizing"),
+      explains("knowledge-ws-c761533e"),
+      explains("knowledge-distillation")
     ]
   },
   {
@@ -372,12 +385,12 @@ SGLang、vLLM、Ollama 的新版本常带来新的量化或推测解码路径。
       supports("colibri-weights-jit-tiered-inference"),
       supports("chunked-kv-cache-phase-sensitivity")
     ],
-    knowledgeIds: [
-      "knowledge-ws-34da6116",
-      "knowledge-ws-68963f7f",
-      "knowledge-kv-cache",
-      "knowledge-latency-tradeoffs",
-      "knowledge-ws-36346103"
+    knowledge: [
+      requires("knowledge-ws-34da6116"),
+      requires("knowledge-ws-68963f7f"),
+      requires("knowledge-kv-cache"),
+      explains("knowledge-latency-tradeoffs"),
+      explains("knowledge-ws-36346103")
     ]
   }
 ];
@@ -547,25 +560,21 @@ export function planSkillAddition(
     const missingSignals = item.signals
       .map((entry) => entry.slug)
       .filter((slug) => !publishedBySlug.has(slug));
-    const knowledge = item.knowledgeIds.flatMap((id) => {
-      const record = publishedKnowledge.get(id);
-      return record ? [record] : [];
+    const knowledge = item.knowledge.flatMap((entry) => {
+      const record = publishedKnowledge.get(entry.id);
+      return record ? [{ record, relation: entry.relation }] : [];
     });
-    const missingKnowledge = item.knowledgeIds.filter(
-      (id) => !publishedKnowledge.has(id)
-    );
+    const missingKnowledge = item.knowledge
+      .map((entry) => entry.id)
+      .filter((id) => !publishedKnowledge.has(id));
 
     const added = !existingIds.has(item.id);
     if (added) {
-      const {
-        signals: _signals,
-        knowledgeIds: _knowledgeIds,
-        ...fields
-      } = item;
+      const { signals: _signals, knowledge: _knowledge, ...fields } = item;
       addedRecords.push({
         ...fields,
         relatedTechnologyIds: signals.map(({ signal }) => signal.id),
-        relatedKnowledgeIds: knowledge.map((record) => record.id),
+        relatedKnowledgeIds: knowledge.map(({ record }) => record.id),
         status: "published",
         createdAt: now,
         updatedAt: now
@@ -578,9 +587,9 @@ export function planSkillAddition(
       queue(signalAdditions, signal, item.id);
       addRelation(item, signal.id, "technology", relation);
     }
-    for (const record of knowledge) {
+    for (const { record, relation } of knowledge) {
       queue(knowledgeAdditions, record, item.id);
-      addRelation(item, record.id, "knowledge", "requires");
+      addRelation(item, record.id, "knowledge", relation);
     }
 
     reports.push({
@@ -689,7 +698,7 @@ function main() {
     `知识：${plan.knowledgeChanges} 条的 relatedSkillIds 追加 ${plan.knowledgeLinks} 个 id（不改 updatedAt）`
   );
   console.log(
-    `关系：新增 ${plan.newRelations.length} 条覆盖（技能→信号 印证 ${byType("supports")}、借助 ${byType("uses")}；技能→知识 必备 ${byType("requires")}）` +
+    `关系：新增 ${plan.newRelations.length} 条覆盖（技能→信号 印证 ${byType("supports")}、借助 ${byType("uses")}；技能→知识 必备 ${byType("requires")}、释义 ${byType("explains")}）` +
       (plan.keptRelations ? `，${plan.keptRelations} 对已有覆盖保持不变` : "")
   );
 
