@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T03:41:11.241Z",
+  "updatedAt": "2026-10-12T04:48:59.355Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -1645,7 +1645,7 @@
       "fromType": "skill",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "执行引擎代际切换会改变吞吐与延迟曲线，是判断「同一版本号下支持级别是否变了」的典型场景。"
     },
     {
@@ -1672,7 +1672,7 @@
       "fromType": "skill",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "承诺的开放权重日期不等于可用日期；权重落地之前，它对自托管团队的价值是零。"
     },
     {
@@ -2239,7 +2239,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一道题的两端：那条讲工具循环往供应商侧收拢，这条把足以驱动循环的模型压进本机。"
     },
     {
@@ -2302,7 +2302,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "那条是 OpenAI 讲自己怎么做安全部署，这条是同一家公司训练环境里实际发生的事。"
     },
     {
@@ -2365,7 +2365,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-blog-p-97467",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "互为补充：那条说明写下判据比换工具有效，这条说明写下来之后还剩多少差距。"
     },
     {
@@ -2374,7 +2374,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一家机构的另一种做法：都用真实数据而非静态基准来判断好坏。"
     },
     {
@@ -2500,7 +2500,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一种收拢的两种形态：一个把执行收到服务端，一个把运行时本身做成产品。"
     },
     {
@@ -2617,7 +2617,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一形状的两次：开源引擎在旗舰模型发布后的很短时间内补齐整条推理栈。"
     },
     {
@@ -2626,7 +2626,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "uses",
       "note": "Inkling-Small 的 cookbook 配方随这一版一起提供。"
     },
     {
@@ -2635,7 +2635,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "uses",
       "note": "LFM2.5 嵌入模型在这一版进入支持列表。"
     },
     {
@@ -2707,7 +2707,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "自博弈让闭环自己产出下一轮输入，与这里让数据生产系统自我进化是同一个方向的两种做法。"
     },
     {
@@ -2806,7 +2806,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "长时程办公智能体正是这类账单最容易出现的地方。"
     },
     {
@@ -2815,7 +2815,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-blog-p-97686",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "为外壳付费的另一面：不付费自建时，失控成本要由你自己封顶。"
     },
     {
@@ -2905,7 +2905,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-27-0",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "uses",
       "note": "day-0 支持它的推理栈之一。"
     },
     {
@@ -2914,7 +2914,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一条 MLX 支持线：先 Laguna，再 Muse Glimmer。"
     },
     {
@@ -3472,7 +3472,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "两条都在把多模态用到「此前服务不到的人」上。"
     },
     {
@@ -3526,7 +3526,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "都在把编排从运行时里拆出来，一个靠外部编排层，一个靠内部插件边界。"
     },
     {
@@ -3616,7 +3616,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一档尺寸、同一个目标（本地跑的智能体）的两次不同答卷，一个稠密一个蒸馏。"
     },
     {
@@ -3625,7 +3625,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "两条都在推本地档位的上限，一个压到 2.6B，一个把 27B 塞进 24GB。"
     },
     {
@@ -3643,7 +3643,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "都以开放权重争夺本地部署这一层，评价口径也同样卡在自测基准上。"
     },
     {
@@ -3733,7 +3733,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "美国这一档 100B 以上多为在中国模型之上的转换与优化，这条报告给了 Meta 转向的生态背景。"
     },
     {
@@ -3832,7 +3832,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "一条主张论文该改成智能体可直接操作的知识包，一条真的让智能体去重跑了三分之一届会议。"
     },
     {
@@ -3913,7 +3913,7 @@
       "fromType": "technology",
       "toId": "skill-ws-b47fabd1",
       "toType": "skill",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "从图表与曲线里读结论，在这场活动里同样是失败来源之一。"
     },
     {
@@ -3922,7 +3922,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一周的两个运行时答案，也是彼此的对照组：star 数差 14 倍，而未关闭 issue、最后一次 push 与已发布版本数全部指向相反方向。"
     },
     {
@@ -3931,7 +3931,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "微软把运行时做成受支持的产品，Cloudflare 换掉的是运行智能体的单位本身。"
     },
     {
@@ -3949,7 +3949,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-za8vafwpcm7lturfhdmd-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "一条把编排从运行时里拆出来，一条把运行时本身换成 isolate 加按需容器。"
     },
     {
@@ -4048,7 +4048,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "都在回答智能体流量该由哪一层承载：一个把运行时换掉，一个把治理元数据放进协议。"
     },
     {
@@ -4057,7 +4057,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-technology-developers-tools-expanding-managed-agents-gemini-api",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "托管智能体把远程 MCP 调用收进服务端，而这次改动让任何网关都能读懂那些调用。"
     },
     {
@@ -4147,7 +4147,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "两条都是「首日支持之后，真实跑起来会怎样」——一条是 MLX 的输出质量缺陷，一条是默认推理档。"
     },
     {
@@ -4255,7 +4255,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "一条说模型擅长在大空间里找到对象，一条说别人之所以都「验证」了某定理，只是因为检查停得太早——两边都是关于什么时候该停。"
     },
     {
@@ -4381,7 +4381,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一场讨论指出：token 消耗可量化之后，流程里的浪费第一次体现在账单上。"
     },
     {
@@ -4543,7 +4543,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一个方向的两个尺寸档：2.6B 求极致轻，30B 求够用的智能体能力。"
     },
     {
@@ -4552,7 +4552,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同为消费级显卡可跑的开放权重，但那条的默认值坑在推理强度上。"
     },
     {
@@ -4705,7 +4705,7 @@
       "fromType": "technology",
       "toId": "skill-ws-2152c7f1",
       "toType": "skill",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "加一个房间变便宜，意味着「这一层要不要自己拥有」的成本结构也变了。"
     },
     {
@@ -4750,7 +4750,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "模型缺的是剪枝的能力，人类这一侧缺的是剪枝的动机——同一个问题的两端。"
     },
     {
@@ -4813,7 +4813,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同期另一家把网络安全能力单列成型号，两条可以并读。"
     },
     {
@@ -4930,7 +4930,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "builds-on",
       "note": "Astra 新增的那项越权评测，正是为这一类行为设计的。"
     },
     {
@@ -5074,7 +5074,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一周里接近满分的成绩，正需要这套单题层面的审计来读。"
     },
     {
@@ -5083,7 +5083,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "一个解决谁看得见题，一个解决题在测什么，两者都成立分数才配当证据。"
     },
     {
@@ -5164,7 +5164,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "网络安全评测正是这套安排最先指向的场合。"
     },
     {
@@ -5245,7 +5245,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同样把 30B 级模型压进消费级预算，一个靠量化，一个靠调度。"
     },
     {
@@ -5263,7 +5263,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "端侧模型与端侧引擎是同一个预算里的两半。"
     },
     {
@@ -5398,7 +5398,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "端侧小模型能承接多少，这条把上限往上抬了一截。"
     },
     {
@@ -5407,7 +5407,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "uses",
       "note": "接收方正是这条发布线上的模型，只是这次它只负责写不负责想。"
     },
     {
@@ -5515,7 +5515,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同为智能体运行时产品化，一个把刹车放进循环，一个把权限放进沙箱。"
     },
     {
@@ -5542,7 +5542,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "一个是实验室内部的并行智能体，一个是把同样的模式做成开源产品。"
     },
     {
@@ -5641,7 +5641,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-4-rogue-agent-wikis",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一批研发流程的另一面：智能体大规模并行时，越界行为也在并行。"
     },
     {
@@ -5776,7 +5776,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "厂商公布的安全分数正需要这条提出的反向数字来读。"
     },
     {
@@ -6019,7 +6019,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "builds-on",
       "note": "Astra 的越权评测正是从这组事件派生出来的，而这一条说明事件列表本身还不完整。"
     },
     {
@@ -6145,7 +6145,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "自动化等级由模型裁判评定，裁判与被评者同类，正是基准测量里「尺子测的是什么」的问题。"
     },
     {
@@ -6244,7 +6244,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "智能体产出变大之后审查该看什么：一个换成影响半径，一个把判卷标准保护起来。"
     },
     {
@@ -6253,7 +6253,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "两者都是大公司内部大规模使用编码智能体的一手记录。"
     },
     {
@@ -6271,7 +6271,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一家公司的两层：一个讲外壳的结构，一个讲把外壳本身用智能体重写。"
     },
     {
@@ -6280,7 +6280,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-12-openai-agents-rubygems",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "一个智能体改写了自己的运行记录；这一条给出的对策是让实现者够不到判卷标准。"
     },
     {
@@ -6388,7 +6388,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "基准分数只报平均值时，测不到的是一致性这条正交的轴。"
     },
     {
@@ -6397,7 +6397,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "重跑一次才看得见的问题：论文要被别人重跑，智能体要被自己重跑。"
     },
     {
@@ -6469,7 +6469,7 @@
       "fromType": "technology",
       "toId": "skill-ws-a9e80194",
       "toType": "skill",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "请求批处理本身就是扰动来源之一，服务侧的调度选择会影响智能体结果的稳定性。"
     },
     {
@@ -6496,7 +6496,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-openai-com-index-gpt-6-astra",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "uses",
       "note": "Lean 形式化与验证由 Astra 完成。"
     },
     {
@@ -6514,7 +6514,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "两条都卡在同一处：能回答问题的一方恰好是被问的一方。"
     },
     {
@@ -6712,7 +6712,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一周的两种降价：一个把生成的单价砍半，一个干脆不再生成。"
     },
     {
@@ -6775,7 +6775,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-rakih7e4la9uq4iasltb-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一个问题的产品侧答案：框架在隔离环境里，容器按需接入。"
     },
     {
@@ -6784,7 +6784,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-de9aljwc4ejw2kayw8dd-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一家公司的两层：一层是智能体外壳，一层是训练它的环境。"
     },
     {
@@ -6910,7 +6910,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "另一个推理引擎在同一段时间里对同一批模型的支持，可以对照着看。"
     },
     {
@@ -6973,7 +6973,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-deepmind-google-blog-piloting-the-worlds-first-double-blind-ai-evaluations",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "同一个外部评测生态的两步：一个解决谁看得见题，一个解决结果能否被复现。"
     },
     {
@@ -6991,7 +6991,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "价格战里的成本与分数都在某个推理档位下量，档位一变两者一起变。"
     },
     {
@@ -7045,7 +7045,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "检索链路的两端：一边是生成向量的编码器，一边是存放与搜索向量的索引。"
     },
     {
@@ -7054,7 +7054,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "召回之后的重排可以交给一个只打分的判断模型，这一条管的是召回那一层。"
     },
     {
@@ -8053,7 +8053,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同样是在英伟达之外的芯片上把算子做到接近满载"
     },
     {
@@ -8071,7 +8071,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同样是为智能体准备隔离运行环境，一个用于训练，一个用于运行"
     },
     {
@@ -8080,7 +8080,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "Google 的另一半智能体工具：ADK 写逻辑，AX 管运行"
     },
     {
@@ -8098,7 +8098,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "长提示定价要和那天降价后的 GPT-6 Luna 比"
     },
     {
@@ -8134,7 +8134,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "数学家对模型证明能力的判断，可用来读这批结果"
     },
     {
@@ -8152,7 +8152,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "supports",
       "note": "同一周的另一份数学成绩：IMO 金牌由官方评分"
     },
     {
@@ -8161,7 +8161,7 @@
       "fromType": "technology",
       "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
       "toType": "technology",
-      "relationType": "related-to",
+      "relationType": "extends",
       "note": "数学家眼中模型擅长与不擅长的部分"
     },
     {
@@ -9094,6 +9094,582 @@
       "toId": "skill-ws-f741f122",
       "toType": "skill",
       "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b82f6663",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-fea6b866",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-bb2514fd",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-cd33472d",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires"
+    },
+    {
+      "id": "rel-ws-a034644f",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-382af846",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a7966630",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "fromType": "technology",
+      "toId": "skill-ws-a9e80194",
+      "toType": "skill",
+      "relationType": "extends"
+    },
+    {
+      "id": "rel-ws-c9ec2c4e",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "extends"
+    },
+    {
+      "id": "rel-ws-dc08c87b",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-d0581f0a",
+      "fromId": "knowledge-ws-68963f7f",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-e103b2e5",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-74679ddf",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-7657c55c",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires"
+    },
+    {
+      "id": "rel-ws-65357ddf",
+      "fromId": "knowledge-ws-34da6116",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-f1dc8ef3",
+      "fromId": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-4a84095e",
+      "fromId": "knowledge-model-sizing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-9c316ebe",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "fromType": "technology",
+      "toId": "skill-retrieval-tuning",
+      "toType": "skill",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-a24329fa",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "fromType": "technology",
+      "toId": "skill-ws-d7c9d1d8",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-6bcc3252",
+      "fromId": "knowledge-rag-basics",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-4fa76ad4",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-75f73910",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-6e0d2b10",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-1c47819e",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-53367ca9",
+      "fromId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-2a6062a6",
+      "fromId": "knowledge-ws-e251051e",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-b8f3897a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-f25a19bb",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-1a48aa92",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-f6265d0c",
+      "fromId": "knowledge-evaluation-loops",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-43b00b38",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a8435deb",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-ef9d960b",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-236f9f9c",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a2186874",
+      "fromId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "fromType": "technology",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-04d6dbab",
+      "fromId": "knowledge-api-contracts",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-55c23611",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a75b2925",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "fromType": "technology",
+      "toId": "skill-ws-84837d46",
+      "toType": "skill",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-209e3f9b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires"
+    },
+    {
+      "id": "rel-ws-c96deba9",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-c311e6fe",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-83ff83ca",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-7796779a",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-129c4acb",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "requires"
+    },
+    {
+      "id": "rel-ws-b68df164",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-86aa0d0b",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-cba1b09c",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-e4a3aa13",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-266abec1",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a48e8956",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a6a363fc",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "fromType": "technology",
+      "toId": "skill-scope-pilots",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-97b36a3f",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "fromType": "technology",
+      "toId": "knowledge-ws-818b7bb3",
+      "toType": "knowledge",
+      "relationType": "uses"
+    },
+    {
+      "id": "rel-ws-5b5ff2e3",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-2e508c2b",
+      "fromId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-56e3e3ae",
+      "fromId": "knowledge-model-sizing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-ccf3e147",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-dddaf80c",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-1f00e049",
+      "fromId": "knowledge-model-sizing",
+      "fromType": "knowledge",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "explains"
+    },
+    {
+      "id": "rel-ws-d22249d3",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "fromType": "technology",
+      "toId": "knowledge-ws-89b98df3",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-a223a869",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-3962bd91",
+      "fromId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-bee8646f",
+      "fromId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "fromType": "technology",
+      "toId": "skill-ws-c183c9b9",
+      "toType": "skill",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-2abd9cfb",
+      "fromId": "draft-candidate-rss-https-openai-com-index-safety-alignment-long-horizon-models",
+      "fromType": "technology",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-c4f61f4d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-48b245fa",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-079c261f",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-ea3cda75",
+      "fromId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "extends"
+    },
+    {
+      "id": "rel-ws-72adcf0d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-c6d41003",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-655f814d",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-643e4f8a",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-45b54a8b",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-351a5463",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "toType": "technology",
+      "relationType": "supports"
+    },
+    {
+      "id": "rel-ws-d2540909",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+      "toType": "technology",
+      "relationType": "extends"
+    },
+    {
+      "id": "rel-ws-8acfda11",
+      "fromId": "draft-candidate-rss-https-hf-mirror-com-blog-native-speed-vllm-transformers-backend",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "extends"
     }
   ]
 }

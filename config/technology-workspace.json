@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T03:41:11.241Z",
+  "updatedAt": "2026-10-12T04:48:59.355Z",
   "records": [
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-502364",
@@ -103,7 +103,10 @@
       "editorialNotes": [
         "2026-10-11 编辑轮（盲评）：数字核对自量子位原文与 arXiv:2609.36322 摘要；发布方按论文作者设为字节跳动 Seed，不是报道它的量子位。"
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-benchmirt",
+        "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
@@ -314,7 +317,10 @@
       "editorialNotes": [
         "2026-10-08 编辑轮（盲评）：数字核对自 blog.google 发布文章（deepmind.google 链接跳转至此）与 huggingface.co/google/embeddinggemma-2 模型卡；许可标注与链接不一致，正文已提示。"
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+        "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
@@ -1163,7 +1169,10 @@
       "editorialNotes": [
         "2026-10-01 编辑轮（盲评，10-02 处置）：数字核对自 huggingface.co/blog/allenai/olmocore3；来源地址从 hf-mirror 改为 huggingface.co，与 Holo4 一致。"
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
@@ -1374,7 +1383,10 @@
       "editorialNotes": [
         "2026-10-01 编辑轮（盲评）：数字核对自 huggingface.co/blog/nvidia/kumo-tabular；来源地址从 hf-mirror 改为 huggingface.co，与 Holo4 一致。"
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+        "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
@@ -9834,7 +9846,10 @@
         "Generated from imported candidate candidate-rss-https-hf-mirror-com-blog-dharma-ai-gpu-management-pt2.",
         "Review normalized type, publisher type, and related links before publishing."
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-infoq-cn-article-tij5t0vj1yk0s7uov7se-utm-source-rss-amp-utm-medium-article",
+        "draft-candidate-rss-https-www-qbitai-com-p-497425"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-468782",
@@ -11889,7 +11904,10 @@
       "editorialNotes": [
         "2026-07-13 内容轮：从定时导入候选转正；正文基于 Hugging Face 博客（经 hf-mirror 镜像访问）编写。"
       ],
-      "relatedTechnologyIds": []
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
+        "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0"
+      ]
     },
     {
       "id": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-scale-diffusers-finetuning-nemo-automodel",
@@ -11982,6 +12000,10 @@
       "updatedAt": "2026-07-21T02:11:44.083Z",
       "editorialNotes": [
         "2026-07-21 编辑轮：从 Hugging Face Blog 候选转正；NVIDIA 与 HF 联名发布，发布方记 NVIDIA（库的所有者），来源记 Hugging Face Blog。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
+        "draft-candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3"
       ]
     }
   ]
