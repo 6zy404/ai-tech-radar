@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Mistral AI News",
+    "type": "rss",
+    "url": "https://mistral.ai/rss.xml",
+    "language": "en",
+    "publisherName": "Mistral AI",
+    "publisherType": "startup",
+    "defaultTags": ["tag-frontier-models"],
+    "defaultNormalizedType": "model",
+    "maxItems": 12
+  },
+  {
+    "name": "Microsoft Research Blog",
+    "type": "rss",
+    "url": "https://www.microsoft.com/en-us/research/feed/",
+    "language": "en",
+    "publisherName": "Microsoft Research",
+    "publisherType": "research-lab",
+    "defaultTags": ["tag-frontier-models"],
+    "defaultNormalizedType": "unknown",
+    "maxItems": 12
+  },
+  {
+    "name": "NVIDIA Technical Blog",
+    "type": "atom",
+    "url": "https://developer.nvidia.com/blog/feed/",
+    "language": "en",
+    "publisherName": "NVIDIA",
+    "publisherType": "big-tech",
+    "defaultTags": ["tag-inference"],
+    "defaultNormalizedType": "unknown",
+    "maxItems": 12
+  },
+  {
+    "name": "PyTorch Blog",
+    "type": "rss",
+    "url": "https://pytorch.org/feed/",
+    "language": "en",
+    "publisherName": "PyTorch Foundation",
+    "publisherType": "open-source-community",
+    "defaultTags": ["tag-inference"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  },
+  {
+    "name": "Ai2 Blog",
+    "type": "rss",
+    "url": "https://allenai.org/rss.xml",
+    "language": "en",
+    "publisherName": "Ai2",
+    "publisherType": "research-lab",
+    "defaultTags": ["tag-frontier-models"],
+    "defaultNormalizedType": "model",
+    "maxItems": 12
+  },
+  {
+    "name": "Apple Machine Learning Research",
+    "type": "rss",
+    "url": "https://machinelearning.apple.com/rss.xml",
+    "language": "en",
+    "publisherName": "Apple",
+    "publisherType": "big-tech",
+    "defaultTags": ["tag-on-device"],
+    "defaultNormalizedType": "unknown",
+    "maxItems": 12
+  },
+  {
+    "name": "Google Research Blog",
+    "type": "rss",
+    "url": "https://research.google/blog/rss/",
+    "language": "en",
+    "publisherName": "Google Research",
+    "publisherType": "big-tech",
+    "defaultTags": ["tag-frontier-models"],
+    "defaultNormalizedType": "unknown",
+    "maxItems": 12
+  },
+  {
+    "name": "AWS Machine Learning Blog",
+    "type": "rss",
+    "url": "https://aws.amazon.com/blogs/machine-learning/feed/",
+    "language": "en",
+    "publisherName": "Amazon Web Services",
+    "publisherType": "big-tech",
+    "defaultTags": ["tag-workflow"],
+    "defaultNormalizedType": "platform",
+    "maxItems": 12
+  },
+  {
+    "name": "Qwen Code Releases",
+    "type": "atom",
+    "url": "https://github.com/QwenLM/qwen-code/releases.atom",
+    "language": "en",
+    "publisherName": "Qwen (Alibaba)",
+    "publisherType": "big-tech",
+    "defaultTags": ["tag-ai-agents"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  },
+  {
+    "name": "Claude Code Releases",
+    "type": "atom",
+    "url": "https://github.com/anthropics/claude-code/releases.atom",
+    "language": "en",
+    "publisherName": "Anthropic",
+    "publisherType": "startup",
+    "defaultTags": ["tag-ai-agents"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  },
+  {
+    "name": "OpenAI Codex Releases",
+    "type": "atom",
+    "url": "https://github.com/openai/codex/releases.atom",
+    "language": "en",
+    "publisherName": "OpenAI",
+    "publisherType": "big-tech",
+    "defaultTags": ["tag-ai-agents"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  },
+  {
+    "name": "Transformers Releases",
+    "type": "atom",
+    "url": "https://github.com/huggingface/transformers/releases.atom",
+    "language": "en",
+    "publisherName": "Hugging Face",
+    "publisherType": "open-source-community",
+    "defaultTags": ["tag-frontier-models", "tag-inference"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  },
+  {
+    "name": "LangChain Releases",
+    "type": "atom",
+    "url": "https://github.com/langchain-ai/langchain/releases.atom",
+    "language": "en",
+    "publisherName": "LangChain",
+    "publisherType": "startup",
+    "defaultTags": ["tag-ai-agents"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  },
+  {
+    "name": "llama.cpp Releases",
+    "type": "atom",
+    "url": "https://github.com/ggml-org/llama.cpp/releases.atom",
+    "language": "en",
+    "publisherName": "ggml-org",
+    "publisherType": "open-source-community",
+    "defaultTags": ["tag-inference", "tag-on-device"],
+    "defaultNormalizedType": "tool",
+    "maxItems": 12
+  }
+]

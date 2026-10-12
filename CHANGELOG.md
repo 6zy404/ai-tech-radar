@@ -61,6 +61,39 @@ For per-topic deep dives, see the `docs/` directory.
   a retagged signal's tag panel. Each new topic's RSS feed and share card
   answer 200. The live `--apply` is left to the owner window.
 
+## Source trial: 14 candidate sources run against a copy of the live data
+
+- **2026-10-12.** Before adding sources, 14 candidates were imported into a
+  copy of the live `config/` with the project's own `runImportForSource`
+  (`useFallbackOnFailure: false`, as the scheduled import), followed by the
+  task runner's auto-reject, then read back through the quality rules and
+  `getPublicNewsItems()`. Harness and report:
+  `eval/source-trial/` (`trial-import.ts` refuses to run against the repo's or
+  the live checkout's `config/`). The live store was not written: md5 of
+  `external-sources.json`, `imported-candidates.live.json` and
+  `candidate-review-state.json` matched before and after.
+- **Recommended**: Mistral AI News, Ai2 Blog, Microsoft Research Blog and
+  Transformers releases — about 5 items a week together, 6 cards on the 7-day
+  news lane against 28 from the existing 13 sources. The site has never
+  published a Mistral signal; Mistral Large 4 came out on 10-06. **Watch**:
+  PyTorch Blog, Google Research Blog (11 of 12 summaries are only a category
+  label). **Not recommended**: NVIDIA Technical Blog (10/week, 8 lane cards,
+  mostly stack tutorials; its model releases already arrive via the Hugging
+  Face blog), AWS ML Blog (~28/week, 12 lane cards — more than 量子位),
+  Apple ML Research (paper abstracts), and the Qwen Code, Claude Code, Codex,
+  LangChain and llama.cpp release feeds (patch levels; llama.cpp's `b11559`
+  build tags and Claude Code's patch numbers are not pre-releases, so
+  auto-triage rightly leaves them public).
+- **No feed**: Anthropic, Meta AI, Qwen models, DeepSeek, Kimi, and the
+  LangChain / LlamaIndex blogs, each with the addresses tried.
+- **Importer notes, no code changed**: all 14 parsed (Mistral serves RSS as
+  `text/plain`); `api.github.com` answers 403 through the proxy (shared exit
+  IP rate-limited) but works direct, so new GitHub sources should stay
+  `atom` on `releases.atom` like the existing ones; `createExternalSource`
+  writes `maxItems: 4`, so a new source needs the same manual bump to 12.
+- Nothing is added to the live sources here; the owner decides and the
+  dispatcher window applies it.
+
 ## The two script test files are type-checked
 
 - **2026-10-12.** `scripts/proxy-env.test.mjs` and
