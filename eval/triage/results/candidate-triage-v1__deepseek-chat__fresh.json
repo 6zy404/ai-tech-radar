@@ -2,8 +2,8 @@
   "promptVersion": "candidate-triage-v1",
   "fresh": true,
   "model": "deepseek-chat",
-  "ranAt": "2026-09-28T17:00:22.328Z",
-  "testItems": 33,
+  "ranAt": "2026-10-12T01:40:26.129Z",
+  "testItems": 254,
   "sampled": false,
   "fewShotIds": [
     "candidate-rss-https-simonwillison-net-2026-aug-7-openai-timeline-atom-entries",
@@ -20,31 +20,31 @@
     "majority": {
       "label": "reject",
       "report": {
-        "total": 33,
+        "total": 254,
         "failed": 0,
-        "accuracy": 0.5151515151515151,
-        "macroF1": 0.22666666666666666,
+        "accuracy": 0.6220472440944882,
+        "macroF1": 0.255663430420712,
         "perClass": {
           "publish": {
             "precision": 0,
             "recall": 0,
             "f1": 0,
-            "support": 10,
+            "support": 33,
             "predicted": 0
           },
           "review": {
             "precision": 0,
             "recall": 0,
             "f1": 0,
-            "support": 6,
+            "support": 63,
             "predicted": 0
           },
           "reject": {
-            "precision": 0.5151515151515151,
+            "precision": 0.6220472440944882,
             "recall": 1,
-            "f1": 0.6799999999999999,
-            "support": 17,
-            "predicted": 33
+            "f1": 0.7669902912621359,
+            "support": 158,
+            "predicted": 254
           }
         },
         "confusion": {
@@ -52,140 +52,556 @@
             "none": 0,
             "publish": 0,
             "review": 0,
-            "reject": 10
+            "reject": 33
           },
           "review": {
             "none": 0,
             "publish": 0,
             "review": 0,
-            "reject": 6
+            "reject": 63
           },
           "reject": {
             "none": 0,
             "publish": 0,
             "review": 0,
-            "reject": 17
+            "reject": 158
           }
         }
       }
     },
     "prereleaseRule": {
-      "fires": 0,
-      "editorsRejected": 0
+      "fires": 22,
+      "editorsRejected": 22
     }
   },
   "report": {
-    "total": 33,
+    "total": 254,
     "failed": 0,
-    "accuracy": 0.5757575757575758,
-    "macroF1": 0.4211017740429505,
+    "accuracy": 0.6771653543307087,
+    "macroF1": 0.5285415941524539,
     "perClass": {
       "publish": {
-        "precision": 0,
-        "recall": 0,
-        "f1": 0,
-        "support": 10,
-        "predicted": 1
+        "precision": 0.2777777777777778,
+        "recall": 0.15151515151515152,
+        "f1": 0.19607843137254904,
+        "support": 33,
+        "predicted": 18
       },
       "review": {
-        "precision": 0.26666666666666666,
-        "recall": 0.6666666666666666,
-        "f1": 0.3809523809523809,
-        "support": 6,
-        "predicted": 15
+        "precision": 0.44339622641509435,
+        "recall": 0.746031746031746,
+        "f1": 0.5562130177514792,
+        "support": 63,
+        "predicted": 106
       },
       "reject": {
-        "precision": 0.8823529411764706,
-        "recall": 0.8823529411764706,
-        "f1": 0.8823529411764706,
-        "support": 17,
-        "predicted": 17
+        "precision": 0.9230769230769231,
+        "recall": 0.759493670886076,
+        "f1": 0.8333333333333334,
+        "support": 158,
+        "predicted": 130
       }
     },
     "confusion": {
       "publish": {
         "none": 0,
-        "publish": 0,
-        "review": 9,
+        "publish": 5,
+        "review": 27,
         "reject": 1
       },
       "review": {
         "none": 0,
-        "publish": 1,
-        "review": 4,
-        "reject": 1
+        "publish": 7,
+        "review": 47,
+        "reject": 9
       },
       "reject": {
         "none": 0,
-        "publish": 0,
-        "review": 2,
-        "reject": 15
+        "publish": 6,
+        "review": 32,
+        "reject": 120
       }
     }
   },
   "publishVsNot": {
-    "total": 33,
+    "total": 254,
     "failed": 0,
-    "accuracy": 0.6666666666666666,
-    "macroF1": 0.4,
+    "accuracy": 0.8385826771653543,
+    "macroF1": 0.5531814476337581,
     "perClass": {
       "publish": {
-        "precision": 0,
-        "recall": 0,
-        "f1": 0,
-        "support": 10,
-        "predicted": 1
+        "precision": 0.2777777777777778,
+        "recall": 0.15151515151515152,
+        "f1": 0.19607843137254904,
+        "support": 33,
+        "predicted": 18
       },
       "skip": {
-        "precision": 0.6875,
-        "recall": 0.9565217391304348,
-        "f1": 0.8,
-        "support": 23,
-        "predicted": 32
+        "precision": 0.8813559322033898,
+        "recall": 0.9411764705882353,
+        "f1": 0.9102844638949672,
+        "support": 221,
+        "predicted": 236
       }
     },
     "confusion": {
       "publish": {
         "none": 0,
-        "publish": 0,
-        "skip": 10
+        "publish": 5,
+        "skip": 28
       },
       "skip": {
         "none": 0,
-        "publish": 1,
-        "skip": 22
+        "publish": 13,
+        "skip": 208
       }
     }
   },
   "confident": {
     "threshold": 0.8,
-    "items": 14,
-    "correct": 14
+    "items": 112,
+    "correct": 101
   },
   "usage": {
-    "promptTokens": 50299,
-    "completionTokens": 1140
+    "promptTokens": 388802,
+    "completionTokens": 8812
   },
   "latencyMs": {
-    "p50": 794,
-    "p95": 993
+    "p50": 747,
+    "p95": 1048
   },
   "predictions": [
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4-rc1",
+      "title": "v0.34.4-rc1: mlxrunner: Update XGrammar to 0.2.7 for structured outputs",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 rc1 预发布版本，按规则不属于发布范围。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4-rc0",
+      "title": "v0.34.4-rc0: mlx: speed up Qwen 3.8 prompt processing (#18550)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "tag 为 v0.34.4-rc0，属预发布版本，按规则不发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-1rc0",
+      "title": "v0.30.1rc0: [ROCm][CI] Add MI355 dense NVFP4 and MoRI kernel mirrors (#58281)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 rc0，属预发布版本，且仅 CI 内核镜像改动，不在发布范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496609",
+      "title": "联想亮相阿里云栖大会：联想天禧AI把超级组织落地到端侧",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "厂商参展与消费级产品营销稿，无实物数据，不属本站关注范围"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496578",
+      "title": "让Token生产更高效：异构混推的关键技术演进与创新实践",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "企业技术实践分享，偏方案论述，无实物或可核对数据，暂不发"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496493",
+      "title": "汇智智能发布Hellome：国内首个FDE直连智能体服务平台，把AI交付周期压进“周”",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "厂商产品发布与营销稿，无实质工程数据，不属于本站范围"
+    },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-496494",
       "title": "达卯科技完成新一轮融资，算电协同核心软件层“稀缺标的”",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.97,
-      "reason": "融资与公司宣传稿，不属于本站关注的技术信号。"
+      "confidence": 0.95,
+      "reason": "融资新闻，属企业融资动态，不符合本站技术信号标准。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496481",
+      "title": "它石智航顶尖团队引领中国具身智能率先迈入规模化落地阶段",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "企业宣传稿，无实物或数据，属营销与客户案例，不属本站"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496471",
+      "title": "斑马智能发布端模型AutoOmni2.0，让元神AI更懂“我的世界”",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.5,
+      "reason": "国内厂商端侧全模态大模型发布，仅标题摘要，缺可核对细节与开源权重，先标记已看"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496384",
+      "title": "Qwen一号位定了！刘大一恒接棒",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "人事任命与团队变动，不属于工程技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496352",
+      "title": "Jev vs Decitron：同为决策AI，为什么不是一回事？",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.6,
+      "reason": "疑似厂商对比软文，无实物或数据，不属本站技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496329",
+      "title": "实时世界模型进入“全科生”阶段，PixVerse R2先交卷！",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "媒体宣传稿，标题为营销腔，无实物数据或可核对细节，不属于工程信号"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99002",
+      "title": "Rendering huge pull requests in the GitHub Copilot app",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "工程实现复盘但偏前端渲染，未见对AI工程判断的实质数据，倾向先标记已看"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-expanding-ai-economy-research-bench",
+      "title": "New experts join Google’s AI & Economy team",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "人事任命公告，无技术实物或数据，不属于工程关注信号。"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-flow-fashion-week",
+      "title": "Co-creating the future of fashion with Google",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "时尚行业客户案例与产品宣传，无实物或技术评估，不属本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-research-google-beam-expansion",
+      "title": "Google Beam expands with new regions, partners, and customers",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "区域扩展与合作客户公告，属消费级/商务推广，非工程团队需优先关注的AI技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-advancing-private-ai-compute-with-secure-server-side-memory",
+      "title": "Advancing Private AI Compute with secure, server-side memory",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "隐私计算方向有相关性，但摘要仅一句话，缺乏可核对的工程细节或数据，倾向不发。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-say-hello-to-gemini-38-text-to-speech",
+      "title": "Gemini 3.8 text-to-speech says hello",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "订阅源无摘要，仅标题无法核对该TTS能力是实物还是营销，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-pruning-llms-like-a-physicist-block-removal-as-an",
+      "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "仅有标题，无摘要与实物细节，无法核对方法与数据，先标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-tokenizers-v1",
+      "title": "tokenizers v1: encode, decode and scaling, measured",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "标题像版本发布但无摘要可供核对内容，信息不足，倾向标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-transformers-llama-cpp-quants",
+      "title": "Transformers now runs llama.cpp quants",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "标题像是能力集成进展，但无摘要无法核实实物与影响，暂标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-omlx",
+      "title": "Jun Kim, oMLX creator and maintainer, joins HF Mirror to support the MLX community",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "人事任命类消息，不属于工程团队优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-how-to-use-nvidia-warp-and-mjwarp",
+      "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.6,
+      "reason": "标题为用法教程，缺少实物或数据，不属于本站关注的技术信号"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ythwxaq6vhzum23rnyhk-utm-source-rss-amp-utm-medium-article",
+      "title": "从“单目感知”到“多视角立体对齐”：PrismAlign 重新定义文档结构化提取的精度上限",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "技术媒体转述，摘要无实质内容，无法核对一手数据与方法细节。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-jg9kssrvpkfp20qif8ov-utm-source-rss-amp-utm-medium-article",
+      "title": "Claude Opus 5.5 发布：一天内迁移 68 万行代码，单任务成本比 GPT-6 Astra 便宜 80%",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题含引人注目的迁移与成本数据，但摘要仅一句指向原文，无法核对实物，倾向已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-3rxojunpmjanfv8iwqi8-utm-source-rss-amp-utm-medium-article",
+      "title": "人人都在造世界模型，HappyWorld‑Bench 试着给出一张统一考卷",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "摘要为空，仅标题，无法核对是否有实物或数据；世界模型评测相关，倾向标记已看"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ug1um83jfgz2bvxwryc9-utm-source-rss-amp-utm-medium-article",
+      "title": "4096 张卡如何成为“一台计算机”？读懂华为的超节点布局",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "超节点架构主题相关，但摘要信息不足且疑为解读性文章，无法核对实物或数据，倾向不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-zspqbrwms0agpetahu9r-utm-source-rss-amp-utm-medium-article",
+      "title": "2026 年的云栖，阿里给 AI 行业递了一把新尺子",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "疑似会议报道与观点稿，摘要无实质技术细节可核对，暂不发布。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-2ffh5ehf2smusayqhjlx-utm-source-rss-amp-utm-medium-article",
       "title": "AI 改变跨平台开发取舍，Shopify 弃用 React Native，改用 Swift 和 Kotlin",
       "actual": "review",
       "decision": "review",
+      "confidence": 0.55,
+      "reason": "工程取舍话题有相关性，但摘要仅一句话无法核对，且与AI工程实践关联偏弱。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-jjacfjo5e0elphixwwxo-utm-source-rss-amp-utm-medium-article",
+      "title": "Dropbox 升级 Riviera 平台，支持 AI 工作负载",
+      "actual": "review",
+      "decision": "review",
       "confidence": 0.6,
-      "reason": "跨平台选型工程复盘可能相关，但摘要仅一句，无法核对其中的AI因素与数据，暂不发。"
+      "reason": "摘要仅一句导语，无实物或数据可核对，标题像企业平台升级介绍，信息不足暂不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-fzrdzxqypats2sqsqpvk-utm-source-rss-amp-utm-medium-article",
+      "title": "大语言模型：下一代 DSL 编写者",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "InfoQ 观点论述/教程类文章，无实物或数据，不属于本站优先关注的新技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-pojwf9p5wcyjqab39jd6-utm-source-rss-amp-utm-medium-article",
+      "title": "Redis之父质疑Jev狂热！绝大多数开发者其实不需要它",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "观点讨论类文章，无实物或数据，且与AI工程相关性弱"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-bakwhvi7ptqzr4mh45xi-utm-source-rss-amp-utm-medium-article",
+      "title": "Agents成新一代造王者，开发者正在快速失去技术决定权",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "观点论述类文章，摘要信息不足且无实物或数据可核对，倾向标记已看不发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-3",
+      "title": "v0.34.3",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.72,
+      "reason": "Ollama 正式版，新增模型 thinking 控制与默认值的 API 能力变更，影响工程使用。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-better-prompt-caching-for-gpt-6",
+      "title": "Better prompt caching for GPT-6",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "官方说明提示缓存机制实质改进，含命中率与成本控制，影响工程调用决策。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-introducing-gpt-6-sol-and-luna",
+      "title": "Introducing GPT-6 Sol and Luna",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.75,
+      "reason": "OpenAI发布新前沿模型GPT-6系列，属影响工程判断的实质模型发布，值得发布。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-parallel-cuts-time-and-cost-with-astra",
+      "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例式营销稿，属厂商宣传，非可核对的工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-two-years-of-openai-academy",
+      "title": "Two years of OpenAI Academy",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "OpenAI Academy 周年宣传，属教育公益与营销内容，与 AI 工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-openai-extends-cyber-access-to-ukraine-for-civilian-defense",
+      "title": "OpenAI extends cyber access to Ukraine for civilian defense",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "政策与政府合作公关稿，无技术实物或数据，不属工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-sam-altman-un-security-council-remarks",
+      "title": "Sam Altman’s remarks at the United Nations Security Council",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "联合国演讲属政策公关稿，无工程实物或数据，不属本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-harvey-from-context-to-confidence-with-astra",
+      "title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例营销稿，非工程团队关注的技术信号"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-invideo-builds-with-gpt-6-astra",
+      "title": "How invideo improves color grading 3x with GPT‑6 Astra",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例与营销稿，只有厂商宣传数字，无工程细节，不属本站。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-ringg",
+      "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.92,
+      "reason": "客户案例与营销数据，属厂商合作宣传，不属于本站工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-introducing-mentalhealthbench",
+      "title": "Introducing MentalHealthBench",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "心理健康评测基准，主题相关但摘要仅一句，缺具体数据与工程影响，先标记不发布"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-airbnb-gpt-6-astra",
+      "title": "Airbnb widens access to GPT-6 Astra and OpenAI frontier models",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "企业客户案例宣传稿，属营销内容，不属于本站关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-grab-openai-ai-skills-southeast-asia",
+      "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "企业合作与技能培训公关稿，无技术实物或数据，不属本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-496393",
+      "title": "DeepSeek新论文公开Agent训练！梁文锋署名",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题称新论文公开Agent训练，但摘要仅一句『每秒5000+沙盒』，信息不足无法核对；倾向先标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "主题相关，但无摘要且疑似评测可复现性工作的介绍，信息不足无法核对实物。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-qehi6k5ycwxuiasvfnkh-utm-source-rss-amp-utm-medium-article",
+      "title": "智谱把 ZCode 开源了，然后呢？",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题与摘要信息不足，仅一句话无法核对开源实物或数据，倾向先标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "title": "数百亿向量怎么搜？Pinterest 抛弃“内存大户”HNSW，转向量化 SPANN",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.75,
+      "reason": "Pinterest 大规模向量检索工程复盘，含架构取舍与量化方案细节，值得工程团队关注"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-sep-21-jev",
+      "title": "Jev introduces a new shape of LLM - System One, aka Decision Models",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "介绍新类别模型的形态，但摘要信息有限，缺乏可核对的实测数据，暂标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-sep-22-opus-and-sol-and-luna",
+      "title": "Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna, and a new price war",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "多款新模型发布汇总，标题未给出可核对数据或实物细节，原文信息不足，先标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "title": "v0.30.0",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "vLLM 正式版 v0.30.0，含新模型支持与大量功能变更，直接影响推理工程部署选型。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc0",
+      "title": "v0.40.0",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 v0.40.0-rc0，属预发布版本，本站不选。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-498633",
@@ -193,23 +609,23 @@
       "actual": "reject",
       "decision": "reject",
       "confidence": 0.85,
-      "reason": "创业公司融资与估值报道，无实物或数据可核对的工程信号，不属于本站范围。"
+      "reason": "创业公司融资估值报道，属营销与人事类，非工程团队可核对的实物进展。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-498605",
       "title": "量子计算走上桌面！“小盒子”跑通端到端，数据全程不出门",
       "actual": "reject",
-      "decision": "review",
-      "confidence": 0.55,
-      "reason": "量子计算桌面设备，与 AI 工程无直接关系，且摘要仅一句口号式描述，无实物或数据可核对。"
+      "decision": "reject",
+      "confidence": 0.6,
+      "reason": "科普宣传式报道，无实物或数据可核对，且与AI工程相关性弱。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-498478",
       "title": "索辰科技加码世界模型，与战略投资企业美梦空间联合发布具身模型与物理测评标准",
       "actual": "reject",
-      "decision": "reject",
-      "confidence": 0.65,
-      "reason": "企业战略投资与联合发布，属营销类内容，无实物数据影响工程判断"
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "企业联合发布具身模型与测评标准，但摘要仅有叙事口号，无实物或数据可核对。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-498271",
@@ -217,15 +633,15 @@
       "actual": "reject",
       "decision": "review",
       "confidence": 0.55,
-      "reason": "标题提及beta版模型，且无权重、数据或可核对细节，倾向标记已看不发布。"
+      "reason": "只有营销式介绍，无模型权重、数据或可核对细节，无法评估工程价值"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-497613",
       "title": "在云栖大会，我终于看懂了米哈游千亿AI野心",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.85,
-      "reason": "企业战略与大会报道，无实物或数据，不属于AI工程信号"
+      "confidence": 0.9,
+      "reason": "媒体专访与公司AI野心叙事，无实物或数据，不属于工程信号。"
     },
     {
       "id": "candidate-rss-https-github-blog-p-99027",
@@ -233,15 +649,15 @@
       "actual": "reject",
       "decision": "reject",
       "confidence": 0.9,
-      "reason": "面向初学者的 Copilot 用法教程，无实质工程信号，属拒绝类。"
+      "reason": "Copilot 应用入门教程，属用法教学，不是值得优先关注的工程信号。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-9uvorlmxkgjeofauq4py-utm-source-rss-amp-utm-medium-article",
       "title": "生成式到代理式跃迁：构建保险后援数字分身｜QCon上海",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.9,
-      "reason": "QCon大会演讲推广稿，无实物或数据，属会议营销内容。"
+      "confidence": 0.85,
+      "reason": "QCon 大会演讲推广，无实物或数据，属会议推广，不属本站。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-uc6jk6tu7fwe5bdo8oqw-utm-source-rss-amp-utm-medium-article",
@@ -249,7 +665,7 @@
       "actual": "reject",
       "decision": "reject",
       "confidence": 0.85,
-      "reason": "QCon大会演讲宣传/议题推广，非新技术实物或工程数据。"
+      "reason": "QCon 大会演讲预告与推广，无实物或可核对数据，不属本站。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-c1vuzh9fumul9i5wmdzf-utm-source-rss-amp-utm-medium-article",
@@ -257,47 +673,47 @@
       "actual": "reject",
       "decision": "reject",
       "confidence": 0.95,
-      "reason": "QCon大会推广软文，属会议推广，与AI工程实物进展无关。"
+      "reason": "QCon 大会推广稿，无实物或数据，属会议推广。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-kj4ekjplvth9it5yyxkm-utm-source-rss-amp-utm-medium-article",
       "title": "htmx 4.0 发布：改用 Fetch API 重写，内置 DOM Morphing Swap，并明确属性继承规则",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.85,
-      "reason": "htmx 是前端库，与本站 AI 工程定位无关，且摘要无实质内容。"
+      "confidence": 0.7,
+      "reason": "htmx 是前端库，与 AI 工程无关，不属于本站选题范围。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-oucl9autu0dg1bit6bib-utm-source-rss-amp-utm-medium-article",
       "title": "每周下载量约 16 万，仍处 Alpha 的 TanStack Charts 为什么火了？",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.85,
-      "reason": "前端图表库的生态分析，与 AI 工程无关，且无一手工程数据。"
+      "confidence": 0.5,
+      "reason": "前端图表库的社区热度分析，与 AI 工程无关，且无实物或数据可核对。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-qqk3wiolu1vsch3u0p7t-utm-source-rss-amp-utm-medium-article",
       "title": "当 Vibe Coding 撞上企业级现实：真实工程中的 AI 效能之路｜QCon上海",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.9,
-      "reason": "QCon大会演讲推广，无实物或数据可核对，不属于本站"
+      "confidence": 0.85,
+      "reason": "QCon大会演讲预告/推广，无实物或数据，属会议推广。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-lh6z5e9zkr33boehqgky-utm-source-rss-amp-utm-medium-article",
       "title": "云栖之后，10+阿里AI实战派将亮相QCon上海站",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.93,
-      "reason": "大会推广与讲师预告，无实物或数据，不属于本站技术信号"
+      "confidence": 0.9,
+      "reason": "QCon大会的演讲嘉宾预告，属会议推广，无实物或数据可核对。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-hrmb2p18ikewl24omvcv-utm-source-rss-amp-utm-medium-article",
       "title": "世界人工智能开源大赛（GOAI）总决赛暨颁奖盛典在杭州举行",
       "actual": "reject",
       "decision": "reject",
-      "confidence": 0.95,
-      "reason": "赛事活动宣传与颁奖报道，无技术实物或数据，不属于本站范围。"
+      "confidence": 0.9,
+      "reason": "赛事活动与颁奖新闻，非工程团队需关注的技术信号。"
     },
     {
       "id": "candidate-rss-https-openai-com-index-proaction",
@@ -305,7 +721,7 @@
       "actual": "reject",
       "decision": "reject",
       "confidence": 0.95,
-      "reason": "客户案例营销稿，无工程细节或可核对数据，不属于本站范围。"
+      "reason": "客户案例营销稿，无工程细节与可核对数据，不属于本站。"
     },
     {
       "id": "candidate-rss-https-openai-com-index-chatgpt-ads-expands-southeast-asia-taiwan",
@@ -313,7 +729,7 @@
       "actual": "reject",
       "decision": "reject",
       "confidence": 0.95,
-      "reason": "广告业务区域扩张，属营销与商业化公告，与工程团队技术判断无关。"
+      "reason": "广告商业化区域扩张，属营销与客户案例，与AI工程无关。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-498584",
@@ -321,15 +737,15 @@
       "actual": "review",
       "decision": "review",
       "confidence": 0.7,
-      "reason": "匿名模型登榜属排名类消息，缺可核对的权重或技术数据，仅供留意。"
+      "reason": "匿名模型登榜只有榜单排名，缺权重或可核对数据，无法核实，暂不发。"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98939",
       "title": "When chat is the wrong UI",
       "actual": "review",
       "decision": "reject",
-      "confidence": 0.7,
-      "reason": "观点性设计论述，无实物或数据，偏向产品理念而非可核对的工程进展。"
+      "confidence": 0.75,
+      "reason": "产品理念论述与用法讨论，无实物或数据，非工程信号。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-4gr5zt9gzoyiwf2f6lvr-utm-source-rss-amp-utm-medium-article",
@@ -337,31 +753,31 @@
       "actual": "review",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "企业级 AI Agent 管理产品发布，偏产品公告，摘要仅一句无法核对实物或数据，倾向先标记已看。"
+      "reason": "只有标题和一句摘要，无法核对产品实质能力，信息不足倾向先标记已看。"
     },
     {
       "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-34-4",
       "title": "v0.34.4",
       "actual": "review",
       "decision": "publish",
-      "confidence": 0.65,
-      "reason": "Ollama 正式版本，含结构化输出与稳定性修复等实质引擎改动，影响工程团队使用。"
+      "confidence": 0.6,
+      "reason": "Ollama 正式发布版，含结构化输出与稳定性修复等实质变更，值得工程团队关注。"
     },
     {
       "id": "candidate-rss-https-simonwillison-net-2026-sep-27-2026-in-llms-so-far",
       "title": "2026 in LLMs (so far)",
       "actual": "review",
       "decision": "review",
-      "confidence": 0.6,
-      "reason": "趋势综述型演讲稿，非一手实物或数据，主题相关但本次不发布。"
+      "confidence": 0.75,
+      "reason": "年度趋势回顾演讲，属综述论述而非可核对的工程实物或数据"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-498546",
       "title": "啥题啊能干崩OpenAI最强模型训练…",
       "actual": "publish",
       "decision": "reject",
-      "confidence": 0.7,
-      "reason": "自媒体科普标题，无摘要、无实物或数据可核对，非工程团队优先信号。"
+      "confidence": 0.75,
+      "reason": "自媒体标题党，无摘要无实物可核对，属新闻猎奇类而非工程信号"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-497624",
@@ -369,15 +785,15 @@
       "actual": "publish",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "标题是二手报道且摘要仅一句设问，无法核对实物或数据，倾向标记已看不发布。"
+      "reason": "标题夸大且摘要仅一句设问，缺实物链接与数据，无法核对，倾向已看不发。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-497425",
       "title": "谷歌TPU跑Kimi比英伟达GPU快57%！用的还是DeepSeek推理框架",
       "actual": "publish",
       "decision": "review",
-      "confidence": 0.6,
-      "reason": "标题数据引人但有营销意味，摘要信息过少，缺一手评测细节，难以核对。"
+      "confidence": 0.55,
+      "reason": "标题有数字但仅是二手转述的性能宣称，摘要信息极少，无法核对原始数据与实验方法。"
     },
     {
       "id": "candidate-rss-https-www-qbitai-com-p-497382",
@@ -385,15 +801,15 @@
       "actual": "publish",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "标题是二手转述且信息仅一句话，无一手细节可核对，需看原文再定。"
+      "reason": "二手媒体报道AI Agent安全事件，摘要信息极少，无一手数据或可核对细节，待原文核实。"
     },
     {
       "id": "candidate-rss-https-github-blog-p-98465",
       "title": "AI-powered fuzzing with the GitHub Security Lab Taskflow Agent",
       "actual": "publish",
       "decision": "review",
-      "confidence": 0.6,
-      "reason": "GitHub 安全实验室的 AI 模糊测试实践，但更像用法教程，缺乏可核对的评测数据"
+      "confidence": 0.7,
+      "reason": "教程性质，介绍如何使用模糊测试任务流，缺少可核对的实物或数据。"
     },
     {
       "id": "candidate-rss-https-deepmind-google-blog-introducing-gemini-38-live-with-live-avatar",
@@ -401,7 +817,7 @@
       "actual": "publish",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "模型新版本公告，但无摘要与可核对细节，信息不足，倾向不发"
+      "reason": "仅有标题无摘要，无法核对其是产品发布还是实质能力进展，信息不足倾向不发。"
     },
     {
       "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
@@ -409,7 +825,7 @@
       "actual": "publish",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "订阅源无摘要，仅凭标题无法核实物与数据，信息不足暂标记。"
+      "reason": "订阅源无摘要，标题像模型发布但缺乏可核对细节，信息不足，倾向标记已看不发。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
@@ -417,7 +833,7 @@
       "actual": "publish",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "标题涉Kotlin版ADK与Python对齐，但摘要仅一句跳转链接，无实测数据可核对。"
+      "reason": "中文二手资讯，无原文细节可核对，标题仅泛述功能对齐，暂不发布。"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
@@ -425,15 +841,1367 @@
       "actual": "publish",
       "decision": "review",
       "confidence": 0.6,
-      "reason": "标题相关，但摘要为空无法核对，且开源工具可能仅是同类补充，信息不足先标记已看"
+      "reason": "阿里开源代码评审工具有开源实物，但中文转述仅有导语无实质细节，无法核对，暂标记已看不发"
     },
     {
       "id": "candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
       "title": "DoorDash 借助多 Agent LLM 系统清理 6 万个 Feature Flag",
       "actual": "publish",
       "decision": "review",
+      "confidence": 0.55,
+      "reason": "工程实践案例，但摘要仅一句话且原文为译文转载，无法核对细节，倾向已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0rc1",
+      "title": "v0.31.0rc1: [CI/Build] Skip the snapshot runtime on CUDA 12.x images (#59118)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "tag 为 rc1 预发布版本，非正式发布，不属本站发布范围。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-0-rc1",
+      "title": "v0.35.0-rc1",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "tag 为 v0.35.0-rc1，属预发布版本，本站不发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-0-rc0",
+      "title": "v0.35.0-rc0",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "tag 为 v0.35.0-rc0，属预发布版本，本站不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499098",
+      "title": "李飞飞创业公司被苏姿丰550亿收购！世界模型最大交易落地",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "融资收购与人事变动，且无技术实物或数据，不属于本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-uwfvftwwh5qupo2lbxf6-utm-source-rss-amp-utm-medium-article",
+      "title": "AI 数据平台，要补的恰恰是“模型不知道的事”",
+      "actual": "reject",
+      "decision": "review",
       "confidence": 0.6,
-      "reason": "多 Agent 清理技术债主题相关，但仅摘要无实质细节，无法核对，倾向先标记。"
+      "reason": "无摘要，仅标题判断像观点论述文章，缺乏可核对的实物或数据，倾向先标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-dxtimf8q7tadgd4tzp6m-utm-source-rss-amp-utm-medium-article",
+      "title": "研发投入增长 40%，拼多多的增长逻辑变了",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "拼多多财报与研发投入的商业分析，不属于AI工程技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-amyfvbwtlvyapfszqkx3-utm-source-rss-amp-utm-medium-article",
+      "title": "自主数据工程：迈向真正智能体成熟度的五个阶段 ｜ 技术趋势",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "InfoQ中文技术趋势论述文章，无实物或无数据，不属于本站关注的新技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-mdiczbgjphnmu6e0qbx1-utm-source-rss-amp-utm-medium-article",
+      "title": "AI 驱动复杂业务漏洞挖掘：从业务规则建模到攻击路径验证｜QCon上海",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "会议演讲推广且无摘要，无法核对内容，仅相关不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-xf5kzxv681stvdrzsstj-utm-source-rss-amp-utm-medium-article",
+      "title": "Token价格一降再降，但不会让边缘AI退场：企业算力账越来越细",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.65,
+      "reason": "行业论述性文章，无实物、数据或工程复盘，且无摘要无法核对"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-0",
+      "title": "v0.35.0",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "正式版 v0.35.0，新增决策模型能力接口，属推理引擎实质能力版本，值得工程团队关注。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498877",
+      "title": "工业创新进入“组队局”，拆解西门子Xcelerator开放生态的赋能链路",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "厂商生态赋能与客户案例类内容，无一手工程数据，不属于本站范围"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-498787",
+      "title": "HC归来，华为正重新定义AIDC基础设施",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "厂商AIDC基础设施宣传稿，无实物或可核对数据，属营销内容。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-lzlgofwubqu4dfjo4q74-utm-source-rss-amp-utm-medium-article",
+      "title": "超越相关性：面向企业个性化场景的治理优先架构",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "只有标题且无摘要，无法核对是否有实物或数据，主题偏架构论述，倾向标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-7zcxyr8abkdqqo682cjm-utm-source-rss-amp-utm-medium-article",
+      "title": "AKS通过新的NAP指南使节点中断更加可预测",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "Kubernetes节点运维指南，非AI工程技术信号，且无摘要无法核对"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-wg5uvlds5e3k2imtcuyj-utm-source-rss-amp-utm-medium-article",
+      "title": "Spring新闻汇总：Boot、Framework、Data、Security、Modulith、Batch的首个里程碑发布",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "Spring 生态里程碑版本汇总，与 AI 工程无关，且属预发布性质。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-zl0e1suod95yjfbonz2a-utm-source-rss-amp-utm-medium-article",
+      "title": "Swift 6.4 正式发布：内置 Subprocess 1.0、增强跨语言互操作、Wasm 性能大幅提升及更多更新",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "Swift 语言版本发布，与 AI 工程无关，不属于本站关注范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-5xfeqshw0hwfud95jpwe-utm-source-rss-amp-utm-medium-article",
+      "title": "Imagination 发布 E 系列 GPU IP 新进展：一套架构支持图形、计算与AI",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "GPU IP 架构发布属硬件厂商产品宣传，且无摘要无法核对实物，AI 工程影响不明"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-how-we-will-do-better-for-australia",
+      "title": "How we will do better for Australia",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "政策公关与道歉声明，无技术实物或数据，不属工程团队优先关注信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-lenfest-ai-collaborative-expansion",
+      "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "资助与合作公关稿，非技术进展，无工程实物可核对。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-form-codex-originals",
+      "title": "Are you a Codex Original?",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "这是用户故事征集表单，属于营销或社区活动，不属于值得工程团队关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-basis-tax-workbook-with-astra",
+      "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例与营销内容，非工程团队需优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "title": "Holo4: powering generalist computer-use agents",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "标题像新模型发布，但无摘要无法核对实物或数据，倾向标记已看"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-oooae7xy816xadlrkv8v-utm-source-rss-amp-utm-medium-article",
+      "title": "Cloudflare 推出智能体开发栈生命周期，以取代传统 SDLC",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "订阅源无摘要，无法核对是产品发布还是空泛论述，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499239",
+      "title": "正行创新联合创始人杨宇欣正式亮相：出任总裁，负责全球业务拓展",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "人事任命与业务拓展新闻，非技术信号，不属于本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499188",
+      "title": "精准揪出RL训练数据Bug，Prompt直出小游戏，IQuest-Q1夯爆了！",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.6,
+      "reason": "量子位营销式标题，无摘要无法核对，疑为产品宣传稿，不属于工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499140",
+      "title": "OpenAI因新模型太强叫停发布",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "仅有标题和一句话摘要，无实物或可核对数据，信息不足，倾向标记已看不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499135",
+      "title": "成立一年完成5轮融资，诺因智能再获数亿元，累计超10亿元",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.97,
+      "reason": "融资新闻，不属于本站关注的技术工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.5,
+      "reason": "仅标题，无摘要与链接细节，无法核对实物或数据，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-multiversecomputingcai-getting-the-source-right-not-just-the-fact-source",
+      "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "订阅源无摘要，仅有标题，无法核对是否有实物或数据，倾向标记已看"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ywxyacetw4archqbsje0-utm-source-rss-amp-utm-medium-article",
+      "title": "亚马逊云科技无法恢复仅存储在受损的中东可用区的数据",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "云厂商可用区级数据不可恢复事故复盘，带失败细节，对工程团队架构决策有直接参考价值。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-he0zfgeystxf9koh70ap-utm-source-rss-amp-utm-medium-article",
+      "title": "Agent 不只烧 Token：为什么 Agent Sandbox 正在变得重要？",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.65,
+      "reason": "标题摘要仅见观点性论述，无实物或数据，且摘要只剩链接，无法核对。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-psvhjyojtc9bslwyxpff-utm-source-rss-amp-utm-medium-article",
+      "title": "Agent 编程能力从 10% 飙到 70%，Anthropic 新模型却遭遇灵魂拷问：我什么时候才会用它？",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题提及Anthropic新模型能力数据，但摘要无正文，无法核对实物或数据，先标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ftfzzj6jgxha7grhhljf-utm-source-rss-amp-utm-medium-article",
+      "title": "上下文优势：AI 增长战略缺失的关键拼图 ｜ 技术趋势",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "只有论述性观点文章，无实物或数据，不属于本站关注的新技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-0x1uoewoj16s1vnmtsup-utm-source-rss-amp-utm-medium-article",
+      "title": "Bun 在四个月内将 53.5 万行 Zig 代码重写为 Rust，消除了大量内存泄漏",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "Bun将53.5万行Zig重写为Rust的工程复盘，含内存泄漏细节，对工程团队有参考价值"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-video-hsajfo3dkr9xc0leev30-utm-source-rss-amp-utm-medium-article",
+      "title": "金句抢先看 | 每天上千万次创建：Agent Sandbox 为什么会成为新算力形态？",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "会议/演讲预告类内容，仅有金句预告无实物与数据，不属于本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-vwo5ooktoq5wyfe18wib-utm-source-rss-amp-utm-medium-article",
+      "title": "MariaDB 13 扩展 Oracle 兼容性，改善开发者体验与可观测性",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "数据库版本更新，与 AI 工程无关，不属于本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-o5pkyu5hfr2dgrxp6zre-utm-source-rss-amp-utm-medium-article",
+      "title": "大模型下沉车规芯片：超六成的车企座舱，为何选中了同一个“端侧大脑”？",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.5,
+      "reason": "车企座舱方案报道，属产业应用与厂商宣传，非工程团队优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-v0naydpc0bz2t8hmwfv2-utm-source-rss-amp-utm-medium-article",
+      "title": "SolidStart 2：以 Vite 8 取代 Vinxi，进入维护模式后逐步完成历史使命",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "SolidStart 框架版本更新，与 AI 工程无直接关联，且摘要信息不足。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-wljhyzkdudt5wsyz06fp-utm-source-rss-amp-utm-medium-article",
+      "title": "设计安全、可扩展的人脸验证系统",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "InfoQ中文翻译的设计类文章，无一手实物或数据，不属本站技术信号范畴。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-srmksf6vofrt6lluudzb-utm-source-rss-amp-utm-medium-article",
+      "title": "从新型存储介质PCM方案到PCIe 6.0 SSD，德明利率先推出面向AI基础设施的分层存储全栈方案",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "厂商软文，介绍自家存储产品方案，非可核对的工程进展或研究结果。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-imwphlbhtujohmzjah8q-utm-source-rss-amp-utm-medium-article",
+      "title": "释放隐藏的商业价值：行业领袖如何将庞杂数据转化为即时行动 ｜ 技术趋势",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "营销软文，无实物或数据，属商业价值宣传而非工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-introducing-gpt-6-1-sol",
+      "title": "Introducing GPT-6.1 Sol",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "官方模型发布但摘要只有宣传性能力与定价，缺可核对的评测或数据，倾向先标记已看不发"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-devday-2026-recap",
+      "title": "DevDay 2026 Recap",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "营销性质的活动回顾汇总，无具体可核对技术细节，倾向标记已看不发布。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-introducing-dots",
+      "title": "Introducing dots",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.8,
+      "reason": "消费级助手产品发布，无技术细节，不属于工程团队关注的新技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-sep-29-openai-devday-2026-live-blog",
+      "title": "OpenAI DevDay 2026 live blog",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.8,
+      "reason": "实时博客只有当日流水记录，无实物或可核对数据，信息不足暂不发。"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-winner-future-vision-xprize",
+      "title": "Watch the winning trailer from the Future Vision XPRIZE, The Gifted.",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "XPRIZE 获奖预告片，属活动宣传与创意展示，与 AI 工程实践无关。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-towards-safety-cases-for-frontier-ai-training",
+      "title": "Towards safety cases for frontier AI training",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "安全案例指南属论述性政策/方法论框架，无实物或数据，按校准标准倾向不发。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0rc2",
+      "title": "v0.31.0rc2",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 rc2，属预发布版本，按规则不予发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1-rc0",
+      "title": "v0.35.1",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "链接 tag 为 v0.35.1-rc0，属预发布版本，不予发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499812",
+      "title": "何恺明团队新作：看猫片就能学会ARC挑战",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "量子位二手报道，摘要仅一句，缺一手论文与可核对数据，信息不足暂不发布"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499663",
+      "title": "谷歌Gemini 4突然发布！RSI加持，GPT和Opus都让让",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.72,
+      "reason": "自媒体营销式标题，无具体版本、权重或可核对数据，属新闻炒作而非工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-olmocore3",
+      "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "开源训练基础设施主题相关，但无摘要且无法核对原文，信息不足，先标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-p5ycykfijfkaicrf8bfs-utm-source-rss-amp-utm-medium-article",
+      "title": "在 Cloudflare Worker 上实现多租户 SaaS 规模的模块化边缘计算",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "边缘计算架构实践，与 AI 工程关联弱，摘要信息不足难以核对，倾向标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-vvrszjhevkmpevs7wzzu-utm-source-rss-amp-utm-medium-article",
+      "title": "刚刚，Gemini 4 Argon 发布：多项基测碾压 GPT-6 Astra，已参与谷歌 80 万行内核代码迁移",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题称Gemini 4发布并有多项基测，但摘要仅剩跳转链接，无法核对其评测数据与细节。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ayxlumiemzccrkrruq9b-utm-source-rss-amp-utm-medium-article",
+      "title": "Elastic Beanstalk 跑上 EKS，开发者质疑：为什么不把 ECS 做好？",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "云平台部署策略讨论，非AI工程实质进展，信息不足难核对"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-tljncybg9z72hv5kj2kp-utm-source-rss-amp-utm-medium-article",
+      "title": "生成即合规：Agentic AIGC 驱动的广告素材修复实践｜QCon上海",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "QCon 会议演讲推广稿，摘要无实质技术细节，属会议推广而非可核对工程进展。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-the-eternal-complement",
+      "title": "The eternal complement",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "OpenAI官方观点随笔，无实物、数据或工程细节，不属于可核对的工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-albertsons-reimagining-retail",
+      "title": "How Albertsons Companies is reimagining retail from the inside out",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "客户案例宣传稿，讲企业用ChatGPT提效，无技术实物或数据，不属本站。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-the-den-family-social",
+      "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "客户案例营销稿，讲效率提升，不属于工程团队关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-4-0",
+      "title": "proto-v0.4.0",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "tag 为 proto-v0.4.0，属预发布原型版本，摘要无实质内容，不符合发布标准。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499654",
+      "title": "OpenAI推理之父最新访谈！数学只是多智能体时代的开胃菜",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "访谈观点类内容，无实物或数据可核对，不属于工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499605",
+      "title": "直播回顾：工业AI的下一个机会在哪？",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "直播回顾与访谈预告，无实物、数据或可核对进展，属推广类内容。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499597",
+      "title": "Anthropic，你是来给智谱打广告的吧！",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题带调侃、摘要仅一句实测结论，缺乏可核对数据，无法判定为实质工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499592",
+      "title": "Manus 2.0回来了！给AI配手机号和钱包，还能拉群干活",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "只有一句话摘要，无法核对实物或数据，标题偏产品宣传，暂不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499493",
+      "title": "刚刚，GPT-6 Astra接上宇树G1，把厨房收拾了！",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.65,
+      "reason": "机器人演示类报道，二手转述且信息量少，无一手数据或可核对细节，倾向不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499308",
+      "title": "DeepSeek知乎独家发文，首次公开V4.1 Agent训练“大本营”DSec",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "疑似DeepSeek技术长文，但摘要只剩一句话，看不出是否有实物或数据，先标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499280",
+      "title": "36家敲钟的机器人公司：赚钱能力差距巨大，商业化也不玩花架子了",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "机器人行业上市与商业化综述，属产业财经报道，非AI工程新技术信号"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-499263",
+      "title": "DeepSeek官方开源昇腾基础组件，与昇腾共建高效易用的AI芯片软件生态",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题称官方开源昇腾基础组件，但无摘要无法核对实物与细节，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-open-tts-leaderboard",
+      "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "可能是榜单评测，但无摘要且标题未见实物或数据，信息不足暂不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-m6brtrsyjvug8y0m0kyh-utm-source-rss-amp-utm-medium-article",
+      "title": "谷歌开源面向自主 AI 代理的 Kubernetes 风格编排器 AX",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "摘要仅含原文跳转链接，无实质内容可核对，倾向标记已看而非发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ca9rsegkphbjhiitqkmv-utm-source-rss-amp-utm-medium-article",
+      "title": "GitLab Duo 通过微软 Foundry 扩展自托管 AI 选项",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题像产品集成公告，摘要无实质内容，缺少可核对的工程细节。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-t5i2yv2z0lwibk36lter-utm-source-rss-amp-utm-medium-article",
+      "title": "DeepSeek 开源昇腾平台基础设施组件，覆盖 TileLang、计算库与分布式通信库",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "开源基础设施组件，但摘要信息不足，无法核对其具体内容与版本。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-07qzhlvynxsw1sfnv5nv-utm-source-rss-amp-utm-medium-article",
+      "title": "像改文字一样改语音：火山引擎全新语音内容编辑模型",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "厂商新模型介绍，摘要无技术细节与可核对数据，仅厂商宣传，倾向暂不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-bduvbdbgwxj6dmbnekcc-utm-source-rss-amp-utm-medium-article",
+      "title": "机房堆满算力卡，业务却还在排队？这份评估报告拆开了“算力荒假象”的破局账本",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "选题相关但摘要为空，无法核对是否有实物或数据，不足以发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-zbxxp1buzmiguswyqzvb-utm-source-rss-amp-utm-medium-article",
+      "title": "意图驱动治理：分钟级实现敏感数据规模化保护｜ 技术实践",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "摘要仅一行导语，无实物或数据，标题像技术实践分享，信息不足难以判断是否值得发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-jew7578vw84g7wmh75gm-utm-source-rss-amp-utm-medium-article",
+      "title": "Changesets 3.0 发布：对等依赖下游包默认升补丁版本，纯 ESM 发布，安装体积缩减 88%",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "Changesets 版本管理工具发布，与 AI 工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-hw3ppm2zlcmcarsno1y7-utm-source-rss-amp-utm-medium-article",
+      "title": "从 AI 试点到营收增长：Snowflake 销售与营销团队如何跨越落地鸿沟 ｜ 技术实践",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "客户案例与营销落地叙事，无工程实物或可核对数据，不属本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-disrupting-a-coordinated-model-distillation-campaign",
+      "title": "Disrupting a coordinated model-distillation campaign",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "安全事件披露但无技术细节或可核对数据，属公关式说明，暂不发。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-helping-small-businesses-put-ai-to-work",
+      "title": "Helping small businesses put AI to work",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "小企业AI培训合作与客户案例，属营销公关稿，非工程团队关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc6",
+      "title": "v0.40.0-rc6: model: add multimodal embeddings (#18820)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "标题与tag均为rc预发布版本，按规则不予收录。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc5",
+      "title": "v0.40.0-rc5",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "预发布版本（rc），且仅含一条修复补丁，不符合发布标准。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc4",
+      "title": "v0.40.0-rc4: MLX: version bump (#18720)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 1,
+      "reason": "链接 tag 为 rc4 预发布版本，按本站规则直接拒绝。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-1rc0",
+      "title": "v0.31.1rc0: [Metrics] Expose cached prompt tokens by cache tier (#56318)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "预发布版本 rc0，且仅为指标暴露的小改动，不属于可核对的实质进展"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc3",
+      "title": "v0.40.0-rc3: pull: allow RCs to pull matching min_version (#18790)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "标题和 tag 均为 rc3 预发布版本，按规则预发布版本不发。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc2",
+      "title": "v0.40.0-rc2",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "预发布版本 rc2，且摘要仅为合并分支，无实质内容，不发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0-rc1",
+      "title": "v0.40.0-rc1: mlx: match publisher tokenizer semantics (#18779)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 v0.40.0-rc1，属预发布版本，本站不发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0rc5",
+      "title": "v0.31.0rc5: [Misc] Add Transformers version upper bound in requirements (#59614)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 v0.31.0rc5，属预发布版本，且仅为依赖上限的琐碎改动。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0rc4",
+      "title": "v0.31.0rc4",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "链接 tag 为 v0.31.0rc4，属预发布版本，且仅含一条 bugfix，不予发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0rc3",
+      "title": "v0.31.0rc3: [Model Runner V2] Support randomized dummy inputs (#58411)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "链接 tag 为 v0.31.0rc3，属预发布版本，本站不予收录。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-1-rc0",
+      "title": "v0.40.1-rc0",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "预发布版本（rc0），且仅含一条上游补丁跟随，不属于优先关注信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-2026-10-502081-html",
+      "title": "hacked by trenggalek6etar",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "标题显示为博彩/黑客篡改页面，无摘要无技术内容，与 AI 工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502049",
+      "title": "真香！做这个邪恶老奶版「GTA 6」，我只花了5元！",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "游戏娱乐类内容，且为预览版宣传，与AI工程判断无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502035",
+      "title": "正行创新亮相APRCE 2026，发布全球首个零售物理智能24/7服务解决方案",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "企业产品发布与客户案例，属营销公关稿，无工程团队可核对的实质技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502020",
+      "title": "搭载NVIDIA RTX Spark™ N1X超级芯片：联想YOGA Pro 15开启盲约，重塑个人生产力边界",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "消费级笔记本盲约营销稿，与AI工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502009",
+      "title": "浪子回头！Manus重启北京办公室大举招聘",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "招聘、融资与办公室扩张，属公司商业动态，与AI工程技术无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-501956",
+      "title": "吉利智充技术正式发布，重塑全球补能新标杆",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "企业补能产品发布，属营销宣传，与AI工程无关"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-501930",
+      "title": "打不过就投降，保时捷裁员9000人，回归燃油车主线",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.97,
+      "reason": "汽车行业裁员与经营决策，与 AI 工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-501915",
+      "title": "大模型原生智能体手机STEPX Neo将于10月13日正式发布",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "消费级产品发布会预告，无实物与数据，不属于AI工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-hgctsjqkosqqz0lvugfx-utm-source-rss-amp-utm-medium-article",
+      "title": "Cloudflare 详解从 WordPress 迁移至 EmDash 的过程",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "WordPress 迁移工程复盘虽有一手细节，但与 AI 工程无关，且摘要信息不足。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-aj7cganqf4pxvtbbtyiv-utm-source-rss-amp-utm-medium-article",
+      "title": "AICon 北京 2026 议题征集启动：寻找把 AI 做进真实生产的人",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "会议议题征集与推广，不属于本站关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-rlax4demurxqw135zssc-utm-source-rss-amp-utm-medium-article",
+      "title": "代码交给AI，心流却回来了：Codex负责人不再怀念手写时代",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "访谈观点类内容，无实物或数据，属论述而非可核对的工程进展。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-1",
+      "title": "v0.40.1",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "Ollama补丁版本，tag非rc但改动偏修复与CLI引导，缺乏影响工程判断的实质能力更新"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99310",
+      "title": "Secret protection must scale with software",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "无实物或数据，属观点论述与安全工具营销，非新技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-playground-experimental-gaming-platform",
+      "title": "Introducing Playground: Create and play custom games",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "消费级产品公告，属AI应用娱乐玩法，与工程团队判断无关。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-cfbvqlxwqvbbhitmy83e-utm-source-rss-amp-utm-medium-article",
+      "title": "为迎接 iPhone Duo，iOS 开发者需要对应用做出哪些调整",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "iPhone Duo 应用适配属消费级平台开发话题，与 AI 工程无关。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-teens-learn-and-plan",
+      "title": "Helping teens learn, plan, and shape the future of AI",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "面向青少年学习功能的消费级产品公告，非工程团队优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-radisson",
+      "title": "Radisson Hotel Group brings hotel discovery into ChatGPT",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "品牌客户案例，属营销内容，与工程团队技术判断无关。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-jump-trading",
+      "title": "How Jump Trading is scaling quant research with ChatGPT",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "OpenAI 客户案例稿，属营销内容，不含可核对的工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-atlassian-partnership",
+      "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "商业合作与营销公告，无实物或数据，不属于技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-new-chatgpt-ads-format-and-measurement",
+      "title": "Building advertising for the way people use AI",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "ChatGPT 广告格式与投放工具，属商业产品公告，与 AI 工程技术无关。"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99170",
+      "title": "AI is changing developer work. Here are three skills to strengthen.",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "职业发展建议类论述文章，无实物或数据，不属于本站关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-blog-google-innovation-and-ai-technology-ai-google-ai-updates-september-2026",
+      "title": "The latest AI news we announced in September 2026",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "月度新闻汇总，无实质技术进展，非本站关注的新技术信号"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-chatham-financial",
+      "title": "Chatham scales its capital markets expertise with OpenAI",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "客户案例营销稿，属企业应用宣传，非工程团队需关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-gemini-4-argon-our-next-era-of-frontier-intelligence",
+      "title": "Gemini 4 Argon: our next era of frontier intelligence",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.6,
+      "reason": "Gemini 4 Argon 属前沿模型正式发布，标题与链接为官方博客，实物级别进展，值得工程团队关注。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-3msu3ccjuh0xjhdyjhxj-utm-source-rss-amp-utm-medium-article",
+      "title": "OpenAI刚把多Agent做成产品，o1奠基人却说：1万个Agent解出世界级难题，多Agent贡献不到10%",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "观点访谈而非一手实测或实物，信息不足以核对，暂不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ds754rhjexrwfp6twd9d-utm-source-rss-amp-utm-medium-article",
+      "title": "2万亿美元估值靠什么撑？Anthropic 核心技术负责人：蒸馏会毁掉前沿研发，中美 AI 竞赛不会单边暂停",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "访谈观点类内容，无实物或可核对数据，属论述而非工程信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-akexm07hznrrjzmjynml-utm-source-rss-amp-utm-medium-article",
+      "title": "从 Rollout 到权重同步：Mooncake 如何支撑高性能强化学习系统｜QCon上海",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "QCon 演讲/技术分享，摘要无实质内容，且属会议推广性质，无法核对工程细节。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-advancing-computer-use-with-ironclad",
+      "title": "Advancing computer use with Ironclad",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "OpenAI与Ironclad的客户合作案例，属营销性质，非工程团队需优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-eu-text-provenance",
+      "title": "Our approach to EU text provenance rules",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.65,
+      "reason": "主题相关但属政策合规说明，缺少可核对的工程实物或数据，暂不发。"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-oct-3-default-hard-budget-caps",
+      "title": "We're going to need default hard budget caps on pretty much everything",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.65,
+      "reason": "观点呼吁而非实物进展，无数据或可核对新能力，适合标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-servicenow-ai-autosynthdata",
+      "title": "AutoSynthData: Generating Training Data for Enterprise Agents",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "无摘要且为镜像站，疑是方法/工具介绍而非可核对的新实物，信息不足暂不发布"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
+      "title": "Claude Haiku 5.5",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.8,
+      "reason": "新的Claude Haiku 5.5模型发布，涉及价格和能力变化，影响工程团队选型判断。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "title": "The Agent Said It Was Done. The Database Disagreed.",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "标题像工程复盘但无摘要且原文不可核对，信息不足，先标记已看不发布。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "title": "Sharing AI progress in mathematics",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "有可核对的数学新结果与Lean形式化证明代码，属一手研究产出，值得工程团队关注。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "title": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.5,
+      "reason": "只有标题无摘要，无法核对是否有实物或数据，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "title": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "开源轻量多模态嵌入模型，但摘要缺失无法核对规格与数据，先标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "title": "v0.35.1",
+      "actual": "publish",
+      "decision": "publish",
+      "confidence": 0.72,
+      "reason": "正式版本非预发布，新增支持 Cloudflare 开源多模态决策模型，属实质能力更新。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-501834",
+      "title": "GPT-6今起免费用！拒答变少，话变多了",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "标题为媒体宣传式表述，摘要只一句且无论文或数据支撑，信息不足难核对，倾向不发布。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-gpt-6-for-everyone",
+      "title": "GPT-6 and Intelligent UI for everyone",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "消费级产品公告，无工程可核对细节，不属于本站收录范围。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-501995",
+      "title": "ChatGPT踢到铁板了！能破解千禧数学难题，但论文复现率低至13.98%？",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "中文科技媒体对基准的二次报道，标题党且无一手数据与链接，难以核对，倾向不发。"
+    },
+    {
+      "id": "candidate-rss-https-github-blog-p-99258",
+      "title": "ReviewBench: An open benchmark for AI code review",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.9,
+      "reason": "开源基准发布，含真实PR与评测指标，可影响代码审查智能体的评估判断。"
+    },
+    {
+      "id": "candidate-rss-https-deepmind-google-blog-introducing-synthid-bio",
+      "title": "Introducing SynthID Bio",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "水印AI生成蛋白的探路性概念验证，无实测数据与可核对实物，暂不发布。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-liquidai-open-d1",
+      "title": "Multimodal open d1 decision models for the edge",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "标题指向边缘多模态开源决策模型，但无摘要无法核对实物与数据，信息不足暂不发。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-31-0",
+      "title": "v0.31.0",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.82,
+      "reason": "vLLM 正式版含 DeepSeek-V4.1 性能优化等实质推理引擎能力更新，值得工程团队关注。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-21",
+      "title": "v0.5.21",
+      "actual": "review",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "正式版推理引擎发布，新增多个模型支持，含可核对的实质能力变更。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-bchl2tvhsf2dwyrcogvo-utm-source-rss-amp-utm-medium-article",
+      "title": "TypeScript 终于能编译成原生程序了？启动快 12 倍，运行却慢 7.5 倍",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题带具体倍数数据但摘要无实质内容，需读原文核对是否有可复现的工程实测"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-4amw7bt3uhqw48qmqtps-utm-source-rss-amp-utm-medium-article",
+      "title": "两名工程师、两个月、4 万行 Rust：DynamoDB 太贵又慢，Perplexity 决定自己造",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "工程复盘类，但摘要仅剩跳转提示，无失败细节与数据可核对，信息不足。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-0wk4g4czwbhgydenoqpv-utm-source-rss-amp-utm-medium-article",
+      "title": "海外开源模型重新提速：“美版 DeepSeek”第一次交卷，Mistral同时亮牌",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "标题泛泛、摘要仅链接，无法核对具体模型或数据，倾向标记已看"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-astabrief",
+      "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "开源报告生成模型主题相关，但摘要缺失，无法核对实物与数据，暂不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-s2rt9t0yqufk6vyv33mh-utm-source-rss-amp-utm-medium-article",
+      "title": "苹果筑起的权限高墙，被 Meta AI 助手“借道”绕过",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "标题指向Meta AI绕过苹果权限的工程隐患，但摘要仅剩跳转链接，无实质细节可核对。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-lvsjsv4pilh3liz0kzze-utm-source-rss-amp-utm-medium-article",
+      "title": "谷歌借助 AI 与差分模糊测试将 C 语言依赖库改写为 Rust",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "翻译转述文章，摘要无实质细节，无法核对原始数据，倾向先标记已看"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-practical-guide-building-gpt-6",
+      "title": "A model guide for the GPT-6 family",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.75,
+      "reason": "模型选择与提示调优指南，属用法教程，无实物或新数据，不构成优先技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-0",
+      "title": "v0.40.0",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.85,
+      "reason": "Ollama 正式版本，默认启用 MLX 后端，属实质能力变更，影响工程团队推理部署判断。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-rl-environments",
+      "title": "Welcome RL Environments to the hub",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "RL 环境上 Hub 可能有工程价值，但无摘要、镜像链接，信息不足难核对。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-2-rc0",
+      "title": "v0.40.2-rc0: server: hide duplicate and downgrade guards from list (#18874)",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.95,
+      "reason": "预发布版本（-rc0），按站点规则不予发布。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-3-rc0",
+      "title": "v0.40.3-rc0",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.9,
+      "reason": "预发布版本（rc0），且仅一处迁移跳过改动，不构成值得优先关注的信号。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502426",
+      "title": "TRAE终于把Code和Work合并了",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.75,
+      "reason": "中文自媒体产品宣传稿，标题与摘要无实质技术信息，无法核对，属消费级产品公告。"
+    },
+    {
+      "id": "candidate-rss-https-www-qbitai-com-p-502467",
+      "title": "特斯拉FSD，在欧洲被打回原形",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "特斯拉FSD欧洲表现属消费级自动驾驶产品话题，与AI工程无关，且摘要仅一句话无法核对。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-tiiuae-falcon-asr",
+      "title": "Introducing Falcon ASR",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.5,
+      "reason": "订阅源无摘要，仅标题无法核对是否有实物或数据，倾向标记已看。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-building-with-ml-intern",
+      "title": "The model that didn't exist, so you made it yourself",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "标题像经验分享，摘要缺失无法核对，信息不足，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-hf-mirror-com-blog-allenai-impactful-scheduling",
+      "title": "Impactful scheduling for GPU clusters",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "GPU 集群调度主题相关，但无摘要且无法核对原文内容与数据，暂不发布。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-bjjss0zas5opvrb2ocff-utm-source-rss-amp-utm-medium-article",
+      "title": "亚马逊云科技在 Aurora DSQL 中引入外键约束",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "数据库功能更新与 AI 工程无关，且摘要信息不足，不宜发布"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-ylout8crdm0npwghl8lg-utm-source-rss-amp-utm-medium-article",
+      "title": "Linear 通过 1000 多次 PR 从 styled-components 迁移到 Meta 的 StyleX",
+      "actual": "reject",
+      "decision": "publish",
+      "confidence": 0.7,
+      "reason": "千余 PR 的真实大规模迁移复盘，有工程细节，对前端团队有参考价值"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "title": "单次RL后训练烧掉260万美元、每步37亿Token，小米披露MiMo-V2.6“规模化强化学习”路线",
+      "actual": "publish",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "有具体成本与Token数字，但摘要过短无法核对原文实质，倾向先标记已看"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-rkrpt18fgxtjippaeala-utm-source-rss-amp-utm-medium-article",
+      "title": "模型开放之后，AI能力为什么仍难以复用？",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.7,
+      "reason": "标题为观点论述，无实物或数据，摘要仅链接，无法核对具体内容。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-8s5fm3aafw7ya1qdwl5q-utm-source-rss-amp-utm-medium-article",
+      "title": "Java 近期新闻：TornadoVM 7.0、Groovy 6.0、GraalVM、Hibernate、Quarkus、Gradle、Maven",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.85,
+      "reason": "Java生态版本汇总类新闻，非AI工程信号，且仅为多项目动态罗列。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-iavngdypz2npvfzlodo0-utm-source-rss-amp-utm-medium-article",
+      "title": "GKE Pod 快照可缩短模型加载时间",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "GKE Pod 快照是云平台功能更新，属基础设施新闻，摘要无具体数据，与 AI 工程信号关联不明确。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-jri7etqxiv2dp6rsishh-utm-source-rss-amp-utm-medium-article",
+      "title": "Rails 之父 DHH 狂吹 Rust 快 150 倍，被开发者翻代码后群嘲",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "争议八卦类社区口水内容，无工程可核对的新进展，不属本站。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-mao3kodwm9fgickau9ak-utm-source-rss-amp-utm-medium-article",
+      "title": "CLAUDE.md 还是 AGENTS.md？Anthropic 的答案是：以后都不用",
+      "actual": "review",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "摘要为空，仅有标题链接，无法核对Anthropic具体主张，倾向标记已看不发。"
+    },
+    {
+      "id": "candidate-rss-https-www-infoq-cn-article-qmoriq1tcekfkwglxn0s-utm-source-rss-amp-utm-medium-article",
+      "title": "OpenAI 只用 15 天，就杀死了估值 100 亿美元的 Jev？",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.7,
+      "reason": "标题带营销式标题党，主题偏商业竞争与估值叙事，非工程团队可核对的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-2",
+      "title": "v0.40.2",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.55,
+      "reason": "补丁版本发布，摘要只讲后台升级机制，未见实质能力变化"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-oracle",
+      "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户营销案例，无实物或数据，不属于本站关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-pollo-ai",
+      "title": "Pollo AI turns creative ideas into campaigns with OpenAI",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例式营销稿，无工程可核对细节，不属于本站范围。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-legalon-halves-codex-costs",
+      "title": "LegalOn halves Codex costs while maintaining development speed",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例营销稿，非工程团队需优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-disrupting-ai-enabled-false-front-operations",
+      "title": "Disrupting AI-enabled “false front” operations",
+      "actual": "review",
+      "decision": "reject",
+      "confidence": 0.8,
+      "reason": "属于平台安全与政策公关稿，非工程团队需优先关注的技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-sophos",
+      "title": "Sophos cuts threat investigation time by 96% with OpenAI Daybreak",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.9,
+      "reason": "客户案例与营销稿，仅企业用量数据，不属工程团队关注的新技术信号。"
+    },
+    {
+      "id": "candidate-rss-https-openai-com-index-asana-browser-agent",
+      "title": "Asana cuts model costs 76x in browser tests with GPT-6.1 Sol",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.6,
+      "reason": "客户案例性质，数字为厂商自述测试，缺乏可核对的工程细节，倾向不发。"
+    },
+    {
+      "id": "candidate-rss-https-simonwillison-net-2026-oct-9-built-using-my-voice",
+      "title": "A new feature for my blog, built using my voice",
+      "actual": "reject",
+      "decision": "review",
+      "confidence": 0.8,
+      "reason": "个人博客功能开发记录，用语音编码的体验分享，无实质工程数据或可复现细节。"
+    },
+    {
+      "id": "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-5-0",
+      "title": "proto-v0.5.0",
+      "actual": "reject",
+      "decision": "reject",
+      "confidence": 0.6,
+      "reason": "tag 含 proto，且摘要仅一句版本号，无实质内容可核对，属预发布或信息不足。"
     }
   ]
 }

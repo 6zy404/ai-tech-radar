@@ -12,6 +12,42 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-11
+
+- **2026-10-11.** 34 undecided candidates (three days since the last round,
+  over the 20-item reminder line), all dispositioned blind: 2 converted and
+  published, 10 marked reviewed, 22 rejected. Published: **Xiaomi's
+  MiMo-V2.6 technical report** (arXiv:2610.11959; Pro's RL run about
+  US$2.6M, 12.7% of it grading; router frozen; hacked trajectories under 2%)
+  and **ByteDance Seed's phase-sensitivity paper** (arXiv:2609.36322;
+  DeepSeek-V4 retrieval swings up to 40.2 points with a token's position in
+  the KV-compression window). Rejected included six OpenAI customer stories
+  and Ollama v0.40.2, a patch on the 0.40 line the last round already
+  passed over. Digest 2026-10-11 carries only those two, MiMo pinned, eight
+  earlier-carried signals excluded.
+- **Primary sources were read with a local fetch.** WebFetch refused
+  hf-mirror.com, infoq.cn and github.com from this session; a Node `fetch`
+  plus tag stripping read every page except GitHub's HTML, whose release
+  notes came from the API instead.
+- **A title went live as mojibake for about a minute.** A `curl -d` with
+  Chinese text inline in Git Bash was not sent as UTF-8; the record saved,
+  the live page served it. Rewritten through Node at once. Send Chinese
+  payloads from a file or from Node, never inline in a shell argument.
+- **Both titles were reworded for line breaks.** The first MiMo title ran
+  four lines at 1265px and split 强化学习; the first DeepSeek title split
+  长上下文. Final titles: 3 lines at 1265px, every break between words at
+  1265px and 390px.
+- **Found, not fixed:** all 12 InfoQ 中文 candidates in the live snapshot
+  store their summary as entity-escaped HTML ending in 「点击查看原文」,
+  imported as late as 2026-10-12, though `cleanFeedText` would reduce it to
+  an empty summary. The public news lane re-cleans at read and shows none of
+  it; `missing_summary` does not fire for them. Handed to a feature window.
+- **Triage prompt re-checked on 254 blind decisions** (`eval:triage --fresh`,
+  v1 and v2, `eval/triage/README.md`). On the 169 rows decided after v2 was
+  written, v2 finds 12 of 16 publishes against v1's 3; about one v2
+  "publish" in three is right. Confident rejects (≥ 0.85) stay safe: 106 of
+  112 rejected, one later published. No prompt change.
+
 ## Detail-page titles get wider on phones
 
 - **2026-10-09.** At 390px the title on every public detail page sat inside
