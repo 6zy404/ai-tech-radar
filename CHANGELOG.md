@@ -12,6 +12,49 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Technology radar (/radar)
+
+- **2026-10-13.** `/radar` is a real page now, in the top nav as 雷达: the
+  technologies the site's signals keep coming back to, one entry per
+  technology rather than per release, placed in four quadrants (模型与训练 /
+  智能体与应用 / 推理与部署 / 工具与方法) and four rings (采用 / 试用 / 评估 /
+  暂缓). Each entry has a one-sentence ring reason, 2–4 published signals as
+  its evidence, related knowledge and skills, and a ring history. Until today
+  the address was a leftover redirect to `/technologies?view=followed`; no
+  test, validator or link depended on it, and the docs that described it are
+  updated.
+- **The picture is hand-written SVG and its positions are computed, not
+  random.** Each (quadrant, ring) cell is cut into a polar grid of slots at
+  least 30 units apart (26 when a cell is full), kept clear of the ring
+  boundaries and the dividing lines; an entry's id hashes (FNV-1a) to a slot
+  and a taken slot passes it to the next. Tests pin that every seed dot sits
+  inside its own cell, no two touch, the result does not depend on input
+  order, and adding an entry elsewhere moves nothing. The first try at row
+  placement (rows every 30 units from the inside out) gave the 采用 ring of
+  one quadrant exactly the 6 slots its 6 entries needed; spreading the rows
+  over the band and widening that ring gives it 10.
+- **The list is the picture's text alternative.** The SVG is `aria-hidden`;
+  the list beside it (below it under 900px) carries the number, name, ring
+  and 新进 / moved stamp of every dot, as native `<details>` rendered on the
+  server, so it opens with a keyboard and without JS. A click on a dot opens
+  the same item and scrolls to it once it has rendered; the address carries
+  `#radar-<slug>`. 本期 is the 30 days ending on the radar's newest change,
+  so nothing changes on its own as days pass, and the first edition is the
+  baseline: all 40 dots are solid on launch.
+- **Maintained from `/workspace/radar`** through a copy-on-write overlay in
+  `config/radar-workspace.json`, the way skills and knowledge are: a ring
+  change appends a history line and records `radar_entry.ring_changed`; the
+  publish gate blocks an entry with no published evidence. The SQLite driver
+  gets a `radar_workspace_records` table; `db:migrate-json` and
+  `validate:database` carry the store. `validate:deployment` asserts
+  `/radar` is public, the console routes are guarded, every public entry
+  carries only the mapped keys (proven to fire by adding `status` to the
+  mapping) and a workspace draft stays off the page.
+- Share card, CollectionPage JSON-LD and a sitemap entry, like the other
+  public index pages; it prints the list with every entry open. Initial
+  entries: 40, drafted from the published signals, knowledge and skills
+  (`docs/radar-first-edition-draft.md`), reviewed by the owner before merge.
+
 ## Semantic duplicate detection for candidates
 
 - **2026-10-13.** After every import the local embedding model (the one

@@ -212,7 +212,7 @@ signal rather than a re-post:
   house style — see `CHANGELOG.md` → "Digest generation copy localization")
 - `tags`: prefer canonical `TopicTag` ids from `src/data/tags.ts` over
   freeform strings — freeform tags don't resolve to a display name on
-  `/radar`, `/search`, or `/timeline`'s topic grouping
+  `/technologies?view=followed`, `/search`, or the 按话题 view's topic grouping
 - `relatedKnowledgeIds` / `relatedSkillIds`: pick real ids from
   `src/data/knowledge.ts` / `src/data/skills.ts` that the signal actually
   connects to

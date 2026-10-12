@@ -14,7 +14,8 @@ Chinese.
 ## Components
 
 - **User-facing site** — home, the technology signal list (curated / all news /
-  by topic / followed / read later), signal detail, the technology digest and weekly
+  by topic / followed / read later), signal detail, the technology radar
+  (technologies by quadrant and ring, each with its evidence signals), the technology digest and weekly
   review, skills, knowledge, the relationship network, topic pages, search, 问雷达
   (question answering from the site's own content, with citations), and RSS /
   JSON feeds. Reads published content only.

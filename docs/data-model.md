@@ -1094,6 +1094,49 @@ edit transitions record `skill.*` / `knowledge.*` workflow events. v0
 edited related-content id lists only; LinkRelation v1 (2026-07-19) added
 typed relation editing on top — see the `LinkRelation` section below.
 
+## RadarEntry / RadarWorkspaceRecord (2026-10-13)
+
+One technology on the `/radar` technology radar — the technology itself
+(vLLM, MCP, LoRA), not a release; the published signals are its evidence.
+Types in `src/types/radar.ts`.
+
+- `id`, `name`, `slug`
+- `quadrant`: `models-training | agents-applications | inference-deployment | tools-methods`
+  (模型与训练 / 智能体与应用 / 推理与部署 / 工具与方法)
+- `ring`: `adopt | trial | assess | hold` (采用 / 试用 / 评估 / 暂缓, innermost first)
+- `ringReason`: one sentence, why it sits in this ring
+- `evidenceTechnologyIds`: published technology signals (2–4 by
+  convention; the gate blocks zero published and warns outside 2–4)
+- `relatedKnowledgeIds`, `relatedSkillIds`
+- `history`: `{ date, fromRing?, toRing, reason }[]`, oldest first;
+  `fromRing` is absent on the line that put the entry on the radar, and the
+  last line's `toRing` equals `ring`
+
+`history` is written only by the workflow: one line on create, one more on
+every edit that changes the ring (the editor's change reason, or the ring
+reason when none is given), never taken from a request. 「本期新进 / 移动」
+is not stored — `deriveRadarChange` in `src/lib/radar.ts` reads it from
+history: 本期 is the 30 days ending on the newest history line anywhere on the
+radar; 新进 is a first line inside that window and later than the first
+edition (the first edition is the baseline); 移动 is a ring at the start of
+the window that differs from the ring now.
+
+Seeds live in `src/data/radar.ts` (40 entries, first edition 2026-10-13).
+`RadarWorkspaceRecord` adds `status: draft | published`, `createdAt`,
+`updatedAt`, stored in `config/radar-workspace.json`
+(`src/lib/radar-workflow.ts`) as the same copy-on-write overlay the skill
+and knowledge records use: editing a seed copies it (status `published`),
+a published record replaces its seed, a draft hides it, a new record shows
+once published. Edits record `radar_entry.created` / `.updated` /
+`.published` / `.publish_failed` / `.ring_changed` workflow events.
+
+The public shape, `RadarPublicEntry`, is built only by
+`toPublicRadarEntries`: `number` (list order: quadrant, ring, then name by
+Chinese collation), `name`, `slug`, `quadrant`, `ring`, `ringReason`,
+`change` (`new | moved | unchanged`), `movedFrom?`, `evidence` (published
+signals' slug, title, publish date), `knowledge` / `skills` (slug, title),
+`history`. No status, timestamps or raw ids.
+
 ## TopicTag
 
 Cross-cutting label used for browsing and grouping.
@@ -1486,6 +1529,7 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `technology-workspace.json`
 - `skill-workspace.json`
 - `knowledge-workspace.json`
+- `radar-workspace.json` (2026-10-13)
 - `link-relation-workspace.json`
 - `duplicate-groups.json`
 - `daily-digests.json`
@@ -1563,6 +1607,7 @@ Schema v0 tables:
 - `prompt_versions`
 - `skill_workspace_records`
 - `knowledge_workspace_records`
+- `radar_workspace_records` (2026-10-13; same columns as the two above)
 - `link_relation_overrides`
 - `runtime_configs`
 - `technology_comparisons`

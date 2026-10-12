@@ -89,7 +89,10 @@ Public pages:
   - `followed` (我关注的) — personal radar; follows are browser-local
     (localStorage), the view itself serves the same published content to
     everyone
-  - `/news`, `/timeline`, and `/radar` redirect here to the matching view
+  - `/news` and `/timeline` redirect here to the matching view
+- `/radar` — technology radar: technologies by quadrant and ring, each with
+  a ring reason, evidence signals and a ring history (2026-10-13; until then
+  a redirect to the 我关注的 view)
 - `/technologies/[slug]`
 - `/skills`
 - `/skills/[slug]`

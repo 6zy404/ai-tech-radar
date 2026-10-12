@@ -303,6 +303,33 @@ The product is split into two subsystems:
   them. Reached from a 怎么挑信号 link in the `/technologies` header; not a
   nav entry; in the sitemap. The signal page's band sentence
   (`getPriorityUserSummary`) names the same rules since that day.
+- **技术雷达 (`/radar`)** (2026-10-13) — one entry per technology
+  itself (vLLM, MCP, LoRA, 推测解码 …), not per release, placed in one of
+  four quadrants (模型与训练 / 智能体与应用 / 推理与部署 / 工具与方法) and
+  one of four rings (采用 / 试用 / 评估 / 暂缓, innermost first), each with a
+  one-sentence ring reason, 2–4 published signals as evidence, related
+  knowledge and skills, and a ring history. A hand-written SVG radar
+  (`src/components/radar-view.tsx`, no chart library): numbered dots,
+  solid for unchanged, hollow for 本期新进 or moved; dot positions come from
+  a deterministic slot grid per (quadrant, ring) cell, the slot picked by an
+  FNV-1a hash of the entry id, so no two dots touch and none leaves its cell
+  (`src/lib/radar-layout.ts`, pinned by tests). Beside it a list grouped by
+  quadrant, 「编号 名称 · 环位」, as native `<details>`: the picture's text
+  alternative (the SVG is `aria-hidden`), keyboard-operable and
+  server-rendered; a click on a dot opens the same item, and the address
+  carries `#radar-<slug>` (`replaceState`). 本期 is the 30 days ending on
+  the radar's newest history line, so the page only changes when an editor
+  changes something; the first edition is the baseline and marks nothing
+  new (`deriveRadarChange` in `src/lib/radar.ts`). One public mapping,
+  `toPublicRadarEntries`, resolves ids against published signals, skills
+  and knowledge only; an entry with no published evidence is left off. In
+  the top nav (雷达), the sitemap, with a share card and a CollectionPage
+  JSON-LD; prints the list only. Seeds in `src/data/radar.ts` (40 entries,
+  first edition 2026-10-13); edited from `/workspace/radar` through a
+  copy-on-write overlay in `config/radar-workspace.json`
+  (`src/lib/radar-workflow.ts`), where every ring change appends a history
+  line and records `radar_entry.ring_changed`. Until this date `/radar`
+  was a redirect to `/technologies?view=followed`.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
@@ -621,6 +648,8 @@ Public, user-facing routes:
 - `/skills` (`?q=` filter), `/skills/[slug]`, `/knowledge` (`?q=` filter),
   `/knowledge/[slug]`
 - `/network` (`?focus=<node id>` preselects a node)
+- `/radar` — 技术雷达, technologies by quadrant and ring with their evidence
+  signals (`#radar-<slug>` opens an entry); a nav entry
 - `/sources` — publisher directory derived from published signals (not a
   nav entry; linked from the `/technologies` header)
 - `/about` — 本站怎么挑信号, how signals are picked and what the site does
@@ -641,7 +670,8 @@ Public, user-facing routes:
 - `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
 - `/digest/weekly/feed.xml` — weekly-review RSS (published signals only)
-- `/news`, `/timeline`, `/radar` redirect to the matching `/technologies?view=`
+- `/news`, `/timeline` redirect to the matching `/technologies?view=` (`/radar`
+  did too until 2026-10-13; it is now the technology radar)
 - `GET /api/health` — public liveness check for an external uptime monitor:
   `200 { status: "ok" }` while the store reads, `503` when it does not, plus
   the build id, uptime, published-signal count and the semantic search
@@ -825,8 +855,8 @@ component into one file".
 
 Runtime workflow state lives in `config/` as JSON (the default fallback store):
 imported candidates, candidate review state, external sources, technology
-workspace records, skill and knowledge workspace records, link relation
-overrides, duplicate groups,
+workspace records, skill and knowledge workspace records, radar workspace
+records, link relation overrides, duplicate groups,
 daily digests, delivery, scheduled delivery, scheduled import, scheduled
 digest draft, task runner,
 workflow events, editorial enrichment suggestions, candidate triage

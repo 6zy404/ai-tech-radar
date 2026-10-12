@@ -13,7 +13,7 @@ Public routes can be exposed:
   followed topics, reading marks (已读 / 稍后读) and the last-visit set
   behind the 新 stamps are browser-localStorage only (the 阅读码 export /
   import runs in the browser too), the route serves the same published content to everyone and holds no
-  per-reader server state; `/news`, `/timeline`, and `/radar` redirect here
+  per-reader server state; `/news` and `/timeline` redirect here
   to the matching view)
 - `/technologies/[slug]`
 - `/digest` (archive index; renders only published digests through the same
@@ -41,6 +41,15 @@ Public routes can be exposed:
   status, source health, quality metric or candidate reaches it. Outside
   `protectedPathPrefixes` and outside `build:public`'s excluded
   directories; `validate:deployment` asserts it stays public)
+- `/radar` (technology radar; rendered only through `toPublicRadarEntries`
+  in `src/lib/radar.ts`, which picks fields by name — number, name, slug,
+  quadrant, ring, ring reason, derived change, resolved evidence / knowledge
+  / skill titles and slugs, history — and resolves ids only against
+  published content. Workspace status, timestamps, raw ids and draft
+  entries never reach it; `validate:deployment` writes a draft and asserts
+  it stays off, and asserts the key set of every entry. The console that
+  edits it, `/workspace/radar` and `/api/workspace/radar`, is under the
+  guarded prefixes and absent from `build:public`)
 - `/about` (fixed copy explaining how signals are picked; reads no runtime
   content, so no field of any kind reaches it. It names, without values,
   what leaves the browser: AI requests go to the model provider, the rate
@@ -305,6 +314,10 @@ The safe public mapping is still explicit:
   `getAllKnowledge`: draft records are filtered from every public surface,
   and the merged items carry no workspace-only fields (`status`, origin,
   and timestamps stay behind the workspace boundary)
+- radar workspace records (`config/radar-workspace.json`) reach `/radar`
+  only through the merged read in `getMergedPublicRadarEntries` and then
+  `toPublicRadarEntries`: draft records are dropped, a draft record hides
+  its seed, and the public entry carries no status, timestamps or ids
 - link relation overrides (`config/link-relation-workspace.json`) carry only
   the same public fields the seed `LinkRelation` entries already expose
   (pair, relation type, note) and reach public pages through the merged

@@ -134,7 +134,7 @@ prerequisite instead of silently doing nothing.
 
 Route and API boundaries:
 
-- Public routes: `/`, `/technologies` (also hosts the news/timeline/radar views via `?view=`), `/technologies/[slug]`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
+- Public routes: `/`, `/technologies` (also hosts the news/timeline/followed views via `?view=`), `/technologies/[slug]`, `/radar`, `/digest/today`, `/digest/[date]`, `/skills`, `/knowledge`, `/feed.xml`, and `/feed.json`
 - Internal routes: `/workspace/*`
 - Internal mutation APIs: `/api/workspace/*` and `/api/candidates/*`
 - Public pages do not import workspace action components and do not call workspace mutation APIs
@@ -496,7 +496,7 @@ Deployment readiness defines which parts of the local-first prototype can be pub
 Public user-facing routes:
 
 - `/`
-- `/technologies` (also hosts the news/timeline/radar views via `?view=`)
+- `/technologies` (also hosts the news/timeline/followed views via `?view=`)
 - `/technologies/[slug]`
 - `/digest/today`
 - `/digest/[date]`

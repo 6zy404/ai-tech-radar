@@ -69,6 +69,7 @@ Used by:
 - `/topics`
 - `/sources`
 - `/about`
+- `/radar`
 
 Purpose:
 
@@ -247,6 +248,18 @@ affected.
   - user-facing technology detail preview for an unpublished workspace record
   - reuses the user-facing detail renderer
   - does not render internal-only fields such as raw payload, import status, normalized type, or duplicate group
+- `/workspace/radar`, `/workspace/radar/[id]`, `/workspace/radar/new`
+  - workspace-only radar console (2026-10-13), built from the skill /
+    knowledge console's primitives (`ContentWorkspaceEntryCard`,
+    `ContentWorkspaceStatusActions`, `PublishReadinessPanel`): status tiles,
+    workspace entries first, then untouched seeds grouped by quadrant
+  - the edit page shows the ring history (read-only, newest first) above the
+    form (`RadarWorkspaceForm`: name, slug, quadrant, ring, ring reason, a
+    change reason used only when the ring changes, evidence signals newest
+    first, related knowledge and skills)
+  - the gate blocks a missing name / slug / ring reason, a bad or duplicate
+    slug and no published evidence; it warns on one evidence signal, more
+    than four, unpublished references and no related knowledge or skills
 - `/workspace/skills` and `/workspace/knowledge`
   - workspace-only skill / knowledge content consoles (Skill/Knowledge
     workspace editing v0)
@@ -357,7 +370,8 @@ Workspace deployment boundary:
 - `/technologies`
   - user-facing published technology hub with four views switched by a
     `?view=` query param and a tab strip at the top of the page; `/news`,
-    `/timeline`, and `/radar` each redirect here to the matching view
+    and `/timeline` each redirect here to the matching view (`/radar` did
+    until 2026-10-13; it is now the technology radar)
     (`src/app/{news,timeline,radar}/page.tsx` are one-line `redirect()`s)
   - the header's actions carry 信源一览 → `/sources`, 怎么挑信号 → `/about`
     (2026-10-12) and RSS 订阅 (2026-10-02)
@@ -780,6 +794,24 @@ Workspace deployment boundary:
     `relations`, `ai`, `privacy`; titles through `UnbreakableTitle`
   - no runtime content and no internal fields; not in the nav — reached
     from the `/technologies` header (2026-10-12)
+- `/radar`
+  - user-facing technology radar (2026-10-13): the /topics and /sources
+    list skeleton's header label, lede and caption row of counts (项技术,
+    one count per ring, the date of the newest change with 首期 / 本期 N 项),
+    then two columns above 900px — a hand-written SVG radar (sticky at
+    86px) and a list grouped by quadrant — and one column below, picture on
+    top (max 560px); a 四个环位 key with one sentence per ring closes the page
+  - the picture: four rings, the two dividing lines, quadrant names in the
+    corners, ring names written down the upper vertical line, one numbered
+    dot per entry, solid (unchanged) or hollow (本期新进 or moved), the open
+    one in the stamp colour; `aria-hidden`, mouse-only
+  - the list is the text alternative: one native `<details>` per entry,
+    summary 「编号 名称 · 环位」 plus a 新进 / 「从 X 移到 Y」 stamp; open, it
+    shows the ring reason, 依据信号 (date + link), 相关知识 / 相关技能 and
+    the ring history. One open at a time; the address carries
+    `#radar-<slug>`, and a click on a dot opens and scrolls to its entry
+  - prints the list with every entry open, without the picture; share card
+    and CollectionPage JSON-LD; in the top nav and the sitemap
 - `/topics/[tagId]`
   - its `<head>` announces the per-topic feed only when the RSS column of
     the 跟进此话题 block is shown (the feed 404s otherwise); every public page announces the digest
@@ -1108,6 +1140,14 @@ Forbidden on public pages:
     `DailyDigestContent`, `WeeklyReviewContent`); renders nothing under
     `/workspace`, so the workspace previews that reuse those components do
     not get it
+- `RadarView` (`radar-view.tsx`)
+  - the /radar picture and its list: a client component that only draws —
+    positions come laid out from the server (`layoutRadarDots`), entries
+    from `getPublicRadar`; owns the one-open-entry state and the hash
+- `RadarWorkspaceForm` / `RadarWorkspaceListPage` / `RadarWorkspaceDetailPage`
+  / `RadarWorkspaceNewPage` (`radar-workspace-form.tsx`,
+  `radar-workspace-pages.tsx`)
+  - workspace-only: the radar console's form and three pages
 - `IssuePager`
   - user-facing previous / next pager shared by the daily digest, weekly
     review and signal pages; takes `unit` (期 / 周 / 条) and two optional
