@@ -49,7 +49,14 @@ export function getRadarEdition(entries: RadarEntry[]): RadarEdition {
   const firstDate = firstDates[0] ?? "";
   const latestDate = allDates[allDates.length - 1] ?? "";
 
-  return { firstDate, latestDate, isFirstEdition: firstDate === latestDate };
+  // A ring change on the first day still makes it a second edition.
+  const isFirstEdition = entries.every(
+    (entry) =>
+      entry.history.every((line) => line.fromRing === undefined) &&
+      (entry.history[0]?.date ?? firstDate) === firstDate
+  );
+
+  return { firstDate, latestDate, isFirstEdition };
 }
 
 /**

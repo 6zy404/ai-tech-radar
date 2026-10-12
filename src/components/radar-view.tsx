@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   describeRadarMove,
@@ -272,7 +272,12 @@ export function RadarView({
 }) {
   const [selected, setSelected] = useState<string | null>(null);
 
+  // Set by a click on the picture; the scroll waits for the commit that
+  // opens the entry, so it measures the entry at its open height.
+  const pendingScroll = useRef<string | null>(null);
+
   const select = useCallback((slug: string | null, scroll: boolean) => {
+    pendingScroll.current = scroll ? slug : null;
     setSelected(slug);
 
     // The address names the open entry, so a link to it opens it; no
@@ -280,30 +285,40 @@ export function RadarView({
     const hash = slug ? `#${getRadarEntryAnchor(slug)}` : "";
     const url = `${window.location.pathname}${window.location.search}${hash}`;
     window.history.replaceState(window.history.state, "", url);
-
-    if (slug && scroll) {
-      const element = document.getElementById(getRadarEntryAnchor(slug));
-      const reduce = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      // Only when it is off screen — beside the picture on a wide screen it
-      // usually is not, and a jump would be noise.
-      const rect = element?.getBoundingClientRect();
-
-      if (
-        element &&
-        rect &&
-        (rect.top < 80 || rect.bottom > window.innerHeight)
-      ) {
-        element.scrollIntoView({
-          behavior: reduce ? "auto" : "smooth",
-          block: "nearest"
-        });
-      }
-
-      element?.querySelector("summary")?.focus({ preventScroll: true });
-    }
   }, []);
+
+  useEffect(() => {
+    if (!selected || pendingScroll.current !== selected) {
+      return;
+    }
+
+    pendingScroll.current = null;
+
+    const element = document.getElementById(getRadarEntryAnchor(selected));
+    const summary = element?.querySelector("summary");
+
+    if (!element || !summary) {
+      return;
+    }
+
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const top = summary.getBoundingClientRect().top;
+    const bottom = element.getBoundingClientRect().bottom;
+
+    // Only when the entry is not already in view — beside the picture on a
+    // wide screen it usually is, and a jump would be noise. Under the
+    // picture on a phone it never is.
+    if (top < 80 || bottom > window.innerHeight) {
+      element.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "start"
+      });
+    }
+
+    summary.focus({ preventScroll: true });
+  }, [selected]);
 
   useEffect(() => {
     const hash = decodeURIComponent(window.location.hash.slice(1));
@@ -315,13 +330,9 @@ export function RadarView({
     const slug = hash.slice(anchorPrefix.length);
 
     if (entries.some((entry) => entry.slug === slug)) {
+      // Opened and scrolled to by the effect above, once it has rendered.
+      pendingScroll.current = slug;
       setSelected(slug);
-      // After the open state has rendered, so the target has its height.
-      requestAnimationFrame(() => {
-        document
-          .getElementById(getRadarEntryAnchor(slug))
-          ?.scrollIntoView({ block: "center" });
-      });
     }
   }, [entries]);
 

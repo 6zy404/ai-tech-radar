@@ -11,6 +11,7 @@ const moduleLabels: Record<string, string> = {
   technologies: "草稿",
   skills: "技能",
   knowledge: "知识",
+  radar: "雷达",
   digests: "简报",
   delivery: "投递",
   operations: "运维"
@@ -23,13 +24,15 @@ const detailLabels: Record<string, string> = {
   technologies: "技术详情",
   skills: "技能详情",
   knowledge: "知识详情",
+  radar: "雷达条目",
   digests: "简报详情"
 };
 
 const newPageLabels: Record<string, string> = {
   sources: "新建来源",
   skills: "新建技能",
-  knowledge: "新建知识"
+  knowledge: "新建知识",
+  radar: "新建雷达条目"
 };
 
 // Named sibling pages (not [id] detail routes) nested under a module.

@@ -65,6 +65,20 @@ describe("deriveRadarChange", () => {
     });
   });
 
+  it("ends the first edition with a move on its own first day", () => {
+    const moved = makeEntry({
+      ring: "adopt",
+      history: [
+        { date: "2026-10-13", toRing: "trial", reason: "" },
+        { date: "2026-10-13", fromRing: "trial", toRing: "adopt", reason: "" }
+      ]
+    });
+    const edition = getRadarEdition([moved, makeEntry({ id: "b" })]);
+
+    expect(edition.isFirstEdition).toBe(false);
+    expect(deriveRadarChange(moved, edition).change).toBe("moved");
+  });
+
   it("does not count a move older than the window, or a move and back", () => {
     const old = makeEntry({
       ring: "adopt",

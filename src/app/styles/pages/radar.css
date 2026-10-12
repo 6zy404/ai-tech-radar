@@ -166,15 +166,23 @@
   font-weight: 400;
 }
 
-.radar-list__quadrant ol {
+.radar-list__quadrant > ol {
   display: grid;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.radar-list__quadrant li + li {
+/* Direct rows only: the signal and history lists inside an open entry are
+   li too. */
+.radar-list__quadrant > ol > li + li {
   border-top: 1px dashed var(--dossier-line);
+}
+
+/* Opened from the picture, an entry scrolls to its top: clear of the
+   sticky nav, as 本页目录 targets are. */
+.radar-entry {
+  scroll-margin-top: 86px;
 }
 
 .radar-entry summary {
@@ -434,7 +442,7 @@
     break-inside: auto;
   }
 
-  .radar-list__quadrant li {
+  .radar-list__quadrant > ol > li {
     break-inside: avoid;
   }
 }
