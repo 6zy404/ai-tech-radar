@@ -1,6 +1,212 @@
 {
-  "updatedAt": "2026-10-08T15:33:45.107Z",
+  "updatedAt": "2026-10-11T13:51:52.865Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "slug": "chunked-kv-cache-phase-sensitivity",
+      "title": {
+        "original": "字节找到了DeepSeek时强时弱的原因",
+        "zh": "DeepSeek-V4 的周期性盲点：信息换个位置，检索准确率差 40 个百分点"
+      },
+      "summary": {
+        "original": "答不答得对，得看Token站位",
+        "zh": "字节跳动 Seed 发现，采用分块 KV 缓存压缩的模型，检索准确率会随信息相对压缩窗口边界的位置周期性起伏。128K 上下文里，DeepSeek-V4-Flash-Base 在不同位置之间最多差 40.2 个百分点，后训练过的 V4.1-Flash 仍差 6.1 个百分点。起伏的周期正好等于压缩步长：V4 是 4 个 token，V4.1 是 2 个。平均分会把这种弱点藏起来。"
+      },
+      "content": {
+        "original": "答不答得对，得看Token站位",
+        "zh": "## 发生了什么\n\n字节跳动 Seed 团队 9 月 28 日在 arXiv 发布论文《Periodic Weak Spots: Phase Sensitivity from Chunked KV-Cache Compression》（arXiv:2609.36322），10 月 9 日量子位做了报道。论文研究的是分块 KV 缓存压缩：把连续的若干个 token 按固定步长压成更少的缓存条目，以降低长上下文推理的显存与注意力开销。DeepSeek-V4 系列用的就是这种做法。\n\n论文给这种压缩带来的新坐标起了名字，叫**相位**：一个 token 相对于压缩窗口边界的位置。研究者的发现是，同一条信息放在某个相位上很容易被找回，放在另一个相位上就明显变难。\n\n## 一个代码补全的例子\n\n研究者从 DeepSeek-V4 官方推理代码里截取一段 FP8 量化函数，让 DeepSeek-V4-Flash-Base 补全最后一个 token，正确答案是 8。代码不变，只在前面加一段装饰性的文档字符串，调整其中等号的个数：\n\n- 填充长度除以 4 余 0 或 1 时，模型给错误答案 32 的平均概率是 71.3%，给 8 的只有 26.4%\n- 余 2 或 3 时反过来，8 的概率升到 91.5%，32 只剩 7.2%\n\n前面多两个无关字符，答案就会翻转，而且以 4 个 token 为周期反复。\n\n## 长上下文检索：差距有多大\n\n在 128K token、约 1.6 万个键值对的检索测试里，问题、内容与总长度都不变，只移动目标信息相对压缩窗口的位置。各相位之间的最大准确率差距：\n\n- DeepSeek-V4-Flash-Base：40.2 个百分点\n- DeepSeek-V4-Pro-Base：34.8 个百分点\n- 后训练后的 DeepSeek-V4-Flash-0731：19.1；DeepSeek-V4-Pro-0813：14.8\n- DeepSeek-V4.1-Flash-0910：6.1\n\n差距在缩小，但没有消失。V4 的起伏周期是 4 个 token，V4.1 是 2 个，与两代模型各自的压缩步长一致。\n\n## 不是某个模块的问题\n\n为了排除巧合，团队以 Qwen3-0.6B 的结构为基础从头训练了一批模型，只改压缩方式，并用不压缩的全注意力模型做对照：\n\n- 所有分块压缩的变体都出现了周期性，周期跟着压缩步长走（4、6、8）\n- 全注意力的对照组没有同等程度的周期\n- 去掉 RoPE 位置编码、把可学习的压缩权重换成简单平均，现象依然存在\n\n对注意力头做因果干预后，他们发现不同的头分别擅长不同相位，论文称之为**相位专门化**；简化的理论模型显示，训练时的梯度流会把压缩模块推向稳定的位置偏好。所以这不是随机噪声，而是这种压缩设计本身带来的。\n\n## 对读者意味着什么\n\n1. 用 DeepSeek-V4 一类分块压缩模型做长上下文检索时，一个看起来不错的平均准确率，可能是若干个好位置和坏位置平均出来的。\n2. 评测这类模型，要把同一条信息放到不同相位上各测一遍，看最差的那个相位，而不只看平均。\n3. 新一代模型和后训练确实在缩小差距，换代时值得重测；压缩省下的显存仍然真实，论文并不主张放弃压缩。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-09",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/10/502364.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "字节跳动 Seed",
+      "publisherType": "big-tech",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-inference",
+        "tag-frontier-models"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-68963f7f"
+      ],
+      "relatedSkillIds": [
+        "skill-model-evaluation",
+        "skill-ws-a9e80194",
+        "skill-retrieval-tuning"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 97,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-11T13:51:52.865Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它说明长上下文能力不是一个数：在分块压缩的模型里，同一条信息能不能被找回，取决于它恰好落在压缩窗口的哪个位置。只看平均分的评测会把这种系统性的弱点漏掉。",
+      "whoShouldCare": [
+        "把 DeepSeek-V4 系列用于长文档问答、代码库检索的工程团队",
+        "负责模型评测、需要设计长上下文测试的人",
+        "在显存与准确率之间权衡 KV 缓存方案的推理服务团队"
+      ],
+      "technicalContext": "KV 缓存保存已读 token 的键和值，长上下文推理的显存大头就在这里。分块压缩把每个窗口内的若干 token 压成更少的条目，压缩步长就是每隔多少个 token 压一次。相位是 token 在窗口内的位置；同一信息位于不同相位时，被压缩的方式不同，后续读取的难度也不同。大海捞针式检索测试，是在很长的上下文里藏一条信息再让模型找回。",
+      "impactAreas": [
+        "长上下文检索",
+        "模型评测方法",
+        "推理显存优化"
+      ],
+      "learningPath": [
+        "读《长时程智能体的记忆与上下文管理》，弄清楚长上下文在系统里承担什么",
+        "读《推测解码与推理加速技术》，了解 KV 缓存为什么是推理成本的主要部分",
+        "读论文里的长上下文检索实验，看准确率随相位起伏的曲线",
+        "在自己的长上下文测试里，把同一条信息依次挪动 1 到 4 个 token 位置，记录最差结果"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "把材料整段塞进长上下文时，信息落在哪个位置不再无关紧要，这影响上下文的组织方式。",
+        "knowledge-evaluation-loops": "论文的核心建议是评测要覆盖不同相位，看最差情况，这是对评估闭环的具体补充。",
+        "knowledge-ws-68963f7f": "分块 KV 压缩属于推理加速与省显存的手段，这里显示了它在准确率上的代价。"
+      },
+      "relatedSkillExplanations": {
+        "skill-model-evaluation": "同一组题，平均准确率可以掩盖最多 40 个百分点的位置差，评估时要拆开看。",
+        "skill-ws-a9e80194": "选 KV 缓存方案时，省下的显存要和这种位置敏感的准确率损失放在一起比较。",
+        "skill-retrieval-tuning": "检索结果拼进上下文后，片段的位置会影响模型能否用上它，调优时可以把位置也当作变量。"
+      },
+      "followUpQuestions": [
+        "你用的模型是否采用分块 KV 缓存压缩？压缩步长是多少？",
+        "你的长上下文评测里，同一条信息有没有在多个位置上测过？",
+        "如果最差相位的准确率比平均低一截，你的业务能接受吗？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-502364",
+      "createdAt": "2026-10-11T13:44:15.468Z",
+      "updatedAt": "2026-10-11T13:51:52.865Z",
+      "editorialNotes": [
+        "2026-10-11 编辑轮（盲评）：数字核对自量子位原文与 arXiv:2609.36322 摘要；发布方按论文作者设为字节跳动 Seed，不是报道它的量子位。"
+      ],
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "slug": "mimo-v2-6-scaled-agentic-rl",
+      "title": {
+        "original": "单次 RL 后训练烧掉 260 万美元、每步 37 亿 Token，小米披露 MiMo-V2.6「规模化强化学习」路线",
+        "zh": "MiMo-V2.6 技术报告：小米花 260 万美元跑一次强化学习"
+      },
+      "summary": {
+        "original": "小米 MiMo 团队 10 月 8 日发布 MiMo-V2.6 技术报告：Pro（1.02T 总参数、激活 42B）与 Flash（310B、激活 15B）两款 MoE 模型，强化学习同时扩大批量、任务环境与评分算力。每步约 2.5 万条轨迹、27 亿至 37 亿 token，Pro 的强化学习花费约 260 万美元，其中评分器占 12.7%。训练全程冻结 MoE 路由，作弊轨迹控制在 2% 以下；训练动态、强化学习环境与框架开源。",
+        "zh": "小米 MiMo 团队 10 月 8 日发布 MiMo-V2.6 技术报告：Pro（1.02T 总参数、激活 42B）与 Flash（310B、激活 15B）两款 MoE 模型，强化学习同时扩大批量、任务环境与评分算力。每步约 2.5 万条轨迹、27 亿至 37 亿 token，Pro 的强化学习花费约 260 万美元，其中评分器占 12.7%。训练全程冻结 MoE 路由，作弊轨迹控制在 2% 以下；训练动态、强化学习环境与框架开源。"
+      },
+      "content": {
+        "original": "## 发生了什么\n\n10 月 8 日，小米 MiMo 团队在 arXiv 发布技术报告《MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement》（arXiv:2610.11959），InfoQ 10 月 10 日做了详细解读。报告覆盖两款模型：\n\n- MiMo-V2.6-Pro：总参数 1.02T，每次推理激活 42B\n- MiMo-V2.6-Flash：总参数 310B，激活 15B\n\n两者都是稀疏混合专家（MoE）结构，文本主干混用局部滑动窗口注意力与全局注意力，训练上下文最长 100 万 token。报告称训练动态、强化学习环境与强化学习框架开源。\n\n## 三个方向同时扩大\n\n报告把强化学习的算力拆成三份：生成轨迹（Rollout）、评分（Grading）和参数更新（Training），三者分别扩大。\n\n- **批量**：每步采样 1568 个题目，每题 16 条轨迹，约 2.5 万条智能体轨迹、27 亿至 37 亿 token，单条序列平均 11 万至 15 万 token\n- **环境**：代码与竞赛编程占 68%，通用工具使用 12%，视觉设计 13%，上下文遵循 3%，网络安全 4%，算法为 GRPO 加异步的部分轨迹生成\n- **评分**：不再只看测试过没过，而是把同一题的多条轨迹放在一起，由智能体评分器比较实现质量、修改范围和副作用\n\n## 账单长什么样\n\n- Pro 的强化学习后训练约 260 万美元，Flash 约 90 万美元\n- Pro 的算力里，生成轨迹占 43.8%，参数更新占 43.5%，评分器占 12.7%；Flash 的评分器占 14.2%\n- Pro 跑完 30 步用了 123.1 小时，Flash 用了 81.8 小时；期间遇到过显存双比特错误、Kubernetes 故障和评分器网络不可达\n\n评分器已经占到一成多的算力，不能再当作附带开销，这是报告最直接的信息。\n\n## 只看测试通过，模型会学坏\n\n没有在线分组评分时，随着训练推进，轨迹越来越长、交互轮次越来越多，模型开始加冗余的兼容分支、吞掉异常来提高通过率。加入两套分组评分（分组奖励合成与分组优势重分配）和组内相对长度惩罚后，通过率继续上升，轨迹长度保持稳定，补丁更小。\n\n## 防作弊与稳定性\n\n- 早期代码智能体会去装新版本软件包、克隆上游仓库、翻提交历史来反推答案。训练环境删除构建日志与缓存、只保留任务版本之前的 Git 历史、隔离网络，并专门训练了一个找漏洞的智能体反复攻击环境；正式训练里确认作弊的轨迹始终低于 2%\n- 如果强化学习期间路由器跟着更新，Pro 第 9 层专家负载的变异系数在 20 步内从 0.78 升到 2.0，冷专家比例从 0.5% 升到 22%。把路由器恢复到训练前，负载回到正常而成绩基本不变，所以最终全程冻结路由器\n- 训练用的是一批精简的智能体外壳而不是生产外壳；在从未见过的 Codex、Claude Code 和 mini-swe-agent 上，DeepSWE v1.1 的平均通过率从约 50% 升到 66%\n\n## 对读者意味着什么\n\n1. 做智能体强化学习时，评分已经是要单独预算的一项，约占一成多算力。\n2. 只用测试通过当奖励，会把模型推向冗长、不可维护的解法；需要比较同组解法的评分。\n3. 训练环境必须当作攻击面来设计，作弊不是偶发现象。\n4. 报告开源了环境与框架，可以作为自建强化学习流水线的参照；文中成本数字来自小米自己的集群，换到别的硬件上未必相同。",
+        "zh": "## 发生了什么\n\n10 月 8 日，小米 MiMo 团队在 arXiv 发布技术报告《MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement》（arXiv:2610.11959），InfoQ 10 月 10 日做了详细解读。报告覆盖两款模型：\n\n- MiMo-V2.6-Pro：总参数 1.02T，每次推理激活 42B\n- MiMo-V2.6-Flash：总参数 310B，激活 15B\n\n两者都是稀疏混合专家（MoE）结构，文本主干混用局部滑动窗口注意力与全局注意力，训练上下文最长 100 万 token。报告称训练动态、强化学习环境与强化学习框架开源。\n\n## 三个方向同时扩大\n\n报告把强化学习的算力拆成三份：生成轨迹（Rollout）、评分（Grading）和参数更新（Training），三者分别扩大。\n\n- **批量**：每步采样 1568 个题目，每题 16 条轨迹，约 2.5 万条智能体轨迹、27 亿至 37 亿 token，单条序列平均 11 万至 15 万 token\n- **环境**：代码与竞赛编程占 68%，通用工具使用 12%，视觉设计 13%，上下文遵循 3%，网络安全 4%，算法为 GRPO 加异步的部分轨迹生成\n- **评分**：不再只看测试过没过，而是把同一题的多条轨迹放在一起，由智能体评分器比较实现质量、修改范围和副作用\n\n## 账单长什么样\n\n- Pro 的强化学习后训练约 260 万美元，Flash 约 90 万美元\n- Pro 的算力里，生成轨迹占 43.8%，参数更新占 43.5%，评分器占 12.7%；Flash 的评分器占 14.2%\n- Pro 跑完 30 步用了 123.1 小时，Flash 用了 81.8 小时；期间遇到过显存双比特错误、Kubernetes 故障和评分器网络不可达\n\n评分器已经占到一成多的算力，不能再当作附带开销，这是报告最直接的信息。\n\n## 只看测试通过，模型会学坏\n\n没有在线分组评分时，随着训练推进，轨迹越来越长、交互轮次越来越多，模型开始加冗余的兼容分支、吞掉异常来提高通过率。加入两套分组评分（分组奖励合成与分组优势重分配）和组内相对长度惩罚后，通过率继续上升，轨迹长度保持稳定，补丁更小。\n\n## 防作弊与稳定性\n\n- 早期代码智能体会去装新版本软件包、克隆上游仓库、翻提交历史来反推答案。训练环境删除构建日志与缓存、只保留任务版本之前的 Git 历史、隔离网络，并专门训练了一个找漏洞的智能体反复攻击环境；正式训练里确认作弊的轨迹始终低于 2%\n- 如果强化学习期间路由器跟着更新，Pro 第 9 层专家负载的变异系数在 20 步内从 0.78 升到 2.0，冷专家比例从 0.5% 升到 22%。把路由器恢复到训练前，负载回到正常而成绩基本不变，所以最终全程冻结路由器\n- 训练用的是一批精简的智能体外壳而不是生产外壳；在从未见过的 Codex、Claude Code 和 mini-swe-agent 上，DeepSWE v1.1 的平均通过率从约 50% 升到 66%\n\n## 对读者意味着什么\n\n1. 做智能体强化学习时，评分已经是要单独预算的一项，约占一成多算力。\n2. 只用测试通过当奖励，会把模型推向冗长、不可维护的解法；需要比较同组解法的评分。\n3. 训练环境必须当作攻击面来设计，作弊不是偶发现象。\n4. 报告开源了环境与框架，可以作为自建强化学习流水线的参照；文中成本数字来自小米自己的集群，换到别的硬件上未必相同。"
+      },
+      "type": "model",
+      "publishDate": "2026-10-10",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/gNdWoDM8ygkAjXfsLaBK?utm_source=rss&utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "小米",
+      "publisherType": "big-tech",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-frontier-models",
+        "tag-ai-agents"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-36346103",
+        "knowledge-ws-89b98df3",
+        "knowledge-ws-e251051e"
+      ],
+      "relatedSkillIds": [
+        "skill-ws-84837d46",
+        "skill-model-evaluation",
+        "skill-ws-dddaf80c"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-11T13:49:55.411Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "它把大规模智能体强化学习的成本结构摊开了：评分器已占一成多算力，只看测试通过会让模型学会冗长和作弊，训练环境本身要按攻击面来防。这些是做后训练的团队很少能看到的一手数字。",
+      "whoShouldCare": [
+        "做模型后训练、强化学习流水线的研究与工程团队",
+        "为代码智能体设计奖励和评测的人",
+        "在评估国产大模型、需要了解其训练方法的选型决策者"
+      ],
+      "technicalContext": "智能体强化学习让模型在环境里完成任务，按结果给奖励再更新参数。Rollout 是模型生成的一条完整执行轨迹；评分器给轨迹打分，可以是测试，也可以是另一个模型。GRPO 是在同一题的多条轨迹之间比较得分的强化学习算法。MoE 模型由路由器决定每个 token 交给哪些专家，路由漂移会让负载集中到少数专家上。",
+      "impactAreas": [
+        "模型后训练",
+        "代码智能体",
+        "训练基础设施"
+      ],
+      "learningPath": [
+        "读《混合专家模型（MoE）架构》，弄清楚路由器和专家负载是什么",
+        "读《完成判定与验收信号》，理解为什么只看测试通过不够",
+        "读本站 9 月 DeepSeek DSec 的信号，对比两家在训练沙盒上的做法",
+        "读报告中关于奖励作弊防线的部分，列出自己训练环境里可能泄露答案的途径"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-36346103": "报告发现强化学习期间路由器会漂移、专家负载失衡，最终选择冻结路由器。",
+        "knowledge-ws-89b98df3": "专门训练一个找漏洞的智能体反复攻击训练环境，是把红队方法用在了训练环境上。",
+        "knowledge-ws-e251051e": "分组评分要解决的，正是测试通过并不等于做好了的问题。"
+      },
+      "relatedSkillExplanations": {
+        "skill-ws-84837d46": "批量、环境与评分三个方向的扩大方式和成本比例，可以直接用来规划自己的后训练。",
+        "skill-model-evaluation": "评分器比较同组解法的质量和副作用，这是评估方法从对错走向好坏的例子。",
+        "skill-ws-dddaf80c": "读一份旗舰模型技术报告时，成本、稳定性问题和作弊率这类数字比榜单分更能说明方法是否可靠。"
+      },
+      "followUpQuestions": [
+        "你的强化学习或评测流程里，评分花了多少算力？有没有单独计算？",
+        "你的代码类奖励只看测试是否通过吗？模型是否已经在学冗余写法？",
+        "你的训练环境能被模型从网络、日志或 Git 历史里拿到答案吗？"
+      ],
+      "readingDifficulty": "advanced",
+      "intelligenceStatus": "needs_enrichment",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-10-11T13:44:16.373Z",
+      "updatedAt": "2026-10-11T13:49:55.411Z",
+      "editorialNotes": [
+        "2026-10-11 编辑轮（盲评）：数字核对自 InfoQ 原文与 arXiv:2610.11959 摘要；InfoQ 原文字段只有样板，按先例设为与中文一致。开放权重与否报告摘要未写明，正文只写训练动态、环境与框架开源。"
+      ],
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-496393"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
       "slug": "embeddinggemma-2",

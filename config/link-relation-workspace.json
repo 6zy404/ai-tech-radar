@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-08T15:29:33.729Z",
+  "updatedAt": "2026-10-11T13:47:40.107Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -8181,6 +8181,15 @@
       "toType": "technology",
       "relationType": "related-to",
       "note": "同一周 Liquid AI 的 d1 也基于 LFM2.5-VL 系列"
+    },
+    {
+      "id": "rel-ws-606e0c92",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-496393",
+      "toType": "technology",
+      "relationType": "extends",
+      "note": "两家都把训练环境当作要专门建设的基础设施：DeepSeek 讲沙盒的产能，小米讲环境里的作弊防线。"
     }
   ]
 }
