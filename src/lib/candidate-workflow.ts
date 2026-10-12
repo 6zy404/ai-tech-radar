@@ -24,6 +24,11 @@ import {
   writeDuplicateGroupStore
 } from "@/lib/candidate-duplicate-store";
 import {
+  SEMANTIC_MATCH_STORE_FILE,
+  getSemanticCandidatePairs,
+  getSemanticPublishedMatches
+} from "@/lib/semantic-dedup-store";
+import {
   readTechnologyWorkspaceStore,
   writeTechnologyWorkspaceStore
 } from "@/lib/candidate-technology-workspace-store";
@@ -73,6 +78,8 @@ interface CandidateReviewStateFile {
 export interface DuplicateComparisonItem {
   candidate: ImportedCandidate;
   reasons: DuplicateReason[];
+  /** Embedding similarity, when the pair is linked by `semantic_similar`. */
+  semanticScore?: number;
 }
 
 const candidateReviewStatePath = getLocalStoreFilePath(
@@ -194,7 +201,8 @@ interface CandidateWorkflowData {
 const candidateWorkflowSources = [
   "imported-candidates.live.json",
   "candidate-review-state.json",
-  "technology-workspace.json"
+  "technology-workspace.json",
+  SEMANTIC_MATCH_STORE_FILE
 ];
 
 let cachedWorkflowData: { key: string; value: CandidateWorkflowData } | null =
@@ -239,11 +247,14 @@ function buildCandidateWorkflowData(): CandidateWorkflowData {
   const reviewState = readCandidateReviewState();
   const workspaceRecords = readTechnologyWorkspaceStore().records;
   const enrichedCandidates = applyReviewState(snapshot.candidates, reviewState);
+  const semanticPublishedMatches = getSemanticPublishedMatches();
   const duplicateAnalysis = analyzeDuplicates(
     enrichedCandidates.map((candidate) => ({
       ...candidate,
-      relatedCandidateIds: []
-    }))
+      relatedCandidateIds: [],
+      semanticPublishedMatch: semanticPublishedMatches.get(candidate.id)
+    })),
+    { semanticPairs: getSemanticCandidatePairs() }
   );
 
   return {
@@ -368,12 +379,13 @@ export function getDuplicateComparisonsForCandidate(
     return [];
   }
 
-  const pairReasons = analyzeDuplicates(
+  const { pairReasons, pairSemanticScores } = analyzeDuplicates(
     candidates.map((item) => ({
       ...item,
       relatedCandidateIds: [...item.relatedCandidateIds]
-    }))
-  ).pairReasons;
+    })),
+    { semanticPairs: getSemanticCandidatePairs() }
+  );
 
   return candidate.relatedCandidateIds
     .map((relatedCandidateId) => {
@@ -385,10 +397,14 @@ export function getDuplicateComparisonsForCandidate(
         return undefined;
       }
 
-      return {
+      const pairKey = getPairKey(candidate.id, relatedCandidateId);
+      const item: DuplicateComparisonItem = {
         candidate: relatedCandidate,
-        reasons: pairReasons[getPairKey(candidate.id, relatedCandidateId)] ?? []
+        reasons: pairReasons[pairKey] ?? [],
+        semanticScore: pairSemanticScores[pairKey]
       };
+
+      return item;
     })
     .filter((item): item is DuplicateComparisonItem => Boolean(item));
 }

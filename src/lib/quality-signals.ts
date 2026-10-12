@@ -287,6 +287,14 @@ export function evaluateCandidateQuality(
     candidate,
     options.publishedSignals ?? []
   );
+  // The embedding model's opinion, attached on read by the candidate workflow.
+  // A separate flag rather than a third way to raise `already_published`,
+  // because that flag rejects automatically and this one must not: at its
+  // threshold about half the matches are the same announcement, the rest the
+  // same event or merely the same topic (eval/dedup/README.md). Shown only
+  // when the deterministic check is silent — saying it twice adds nothing.
+  const isSimilarToPublished =
+    !isAlreadyPublished && Boolean(candidate.semanticPublishedMatch);
   const isDefacement = isDefacementTitle(candidate.originalTitle);
   const isConvertible =
     Boolean(options.canConvert) &&
@@ -342,6 +350,10 @@ export function evaluateCandidateQuality(
     flags.push("already_published");
   }
 
+  if (isSimilarToPublished) {
+    flags.push("similar_to_published");
+  }
+
   if (isDefacement) {
     flags.push("defacement_title");
   }
@@ -364,6 +376,7 @@ export function evaluateCandidateQuality(
     isTooShort,
     isPrerelease,
     isAlreadyPublished,
+    isSimilarToPublished,
     isDefacementTitle: isDefacement,
     isConvertible,
     flags

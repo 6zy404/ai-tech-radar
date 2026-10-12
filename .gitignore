@@ -66,6 +66,10 @@ visual-qa-screenshots/
 eval/triage/cache/
 # LLM triage suggestions: regenerable model output, like the AI caches above
 config/candidate-triage-suggestions.json
+# Semantic duplicate matches: recomputed after every import (semantic-dedup-refresh.ts)
+config/candidate-semantic-matches.json
+# Semantic dedup measurement: pairs a threshold would flag that have no label yet
+eval/dedup/unlabelled.jsonl
 # in-flight atomic writes (temp-then-rename); never left behind on a clean exit
 config/*.tmp-*
 

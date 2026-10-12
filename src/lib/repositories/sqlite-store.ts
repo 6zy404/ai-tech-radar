@@ -289,6 +289,7 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
       case "scheduled-import.json":
       case "scheduled-digest.json":
       case "candidate-triage-suggestions.json":
+      case "candidate-semantic-matches.json":
         return readRuntimeConfig<T>(database, fileName, fallbackValue);
       case "technology-comparisons.json":
         return readTechnologyComparisonStore(database) as T;
@@ -384,6 +385,7 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
         case "scheduled-import.json":
         case "scheduled-digest.json":
         case "candidate-triage-suggestions.json":
+        case "candidate-semantic-matches.json":
           writeRuntimeConfig(database, fileName, value);
           break;
         case "technology-comparisons.json":

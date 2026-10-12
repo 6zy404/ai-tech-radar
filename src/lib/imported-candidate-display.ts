@@ -89,13 +89,19 @@ export function getImportedCandidateDuplicateLabel(
   return `${duplicateCount} 条疑似重复`;
 }
 
+/** An embedding cosine, for the workspace pills: 「相似度 0.962」. */
+export function formatSemanticSimilarity(score: number): string {
+  return `相似度 ${score.toFixed(3)}`;
+}
+
 export function getDuplicateReasonLabel(reason: DuplicateReason): string {
   const labels: Record<DuplicateReason, string> = {
     same_source_url: "来源 URL 相同",
     similar_title: "标题高度相似",
     same_publisher_near_date: "同发布方且日期相近",
     same_repo_release_family: "同一 GitHub 仓库版本系列",
-    same_canonical_url: "规范链接相同"
+    same_canonical_url: "规范链接相同",
+    semantic_similar: "语义相近"
   };
 
   return labels[reason];

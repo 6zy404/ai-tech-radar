@@ -175,8 +175,10 @@ function applyCandidateQuality(
   // "already_published" says the same announcement is already on the site, not
   // that this record is defective, so it must not push a candidate over the
   // multiple-problems threshold — that penalty's warning would misdescribe it.
+  // `similar_to_published` is the embedding model's version of the same
+  // statement, and is excluded for the same reason.
   const recordDefectFlagCount = candidateQuality.flags.filter(
-    (flag) => flag !== "already_published"
+    (flag) => flag !== "already_published" && flag !== "similar_to_published"
   ).length;
 
   if (

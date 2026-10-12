@@ -27,16 +27,32 @@ export default async function WorkspaceDuplicateDetailPage({
 
   const candidates = getDuplicateGroupCandidates(group.id);
   const reasonsByCandidateId: Record<string, DuplicateReason[]> = {};
+  const semanticLinksByCandidateId: Record<
+    string,
+    { candidateId: string; title: string; score: number }[]
+  > = {};
 
   for (const candidate of candidates) {
+    const comparisons = getDuplicateComparisonsForCandidate(
+      candidate.id
+    ).filter((comparison) =>
+      group.candidateIds.includes(comparison.candidate.id)
+    );
+
     reasonsByCandidateId[candidate.id] = Array.from(
-      new Set(
-        getDuplicateComparisonsForCandidate(candidate.id)
-          .filter((comparison) =>
-            group.candidateIds.includes(comparison.candidate.id)
-          )
-          .flatMap((comparison) => comparison.reasons)
-      )
+      new Set(comparisons.flatMap((comparison) => comparison.reasons))
+    );
+    semanticLinksByCandidateId[candidate.id] = comparisons.flatMap(
+      (comparison) =>
+        comparison.semanticScore === undefined
+          ? []
+          : [
+              {
+                candidateId: comparison.candidate.id,
+                title: comparison.candidate.originalTitle,
+                score: comparison.semanticScore
+              }
+            ]
     );
   }
 
@@ -50,6 +66,7 @@ export default async function WorkspaceDuplicateDetailPage({
         group={group}
         candidates={candidates}
         reasonsByCandidateId={reasonsByCandidateId}
+        semanticLinksByCandidateId={semanticLinksByCandidateId}
       />
     </WorkspacePageShell>
   );

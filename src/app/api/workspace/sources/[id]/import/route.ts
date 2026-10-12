@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+import { refreshSemanticDuplicateMatchesInBackground } from "@/lib/semantic-dedup-refresh";
 import { runImportForSource } from "@/lib/source-workflow";
 
 interface RouteContext {
@@ -12,6 +13,9 @@ export async function POST(_request: Request, context: RouteContext) {
     const { id } = await context.params;
     const result = await runImportForSource(id);
 
+    // Duplicate groups pick the new candidates up once the model has run;
+    // the response does not wait for it.
+    refreshSemanticDuplicateMatchesInBackground();
     revalidatePath("/workspace");
     revalidatePath("/workspace/sources");
     revalidatePath(`/workspace/sources/${id}`);

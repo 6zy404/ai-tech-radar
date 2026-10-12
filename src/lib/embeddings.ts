@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
+import { writeFileAtomically } from "@/lib/repositories/local-json-store";
 import {
   createModelLoadGate,
   type ModelLoadGate,
@@ -28,7 +29,6 @@ import {
 export const EMBEDDING_MODEL = "Xenova/multilingual-e5-small";
 
 const cacheRoot = path.join(process.cwd(), ".cache");
-const vectorCachePath = path.join(cacheRoot, "search-embeddings.json");
 
 type Extractor = (
   texts: string[],
@@ -93,24 +93,26 @@ interface VectorCacheFile {
   vectors: Record<string, number[]>;
 }
 
-let vectorCache: Map<string, number[]> | undefined;
+/** The default cache: search's passage vectors. */
+export const SEARCH_VECTOR_CACHE_FILE = "search-embeddings.json";
 
-function readVectorCache(): Map<string, number[]> {
-  if (vectorCache) {
-    return vectorCache;
-  }
+const vectorCaches = new Map<string, Map<string, number[]>>();
 
-  vectorCache = new Map();
+function getVectorCachePath(cacheFile: string): string {
+  return path.join(cacheRoot, cacheFile);
+}
 
-  if (existsSync(vectorCachePath)) {
+function readVectorCacheFile(cacheFile: string): Map<string, number[]> {
+  const vectors = new Map<string, number[]>();
+  const filePath = getVectorCachePath(cacheFile);
+
+  if (existsSync(filePath)) {
     try {
-      const file = JSON.parse(
-        readFileSync(vectorCachePath, "utf8")
-      ) as VectorCacheFile;
+      const file = JSON.parse(readFileSync(filePath, "utf8")) as VectorCacheFile;
 
       if (file.model === EMBEDDING_MODEL) {
         for (const [key, vector] of Object.entries(file.vectors)) {
-          vectorCache.set(key, vector);
+          vectors.set(key, vector);
         }
       }
     } catch {
@@ -118,16 +120,38 @@ function readVectorCache(): Map<string, number[]> {
     }
   }
 
-  return vectorCache;
+  return vectors;
 }
 
-function writeVectorCache(cache: Map<string, number[]>) {
-  mkdirSync(cacheRoot, { recursive: true });
+function readVectorCache(cacheFile: string): Map<string, number[]> {
+  let cache = vectorCaches.get(cacheFile);
+
+  if (!cache) {
+    cache = readVectorCacheFile(cacheFile);
+    vectorCaches.set(cacheFile, cache);
+  }
+
+  return cache;
+}
+
+/**
+ * Two processes write these files — the server, and the task runner when it
+ * embeds freshly imported candidates. So the file is re-read and merged before
+ * writing (another process's vectors are kept, not overwritten by this one's
+ * older copy), and written temp-then-rename so neither ever reads half a file.
+ */
+function writeVectorCache(cacheFile: string, cache: Map<string, number[]>) {
+  for (const [key, vector] of readVectorCacheFile(cacheFile)) {
+    if (!cache.has(key)) {
+      cache.set(key, vector);
+    }
+  }
+
   const file: VectorCacheFile = {
     model: EMBEDDING_MODEL,
     vectors: Object.fromEntries(cache)
   };
-  writeFileSync(vectorCachePath, JSON.stringify(file), "utf8");
+  writeFileAtomically(getVectorCachePath(cacheFile), JSON.stringify(file));
 }
 
 function hashText(text: string): string {
@@ -139,9 +163,17 @@ const BATCH_SIZE = 16;
 /**
  * Passage vectors, cached by content hash so an edited entry is re-embedded
  * and an unchanged one never is. The cache survives restarts on disk.
+ *
+ * `cacheFile` names the file under `.cache/`; search uses the default, and
+ * candidate deduplication keeps its own (`candidate-embeddings.json`) so the
+ * two pools neither bloat nor overwrite each other's file.
  */
-export async function embedPassages(texts: string[]): Promise<number[][]> {
-  const cache = readVectorCache();
+export async function embedPassages(
+  texts: string[],
+  options: { cacheFile?: string } = {}
+): Promise<number[][]> {
+  const cacheFile = options.cacheFile ?? SEARCH_VECTOR_CACHE_FILE;
+  const cache = readVectorCache(cacheFile);
   const keys = texts.map((text) => hashText(`passage: ${text}`));
   const missing = texts.filter((_, index) => !cache.has(keys[index]));
 
@@ -160,7 +192,7 @@ export async function embedPassages(texts: string[]): Promise<number[][]> {
       });
     }
 
-    writeVectorCache(cache);
+    writeVectorCache(cacheFile, cache);
   }
 
   return keys.map((key) => cache.get(key) as number[]);

@@ -244,7 +244,18 @@ export function chooseDefaultPrimaryCandidate(
       return scoreDiff;
     }
 
-    return right.publishDate.localeCompare(left.publishDate);
+    const dateDiff = right.publishDate.localeCompare(left.publishDate);
+
+    if (dateDiff !== 0) {
+      return dateDiff;
+    }
+
+    // Nothing above tells them apart — common for a semantic pair, two outlets
+    // filing the same story the same day. The one that reached us first wins,
+    // so the item a reader may already have seen on the news lane stays.
+    return left.importedAt && right.importedAt
+      ? left.importedAt.localeCompare(right.importedAt)
+      : 0;
   })[0].id;
 }
 

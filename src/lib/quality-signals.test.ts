@@ -207,3 +207,35 @@ describe("defacement_title candidate quality flag", () => {
     expect(signals.isDefacementTitle).toBe(false);
   });
 });
+
+describe("similar_to_published candidate quality flag", () => {
+  const semanticPublishedMatch = {
+    technologyId: "tech-deepseek-ascend",
+    technologyTitle: "DeepSeek 开源昇腾版 DeepGEMM 等组件",
+    score: 0.928
+  };
+
+  it("fires when the embedding model matched a published signal", () => {
+    const candidate = makeImportedCandidate({
+      originalTitle: "DeepSeek官方开源昇腾基础组件",
+      sourceUrl: "https://www.qbitai.com/2026/09/1.html",
+      semanticPublishedMatch
+    });
+    const quality = evaluateCandidateQuality(candidate);
+
+    expect(quality.flags).toContain("similar_to_published");
+    expect(quality.flags).not.toContain("already_published");
+    expect(quality.isSimilarToPublished).toBe(true);
+  });
+
+  it("stays silent when the deterministic check already says it", () => {
+    const candidate = makeImportedCandidate({
+      originalTitle: "Something else entirely",
+      sourceUrl: publishedGemini.sourceUrl,
+      semanticPublishedMatch
+    });
+
+    expect(flagsFor(candidate)).toContain("already_published");
+    expect(flagsFor(candidate)).not.toContain("similar_to_published");
+  });
+});

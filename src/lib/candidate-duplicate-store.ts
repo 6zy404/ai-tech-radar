@@ -24,7 +24,18 @@ export interface DuplicateGroupStore {
 export interface DuplicateAnalysis {
   candidates: ImportedCandidate[];
   pairReasons: Record<string, DuplicateReason[]>;
+  /** Cosine similarity for pairs linked by `semantic_similar`, by pair key. */
+  pairSemanticScores: Record<string, number>;
   groups: DuplicateGroup[];
+}
+
+export interface DuplicateAnalysisOptions {
+  /**
+   * Pairs the embedding model found alike (`semantic-dedup-store.ts`). They
+   * link candidates exactly like a deterministic reason does. Absent when the
+   * model has not run — the groups are then the deterministic ones alone.
+   */
+  semanticPairs?: { leftId: string; rightId: string; score: number }[];
 }
 
 const duplicateGroupStorePath = getLocalStoreFilePath("duplicate-groups.json");
@@ -57,10 +68,12 @@ export function writeDuplicateGroupStore(store: DuplicateGroupStore) {
 }
 
 export function analyzeDuplicates(
-  candidates: ImportedCandidate[]
+  candidates: ImportedCandidate[],
+  options: DuplicateAnalysisOptions = {}
 ): DuplicateAnalysis {
   const adjacency = new Map<string, Set<string>>();
   const pairReasons: Record<string, DuplicateReason[]> = {};
+  const pairSemanticScores: Record<string, number> = {};
   const groups: DuplicateGroup[] = [];
   const persistedGroups = readDuplicateGroupStore().groups;
   const persistedGroupById = new Map(
@@ -90,6 +103,23 @@ export function analyzeDuplicates(
       adjacency.get(right.id)?.add(left.id);
       pairReasons[getPairKey(left.id, right.id)] = reasons;
     }
+  }
+
+  for (const pair of options.semanticPairs ?? []) {
+    // A pair about a candidate that has left the snapshot window links nothing.
+    if (!adjacency.has(pair.leftId) || !adjacency.has(pair.rightId)) {
+      continue;
+    }
+
+    const pairKey = getPairKey(pair.leftId, pair.rightId);
+
+    adjacency.get(pair.leftId)?.add(pair.rightId);
+    adjacency.get(pair.rightId)?.add(pair.leftId);
+    pairReasons[pairKey] = dedupeDuplicateReasons([
+      ...(pairReasons[pairKey] ?? []),
+      "semantic_similar"
+    ]);
+    pairSemanticScores[pairKey] = pair.score;
   }
 
   const visited = new Set<string>();
@@ -170,5 +200,5 @@ export function analyzeDuplicates(
     }
   }
 
-  return { candidates, pairReasons, groups };
+  return { candidates, pairReasons, pairSemanticScores, groups };
 }

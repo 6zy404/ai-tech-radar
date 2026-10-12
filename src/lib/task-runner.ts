@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 
 import { runCandidateAutoTriage } from "@/lib/candidate-auto-triage";
+import { refreshSemanticDuplicateMatches } from "@/lib/semantic-dedup-refresh";
 import {
   getDueScheduledDeliveries,
   getScheduledDeliveries,
@@ -268,6 +269,11 @@ export async function runScheduledDeliveryTask({
           }`
         );
       }
+
+      // After auto-triage, which rejects on deterministic flags only: the
+      // semantic matches never reject anything. Bounded by its own deadline,
+      // and a timeout or failure leaves the import's outcome untouched.
+      messages.push((await refreshSemanticDuplicateMatches()).message);
 
       if (importRun.status === "failed") {
         importOutcome = "failed";

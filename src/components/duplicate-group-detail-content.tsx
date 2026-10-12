@@ -5,6 +5,7 @@ import { DuplicateGroupActions } from "@/components/duplicate-group-actions";
 import { ImportedCandidateStatusBadge } from "@/components/imported-candidate-status-badge";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
 import {
+  formatSemanticSimilarity,
   getDuplicateReasonLabel,
   getImportedCandidateNormalizedTypeLabel,
   getImportedCandidateSourceTypeLabel
@@ -19,6 +20,11 @@ interface DuplicateGroupDetailContentProps {
   group: DuplicateGroup;
   candidates: ImportedCandidate[];
   reasonsByCandidateId: Record<string, DuplicateReason[]>;
+  /** Which other members the embedding model linked this one to, and how closely. */
+  semanticLinksByCandidateId?: Record<
+    string,
+    { candidateId: string; title: string; score: number }[]
+  >;
 }
 
 function getStatusTone(status: DuplicateGroup["status"]) {
@@ -42,7 +48,8 @@ const groupStatusLabels: Record<DuplicateGroup["status"], string> = {
 export function DuplicateGroupDetailContent({
   group,
   candidates,
-  reasonsByCandidateId
+  reasonsByCandidateId,
+  semanticLinksByCandidateId = {}
 }: DuplicateGroupDetailContentProps) {
   const primaryCandidate =
     candidates.find((candidate) => candidate.id === group.primaryCandidateId) ??
@@ -149,6 +156,19 @@ export function DuplicateGroupDetailContent({
                           {getDuplicateReasonLabel(reason)}
                         </span>
                       ))}
+                      {(semanticLinksByCandidateId[candidate.id] ?? []).map(
+                        (link) => (
+                          <span
+                            key={link.candidateId}
+                            className="info-pill info-pill--subtle"
+                            title={link.title}
+                          >
+                            与「{link.title.slice(0, 16)}
+                            {link.title.length > 16 ? "…" : ""}」
+                            {formatSemanticSimilarity(link.score)}
+                          </span>
+                        )
+                      )}
                       {candidate.tags.map((tag) => (
                         <span key={tag} className="info-pill">
                           {tag}

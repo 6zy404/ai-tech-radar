@@ -5,6 +5,7 @@ import { ImportedCandidateReviewActions } from "@/components/imported-candidate-
 import { ImportedCandidateStatusBadge } from "@/components/imported-candidate-status-badge";
 import { WorkflowEventList } from "@/components/workflow-event-list";
 import {
+  formatSemanticSimilarity,
   getDuplicateReasonLabel,
   getImportedCandidateDuplicateLabel,
   getImportedCandidateNormalizedTypeLabel,
@@ -96,6 +97,37 @@ export function ImportedCandidateDetailContent({
             </section>
           ) : null}
 
+          {candidate.semanticPublishedMatch ? (
+            <section className="section-panel candidate-detail-section">
+              <div className="section-heading">
+                <div>
+                  <h2>疑似已发布（语义）</h2>
+                  <p>
+                    本地向量模型认为这条读起来像下面这条已发布信号。只是提示，不会自动拒绝：在这个阈值下，历史上约一半是同一条，其余是同一事件或只是话题相近。
+                  </p>
+                </div>
+              </div>
+              <div className="candidate-duplicate-list">
+                <article className="candidate-duplicate-item">
+                  <div className="candidate-duplicate-item__meta">
+                    <span className="info-pill info-pill--warning">
+                      {formatSemanticSimilarity(
+                        candidate.semanticPublishedMatch.score
+                      )}
+                    </span>
+                  </div>
+                  <h3>
+                    <Link
+                      href={`/workspace/technologies/${candidate.semanticPublishedMatch.technologyId}`}
+                    >
+                      {candidate.semanticPublishedMatch.technologyTitle}
+                    </Link>
+                  </h3>
+                </article>
+              </div>
+            </section>
+          ) : null}
+
           {duplicateComparisons.length > 0 ? (
             <section className="section-panel candidate-detail-section">
               <div className="section-heading">
@@ -144,6 +176,11 @@ export function ImportedCandidateDetailContent({
                           {getDuplicateReasonLabel(reason)}
                         </span>
                       ))}
+                      {comparison.semanticScore !== undefined ? (
+                        <span className="info-pill info-pill--subtle">
+                          {formatSemanticSimilarity(comparison.semanticScore)}
+                        </span>
+                      ) : null}
                     </div>
                   </article>
                 ))}

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  AUTO_REJECT_FLAGS,
   buildAutoTriageMessage,
   selectAutoRejections
 } from "@/lib/candidate-auto-triage";
@@ -164,5 +165,26 @@ describe("buildAutoTriageMessage", () => {
     expect(buildAutoTriageMessage([])).toBe(
       "自动分诊：没有符合自动拒绝规则的候选。"
     );
+  });
+});
+
+describe("semantic matches and auto-triage", () => {
+  it("never rejects on a semantic published match alone", () => {
+    // Measured precision at the shipped threshold is about half
+    // (eval/dedup/README.md): an editor decides, the task runner does not.
+    const candidate = makeImportedCandidate({
+      id: "qbitai-gemini-4",
+      originalTitle: "谷歌Gemini 4突然发布！RSI加持，GPT和Opus都让让",
+      sourceUrl: "https://www.qbitai.com/2026/10/1.html",
+      importStatus: "new",
+      semanticPublishedMatch: {
+        technologyId: "tech-gemini-4-argon",
+        technologyTitle: "Gemini 4 Argon",
+        score: 0.93
+      }
+    });
+
+    expect(AUTO_REJECT_FLAGS).not.toContain("similar_to_published");
+    expect(selectAutoRejections([candidate], published)).toEqual([]);
   });
 });

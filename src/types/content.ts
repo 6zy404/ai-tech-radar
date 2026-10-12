@@ -142,6 +142,7 @@ export type CandidateQualityFlag =
   | "too_short"
   | "prerelease_version"
   | "already_published"
+  | "similar_to_published"
   | "defacement_title"
   | "ready_for_review"
   | "not_convertible";
@@ -153,7 +154,8 @@ export type DuplicateReason =
   | "similar_title"
   | "same_publisher_near_date"
   | "same_repo_release_family"
-  | "same_canonical_url";
+  | "same_canonical_url"
+  | "semantic_similar";
 
 export type DuplicateGroupStatus = "open" | "resolved" | "ignored";
 
@@ -466,6 +468,18 @@ export interface ImportedCandidate {
   importedAt?: string;
   importRunId?: string;
   rawPayload: unknown;
+  /**
+   * The published signal this candidate reads like, by the local embedding
+   * model (`semantic-dedup.ts`). Workspace-only, attached on read from
+   * `candidate-semantic-matches.json`; never part of the public news map.
+   */
+  semanticPublishedMatch?: SemanticPublishedMatch;
+}
+
+export interface SemanticPublishedMatch {
+  technologyId: string;
+  technologyTitle: string;
+  score: number;
 }
 
 export interface ExternalSource {
@@ -522,6 +536,7 @@ export interface CandidateQualitySignals {
   isTooShort: boolean;
   isPrerelease: boolean;
   isAlreadyPublished: boolean;
+  isSimilarToPublished: boolean;
   isDefacementTitle: boolean;
   isConvertible: boolean;
   flags: CandidateQualityFlag[];
