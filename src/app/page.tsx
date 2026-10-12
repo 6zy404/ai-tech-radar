@@ -81,7 +81,7 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
   const whyItMatters =
     getTechnologyWhyItMatters(
       technology,
-      getPriorityUserSummary(ranking, "zh")
+      getPriorityUserSummary(ranking, "zh", technology.importanceLevel)
     ) ?? summary;
   const audience = getTechnologyAudience(technology).slice(0, 3);
   const difficulty = getReadingDifficultyLabel(technology.readingDifficulty);

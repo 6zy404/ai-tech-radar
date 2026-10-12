@@ -146,7 +146,11 @@ export function TechnologyDetailContent({
     technology.publisherType,
     mode
   );
-  const prioritySummary = getPriorityUserSummary(ranking, mode);
+  const prioritySummary = getPriorityUserSummary(
+    ranking,
+    mode,
+    technology.importanceLevel
+  );
   const body = getLocalizedTechnologyText(
     technology.content,
     mode,

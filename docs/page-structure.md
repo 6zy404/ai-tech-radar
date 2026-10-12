@@ -68,6 +68,7 @@ Used by:
 - `/knowledge`
 - `/topics`
 - `/sources`
+- `/about`
 
 Purpose:
 
@@ -351,8 +352,8 @@ Workspace deployment boundary:
     `?view=` query param and a tab strip at the top of the page; `/news`,
     `/timeline`, and `/radar` each redirect here to the matching view
     (`src/app/{news,timeline,radar}/page.tsx` are one-line `redirect()`s)
-  - the header's actions carry 信源一览 → `/sources` and RSS 订阅
-    (2026-10-02)
+  - the header's actions carry 信源一览 → `/sources`, 怎么挑信号 → `/about`
+    (2026-10-12) and RSS 订阅 (2026-10-02)
   - 精选 (default, no `view` param, `TechnologyBrowser`): user-facing
     published technology list; bilingual content preference for title and
     summary; uses a compact signal-stream layout on desktop so users scan
@@ -738,6 +739,19 @@ Workspace deployment boundary:
   - cards with more signals than they list end with 看全部 N 条 →
     (`/technologies?publisher=<slug>`); publishers are grouped by slug
     (2026-10-08)
+- `/about`
+  - user-facing explainer (本站怎么挑信号), fixed copy: the /skills list
+    skeleton's header label and lede, a row of jump chips
+    (`DossierCategoryChips` as links), then seven sections under hairline
+    h2s — 信号从哪来 (source-type stamps, a 附注 on the three auto-rejected
+    kinds), 编辑怎么挑 (five numbered steps in one card), 优先级档位 (three
+    `DossierCard`s, one per band, with the rule that puts a signal there),
+    快讯, 八种关系 (stamp + one sentence per relation type), AI 功能 (four
+    cards), 站点不收集什么 (a list, then a 附注 on what does leave the
+    browser). Section ids `sources`, `editing`, `priority`, `news`,
+    `relations`, `ai`, `privacy`; titles through `UnbreakableTitle`
+  - no runtime content and no internal fields; not in the nav — reached
+    from the `/technologies` header (2026-10-12)
 - `/topics/[tagId]`
   - its `<head>` announces the per-topic feed only when the RSS column of
     the 跟进此话题 block is shown (the feed 404s otherwise); every public page announces the digest

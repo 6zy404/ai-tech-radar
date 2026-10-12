@@ -133,6 +133,7 @@ function main() {
     ...listFilesRecursive("src/app/skills"),
     ...listFilesRecursive("src/app/knowledge"),
     ...listFilesRecursive("src/app/sources"),
+    ...listFilesRecursive("src/app/about"),
     path.join(root, "src/app/page.tsx")
   ];
   const forbiddenWorkspaceImports = [

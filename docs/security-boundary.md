@@ -41,6 +41,11 @@ Public routes can be exposed:
   status, source health, quality metric or candidate reaches it. Outside
   `protectedPathPrefixes` and outside `build:public`'s excluded
   directories; `validate:deployment` asserts it stays public)
+- `/about` (fixed copy explaining how signals are picked; reads no runtime
+  content, so no field of any kind reaches it. It names, without values,
+  what leaves the browser: AI requests go to the model provider, the rate
+  limiter counts per address in process memory, Cloudflare sees the
+  address)
 - `/topics` (topic index; published counts per topic from the same three
   public pools as the hubs, no internal fields; not a nav entry)
 - `/topics/[tagId]` (topic hub; a drill-down destination reached via

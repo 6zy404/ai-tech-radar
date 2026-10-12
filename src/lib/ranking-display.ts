@@ -1,8 +1,10 @@
 import type {
+  ImportanceLevel,
   PriorityLevel,
   RankingSource,
   TechnologyPriorityRanking
 } from "@/types/content";
+import { importantFreshnessWindowDays } from "@/lib/ranking";
 import type { TechnologyContentMode } from "@/lib/technology-localization";
 
 export function getPriorityLevelLabel(
@@ -42,28 +44,83 @@ export function getRankingSourceLabel(source: RankingSource): string {
   return source === "manual_override" ? "人工覆盖" : "规则判定";
 }
 
+/**
+ * The one-line reason under a published signal's band, in the terms /about
+ * uses to explain the bands: the editor's importance level decides, and
+ * time can only move a signal down (see `determinePriorityLevel` in
+ * ranking.ts). Until 2026-10-12 these sentences still described the old
+ * score-only banding ("多个信号同时成立…").
+ *
+ * With `importanceLevel` the sentence names the rule that applied; without
+ * it, it states both ways into the band.
+ */
 export function getPriorityUserSummary(
   ranking: TechnologyPriorityRanking,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  importanceLevel?: ImportanceLevel
 ): string {
-  if (mode === "zh") {
-    const labels: Record<PriorityLevel, string> = {
-      high_priority: "多个信号同时成立，建议优先评估这条技术变化。",
-      watch: "基础信息较完整，适合持续跟踪并等待更多验证。",
-      low_priority: "信号价值或信息完整度有限，先作为背景了解即可。"
-    };
+  const days = importantFreshnessWindowDays;
+  const level = ranking.priorityLevel;
 
-    return labels[ranking.priorityLevel];
+  if (mode === "zh") {
+    if (level === "low_priority") {
+      return "记录缺摘要、缺正文，或来源链接、日期无效，先作为背景参考。";
+    }
+
+    if (level === "high_priority") {
+      if (importanceLevel === "critical") {
+        return "编辑标为关键，一直在立即关注。";
+      }
+
+      if (importanceLevel === "important") {
+        return `编辑标为重要，发布不满 ${days} 天。`;
+      }
+
+      return `编辑标为关键，或标为重要且发布不满 ${days} 天。`;
+    }
+
+    if (importanceLevel === "signal") {
+      return "编辑标为信号级，适合持续跟踪。";
+    }
+
+    if (importanceLevel === "important") {
+      return `编辑标为重要，发布已满 ${days} 天，从立即关注降到这一档。`;
+    }
+
+    if (importanceLevel === "critical") {
+      return "编辑标为关键，但记录还有待补的问题，最多到这一档。";
+    }
+
+    return `编辑标为信号级，或标为重要且发布已满 ${days} 天。`;
   }
 
-  const labels: Record<PriorityLevel, string> = {
-    high_priority:
-      "Multiple signals line up, so this technology is worth evaluating early.",
-    watch:
-      "The signal is useful, but it still needs more context or validation.",
-    low_priority:
-      "The signal is incomplete or lower confidence, so treat it as background."
-  };
+  if (level === "low_priority") {
+    return "The record is missing its summary or body, or its source link or date is invalid, so treat it as background.";
+  }
 
-  return labels[ranking.priorityLevel];
+  if (level === "high_priority") {
+    if (importanceLevel === "critical") {
+      return "Marked critical by the editors; it stays in this band.";
+    }
+
+    if (importanceLevel === "important") {
+      return `Marked important by the editors and published within ${days} days.`;
+    }
+
+    return `Marked critical, or marked important and published within ${days} days.`;
+  }
+
+  if (importanceLevel === "signal") {
+    return "Marked as a signal by the editors; worth tracking.";
+  }
+
+  if (importanceLevel === "important") {
+    return `Marked important, but published more than ${days} days ago, so it moved down to this band.`;
+  }
+
+  if (importanceLevel === "critical") {
+    return "Marked critical, but the record still has open problems, so it stops at this band.";
+  }
+
+  return `Marked as a signal, or marked important and published more than ${days} days ago.`;
 }

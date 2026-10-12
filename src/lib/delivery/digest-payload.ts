@@ -61,7 +61,7 @@ function toWebhookTechnology(
     summary: getPublicTechnologyText(technology.summary, technology),
     url: `${baseUrl}/technologies/${technology.slug}`,
     priorityLevel: ranking.priorityLevel,
-    reason: getPriorityUserSummary(ranking, "zh"),
+    reason: getPriorityUserSummary(ranking, "zh", technology.importanceLevel),
     sourceName: technology.sourceName,
     publishDate: technology.publishDate,
     tags: technology.tags

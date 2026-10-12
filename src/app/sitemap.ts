@@ -48,7 +48,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absolute("/topics"), changeFrequency: "weekly", priority: 0.6 },
     { url: absolute("/sources"), changeFrequency: "weekly", priority: 0.5 },
     { url: absolute("/network"), changeFrequency: "weekly", priority: 0.5 },
-    { url: absolute("/ask"), changeFrequency: "monthly", priority: 0.5 }
+    { url: absolute("/ask"), changeFrequency: "monthly", priority: 0.5 },
+    { url: absolute("/about"), changeFrequency: "monthly", priority: 0.4 }
   ];
 
   const technologies: MetadataRoute.Sitemap = getAllTechnologies().map(

@@ -106,6 +106,9 @@ export default async function TechnologiesPage({
           <Link href="/sources" className="action-link">
             信源一览
           </Link>
+          <Link href="/about" className="action-link">
+            怎么挑信号
+          </Link>
           {/* A plain anchor: the feed is a route handler, not a page, so
               client-side navigation and prefetch have nothing to load. */}
           <a href={signalFeed.path} className="action-link">

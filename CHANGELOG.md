@@ -94,6 +94,55 @@ For per-topic deep dives, see the `docs/` directory.
 - Nothing is added to the live sources here; the owner decides and the
   dispatcher window applies it.
 
+## /about: how the site picks its signals
+
+- **2026-10-12.** A public page, `/about` (本站怎么挑信号), says in seven
+  sections what the rest of the site only implies: where signals come from
+  (the four source types, and the three kinds of candidate the task runner
+  rejects on its own), the five editing steps, the priority bands, why the
+  全部快讯 lane is labelled 未经编辑精选 and that undecided candidates show
+  there until an editor gets to them, the eight relation types, which
+  features are AI-generated and unreviewed, and what the site does not
+  collect — with the three things that do leave the browser stated plainly
+  (问雷达 questions and the signal page's AI requests go to the model
+  provider; the rate limiter counts per address in process memory; the
+  site is served through Cloudflare, which sees the address). The copy was
+  agreed as a draft first, and every statement is from `docs/`.
+- **Built from what exists.** The /skills list skeleton's classes, as
+  /sources and /topics use them, plus `DossierCard`, `DossierStampTag`,
+  `DossierCatalogNote` and `DossierCategoryChips` (jump chips, no JS). Its
+  own rules are in `src/app/styles/pages/about.css`. The band names, the
+  relation labels, the AI disclaimer and the 30-day window are read from
+  the code that renders them elsewhere (`importantFreshnessWindowDays` is
+  now exported from `ranking.ts`), so the page cannot describe a rule the
+  site no longer follows. Fixed copy, no runtime content; served per
+  request like every public page.
+- **Entry.** One link, 怎么挑信号, in the `/technologies` header beside
+  信源一览 and RSS 订阅; not in the nav, nothing on the home page. In the
+  sitemap; `validate:deployment` and `validate:workspace-boundary` cover
+  it like /sources.
+- **The band sentence on signal pages was out of date, and is fixed.**
+  `getPriorityUserSummary` still said 「多个信号同时成立，建议优先评估」 /
+  「基础信息较完整」 — the score-only banding retired on 2026-07-27. It now
+  takes the signal's `importanceLevel` and names the rule that applied
+  (编辑标为重要，发布不满 30 天 / 发布已满 30 天，从立即关注降到这一档 /
+  编辑标为信号级 …), in the same terms as /about's 优先级档位 section. The
+  same sentence feeds the home page's priority cards and the delivery
+  payload's `reason`, which changed with it. New tests in
+  `ranking-display.test.ts`. Measured on the worktree's data before
+  writing the copy: 9 critical → 立即关注, 23 important → 立即关注, 42
+  important → 值得跟踪, 33 signal → 值得跟踪; no record is held down by a
+  severe warning, so /about states that cap in one sentence rather than a
+  card.
+- **Seen, not by DOM alone.** Screenshots at 1440 and 390, light and dark,
+  top to bottom. That pass caught two things the markup did not show: at
+  390px two section titles ended on one character (「…八种关 / 系」), fixed
+  with `UnbreakableTitle` plus `text-wrap: balance`; and the shared section
+  header styles every `span` in it as a muted caption, which shrank
+  `UnbreakableTitle`'s runs to 15px grey until about.css reset them. The
+  band rules first used the monospace face and fell back to a Song face for
+  Chinese; they use the sans body face now. No horizontal overflow at 390.
+
 ## The two script test files are type-checked
 
 - **2026-10-12.** `scripts/proxy-env.test.mjs` and

@@ -42,7 +42,7 @@ interface EditorialBandInput {
 }
 
 /** An `important` signal older than this drops from 立即关注 to 值得跟踪. */
-const importantFreshnessWindowDays = 30;
+export const importantFreshnessWindowDays = 30;
 
 const blockingQualityFlags = new Set([
   "missing_summary",

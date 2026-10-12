@@ -1,0 +1,179 @@
+/* pages/about: the /about page (本站怎么挑信号). The page is the /skills list
+   skeleton's own classes; these are the few things a page of prose needs that
+   a page of cards does not. */
+
+/* A section here has a title and no right-hand caption, so the header's
+   second column would only squeeze a long title into 0.8fr. */
+.about-page .skills-library-section__header {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* The jump chips land on these; clear the sticky nav, as 本页目录 does. */
+.about-page .skills-library-section__header h2[id] {
+  scroll-margin-top: 86px;
+}
+
+/* Nothing on this page is a card you can open, so none of them lifts. */
+.about-page .dossier-card:hover {
+  transform: none;
+}
+
+/* Running text at the lede's measure, in ink rather than the lede's muted
+   colour: this is the content, not a caption. */
+.about-prose {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  max-width: 680px;
+}
+
+.about-prose p,
+.about-list,
+.about-steps p {
+  margin: 0;
+  color: var(--dossier-ink);
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.about-prose p a {
+  color: var(--dossier-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about-prose .about-prose__aside {
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+  line-height: 1.6;
+}
+
+.about-list {
+  display: grid;
+  gap: 6px;
+  padding-left: 1.2em;
+}
+
+.about-stamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The editing steps are a real sequence, so they are numbered; one card,
+   one hairline between steps. */
+.about-steps {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-steps li {
+  display: grid;
+  grid-template-columns: 1.6em minmax(0, 1fr);
+  gap: 10px;
+  padding-block: 12px;
+  border-top: 1px solid var(--dossier-line);
+}
+
+.about-steps li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.about-steps li:last-child {
+  padding-bottom: 0;
+}
+
+.about-steps__n {
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.75rem;
+}
+
+.about-steps strong {
+  font-family: Georgia, "Songti SC", "STSong", serif;
+}
+
+/* Three bands, three cards in a row; one column where the two-column grids
+   on this page also drop to one. */
+.about-band-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 760px) {
+  .about-band-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.about-band-grid .dossier-stamp-tag,
+.about-relation-grid .dossier-stamp-tag {
+  justify-self: start;
+}
+
+/* A relation is a stamp and one sentence: side by side, the stamp in its own
+   column and the sentence wrapping beside it, as the /network panel and the
+   topic hub's 图谱关联 rows set a relation pill beside its title. */
+.about-relation-grid .skill-library-card {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 12px;
+}
+
+.about-band-rules {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  color: var(--dossier-ink);
+  /* Not the monospace face of the dates and catalog numbers: these lines
+     are Chinese, and a monospace stack has no CJK, so they fell back to a
+     Song face beside the sans note under them. */
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.6;
+  list-style: none;
+}
+
+/* A paragraph-long 附注 standing on its own: the note's dashed rule and top
+   spacing separate it from card content above, and here there is none. */
+.about-note .dossier-catalog-note {
+  display: grid;
+  gap: 6px;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 0.92rem;
+}
+
+.about-note .dossier-catalog-note p {
+  margin: 0;
+  color: var(--dossier-ink);
+}
+
+/* Two section titles are long enough to wrap at 390px, and left to the
+   browser each ended with one character alone on its last line (关系 → 系,
+   精选 → 辑精选」). UnbreakableTitle keeps the words whole; balance evens
+   the two lines. */
+.about-page .skills-library-section__header h2 {
+  text-wrap: balance;
+}
+
+/* UnbreakableTitle renders its runs as spans, and the shared section header
+   styles every span in it as a muted caption. These are the title. */
+.about-page .skills-library-section__header h2 span {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

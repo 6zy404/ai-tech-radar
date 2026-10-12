@@ -257,6 +257,17 @@ The product is split into two subsystems:
   lists fewer signals than it counts; publishers are grouped by that slug.
   The signal page's publisher name links to its card (published records
   only; 2026-10-08).
+- **本站怎么挑信号 (`/about`)** (2026-10-12) — a fixed-copy public page
+  explaining, in seven sections, where signals come from, the editing
+  steps, the priority bands, why the 全部快讯 lane is unedited (undecided
+  candidates included), the eight relation types, which features are
+  AI-generated and unreviewed, and what the site does not collect (with
+  what does leave the browser: AI requests to the model provider, the rate
+  limiter's in-memory count, Cloudflare). Band names, relation labels, the
+  AI disclaimer and the 30-day window are read from the code that renders
+  them. Reached from a 怎么挑信号 link in the `/technologies` header; not a
+  nav entry; in the sitemap. The signal page's band sentence
+  (`getPriorityUserSummary`) names the same rules since that day.
 - **Compare two technologies (P3 v0)** — reader-triggered, live AI-generated
   comparison (similarities, differences, when to prefer each) between two
   published technologies on the technology detail page. Results are cached
@@ -551,6 +562,8 @@ Public, user-facing routes:
 - `/network` (`?focus=<node id>` preselects a node)
 - `/sources` — publisher directory derived from published signals (not a
   nav entry; linked from the `/technologies` header)
+- `/about` — 本站怎么挑信号, how signals are picked and what the site does
+  not collect (not a nav entry; linked from the `/technologies` header)
 - `/topics` — topic index: every topic with at least one published signal,
   skill or knowledge item (the same rule as the hub's `notFound()`), with its
   description and the three counts, ordered by signal count then name; not a

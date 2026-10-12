@@ -426,6 +426,7 @@ function main() {
     "/digest/today",
     "/digest/2026-05-23",
     "/sources",
+    "/about",
     "/feed.xml",
     "/feed.json"
   ]) {
