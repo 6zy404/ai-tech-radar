@@ -51,6 +51,7 @@ import type {
 // Type-only for the same reason: the module reads the published pool.
 import type { SignalNeighbors } from "@/lib/signal-neighbors";
 import type { SimilarSignalLink } from "@/lib/similar-signals";
+import type { KnowledgeLinkTarget } from "@/lib/knowledge-autolink";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 import {
   getPriorityLevelLabel,
@@ -94,6 +95,8 @@ interface TechnologyDetailContentProps {
   issueAppearances?: SignalIssueAppearances;
   /** Omitted by the workspace preview: a draft has no place in the list. */
   neighbors?: SignalNeighbors;
+  /** Knowledge the body mentions; each links at its first mention. */
+  knowledgeLinks?: KnowledgeLinkTarget[];
 }
 
 export function TechnologyDetailContent({
@@ -106,7 +109,8 @@ export function TechnologyDetailContent({
   evolutionChain,
   similarSignals = [],
   issueAppearances,
-  neighbors
+  neighbors,
+  knowledgeLinks
 }: TechnologyDetailContentProps) {
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
@@ -344,7 +348,7 @@ export function TechnologyDetailContent({
           <SectionHeading sectionId={tocIds.body} sharePath={sharePath}>
             信号正文
           </SectionHeading>
-          <ContentBody body={body} />
+          <ContentBody body={body} knowledgeLinks={knowledgeLinks} />
         </section>
       ) : null}
 

@@ -12,6 +12,44 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A signal body links the knowledge it mentions
+
+- **2026-10-12.** The 信号正文 section on `/technologies/[slug]` now links
+  the first mention of a knowledge concept to its `/knowledge/[slug]` page.
+  Until now no body had a single link — `ContentBody` parsed headings, bold,
+  lists and inline code only — so a signal that said 「KV 缓存」 or quoted
+  《人在回路的审查》 by name left the reader to find the page themselves.
+- **The aliases are a hand-written table**, `knowledgeAliases` in
+  `src/lib/knowledge-autolink.ts` (knowledge id → phrases; the title is
+  added). It is code rather than a field on `KnowledgeItem` because all 19
+  live knowledge items are workspace overrides of their seeds, so a field on
+  the seed would be hidden by the override. Every item has an entry,
+  including the eight concepts added the same day.
+- **Rules** (each pinned by a test): an item links once per body, at its
+  first mention in reading order; headings and inline code never link;
+  latin edges are whole-word and case-insensitive (`MoE` not inside
+  `MoEs`); a space in an alias also matches a hyphen or nothing
+  (`KV 缓存` / `KV-Cache` / `KV缓存`); of two aliases starting at the same
+  place the longer wins; an `except` phrase covering a match cancels it.
+  Chinese has no word edges, so the false hits were found by reading, not
+  guessed. Two were known while writing the table (「提示词微调」,
+  「从轨迹里蒸馏出行为指引」). Run over all 107 live bodies in both languages
+  it then made 263 links, read one by one; four more were wrong (「token
+  消耗可以量化」, 「没有给出量化评测数字」, HNSW 的「乘积量化」, a wiki's
+  「沙盒页」). All six are `except` phrases now; afterwards 261 links, and 83
+  of 107 Chinese bodies carry at least one.
+- **Only what the body mentions reaches the browser.** The signal page is a
+  client component (the 中文 / 原文 switch), so the server keeps only the
+  targets either language of the body mentions and the matching runs on the
+  client; switching languages re-links from the top. Drafts are never a
+  target, and the workspace preview passes none.
+- **Style**: the same hairline as the publisher-name link (text colour, a
+  1px line-coloured underline, darker on hover). Prose links need a resting
+  mark, so this is the one place the 2026-09-21 "no underline at rest" rule
+  does not apply — that rule was written when a body could hold no link. On
+  paper the link prints as plain text with no URL (`print.css` appends URLs
+  to external links only).
+
 ## Nine narrower topics, and the broad ones narrowed
 
 - **2026-10-12.** `src/data/tags.ts` had 10 topics, and on the 107

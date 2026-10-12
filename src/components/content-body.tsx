@@ -1,11 +1,40 @@
+import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
 
 import { parseContentBody, splitContentBodyInline } from "@/lib/content-body";
+import {
+  createKnowledgeLinker,
+  type KnowledgeLinkTarget
+} from "@/lib/knowledge-autolink";
 
-function renderInline(text: string): ReactNode {
+type Linker = ReturnType<typeof createKnowledgeLinker>;
+
+// Text runs pass through the linker; headings and inline code never do.
+function renderText(text: string, linker?: Linker): ReactNode {
+  if (!linker) {
+    return text;
+  }
+
+  return linker(text).map((piece, index) =>
+    piece.link ? (
+      <Link
+        key={index}
+        href={piece.link.href}
+        className="content-body__knowledge-link"
+        title={piece.link.title}
+      >
+        {piece.text}
+      </Link>
+    ) : (
+      <Fragment key={index}>{piece.text}</Fragment>
+    )
+  );
+}
+
+function renderInline(text: string, linker?: Linker): ReactNode {
   return splitContentBodyInline(text).map((segment, index) => {
     if (segment.kind === "strong") {
-      return <strong key={index}>{segment.text}</strong>;
+      return <strong key={index}>{renderText(segment.text, linker)}</strong>;
     }
 
     if (segment.kind === "code") {
@@ -16,22 +45,30 @@ function renderInline(text: string): ReactNode {
       );
     }
 
-    return <Fragment key={index}>{segment.text}</Fragment>;
+    return <Fragment key={index}>{renderText(segment.text, linker)}</Fragment>;
   });
 }
 
 export function ContentBody({
   body,
-  className
+  className,
+  knowledgeLinks
 }: {
   body: string;
   className?: string;
+  /** Link each item's first mention to its /knowledge page. */
+  knowledgeLinks?: KnowledgeLinkTarget[];
 }) {
   const blocks = parseContentBody(body);
 
   if (blocks.length === 0) {
     return null;
   }
+
+  // One linker per render, walked in reading order, so an item links once.
+  const linker = knowledgeLinks?.length
+    ? createKnowledgeLinker(knowledgeLinks)
+    : undefined;
 
   return (
     <div className={className ? `content-body ${className}` : "content-body"}>
@@ -46,7 +83,7 @@ export function ContentBody({
 
         if (block.kind === "list") {
           const items = block.items.map((item, itemIndex) => (
-            <li key={itemIndex}>{renderInline(item)}</li>
+            <li key={itemIndex}>{renderInline(item, linker)}</li>
           ));
 
           return block.ordered ? (
@@ -62,7 +99,7 @@ export function ContentBody({
 
         return (
           <p key={index} className="content-body__paragraph">
-            {renderInline(block.text)}
+            {renderInline(block.text, linker)}
           </p>
         );
       })}

@@ -290,6 +290,13 @@
     widows: 3;
   }
 
+  /* A knowledge link in a signal body (knowledge-autolink.ts) is internal,
+     so it gets no URL; on paper it is just the word, without its underline. */
+  .content-body__knowledge-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
   /* ---- Where a link goes, on paper ----
      Only the body text and the source blocks, and only external links:
      appending every internal href would bury the page in URLs. */

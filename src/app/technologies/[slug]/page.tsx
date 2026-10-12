@@ -5,10 +5,15 @@ import { TechnologyDetailContent } from "@/components/technology-detail-content"
 import { UserPageShell } from "@/components/user-page-shell";
 import {
   buildRelationItems,
+  getAllKnowledge,
   getAllTechnologies,
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";
+import {
+  buildKnowledgeLinkTargets,
+  selectKnowledgeLinkTargets
+} from "@/lib/knowledge-autolink";
 import { getSignalIssueAppearances } from "@/lib/signal-digest-appearances";
 import { getSignalNeighbors } from "@/lib/signal-neighbors";
 import { getSimilarSignals } from "@/lib/similar-signals";
@@ -93,6 +98,16 @@ export default async function TechnologyDetailPage({
       href: `/technologies/${item.slug}`
     }));
   const tags = getTagsByIds(technology.tags);
+  // Only the knowledge this body mentions, in either language, goes to the
+  // client; the matching itself runs there so the 中文 / 原文 switch re-links.
+  const knowledgeLinks = selectKnowledgeLinkTargets(
+    buildKnowledgeLinkTargets(getAllKnowledge()),
+    [
+      technology.content.original,
+      technology.content.zh ?? "",
+      technology.content.en ?? ""
+    ]
+  );
   // Built here, not in TechnologyDetailContent: the workspace preview renders
   // drafts through that component and must not emit structured data.
   const structuredData = buildTechnologyJsonLd(technology, tags);
@@ -117,6 +132,7 @@ export default async function TechnologyDetailPage({
           similarSignals={similarSignals}
           issueAppearances={getSignalIssueAppearances(technology)}
           neighbors={getSignalNeighbors(technology.id)}
+          knowledgeLinks={knowledgeLinks}
         />
       </UserPageShell>
       {structuredData ? <JsonLd data={structuredData} /> : null}
