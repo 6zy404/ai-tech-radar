@@ -25,7 +25,9 @@
 //   借助 (`uses`, the skill uses the signal's tool); skill → knowledge is 必备
 //   (`requires`, from the skill, so the knowledge is read first and lands in
 //   the skill page's 先读这些) for at most three core items per skill, and
-//   释义 (`explains`) for the rest. 先读这些 also follows each item's own
+//   释义 (`explains`) for the rest. Every pair carries a one-sentence note,
+//   as 297 of the 326 existing skill–signal overrides do; without one the
+//   signal page prints the same fallback sentence beside each new skill. 先读这些 also follows each item's own
 //   prerequisites, so five 必备 on 自托管 made a seven-entry list that wandered
 //   into 工具使用 via 本地与云混合推理; the existing skills list 0–3. None
 //   falls back to 关联.
@@ -54,22 +56,38 @@ export interface NewSkillItem extends Omit<
   SkillItem,
   "relatedTechnologyIds" | "relatedKnowledgeIds"
 > {
-  /** Published signals, by slug, each with the relation it gets. */
-  signals: { slug: string; relation: SignalRelation }[];
+  /**
+   * Published signals, by slug, each with the relation it gets and the note
+   * the signal page shows beside the skill.
+   */
+  signals: { slug: string; relation: SignalRelation; note: string }[];
   /**
    * Knowledge, each 必备 (`requires`, read first, shown in 先读这些) or
    * 释义 (`explains`, background that is not a step before the skill).
    */
-  knowledge: { id: string; relation: KnowledgeRelation }[];
+  knowledge: { id: string; relation: KnowledgeRelation; note: string }[];
 }
 
-const supports = (slug: string) => ({
+const supports = (slug: string, note: string) => ({
   slug,
-  relation: "supports" as const
+  relation: "supports" as const,
+  note
 });
-const uses = (slug: string) => ({ slug, relation: "uses" as const });
-const requires = (id: string) => ({ id, relation: "requires" as const });
-const explains = (id: string) => ({ id, relation: "explains" as const });
+const uses = (slug: string, note: string) => ({
+  slug,
+  relation: "uses" as const,
+  note
+});
+const requires = (id: string, note: string) => ({
+  id,
+  relation: "requires" as const,
+  note
+});
+const explains = (id: string, note: string) => ({
+  id,
+  relation: "explains" as const,
+  note
+});
 
 export const newSkillItems: NewSkillItem[] = [
   {
@@ -114,21 +132,60 @@ export const newSkillItems: NewSkillItem[] = [
     learningCost: "medium",
     tags: ["tag-coding-agents", "tag-workflow"],
     signals: [
-      supports("doordash-feature-flag-cleanup-agents"),
-      supports("copilot-runtime-rust-port"),
-      supports("seclab-fuzzing-taskflow"),
-      uses("alibaba-open-code-review"),
-      supports("copilot-code-review-tool-workflow-lessons"),
-      uses("aws-kiro-crew-async-agents"),
-      supports("vercel-zero-agent-native-language"),
-      supports("thinkingbox-agent-end-state"),
-      supports("agent-token-spend-runaway")
+      supports(
+        "doordash-feature-flag-cleanup-agents",
+        "先只读出报告、工程师确认后再改，每个开关在隔离工作树里跑完构建与测试才提合并请求，并记下每次 4.79 美元的账。"
+      ),
+      supports(
+        "copilot-runtime-rust-port",
+        "「把判卷标准锁起来」的出处：实现方不能削弱测试、更新快照或放宽基线，必需测试没过的 PR 不合入。"
+      ),
+      supports(
+        "seclab-fuzzing-taskflow",
+        "智能体决定测什么、工具负责执行的分工，以及只在一次性环境里运行的提醒。"
+      ),
+      uses(
+        "alibaba-open-code-review",
+        "把选文件、打包、对齐行号交给确定程序的现成实现，可以接进编码智能体。"
+      ),
+      supports(
+        "copilot-code-review-tool-workflow-lessons",
+        "换了工具不重写指令，效果会悄悄变差，只有回归基准能把它暴露出来。"
+      ),
+      uses(
+        "aws-kiro-crew-async-agents",
+        "多个编码智能体异步协作时，把计划、工具调用和审批节点摆在一处，验收有地方落脚。"
+      ),
+      supports(
+        "vercel-zero-agent-native-language",
+        "编译器输出带稳定的错误码和修复元数据，让智能体能机械地判断自己改对了没有。"
+      ),
+      supports(
+        "thinkingbox-agent-end-state",
+        "按最终状态验收的依据：没通过的运行里三分之二正常结束、也没有报错。"
+      ),
+      supports(
+        "agent-token-spend-runaway",
+        "按任务记账、给花费设上限的反面教材：超预算 860%，五个月后才被发现。"
+      )
     ],
     knowledge: [
-      requires("knowledge-ws-e251051e"),
-      requires("knowledge-execution-based-eval"),
-      requires("knowledge-agent-sandboxing"),
-      explains("knowledge-human-loop")
+      requires(
+        "knowledge-ws-e251051e",
+        "验收看的是系统最后的状态，不是智能体自己的汇报。"
+      ),
+      requires(
+        "knowledge-execution-based-eval",
+        "用测试判对错是这项技能的地基，也要分清 pass@k 和 pass^k。"
+      ),
+      requires(
+        "knowledge-agent-sandboxing",
+        "每个任务跑在哪一档隔离里、带什么凭据，要在动手前定好。"
+      ),
+      explains(
+        "knowledge-human-loop",
+        "两阶段流程中间那次人工确认，就是人在回路的一种放法。"
+      )
     ]
   },
   {
@@ -164,17 +221,44 @@ export const newSkillItems: NewSkillItem[] = [
     learningCost: "medium",
     tags: ["tag-coding-agents", "tag-workflow"],
     signals: [
-      supports("rootly-retires-small-pr-rule"),
-      uses("alibaba-open-code-review"),
-      supports("copilot-code-review-tool-workflow-lessons"),
-      supports("conceptual-integrity-and-lines-of-code"),
-      supports("copilot-runtime-rust-port"),
-      supports("doordash-feature-flag-cleanup-agents")
+      supports(
+        "rootly-retires-small-pr-rule",
+        "按影响半径审、「为什么」由人写、安全边界挪到渐进发布，三件事都出自这次复盘。"
+      ),
+      uses(
+        "alibaba-open-code-review",
+        "一个精确率高、召回率低的审查工具：适合减少噪声，不能单独兜底。"
+      ),
+      supports(
+        "copilot-code-review-tool-workflow-lessons",
+        "审查智能体的指令要按人读 PR 的方式写，否则成本更高、抓到的问题更少。"
+      ),
+      supports(
+        "conceptual-integrity-and-lines-of-code",
+        "产出不再是瓶颈之后，「要不要这个功能」得有人明确把关。"
+      ),
+      supports(
+        "copilot-runtime-rust-port",
+        "审查时要看测试和基线有没有被一起改掉，漏功能的回归几乎都来自端到端测试不够。"
+      ),
+      supports(
+        "doordash-feature-flag-cleanup-agents",
+        "45 个可用的合并请求里有 14 个仍要人修改，审查这一环省不掉。"
+      )
     ],
     knowledge: [
-      requires("knowledge-human-loop"),
-      requires("knowledge-ws-e251051e"),
-      requires("knowledge-system-design")
+      requires(
+        "knowledge-human-loop",
+        "审查是人在回路的一环，要知道人该看什么、可以不看什么。"
+      ),
+      requires(
+        "knowledge-ws-e251051e",
+        "一次能跑通的变更，不等于一次正确的变更。"
+      ),
+      requires(
+        "knowledge-system-design",
+        "影响半径要从系统的依赖关系里看出来。"
+      )
     ]
   },
   {
@@ -208,19 +292,52 @@ Gowers 的观察可以当一条经验：近期轰动的模型数学成果几乎�
     learningCost: "medium",
     tags: ["tag-ai-for-science", "tag-benchmarks"],
     signals: [
-      supports("openai-math-results-repository"),
-      supports("nemotron-imo-ioi-2026"),
-      supports("navier-stokes-priority-and-data"),
-      supports("claude-hadamard-668"),
-      supports("gowers-what-maths-llms-are-good-at"),
-      supports("anthropic-measuring-ai-led-rd"),
-      supports("openai-research-acceleration-agents"),
-      supports("alphagenome-atlas-precomputed-variants"),
-      supports("amie-real-time-video-consultation")
+      supports(
+        "openai-math-results-repository",
+        "能被机器检验的只占四成：300 篇有 Lean 证明，第二天就撤回了 3 篇。"
+      ),
+      supports(
+        "nemotron-imo-ioi-2026",
+        "同一份发布里，IMO 分数由官方评定，IOI 分数是厂商自测，分量不同。"
+      ),
+      supports(
+        "navier-stokes-priority-and-data",
+        "能核对的只有时间线和算力数字，数学本身还没有任何独立方核实。"
+      ),
+      supports(
+        "claude-hadamard-668",
+        "可机械检验的结果：矩阵代入就能验，解码过程也被第三方复现了。"
+      ),
+      supports(
+        "gowers-what-maths-llms-are-good-at",
+        "「构造出一个对象」与「判断何时放弃」的分界，决定一条声明该打几折。"
+      ),
+      supports(
+        "anthropic-measuring-ai-led-rd",
+        "裁判也是 Claude，而人与人之间的一致率只有 35%：自报的数字先问谁打的分。"
+      ),
+      supports(
+        "openai-research-acceleration-agents",
+        "4 到 8 小时的任务，一半以上的成功案例有人插手：看到「AI 完成」先问人做了多少。"
+      ),
+      supports(
+        "alphagenome-atlas-precomputed-variants",
+        "合成分数能拆回驱动它的特征，才可以核对，而不只是采信。"
+      ),
+      supports(
+        "amie-real-time-video-consultation",
+        "结论来自模拟问诊的随机研究，病人由演员扮演，离真实就诊还隔着一层。"
+      )
     ],
     knowledge: [
-      requires("knowledge-reproducibility"),
-      requires("knowledge-evaluation-loops")
+      requires(
+        "knowledge-reproducibility",
+        "可复现与可验证的区别，是判断一条科研声明站得多稳的前提。"
+      ),
+      requires(
+        "knowledge-evaluation-loops",
+        "谁打的分、怎么打的分，是评估闭环里最先要问的。"
+      )
     ]
   },
   {
@@ -260,16 +377,40 @@ Gowers 的观察可以当一条经验：近期轰动的模型数学成果几乎�
     learningCost: "high",
     tags: ["tag-ai-for-science", "tag-coding-agents"],
     signals: [
-      supports("icml-2026-open-reproductions"),
-      supports("icml-2026-agent-reproduction-audit"),
-      uses("ara-agent-native-research-artifacts"),
-      uses("aisi-evaleval-reproducible-evaluations"),
-      supports("openai-research-acceleration-agents")
+      supports(
+        "icml-2026-open-reproductions",
+        "一次社区规模的复现：从论断出发、记录可审计、判定时不信自我评价。"
+      ),
+      supports(
+        "icml-2026-agent-reproduction-audit",
+        "复现失败先分原因：多数是缺文件、依赖断裂，也有参数比例对不上的实质错误。"
+      ),
+      uses(
+        "ara-agent-native-research-artifacts",
+        "把论文写成智能体能直接操作的知识包，保留复现所需的工程细节。"
+      ),
+      uses(
+        "aisi-evaleval-reproducible-evaluations",
+        "分数和复现配置放进同一个共享格式，别人才能按同样的条件重跑。"
+      ),
+      supports(
+        "openai-research-acceleration-agents",
+        "研究任务里人仍常要插手，复现流程要给人留介入的位置。"
+      )
     ],
     knowledge: [
-      requires("knowledge-reproducibility"),
-      requires("knowledge-execution-based-eval"),
-      requires("knowledge-agent-sandboxing")
+      requires(
+        "knowledge-reproducibility",
+        "要复现的是什么、做到哪一档才算复现，先在这里讲清。"
+      ),
+      requires(
+        "knowledge-execution-based-eval",
+        "用跑起来的结果判对错，是批量复现的基础。"
+      ),
+      requires(
+        "knowledge-agent-sandboxing",
+        "智能体会执行论文仓库里的脚本，先定好隔离和出网规则。"
+      )
     ]
   },
   {
@@ -310,27 +451,84 @@ Gowers 的观察可以当一条经验：近期轰动的模型数学成果几乎�
     learningCost: "medium",
     tags: ["tag-open-weights", "tag-inference"],
     signals: [
-      supports("holo4-open-computer-use-agents"),
-      supports("qwen3-8-27b"),
-      supports("qwen3-8-27b-overthinking-default"),
-      supports("meta-muse-glimmer"),
-      supports("muse-glimmer-local-agent-model"),
-      supports("meta-open-weights-turn"),
-      supports("kimi-k3"),
-      supports("thinkingmachines-inkling"),
-      supports("state-of-open-models-summer-2026"),
-      supports("nvidia-kumo-tabular"),
-      supports("cloudflare-clef-decision-models"),
-      supports("embeddinggemma-2"),
-      supports("bigbang-v1-self-evolving-data"),
-      supports("lfm2-5-encoders")
+      supports(
+        "holo4-open-computer-use-agents",
+        "许可要按尺寸读：分数最高的 27B 不能商用，能商用的 35B-A3B 分数只有它一半。"
+      ),
+      supports(
+        "qwen3-8-27b",
+        "量化后一张 24GB 显卡装得下，但领先最多的那一项跑在厂商自己命名的基准上。"
+      ),
+      supports(
+        "qwen3-8-27b-overthinking-default",
+        "在自己机器上复测的样板：出厂默认 xhigh 让一道题跑了 21 分钟，还吃光了 8K 上下文。"
+      ),
+      supports(
+        "meta-muse-glimmer",
+        "赢在工具调用与检索、输在桌面与终端操作，硬件支持当天分档：看清它输在哪、能跑在哪。"
+      ),
+      supports(
+        "muse-glimmer-local-agent-model",
+        "4 位量化把 55GB 以上的显存需求压到 17 至 20GB，是按精度算显存的现成例子。"
+      ),
+      supports(
+        "meta-open-weights-turn",
+        "开放权重的同时披露了让本地部署成立的量化与推测解码数字，可以逐项核对。"
+      ),
+      supports(
+        "kimi-k3",
+        "承诺的开放日期不等于可用日期，权重落地之前对自托管没有价值。"
+      ),
+      supports(
+        "thinkingmachines-inkling",
+        "约 1 万亿总参数、41B 激活：混合专家模型按总参数存、按激活参数算。"
+      ),
+      supports(
+        "state-of-open-models-summer-2026",
+        "1B 以下的模型拿走 83% 的下载量：先问任务需不需要大模型。"
+      ),
+      supports(
+        "nvidia-kumo-tabular",
+        "按允许商用的 OpenMDW-1.1 发布，但没和梯度提升树直接比，要在自己的数据上量。"
+      ),
+      supports(
+        "cloudflare-clef-decision-models",
+        "Apache 2.0、27B 与 9B 两档，接进 Ollama 就能本地跑：许可、尺寸和引擎一次看全。"
+      ),
+      supports(
+        "embeddinggemma-2",
+        "编码器可选，只处理文字时只需 270M：按实际要用的部分算资源。"
+      ),
+      supports(
+        "bigbang-v1-self-evolving-data",
+        "35B 总参数、约 3B 激活，Apache-2.0；同一份发布里有一处口径对不上，要自己复核。"
+      ),
+      supports(
+        "lfm2-5-encoders",
+        "小编码器能在 CPU 上跑长文档：不是每个任务都要上显卡。"
+      )
     ],
     knowledge: [
-      requires("knowledge-open-weights"),
-      requires("knowledge-ws-34da6116"),
-      requires("knowledge-model-sizing"),
-      explains("knowledge-ws-c761533e"),
-      explains("knowledge-distillation")
+      requires(
+        "knowledge-open-weights",
+        "权重、许可和配套三件事分开看，是这项技能的第一步。"
+      ),
+      requires(
+        "knowledge-ws-34da6116",
+        "算显存时要知道每一档精度省多少、损失落在哪里。"
+      ),
+      requires(
+        "knowledge-model-sizing",
+        "先找出最先咬人的约束，再决定要不要自己跑大模型。"
+      ),
+      explains(
+        "knowledge-ws-c761533e",
+        "自托管不必全有全无，哪些请求留在本地、哪些上云可以分开定。"
+      ),
+      explains(
+        "knowledge-distillation",
+        "很多小型开放模型由旗舰蒸馏而来，能力上限由教师决定。"
+      )
     ]
   },
   {
@@ -373,24 +571,72 @@ SGLang、vLLM、Ollama 的新版本常带来新的量化或推测解码路径。
     learningCost: "medium",
     tags: ["tag-efficient-inference", "tag-inference"],
     signals: [
-      supports("lfm2-5-vl-dspark"),
-      supports("inferact-tpu-megakernels-kimi-k3"),
-      supports("pinterest-vector-search-quantization"),
-      uses("ollama-v0-32-4"),
-      uses("sglang-v0-5-17"),
-      supports("muse-glimmer-local-agent-model"),
-      supports("meta-open-weights-turn"),
-      uses("vllm-v0-30-0"),
-      uses("vllm-v0-26-0"),
-      supports("colibri-weights-jit-tiered-inference"),
-      supports("chunked-kv-cache-phase-sensitivity")
+      supports(
+        "lfm2-5-vl-dspark",
+        "解码快 3 倍、端到端只快 1.3 到 2.6 倍：推测解码碰不到图像编码和预填充。"
+      ),
+      supports(
+        "inferact-tpu-megakernels-kimi-k3",
+        "比较要同硬件、同批量、同接受率：每步接受 6 个 token 时快 57%，不开推测解码只在小批量下占优。"
+      ),
+      supports(
+        "pinterest-vector-search-quantization",
+        "按召回下限选量化方式：标量量化几乎不掉召回，乘积量化压得更狠、召回掉到 77%。"
+      ),
+      uses(
+        "ollama-v0-32-4",
+        "草稿输出头的量化和 MoE 专家精度不一致都在这一版处理过，NVFP4 的质量缺陷要到 v0.32.5 才修。"
+      ),
+      uses(
+        "sglang-v0-5-17",
+        "首日带着推测解码、前缀缓存和量化权重上的 LoRA；升级之后要用同一组请求重跑。"
+      ),
+      supports(
+        "muse-glimmer-local-agent-model",
+        "DFlash 推测解码把吞吐最多提到 3.1 倍：按同样的条件核对之后再照搬。"
+      ),
+      supports(
+        "meta-open-weights-turn",
+        "发布时一并给出量化与推测解码的数字，正好拿来练习逐项核对。"
+      ),
+      uses(
+        "vllm-v0-30-0",
+        "稀疏 MLA 解码可以把 KV 页溢出到主机内存：新路径要用自己的负载重新量一遍。"
+      ),
+      uses(
+        "vllm-v0-26-0",
+        "为 Inkling 补齐分段 CUDA Graph 与 MTP 推测解码，同一模型升级前后的速度要重新量。"
+      ),
+      supports(
+        "colibri-weights-jit-tiered-inference",
+        "把专家放到硬盘上省显存，代价是每秒只有 0.05 到 1.8 个 token。"
+      ),
+      supports(
+        "chunked-kv-cache-phase-sensitivity",
+        "平均分会藏住弱点：分块 KV 压缩让检索准确率随位置周期性起伏，最多差 40 个百分点。"
+      )
     ],
     knowledge: [
-      requires("knowledge-ws-34da6116"),
-      requires("knowledge-ws-68963f7f"),
-      requires("knowledge-kv-cache"),
-      explains("knowledge-latency-tradeoffs"),
-      explains("knowledge-ws-36346103")
+      requires(
+        "knowledge-ws-34da6116",
+        "知道量化省在哪、损在哪，才知道该量什么。"
+      ),
+      requires(
+        "knowledge-ws-68963f7f",
+        "推测解码只加速解码、收益取决于接受率，这两点决定了怎么比。"
+      ),
+      requires(
+        "knowledge-kv-cache",
+        "预填充与解码的成本结构不同，提速倍数要按段拆开看。"
+      ),
+      explains(
+        "knowledge-latency-tradeoffs",
+        "「快多少」永远是在什么条件下的快。"
+      ),
+      explains(
+        "knowledge-ws-36346103",
+        "混合专家模型的各个专家可以用不同精度存，精度不一致是端侧常见的坑。"
+      )
     ]
   }
 ];
@@ -518,7 +764,8 @@ export function planSkillAddition(
     item: NewSkillItem,
     toId: string,
     toType: "technology" | "knowledge",
-    relationType: LinkRelation["relationType"]
+    relationType: LinkRelation["relationType"],
+    note: string
   ) => {
     const key = getRelationPairKey(item.id, "skill", toId, toType);
     if (overridden.has(key)) {
@@ -532,7 +779,8 @@ export function planSkillAddition(
       fromType: "skill",
       toId,
       toType,
-      relationType
+      relationType,
+      note
     });
   };
 
@@ -555,14 +803,18 @@ export function planSkillAddition(
 
     const signals = item.signals.flatMap((entry) => {
       const signal = publishedBySlug.get(entry.slug);
-      return signal ? [{ signal, relation: entry.relation }] : [];
+      return signal
+        ? [{ signal, relation: entry.relation, note: entry.note }]
+        : [];
     });
     const missingSignals = item.signals
       .map((entry) => entry.slug)
       .filter((slug) => !publishedBySlug.has(slug));
     const knowledge = item.knowledge.flatMap((entry) => {
       const record = publishedKnowledge.get(entry.id);
-      return record ? [{ record, relation: entry.relation }] : [];
+      return record
+        ? [{ record, relation: entry.relation, note: entry.note }]
+        : [];
     });
     const missingKnowledge = item.knowledge
       .map((entry) => entry.id)
@@ -583,13 +835,13 @@ export function planSkillAddition(
       takenSlugs.set(item.slug, item.id);
     }
 
-    for (const { signal, relation } of signals) {
+    for (const { signal, relation, note } of signals) {
       queue(signalAdditions, signal, item.id);
-      addRelation(item, signal.id, "technology", relation);
+      addRelation(item, signal.id, "technology", relation, note);
     }
-    for (const { record, relation } of knowledge) {
+    for (const { record, relation, note } of knowledge) {
       queue(knowledgeAdditions, record, item.id);
-      addRelation(item, record.id, "knowledge", relation);
+      addRelation(item, record.id, "knowledge", relation, note);
     }
 
     reports.push({

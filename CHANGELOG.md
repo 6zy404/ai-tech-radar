@@ -29,6 +29,11 @@ For per-topic deep dives, see the `docs/` directory.
   prerequisites: with all five 必备, 自托管's list ran to seven entries and
   wandered through 本地与云混合推理 into 工具使用; the existing skills list
   0–3, and the new ones now list 2–3. None is 关联.
+- Every one of the 76 pairs carries a one-sentence note saying what the
+  signal or knowledge gives this skill. 297 of the 326 existing skill–signal
+  overrides have one; without it the signal page prints the same fallback,
+  这项技能有助于评估技术信号或据此采取行动, beside each new skill — the
+  first preview showed it twice on the DoorDash signal.
   The knowledge side gets the id too (16 items): the knowledge page lists
   its skills from its own `relatedSkillIds` only.
 - `scripts/add-skill-items.ts` holds the content and the table; dry run by
@@ -36,7 +41,7 @@ For per-topic deep dives, see the `docs/` directory.
   place without touching `updatedAt`. On a copy of the data the apply
   changed only `relatedSkillIds` on those records, every new record cleared
   the skill publish gate with no warning, and a second run printed
-  没有需要写的内容. 12 tests.
+  没有需要写的内容. 13 tests.
 
 ## Every fallback 关联 read and typed
 

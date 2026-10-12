@@ -22,16 +22,16 @@ const item: NewSkillItem = {
   learningCost: "medium",
   tags: ["tag-coding-agents"],
   signals: [
-    { slug: "sig-a", relation: "supports" },
-    { slug: "sig-b", relation: "uses" },
-    { slug: "sig-draft", relation: "supports" },
-    { slug: "sig-gone", relation: "supports" }
+    { slug: "sig-a", relation: "supports", note: "附注 sig-a。" },
+    { slug: "sig-b", relation: "uses", note: "附注 sig-b。" },
+    { slug: "sig-draft", relation: "supports", note: "附注 sig-draft。" },
+    { slug: "sig-gone", relation: "supports", note: "附注 sig-gone。" }
   ],
   knowledge: [
-    { id: "k-a", relation: "requires" },
-    { id: "k-other", relation: "explains" },
-    { id: "k-draft", relation: "requires" },
-    { id: "k-gone", relation: "requires" }
+    { id: "k-a", relation: "requires", note: "附注 k-a。" },
+    { id: "k-other", relation: "explains", note: "附注 k-other。" },
+    { id: "k-draft", relation: "requires", note: "附注 k-draft。" },
+    { id: "k-gone", relation: "requires", note: "附注 k-gone。" }
   ]
 };
 
@@ -135,8 +135,13 @@ describe("planSkillAddition", () => {
         fromType: "skill"
       });
       expect(relation.relationType).not.toBe("related-to");
-      expect(relation).not.toHaveProperty("note");
     }
+    expect(plan.newRelations.map((relation) => relation.note)).toEqual([
+      "附注 sig-a。",
+      "附注 sig-b。",
+      "附注 k-a。",
+      "附注 k-other。"
+    ]);
   });
 
   it("keeps a pair that already has an override, from either side", () => {
@@ -257,6 +262,21 @@ describe("newSkillItems", () => {
       expect(blocks[0]?.kind, entry.id).toBe("heading");
       expect(entry.content, entry.id).not.toMatch(/^#{1}\s|^###/m);
       expect(entry.content, entry.id).not.toMatch(/\]\(|<[a-z]/);
+    }
+  });
+
+  it("gives every pair its own note, none of them the page's fallback", () => {
+    const fallback = "这项技能有助于评估技术信号或据此采取行动。";
+    for (const entry of newSkillItems) {
+      const notes = [...entry.signals, ...entry.knowledge].map(
+        (link) => link.note
+      );
+      for (const note of notes) {
+        expect(note.trim().length, entry.id).toBeGreaterThan(10);
+        expect(note, entry.id).not.toBe(fallback);
+        expect(note, entry.id).toMatch(/。$/);
+      }
+      expect(new Set(notes).size, entry.id).toBe(notes.length);
     }
   });
 
