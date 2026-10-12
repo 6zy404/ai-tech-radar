@@ -98,6 +98,19 @@ The product is split into two subsystems:
   written by every editorial round, required by the publish gate, and never
   displayed anywhere public, while skill and knowledge bodies rendered as a
   single paragraph with their `**` markers visible.
+  Since 2026-10-12 the signal page's body links the first mention of a
+  knowledge concept to `/knowledge/[slug]` (`ContentBody`'s optional
+  `knowledgeLinks`; skill, knowledge and digest bodies pass none). The
+  phrases are a hand-written table, `knowledgeAliases` in
+  `src/lib/knowledge-autolink.ts` (knowledge id → aliases, the title
+  added; published items only). One link per item per body; never in a
+  heading, inline code, or inside 《》 unless the whole title matches;
+  latin aliases match whole words, case-insensitively; a space in an alias
+  also matches a hyphen or nothing; `except` phrases cancel known Chinese
+  false hits (「提示词微调」). The server sends only the targets either
+  language of the body mentions, and the 中文/原文 switch re-links. Underlined
+  at half the text colour; plain text in print. 83 of 107 Chinese bodies
+  carry at least one link (measured 2026-10-12).
 - **Signal page reading time and share card** (2026-09-29) — the hero meta
   row shows 约 N 分钟读完 / About N min read, computed from the prose the
   page shows in the current language (Chinese 400 characters/min, English

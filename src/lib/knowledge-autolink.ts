@@ -17,7 +17,10 @@
 //   the same place the longer one (`SWE-bench Pro` over `SWE-bench`);
 // - an `except` phrase covering a match cancels it — Chinese has no word
 //   edges, so the false hits that remain are named rather than guessed at
-//   (`微调` is fine-tuning, `提示词微调` is not).
+//   (`微调` is fine-tuning, `提示词微调` is not);
+// - inside 《》 nothing links unless the whole title is the match: a body
+//   quoting 《人在回路的审查》 links to that page, a paper title such as
+//   《… Chunked KV-Cache Compression》 is a name and stays whole.
 //
 // Aliases are written by hand. Bare words too general to mean the concept
 // (`复现 bug`, `选型`) are left out on purpose: a missing link costs nothing,
@@ -263,7 +266,16 @@ interface Match {
   target: KnowledgeLinkTarget;
 }
 
+// The inside of each 《…》 in `text`, as [start, end) offsets.
+function bookTitleSpans(text: string): Array<[number, number]> {
+  return [...text.matchAll(/《([^《》]*)》/g)].map((hit) => [
+    hit.index + 1,
+    hit.index + 1 + hit[1].length
+  ]);
+}
+
 function findMatches(text: string, target: KnowledgeLinkTarget): Match[] {
+  const titles = bookTitleSpans(text);
   const blocked: Array<[number, number]> = [];
   for (const phrase of target.except ?? []) {
     for (const hit of text.matchAll(aliasPattern(phrase))) {
@@ -282,6 +294,8 @@ function findMatches(text: string, target: KnowledgeLinkTarget): Match[] {
       if (checkStart && start > 0 && latinChar.test(text[start - 1])) continue;
       if (checkEnd && end < text.length && latinChar.test(text[end])) continue;
       if (blocked.some(([from, to]) => start < to && from < end)) continue;
+      const title = titles.find(([from, to]) => start >= from && end <= to);
+      if (title && (title[0] !== start || title[1] !== end)) continue;
       matches.push({ start, end, target });
     }
   }

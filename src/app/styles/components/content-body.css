@@ -64,18 +64,17 @@
 
 /* The first mention of a knowledge concept in a signal body links to its
    /knowledge page (2026-10-12). A link inside prose needs a resting mark or
-   nobody sees it, so it keeps the same hairline the publisher-name link uses
-   — text colour, a line-coloured underline — and the line darkens on hover. */
+   nobody finds it, so it keeps an underline — the publisher-name link's
+   shape (text colour, 1px, 0.2em offset) — but drawn from the text colour at
+   half strength rather than from --line: measured, the line token sat at
+   about 1.5:1 against the paper in both schemes, too faint to spot in a
+   paragraph. It goes solid on hover. */
 .content-body__knowledge-link {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--line);
+  text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
-}
-
-.dossier .content-body__knowledge-link {
-  text-decoration-color: var(--dossier-line);
 }
 
 .content-body__knowledge-link:hover {

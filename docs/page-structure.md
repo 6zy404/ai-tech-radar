@@ -448,7 +448,10 @@ Workspace deployment boundary:
     中文/原文 switch applies to the body as well. Renders nothing when the
     body is empty. Added 2026-07-28 — before that the page never rendered
     `content` at all, even though the publish gate treats a missing body as
-    a blocking error
+    a blocking error. Since 2026-10-12 the first mention of a knowledge
+    concept in the body links to its `/knowledge/[slug]` page
+    (`src/lib/knowledge-autolink.ts`), once per item, never in headings or
+    code
   - bilingual content reading
   - source name, publisher name, publisher type, publish date, and original
     link without making long URLs dominate the page. The publisher type
@@ -1041,6 +1044,10 @@ Forbidden on public pages:
     paragraph text. Before 2026-07-28 the skill and knowledge pages rendered
     their whole body inside one `<p>`, so Markdown markers were visible to
     readers and paragraph breaks were lost
+  - optional `knowledgeLinks` (2026-10-12): link each knowledge item's
+    first mention to its page, walking the text runs in reading order;
+    headings and inline code are never passed to the linker. Only the
+    signal page passes it
 - `TechnologyEvolutionLine`
   - user-facing 版本脉络 section on the technology detail page; consumes the
     derived `TechnologyEvolutionChain` (no internal fields, no new persisted

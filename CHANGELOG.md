@@ -15,8 +15,7 @@ For per-topic deep dives, see the `docs/` directory.
 ## Eight knowledge items for the concepts the signals keep naming
 
 - **2026-10-12.** The 107 published signals cited the general knowledge
-  items again and again (评估闭环 40 times, 模型选型 37, 系统设计 34, 人在回路
-  33) while classic concepts their bodies name — KV 缓存, 强化学习, 蒸馏, 微调,
+  items again and again (评估闭环 40 times, 模型选型 37, 系统设计 34, 人在回路 33) while classic concepts their bodies name — KV 缓存, 强化学习, 蒸馏, 微调,
   沙箱, 开放权重, SWE-bench, 可复现 — had no page, and three of the topics
   added the same day (编码智能体, AI 与科研, 开放权重模型) had no knowledge at
   all. `scripts/add-knowledge-items.ts` adds eight, published, with fixed ids:
@@ -60,7 +59,11 @@ For per-topic deep dives, see the `docs/` directory.
   latin edges are whole-word and case-insensitive (`MoE` not inside
   `MoEs`); a space in an alias also matches a hyphen or nothing
   (`KV 缓存` / `KV-Cache` / `KV缓存`); of two aliases starting at the same
-  place the longer wins; an `except` phrase covering a match cancels it.
+  place the longer wins; an `except` phrase covering a match cancels it;
+  inside 《》 nothing links unless the whole title is the match, so a body
+  quoting 《人在回路的审查》 links to that page (28 such links across the
+  bodies) while a paper title like 《… Chunked KV-Cache Compression》 stays
+  whole and the concept links at its next mention.
   Chinese has no word edges, so the false hits were found by reading, not
   guessed. Two were known while writing the table (「提示词微调」,
   「从轨迹里蒸馏出行为指引」). Run over all 107 live bodies in both languages
@@ -73,10 +76,15 @@ For per-topic deep dives, see the `docs/` directory.
   targets either language of the body mentions and the matching runs on the
   client; switching languages re-links from the top. Drafts are never a
   target, and the workspace preview passes none.
-- **Style**: the same hairline as the publisher-name link (text colour, a
-  1px line-coloured underline, darker on hover). Prose links need a resting
-  mark, so this is the one place the 2026-09-21 "no underline at rest" rule
-  does not apply — that rule was written when a body could hold no link. On
+- **Style**: the publisher-name link's shape (text colour, 1px underline,
+  0.2em offset, solid on hover), but the line is half the text colour rather
+  than `--line`: screenshotted in dark mode, `--dossier-line` measured
+  about 1.5:1 against the paper and the link was hard to find in a
+  paragraph; half the text colour is about 3.0:1 light and 3.9:1 dark.
+  Prose links need a resting mark, so this is the one place the 2026-09-21
+  "no underline at rest" rule does not apply — that rule was written when a
+  body could hold no link (`docs/design-system.md` → "Links inside a
+  body"). Checked at 1440 and 390, light and dark, in both 中文 and 原文. On
   paper the link prints as plain text with no URL (`print.css` appends URLs
   to external links only).
 

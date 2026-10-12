@@ -109,6 +109,26 @@ describe("createKnowledgeLinker", () => {
     expect(linked(link("从 Qwen 微调而来"))).toEqual(["微调"]);
   });
 
+  it("links inside 《》 only when the whole title is the match", () => {
+    const link = createKnowledgeLinker([kv]);
+
+    // A paper title is a name: the concept links at its next mention.
+    expect(
+      linked(link("论文《Chunked KV-Cache Compression》研究 KV 缓存"))
+    ).toEqual(["KV 缓存"]);
+    // The title is an alias of its own (buildKnowledgeLinkTargets adds it).
+    const titled = { ...kv, aliases: [kv.title, ...kv.aliases] };
+    expect(
+      linked(
+        createKnowledgeLinker([titled])("用本站《KV 缓存与长上下文推理》的话说")
+      )
+    ).toEqual(["KV 缓存与长上下文推理"]);
+    // Part of that title alone does not link.
+    expect(
+      linked(createKnowledgeLinker([kv])("《KV 缓存与长上下文推理》"))
+    ).toEqual([]);
+  });
+
   it("returns the text untouched when nothing matches", () => {
     expect(createKnowledgeLinker([kv, ft])("无关的一句话")).toEqual([
       { text: "无关的一句话" }

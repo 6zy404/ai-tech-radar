@@ -1868,6 +1868,19 @@ two families were behaving differently; now they do not.
 Measured after: three representative pages report **zero** resting underlines,
 and the same link reports `none` at rest and `underline` while hovered.
 
+## Links inside a body (2026-10-12)
+
+The signal body is the first prose on the public side that holds links (the
+first mention of a knowledge concept, `src/lib/knowledge-autolink.ts`). A
+link inside a paragraph has to be findable at rest, so it is the one public
+link that keeps its underline: text colour, 1px, offset 0.2em — the shape of
+the publisher-name link — but coloured `color-mix(in srgb, currentColor 50%,
+transparent)` rather than `--line`. Measured on the signal page, `--line`
+/ `--dossier-line` sat at about 1.5:1 against the paper in both schemes;
+half the text colour is about 3.0:1 in light and 3.9:1 in dark, and follows
+the scheme without a dark override. Hover makes the line solid. On paper the
+link prints as plain text without a URL.
+
 ## Keyboard focus (2026-09-29)
 
 Every focusable element draws its ring only on `:focus-visible`: a 2px solid
