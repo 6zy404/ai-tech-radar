@@ -407,9 +407,7 @@ async function main() {
               pair.scores[scheme] >= threshold
           );
           const same = flagged.filter((pair) => pair.label === "same").length;
-          const event = flagged.filter(
-            (pair) => pair.label === "event"
-          ).length;
+          const event = flagged.filter((pair) => pair.label === "event").length;
           const missing = flagged.filter((pair) => pair.label === undefined);
           const labelled = flagged.length - missing.length;
           const byLanguage = (languages: LanguagePair) => {

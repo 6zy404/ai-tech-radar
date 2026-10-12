@@ -139,6 +139,7 @@ Flag values:
 - `too_short`
 - `prerelease_version`
 - `already_published`
+- `similar_to_published`
 - `defacement_title`
 - `ready_for_review`
 - `not_convertible`
@@ -159,6 +160,19 @@ is never overridden; each rejection is a `candidate.status_updated` event with
 `actorType: "task_runner"` and `metadata.reason`. Every other flag still only
 makes the batch visible — notably `missing_summary` / `missing_content`,
 because feeds that ship no description have produced published signals.
+
+`similar_to_published` (2026-10-13) is the embedding model's version of
+`already_published`, and deliberately **not** one of the three: it fires when
+a candidate's title + summary scores ≥ 0.92 cosine against a published
+signal's original or Chinese text within 3 days, and the deterministic check
+is silent. Measured on labelled history, about half of those are the same
+announcement and the rest the same event or only the same topic
+(`eval/dedup/README.md`), so it is a hint for the editor. It reads
+`ImportedCandidate.semanticPublishedMatch` (`{ technologyId,
+technologyTitle, score }`), attached on read from
+`candidate-semantic-matches.json`; workspace-only, never in the news map.
+Like `already_published` it is excluded from ranking's multiple-problems
+count.
 
 `defacement_title` (2026-10-09) fires when the title opens with a defacer's
 signature — hacked / defaced / pwned / owned (leetspeak and Indonesian
@@ -778,6 +792,16 @@ Current reason codes:
 - `same_publisher_near_date`
 - `same_repo_release_family`
 - `same_canonical_url`
+- `semantic_similar` (2026-10-13) — the local embedding model scores the two
+  candidates' title + summary at ≥ 0.96 cosine, at most 3 days apart, neither
+  a release-feed item. Not computed here: the async refresh after an import
+  stores the pairs in `candidate-semantic-matches.json` (each with the model,
+  rule version and threshold that produced it — entries under any other are
+  ignored) and the synchronous analysis reads them. Measured in
+  `eval/dedup/README.md`.
+
+When nothing else separates the members (content score, then the newer
+publish date), the default primary is the one imported first.
 
 The group is an Internal Workspace object. It helps reviewers compare candidates, choose one primary candidate, and prevent duplicate draft generation.
 
@@ -1473,6 +1497,8 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `workflow-events.json`
 - `editorial-enrichment-suggestions.json`
 - `candidate-triage-suggestions.json`
+- `candidate-semantic-matches.json` (2026-10-13; regenerable, git-ignored; a
+  `runtime_configs` row under SQLite)
 - `technology-comparisons.json`
 - `technology-explanations.json`
 - `technology-learning-paths.json`

@@ -162,7 +162,10 @@ describe("findSemanticCandidatePairs", () => {
 
 describe("analyzeDuplicates with semantic pairs", () => {
   it("groups the semantic pair with a semantic_similar reason and its score", () => {
-    const [pair] = findSemanticCandidatePairs([toDedup(qbitai), toDedup(infoq)]);
+    const [pair] = findSemanticCandidatePairs([
+      toDedup(qbitai),
+      toDedup(infoq)
+    ]);
     const analysis = analyzeDuplicates(
       [qbitai, infoq, aiMaths, aiHarmony].map((candidate) => ({
         ...candidate,
@@ -177,9 +180,9 @@ describe("analyzeDuplicates with semantic pairs", () => {
       "qbitai-deepseek-ascend"
     ]);
     expect(analysis.groups[0].reasons).toEqual(["semantic_similar"]);
-    expect(
-      Object.values(analysis.pairSemanticScores)[0]
-    ).toBeCloseTo(pair.score);
+    expect(Object.values(analysis.pairSemanticScores)[0]).toBeCloseTo(
+      pair.score
+    );
     // Same score, same day: the one imported first stays primary.
     expect(analysis.groups[0].primaryCandidateId).toBe(
       "qbitai-deepseek-ascend"
@@ -201,9 +204,7 @@ describe("analyzeDuplicates with semantic pairs", () => {
     const analysis = analyzeDuplicates(
       [{ ...qbitai, relatedCandidateIds: [] }],
       {
-        semanticPairs: [
-          { leftId: "gone", rightId: qbitai.id, score: 0.99 }
-        ]
+        semanticPairs: [{ leftId: "gone", rightId: qbitai.id, score: 0.99 }]
       }
     );
 
@@ -212,12 +213,15 @@ describe("analyzeDuplicates with semantic pairs", () => {
 });
 
 describe("findSemanticPublishedMatches", () => {
-  const signalTitle = "DeepSeek 开源昇腾版 DeepGEMM 等组件：接口与 NVIDIA 版相同";
+  const signalTitle =
+    "DeepSeek 开源昇腾版 DeepGEMM 等组件：接口与 NVIDIA 版相同";
   const signal = {
     id: "tech-deepseek-ascend",
     title: signalTitle,
     publishDate: "2026-09-30",
-    vectors: [fakeEmbed(buildCandidateDedupText(infoq.originalTitle, deepseekSummary))]
+    vectors: [
+      fakeEmbed(buildCandidateDedupText(infoq.originalTitle, deepseekSummary))
+    ]
   };
 
   it("matches a candidate to the signal it reads like", () => {
@@ -263,11 +267,17 @@ describe("dedup texts", () => {
   it("embeds a signal in its original and, when it has one, its Chinese version", () => {
     expect(
       buildSignalDedupTexts({
-        title: { original: "Introducing Gemini 3.7 Flash", zh: "Gemini 3.7 Flash：价格砍半" },
+        title: {
+          original: "Introducing Gemini 3.7 Flash",
+          zh: "Gemini 3.7 Flash：价格砍半"
+        },
         summary: { original: "Faster and cheaper.", zh: "更快更便宜。" }
       })
     ).toEqual([
-      { text: "Introducing Gemini 3.7 Flash\nFaster and cheaper.", language: "en" },
+      {
+        text: "Introducing Gemini 3.7 Flash\nFaster and cheaper.",
+        language: "en"
+      },
       { text: "Gemini 3.7 Flash：价格砍半\n更快更便宜。", language: "zh" }
     ]);
   });

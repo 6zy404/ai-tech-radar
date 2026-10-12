@@ -30,9 +30,8 @@ vi.mock("@/lib/technology-draft-workflow", () => ({
   getPublishedTechnologyWorkspaceRecords: () => []
 }));
 
-const { refreshSemanticDuplicateMatches } = await import(
-  "@/lib/semantic-dedup-refresh"
-);
+const { refreshSemanticDuplicateMatches } =
+  await import("@/lib/semantic-dedup-refresh");
 
 describe("refreshSemanticDuplicateMatches", () => {
   beforeEach(() => {

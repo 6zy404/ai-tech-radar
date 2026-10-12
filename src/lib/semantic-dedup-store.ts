@@ -135,8 +135,7 @@ export function mergeSemanticMatchStore(
 ): SemanticMatchStore {
   const covered = new Set(result.coveredCandidateIds);
   const computedAt = result.run.finishedAt;
-  const cutoff =
-    Date.parse(computedAt) - RETENTION_DAYS * 24 * 60 * 60 * 1000;
+  const cutoff = Date.parse(computedAt) - RETENTION_DAYS * 24 * 60 * 60 * 1000;
   const fresh = (entry: MatchProvenance) =>
     Date.parse(entry.computedAt) >= cutoff;
   const provenance = (threshold: number): MatchProvenance => ({

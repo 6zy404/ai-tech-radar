@@ -156,16 +156,24 @@ export function findSemanticCandidatePairs(
   for (let left = 0; left < eligible.length; left += 1) {
     for (let right = left + 1; right < eligible.length; right += 1) {
       if (
-        getDayDistance(eligible[left].publishDate, eligible[right].publishDate) >
-        SEMANTIC_DEDUP_RULES.maxDayDistance
+        getDayDistance(
+          eligible[left].publishDate,
+          eligible[right].publishDate
+        ) > SEMANTIC_DEDUP_RULES.maxDayDistance
       ) {
         continue;
       }
 
-      const score = cosineSimilarity(eligible[left].vector, eligible[right].vector);
+      const score = cosineSimilarity(
+        eligible[left].vector,
+        eligible[right].vector
+      );
 
       if (score >= SEMANTIC_DEDUP_RULES.candidateThreshold) {
-        const [leftId, rightId] = [eligible[left].id, eligible[right].id].sort();
+        const [leftId, rightId] = [
+          eligible[left].id,
+          eligible[right].id
+        ].sort();
         pairs.push({ leftId, rightId, score });
       }
     }

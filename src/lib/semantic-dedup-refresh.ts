@@ -150,8 +150,7 @@ async function run(timeoutMs: number): Promise<SemanticDedupRunSummary> {
   let status: SemanticDedupRunStatus = "success";
   let message = "";
   let partial:
-    | Omit<SemanticDedupRunSummary, "durationMs" | "finishedAt">
-    | undefined;
+    Omit<SemanticDedupRunSummary, "durationMs" | "finishedAt"> | undefined;
 
   // A late failure of abandoned work has nobody to report to; keep it quiet.
   work.catch(() => undefined);

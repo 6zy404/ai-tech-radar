@@ -12,6 +12,51 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Semantic duplicate detection for candidates
+
+- **2026-10-13.** After every import the local embedding model (the one
+  search uses, in-process, no API) embeds each candidate's title + summary and
+  each published signal's original and Chinese text, and compares them. Two
+  outcomes, both workspace-only: a candidate pair scoring ≥ 0.96 within 3 days
+  becomes a duplicate group with the new reason `semantic_similar` (语义相近),
+  so the 全部快讯 lane shows only its primary; a candidate scoring ≥ 0.92
+  against a published signal within 3 days gets the new flag
+  `similar_to_published` (疑似已发布（语义）). Release-feed items never take
+  part. The candidate detail page shows the matched signal and the
+  similarity; the duplicate group page shows which member each one was
+  linked to and how closely (`src/lib/semantic-dedup.ts`,
+  `semantic-dedup-store.ts`, `semantic-dedup-refresh.ts`).
+- **Measured on 3,285 hand-labelled pairs from three and a half months of
+  candidates** (`eval/dedup/`, `scripts/measure-semantic-dedup.ts`), counting
+  only what the deterministic rules miss. The candidate threshold fires once
+  in that history, correctly — two outlets on DeepSeek's Ascend components the
+  same day. The published threshold flags 11: 5 the same announcement, 3 the
+  same event, 3 unrelated. So the second is a hint, not an action: a separate
+  flag the task runner never auto-rejects on, rather than a third way to raise
+  `already_published`. Below 0.96 candidate precision falls off a cliff (33%
+  at 0.95, 9% at 0.94), and English-announcement / Chinese-report pairs score
+  0.82–0.85, under unrelated Chinese pairs — this model cannot find those, and
+  the README says so. One labeller, who also chose the thresholds: an upper
+  bound.
+- **It cannot hold an import up.** The task runner awaits it with a 60-second
+  deadline (`SEMANTIC_DEDUP_TIMEOUT_MS`) and writes one line into the run's
+  messages, success or not; the workspace import routes start it in the
+  background. A timeout or a model failure leaves the stored matches as they
+  were and the groups to the deterministic rules. Measured on the 146-candidate
+  pool: 3.3 s cold (model load and every vector computed), 0.3 s when the
+  vectors are cached; the vectors live in `.cache/candidate-embeddings.json`,
+  keyed by text hash and model, separate from search's (`embedPassages` gained
+  a `cacheFile` option; both caches are now re-read and merged before a
+  temp-file-then-rename write, because two processes write them).
+- **Stored matches carry their provenance.** `config/candidate-semantic-matches.json`
+  (git-ignored; a `runtime_configs` row under SQLite) records the model, rule
+  version and threshold of every entry; anything made under another is
+  ignored, so a threshold change cannot leave stale groups standing. A run
+  replaces only the candidates it saw, so the server and the task runner
+  cannot erase each other's results.
+- Also: when nothing else separates two group members, the one imported first
+  is the default primary.
+
 ## 「AI 起草」: a candidate becomes a written draft in one click
 
 - **2026-10-13.** Every undecided candidate on `/workspace/editorial-round`,

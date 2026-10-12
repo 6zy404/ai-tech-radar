@@ -11,7 +11,10 @@
  * vector cache under `.cache/`. Not needed day to day: the next scheduled
  * import does the same.
  */
-import { getSemanticCandidatePairs, getSemanticPublishedMatches } from "../src/lib/semantic-dedup-store";
+import {
+  getSemanticCandidatePairs,
+  getSemanticPublishedMatches
+} from "../src/lib/semantic-dedup-store";
 import { refreshSemanticDuplicateMatches } from "../src/lib/semantic-dedup-refresh";
 
 async function main() {
@@ -20,7 +23,9 @@ async function main() {
   console.log(summary.message);
 
   for (const pair of getSemanticCandidatePairs()) {
-    console.log(`同组 ${pair.score.toFixed(3)}  ${pair.leftId} ↔ ${pair.rightId}`);
+    console.log(
+      `同组 ${pair.score.toFixed(3)}  ${pair.leftId} ↔ ${pair.rightId}`
+    );
   }
 
   for (const [candidateId, match] of getSemanticPublishedMatches()) {

@@ -54,6 +54,15 @@ The product is split into two subsystems:
   (`src/lib/candidate-auto-triage.ts`) — because every round rejected
   them by hand while they sat public on the news lane. Everything else still
   waits for an editor; title-only items are deliberately not auto-rejected.
+  Since 2026-10-13 the same pass also runs **semantic duplicate detection**
+  with the local embedding model (`src/lib/semantic-dedup*.ts`, 60 s
+  deadline, one line in the task-runner messages; the workspace import routes
+  start it in the background): candidates ≥ 0.96 cosine apart by at most 3
+  days join one duplicate group (`semantic_similar`, so the news lane shows
+  only the primary), and a candidate ≥ 0.92 against a published signal gets
+  the `similar_to_published` hint — never an auto-reject. English/Chinese
+  pairs of one announcement are beyond this model. Thresholds and their
+  precision/recall: `eval/dedup/README.md`.
 - **Drafting & publishing** — candidate → draft conversion, lightweight draft
   editing, deterministic Ranking v0 priority triage, and a Publish Quality Gate
   with user-facing preview. Since 2026-10-12 the gate also warns (never
@@ -718,6 +727,8 @@ npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
+node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts [--unlabelled] # semantic dedup precision/recall per threshold against eval/dedup/labels.jsonl
+node scripts/run-ts.cjs scripts/refresh-semantic-dedup.ts # run the post-import semantic dedup once and list what it found (writes candidate-semantic-matches.json)
 node scripts/run-ts.cjs scripts/repair-entities.ts [--apply] [--published-text] # one-off: strip HTML / decode entities left in stored imports (dry run by default)
 node scripts/run-ts.cjs scripts/fix-boilerplate-originals.ts [--apply] # one-off: InfoQ 「点击查看原文」-only originals → their Chinese text (dry run by default)
 node scripts/run-ts.cjs scripts/fix-github-blog-footer.ts [--apply]    # one-off: strip GitHub Blog's "appeared first on" footer from published signals (dry run by default)

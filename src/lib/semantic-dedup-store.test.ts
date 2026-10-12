@@ -193,9 +193,9 @@ describe("reading the store", () => {
       )
     );
 
-    expect(
-      getSemanticCandidatePairs().map((pair) => pair.leftId)
-    ).toEqual(["a"]);
+    expect(getSemanticCandidatePairs().map((pair) => pair.leftId)).toEqual([
+      "a"
+    ]);
     expect([...getSemanticPublishedMatches().keys()]).toEqual(["a"]);
   });
 

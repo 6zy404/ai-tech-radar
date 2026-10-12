@@ -108,7 +108,9 @@ function readVectorCacheFile(cacheFile: string): Map<string, number[]> {
 
   if (existsSync(filePath)) {
     try {
-      const file = JSON.parse(readFileSync(filePath, "utf8")) as VectorCacheFile;
+      const file = JSON.parse(
+        readFileSync(filePath, "utf8")
+      ) as VectorCacheFile;
 
       if (file.model === EMBEDDING_MODEL) {
         for (const [key, vector] of Object.entries(file.vectors)) {
