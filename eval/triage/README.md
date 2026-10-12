@@ -178,6 +178,45 @@ direction and the size of the effect; it is not a stable number. The console
 switched to v2 on the same day because suggestions stay advisory, and every
 blind round now adds clean rows to re-check it with.
 
+## Re-check on six blind rounds (2026-10-12)
+
+After the 2026-10-11 round the fresh split holds **254 rows** (publish 33 /
+review 63 / reject 158): the 09-24 / 09-28 rows above plus every blind round
+from 09-30 to 10-11. 169 of them were decided on or after 2026-09-29, after v2
+was written, so they are the part neither prompt was shaped on. 0 failed
+answers; v1 used 389k prompt tokens, v2 523k.
+
+| fresh set, 254 items (33 / 63 / 158) | v1 (feed) | v2 (article) |
+| ------------------------------------ | --------: | -----------: |
+| accuracy                             | **67.7%** |        64.2% |
+| macro-F1                             |     0.529 |    **0.564** |
+| publish recall                       |      5/33 |    **24/33** |
+| publish precision                    |      5/18 |        24/69 |
+| publish vs not, accuracy             | **83.9%** |        78.7% |
+| reject at confidence ≥ 0.85          |    99/101 |      106/112 |
+| — of which actually published        |         0 |            1 |
+| only rows decided ≥ 09-29: publish   |      3/16 |    **12/16** |
+
+**The 09-29 finding holds on rows v2 never saw**: reading the article finds
+publishes (12 of 16 against 3 of 16). **The cost is precision**: about one
+"publish" in three is right, and v2 suggests publish for 45 items the editor
+did not. Accuracy and publish-vs-not fall because of those.
+
+Where v2's wrong "publish" calls come from, read from its 17 publish-on-reject
+errors: front-end and language releases (htmx 4.0, Swift 6.4, Bun, Changesets,
+SolidStart, Linear's StyleX migration) — the prompt never says the site covers
+AI only; and second reports of a story the round had already published from
+another outlet (DeepSeek DSec, the Ascend kernels, Gemini 4), which the model
+cannot know without the published list. Its 9 missed publishes are mostly
+pages it could not read (two OpenAI pages answer 403) and one staged launch
+(Gemini 4 Argon) it held back.
+
+Confident rejections stay the safe use: at ≥ 0.85, 106 of 112 were rejected
+and one was later published (智谱 ZCode's open-sourcing, framed by its source
+as an incident). **No prompt change made from this run** — the two error
+groups suggest a v3 (state the AI scope; pass recently published titles), to
+be judged on blind rounds after it is written, not on these rows.
+
 ## Known limits, stated up front
 
 - **Label noise on review vs reject.** The 9 pre-release items above that were
