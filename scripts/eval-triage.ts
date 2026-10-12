@@ -21,6 +21,11 @@
  *
  * A mock run prints its numbers but writes no result file: the mock is a
  * keyword rule, and a committed "mock accuracy" would read like a model result.
+ *
+ * v3 also sees the titles the site had published in the 30 days before each
+ * row's decision, read from the technology workspace store (a record counts
+ * from its createdAt, its conversion time). Nothing published after the
+ * decision, and never the row's own signal.
  */
 
 import fs from "node:fs";
@@ -29,8 +34,11 @@ import { fetchArticleExcerpt } from "@/lib/candidate-article";
 import {
   TRIAGE_PROMPT_VERSION,
   TRIAGE_PROMPT_VERSIONS,
+  PUBLISHED_TITLES_WINDOW_DAYS,
   runCandidateTriage,
+  selectRecentPublishedTitles,
   triageLabels,
+  type PublishedSignalTitle,
   type TriageExample,
   type TriageLabel,
   type TriagePromptVersion,
@@ -43,6 +51,7 @@ import {
 } from "@/lib/classification-metrics";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
 import { evaluateCandidateQuality } from "@/lib/quality-signals";
+import { getTechnologyWorkspaceRecords } from "@/lib/technology-draft-workflow";
 import type { ImportedCandidate } from "@/types/content";
 
 interface DatasetRow extends TriageExample {
@@ -81,7 +90,7 @@ function readArgs() {
     : TRIAGE_PROMPT_VERSION;
 
   if (!promptVersion) {
-    throw new Error(`unknown --prompt ${prompt}; use v1 or v2`);
+    throw new Error(`unknown --prompt ${prompt}; use v1, v2 or v3`);
   }
 
   return {
@@ -89,7 +98,8 @@ function readArgs() {
     concurrency: Math.max(1, Number(value("--concurrency") ?? 4) || 4),
     promptVersion: promptVersion as TriagePromptVersion,
     // --fresh scores only the decisions made after the v1 eval with no
-    // suggestion on screen: the one set a v2 prompt was not fitted to.
+    // suggestion on screen: the one set a v2 prompt was not fitted to. v3 was
+    // written after reading v2's errors on it, so for v3 it is not held out.
     fresh: args.includes("--fresh")
   };
 }
@@ -257,9 +267,27 @@ async function main() {
     fresh ? row.fresh : row.split === "test"
   );
 
-  if (promptVersion === "candidate-triage-v2") {
+  if (promptVersion !== "candidate-triage-v1") {
     testSplit = await withArticles(testSplit);
   }
+
+  // As of each row's decision, so no row sees a signal published after it.
+  const publishedTitles = new Map<string, PublishedSignalTitle[]>();
+
+  if (promptVersion === "candidate-triage-v3") {
+    const records = getTechnologyWorkspaceRecords();
+
+    for (const row of testSplit) {
+      publishedTitles.set(
+        row.id,
+        selectRecentPublishedTitles(records, row.decidedAt, {
+          excludeCandidateId: row.id
+        })
+      );
+    }
+  }
+
+  const shownCounts = [...publishedTitles.values()].map((list) => list.length);
 
   if (limit) {
     // Deterministic spread across the whole period rather than the first N,
@@ -285,6 +313,12 @@ async function main() {
   console.log(
     `${fresh ? "fresh" : "test"} items ${testSplit.length}${limit ? ` (sampled from ${dataset.filter((r) => r.split === "test").length})` : ""}, few-shot examples ${examples.length}, cached ${cache.size}`
   );
+
+  if (shownCounts.length > 0) {
+    console.log(
+      `published titles shown per item (last ${PUBLISHED_TITLES_WINDOW_DAYS} days before the decision): min ${Math.min(...shownCounts)}, p50 ${percentile(shownCounts, 0.5)}, max ${Math.max(...shownCounts)}`
+    );
+  }
 
   // --- baselines ---------------------------------------------------------
   const labelCounts = new Map<TriageLabel, number>();
@@ -320,14 +354,16 @@ async function main() {
     }
 
     let result = await runCandidateTriage(row, examples, provider, {
-      promptVersion
+      promptVersion,
+      publishedTitles: publishedTitles.get(row.id)
     });
     calls += 1;
 
     if (!result.suggestion) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       result = await runCandidateTriage(row, examples, provider, {
-        promptVersion
+        promptVersion,
+        publishedTitles: publishedTitles.get(row.id)
       });
       calls += 1;
     }
@@ -444,6 +480,19 @@ async function main() {
         ranAt: new Date().toISOString(),
         testItems: testSplit.length,
         sampled: Boolean(limit),
+        ...(shownCounts.length > 0
+          ? {
+              publishedTitles: {
+                windowDays: PUBLISHED_TITLES_WINDOW_DAYS,
+                asOf: "each row's decidedAt",
+                perItem: {
+                  min: Math.min(...shownCounts),
+                  p50: percentile(shownCounts, 0.5),
+                  max: Math.max(...shownCounts)
+                }
+              }
+            }
+          : {}),
         fewShotIds: examples.map((example) => (example as DatasetRow).id),
         baselines: {
           majority: { label: majority, report: majorityReport },
