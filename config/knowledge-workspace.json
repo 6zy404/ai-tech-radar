@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T03:14:28.715Z",
+  "updatedAt": "2026-10-12T03:14:09.868Z",
   "records": [
     {
       "id": "knowledge-graph-thinking",
@@ -36,7 +36,8 @@
       "difficulty": "intermediate",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents"
+        "tag-ai-agents",
+        "tag-training"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
@@ -88,7 +89,9 @@
       "difficulty": "intermediate",
       "tags": [
         "tag-ai-agents",
-        "tag-frontier-models"
+        "tag-frontier-models",
+        "tag-ai-safety",
+        "tag-benchmarks"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-openai-com-index-unlocking-self-improvement-gpt-red",
@@ -211,7 +214,8 @@
       "difficulty": "intermediate",
       "tags": [
         "tag-inference",
-        "tag-on-device"
+        "tag-on-device",
+        "tag-efficient-inference"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
@@ -294,7 +298,8 @@
       "difficulty": "intermediate",
       "tags": [
         "tag-inference",
-        "tag-frontier-models"
+        "tag-frontier-models",
+        "tag-efficient-inference"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-25-0",
@@ -406,7 +411,8 @@
       "difficulty": "intermediate",
       "tags": [
         "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-agent-infra"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-github-blog-p-97467",
@@ -443,7 +449,8 @@
       "difficulty": "intermediate",
       "tags": [
         "tag-observability",
-        "tag-ai-agents"
+        "tag-ai-agents",
+        "tag-benchmarks"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",
@@ -622,7 +629,8 @@
       "category": "operations",
       "difficulty": "intermediate",
       "tags": [
-        "tag-observability"
+        "tag-observability",
+        "tag-benchmarks"
       ],
       "relatedTechnologyIds": [
         "draft-candidate-rss-https-deepmind-google-blog-gemini-robotics-2-brings-whole-body-intelligence-to-robots",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T13:51:52.865Z",
+  "updatedAt": "2026-10-12T03:14:09.868Z",
   "records": [
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-502364",
@@ -28,7 +28,8 @@
       "status": "published",
       "tags": [
         "tag-inference",
-        "tag-frontier-models"
+        "tag-frontier-models",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
@@ -130,7 +131,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents"
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -236,7 +237,8 @@
       "tags": [
         "tag-retrieval",
         "tag-multimodal",
-        "tag-on-device"
+        "tag-on-device",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-rag-basics",
@@ -339,7 +341,8 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-inference"
+        "tag-ai-for-science",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -444,7 +447,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -550,8 +554,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-inference",
-        "tag-ai-agents"
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -658,7 +661,7 @@
       "tags": [
         "tag-inference",
         "tag-on-device",
-        "tag-ai-agents"
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -764,7 +767,8 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
@@ -868,8 +872,7 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -971,8 +974,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents",
-        "tag-inference"
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -1078,8 +1080,7 @@
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -1180,7 +1181,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-inference"
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
@@ -1287,7 +1288,8 @@
       "status": "published",
       "tags": [
         "tag-product-strategy",
-        "tag-inference"
+        "tag-inference",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-818b7bb3",
@@ -1389,8 +1391,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents",
-        "tag-inference"
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -1497,8 +1498,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents",
-        "tag-inference"
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -1604,7 +1604,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-multimodal",
-        "tag-inference"
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -1785,8 +1785,8 @@
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
@@ -1893,8 +1893,8 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -2003,7 +2003,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-on-device",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
@@ -2117,7 +2118,8 @@
       "tags": [
         "tag-on-device",
         "tag-multimodal",
-        "tag-inference"
+        "tag-inference",
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-68963f7f",
@@ -2333,8 +2335,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-coding-agents",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
@@ -2443,7 +2446,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
@@ -2546,7 +2550,7 @@
       "status": "published",
       "tags": [
         "tag-inference",
-        "tag-frontier-models"
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-68963f7f",
@@ -2651,8 +2655,7 @@
       "status": "published",
       "tags": [
         "tag-inference",
-        "tag-on-device",
-        "tag-frontier-models"
+        "tag-on-device"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -2758,7 +2761,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-frontier-models"
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
@@ -2862,7 +2865,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -2983,9 +2987,10 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-coding-agents",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
@@ -3104,8 +3109,8 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-api-contracts",
@@ -3221,9 +3226,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -3346,7 +3351,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -3470,7 +3476,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
@@ -3576,7 +3583,8 @@
       "status": "published",
       "tags": [
         "tag-on-device",
-        "tag-inference"
+        "tag-inference",
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-68963f7f",
@@ -3685,7 +3693,8 @@
       "tags": [
         "tag-on-device",
         "tag-ai-agents",
-        "tag-inference"
+        "tag-inference",
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -3806,7 +3815,8 @@
       "status": "published",
       "tags": [
         "tag-multimodal",
-        "tag-ai-agents"
+        "tag-ai-agents",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -3908,7 +3918,8 @@
       "status": "published",
       "tags": [
         "tag-multimodal",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -4108,7 +4119,8 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents"
+        "tag-ai-safety",
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -4214,7 +4226,8 @@
       "tags": [
         "tag-frontier-models",
         "tag-inference",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
@@ -4328,8 +4341,8 @@
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
@@ -4436,7 +4449,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-frontier-models"
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
@@ -4557,7 +4570,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
@@ -4663,8 +4677,7 @@
       "status": "published",
       "tags": [
         "tag-inference",
-        "tag-frontier-models",
-        "tag-ai-agents"
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -4784,8 +4797,7 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-34da6116",
@@ -4891,7 +4903,8 @@
       "status": "published",
       "tags": [
         "tag-retrieval",
-        "tag-inference"
+        "tag-inference",
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-rag-basics",
@@ -4997,7 +5010,8 @@
       "tags": [
         "tag-multimodal",
         "tag-inference",
-        "tag-frontier-models"
+        "tag-frontier-models",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -5101,7 +5115,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-inference"
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing"
@@ -5202,8 +5216,7 @@
       "status": "published",
       "tags": [
         "tag-on-device",
-        "tag-inference",
-        "tag-ai-agents"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -5323,8 +5336,9 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-frontier-models",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-agent-infra",
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-818b7bb3",
@@ -5431,7 +5445,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-api-contracts",
@@ -5555,7 +5570,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
@@ -5782,7 +5798,8 @@
       "tags": [
         "tag-inference",
         "tag-on-device",
-        "tag-retrieval"
+        "tag-retrieval",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -5887,9 +5904,10 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
         "tag-workflow",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-coding-agents",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-human-loop",
@@ -5995,7 +6013,7 @@
       "tags": [
         "tag-frontier-models",
         "tag-product-strategy",
-        "tag-ai-agents"
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -6105,8 +6123,8 @@
       "status": "published",
       "tags": [
         "tag-observability",
-        "tag-frontier-models",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -6214,9 +6232,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-frontier-models",
         "tag-product-strategy",
-        "tag-retrieval"
+        "tag-retrieval",
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -6322,9 +6340,10 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-frontier-models",
         "tag-observability",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-benchmarks",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -6440,9 +6459,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-frontier-models",
         "tag-observability",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -6562,8 +6581,7 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -6674,7 +6692,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-inference"
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-system-design",
@@ -6792,7 +6810,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-inference"
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
@@ -6913,7 +6931,9 @@
       "tags": [
         "tag-on-device",
         "tag-frontier-models",
-        "tag-multimodal"
+        "tag-multimodal",
+        "tag-benchmarks",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-latency-tradeoffs",
@@ -7031,8 +7051,8 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -7160,7 +7180,8 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -7270,7 +7291,7 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-frontier-models"
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -7387,7 +7408,8 @@
       "tags": [
         "tag-frontier-models",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -7492,7 +7514,8 @@
       "tags": [
         "tag-frontier-models",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-e251051e",
@@ -7615,7 +7638,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -7734,9 +7758,10 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-frontier-models",
         "tag-observability",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-ai-safety",
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -7852,7 +7877,8 @@
       "status": "published",
       "tags": [
         "tag-workflow",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-system-design",
@@ -7959,8 +7985,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-frontier-models",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-feedback-loops",
@@ -8079,7 +8105,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-89b98df3",
@@ -8181,7 +8208,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-observability"
+        "tag-observability",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -8293,8 +8321,7 @@
       "status": "published",
       "tags": [
         "tag-on-device",
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -8412,7 +8439,8 @@
       "status": "published",
       "tags": [
         "tag-observability",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-benchmarks"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -8519,9 +8547,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-frontier-models",
         "tag-inference",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-system-design",
@@ -8635,7 +8663,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
@@ -8743,7 +8772,7 @@
         "tag-frontier-models",
         "tag-on-device",
         "tag-multimodal",
-        "tag-ai-agents"
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -8867,7 +8896,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-api-contracts",
@@ -8986,7 +9016,9 @@
         "tag-on-device",
         "tag-ai-agents",
         "tag-multimodal",
-        "tag-inference"
+        "tag-inference",
+        "tag-open-weights",
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-34da6116",
@@ -9100,8 +9132,8 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -9205,10 +9237,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-frontier-models",
         "tag-product-strategy",
-        "tag-ai-agents",
-        "tag-on-device"
+        "tag-on-device",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -9329,7 +9360,8 @@
       "status": "published",
       "tags": [
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -9436,7 +9468,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-observability",
-        "tag-frontier-models"
+        "tag-frontier-models",
+        "tag-ai-safety"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-a28a8a56",
@@ -9544,7 +9577,7 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-inference"
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -9650,7 +9683,8 @@
       "tags": [
         "tag-inference",
         "tag-observability",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-system-design",
@@ -9753,7 +9787,9 @@
       "status": "published",
       "tags": [
         "tag-frontier-models",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-open-weights",
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-818b7bb3",
@@ -9869,7 +9905,8 @@
       "tags": [
         "tag-ai-agents",
         "tag-workflow",
-        "tag-observability"
+        "tag-observability",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
@@ -9982,7 +10019,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-workflow"
+        "tag-workflow",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-api-contracts",
@@ -10085,7 +10123,8 @@
       "tags": [
         "tag-workflow",
         "tag-ai-agents",
-        "tag-observability"
+        "tag-observability",
+        "tag-agent-infra"
       ],
       "relatedKnowledgeIds": [
         "knowledge-evaluation-loops",
@@ -10192,9 +10231,9 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
         "tag-workflow",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-coding-agents"
       ],
       "relatedKnowledgeIds": [
         "knowledge-api-contracts",
@@ -10499,7 +10538,8 @@
       "status": "published",
       "tags": [
         "tag-workflow",
-        "tag-knowledge-graph"
+        "tag-knowledge-graph",
+        "tag-ai-for-science"
       ],
       "relatedKnowledgeIds": [
         "knowledge-graph-thinking",
@@ -10606,7 +10646,9 @@
       "tags": [
         "tag-frontier-models",
         "tag-on-device",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-open-weights",
+        "tag-efficient-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -10716,7 +10758,8 @@
         "tag-frontier-models",
         "tag-on-device",
         "tag-ai-agents",
-        "tag-multimodal"
+        "tag-multimodal",
+        "tag-open-weights"
       ],
       "relatedKnowledgeIds": [
         "knowledge-model-sizing",
@@ -11035,8 +11078,7 @@
       "importanceLevel": "important",
       "status": "published",
       "tags": [
-        "tag-inference",
-        "tag-frontier-models"
+        "tag-inference"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-36346103",
@@ -11250,7 +11292,8 @@
       "status": "published",
       "tags": [
         "tag-ai-agents",
-        "tag-observability"
+        "tag-observability",
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-tool-use",
@@ -11351,9 +11394,10 @@
       "importanceLevel": "signal",
       "status": "published",
       "tags": [
-        "tag-ai-agents",
         "tag-workflow",
-        "tag-product-strategy"
+        "tag-product-strategy",
+        "tag-coding-agents",
+        "tag-model-pricing"
       ],
       "relatedKnowledgeIds": [
         "knowledge-api-contracts",
@@ -11782,7 +11826,7 @@
       "status": "published",
       "tags": [
         "tag-multimodal",
-        "tag-frontier-models"
+        "tag-training"
       ],
       "relatedKnowledgeIds": [
         "knowledge-ws-818b7bb3"
