@@ -12,6 +12,30 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The two script test files are type-checked
+
+- **2026-10-12.** `scripts/proxy-env.test.mjs` and
+  `scripts/ts-runners.test.mjs` are plain JS (the launcher helpers they test
+  must stay `.mjs`), and with `allowJs` off `npm run typecheck` never read
+  them. `tsconfig.json` now sets `allowJs: true` and lists exactly
+  `scripts/*.test.mjs` in `include`; `checkJs` stays off, so a JS file is
+  reported only when it opts in with `// @ts-check`, which both test files
+  now do. `scripts/proxy-env.mjs` enters the program because a test imports
+  it, but is read for its types only. No other `.mjs` script, and nothing
+  under `src/`, imports or is pulled in — checked with `tsc --listFiles`,
+  and no `.ts` file imports a `.js` one, so flipping `allowJs` changes
+  nothing for the existing program. Typecheck time is unchanged (4.8s).
+- **What it found.** Turning the check on reported 34 errors, all in test
+  plumbing: `const env = {}` inferred as `{}`, untyped `let`s and
+  parameters, `server.address()` not narrowed, and `resolve` passed where
+  `listen` wants a zero-argument callback. Fixed with JSDoc only, plus one
+  `?? ""` on a regex test of a possibly-undefined string (same result:
+  `RegExp.test(undefined)` tests the string "undefined"). No assertion
+  changed; the 26 tests still pass.
+- **Proven to fire.** Appending `/** @type {number} */ const x = "…"` to
+  `proxy-env.test.mjs` made `npm run typecheck` exit 2 with TS2322 at that
+  line; reverting brought it back to 0.
+
 ## Reading the candidate snapshot no longer refills InfoQ's escaped link markup
 
 - **2026-10-12.** All 12 InfoQ 中文 candidates in the live snapshot held the

@@ -1,3 +1,4 @@
+// @ts-check
 import { spawnSync } from "node:child_process";
 import {
   existsSync,
@@ -34,9 +35,12 @@ const path = require("node:path");
 fs.writeFileSync(path.join(process.env.LOCAL_DATA_DIR, "${MARKER}"), "written");
 `;
 
+/** @type {string} */
 let dataDir;
+/** @type {string} */
 let scriptDir;
 
+/** @param {string} name */
 function writeProbe(name) {
   const probePath = path.join(scriptDir, name);
 
@@ -45,7 +49,13 @@ function writeProbe(name) {
   return probePath;
 }
 
+/**
+ * @param {string} launcher
+ * @param {string} probePath
+ * @param {Record<string, string>} [extraEnv]
+ */
 function launch(launcher, probePath, extraEnv = {}) {
+  /** @type {NodeJS.ProcessEnv} */
   const env = { ...process.env, LOCAL_DATA_DIR: dataDir, ...extraEnv };
 
   delete env.VALIDATION_DATA_DIR;
@@ -148,7 +158,7 @@ describe("package.json scripts", () => {
   it("runs only validators and evals on a throwaway copy", () => {
     const misplaced = launched
       .filter((entry) => entry.launcher === "run-ts-validation.cjs")
-      .filter((entry) => !/^(validate|eval)-/.test(entry.target))
+      .filter((entry) => !/^(validate|eval)-/.test(entry.target ?? ""))
       .map((entry) => entry.name);
 
     expect(misplaced).toEqual([]);

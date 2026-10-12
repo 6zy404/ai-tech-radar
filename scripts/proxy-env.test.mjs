@@ -1,9 +1,13 @@
+// @ts-check
 import { describe, expect, it } from "vitest";
 
 import { applyProxyEnvDefaults, probeProxy } from "./proxy-env.mjs";
 
+/** @typedef {Record<string, string | undefined>} Env */
+
 describe("applyProxyEnvDefaults", () => {
   it("does nothing when no proxy is configured", () => {
+    /** @type {Env} */
     const env = {};
 
     const outcome = applyProxyEnvDefaults(env);
@@ -15,6 +19,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("treats a whitespace-only proxy value as unconfigured", () => {
+    /** @type {Env} */
     const env = { HTTPS_PROXY: "   " };
 
     expect(applyProxyEnvDefaults(env).applied).toBe(false);
@@ -22,6 +27,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("enables the flag and excludes the direct-connect host", () => {
+    /** @type {Env} */
     const env = { HTTPS_PROXY: "http://127.0.0.1:7890" };
 
     const outcome = applyProxyEnvDefaults(env);
@@ -33,6 +39,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("detects a lowercase proxy variable", () => {
+    /** @type {Env} */
     const env = { http_proxy: "http://127.0.0.1:7890" };
 
     expect(applyProxyEnvDefaults(env).applied).toBe(true);
@@ -40,6 +47,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("preserves operator-set NO_PROXY entries when appending", () => {
+    /** @type {Env} */
     const env = {
       HTTPS_PROXY: "http://127.0.0.1:7890",
       NO_PROXY: "localhost,127.0.0.1,::1,.local"
@@ -52,6 +60,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("does not duplicate an already-excluded host, whatever its casing", () => {
+    /** @type {Env} */
     const env = {
       HTTPS_PROXY: "http://127.0.0.1:7890",
       NO_PROXY: "localhost, HF-Mirror.com "
@@ -64,6 +73,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("appends to the lowercase variable when that is the one in use", () => {
+    /** @type {Env} */
     const env = { HTTPS_PROXY: "http://127.0.0.1:7890", no_proxy: "localhost" };
 
     applyProxyEnvDefaults(env);
@@ -75,6 +85,7 @@ describe("applyProxyEnvDefaults", () => {
   // The escape hatch, and the reason the scheduled task's own command-line
   // value keeps winning after this wrapper was introduced.
   it("never overrides an explicit NODE_USE_ENV_PROXY", () => {
+    /** @type {Env} */
     const env = {
       HTTPS_PROXY: "http://127.0.0.1:7890",
       NODE_USE_ENV_PROXY: "0"
@@ -88,6 +99,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("leaves an already-enabled flag alone without re-appending hosts", () => {
+    /** @type {Env} */
     const env = {
       HTTPS_PROXY: "http://127.0.0.1:7890",
       NODE_USE_ENV_PROXY: "1",
@@ -101,6 +113,7 @@ describe("applyProxyEnvDefaults", () => {
   });
 
   it("is idempotent across repeated calls", () => {
+    /** @type {Env} */
     const env = { HTTPS_PROXY: "http://127.0.0.1:7890", NO_PROXY: "localhost" };
 
     applyProxyEnvDefaults(env);
@@ -113,6 +126,7 @@ describe("applyProxyEnvDefaults", () => {
 
 describe("applyProxyEnvDefaults with an unreachable proxy", () => {
   it("falls back to a direct connection and says which proxy failed", () => {
+    /** @type {Env} */
     const env = { HTTPS_PROXY: "http://127.0.0.1:7890" };
 
     const outcome = applyProxyEnvDefaults(env, {
@@ -129,6 +143,7 @@ describe("applyProxyEnvDefaults with an unreachable proxy", () => {
   });
 
   it("overrides an explicit NODE_USE_ENV_PROXY=1, because the import task sets one", () => {
+    /** @type {Env} */
     const env = {
       HTTPS_PROXY: "http://127.0.0.1:7890",
       NODE_USE_ENV_PROXY: "1"
@@ -141,6 +156,7 @@ describe("applyProxyEnvDefaults with an unreachable proxy", () => {
   });
 
   it("still never touches an explicit NODE_USE_ENV_PROXY=0", () => {
+    /** @type {Env} */
     const env = {
       HTTPS_PROXY: "http://127.0.0.1:7890",
       NODE_USE_ENV_PROXY: "0"
@@ -152,6 +168,7 @@ describe("applyProxyEnvDefaults with an unreachable proxy", () => {
   });
 
   it("behaves exactly as before when the probe says reachable", () => {
+    /** @type {Env} */
     const env = { HTTPS_PROXY: "http://127.0.0.1:7890" };
 
     const outcome = applyProxyEnvDefaults(env, { proxyReachable: true });
@@ -165,8 +182,12 @@ describe("probeProxy", () => {
   it("reports a listening proxy as reachable", async () => {
     const { createServer } = await import("node:net");
     const server = createServer((socket) => socket.end());
-    await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-    const { port } = server.address();
+    await new Promise((resolve) =>
+      server.listen(0, "127.0.0.1", () => resolve(undefined))
+    );
+    const { port } = /** @type {import("node:net").AddressInfo} */ (
+      server.address()
+    );
 
     try {
       const result = await probeProxy(`http://127.0.0.1:${port}`);
@@ -181,8 +202,12 @@ describe("probeProxy", () => {
     const { createServer } = await import("node:net");
     // Take a port, then release it, so nothing is listening there.
     const server = createServer();
-    await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-    const { port } = server.address();
+    await new Promise((resolve) =>
+      server.listen(0, "127.0.0.1", () => resolve(undefined))
+    );
+    const { port } = /** @type {import("node:net").AddressInfo} */ (
+      server.address()
+    );
     await new Promise((resolve) => server.close(resolve));
 
     const startedAt = Date.now();
