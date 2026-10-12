@@ -14,6 +14,7 @@ import {
   renderDigestJsonFeed,
   renderDigestRssXml
 } from "../src/lib/digest-delivery";
+import { getAllTechnologies } from "../src/lib/content";
 import { maskEndpointUrl } from "../src/lib/delivery-workflow";
 import { getLocalDataDirPath } from "../src/lib/local-data";
 import {
@@ -22,6 +23,8 @@ import {
   isGeneratedMetadataRoute,
   mustDeclareRenderMode
 } from "../src/lib/metadata-route-render-mode";
+import { getPublicRadar } from "../src/lib/radar";
+import { createRadarWorkspaceRecord } from "../src/lib/radar-workflow";
 import {
   checkWorkspaceAccess,
   isProtectedWorkspacePath,
@@ -298,12 +301,67 @@ function assertClientBuildDoesNotContainWorkspaceSecret() {
   }
 }
 
+// /radar renders only what toPublicRadarEntries picks: a workspace draft
+// never shows, and no entry carries workspace status, timestamps or raw ids.
+// Writes one draft into the validator's throwaway data copy.
+function assertRadarPublishesOnlyPublicFields() {
+  const allowedKeys = new Set([
+    "number",
+    "name",
+    "slug",
+    "quadrant",
+    "ring",
+    "ringReason",
+    "change",
+    "movedFrom",
+    "evidence",
+    "knowledge",
+    "skills",
+    "history"
+  ]);
+  const before = getPublicRadar();
+
+  assert.ok(
+    before.entries.length > 0,
+    "The seed radar should publish entries."
+  );
+
+  for (const entry of before.entries) {
+    for (const key of Object.keys(entry)) {
+      assert.ok(allowedKeys.has(key), `/radar entry carries "${key}".`);
+    }
+  }
+
+  const evidenceId = getAllTechnologies()[0]?.id;
+  assert.ok(evidenceId, "A published signal is needed as evidence.");
+
+  createRadarWorkspaceRecord({
+    name: "部署校验草稿条目",
+    slug: "deployment-validation-draft",
+    quadrant: "tools-methods",
+    ring: "assess",
+    ringReason: "只用于校验草稿不出现在公开页。",
+    evidenceTechnologyIds: [evidenceId]
+  });
+
+  assert.equal(
+    getPublicRadar().entries.some(
+      (entry) => entry.slug === "deployment-validation-draft"
+    ),
+    false,
+    "A draft radar entry must not appear on /radar."
+  );
+}
+
 function assertPublicSourceDoesNotUseInternalTerms() {
   const publicPaths = [
     path.join(process.cwd(), "src", "app", "page.tsx"),
     path.join(process.cwd(), "src", "app", "technologies"),
     path.join(process.cwd(), "src", "app", "digest"),
     path.join(process.cwd(), "src", "app", "sources"),
+    path.join(process.cwd(), "src", "app", "radar"),
+    path.join(process.cwd(), "src", "components", "radar-view.tsx"),
+    path.join(process.cwd(), "src", "lib", "radar.ts"),
     path.join(process.cwd(), "src", "app", "feed.xml"),
     path.join(process.cwd(), "src", "app", "feed.json"),
     path.join(process.cwd(), "src", "components", "daily-digest-content.tsx"),
@@ -407,6 +465,10 @@ function main() {
   for (const route of [
     "/workspace",
     "/workspace/sources",
+    "/workspace/radar",
+    "/workspace/radar/radar-vllm",
+    "/api/workspace/radar",
+    "/api/workspace/radar/radar-vllm/status",
     "/api/workspace/delivery/send",
     "/api/candidates/example/status",
     "/candidates/example",
@@ -427,6 +489,7 @@ function main() {
     "/digest/2026-05-23",
     "/sources",
     "/about",
+    "/radar",
     "/feed.xml",
     "/feed.json"
   ]) {
@@ -468,6 +531,7 @@ function main() {
   assertPagesDeclareTheirRenderMode();
   assertMetadataRoutesDeclareTheirRenderMode();
   assertPublicBuildExcludesEveryGuardedPrefix();
+  assertRadarPublishesOnlyPublicFields();
 
   console.log("Deployment readiness validation passed.");
 }

@@ -49,7 +49,14 @@ export interface ShareCardTitleLayout {
 }
 
 export type ShareCardKind =
-  "signal" | "digest" | "weekly" | "skill" | "knowledge" | "topic" | "site";
+  | "signal"
+  | "digest"
+  | "weekly"
+  | "skill"
+  | "knowledge"
+  | "topic"
+  | "radar"
+  | "site";
 
 export interface ShareCard {
   kind: ShareCardKind;
@@ -582,5 +589,40 @@ export function buildTopicShareCard(hub: TopicHubData | undefined): ShareCard {
       `收录 ${hub.technologies.length} 信号 · ${hub.skills.length} 技能 · ${hub.knowledge.length} 知识`,
       false
     )
+  };
+}
+
+export interface RadarShareCardInput {
+  entryCount: number;
+  /** Entries per ring, innermost first: 采用, 试用, 评估, 暂缓. */
+  ringCounts: readonly number[];
+  /** The newest change on the radar, YYYY-MM-DD. */
+  latestDate: string;
+}
+
+/**
+ * The /radar page: its title, the ring counts the page prints, and the date
+ * of its newest change. An empty radar gets the site card, as the page
+ * itself shows nothing to point at.
+ */
+export function buildRadarShareCard(input: RadarShareCardInput): ShareCard {
+  if (input.entryCount === 0) {
+    return buildSiteShareCard();
+  }
+
+  const [adopt = 0, trial = 0, assess = 0, hold = 0] = input.ringCounts;
+
+  return {
+    kind: "radar",
+    siteName,
+    stamp: "技术雷达",
+    title: layoutShareCardTitle(
+      `技术雷达：${input.entryCount} 项技术放在哪一环`
+    ),
+    byline: fitByline(
+      `采用 ${adopt} · 试用 ${trial} · 评估 ${assess} · 暂缓 ${hold}`,
+      true
+    ),
+    date: input.latestDate
   };
 }

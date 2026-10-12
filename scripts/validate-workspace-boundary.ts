@@ -134,6 +134,8 @@ function main() {
     ...listFilesRecursive("src/app/knowledge"),
     ...listFilesRecursive("src/app/sources"),
     ...listFilesRecursive("src/app/about"),
+    ...listFilesRecursive("src/app/radar"),
+    path.join(root, "src/components/radar-view.tsx"),
     path.join(root, "src/app/page.tsx")
   ];
   const forbiddenWorkspaceImports = [
@@ -146,7 +148,12 @@ function main() {
     "DeliveryChannelActions",
     "ScheduledDeliveryActions",
     "DeliveryRunActions",
-    "TechnologyEditorialEnrichmentPanel"
+    "TechnologyEditorialEnrichmentPanel",
+    // The radar console: its form, its pages and the overlay workflow.
+    "RadarWorkspaceForm",
+    "radar-workspace-pages",
+    "@/lib/radar-workflow",
+    "ContentWorkspaceStatusActions"
   ];
 
   for (const filePath of publicFiles) {

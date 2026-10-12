@@ -1,0 +1,440 @@
+/* pages/radar: the /radar technology radar. The header, lede and counts are
+   the /skills list skeleton's own classes; these are the picture, the list
+   that is its text alternative, and the ring key under them. Colours come
+   only from the --dossier-* tokens, so dark mode and print repaint it with
+   no rules of their own. */
+
+.radar-layout,
+.radar-rings {
+  width: min(1040px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+/* Picture left, list right. The list is the longer column, so the picture
+   stays in view beside it while a reader works down the list. */
+.radar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 1fr);
+  gap: 36px;
+  align-items: start;
+  margin-top: 32px;
+}
+
+.radar-figure {
+  position: sticky;
+  top: 86px;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.radar-picture {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.radar-picture__disc {
+  fill: var(--dossier-surface);
+  stroke: var(--dossier-line);
+  stroke-width: 1;
+}
+
+.radar-picture__ring {
+  fill: none;
+  stroke: var(--dossier-line);
+  stroke-width: 1;
+}
+
+.radar-picture__axis {
+  stroke: var(--dossier-line);
+  stroke-width: 1.5;
+}
+
+.radar-picture__quadrant {
+  fill: var(--dossier-accent);
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.radar-picture__ring-label rect {
+  fill: var(--dossier-surface);
+}
+
+.radar-picture__ring-label text {
+  fill: var(--dossier-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.radar-dot {
+  cursor: pointer;
+}
+
+.radar-dot circle {
+  fill: var(--dossier-accent);
+  stroke: var(--dossier-accent);
+  stroke-width: 1.5;
+}
+
+.radar-dot text {
+  fill: var(--dossier-surface);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* Hollow: new this edition, or moved. */
+.radar-dot--changed circle {
+  fill: var(--dossier-surface);
+  stroke-width: 2;
+}
+
+.radar-dot--changed text {
+  fill: var(--dossier-accent);
+}
+
+.radar-dot:hover circle {
+  stroke-width: 3;
+}
+
+/* The open entry. A steady dot fills with the stamp colour; a hollow one
+   keeps its hollow so the selection does not hide what the dot says. */
+.radar-dot--selected circle {
+  fill: var(--dossier-stamp);
+  stroke: var(--dossier-stamp);
+  stroke-width: 3;
+}
+
+.radar-dot--selected.radar-dot--changed circle {
+  fill: var(--dossier-surface);
+}
+
+.radar-dot--selected.radar-dot--changed text {
+  fill: var(--dossier-stamp);
+}
+
+.radar-figure__key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: 0;
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.radar-key-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--dossier-accent);
+  border-radius: 50%;
+  background: var(--dossier-accent);
+}
+
+.radar-key-dot--changed {
+  margin-left: 10px;
+  background: var(--dossier-surface);
+}
+
+/* ---- the list ---- */
+
+.radar-list {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+}
+
+.radar-list__quadrant h2 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--dossier-line);
+  color: var(--dossier-ink);
+}
+
+.radar-list__quadrant h2 span {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.radar-list__quadrant ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.radar-list__quadrant li + li {
+  border-top: 1px dashed var(--dossier-line);
+}
+
+.radar-entry summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 8px 2px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.radar-entry summary::-webkit-details-marker {
+  display: none;
+}
+
+/* A quiet open/closed mark at the row's end, in place of the marker. */
+.radar-entry summary::after {
+  content: "+";
+  margin-left: auto;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 14px;
+}
+
+.radar-entry[open] summary::after {
+  content: "−";
+}
+
+/* The same mark as the dot on the picture, so the list reads as its key. */
+.radar-entry__number {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--dossier-accent);
+  border-radius: 50%;
+  background: var(--dossier-accent);
+  color: var(--dossier-surface);
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.radar-entry--changed .radar-entry__number {
+  background: var(--dossier-surface);
+  color: var(--dossier-accent);
+}
+
+.radar-entry[open] .radar-entry__number {
+  border-color: var(--dossier-stamp);
+  background: var(--dossier-stamp);
+  color: var(--dossier-surface);
+}
+
+.radar-entry--changed[open] .radar-entry__number {
+  background: var(--dossier-surface);
+  color: var(--dossier-stamp);
+}
+
+.radar-entry__name {
+  color: var(--dossier-ink);
+  font-weight: 700;
+}
+
+.radar-entry[open] .radar-entry__name {
+  color: var(--dossier-stamp);
+}
+
+.radar-entry__ring {
+  color: var(--dossier-muted);
+  font-size: var(--fs-label);
+}
+
+.radar-entry__change {
+  border: 1px solid var(--dossier-stamp);
+  padding: 0 6px;
+  color: var(--dossier-stamp);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.radar-entry__detail {
+  display: grid;
+  gap: 12px;
+  padding: 2px 4px 16px 34px;
+}
+
+.radar-entry__reason {
+  margin: 0;
+  color: var(--dossier-ink);
+}
+
+/* A caption, not a heading: the type scale's !important h3 size (28-typography)
+   would make each of these louder than the entry's own name. */
+.radar-entry__label {
+  margin: 0 0 6px;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.radar-entry__signals,
+.radar-entry__history {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Date in its own column so the titles start on one edge, as on the
+   /sources cards. */
+.radar-entry__signals li,
+.radar-entry__history li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+}
+
+.radar-entry__signals time,
+.radar-entry__history time {
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.radar-entry__signals a,
+.radar-entry__related a {
+  color: var(--dossier-accent);
+}
+
+.radar-entry__history span {
+  color: var(--dossier-ink);
+}
+
+.radar-entry__related {
+  display: grid;
+  gap: 4px;
+}
+
+.radar-entry__related p {
+  margin: 0;
+}
+
+.radar-entry__related p > span:first-child {
+  margin-right: 8px;
+  color: var(--dossier-muted);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+/* ---- the ring key ---- */
+
+.radar-rings {
+  display: grid;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.radar-rings h2 {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--dossier-line);
+  color: var(--dossier-ink);
+}
+
+.radar-rings dl {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+}
+
+.radar-rings dt {
+  color: var(--dossier-accent);
+  font-weight: 700;
+}
+
+.radar-rings dd {
+  margin: 2px 0 0;
+  color: var(--dossier-muted);
+}
+
+.radar-rings > p {
+  margin: 0;
+  color: var(--dossier-muted);
+}
+
+/* One column: the picture above, the list under it. The picture no longer
+   needs to stay in view — the list follows it. */
+@media (max-width: 900px) {
+  .radar-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .radar-figure {
+    position: static;
+    max-width: 560px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .radar-rings dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* The same narrowing the /skills skeleton does at this width, so the
+   picture and the list keep the title's left edge. */
+@media (max-width: 760px) {
+  .radar-layout,
+  .radar-rings {
+    width: min(100% - 24px, 1040px);
+  }
+}
+
+@media (max-width: 480px) {
+  .radar-entry__detail {
+    padding-left: 4px;
+  }
+
+  .radar-rings dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Print the list, every entry open; the picture needs a pointer. Kept here
+   rather than in print.css because nothing else prints these classes. */
+@media print {
+  .radar-figure {
+    display: none;
+  }
+
+  .radar-layout {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 12px;
+  }
+
+  .radar-entry::details-content {
+    content-visibility: visible;
+    display: block;
+  }
+
+  .radar-entry summary::after {
+    content: none;
+  }
+
+  .radar-list__quadrant {
+    break-inside: auto;
+  }
+
+  .radar-list__quadrant li {
+    break-inside: avoid;
+  }
+}

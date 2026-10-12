@@ -11,6 +11,7 @@ const primaryNavItems = [
   { href: "/", label: "首页" },
   { href: "/digest/today", label: "技术简报" },
   { href: "/technologies", label: "技术信号" },
+  { href: "/radar", label: "雷达" },
   { href: "/skills", label: "技能" },
   { href: "/knowledge", label: "知识" },
   { href: "/network", label: "关系网络" },

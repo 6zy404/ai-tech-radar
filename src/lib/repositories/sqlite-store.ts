@@ -53,6 +53,7 @@ import {
   type KnowledgeWorkspaceStore,
   type SkillWorkspaceStore
 } from "@/lib/repositories/sqlite-content-workspace-store";
+import type { RadarWorkspaceStore } from "@/types/radar";
 import {
   readLinkRelationWorkspaceStore,
   writeLinkRelationWorkspaceStore,
@@ -122,6 +123,7 @@ interface SqliteStoreMigrationSummary {
   promptVersions: number;
   skillWorkspaceRecords: number;
   knowledgeWorkspaceRecords: number;
+  radarWorkspaceRecords: number;
   linkRelationOverrides: number;
   runtimeConfigs: number;
   technologyAiCacheRecords: number;
@@ -161,6 +163,7 @@ const schemaTableNames = [
   "prompt_versions",
   "skill_workspace_records",
   "knowledge_workspace_records",
+  "radar_workspace_records",
   "link_relation_overrides",
   "runtime_configs",
   "technology_comparisons",
@@ -284,6 +287,11 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
           database,
           "knowledge_workspace_records"
         ) as T;
+      case "radar-workspace.json":
+        return readContentWorkspaceStore(
+          database,
+          "radar_workspace_records"
+        ) as T;
       case "link-relation-workspace.json":
         return readLinkRelationWorkspaceStore(database) as T;
       case "scheduled-import.json":
@@ -376,6 +384,13 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
             value as KnowledgeWorkspaceStore
           );
           break;
+        case "radar-workspace.json":
+          writeContentWorkspaceStore(
+            database,
+            "radar_workspace_records",
+            value as RadarWorkspaceStore
+          );
+          break;
         case "link-relation-workspace.json":
           writeLinkRelationWorkspaceStore(
             database,
@@ -430,6 +445,7 @@ export function migrateJsonStoresToSqlite(stores: {
   promptVersions?: PromptVersionStore;
   skillWorkspace?: SkillWorkspaceStore;
   knowledgeWorkspace?: KnowledgeWorkspaceStore;
+  radarWorkspace?: RadarWorkspaceStore;
   linkRelationWorkspace?: LinkRelationWorkspaceStore;
   scheduledImport?: unknown;
   scheduledDigest?: unknown;
@@ -451,6 +467,7 @@ export function migrateJsonStoresToSqlite(stores: {
     promptVersions: 0,
     skillWorkspaceRecords: 0,
     knowledgeWorkspaceRecords: 0,
+    radarWorkspaceRecords: 0,
     linkRelationOverrides: 0,
     runtimeConfigs: 0,
     technologyAiCacheRecords: 0,
@@ -496,6 +513,11 @@ export function migrateJsonStoresToSqlite(stores: {
         database,
         "knowledge_workspace_records",
         stores.knowledgeWorkspace ?? { updatedAt: getTimestamp(), records: [] }
+      );
+      writeContentWorkspaceStore(
+        database,
+        "radar_workspace_records",
+        stores.radarWorkspace ?? { updatedAt: getTimestamp(), records: [] }
       );
       writeLinkRelationWorkspaceStore(
         database,
@@ -567,6 +589,10 @@ export function migrateJsonStoresToSqlite(stores: {
     summary.knowledgeWorkspaceRecords = getTableCount(
       database,
       "knowledge_workspace_records"
+    );
+    summary.radarWorkspaceRecords = getTableCount(
+      database,
+      "radar_workspace_records"
     );
     summary.linkRelationOverrides = getTableCount(
       database,
@@ -826,6 +852,17 @@ function initializeSqliteSchema(database: SqliteDatabase): void {
     );
     CREATE INDEX IF NOT EXISTS idx_knowledge_workspace_status ON knowledge_workspace_records(status);
     CREATE INDEX IF NOT EXISTS idx_knowledge_workspace_slug ON knowledge_workspace_records(slug);
+
+    CREATE TABLE IF NOT EXISTS radar_workspace_records (
+      id TEXT PRIMARY KEY,
+      slug TEXT NOT NULL,
+      status TEXT NOT NULL,
+      createdAt TEXT NOT NULL,
+      updatedAt TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS idx_radar_workspace_status ON radar_workspace_records(status);
+    CREATE INDEX IF NOT EXISTS idx_radar_workspace_slug ON radar_workspace_records(slug);
 
     CREATE TABLE IF NOT EXISTS link_relation_overrides (
       id TEXT PRIMARY KEY,

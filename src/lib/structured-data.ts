@@ -289,3 +289,50 @@ export function buildContentJsonLd(
     ])
   ];
 }
+
+export interface RadarJsonLdEntry {
+  number: number;
+  name: string;
+  ringReason: string;
+}
+
+/**
+ * /radar, as a CollectionPage whose main entity is the numbered list of
+ * entries — the same list the page renders as the picture's text
+ * alternative. Each entry is a DefinedTerm described by its ring reason.
+ */
+export function buildRadarJsonLd(
+  page: { title: string; description: string; latestDate: string },
+  entries: readonly RadarJsonLdEntry[],
+  siteUrl = getSiteUrl()
+): JsonLdObject[] {
+  const url = absolute(siteUrl, "/radar");
+
+  return [
+    {
+      "@context": context,
+      "@type": "CollectionPage",
+      name: page.title,
+      description: compactDescription(page.description),
+      ...(page.latestDate ? { dateModified: page.latestDate } : {}),
+      inLanguage: "zh-CN",
+      url,
+      isPartOf: { "@type": "WebSite", name: siteName, url: siteUrl },
+      publisher: sitePublisher(siteUrl),
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: entries.length,
+        itemListElement: entries.map((entry) => ({
+          "@type": "ListItem",
+          position: entry.number,
+          item: {
+            "@type": "DefinedTerm",
+            name: entry.name,
+            description: compactDescription(entry.ringReason)
+          }
+        }))
+      }
+    },
+    breadcrumbList(siteUrl, [home, { name: page.title, path: "/radar" }])
+  ];
+}

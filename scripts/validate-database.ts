@@ -57,6 +57,7 @@ import type {
   TechnologyWorkspaceRecord,
   WorkflowEvent
 } from "../src/types/content";
+import type { RadarWorkspaceRecord } from "../src/types/radar";
 
 interface CandidateReviewStateFile {
   updatedAt: string;
@@ -170,6 +171,10 @@ function migrateCurrentJsonStores() {
     knowledgeWorkspace: readStore("knowledge-workspace.json", {
       updatedAt: now,
       records: [] as KnowledgeWorkspaceRecord[]
+    }),
+    radarWorkspace: readStore("radar-workspace.json", {
+      updatedAt: now,
+      records: [] as RadarWorkspaceRecord[]
     }),
     linkRelationWorkspace: readStore("link-relation-workspace.json", {
       updatedAt: now,

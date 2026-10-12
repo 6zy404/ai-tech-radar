@@ -11,8 +11,12 @@ import type { KnowledgeItem, SkillItem } from "@/types/content";
 export type SkillWorkspaceStore = ContentWorkspaceStoreOf<SkillItem>;
 export type KnowledgeWorkspaceStore = ContentWorkspaceStoreOf<KnowledgeItem>;
 
+// The radar overlay (radar-workspace.json) has the same key columns, so it
+// shares these two functions with its own table.
 type ContentWorkspaceTable =
-  "skill_workspace_records" | "knowledge_workspace_records";
+  | "skill_workspace_records"
+  | "knowledge_workspace_records"
+  | "radar_workspace_records";
 
 export function readContentWorkspaceStore<TItem>(
   database: SqliteDatabase,
