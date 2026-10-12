@@ -7,6 +7,7 @@ import {
   describeRadarMove,
   getRadarQuadrantLabel,
   getRadarRingLabel,
+  radarHoldNote,
   radarQuadrants,
   radarRings
 } from "@/lib/radar-labels";
@@ -186,6 +187,9 @@ function RadarPicture({
 function RadarEntryDetail({ entry }: { entry: RadarPublicEntry }) {
   return (
     <div className="radar-entry__detail">
+      {entry.ring === "hold" ? (
+        <p className="radar-entry__ring-note">{radarHoldNote}</p>
+      ) : null}
       <p className="radar-entry__reason">{entry.ringReason}</p>
 
       {entry.evidence.length > 0 ? (
@@ -320,20 +324,29 @@ export function RadarView({
     summary.focus({ preventScroll: true });
   }, [selected]);
 
+  // A link to #radar-<slug> opens that entry, on load and when the hash
+  // changes on this page (a link to another entry, an edited address).
   useEffect(() => {
-    const hash = decodeURIComponent(window.location.hash.slice(1));
+    const openFromHash = () => {
+      const hash = decodeURIComponent(window.location.hash.slice(1));
 
-    if (!hash.startsWith(anchorPrefix)) {
-      return;
-    }
+      if (!hash.startsWith(anchorPrefix)) {
+        return;
+      }
 
-    const slug = hash.slice(anchorPrefix.length);
+      const slug = hash.slice(anchorPrefix.length);
 
-    if (entries.some((entry) => entry.slug === slug)) {
-      // Opened and scrolled to by the effect above, once it has rendered.
-      pendingScroll.current = slug;
-      setSelected(slug);
-    }
+      if (entries.some((entry) => entry.slug === slug)) {
+        // Opened and scrolled to by the effect above, once it has rendered.
+        pendingScroll.current = slug;
+        setSelected(slug);
+      }
+    };
+
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+
+    return () => window.removeEventListener("hashchange", openFromHash);
   }, [entries]);
 
   return (

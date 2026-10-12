@@ -273,6 +273,14 @@
   padding: 2px 4px 16px 34px;
 }
 
+/* Over a hold entry's reason: what 暂缓 asks of a reader, in the stamp
+   colour the ring's 「从 X 移到 Y」 stamps use. */
+.radar-entry__ring-note {
+  margin: 0;
+  color: var(--dossier-stamp);
+  font-weight: 700;
+}
+
 .radar-entry__reason {
   margin: 0;
   color: var(--dossier-ink);

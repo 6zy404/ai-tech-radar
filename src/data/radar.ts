@@ -19,8 +19,6 @@ export const radarEntries: RadarEntry[] = [
     evidenceTechnologyIds: [
       // 2026-07-15 Inkling：Thinking Machines 开源万亿参数多模态 MoE 模型
       "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
-      // 2026-07-16 Kimi K3：Moonshot 发布 2.8 万亿参数旗舰，承诺月内开放权重
-      "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
       // 2026-10-10 MiMo-V2.6 技术报告：小米花 260 万美元跑一次强化学习
       "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
       // 2026-10-01 Olmo-core 3：开源 MoE 训练框架，吞吐提升到原来的 2.7 倍
@@ -84,9 +82,7 @@ export const radarEntries: RadarEntry[] = [
       // 2026-07-28 LFM2.5-Encoders：能在 CPU 上跑长文档的小编码器，长上下文比 ModernBERT 快 3.7 倍
       "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
       // 2026-09-24 LFM2.5-VL-DSpark：解码快三倍，整体受图像编码拖累
-      "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
-      // 2026-08-12 SL2T：手语识别第一次离开实验室，进了输入法
-      "draft-candidate-rss-https-deepmind-google-blog-putting-sign-language-ai-into-users-hands"
+      "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark"
     ],
     relatedKnowledgeIds: [
       "knowledge-model-sizing",
@@ -102,14 +98,14 @@ export const radarEntries: RadarEntry[] = [
     quadrant: "models-training",
     ring: "assess",
     ringReason:
-      "前沿团队把强化学习的批量、环境与评分算力一起放大，一次就要上百万美元；对多数团队，值得先弄清它要求任务可验证，再判断自己有没有这种任务。",
+      "前沿团队把强化学习的批量、环境与评分算力一起放大，一次就要上百万美元；公开的对照里，推理时的验证与修正带来的提升比再跑一轮强化学习更大。多数团队先看自己的任务能不能自动判对错。",
     evidenceTechnologyIds: [
       // 2026-10-10 MiMo-V2.6 技术报告：小米花 260 万美元跑一次强化学习
       "draft-candidate-rss-https-www-infoq-cn-article-gndwodm8ygkajxfslabk-utm-source-rss-amp-utm-medium-article",
-      // 2026-08-09 BigBang-v1：把数据生产系统本身当成优化对象，以及一处对不上的口径
-      "draft-candidate-rss-https-www-qbitai-com-p-468782",
       // 2026-08-04 LFM2.5-2.6B：一个在智能体外壳里训练出来的端侧模型
-      "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b"
+      "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-2-6b",
+      // 2026-10-07 Nemotron 竞赛模型：IMO 金牌官方评定，IOI 金牌自测
+      "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026"
     ],
     relatedKnowledgeIds: ["knowledge-rl-post-training"],
     relatedSkillIds: ["skill-ws-84837d46"],
@@ -122,14 +118,12 @@ export const radarEntries: RadarEntry[] = [
     quadrant: "models-training",
     ring: "assess",
     ringReason:
-      "开放数据集和全合成后训练都在推这条路，但它只在任务既前沿又可验证时才不贬值，训练环境本身也成了竞争点。",
+      "开放数据集和全合成后训练都在推这条路，但合成数据只在任务既前沿又可验证时才不贬值，缺一条就会很快失效。",
     evidenceTechnologyIds: [
       // 2026-07-08 NVIDIA Nemotron 开放数据：用合成数据支撑智能体开发
       "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-open-data-for-agents",
       // 2026-08-09 BigBang-v1：把数据生产系统本身当成优化对象，以及一处对不上的口径
-      "draft-candidate-rss-https-www-qbitai-com-p-468782",
-      // 2026-09-23 DeepSeek DSec：智能体训练拼的是沙盒
-      "draft-candidate-rss-https-www-qbitai-com-p-496393"
+      "draft-candidate-rss-https-www-qbitai-com-p-468782"
     ],
     relatedKnowledgeIds: ["knowledge-ws-818b7bb3"],
     relatedSkillIds: [],
@@ -311,12 +305,10 @@ export const radarEntries: RadarEntry[] = [
     quadrant: "agents-applications",
     ring: "assess",
     ringReason:
-      "电脑操作类基准上的分数半年内翻了几倍，开放模型也追得很近，但最强的开放版本不能商用，真实桌面任务的成功率仍需自己量。",
+      "开放的电脑操作模型已追到闭源旗舰几个点以内，办公智能体也能跨应用连续操作；但最强的开放版本不能商用，真实桌面任务的成功率仍需自己量。",
     evidenceTechnologyIds: [
       // 2026-09-28 开源电脑操作模型 Holo4：最强款不能商用
       "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
-      // 2026-10-07 Claude Haiku 5.5：标价降了九成，token 却多用两成五
-      "draft-candidate-rss-https-simonwillison-net-2026-oct-7-claude-haiku-5-5",
       // 2026-07-09 ChatGPT Work：面向长时程任务的办公智能体
       "draft-candidate-rss-https-openai-com-index-chatgpt-for-your-most-ambitious-work"
     ],
@@ -353,14 +345,12 @@ export const radarEntries: RadarEntry[] = [
     quadrant: "agents-applications",
     ring: "trial",
     ringReason:
-      "社区和审计团队已用智能体成批重跑论文，找出的问题比人工审稿多；但「已验证」常常只是检查停得早，结论要看复现覆盖了哪些论断。",
+      "社区和审计团队已用智能体成批重跑论文，几乎每篇都被标出问题；但「已验证」常常只是检查停得早，结论要看复现覆盖了哪些论断。",
     evidenceTechnologyIds: [
       // 2026-08-10 智能体复现审计：ICML 2026 的 92 篇论文里，只有 8 篇能复现八成结论
       "draft-candidate-rss-https-www-qbitai-com-p-469795",
       // 2026-08-13 两千两百篇论文被重跑了一遍：「已验证」说的是检查，不是论文
-      "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
-      // 2026-10-06 OpenAI 公开 719 篇数学结果：四成有 Lean 证明，第二天就撤回三篇
-      "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics"
+      "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions"
     ],
     relatedKnowledgeIds: ["knowledge-reproducibility"],
     relatedSkillIds: ["skill-paper-reproduction", "skill-ai-science-evidence"],
@@ -397,8 +387,6 @@ export const radarEntries: RadarEntry[] = [
     evidenceTechnologyIds: [
       // 2026-08-18 智能体记忆不是开关，是要按模型标定的剂量
       "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm",
-      // 2026-08-04 LLM 0.32：一个命令行工具长成了智能体框架
-      "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
       // 2026-09-07 Kiro Crew 开源：内部 3.9 万人在用，没人被要求
       "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article"
     ],
@@ -518,9 +506,7 @@ export const radarEntries: RadarEntry[] = [
       // 2026-10-09 DeepSeek-V4 的周期性盲点：信息换个位置，检索准确率差 40 个百分点
       "draft-candidate-rss-https-www-qbitai-com-p-502364",
       // 2026-09-22 vLLM v0.30.0：快速启动，外加生成水印
-      "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
-      // 2026-08-08 SGLang v0.5.17：Kimi K3 首日可服务，以及一个认识会话的前缀缓存
-      "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17"
+      "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0"
     ],
     relatedKnowledgeIds: ["knowledge-kv-cache"],
     relatedSkillIds: ["skill-model-evaluation"],
@@ -616,9 +602,7 @@ export const radarEntries: RadarEntry[] = [
       // 2026-10-03 智能体做错的任务，三分之二没有报错
       "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
       // 2026-09-15 平均成功率 77%，五次全对只有 53%：智能体的一致性差距
-      "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency",
-      // 2026-08-07 TutorMoments：只说「做好一点」时，模型会普遍过度帮忙
-      "draft-candidate-rss-https-hf-mirror-com-blog-allenai-tutormoments"
+      "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-consistency"
     ],
     relatedKnowledgeIds: [
       "knowledge-execution-based-eval",
@@ -654,7 +638,7 @@ export const radarEntries: RadarEntry[] = [
     quadrant: "tools-methods",
     ring: "adopt",
     ringReason:
-      "运行时开始默认带 OpenTelemetry 追踪，实验室公布了全量动作记录；但一次告警响了运行却没停，说明追踪之外还要有能自动生效的停止条件。",
+      "运行时开始默认带 OpenTelemetry 追踪，实验室公布了每个动作执行前都过在线监控的覆盖率与拦截率；但一次告警响了运行却没停，说明追踪之外还要有能自动生效的停止条件。",
     evidenceTechnologyIds: [
       // 2026-08-10 微软 Agent Framework Harness 正式发布：智能体的运行时成了产品
       "draft-candidate-rss-https-www-infoq-cn-article-adejegvnskwvue2jz0yi-utm-source-rss-amp-utm-medium-article",
@@ -676,12 +660,10 @@ export const radarEntries: RadarEntry[] = [
     quadrant: "tools-methods",
     ring: "adopt",
     ringReason:
-      "开发套件允许把敏感工具声明为执行前必须确认，命令行工具能暂停等审批，大规模部署也做到动作全部事前审核；高风险动作默认加这一道。",
+      "开发套件允许把敏感工具声明为执行前必须确认，命令行工具能暂停等审批，清理代码的智能体动手前也要工程师先确认目标；高风险动作默认加这一道。",
     evidenceTechnologyIds: [
       // 2026-09-27 ADK Kotlin 1.0：智能体逻辑不必再绕回 Python
       "draft-candidate-rss-https-www-infoq-cn-article-sqv4eomjpp0j3hm3lyf9-utm-source-rss-amp-utm-medium-article",
-      // 2026-09-17 Anthropic 公布内部测量：Claude 主导 26% 的研发，裁判也是 Claude
-      "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
       // 2026-08-04 LLM 0.32：一个命令行工具长成了智能体框架
       "draft-candidate-rss-https-simonwillison-net-2026-aug-4-new-release-of-llm-atom-entries",
       // 2026-09-26 DoorDash 清理过期开关：50 个里 45 个可用，一次 4.79 美元
@@ -705,9 +687,7 @@ export const radarEntries: RadarEntry[] = [
       // 2026-09-24 模糊测试交给智能体：它做决定，工具管执行
       "draft-candidate-rss-https-github-blog-p-98465",
       // 2026-07-15 Shippy 复盘：Ai2 高风险场景智能体的四条工程经验与三件开源工件
-      "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog",
-      // 2026-08-12 Vercel Zero：一门把编译器输出的第一读者当成智能体的语言
-      "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article"
+      "draft-candidate-rss-https-hf-mirror-com-blog-allenai-shippy-tech-blog"
     ],
     relatedKnowledgeIds: ["knowledge-api-contracts"],
     relatedSkillIds: ["skill-agent-design"],
@@ -743,9 +723,7 @@ export const radarEntries: RadarEntry[] = [
       // 2026-09-23 Pinterest 数百亿向量检索：量化与 SSD 的取舍明细
       "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
       // 2026-10-06 谷歌开放新嵌入模型：图片音频文字同一个空间
-      "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
-      // 2026-08-18 智能体记忆不是开关，是要按模型标定的剂量
-      "draft-candidate-rss-https-hf-mirror-com-blog-ibm-research-altk-evolve-hmm"
+      "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model"
     ],
     relatedKnowledgeIds: ["knowledge-rag-basics"],
     relatedSkillIds: ["skill-retrieval-tuning"],
@@ -821,9 +799,7 @@ export const radarEntries: RadarEntry[] = [
       // 2026-09-28 开源电脑操作模型 Holo4：最强款不能商用
       "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
       // 2026-08-14 开放模型生态半年报：点赞与下载，只有一个仓库同时上榜
-      "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
-      // 2026-08-10 Meta Muse Glimmer：30B 蒸馏开源模型，专为本地智能体设计
-      "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer"
+      "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026"
     ],
     relatedKnowledgeIds: ["knowledge-open-weights"],
     relatedSkillIds: ["skill-open-weights-self-hosting"],

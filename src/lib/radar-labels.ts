@@ -38,7 +38,7 @@ const ringDescriptions: Record<RadarRing, string> = {
   adopt: "多条信号印证，默认可以用。",
   trial: "值得在真实项目里小范围用起来。",
   assess: "值得了解、做原型，先别押上生产。",
-  hold: "先别投入，或别再照这个做法新开项目。"
+  hold: "别这样做：先别投入，已在用的也别再照这个做法新开项目。"
 };
 
 export function getRadarQuadrantLabel(quadrant: RadarQuadrant): string {
@@ -52,6 +52,12 @@ export function getRadarRingLabel(ring: RadarRing): string {
 export function getRadarRingDescription(ring: RadarRing): string {
   return ringDescriptions[ring];
 }
+
+/**
+ * Shown over the reason of an entry in the hold ring: most of them are
+ * practices, and for a practice 暂缓 means "don't do this", not "wait".
+ */
+export const radarHoldNote = "暂缓，就是别这样做。";
 
 export function isRadarQuadrant(value: unknown): value is RadarQuadrant {
   return radarQuadrants.includes(value as RadarQuadrant);

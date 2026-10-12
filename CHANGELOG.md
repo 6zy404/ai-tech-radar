@@ -51,9 +51,19 @@ For per-topic deep dives, see the `docs/` directory.
   carries only the mapped keys (proven to fire by adding `status` to the
   mapping) and a workspace draft stays off the page.
 - Share card, CollectionPage JSON-LD and a sitemap entry, like the other
-  public index pages; it prints the list with every entry open. Initial
-  entries: 40, drafted from the published signals, knowledge and skills
-  (`docs/radar-first-edition-draft.md`), reviewed by the owner before merge.
+  public index pages; it prints the list with every entry open.
+- **The first edition: 40 entries, drafted from the published signals,
+  knowledge and skills and reviewed by the owner the same day.** The review
+  had every evidence signal re-read against its entry, and 14 entries lost
+  one that was only adjacent — a release that never mentions MoE under the
+  MoE entry, a price story under 电脑操作智能体, an online monitor under
+  执行前人工确认, a memory-adjacent log store under 智能体记忆. One was
+  replaced (强化学习后训练 takes Nemotron's competition models, whose report
+  measures RL against an inference-time verify loop), none fell below two,
+  and six ring reasons were rewritten where a removed signal had carried a
+  clause. 暂缓 is spelled out: the ring key reads 「别这样做」, and an open
+  暂缓 entry says 「暂缓，就是别这样做。」 above its reason, because all five
+  are practices, not tools to wait on.
 
 ## Semantic duplicate detection for candidates
 
