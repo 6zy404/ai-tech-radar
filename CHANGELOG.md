@@ -12,6 +12,40 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Reading the candidate snapshot no longer refills InfoQ's escaped link markup
+
+- **2026-10-12.** All 12 InfoQ 中文 candidates in the live snapshot held the
+  feed's entity-escaped `<div><a href=…>点击查看原文></a></div>` as both
+  `originalSummary` and `originalContent` — including three imported that
+  morning — although the importer has cleaned that description down to ""
+  since 2026-09-30 (`cleanFeedText`). The importer was right. The cause was
+  `sanitizeImportedCandidate` in `src/lib/candidate-import-snapshot-store.ts`,
+  which runs on **every** snapshot read: it refills an empty summary or body
+  from `rawPayload.item.description` (or the Atom / release / blog
+  equivalent), and that refill only stripped literal tags, so an escaped
+  description came back verbatim. Each source's merge reads the snapshot and
+  writes every candidate back, so the next source in the same import run
+  persisted the refilled text. Effect: the workspace showed escaped HTML, the
+  `missing_summary` flag never fired for InfoQ, and the triage model was fed
+  the link markup as the item's text. Public pages were unaffected —
+  `src/lib/news.ts` cleans again at read.
+- **Fix.** The refill now cleans with the importer's own `cleanFeedText`
+  (tags stripped, entities decoded, feed boilerplate removed) and treats an
+  empty result as no text, so a link-only description stays "no summary". A
+  legacy candidate whose description is real prose still gets it back,
+  decoded. Pinned by `src/lib/candidate-import-snapshot-refill.test.ts`, which
+  drives an InfoQ-shaped RSS item through `importCandidatesForExternalSource`,
+  a merge, and a second source's merge, and reads both the file and the
+  sanitized snapshot; both cases failed before the fix.
+- **Stored records.** No new script: `scripts/repair-entities.ts` already
+  cleans `originalSummary` / `originalContent` with `cleanFeedText`. Dry run
+  on a copy of the live data: 12 candidates, 24 fields, all InfoQ, all to
+  empty; technology records 0; a second run after `--apply` (on the copy)
+  reports 0. **Order matters**: on the repaired copy the old read code
+  refilled all 12 again, the new code kept all 12 empty — so the fix must be
+  what the task runner and server run before the repair is applied, or the
+  next import puts the markup back.
+
 ## Detail-page titles get wider on phones
 
 - **2026-10-09.** At 390px the title on every public detail page sat inside

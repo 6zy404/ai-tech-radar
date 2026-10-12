@@ -4,6 +4,7 @@ import {
   readLocalJsonFile as readJsonFile,
   writeLocalJsonFile as writeJsonFile
 } from "@/lib/repositories/local-json-store";
+import { cleanFeedText } from "@/lib/text-sanitize";
 import {
   getPayloadText,
   normalizeReadableText,
@@ -19,6 +20,28 @@ import type {
 const importedCandidatesSnapshotPath = getLocalStoreFilePath(
   "imported-candidates.live.json"
 );
+
+/**
+ * A raw feed field as the importer would have cleaned it (`cleanFeedText`:
+ * tags stripped, entities decoded, feed boilerplate removed), or undefined
+ * when nothing is left. The summary and body refill below must use the same
+ * cleaning as the importer: an InfoQ description that is only its
+ * 「点击查看原文」 link cleans to "", the importer stores that as "no summary",
+ * and until 2026-10-12 this refill put the escaped link markup back — and the
+ * next merge wrote it to disk.
+ */
+function getPayloadFeedText(value: unknown): string | undefined {
+  const raw =
+    typeof value === "string"
+      ? value
+      : value &&
+          typeof value === "object" &&
+          typeof (value as Record<string, unknown>)["#text"] === "string"
+        ? ((value as Record<string, unknown>)["#text"] as string)
+        : undefined;
+
+  return cleanFeedText(raw) || undefined;
+}
 
 function sanitizeImportedCandidate(
   candidate: ImportedCandidate
@@ -52,7 +75,7 @@ function sanitizeImportedCandidate(
     getPayloadText(entry?.title ?? item?.title ?? release?.name) ??
     candidate.sourceName;
   const fallbackSummary =
-    getPayloadText(
+    getPayloadFeedText(
       entry?.summary ??
         entry?.content ??
         item?.description ??
@@ -61,7 +84,7 @@ function sanitizeImportedCandidate(
         listingPreview?.excerpt
     ) ?? extractedParagraphs[0];
   const fallbackContent =
-    (getPayloadText(
+    (getPayloadFeedText(
       entry?.content ??
         entry?.summary ??
         item?.["content:encoded"] ??

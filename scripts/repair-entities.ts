@@ -1,4 +1,7 @@
 // Repairs HTML and HTML entities that the importers stored before 2026-09-29.
+// Also the InfoQ link markup that the snapshot read's summary refill wrote
+// back until 2026-10-12 (src/lib/candidate-import-snapshot-store.ts) — apply
+// that only after the fixed read code is what the task runner runs.
 //
 //   node scripts/run-ts.cjs scripts/repair-entities.ts                 # dry run
 //   node scripts/run-ts.cjs scripts/repair-entities.ts --apply         # write
