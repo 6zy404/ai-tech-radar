@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T00:05:31.375Z",
+  "updatedAt": "2026-10-12T03:10:35.317Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -355,6 +355,96 @@
       "lastFetchedAt": "2026-10-12T00:05:24.009Z",
       "lastImportMessage": "导入 0 条新候选；跳过 10 条重复或已存在的候选。",
       "lastSuccessfulImportAt": "2026-10-12T00:05:24.009Z"
+    },
+    {
+      "id": "source-mistral-ai-news",
+      "name": "Mistral AI News",
+      "type": "rss",
+      "url": "https://mistral.ai/rss.xml",
+      "enabled": true,
+      "description": "Mistral 官方新闻。站内此前没有 Mistral 的信号（2026-10-12 信源试跑后加入）。",
+      "language": "en",
+      "publisherName": "Mistral AI",
+      "publisherType": "startup",
+      "defaultTags": [
+        "tag-frontier-models",
+        "tag-open-weights"
+      ],
+      "defaultNormalizedType": "model",
+      "lastImportStatus": "never_run",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 0,
+      "createdAt": "2026-10-12T03:10:35.312Z",
+      "updatedAt": "2026-10-12T03:10:35.312Z",
+      "maxItems": 12
+    },
+    {
+      "id": "source-ai2-blog",
+      "name": "Ai2 Blog",
+      "type": "rss",
+      "url": "https://allenai.org/rss.xml",
+      "enabled": true,
+      "description": "Ai2（Allen AI）博客：开放模型与科研工具（2026-10-12 信源试跑后加入）。",
+      "language": "en",
+      "publisherName": "Allen AI",
+      "publisherType": "research-lab",
+      "defaultTags": [
+        "tag-open-weights"
+      ],
+      "defaultNormalizedType": "model",
+      "lastImportStatus": "never_run",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 0,
+      "createdAt": "2026-10-12T03:10:35.314Z",
+      "updatedAt": "2026-10-12T03:10:35.314Z",
+      "maxItems": 12
+    },
+    {
+      "id": "source-microsoft-research-blog",
+      "name": "Microsoft Research Blog",
+      "type": "rss",
+      "url": "https://www.microsoft.com/en-us/research/feed/",
+      "enabled": true,
+      "description": "微软研究院博客（2026-10-12 信源试跑后加入）。",
+      "language": "en",
+      "publisherName": "Microsoft Research",
+      "publisherType": "research-lab",
+      "defaultTags": [
+        "tag-ai-for-science"
+      ],
+      "defaultNormalizedType": "unknown",
+      "lastImportStatus": "never_run",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 0,
+      "createdAt": "2026-10-12T03:10:35.316Z",
+      "updatedAt": "2026-10-12T03:10:35.316Z",
+      "maxItems": 12
+    },
+    {
+      "id": "source-transformers-releases",
+      "name": "Transformers Releases",
+      "type": "atom",
+      "url": "https://github.com/huggingface/transformers/releases.atom",
+      "enabled": true,
+      "description": "Hugging Face Transformers 发布源：新模型架构的上游线索（2026-10-12 信源试跑后加入）。",
+      "language": "en",
+      "publisherName": "Hugging Face",
+      "publisherType": "open-source-community",
+      "defaultTags": [
+        "tag-open-weights",
+        "tag-inference"
+      ],
+      "defaultNormalizedType": "tool",
+      "lastImportStatus": "never_run",
+      "lastImportCount": 0,
+      "consecutiveFailureCount": 0,
+      "totalImportedCount": 0,
+      "createdAt": "2026-10-12T03:10:35.317Z",
+      "updatedAt": "2026-10-12T03:10:35.317Z",
+      "maxItems": 12
     }
   ],
   "latestImportRun": {
