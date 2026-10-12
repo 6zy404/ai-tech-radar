@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T03:41:11.241Z",
+  "updatedAt": "2026-10-12T07:03:50.502Z",
   "records": [
     {
       "id": "knowledge-graph-thinking",
@@ -162,7 +162,9 @@
       "relatedSkillIds": [
         "skill-scope-pilots",
         "skill-communication-ai",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-coding-agent-acceptance",
+        "skill-agent-code-review"
       ],
       "status": "published",
       "createdAt": "2026-07-27T16:57:16.103Z",
@@ -198,7 +200,8 @@
         "skill-ws-a9e80194",
         "skill-model-evaluation",
         "skill-ws-dddaf80c",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-inference-speedup-verification"
       ],
       "status": "published",
       "createdAt": "2026-07-19T04:05:12.947Z",
@@ -235,7 +238,9 @@
       "relatedSkillIds": [
         "skill-ws-a9e80194",
         "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-open-weights-self-hosting",
+        "skill-inference-speedup-verification"
       ],
       "status": "published",
       "createdAt": "2026-07-27T02:42:33.541Z",
@@ -282,7 +287,8 @@
         "skill-ws-d7c9d1d8",
         "skill-ws-dddaf80c",
         "skill-ws-b47fabd1",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-open-weights-self-hosting"
       ],
       "status": "published",
       "createdAt": "2026-07-21T05:08:17.347Z",
@@ -320,7 +326,8 @@
       "relatedSkillIds": [
         "skill-ws-a9e80194",
         "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-inference-speedup-verification"
       ],
       "status": "published",
       "createdAt": "2026-07-20T14:16:23.662Z",
@@ -361,7 +368,8 @@
       "relatedSkillIds": [
         "skill-scope-pilots",
         "skill-ws-d7c9d1d8",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-inference-speedup-verification"
       ],
       "status": "published",
       "createdAt": "2026-07-27T09:24:01.841Z",
@@ -487,7 +495,9 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-f741f122",
-        "skill-agent-design"
+        "skill-agent-design",
+        "skill-coding-agent-acceptance",
+        "skill-agent-code-review"
       ],
       "status": "published",
       "createdAt": "2026-08-04T10:25:18.175Z",
@@ -578,7 +588,8 @@
       "relatedSkillIds": [
         "skill-tool-integration",
         "skill-agent-design",
-        "skill-ws-d7c9d1d8"
+        "skill-ws-d7c9d1d8",
+        "skill-open-weights-self-hosting"
       ],
       "status": "published",
       "createdAt": "2026-07-16T03:16:15.762Z",
@@ -665,7 +676,8 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-ai-science-evidence"
       ],
       "status": "published",
       "createdAt": "2026-07-27T10:19:54.071Z",
@@ -715,7 +727,8 @@
         "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article"
       ],
       "relatedSkillIds": [
-        "skill-agent-design"
+        "skill-agent-design",
+        "skill-agent-code-review"
       ],
       "status": "published",
       "createdAt": "2026-07-27T01:48:18.567Z",
@@ -750,7 +763,8 @@
       "relatedSkillIds": [
         "skill-ws-a9e80194",
         "skill-ws-7796779a",
-        "skill-ws-d7c9d1d8"
+        "skill-ws-d7c9d1d8",
+        "skill-inference-speedup-verification"
       ],
       "status": "published",
       "createdAt": "2026-10-12T03:41:11.241Z",
@@ -812,7 +826,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-84837d46",
-        "skill-ws-d7c9d1d8"
+        "skill-ws-d7c9d1d8",
+        "skill-open-weights-self-hosting"
       ],
       "status": "published",
       "createdAt": "2026-10-12T03:41:11.241Z",
@@ -884,7 +899,9 @@
       "relatedSkillIds": [
         "skill-ws-c183c9b9",
         "skill-agent-design",
-        "skill-tool-integration"
+        "skill-tool-integration",
+        "skill-coding-agent-acceptance",
+        "skill-paper-reproduction"
       ],
       "status": "published",
       "createdAt": "2026-10-12T03:41:11.241Z",
@@ -923,7 +940,8 @@
       "relatedSkillIds": [
         "skill-ws-7796779a",
         "skill-ws-2152c7f1",
-        "skill-ws-dddaf80c"
+        "skill-ws-dddaf80c",
+        "skill-open-weights-self-hosting"
       ],
       "status": "published",
       "createdAt": "2026-10-12T03:41:11.241Z",
@@ -957,7 +975,9 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-f741f122",
-        "skill-ws-dddaf80c"
+        "skill-ws-dddaf80c",
+        "skill-coding-agent-acceptance",
+        "skill-paper-reproduction"
       ],
       "status": "published",
       "createdAt": "2026-10-12T03:41:11.241Z",
@@ -988,7 +1008,9 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-f741f122"
+        "skill-ws-f741f122",
+        "skill-ai-science-evidence",
+        "skill-paper-reproduction"
       ],
       "status": "published",
       "createdAt": "2026-10-12T03:41:11.241Z",

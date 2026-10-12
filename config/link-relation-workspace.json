@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T04:48:59.355Z",
+  "updatedAt": "2026-10-12T07:03:50.502Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -9670,6 +9670,690 @@
       "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
       "toType": "technology",
       "relationType": "extends"
+    },
+    {
+      "id": "rel-ws-18b3a3da",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "先只读出报告、工程师确认后再改，每个开关在隔离工作树里跑完构建与测试才提合并请求，并记下每次 4.79 美元的账。"
+    },
+    {
+      "id": "rel-ws-d801cbba",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-98713",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "「把判卷标准锁起来」的出处：实现方不能削弱测试、更新快照或放宽基线，必需测试没过的 PR 不合入。"
+    },
+    {
+      "id": "rel-ws-bd923a44",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-98465",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "智能体决定测什么、工具负责执行的分工，以及只在一次性环境里运行的提醒。"
+    },
+    {
+      "id": "rel-ws-7e2366dd",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "把选文件、打包、对齐行号交给确定程序的现成实现，可以接进编码智能体。"
+    },
+    {
+      "id": "rel-ws-ad259bbd",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "换了工具不重写指令，效果会悄悄变差，只有回归基准能把它暴露出来。"
+    },
+    {
+      "id": "rel-ws-ab8a281d",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-utrvjxwesgdp2kzlhpiv-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "多个编码智能体异步协作时，把计划、工具调用和审批节点摆在一处，验收有地方落脚。"
+    },
+    {
+      "id": "rel-ws-4fd50ce4",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-keq5kqg53vxpd0bxcy7y-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "编译器输出带稳定的错误码和修复元数据，让智能体能机械地判断自己改对了没有。"
+    },
+    {
+      "id": "rel-ws-14f2c0d1",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-microsoft-thinkingbox",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "按最终状态验收的依据：没通过的运行里三分之二正常结束、也没有报错。"
+    },
+    {
+      "id": "rel-ws-489d2a9f",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469010",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "按任务记账、给花费设上限的反面教材：超预算 860%，五个月后才被发现。"
+    },
+    {
+      "id": "rel-ws-094e7276",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "验收看的是系统最后的状态，不是智能体自己的汇报。"
+    },
+    {
+      "id": "rel-ws-7a736c99",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "用测试判对错是这项技能的地基，也要分清 pass@k 和 pass^k。"
+    },
+    {
+      "id": "rel-ws-be138324",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "knowledge-agent-sandboxing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "每个任务跑在哪一档隔离里、带什么凭据，要在动手前定好。"
+    },
+    {
+      "id": "rel-ws-4cd351bf",
+      "fromId": "skill-coding-agent-acceptance",
+      "fromType": "skill",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "两阶段流程中间那次人工确认，就是人在回路的一种放法。"
+    },
+    {
+      "id": "rel-ws-b381caf7",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-fzwv9jzv2cpk8yjlpxda-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "按影响半径审、「为什么」由人写、安全边界挪到渐进发布，三件事都出自这次复盘。"
+    },
+    {
+      "id": "rel-ws-94f3d59e",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-jjixcalhuvpgswtoz1uq-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "一个精确率高、召回率低的审查工具：适合减少噪声，不能单独兜底。"
+    },
+    {
+      "id": "rel-ws-2c4bde0a",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-97467",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "审查智能体的指令要按人读 PR 的方式写，否则成本更高、抓到的问题更少。"
+    },
+    {
+      "id": "rel-ws-7f28d091",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-19-conceptual-integrity-and-counting-lines-of-code",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "产出不再是瓶颈之后，「要不要这个功能」得有人明确把关。"
+    },
+    {
+      "id": "rel-ws-c89479e0",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-blog-p-98713",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "审查时要看测试和基线有没有被一起改掉，漏功能的回归几乎都来自端到端测试不够。"
+    },
+    {
+      "id": "rel-ws-501dd70a",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-gk4rwsqg09pwtftzlje3-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "45 个可用的合并请求里有 14 个仍要人修改，审查这一环省不掉。"
+    },
+    {
+      "id": "rel-ws-2966352f",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "knowledge-human-loop",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "审查是人在回路的一环，要知道人该看什么、可以不看什么。"
+    },
+    {
+      "id": "rel-ws-7c97a265",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "一次能跑通的变更，不等于一次正确的变更。"
+    },
+    {
+      "id": "rel-ws-7174b8b2",
+      "fromId": "skill-agent-code-review",
+      "fromType": "skill",
+      "toId": "knowledge-system-design",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "影响半径要从系统的依赖关系里看出来。"
+    },
+    {
+      "id": "rel-ws-179820bd",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-sharing-ai-progress-in-mathematics",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "能被机器检验的只占四成：300 篇有 Lean 证明，第二天就撤回了 3 篇。"
+    },
+    {
+      "id": "rel-ws-794c25e0",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-nemotron-ioi-and-imo-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一份发布里，IMO 分数由官方评定，IOI 分数是厂商自测，分量不同。"
+    },
+    {
+      "id": "rel-ws-f20e6c5b",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-sep-8-on-navier-stokes",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "能核对的只有时间线和算力数字，数学本身还没有任何独立方核实。"
+    },
+    {
+      "id": "rel-ws-55be1358",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-472016",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "可机械检验的结果：矩阵代入就能验，解码过程也被第三方复现了。"
+    },
+    {
+      "id": "rel-ws-eb3559c6",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-474381",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "「构造出一个对象」与「判断何时放弃」的分界，决定一条声明该打几折。"
+    },
+    {
+      "id": "rel-ws-d7ad21f6",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-cephwkjzae7lzborilcq-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "裁判也是 Claude，而人与人之间的一致率只有 35%：自报的数字先问谁打的分。"
+    },
+    {
+      "id": "rel-ws-be024db1",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "4 到 8 小时的任务，一半以上的成功案例有人插手：看到「AI 完成」先问人做了多少。"
+    },
+    {
+      "id": "rel-ws-09c88ea4",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "合成分数能拆回驱动它的特征，才可以核对，而不只是采信。"
+    },
+    {
+      "id": "rel-ws-1021595c",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-blog-google-innovation-and-ai-models-and-research-google-research-amie-video-consultations",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "结论来自模拟问诊的随机研究，病人由演员扮演，离真实就诊还隔着一层。"
+    },
+    {
+      "id": "rel-ws-e7e4b450",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "knowledge-reproducibility",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "可复现与可验证的区别，是判断一条科研声明站得多稳的前提。"
+    },
+    {
+      "id": "rel-ws-4e28dfe7",
+      "fromId": "skill-ai-science-evidence",
+      "fromType": "skill",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "谁打的分、怎么打的分，是评估闭环里最先要问的。"
+    },
+    {
+      "id": "rel-ws-8db3661f",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-icml-2026-open-reproductions",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "一次社区规模的复现：从论断出发、记录可审计、判定时不信自我评价。"
+    },
+    {
+      "id": "rel-ws-99b5bb31",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469795",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "复现失败先分原因：多数是缺文件、依赖断裂，也有参数比例对不上的实质错误。"
+    },
+    {
+      "id": "rel-ws-cf040682",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-469721",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "把论文写成智能体能直接操作的知识包，保留复现所需的工程细节。"
+    },
+    {
+      "id": "rel-ws-7c510f12",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-evaleval-aisi",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "分数和复现配置放进同一个共享格式，别人才能按同样的条件重跑。"
+    },
+    {
+      "id": "rel-ws-27965e6d",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-openai-com-index-research-acceleration-view-inside-openai",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "研究任务里人仍常要插手，复现流程要给人留介入的位置。"
+    },
+    {
+      "id": "rel-ws-23697def",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "knowledge-reproducibility",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "要复现的是什么、做到哪一档才算复现，先在这里讲清。"
+    },
+    {
+      "id": "rel-ws-00b8c721",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "用跑起来的结果判对错，是批量复现的基础。"
+    },
+    {
+      "id": "rel-ws-77e5a40c",
+      "fromId": "skill-paper-reproduction",
+      "fromType": "skill",
+      "toId": "knowledge-agent-sandboxing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "智能体会执行论文仓库里的脚本，先定好隔离和出网规则。"
+    },
+    {
+      "id": "rel-ws-4f6f54e3",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-hcompany-holo4",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "许可要按尺寸读：分数最高的 27B 不能商用，能商用的 35B-A3B 分数只有它一半。"
+    },
+    {
+      "id": "rel-ws-a76dfc6b",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-473669",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "量化后一张 24GB 显卡装得下，但领先最多的那一项跑在厂商自己命名的基准上。"
+    },
+    {
+      "id": "rel-ws-a596aa4d",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-aug-16-qwen-38-27b",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "在自己机器上复测的样板：出厂默认 xhigh 让一道题跑了 21 分钟，还吃光了 8K 上下文。"
+    },
+    {
+      "id": "rel-ws-c2bf835f",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-muse-glimmer",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "赢在工具调用与检索、输在桌面与终端操作，硬件支持当天分档：看清它输在哪、能跑在哪。"
+    },
+    {
+      "id": "rel-ws-8f853641",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "4 位量化把 55GB 以上的显存需求压到 17 至 20GB，是按精度算显存的现成例子。"
+    },
+    {
+      "id": "rel-ws-a4dc1273",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "开放权重的同时披露了让本地部署成立的量化与推测解码数字，可以逐项核对。"
+    },
+    {
+      "id": "rel-ws-a4bea572",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-simonwillison-net-2026-jul-16-kimi-k3-atom-entries",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "承诺的开放日期不等于可用日期，权重落地之前对自托管没有价值。"
+    },
+    {
+      "id": "rel-ws-e6008c17",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-thinkingmachines-inkling",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "约 1 万亿总参数、41B 激活：混合专家模型按总参数存、按激活参数算。"
+    },
+    {
+      "id": "rel-ws-7931db4a",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-state-of-open-models-summer-2026",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "1B 以下的模型拿走 83% 的下载量：先问任务需不需要大模型。"
+    },
+    {
+      "id": "rel-ws-f52978ee",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-nvidia-kumo-tabular",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "按允许商用的 OpenMDW-1.1 发布，但没和梯度提升树直接比，要在自己的数据上量。"
+    },
+    {
+      "id": "rel-ws-1187c0a4",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-35-1",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "Apache 2.0、27B 与 9B 两档，接进 Ollama 就能本地跑：许可、尺寸和引擎一次看全。"
+    },
+    {
+      "id": "rel-ws-48261588",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-deepmind-google-blog-embeddinggemma-2-an-open-lightweight-multimodal-embedding-model",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "编码器可选，只处理文字时只需 270M：按实际要用的部分算资源。"
+    },
+    {
+      "id": "rel-ws-4fac006c",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-468782",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "35B 总参数、约 3B 激活，Apache-2.0；同一份发布里有一处口径对不上，要自己复核。"
+    },
+    {
+      "id": "rel-ws-94e2947f",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-encoders",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "小编码器能在 CPU 上跑长文档：不是每个任务都要上显卡。"
+    },
+    {
+      "id": "rel-ws-c1798a77",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "knowledge-open-weights",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "权重、许可和配套三件事分开看，是这项技能的第一步。"
+    },
+    {
+      "id": "rel-ws-48b655bc",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "算显存时要知道每一档精度省多少、损失落在哪里。"
+    },
+    {
+      "id": "rel-ws-0031bfca",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "先找出最先咬人的约束，再决定要不要自己跑大模型。"
+    },
+    {
+      "id": "rel-ws-bc1a34ea",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "knowledge-ws-c761533e",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "自托管不必全有全无，哪些请求留在本地、哪些上云可以分开定。"
+    },
+    {
+      "id": "rel-ws-b35b5bc2",
+      "fromId": "skill-open-weights-self-hosting",
+      "fromType": "skill",
+      "toId": "knowledge-distillation",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "很多小型开放模型由旗舰蒸馏而来，能力上限由教师决定。"
+    },
+    {
+      "id": "rel-ws-62483be9",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-hf-mirror-com-blog-liquidai-lfm2-5-vl-dspark",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "解码快 3 倍、端到端只快 1.3 到 2.6 倍：推测解码碰不到图像编码和预填充。"
+    },
+    {
+      "id": "rel-ws-ddcf7fb1",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-497425",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "比较要同硬件、同批量、同接受率：每步接受 6 个 token 时快 57%，不开推测解码只在小批量下占优。"
+    },
+    {
+      "id": "rel-ws-c12e13b0",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-rb0wgcg9ilirh3xzojy5-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "按召回下限选量化方式：标量量化几乎不掉召回，乘积量化压得更狠、召回掉到 77%。"
+    },
+    {
+      "id": "rel-ws-29c19b27",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-32-4",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "草稿输出头的量化和 MoE 专家精度不一致都在这一版处理过，NVFP4 的质量缺陷要到 v0.32.5 才修。"
+    },
+    {
+      "id": "rel-ws-e5007dd6",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-sgl-project-sglang-releases-tag-v0-5-17",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "首日带着推测解码、前缀缓存和量化权重上的 LoRA；升级之后要用同一组请求重跑。"
+    },
+    {
+      "id": "rel-ws-e048beda",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-agfksn1ylmlruqmpea9l-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "DFlash 推测解码把吞吐最多提到 3.1 倍：按同样的条件核对之后再照搬。"
+    },
+    {
+      "id": "rel-ws-7faa1dfb",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-infoq-cn-article-9sy33ca91fp8z5mlovnu-utm-source-rss-amp-utm-medium-article",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "发布时一并给出量化与推测解码的数字，正好拿来练习逐项核对。"
+    },
+    {
+      "id": "rel-ws-4f257f66",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-30-0",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "稀疏 MLA 解码可以把 KV 页溢出到主机内存：新路径要用自己的负载重新量一遍。"
+    },
+    {
+      "id": "rel-ws-30578b31",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-github-com-vllm-project-vllm-releases-tag-v0-26-0",
+      "toType": "technology",
+      "relationType": "uses",
+      "note": "为 Inkling 补齐分段 CUDA Graph 与 MTP 推测解码，同一模型升级前后的速度要重新量。"
+    },
+    {
+      "id": "rel-ws-dd153b8b",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-497624",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "把专家放到硬盘上省显存，代价是每秒只有 0.05 到 1.8 个 token。"
+    },
+    {
+      "id": "rel-ws-16308075",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-502364",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "平均分会藏住弱点：分块 KV 压缩让检索准确率随位置周期性起伏，最多差 40 个百分点。"
+    },
+    {
+      "id": "rel-ws-069fb3d9",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "knowledge-ws-34da6116",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "知道量化省在哪、损在哪，才知道该量什么。"
+    },
+    {
+      "id": "rel-ws-9ba70965",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "knowledge-ws-68963f7f",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "推测解码只加速解码、收益取决于接受率，这两点决定了怎么比。"
+    },
+    {
+      "id": "rel-ws-d28e3ade",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "knowledge-kv-cache",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "预填充与解码的成本结构不同，提速倍数要按段拆开看。"
+    },
+    {
+      "id": "rel-ws-53bb2053",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "knowledge-latency-tradeoffs",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "「快多少」永远是在什么条件下的快。"
+    },
+    {
+      "id": "rel-ws-57a8868c",
+      "fromId": "skill-inference-speedup-verification",
+      "fromType": "skill",
+      "toId": "knowledge-ws-36346103",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "混合专家模型的各个专家可以用不同精度存，精度不一致是端侧常见的坑。"
     }
   ]
 }

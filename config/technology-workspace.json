@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T04:48:59.355Z",
+  "updatedAt": "2026-10-12T07:03:50.502Z",
   "records": [
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-502364",
@@ -40,7 +40,8 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-a9e80194",
-        "skill-retrieval-tuning"
+        "skill-retrieval-tuning",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -254,7 +255,8 @@
       "relatedSkillIds": [
         "skill-retrieval-tuning",
         "skill-ws-d7c9d1d8",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -363,7 +365,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-84837d46",
-        "skill-model-evaluation"
+        "skill-model-evaluation",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -470,7 +473,8 @@
       "relatedSkillIds": [
         "skill-ws-f741f122",
         "skill-model-evaluation",
-        "skill-agent-design"
+        "skill-agent-design",
+        "skill-coding-agent-acceptance"
       ],
       "sourceReferences": [],
       "priority": {
@@ -686,7 +690,8 @@
       "relatedSkillIds": [
         "skill-ws-7796779a",
         "skill-model-evaluation",
-        "skill-agent-design"
+        "skill-agent-design",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -793,7 +798,8 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-dddaf80c"
+        "skill-ws-dddaf80c",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -1321,7 +1327,8 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-scope-pilots"
+        "skill-scope-pilots",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -1649,7 +1656,8 @@
         "skill-ws-dddaf80c",
         "skill-ws-2152c7f1",
         "skill-ws-b47fabd1",
-        "skill-model-evaluation"
+        "skill-model-evaluation",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -1829,7 +1837,9 @@
       "relatedSkillIds": [
         "skill-agent-design",
         "skill-scope-pilots",
-        "skill-tool-integration"
+        "skill-tool-integration",
+        "skill-coding-agent-acceptance",
+        "skill-agent-code-review"
       ],
       "sourceReferences": [],
       "priority": {
@@ -1937,7 +1947,9 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-2152c7f1",
-        "skill-agent-design"
+        "skill-agent-design",
+        "skill-coding-agent-acceptance",
+        "skill-agent-code-review"
       ],
       "sourceReferences": [],
       "priority": {
@@ -2162,7 +2174,8 @@
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
         "skill-ws-7796779a",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -2382,7 +2395,8 @@
       "relatedSkillIds": [
         "skill-agent-design",
         "skill-tool-integration",
-        "skill-ws-c183c9b9"
+        "skill-ws-c183c9b9",
+        "skill-coding-agent-acceptance"
       ],
       "sourceReferences": [],
       "priority": {
@@ -2595,7 +2609,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-a9e80194",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -2700,7 +2715,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
-        "skill-ws-a9e80194"
+        "skill-ws-a9e80194",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -2916,7 +2932,8 @@
         "skill-ws-f741f122",
         "skill-ws-a9e80194",
         "skill-ws-2152c7f1",
-        "skill-scope-pilots"
+        "skill-scope-pilots",
+        "skill-coding-agent-acceptance"
       ],
       "sourceReferences": [],
       "priority": {
@@ -3042,7 +3059,8 @@
         "skill-agent-design",
         "skill-ws-c183c9b9",
         "skill-ws-f741f122",
-        "skill-tool-integration"
+        "skill-tool-integration",
+        "skill-coding-agent-acceptance"
       ],
       "sourceReferences": [],
       "priority": {
@@ -3162,7 +3180,9 @@
         "skill-agent-design",
         "skill-tool-integration",
         "skill-model-evaluation",
-        "skill-scope-pilots"
+        "skill-scope-pilots",
+        "skill-coding-agent-acceptance",
+        "skill-agent-code-review"
       ],
       "sourceReferences": [],
       "priority": {
@@ -3279,7 +3299,8 @@
         "skill-agent-design",
         "skill-ws-f741f122",
         "skill-communication-ai",
-        "skill-model-evaluation"
+        "skill-model-evaluation",
+        "skill-agent-code-review"
       ],
       "sourceReferences": [],
       "priority": {
@@ -3636,7 +3657,8 @@
       "relatedSkillIds": [
         "skill-ws-a9e80194",
         "skill-ws-d7c9d1d8",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -3868,7 +3890,8 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -4398,7 +4421,9 @@
         "skill-tool-integration",
         "skill-ws-f741f122",
         "skill-ws-2152c7f1",
-        "skill-communication-ai"
+        "skill-communication-ai",
+        "skill-coding-agent-acceptance",
+        "skill-agent-code-review"
       ],
       "sourceReferences": [],
       "priority": {
@@ -4738,7 +4763,8 @@
       "relatedSkillIds": [
         "skill-ws-7796779a",
         "skill-ws-a9e80194",
-        "skill-ws-dddaf80c"
+        "skill-ws-dddaf80c",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -4857,7 +4883,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-7796779a",
-        "skill-ws-a9e80194"
+        "skill-ws-a9e80194",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -4964,7 +4991,8 @@
       ],
       "relatedSkillIds": [
         "skill-retrieval-tuning",
-        "skill-ws-a9e80194"
+        "skill-ws-a9e80194",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -5077,7 +5105,8 @@
         "skill-ws-84837d46",
         "skill-ws-dddaf80c",
         "skill-ws-b47fabd1",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -5177,7 +5206,8 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-dddaf80c",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -5871,7 +5901,8 @@
         "skill-ws-d7c9d1d8",
         "skill-ws-a9e80194",
         "skill-ws-7796779a",
-        "skill-retrieval-tuning"
+        "skill-retrieval-tuning",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -6197,7 +6228,8 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-dddaf80c",
-        "skill-ws-f741f122"
+        "skill-ws-f741f122",
+        "skill-paper-reproduction"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7013,7 +7045,8 @@
         "skill-ws-d7c9d1d8",
         "skill-model-evaluation",
         "skill-ws-dddaf80c",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7261,7 +7294,8 @@
       "relatedSkillIds": [
         "skill-ws-dddaf80c",
         "skill-ws-2152c7f1",
-        "skill-model-evaluation"
+        "skill-model-evaluation",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7374,7 +7408,8 @@
         "skill-ws-f741f122",
         "skill-model-evaluation",
         "skill-agent-design",
-        "skill-ws-c183c9b9"
+        "skill-ws-c183c9b9",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7489,7 +7524,8 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-f741f122"
+        "skill-ws-f741f122",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7598,7 +7634,8 @@
         "skill-model-evaluation",
         "skill-ws-f741f122",
         "skill-agent-design",
-        "skill-scope-pilots"
+        "skill-scope-pilots",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7723,7 +7760,8 @@
         "skill-model-evaluation",
         "skill-ws-f741f122",
         "skill-agent-design",
-        "skill-ws-b47fabd1"
+        "skill-ws-b47fabd1",
+        "skill-paper-reproduction"
       ],
       "sourceReferences": [],
       "priority": {
@@ -7962,7 +8000,8 @@
       "relatedSkillIds": [
         "skill-agent-design",
         "skill-scope-pilots",
-        "skill-ws-2152c7f1"
+        "skill-ws-2152c7f1",
+        "skill-agent-code-review"
       ],
       "sourceReferences": [],
       "priority": {
@@ -8073,7 +8112,9 @@
         "skill-ws-f741f122",
         "skill-agent-design",
         "skill-ws-dddaf80c",
-        "skill-scope-pilots"
+        "skill-scope-pilots",
+        "skill-ai-science-evidence",
+        "skill-paper-reproduction"
       ],
       "sourceReferences": [],
       "priority": {
@@ -8639,7 +8680,8 @@
         "skill-ws-a9e80194",
         "skill-ws-2152c7f1",
         "skill-ws-dddaf80c",
-        "skill-model-evaluation"
+        "skill-model-evaluation",
+        "skill-ai-science-evidence"
       ],
       "sourceReferences": [],
       "priority": {
@@ -8865,7 +8907,8 @@
         "skill-ws-dddaf80c",
         "skill-ws-d7c9d1d8",
         "skill-model-evaluation",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -9117,7 +9160,9 @@
         "skill-ws-d7c9d1d8",
         "skill-ws-7796779a",
         "skill-ws-dddaf80c",
-        "skill-tool-integration"
+        "skill-tool-integration",
+        "skill-open-weights-self-hosting",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -9338,7 +9383,8 @@
         "skill-ws-dddaf80c",
         "skill-model-evaluation",
         "skill-ws-2152c7f1",
-        "skill-ws-d7c9d1d8"
+        "skill-ws-d7c9d1d8",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -9459,7 +9505,8 @@
       ],
       "relatedSkillIds": [
         "skill-model-evaluation",
-        "skill-ws-f741f122"
+        "skill-ws-f741f122",
+        "skill-paper-reproduction"
       ],
       "sourceReferences": [],
       "priority": {
@@ -9894,7 +9941,8 @@
       "relatedSkillIds": [
         "skill-model-evaluation",
         "skill-ws-84837d46",
-        "skill-ws-dddaf80c"
+        "skill-ws-dddaf80c",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -10338,7 +10386,8 @@
       "relatedSkillIds": [
         "skill-agent-design",
         "skill-tool-integration",
-        "skill-ws-2152c7f1"
+        "skill-ws-2152c7f1",
+        "skill-coding-agent-acceptance"
       ],
       "sourceReferences": [],
       "priority": {
@@ -10644,7 +10693,8 @@
       ],
       "relatedSkillIds": [
         "skill-ws-f741f122",
-        "skill-communication-ai"
+        "skill-communication-ai",
+        "skill-paper-reproduction"
       ],
       "sourceReferences": [],
       "priority": {
@@ -10759,7 +10809,9 @@
       "relatedSkillIds": [
         "skill-ws-d7c9d1d8",
         "skill-ws-dddaf80c",
-        "skill-ws-84837d46"
+        "skill-ws-84837d46",
+        "skill-open-weights-self-hosting",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
@@ -10875,7 +10927,8 @@
         "skill-ws-d7c9d1d8",
         "skill-ws-7796779a",
         "skill-ws-dddaf80c",
-        "skill-ws-84837d46"
+        "skill-ws-84837d46",
+        "skill-open-weights-self-hosting"
       ],
       "sourceReferences": [],
       "priority": {
@@ -11195,7 +11248,8 @@
       "relatedSkillIds": [
         "skill-ws-a9e80194",
         "skill-model-evaluation",
-        "skill-ws-7796779a"
+        "skill-ws-7796779a",
+        "skill-inference-speedup-verification"
       ],
       "sourceReferences": [],
       "priority": {
