@@ -5,10 +5,13 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import {
-  askSourceKindLabels as kindLabels,
   buildAskConversationCopyText,
   toAnswerParagraphs
 } from "@/lib/ask-answer-copy";
+import { askCopy } from "@/lib/i18n/copy/ask";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { askMaxTurns } from "@/lib/ask-conversation";
 import type { AskEvent, AskSource } from "@/lib/ask-radar";
 import { splitAnswerWithCitations } from "@/lib/ask-radar-citations";
@@ -77,17 +80,20 @@ function isComplete(turn: AskTurn): boolean {
 function AnswerText({
   text,
   sources,
-  invalid
+  invalid,
+  locale
 }: {
   text: string;
   sources: AskSource[];
   invalid: number[];
+  locale: Locale;
 }) {
   const byRef = new Map(sources.map((source) => [source.ref, source]));
   const paragraphs = toAnswerParagraphs(text);
 
   return (
-    <div className="ask-radar__answer-text">
+    // The answers are written in Chinese (the prompt is fixed).
+    <div className="ask-radar__answer-text" lang={contentLangAttr(locale)}>
       {paragraphs.map((paragraph, paragraphIndex) => (
         <p key={paragraphIndex}>
           {splitAnswerWithCitations(paragraph).map((part, index) => {
@@ -102,7 +108,7 @@ function AnswerText({
                 <span
                   key={index}
                   className="ask-radar__cite ask-radar__cite--invalid"
-                  title="这个编号不对应任何检索到的条目"
+                  title={askCopy[locale].invalidCite}
                 >
                   [{part.ref}?]
                 </span>
@@ -113,7 +119,7 @@ function AnswerText({
               <Link
                 key={index}
                 className="ask-radar__cite"
-                href={source.href}
+                href={localePath(locale, source.href)}
                 title={source.title}
               >
                 [{part.ref}]
@@ -126,7 +132,15 @@ function AnswerText({
   );
 }
 
-function SourceList({ sources }: { sources: AskSource[] }) {
+function SourceList({
+  sources,
+  locale
+}: {
+  sources: AskSource[];
+  locale: Locale;
+}) {
+  const kindLabels = askCopy[locale].kinds;
+
   return (
     <ol className="ask-radar__sources">
       {sources.map((source) => (
@@ -135,7 +149,12 @@ function SourceList({ sources }: { sources: AskSource[] }) {
           <span className="ask-radar__source-kind">
             {kindLabels[source.kind]}
           </span>
-          <Link href={source.href}>{source.title}</Link>
+          <Link
+            href={localePath(locale, source.href)}
+            lang={nameLangAttr(locale, source.title)}
+          >
+            {source.title}
+          </Link>
         </li>
       ))}
     </ol>
@@ -146,14 +165,17 @@ function TurnView({
   turn,
   index,
   previousRefs,
-  running
+  running,
+  locale
 }: {
   turn: AskTurn;
   index: number;
   /** Numbers earlier turns already listed; not repeated under 检索到但没有引用. */
   previousRefs: ReadonlySet<number>;
   running: boolean;
+  locale: Locale;
 }) {
+  const copy = askCopy[locale];
   const citedSources = turn.sources.filter((source) =>
     turn.cited.includes(source.ref)
   );
@@ -166,7 +188,7 @@ function TurnView({
     <article className="ask-radar__turn">
       <h2 className="ask-radar__question">
         <span className="ask-radar__question-label">
-          {index === 0 ? "问" : `追问 ${index}`}
+          {index === 0 ? copy.firstQuestion : copy.followUpLabel(index)}
         </span>
         <span className="ask-radar__question-text">{turn.question}</span>
       </h2>
@@ -174,7 +196,7 @@ function TurnView({
       {turn.statuses.length > 0 ? (
         <ul className="ask-radar__statuses">
           {turn.statuses.map((status, statusIndex) => (
-            <li key={statusIndex}>{status}</li>
+            <li key={statusIndex}>{copy.status(status)}</li>
           ))}
         </ul>
       ) : null}
@@ -184,24 +206,25 @@ function TurnView({
           text={turn.answer}
           sources={turn.sources}
           invalid={turn.invalid}
+          locale={locale}
         />
       ) : running && !turn.done ? (
-        <p className="ask-radar__pending">正在查找站内内容…</p>
+        <p className="ask-radar__pending">{copy.pending}</p>
       ) : null}
 
       {turn.error ? <p className="ask-radar__error">{turn.error}</p> : null}
 
       {turn.done && citedSources.length > 0 ? (
         <div className="ask-radar__block">
-          <h3>引用</h3>
-          <SourceList sources={citedSources} />
+          <h3>{copy.cited}</h3>
+          <SourceList sources={citedSources} locale={locale} />
         </div>
       ) : null}
 
       {turn.done && uncitedNewSources.length > 0 ? (
         <details className="ask-radar__block">
-          <summary>检索到但没有引用（{uncitedNewSources.length}）</summary>
-          <SourceList sources={uncitedNewSources} />
+          <summary>{copy.uncited(uncitedNewSources.length)}</summary>
+          <SourceList sources={uncitedNewSources} locale={locale} />
         </details>
       ) : null}
     </article>
@@ -215,7 +238,16 @@ function TurnView({
  * flatten the line breaks). Keyed per turn count, so a new answer starts it
  * fresh.
  */
-function CopyConversation({ turns }: { turns: AskTurn[] }) {
+function CopyConversation({
+  turns,
+  locale,
+  disclaimer
+}: {
+  turns: AskTurn[];
+  locale: Locale;
+  disclaimer: string;
+}) {
+  const copy = askCopy[locale];
   const [message, setMessage] = useState("");
   const [fallbackText, setFallbackText] = useState("");
   const fallbackRef = useRef<HTMLTextAreaElement>(null);
@@ -232,22 +264,17 @@ function CopyConversation({ turns }: { turns: AskTurn[] }) {
     const text = buildAskConversationCopyText({
       turns,
       origin: window.location.origin,
-      disclaimer: aiGeneratedDisclaimer
+      disclaimer,
+      locale
     });
 
     try {
       await navigator.clipboard.writeText(text);
       setFallbackText("");
-      setMessage(
-        whole
-          ? `已复制：${turns.length} 轮问答、出处链接和免责声明。`
-          : "已复制：问题、答案、出处链接和免责声明。"
-      );
+      setMessage(whole ? copy.copiedWhole(turns.length) : copy.copiedOne);
     } catch {
       setFallbackText(text);
-      setMessage(
-        "浏览器没有允许写入剪贴板。内容已在下面的文本框里选中，按 Ctrl+C（Mac 上 ⌘C）复制。"
-      );
+      setMessage(copy.copyBlocked);
     }
   }
 
@@ -258,7 +285,7 @@ function CopyConversation({ turns }: { turns: AskTurn[] }) {
         className="ask-radar__copy-button"
         onClick={() => void handleCopy()}
       >
-        {whole ? "复制整段对话" : "复制答案"}
+        {whole ? copy.copyWhole : copy.copyOne}
       </button>
       <p className="ask-radar__copy-status" role="status">
         {message}
@@ -270,7 +297,7 @@ function CopyConversation({ turns }: { turns: AskTurn[] }) {
           readOnly
           value={fallbackText}
           rows={Math.min(12, fallbackText.split("\n").length)}
-          aria-label={whole ? "整段对话，选中后复制" : "答案全文，选中后复制"}
+          aria-label={whole ? copy.fallbackWhole : copy.fallbackOne}
           onFocus={(event) => event.currentTarget.select()}
         />
       ) : null}
@@ -287,8 +314,10 @@ function QuestionForm({
   placeholder,
   submitLabel,
   inputRef,
-  className
+  className,
+  answeringLabel
 }: {
+  answeringLabel: string;
   value: string;
   onChange: (value: string) => void;
   onSubmit: () => void;
@@ -324,7 +353,7 @@ function QuestionForm({
         className="action-button action-button--primary"
         disabled={running || value.trim().length < 2}
       >
-        {running ? "回答中…" : submitLabel}
+        {running ? answeringLabel : submitLabel}
       </button>
     </form>
   );
@@ -337,6 +366,10 @@ export function AskRadar({
   examples: string[];
   initialQuestion?: string;
 }) {
+  const locale = useLocale();
+  const copy = askCopy[locale];
+  // The English site adds that the answer is written in Chinese.
+  const disclaimer = locale === "zh" ? aiGeneratedDisclaimer : copy.disclaimer;
   const [input, setInput] = useState(initialQuestion);
   const [followUp, setFollowUp] = useState("");
   // The conversation lives in this component only: a reload, or 开新对话,
@@ -407,7 +440,9 @@ export function AskRadar({
         const payload = (await response.json().catch(() => ({}))) as {
           error?: string;
         };
-        fail(payload.error ?? "回答生成失败，请稍后再试。");
+        // The server's messages are Chinese; the English site keeps to
+        // its own line.
+        fail(locale === "zh" ? (payload.error ?? copy.failed) : copy.failed);
         return;
       }
 
@@ -441,7 +476,7 @@ export function AskRadar({
       }
     } catch {
       if (!controller.signal.aborted) {
-        fail("连接中断，请稍后再试。");
+        fail(copy.disconnected);
       }
     } finally {
       setRunning(false);
@@ -473,16 +508,17 @@ export function AskRadar({
           onChange={setInput}
           onSubmit={() => void ask(input)}
           running={running}
-          label="你的问题"
-          placeholder="例如：本地跑大模型要注意什么？"
-          submitLabel="提问"
+          label={copy.questionLabel}
+          placeholder={copy.questionPlaceholder}
+          submitLabel={copy.ask}
+          answeringLabel={copy.answering}
           inputRef={inputRef}
         />
       ) : null}
 
       {turns.length === 0 && !running && examples.length > 0 ? (
         <div className="ask-radar__examples">
-          <h2>可以这样问</h2>
+          <h2>{copy.examplesHeading}</h2>
           <ul>
             {examples.map((example) => (
               <li key={example}>
@@ -507,7 +543,7 @@ export function AskRadar({
 
       {turns.length > 0 ? (
         <section className="ask-radar__result" aria-live="polite">
-          <p className="ask-radar__disclaimer">{aiGeneratedDisclaimer}</p>
+          <p className="ask-radar__disclaimer">{disclaimer}</p>
 
           {turns.map((turn, index) => (
             <TurnView
@@ -518,6 +554,7 @@ export function AskRadar({
                 new Set((turns[index - 1]?.sources ?? []).map((s) => s.ref))
               }
               running={running && index === turns.length - 1}
+              locale={locale}
             />
           ))}
 
@@ -527,14 +564,19 @@ export function AskRadar({
                   mid-way would carry citations the done event has not
                   checked. */}
               {canCopy ? (
-                <CopyConversation key={turns.length} turns={completeTurns} />
+                <CopyConversation
+                  key={turns.length}
+                  turns={completeTurns}
+                  locale={locale}
+                  disclaimer={disclaimer}
+                />
               ) : null}
               <button
                 type="button"
                 className="ask-radar__copy-button"
                 onClick={startOver}
               >
-                开新对话
+                {copy.startOver}
               </button>
             </div>
           ) : null}
@@ -543,9 +585,7 @@ export function AskRadar({
 
       {finished && completeTurns.length > 0 ? (
         atLimit ? (
-          <p className="ask-radar__limit">
-            这段对话已经问了 {askMaxTurns} 次。想继续问，请开新对话。
-          </p>
+          <p className="ask-radar__limit">{copy.limit(askMaxTurns)}</p>
         ) : (
           <QuestionForm
             className="ask-radar__followup"
@@ -553,9 +593,12 @@ export function AskRadar({
             onChange={setFollowUp}
             onSubmit={() => void ask(followUp)}
             running={running}
-            label="继续追问"
-            placeholder={`继续追问（还可以问 ${askMaxTurns - completeTurns.length} 次）`}
-            submitLabel="追问"
+            label={copy.followUpBoxLabel}
+            placeholder={copy.followUpPlaceholder(
+              askMaxTurns - completeTurns.length
+            )}
+            submitLabel={copy.followUp}
+            answeringLabel={copy.answering}
             inputRef={followUpRef}
           />
         )

@@ -1,4 +1,6 @@
-import { getPreferredTechnologyText } from "@/lib/technology-localization";
+import { askCopy } from "@/lib/i18n/copy/ask";
+import type { Locale } from "@/lib/i18n/locale";
+import { getTechnologyTextForLocale } from "@/lib/technology-localization";
 import type {
   KnowledgeItem,
   SkillItem,
@@ -32,6 +34,11 @@ export interface AskExampleInput {
   knowledge: Pick<KnowledgeItem, "id" | "title">[];
   skills: Pick<SkillItem, "id" | "title">[];
   tags: Pick<TopicTag, "id" | "name">[];
+  /**
+   * English site: signals are named in English where the source is, and
+   * the questions are English (the model answers in Chinese either way).
+   */
+  locale?: Locale;
 }
 
 export const maxAskExamples = 6;
@@ -47,14 +54,21 @@ function length(text: string): number {
 
 /* The name a question uses for a signal: the headline's part before its first
    colon, or the whole title when there is none. */
-export function getAskSignalName(title: string): string | undefined {
+export function getAskSignalName(
+  title: string,
+  maxLength = maxNameLength
+): string | undefined {
   const whole = title.trim();
   const colon = whole.search(/[：:]/);
   const head = colon > 0 ? whole.slice(0, colon).trim() : "";
   const name = length(head) >= 2 ? head : whole;
 
-  return length(name) >= 2 && length(name) <= maxNameLength ? name : undefined;
+  return length(name) >= 2 && length(name) <= maxLength ? name : undefined;
 }
+
+/* English words are longer than Chinese characters; the same chip holds
+   about twice as many. */
+const lengthScale: Record<Locale, number> = { zh: 1, en: 2 };
 
 /* The id referenced most often across the recent signals; a tie goes to the
    one a newer signal referenced first. */
@@ -85,6 +99,9 @@ function mostReferenced(
 }
 
 export function buildAskExamples(input: AskExampleInput): string[] {
+  const locale = input.locale ?? "zh";
+  const templates = askCopy[locale].examples;
+  const scale = lengthScale[locale];
   const signals = [...input.technologies].sort(
     (left, right) =>
       right.publishDate.localeCompare(left.publishDate) ||
@@ -94,7 +111,9 @@ export function buildAskExamples(input: AskExampleInput): string[] {
 
   for (const signal of signals) {
     const name = getAskSignalName(
-      getPreferredTechnologyText(signal.title, signal.sourceLanguage)
+      getTechnologyTextForLocale(signal.title, signal.sourceLanguage, locale)
+        .text,
+      maxNameLength * scale
     );
 
     if (name) {
@@ -108,7 +127,7 @@ export function buildAskExamples(input: AskExampleInput): string[] {
 
   const aboutSignal = (signal: AskExampleSignal | undefined) =>
     signal
-      ? `「${names.get(signal.id)}」讲了什么，为什么值得关注？`
+      ? templates.signal(names.get(signal.id) ?? "")
       : undefined;
 
   // A comparison needs two published signals the editors linked to each
@@ -128,11 +147,11 @@ export function buildAskExamples(input: AskExampleInput): string[] {
         (other) =>
           other !== undefined &&
           other !== name &&
-          length(name) + length(other) <= maxPairNameLength
+          length(name) + length(other) <= maxPairNameLength * scale
       );
 
     if (partner) {
-      comparison = `「${name}」和「${partner}」有什么区别？`;
+      comparison = templates.comparison(name, partner);
       break;
     }
   }
@@ -165,13 +184,13 @@ export function buildAskExamples(input: AskExampleInput): string[] {
     aboutSignal(first),
     comparison,
     knowledgeId
-      ? `「${knowledgeTitles.get(knowledgeId)}」是什么？最近哪些信号和它有关？`
+      ? templates.knowledge(knowledgeTitles.get(knowledgeId) ?? "")
       : undefined,
     tagId
-      ? `最近「${tagNames.get(tagId)}」方向有哪些值得关注的信号？`
+      ? templates.topic(tagNames.get(tagId) ?? "")
       : undefined,
     skillId
-      ? `想掌握「${skillTitles.get(skillId)}」，应该先读哪些内容？`
+      ? templates.skill(skillTitles.get(skillId) ?? "")
       : undefined,
     aboutSignal(second)
   ];

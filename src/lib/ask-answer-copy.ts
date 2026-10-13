@@ -5,6 +5,8 @@
  * never needs another request.
  */
 
+import { askCopy } from "@/lib/i18n/copy/ask";
+import type { Locale } from "@/lib/i18n/locale";
 import { splitAnswerWithCitations } from "@/lib/ask-radar-citations";
 
 export type AskCopySourceKind = "technology" | "skill" | "knowledge";
@@ -69,6 +71,7 @@ export interface AskCopyInput {
   /** The site origin links are resolved against, e.g. `https://aizyradar.cn`. */
   origin: string;
   disclaimer: string;
+  locale?: Locale;
 }
 
 interface FormattedAnswer {
@@ -114,17 +117,32 @@ function formatAnswer(
   return { paragraphs, invalidSeen, citedSources };
 }
 
-function formatSourceLine(source: AskCopySource, origin: string): string {
-  return `[${source.ref}] ${source.title}（${askSourceKindLabels[source.kind]}） ${toAbsoluteUrl(source.href, origin)}`;
+function formatSourceLine(
+  source: AskCopySource,
+  origin: string,
+  locale: Locale = "zh"
+): string {
+  return askCopy[locale].copyText.sourceLine(
+    source.ref,
+    source.title,
+    askCopy[locale].kinds[source.kind],
+    toAbsoluteUrl(source.href, origin)
+  );
 }
 
-function formatInvalidNote(invalid: number[]): string {
-  return `注：${invalid.map((ref) => `[${ref}?]`).join("、")} 不对应任何检索到的条目，是无效编号。`;
+function formatInvalidNote(invalid: number[], locale: Locale = "zh"): string {
+  const copy = askCopy[locale].copyText;
+
+  return copy.invalidNote(invalid.map((ref) => `[${ref}?]`).join(copy.refJoin));
 }
 
 export function buildAskCopyText(input: AskCopyInput): string {
+  const locale = input.locale ?? "zh";
+  const copy = askCopy[locale].copyText;
   const { paragraphs, invalidSeen, citedSources } = formatAnswer(input);
-  const sections: string[] = [`问：${input.question.trim()}`];
+  const sections: string[] = [
+    `${copy.question}${copy.labelSeparator}${input.question.trim()}`
+  ];
 
   if (paragraphs.length > 0) {
     sections.push(paragraphs.join("\n\n"));
@@ -133,14 +151,16 @@ export function buildAskCopyText(input: AskCopyInput): string {
   if (citedSources.length > 0) {
     sections.push(
       [
-        "出处：",
-        ...citedSources.map((source) => formatSourceLine(source, input.origin))
+        copy.sources,
+        ...citedSources.map((source) =>
+          formatSourceLine(source, input.origin, locale)
+        )
       ].join("\n")
     );
   }
 
   if (invalidSeen.length > 0) {
-    sections.push(formatInvalidNote(invalidSeen));
+    sections.push(formatInvalidNote(invalidSeen, locale));
   }
 
   sections.push(input.disclaimer);
@@ -170,7 +190,10 @@ export function buildAskConversationCopyText(input: {
   turns: readonly AskCopyTurn[];
   origin: string;
   disclaimer: string;
+  locale?: Locale;
 }): string {
+  const locale = input.locale ?? "zh";
+  const copy = askCopy[locale].copyText;
   const [first, ...rest] = input.turns;
 
   if (!first) {
@@ -181,7 +204,8 @@ export function buildAskConversationCopyText(input: {
     return buildAskCopyText({
       ...first,
       origin: input.origin,
-      disclaimer: input.disclaimer
+      disclaimer: input.disclaimer,
+      locale
     });
   }
 
@@ -196,7 +220,9 @@ export function buildAskConversationCopyText(input: {
       sections.push("——");
     }
 
-    sections.push(`${index === 0 ? "问" : "追问"}：${turn.question.trim()}`);
+    sections.push(
+      `${index === 0 ? copy.question : copy.followUp}${copy.labelSeparator}${turn.question.trim()}`
+    );
 
     if (formatted.paragraphs.length > 0) {
       sections.push(formatted.paragraphs.join("\n\n"));
@@ -216,16 +242,16 @@ export function buildAskConversationCopyText(input: {
   if (cited.size > 0) {
     sections.push(
       [
-        "出处：",
+        copy.sources,
         ...[...cited.values()]
           .sort((a, b) => a.ref - b.ref)
-          .map((source) => formatSourceLine(source, input.origin))
+          .map((source) => formatSourceLine(source, input.origin, locale))
       ].join("\n")
     );
   }
 
   if (invalid.length > 0) {
-    sections.push(formatInvalidNote(invalid));
+    sections.push(formatInvalidNote(invalid, locale));
   }
 
   sections.push(input.disclaimer);

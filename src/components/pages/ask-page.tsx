@@ -7,20 +7,31 @@ import {
   getAllTags,
   getAllTechnologies
 } from "@/lib/content";
+import { askCopy } from "@/lib/i18n/copy/ask";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
-export const askPageMetadata = buildPageMetadata({
-  title: "问雷达",
-  description:
-    "只根据本站已发布的技术信号、技能和知识回答，每句话标出出处。站里没有的内容，它会直说。",
-  path: "/ask"
-});
+export function getAskPageMetadata(locale: Locale) {
+  const copy = askCopy[locale].page;
 
-interface AskPageProps {
+  return buildPageMetadata({
+    title: copy.title,
+    description: copy.description,
+    path: "/ask",
+    locale
+  });
+}
+
+export interface AskPageProps {
   searchParams: Promise<{ q?: string }>;
 }
 
-export async function AskPage({ searchParams }: AskPageProps) {
+export async function AskPage({
+  searchParams,
+  locale
+}: AskPageProps & { locale: Locale }) {
+  const copy = askCopy[locale].page;
   // Arriving from /search pre-fills the box but does not ask: a navigation
   // should never spend a model call on its own.
   const { q } = await searchParams;
@@ -31,14 +42,15 @@ export async function AskPage({ searchParams }: AskPageProps) {
     technologies: getAllTechnologies(),
     knowledge: getAllKnowledge(),
     skills: getAllSkills(),
-    tags: getAllTags()
+    tags: localizeTags(getAllTags(), locale),
+    locale
   });
 
   return (
     <UserPageShell
-      title="问雷达"
-      description="只根据本站已发布的技术信号、技能和知识回答，每句话标出出处。站里没有的内容，它会直说。"
-      sectionLabel="问雷达"
+      title={copy.title}
+      description={copy.description}
+      sectionLabel={copy.sectionLabel}
       className="ask-page dossier"
     >
       <AskRadar examples={examples} initialQuestion={initialQuestion} />
