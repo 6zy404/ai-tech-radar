@@ -10,7 +10,7 @@ import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierRegisterRow } from "@/components/dossier-register-row";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { FollowableTagList } from "@/components/followable-tag-list";
-import { LangScope } from "@/components/lang-scope";
+import { LangScope, LangSpan } from "@/components/lang-scope";
 import { PageToc } from "@/components/page-toc";
 import { ReadingProgress } from "@/components/reading-progress";
 import {
@@ -35,7 +35,7 @@ import {
 import { commonCopy } from "@/lib/i18n/copy/common";
 import { contentDetailCopy } from "@/lib/i18n/copy/content-detail";
 import { localePath, type Locale } from "@/lib/i18n/locale";
-import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
 import { localizeTags } from "@/lib/i18n/topic-names";
 import { buildKnowledgeLinkTargets } from "@/lib/knowledge-autolink";
 import {
@@ -220,7 +220,8 @@ function RelatedCard({
   tags,
   linkText,
   titleLang,
-  summaryLang
+  summaryLang,
+  locale
 }: {
   className: string;
   meta: ReactNode;
@@ -233,6 +234,7 @@ function RelatedCard({
   linkText: string;
   titleLang?: string;
   summaryLang?: string;
+  locale: Locale;
 }) {
   return (
     <DossierCard className={className}>
@@ -246,8 +248,8 @@ function RelatedCard({
         </h3>
         <p lang={summaryLang}>{summary}</p>
         {note ? (
-          <DossierCatalogNote label={note.label}>
-            <LangScope lang={note.lang}>{note.text}</LangScope>
+          <DossierCatalogNote label={note.label} locale={locale}>
+            <LangSpan lang={note.lang}>{note.text}</LangSpan>
           </DossierCatalogNote>
         ) : null}
         {tags.length > 0 ? <TagList tags={tags} limit={2} /> : null}
@@ -539,6 +541,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
                     linkText={copy.shared.entryKinds[entry.kind].linkText}
                     titleLang={entryLang}
                     summaryLang={entryLang}
+                    locale={locale}
                   />
                 ))}
               </RelatedSection>
@@ -589,7 +592,12 @@ export function ContentDetailPage<TItem extends DetailItem>({
                       className="skill-detail-related-card"
                       meta={
                         <>
-                          {`${technology.sourceName} · `}
+                          <LangSpan
+                            lang={nameLangAttr(locale, technology.sourceName)}
+                          >
+                            {technology.sourceName}
+                          </LangSpan>
+                          {" · "}
                           {/* A date must not split at its hyphens (2026- / 07-15) on a narrow card. */}
                           <span className="nowrap-run">
                             {technology.publishDate}
@@ -621,6 +629,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
                         technologyTitles[index].language
                       )}
                       summaryLang={contentLangAttr(locale, summary.language)}
+                      locale={locale}
                     />
                   );
                 })}
@@ -672,6 +681,7 @@ export function ContentDetailPage<TItem extends DetailItem>({
                     linkText={kindCopy.related.linkText}
                     titleLang={entryLang}
                     summaryLang={entryLang}
+                    locale={locale}
                   />
                 ))}
               </RelatedSection>

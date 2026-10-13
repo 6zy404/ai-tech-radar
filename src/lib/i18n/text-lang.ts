@@ -14,3 +14,13 @@ export function contentLangAttr(
 ): string | undefined {
   return locale === "en" && textLanguage === "zh" ? "zh-CN" : undefined;
 }
+
+const chineseCharacters = /[\u3400-\u9fff]/;
+
+/**
+ * For a name whose language is not recorded — a source or publisher name such
+ * as 「量子位」 or 「InfoQ 中文」: Chinese when it contains Chinese characters.
+ */
+export function nameLangAttr(locale: Locale, name: string): string | undefined {
+  return contentLangAttr(locale, chineseCharacters.test(name) ? "zh" : "en");
+}

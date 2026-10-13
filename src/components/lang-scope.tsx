@@ -14,3 +14,14 @@ export function LangScope({
 }) {
   return lang ? <div lang={lang}>{children}</div> : <>{children}</>;
 }
+
+/** The inline form of `LangScope`: a `<span lang>`, or the bare text. */
+export function LangSpan({
+  lang,
+  children
+}: {
+  lang?: string;
+  children: ReactNode;
+}) {
+  return lang ? <span lang={lang}>{children}</span> : <>{children}</>;
+}
