@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T13:44:17.464Z",
+  "updatedAt": "2026-10-13T02:20:38.969Z",
   "items": {
     "candidate-rss-https-openai-com-index-introducing-gpt-live": {
       "importStatus": "converted",
@@ -3858,6 +3858,179 @@
     "candidate-rss-https-github-com-vllm-project-vllm-releases-tag-proto-v0-5-0": {
       "importStatus": "rejected",
       "reviewedAt": "2026-10-11T13:44:17.464Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502649": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.110Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-modelcontextprotocol-servers-releases-tag-v1-0-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.212Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-ollama-ollama-releases-tag-v0-40-3": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.276Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502644": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.331Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502594": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.389Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502584": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.446Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502585": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.521Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502550": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.627Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502544": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.775Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-sorobi5sjdttum95zljk-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.842Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-19-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.917Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-18-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:11.986Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-17-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.065Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-16-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.141Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-16-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.229Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-15-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.295Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-15-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.352Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-14-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.408Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-14-0": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.457Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-com-huggingface-transformers-releases-tag-v5-13-1": {
+      "importStatus": "reviewed",
+      "reviewedAt": "2026-10-13T02:20:12.512Z",
+      "blind": true
+    },
+    "candidate-rss-https-github-blog-p-99409": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.567Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-dpieqj598ydxqc8ymjso-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.641Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-hs5x7edo6pnhk367zzv3-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.692Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-d5x9bkq9aoizq5mf6ln0-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.745Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-h86bnjsbdjrbywxp4xgt-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.794Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-4hyrs8shakpahyztgq92-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.843Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-csnmcsceutwcgqhzcl7d-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.892Z",
+      "blind": true
+    },
+    "candidate-rss-https-simonwillison-net-2026-oct-12-python-3-15": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.938Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-2sngaihok808v22dl5sj-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:12.985Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-ftttlqvzjemie03iowfp-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:13.048Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502541": {
+      "importStatus": "rejected",
+      "reviewedAt": "2026-10-13T02:20:13.095Z",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502654": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-13T02:20:37.125Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "blind": true
+    },
+    "candidate-rss-https-www-qbitai-com-p-502628": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-13T02:20:38.548Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "blind": true
+    },
+    "candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article": {
+      "importStatus": "converted",
+      "reviewedAt": "2026-10-13T02:20:38.969Z",
+      "convertedTechnologyId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
       "blind": true
     }
   }

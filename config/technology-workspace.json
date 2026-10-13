@@ -1,6 +1,404 @@
 {
-  "updatedAt": "2026-10-12T07:03:50.502Z",
+  "updatedAt": "2026-10-13T02:24:50.779Z",
   "records": [
+    {
+      "id": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "slug": "codescene-agentic-refactoring-300k-c",
+      "title": {
+        "original": "AI 智能体三周重构 30 万行代码，Code Health 从 5.6 升至 10.0：代码真的变好了吗？",
+        "zh": "智能体用三周重构老游戏代码，全程靠逐帧回放验收"
+      },
+      "summary": {
+        "original": "AI 智能体三周重构 30 万行代码，Code Health 从 5.6 升至 10.0：代码真的变好了吗？",
+        "zh": "CodeScene 发布案例研究：编码智能体在三周内对《街头霸王 III：三度冲击》开源反编译项目约 30 万行 C 代码完成重构，token 成本约 4000 美元，在 726 个文件中产生 2903 次提交，改动 252055 行，Code Health 从 5.6 升至 10.0。支撑机制是 CodeHealth MCP Server 的确定性评分和逐帧比对回滚状态哈希的回放轨迹测试框架；智能体还自行积累出 22 个方案、82 条辅助说明的重构手册。"
+      },
+      "content": {
+        "original": "Imported candidate without captured body content. Use the source link for the full original text.",
+        "zh": "CodeScene 发布了一项案例研究：编码智能体在三周内重构了一个包含 30 万行 C 代码的代码库，token 成本约为 4000 美元。这项工作在 726 个文件中产生了 2903 次提交，修改了 252055 行代码，并将代码库的 Code Health 评分从 5.6 提升至 10.0。代码库来自《街头霸王 III：三度冲击》的一个开源反编译项目。\n\nCodeScene 创始人 Adam Tornhill 写道，在参与大型系统开发 30 年后，这是他第一次看到所谓的大规模超人类 AI 表现。\n\n## 两项支撑机制\n\n第一项是质量信号：CodeHealth MCP Server 为智能体提供可优化的确定性评分，并用来判断一次转换是否产生积极效果。\n\n第二项是正确性保障：一个回放轨迹测试框架逐帧比较回滚状态哈希，从而在每次更改后检查系统行为。\n\n## 智能体自己写出的重构手册\n\n更有新意的成果是智能体在工作过程中构建的内容。它们没有应用固定的重构目录，而是逐步积累出一套重构手册，最终形成 22 个方案和 82 条辅助说明，其中既有 Extract Function、Guard Clauses 等常见转换，也有针对该代码库的特定方案：\n\n- Shared Index Range：处理仅起止范围不同的重复循环\n- Action Parameter：处理主要区别在于所调用函数的重复控制结构\n- Uniform Step Table：将异构调用转换为表驱动分派\n\n失败的尝试也被记录下来，包括那些使 Code Health 评分下降的转换。\n\n## 模型选择\n\n团队最终决定使用 Claude Opus 完成大部分工作，并报告称，在识别和记录逐渐形成的模式方面，搭配 Opus 的 Claude Code 明显优于搭配 Sol 的 Codex。使用较小模型执行任务时，文件的评分经常停滞，看起来像是到达了一个无法进一步突破的局部最优点。\n\n## 从业者的分歧\n\nLinkedIn 上的反应明显分歧，争议不在于这件事是否发生，而在于结果证明了什么。\n\nPaolo Perrone 认为应该认真看待：大多数重构成果建立在测试套件全部通过的基础上，但这只能说明测试没有失败；针对格斗游戏进行轨迹回放，标准高得多。Omda Response 首席技术官 Mats Iremark 表示自己也做过类似事情，并称 CodeScene MCP 与当前智能体的组合几乎像作弊。\n\n质疑者主要关注适用范围。技术负责人 Konrad Otrębski 询问更改是否已合并、是一次巨大合并还是多次合并，以及这是否只是在开源代码上的实验。参与这项工作的工程师、NeoSee 首席技术官 Daniel Webb 回应称，更改通过 54 个拉取请求合并到了一个分支版本的 main 分支中。Otrębski 随后提出更高标准：真正的检验是把这种重构服务提供给 Grafana 这样的知名开源项目，并把合并到 master 分支作为完成的定义。\n\nTracy Bannon 反对把结果描述为完美。Denis Baltor 质疑智能体方案本身：DRY 关注知识和意图的重复，而不是完全相同的代码行，把仅范围不同的循环视为重复可能混淆了两者。Asko Nõmm 提出方法论问题：Claude Code 和 Codex 分别针对自家模型调优，难以判断结果衡量的是模型还是测试框架，成本也会同样变化；架构未被衡量，代码看起来健康，根本问题可能日后才暴露。\n\n## 尚未解答的问题\n\nMarc Bouvier 询问非功能行为是否改善，因为帧率、内存使用量和输入延迟对游戏都很重要，Webb 表示他们正在引入一位性能专家。有人问测试框架是否捕获细微的帧时序回归，他回答说可能没有明确答案，因为该框架作为提交前钩子运行，有些故障在被观察到之前就已修复。对于差异规模，他同样直接：如果不熟悉代码且不再逐行审查，一次差异可以有多大？他没有给出结论。\n\n回放轨迹测试框架之所以有效，是因为反编译游戏能提供确定性的逐帧回放。大多数遗留系统不存在与之相当的判定机制，而这正是重构它们存在风险的原因。Tornhill 写道，自动化测试和等价性检查是绝对必要的保障措施，这恰好把负担落在不健康代码库往往最缺少的东西上。\n\n团队的选择过程也说明了这一点。Webb 表示他们曾考虑使用他参与过的 Gov.UK 海事许可代码库，但它过于健康，不适合后续研究；选择这款游戏的部分原因是团队自己也玩这款游戏，因此也是它的用户。\n\n## 下一步\n\n此次改进产生了同一系统的两个功能等价版本，一个 Code Health 评分为 5.6，另一个为 10.0。团队将与隆德大学合作开展研究，让学生使用前沿模型分别在两个版本中实现功能，并比较成本和质量。\n\n另外两个引人注目的数字属于未来研究，而不是此次案例研究：CodeScene 预计此次改进可使 AI 引入的缺陷减少约 70%、token 浪费减少约 45%，但这两个数字是根据其早期研究推算得出的，并非在本次研究中实际测得。4000 美元的成本和三周的用时才是实际测量结果。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-10-12",
+      "sourceName": "InfoQ 中文",
+      "sourceUrl": "https://www.infoq.cn/article/Qk7CzmLpDCvfYpAiU6Tf?utm_source=rss&utm_medium=article",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "CodeScene",
+      "publisherType": "startup",
+      "importanceLevel": "signal",
+      "status": "published",
+      "tags": [
+        "tag-coding-agents",
+        "tag-workflow",
+        "tag-benchmarks",
+        "tag-agent-infra"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-execution-based-eval",
+        "knowledge-evaluation-loops",
+        "knowledge-ws-e251051e",
+        "knowledge-agent-sandboxing"
+      ],
+      "relatedSkillIds": [
+        "skill-coding-agent-acceptance",
+        "skill-agent-design",
+        "skill-agent-code-review",
+        "skill-ws-f741f122"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "watch",
+        "priorityScore": 93,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为一般信号，归入值得跟踪。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-13T02:24:50.779Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这条信号展示了一条可复制的路径：用确定性质量评分和逐帧行为比对作为智能体的验收信号，让大规模重构从「跑测试」升级到「行为等价」。但它同时暴露了前提条件——反编译游戏能逐帧回放，而多数遗留系统没有等价判定机制。工程团队应该关注的是，自己的代码库能不能造出这种判定信号。",
+      "whoShouldCare": [
+        "正在评估用智能体做大规模重构或技术债清理的工程团队",
+        "维护遗留系统、缺少自动化测试的架构师和技术负责人",
+        "为编码智能体设计验收标准和质量门禁的平台工程师",
+        "研究 AI 辅助软件维护效果的研发效能团队"
+      ],
+      "technicalContext": "Code Health 是 CodeScene 提出的代码可维护性评分，把复杂度、重复、耦合等结构问题折算成一个可比较的数值，便于智能体朝确定目标优化。回放轨迹测试是确定性系统里常见的手段：在每次更改后重放固定输入序列，逐帧比较状态哈希，任何行为偏移都会导致哈希不一致。MCP 是让模型调用外部工具和数据的协议，这里用来把质量评分暴露给智能体。",
+      "impactAreas": [
+        "AI 辅助重构",
+        "代码质量门禁",
+        "智能体验收信号",
+        "遗留系统维护"
+      ],
+      "learningPath": [
+        "先读 CodeScene 的原始案例研究，弄清 Code Health 评分口径和回放轨迹测试框架各自衡量什么，避免把评分提升直接等同于质量提升。",
+        "再对照自己团队的代码库，问一个具体问题：是否存在一种确定性、可自动比对的行为判定，能在每次改动后回答「行为没变」。",
+        "然后阅读关于「完成判定与验收信号」的背景知识，理解为什么长时程智能体最难的不是执行而是知道何时算完成。",
+        "最后选一个中等规模的重构任务做小范围试点，记录评测信号是否真的能拦住一次错误改动，再决定是否扩大。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-execution-based-eval": "这条信号里的正确性保障不靠静态检查，而靠重放固定输入并比较状态哈希，属于基于执行的评测方法。",
+        "knowledge-evaluation-loops": "智能体每次转换后用确定性评分和行为比对判断是否变好，这个循环转起来才让大规模重构可持续。",
+        "knowledge-ws-e251051e": "回放轨迹测试提供了可验证的完成信号，这正是长时程智能体能否被托付大规模任务的关键。",
+        "knowledge-agent-sandboxing": "高频自动提交要求有可靠的分支隔离和回滚机制，否则一次错误改动可能污染整个代码库。"
+      },
+      "relatedSkillExplanations": {
+        "skill-coding-agent-acceptance": "把 30 万行重构交给智能体之前，先定义 Code Health 评分和行为比对作为判卷标准，这是任务能否托付的前提。",
+        "skill-agent-design": "案例中的两个机制分别承担质量优化信号和正确性护栏，是分层设计智能体流程的实例。",
+        "skill-agent-code-review": "当差异规模大到无法逐行审查时，审查应转向影响半径判断，案例里对差异规模的追问正指向这一点。",
+        "skill-ws-f741f122": "案例记录了失败的转换尝试，但更大规模的智能体重构需要可查询的运维闭环才能复用经验。"
+      },
+      "followUpQuestions": [
+        "同样的方法迁移到没有逐帧回放能力的业务系统时，什么可以替代状态哈希作为行为等价的判定信号？",
+        "54 个拉取请求中，有多少改动经过人类逐行审查，有多少只依赖自动化验收？",
+        "Code Health 从 5.6 到 10.0 之间，架构层面的问题是否也被解决，还是只被移到了评分看不见的地方？",
+        "团队报告的 4000 美元只是 token 成本，人工审查、测试框架搭建和失败尝试的工程时间成本是多少？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "createdAt": "2026-10-13T02:20:38.964Z",
+      "updatedAt": "2026-10-13T02:24:50.779Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article.",
+        "2026-10-13 AI 起草：deepseek-chat · candidate-draft-v1 · 已读原文网页 · 8194 tokens · 16 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：案例研究的原始报告未在本次抓取中获取全文，正文基于 InfoQ 的转述文章撰写，具体实验设置细节需要编辑核对原文。",
+        "AI 起草提示：模型注明：CodeScene 预计的缺陷减少约 70%、token 浪费减少约 45% 是根据早期研究推算，并非本次实测，写稿时需保留这一区分。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v1",
+        "generatedAt": "2026-10-13T02:20:38.654Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 5475,
+          "completionTokens": 2719,
+          "totalTokens": 8194
+        },
+        "latencyMs": 16002,
+        "warnings": [
+          "模型注明：案例研究的原始报告未在本次抓取中获取全文，正文基于 InfoQ 的转述文章撰写，具体实验设置细节需要编辑核对原文。",
+          "模型注明：CodeScene 预计的缺陷减少约 70%、token 浪费减少约 45% 是根据早期研究推算，并非本次实测，写稿时需保留这一区分。"
+        ]
+      },
+      "relatedTechnologyIds": []
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "slug": "vista-visual-harness",
+      "title": {
+        "original": "何恺明团队发布多模态Harness框架",
+        "zh": "何恺明团队 VISTA：让模型回看原始画面，打满 ARC-AGI-3"
+      },
+      "summary": {
+        "original": "多模态模型的视觉原生Harness，来了！",
+        "zh": "MIT 何恺明团队在论文《VISTA: A Visual Harness for Reasoning in an Interactive World》中提出视觉原生 Harness。它把环境返回的每一帧原样存在上下文之外，模型推理时可按需调回、放大、对比，无需重新训练基础模型。搭配 Claude Opus 5.0，ARC-AGI-3 全部 25 个公开游戏通关，相对人类动作效率得分 100，动作数比首次游玩的人类基线少 57.4%。"
+      },
+      "content": {
+        "original": "多模态模型的视觉原生Harness，来了！",
+        "zh": "## 发生了什么\n\n何恺明团队在论文《VISTA: A Visual Harness for Reasoning in an Interactive World》中提出了一套视觉原生的 Harness——VISTA。它让现成的多模态模型直接观察环境、保存原始画面，并在推理时随时回看、放大和检查细节，不需要从头训练模型。\n\n研究把问题定义得很清楚：如何在不额外训练基础模型的前提下，让智能体在推理需要时，重新检查过去看到的视觉信息。\n\n## 为什么文字 Harness 不够\n\n去年 11 月，Anthropic 曾以长时间编程任务为例介绍 Harness 如何帮模型跨越多个上下文窗口：用任务清单记录未完成事项，用进度文件和代码保存已完成的工作。这套以文字和代码保存状态的机制，在一定程度上推动了这一波 Agent 能力的爆发。\n\n但进入真实视觉环境后，文字记忆就不够了。模型不仅需要记住物体的位置、朝向，还要理解每次动作前后环境发生了什么变化；而模型第一次看到一张图时，未必知道哪个细节后面会变得重要。这些信息很难提前用一份文字笔记完整记录下来。\n\n在 ARC-AGI-3 这类交互式视觉推理基准中，一种已有思路是先把画面转成数字文本网格，再让模型写程序模拟环境规则。环境越复杂，外观、空间关系和动态变化就越难被完整转化成文字和代码；随着交互历史变长，早期画面也会被移出上下文或被文字摘要替代。\n\n## VISTA 的三个组件\n\n1. 视觉观测：把环境画面提供给模型。在 ARC-AGI-3 实验中，VISTA 将官方 64×64 画面放大为 512×512 的 PNG，保留颜色、外观和空间关系。\n2. 无损视觉记忆：每次执行动作后完整保存环境返回的所有画面，包括动作过程中的动画中间帧，并按回合号和帧号建立索引。模型不必提前判断哪些信息值得记住。\n3. 主动视觉检查：通过 inspect 工具，模型可以指定某个历史回合调出画面，裁剪、放大局部区域，也可以一次调出多帧对比动作前后的变化。\n\n研究把这种机制称为对交互历史的显式注意力：模型根据正在思考的问题，选择哪些视觉信息重新进入上下文。\n\n## 执行流程与上下文管理\n\n每个回合开始时，模型先观察当前画面和可用动作，结合此前经验判断环境状态并提出行动假设。信息不足时调用工具回看历史画面、放大局部，甚至读取具体像素。找到证据后先预测操作会带来什么变化，动作执行完再把实际结果与预测对比，修正对规则的理解。\n\nVISTA 还引入了两份文字笔记：`GUIDE.md` 记录关卡之间可复用的规则和经验，`WORKING.md` 记录当前关卡的状态、进度和后续计划。上下文接近上限时，模型先整理交接摘要，再进入新的上下文窗口，文字笔记、动作历史和视觉档案都保留。\n\n值得注意的是，VISTA 完整保存历史画面，但默认每次只向模型展示最后一帧，中间帧存在视觉档案里按需调取，避免大量历史图片持续占用上下文。\n\n## 评测结果\n\n搭配 VISTA，Claude Opus 5.0 完成了 ARC-AGI-3 全部 25 个公开游戏，相对人类动作效率得分达到满分 100，所用游戏动作数比首次游玩的人类基线少 57.4%。换成 GPT-5.6 Sol，同样全部通关，得分 99。\n\n在 GameWorld 的 170 项任务中，用相同的 GPT-5.6 Sol，VISTA 相比官方基础框架把成功率从 40.0% 提高到 63.3%。在 AI GameStore 的 10 个游戏中，综合得分从 47.3 升至 140.3（人类中位数归一化为 100）。在 BabyVision 选取的 39 道迷宫与连线题上，准确率从 41.0% 提高到 63.2%——这组任务只有静态图片，模型也能通过放大局部、检查像素改善判断。\n\nVISTA 没有为此额外训练新模型。环境理解、行动规划和推理仍由现成的多模态模型完成，Harness 负责执行工具调用、保存视觉历史，并在需要时提供证据。团队将更接近物理世界的具身任务列为后续研究方向。\n\n## 作者\n\n论文三位共同第一作者为 Qiushi Han、胡珂雅和 Linlu Qiu，另外两位作者为 Cathy Wu 和何恺明。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-10-11",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/10/502628.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "MIT",
+      "publisherType": "research-lab",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-multimodal",
+        "tag-agent-infra",
+        "tag-ai-agents",
+        "tag-benchmarks"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-ws-a28a8a56",
+        "knowledge-evaluation-loops",
+        "knowledge-tool-use",
+        "knowledge-model-sizing"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-model-evaluation",
+        "skill-tool-integration"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-13T02:23:11.393Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "过去一年 Agent 能力的提升主要来自以文字和代码保存状态的 Harness，而视觉信息的保存与回看一直是空白。VISTA 证明，不动模型权重、只改模型获取和使用视觉信息的方式，就能在交互式视觉推理上拿到大幅提升。对做多模态 Agent 的团队来说，这是一条可直接借用的工程路径，而不是要等下一代模型。",
+      "whoShouldCare": [
+        "正在做多模态或游戏类 Agent、苦于长交互历史里视觉信息丢失的团队",
+        "需要评估是否值得自建 Agent Harness 与上下文管理层的工程负责人",
+        "关注 ARC-AGI-3 等交互式视觉推理基准的评测与研究人员",
+        "做具身、机器人或浏览器自动化，需要让模型复查历史画面的开发者"
+      ],
+      "technicalContext": "Harness 指包在模型外面、负责组织上下文、工具调用与任务状态的一层脚手架，Anthropic 曾用它解释模型如何跨上下文窗口持续推进长任务。ARC-AGI-3 是交互式视觉推理基准，不预先提供游戏规则和目标，智能体要靠观察和行动自行摸索通关，动作效率是其计分维度之一。VISTA 的关键机制是把原始帧存在上下文之外，用检索式回看替代把图片全塞进上下文。",
+      "impactAreas": [
+        "多模态智能体",
+        "上下文管理",
+        "交互式推理评测",
+        "工具调用"
+      ],
+      "learningPath": [
+        "先读论文里 VISTA 三组件（视觉观测、无损视觉记忆、主动视觉检查）的定义，弄清它保存的是什么、什么时候调回上下文。",
+        "再想清楚 ARC-AGI-3 为什么不能用文字网格替代：读它对物体外观、空间关系与动态变化的讨论，理解视觉证据的不可压缩部分。",
+        "然后对照 Anthropic 关于 Harness 的公开说明，比较文字笔记与视觉档案在长任务里各承担什么职责。",
+        "最后在自己的任务上做小规模复现，先固定模型和帧存储方式，只改是否开启主动回看，看成功率差多少。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-ws-a28a8a56": "上下文窗口不是记忆。VISTA 用「视觉档案 + 文字笔记」两层结构，把历史画面保存在窗口之外，只在需要时取回，是这条知识的一个具体工程实例。",
+        "knowledge-evaluation-loops": "VISTA 的结论来自与官方基础框架在多个基准上的对照，理解评估闭环有助于判断这些百分比提升说明什么、哪些条件变了。",
+        "knowledge-tool-use": "VISTA 把「回看」实现为一个工具调用，模型先推理再决定调哪一帧，是工具使用与函数调用在视觉场景下的延伸。",
+        "knowledge-model-sizing": "这条信号说明当模型能力已经够用、瓶颈在信息组织方式时，换更大的模型可能不是第一优先级。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "设计多步骤智能体时，哪些状态留在上下文、哪些外置、交接点放哪里，VISTA 给出了一套可参照的分层方案。",
+        "skill-ws-f741f122": "把历史画面索引化保存，本质上是在为智能体建立可回查的轨迹，便于事后归因它为什么这么判断。",
+        "skill-model-evaluation": "VISTA 的提升横跨四个基准，判断哪一项与自己的任务相关，要看每个数字的评测口径和基线设置。",
+        "skill-tool-integration": "把回看能力做成一组稳定的工具接口，而不是让模型直接操作原始数据，是工具集成里值得借鉴的边界划分。"
+      },
+      "followUpQuestions": [
+        "如果换成我手里的多模态模型和自有任务，默认只展示最后一帧的策略是否还成立？",
+        "视觉档案按回合号和帧号索引，长时间任务下存储和检索成本会涨到什么程度？",
+        "ARC-AGI-3 的动作效率得分与成功率分别说明什么，我该用哪个作为验收指标？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-502628",
+      "createdAt": "2026-10-13T02:20:38.542Z",
+      "updatedAt": "2026-10-13T02:23:11.393Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-502628.",
+        "2026-10-13 AI 起草：deepseek-chat · candidate-draft-v1 · 已读原文网页 · 9319 tokens · 15.6 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：原文未给出 VISTA 的代码或权重开源状态与许可条款，需核对论文原文。",
+        "AI 起草提示：模型注明：原文未说明评测中上下文窗口管理、帧存储与检索的具体成本，无法评估真实部署开销。",
+        "AI 起草提示：模型注明：ARC-AGI-3 与 GameWorld 等基准的提升以对比官方基础框架呈现，基础框架的具体配置原文未展开。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v1",
+        "generatedAt": "2026-10-13T02:20:38.251Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 6947,
+          "completionTokens": 2372,
+          "totalTokens": 9319
+        },
+        "latencyMs": 15604,
+        "warnings": [
+          "模型注明：原文未给出 VISTA 的代码或权重开源状态与许可条款，需核对论文原文。",
+          "模型注明：原文未说明评测中上下文窗口管理、帧存储与检索的具体成本，无法评估真实部署开销。",
+          "模型注明：ARC-AGI-3 与 GameWorld 等基准的提升以对比官方基础框架呈现，基础框架的具体配置原文未展开。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502654"
+      ]
+    },
+    {
+      "id": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "slug": "memento-3-arc-agi-3-rsi",
+      "title": {
+        "original": "华为AI靠RSI通关25款游戏！操作次数比人类少56%",
+        "zh": "华为 Memento 3：把规则写成代码，打满 ARC-AGI-3"
+      },
+      "summary": {
+        "original": "游戏打到21:0，AI甚至不用再调用大模型了",
+        "zh": "华为诺亚方舟实验室联合 UCL 等团队发布 Memento 3 智能体，在 ARC-AGI-3 公开集的 25 款游戏、183 个关卡上全部通关，拿下满分 100 的 RHAE 成绩，总操作次数 7518 次，比人类的 17135 次少约 56%。系统以 Claude Opus 5 为底模，全程不更新权重、不做游戏微调，靠「代码即模型」的规则手册与可执行世界模型递归自我改进。"
+      },
+      "content": {
+        "original": "游戏打到21:0，AI甚至不用再调用大模型了",
+        "zh": "## 发生了什么\n\n华为诺亚方舟实验室联合 UCL 等团队发布了一个叫 Memento 3 的 AI 智能体系统，把 ARC-AGI-3 公开集里的 25 款游戏、183 个关卡全部打通。\n\n它不是靠无脑试错硬闯。人类完成同样一套关卡需要 17135 次操作，Memento 3 只用了 7518 次，比人类少约 56%，最终拿到满分 100 的 RHAE 成绩（Relative Human Action Efficiency，相对人类行动效率）。\n\n系统以 Claude Opus 5 为底模，全程没有更新模型权重，也没有针对游戏做微调。作为对比，Claude Opus 5 在 ARC Prize 官方标准测试框架下，平均 RHAE 只有约 40.7 分。同样的底模，换一套智能体系统，成绩相差 59.3 分。\n\n## 这些游戏难在哪\n\nARC-AGI-3 与以往 ARC 系列不同，不再只是出题解题，而是直接把 AI 扔进陌生的游戏世界：规则要自己猜，目标要自己找，操作会产生什么效果要自己试。\n\n25 款公开游戏共 183 个关卡，画面大多由简单像素、方块、颜色和图形组成，但难点不在操作，而在于不知道这个世界怎么运转。后面的关卡还可能引入新规则，推翻之前摸出的经验。\n\n在华为之前，已有多支团队尝试：普林斯顿大学的 Continual Harness 通关 3 款，20.5 分；英伟达研究人员参与开发的 DreamTeam 通关 6 款，38.1 分；OPINE-World 得到 78.4 分，NOOA 得到 85.1 分；独立开发者 Sergey Rodionov 的 baseline1 打通全部 25 款，拿到 99 分。Memento 3 补上了最后 1 分，并把总操作次数压到 7518 次，比 baseline1 的 8347 次又少 829 次。\n\n## 核心方法：代码即模型\n\nMemento 3 的核心方法叫 Code as Model（代码即模型）。它在玩游戏的过程中给自己准备两样东西：\n\n- Rulebook（规则手册）：一份 Markdown 文档，记录摸索出的规律，比如什么操作触发什么效果、怎样通关、还有哪些规则没搞明白。\n- Executable World Model（可执行世界模型）：把总结出的规则写成可运行的 Python 代码，相当于自己搓了一个简化版游戏模拟器。\n\n有了这两样东西，AI 可以先在自己搭建的模拟器里推演不同路线，再决定下一步怎么走。如果一开始理解的规则就是错的，它会修改规则手册，对应的 Python 代码也跟着更新，然后重新模拟此前的操作，逐格对比 64×64 的游戏画面，确认代码能复现真实结果；对不上就继续改。\n\n论文举了一个例子：AI 起初以为踩上特殊地板后，角色携带的图案会根据进入方向发生镜像翻转；实际试过才发现是顺时针旋转 90 度，且与进入方向无关。\n\n在符号解密游戏 tr87 中，AI 最初分不清符号朝向是否影响含义，后来发现不同方向的符号可能代表同一个字母；随着新关卡出现，它又推翻了之前对游标位置的理解。整场游戏下来，同一份规则手册迭代了 11 个版本。研究团队还引入了 Git 版本管理，每次修改都留下记录，发现改错可以回溯甚至恢复。\n\n## 对照实验与 Pong 测试\n\n研究团队在三款游戏中做了对照实验：保留规则手册时，AI 总共用了 617 次操作；去掉规则手册、只保留代码世界模型，则需要 677 次。相当于有了攻略，操作次数减少约 9%，智能体执行轮次减少约 18%。\n\n他们还让 AI 同时维护两套世界模型，共享操作记录，但各自推演不同的规则假设。在游戏 wa30 中，单世界模型需要 899 次操作通关，双世界模型降到 597 次，操作次数减少约 34%。这一提升目前只在 wa30 上得到验证，还不能直接推广到其他游戏。\n\n团队又把 Memento 3 拉去挑战 Atari 的 Pong。AI 边打边改反弹公式，等控制策略成熟后，研究团队让程序独立上场，不再调用 Claude Opus 5，也不再更新规则。三次不同开局，全部打出 21:0。\n\n作为对比，如果不使用世界模型，只让大模型根据眼前画面决定下一步操作，最终得分只有 -19，与随机乱按的 -20.7 差不多。论文数据显示，Memento 3 大约只用了 9500 帧游戏画面就学出了这套控制策略，而部分传统强化学习方法往往需要数十万甚至上亿帧训练数据。\n\n## 代价与边界\n\nMemento 3 背后的底模是开启 Extra-High 推理强度的 Claude Opus 5，探索、生成代码和验证的过程都要消耗不少 token 和算力。目前实验主要针对规则相对明确的游戏环境，换成更复杂多变的现实世界，这套方法是否奏效仍有待验证。\n\n论文指出，递归自我改进（RSI）不一定要动模型底层权重：通过构建可检查、可执行、可回滚的外部世界模型，冻结参数的通用大模型同样能在陌生领域里自我迭代。"
+      },
+      "type": "workflow",
+      "publishDate": "2026-10-12",
+      "sourceName": "量子位",
+      "sourceUrl": "https://www.qbitai.com/2026/10/502654.html",
+      "sourceLanguage": "zh",
+      "translationStatus": "not_needed",
+      "publisherName": "华为诺亚方舟实验室",
+      "publisherType": "research-lab",
+      "importanceLevel": "important",
+      "status": "published",
+      "tags": [
+        "tag-ai-agents",
+        "tag-agent-infra",
+        "tag-benchmarks"
+      ],
+      "relatedKnowledgeIds": [
+        "knowledge-tool-use",
+        "knowledge-evaluation-loops",
+        "knowledge-agent-sandboxing",
+        "knowledge-execution-based-eval"
+      ],
+      "relatedSkillIds": [
+        "skill-agent-design",
+        "skill-ws-f741f122",
+        "skill-model-evaluation"
+      ],
+      "sourceReferences": [],
+      "priority": {
+        "priorityLevel": "high_priority",
+        "priorityScore": 100,
+        "priorityReasons": [
+          "标题完整。",
+          "摘要完整。",
+          "正文完整。",
+          "已配置标签。",
+          "已关联背景知识。",
+          "已关联技能。",
+          "发布方明确。",
+          "信号发布时间很近。",
+          "编辑标记为重要，且发布于 30 天内，归入立即关注。",
+          "发布方类型属于强技术信号来源。"
+        ],
+        "priorityWarnings": [],
+        "rankingUpdatedAt": "2026-10-13T02:23:11.316Z",
+        "rankingSource": "rule_based"
+      },
+      "whyItMatters": "这条信号给出了一种不动模型权重也能持续提升智能体表现的工程路径：把对环境的理解写成可执行、可回滚的代码，再用它替代每一步都调用大模型。对需要长时程探索、规则未知的任务，这种「代码即模型」的结构比单纯堆推理算力更容易检查和复用。ARC-AGI-3 的公开成绩也提供了一个可与既有方案横向对比的基准。",
+      "whoShouldCare": [
+        "在做长时程、规则未知任务的智能体团队",
+        "需要控制 token 成本与推理调用的工程负责人",
+        "关注 ARC-AGI-3 等新评测基准的研究与评测人员",
+        "探索用代码作为世界模型表达形式的架构师"
+      ],
+      "technicalContext": "ARC-AGI-3 把 AI 放进规则未知的游戏环境，考验探索与规则归纳能力，RHAE 是相对人类操作效率的归一化指标。Memento 3 的思路属于基于世界模型的智能体：先归纳环境规则，再把规则写成可执行代码，用模拟推演替代真实试错，并在预测与观测不符时修正模型。递归自我改进（RSI）在这里指模型权重冻结、通过外部规则与代码迭代来提升表现。",
+      "impactAreas": [
+        "智能体",
+        "评测基准",
+        "推理成本",
+        "世界模型"
+      ],
+      "learningPath": [
+        "先读 ARC-AGI-3 的公开说明，弄清 RHAE 是怎么算的，以及它和普通通关率的区别。",
+        "再看 Memento 3 论文中 Rulebook 与 Executable World Model 的更新流程，弄清规则改错时如何验证与回滚。",
+        "对照 baseline1、NOOA 等方案的成绩与做法，判断这套方法的增益来自哪里。",
+        "最后在自己的一个规则未知的小任务上，试着让智能体先写规则手册再行动，观察操作次数是否下降。"
+      ],
+      "relatedKnowledgeExplanations": {
+        "knowledge-tool-use": "把推理与行动分开、分别验证的思路，正是这条信号中「策略成熟后不再调用大模型」的基础。",
+        "knowledge-evaluation-loops": "每次修改规则后重新模拟并比对观测，是评估闭环在智能体内部的实例。",
+        "knowledge-agent-sandboxing": "让智能体自行写代码并执行，隔离强度与可回滚性直接决定这套方法能不能安全落地。",
+        "knowledge-execution-based-eval": "基于执行的评测口径，解释了为什么 7518 次操作比单纯通关率更能说明问题。"
+      },
+      "relatedSkillExplanations": {
+        "skill-agent-design": "设计多步骤智能体流程时，可以借鉴它把规则维护与策略执行分层的方式。",
+        "skill-ws-f741f122": "长时程智能体的失败归因，需要这类可查询的版本化轨迹记录。",
+        "skill-model-evaluation": "把「什么算更好」写成可重跑的操作次数对比，是评估落地的常见做法。"
+      },
+      "followUpQuestions": [
+        "规则手册与代码世界模型的维护成本，在更长任务上会不会超过它省下的操作？",
+        "双世界模型的 34% 提升只在 wa30 上验证，换到别的游戏或任务上还剩多少？",
+        "如果底模换成更弱或更便宜的模型，这套外部世界模型还能撑住多少性能？"
+      ],
+      "readingDifficulty": "intermediate",
+      "intelligenceStatus": "draft",
+      "sourceCandidateId": "candidate-rss-https-www-qbitai-com-p-502654",
+      "createdAt": "2026-10-13T02:20:37.117Z",
+      "updatedAt": "2026-10-13T02:23:11.316Z",
+      "editorialNotes": [
+        "Generated from imported candidate candidate-rss-https-www-qbitai-com-p-502654.",
+        "2026-10-13 AI 起草：deepseek-chat · candidate-draft-v1 · 已读原文网页 · 9353 tokens · 14.4 秒。发布前核对数字、发布方、类型与关联。",
+        "AI 起草提示：模型注明：原文提到论文地址为 arXiv:2610.11794，正式发表信息与作者名单未在工作台核对。",
+        "AI 起草提示：模型注明：双世界模型的操作次数下降只在 wa30 单款游戏验证，原文明确说不能直接推广。",
+        "AI 起草提示：模型注明：原文指出该方法依赖开启 Extra-High 推理强度的 Claude Opus 5，token 与算力成本未给出具体数字。"
+      ],
+      "aiDraft": {
+        "generationMode": "llm_assisted",
+        "providerName": "openai_compatible",
+        "modelName": "deepseek-chat",
+        "promptVersion": "candidate-draft-v1",
+        "generatedAt": "2026-10-13T02:20:37.103Z",
+        "sourceTextOrigin": "page",
+        "tokenUsage": {
+          "promptTokens": 6744,
+          "completionTokens": 2609,
+          "totalTokens": 9353
+        },
+        "latencyMs": 14448,
+        "warnings": [
+          "模型注明：原文提到论文地址为 arXiv:2610.11794，正式发表信息与作者名单未在工作台核对。",
+          "模型注明：双世界模型的操作次数下降只在 wa30 单款游戏验证，原文明确说不能直接推广。",
+          "模型注明：原文指出该方法依赖开启 Extra-High 推理强度的 Claude Opus 5，token 与算力成本未给出具体数字。"
+        ]
+      },
+      "relatedTechnologyIds": [
+        "draft-candidate-rss-https-www-qbitai-com-p-502628"
+      ]
+    },
     {
       "id": "draft-candidate-rss-https-www-qbitai-com-p-502364",
       "slug": "chunked-kv-cache-phase-sensitivity",

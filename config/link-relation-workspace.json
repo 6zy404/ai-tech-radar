@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T07:03:50.502Z",
+  "updatedAt": "2026-10-13T02:21:35.364Z",
   "relations": [
     {
       "id": "rel-ws-5740623d",
@@ -10354,6 +10354,222 @@
       "toType": "knowledge",
       "relationType": "explains",
       "note": "混合专家模型的各个专家可以用不同精度存，精度不一致是端侧常见的坑。"
+    },
+    {
+      "id": "rel-ws-770c44d6",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "Memento 3 把规则写成可执行代码，再交给程序独立执行。"
+    },
+    {
+      "id": "rel-ws-bef3faef",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "系统逐格对比 64×64 画面，确认代码能复现真实结果。"
+    },
+    {
+      "id": "rel-ws-51e743ce",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "knowledge-agent-sandboxing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "AI 自己生成并运行 Python 世界模型，需要执行隔离。"
+    },
+    {
+      "id": "rel-ws-44511b10",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "ARC-AGI-3 用操作次数与 RHAE 衡量在真实环境中的表现。"
+    },
+    {
+      "id": "rel-ws-64318c40",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "Memento 3 展示了探索、归纳、推演、独立执行的分层设计。"
+    },
+    {
+      "id": "rel-ws-5d66b5f6",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "规则手册迭代 11 个版本并用 Git 记录，便于回溯。"
+    },
+    {
+      "id": "rel-ws-79389d25",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "对照实验比较保留与去掉规则手册时的操作次数。"
+    },
+    {
+      "id": "rel-ws-1fed3c08",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "knowledge-ws-a28a8a56",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "VISTA 把原始帧存在上下文之外按需调回，正是长时程记忆分层的一种实现"
+    },
+    {
+      "id": "rel-ws-e8048b67",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "VISTA 在 ARC-AGI-3 等基准上对比基础框架，动作效率得分 100 是评测结果"
+    },
+    {
+      "id": "rel-ws-1bf46d24",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "knowledge-tool-use",
+      "toType": "knowledge",
+      "relationType": "uses",
+      "note": "inspect 工具让模型主动调取、裁剪、放大历史画面"
+    },
+    {
+      "id": "rel-ws-c970d19d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "knowledge-model-sizing",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "VISTA 不训练新模型，能力提升全部来自 Harness 层"
+    },
+    {
+      "id": "rel-ws-bd37dc83",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "VISTA 是围绕视觉记忆设计智能体脚手架的一个完整样例"
+    },
+    {
+      "id": "rel-ws-8fd2ca04",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "每次动作后保存帧并可按回合回看，是行为轨迹可查询的一种做法"
+    },
+    {
+      "id": "rel-ws-ca05c2f9",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "skill-model-evaluation",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "多个基准上的成功率与得分变化，需要先确认口径可比"
+    },
+    {
+      "id": "rel-ws-6497079d",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "fromType": "technology",
+      "toId": "skill-tool-integration",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "inspect 工具的裁剪、放大、多帧对比接口，是工具层的具体设计"
+    },
+    {
+      "id": "rel-ws-5d608b5f",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-execution-based-eval",
+      "toType": "knowledge",
+      "relationType": "supports",
+      "note": "回放轨迹测试框架逐帧比对状态哈希，正是以执行结果判定正确性的思路"
+    },
+    {
+      "id": "rel-ws-9b85e79c",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-evaluation-loops",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "Code Health 评分与回放测试构成定义预期、观察、收紧的循环"
+    },
+    {
+      "id": "rel-ws-a252aa02",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-ws-e251051e",
+      "toType": "knowledge",
+      "relationType": "explains",
+      "note": "案例的核心难点在于让智能体知道一次重构是否真的完成且行为未变"
+    },
+    {
+      "id": "rel-ws-462b7178",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "knowledge-agent-sandboxing",
+      "toType": "knowledge",
+      "relationType": "requires",
+      "note": "智能体三周内产生 2903 次提交，隔离与回滚能力是前提"
+    },
+    {
+      "id": "rel-ws-1303ce79",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-coding-agent-acceptance",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "案例展示了如何为大规模重构任务设定可判错的验收标准"
+    },
+    {
+      "id": "rel-ws-91311cc2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-design",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "CodeHealth MCP Server 与回放测试框架的组合是一套智能体工作流设计"
+    },
+    {
+      "id": "rel-ws-ee7087c2",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-agent-code-review",
+      "toType": "skill",
+      "relationType": "supports",
+      "note": "从业者争论的焦点之一正是 54 个拉取请求中人类审查扮演什么角色"
+    },
+    {
+      "id": "rel-ws-23e90ab5",
+      "fromId": "draft-candidate-rss-https-www-infoq-cn-article-qk7czmlpdcvfypaiu6tf-utm-source-rss-amp-utm-medium-article",
+      "fromType": "technology",
+      "toId": "skill-ws-f741f122",
+      "toType": "skill",
+      "relationType": "uses",
+      "note": "三周内 2903 次提交需要轨迹追踪和失败归因才能判断智能体行为"
+    },
+    {
+      "id": "rel-ws-db6c68c9",
+      "fromId": "draft-candidate-rss-https-www-qbitai-com-p-502654",
+      "fromType": "technology",
+      "toId": "draft-candidate-rss-https-www-qbitai-com-p-502628",
+      "toType": "technology",
+      "relationType": "supports",
+      "note": "同一周、同一底模，两套外部 Harness 都把 ARC-AGI-3 公开集打到满分：一个把规则写成可执行代码，一个保存原始画面供回看。"
     }
   ]
 }
