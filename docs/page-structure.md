@@ -323,6 +323,12 @@ affected.
   - inspect masked endpoint URLs, last delivery status, and latest message
   - inspect delivery logs, HTTP response status, errors, and retry linkage
   - retry failed delivery runs
+  - a 新信号提醒 panel (`#reader-push`, 2026-10-13): subscriber count, signals
+    already pushed, per-topic subscriber counts (never an address), a
+    publish-date input and 推送新信号 (`PushWorkspaceActions`: dry-run count,
+    confirm naming how many subscribers, send, then the result with
+    failures per push service), and the recent `push_run` events; a notice
+    when the VAPID keys are not configured
   - not shown in user-facing navigation
 - `/workspace/delivery/schedules`
   - workspace-only local scheduled delivery console
@@ -379,6 +385,18 @@ Workspace deployment boundary:
   - highlights the latest published Daily Digest as the primary start point
   - highlights high-priority published technology signals; each card the
     reader has not seen before carries the same 新 stamp as the signal list
+  - after 现在最值得关注, a 和你读过的相近 row (2026-10-13,
+    `HomeRecommendSection`): up to three published signals close to the
+    reader's 已读 / 稍后读 marks, computed in the browser from the
+    recommendation data file `/signal-vectors.json`, on the same card
+    (`HomeSignalCard`, extracted from the 现在最值得关注 row) with
+    为什么推荐 in place of 为什么重要, an 80-character gist and no audience
+    chips. The heading's description reads
+    按你在本机的阅读记录计算，记录不离开浏览器。 (two no-wrap runs, so 390
+    breaks at the comma). The page carries no card data for it. Rendered
+    only once there is a recommendation, with no reserved space; it sits
+    1,844px down at 1440×900 and 7,700px at 390, so it never appears above
+    what the reader is looking at on load
   - links readers into Skills and Knowledge as understanding paths
   - links to `/digest/today`, `/technologies`, `/skills`, and `/knowledge`
   - shows a compact latest-news board (今日快讯) linking to
@@ -434,7 +452,12 @@ Workspace deployment boundary:
     deterministic Ranking v0 priority levels and date-sorted within groups;
     each matched item shows an explicit "命中关注：X" explanation line;
     guided empty states for "no follows yet" and "follows but no matches";
-    does not show internal quality, reviewer, delivery, or source data
+    does not show internal quality, reviewer, delivery, or source data.
+    The RSS block that follows the topic chips ends with
+    「有新信号时提醒我」 (`PushAlertToggle`, 2026-10-13): one line, a space
+    held while it loads; absent when the server has push off; a note
+    instead of the button where the browser has no Push API (iOS needs the
+    site added to the home screen); the off state links to /about#privacy
   - 稍后读 (`?view=saved`, `SavedSignalsContent`): the signals the reader
     marked 稍后读, most-recently-saved first; saved ids that no longer
     resolve to a published signal are dropped instead of rendered as a dead
@@ -443,7 +466,12 @@ Workspace deployment boundary:
     (`src/lib/reading-state.ts`), so the served page is identical for
     everyone. The count row ends with 导出阅读码 / 导入阅读码, and the
     empty state offers the import (2026-09-30); the result shows in one
-    `role="status"` line
+    `role="status"` line. Below the list — or below the empty state — a
+    和你读过的相近 group (2026-10-13, `SavedRecommendations`): up to four
+    `DossierTechnologyCard`s with their reason in the `matchLine` slot
+    the 我关注的 view uses for 命中关注, and the same 稍后读 / 已读 toggles,
+    so saving one moves it into the list above. Absent when there is
+    nothing to recommend
   - reading marks (P4 v0.4) apply across the 精选 / 我关注的 / 稍后读 views:
     each signal card carries a 稍后读 and a 已读 toggle
     (`SignalReadingActions`), a read card recedes (transparent surface,
@@ -821,11 +849,19 @@ Workspace deployment boundary:
     kinds), 编辑怎么挑 (five numbered steps in one card), 优先级档位 (three
     `DossierCard`s, one per band, with the rule that puts a signal there),
     快讯, 八种关系 (stamp + one sentence per relation type), AI 功能 (four
-    cards), 站点不收集什么 (a list, then a 附注 on what does leave the
-    browser). Section ids `sources`, `editing`, `priority`, `news`,
+    cards), 站点存什么、不存什么 (a list — including the local
+    recommendations and the offline copies of 稍后读 — then a 附注 on what
+    a new-signal alert subscription stores and how to delete it, then a
+    附注 on what does leave the browser; renamed from 站点不收集什么 on
+    2026-10-13). Section ids `sources`, `editing`, `priority`, `news`,
     `relations`, `ai`, `privacy`; titles through `UnbreakableTitle`
   - no runtime content and no internal fields; not in the nav — reached
     from the `/technologies` header (2026-10-12)
+- `/offline`
+  - what the service worker shows offline when the page asked for is not a
+    saved signal (2026-10-13): the user header (现在离线) and the list of
+    offline copies of 稍后读 as plain links, or an empty state saying how
+    to get them. Precached on install, noindex, not in the sitemap or nav
 - `/radar`
   - user-facing technology radar (2026-10-13): the /topics and /sources
     list skeleton's header label, lede and caption row of counts (项技术,
@@ -1028,10 +1064,31 @@ Forbidden on public pages:
 - `SignalShortcutHelp` / `SignalShortcutHint` (`signal-shortcut-help.tsx`)
   - the ? shortcut list (native modal `<dialog>` with the off switch) and
     the quiet 「快捷键 ?」 button that opens it, on the three signal-list views
+- `PwaRegistration` (`pwa-registration.tsx`)
+  - mounted once in the root layout, renders nothing: registers `/sw.js`,
+    sends the worker the 稍后读 signals as hashed keys (again on every
+    change and when a new worker takes control), and re-sends the followed
+    topics to an existing alert subscription on every follow change
+    (batched) and once per browser session
+- `PushAlertToggle` (`push-alert-toggle.tsx`) / `PwaOfflineSavedList`
+  (`pwa-offline-saved-list.tsx`)
+  - the 我关注的 view's alert switch, and the list of offline copies on
+    `/offline`, read from the worker's cache
 - `SiteSearchForm` (`site-search-form.tsx`)
   - the GET search form (`action="/search"`, `name="q"`) shared by
     `/search` and the 404 page, which gained it on 2026-09-30; works
     without JS, never autofocuses
+- `HomeSignalCard` (`home-signal-card.tsx`)
+  - the home page's signal card as plain props, shared by the
+    server-rendered 现在最值得关注 row and the browser-computed 和你读过的相近
+    row
+- `HomeRecommendSection` / `SavedRecommendations` /
+  `LocalRecommendHeading` / `useLocalRecommendations`
+  - 和你读过的相近 on the home page and the 稍后读 view; the hook fetches
+    the recommendation data file `/signal-vectors.json` once per page, only
+    when the reader has a mark, hashes the marks with `toVisitKey` and
+    scores in the browser (`src/lib/local-recommend.ts`); the heading
+    carries the privacy line
 - `VisitBaselineProvider` / `useVisitBaseline` / `NewSignalStamp`
   (`visit-baseline.tsx`)
   - the last-visit baseline for the 新 stamps: records the visit on the

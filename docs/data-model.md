@@ -956,6 +956,41 @@ Suggestions only affect `TechnologyWorkspaceRecord` after an editor clicks Apply
 
 Prompt Quality v1 adds human review metadata. Apply all marks the suggestion `accepted`; applying selected generated fields marks it `partially_accepted`; rejection records `rejectionReason` and leaves the draft unchanged. These review fields are not Ranking v0 and are not user-facing content.
 
+## PushSubscriptionRecord (2026-10-13)
+
+One reader's 「有新信号时提醒我」 subscription
+(`src/lib/push-subscriptions.ts`). The only per-reader record the server
+keeps, created only when a reader turns alerts on. Stored with the
+pushed-signal list in `config/push-subscriptions.json` as
+`{ updatedAt, subscriptions: PushSubscriptionRecord[], pushedTechnologyIds: string[] }`
+(git-ignored — the endpoints are bearer addresses; one `runtime_configs`
+row under SQLite).
+
+- `id` — sha256 of the endpoint, 24 hex characters; derived, adds nothing
+- `endpoint` — the URL the browser's push service issued; must be `https`
+  on an allowed push service host
+- `keys` — `{ p256dh, auth }`: the browser's P-256 public key (65 octets)
+  and auth secret (16 octets), base64url
+- `topicIds` — followed `TopicTag` ids, sorted; unknown ids are dropped on
+  write; an empty list deletes the record
+- `createdAt`
+
+Nothing else: no IP, user agent or reading marks; a test pins the key set.
+A record changes or goes only when the caller also presents its `auth`, or
+when a push service answers 404 / 410. `pushedTechnologyIds` lists signals
+that reached at least one subscriber and are never pushed again.
+
+Public answers carry none of these fields (`PublicPushSubscriptionResult`
+is `{ subscribed, topicCount }`); the workspace sees
+`PushSubscriptionSummary` — `{ total, byTopic: [{ topicId, count }],
+pushedSignalCount }`. A push run is a `WorkflowEvent` with `entityType:
+"push_run"`, `action: "push.sent" | "push.failed"` and the run's counts
+(`PushRunSummary`, including failures grouped by push service hostname and
+reason) as metadata.
+
+The notification payload (`PushNotificationPayload`) is
+`{ title, body, url, tag }` built from public signal fields only.
+
 ## StoredTriageSuggestion
 
 A workspace-only model suggestion for one undecided candidate
@@ -1570,6 +1605,8 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `candidate-triage-suggestions.json`
 - `candidate-semantic-matches.json` (2026-10-13; regenerable, git-ignored; a
   `runtime_configs` row under SQLite)
+- `push-subscriptions.json` (2026-10-13; reader alert subscriptions,
+  git-ignored; a `runtime_configs` row under SQLite)
 - `technology-comparisons.json`
 - `technology-explanations.json`
 - `technology-learning-paths.json`

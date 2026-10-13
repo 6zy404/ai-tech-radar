@@ -252,6 +252,32 @@ The product is split into two subsystems:
   Omitted, with no placeholder, when the model or vectors are not ready
   within `SEARCH_SEMANTIC_TIMEOUT_MS`. Pure derived view, no LLM, no
   persisted data.
+- **和你读过的相近 (local recommendations, 2026-10-13)** — the home page
+  (after 现在最值得关注) and the foot of the 稍后读 view show published
+  signals close to the ones the reader marked 已读 or 稍后读, each with its
+  reason: 和你读过的《X》相近 / 和你存下的《X》相近, plus
+  「也属于你关注的「Y」」 when a followed topic lifted it. Computed **in the
+  browser**: the marks never leave localStorage. The server publishes one
+  recommendation data file (vectors + public card fields) that is the same
+  for everyone, `/signal-vectors.json`: per published signal its search
+  vector, centered on the pool mean and quantized to int8, and the card
+  fields the list page already shows — slug, title, an 80-character gist,
+  date, band label, topic ids — keyed by `toVisitKey(id)`, the 7-character
+  hash the 新 stamps use, so the long workspace ids never ship (format 2,
+  `Xenova/multilingual-e5-small`, 384 dimensions; 110 signals = 106 KB,
+  64 KB gzipped; `Cache-Control: public, max-age=600` + ETag; 503 when the
+  model is not ready). The browser fetches it only once the reader has a
+  mark, so the home page itself carries nothing for the block. Scoring is
+  内容相近的信号's: centered cosine to the nearest of the newest 30 marks,
+  kept only above mean + 2.5 standard deviations of all pairwise scores (the
+  file carries both), at most 2 per seed, 3 on the home page and 4 on
+  稍后读; a followed topic reorders what cleared the floor and never adds to
+  it. Measured 2026-10-13 on 110 signals: a reader with one mark gets
+  something for 80 of 110 signals, with three random marks 98%; decoding
+  takes 1.5–4 ms and scoring 0.2–1 ms in the browser. No mark, no file, or
+  nothing above the floor: the block is absent, with no placeholder
+  (`src/lib/local-recommend.ts`, `local-recommend-vectors.ts`,
+  `src/components/use-local-recommendations.ts`).
 - **Topic hub (`/topics/[tagId]`)** — a per-topic drill-down page merging what
   `/network`, the 按话题 view, and `/search` each show in fragments for one
   topic tag: the tag's published technology signals, tagged skills, tagged
@@ -296,9 +322,10 @@ The product is split into two subsystems:
   explaining, in seven sections, where signals come from, the editing
   steps, the priority bands, why the 全部快讯 lane is unedited (undecided
   candidates included), the eight relation types, which features are
-  AI-generated and unreviewed, and what the site does not collect (with
-  what does leave the browser: AI requests to the model provider, the rate
-  limiter's in-memory count, Cloudflare). Band names, relation labels, the
+  AI-generated and unreviewed, and what the site stores and does not
+  (with what does leave the browser: AI requests to the model provider, the
+  rate limiter's in-memory count, Cloudflare; since 2026-10-13 also what a
+  new-signal alert subscription stores and how to delete it). Band names, relation labels, the
   AI disclaimer and the 30-day window are read from the code that renders
   them. Reached from a 怎么挑信号 link in the `/technologies` header; not a
   nav entry; in the sitemap. The signal page's band sentence
@@ -413,6 +440,43 @@ The product is split into two subsystems:
   `use-signal-shortcuts.ts`). The ? list carries a 关闭单键快捷键 switch
   (WCAG 2.1.4); off, only ? responds. It is stored as one localStorage
   preference key, the same boundary as the theme choice.
+- **Installable site, offline 稍后读, new-signal alerts (2026-10-13)** —
+  `/manifest.webmanifest` (`src/app/manifest.ts`, icons in `public/` from
+  `scripts/generate-pwa-icons.mjs`) makes the site installable. A service
+  worker at `/sw.js` (`src/lib/pwa-service-worker.ts`, served by a route so
+  its cache names carry the build id; a deploy replaces every old cache)
+  keeps the shell (`/offline`, the manifest, icons), the hashed
+  `/_next/static` files and exactly the signal pages saved for 稍后读. The
+  page sends the worker the saved signals as hashed keys (postMessage, no
+  request); the worker resolves them with `/pwa/signal-paths.json`
+  (published signals, `toVisitKey` → path, the same for everyone). Pages
+  are network-first; offline, a saved page comes from the cache and
+  anything else gets `/offline`, which lists the saved copies. It never
+  touches `/workspace`, `/api` (all of it), `/candidates` or
+  `/technologies/drafts` (`pwaRequestKind`, pinned by tests).
+  **「有新信号时提醒我」** on the 我关注的 view: the browser subscribes with the
+  VAPID public key and `POST /api/push/subscribe` stores endpoint, keys,
+  followed topic ids and creation time — nothing else
+  (`src/lib/push-subscriptions.ts`, `config/push-subscriptions.json`,
+  git-ignored). Every follow change on any page re-sends the topics
+  (batched, `PwaRegistration`); an empty list, turning it off
+  (`POST /api/push/unsubscribe`, which needs the subscription's auth
+  secret) or a 404/410 from the push service deletes the record. The
+  endpoint must be a known push service (FCM, Mozilla, Apple, WNS); both
+  routes are rate limited (20/min, 120/h per client) and origin-checked
+  like the AI routes. Sending is manual: `/workspace/delivery` → 新信号提醒
+  counts first, then sends one merged notification per subscriber for the
+  signals published on a chosen date that match their topics
+  (`POST /api/workspace/push`, `src/lib/push-dispatch.ts`); a signal is
+  pushed once; failures are reported per push service. Encryption
+  (RFC 8291) and VAPID (RFC 8292) are written on `node:crypto`
+  (`src/lib/push-crypto.ts`), pinned by the RFC test vectors. Off unless
+  `PUSH_VAPID_PUBLIC_KEY` / `PUSH_VAPID_PRIVATE_KEY` are set
+  (`node scripts/generate-vapid-keys.mjs`; optional `PUSH_VAPID_SUBJECT`);
+  off, the toggle does not render. This machine reaches the push services
+  only through the proxy (measured 2026-10-13), so the sending server must
+  start through `with-proxy-env` with proxy settings it can see —
+  `docs/editorial-round-playbook.md` Step 7b.
 - **Topic timeline** — the 按话题 view on `/technologies?view=timeline`
   groups published technology signals by topic tag, each shown as a
   chronological (newest-first) list linking to its detail page.
@@ -704,6 +768,15 @@ Public, user-facing routes:
   `/technologies` view and linked from its header (RSS 订阅)
 - `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
+- `/signal-vectors.json` — the recommendation data file (vectors + public
+  card fields) for the browser-side 和你读过的相近; no parameters
+- `/manifest.webmanifest`, `/sw.js` (the service worker), `/offline`
+  (noindex) and `/pwa/signal-paths.json` (hashed signal key → path) — the
+  installable site and offline 稍后读
+- `GET /api/push/config`, `POST /api/push/subscribe`,
+  `POST /api/push/unsubscribe` — a reader's own new-signal alert
+  subscription; rate limited and origin-checked, never answer with a
+  stored field
 - `/digest/weekly/feed.xml` — weekly-review RSS (published signals only)
 - `/news`, `/timeline` redirect to the matching `/technologies?view=` (`/radar`
   did too until 2026-10-13; it is now the technology radar)
@@ -790,6 +863,8 @@ npm run format:check     # Prettier check (no writes)
 npm run format           # Prettier write
 npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
+node scripts/generate-pwa-icons.mjs  # rebuild the PWA icons under public/
+node scripts/generate-vapid-keys.mjs # print a VAPID pair for reader push (.env.local only, never committed)
 npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
 node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts [--unlabelled] # semantic dedup precision/recall per threshold against eval/dedup/labels.jsonl
@@ -895,7 +970,7 @@ records, link relation overrides, duplicate groups,
 daily digests, delivery, scheduled delivery, scheduled import, scheduled
 digest draft, task runner,
 workflow events, editorial enrichment suggestions, candidate triage
-suggestions, and prompt versions. Set
+suggestions, reader push subscriptions (git-ignored), and prompt versions. Set
 `LOCAL_DATA_DIR` to point at a different local directory.
 
 ## Project structure

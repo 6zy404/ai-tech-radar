@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { ErrorShellRepair } from "@/components/error-shell-repair";
+import { PwaRegistration } from "@/components/pwa-registration";
 import { SkipLink } from "@/components/skip-link";
 import { TopNav } from "@/components/top-nav";
 import {
@@ -70,6 +71,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <ErrorShellRepair lang={documentLang} />
+        {/* The manifest link comes from src/app/manifest.ts on its own. */}
+        <PwaRegistration />
         <SkipLink />
         <TopNav />
         <main id={mainContentId} className="main-content" tabIndex={-1}>

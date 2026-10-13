@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
 import { ReadFilterToggle } from "@/components/read-filter-toggle";
+import { SavedRecommendations } from "@/components/saved-recommendations";
 import { SignalReadingActions } from "@/components/signal-reading-actions";
 import {
   SignalShortcutHelp,
@@ -43,6 +44,7 @@ export function SavedSignalsContent({
 }: SavedSignalsContentProps) {
   const [hideRead, setHideRead] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
+  const readingState = useReadingState();
   const {
     savedIds,
     readIds,
@@ -51,7 +53,7 @@ export function SavedSignalsContent({
     isSaved,
     toggleRead,
     toggleSaved
-  } = useReadingState();
+  } = readingState;
 
   const savedTechnologies = selectSavedTechnologies(technologies, savedIds);
   const readCount = countReadTechnologies(savedTechnologies, readIds);
@@ -132,6 +134,15 @@ export function SavedSignalsContent({
       </button>
     </div>
   );
+  // 和你读过的相近: computed in the browser from these same marks; renders
+  // nothing until there is at least one recommendation.
+  const recommendations = (
+    <SavedRecommendations
+      technologies={technologies}
+      tags={tags}
+      readingState={readingState}
+    />
+  );
   const transferStatus = transferMessage ? (
     <p className="reading-transfer__message" role="status">
       {transferMessage}
@@ -161,6 +172,7 @@ export function SavedSignalsContent({
           {transferControls}
           {transferStatus}
         </div>
+        {recommendations}
       </div>
     );
   }
@@ -219,6 +231,8 @@ export function SavedSignalsContent({
           <p>关掉「隐藏已读」可以回看，或者取消「稍后读」把它们清出列表。</p>
         </div>
       ) : null}
+
+      {recommendations}
 
       <SignalShortcutHelp
         open={shortcuts.isHelpOpen}

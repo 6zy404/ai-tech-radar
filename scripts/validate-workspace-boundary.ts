@@ -136,6 +136,10 @@ function main() {
     ...listFilesRecursive("src/app/about"),
     ...listFilesRecursive("src/app/radar"),
     path.join(root, "src/components/radar-view.tsx"),
+    ...listFilesRecursive("src/app/signal-vectors.json"),
+    path.join(root, "src/components/home-recommend-section.tsx"),
+    path.join(root, "src/components/saved-recommendations.tsx"),
+    path.join(root, "src/components/saved-signals-content.tsx"),
     path.join(root, "src/app/page.tsx")
   ];
   const forbiddenWorkspaceImports = [

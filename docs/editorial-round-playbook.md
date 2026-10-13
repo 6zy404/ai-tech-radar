@@ -79,7 +79,8 @@ the worktree's git-ignored `.env.local`:
 LOCAL_DATA_DIR=C:/Users/Administrator/ai-tech-radar/config
 ```
 
-Nothing else goes there: the workspace guard stays off because the dev server
+Nothing else goes there (except, for a round that pushes new signals, the
+lines in Step 7b): the workspace guard stays off because the dev server
 is on localhost only, and the LLM key is not copied. **That sentence was not
 true until 2026-09-28**: `next dev` listens on every interface by default, so
 for the length of a round the unguarded workspace, writing to the live data,
@@ -320,6 +321,32 @@ Optional but recommended for the day's clear headline item:
   readiness checks).
 - API: `POST /api/workspace/digests/{date}/status` with
   `{"status":"published"}`.
+
+## Step 7b — Push the new signals to subscribers (optional, 2026-10-13)
+
+`/workspace/delivery` → 新信号提醒 → pick the publish date → 推送新信号. It
+counts first and asks before sending; a signal is pushed once, ever.
+
+**Check two things in the round's `.env.local` before pressing it**, because
+the round's dev server is the only server that can send (the live server has
+no workspace):
+
+1. **The VAPID pair** — `PUSH_VAPID_PUBLIC_KEY` / `PUSH_VAPID_PRIVATE_KEY`,
+   the same pair the live server has. Without it the panel says 推送未配置;
+   with a different pair every push service rejects the request.
+2. **The proxy lines** — `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY` from the
+   main checkout's `.env.local`. This machine cannot reach FCM, Mozilla,
+   Apple or WNS directly (measured 2026-10-13: every direct connection timed
+   out; through the proxy they answered in 0.3–1.7 s). `with-proxy-env`
+   reads proxy settings only from the environment and the worktree's own
+   `.env.local`, and the preview pane starts with neither, so a worktree
+   holding only `LOCAL_DATA_DIR` sends directly and fails. Its startup log
+   says which: `[proxy] 已启用代理` or `未检测到代理配置`.
+
+If every send fails with `UND_ERR_CONNECT_TIMEOUT` the panel says so; nothing
+is marked pushed, so fix the `.env.local`, restart the dev server and press
+again. Remove these lines with the rest of the worktree's `.env.local` when
+the round is done.
 
 ## Step 8 — Verify on the public surfaces
 

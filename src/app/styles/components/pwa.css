@@ -1,0 +1,95 @@
+/* components/pwa: 「有新信号时提醒我」 (push-alert-toggle.tsx) and the saved
+   list on /offline (pwa-offline-saved-list.tsx). Added 2026-10-13. */
+
+.push-alert-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  /* One toggle's height, so the button appearing after the state loads
+     moves nothing below it. */
+  min-height: 34px;
+}
+
+.push-alert-toggle__placeholder {
+  display: block;
+  height: 34px;
+}
+
+.push-alert-toggle__note {
+  margin: 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.dossier .push-alert-toggle__note {
+  color: var(--dossier-muted);
+}
+
+.push-alert-toggle .my-radar__tag-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pwa-offline-saved h2 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 1.2rem;
+}
+
+.pwa-offline-saved ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pwa-offline-saved li {
+  padding: 12px 16px;
+  border: 1px solid var(--dossier-line, var(--line));
+  background: var(--dossier-surface, var(--surface));
+}
+
+.pwa-offline-saved a {
+  color: var(--dossier-ink, var(--text));
+  font-weight: 600;
+}
+
+/* Workspace: the 新信号提醒 panel on /workspace/delivery. */
+.push-topic-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.push-topic-counts li {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--fs-label);
+}
+
+.push-workspace-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+}
+
+.push-workspace-actions label {
+  display: grid;
+  gap: 4px;
+  font-size: var(--fs-label);
+}
+
+.push-workspace-actions__message {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: var(--fs-label);
+}
