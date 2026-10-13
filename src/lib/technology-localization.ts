@@ -553,3 +553,65 @@ export function getTechnologyTranslationMessage(
     ? "Original text is shown. Switch back to Chinese at any time for easier reading."
     : "当前显示中文内容，便于快速阅读；需要核对时请参考原始来源。";
 }
+
+/** Which language a piece of text shown to the reader is in. */
+export type TextLanguage = "zh" | "en";
+
+export interface TechnologyTextForLocale {
+  text: string;
+  language: TextLanguage;
+}
+
+/**
+ * A title, summary or body for the interface language. The Chinese site
+ * keeps `getPreferredTechnologyText` exactly. The English site shows the
+ * English version when there is one — the `en` field, else the original of
+ * an English-language source — and otherwise the Chinese text, reported as
+ * Chinese so the page can mark it (`lang="zh-CN"`). Nothing is translated.
+ */
+export function getTechnologyTextForLocale(
+  value: LocalizedText,
+  sourceLanguage: SourceLanguage,
+  locale: Locale
+): TechnologyTextForLocale {
+  if (locale === "zh") {
+    const text = getPreferredTechnologyText(value, sourceLanguage);
+
+    return {
+      text,
+      language:
+        sourceLanguage === "zh" || hasLocalizedText(value, "zh") ? "zh" : "en"
+    };
+  }
+
+  const english = normalizeText(value.en);
+
+  if (english) {
+    return { text: english, language: "en" };
+  }
+
+  const original = normalizeText(value.original);
+
+  if (sourceLanguage === "en" && original) {
+    return { text: original, language: "en" };
+  }
+
+  return {
+    text: normalizeText(value.zh) ?? value.original,
+    language: sourceLanguage === "en" && !hasLocalizedText(value, "zh") ? "en" : "zh"
+  };
+}
+
+export function getTechnologyTitleForLocale(
+  item: TechnologyItem,
+  locale: Locale
+): TechnologyTextForLocale {
+  return getTechnologyTextForLocale(item.title, item.sourceLanguage, locale);
+}
+
+export function getTechnologySummaryForLocale(
+  item: TechnologyItem,
+  locale: Locale
+): TechnologyTextForLocale {
+  return getTechnologyTextForLocale(item.summary, item.sourceLanguage, locale);
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import {
@@ -9,18 +10,22 @@ import {
 import { RelationDensity } from "@/components/relation-density";
 import { TagList } from "@/components/tag-list";
 import { UserPageShell } from "@/components/user-page-shell";
-import { heatLabels, learningCostLabels } from "@/lib/content-labels";
+import { contentLabelsByLocale } from "@/lib/content-labels";
 import {
   getAllKnowledge,
   getAllSkills,
   getAllTechnologies,
   getTagsByIds
 } from "@/lib/content";
+import { libraryCopy } from "@/lib/i18n/copy/library";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import {
   buildLibraryFilterText,
   parseLibraryFilterQuery
 } from "@/lib/library-filter";
-import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
+import { getTechnologyTitleForLocale } from "@/lib/technology-localization";
 import type {
   KnowledgeItem,
   SkillItem,
@@ -29,49 +34,24 @@ import type {
 } from "@/types/content";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
-export const skillsPageMetadata = buildPageMetadata({
-  title: "理解 AI 信号的技能",
-  description:
-    "用这些实用技能判断一个新的 AI 技术信号是否值得测试、跟踪，或向团队解释。",
-  path: "/skills"
-});
+export function getSkillsPageMetadata(locale: Locale) {
+  const copy = libraryCopy[locale].skills;
 
-const skillTypeSections: Array<{
-  id: SkillType;
-  title: string;
-  description: string;
-  focus: string;
-}> = [
-  {
-    id: "engineering",
-    title: "工程落地",
-    description: "在真实产品中构建、集成并运行 AI 系统。",
-    focus: "当某个信号可能改变团队的构建或交付方式时，使用这些技能。"
-  },
-  {
-    id: "analysis",
-    title: "评估与分析",
-    description: "判断一个信号是否有用、有风险，或是否可以测试。",
-    focus: "用这些技能把持久的信号与一时的噪声区分开。"
-  },
-  {
-    id: "product",
-    title: "产品判断",
-    description: "把技术变化转化为有明确范围的产品决策。",
-    focus: "在把某项技术纳入路线图之前，使用这些技能。"
-  },
-  {
-    id: "operations",
-    title: "运维与落地",
-    description: "让 AI 系统保持可观测、可靠、可安全运行。",
-    focus: "当信号影响上线、可靠性或支持时，使用这些技能。"
-  },
-  {
-    id: "communication",
-    title: "团队沟通",
-    description: "解释权衡取舍，并在团队间协调落地。",
-    focus: "用这些技能帮助非专业人员理解技术变化。"
-  }
+  return buildPageMetadata({
+    title: copy.title,
+    description: copy.description,
+    path: "/skills",
+    locale
+  });
+}
+
+/** The order the skill areas are listed in; their copy is in libraryCopy. */
+const skillTypeOrder: SkillType[] = [
+  "engineering",
+  "analysis",
+  "product",
+  "operations",
+  "communication"
 ];
 
 function getRelatedTechnologies(
@@ -93,10 +73,16 @@ function getRelatedKnowledge(
 }
 
 export async function SkillsPage({
-  searchParams
+  searchParams,
+  locale = "zh"
 }: {
   searchParams: Promise<{ q?: string | string[] }>;
+  locale?: Locale;
 }) {
+  const copy = libraryCopy[locale];
+  const labels = contentLabelsByLocale[locale];
+  // Skill entries exist in Chinese only; on the English site they are marked.
+  const entryLang = contentLangAttr(locale);
   const { q } = await searchParams;
   const initialQuery = parseLibraryFilterQuery(q);
   const skills = getAllSkills();
@@ -111,10 +97,11 @@ export async function SkillsPage({
     skills.flatMap((skill) => skill.relatedKnowledgeIds)
   ).size;
 
-  const groupedSkills = skillTypeSections
-    .map((section) => ({
-      ...section,
-      items: skills.filter((skill) => skill.skillType === section.id)
+  const groupedSkills = skillTypeOrder
+    .map((id) => ({
+      id,
+      ...copy.skills.sections[id],
+      items: skills.filter((skill) => skill.skillType === id)
     }))
     .filter((section) => section.items.length > 0);
 
@@ -124,7 +111,7 @@ export async function SkillsPage({
       header: (
         <div className="skills-library-section__header">
           <div>
-            <p className="eyebrow user-eyebrow">技能方向</p>
+            <p className="eyebrow user-eyebrow">{copy.skills.sectionEyebrow}</p>
             <h2>{section.title}</h2>
           </div>
           <p>{section.focus}</p>
@@ -133,7 +120,7 @@ export async function SkillsPage({
       items: section.items.map((skill) => {
         const relatedTechnologies = getRelatedTechnologies(skill, technologies);
         const relatedKnowledge = getRelatedKnowledge(skill, knowledgeItems);
-        const tags = getTagsByIds(skill.tags);
+        const tags = localizeTags(getTagsByIds(skill.tags), locale);
 
         return {
           id: skill.id,
@@ -148,40 +135,64 @@ export async function SkillsPage({
           card: (
             <DossierCard className="skill-library-card">
               <div className="dossier-technology-card__chips">
-                <DossierStampTag>{heatLabels[skill.heatLevel]}</DossierStampTag>
+                <DossierStampTag>
+                  {labels.heat[skill.heatLevel]}
+                </DossierStampTag>
                 <DossierStampTag className="dossier-stamp-tag--muted">
-                  {learningCostLabels[skill.learningCost]}
+                  {labels.learningCost[skill.learningCost]}
                 </DossierStampTag>
               </div>
-              <h3>
-                <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
+              <h3 lang={entryLang}>
+                <Link href={localePath(locale, `/skills/${skill.slug}`)}>
+                  {skill.title}
+                </Link>
               </h3>
-              <p className="skill-library-card__summary">{skill.summary}</p>
+              <p className="skill-library-card__summary" lang={entryLang}>
+                {skill.summary}
+              </p>
               <RelationDensity
+                label={locale === "zh" ? undefined : copy.relationLabel}
                 items={[
-                  { n: relatedTechnologies.length, label: "技术" },
-                  { n: relatedKnowledge.length, label: "背景知识" }
+                  {
+                    n: relatedTechnologies.length,
+                    label: copy.skills.densityTechnologies
+                  },
+                  {
+                    n: relatedKnowledge.length,
+                    label: copy.skills.densityKnowledge
+                  }
                 ]}
               />
               {relatedTechnologies.length > 0 ? (
                 <div className="skill-library-card__signals">
-                  <span>用这些来练习</span>
-                  {relatedTechnologies.slice(0, 2).map((technology) => (
-                    <Link
-                      href={`/technologies/${technology.slug}`}
-                      key={technology.id}
-                    >
-                      {getPreferredTechnologyTitle(technology)}
-                    </Link>
-                  ))}
+                  <span>{copy.skills.practiceWith}</span>
+                  {relatedTechnologies.slice(0, 2).map((technology) => {
+                    const title = getTechnologyTitleForLocale(
+                      technology,
+                      locale
+                    );
+
+                    return (
+                      <Link
+                        href={localePath(
+                          locale,
+                          `/technologies/${technology.slug}`
+                        )}
+                        key={technology.id}
+                        lang={contentLangAttr(locale, title.language)}
+                      >
+                        {title.text}
+                      </Link>
+                    );
+                  })}
                 </div>
               ) : null}
               {tags.length > 0 ? <TagList tags={tags} limit={3} /> : null}
               <Link
                 className="skill-library-card__link"
-                href={`/skills/${skill.slug}`}
+                href={localePath(locale, `/skills/${skill.slug}`)}
               >
-                查看技能
+                {copy.skills.open}
               </Link>
             </DossierCard>
           )
@@ -192,53 +203,58 @@ export async function SkillsPage({
 
   return (
     <UserPageShell
-      title="理解 AI 信号的技能"
-      description="用这些实用技能判断一个新的 AI 技术信号是否值得测试、跟踪，或向团队解释。"
-      sectionLabel="理解技能"
+      title={copy.skills.title}
+      description={copy.skills.description}
+      sectionLabel={copy.skills.sectionLabel}
       className="skills-library-page dossier"
     >
       {skills.length === 0 ? (
         <section className="skills-library-empty">
-          <p className="skills-library-empty__eyebrow">技能库</p>
-          <h2>暂无技能。</h2>
-          <p>当已发布技能与用户端技术信号建立关联后，会在这里展示。</p>
+          <p className="skills-library-empty__eyebrow">
+            {copy.skills.emptyEyebrow}
+          </p>
+          <h2>{copy.skills.emptyTitle}</h2>
+          <p>{copy.skills.emptyBody}</p>
         </section>
       ) : (
         <>
           <section className="skills-library-intro">
             <div className="skills-library-intro__copy">
-              {/* One line on purpose: JSX joins wrapped text lines with a
-                  space, which lands in the middle of a Chinese sentence. */}
-              <p>
-                先从与你角色匹配的技能开始，再打开关联的技术信号和背景概念，理解这一变化在哪里重要。
-              </p>
+              <p>{copy.skills.intro}</p>
             </div>
-            <dl className="skills-library-stats" aria-label="技能概览">
+            <dl
+              className="skills-library-stats"
+              aria-label={copy.skills.statsLabel}
+            >
               <div>
                 <dt>{skills.length}</dt>
-                <dd>已收录技能</dd>
+                <dd>{copy.skills.statSkills}</dd>
               </div>
               <div>
                 <dt>{hotSkills}</dt>
-                <dd>当前热门</dd>
+                <dd>{copy.skills.statHot}</dd>
               </div>
               <div>
                 <dt>{relatedTechnologyCount}</dt>
-                <dd>关联已发布信号</dd>
+                <dd>{copy.skills.statSignals}</dd>
               </div>
               <div>
                 <dt>{relatedKnowledgeCount}</dt>
-                <dd>关联背景概念</dd>
+                <dd>{copy.skills.statKnowledge}</dd>
               </div>
             </dl>
           </section>
 
+          <ChineseOnlyNote locale={locale}>
+            {copy.skills.chineseOnly}
+          </ChineseOnlyNote>
+
           <LibraryFilter
             kind="skills"
-            label="筛选技能"
-            placeholder="按标题、摘要、标签或技能方向筛选"
-            countUnit="项技能"
-            noun="技能"
+            label={copy.skills.filterLabel}
+            placeholder={copy.skills.filterPlaceholder}
+            countUnit={copy.skills.countUnit}
+            noun={copy.skills.noun}
             initialQuery={initialQuery}
             sections={filterSections}
           />

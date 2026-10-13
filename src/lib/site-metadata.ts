@@ -6,6 +6,11 @@ import {
   signalFeedPath,
   weeklyReviewFeedPath
 } from "@/lib/feed-paths";
+import {
+  localePath,
+  openGraphLocales,
+  type Locale
+} from "@/lib/i18n/locale";
 
 /**
  * One place for what search engines and share cards see. Until 2026-09-24
@@ -20,6 +25,11 @@ export const siteName = "AI Tech Radar";
 
 export const siteDescription =
   "追踪值得优先关注的 AI 技术信号，并用技能与背景知识解释它为什么重要、谁该关注。";
+
+export const siteDescriptions: Record<Locale, string> = {
+  zh: siteDescription,
+  en: "Tracks the AI technology signals worth attention first, and uses skills and background knowledge to explain why each matters and who should care."
+};
 
 export function getSiteUrl(): string {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
@@ -63,6 +73,11 @@ export interface PageFeed {
   path: string;
   /** What a feed reader lists it as. */
   title: string;
+  /**
+   * The same on English pages. Every feed is in Chinese — there are no
+   * English feeds — so the title says so. Falls back to `title`.
+   */
+  titleEn?: string;
   /** Defaults to `rss`; only the digest also has a JSON Feed. */
   format?: "rss" | "json";
 }
@@ -74,10 +89,15 @@ const feedMimeTypes: Record<NonNullable<PageFeed["format"]>, string> = {
 
 /** The digest feeds, announced on every page. */
 export const siteFeeds: readonly PageFeed[] = [
-  { path: rssFeedPath, title: `${siteName} · 技术简报` },
+  {
+    path: rssFeedPath,
+    title: `${siteName} · 技术简报`,
+    titleEn: `${siteName} · Briefings (in Chinese)`
+  },
   {
     path: jsonFeedPath,
     title: `${siteName} · 技术简报（JSON）`,
+    titleEn: `${siteName} · Briefings (JSON, in Chinese)`,
     format: "json"
   }
 ];
@@ -85,13 +105,15 @@ export const siteFeeds: readonly PageFeed[] = [
 /** Announced by `/digest/weekly` and `/digest/weekly/[week]`. */
 export const weeklyReviewFeed: PageFeed = {
   path: weeklyReviewFeedPath,
-  title: `${siteName} · 本周回顾`
+  title: `${siteName} · 本周回顾`,
+  titleEn: `${siteName} · Weekly review (in Chinese)`
 };
 
 /** Announced by every view of `/technologies`. */
 export const signalFeed: PageFeed = {
   path: signalFeedPath,
-  title: `${siteName} · 全部技术信号`
+  title: `${siteName} · 全部技术信号`,
+  titleEn: `${siteName} · All signals (in Chinese)`
 };
 
 type FeedAlternateTypes = Record<string, { url: string; title: string }[]>;
@@ -102,13 +124,17 @@ type FeedAlternateTypes = Record<string, { url: string; title: string }[]>;
  * about, then the site-wide digest feeds.
  */
 export function buildFeedAlternateTypes(
-  pageFeeds: readonly PageFeed[] = []
+  pageFeeds: readonly PageFeed[] = [],
+  locale: Locale = "zh"
 ): FeedAlternateTypes {
   const types: FeedAlternateTypes = {};
 
   for (const feed of [...pageFeeds, ...siteFeeds]) {
     const mimeType = feedMimeTypes[feed.format ?? "rss"];
-    (types[mimeType] ??= []).push({ url: feed.path, title: feed.title });
+    (types[mimeType] ??= []).push({
+      url: feed.path,
+      title: locale === "en" ? (feed.titleEn ?? feed.title) : feed.title
+    });
   }
 
   return types;
@@ -137,6 +163,11 @@ export interface PageMetadataInput {
    * card: a large card with no image has nothing to fill it with.
    */
   largeImage?: boolean;
+  /**
+   * The interface language. `path` stays the Chinese-site path; the English
+   * page's canonical and Open Graph URL are its /en twin.
+   */
+  locale?: Locale;
 }
 
 export function buildPageMetadata({
@@ -146,11 +177,13 @@ export function buildPageMetadata({
   type = "website",
   noIndex = false,
   feeds = [],
-  largeImage = false
+  largeImage = false,
+  locale = "zh"
 }: PageMetadataInput): Metadata {
   const resolvedDescription = compactDescription(
-    description ?? siteDescription
+    description ?? siteDescriptions[locale]
   );
+  const pagePath = localePath(locale, path);
   const fullTitle = title ? `${title} · ${siteName}` : siteName;
 
   return {
@@ -159,13 +192,16 @@ export function buildPageMetadata({
     // Next replaces the layout's `alternates` wholesale instead of merging
     // it, so the digest feeds the layout declares are repeated here, or every
     // page with its own metadata would drop them.
-    alternates: { canonical: path, types: buildFeedAlternateTypes(feeds) },
+    alternates: {
+      canonical: pagePath,
+      types: buildFeedAlternateTypes(feeds, locale)
+    },
     openGraph: {
       title: fullTitle,
       description: resolvedDescription,
-      url: path,
+      url: pagePath,
       siteName,
-      locale: "zh_CN",
+      locale: openGraphLocales[locale],
       type
     },
     twitter: {

@@ -1,5 +1,7 @@
+import type { ComponentProps } from "react";
+
 import {
-  knowledgePageMetadata,
+  getKnowledgePageMetadata,
   KnowledgePage
 } from "@/components/pages/knowledge-index-page";
 
@@ -10,6 +12,10 @@ import {
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const metadata = knowledgePageMetadata;
+export const metadata = getKnowledgePageMetadata("zh");
 
-export default KnowledgePage;
+export default function Page(
+  props: Omit<ComponentProps<typeof KnowledgePage>, "locale">
+) {
+  return <KnowledgePage {...props} locale="zh" />;
+}

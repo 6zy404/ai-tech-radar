@@ -1,5 +1,7 @@
+import type { ComponentProps } from "react";
+
 import {
-  skillsPageMetadata,
+  getSkillsPageMetadata,
   SkillsPage
 } from "@/components/pages/skills-index-page";
 
@@ -10,6 +12,10 @@ import {
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const metadata = skillsPageMetadata;
+export const metadata = getSkillsPageMetadata("zh");
 
-export default SkillsPage;
+export default function Page(
+  props: Omit<ComponentProps<typeof SkillsPage>, "locale">
+) {
+  return <SkillsPage {...props} locale="zh" />;
+}

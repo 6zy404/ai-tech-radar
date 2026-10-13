@@ -10,6 +10,9 @@ import {
 } from "react";
 
 import { DossierSearchInput } from "@/components/dossier-search-input";
+import { libraryCopy } from "@/lib/i18n/copy/library";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 import {
   filterLibraryGroups,
   librarySearchHref,
@@ -61,6 +64,8 @@ export function LibraryFilter({
   initialQuery,
   sections
 }: LibraryFilterProps) {
+  const locale = useLocale();
+  const copy = libraryCopy[locale].filter;
   const [query, setQuery] = useState(initialQuery);
   const deferredQuery = useDeferredValue(query);
   const { groups, matchCount, totalCount } = filterLibraryGroups(
@@ -101,14 +106,14 @@ export function LibraryFilter({
         </form>
         <p className="library-filter__status" role="status">
           {!isFiltering ? null : matchCount > 0 ? (
-            <>
-              筛出 {matchCount} / {totalCount} {countUnit}
-            </>
+            copy.matched(matchCount, totalCount, countUnit)
           ) : (
             <>
-              没有{noun}含「{shownQuery}」。
-              <Link href={librarySearchHref(kind, shownQuery)}>
-                到全站搜索找「{shownQuery}」
+              {copy.noMatch(noun, shownQuery)}
+              <Link
+                href={localePath(locale, librarySearchHref(kind, shownQuery))}
+              >
+                {copy.searchSite(shownQuery)}
               </Link>
             </>
           )}
