@@ -2,6 +2,9 @@
 // Pure functions only — the components (`copy-link-button.tsx`,
 // `section-link.tsx`) do the clipboard and the address bar.
 
+import { commonCopy } from "@/lib/i18n/copy/common";
+import type { Locale } from "@/lib/i18n/locale";
+
 /**
  * The page's canonical address: the site URL (`getSiteUrl`, the same source
  * as `metadataBase` and every page's `<link rel="canonical">`) joined to the
@@ -22,6 +25,9 @@ export function buildPageLinkUrl(
 }
 
 /** What a screen reader calls a section's 「#」 link. */
-export function getSectionLinkLabel(heading: string): string {
-  return `复制「${heading.trim()}」一节的链接`;
+export function getSectionLinkLabel(
+  heading: string,
+  locale: Locale = "zh"
+): string {
+  return commonCopy[locale].sectionLink.label(heading.trim());
 }

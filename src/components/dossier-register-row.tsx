@@ -12,6 +12,9 @@ interface DossierRegisterRowProps {
   headingLevel?: 3 | 4;
   /** A second line under the title, in the title's column (an excerpt). */
   children?: ReactNode;
+  /** `lang` of the title / the detail line when it differs from the page. */
+  titleLang?: string;
+  detailLang?: string;
 }
 
 /**
@@ -26,7 +29,9 @@ export function DossierRegisterRow({
   tag,
   className = "",
   headingLevel = 4,
-  children
+  children,
+  titleLang,
+  detailLang
 }: DossierRegisterRowProps) {
   const titleNode = href ? <Link href={href}>{title}</Link> : title;
   const Heading = headingLevel === 3 ? "h3" : "h4";
@@ -34,10 +39,14 @@ export function DossierRegisterRow({
   return (
     <div className={`dossier-register-row ${className}`.trim()}>
       {date ? <time>{date}</time> : <span aria-hidden="true" />}
-      <Heading className="dossier-register-row__title">{titleNode}</Heading>
+      <Heading className="dossier-register-row__title" lang={titleLang}>
+        {titleNode}
+      </Heading>
       {tag ? <span className="dossier-register-row__tag">{tag}</span> : null}
       {children ? (
-        <div className="dossier-register-row__detail">{children}</div>
+        <div className="dossier-register-row__detail" lang={detailLang}>
+          {children}
+        </div>
       ) : null}
     </div>
   );

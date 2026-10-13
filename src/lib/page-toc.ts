@@ -2,6 +2,8 @@
 // contents, and which one the reader is in. Pure functions only — the
 // component (`src/components/page-toc.tsx`) supplies the geometry.
 
+import type { Locale } from "@/lib/i18n/locale";
+
 export interface PageTocEntry {
   /** The section's element id; the entry links to `#id`. */
   id: string;
@@ -51,7 +53,53 @@ export const technologyTocIds = {
   digestAppearances: "section-digest-appearances"
 } as const;
 
+/** Table labels of the signal page's sections, by interface language. */
+const technologyTocLabels: Record<
+  Locale,
+  Record<keyof typeof technologyTocIds, string>
+> = {
+  zh: {
+    evolution: "版本脉络",
+    body: "信号正文",
+    whyItMatters: "为什么重要",
+    technicalContext: "技术背景",
+    audience: "谁该关注",
+    learningPath: "学习路径",
+    graph: "关系网络",
+    relatedTechnologies: "相关技术",
+    similarSignals: "内容相近的信号",
+    relatedSkills: "相关技能",
+    relatedKnowledge: "相关知识",
+    followUpQuestions: "后续问题",
+    digestAppearances: "收录于"
+  },
+  en: {
+    evolution: "Release line",
+    body: "The signal",
+    whyItMatters: "Why it matters",
+    technicalContext: "Technical context",
+    audience: "Who should care",
+    learningPath: "Learning path",
+    graph: "Network",
+    relatedTechnologies: "Related signals",
+    similarSignals: "Similar signals",
+    relatedSkills: "Related skills",
+    relatedKnowledge: "Related knowledge",
+    followUpQuestions: "Follow-up questions",
+    digestAppearances: "Featured in"
+  }
+};
+
+/** The same section's table label wherever the page needs it as a heading. */
+export function getTechnologyTocLabel(
+  section: keyof typeof technologyTocIds,
+  locale: Locale = "zh"
+): string {
+  return technologyTocLabels[locale][section];
+}
+
 export interface TechnologyTocInput {
+  locale?: Locale;
   hasEvolution: boolean;
   hasBody: boolean;
   hasWhyItMatters: boolean;
@@ -78,55 +126,56 @@ export function getTechnologyTocCandidates(
   input: TechnologyTocInput
 ): PageTocCandidate[] {
   const ids = technologyTocIds;
+  const labels = technologyTocLabels[input.locale ?? "zh"];
 
   return [
-    { id: ids.evolution, label: "版本脉络", present: input.hasEvolution },
-    { id: ids.body, label: "信号正文", present: input.hasBody },
+    { id: ids.evolution, label: labels.evolution, present: input.hasEvolution },
+    { id: ids.body, label: labels.body, present: input.hasBody },
     {
       id: ids.whyItMatters,
-      label: "为什么重要",
+      label: labels.whyItMatters,
       present: input.hasWhyItMatters
     },
     {
       id: ids.technicalContext,
-      label: "技术背景",
+      label: labels.technicalContext,
       present: input.hasTechnicalContext
     },
-    { id: ids.audience, label: "谁该关注", present: input.hasAudience },
+    { id: ids.audience, label: labels.audience, present: input.hasAudience },
     {
       id: ids.learningPath,
-      label: "学习路径",
+      label: labels.learningPath,
       present: input.learningPathCount > 0
     },
-    { id: ids.graph, label: "关系网络", present: input.graphNodeCount > 0 },
+    { id: ids.graph, label: labels.graph, present: input.graphNodeCount > 0 },
     {
       id: ids.relatedTechnologies,
-      label: "相关技术",
+      label: labels.relatedTechnologies,
       present: input.relatedTechnologyCount > 0
     },
     {
       id: ids.similarSignals,
-      label: "内容相近的信号",
+      label: labels.similarSignals,
       present: input.similarSignalCount > 0
     },
     {
       id: ids.relatedSkills,
-      label: "相关技能",
+      label: labels.relatedSkills,
       present: input.relatedSkillCount > 0
     },
     {
       id: ids.relatedKnowledge,
-      label: "相关知识",
+      label: labels.relatedKnowledge,
       present: input.relatedKnowledgeCount > 0
     },
     {
       id: ids.followUpQuestions,
-      label: "后续问题",
+      label: labels.followUpQuestions,
       present: input.followUpQuestionCount > 0
     },
     {
       id: ids.digestAppearances,
-      label: "收录于",
+      label: labels.digestAppearances,
       present: input.digestAppearanceCount > 0
     }
   ];
@@ -151,7 +200,17 @@ export const contentDetailTocIds = {
   }
 } as const;
 
+/** The two content-detail labels that are not a heading of the page. */
+const contentDetailTocLabels: Record<
+  Locale,
+  { prerequisites: string; graph: string }
+> = {
+  zh: { prerequisites: "先读这些", graph: "关系网络" },
+  en: { prerequisites: "Read these first", graph: "Network" }
+};
+
 export interface ContentDetailTocInput {
+  locale?: Locale;
   kind: "skill" | "knowledge";
   prerequisiteCount: number;
   hasBody: boolean;
@@ -181,15 +240,16 @@ export function getContentDetailTocCandidates(
   input: ContentDetailTocInput
 ): PageTocCandidate[] {
   const ids = contentDetailTocIds;
+  const labels = contentDetailTocLabels[input.locale ?? "zh"];
 
   return [
     {
       id: ids.prerequisites,
-      label: "先读这些",
+      label: labels.prerequisites,
       present: input.prerequisiteCount > 0
     },
     { id: ids.body, label: input.headings.body, present: input.hasBody },
-    { id: ids.graph, label: "关系网络", present: input.graphNodeCount > 0 },
+    { id: ids.graph, label: labels.graph, present: input.graphNodeCount > 0 },
     {
       id: ids.relatedTechnologies,
       label: input.headings.relatedTechnologies,

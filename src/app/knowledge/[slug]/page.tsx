@@ -1,6 +1,7 @@
 import {
   generateKnowledgeDetailPageMetadata,
-  KnowledgeDetailPage
+  KnowledgeDetailPage,
+  type KnowledgeDetailPageProps
 } from "@/components/pages/knowledge-detail-page";
 
 // Reads runtime content through @/lib/content, so it must never be
@@ -10,6 +11,10 @@ import {
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateKnowledgeDetailPageMetadata;
+export function generateMetadata(props: KnowledgeDetailPageProps) {
+  return generateKnowledgeDetailPageMetadata("zh", props);
+}
 
-export default KnowledgeDetailPage;
+export default function Page(props: KnowledgeDetailPageProps) {
+  return <KnowledgeDetailPage {...props} locale="zh" />;
+}

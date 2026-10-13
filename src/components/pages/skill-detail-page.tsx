@@ -8,25 +8,32 @@ import {
 } from "@/components/content-detail-page";
 import { JsonLd } from "@/components/json-ld";
 import { getSkillBySlug, getTagsByIds } from "@/lib/content";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import { buildContentJsonLd } from "@/lib/structured-data";
 
-interface SkillDetailPageProps {
+export interface SkillDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateSkillDetailPageMetadata({
-  params
-}: SkillDetailPageProps): Promise<Metadata> {
+export async function generateSkillDetailPageMetadata(
+  locale: Locale,
+  { params }: SkillDetailPageProps
+): Promise<Metadata> {
   const { slug } = await params;
 
   return buildContentDetailMetadata(
     skillDetailKind,
     slug,
-    getSkillBySlug(slug)
+    getSkillBySlug(slug),
+    locale
   );
 }
 
-export async function SkillDetailPage({ params }: SkillDetailPageProps) {
+export async function SkillDetailPage({
+  params,
+  locale
+}: SkillDetailPageProps & { locale: Locale }) {
   const { slug } = await params;
   const skill = getSkillBySlug(slug);
 
@@ -36,9 +43,19 @@ export async function SkillDetailPage({ params }: SkillDetailPageProps) {
 
   return (
     <>
-      <ContentDetailPage kind={skillDetailKind} item={skill} />
+      <ContentDetailPage
+        kind={skillDetailKind}
+        item={skill}
+        locale={locale}
+      />
       <JsonLd
-        data={buildContentJsonLd("skill", skill, getTagsByIds(skill.tags))}
+        data={buildContentJsonLd(
+          "skill",
+          skill,
+          localizeTags(getTagsByIds(skill.tags), locale),
+          undefined,
+          locale
+        )}
       />
     </>
   );

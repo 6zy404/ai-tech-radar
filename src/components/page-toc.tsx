@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 
+import { commonCopy } from "@/lib/i18n/copy/common";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { pickActiveTocId, type PageTocEntry } from "@/lib/page-toc";
 
 interface PageTocProps {
@@ -23,7 +25,6 @@ interface PageTocProps {
   labelClassName?: string;
 }
 
-const tocLabel = "本页目录";
 
 /**
  * Pixels below where an anchor jump lands a section (its scroll-margin-top)
@@ -125,6 +126,8 @@ export function PageToc({
   className,
   labelClassName = "eyebrow user-eyebrow"
 }: PageTocProps) {
+  const copy = commonCopy[useLocale()].pageToc;
+  const tocLabel = copy.label;
   const { activeId, pin } = useActiveTocId(entries.map((entry) => entry.id));
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
@@ -193,7 +196,7 @@ export function PageToc({
       >
         <summary className="page-toc__summary">
           {tocLabel}
-          <span className="page-toc__count">{entries.length} 节</span>
+          <span className="page-toc__count">{copy.count(entries.length)}</span>
         </summary>
         <nav aria-label={tocLabel}>{list}</nav>
       </details>

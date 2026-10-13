@@ -8,27 +8,32 @@ import {
 } from "@/components/content-detail-page";
 import { JsonLd } from "@/components/json-ld";
 import { getKnowledgeBySlug, getTagsByIds } from "@/lib/content";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import { buildContentJsonLd } from "@/lib/structured-data";
 
-interface KnowledgeDetailPageProps {
+export interface KnowledgeDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateKnowledgeDetailPageMetadata({
-  params
-}: KnowledgeDetailPageProps): Promise<Metadata> {
+export async function generateKnowledgeDetailPageMetadata(
+  locale: Locale,
+  { params }: KnowledgeDetailPageProps
+): Promise<Metadata> {
   const { slug } = await params;
 
   return buildContentDetailMetadata(
     knowledgeDetailKind,
     slug,
-    getKnowledgeBySlug(slug)
+    getKnowledgeBySlug(slug),
+    locale
   );
 }
 
 export async function KnowledgeDetailPage({
-  params
-}: KnowledgeDetailPageProps) {
+  params,
+  locale
+}: KnowledgeDetailPageProps & { locale: Locale }) {
   const { slug } = await params;
   const knowledge = getKnowledgeBySlug(slug);
 
@@ -38,12 +43,18 @@ export async function KnowledgeDetailPage({
 
   return (
     <>
-      <ContentDetailPage kind={knowledgeDetailKind} item={knowledge} />
+      <ContentDetailPage
+        kind={knowledgeDetailKind}
+        item={knowledge}
+        locale={locale}
+      />
       <JsonLd
         data={buildContentJsonLd(
           "knowledge",
           knowledge,
-          getTagsByIds(knowledge.tags)
+          localizeTags(getTagsByIds(knowledge.tags), locale),
+          undefined,
+          locale
         )}
       />
     </>

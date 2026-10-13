@@ -1,6 +1,7 @@
 import {
   generateSkillDetailPageMetadata,
-  SkillDetailPage
+  SkillDetailPage,
+  type SkillDetailPageProps
 } from "@/components/pages/skill-detail-page";
 
 // Reads runtime content through @/lib/content, so it must never be
@@ -10,6 +11,10 @@ import {
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateSkillDetailPageMetadata;
+export function generateMetadata(props: SkillDetailPageProps) {
+  return generateSkillDetailPageMetadata("zh", props);
+}
 
-export default SkillDetailPage;
+export default function Page(props: SkillDetailPageProps) {
+  return <SkillDetailPage {...props} locale="zh" />;
+}

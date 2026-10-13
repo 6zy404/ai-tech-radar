@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { commonCopy } from "@/lib/i18n/copy/common";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { buildPageLinkUrl } from "@/lib/page-link";
 import { getSiteUrl } from "@/lib/site-metadata";
 
@@ -34,6 +36,8 @@ export function CopyLinkButton({ sharePath }: { sharePath: string }) {
     }
   }, [fallbackUrl]);
 
+  const copy = commonCopy[useLocale()].copyLink;
+
   async function handleCopy() {
     const url = buildPageLinkUrl(getSiteUrl(), sharePath);
     window.clearTimeout(timerRef.current);
@@ -42,7 +46,7 @@ export function CopyLinkButton({ sharePath }: { sharePath: string }) {
       await navigator.clipboard.writeText(url);
       setFallbackUrl("");
       setCopied(true);
-      setStatus("本页链接已复制。");
+      setStatus(copy.copiedStatus);
       timerRef.current = window.setTimeout(() => {
         setCopied(false);
         setStatus("");
@@ -50,9 +54,7 @@ export function CopyLinkButton({ sharePath }: { sharePath: string }) {
     } catch {
       setCopied(false);
       setFallbackUrl(url);
-      setStatus(
-        "浏览器没有允许写入剪贴板。链接已在下面的文本框里选中，按 Ctrl+C（Mac 上 ⌘C）复制。"
-      );
+      setStatus(copy.blocked);
     }
   }
 
@@ -63,7 +65,7 @@ export function CopyLinkButton({ sharePath }: { sharePath: string }) {
         className="copy-link-button"
         onClick={() => void handleCopy()}
       >
-        {copied ? "已复制" : "复制链接"}
+        {copied ? copy.copied : copy.copy}
       </button>
       {/* Heard, not seen, after a copy (the button already says 已复制);
           shown when it explains the fallback box. */}
@@ -84,7 +86,7 @@ export function CopyLinkButton({ sharePath }: { sharePath: string }) {
           type="text"
           readOnly
           value={fallbackUrl}
-          aria-label="本页链接，选中后复制"
+          aria-label={copy.fallbackLabel}
           onFocus={(event) => event.currentTarget.select()}
         />
       ) : null}
