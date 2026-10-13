@@ -1,10 +1,12 @@
-import { aboutPageMetadata, AboutPage } from "@/components/pages/about-page";
+import { getAboutPageMetadata, AboutPage } from "@/components/pages/about-page";
 
 // Served per request like every other public page. This page's own copy
 // is fixed, but the shell around it is not, and validate:deployment holds
 // every page to an explicit render mode.
 export const dynamic = "force-dynamic";
 
-export const metadata = aboutPageMetadata;
+export const metadata = getAboutPageMetadata("zh");
 
-export default AboutPage;
+export default function Page() {
+  return <AboutPage locale="zh" />;
+}

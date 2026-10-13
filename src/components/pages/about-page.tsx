@@ -6,6 +6,12 @@ import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
+import {
+  AboutPageEn,
+  aboutPageDescriptionEn,
+  aboutPageTitleEn
+} from "@/components/pages/about-page-en";
+import type { Locale } from "@/lib/i18n/locale";
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import { importantFreshnessWindowDays } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
@@ -23,11 +29,14 @@ const pageTitle = "本站怎么挑信号";
 const pageDescription =
   "信号从哪来、编辑怎么挑、优先级怎么定，以及站点存什么、不存什么。";
 
-export const aboutPageMetadata = buildPageMetadata({
-  title: pageTitle,
-  description: pageDescription,
-  path: "/about"
-});
+export function getAboutPageMetadata(locale: Locale) {
+  return buildPageMetadata({
+    title: locale === "en" ? aboutPageTitleEn : pageTitle,
+    description: locale === "en" ? aboutPageDescriptionEn : pageDescription,
+    path: "/about",
+    locale
+  });
+}
 
 const sections = [
   { id: "sources", label: "信号从哪来" },
@@ -136,7 +145,13 @@ function SectionHeader({ id, title }: { id: string; title: string }) {
 // The /skills list skeleton — header label, one-line lede, sections under a
 // hairline — through its classes rather than a copy, as /sources and /topics
 // do. The page is prose, so its sections hold paragraphs as well as cards.
-export function AboutPage() {
+// The English page is its own component (about-page-en.tsx), so this
+// Chinese markup is untouched by the English edition.
+export function AboutPage({ locale }: { locale: Locale }) {
+  if (locale === "en") {
+    return <AboutPageEn />;
+  }
+
   return (
     <UserPageShell
       title={pageTitle}

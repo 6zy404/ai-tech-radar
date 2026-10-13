@@ -110,11 +110,16 @@ export function buildAskExamples(input: AskExampleInput): string[] {
   const names = new Map<string, string>();
 
   for (const signal of signals) {
-    const name = getAskSignalName(
-      getTechnologyTextForLocale(signal.title, signal.sourceLanguage, locale)
-        .text,
-      maxNameLength * scale
+    const title = getTechnologyTextForLocale(
+      signal.title,
+      signal.sourceLanguage,
+      locale
     );
+    // The English site asks about signals it can name in English.
+    const name =
+      locale === "en" && title.language !== "en"
+        ? undefined
+        : getAskSignalName(title.text, maxNameLength * scale);
 
     if (name) {
       names.set(signal.id, name);
@@ -126,9 +131,7 @@ export function buildAskExamples(input: AskExampleInput): string[] {
   const [first, second] = named;
 
   const aboutSignal = (signal: AskExampleSignal | undefined) =>
-    signal
-      ? templates.signal(names.get(signal.id) ?? "")
-      : undefined;
+    signal ? templates.signal(names.get(signal.id) ?? "") : undefined;
 
   // A comparison needs two published signals the editors linked to each
   // other. Prefer one not already asked about, so the set covers more ground.
@@ -186,12 +189,8 @@ export function buildAskExamples(input: AskExampleInput): string[] {
     knowledgeId
       ? templates.knowledge(knowledgeTitles.get(knowledgeId) ?? "")
       : undefined,
-    tagId
-      ? templates.topic(tagNames.get(tagId) ?? "")
-      : undefined,
-    skillId
-      ? templates.skill(skillTitles.get(skillId) ?? "")
-      : undefined,
+    tagId ? templates.topic(tagNames.get(tagId) ?? "") : undefined,
+    skillId ? templates.skill(skillTitles.get(skillId) ?? "") : undefined,
     aboutSignal(second)
   ];
 
