@@ -95,7 +95,16 @@ also embedding each signal's Chinese title and summary.
   to raise `already_published`, which does reject automatically.
 - **Release feeds never take part.** Their bodies are release notes, so
   `v0.31.0` and `v0.30.0` of one project read alike; a re-import is caught by
-  its URL.
+  its URL. A release is recognized by a `/releases/tag/` URL as well as by
+  source type (`isReleaseFeedItem`). **Until 2026-10-13 the runtime checked
+  the source type only**, while this measurement used the URL — and every
+  GitHub release source in the pool is imported as Atom (`rss-feed`), so in
+  practice no release was excluded on either side. The 2026-10-13 run showed
+  it: Transformers `v5.15.0` and `v5.14.0` were flagged as similar to the
+  Muse Glimmer and Inkling signals (0.956 and 0.935), because their notes
+  announce support for those models. The rule version went to
+  `semantic-dedup-v2` with the fix, which sets aside every match stored
+  under v1 until the next import recomputes them.
 - **Raw cosine, not centred.** Subtracting the corpus mean (or each language's
   mean) did no better on same-language pairs, and the per-language variant —
   the only one that lifts cross-language pairs off the floor (to 0.30–0.41) —

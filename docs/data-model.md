@@ -794,7 +794,10 @@ Current reason codes:
 - `same_canonical_url`
 - `semantic_similar` (2026-10-13) — the local embedding model scores the two
   candidates' title + summary at ≥ 0.96 cosine, at most 3 days apart, neither
-  a release-feed item. Not computed here: the async refresh after an import
+  a release-feed item (a `github-release` source or a `/releases/tag/` URL —
+  every release feed in the pool arrives as Atom, so until
+  `semantic-dedup-v2` on 2026-10-13 the source-type test alone excluded
+  nothing). Not computed here: the async refresh after an import
   stores the pairs in `candidate-semantic-matches.json` (each with the model,
   rule version and threshold that produced it — entries under any other are
   ignored) and the synchronous analysis reads them. Measured in
@@ -1522,7 +1525,11 @@ Current rules:
 
 - same normalized source URL
 - same canonical link from raw RSS / Atom / official blog payloads
-- highly similar normalized title token overlap
+- highly similar normalized title token overlap — across two different
+  sources (`sourceId`, else `sourceName`) only when both titles carry at
+  least three comparison tokens and, if both name a dotted version
+  (`v5.13.1`, `2026.6.16`), they share one (2026-10-13; within one source
+  unchanged)
 - same publisher and similar title within a near publish-date window
 - same GitHub repository release family for GitHub release sources
 

@@ -185,3 +185,163 @@ describe("getDuplicateReasons", () => {
     expect(getDuplicateReasons(left, right)).toContain("similar_title");
   });
 });
+
+/**
+ * The open groups in the 2026-10-13 snapshot, every one a cross-source pair a
+ * short title had matched. Each hid a real item on the news lane.
+ */
+describe("getDuplicateReasons across sources", () => {
+  const transformers = {
+    sourceId: "source-transformers-releases",
+    sourceName: "Transformers Releases",
+    sourceType: "github-release" as const,
+    publisherName: "Hugging Face"
+  };
+  const msSwift = {
+    sourceId: "source-ms-swift-releases",
+    sourceName: "ms-swift Releases",
+    sourceType: "github-release" as const,
+    publisherName: "ModelScope"
+  };
+  const mcpServers = {
+    sourceId: "source-mcp-servers-releases",
+    sourceName: "MCP Servers Releases",
+    sourceType: "github-release" as const,
+    publisherName: "modelcontextprotocol"
+  };
+  const qbitai = {
+    sourceId: "source-qbitai",
+    sourceName: "量子位",
+    sourceType: "rss-feed" as const,
+    publisherName: "量子位"
+  };
+
+  it("does not group two projects' patch releases", () => {
+    const left = makeImportedCandidate({
+      ...transformers,
+      id: "a",
+      sourceUrl:
+        "https://github.com/huggingface/transformers/releases/tag/v5.13.1",
+      publishDate: "2026-07-11",
+      originalTitle: "Patch release v5.13.1"
+    });
+    const right = makeImportedCandidate({
+      ...msSwift,
+      id: "b",
+      sourceUrl: "https://github.com/modelscope/ms-swift/releases/tag/v4.3.1",
+      publishDate: "2026-06-17",
+      originalTitle: "Patch release v4.3.1"
+    });
+
+    expect(getDuplicateReasons(left, right)).toEqual([]);
+  });
+
+  it("does not group a date-numbered release with a headline that mentions the year", () => {
+    const release = makeImportedCandidate({
+      ...mcpServers,
+      id: "a",
+      sourceUrl:
+        "https://github.com/modelcontextprotocol/servers/releases/tag/2026.6.16",
+      publishDate: "2026-06-16",
+      originalTitle: "2026.6.16"
+    });
+    const headline = makeImportedCandidate({
+      ...qbitai,
+      id: "b",
+      sourceUrl: "https://www.qbitai.com/2026/10/1.html",
+      publishDate: "2026-10-10",
+      originalTitle:
+        "西门子将亮相2026工博会：以软硬协同的工业全栈能力，推动物理AI加速落地"
+    });
+
+    expect(getDuplicateReasons(release, headline)).toEqual([]);
+  });
+
+  it("does not group two date-numbered releases of one feed with an outside headline", () => {
+    const release = makeImportedCandidate({
+      ...mcpServers,
+      id: "a",
+      sourceUrl:
+        "https://github.com/modelcontextprotocol/servers/releases/tag/2026.6.3",
+      publishDate: "2026-06-04",
+      originalTitle: "2026.6.3"
+    });
+    const headline = makeImportedCandidate({
+      ...qbitai,
+      id: "b",
+      sourceUrl: "https://www.qbitai.com/2026/10/2.html",
+      publishDate: "2026-10-10",
+      originalTitle: "2026 年还剩三个月，这些 AI 公司已经交卷"
+    });
+
+    expect(getDuplicateReasons(release, headline)).toEqual([]);
+  });
+
+  it("does not group two bare version titles from different sources", () => {
+    const left = makeImportedCandidate({
+      ...transformers,
+      id: "a",
+      sourceUrl: "https://example.com/a/v1.0.0",
+      originalTitle: "v1.0.0"
+    });
+    const right = makeImportedCandidate({
+      ...msSwift,
+      id: "b",
+      sourceUrl: "https://example.com/b/v1.0.0",
+      originalTitle: "v1.0.0"
+    });
+
+    expect(getDuplicateReasons(left, right)).toEqual([]);
+  });
+
+  it("does not group long titles that differ only in their version", () => {
+    const left = makeImportedCandidate({
+      ...transformers,
+      id: "a",
+      sourceUrl: "https://example.com/a",
+      originalTitle: "Release notes for the inference server v0.31.0"
+    });
+    const right = makeImportedCandidate({
+      ...qbitai,
+      id: "b",
+      sourceUrl: "https://example.com/b",
+      originalTitle: "Release notes for the inference server v0.30.0"
+    });
+
+    expect(getDuplicateReasons(left, right)).not.toContain("similar_title");
+  });
+
+  it("still groups the same long headline from two outlets", () => {
+    const left = makeImportedCandidate({
+      ...transformers,
+      id: "a",
+      sourceUrl: "https://a.example.com/1",
+      originalTitle: "Gemini 4 Argon: our next era of frontier models"
+    });
+    const right = makeImportedCandidate({
+      ...qbitai,
+      id: "b",
+      sourceUrl: "https://b.example.com/2",
+      originalTitle: "Gemini 4 Argon: our next era of frontier models"
+    });
+
+    expect(getDuplicateReasons(left, right)).toContain("similar_title");
+  });
+
+  it("still groups short titles within one source", () => {
+    const left = makeImportedCandidate({
+      ...transformers,
+      id: "a",
+      sourceUrl: "https://example.com/a",
+      originalTitle: "Patch release v5.13.1"
+    });
+    const right = makeImportedCandidate({
+      ...transformers,
+      id: "b",
+      sourceUrl: "https://example.com/b",
+      originalTitle: "Patch release v5.14.1"
+    });
+
+    expect(getDuplicateReasons(left, right)).toContain("similar_title");
+  });
+});
