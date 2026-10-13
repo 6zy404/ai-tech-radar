@@ -5,6 +5,7 @@ import type {
   LearningCost,
   SkillType
 } from "@/types/content";
+import type { Locale } from "@/lib/i18n/locale";
 
 // The allowed values and reader-facing labels of the skill and knowledge
 // attributes. The workspace validates against the value lists and its
@@ -74,4 +75,75 @@ export const difficultyLabels: Record<DifficultyLevel, string> = {
   foundation: "基础",
   intermediate: "进阶",
   advanced: "高级"
+};
+
+// English labels for the English interface (2026-10-13). The Chinese maps
+// above stay the single source for every Chinese page and the workspace.
+
+const englishSkillTypeLabels: Record<SkillType, string> = {
+  engineering: "Engineering",
+  analysis: "Evaluation & analysis",
+  product: "Product judgement",
+  operations: "Operations",
+  communication: "Team communication"
+};
+
+const englishHeatLabels: Record<HeatLevel, string> = {
+  hot: "Hot right now",
+  active: "Active",
+  emerging: "Emerging"
+};
+
+const englishLearningCostLabels: Record<LearningCost, string> = {
+  low: "Low learning cost",
+  medium: "Medium learning cost",
+  high: "High learning cost"
+};
+
+const englishLearningCostValues: Record<LearningCost, string> = {
+  low: "Low",
+  medium: "Medium",
+  high: "High"
+};
+
+const englishKnowledgeCategoryLabels: Record<KnowledgeCategory, string> = {
+  "machine-learning": "Machine learning",
+  "software-architecture": "Software architecture",
+  data: "Data",
+  "product-thinking": "Product thinking",
+  operations: "Operations"
+};
+
+const englishDifficultyLabels: Record<DifficultyLevel, string> = {
+  foundation: "Foundation",
+  intermediate: "Intermediate",
+  advanced: "Advanced"
+};
+
+export interface ContentLabelSet {
+  skillType: Record<SkillType, string>;
+  heat: Record<HeatLevel, string>;
+  learningCost: Record<LearningCost, string>;
+  learningCostValue: Record<LearningCost, string>;
+  knowledgeCategory: Record<KnowledgeCategory, string>;
+  difficulty: Record<DifficultyLevel, string>;
+}
+
+export const contentLabelsByLocale: Record<Locale, ContentLabelSet> = {
+  zh: {
+    skillType: skillTypeLabels,
+    heat: heatLabels,
+    learningCost: learningCostLabels,
+    learningCostValue: learningCostValues,
+    knowledgeCategory: knowledgeCategoryLabels,
+    difficulty: difficultyLabels
+  },
+  en: {
+    skillType: englishSkillTypeLabels,
+    heat: englishHeatLabels,
+    learningCost: englishLearningCostLabels,
+    learningCostValue: englishLearningCostValues,
+    knowledgeCategory: englishKnowledgeCategoryLabels,
+    difficulty: englishDifficultyLabels
+  }
 };

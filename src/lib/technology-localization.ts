@@ -8,6 +8,7 @@ import type {
   TechnologyStatus,
   TechnologyType
 } from "@/types/content";
+import type { Locale } from "@/lib/i18n/locale";
 
 export type TechnologyContentMode = "zh" | "original";
 export type TechnologyContentContext = "preview" | "detail";
@@ -140,10 +141,30 @@ export function getTechnologyTranslationCoverage(
   return "none";
 }
 
+const englishTechnologyTypeLabels: Record<TechnologyType, string> = {
+  platform: "Platform",
+  tool: "Tool",
+  model: "Model",
+  protocol: "Protocol",
+  workflow: "Workflow"
+};
+
+/*
+ * The label functions below take the reading mode (中文 / 原文) and, since
+ * the English interface, the interface locale. On the Chinese site they
+ * behave exactly as before — 原文 mode prints the raw value — and on the
+ * English site they always print the English label, whichever reading mode
+ * the content is in.
+ */
 export function getTechnologyTypeLabel(
   type: TechnologyType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    return englishTechnologyTypeLabels[type];
+  }
+
   if (mode === "original") {
     return type;
   }
@@ -159,10 +180,23 @@ export function getTechnologyTypeLabel(
   return labels[type];
 }
 
+const englishPublisherTypeLabels: Record<PublisherType, string> = {
+  "big-tech": "Big tech",
+  startup: "Startup",
+  "research-lab": "Research lab",
+  "open-source-community": "Open-source community",
+  media: "Media"
+};
+
 export function getPublisherTypeLabel(
   publisherType: PublisherType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    return englishPublisherTypeLabels[publisherType];
+  }
+
   if (mode === "original") {
     return publisherType;
   }
@@ -180,8 +214,19 @@ export function getPublisherTypeLabel(
 
 export function getImportanceLevelLabel(
   importanceLevel: ImportanceLevel,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    const englishLabels: Record<ImportanceLevel, string> = {
+      signal: "Signal",
+      important: "Important",
+      critical: "Critical"
+    };
+
+    return englishLabels[importanceLevel];
+  }
+
   if (mode === "original") {
     return importanceLevel;
   }
@@ -197,7 +242,8 @@ export function getImportanceLevelLabel(
 
 export function getTechnologySignalLabel(
   importanceLevel: ImportanceLevel,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
   const originalLabels: Record<ImportanceLevel, string> = {
     signal: "Early signal",
@@ -205,7 +251,7 @@ export function getTechnologySignalLabel(
     critical: "Critical signal"
   };
 
-  if (mode === "original") {
+  if (mode === "original" || locale === "en") {
     return originalLabels[importanceLevel];
   }
 
@@ -220,7 +266,8 @@ export function getTechnologySignalLabel(
 
 export function getTechnologyAudienceLabel(
   type: TechnologyType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
   const originalLabels: Record<TechnologyType, string> = {
     platform: "For platform, product, and technical strategy teams",
@@ -230,7 +277,7 @@ export function getTechnologyAudienceLabel(
     workflow: "For automation, operations, and product teams"
   };
 
-  if (mode === "original") {
+  if (mode === "original" || locale === "en") {
     return originalLabels[type];
   }
 
@@ -262,10 +309,26 @@ export function getTechnologyStatusLabel(
   return labels[status];
 }
 
+const englishRelationTypeLabels: Record<RelationType, string> = {
+  "builds-on": "Builds on",
+  uses: "Uses",
+  explains: "Explains",
+  requires: "Prerequisite",
+  extends: "Extends",
+  supersedes: "Successor",
+  supports: "Supports",
+  "related-to": "Related"
+};
+
 export function getRelationTypeLabel(
   relationType: RelationType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    return englishRelationTypeLabels[relationType];
+  }
+
   if (mode === "original") {
     return relationType;
   }

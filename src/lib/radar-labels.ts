@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/i18n/locale";
 import type { RadarQuadrant, RadarRing } from "@/types/radar";
 
 // Labels and order for the radar's two axes. No node imports: the client
@@ -41,16 +42,48 @@ const ringDescriptions: Record<RadarRing, string> = {
   hold: "别这样做：先别投入，已在用的也别再照这个做法新开项目。"
 };
 
-export function getRadarQuadrantLabel(quadrant: RadarQuadrant): string {
-  return quadrantLabels[quadrant];
+// English interface (2026-10-13). Adopt / Trial / Assess / Hold are the
+// ring names technology radars have used in English since Thoughtworks'.
+const englishQuadrantLabels: Record<RadarQuadrant, string> = {
+  "models-training": "Models & training",
+  "agents-applications": "Agents & applications",
+  "inference-deployment": "Inference & deployment",
+  "tools-methods": "Tools & methods"
+};
+
+const englishRingLabels: Record<RadarRing, string> = {
+  adopt: "Adopt",
+  trial: "Trial",
+  assess: "Assess",
+  hold: "Hold"
+};
+
+const englishRingDescriptions: Record<RadarRing, string> = {
+  adopt: "Backed by several signals; use it by default.",
+  trial: "Worth using on a real project, in a limited way.",
+  assess: "Worth understanding and prototyping; not yet for production.",
+  hold: "Don't do this: hold off on new investment, and don't start new projects this way even if you already use it."
+};
+
+export function getRadarQuadrantLabel(
+  quadrant: RadarQuadrant,
+  locale: Locale = "zh"
+): string {
+  return (locale === "en" ? englishQuadrantLabels : quadrantLabels)[quadrant];
 }
 
-export function getRadarRingLabel(ring: RadarRing): string {
-  return ringLabels[ring];
+export function getRadarRingLabel(
+  ring: RadarRing,
+  locale: Locale = "zh"
+): string {
+  return (locale === "en" ? englishRingLabels : ringLabels)[ring];
 }
 
-export function getRadarRingDescription(ring: RadarRing): string {
-  return ringDescriptions[ring];
+export function getRadarRingDescription(
+  ring: RadarRing,
+  locale: Locale = "zh"
+): string {
+  return (locale === "en" ? englishRingDescriptions : ringDescriptions)[ring];
 }
 
 /**
@@ -58,6 +91,11 @@ export function getRadarRingDescription(ring: RadarRing): string {
  * practices, and for a practice 暂缓 means "don't do this", not "wait".
  */
 export const radarHoldNote = "暂缓，就是别这样做。";
+
+export const radarHoldNotes: Record<Locale, string> = {
+  zh: radarHoldNote,
+  en: "Hold means: don't do this."
+};
 
 export function isRadarQuadrant(value: unknown): value is RadarQuadrant {
   return radarQuadrants.includes(value as RadarQuadrant);
@@ -68,6 +106,14 @@ export function isRadarRing(value: unknown): value is RadarRing {
 }
 
 /** 「从试用移到采用」 — inward is a promotion, outward a demotion. */
-export function describeRadarMove(from: RadarRing, to: RadarRing): string {
+export function describeRadarMove(
+  from: RadarRing,
+  to: RadarRing,
+  locale: Locale = "zh"
+): string {
+  if (locale === "en") {
+    return `Moved from ${englishRingLabels[from]} to ${englishRingLabels[to]}`;
+  }
+
   return `从${ringLabels[from]}移到${ringLabels[to]}`;
 }

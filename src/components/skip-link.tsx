@@ -2,6 +2,8 @@
 
 import type { MouseEvent } from "react";
 
+import { shellCopy } from "@/lib/i18n/copy/shell";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { mainContentId, workspaceContentId } from "@/lib/skip-link-targets";
 
 /**
@@ -14,6 +16,7 @@ import { mainContentId, workspaceContentId } from "@/lib/skip-link-targets";
  * `#main-content` fragment into the address bar.
  */
 export function SkipLink() {
+  const locale = useLocale();
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     const target =
       document.getElementById(workspaceContentId) ??
@@ -29,7 +32,7 @@ export function SkipLink() {
 
   return (
     <a className="skip-link" href={`#${mainContentId}`} onClick={handleClick}>
-      跳到正文
+      {shellCopy[locale].skipLink}
     </a>
   );
 }
