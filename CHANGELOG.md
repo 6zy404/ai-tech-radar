@@ -12,6 +12,39 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Editorial round 2026-10-13
+
+- **2026-10-13.** 34 undecided candidates, all dispositioned blind: 3 drafted
+  with 「AI 起草」 and published, 20 marked reviewed, 11 rejected. Published:
+  **MIT’s VISTA** (Kaiming He’s group; a visual harness that keeps every raw
+  frame outside the context and lets the model re-inspect it, 100 RHAE on all
+  25 ARC-AGI-3 public games with Claude Opus 5.0), **Huawei Noah’s Ark’s
+  Memento 3** (the same score from a rulebook plus an executable world model in
+  Python, weights frozen; the two are linked as 印证), and **CodeScene’s
+  agentic refactoring case** (300k lines of C in three weeks, Code Health 5.6
+  → 10.0, checked by frame-by-frame replay). Reviewed included nine
+  Transformers releases back to July, the first import of the new source, and
+  a GLM-5.3-Highspeed report that is a user’s screenshot of a grey release.
+  Rejected: non-AI InfoQ items, QCon promotion, a Copilot tutorial. Digest
+  2026-10-13 carries only the three, VISTA pinned, seven earlier items
+  excluded.
+- **First round with 「AI 起草」 and semantic dedup live.** All three drafts read
+  the source page, 8.2k–9.4k tokens and 14–16 seconds each, 0 blocking issues
+  and 0 warnings at publish. What still needed an editor: every title (52, 41
+  and 57 characters against the prompt’s 18–36), one loose topic tag
+  (价格与成本 on Memento 3), the publisher of VISTA (「MIT 何恺明团队」 → MIT)
+  and importance, which stays `signal` by design. The CodeScene title took six
+  versions before every line break at 1265px and 390px fell between words;
+  「30 万行」, 「重构」, 「改完」 and 「一款」 each split at one width or the other.
+  The post-import semantic pass ran in 3.2 seconds over 156 candidates: 0 pairs,
+  3 published-signal hints, none of them in this round’s pool.
+- **The scheduled import ran at 08:45 and 6 of 17 sources failed**: five
+  connection timeouts (three GitHub release feeds, Mistral, Microsoft
+  Research) and Ai2’s RSS answering 403. The timeouts match earlier partial
+  days; the 403 is new and will repeat.
+- **The round itself started at 10:15, not 08:17.** It was scheduled with a
+  session-only cron job, and the session restarted before it fired.
+
 ## Technology radar (/radar)
 
 - **2026-10-13.** `/radar` is a real page now, in the top nav as 雷达: the
