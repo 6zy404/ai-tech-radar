@@ -15,7 +15,8 @@ The product is split into two subsystems:
 - **User-facing Product** — a public home, an auto-aggregated news fast lane
   (`/news`), readable technology list/detail pages (published records only),
   published Daily Digest pages, skills/knowledge pages that explain the
-  signals, public RSS/JSON feeds, and content-level bilingual support.
+  signals, public RSS/JSON feeds, content-level bilingual support, and an
+  English interface for every public page under `/en` (2026-10-14).
 
 > **Status:** working prototype, past the original foundation phase. For the full
 > feature history see [`CHANGELOG.md`](../CHANGELOG.md). For deep dives on any area
@@ -736,6 +737,28 @@ The product is split into two subsystems:
   references followed by their URL. A4 page counts dropped from 7 → 4
   (signal), 12 → 9 (digest), 19 → 11 (skill). Every rule is in
   `src/app/styles/print.css`, one `@media print` block.
+- **English interface (`/en`, 2026-10-14)** — every public page has an
+  English twin at `/en` + its address (`/en`, `/en/technologies/<slug>`,
+  `/en/digest/weekly/<week>` …; route files in `src/app/en/`, share images
+  included). The interface is English; content is shown in the language it
+  exists in, never machine-translated: a signal's `en` text, else its
+  original when the source is English, else the Chinese. Skills, knowledge,
+  editors' notes and digest ledes are Chinese. Chinese content on an English
+  page carries `lang="zh-CN"`, and a page with any says so once in a
+  low-key 「Chinese only」 line (`ChineseOnlyNote`). A signal's original
+  body is shown only when it is an article (≥ 400 characters,
+  `englishBodyMinLength`); otherwise the Chinese write-up under a note.
+  问雷达 and the three AI widgets answer in Chinese and say so. Page bodies
+  live in `src/components/pages/` and take a `locale`; the Chinese route
+  file and its `/en` twin only pass it. Interface strings are in
+  `src/lib/i18n/copy/` (`{ zh, en }`, English typed `typeof zh`); topic
+  names in `src/lib/i18n/topic-names.ts`. `<html lang>` comes from the
+  `x-site-locale` header the middleware sets on every page request. The nav
+  carries a 中 / EN link to the same page in the other language (query and
+  hash kept; absent where there is no twin, `hasEnglishTwin`); every page
+  names both versions with hreflang (`x-default` = Chinese), and the
+  sitemap lists both. Chinese addresses and pages are unchanged. No English
+  feeds, API routes, `/offline` or workspace.
 - **Persistence** — local JSON by default, with an optional SQLite driver.
 - **Security boundary** — optional token protection for workspace and internal
   API routes, with internal-only fields kept off public pages and feeds.
@@ -778,6 +801,10 @@ Public, user-facing routes:
   sharing its item renderer with the per-topic feed); announced on every
   `/technologies` view and linked from its header (RSS 订阅)
 - `/search`, `/ask`
+- `/en`, `/en/...` — the English twin of every public page in this list
+  except the feeds, `/signal-vectors.json`, the PWA files, `/offline` and
+  the API routes (`/en/news`, `/en/timeline` redirect to the English
+  `/technologies` views; `/en/.../opengraph-image` are English share cards)
 - `/feed.xml`, `/feed.json`
 - `/signal-vectors.json` — the recommendation data file (vectors + public
   card fields) for the browser-side 和你读过的相近; no parameters
@@ -1017,7 +1044,9 @@ used to live in `next-task` is archived in `history/next-task-log.md`.
 AI black-box / personalized ranking and recommendation; login / accounts / RBAC;
 production database integration and schema migrations; full admin platform;
 external monitoring and alert routing; push / email subscription products and
-production cron infrastructure; full-site i18n; semantic/AI duplicate detection
+production cron infrastructure; machine translation of content, English
+feeds and English AI answers (the interface has an English version since
+2026-10-14, the content does not); semantic/AI duplicate detection
 beyond the current deterministic rules; distributed scheduling, retry backoff,
 and production secret storage; automatic translation APIs; and per-source
 scheduling / auth.

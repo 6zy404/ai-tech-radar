@@ -940,6 +940,37 @@ Workspace deployment boundary:
     newest first, max 12; item title 「本周回顾 · YYYY-MM-DD 这一周」, links to
     `/digest/weekly/[week]`; published signals only, no news fast-lane items
 
+## English twins (`/en`, 2026-10-14)
+
+Every user-facing route above has an English twin at `/en` + its address,
+rendered by the same page body: the bodies live in `src/components/pages/`
+(`home-page.tsx`, `technology-detail-page.tsx`, `digest-date-page.tsx` …)
+and take a `locale`, and `src/app/<route>/page.tsx` and
+`src/app/en/<route>/page.tsx` only pass `"zh"` or `"en"` and the metadata
+function's locale. So a page has one layout in both languages, and a change
+to a page lands in both. The exception is `/about`, whose English text is
+its own component (`about-page-en.tsx`): the Chinese page's prose is JSX, and
+it was left untouched; the two are kept in step by hand.
+
+On an English page:
+
+- interface strings come from `src/lib/i18n/copy/<area>.ts`; topic, radar,
+  relation, band and attribute names have hand-written English names
+- content is shown in the language it exists in: a signal's `en` text, else
+  its original when the source is English, else Chinese; skills, knowledge,
+  editors' notes and digest ledes are Chinese. Chinese content carries
+  `lang="zh-CN"` (`LangScope` / `LangSpan`), and the page says once, where
+  that content starts, that it is in Chinese (`ChineseOnlyNote`) — never on
+  each card
+- the signal page shows the English original body only when it is an
+  article (≥ 400 characters); otherwise the Chinese write-up under a note
+- 问雷达 and the AI widgets keep a Chinese answer and say so above it
+- internal links stay on the English site; feed links and outbound source
+  links go where they do on the Chinese page
+
+`/en/news` and `/en/timeline` redirect to the English `/technologies`
+views. `/offline`, the feeds and the workspace have no English version.
+
 ## User-facing public view model
 
 Public pages should render safe view data only. Allowed fields include:
@@ -1062,6 +1093,14 @@ Forbidden on public pages:
     desktop inline nav and the panel after the button) with CSS showing one,
     so the Tab order matches what is seen at both widths; at 480px and under
     an open search box takes the brand's place (2026-09-30)
+  - a 中 / EN link (`top-nav__locale`, before the theme switch, 2026-10-14)
+    opens the same page in the other language, keeping the query and hash;
+    labelled in the target language (EN on Chinese pages, 中文 on English
+    ones) with `hreflang` and `lang`; absent where the page has no twin
+    (`hasEnglishTwin`: `/offline`, the workspace). All link labels come
+    from `src/lib/i18n/copy/shell.ts`. In the dev build with the workspace
+    entry, the English bar tightens further at 901–980px (gap 8, link
+    padding 4) so the brand stays on one line
 - `ThemeToggle`
   - user-facing light/dark switch in the top nav. The choice lives only in
     this browser's localStorage (`src/lib/theme.ts`), same boundary as
@@ -1219,6 +1258,14 @@ Forbidden on public pages:
     through `DossierCatalogNote`; a page-specific sibling of
     `RelatedItemsSection` (kept unchanged, since it is still shared with
     the not-yet-migrated skill and knowledge detail pages)
+- `ChineseOnlyNote` (`chinese-only-note.tsx`, 2026-10-14)
+  - the one low-key line an English page carries when part of what it shows
+    exists only in Chinese; renders nothing on the Chinese site
+- `LangScope` / `LangSpan` (`lang-scope.tsx`, 2026-10-14)
+  - wrap content in a `<div lang>` / `<span lang>` only when a `lang` is
+    given (`contentLangAttr` / `nameLangAttr` in
+    `src/lib/i18n/text-lang.ts`, which return nothing on the Chinese site),
+    so Chinese pages gain no wrapper
 - `SkipLink`
   - every page's first Tab stop, 跳到正文, rendered by `layout.tsx`; it lands
     on `#main-content` (the layout's `<main>`), or on `#workspace-content`

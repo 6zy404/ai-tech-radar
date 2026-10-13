@@ -756,7 +756,8 @@ The preview route reuses the user-facing technology detail component and maps th
 
 ## Current bilingual scope
 
-The bilingual system is content-level, not route-level.
+Content is bilingual at the field level; since 2026-10-14 the interface is
+bilingual at the route level (see "Interface languages" below).
 
 Current support:
 
@@ -768,6 +769,44 @@ The user-facing product prefers Chinese when available and falls back to origina
 
 The internal workspace remains compatible with the same data shape but does not prioritize bilingual reading UX.
 
+## Interface languages (2026-10-14)
+
+The public site has two interface languages. Chinese keeps every address it
+had; English is the same page under `/en`.
+
+- **Routing.** One page body per page in `src/components/pages/`, taking a
+  `locale`; `src/app/<route>/page.tsx` and `src/app/en/<route>/page.tsx`
+  are thin wrappers that pass it, and the metadata functions take it as their
+  first argument. `src/lib/i18n/locale.ts` holds the path helpers
+  (`localePath`, `stripLocalePrefix`, `getPathLocale`, `hasEnglishTwin`)
+  and imports nothing, so the middleware, server and client code share it.
+- **Knowing the language.** Server components get it as a prop; client
+  components read it from the pathname (`useLocale`); the root layout cannot
+  see the pathname, so `src/middleware.ts` sets an `x-site-locale` request
+  header on every page request (overwriting any client value) and the layout
+  reads it (`getRequestLocale`) for `<html lang>` and the default metadata.
+  The layout is therefore async, which makes Next write page metadata into
+  `<head>` instead of streaming it.
+- **Strings.** `src/lib/i18n/copy/<area>.ts` exports `{ zh, en }` per area,
+  the English typed `typeof zh`; a client component imports only its area.
+  Label functions that predate this (`getRelationTypeLabel`, ring, band,
+  attribute and difficulty labels) take an optional locale defaulting to
+  Chinese; topic names have an English table in
+  `src/lib/i18n/topic-names.ts`.
+- **Content.** Never translated. `getTechnologyTextForLocale` picks a
+  signal's `en` text, else its original when `sourceLanguage` is English,
+  else Chinese, and reports which; `getTechnologyBodyForLocale` adds the
+  rule that an original body under 400 characters is an excerpt, not an
+  article, and falls back to the Chinese write-up. The public mappings and
+  getters are the same ones the Chinese pages use, so the English site
+  exposes no field the Chinese one does not.
+- **Search engines.** `buildPageMetadata` takes the locale for the
+  canonical URL and `og:locale` and adds hreflang pairs for any path with a
+  twin; the sitemap lists both versions; JSON-LD builders take the locale
+  last.
+- **Not translated:** feeds, API routes and AI answers (Chinese, marked on
+  the page), `/offline`, the workspace.
+
 ## Current limits
 
 Not implemented yet:
@@ -777,7 +816,7 @@ Not implemented yet:
 - personalized ranking
 - push notification
 - full admin platform
-- full-site i18n
+- machine translation of content, English feeds and English AI answers
 - production database-backed persistence beyond the current local SQLite driver
 - automated publishing workflows
 - production credential storage and source health history beyond the last 30 attempts per source
