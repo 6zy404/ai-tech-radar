@@ -1,10 +1,15 @@
 import {
   generateSearchPageMetadata,
-  SearchPage
+  SearchPage,
+  type SearchPageProps
 } from "@/components/pages/search-page";
 
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateSearchPageMetadata;
+export function generateMetadata(props: SearchPageProps) {
+  return generateSearchPageMetadata("zh", props);
+}
 
-export default SearchPage;
+export default function Page(props: SearchPageProps) {
+  return <SearchPage {...props} locale="zh" />;
+}

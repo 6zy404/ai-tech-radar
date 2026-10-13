@@ -5,20 +5,31 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { HighlightedText } from "@/components/highlighted-text";
+import { LangSpan } from "@/components/lang-scope";
 import { SiteSearchForm } from "@/components/site-search-form";
 import { UserPageShell } from "@/components/user-page-shell";
+import { getAllTags, getAllTechnologies } from "@/lib/content";
 import {
   searchPublicContentHybrid,
   type HybridSearchResultLink
 } from "@/lib/hybrid-search";
-import { newsDisclaimer, type PublicNewsItem } from "@/lib/news";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { searchCopy } from "@/lib/i18n/copy/search";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { nameLangAttr } from "@/lib/i18n/text-lang";
+import { localizeTag } from "@/lib/i18n/topic-names";
+import type { PublicNewsItem } from "@/lib/news";
+import {
+  localizeSearchLink,
+  type LocalizedSearchFields,
+  type SearchGroup
+} from "@/lib/search";
 import {
   buildSearchHref,
   filterSearchResults,
   getSearchTypeCounts,
   hasOnlySemanticMatches,
   parseSearchType,
-  searchResultTypeLabels,
   searchResultTypes,
   type SearchResultType,
   type SearchTypeCounts
@@ -26,38 +37,52 @@ import {
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import { getSearchCardText } from "@/lib/search-card-text";
+import { getTechnologyTitleForLocale } from "@/lib/technology-localization";
 
-interface SearchPageProps {
+export interface SearchPageProps {
   searchParams: Promise<{ q?: string | string[]; type?: string | string[] }>;
 }
 
-export async function generateSearchPageMetadata({
-  searchParams
-}: SearchPageProps): Promise<Metadata> {
+export async function generateSearchPageMetadata(
+  locale: Locale,
+  { searchParams }: SearchPageProps
+): Promise<Metadata> {
+  const copy = searchCopy[locale];
   const { q, type: rawType } = await searchParams;
   const query = typeof q === "string" ? q.trim() : "";
   const type = parseSearchType(rawType);
-  const typeSuffix = type ? ` · ${searchResultTypeLabels[type]}` : "";
 
   return buildPageMetadata({
-    title: query ? `搜索「${query}」${typeSuffix}` : "站内搜索",
-    description:
-      "在已发布的技术信号、技能、知识和快讯里按关键词与语义相近同时查找。",
+    title: query
+      ? copy.queryTitle(query, type ? copy.typeLabels[type] : undefined)
+      : copy.metaTitle,
+    description: copy.metaDescription,
     path: "/search",
     // A results page is not a page worth indexing on its own.
-    noIndex: query.length > 0
+    noIndex: query.length > 0,
+    locale
   });
 }
 
-function MatchReasonTags({ item }: { item: HybridSearchResultLink }) {
+type ResultLink = HybridSearchResultLink & LocalizedSearchFields;
+
+function MatchReasonTags({
+  item,
+  locale
+}: {
+  item: HybridSearchResultLink;
+  locale: Locale;
+}) {
+  const copy = searchCopy[locale];
+
   return (
     <div className="search-result__reasons">
       {item.matchedBy !== "semantic" ? (
-        <DossierStampTag>关键词</DossierStampTag>
+        <DossierStampTag>{copy.keyword}</DossierStampTag>
       ) : null}
       {item.matchedBy !== "keyword" ? (
         <DossierStampTag className="dossier-stamp-tag--muted">
-          语义相近
+          {copy.semantic}
         </DossierStampTag>
       ) : null}
     </div>
@@ -66,11 +91,14 @@ function MatchReasonTags({ item }: { item: HybridSearchResultLink }) {
 
 function SearchResultCard({
   item,
-  terms
+  terms,
+  locale
 }: {
-  item: HybridSearchResultLink;
+  item: ResultLink;
   terms: string[];
+  locale: Locale;
 }) {
+  const copy = searchCopy[locale];
   // A result found by meaning alone has no literal hit to point at; marking
   // a stray substring there would claim a match that did not happen.
   const hitTerms = item.matchedBy === "semantic" ? [] : terms;
@@ -84,62 +112,81 @@ function SearchResultCard({
 
   return (
     <DossierCard className="search-result">
-      <MatchReasonTags item={item} />
-      <h3>
+      <MatchReasonTags item={item} locale={locale} />
+      <h3 lang={item.titleLang}>
         <Link href={item.href}>
           <HighlightedText text={item.title} terms={hitTerms} />
         </Link>
       </h3>
       {originalTitle ? (
         <div className="search-result__original-title">
-          原标题：
-          <HighlightedText text={originalTitle} terms={hitTerms} />
+          {copy.originalTitle}
+          <LangSpan lang={nameLangAttr(locale, originalTitle)}>
+            <HighlightedText text={originalTitle} terms={hitTerms} />
+          </LangSpan>
         </div>
       ) : null}
       {summary ? (
-        <p>
+        <p lang={item.summaryLang}>
           <HighlightedText text={summary} terms={hitTerms} />
         </p>
       ) : null}
       {originalSummary ? (
         <div className="search-result__original-summary">
-          原文摘要：
-          <HighlightedText text={originalSummary} terms={hitTerms} />
+          {copy.originalSummary}
+          <LangSpan lang={nameLangAttr(locale, originalSummary)}>
+            <HighlightedText text={originalSummary} terms={hitTerms} />
+          </LangSpan>
         </div>
       ) : null}
       {item.meta ? (
-        <div className="search-result__meta">{item.meta}</div>
+        <div
+          className="search-result__meta"
+          lang={nameLangAttr(locale, item.meta)}
+        >
+          {item.meta}
+        </div>
       ) : null}
-      <NewsCardTags tags={item.tags} terms={hitTerms} />
+      <NewsCardTags tags={item.tags} terms={hitTerms} locale={locale} />
     </DossierCard>
   );
 }
 
 function SearchNewsCard({
   item,
-  terms
+  terms,
+  locale
 }: {
   item: PublicNewsItem;
   terms: string[];
+  locale: Locale;
 }) {
   return (
     <DossierCard className="search-result">
-      <h3>
+      <h3 lang={nameLangAttr(locale, item.title)}>
         <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener">
           <HighlightedText text={item.title} terms={terms} />
         </a>
       </h3>
       {item.summary ? (
-        <p>
+        <p lang={nameLangAttr(locale, item.summary)}>
           <HighlightedText text={item.summary} terms={terms} />
         </p>
       ) : null}
       <div className="search-result__meta">
-        <span className="news-card__source">{item.sourceName}</span>
+        <span
+          className="news-card__source"
+          lang={nameLangAttr(locale, item.sourceName)}
+        >
+          {item.sourceName}
+        </span>
         <span>{item.publishDate}</span>
       </div>
-      <NewsCardTags tags={item.tags} terms={terms} />
-      <NewsCardSignalLink technology={item.publishedTechnology} />
+      <NewsCardTags tags={item.tags} terms={terms} locale={locale} />
+      <NewsCardSignalLink
+        technology={item.publishedTechnology}
+        locale={locale}
+      />
     </DossierCard>
   );
 }
@@ -148,11 +195,13 @@ function SearchResultGroup({
   title,
   count,
   notice,
+  locale,
   children
 }: {
   title: string;
   count: number;
   notice?: string;
+  locale: Locale;
   children: React.ReactNode;
 }) {
   if (count === 0) {
@@ -163,7 +212,7 @@ function SearchResultGroup({
     <section className="search-group">
       <div className="search-group__heading">
         <h2>{title}</h2>
-        <span>{count} 条</span>
+        <span>{searchCopy[locale].groupCount(count)}</span>
       </div>
       {notice ? <p className="search-group__notice">{notice}</p> : null}
       <div className="search-group__list">{children}</div>
@@ -179,21 +228,30 @@ function SearchResultGroup({
 function SearchTypeFilter({
   query,
   active,
-  counts
+  counts,
+  locale
 }: {
   query: string;
   active: SearchResultType | undefined;
   counts: SearchTypeCounts;
+  locale: Locale;
 }) {
+  const copy = searchCopy[locale];
   const options = [
-    { value: "all", label: "全部", href: buildSearchHref(query) },
+    {
+      value: "all",
+      label: copy.all,
+      href: localePath(locale, buildSearchHref(query))
+    },
     ...searchResultTypes.map((type) => {
       const empty = counts[type] === 0 && active !== type;
 
       return {
         value: type,
-        label: `${searchResultTypeLabels[type]} ${counts[type]}`,
-        href: empty ? undefined : buildSearchHref(query, type),
+        label: `${copy.typeLabels[type]} ${counts[type]}`,
+        href: empty
+          ? undefined
+          : localePath(locale, buildSearchHref(query, type)),
         disabled: empty
       };
     })
@@ -202,14 +260,50 @@ function SearchTypeFilter({
   return (
     <DossierCategoryChips
       className="search-type-filter"
-      ariaLabel="按类型筛选结果"
+      ariaLabel={copy.filterLabel}
       options={options}
       active={active ?? "all"}
     />
   );
 }
 
-export async function SearchPage({ searchParams }: SearchPageProps) {
+/** News items as the English site shows them: topic names and the signal
+    an item became, in English. Their own text is the source's. */
+function localizeNewsItem(
+  item: PublicNewsItem,
+  locale: Locale
+): PublicNewsItem {
+  if (locale === "zh") {
+    return item;
+  }
+
+  const englishTagNames = new Map(
+    getAllTags().map((tag) => [tag.name, localizeTag(tag, locale).name])
+  );
+  const technology = item.publishedTechnology
+    ? getAllTechnologies().find(
+        (candidate) => candidate.slug === item.publishedTechnology?.slug
+      )
+    : undefined;
+
+  return {
+    ...item,
+    tags: item.tags.map((name) => englishTagNames.get(name) ?? name),
+    publishedTechnology:
+      item.publishedTechnology && technology
+        ? {
+            slug: item.publishedTechnology.slug,
+            title: getTechnologyTitleForLocale(technology, locale).text
+          }
+        : item.publishedTechnology
+  };
+}
+
+export async function SearchPage({
+  searchParams,
+  locale
+}: SearchPageProps & { locale: Locale }) {
+  const copy = searchCopy[locale];
   const { q, type: rawType } = await searchParams;
   const activeType = parseSearchType(rawType);
   const allResults = await searchPublicContentHybrid(
@@ -224,15 +318,17 @@ export async function SearchPage({ searchParams }: SearchPageProps) {
   const onlySemantic = hasOnlySemanticMatches(results);
   // Only reachable by a hand-written URL: the row never links an empty group.
   const activeTypeEmpty = activeType !== undefined && counts[activeType] === 0;
+  const localize = (items: HybridSearchResultLink[], group: SearchGroup) =>
+    items.map((item) => localizeSearchLink(item, group, locale));
 
   return (
     <UserPageShell
-      title="全站搜索"
-      description="检索已发布的技术信号、技能、知识与自动聚合快讯。标题或摘要含关键词的内容，和意思相近的内容，按相关程度一起排序并标出是怎么找到的。"
-      sectionLabel="搜索"
+      title={copy.title}
+      description={copy.pageDescription}
+      sectionLabel={copy.sectionLabel}
       className="search-page dossier"
     >
-      <SiteSearchForm defaultValue={results.query} />
+      <SiteSearchForm defaultValue={results.query} locale={locale} />
 
       {hasQuery ? (
         results.totalCount > 0 ? (
@@ -241,90 +337,109 @@ export async function SearchPage({ searchParams }: SearchPageProps) {
               query={results.query}
               active={activeType}
               counts={counts}
+              locale={locale}
             />
             <p className="search-page__summary">
-              「{results.query}」共找到 {results.totalCount} 条内容。
+              {copy.found(results.query, results.totalCount)}
               <Link
                 className="search-page__ask"
-                href={`/ask?q=${encodeURIComponent(results.query)}`}
+                href={localePath(
+                  locale,
+                  `/ask?q=${encodeURIComponent(results.query)}`
+                )}
               >
-                换成问题问雷达
+                {copy.askInstead}
               </Link>
             </p>
             {onlySemantic ? (
               <p className="search-group__notice">
-                {`没有标题或摘要里含「${results.query}」的内容，下面是按意思找到的相近条目，未必切题。`}
+                {copy.onlySemantic(results.query)}
               </p>
             ) : null}
             {/* News is keyword-only, so the notice says nothing about it. */}
             {results.semanticAvailable || activeType === "news" ? null : (
-              <p className="search-group__notice">
-                语义检索暂时不可用，下面只按关键词匹配。
-              </p>
+              <p className="search-group__notice">{copy.semanticUnavailable}</p>
             )}
             {activeTypeEmpty ? (
               <div className="empty-state empty-state--actionable">
                 <strong>
-                  {`${searchResultTypeLabels[activeType]}里没有与「${results.query}」相关的内容。`}
+                  {copy.emptyGroup(copy.typeLabels[activeType], results.query)}
                 </strong>
                 <Link
-                  href={buildSearchHref(results.query)}
+                  href={localePath(locale, buildSearchHref(results.query))}
                   className="action-link"
                 >
-                  {`查看全部 ${results.totalCount} 条结果`}
+                  {copy.viewAll(results.totalCount)}
                 </Link>
               </div>
             ) : null}
             <SearchResultGroup
-              title="技术信号"
+              title={copy.groups.technologies}
               count={results.technologies.length}
+              locale={locale}
             >
-              {results.technologies.map((item) => (
+              {localize(results.technologies, "technologies").map((item) => (
                 <SearchResultCard
                   key={item.key}
                   item={item}
                   terms={results.terms}
-                />
-              ))}
-            </SearchResultGroup>
-            <SearchResultGroup title="技能" count={results.skills.length}>
-              {results.skills.map((item) => (
-                <SearchResultCard
-                  key={item.key}
-                  item={item}
-                  terms={results.terms}
-                />
-              ))}
-            </SearchResultGroup>
-            <SearchResultGroup title="知识" count={results.knowledge.length}>
-              {results.knowledge.map((item) => (
-                <SearchResultCard
-                  key={item.key}
-                  item={item}
-                  terms={results.terms}
+                  locale={locale}
                 />
               ))}
             </SearchResultGroup>
             <SearchResultGroup
-              title="快讯"
+              title={copy.groups.skills}
+              count={results.skills.length}
+              locale={locale}
+            >
+              {localize(results.skills, "skills").map((item) => (
+                <SearchResultCard
+                  key={item.key}
+                  item={item}
+                  terms={results.terms}
+                  locale={locale}
+                />
+              ))}
+            </SearchResultGroup>
+            <SearchResultGroup
+              title={copy.groups.knowledge}
+              count={results.knowledge.length}
+              locale={locale}
+            >
+              {localize(results.knowledge, "knowledge").map((item) => (
+                <SearchResultCard
+                  key={item.key}
+                  item={item}
+                  terms={results.terms}
+                  locale={locale}
+                />
+              ))}
+            </SearchResultGroup>
+            <SearchResultGroup
+              title={copy.groups.news}
               count={results.news.length}
-              notice={newsDisclaimer}
+              notice={signalsCopy[locale].news.disclaimer}
+              locale={locale}
             >
               {results.news.map((item) => (
                 <SearchNewsCard
                   key={item.key}
-                  item={item}
+                  item={localizeNewsItem(item, locale)}
                   terms={results.terms}
+                  locale={locale}
                 />
               ))}
             </SearchResultGroup>
           </>
         ) : (
           <div className="empty-state empty-state--actionable">
-            <strong>没有找到与「{results.query}」相关的内容。</strong>
-            <p>可以换一个更短的关键词试试，或者浏览经过编辑精选的技术信号。</p>
-            <Link href="/technologies" className="action-link">
-              浏览技术信号
+            <strong>{copy.noResultsTitle(results.query)}</strong>
+            <p>{copy.noResultsBody}</p>
+            <Link
+              href={localePath(locale, "/technologies")}
+              className="action-link"
+            >
+              {copy.browse}
             </Link>
           </div>
         )
