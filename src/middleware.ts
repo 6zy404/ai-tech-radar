@@ -68,10 +68,20 @@ export function middleware(request: NextRequest) {
   );
 }
 
-// Every path except Next's own static files: the workspace prefixes for the
-// access guard, everything else for the locale header. The guard decides on
-// `isProtectedWorkspacePath`, not on which matcher fired, so widening this
-// list cannot open a protected prefix.
+// The five protected prefixes are listed on their own, so nothing in the last
+// entry can ever exclude one — `/workspace/x.json` still reaches the guard.
+// The last entry adds the locale header for every page; it skips Next's own
+// assets, the other API routes and files with an extension (icons, sw.js, the
+// manifest, the feeds), none of which renders the layout. The guard decides
+// on `isProtectedWorkspacePath`, not on which entry matched.
+// `validate:deployment` checks both halves against Next's own matcher.
 export const config = {
-  matcher: ["/((?!_next/static|_next/image).*)"]
+  matcher: [
+    "/workspace/:path*",
+    "/api/workspace/:path*",
+    "/api/candidates/:path*",
+    "/candidates/:path*",
+    "/technologies/drafts/:path*",
+    "/((?!_next/|api/|icons/|.*\\.(?:ico|png|svg|js|json|xml|txt|webmanifest)$).*)"
+  ]
 };

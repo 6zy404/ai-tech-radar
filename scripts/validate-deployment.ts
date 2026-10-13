@@ -10,6 +10,13 @@ import {
 } from "node:fs";
 import path from "node:path";
 
+import { unstable_doesMiddlewareMatch } from "next/experimental/testing/server";
+import { NextRequest } from "next/server";
+
+import {
+  config as middlewareConfig,
+  middleware
+} from "../src/middleware";
 import {
   renderDigestJsonFeed,
   renderDigestRssXml
@@ -523,6 +530,89 @@ function assertPublicSourceDoesNotUseInternalTerms() {
   }
 }
 
+/**
+ * Since the English interface (2026-10-13) the middleware runs on every page
+ * to set the locale header, not only on the five protected prefixes, and its
+ * last matcher entry skips files with an extension. Two things must survive
+ * that widening, checked with Next's own matcher rather than a re-implemented
+ * one:
+ *
+ * - every protected prefix — bare, nested, and with an extension that the
+ *   locale entry skips — still reaches the middleware, and the middleware
+ *   still answers 503 when protection is on without a token and 401 without
+ *   credentials;
+ * - none of the five has an `/en` twin: `src/app/en` holds no directory
+ *   that would produce `/en/workspace` and the rest.
+ */
+function assertMiddlewareStillGuardsEveryProtectedPrefix() {
+  const samples = protectedPathPrefixes.flatMap((prefix) => [
+    prefix,
+    `${prefix}/anything`,
+    `${prefix}/anything.json`
+  ]);
+
+  for (const pathname of samples) {
+    assert.ok(
+      unstable_doesMiddlewareMatch({
+        config: middlewareConfig,
+        url: `http://localhost${pathname}`
+      }),
+      `src/middleware.ts no longer runs on ${pathname}; the workspace guard would not see it.`
+    );
+  }
+
+  const savedEnv = {
+    enabled: process.env.WORKSPACE_ACCESS_ENABLED,
+    token: process.env.WORKSPACE_ACCESS_TOKEN
+  };
+  const restoreEnv = () => {
+    for (const [key, value] of [
+      ["WORKSPACE_ACCESS_ENABLED", savedEnv.enabled],
+      ["WORKSPACE_ACCESS_TOKEN", savedEnv.token]
+    ] as const) {
+      if (value === undefined) {
+        delete process.env[key];
+      } else {
+        process.env[key] = value;
+      }
+    }
+  };
+
+  try {
+    process.env.WORKSPACE_ACCESS_ENABLED = "true";
+
+    for (const [token, expected] of [
+      ["", 503],
+      ["deploy-secret", 401]
+    ] as const) {
+      process.env.WORKSPACE_ACCESS_TOKEN = token;
+
+      for (const pathname of samples) {
+        const response = middleware(
+          new NextRequest(`http://localhost${pathname}`)
+        );
+        assert.equal(
+          response.status,
+          expected,
+          `${pathname} answered ${response.status} with protection on and ${token ? "no credentials" : "no token configured"}; expected ${expected}.`
+        );
+      }
+    }
+  } finally {
+    restoreEnv();
+  }
+
+  const englishTwins = protectedPathPrefixes
+    .map((prefix) => path.join(process.cwd(), "src", "app", "en", prefix))
+    .filter((dir) => existsSync(dir));
+
+  assert.deepEqual(
+    englishTwins,
+    [],
+    `These directories would give a protected prefix an /en address: ${englishTwins.join(", ")}`
+  );
+}
+
 function assertLocalDataDirWritable() {
   const dataDirPath = getLocalDataDirPath();
   const probePath = path.join(dataDirPath, ".deployment-readiness-probe");
@@ -669,6 +759,7 @@ function main() {
   assertPublicSourceDoesNotUseInternalTerms();
   assertClientBuildDoesNotContainWorkspaceSecret();
   assertMiddlewareIsInDiscoverableLocation();
+  assertMiddlewareStillGuardsEveryProtectedPrefix();
   assertPagesDeclareTheirRenderMode();
   assertMetadataRoutesDeclareTheirRenderMode();
   assertPublicBuildExcludesEveryGuardedPrefix();
