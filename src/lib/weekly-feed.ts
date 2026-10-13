@@ -10,12 +10,20 @@ import {
   type WeeklyReviewData,
   type WeeklyReviewSignal
 } from "@/lib/weekly-review";
+import {
+  getPublishedWeeklySummaryPlainText,
+  getWeeklySummaries,
+  type WeeklySummaryRecord
+} from "@/lib/weekly-summary";
 
 /**
  * 本周回顾 RSS（/digest/weekly/feed.xml）：每个已结束或当前、且至少有一条
  * 展示信号的自然周一个 item，最新的周在前。和 /digest/weekly 一样是已发布
  * 信号的纯派生视图——不持久化、不调 AI，只读 getWeeklyReview 已经公开的
  * 字段（标题、周区间、优先级分组），快讯候选与草稿进不来。
+ *
+ * 唯一的例外是编辑撰写的本周总结（weekly-summary.ts）：只有已发布的那份、
+ * 只有文字，放在 item 描述里周区间那一句后面；草稿不会进来。
  */
 
 export const WEEKLY_FEED_ITEM_LIMIT = 12;
@@ -79,7 +87,8 @@ export function getWeeklyFeedItemTitle(week: WeeklyReviewData): string {
 
 export function renderWeeklyReviewRssXml(
   weeks: WeeklyReviewData[] = getWeeklyFeedWeeks(),
-  baseUrl: string = getSiteBaseUrl()
+  baseUrl: string = getSiteBaseUrl(),
+  summaries: WeeklySummaryRecord[] = getWeeklySummaries()
 ): string {
   const feedUrl = `${baseUrl}${weeklyReviewFeedPath}`;
   const homeUrl = `${baseUrl}/digest/weekly`;
@@ -87,8 +96,13 @@ export function renderWeeklyReviewRssXml(
   const items = weeks
     .map((week) => {
       const itemUrl = `${baseUrl}/digest/weekly/${week.weekKey}`;
+      const summary = getPublishedWeeklySummaryPlainText(
+        week.weekKey,
+        summaries
+      );
       const description = [
         `${week.rangeLabel}（周一–周日）共 ${week.totalCount} 条已发布技术信号。`,
+        ...(summary ? [`本周总结：${summary}`] : []),
         buildSignalListText("立即关注", signalsAt(week, "high_priority")),
         buildSignalListText("值得跟踪", signalsAt(week, "watch"))
       ].join("\n\n");

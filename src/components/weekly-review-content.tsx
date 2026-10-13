@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ContentBody } from "@/components/content-body";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
@@ -18,6 +19,11 @@ interface WeeklyReviewContentProps {
   data: WeeklyReviewData;
   archive: WeeklyReviewArchiveEntry[];
   neighbors: WeeklyReviewNeighbors;
+  /**
+   * The week's published 本周总结 (`getPublishedWeeklySummaryText`), or
+   * nothing. Editor-confirmed text, so it carries no AI disclaimer.
+   */
+  summary?: string;
 }
 
 function toPagerTarget(neighbor: WeeklyReviewNeighbor | undefined) {
@@ -34,7 +40,8 @@ const groupLede: Record<WeeklyReviewGroup["level"], string> = {
 export function WeeklyReviewContent({
   data,
   archive,
-  neighbors
+  neighbors,
+  summary
 }: WeeklyReviewContentProps) {
   return (
     <div className="weekly-review">
@@ -58,6 +65,14 @@ export function WeeklyReviewContent({
           <span className="weekly-review-stat__value">{data.topicCount}</span>
         </div>
       </div>
+
+      {/* The same panel as a digest's 今日概览, so the two read alike. */}
+      {summary ? (
+        <section className="daily-digest-summary-panel weekly-review-summary">
+          <h2 className="eyebrow user-eyebrow">本周总结</h2>
+          <ContentBody body={summary} />
+        </section>
+      ) : null}
 
       {data.totalCount > 0 ? (
         data.groups.map((group) => (

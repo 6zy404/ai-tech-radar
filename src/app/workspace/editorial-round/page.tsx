@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { DigestSummaryRoundAction } from "@/components/daily-digest-ai-summary";
 import {
   AiDraftAction,
   CandidateRoundActions,
@@ -8,6 +9,7 @@ import {
   TriageSuggestionAction
 } from "@/components/editorial-round-actions";
 import { triageLabelNames } from "@/lib/candidate-llm-triage";
+import { getDailyDigestByDate } from "@/lib/digest-workflow";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import {
   getDigestStatusLabel,
@@ -318,6 +320,15 @@ export default async function EditorialRoundPage({
             hasDigest={Boolean(todayDigest)}
             isPublished={todayDigest?.status === "published"}
           />
+
+          {todayDigest ? (
+            <DigestSummaryRoundAction
+              date={todayDigest.date}
+              currentSummary={
+                getDailyDigestByDate(todayDigest.date)?.editorialSummary ?? ""
+              }
+            />
+          ) : null}
         </section>
 
         <section className="editorial-round-block">

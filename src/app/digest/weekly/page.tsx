@@ -3,10 +3,12 @@ import Link from "next/link";
 import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
+  describeWeeklyReview,
   getWeeklyReview,
   getWeeklyReviewArchive,
   getWeeklyReviewNeighbors
 } from "@/lib/weekly-review";
+import { getPublishedWeeklySummaryText } from "@/lib/weekly-summary";
 import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
 export const dynamic = "force-dynamic";
@@ -39,11 +41,12 @@ export default function WeeklyReviewPage() {
   }
 
   const archive = getWeeklyReviewArchive({ excludeWeekKey: data.weekKey });
+  const summary = getPublishedWeeklySummaryText(data.weekKey);
 
   return (
     <UserPageShell
       title="本周回顾"
-      description={`${data.rangeLabel}（周一–周日）已发布的技术信号，按优先级汇总。纯派生自已发布信号，无编辑撰写、无 AI。`}
+      description={describeWeeklyReview(data.rangeLabel, Boolean(summary))}
       sectionLabel="周回顾"
       className="weekly-review-page dossier"
       actions={
@@ -56,6 +59,7 @@ export default function WeeklyReviewPage() {
         data={data}
         archive={archive}
         neighbors={getWeeklyReviewNeighbors(data.weekKey)}
+        summary={summary}
       />
     </UserPageShell>
   );

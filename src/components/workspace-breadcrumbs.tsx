@@ -13,6 +13,7 @@ const moduleLabels: Record<string, string> = {
   knowledge: "知识",
   radar: "雷达",
   digests: "简报",
+  "weekly-summaries": "周总结",
   delivery: "投递",
   operations: "运维"
 };
@@ -25,7 +26,8 @@ const detailLabels: Record<string, string> = {
   skills: "技能详情",
   knowledge: "知识详情",
   radar: "雷达条目",
-  digests: "简报详情"
+  digests: "简报详情",
+  "weekly-summaries": "这一周的总结"
 };
 
 const newPageLabels: Record<string, string> = {

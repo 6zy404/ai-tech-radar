@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 
+import { AiOverviewDraftButton } from "@/components/daily-digest-ai-summary";
 import { keepListedOption } from "@/lib/listed-option";
 import type { DailyDigest, TechnologyItem } from "@/types/content";
 
@@ -38,6 +39,7 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
+  const editorialSummaryRef = useRef<HTMLTextAreaElement>(null);
 
   function saveDigest(formData: FormData) {
     startTransition(async () => {
@@ -95,12 +97,27 @@ export function DailyDigestEditForm({ digest }: DailyDigestEditFormProps) {
       <label className="field">
         <span>编辑概览</span>
         <textarea
+          ref={editorialSummaryRef}
           name="editorialSummary"
           defaultValue={digest.editorialSummary ?? ""}
           rows={4}
           placeholder="编辑撰写的公开简报概览（可选）。"
         />
       </label>
+
+      {/* Fills the box above from the issue's selected signals; saving is
+          still the 保存简报文案 button below. */}
+      <AiOverviewDraftButton
+        endpoint={`/api/workspace/digests/${digest.date}/ai-summary`}
+        getCurrentText={() => editorialSummaryRef.current?.value ?? ""}
+        onDraft={(text) => {
+          if (editorialSummaryRef.current) {
+            editorialSummaryRef.current.value = text;
+            editorialSummaryRef.current.focus();
+          }
+        }}
+        disabled={isPending}
+      />
 
       <label className="field">
         <span>编辑备注</span>

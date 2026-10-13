@@ -336,3 +336,17 @@ export function getWeeklyReviewNeighbors(
 
   return { previous: toNeighbor(previous), next: toNeighbor(next) };
 }
+
+/**
+ * The page description under the weekly review's title. The list is always
+ * derived; once an editor has published a 本周总结 the page is no longer
+ * "无编辑撰写", so the sentence says which part is which.
+ */
+export function describeWeeklyReview(
+  rangeLabel: string,
+  hasSummary: boolean
+): string {
+  return hasSummary
+    ? `${rangeLabel}（周一–周日）已发布的技术信号，按优先级汇总。信号列表由已发布信号自动派生，本周总结由编辑撰写。`
+    : `${rangeLabel}（周一–周日）已发布的技术信号，按优先级汇总。纯派生自已发布信号，无编辑撰写、无 AI。`;
+}

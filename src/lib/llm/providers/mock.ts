@@ -248,6 +248,44 @@ function createMockCandidateDraftResponse(
   };
 }
 
+/**
+ * A fixed-shape overview built from the first signal titles in the prompt,
+ * so 「AI 起草导语」 runs end to end without a key. It says it is a mock, in
+ * words the public digest page's internal-copy guard hides.
+ */
+function createMockOverviewResponse(
+  request: LlmGenerateRequest,
+  scope: string
+): LlmGenerateResponse {
+  const titles = [
+    ...request.userPrompt.matchAll(/^### \d+\. \[[^\]]+\] (.+)$/gm)
+  ]
+    .map((match) => match[1].trim())
+    .slice(0, 2);
+  const named = titles.length
+    ? titles.map((title) => `「${title}」`).join("和")
+    : "这些信号";
+
+  return {
+    providerName: "mock",
+    modelName: "mock-overview-v0",
+    tokenUsage: {
+      promptTokens: Math.ceil(
+        (request.systemPrompt.length + request.userPrompt.length) / 4
+      ),
+      completionTokens: 160,
+      totalTokens:
+        Math.ceil(
+          (request.systemPrompt.length + request.userPrompt.length) / 4
+        ) + 160
+    },
+    text: JSON.stringify({
+      editorialSummary: `这是本地 mock 模型为${scope}写的占位导语，只用来在没有密钥时跑通流程，内容不代表信号本身。${named}排在最前面，保存之前请按各条信号的原文重写这一段，写清楚它们之间的联系、关键数字和读者应该先看哪一条。\n\n第二段同样是占位文字：真实模型会在这里交代其余值得跟踪的信号，以及它们与前面几条的关系。`,
+      limitations: ["本地 mock 输出，不代表信号内容。"]
+    })
+  };
+}
+
 export function createMockLlmProvider(): LlmProvider {
   return {
     name: "mock",
@@ -282,6 +320,14 @@ export function createMockLlmProvider(): LlmProvider {
 
       if (request.userPrompt.startsWith("Purpose: candidate_draft")) {
         return createMockCandidateDraftResponse(request);
+      }
+
+      if (request.userPrompt.startsWith("Purpose: digest_editorial_summary")) {
+        return createMockOverviewResponse(request, "这期简报");
+      }
+
+      if (request.userPrompt.startsWith("Purpose: weekly_summary")) {
+        return createMockOverviewResponse(request, "这一周");
       }
 
       const title =

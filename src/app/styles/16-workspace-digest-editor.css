@@ -92,3 +92,34 @@
   color: var(--text);
   font: inherit;
 }
+
+/* AI 起草导语 — the button, then a quiet provenance line and the model's
+   warnings under it. Shared by the digest form, the editorial-round console
+   and the weekly summary editor. */
+.ai-overview-draft {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  min-width: 0;
+}
+
+.ai-overview-draft .field {
+  justify-self: stretch;
+}
+
+.ai-overview-draft__notes {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.ai-overview-draft__notes p,
+.ai-overview-draft__notes ul {
+  margin: 0;
+}
+
+.ai-overview-draft__notes ul {
+  padding-left: 1.2em;
+}

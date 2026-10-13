@@ -265,6 +265,10 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
         return readTechnologyWorkspaceStore(database) as T;
       case "daily-digests.json":
         return readDailyDigestStore(database) as T;
+      // One small object (the 本周总结 records), stored whole like the
+      // runtime configs below.
+      case "weekly-summaries.json":
+        return readRuntimeConfig<T>(database, fileName, fallbackValue);
       case "delivery.json":
         return readDeliveryStore(database) as T;
       case "scheduled-delivery.json":
@@ -345,6 +349,9 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
           break;
         case "daily-digests.json":
           writeDailyDigestStore(database, value as DailyDigestStore);
+          break;
+        case "weekly-summaries.json":
+          writeRuntimeConfig(database, fileName, value);
           break;
         case "delivery.json":
           writeDeliveryStore(database, value as DeliveryStore);

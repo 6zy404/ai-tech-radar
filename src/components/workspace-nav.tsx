@@ -14,6 +14,7 @@ const workspaceNavItems = [
   { href: "/workspace/knowledge", label: "知识", group: "内容" },
   { href: "/workspace/radar", label: "雷达", group: "内容" },
   { href: "/workspace/digests", label: "简报", group: "发布" },
+  { href: "/workspace/weekly-summaries", label: "周总结", group: "发布" },
   { href: "/workspace/delivery", label: "投递", group: "发布" },
   {
     href: "/workspace/delivery/schedules",

@@ -468,6 +468,9 @@ export function DailyDigestWorkspaceDetail({
                 打开已发布简报
               </Link>
             ) : null}
+            <Link href="/workspace/weekly-summaries" className="action-link">
+              周总结 →
+            </Link>
           </div>
         </section>
       </aside>
