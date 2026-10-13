@@ -8,6 +8,9 @@ import {
   readFollowedTagIds,
   setTagFollowed
 } from "@/lib/followed-tags";
+import { topicsCopy } from "@/lib/i18n/copy/topics";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 interface TopicFollowToggleProps {
   tagId: string;
@@ -22,6 +25,8 @@ interface TopicFollowToggleProps {
 // the swap and nothing below it moves. Divs, not <p>: `.user-shell p` pins
 // every paragraph to body size with !important.
 export function TopicFollowToggle({ tagId, tagName }: TopicFollowToggleProps) {
+  const locale = useLocale();
+  const copy = topicsCopy[locale].followToggle;
   const [isFollowed, setIsFollowed] = useState(false);
 
   useEffect(() => {
@@ -50,22 +55,26 @@ export function TopicFollowToggle({ tagId, tagName }: TopicFollowToggleProps) {
           setIsFollowed(setTagFollowed(tagId, !isFollowed).includes(tagId))
         }
       >
-        {isFollowed ? "✓ " : "+ "}关注此话题
+        {isFollowed ? "✓ " : "+ "}
+        {copy.follow}
       </button>
       <div className="topic-follow-toggle__hints">
         <div
           className="topic-follow-toggle__hint"
           data-visible={isFollowed ? undefined : "true"}
         >
-          {`关注后，「${tagName}」的新信号会汇总到「我关注的」，简报里也会标出。只记在这个浏览器里，无需账号。`}
+          {copy.hintOff(tagName)}
         </div>
         <div
           className="topic-follow-toggle__hint"
           data-visible={isFollowed ? "true" : undefined}
         >
-          {`已加入我的雷达，「${tagName}」的新信号会汇总到「我关注的」，简报里也会标出 · `}
-          <Link className="action-link" href="/technologies?view=followed">
-            查看
+          {copy.hintOn(tagName)}
+          <Link
+            className="action-link"
+            href={localePath(locale, "/technologies?view=followed")}
+          >
+            {copy.view}
           </Link>
         </div>
       </div>

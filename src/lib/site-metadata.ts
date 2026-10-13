@@ -6,11 +6,7 @@ import {
   signalFeedPath,
   weeklyReviewFeedPath
 } from "@/lib/feed-paths";
-import {
-  localePath,
-  openGraphLocales,
-  type Locale
-} from "@/lib/i18n/locale";
+import { localePath, openGraphLocales, type Locale } from "@/lib/i18n/locale";
 
 /**
  * One place for what search engines and share cards see. Until 2026-09-24

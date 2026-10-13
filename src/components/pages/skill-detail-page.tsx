@@ -43,11 +43,7 @@ export async function SkillDetailPage({
 
   return (
     <>
-      <ContentDetailPage
-        kind={skillDetailKind}
-        item={skill}
-        locale={locale}
-      />
+      <ContentDetailPage kind={skillDetailKind} item={skill} locale={locale} />
       <JsonLd
         data={buildContentJsonLd(
           "skill",

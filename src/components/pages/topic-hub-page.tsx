@@ -1,39 +1,46 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { LangSpan } from "@/components/lang-scope";
 import { TopicFollowToggle } from "@/components/topic-follow-toggle";
 import { TopicMiniGraph } from "@/components/topic-mini-graph";
 import { UserPageShell } from "@/components/user-page-shell";
-import { difficultyLabels, heatLabels } from "@/lib/content-labels";
+import { contentLabelsByLocale } from "@/lib/content-labels";
 import { topicFeedPath } from "@/lib/feed-paths";
+import { topicsCopy } from "@/lib/i18n/copy/topics";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
 import { getTopicHub } from "@/lib/topic-hub";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
-import type { ContentKind } from "@/types/content";
 import type { Metadata } from "next";
 import { buildPageMetadata, siteName } from "@/lib/site-metadata";
 
-interface TopicHubPageProps {
+export interface TopicHubPageProps {
   params: Promise<{ tagId: string }>;
 }
 
-export async function generateTopicHubPageMetadata({
-  params
-}: TopicHubPageProps): Promise<Metadata> {
+export async function generateTopicHubPageMetadata(
+  locale: Locale,
+  { params }: TopicHubPageProps
+): Promise<Metadata> {
+  const copy = topicsCopy[locale].hub;
   const { tagId } = await params;
-  const hub = getTopicHub(tagId);
+  const hub = getTopicHub(tagId, locale);
 
   if (!hub) {
     return buildPageMetadata({
-      title: "没有这一页",
+      title: copy.notFoundTitle,
       path: `/topics/${tagId}`,
-      noIndex: true
+      noIndex: true,
+      locale
     });
   }
 
   return buildPageMetadata({
-    title: `${hub.tag.name} · 专题`,
+    title: copy.pageTitle(hub.tag.name),
     description: hub.tag.description,
     path: `/topics/${hub.tag.id}`,
     // The feed route 404s for a topic with no published signal, which is
@@ -43,39 +50,42 @@ export async function generateTopicHubPageMetadata({
         ? [
             {
               path: topicFeedPath(hub.tag.id),
-              title: `${siteName} · 话题：${hub.tag.name}`
+              title: copy.feedTitle(siteName, hub.tag.name)
             }
           ]
         : [],
-    largeImage: true
+    largeImage: true,
+    locale
   });
 }
 
-const kindLabels: Record<ContentKind, string> = {
-  technology: "技术",
-  skill: "技能",
-  knowledge: "知识"
-};
-
-export async function TopicHubPage({ params }: TopicHubPageProps) {
+export async function TopicHubPage({
+  params,
+  locale
+}: TopicHubPageProps & { locale: Locale }) {
+  const copy = topicsCopy[locale].hub;
+  const labels = contentLabelsByLocale[locale];
+  // Skill and knowledge entries are Chinese only.
+  const entryLang = contentLangAttr(locale);
   const { tagId } = await params;
-  const hub = getTopicHub(tagId);
+  const hub = getTopicHub(tagId, locale);
 
   if (!hub) {
     notFound();
   }
 
   const { tag, technologies, skills, knowledge, relatedNodes, graph } = hub;
+  const nodeLangs = hub.nodeLangs ?? {};
 
   return (
     <UserPageShell
       title={tag.name}
       description={tag.description}
-      sectionLabel="主题聚合"
+      sectionLabel={copy.sectionLabel}
       className="topic-hub-page dossier"
       actions={
-        <Link href="/topics" className="action-link">
-          全部话题
+        <Link href={localePath(locale, "/topics")} className="action-link">
+          {copy.allTopics}
         </Link>
       }
     >
@@ -85,23 +95,27 @@ export async function TopicHubPage({ params }: TopicHubPageProps) {
           would 404. */}
       <section className="topic-hub-section topic-hub-follow">
         <div className="topic-hub-section__heading">
-          <h2>跟进此话题</h2>
+          <h2>{copy.followHeading}</h2>
           <span>
-            {technologies.length > 0 ? "站内关注 · 站外订阅" : "站内关注"}
+            {technologies.length > 0
+              ? copy.followModesBoth
+              : copy.followModesSite}
           </span>
         </div>
         <div className="topic-hub-follow__options">
           <div className="topic-hub-follow__option">
-            <div className="topic-hub-follow__label">站内 · 我的雷达</div>
+            <div className="topic-hub-follow__label">{copy.followOnSite}</div>
             <TopicFollowToggle tagId={tag.id} tagName={tag.name} />
           </div>
           {technologies.length > 0 ? (
             <div className="topic-hub-follow__option">
-              <div className="topic-hub-follow__label">站外 · RSS 阅读器</div>
+              <div className="topic-hub-follow__label">
+                {copy.followOffSite}
+              </div>
               <div className="digest-feed-links">
-                <Link href={topicFeedPath(tag.id)}>RSS 订阅源</Link>
+                <Link href={topicFeedPath(tag.id)}>{copy.feedLink}</Link>
                 <span className="topic-hub-subscribe-hint">
-                  {`把这个订阅源加进任何 RSS 阅读器，「${tag.name}」下新发布的技术信号会自动送达，无需账号。`}
+                  {copy.feedHint(tag.name)}
                 </span>
               </div>
             </div>
@@ -109,25 +123,36 @@ export async function TopicHubPage({ params }: TopicHubPageProps) {
         </div>
       </section>
 
-      <TopicMiniGraph graph={graph} topicName={tag.name} />
+      <TopicMiniGraph
+        graph={graph}
+        topicName={tag.name}
+        nodeLangs={nodeLangs}
+        locale={locale}
+      />
+
+      <ChineseOnlyNote locale={locale}>{copy.chineseOnly}</ChineseOnlyNote>
 
       {technologies.length > 0 ? (
         <section className="topic-hub-section">
           <div className="topic-hub-section__heading">
-            <h2>已发布技术信号</h2>
-            <span>{technologies.length} 条</span>
+            <h2>{copy.signalsHeading}</h2>
+            <span>{copy.signalsCount(technologies.length)}</span>
           </div>
           <div className="topic-hub-section__list">
             {technologies.map((item) => (
               <DossierCard key={item.slug} className="topic-hub-card">
                 <div className="topic-hub-card__meta">
-                  <span>{item.sourceName}</span>
+                  <span lang={nameLangAttr(locale, item.sourceName)}>
+                    {item.sourceName}
+                  </span>
                   <span>{item.publishDate}</span>
                 </div>
-                <h3>
-                  <Link href={`/technologies/${item.slug}`}>{item.title}</Link>
+                <h3 lang={item.titleLang}>
+                  <Link href={localePath(locale, `/technologies/${item.slug}`)}>
+                    {item.title}
+                  </Link>
                 </h3>
-                <p>{item.summary}</p>
+                <p lang={item.summaryLang}>{item.summary}</p>
               </DossierCard>
             ))}
           </div>
@@ -137,19 +162,21 @@ export async function TopicHubPage({ params }: TopicHubPageProps) {
       {skills.length > 0 ? (
         <section className="topic-hub-section">
           <div className="topic-hub-section__heading">
-            <h2>相关技能</h2>
-            <span>{skills.length} 项</span>
+            <h2>{copy.skillsHeading}</h2>
+            <span>{copy.skillsCount(skills.length)}</span>
           </div>
           <div className="topic-hub-section__list">
             {skills.map((item) => (
               <DossierCard key={item.id} className="topic-hub-card">
                 <DossierStampTag className="dossier-stamp-tag--muted">
-                  {heatLabels[item.heatLevel]}
+                  {labels.heat[item.heatLevel]}
                 </DossierStampTag>
-                <h3>
-                  <Link href={`/skills/${item.slug}`}>{item.title}</Link>
+                <h3 lang={entryLang}>
+                  <Link href={localePath(locale, `/skills/${item.slug}`)}>
+                    {item.title}
+                  </Link>
                 </h3>
-                <p>{item.summary}</p>
+                <p lang={entryLang}>{item.summary}</p>
               </DossierCard>
             ))}
           </div>
@@ -159,19 +186,21 @@ export async function TopicHubPage({ params }: TopicHubPageProps) {
       {knowledge.length > 0 ? (
         <section className="topic-hub-section">
           <div className="topic-hub-section__heading">
-            <h2>背景知识</h2>
-            <span>{knowledge.length} 条</span>
+            <h2>{copy.knowledgeHeading}</h2>
+            <span>{copy.knowledgeCount(knowledge.length)}</span>
           </div>
           <div className="topic-hub-section__list">
             {knowledge.map((item) => (
               <DossierCard key={item.id} className="topic-hub-card">
                 <DossierStampTag className="dossier-stamp-tag--muted">
-                  {difficultyLabels[item.difficulty]}
+                  {labels.difficulty[item.difficulty]}
                 </DossierStampTag>
-                <h3>
-                  <Link href={`/knowledge/${item.slug}`}>{item.title}</Link>
+                <h3 lang={entryLang}>
+                  <Link href={localePath(locale, `/knowledge/${item.slug}`)}>
+                    {item.title}
+                  </Link>
                 </h3>
-                <p>{item.summary}</p>
+                <p lang={entryLang}>{item.summary}</p>
               </DossierCard>
             ))}
           </div>
@@ -181,8 +210,8 @@ export async function TopicHubPage({ params }: TopicHubPageProps) {
       {relatedNodes.length > 0 ? (
         <section className="topic-hub-section">
           <div className="topic-hub-section__heading">
-            <h2>图谱关联</h2>
-            <span>来自 /network 的直接邻居</span>
+            <h2>{copy.relatedHeading}</h2>
+            <span>{copy.relatedNote}</span>
           </div>
           <div className="topic-hub-section__relations">
             {relatedNodes.map((node) => (
@@ -192,10 +221,10 @@ export async function TopicHubPage({ params }: TopicHubPageProps) {
                 className="topic-hub-relation"
               >
                 <DossierStampTag>
-                  {kindLabels[node.kind]} ·{" "}
-                  {getRelationTypeLabel(node.relationType, "zh")}
+                  {copy.kinds[node.kind]} ·{" "}
+                  {getRelationTypeLabel(node.relationType, "zh", locale)}
                 </DossierStampTag>
-                {node.title}
+                <LangSpan lang={nodeLangs[node.id]}>{node.title}</LangSpan>
               </Link>
             ))}
           </div>

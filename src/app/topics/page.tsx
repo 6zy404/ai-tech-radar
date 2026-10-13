@@ -1,5 +1,5 @@
 import {
-  topicIndexPageMetadata,
+  getTopicIndexPageMetadata,
   TopicIndexPage
 } from "@/components/pages/topic-index-page";
 
@@ -9,6 +9,8 @@ import {
 // have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const metadata = topicIndexPageMetadata;
+export const metadata = getTopicIndexPageMetadata("zh");
 
-export default TopicIndexPage;
+export default function Page() {
+  return <TopicIndexPage locale="zh" />;
+}

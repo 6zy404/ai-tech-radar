@@ -3,64 +3,64 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { RelationDensity } from "@/components/relation-density";
 import { UserPageShell } from "@/components/user-page-shell";
+import { topicsCopy } from "@/lib/i18n/copy/topics";
+import type { Locale } from "@/lib/i18n/locale";
 import { buildPageMetadata } from "@/lib/site-metadata";
-import { getTopicIndex } from "@/lib/topic-hub";
+import { getTopicHubPath, getTopicIndex } from "@/lib/topic-hub";
 
-const pageTitle = "按话题浏览";
-const pageDescription =
-  "每个话题把同一主题下的已发布技术信号、技能和背景知识放在一起。";
+export function getTopicIndexPageMetadata(locale: Locale) {
+  const copy = topicsCopy[locale].index;
 
-export const topicIndexPageMetadata = buildPageMetadata({
-  title: pageTitle,
-  description: pageDescription,
-  path: "/topics"
-});
+  return buildPageMetadata({
+    title: copy.title,
+    description: copy.description,
+    path: "/topics",
+    locale
+  });
+}
 
 // The index shares the /skills and /knowledge list skeleton — header label,
 // one-line lede, a caption row of counts, a two-column card grid — through
 // their classes rather than a copy, so the three index pages stay one family.
-export function TopicIndexPage() {
-  const { topics, coverage } = getTopicIndex();
+export function TopicIndexPage({ locale }: { locale: Locale }) {
+  const copy = topicsCopy[locale].index;
+  const { topics, coverage } = getTopicIndex(locale);
 
   return (
     <UserPageShell
-      title={pageTitle}
-      description={pageDescription}
-      sectionLabel="话题"
+      title={copy.title}
+      description={copy.description}
+      sectionLabel={copy.sectionLabel}
       className="skills-library-page topic-index-page dossier"
     >
       {topics.length === 0 ? (
         <section className="skills-library-empty">
-          <p className="eyebrow user-eyebrow">暂无话题</p>
-          <h2>还没有带话题的已发布内容。</h2>
-          <p>信号、技能或知识发布并标注话题后，会在这里按话题汇总。</p>
+          <p className="eyebrow user-eyebrow">{copy.emptyEyebrow}</p>
+          <h2>{copy.emptyTitle}</h2>
+          <p>{copy.emptyBody}</p>
         </section>
       ) : (
         <>
           <section className="skills-library-intro">
             <div className="skills-library-intro__copy">
-              {/* One line on purpose: JSX joins wrapped text lines with a
-                  space, which lands in the middle of a Chinese sentence. */}
-              <p>
-                信号最多的话题排在前面；打开一个话题，能看到它下面的全部内容和图谱里的相邻条目。
-              </p>
+              <p>{copy.intro}</p>
             </div>
-            <dl className="skills-library-stats" aria-label="话题概览">
+            <dl className="skills-library-stats" aria-label={copy.statsLabel}>
               <div>
                 <dt>{topics.length}</dt>
-                <dd>个话题</dd>
+                <dd>{copy.statTopics}</dd>
               </div>
               <div>
                 <dt>{coverage.technologies}</dt>
-                <dd>条已发布信号</dd>
+                <dd>{copy.statSignals}</dd>
               </div>
               <div>
                 <dt>{coverage.skills}</dt>
-                <dd>项技能</dd>
+                <dd>{copy.statSkills}</dd>
               </div>
               <div>
                 <dt>{coverage.knowledge}</dt>
-                <dd>条背景知识</dd>
+                <dd>{copy.statKnowledge}</dd>
               </div>
             </dl>
           </section>
@@ -73,24 +73,26 @@ export function TopicIndexPage() {
                   key={topic.id}
                 >
                   <h3>
-                    <Link href={`/topics/${topic.id}`}>{topic.name}</Link>
+                    <Link href={getTopicHubPath(topic.id, locale)}>
+                      {topic.name}
+                    </Link>
                   </h3>
                   <p className="skill-library-card__summary">
                     {topic.description}
                   </p>
                   <RelationDensity
-                    label="收录"
+                    label={copy.densityLabel}
                     items={[
-                      { n: topic.technologyCount, label: "信号" },
-                      { n: topic.skillCount, label: "技能" },
-                      { n: topic.knowledgeCount, label: "知识" }
+                      { n: topic.technologyCount, label: copy.densitySignals },
+                      { n: topic.skillCount, label: copy.densitySkills },
+                      { n: topic.knowledgeCount, label: copy.densityKnowledge }
                     ]}
                   />
                   <Link
                     className="skill-library-card__link"
-                    href={`/topics/${topic.id}`}
+                    href={getTopicHubPath(topic.id, locale)}
                   >
-                    查看专题
+                    {copy.open}
                   </Link>
                 </DossierCard>
               ))}

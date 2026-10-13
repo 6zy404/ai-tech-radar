@@ -598,7 +598,8 @@ export function getTechnologyTextForLocale(
 
   return {
     text: normalizeText(value.zh) ?? value.original,
-    language: sourceLanguage === "en" && !hasLocalizedText(value, "zh") ? "en" : "zh"
+    language:
+      sourceLanguage === "en" && !hasLocalizedText(value, "zh") ? "en" : "zh"
   };
 }
 
