@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import {
   askMaxRounds,
+  buildAskSystemPrompt,
+  resolveAskPriorSources,
   runAskRadar,
   type AskEvent,
+  type AskSource,
   type AskSearchHit,
   type AskTools
 } from "@/lib/ask-radar";
@@ -274,5 +277,132 @@ describe("chat stream parsing", () => {
     }
 
     expect(lines).toEqual(['{"a":1}', "[DONE]"]);
+  });
+});
+
+describe("runAskRadar follow-ups", () => {
+  const prior: AskSource[] = [
+    {
+      ref: 1,
+      key: "T:ollama-0-34",
+      kind: "technology",
+      title: "Ollama 0.34",
+      href: "/technologies/ollama-0-34"
+    },
+    {
+      ref: 2,
+      key: "K:model-quantization-numeric-precision",
+      kind: "knowledge",
+      title: "模型量化与数值精度",
+      href: "/knowledge/model-quantization-numeric-precision"
+    }
+  ];
+  const history = [{ question: "本地跑大模型", answer: "先看量化[2]。" }];
+
+  it("keeps earlier numbers and numbers new items after the highest one", async () => {
+    const { client } = scriptedClient([
+      search("端侧"),
+      { text: "可以[3]，也可以回看[2]。" }
+    ]);
+    const events = await collect(
+      runAskRadar("那手机上呢", {
+        client,
+        tools,
+        history,
+        priorSources: prior
+      })
+    );
+    const sources = events.filter((e) => e.type === "sources").at(-1);
+
+    // hits = [S:on-device… (new), K:model-quantization… (already #2)]
+    expect(sources).toEqual({
+      type: "sources",
+      sources: [
+        prior[0],
+        prior[1],
+        expect.objectContaining({ ref: 3, key: "S:on-device-model-deployment" })
+      ]
+    });
+    expect(events.at(-1)).toEqual({
+      type: "done",
+      cited: [3, 2],
+      invalid: [],
+      refused: false
+    });
+  });
+
+  it("accepts an earlier number without a new search, and flags one nobody retrieved", async () => {
+    const { client } = scriptedClient([{ text: "就是上一轮那条[1]，不是[4]。" }]);
+    const done = (
+      await collect(
+        runAskRadar("哪个版本", { client, tools, history, priorSources: prior })
+      )
+    ).at(-1);
+
+    expect(done).toMatchObject({ cited: [1, 4], invalid: [4] });
+  });
+
+  it("sends earlier turns as messages and lists carried items in the system prompt", async () => {
+    const { client, requests } = scriptedClient([{ text: "好的[1]。" }]);
+    await collect(
+      runAskRadar("追问", { client, tools, history, priorSources: prior })
+    );
+    const [system, ...rest] = requests[0].messages;
+
+    expect(rest).toEqual([
+      { role: "user", content: "本地跑大模型" },
+      { role: "assistant", content: "先看量化[2]。" },
+      { role: "user", content: "追问" }
+    ]);
+    expect(system.content).toContain("[1] 技术信号「Ollama 0.34」");
+    expect(system.content).toContain("[2] 知识「模型量化与数值精度」");
+  });
+
+  it("leaves a first question's prompt exactly as the single-turn eval measured it", async () => {
+    const { client, requests } = scriptedClient([{ text: "答。" }]);
+    await collect(runAskRadar("问", { client, tools, priorSources: prior }));
+
+    expect(requests[0].messages).toEqual([
+      { role: "system", content: buildAskSystemPrompt() },
+      { role: "user", content: "问" }
+    ]);
+    expect(buildAskSystemPrompt()).not.toContain("追问");
+    expect(buildAskSystemPrompt([])).toBe(buildAskSystemPrompt());
+  });
+
+  it("still reports a refusal on a follow-up", async () => {
+    const { client } = scriptedClient([
+      search("股票"),
+      { text: "站内没有直接相关的内容。最接近的是[1]。" }
+    ]);
+    const done = (
+      await collect(
+        runAskRadar("那股票呢", { client, tools, history, priorSources: prior })
+      )
+    ).at(-1);
+
+    expect(done).toMatchObject({ refused: true, cited: [1], invalid: [] });
+  });
+});
+
+describe("resolveAskPriorSources", () => {
+  it("takes title, link and kind from published content, never from the request", async () => {
+    const resolved = await resolveAskPriorSources(
+      [
+        { ref: 4, key: "S:on-device-model-deployment" },
+        { ref: 7, key: "T:unpublished-or-made-up" }
+      ],
+      tools
+    );
+
+    expect(resolved).toEqual([
+      {
+        ref: 4,
+        key: "S:on-device-model-deployment",
+        kind: "skill",
+        title: "端侧模型部署与硬件适配",
+        href: "/skills/on-device-model-deployment"
+      }
+    ]);
   });
 });

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import {
+  buildAskConversationCopyText,
   buildAskCopyText,
   toAbsoluteUrl,
   toAnswerParagraphs,
@@ -150,5 +151,68 @@ describe("toAbsoluteUrl", () => {
     expect(toAbsoluteUrl("https://example.com/x", "https://aizyradar.cn")).toBe(
       "https://example.com/x"
     );
+  });
+});
+
+describe("buildAskConversationCopyText", () => {
+  const first = {
+    question: "本地跑大模型要注意什么？",
+    answer: "先看显存[1]，另见[3]。",
+    sources: sources.slice(0, 2),
+    cited: [1, 3],
+    invalid: [3]
+  };
+  const second = {
+    question: "量化呢？",
+    answer: "量化能省显存[3]，Ollama 也支持[1]。",
+    sources,
+    cited: [3, 1],
+    invalid: []
+  };
+
+  it("copies a single turn exactly as 复制答案 always has", () => {
+    const { question, answer, sources: turnSources, cited, invalid } =
+      input();
+
+    expect(
+      buildAskConversationCopyText({
+        turns: [{ question, answer, sources: turnSources, cited, invalid }],
+        origin: "https://aizyradar.cn",
+        disclaimer: aiGeneratedDisclaimer
+      })
+    ).toBe(buildAskCopyText(input()));
+  });
+
+  it("copies every turn, one source list for the conversation and the disclaimer once", () => {
+    const text = buildAskConversationCopyText({
+      turns: [first, second],
+      origin: "https://aizyradar.cn",
+      disclaimer: aiGeneratedDisclaimer
+    });
+
+    expect(text).toBe(
+      [
+        "问：本地跑大模型要注意什么？",
+        "",
+        // [3] was not retrieved yet in the first turn: it stays invalid
+        // there even though the second turn retrieved an item as #3.
+        "先看显存[1]，另见[3?]。",
+        "",
+        "——",
+        "",
+        "追问：量化呢？",
+        "",
+        "量化能省显存[3]，Ollama 也支持[1]。",
+        "",
+        "出处：",
+        "[1] Ollama 0.34（技术信号） https://aizyradar.cn/technologies/ollama-0-34",
+        "[3] 量化（知识） https://aizyradar.cn/knowledge/quantization",
+        "",
+        "注：[3?] 不对应任何检索到的条目，是无效编号。",
+        "",
+        aiGeneratedDisclaimer
+      ].join("\n")
+    );
+    expect(text.split(aiGeneratedDisclaimer)).toHaveLength(2);
   });
 });

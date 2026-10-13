@@ -99,6 +99,51 @@
   font-size: var(--fs-label);
 }
 
+/* 追问: one panel holds the whole conversation; each turn opens with its
+   question and the turns after the first are set off by a hairline. */
+.ask-radar__turn {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ask-radar__turn + .ask-radar__turn {
+  padding-top: 18px;
+  border-top: 1px solid var(--dossier-line);
+}
+
+.dossier .ask-radar__question {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0;
+  color: var(--dossier-ink);
+  font-size: var(--fs-card-title);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.ask-radar__question-label {
+  flex-shrink: 0;
+  color: var(--dossier-stamp);
+  font-family: ui-monospace, monospace;
+  font-size: var(--fs-label);
+  font-weight: 400;
+}
+
+.ask-radar__question-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ask-radar__limit {
+  margin: 0;
+  color: var(--dossier-muted);
+  font-size: 13px;
+}
+
 .ask-radar__statuses {
   display: flex;
   flex-wrap: wrap;
@@ -163,7 +208,7 @@
   border-top: 1px solid var(--dossier-line);
 }
 
-.dossier .ask-radar__block h2,
+.dossier .ask-radar__block h3,
 .ask-radar__block summary {
   margin: 0;
   color: var(--dossier-muted);

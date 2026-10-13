@@ -71,7 +71,17 @@ export interface AskCopyInput {
   disclaimer: string;
 }
 
-export function buildAskCopyText(input: AskCopyInput): string {
+interface FormattedAnswer {
+  paragraphs: string[];
+  /** Cited numbers that cannot be linked, in order of first appearance. */
+  invalidSeen: number[];
+  /** The page's 引用 block for this answer: same set and order. */
+  citedSources: AskCopySource[];
+}
+
+function formatAnswer(
+  input: Pick<AskCopyInput, "answer" | "sources" | "cited" | "invalid">
+): FormattedAnswer {
   const sourceRefs = new Set(input.sources.map((source) => source.ref));
   const invalidSeen: number[] = [];
 
@@ -95,35 +105,127 @@ export function buildAskCopyText(input: AskCopyInput): string {
       .join("")
   );
 
-  const sections: string[] = [`问：${input.question.trim()}`];
-
-  if (paragraphs.length > 0) {
-    sections.push(paragraphs.join("\n\n"));
-  }
-
-  // Same set and order as the page's 引用 block.
   const citedSources = input.sources.filter(
     (source) =>
       input.cited.includes(source.ref) &&
       !isInvalidCitation(source.ref, sourceRefs, input.invalid)
   );
 
+  return { paragraphs, invalidSeen, citedSources };
+}
+
+function formatSourceLine(source: AskCopySource, origin: string): string {
+  return `[${source.ref}] ${source.title}（${askSourceKindLabels[source.kind]}） ${toAbsoluteUrl(source.href, origin)}`;
+}
+
+function formatInvalidNote(invalid: number[]): string {
+  return `注：${invalid.map((ref) => `[${ref}?]`).join("、")} 不对应任何检索到的条目，是无效编号。`;
+}
+
+export function buildAskCopyText(input: AskCopyInput): string {
+  const { paragraphs, invalidSeen, citedSources } = formatAnswer(input);
+  const sections: string[] = [`问：${input.question.trim()}`];
+
+  if (paragraphs.length > 0) {
+    sections.push(paragraphs.join("\n\n"));
+  }
+
   if (citedSources.length > 0) {
     sections.push(
       [
         "出处：",
-        ...citedSources.map(
-          (source) =>
-            `[${source.ref}] ${source.title}（${askSourceKindLabels[source.kind]}） ${toAbsoluteUrl(source.href, input.origin)}`
-        )
+        ...citedSources.map((source) => formatSourceLine(source, input.origin))
       ].join("\n")
     );
   }
 
   if (invalidSeen.length > 0) {
+    sections.push(formatInvalidNote(invalidSeen));
+  }
+
+  sections.push(input.disclaimer);
+
+  return sections.join("\n\n");
+}
+
+/** One finished turn of a 问雷达 conversation, as the page holds it. */
+export interface AskCopyTurn {
+  question: string;
+  answer: string;
+  /** The conversation's sources as of this turn (numbers never restart). */
+  sources: readonly AskCopySource[];
+  cited: readonly number[];
+  invalid: readonly number[];
+}
+
+/**
+ * 复制整段对话: every turn's question and answer in order, then one 出处
+ * list for the whole conversation (each item once, by number — numbers
+ * never restart within a conversation), then the disclaimer once. Each turn
+ * is checked against its own sources, so a number one turn could not link
+ * stays `[n?]` even if a later turn retrieved an item under it. A single
+ * turn copies exactly as `buildAskCopyText` does.
+ */
+export function buildAskConversationCopyText(input: {
+  turns: readonly AskCopyTurn[];
+  origin: string;
+  disclaimer: string;
+}): string {
+  const [first, ...rest] = input.turns;
+
+  if (!first) {
+    return input.disclaimer;
+  }
+
+  if (rest.length === 0) {
+    return buildAskCopyText({
+      ...first,
+      origin: input.origin,
+      disclaimer: input.disclaimer
+    });
+  }
+
+  const sections: string[] = [];
+  const cited = new Map<number, AskCopySource>();
+  const invalid: number[] = [];
+
+  input.turns.forEach((turn, index) => {
+    const formatted = formatAnswer(turn);
+
+    if (index > 0) {
+      sections.push("——");
+    }
+
+    sections.push(`${index === 0 ? "问" : "追问"}：${turn.question.trim()}`);
+
+    if (formatted.paragraphs.length > 0) {
+      sections.push(formatted.paragraphs.join("\n\n"));
+    }
+
+    for (const source of formatted.citedSources) {
+      cited.set(source.ref, source);
+    }
+
+    for (const ref of formatted.invalidSeen) {
+      if (!invalid.includes(ref)) {
+        invalid.push(ref);
+      }
+    }
+  });
+
+  if (cited.size > 0) {
     sections.push(
-      `注：${invalidSeen.map((ref) => `[${ref}?]`).join("、")} 不对应任何检索到的条目，是无效编号。`
+      [
+        "出处：",
+        ...[...cited.values()]
+          .sort((a, b) => a.ref - b.ref)
+          .map((source) => formatSourceLine(source, input.origin))
+      ].join("\n")
     );
+  }
+
+  if (invalid.length > 0) {
+    sections.push(formatInvalidNote(invalid));
   }
 
   sections.push(input.disclaimer);

@@ -1,21 +1,26 @@
 import { NextResponse } from "next/server";
 
-import { runAskRadar, type AskEvent } from "@/lib/ask-radar";
+import { parseAskRequest } from "@/lib/ask-conversation";
+import {
+  resolveAskPriorSources,
+  runAskRadar,
+  type AskEvent
+} from "@/lib/ask-radar";
 import { siteAskTools } from "@/lib/ask-radar-tools";
 import { createConfiguredChatStream } from "@/lib/llm/chat-clients";
 import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 
 /**
  * POST /api/ask — 问雷达. Public and unauthenticated like the other AI
- * routes; rate limited first, before the body is even read. Streams
- * newline-delimited JSON events (see AskEvent). No event carries provider,
- * model, prompt or token details.
+ * routes; rate limited first, before the body is even read, and per request,
+ * so every follow-up counts as one. Streams newline-delimited JSON events
+ * (see AskEvent). No event carries provider, model, prompt or token details.
+ *
+ * Stateless: a follow-up sends the earlier turns and the reference numbers
+ * the page has shown (see ask-conversation.ts). Nothing is stored here.
  */
 
 export const dynamic = "force-dynamic";
-
-const minQuestionLength = 2;
-const maxQuestionLength = 200;
 
 export async function POST(request: Request) {
   const guard = await guardPublicAiRequest(request, "ask");
@@ -24,24 +29,16 @@ export async function POST(request: Request) {
     return guard.response;
   }
 
-  const body = guard.body;
+  const parsed = parseAskRequest(guard.body);
 
-  const question =
-    typeof (body as { question?: unknown })?.question === "string"
-      ? (body as { question: string }).question.trim()
-      : "";
-
-  if (
-    question.length < minQuestionLength ||
-    question.length > maxQuestionLength
-  ) {
-    return NextResponse.json(
-      {
-        error: `问题需要 ${minQuestionLength} 到 ${maxQuestionLength} 个字。`
-      },
-      { status: 400 }
-    );
+  if (!parsed.ok) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
   }
+
+  const priorSources = await resolveAskPriorSources(
+    parsed.priorSources,
+    siteAskTools
+  );
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
@@ -50,10 +47,12 @@ export async function POST(request: Request) {
         controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
 
       try {
-        for await (const event of runAskRadar(question, {
+        for await (const event of runAskRadar(parsed.question, {
           client: createConfiguredChatStream(),
           tools: siteAskTools,
-          signal: request.signal
+          signal: request.signal,
+          history: parsed.history,
+          priorSources
         })) {
           send(event);
         }

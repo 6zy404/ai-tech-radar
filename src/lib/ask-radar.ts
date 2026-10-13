@@ -1,3 +1,7 @@
+import type {
+  AskHistoryTurn,
+  AskPriorSourceRef
+} from "@/lib/ask-conversation";
 import {
   askRefusalPrefix,
   checkCitations,
@@ -12,14 +16,19 @@ import type {
 } from "@/lib/llm/chat-stream";
 
 /**
- * 问雷达: a single-turn question answered only from the site's own published
- * content, through two tools — search and read — with every claim cited.
+ * 问雷达: a question answered only from the site's own published content,
+ * through two tools — search and read — with every claim cited.
  *
  * The loop is deliberately small. The model may call tools for a few rounds;
  * the last round is sent without tools so it has to answer. Reference numbers
  * are assigned by this code, not by the model, the first time an item comes
  * back from a tool, so a citation can be checked mechanically: a number that
  * no tool returned is invalid, whatever the text around it says.
+ *
+ * A follow-up carries the conversation's earlier questions and answers and
+ * the items already shown (resolved again by `resolveAskPriorSources`).
+ * Those items keep their numbers; new ones are numbered after them, so one
+ * number means one item for the whole conversation. See ask-conversation.ts.
  *
  * Tools are injected, so the loop is tested without a model or a store.
  */
@@ -85,6 +94,14 @@ export interface AskRunStats {
  */
 export const ASK_PROMPT_VERSION = "ask-radar-v1";
 
+/**
+ * The follow-up additions (earlier turns as messages, the carried-forward
+ * items in the system prompt). A first question's prompt and loop are byte
+ * for byte what `ASK_PROMPT_VERSION` measured — a test pins that — so the
+ * single-turn eval stays valid; this tags anything measured on follow-ups.
+ */
+export const ASK_FOLLOWUP_PROMPT_VERSION = "ask-followup-v1";
+
 export const askMaxRounds = 4;
 const maxTokensPerRound = 700;
 const maxBodyChars = 2400;
@@ -119,8 +136,14 @@ export const askTools: ChatToolDefinition[] = [
   }
 ];
 
-export function buildAskSystemPrompt(): string {
-  return [
+const kindLabels: Record<AskSourceKind, string> = {
+  technology: "技术信号",
+  skill: "技能",
+  knowledge: "知识"
+};
+
+export function buildAskSystemPrompt(priorSources: AskSource[] = []): string {
+  const base = [
     "你是「AI 技术雷达」网站的站内问答助手。你只能根据工具返回的本站内容回答，不能用站外知识补充事实。",
     "",
     "做法：",
@@ -131,7 +154,56 @@ export function buildAskSystemPrompt(): string {
     "5. matchedBy 为 semantic 的条目只是意思相近，可能根本不切题，用之前先判断。",
     "",
     "格式：中文，不超过 300 字，分成两到四个短段落。不使用 Markdown 标题、列表、加粗或表格。引号用「」。"
+  ];
+
+  if (priorSources.length === 0) {
+    return base.join("\n");
+  }
+
+  return [
+    ...base,
+    "",
+    "这是一段对话里的追问：",
+    "- 前面几轮的回答只用来弄清追问指的是什么，不是出处，里面的说法不能直接当事实再用。",
+    "- 前面几轮已经检索到的条目列在下面，可以直接用它们的编号引用，需要正文时用 read_item 读；追问换了话题时照常检索。",
+    "- 新检索到的条目会接着这些编号往下编，同一个条目在整段对话里只有一个编号。",
+    `- 追问在站内找不到答案时，同样以「${askRefusalPrefix}。」开头。`,
+    "",
+    "前面几轮已检索到的条目：",
+    ...priorSources.map(
+      (source) => `[${source.ref}] ${kindLabels[source.kind]}「${source.title}」`
+    )
   ].join("\n");
+}
+
+/**
+ * Turns the `{ ref, key }` pairs a follow-up sends into sources the server
+ * vouches for: each key is read again from published content, and its title,
+ * link and kind come from that read, never from the request. Keys that no
+ * longer resolve (an item unpublished since) are dropped — a later citation
+ * of that number then reads as invalid, which is what it is.
+ */
+export async function resolveAskPriorSources(
+  refs: AskPriorSourceRef[],
+  tools: AskTools
+): Promise<AskSource[]> {
+  const resolved: AskSource[] = [];
+
+  for (const { ref, key } of refs) {
+    const item = await tools.read(key);
+
+    if (item) {
+      resolved.push({
+        ref,
+        key,
+        kind: item.kind,
+        title: item.title,
+        href: item.href
+      });
+    }
+  }
+
+  return resolved;
 }
 
 function parseArguments(raw: string): Record<string, unknown> {
@@ -146,12 +218,6 @@ function parseArguments(raw: string): Record<string, unknown> {
   }
 }
 
-const kindLabels: Record<AskSourceKind, string> = {
-  technology: "技术信号",
-  skill: "技能",
-  knowledge: "知识"
-};
-
 export async function* runAskRadar(
   question: string,
   deps: {
@@ -159,12 +225,26 @@ export async function* runAskRadar(
     tools: AskTools;
     signal?: AbortSignal;
     onStats?: (stats: AskRunStats) => void;
+    /** Earlier turns, already cut by `fitHistory`. */
+    history?: AskHistoryTurn[];
+    /** Items earlier turns showed, from `resolveAskPriorSources`. */
+    priorSources?: AskSource[];
   }
 ): AsyncGenerator<AskEvent> {
   const { client, tools } = deps;
-  const sources = new Map<string, AskSource>();
+  const history = deps.history ?? [];
+  const priorSources = history.length > 0 ? (deps.priorSources ?? []) : [];
+  const sources = new Map<string, AskSource>(
+    priorSources.map((source) => [source.key, source])
+  );
+  let nextRef =
+    priorSources.reduce((max, source) => Math.max(max, source.ref), 0) + 1;
   const messages: ChatMessage[] = [
-    { role: "system", content: buildAskSystemPrompt() },
+    { role: "system", content: buildAskSystemPrompt(priorSources) },
+    ...history.flatMap((turn): ChatMessage[] => [
+      { role: "user", content: turn.question },
+      { role: "assistant", content: turn.answer }
+    ]),
     { role: "user", content: question }
   ];
   const usage = { promptTokens: 0, completionTokens: 0 };
@@ -183,13 +263,14 @@ export async function* runAskRadar(
     }
 
     const source: AskSource = {
-      ref: sources.size + 1,
+      ref: nextRef,
       key: hit.key,
       kind: hit.kind,
       title: hit.title,
       href: hit.href
     };
     sources.set(hit.key, source);
+    nextRef += 1;
 
     return source;
   };
