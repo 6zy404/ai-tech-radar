@@ -1,10 +1,15 @@
 import Link from "next/link";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
+import { LangSpan } from "@/components/lang-scope";
 import { RelationDensity } from "@/components/relation-density";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getAllTechnologies } from "@/lib/content";
+import { sourcesCopy } from "@/lib/i18n/copy/sources";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { nameLangAttr } from "@/lib/i18n/text-lang";
 import { buildPageMetadata, signalFeed } from "@/lib/site-metadata";
 import {
   buildSourceDirectory,
@@ -13,18 +18,19 @@ import {
   groupSourceDirectoryByPublisherType
 } from "@/lib/source-directory";
 
-const pageTitle = "信源一览";
-const pageDescription =
-  "已发布的技术信号来自哪些组织、经由哪些信源，按发布方汇总。";
+export function getSourcesPageMetadata(locale: Locale) {
+  const copy = sourcesCopy[locale];
 
-export const sourcesPageMetadata = buildPageMetadata({
-  title: pageTitle,
-  description: pageDescription,
-  path: "/sources",
-  // Everything on this page is derived from the published signals, so the
-  // all-signals feed is the one to subscribe to from here.
-  feeds: [signalFeed]
-});
+  return buildPageMetadata({
+    title: copy.title,
+    description: copy.description,
+    path: "/sources",
+    // Everything on this page is derived from the published signals, so the
+    // all-signals feed is the one to subscribe to from here.
+    feeds: [signalFeed],
+    locale
+  });
+}
 
 function sectionId(publisherType: string): string {
   return `sources-section-${publisherType}`;
@@ -34,52 +40,52 @@ function sectionId(publisherType: string): string {
 // lede, a caption row of counts, sections of two-column cards — through their
 // classes rather than a copy. Built only from published signals' public
 // fields; see src/lib/source-directory.ts for what it must never read.
-export function SourcesPage() {
-  const { entries, totals } = buildSourceDirectory(getAllTechnologies());
+export function SourcesPage({ locale }: { locale: Locale }) {
+  const copy = sourcesCopy[locale];
+  const { entries, totals } = buildSourceDirectory(
+    getAllTechnologies(),
+    locale
+  );
   const sections = groupSourceDirectoryByPublisherType(entries);
 
   return (
     <UserPageShell
-      title={pageTitle}
-      description={pageDescription}
-      sectionLabel="信源"
+      title={copy.title}
+      description={copy.description}
+      sectionLabel={copy.sectionLabel}
       className="skills-library-page sources-page dossier"
     >
       {entries.length === 0 ? (
         <section className="skills-library-empty">
-          <p className="eyebrow user-eyebrow">暂无信源</p>
-          <h2>还没有已发布的技术信号。</h2>
-          <p>信号发布后，会在这里按发布方汇总。</p>
+          <p className="eyebrow user-eyebrow">{copy.emptyEyebrow}</p>
+          <h2>{copy.emptyTitle}</h2>
+          <p>{copy.emptyBody}</p>
         </section>
       ) : (
         <>
           <section className="skills-library-intro">
             <div className="skills-library-intro__copy">
-              {/* One line on purpose: JSX joins wrapped text lines with a
-                  space, which lands in the middle of a Chinese sentence. */}
-              <p>
-                发布方是公告背后的组织，信源是它经由的那个订阅源；同一个发布方可能从几个信源进来。
-              </p>
+              <p>{copy.intro}</p>
             </div>
-            <dl className="skills-library-stats" aria-label="信源概览">
+            <dl className="skills-library-stats" aria-label={copy.statsLabel}>
               <div>
                 <dt>{totals.publishers}</dt>
-                <dd>个发布方</dd>
+                <dd>{copy.statPublishers}</dd>
               </div>
               <div>
                 <dt>{totals.signals}</dt>
-                <dd>条已发布信号</dd>
+                <dd>{copy.statSignals}</dd>
               </div>
               <div>
                 <dt>{totals.sources}</dt>
-                <dd>个信源</dd>
+                <dd>{copy.statSources}</dd>
               </div>
             </dl>
             {/* Jump links, not a filter: the cards run to several screens,
                 and these land on a section without hiding the rest. */}
             <DossierCategoryChips
               className="sources-jump"
-              ariaLabel="跳到发布方类型"
+              ariaLabel={copy.jumpLabel}
               active=""
               options={sections.map((section) => ({
                 value: section.publisherType,
@@ -88,6 +94,8 @@ export function SourcesPage() {
               }))}
             />
           </section>
+
+          <ChineseOnlyNote locale={locale}>{copy.chineseOnly}</ChineseOnlyNote>
 
           <div className="skills-library-groups">
             {sections.map((section) => (
@@ -98,14 +106,18 @@ export function SourcesPage() {
               >
                 <div className="skills-library-section__header">
                   <div>
-                    <p className="eyebrow user-eyebrow">发布方类型</p>
+                    <p className="eyebrow user-eyebrow">
+                      {copy.sectionEyebrow}
+                    </p>
                     <h2 id={sectionId(section.publisherType)}>
                       {section.label}
                     </h2>
                   </div>
                   <p>
-                    {section.entries.length} 个发布方 · {section.signalCount}{" "}
-                    条信号
+                    {copy.sectionCounts(
+                      section.entries.length,
+                      section.signalCount
+                    )}
                   </p>
                 </div>
                 <div className="skills-library-card-grid">
@@ -114,21 +126,27 @@ export function SourcesPage() {
                       className="skill-library-card sources-card"
                       key={entry.publisherName}
                     >
-                      <h3 id={getSourceDirectoryAnchor(entry.publisherName)}>
+                      <h3
+                        id={getSourceDirectoryAnchor(entry.publisherName)}
+                        lang={nameLangAttr(locale, entry.publisherName)}
+                      >
                         {entry.publisherName}
                       </h3>
                       <RelationDensity
-                        label="收录"
+                        label={copy.densityLabel}
                         items={[
-                          { n: entry.signalCount, label: "信号" },
-                          { n: entry.sourceNames.length, label: "信源" }
+                          { n: entry.signalCount, label: copy.densitySignals },
+                          {
+                            n: entry.sourceNames.length,
+                            label: copy.densitySources
+                          }
                         ]}
                       />
                       <div className="skill-library-card__signals sources-card__recent">
                         <span>
                           {entry.recent.length === 1
-                            ? "最新一条"
-                            : `最近 ${entry.recent.length} 条`}
+                            ? copy.recentOne
+                            : copy.recentMany(entry.recent.length)}
                         </span>
                         <ol>
                           {entry.recent.map((item) => (
@@ -136,7 +154,13 @@ export function SourcesPage() {
                               <time dateTime={item.publishDate}>
                                 {item.publishDate}
                               </time>
-                              <Link href={`/technologies/${item.slug}`}>
+                              <Link
+                                href={localePath(
+                                  locale,
+                                  `/technologies/${item.slug}`
+                                )}
+                                lang={item.titleLang}
+                              >
                                 {item.title}
                               </Link>
                             </li>
@@ -144,17 +168,28 @@ export function SourcesPage() {
                         </ol>
                       </div>
                       <p className="sources-card__via">
-                        <span>经由</span> {entry.sourceNames.join(" · ")}
+                        <span>{copy.via}</span>{" "}
+                        <LangSpan
+                          lang={nameLangAttr(
+                            locale,
+                            entry.sourceNames.join(" · ")
+                          )}
+                        >
+                          {entry.sourceNames.join(" · ")}
+                        </LangSpan>
                       </p>
                       {/* Only where the card lists fewer than it counts:
                           on the rest the list above is already every
                           signal, and the link would lead to the same few. */}
                       {entry.signalCount > entry.recent.length ? (
                         <Link
-                          href={getPublisherSignalsHref(entry.publisherName)}
+                          href={getPublisherSignalsHref(
+                            entry.publisherName,
+                            locale
+                          )}
                           className="skill-library-card__link"
                         >
-                          看全部 {entry.signalCount} 条 →
+                          {copy.seeAll(entry.signalCount)}
                         </Link>
                       ) : null}
                     </DossierCard>

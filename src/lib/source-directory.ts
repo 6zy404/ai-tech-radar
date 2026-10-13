@@ -12,9 +12,11 @@
 // through — OpenAI's signals arrive via OpenAI News, 量子位 and Simon
 // Willison's blog alike, and one reader-facing "OpenAI" is what they share.
 
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
 import {
-  getPreferredTechnologyTitle,
-  getPublisherTypeLabel
+  getPublisherTypeLabel,
+  getTechnologyTitleForLocale
 } from "@/lib/technology-localization";
 import type { PublisherType, TechnologyItem } from "@/types/content";
 
@@ -23,6 +25,8 @@ export interface SourceDirectorySignal {
   title: string;
   slug: string;
   publishDate: string;
+  /** English site only: `zh-CN` when the title is Chinese. */
+  titleLang?: string;
 }
 
 /** One publisher. These six fields are all that leaves this module. */
@@ -102,7 +106,8 @@ function mostFrequent<T>(values: T[]): T {
 }
 
 export function buildSourceDirectory(
-  technologies: readonly TechnologyItem[]
+  technologies: readonly TechnologyItem[],
+  locale: Locale = "zh"
 ): SourceDirectory {
   // getAllTechnologies() is published-only already; checked again here so a
   // caller handing in a workspace list cannot put a draft on a public page.
@@ -151,13 +156,19 @@ export function buildSourceDirectory(
     return {
       publisherName: getSignalPublisherName(latest),
       publisherType,
-      publisherTypeLabel: getPublisherTypeLabel(publisherType, "zh"),
+      publisherTypeLabel: getPublisherTypeLabel(publisherType, "zh", locale),
       signalCount: items.length,
-      recent: newestFirst.slice(0, recentSignalLimit).map((item) => ({
-        title: getPreferredTechnologyTitle(item),
-        slug: item.slug,
-        publishDate: item.publishDate
-      })),
+      recent: newestFirst.slice(0, recentSignalLimit).map((item) => {
+        const title = getTechnologyTitleForLocale(item, locale);
+        const titleLang = contentLangAttr(locale, title.language);
+
+        return {
+          title: title.text,
+          slug: item.slug,
+          publishDate: item.publishDate,
+          ...(titleLang ? { titleLang } : {})
+        };
+      }),
       sourceNames
     };
   });
@@ -237,13 +248,25 @@ export function getSourceDirectoryAnchor(publisherName: string): string {
 }
 
 /** The publisher's card on /sources. */
-export function getSourceDirectoryHref(publisherName: string): string {
-  return `/sources#${getSourceDirectoryAnchor(publisherName)}`;
+export function getSourceDirectoryHref(
+  publisherName: string,
+  locale: Locale = "zh"
+): string {
+  return localePath(
+    locale,
+    `/sources#${getSourceDirectoryAnchor(publisherName)}`
+  );
 }
 
 /** The 精选 list narrowed to this publisher's signals. */
-export function getPublisherSignalsHref(publisherName: string): string {
-  return `/technologies?publisher=${encodeURIComponent(
-    getPublisherSlug(publisherName)
-  )}`;
+export function getPublisherSignalsHref(
+  publisherName: string,
+  locale: Locale = "zh"
+): string {
+  return localePath(
+    locale,
+    `/technologies?publisher=${encodeURIComponent(
+      getPublisherSlug(publisherName)
+    )}`
+  );
 }

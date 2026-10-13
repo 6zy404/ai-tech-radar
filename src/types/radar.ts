@@ -64,6 +64,8 @@ export interface RadarPublicLink {
 
 export interface RadarPublicSignal extends RadarPublicLink {
   publishDate: string;
+  /** English site only: `zh-CN` when the title is Chinese. */
+  titleLang?: string;
 }
 
 /**

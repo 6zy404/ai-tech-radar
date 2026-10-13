@@ -3,11 +3,15 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { radarCopy } from "@/lib/i18n/copy/radar";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
 import {
   describeRadarMove,
   getRadarQuadrantLabel,
   getRadarRingLabel,
-  radarHoldNote,
+  radarHoldNotes,
   radarQuadrants,
   radarRings
 } from "@/lib/radar-labels";
@@ -54,8 +58,10 @@ function RadarPicture({
   entries,
   positions,
   selected,
-  onSelect
+  onSelect,
+  locale
 }: {
+  locale: Locale;
   entries: RadarPublicEntry[];
   positions: Record<string, RadarDotPosition>;
   selected: string | null;
@@ -111,16 +117,43 @@ function RadarPicture({
             y={corner.y}
             textAnchor={corner.anchor}
           >
-            {getRadarQuadrantLabel(quadrant)}
+            {getRadarQuadrantLabel(quadrant, locale)}
           </text>
         );
       })}
 
       {/* Ring names written down the upper half of the vertical line, one
-          character under another, each on a paper patch the line stops at. */}
+          character under another, each on a paper patch the line stops at.
+          English names are words, so they sit across the line instead. */}
       {radarRings.map((ring, index) => {
         const inner = index === 0 ? 0 : radarRingRadii[index - 1];
         const middle = (inner + radarRingRadii[index]) / 2;
+
+        if (locale === "en") {
+          const label = getRadarRingLabel(ring, locale);
+          // Bold 12px Latin runs about 0.62em a letter.
+          const width = label.length * ringLabelSize * 0.62;
+
+          return (
+            <g key={ring} className="radar-picture__ring-label">
+              <rect
+                x={radarCenter - width / 2 - 3}
+                y={radarCenter - middle - ringLabelSize / 2 - 3}
+                width={width + 6}
+                height={ringLabelSize + 6}
+              />
+              <text
+                x={radarCenter}
+                y={radarCenter - middle}
+                textAnchor="middle"
+                dominantBaseline="central"
+              >
+                {label}
+              </text>
+            </g>
+          );
+        }
+
         const chars = Array.from(getRadarRingLabel(ring));
         const height = chars.length * (ringLabelSize + 1);
         const top = radarCenter - middle - height / 2;
@@ -172,7 +205,7 @@ function RadarPicture({
             transform={`translate(${position.x} ${position.y})`}
             onClick={() => onSelect(entry.slug)}
           >
-            <title>{`${entry.number} ${entry.name} · ${getRadarRingLabel(entry.ring)}`}</title>
+            <title>{`${entry.number} ${entry.name} · ${getRadarRingLabel(entry.ring, locale)}`}</title>
             <circle r={radarDotRadius} />
             <text textAnchor="middle" dominantBaseline="central">
               {entry.number}
@@ -184,22 +217,37 @@ function RadarPicture({
   );
 }
 
-function RadarEntryDetail({ entry }: { entry: RadarPublicEntry }) {
+function RadarEntryDetail({
+  entry,
+  locale
+}: {
+  entry: RadarPublicEntry;
+  locale: Locale;
+}) {
+  const copy = radarCopy[locale];
+  // Ring reasons, history reasons and skill / knowledge titles are Chinese.
+  const zhLang = contentLangAttr(locale);
+
   return (
     <div className="radar-entry__detail">
       {entry.ring === "hold" ? (
-        <p className="radar-entry__ring-note">{radarHoldNote}</p>
+        <p className="radar-entry__ring-note">{radarHoldNotes[locale]}</p>
       ) : null}
-      <p className="radar-entry__reason">{entry.ringReason}</p>
+      <p className="radar-entry__reason" lang={zhLang}>
+        {entry.ringReason}
+      </p>
 
       {entry.evidence.length > 0 ? (
         <div className="radar-entry__block">
-          <div className="radar-entry__label">依据信号</div>
+          <div className="radar-entry__label">{copy.evidence}</div>
           <ul className="radar-entry__signals">
             {entry.evidence.map((signal) => (
               <li key={signal.slug}>
                 <time dateTime={signal.publishDate}>{signal.publishDate}</time>
-                <Link href={`/technologies/${signal.slug}`}>
+                <Link
+                  href={localePath(locale, `/technologies/${signal.slug}`)}
+                  lang={signal.titleLang}
+                >
                   {signal.title}
                 </Link>
               </li>
@@ -212,22 +260,32 @@ function RadarEntryDetail({ entry }: { entry: RadarPublicEntry }) {
         <div className="radar-entry__block radar-entry__related">
           {entry.knowledge.length > 0 ? (
             <p>
-              <span>相关知识</span>
+              <span>{copy.relatedKnowledge}</span>
               {entry.knowledge.map((item, index) => (
                 <span key={item.slug}>
-                  {index > 0 ? "、" : null}
-                  <Link href={`/knowledge/${item.slug}`}>{item.title}</Link>
+                  {index > 0 ? copy.listSeparator : null}
+                  <Link
+                    href={localePath(locale, `/knowledge/${item.slug}`)}
+                    lang={zhLang}
+                  >
+                    {item.title}
+                  </Link>
                 </span>
               ))}
             </p>
           ) : null}
           {entry.skills.length > 0 ? (
             <p>
-              <span>相关技能</span>
+              <span>{copy.relatedSkills}</span>
               {entry.skills.map((item, index) => (
                 <span key={item.slug}>
-                  {index > 0 ? "、" : null}
-                  <Link href={`/skills/${item.slug}`}>{item.title}</Link>
+                  {index > 0 ? copy.listSeparator : null}
+                  <Link
+                    href={localePath(locale, `/skills/${item.slug}`)}
+                    lang={zhLang}
+                  >
+                    {item.title}
+                  </Link>
                 </span>
               ))}
             </p>
@@ -236,16 +294,25 @@ function RadarEntryDetail({ entry }: { entry: RadarPublicEntry }) {
       ) : null}
 
       <div className="radar-entry__block">
-        <div className="radar-entry__label">环位历史</div>
+        <div className="radar-entry__label">{copy.history}</div>
         <ol className="radar-entry__history">
           {[...entry.history].reverse().map((line, index) => (
             <li key={`${line.date}-${index}`}>
               <time dateTime={line.date}>{line.date}</time>
               <span>
                 {line.fromRing
-                  ? describeRadarMove(line.fromRing, line.toRing)
-                  : `收录进${getRadarRingLabel(line.toRing)}`}
-                {line.reason ? `：${line.reason}` : null}
+                  ? describeRadarMove(line.fromRing, line.toRing, locale)
+                  : copy.addedTo(getRadarRingLabel(line.toRing, locale))}
+                {line.reason ? (
+                  locale === "zh" ? (
+                    copy.historyReason(line.reason)
+                  ) : (
+                    <>
+                      {": "}
+                      <span lang={zhLang}>{line.reason}</span>
+                    </>
+                  )
+                ) : null}
               </span>
             </li>
           ))}
@@ -255,13 +322,13 @@ function RadarEntryDetail({ entry }: { entry: RadarPublicEntry }) {
   );
 }
 
-function changeStamp(entry: RadarPublicEntry): string | null {
+function changeStamp(entry: RadarPublicEntry, locale: Locale): string | null {
   if (entry.change === "new") {
-    return "新进";
+    return radarCopy[locale].newStamp;
   }
 
   if (entry.change === "moved" && entry.movedFrom) {
-    return describeRadarMove(entry.movedFrom, entry.ring);
+    return describeRadarMove(entry.movedFrom, entry.ring, locale);
   }
 
   return null;
@@ -274,6 +341,8 @@ export function RadarView({
   entries: RadarPublicEntry[];
   positions: Record<string, RadarDotPosition>;
 }) {
+  const locale = useLocale();
+  const copy = radarCopy[locale];
   const [selected, setSelected] = useState<string | null>(null);
 
   // Set by a click on the picture; the scroll waits for the commit that
@@ -357,12 +426,13 @@ export function RadarView({
           positions={positions}
           selected={selected}
           onSelect={(slug) => select(slug === selected ? null : slug, true)}
+          locale={locale}
         />
         <p className="radar-figure__key" aria-hidden="true">
           <span className="radar-key-dot radar-key-dot--steady" />
-          环位未变
+          {copy.keySteady}
           <span className="radar-key-dot radar-key-dot--changed" />
-          本期新进或移动
+          {copy.keyChanged}
         </p>
       </div>
 
@@ -381,12 +451,12 @@ export function RadarView({
               aria-labelledby={`radar-quadrant-${quadrant}`}
             >
               <h2 id={`radar-quadrant-${quadrant}`}>
-                {getRadarQuadrantLabel(quadrant)}
-                <span>{items.length} 项</span>
+                {getRadarQuadrantLabel(quadrant, locale)}
+                <span>{copy.quadrantCount(items.length)}</span>
               </h2>
               <ol>
                 {items.map((entry) => {
-                  const stamp = changeStamp(entry);
+                  const stamp = changeStamp(entry, locale);
 
                   return (
                     <li key={entry.slug}>
@@ -412,17 +482,20 @@ export function RadarView({
                           <span className="radar-entry__number">
                             {entry.number}
                           </span>
-                          <span className="radar-entry__name">
+                          <span
+                            className="radar-entry__name"
+                            lang={nameLangAttr(locale, entry.name)}
+                          >
                             {entry.name}
                           </span>
                           <span className="radar-entry__ring">
-                            · {getRadarRingLabel(entry.ring)}
+                            · {getRadarRingLabel(entry.ring, locale)}
                           </span>
                           {stamp ? (
                             <span className="radar-entry__change">{stamp}</span>
                           ) : null}
                         </summary>
-                        <RadarEntryDetail entry={entry} />
+                        <RadarEntryDetail entry={entry} locale={locale} />
                       </details>
                     </li>
                   );

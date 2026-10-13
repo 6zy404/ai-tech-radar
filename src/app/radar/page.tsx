@@ -1,4 +1,4 @@
-import { radarPageMetadata, RadarPage } from "@/components/pages/radar-page";
+import { getRadarPageMetadata, RadarPage } from "@/components/pages/radar-page";
 
 // Reads runtime content (the radar overlay and the published pools), so it
 // must never be prerendered: a build-time copy would freeze the radar on the
@@ -6,6 +6,8 @@ import { radarPageMetadata, RadarPage } from "@/components/pages/radar-page";
 // frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const metadata = radarPageMetadata;
+export const metadata = getRadarPageMetadata("zh");
 
-export default RadarPage;
+export default function Page() {
+  return <RadarPage locale="zh" />;
+}

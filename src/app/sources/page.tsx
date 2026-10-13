@@ -1,5 +1,5 @@
 import {
-  sourcesPageMetadata,
+  getSourcesPageMetadata,
   SourcesPage
 } from "@/components/pages/sources-page";
 
@@ -9,6 +9,8 @@ import {
 // have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const metadata = sourcesPageMetadata;
+export const metadata = getSourcesPageMetadata("zh");
 
-export default SourcesPage;
+export default function Page() {
+  return <SourcesPage locale="zh" />;
+}

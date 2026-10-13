@@ -1,22 +1,38 @@
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { ContentNetworkGraph } from "@/components/content-network-graph";
 import { UserPageShell } from "@/components/user-page-shell";
 import { getContentGraph } from "@/lib/content";
+import { networkCopy } from "@/lib/i18n/copy/network";
+import { localizeContentGraph } from "@/lib/i18n/graph-nodes";
+import type { Locale } from "@/lib/i18n/locale";
 import { resolveNetworkFocus } from "@/lib/network-focus";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
-export const networkPageMetadata = buildPageMetadata({
-  title: "关系网络总览",
-  description: "一次看清全部已发布技术、技能和背景知识之间的连接。",
-  path: "/network"
-});
+export function getNetworkPageMetadata(locale: Locale) {
+  const copy = networkCopy[locale];
 
-interface NetworkPageProps {
+  return buildPageMetadata({
+    title: copy.title,
+    description: copy.description,
+    path: "/network",
+    locale
+  });
+}
+
+export interface NetworkPageProps {
   searchParams: Promise<{ focus?: string | string[] }>;
 }
 
-export async function NetworkPage({ searchParams }: NetworkPageProps) {
+export async function NetworkPage({
+  searchParams,
+  locale
+}: NetworkPageProps & { locale: Locale }) {
+  const copy = networkCopy[locale];
   const { focus } = await searchParams;
-  const { nodes, edges } = getContentGraph();
+  const { nodes, edges, nodeLangs } = localizeContentGraph(
+    getContentGraph(),
+    locale
+  );
   // `?focus=<node id>` opens the page with that node selected. An unknown or
   // unpublished id is dropped here, so the page renders exactly as it would
   // without the parameter.
@@ -24,15 +40,17 @@ export async function NetworkPage({ searchParams }: NetworkPageProps) {
 
   return (
     <UserPageShell
-      title="关系网络总览"
-      description="一次看清全部已发布技术、技能和背景知识之间的连接。"
-      sectionLabel="关系网络"
+      title={copy.title}
+      description={copy.description}
+      sectionLabel={copy.sectionLabel}
       className="network-page dossier"
     >
+      <ChineseOnlyNote locale={locale}>{copy.chineseOnly}</ChineseOnlyNote>
       <ContentNetworkGraph
         nodes={nodes}
         edges={edges}
         initialFocusId={initialFocusId}
+        nodeLangs={nodeLangs}
       />
     </UserPageShell>
   );

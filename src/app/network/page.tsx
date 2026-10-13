@@ -1,6 +1,7 @@
 import {
-  networkPageMetadata,
-  NetworkPage
+  getNetworkPageMetadata,
+  NetworkPage,
+  type NetworkPageProps
 } from "@/components/pages/network-page";
 
 // Reads runtime content through @/lib/content, so it must never be
@@ -10,6 +11,8 @@ import {
 // would have shipped frozen at build time".
 export const dynamic = "force-dynamic";
 
-export const metadata = networkPageMetadata;
+export const metadata = getNetworkPageMetadata("zh");
 
-export default NetworkPage;
+export default function Page(props: NetworkPageProps) {
+  return <NetworkPage {...props} locale="zh" />;
+}
