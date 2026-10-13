@@ -97,6 +97,22 @@
   .top-nav__inner:has(.top-nav__link--workspace) .top-nav__link {
     padding-inline: 6px;
   }
+
+  /* The English labels are wider still; at 901px the brand broke onto two
+     lines (「AI Tech / Radar」). Only that bar, only in English. */
+  html[lang="en"] .top-nav__inner:has(.top-nav__link--workspace) {
+    gap: 8px;
+  }
+
+  html[lang="en"] .top-nav__inner:has(.top-nav__link--workspace) .brand {
+    white-space: nowrap;
+  }
+
+  html[lang="en"]
+    .top-nav__inner:has(.top-nav__link--workspace)
+    .top-nav__link {
+    padding-inline: 4px;
+  }
 }
 
 .top-nav__link--active {
@@ -366,4 +382,39 @@
   border-color: rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.06);
   color: #cfcdbf;
+}
+
+/* The link to the same page in the other language (2026-10-13): a pill the
+   height of the search and theme buttons beside it, its label short — EN
+   or 中文 — so the actions row keeps its width at every breakpoint. */
+.top-nav__locale {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 9px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #667085;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.top-nav__locale:hover {
+  color: var(--accent);
+}
+
+:root[data-theme="dark"] .top-nav__locale {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cfcdbf;
+}
+
+:root[data-theme="dark"] .top-nav__locale:hover {
+  color: #6fa090;
 }

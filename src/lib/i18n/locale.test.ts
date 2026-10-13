@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   getLocaleAlternates,
   getPathLocale,
+  hasEnglishTwin,
   localePath,
   stripLocalePrefix
 } from "@/lib/i18n/locale";
@@ -51,5 +52,18 @@ describe("localePath / stripLocalePrefix", () => {
       zh: "/radar",
       en: "/en/radar"
     });
+  });
+});
+
+describe("hasEnglishTwin", () => {
+  it("is true for public pages and false for the workspace, feeds and API", () => {
+    expect(hasEnglishTwin("/")).toBe(true);
+    expect(hasEnglishTwin("/technologies/x?view=news")).toBe(true);
+    expect(hasEnglishTwin("/workspace")).toBe(false);
+    expect(hasEnglishTwin("/workspace/sources")).toBe(false);
+    expect(hasEnglishTwin("/technologies/drafts/1")).toBe(false);
+    expect(hasEnglishTwin("/api/ask")).toBe(false);
+    expect(hasEnglishTwin("/offline")).toBe(false);
+    expect(hasEnglishTwin("/topics/tag-ai-agents/feed.xml")).toBe(false);
   });
 });

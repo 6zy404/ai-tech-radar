@@ -30,6 +30,11 @@ const zh = {
     collapseMenu: "收起菜单",
     expandMenu: "展开菜单"
   },
+  /**
+   * The nav link to the same page in the other language. It is written in
+   * that language — a reader who cannot read this page reads the link.
+   */
+  languageSwitch: { text: "EN", label: "Read this page in English" },
   skipLink: "跳到正文",
   themeToggle: "切换深浅色主题",
   searchForm: {
@@ -77,6 +82,7 @@ const en: typeof zh = {
     collapseMenu: "Close menu",
     expandMenu: "Open menu"
   },
+  languageSwitch: { text: "中文", label: "阅读本页中文版" },
   skipLink: "Skip to content",
   themeToggle: "Switch light and dark theme",
   searchForm: {

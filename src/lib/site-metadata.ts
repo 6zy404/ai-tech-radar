@@ -6,7 +6,13 @@ import {
   signalFeedPath,
   weeklyReviewFeedPath
 } from "@/lib/feed-paths";
-import { localePath, openGraphLocales, type Locale } from "@/lib/i18n/locale";
+import {
+  hasEnglishTwin,
+  hreflangs,
+  localePath,
+  openGraphLocales,
+  type Locale
+} from "@/lib/i18n/locale";
 
 /**
  * One place for what search engines and share cards see. Until 2026-09-24
@@ -136,6 +142,19 @@ export function buildFeedAlternateTypes(
   return types;
 }
 
+/**
+ * `<link rel="alternate" hreflang>` for both versions of a page, plus
+ * `x-default` pointing at the Chinese one, the site's own language. Both
+ * versions print the same set, so each names the other.
+ */
+export function buildLanguageAlternates(path: string): Record<string, string> {
+  return {
+    [hreflangs.zh]: localePath("zh", path),
+    [hreflangs.en]: localePath("en", path),
+    "x-default": localePath("zh", path)
+  };
+}
+
 export interface PageMetadataInput {
   /** Page title without the site name; the layout template appends it. */
   title?: string;
@@ -190,6 +209,9 @@ export function buildPageMetadata({
     // page with its own metadata would drop them.
     alternates: {
       canonical: pagePath,
+      ...(hasEnglishTwin(path)
+        ? { languages: buildLanguageAlternates(path) }
+        : {}),
       types: buildFeedAlternateTypes(feeds, locale)
     },
     openGraph: {

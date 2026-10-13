@@ -13,6 +13,7 @@ import path from "node:path";
 import { unstable_doesMiddlewareMatch } from "next/experimental/testing/server";
 import { NextRequest } from "next/server";
 
+import { hasEnglishTwin } from "../src/lib/i18n/locale";
 import { config as middlewareConfig, middleware } from "../src/middleware";
 import {
   renderDigestJsonFeed,
@@ -282,6 +283,58 @@ function listFilesRecursive(rootPath: string): string[] {
   }
 
   return files;
+}
+
+/**
+ * The English interface (2026-10-13) is one route file under src/app/en per
+ * public page and share image. A public page added without its twin would
+ * leave the English site with a hole its language switch and hreflang still
+ * point at; a file under /en with no Chinese counterpart would be an English
+ * page the Chinese site does not have, or something that should never be
+ * public. So the two trees must mirror each other, minus what has no English
+ * version (`hasEnglishTwin`: the workspace prefixes, the API, the feeds and
+ * /offline).
+ */
+function assertEnglishRoutesMirrorPublicRoutes() {
+  const appDir = path.join(process.cwd(), "src", "app");
+  const englishDir = path.join(appDir, "en");
+  const routeFiles = new Set(["page.tsx", "opengraph-image.tsx"]);
+  const toRoute = (filePath: string, base: string) =>
+    "/" +
+    path
+      .relative(base, filePath)
+      .split(path.sep)
+      .join("/")
+      .replace(/(^|\/)(page|opengraph-image)\.tsx$/, (_, slash, kind) =>
+        kind === "page" ? "" : `${slash}opengraph-image`
+      )
+      .replace(/\/$/, "");
+  const routesIn = (base: string, skip?: string) =>
+    listFilesRecursive(base)
+      .filter((filePath) => routeFiles.has(path.basename(filePath)))
+      .filter((filePath) => !skip || !filePath.startsWith(skip))
+      .map((filePath) => toRoute(filePath, base).replace(/^\/$/, "") || "/");
+
+  const chineseRoutes = routesIn(appDir, englishDir + path.sep).filter(
+    (route) => hasEnglishTwin(route.replace(/\/opengraph-image$/, "") || "/")
+  );
+  const englishRoutes = routesIn(englishDir);
+
+  const missing = chineseRoutes.filter(
+    (route) => !englishRoutes.includes(route)
+  );
+  const extra = englishRoutes.filter((route) => !chineseRoutes.includes(route));
+
+  assert.deepEqual(
+    missing,
+    [],
+    `These public routes have no English twin under src/app/en: ${missing.join(", ")}`
+  );
+  assert.deepEqual(
+    extra,
+    [],
+    `These src/app/en routes have no public Chinese counterpart: ${extra.join(", ")}`
+  );
 }
 
 function assertClientBuildDoesNotContainWorkspaceSecret() {
@@ -757,6 +810,7 @@ function main() {
   assertClientBuildDoesNotContainWorkspaceSecret();
   assertMiddlewareIsInDiscoverableLocation();
   assertMiddlewareStillGuardsEveryProtectedPrefix();
+  assertEnglishRoutesMirrorPublicRoutes();
   assertPagesDeclareTheirRenderMode();
   assertMetadataRoutesDeclareTheirRenderMode();
   assertPublicBuildExcludesEveryGuardedPrefix();

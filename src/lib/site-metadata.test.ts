@@ -52,6 +52,11 @@ describe("buildPageMetadata feeds", () => {
 
     expect(metadata.alternates).toEqual({
       canonical: "/skills",
+      languages: {
+        "zh-CN": "/skills",
+        en: "/en/skills",
+        "x-default": "/skills"
+      },
       types: buildFeedAlternateTypes()
     });
   });
@@ -80,5 +85,27 @@ describe("buildPageMetadata feeds", () => {
       { url: "/x/feed.json", title: "X" },
       digestJson
     ]);
+  });
+});
+
+describe("buildPageMetadata languages", () => {
+  it("names both versions on both versions, with the Chinese one as x-default", () => {
+    const zh = buildPageMetadata({ path: "/radar" });
+    const en = buildPageMetadata({ path: "/radar", locale: "en" });
+    const pair = {
+      "zh-CN": "/radar",
+      en: "/en/radar",
+      "x-default": "/radar"
+    };
+
+    expect(zh.alternates?.languages).toEqual(pair);
+    expect(en.alternates?.languages).toEqual(pair);
+    expect(en.alternates?.canonical).toBe("/en/radar");
+  });
+
+  it("names no other language for a page with no English twin", () => {
+    expect(
+      buildPageMetadata({ path: "/offline" }).alternates?.languages
+    ).toBeUndefined();
   });
 });

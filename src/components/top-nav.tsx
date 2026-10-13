@@ -7,7 +7,13 @@ import { useEffect, useRef, useState } from "react";
 import { SearchGlyph } from "@/components/search-glyph";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { shellCopy } from "@/lib/i18n/copy/shell";
-import { localePath, stripLocalePrefix } from "@/lib/i18n/locale";
+import {
+  documentLangs,
+  hasEnglishTwin,
+  hreflangs,
+  localePath,
+  stripLocalePrefix
+} from "@/lib/i18n/locale";
 import { useLocale } from "@/lib/i18n/use-locale";
 
 type NavLabelKey = keyof (typeof shellCopy)["zh"]["nav"];
@@ -59,6 +65,43 @@ function navLinkClassName(
   ]
     .filter(Boolean)
     .join(" ");
+}
+
+/**
+ * The same page in the other language. A plain document navigation, not a
+ * client-side one: the root layout (and with it `<html lang>`) is shared by
+ * both sites and is only rendered again on a full load. Without JS the link
+ * still works, minus the query string.
+ */
+function LanguageSwitch({
+  path,
+  target
+}: {
+  path: string;
+  target: "zh" | "en";
+}) {
+  const href = localePath(target, path);
+  // The label is in the language it switches to.
+  const copy = shellCopy[target === "en" ? "zh" : "en"].languageSwitch;
+
+  return (
+    <a
+      className="top-nav__locale"
+      href={href}
+      hrefLang={hreflangs[target]}
+      lang={documentLangs[target]}
+      aria-label={copy.label}
+      title={copy.label}
+      onClick={(event) => {
+        event.preventDefault();
+        window.location.assign(
+          `${href}${window.location.search}${window.location.hash}`
+        );
+      }}
+    >
+      {copy.text}
+    </a>
+  );
 }
 
 export function TopNav() {
@@ -233,6 +276,13 @@ export function TopNav() {
               <SearchGlyph />
             </button>
           </div>
+
+          {hasEnglishTwin(pathname) ? (
+            <LanguageSwitch
+              path={pathname}
+              target={locale === "zh" ? "en" : "zh"}
+            />
+          ) : null}
 
           <ThemeToggle />
 

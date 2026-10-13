@@ -92,3 +92,29 @@ export function localePath(locale: Locale, path: string): string {
 export function getLocaleAlternates(path: string): Record<Locale, string> {
   return { zh: localePath("zh", path), en: localePath("en", path) };
 }
+
+/**
+ * Chinese-site path prefixes with no English twin: the workspace and its
+ * legacy redirects, the feeds and API routes, and the offline fallback page.
+ * Everything else under the public site has one.
+ */
+const untranslatedPrefixes = [
+  "/workspace",
+  "/candidates",
+  "/technologies/drafts",
+  "/api",
+  "/offline",
+  "/feed.xml",
+  "/feed.json"
+];
+
+/** Whether a Chinese-site path has an English twin (and so a switch). */
+export function hasEnglishTwin(path: string): boolean {
+  const pathname = path.split(/[?#]/)[0];
+
+  return !(
+    untranslatedPrefixes.some(
+      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+    ) || pathname.endsWith(".xml")
+  );
+}
