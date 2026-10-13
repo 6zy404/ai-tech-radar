@@ -76,6 +76,53 @@ For per-topic deep dives, see the `docs/` directory.
   box, the page stays 375 wide), the list's rate, the 409, and the Telegram
   form fields. Telegram and Discord were not sent to from the browser.
 
+## Cross-source title matches, release feeds in semantic dedup, and why 「N 家信源报道」 did not ship
+
+- **2026-10-13. 「N 家信源报道」 was measured and not built.** The idea: show
+  「另有 N 家报道」 on news cards and 「共 N 家信源报道」 on signal pages, counted
+  from links the workspace already has (duplicate groups, `already_published`,
+  and `similar_to_published` once an editor had marked the candidate 已看 or
+  拒绝), no model call. A counting module was written and run, with the same
+  getters the pages use, on a copy of the live data (156 candidates, 110
+  signals): **0 of the 21 news items** in the 7-day window would show a count,
+  and **2 of 110 signals** would — both wrong (Transformers release notes
+  matched to the Muse Glimmer and Inkling launch posts; see below). The 11
+  snapshot candidates outside the window that would have shown one were all
+  wrongly grouped. Real cross-source coverage exists — the dedup labels hold
+  11 cross-source `same` candidate pairs and about as many candidate → signal
+  pairs over three and a half months — but nearly all are an English vendor
+  post plus a Chinese report, which neither the title rules nor the embedding
+  model link (`eval/dedup/README.md`), and the rolling snapshot would make any
+  count shrink as candidates age out. The module, the `alsoReportedBy` field
+  and the measuring script were dropped rather than left unused. An
+  editor-confirmed 「另一家报道」 link is the open alternative.
+- **The title rule no longer matches short titles across sources.**
+  `similar_title` between two different sources (`sourceId`, else
+  `sourceName`) now needs at least three comparison tokens on both titles —
+  the floor `already_published` already uses — and no pair of different
+  dotted versions (`v5.13.1` / `v4.3.1`, `2026.6.16` / `2026.6.3`); within
+  one source it is unchanged, so release families still group. Two of the
+  seven open groups on 2026-10-13 crossed sources: Transformers' and
+  ms-swift's 「Patch release v…」 (tokens `patch`, `release`), and MCP
+  Servers' `2026.6.16` / `2026.6.3` with a 量子位 headline whose only latin
+  token was `2026`. On the same copy after the fix: the Transformers / ms-swift
+  group splits into one group per project, the 量子位 item leaves the MCP pair,
+  7 open groups → 7 (8 in all), and the news lane is unchanged at 21 — every
+  item the wrong groups hid is outside the window or rejected. The live
+  `duplicate-groups.json` is not rewritten: groups are re-derived on every
+  read, so the next server read (and the next import) applies the rule.
+  Pinned by seven tests; four of them were shown to fail without the fix.
+- **Release feeds really are out of semantic dedup now.** The runtime
+  excluded a release by `sourceType === "github-release"`, but every release
+  source in the pool is imported as Atom (`rss-feed`), so nothing was
+  excluded on either side — while the eval that chose the thresholds
+  recognized releases by their `/releases/tag/` URL. `isReleaseFeedItem`
+  (`src/lib/semantic-dedup.ts`) checks both and is used by the refresh and by
+  `scripts/measure-semantic-dedup.ts`, so the two cannot drift again. Rule
+  version `semantic-dedup-v2`: the three stored v1 matches (two Transformers
+  releases, one Gemini TTS post labelled `different`) are set aside until the
+  next import recomputes them.
+
 ## 问雷达 follow-ups, and AI-drafted digest ledes and weekly summaries
 
 - **2026-10-13. 问雷达 takes follow-ups.** Once an answer is done, a 继续追问

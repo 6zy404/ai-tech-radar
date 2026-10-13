@@ -11,7 +11,8 @@ import {
   buildCandidateDedupText,
   buildSignalDedupTexts,
   findSemanticCandidatePairs,
-  findSemanticPublishedMatches
+  findSemanticPublishedMatches,
+  isReleaseFeedItem
 } from "@/lib/semantic-dedup";
 import { getPublishedTechnologyWorkspaceRecords } from "@/lib/technology-draft-workflow";
 
@@ -60,7 +61,7 @@ async function computeAndSave(
   const dedupCandidates = candidates.map((candidate, index) => ({
     id: candidate.id,
     publishDate: candidate.publishDate,
-    isRelease: candidate.sourceType === "github-release",
+    isRelease: isReleaseFeedItem(candidate),
     vector: candidateVectors[index],
     convertedTechnologyId: candidate.convertedTechnologyId
   }));

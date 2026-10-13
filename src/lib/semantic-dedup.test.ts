@@ -9,6 +9,7 @@ import {
   findSemanticCandidatePairs,
   findSemanticPublishedMatches,
   getDedupLanguage,
+  isReleaseFeedItem,
   type SemanticDedupCandidate
 } from "@/lib/semantic-dedup";
 import { makeImportedCandidate } from "@/lib/test-factories";
@@ -287,5 +288,39 @@ describe("dedup texts", () => {
 
     expect(text.startsWith("Title\nx")).toBe(true);
     expect(text.length).toBe("Title\n".length + 300);
+  });
+});
+
+describe("isReleaseFeedItem", () => {
+  it("recognizes a GitHub release imported through its Atom feed", () => {
+    // How every release source in the pool arrives; until v2 these took part.
+    expect(
+      isReleaseFeedItem({
+        sourceType: "rss-feed",
+        sourceUrl:
+          "https://github.com/huggingface/transformers/releases/tag/v5.15.0"
+      })
+    ).toBe(true);
+    expect(
+      isReleaseFeedItem({
+        sourceType: "github-release",
+        sourceUrl: "https://api.github.com/repos/acme/sdk/releases/1"
+      })
+    ).toBe(true);
+  });
+
+  it("leaves blog posts and articles alone, even ones about releases", () => {
+    expect(
+      isReleaseFeedItem({
+        sourceType: "rss-feed",
+        sourceUrl: "https://hf-mirror.com/blog/muse-glimmer"
+      })
+    ).toBe(false);
+    expect(
+      isReleaseFeedItem({
+        sourceType: "rss-feed",
+        sourceUrl: "https://github.blog/changelog/2026-10-01-new-releases"
+      })
+    ).toBe(false);
   });
 });

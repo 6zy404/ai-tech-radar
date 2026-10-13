@@ -197,6 +197,79 @@ export function calculateTokenSimilarity(
   return overlapCount / Math.max(leftTokens.size, rightTokens.size);
 }
 
+// Two different sources only share a title by coincidence when the title is
+// short, so across sources a title match needs this many comparison tokens on
+// both sides — the same floor `already_published` uses (quality-signals.ts).
+// In the 2026-10-13 snapshot two of the seven open duplicate groups crossed
+// sources, both below it: Transformers' "Patch release v5.13.1" against
+// ms-swift's "Patch release v4.3.1" (tokens `patch`, `release`), and MCP
+// Servers' "2026.6.16" against a 量子位 headline whose only latin token was
+// `2026`. A group hides its non-primary items on the news lane and blocks
+// converting them, so a wrong one costs a real item.
+const MIN_CROSS_SOURCE_TITLE_TOKENS = 3;
+
+function isSameSource(
+  left: ImportedCandidate,
+  right: ImportedCandidate
+): boolean {
+  if (left.sourceId && right.sourceId) {
+    return left.sourceId === right.sourceId;
+  }
+
+  return (
+    left.sourceName.trim().toLowerCase() ===
+    right.sourceName.trim().toLowerCase()
+  );
+}
+
+// "v5.13.1", "2026.6.16", "0.26.0rc1" — a dotted number, as written.
+const versionPattern = /\bv?\d+(?:\.\d+)+[a-z0-9]*/g;
+
+function getTitleVersions(title: string): Set<string> {
+  return new Set(
+    (title.toLowerCase().match(versionPattern) ?? []).map((version) =>
+      version.replace(/^v/, "")
+    )
+  );
+}
+
+/**
+ * Two titles that both name a version but share none are two releases, not
+ * one story told twice. Normalization splits "v5.13.1" into fragments the
+ * tokenizer drops, so token similarity cannot see the difference.
+ */
+function haveDisjointVersions(leftTitle: string, rightTitle: string): boolean {
+  const leftVersions = getTitleVersions(leftTitle);
+  const rightVersions = getTitleVersions(rightTitle);
+
+  if (leftVersions.size === 0 || rightVersions.size === 0) {
+    return false;
+  }
+
+  for (const version of leftVersions) {
+    if (rightVersions.has(version)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Whether a cross-source title match is worth anything. Within one source the
+ * title rules are unchanged; release families are grouped there on purpose.
+ */
+function canCompareTitlesAcrossSources(
+  leftTitle: string,
+  rightTitle: string
+): boolean {
+  return (
+    countTitleTokens(leftTitle) >= MIN_CROSS_SOURCE_TITLE_TOKENS &&
+    countTitleTokens(rightTitle) >= MIN_CROSS_SOURCE_TITLE_TOKENS &&
+    !haveDisjointVersions(leftTitle, rightTitle)
+  );
+}
+
 function getDayDistance(leftDate: string, rightDate: string): number {
   const leftTime = new Date(leftDate).valueOf();
   const rightTime = new Date(rightDate).valueOf();
@@ -289,6 +362,9 @@ export function getDuplicateReasons(
     Boolean(getGitHubRepoKey(left)) &&
     getGitHubRepoKey(left) === getGitHubRepoKey(right);
   const dayDistance = getDayDistance(left.publishDate, right.publishDate);
+  const titlesComparable =
+    isSameSource(left, right) ||
+    canCompareTitlesAcrossSources(left.originalTitle, right.originalTitle);
 
   if (sameUrl) {
     reasons.push("same_source_url");
@@ -299,8 +375,9 @@ export function getDuplicateReasons(
   }
 
   if (
-    (sameNormalizedTitle && hasComparableTitleTokens(left.originalTitle)) ||
-    titleSimilarity >= 0.82
+    titlesComparable &&
+    ((sameNormalizedTitle && hasComparableTitleTokens(left.originalTitle)) ||
+      titleSimilarity >= 0.82)
   ) {
     reasons.push("similar_title");
   }

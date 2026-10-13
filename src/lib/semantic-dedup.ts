@@ -19,7 +19,7 @@ export const CANDIDATE_VECTOR_CACHE_FILE = "candidate-embeddings.json";
  * Bumped whenever a threshold or an exclusion below changes. A stored match
  * made under another version (or another model) is treated as absent.
  */
-export const SEMANTIC_DEDUP_RULE_VERSION = "semantic-dedup-v1";
+export const SEMANTIC_DEDUP_RULE_VERSION = "semantic-dedup-v2";
 
 export const SEMANTIC_DEDUP_RULES = {
   candidateThreshold: 0.96,
@@ -108,6 +108,26 @@ export function getDayDistance(leftDate: string, rightDate: string): number {
   }
 
   return Math.abs(left - right) / (1000 * 60 * 60 * 24);
+}
+
+/**
+ * Whether a candidate is one release of a project rather than a report.
+ *
+ * By URL as well as source type, because every GitHub release feed in the
+ * pool is imported as Atom (\`rss-feed\`): checked on 2026-10-13, all six
+ * release sources were \`rss-feed\`, so a source-type test excluded nothing.
+ * The thresholds in eval/dedup/README.md were measured with this URL test;
+ * until v2 the runtime used the source type alone and let release notes match
+ * the model launches they mention (Transformers v5.15.0 → Muse Glimmer).
+ */
+export function isReleaseFeedItem(candidate: {
+  sourceType: string;
+  sourceUrl: string;
+}): boolean {
+  return (
+    candidate.sourceType === "github-release" ||
+    /\/releases\/tag\//i.test(candidate.sourceUrl)
+  );
 }
 
 export interface SemanticDedupCandidate {

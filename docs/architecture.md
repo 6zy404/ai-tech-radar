@@ -711,7 +711,7 @@ Detection rules:
 
 - identical normalized `sourceUrl`
 - identical canonical link from RSS / Atom / official blog payloads when available
-- highly similar normalized title tokens
+- highly similar normalized title tokens (across two sources only when both titles have at least three comparison tokens and do not name different versions)
 - same publisher plus similar title within a near publish-date window
 - GitHub release items from the same repository release family
 

@@ -35,6 +35,7 @@ import {
   cosineSimilarity,
   getDayDistance,
   getDedupLanguage,
+  isReleaseFeedItem,
   type DedupLanguage
 } from "../src/lib/semantic-dedup";
 import type { ImportedCandidate } from "../src/types/content";
@@ -263,8 +264,9 @@ async function main() {
   }
 
   const publishedFingerprints = buildPublishedSignalFingerprints(signals);
+  // The runtime's own test, so what is measured is what ships.
   const isRelease = (candidate: ImportedCandidate) =>
-    candidate.sourceType === "github-release";
+    isReleaseFeedItem(candidate);
   const pairs: ScoredPair[] = [];
   const maxDays = 14;
 
