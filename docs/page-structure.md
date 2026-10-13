@@ -306,6 +306,12 @@ affected.
   - inspect masked endpoint URLs, last delivery status, and latest message
   - inspect delivery logs, HTTP response status, errors, and retry linkage
   - retry failed delivery runs
+  - a 新信号提醒 panel (`#reader-push`, 2026-10-13): subscriber count, signals
+    already pushed, per-topic subscriber counts (never an address), a
+    publish-date input and 推送新信号 (`PushWorkspaceActions`: dry-run count,
+    confirm naming how many subscribers, send, then the result with
+    failures per push service), and the recent `push_run` events; a notice
+    when the VAPID keys are not configured
   - not shown in user-facing navigation
 - `/workspace/delivery/schedules`
   - workspace-only local scheduled delivery console
@@ -429,7 +435,12 @@ Workspace deployment boundary:
     deterministic Ranking v0 priority levels and date-sorted within groups;
     each matched item shows an explicit "命中关注：X" explanation line;
     guided empty states for "no follows yet" and "follows but no matches";
-    does not show internal quality, reviewer, delivery, or source data
+    does not show internal quality, reviewer, delivery, or source data.
+    The RSS block that follows the topic chips ends with
+    「有新信号时提醒我」 (`PushAlertToggle`, 2026-10-13): one line, a space
+    held while it loads; absent when the server has push off; a note
+    instead of the button where the browser has no Push API (iOS needs the
+    site added to the home screen); the off state links to /about#privacy
   - 稍后读 (`?view=saved`, `SavedSignalsContent`): the signals the reader
     marked 稍后读, most-recently-saved first; saved ids that no longer
     resolve to a published signal are dropped instead of rendered as a dead
@@ -806,11 +817,19 @@ Workspace deployment boundary:
     kinds), 编辑怎么挑 (five numbered steps in one card), 优先级档位 (three
     `DossierCard`s, one per band, with the rule that puts a signal there),
     快讯, 八种关系 (stamp + one sentence per relation type), AI 功能 (four
-    cards), 站点不收集什么 (a list, then a 附注 on what does leave the
-    browser). Section ids `sources`, `editing`, `priority`, `news`,
+    cards), 站点存什么、不存什么 (a list — including the local
+    recommendations and the offline copies of 稍后读 — then a 附注 on what
+    a new-signal alert subscription stores and how to delete it, then a
+    附注 on what does leave the browser; renamed from 站点不收集什么 on
+    2026-10-13). Section ids `sources`, `editing`, `priority`, `news`,
     `relations`, `ai`, `privacy`; titles through `UnbreakableTitle`
   - no runtime content and no internal fields; not in the nav — reached
     from the `/technologies` header (2026-10-12)
+- `/offline`
+  - what the service worker shows offline when the page asked for is not a
+    saved signal (2026-10-13): the user header (现在离线) and the list of
+    offline copies of 稍后读 as plain links, or an empty state saying how
+    to get them. Precached on install, noindex, not in the sitemap or nav
 - `/radar`
   - user-facing technology radar (2026-10-13): the /topics and /sources
     list skeleton's header label, lede and caption row of counts (项技术,
@@ -1013,6 +1032,16 @@ Forbidden on public pages:
 - `SignalShortcutHelp` / `SignalShortcutHint` (`signal-shortcut-help.tsx`)
   - the ? shortcut list (native modal `<dialog>` with the off switch) and
     the quiet 「快捷键 ?」 button that opens it, on the three signal-list views
+- `PwaRegistration` (`pwa-registration.tsx`)
+  - mounted once in the root layout, renders nothing: registers `/sw.js`,
+    sends the worker the 稍后读 signals as hashed keys (again on every
+    change and when a new worker takes control), and re-sends the followed
+    topics to an existing alert subscription on every follow change
+    (batched) and once per browser session
+- `PushAlertToggle` (`push-alert-toggle.tsx`) / `PwaOfflineSavedList`
+  (`pwa-offline-saved-list.tsx`)
+  - the 我关注的 view's alert switch, and the list of offline copies on
+    `/offline`, read from the worker's cache
 - `SiteSearchForm` (`site-search-form.tsx`)
   - the GET search form (`action="/search"`, `name="q"`) shared by
     `/search` and the 404 page, which gained it on 2026-09-30; works

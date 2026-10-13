@@ -13,7 +13,9 @@ Public routes can be exposed:
   followed topics, reading marks (已读 / 稍后读) and the last-visit set
   behind the 新 stamps are browser-localStorage only (the 阅读码 export /
   import runs in the browser too), the route serves the same published content to everyone and holds no
-  per-reader server state; `/news` and `/timeline` redirect here
+  per-reader server state — except, for a reader who turns on
+  「有新信号时提醒我」, the push subscription with its followed topics
+  ("Reader Push Boundary" below); `/news` and `/timeline` redirect here
   to the matching view)
 - `/technologies/[slug]`
 - `/digest` (archive index; renders only published digests through the same
@@ -115,6 +117,12 @@ Public routes can be exposed:
 - `POST /api/technologies/explain`
 - `POST /api/technologies/learning-path`
 - `/ask` and `POST /api/ask`
+- `/manifest.webmanifest`, `/sw.js`, `/offline` and `/pwa/signal-paths.json`
+  (the installable site and offline 稍后读; the map is keyed by hashed id
+  and lists published signals only, `validate:deployment` pins both)
+- `GET /api/push/config`, `POST /api/push/subscribe`,
+  `POST /api/push/unsubscribe` (a reader's own alert subscription — see
+  "Reader Push Boundary" below)
 
 They must not render:
 
@@ -515,6 +523,48 @@ tool calls. Like the other three it is checked before the body is read.
   filled into the box on click, not submitted, for the same reason.
 - **复制答案** assembles its text from what the page already shows and
   sends no request.
+
+## Reader Push Boundary (2026-10-13)
+
+「有新信号时提醒我」 is the first per-reader state the server keeps, so it is
+opt-in, minimal and deletable:
+
+- **What is stored** (`config/push-subscriptions.json`, git-ignored; a
+  `runtime_configs` row under SQLite): the push endpoint the browser's push
+  service issued, its `p256dh` / `auth` keys, the followed topic ids, and
+  `createdAt`. The record id is a hash of the endpoint. No IP, no user
+  agent, no reading marks — the subscribe route reads nothing from the
+  request but its JSON body, and the unit test pins the record's key set.
+- **What leaves the server**: the subscribe route answers
+  `{ subscribed, topicCount }` and nothing stored
+  (`toPublicPushSubscriptionResult`); the workspace panel shows counts per
+  topic only; push WorkflowEvents carry counts and the push service's
+  hostname, never an endpoint or id. The notification itself is encrypted
+  for the browser (RFC 8291), so the push service sees only that a message
+  went to that subscription.
+- **Who can change a record**: the endpoint is a bearer address, and
+  changing topics or unsubscribing also needs its `auth` secret (`409`
+  otherwise), which only the subscribing browser holds.
+- **Where the server will POST**: only to `https` endpoints on the browser
+  push services (`fcm.googleapis.com`, `*.push.services.mozilla.com`,
+  `*.notify.windows.com`, `*.push.apple.com`; `allowedPushServiceHosts`).
+  Without that list a forged subscription could make the server send
+  requests to any address it reaches, including `127.0.0.1`. `redirect:
+"error"` keeps a push service from bouncing the request elsewhere.
+- **Cost guard**: both public routes run a per-client limiter (20/min,
+  120/h, buckets per route) and the same `Content-Type` / `Sec-Fetch-Site`
+  / `Origin` check as the AI routes before the body is read, so another
+  site cannot subscribe its visitors' browsers here; the store is capped at
+  10,000 records.
+- **Deletion**: turning alerts off, unfollowing every topic, or the push
+  service answering 404 / 410 on the next send deletes the record. /about
+  says so in the reader's terms.
+- **Sending** is workspace-only (`POST /api/workspace/push`, under the guard
+  and absent from `build:public`) and manual.
+- **The service worker** never intercepts `/workspace`, `/api`,
+  `/candidates` or `/technologies/drafts`, so no internal response can end
+  up in a browser cache; it caches only public pages the reader saved, the
+  offline shell and hashed static files, under names carrying the build id.
 
 ## Remaining Production Gaps
 

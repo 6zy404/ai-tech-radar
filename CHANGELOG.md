@@ -12,6 +12,57 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## An installable site, 稍后读 offline, and an alert for new signals
+
+- **2026-10-13. The site is installable and works offline for what the
+  reader saved.** A manifest with icons drawn from the 印章 mark, and a
+  service worker at `/sw.js` whose cache names carry the build id, so a
+  deploy replaces every old cache. It caches the shell (`/offline`, the
+  manifest, icons), the hashed `/_next/static` files, and exactly the
+  signal pages saved for 稍后读: the page hands the worker the saved
+  signals as hashed keys and the worker resolves them against
+  `/pwa/signal-paths.json`, a map that is the same for every reader, so
+  the server never learns what was saved. Pages stay network-first; offline,
+  a saved page opens from the cache and anything else shows `/offline`, which
+  lists the copies. Measured in the preview: two saved pages cached,
+  unsaving one dropped its copy, and a forced worker update deleted the old
+  caches and refilled the saved page under the new name without a reload —
+  the last only after a fix: the page had sent its keys to the old worker,
+  so it now re-sends them on `controllerchange`. The worker never
+  intercepts `/workspace`, `/api`, `/candidates` or `/technologies/drafts`
+  (a pure rule, pinned by tests that also run the copy embedded in the
+  script).
+- **「有新信号时提醒我」.** On the 我关注的 view a reader can subscribe the
+  browser to Web Push; the server stores the endpoint, its two keys, the
+  followed topic ids and the creation time, nothing else, and every follow
+  change anywhere on the site updates the topics. Turning it off, unfollowing
+  everything, or a 404 / 410 from the push service deletes the record; a
+  record changes only with its auth secret. Endpoints must be on a browser
+  push service — without that list a forged subscription could make the
+  server POST to `127.0.0.1` — and the two public routes are rate limited
+  and origin-checked like the AI routes. Sending is manual, from the new
+  新信号提醒 panel on `/workspace/delivery`: one merged notification per
+  subscriber for the day's matching signals, each signal pushed once, and
+  failures reported per push service. /about's privacy section is now
+  「站点存什么、不存什么」 and says all of this in the reader's terms; it also
+  carries the local-recommendation sentence from that window.
+- **No new dependency.** RFC 8291 encryption and RFC 8292 VAPID are one
+  file on `node:crypto` (`src/lib/push-crypto.ts`, 340 lines with comments). The RFC 8291 example body is reproduced byte
+  for byte (its `Content-Length: 145` line is off by one — the body is 144),
+  and the RFC 8292 example JWT verifies against its key.
+- **This machine reaches the push services only through the proxy.**
+  Direct connections to FCM, Mozilla, Apple and WNS all timed out at the
+  10 s connect limit; through the proxy they answered in 0.3–1.7 s, and a
+  signed request to a made-up FCM token came back 410 in 318 ms (VAPID
+  accepted; unsigned it is 401), after which the server deleted that
+  subscription by itself. A preview dev server started from a worktree
+  whose `.env.local` has no proxy lines goes direct and fails, which is
+  why the editorial-round playbook gained Step 7b.
+- **Not verified: a notification arriving.** The preview pane denies
+  notification permission outright, so no browser here completed a real
+  subscription. Off until `PUSH_VAPID_PUBLIC_KEY` /
+  `PUSH_VAPID_PRIVATE_KEY` are set (`node scripts/generate-vapid-keys.mjs`).
+
 ## 和你读过的相近: recommendations computed in the browser
 
 - **2026-10-13.** The home page (after 现在最值得关注) and the foot of the
