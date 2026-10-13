@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DeliveryChannelActions } from "@/components/delivery-channel-actions";
 import { DeliveryChannelForm } from "@/components/delivery-channel-form";
 import { DeliveryRunActions } from "@/components/delivery-run-actions";
+import { PushWorkspaceActions } from "@/components/push-workspace-actions";
 import { WorkflowEventList } from "@/components/workflow-event-list";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { WorkspaceStatusBadge } from "@/components/workspace-status-badge";
@@ -12,6 +13,13 @@ import {
   getDeliveryRuns,
   maskEndpointUrl
 } from "@/lib/delivery-workflow";
+import { getAllTags } from "@/lib/content";
+import { getTodayDateString } from "@/lib/digest-store";
+import { readPushVapidConfig } from "@/lib/push-config";
+import {
+  readPushSubscriptionStore,
+  summarizePushSubscriptions
+} from "@/lib/push-subscriptions";
 import { getScheduledDeliveries } from "@/lib/scheduled-delivery-workflow";
 import { getRecentWorkflowEvents } from "@/lib/workflow-events";
 import type { DeliveryStatus } from "@/types/content";
@@ -82,6 +90,13 @@ export default function WorkspaceDeliveryPage() {
     limit: 6
   });
   const latestRun = runs[0];
+  const pushSummary = summarizePushSubscriptions(readPushSubscriptionStore());
+  const pushConfigured = readPushVapidConfig() !== null;
+  const tagNames = new Map(getAllTags().map((tag) => [tag.id, tag.name]));
+  const recentPushEvents = getRecentWorkflowEvents({
+    entityTypes: ["push_run"],
+    limit: 5
+  });
 
   return (
     <WorkspacePageShell
@@ -312,6 +327,63 @@ export default function WorkspaceDeliveryPage() {
         ) : (
           <p className="empty-state">还没有记录任何投递发送。</p>
         )}
+      </section>
+
+      <section
+        id="reader-push"
+        className="detail-panel delivery-console-panel"
+        aria-labelledby="reader-push-title"
+      >
+        <div className="delivery-console-panel__header">
+          <div>
+            <p className="section-eyebrow">读者推送</p>
+            <h2 id="reader-push-title">新信号提醒</h2>
+            <p>
+              读者在「我关注的」里打开「有新信号时提醒我」后，这里推送指定日期发布、命中其关注话题的信号，每位订阅者一条合并通知。同一条信号只推一次；浏览器报订阅失效（404
+              / 410）的记录会被删除。这里只显示数量，不显示推送地址。
+            </p>
+          </div>
+        </div>
+        {pushConfigured ? null : (
+          <p className="empty-state">
+            推送未配置：需要在环境变量里设置 PUSH_VAPID_PUBLIC_KEY 与
+            PUSH_VAPID_PRIVATE_KEY（生成：node
+            scripts/generate-vapid-keys.mjs）。未配置时读者端不显示开关。
+          </p>
+        )}
+        <section className="delivery-console-summary" aria-label="推送订阅摘要">
+          <article className="delivery-console-summary__card">
+            <span>订阅者</span>
+            <strong>{pushSummary.total}</strong>
+            <p>浏览器订阅数</p>
+          </article>
+          <article className="delivery-console-summary__card">
+            <span>已推送信号</span>
+            <strong>{pushSummary.pushedSignalCount}</strong>
+            <p>这些信号不会再推</p>
+          </article>
+        </section>
+        {pushSummary.byTopic.length > 0 ? (
+          <ul className="push-topic-counts" aria-label="各话题订阅数">
+            {pushSummary.byTopic.map((entry) => (
+              <li key={entry.topicId}>
+                {tagNames.get(entry.topicId) ?? entry.topicId}
+                <strong>{entry.count}</strong>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <PushWorkspaceActions
+          defaultDate={getTodayDateString()}
+          enabled={pushConfigured}
+        />
+        {recentPushEvents.length > 0 ? (
+          <WorkflowEventList
+            events={recentPushEvents}
+            title="推送记录"
+            description="每次推送的数量记录，不含任何推送地址。"
+          />
+        ) : null}
       </section>
 
       <details className="delivery-audit-panel">

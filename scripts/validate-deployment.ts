@@ -470,6 +470,8 @@ function main() {
     "/api/workspace/radar",
     "/api/workspace/radar/radar-vllm/status",
     "/api/workspace/delivery/send",
+    // 推送新信号 (2026-10-13): the send button is workspace-only.
+    "/api/workspace/push",
     "/api/candidates/example/status",
     "/candidates/example",
     "/technologies/drafts/example"
@@ -491,7 +493,16 @@ function main() {
     "/about",
     "/radar",
     "/feed.xml",
-    "/feed.json"
+    "/feed.json",
+    // PWA + reader push (2026-10-13): installable shell and the reader-side
+    // subscribe calls must work without a workspace token.
+    "/offline",
+    "/sw.js",
+    "/manifest.webmanifest",
+    "/pwa/signal-paths.json",
+    "/api/push/config",
+    "/api/push/subscribe",
+    "/api/push/unsubscribe"
   ]) {
     assert.equal(
       isProtectedWorkspacePath(route),

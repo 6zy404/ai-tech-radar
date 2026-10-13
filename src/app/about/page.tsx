@@ -26,7 +26,7 @@ export const dynamic = "force-dynamic";
 
 const pageTitle = "本站怎么挑信号";
 const pageDescription =
-  "信号从哪来、编辑怎么挑、优先级怎么定，以及站点不收集什么。";
+  "信号从哪来、编辑怎么挑、优先级怎么定，以及站点存什么、不存什么。";
 
 export const metadata = buildPageMetadata({
   title: pageTitle,
@@ -41,7 +41,7 @@ const sections = [
   { id: "news", label: "快讯" },
   { id: "relations", label: "八种关系" },
   { id: "ai", label: "AI 功能" },
-  { id: "privacy", label: "不收集什么" }
+  { id: "privacy", label: "存什么" }
 ] as const;
 
 const sourceTypes = ["RSS", "Atom", "GitHub Release", "官方博客页面"];
@@ -332,12 +332,17 @@ export default function AboutPage() {
         </section>
 
         <section className="skills-library-section" aria-labelledby="privacy">
-          <SectionHeader id="privacy" title="站点不收集什么" />
+          <SectionHeader id="privacy" title="站点存什么、不存什么" />
           <div className="about-prose">
             <ul className="about-list">
               <li>没有账户，不需要登录。</li>
               <li>
-                关注的话题、已读、稍后读、上次来访时看过哪些信号（用于「新」标记）、深浅色和快捷键开关，只存在你这个浏览器的本地存储里，服务器不知道。
+                关注的话题、已读、稍后读、上次来访时看过哪些信号（用于「新」标记）、深浅色和快捷键开关，只存在你这个浏览器的本地存储里，服务器不知道。唯一的例外是下面的「新信号提醒」，只有你打开它才会发生。
+              </li>
+              {/* Reserved for the local-recommendation sentence (window H,
+                  relayed by the dispatcher): one <li> here. */}
+              <li>
+                存进「稍后读」的信号，这个浏览器会另存一份页面副本，离线时也能打开。为了找到这些页面，浏览器会下载一张全部已发布信号的地址表，每个人拿到的都一样，所以服务器不知道你存了哪几条。
               </li>
               <li>
                 换设备时，可以用关注码、阅读码自己带过去；导出和导入都在浏览器里完成。
@@ -345,6 +350,21 @@ export default function AboutPage() {
               <li>每个人拿到的页面都一样，个性化只发生在你的浏览器里。</li>
             </ul>
           </div>
+          <DossierCard className="about-note">
+            <DossierCatalogNote label="附注 · 打开「有新信号时提醒我」之后">
+              <p>
+                提醒默认是关的。你在「我关注的」里打开它，服务器会存一条记录：浏览器的推送服务（Chrome
+                和 Edge 用 Google 的，Firefox 用 Mozilla 的，Safari 用 Apple
+                的）发给这个浏览器的推送地址、两把用来加密通知的密钥、你关注的话题，以及创建时间。不存访问地址、浏览器型号，也不存你读过什么。之后你在任何页面改了关注的话题，记录里的话题跟着更新。
+              </p>
+              <p>
+                通知在服务器上加密后经推送服务送到你的浏览器，推送服务看不到内容，只知道有一条消息发给了这个浏览器。提醒只在编辑手动推送时发出，同一条信号只推一次。
+              </p>
+              <p>
+                怎么删：在「我关注的」里关掉提醒，或者取消关注全部话题，服务器上的记录立即删除；在浏览器设置里撤销本站的通知权限，下次推送时推送服务会告诉服务器这个地址已失效，记录随之删除。
+              </p>
+            </DossierCatalogNote>
+          </DossierCard>
           <DossierCard className="about-note">
             <DossierCatalogNote label="附注 · 会离开你浏览器的部分">
               <p>

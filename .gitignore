@@ -68,6 +68,8 @@ eval/triage/cache/
 config/candidate-triage-suggestions.json
 # Semantic duplicate matches: recomputed after every import (semantic-dedup-refresh.ts)
 config/candidate-semantic-matches.json
+# Reader push subscriptions: the endpoints are bearer addresses (src/lib/push-subscriptions.ts)
+config/push-subscriptions.json
 # Semantic dedup measurement: pairs a threshold would flag that have no label yet
 eval/dedup/unlabelled.jsonl
 # in-flight atomic writes (temp-then-rename); never left behind on a clean exit

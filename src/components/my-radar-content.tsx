@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { DossierTechnologyCard } from "@/components/dossier-technology-card";
+import { PushAlertToggle } from "@/components/push-alert-toggle";
 import { SignalReadingActions } from "@/components/signal-reading-actions";
 import {
   SignalShortcutHelp,
@@ -225,6 +226,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
                 </Link>
               ))}
           </div>
+          <PushAlertToggle followedTagIds={followedTagIds} />
         </section>
       ) : null}
 
