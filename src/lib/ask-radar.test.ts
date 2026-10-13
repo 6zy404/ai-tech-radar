@@ -332,7 +332,9 @@ describe("runAskRadar follow-ups", () => {
   });
 
   it("accepts an earlier number without a new search, and flags one nobody retrieved", async () => {
-    const { client } = scriptedClient([{ text: "就是上一轮那条[1]，不是[4]。" }]);
+    const { client } = scriptedClient([
+      { text: "就是上一轮那条[1]，不是[4]。" }
+    ]);
     const done = (
       await collect(
         runAskRadar("哪个版本", { client, tools, history, priorSources: prior })

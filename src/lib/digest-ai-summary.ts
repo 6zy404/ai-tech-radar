@@ -251,7 +251,12 @@ export type OverviewDraftResult =
       warnings: string[];
       metadata: OverviewDraftMetadata;
     }
-  | { ok: false; status: number; error: string; metadata?: { modelName: string; latencyMs: number } };
+  | {
+      ok: false;
+      status: number;
+      error: string;
+      metadata?: { modelName: string; latencyMs: number };
+    };
 
 const OVERVIEW_LLM_TIMEOUT_MS = 90000;
 

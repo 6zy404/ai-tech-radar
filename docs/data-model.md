@@ -1094,6 +1094,31 @@ edit transitions record `skill.*` / `knowledge.*` workflow events. v0
 edited related-content id lists only; LinkRelation v1 (2026-07-19) added
 typed relation editing on top — see the `LinkRelation` section below.
 
+## WeeklySummaryRecord (2026-10-13)
+
+The editor-written 本周总结 on a weekly review — the one persisted thing
+about a week; the review itself stays derived. `src/lib/weekly-summary.ts`,
+stored as `{ updatedAt, records }` in `config/weekly-summaries.json`
+(tracked like `daily-digests.json`; one `runtime_configs` row under SQLite,
+because the store is one small object).
+
+- `weekKey`: the week's Monday, `YYYY-MM-DD` — the `/digest/weekly/[week]`
+  key; only a canonical Monday of a week with at least one shown signal is
+  accepted
+- `status`: `draft | published`
+- `text`: paragraphs and `**bold**` (rendered through `ContentBody`), at
+  most 1,200 characters
+- `createdAt`, `updatedAt`, `publishedAt?`
+
+Saving creates a `draft` or replaces the text (a `published` record stays
+published, as an edited published digest does). Publishing is blocked for
+empty text and for text the public internal-copy guard would hide. The AI
+draft that may have produced the text is not recorded on the record — only
+in `weekly_summary.ai_drafted` workflow events (model, prompt version
+`weekly-summary-v1`, tokens). The public reading is
+`getPublishedWeeklySummaryText` (text of a published record, nothing else),
+used by both weekly-review pages and the weekly RSS.
+
 ## RadarEntry / RadarWorkspaceRecord (2026-10-13)
 
 One technology on the `/radar` technology radar — the technology itself
@@ -1533,6 +1558,8 @@ Local workflow state defaults to `config/` and can be moved with `LOCAL_DATA_DIR
 - `link-relation-workspace.json`
 - `duplicate-groups.json`
 - `daily-digests.json`
+- `weekly-summaries.json` (2026-10-13; tracked, editorial content; a
+  `runtime_configs` row under SQLite)
 - `delivery.json`
 - `scheduled-delivery.json`
 - `scheduled-import.json`

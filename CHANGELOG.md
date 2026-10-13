@@ -12,6 +12,69 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## 问雷达 follow-ups, and AI-drafted digest ledes and weekly summaries
+
+- **2026-10-13. 问雷达 takes follow-ups.** Once an answer is done, a 继续追问
+  box under it asks the next question, up to 5 per conversation, then
+  开新对话. The page holds the conversation in memory only — a reload starts
+  over — and each follow-up sends the earlier questions and answers plus the
+  `{ ref, key }` pairs already shown. The server stays stateless: it re-reads
+  every key from published content, so titles and links never come from the
+  request; the numbers it carries forward are kept, and anything retrieved
+  later is numbered after the highest, so one number means one item for the
+  whole conversation and a follow-up may cite an earlier item without
+  searching again. Earlier answers are context, not sources: each is cut to
+  600 characters, 2,400 in all, oldest turn dropped first. A first question's
+  prompt is byte for byte the one `ask-radar-v1` measured (a test pins it), so
+  the single-turn eval still holds; follow-up additions are
+  `ask-followup-v1`. 复制答案 becomes 复制整段对话 — every turn, one source list,
+  the disclaimer once; a number a turn could not link stays `[n?]` even if a
+  later turn retrieved an item under it.
+- **Measured on a real four-turn run** (`deepseek-chat`; semantic search was
+  unavailable in that sandbox, keyword half only): the first question searched
+  four times and cited [1]–[4]; 「那在手机上跑呢？」 searched twice, retrieved
+  [5]–[6] and cited [6] and [1]; 「第一轮说的量化具体是什么意思？」 searched
+  nothing and answered from [1]–[4] and [6]; 「你觉得英伟达股票会涨吗？」 opened
+  with 「站内没有直接相关的内容」. Prompt tokens per turn: 4,941 / 5,971 / 1,321
+  / 1,535; no invalid citation.
+- **「AI 起草导语」 for a digest.** The digest edit form (under 编辑概览) and the
+  editorial-round console's 今日简报 block draft `editorialSummary` from the
+  issue's selected signals, in the sections and order the page shows them
+  (`digest-summary-v1`, `src/lib/digest-ai-summary.ts`). It fills a box and
+  saves nothing; on the console 保存为导语 PATCHes the summary alone and asks
+  before replacing one. Real run on 2026-10-13: 1,657 tokens, 2.5 seconds,
+  all three signals named with their numbers, and two useful notes (VISTA's
+  and Memento 3's 57.4% / 56% are against different human baselines;
+  CodeScene's case gives no equivalence result). The first version asked for
+  300 characters, got 520 and cut it, losing the third signal; `deepseek-chat`
+  writes about 1.4× what it is asked for, so the prompt now asks for 250, a
+  long draft is kept whole with a warning past 400, and only text past 1,200
+  is cut. A draft containing demo / mock / test is flagged, because the
+  public page hides a summary with those words — which is also why the mock
+  provider's placeholder can never reach readers unnoticed.
+- **本周总结.** The weekly review gains its one persisted input: an
+  editor-written paragraph per week, keyed by the week's Monday, `draft` or
+  `published` (`src/lib/weekly-summary.ts`, `config/weekly-summaries.json`, a
+  `runtime_configs` row under SQLite). New workspace pages
+  `/workspace/weekly-summaries` (nav 周总结, under 发布) list the weeks and
+  edit one: 「AI 起草导语」 (`weekly-summary-v1`; real run on 10-05 – 10-11:
+  2,602 tokens, 3.2 seconds), 保存草稿, 发布总结 / 撤回为草稿. Published text
+  shows on that week's `/digest/weekly` page under the four numbers, in the
+  same panel as a digest's 今日概览, and in the week's RSS item as 本周总结：…;
+  drafts show nowhere. No AI disclaimer on a published summary — an editor
+  confirmed it — and the page description then says the list is derived and
+  the summary editor-written. Model and prompt version live only in
+  `weekly_summary.ai_drafted` / `digest.ai_summary_drafted` workflow events.
+- **The 引用 label in a 问雷达 answer was a card title.** Its rule sets it at
+  label size, but `28-typography.css` sizes every `.user-shell h2` / `h3` with
+  `!important`, so it rendered at section size on the live page too; it is
+  now an h3 under the turn's question with an `!important` label size.
+- Tests: 1,079 → 1,118 vitest (multi-turn numbering, history cuts, refusal on
+  a follow-up, prior keys re-resolved; overview prompt and validator against
+  the mock; weekly summary store, publish guard, SQLite round trip, drafts
+  kept out of the page and the RSS). `validate:digest`,
+  `validate:llm-enrichment` and `validate:workspace-boundary` pass.
+
 ## The Ai2 source stopped, and the dev nav fits again
 
 - **2026-10-13. Ai2 Blog is disabled.** allenai.org answers 403 to every

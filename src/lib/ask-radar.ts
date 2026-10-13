@@ -1,7 +1,4 @@
-import type {
-  AskHistoryTurn,
-  AskPriorSourceRef
-} from "@/lib/ask-conversation";
+import type { AskHistoryTurn, AskPriorSourceRef } from "@/lib/ask-conversation";
 import {
   askRefusalPrefix,
   checkCitations,
@@ -171,7 +168,8 @@ export function buildAskSystemPrompt(priorSources: AskSource[] = []): string {
     "",
     "前面几轮已检索到的条目：",
     ...priorSources.map(
-      (source) => `[${source.ref}] ${kindLabels[source.kind]}「${source.title}」`
+      (source) =>
+        `[${source.ref}] ${kindLabels[source.kind]}「${source.title}」`
     )
   ].join("\n");
 }

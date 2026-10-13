@@ -5,7 +5,10 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { makeTechnologyItem } from "@/lib/test-factories";
-import { getWeeklyFeedWeeks, renderWeeklyReviewRssXml } from "@/lib/weekly-feed";
+import {
+  getWeeklyFeedWeeks,
+  renderWeeklyReviewRssXml
+} from "@/lib/weekly-feed";
 import {
   getPublishedWeeklySummaryText,
   getWeeklySummary,
@@ -14,7 +17,10 @@ import {
   WeeklySummaryError,
   type WeeklySummaryRecord
 } from "@/lib/weekly-summary";
-import type { TechnologyItem, TechnologyPriorityRanking } from "@/types/content";
+import type {
+  TechnologyItem,
+  TechnologyPriorityRanking
+} from "@/types/content";
 
 const { getAllTechnologiesMock } = vi.hoisted(() => ({
   getAllTechnologiesMock: vi.fn<() => TechnologyItem[]>()
@@ -72,7 +78,10 @@ afterEach(() => {
 
 describe("weekly summary store", () => {
   it("saves a new summary as a draft that readers cannot see", () => {
-    const record = saveWeeklySummaryText(week, "这一周的**两条**信号。\n\n\n\n第二段。");
+    const record = saveWeeklySummaryText(
+      week,
+      "这一周的**两条**信号。\n\n\n\n第二段。"
+    );
 
     expect(record).toMatchObject({
       weekKey: week,
@@ -130,17 +139,21 @@ describe("weekly review RSS with summaries", () => {
   });
 
   it("carries a published summary as plain text", () => {
-    const xml = renderWeeklyReviewRssXml(getWeeklyFeedWeeks(), "https://x.dev", [
-      record("published")
-    ]);
+    const xml = renderWeeklyReviewRssXml(
+      getWeeklyFeedWeeks(),
+      "https://x.dev",
+      [record("published")]
+    );
 
     expect(xml).toContain("本周总结：编辑写的本周总结。");
   });
 
   it("leaves a draft summary out", () => {
-    const xml = renderWeeklyReviewRssXml(getWeeklyFeedWeeks(), "https://x.dev", [
-      record("draft")
-    ]);
+    const xml = renderWeeklyReviewRssXml(
+      getWeeklyFeedWeeks(),
+      "https://x.dev",
+      [record("draft")]
+    );
 
     expect(xml).not.toContain("本周总结：");
     expect(xml).not.toContain("编辑写的本周总结");

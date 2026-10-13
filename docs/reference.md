@@ -427,7 +427,7 @@ The product is split into two subsystems:
   pattern) opens the view. A signal is listed under every topic it carries,
   so the full lists ran to 322 rows for 107 signals: 54,479px at 1440,
   115,766px at 390; now 91 rows, 19,089px and 37,569px.
-- **问雷达 (`/ask`)** — a public, single-turn question box answered only
+- **问雷达 (`/ask`)** — a public question box answered only
   from published signals, skills and knowledge, with every claim cited. The
   model (DeepSeek or any OpenAI-compatible endpoint; a search-only mock when
   no key is set) runs a small tool loop — `search_radar` (hybrid search)
@@ -453,6 +453,20 @@ The product is split into two subsystems:
   read-only text box appears instead. It is built only from what the page
   already shows and sends no request (`buildAskCopyText` in
   `src/lib/ask-answer-copy.ts`, 2026-09-30).
+  **追问** (2026-10-13): once an answer is done, a box under it asks a
+  follow-up, up to 5 questions per conversation, then 开新对话. The
+  conversation lives in the page's memory only (a reload starts over); each
+  follow-up sends the earlier questions and answers — each answer cut to 600
+  characters, 2,400 in all, oldest dropped first — and the `{ ref, key }`
+  pairs already shown. The server stays stateless: it re-reads each key from
+  published content (titles and links never come from the request), keeps
+  those numbers, and numbers anything new after the highest, so one number
+  means one item for the whole conversation and a follow-up may cite an
+  earlier item (`src/lib/ask-conversation.ts`, `resolveAskPriorSources`).
+  A first question's prompt is byte for byte the one `ASK_PROMPT_VERSION`
+  measured; follow-up additions are tagged `ASK_FOLLOWUP_PROMPT_VERSION`.
+  The rate limit counts each follow-up as a request; 复制答案 becomes
+  复制整段对话 (every turn, one source list, the disclaimer once).
 - **Site-wide search (hybrid)** — public `/search` (an inline search icon
   in `TopNav` opens the query box) over published technology signals,
   skills, knowledge, and the sanitized news fast lane. Two halves, merged per
@@ -531,9 +545,19 @@ The product is split into two subsystems:
   (`config/scheduled-digest.json`, managed from
   `/workspace/delivery/schedules`; skips when the day already has a digest,
   never publishes — publishing stays editor-gated).
+  **AI 起草导语** (2026-10-13): the digest edit form and the editorial-round
+  console's 今日简报 block draft `editorialSummary` from the issue's
+  selected signals, in the page's sections and order
+  (`POST /api/workspace/digests/[date]/ai-summary`, prompt
+  `digest-summary-v1` in `src/lib/digest-ai-summary.ts`). The draft fills
+  a box and is never saved by the request; the editor saves it. Paragraphs
+  and `**bold**` only; a draft past 400 characters is kept with a warning
+  (only text past 1,200 is cut), and words the public guard hides (demo /
+  mock / test …) are flagged. Model, prompt version and tokens go to a
+  `digest.ai_summary_drafted` workflow event.
 - **Weekly review (`/digest/weekly`)** — a public, time-boxed sibling of the
-  daily digest: a pure derived view (`getWeeklyReview` in
-  `src/lib/weekly-review.ts`, no new persisted data, no AI) that buckets
+  daily digest: a derived view (`getWeeklyReview` in
+  `src/lib/weekly-review.ts`, no AI) that buckets
   published technology signals into natural weeks (Monday–Sunday), classifies
   each with the same deterministic Ranking v0 the rest of the product uses,
   and groups them into 立即关注 / 值得跟踪 (low-priority excluded, matching
@@ -554,6 +578,17 @@ The product is split into two subsystems:
   and archived digests are skipped), weeks between weeks with at least one
   shown signal, never past the current week (`findIssueNeighbors` in
   `src/lib/issue-neighbors.ts`).
+  **本周总结** (2026-10-13) is the one persisted thing about a week: an
+  editor-written paragraph per week, keyed by its Monday, `draft` or
+  `published` (`src/lib/weekly-summary.ts`, `config/weekly-summaries.json`,
+  a `runtime_configs` row under SQLite). Edited at
+  `/workspace/weekly-summaries` (nav 周总结), where 「AI 起草导语」 drafts it
+  from the week's signals (prompt `weekly-summary-v1`), 保存草稿 saves and
+  发布总结 publishes. Published text only shows on the week's page, in the
+  same panel as a digest's 今日概览 under the four numbers, and as 本周总结：…
+  in that week's RSS item; drafts nowhere. Being editor-confirmed it carries
+  no AI disclaimer; the page description then says the list is derived and
+  the summary editor-written.
 - **Delivery** — workspace-only webhook and Feishu channels, manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
@@ -687,7 +722,7 @@ Public, user-facing routes:
 
 Internal workspace / API routes (optionally token-protected):
 
-- `/workspace/*`
+- `/workspace/*` (including `/workspace/weekly-summaries`)
 - `/api/workspace/*`, `/api/candidates/*`
 - legacy `/candidates/*` and `/technologies/drafts/*` (redirect to workspace)
 

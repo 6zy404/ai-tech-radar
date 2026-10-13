@@ -45,10 +45,7 @@ export default async function WorkspaceWeeklySummaryPage({
       <section className="detail-panel">
         <div className="candidate-card__meta-row">
           <WorkspaceStatusBadge label={badge.label} tone={badge.tone} />
-          <Link
-            href={`/digest/weekly/${data.weekKey}`}
-            className="action-link"
-          >
+          <Link href={`/digest/weekly/${data.weekKey}`} className="action-link">
             打开公开周回顾
           </Link>
         </div>
@@ -72,8 +69,8 @@ export default async function WorkspaceWeeklySummaryPage({
         {data.groups.map((group) => (
           <div key={group.level}>
             <h3>
-              {getPriorityLevelLabel(group.level, "zh")} · {group.signals.length}{" "}
-              条
+              {getPriorityLevelLabel(group.level, "zh")} ·{" "}
+              {group.signals.length} 条
             </h3>
             <ul>
               {group.signals.map((signal) => (

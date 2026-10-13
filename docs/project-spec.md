@@ -72,9 +72,11 @@ Public pages:
 - `/digest/weekly` — public weekly review: published technology signals
   bucketed into the current natural week (Monday–Sunday) and grouped by the
   deterministic Ranking v0 priority levels (立即关注 / 值得跟踪; low-priority
-  excluded), with a past-week archive folded in. Pure derived view
-  (`getWeeklyReview` in `src/lib/weekly-review.ts`), no new persisted data,
-  no AI. Reached via 本周回顾 cross-links only (no nav entry)
+  excluded), with a past-week archive folded in. Derived view
+  (`getWeeklyReview` in `src/lib/weekly-review.ts`), no AI; the one
+  persisted input is an editor-published 本周总结 per week
+  (`src/lib/weekly-summary.ts`, 2026-10-13). Reached via 本周回顾
+  cross-links only (no nav entry)
 - `/digest/weekly/[week]` — a specific past/other natural week keyed by its
   canonical Monday date (`YYYY-MM-DD`); `notFound()` for a non-canonical key
   or a week with no shown signals
@@ -113,9 +115,10 @@ Public pages:
   and the news fast lane: title/summary/tag keyword matching merged with a
   local embedding model (the news lane stays keyword-only; news results reuse
   the `src/lib/news.ts` sanitizing map)
-- `/ask` — 问雷达: single-turn questions answered only from published signals,
+- `/ask` — 问雷达: questions answered only from published signals,
   skills and knowledge, with citations; declines with a fixed phrase when the
-  site has nothing
+  site has nothing. Up to 5 questions per conversation (追问, 2026-10-13); the
+  conversation lives in the page only and the server stays stateless
 - `/feed.xml`
 - `/feed.json`
 

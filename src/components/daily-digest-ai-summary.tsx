@@ -70,9 +70,7 @@ export async function requestOverviewDraft(
 export function OverviewDraftNotes({ draft }: { draft: OverviewDraft }) {
   return (
     <div className="ai-overview-draft__notes">
-      <p>
-        AI 起草 · {draft.provenance}。没有保存：核对事实与数字后再保存。
-      </p>
+      <p>AI 起草 · {draft.provenance}。没有保存：核对事实与数字后再保存。</p>
       {draft.warnings.length > 0 ? (
         <ul>
           {draft.warnings.map((warning) => (

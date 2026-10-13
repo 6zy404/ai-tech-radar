@@ -52,7 +52,9 @@ describe("buildOverviewUserPrompt", () => {
     const prompt = buildOverviewUserPrompt("digest", input);
 
     expect(prompt.split("\n")[0]).toBe("Purpose: digest_editorial_summary");
-    expect(prompt).toContain("### 1. [立即关注] VISTA 把 ARC-AGI-3 公开集打到满分");
+    expect(prompt).toContain(
+      "### 1. [立即关注] VISTA 把 ARC-AGI-3 公开集打到满分"
+    );
     expect(prompt).toContain("发布方: MIT · 发布日期: 2026-10-12");
     expect(prompt).toContain("为什么重要: 上限越来越取决于模型外面那一层。");
     expect(prompt).toContain("### 2. [值得跟踪] CodeScene");

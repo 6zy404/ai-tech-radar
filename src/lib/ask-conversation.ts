@@ -63,8 +63,7 @@ export interface AskConversationInput {
 }
 
 export type ParsedAskRequest =
-  | ({ ok: true } & AskConversationInput)
-  | { ok: false; error: string };
+  ({ ok: true } & AskConversationInput) | { ok: false; error: string };
 
 const minQuestionLength = 2;
 

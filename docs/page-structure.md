@@ -172,6 +172,10 @@ affected.
     candidate detail page shows the same button under its review actions
     (when the candidate can still be converted) and opens the draft on
     success
+  - when today's digest exists, its block carries 「AI 起草导语」 (「AI 重写导语」
+    once it has one; `DigestSummaryRoundAction`, 2026-10-13): the draft lands
+    in an editable box with its provenance and warnings, 保存为导语 PATCHes
+    `editorialSummary` only (confirming before it replaces one), 放弃 drops it
   - pure read state (`getEditorialRoundState` in `src/lib/editorial-round.ts`),
     no new persisted data; the inline actions reuse the existing
     candidate/technology/digest API routes (no editor duplicated), so 写内容 /
@@ -286,7 +290,10 @@ affected.
   - preview and edit entry points
 - `/workspace/digests/[date]`
   - generated digest review and editing detail
-  - edit title, summary, editorial summary, and editorial notes
+  - edit title, summary, editorial summary, and editorial notes; 「AI 起草导语」
+    under 编辑概览 fills that box from the selected signals and saves nothing
+    (2026-10-13, `AiOverviewDraftButton`)
+  - a 周总结 → link in the 预览 panel to `/workspace/weekly-summaries`
   - selected immediate-attention and watch technologies
   - manual add, exclude, pin, and move up / move down controls
   - publish readiness checks for blocking errors and warnings
@@ -299,6 +306,16 @@ affected.
 - `/workspace/digests/[date]/preview`
   - user-facing digest preview before publication
   - does not make a draft digest publicly available
+- `/workspace/weekly-summaries` and `/workspace/weekly-summaries/[week]`
+  (2026-10-13, nav 周总结 under 发布)
+  - the list: every week with a shown signal up to this week, newest first,
+    as digest-style rows (没有总结 / 草稿 / 已发布, counts, first 120
+    characters), with status tiles
+  - the editor: a status line with a link to the public week, the summary
+    box (`WeeklySummaryEditor`: counter, 「AI 起草导语」, 保存草稿, 发布总结 /
+    撤回为草稿), the week's signals grouped as the model reads them, and the
+    week's workflow events; `notFound()` for a key the public page would
+    404 on
 - `/workspace/delivery`
   - workspace-only delivery channel and delivery log console
   - create and edit generic webhook and Feishu bot webhook delivery channels
@@ -550,7 +567,12 @@ Workspace deployment boundary:
     grouped by the deterministic Ranking v0 levels 立即关注 (`high_priority`)
     and 值得跟踪 (`watch`) — `low_priority` excluded, matching the digest — a
     guided empty state for a quiet week, and the past-week archive folded in
-  - pure derived view (`getWeeklyReview` / `getWeeklyReviewArchive` in
+  - when an editor has published the week's 本周总结, it sits under the four
+    numbers in the same panel as a digest's 今日概览 (`daily-digest-summary-panel`,
+    eyebrow 本周总结, `ContentBody`), and the page description says the list
+    is derived and the summary editor-written (2026-10-13); otherwise nothing
+    is shown and the page is as before
+  - derived view (`getWeeklyReview` / `getWeeklyReviewArchive` in
     `src/lib/weekly-review.ts`), rendered by the shared `WeeklyReviewContent`
     component in dossier styling; no new persisted data, no AI, no internal
     fields
@@ -724,6 +746,16 @@ Workspace deployment boundary:
     `RelationDensity` — this page is the one place to see the whole graph at
     once instead of one node's neighbourhood
   - does not show internal quality, reviewer, delivery, or source data
+- `/ask`
+  - 问雷达: a question box, up to six example questions before the first
+    question, then one panel holding the conversation — the disclaimer once,
+    and per turn a 问 / 追问 N heading with the question, the search and read
+    statuses, the answer with linked [n] citations (invalid ones struck
+    through), 引用 and a folded 检索到但没有引用 for the items this turn found
+  - once an answer is done the question box gives way to a 继续追问 box under
+    the panel (还可以问 N 次), up to 5 questions; past that a one-line note to
+    start over. The panel ends with 复制答案 / 复制整段对话 and 开新对话
+    (2026-10-13). A failed turn is replaced by asking again
 - `/search`
   - user-facing site-wide search (an inline search icon in `TopNav`
     opens the query box, GETs to this page)

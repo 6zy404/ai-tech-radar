@@ -68,9 +68,7 @@ export function readWeeklySummaryStore(): WeeklySummaryStore {
 
   return {
     updatedAt: typeof store?.updatedAt === "string" ? store.updatedAt : "",
-    records: Array.isArray(store?.records)
-      ? store.records.filter(isRecord)
-      : []
+    records: Array.isArray(store?.records) ? store.records.filter(isRecord) : []
   };
 }
 

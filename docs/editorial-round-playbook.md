@@ -302,7 +302,13 @@ Optional but recommended for the day's clear headline item:
 - **Exclude** anything Ranking v0 included that doesn't deserve digest space
   today: same endpoint, `{"action":"exclude", ...}`.
 - Write `editorialSummary`: a short paragraph tying the day's items together
-  around a theme, not just a list restatement. UI → digest edit form; API →
+  around a theme, not just a list restatement. Since 2026-10-13 「AI 起草导语」
+  (digest edit form, or the console's 今日简报 block) drafts it from the
+  selected signals — so pin and exclude **first**, then draft. It only fills
+  the box; read every number against the signals, act on its notes (it
+  flags inconsistent numbers between signals), cut it to about 250
+  characters, and remove any demo / mock / test wording before saving — the
+  public page hides a summary containing those words. UI → digest edit form; API →
   `PATCH /api/workspace/digests/{date}` with
   `{"editorialSummary": "...", "editorialNotes": "one internal note per line"}`
   (`editorialNotes` is a single newline-delimited string in the request body,

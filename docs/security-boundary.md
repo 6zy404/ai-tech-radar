@@ -22,13 +22,18 @@ Public routes can be exposed:
 - `/digest/today`
 - `/digest/[date]`
 - `/digest/weekly` and `/digest/weekly/[week]` (public weekly review — a
-  pure derived view over published technology signals, same published-content
-  boundary as the digest; no persisted data, no AI, no internal fields;
-  `/digest/weekly/[week]` 404s for a non-canonical key or a signal-less week)
+  derived view over published technology signals, same published-content
+  boundary as the digest; no AI, no internal fields;
+  `/digest/weekly/[week]` 404s for a non-canonical key or a signal-less week.
+  The one persisted input is the week's editor-written 本周总结, read only
+  through `getPublishedWeeklySummaryText` in `src/lib/weekly-summary.ts`:
+  the text of a `published` record, withheld when it trips the
+  internal-copy guard; no status, timestamps or AI metadata. Drafts never
+  reach the page or the RSS — `weekly-summary.test.ts` pins both)
 - `/digest/weekly/feed.xml` (weekly-review RSS — derived from the same
   `getWeeklyReview` view as the pages, so it carries only public signal
-  titles, week ranges and priority grouping; no persisted data, no AI, no
-  internal fields)
+  titles, week ranges and priority grouping, plus a week's published
+  本周总结 as plain text; no AI, no internal fields, no drafts)
 - `/skills`
 - `/skills/[slug]`
 - `/knowledge`
@@ -389,6 +394,17 @@ draft it writes stays `draft`; its `aiDraft` metadata (model, prompt version,
 tokens) and the generation events stay in the workspace — the public mapping
 picks fields by name and does not copy them.
 
+「AI 起草导语」 (`POST /api/workspace/digests/[date]/ai-summary` and
+`POST /api/workspace/weekly-summaries/[week]/ai-summary`, 2026-10-13) are
+the same kind of caller, and narrower: they send only published signals'
+public fields (title, summary, why-it-matters, publisher, date) and write
+nothing — the draft comes back to an editor's text box, and only the
+editor's save writes it. Model, prompt version and tokens are in the
+response (workspace-only) and in a workflow event, never on the digest or
+the weekly summary record. A published weekly summary carries no AI
+disclaimer because an editor confirmed it; a digest's `editorialSummary`
+never did.
+
 The current local JSON and SQLite stores may contain workspace-only suggestion metadata. They are not production secret stores. Production deployments should keep provider credentials in environment-managed secret storage and should not commit local data files containing real provider or delivery credentials.
 
 ## Public LLM Feature Boundary (Comparison v0 + Explanation v1 + Learning Path v2)
@@ -498,7 +514,20 @@ tool calls. Like the other three it is checked before the body is read.
   so a navigation never spends a model call. A suggested example question is
   filled into the box on click, not submitted, for the same reason.
 - **复制答案** assembles its text from what the page already shows and
-  sends no request.
+  sends no request; 复制整段对话 does the same for a conversation.
+- **追问** (2026-10-13) keeps the server stateless: the page holds the
+  conversation in memory and sends, with each follow-up, the earlier
+  questions and answers and the `{ ref, key }` pairs it has shown. Nothing
+  else from the client is trusted — each key must match `T: / S: / K:` +
+  slug and is read again from published content, so titles, links and kinds
+  come from the server, and an unknown or unpublished key is dropped (a later
+  citation of its number then reads as invalid). Earlier answers are context,
+  never sources, and are capped (600 characters each, 2,400 in all, oldest
+  dropped), so a forged history costs at most about 2,000 extra prompt
+  tokens per round — about twice a first question's prompt in the worst
+  case, measured 4,941 → 5,971 tokens on a real two-turn run. At most 5
+  questions per conversation (a sixth is a 400). The rate limit counts every
+  follow-up, and the refusal rule and the disclaimer apply to every turn.
 
 ## Remaining Production Gaps
 

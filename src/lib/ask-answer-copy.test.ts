@@ -171,8 +171,7 @@ describe("buildAskConversationCopyText", () => {
   };
 
   it("copies a single turn exactly as 复制答案 always has", () => {
-    const { question, answer, sources: turnSources, cited, invalid } =
-      input();
+    const { question, answer, sources: turnSources, cited, invalid } = input();
 
     expect(
       buildAskConversationCopyText({
