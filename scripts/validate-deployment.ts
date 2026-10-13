@@ -17,6 +17,11 @@ import {
 import { getAllTechnologies } from "../src/lib/content";
 import { maskEndpointUrl } from "../src/lib/delivery-workflow";
 import { getLocalDataDirPath } from "../src/lib/local-data";
+import { signalVectorEntryKeys } from "../src/lib/local-recommend";
+import {
+  buildSignalVectorFile,
+  toPublishedSignalCard
+} from "../src/lib/local-recommend-vectors";
 import {
   declaresRenderMode,
   findUndeclaredMetadataRoutes,
@@ -301,6 +306,88 @@ function assertClientBuildDoesNotContainWorkspaceSecret() {
   }
 }
 
+// /signal-vectors.json, the recommendation data file, lists published
+// signals only, and every entry has exactly the fixed key set — a hashed key,
+// the public card fields and the vector. A corpus document whose id is not a
+// published signal (an archived record, a skill) is left out, and the long
+// workspace ids never appear. Built from synthetic vectors, so the check needs
+// no model.
+function assertSignalVectorsCarryOnlyPublishedSignals() {
+  const allowedKeys = [
+    "key",
+    "priorityLabel",
+    "publishDate",
+    "scale",
+    "slug",
+    "summary",
+    "tagIds",
+    "title",
+    "vector"
+  ];
+  const published = getAllTechnologies().slice(0, 3);
+  const vector = (seed: number) =>
+    Array.from({ length: 8 }, (_, index) => Math.sin(seed + index));
+  const document = (key: string, group: "technologies" | "skills") => ({
+    group,
+    evalKey: key,
+    link: { key, title: key, href: "/", tags: [] },
+    titleText: key,
+    haystack: key,
+    embedText: key
+  });
+  const file = buildSignalVectorFile(
+    {
+      documents: [
+        ...published.map((technology) =>
+          document(technology.id, "technologies")
+        ),
+        document("deployment-validation-unpublished", "technologies"),
+        document("deployment-validation-skill", "skills")
+      ],
+      vectors: Array.from({ length: published.length + 2 }, (_, index) =>
+        vector(index)
+      )
+    },
+    published.map(toPublishedSignalCard),
+    "validation-model"
+  );
+
+  assert.deepEqual(
+    [...signalVectorEntryKeys],
+    allowedKeys,
+    "The recommendation data file's key list changed; review what it ships."
+  );
+  assert.deepEqual(
+    file.signals.map((signal) => signal.slug),
+    published.map((technology) => technology.slug),
+    "/signal-vectors.json must list published signals only."
+  );
+
+  for (const signal of file.signals) {
+    assert.deepEqual(
+      Object.keys(signal).sort(),
+      allowedKeys,
+      "/signal-vectors.json entries carry only the allowed keys."
+    );
+  }
+
+  const serialized = JSON.stringify(file);
+
+  // An id that is part of its own slug is public anyway; the check is for
+  // the long workspace ids, which are not.
+  for (const technology of published.filter(
+    (item) => !item.slug.includes(item.id)
+  )) {
+    assert.equal(
+      serialized.includes(technology.id),
+      false,
+      "/signal-vectors.json must not carry raw signal ids."
+    );
+  }
+
+  assertNoInternalTerms(file, "/signal-vectors.json");
+}
+
 // /radar renders only what toPublicRadarEntries picks: a workspace draft
 // never shows, and no entry carries workspace status, timestamps or raw ids.
 // Writes one draft into the validator's throwaway data copy.
@@ -364,6 +451,11 @@ function assertPublicSourceDoesNotUseInternalTerms() {
     path.join(process.cwd(), "src", "lib", "radar.ts"),
     path.join(process.cwd(), "src", "app", "feed.xml"),
     path.join(process.cwd(), "src", "app", "feed.json"),
+    path.join(process.cwd(), "src", "app", "signal-vectors.json"),
+    path.join(process.cwd(), "src", "lib", "local-recommend.ts"),
+    path.join(process.cwd(), "src", "lib", "local-recommend-vectors.ts"),
+    path.join(process.cwd(), "src", "components", "home-recommend-section.tsx"),
+    path.join(process.cwd(), "src", "components", "saved-recommendations.tsx"),
     path.join(process.cwd(), "src", "components", "daily-digest-content.tsx"),
     path.join(
       process.cwd(),
@@ -491,7 +583,8 @@ function main() {
     "/about",
     "/radar",
     "/feed.xml",
-    "/feed.json"
+    "/feed.json",
+    "/signal-vectors.json"
   ]) {
     assert.equal(
       isProtectedWorkspacePath(route),
@@ -532,6 +625,7 @@ function main() {
   assertMetadataRoutesDeclareTheirRenderMode();
   assertPublicBuildExcludesEveryGuardedPrefix();
   assertRadarPublishesOnlyPublicFields();
+  assertSignalVectorsCarryOnlyPublishedSignals();
 
   console.log("Deployment readiness validation passed.");
 }

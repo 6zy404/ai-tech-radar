@@ -362,6 +362,18 @@ Workspace deployment boundary:
   - highlights the latest published Daily Digest as the primary start point
   - highlights high-priority published technology signals; each card the
     reader has not seen before carries the same 新 stamp as the signal list
+  - after 现在最值得关注, a 和你读过的相近 row (2026-10-13,
+    `HomeRecommendSection`): up to three published signals close to the
+    reader's 已读 / 稍后读 marks, computed in the browser from the
+    recommendation data file `/signal-vectors.json`, on the same card
+    (`HomeSignalCard`, extracted from the 现在最值得关注 row) with
+    为什么推荐 in place of 为什么重要, an 80-character gist and no audience
+    chips. The heading's description reads
+    按你在本机的阅读记录计算，记录不离开浏览器。 (two no-wrap runs, so 390
+    breaks at the comma). The page carries no card data for it. Rendered
+    only once there is a recommendation, with no reserved space; it sits
+    1,844px down at 1440×900 and 7,700px at 390, so it never appears above
+    what the reader is looking at on load
   - links readers into Skills and Knowledge as understanding paths
   - links to `/digest/today`, `/technologies`, `/skills`, and `/knowledge`
   - shows a compact latest-news board (今日快讯) linking to
@@ -426,7 +438,12 @@ Workspace deployment boundary:
     (`src/lib/reading-state.ts`), so the served page is identical for
     everyone. The count row ends with 导出阅读码 / 导入阅读码, and the
     empty state offers the import (2026-09-30); the result shows in one
-    `role="status"` line
+    `role="status"` line. Below the list — or below the empty state — a
+    和你读过的相近 group (2026-10-13, `SavedRecommendations`): up to four
+    `DossierTechnologyCard`s with their reason in the `matchLine` slot
+    the 我关注的 view uses for 命中关注, and the same 稍后读 / 已读 toggles,
+    so saving one moves it into the list above. Absent when there is
+    nothing to recommend
   - reading marks (P4 v0.4) apply across the 精选 / 我关注的 / 稍后读 views:
     each signal card carries a 稍后读 and a 已读 toggle
     (`SignalReadingActions`), a read card recedes (transparent surface,
@@ -1000,6 +1017,17 @@ Forbidden on public pages:
   - the GET search form (`action="/search"`, `name="q"`) shared by
     `/search` and the 404 page, which gained it on 2026-09-30; works
     without JS, never autofocuses
+- `HomeSignalCard` (`home-signal-card.tsx`)
+  - the home page's signal card as plain props, shared by the
+    server-rendered 现在最值得关注 row and the browser-computed 和你读过的相近
+    row
+- `HomeRecommendSection` / `SavedRecommendations` /
+  `LocalRecommendHeading` / `useLocalRecommendations`
+  - 和你读过的相近 on the home page and the 稍后读 view; the hook fetches
+    the recommendation data file `/signal-vectors.json` once per page, only
+    when the reader has a mark, hashes the marks with `toVisitKey` and
+    scores in the browser (`src/lib/local-recommend.ts`); the heading
+    carries the privacy line
 - `VisitBaselineProvider` / `useVisitBaseline` / `NewSignalStamp`
   (`visit-baseline.tsx`)
   - the last-visit baseline for the 新 stamps: records the visit on the
