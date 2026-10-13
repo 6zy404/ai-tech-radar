@@ -1,10 +1,12 @@
 import {
-  weeklyReviewPageMetadata,
+  getWeeklyReviewPageMetadata,
   WeeklyReviewPage
 } from "@/components/pages/weekly-review-page";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = weeklyReviewPageMetadata;
+export const metadata = getWeeklyReviewPageMetadata("zh");
 
-export default WeeklyReviewPage;
+export default function Page() {
+  return <WeeklyReviewPage locale="zh" />;
+}

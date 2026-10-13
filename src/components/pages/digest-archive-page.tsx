@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
@@ -13,14 +14,21 @@ import {
   getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
+import { digestCopy } from "@/lib/i18n/copy/digest";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { nameLangAttr } from "@/lib/i18n/text-lang";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
-export const digestArchivePageMetadata = buildPageMetadata({
-  title: "往期简报",
-  description:
-    "按月归档的已发布技术简报。每期汇总当期值得关注的技术信号与编辑判断。",
-  path: "/digest"
-});
+export function getDigestArchivePageMetadata(locale: Locale) {
+  const copy = digestCopy[locale].archive;
+
+  return buildPageMetadata({
+    title: copy.title,
+    description: copy.description,
+    path: "/digest",
+    locale
+  });
+}
 
 interface ArchiveEntry {
   date: string;
@@ -35,10 +43,10 @@ interface ArchiveMonth {
   entries: ArchiveEntry[];
 }
 
-function getMonthLabel(month: string): string {
+function getMonthLabel(month: string, locale: Locale): string {
   const [year, monthPart] = month.split("-");
 
-  return `${year} 年 ${Number(monthPart)} 月`;
+  return digestCopy[locale].archive.month(year, Number(monthPart));
 }
 
 function getPublishedArchiveMonths(): ArchiveMonth[] {
@@ -77,7 +85,8 @@ function getPublishedArchiveMonths(): ArchiveMonth[] {
     .map(([month, entries]) => ({ month, entries }));
 }
 
-export function DigestArchivePage() {
+export function DigestArchivePage({ locale }: { locale: Locale }) {
+  const copy = digestCopy[locale].archive;
   const archiveMonths = getPublishedArchiveMonths();
   const totalCount = archiveMonths.reduce(
     (count, month) => count + month.entries.length,
@@ -86,29 +95,34 @@ export function DigestArchivePage() {
 
   return (
     <UserPageShell
-      title="往期简报"
-      description="按月归档的已发布技术简报。每期汇总当期值得关注的技术信号与编辑判断。"
-      sectionLabel="简报归档"
+      title={copy.title}
+      description={copy.description}
+      sectionLabel={copy.sectionLabel}
       className="digest-archive-page dossier"
       actions={
         <>
-          <Link href="/digest/weekly" className="action-link">
-            本周回顾
+          <Link
+            href={localePath(locale, "/digest/weekly")}
+            className="action-link"
+          >
+            {copy.weekly}
           </Link>
-          <Link href="/digest/today" className="action-link">
-            阅读最新一期
+          <Link
+            href={localePath(locale, "/digest/today")}
+            className="action-link"
+          >
+            {copy.latest}
           </Link>
         </>
       }
     >
       {archiveMonths.length > 0 ? (
         <>
-          <p className="digest-archive__count">
-            共 {totalCount} 期已发布简报。
-          </p>
+          <p className="digest-archive__count">{copy.count(totalCount)}</p>
+          <ChineseOnlyNote locale={locale}>{copy.chineseOnly}</ChineseOnlyNote>
           {archiveMonths.map((month) => (
             <section key={month.month} className="digest-archive-month">
-              <h2>{getMonthLabel(month.month)}</h2>
+              <h2>{getMonthLabel(month.month, locale)}</h2>
               <div className="digest-archive-month__list">
                 {month.entries.map((entry) => (
                   <DossierCard key={entry.date} className="digest-archive-card">
@@ -117,21 +131,22 @@ export function DigestArchivePage() {
                         {entry.date}
                       </span>
                       <DossierStampTag>
-                        立即关注 {entry.highCount} 条
-                        {entry.watchCount > 0
-                          ? ` · 值得跟踪 ${entry.watchCount} 条`
-                          : ""}
+                        {copy.counts(entry.highCount, entry.watchCount)}
                       </DossierStampTag>
                     </div>
-                    <h3>
-                      <Link href={`/digest/${entry.date}`}>{entry.title}</Link>
+                    <h3 lang={nameLangAttr(locale, entry.title)}>
+                      <Link href={localePath(locale, `/digest/${entry.date}`)}>
+                        {entry.title}
+                      </Link>
                     </h3>
-                    <p>{entry.summary}</p>
+                    <p lang={nameLangAttr(locale, entry.summary)}>
+                      {entry.summary}
+                    </p>
                     <Link
                       className="digest-archive-card__open"
-                      href={`/digest/${entry.date}`}
+                      href={localePath(locale, `/digest/${entry.date}`)}
                     >
-                      阅读这一期
+                      {copy.open}
                     </Link>
                   </DossierCard>
                 ))}
@@ -141,10 +156,13 @@ export function DigestArchivePage() {
         </>
       ) : (
         <div className="empty-state empty-state--actionable">
-          <strong>还没有已发布的简报。</strong>
-          <p>首期简报发布后会在这里按月归档。你可以先浏览技术信号流。</p>
-          <Link href="/technologies" className="action-link">
-            浏览技术信号
+          <strong>{copy.emptyTitle}</strong>
+          <p>{copy.emptyBody}</p>
+          <Link
+            href={localePath(locale, "/technologies")}
+            className="action-link"
+          >
+            {copy.browse}
           </Link>
         </div>
       )}

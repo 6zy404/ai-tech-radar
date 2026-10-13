@@ -14,6 +14,9 @@ import {
   getPublishedDailyDigestByDate
 } from "@/lib/digest-workflow";
 import type { Metadata } from "next";
+import { digestCopy } from "@/lib/i18n/copy/digest";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import { buildDigestJsonLd } from "@/lib/structured-data";
 import {
@@ -21,36 +24,43 @@ import {
   getPublicDigestTitle
 } from "@/lib/public-copy";
 
-export function generateTodayDigestPageMetadata(): Metadata {
+export function generateTodayDigestPageMetadata(locale: Locale): Metadata {
   const latest = getLatestPublishedDailyDigest();
 
   return buildPageMetadata({
-    title: latest ? getPublicDigestTitle(latest) : "技术简报",
+    title: latest
+      ? getPublicDigestTitle(latest)
+      : digestCopy[locale].today.fallbackTitle,
     description: latest ? getPublicDigestSummaryPlainText(latest) : undefined,
     path: "/digest/today",
-    largeImage: true
+    largeImage: true,
+    locale
   });
 }
 
-export function TodayDigestPage() {
+export function TodayDigestPage({ locale }: { locale: Locale }) {
+  const copy = digestCopy[locale].today;
   const today = getTodayDateString();
   const todayDigest = getPublishedDailyDigestByDate(today);
   const latestDigest = todayDigest ?? getLatestPublishedDailyDigest();
   const previewNotice = todayDigest
     ? undefined
     : latestDigest
-      ? `当前展示的是 ${latestDigest.date} 发布的最新一期简报。`
+      ? copy.showingLatest(latestDigest.date)
       : undefined;
-  const renderData = latestDigest
+  const sourceRenderData = latestDigest
     ? getDailyDigestRenderData(latestDigest)
+    : undefined;
+  const renderData = sourceRenderData
+    ? { ...sourceRenderData, tags: localizeTags(sourceRenderData.tags, locale) }
     : undefined;
 
   return (
     <>
       <UserPageShell
-        title="AI 技术简报"
-        description="以阅读为先的简报，汇总今天值得关注的技术信号。"
-        sectionLabel="技术简报"
+        title={copy.shellTitle}
+        description={copy.shellDescription}
+        sectionLabel={copy.sectionLabel}
         showHeader={false}
         className="dossier"
       >
@@ -65,13 +75,14 @@ export function TodayDigestPage() {
         ) : (
           <section className="daily-digest-empty">
             <div>
-              <p className="eyebrow user-eyebrow">技术简报</p>
-              <h1>今天还没有已发布的简报。</h1>
-              <p>
-                首期简报发布后，这里会展示当天的内容。在此之前，你可以先浏览技术信号流。
-              </p>
-              <Link className="action-link" href="/technologies">
-                浏览技术信号
+              <p className="eyebrow user-eyebrow">{copy.emptyEyebrow}</p>
+              <h1>{copy.emptyTitle}</h1>
+              <p>{copy.emptyBody}</p>
+              <Link
+                className="action-link"
+                href={localePath(locale, "/technologies")}
+              >
+                {copy.browse}
               </Link>
             </div>
           </section>
@@ -79,16 +90,20 @@ export function TodayDigestPage() {
       </UserPageShell>
       {latestDigest && renderData ? (
         <JsonLd
-          data={buildDigestJsonLd({
-            date: latestDigest.date,
-            title: getPublicDigestTitle(latestDigest),
-            summary: getPublicDigestSummaryPlainText(latestDigest),
-            path: "/digest/today",
-            technologies: [
-              ...renderData.highPriorityTechnologies,
-              ...renderData.watchTechnologies
-            ]
-          })}
+          data={buildDigestJsonLd(
+            {
+              date: latestDigest.date,
+              title: getPublicDigestTitle(latestDigest),
+              summary: getPublicDigestSummaryPlainText(latestDigest),
+              path: "/digest/today",
+              technologies: [
+                ...renderData.highPriorityTechnologies,
+                ...renderData.watchTechnologies
+              ]
+            },
+            undefined,
+            locale
+          )}
         />
       ) : null}
     </>

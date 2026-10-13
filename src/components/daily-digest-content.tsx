@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { ContentBody } from "@/components/content-body";
 import { CopyLinkButton } from "@/components/copy-link-button";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
+import { LangScope, LangSpan } from "@/components/lang-scope";
 import { PageToc } from "@/components/page-toc";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SectionHeading } from "@/components/section-link";
@@ -25,26 +27,29 @@ import {
   followedTagsChangedEventName,
   readFollowedTagIds
 } from "@/lib/followed-tags";
+import { digestCopy } from "@/lib/i18n/copy/digest";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import {
-  digestTocSections,
   getDigestTocCandidates,
+  getDigestTocSections,
   selectPageTocEntries
 } from "@/lib/page-toc";
+import { getReadingDifficultyLabel } from "@/lib/content-intelligence";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
-  getLocalizedTechnologyText,
+  getTechnologyTextForMode,
+  getTechnologyTypeLabel,
   type TechnologyContentMode
 } from "@/lib/technology-localization";
 import type {
   KnowledgeItem,
-  PriorityLevel,
-  ReadingDifficulty,
   SkillItem,
   TechnologyItem,
   TechnologySourceReference,
-  TechnologyType,
   TopicTag
 } from "@/types/content";
 
@@ -71,31 +76,12 @@ interface DigestTechnologyCardProps {
    * card, which read as a stray section label floating over the grid.
    */
   matchedTagNames?: string[];
+  locale: Locale;
 }
 
 interface DigestSourceReference extends TechnologySourceReference {
   id: string;
 }
-
-const priorityReasonCopy: Record<PriorityLevel, string> = {
-  high_priority: "多项信号同时出现，这项技术值得尽早评估。",
-  watch: "这一变化值得跟进，但仍需更多背景或验证。",
-  low_priority: "可作背景了解，但今天还不够紧迫到需要优先处理。"
-};
-
-const technologyTypeLabels: Record<TechnologyType, string> = {
-  platform: "平台",
-  tool: "工具",
-  model: "模型",
-  protocol: "协议",
-  workflow: "工作流"
-};
-
-const difficultyLabels: Record<ReadingDifficulty, string> = {
-  beginner: "入门友好",
-  intermediate: "进阶",
-  advanced: "高级"
-};
 
 function getTechnologyTags(
   technology: TechnologyItem,
@@ -106,14 +92,11 @@ function getTechnologyTags(
     .filter((tag): tag is TopicTag => Boolean(tag));
 }
 
-function getAudienceLine(audience: string[]): string | undefined {
+/** The audience names, Chinese on both sites (they are editors' text). */
+function getAudienceNames(audience: string[]): string | undefined {
   const visibleAudience = audience.filter(Boolean).slice(0, 3);
 
-  if (visibleAudience.length === 0) {
-    return undefined;
-  }
-
-  return `适合 ${visibleAudience.join("、")}`;
+  return visibleAudience.length > 0 ? visibleAudience.join("、") : undefined;
 }
 
 function getDigestSourceReferences(
@@ -175,39 +158,52 @@ function DigestTechnologyCard({
   technology,
   tags,
   compact = false,
-  matchedTagNames = []
+  matchedTagNames = [],
+  locale
 }: DigestTechnologyCardProps) {
-  const mode: TechnologyContentMode = "zh";
+  const copy = digestCopy[locale].content;
+  const mode: TechnologyContentMode = locale === "en" ? "original" : "zh";
   const effectiveMode = getEffectiveTechnologyMode(
     technology,
     mode,
     compact ? "preview" : "detail"
   );
   const ranking = evaluateTechnologyPriority(technology);
-  const title = getLocalizedTechnologyText(
+  const titleText = getTechnologyTextForMode(
     technology.title,
     effectiveMode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
-  const summary = getLocalizedTechnologyText(
+  const summaryText = getTechnologyTextForMode(
     technology.summary,
     effectiveMode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
+  const title = titleText.text;
+  const summary = summaryText.text;
+  const priorityReason = copy.priorityReasons[ranking.priorityLevel];
   const intelligence = getDigestTechnologyIntelligenceSummary(
     technology,
     ranking,
-    priorityReasonCopy[ranking.priorityLevel]
+    priorityReason
   );
+  // The editors' note is Chinese; the fallback reason is interface text.
+  const whyItMattersLang = intelligence.whyItMatters
+    ? contentLangAttr(locale)
+    : undefined;
   const whyItMatters = compactText(
-    intelligence.whyItMatters ?? priorityReasonCopy[ranking.priorityLevel],
+    intelligence.whyItMatters ?? priorityReason,
     compact ? 130 : 180,
     "..."
   );
-  const audienceLine = getAudienceLine(intelligence.audience);
-  const difficulty = technology.readingDifficulty
-    ? difficultyLabels[technology.readingDifficulty]
-    : undefined;
+  const audienceNames = getAudienceNames(intelligence.audience);
+  const difficulty = getReadingDifficultyLabel(
+    technology.readingDifficulty,
+    locale
+  );
+  const href = localePath(locale, `/technologies/${technology.slug}`);
 
   return (
     <DossierCard
@@ -218,10 +214,10 @@ function DigestTechnologyCard({
       <div className="digest-technology-card__topline">
         <div className="digest-technology-card__badges">
           <DossierStampTag className="dossier-stamp-tag--muted">
-            {technologyTypeLabels[technology.type]}
+            {getTechnologyTypeLabel(technology.type, "zh", locale)}
           </DossierStampTag>
           <DossierStampTag>
-            {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
+            {getPriorityLevelLabel(ranking.priorityLevel, "zh", locale)}
           </DossierStampTag>
         </div>
       </div>
@@ -229,32 +225,48 @@ function DigestTechnologyCard({
       <div className="digest-technology-card__body">
         {matchedTagNames.length > 0 ? (
           <p className="my-radar__match-line digest-technology-card__match">
-            命中关注：{matchedTagNames.join("、")}
+            {copy.matchLine(matchedTagNames.join(copy.matchJoin))}
           </p>
         ) : null}
-        <h3>
-          <Link href={`/technologies/${technology.slug}`}>{title}</Link>
+        <h3 lang={contentLangAttr(locale, titleText.language)}>
+          <Link href={href}>{title}</Link>
         </h3>
-        <p className="digest-technology-card__summary">
+        <p
+          className="digest-technology-card__summary"
+          lang={contentLangAttr(locale, summaryText.language)}
+        >
           {compactText(summary, compact ? 140 : 190, "...")}
         </p>
-        <DossierCatalogNote label="为什么重要">
-          {whyItMatters}
+        <DossierCatalogNote label={copy.whyItMatters}>
+          <LangSpan lang={whyItMattersLang}>{whyItMatters}</LangSpan>
         </DossierCatalogNote>
-        {audienceLine ? (
-          <p className="digest-technology-card__audience">{audienceLine}</p>
+        {audienceNames ? (
+          <p className="digest-technology-card__audience">
+            {locale === "zh" ? (
+              copy.audience(audienceNames)
+            ) : (
+              <>
+                {copy.audience("")}
+                <span lang={contentLangAttr(locale)}>{audienceNames}</span>
+              </>
+            )}
+          </p>
         ) : null}
       </div>
 
       <div className="digest-technology-card__footer">
         <div className="digest-technology-card__meta-line">
-          <span>{technology.sourceName}</span>
+          <span lang={nameLangAttr(locale, technology.sourceName)}>
+            {technology.sourceName}
+          </span>
           <span>{technology.publishDate}</span>
           {difficulty ? <span>{difficulty}</span> : null}
           {!compact ? (
             <span>
-              {intelligence.relatedSkillCount} 个技能 /{" "}
-              {intelligence.relatedKnowledgeCount} 个概念
+              {copy.relatedCounts(
+                intelligence.relatedSkillCount,
+                intelligence.relatedKnowledgeCount
+              )}
             </span>
           ) : null}
         </div>
@@ -265,9 +277,9 @@ function DigestTechnologyCard({
           />
           <Link
             className="action-link digest-technology-card__open"
-            href={`/technologies/${technology.slug}`}
+            href={href}
           >
-            查看信号
+            {copy.openSignal}
           </Link>
         </div>
       </div>
@@ -285,7 +297,8 @@ function DigestReferenceList<
   items,
   hrefPrefix,
   linkLabel,
-  sharePath
+  sharePath,
+  itemLang
 }: {
   id: string;
   title: string;
@@ -295,6 +308,8 @@ function DigestReferenceList<
   hrefPrefix: string;
   linkLabel: string;
   sharePath?: string;
+  /** `lang` of every item's title and summary (skills and knowledge). */
+  itemLang?: string;
 }) {
   return (
     <section id={id} className="digest-reference-section">
@@ -309,10 +324,10 @@ function DigestReferenceList<
           {items.map((item) => (
             <DossierCard key={item.id} className="digest-reference-item">
               <div>
-                <h3>
+                <h3 lang={itemLang}>
                   <Link href={`${hrefPrefix}/${item.slug}`}>{item.title}</Link>
                 </h3>
-                <p>{item.summary}</p>
+                <p lang={itemLang}>{item.summary}</p>
               </div>
               <Link
                 className="action-link digest-reference-item__link"
@@ -332,24 +347,26 @@ function DigestReferenceList<
 
 function DigestSourceReferences({
   references,
-  sharePath
+  sharePath,
+  locale
 }: {
   references: DigestSourceReference[];
   sharePath?: string;
+  locale: Locale;
 }) {
+  const copy = digestCopy[locale].content;
+  const sections = getDigestTocSections(locale);
+
   return (
     <section
-      id={digestTocSections.sources.id}
+      id={sections.sources.id}
       className="daily-digest-section daily-digest-sources"
     >
       <div className="daily-digest-section__header daily-digest-section__header--compact">
-        <SectionHeading
-          sectionId={digestTocSections.sources.id}
-          sharePath={sharePath}
-        >
-          {digestTocSections.sources.label}
+        <SectionHeading sectionId={sections.sources.id} sharePath={sharePath}>
+          {sections.sources.label}
         </SectionHeading>
-        <p>本期简报中已发布技术信号所代表的公开来源。</p>
+        <p>{copy.sourcesDescription}</p>
       </div>
       {references.length > 0 ? (
         <div className="digest-source-list">
@@ -358,14 +375,27 @@ function DigestSourceReferences({
               {/* The publisher leads: the feed name repeated across four cards
                   while the organisation that distinguished them sat in the
                   subtitle. */}
-              <h3>{reference.publisherName || reference.sourceName}</h3>
-              <p>
+              <h3
+                lang={nameLangAttr(
+                  locale,
+                  reference.publisherName || reference.sourceName
+                )}
+              >
+                {reference.publisherName || reference.sourceName}
+              </h3>
+              <p
+                lang={
+                  reference.publisherName
+                    ? nameLangAttr(locale, reference.sourceName)
+                    : undefined
+                }
+              >
                 {[
                   reference.publisherName ? reference.sourceName : undefined,
                   reference.publishDate
                 ]
                   .filter(Boolean)
-                  .join(" - ") || "公开来源"}
+                  .join(" - ") || copy.publicSource}
               </p>
               {reference.sourceUrl ? (
                 <a
@@ -374,14 +404,14 @@ function DigestSourceReferences({
                   rel="noreferrer"
                   target="_blank"
                 >
-                  打开来源
+                  {copy.openSource}
                 </a>
               ) : null}
             </DossierCard>
           ))}
         </div>
       ) : (
-        <p className="empty-state">本期简报暂无可展示的公开来源参考。</p>
+        <p className="empty-state">{copy.noSources}</p>
       )}
     </section>
   );
@@ -398,6 +428,11 @@ export function DailyDigestContent({
   showDeliveryLinks = false,
   neighbors
 }: DailyDigestContentProps) {
+  const locale = useLocale();
+  const copy = digestCopy[locale].content;
+  const sections = getDigestTocSections(locale);
+  // The digest's own text (title, editors' summary) is Chinese only.
+  const zhLang = contentLangAttr(locale);
   const publicTitle = digest.title;
   const publicSummary = digest.summary;
   const selectedTechnologies = [
@@ -412,7 +447,9 @@ export function DailyDigestContent({
   // The issue's own dated address, also from /digest/today, which shows a
   // different issue tomorrow. The workspace preview (no delivery links) gets
   // neither 复制链接 nor the 「#」s: a draft has no public address.
-  const sharePath = showDeliveryLinks ? `/digest/${digest.date}` : undefined;
+  const sharePath = showDeliveryLinks
+    ? localePath(locale, `/digest/${digest.date}`)
+    : undefined;
 
   // Personalized digest view (P4): highlight and optionally filter by the
   // reader's followed topics. Follows stay in browser localStorage only —
@@ -467,6 +504,7 @@ export function DailyDigestContent({
   // so an entry never points at a section the filter has removed.
   const tocEntries = selectPageTocEntries(
     getDigestTocCandidates({
+      locale,
       hasSummary: Boolean(publicSummary),
       visibleHighPriorityCount: visibleHighPriorityTechnologies.length,
       visibleWatchCount: visibleWatchTechnologies.length,
@@ -484,14 +522,14 @@ export function DailyDigestContent({
           held only the four counts. */}
       <section className="user-article-hero daily-digest-brief-header">
         <div className="user-article-hero__copy daily-digest-brief-header__copy">
-          <p className="eyebrow user-eyebrow">技术简报 · 第 {digest.date} 号</p>
-          <h1>
+          <p className="eyebrow user-eyebrow">{copy.eyebrow(digest.date)}</p>
+          <h1 lang={nameLangAttr(locale, publicTitle)}>
             <UnbreakableTitle text={publicTitle} />
           </h1>
-          <div className="daily-digest-meta-strip" aria-label="简报摘要">
-            <span>{highPriorityTechnologies.length} 条立即关注</span>
-            <span>{watchTechnologies.length} 条值得跟踪</span>
-            <span>{sourceCount} 个来源</span>
+          <div className="daily-digest-meta-strip" aria-label={copy.metaLabel}>
+            <span>{copy.metaHigh(highPriorityTechnologies.length)}</span>
+            <span>{copy.metaWatch(watchTechnologies.length)}</span>
+            <span>{copy.metaSources(sourceCount)}</span>
             {sharePath ? <CopyLinkButton sharePath={sharePath} /> : null}
           </div>
           {previewNotice ? (
@@ -504,26 +542,30 @@ export function DailyDigestContent({
           variant at every width, above the first section it lists. */}
       <PageToc entries={tocEntries} variant="disclosure" />
 
+      <ChineseOnlyNote locale={locale}>{copy.chineseOnly}</ChineseOnlyNote>
+
       {publicSummary ? (
         <section
-          id={digestTocSections.summary.id}
+          id={sections.summary.id}
           className="daily-digest-summary-panel"
         >
           {/* An h2 styled as the eyebrow it was: the section needs a heading
               for the table to move focus to, and the outline gains one. */}
           <SectionHeading
-            sectionId={digestTocSections.summary.id}
+            sectionId={sections.summary.id}
             sharePath={sharePath}
             className="eyebrow user-eyebrow"
           >
-            {digestTocSections.summary.label}
+            {sections.summary.label}
           </SectionHeading>
           {/* Rendered through ContentBody like every other long-form body on
               the site. It was a bare <p> until 2026-08-09, so an editorial
               summary written with the same Markdown subset used everywhere
               else shipped its `**` markers to readers verbatim — hit for real
               on the 08-07 digest. */}
-          <ContentBody body={publicSummary} />
+          <LangScope lang={nameLangAttr(locale, publicSummary)}>
+            <ContentBody body={publicSummary} />
+          </LangScope>
         </section>
       ) : null}
 
@@ -531,12 +573,9 @@ export function DailyDigestContent({
         hasFollows ? (
           <section
             className="daily-digest-personal-bar"
-            aria-label="按关注话题筛选"
+            aria-label={copy.personalLabel}
           >
-            <p>
-              已关注 {followedTagIds.length} 个话题，本期命中 {matchedCount}{" "}
-              条。
-            </p>
+            <p>{copy.followedSummary(followedTagIds.length, matchedCount)}</p>
             <button
               type="button"
               className={`my-radar__tag-toggle${
@@ -545,15 +584,18 @@ export function DailyDigestContent({
               aria-pressed={filterActive}
               onClick={() => setShowOnlyFollowed((value) => !value)}
             >
-              {filterActive ? "✓ 只看我关注的" : "只看我关注的"}
+              {filterActive ? `✓ ${copy.onlyFollowed}` : copy.onlyFollowed}
             </button>
           </section>
         ) : (
           <section className="daily-digest-personal-bar">
             <p>
-              关注感兴趣的话题后，简报会标出并可筛选命中你关注的内容。{" "}
-              <Link className="action-link" href="/technologies?view=followed">
-                前往我的雷达
+              {copy.noFollowsBefore}
+              <Link
+                className="action-link"
+                href={localePath(locale, "/technologies?view=followed")}
+              >
+                {copy.toMyRadar}
               </Link>
             </p>
           </section>
@@ -561,18 +603,15 @@ export function DailyDigestContent({
       ) : null}
 
       {filterActive && visibleHighPriorityTechnologies.length === 0 ? null : (
-        <section
-          id={digestTocSections.highPriority.id}
-          className="daily-digest-section"
-        >
+        <section id={sections.highPriority.id} className="daily-digest-section">
           <div className="daily-digest-section__header">
             <SectionHeading
-              sectionId={digestTocSections.highPriority.id}
+              sectionId={sections.highPriority.id}
               sharePath={sharePath}
             >
-              {digestTocSections.highPriority.label}
+              {sections.highPriority.label}
             </SectionHeading>
-            <p>精选评级最高的已发布技术信号，编辑置顶的条目优先展示。</p>
+            <p>{copy.highDescription}</p>
           </div>
           {visibleHighPriorityTechnologies.length > 0 ? (
             <div className="digest-technology-list digest-technology-list--featured">
@@ -584,28 +623,23 @@ export function DailyDigestContent({
                   matchedTagNames={getMatchedTags(technology).map(
                     (tag) => tag.name
                   )}
+                  locale={locale}
                 />
               ))}
             </div>
           ) : (
-            <p className="empty-state">本期简报未选入需要立即关注的信号。</p>
+            <p className="empty-state">{copy.noHigh}</p>
           )}
         </section>
       )}
 
       {filterActive && visibleWatchTechnologies.length === 0 ? null : (
-        <section
-          id={digestTocSections.watch.id}
-          className="daily-digest-section"
-        >
+        <section id={sections.watch.id} className="daily-digest-section">
           <div className="daily-digest-section__header daily-digest-section__header--secondary">
-            <SectionHeading
-              sectionId={digestTocSections.watch.id}
-              sharePath={sharePath}
-            >
-              {digestTocSections.watch.label}
+            <SectionHeading sectionId={sections.watch.id} sharePath={sharePath}>
+              {sections.watch.label}
             </SectionHeading>
-            <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
+            <p>{copy.watchDescription}</p>
           </div>
           {/* Same two-column grid as 今日立即关注 above. Until 2026-07-29 this
               list was single-column, so identical cards rendered at two
@@ -621,70 +655,78 @@ export function DailyDigestContent({
                   matchedTagNames={getMatchedTags(technology).map(
                     (tag) => tag.name
                   )}
+                  locale={locale}
                 />
               ))}
             </div>
           ) : (
-            <p className="empty-state">本期简报未选入值得跟踪的条目。</p>
+            <p className="empty-state">{copy.noWatch}</p>
           )}
         </section>
       )}
 
       {filterHasNoMatches ? (
         <section className="empty-state empty-state--actionable">
-          <strong>本期简报没有命中你关注的话题。</strong>
+          <strong>{copy.noMatchTitle}</strong>
           <p>
-            可以查看全部内容，或到
-            <Link className="action-link" href="/technologies?view=followed">
-              我的雷达
+            {copy.noMatchBefore}
+            <Link
+              className="action-link"
+              href={localePath(locale, "/technologies?view=followed")}
+            >
+              {copy.noMatchLink}
             </Link>
-            调整关注的话题。
+            {copy.noMatchAfter}
           </p>
           <button
             type="button"
             className="my-radar__tag-toggle"
             onClick={() => setShowOnlyFollowed(false)}
           >
-            查看全部内容
+            {copy.showAll}
           </button>
         </section>
       ) : null}
 
       <DigestReferenceList
-        id={digestTocSections.skills.id}
-        title={digestTocSections.skills.label}
-        description="帮助读者判断接下来该尝试、评估或学习什么的技能。"
-        emptyText="本期简报暂未选入相关技能。"
+        id={sections.skills.id}
+        title={sections.skills.label}
+        description={copy.skillsDescription}
+        emptyText={copy.noSkills}
         items={skills}
-        hrefPrefix="/skills"
-        linkLabel="查看技能"
+        hrefPrefix={localePath(locale, "/skills")}
+        linkLabel={copy.openSkill}
         sharePath={sharePath}
+        itemLang={zhLang}
       />
 
       <DigestReferenceList
-        id={digestTocSections.knowledge.id}
-        title={digestTocSections.knowledge.label}
-        description="解释今天所选变化背后背景的概念。"
-        emptyText="本期简报暂未选入相关背景概念。"
+        id={sections.knowledge.id}
+        title={sections.knowledge.label}
+        description={copy.knowledgeDescription}
+        emptyText={copy.noKnowledge}
         items={knowledge}
-        hrefPrefix="/knowledge"
-        linkLabel="查看概念"
+        hrefPrefix={localePath(locale, "/knowledge")}
+        linkLabel={copy.openConcept}
         sharePath={sharePath}
+        itemLang={zhLang}
       />
 
       <DigestSourceReferences
         references={sourceReferences}
         sharePath={sharePath}
+        locale={locale}
       />
 
       {neighbors ? (
         <IssuePager
           unit="期"
-          ariaLabel="简报翻页"
+          ariaLabel={copy.pagerLabel}
+          locale={locale}
           previous={
             neighbors.previousDate
               ? {
-                  href: `/digest/${neighbors.previousDate}`,
+                  href: localePath(locale, `/digest/${neighbors.previousDate}`),
                   label: neighbors.previousDate
                 }
               : undefined
@@ -692,7 +734,7 @@ export function DailyDigestContent({
           next={
             neighbors.nextDate
               ? {
-                  href: `/digest/${neighbors.nextDate}`,
+                  href: localePath(locale, `/digest/${neighbors.nextDate}`),
                   label: neighbors.nextDate
                 }
               : undefined
@@ -703,16 +745,16 @@ export function DailyDigestContent({
       {showDeliveryLinks ? (
         <section className="daily-digest-section daily-digest-feeds">
           <div className="daily-digest-section__header daily-digest-section__header--compact">
-            <h2>订阅简报</h2>
-            <p>
-              稳定的公开订阅源仅包含已发布的技术简报，草稿和已归档简报不在其中。
-            </p>
+            <h2>{copy.feedsHeading}</h2>
+            <p>{copy.feedsBody}</p>
           </div>
           <div className="digest-feed-links">
-            <Link href={rssFeedPath}>RSS 订阅源</Link>
-            <Link href={jsonFeedPath}>JSON 订阅源</Link>
-            <Link href="/digest/weekly">本周回顾</Link>
-            <Link href="/digest">往期简报归档</Link>
+            <Link href={rssFeedPath}>{copy.rss}</Link>
+            <Link href={jsonFeedPath}>{copy.json}</Link>
+            <Link href={localePath(locale, "/digest/weekly")}>
+              {copy.weekly}
+            </Link>
+            <Link href={localePath(locale, "/digest")}>{copy.archive}</Link>
           </div>
         </section>
       ) : null}

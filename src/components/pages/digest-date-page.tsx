@@ -14,24 +14,29 @@ import {
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import type { Metadata } from "next";
+import { digestCopy } from "@/lib/i18n/copy/digest";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import { buildDigestJsonLd } from "@/lib/structured-data";
 
-interface DigestDatePageProps {
+export interface DigestDatePageProps {
   params: Promise<{ date: string }>;
 }
 
-export async function generateDigestDatePageMetadata({
-  params
-}: DigestDatePageProps): Promise<Metadata> {
+export async function generateDigestDatePageMetadata(
+  locale: Locale,
+  { params }: DigestDatePageProps
+): Promise<Metadata> {
   const { date } = await params;
   const digest = getPublishedDailyDigestByDate(date);
 
   if (!digest) {
     return buildPageMetadata({
-      title: "没有这一页",
+      title: digestCopy[locale].today.notFoundTitle,
       path: `/digest/${date}`,
-      noIndex: true
+      noIndex: true,
+      locale
     });
   }
 
@@ -40,11 +45,15 @@ export async function generateDigestDatePageMetadata({
     description: getPublicDigestSummaryPlainText(digest),
     path: `/digest/${digest.date}`,
     type: "article",
-    largeImage: true
+    largeImage: true,
+    locale
   });
 }
 
-export async function DigestDatePage({ params }: DigestDatePageProps) {
+export async function DigestDatePage({
+  params,
+  locale
+}: DigestDatePageProps & { locale: Locale }) {
   const { date } = await params;
   const digest = getPublishedDailyDigestByDate(date);
 
@@ -54,14 +63,18 @@ export async function DigestDatePage({ params }: DigestDatePageProps) {
 
   const publicTitle = getPublicDigestTitle(digest);
   const publicSummary = getPublicDigestSummaryPlainText(digest);
-  const renderData = getDailyDigestRenderData(digest);
+  const sourceRenderData = getDailyDigestRenderData(digest);
+  const renderData = {
+    ...sourceRenderData,
+    tags: localizeTags(sourceRenderData.tags, locale)
+  };
 
   return (
     <>
       <UserPageShell
         title={publicTitle}
         description={publicSummary}
-        sectionLabel="技术简报"
+        sectionLabel={digestCopy[locale].today.sectionLabel}
         showHeader={false}
         className="dossier"
       >
@@ -73,16 +86,20 @@ export async function DigestDatePage({ params }: DigestDatePageProps) {
         />
       </UserPageShell>
       <JsonLd
-        data={buildDigestJsonLd({
-          date: digest.date,
-          title: publicTitle,
-          summary: publicSummary,
-          path: `/digest/${digest.date}`,
-          technologies: [
-            ...renderData.highPriorityTechnologies,
-            ...renderData.watchTechnologies
-          ]
-        })}
+        data={buildDigestJsonLd(
+          {
+            date: digest.date,
+            title: publicTitle,
+            summary: publicSummary,
+            path: `/digest/${digest.date}`,
+            technologies: [
+              ...renderData.highPriorityTechnologies,
+              ...renderData.watchTechnologies
+            ]
+          },
+          undefined,
+          locale
+        )}
       />
     </>
   );

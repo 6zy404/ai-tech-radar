@@ -1,10 +1,15 @@
 import {
   generateDigestDatePageMetadata,
-  DigestDatePage
+  DigestDatePage,
+  type DigestDatePageProps
 } from "@/components/pages/digest-date-page";
 
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateDigestDatePageMetadata;
+export function generateMetadata(props: DigestDatePageProps) {
+  return generateDigestDatePageMetadata("zh", props);
+}
 
-export default DigestDatePage;
+export default function Page(props: DigestDatePageProps) {
+  return <DigestDatePage {...props} locale="zh" />;
+}

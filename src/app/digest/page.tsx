@@ -1,10 +1,12 @@
 import {
-  digestArchivePageMetadata,
+  getDigestArchivePageMetadata,
   DigestArchivePage
 } from "@/components/pages/digest-archive-page";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = digestArchivePageMetadata;
+export const metadata = getDigestArchivePageMetadata("zh");
 
-export default DigestArchivePage;
+export default function Page() {
+  return <DigestArchivePage locale="zh" />;
+}

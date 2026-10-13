@@ -1,10 +1,15 @@
 import {
   generateWeeklyReviewWeekPageMetadata,
-  WeeklyReviewWeekPage
+  WeeklyReviewWeekPage,
+  type WeeklyReviewWeekPageProps
 } from "@/components/pages/weekly-review-week-page";
 
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateWeeklyReviewWeekPageMetadata;
+export function generateMetadata(props: WeeklyReviewWeekPageProps) {
+  return generateWeeklyReviewWeekPageMetadata("zh", props);
+}
 
-export default WeeklyReviewWeekPage;
+export default function Page(props: WeeklyReviewWeekPageProps) {
+  return <WeeklyReviewWeekPage {...props} locale="zh" />;
+}

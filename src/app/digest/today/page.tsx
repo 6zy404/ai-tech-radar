@@ -5,6 +5,10 @@ import {
 
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateTodayDigestPageMetadata;
+export function generateMetadata() {
+  return generateTodayDigestPageMetadata("zh");
+}
 
-export default TodayDigestPage;
+export default function Page() {
+  return <TodayDigestPage locale="zh" />;
+}

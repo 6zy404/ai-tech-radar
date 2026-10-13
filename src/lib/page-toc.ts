@@ -285,7 +285,36 @@ export const digestTocSections = {
   sources: { id: "section-sources", label: "来源参考" }
 } as const;
 
+const englishDigestTocLabels: Record<keyof typeof digestTocSections, string> = {
+  summary: "Overview",
+  highPriority: "Immediate attention",
+  watch: "Worth tracking",
+  skills: "Skills to watch",
+  knowledge: "Background knowledge",
+  sources: "Sources"
+};
+
+/** The digest sections with their headings in the interface language. */
+export function getDigestTocSections(
+  locale: Locale = "zh"
+): Record<keyof typeof digestTocSections, { id: string; label: string }> {
+  if (locale === "zh") {
+    return digestTocSections;
+  }
+
+  return Object.fromEntries(
+    Object.entries(digestTocSections).map(([key, section]) => [
+      key,
+      {
+        id: section.id,
+        label: englishDigestTocLabels[key as keyof typeof digestTocSections]
+      }
+    ])
+  ) as Record<keyof typeof digestTocSections, { id: string; label: string }>;
+}
+
 export interface DigestTocInput {
+  locale?: Locale;
   hasSummary: boolean;
   /**
    * Cards the page shows right now, after the 只看我关注的 filter: a section
@@ -307,7 +336,7 @@ export interface DigestTocInput {
 export function getDigestTocCandidates(
   input: DigestTocInput
 ): PageTocCandidate[] {
-  const sections = digestTocSections;
+  const sections = getDigestTocSections(input.locale);
 
   return [
     { ...sections.summary, present: input.hasSummary },

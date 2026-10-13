@@ -1,75 +1,114 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { WeeklyReviewContent } from "@/components/weekly-review-content";
 import { UserPageShell } from "@/components/user-page-shell";
+import { weeklyCopy } from "@/lib/i18n/copy/weekly";
+import { localePath, type Locale } from "@/lib/i18n/locale";
 import {
   describeWeeklyReview,
   getWeeklyReview,
   getWeeklyReviewArchive,
-  getWeeklyReviewNeighbors
+  getWeeklyReviewNeighbors,
+  localizeWeekRanges,
+  localizeWeeklyReview
 } from "@/lib/weekly-review";
 import { getPublishedWeeklySummaryText } from "@/lib/weekly-summary";
 import type { Metadata } from "next";
 import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
 
-interface WeeklyReviewWeekPageProps {
+export interface WeeklyReviewWeekPageProps {
   params: Promise<{ week: string }>;
 }
 
-export async function generateWeeklyReviewWeekPageMetadata({
-  params
-}: WeeklyReviewWeekPageProps): Promise<Metadata> {
+export async function generateWeeklyReviewWeekPageMetadata(
+  locale: Locale,
+  { params }: WeeklyReviewWeekPageProps
+): Promise<Metadata> {
+  const copy = weeklyCopy[locale];
   const { week } = await params;
-  const data = getWeeklyReview(week);
+  const sourceData = getWeeklyReview(week);
 
-  if (!data || data.totalCount === 0) {
+  if (!sourceData || sourceData.totalCount === 0) {
     return buildPageMetadata({
-      title: "没有这一页",
+      title: copy.notFoundTitle,
       path: `/digest/weekly/${week}`,
-      noIndex: true
+      noIndex: true,
+      locale
     });
   }
 
+  const data = localizeWeeklyReview(sourceData, locale);
+
   return buildPageMetadata({
-    title: `${data.rangeLabel} · 本周回顾`,
-    description: `这一周有 ${data.totalCount} 条已发布技术信号：立即关注 ${data.highPriorityCount} 条，值得跟踪 ${data.watchCount} 条，覆盖 ${data.topicCount} 个话题。`,
+    title: copy.weekPageTitle(data.rangeLabel),
+    description: copy.weekDescription(
+      data.totalCount,
+      data.highPriorityCount,
+      data.watchCount,
+      data.topicCount
+    ),
     path: `/digest/weekly/${data.weekKey}`,
     feeds: [weeklyReviewFeed],
-    largeImage: true
+    largeImage: true,
+    locale
   });
 }
 
 export async function WeeklyReviewWeekPage({
-  params
-}: WeeklyReviewWeekPageProps) {
+  params,
+  locale
+}: WeeklyReviewWeekPageProps & { locale: Locale }) {
+  const copy = weeklyCopy[locale];
   const { week } = await params;
-  const data = getWeeklyReview(week);
+  const sourceData = getWeeklyReview(week);
 
-  if (!data || data.totalCount === 0) {
+  if (!sourceData || sourceData.totalCount === 0) {
     notFound();
   }
 
-  const archive = getWeeklyReviewArchive({ excludeWeekKey: data.weekKey });
+  const data = localizeWeeklyReview(sourceData, locale);
+  const archive = localizeWeekRanges(
+    getWeeklyReviewArchive({ excludeWeekKey: data.weekKey }),
+    locale
+  );
+  const neighbors = getWeeklyReviewNeighbors(data.weekKey);
   const summary = getPublishedWeeklySummaryText(data.weekKey);
 
   return (
     <UserPageShell
-      title={`周回顾 · ${data.rangeLabel}`}
-      description={describeWeeklyReview(data.rangeLabel, Boolean(summary))}
-      sectionLabel="周回顾"
+      title={copy.weekShellTitle(data.rangeLabel)}
+      description={describeWeeklyReview(
+        data.rangeLabel,
+        Boolean(summary),
+        locale
+      )}
+      sectionLabel={copy.sectionLabel}
       className="weekly-review-page dossier"
       actions={
-        <Link href="/digest/weekly" className="action-link">
-          回到本周回顾
+        <Link
+          href={localePath(locale, "/digest/weekly")}
+          className="action-link"
+        >
+          {copy.backToThisWeek}
         </Link>
       }
     >
+      <ChineseOnlyNote locale={locale}>{copy.chineseOnly}</ChineseOnlyNote>
       <WeeklyReviewContent
         data={data}
         archive={archive}
-        neighbors={getWeeklyReviewNeighbors(data.weekKey)}
+        neighbors={{
+          previous: neighbors.previous
+            ? localizeWeekRanges([neighbors.previous], locale)[0]
+            : undefined,
+          next: neighbors.next
+            ? localizeWeekRanges([neighbors.next], locale)[0]
+            : undefined
+        }}
         summary={summary}
+        locale={locale}
       />
     </UserPageShell>
   );

@@ -1,4 +1,11 @@
-import { formatWeekRange } from "@/lib/week-range";
+import { weeklyCopy } from "@/lib/i18n/copy/weekly";
+import type { Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import {
+  getTechnologySummaryForLocale,
+  getTechnologyTitleForLocale
+} from "@/lib/technology-localization";
+import { formatWeekRange, formatWeekRangeFromKey } from "@/lib/week-range";
 import { getAllTechnologies } from "@/lib/content";
 import { getTodayDateString } from "@/lib/digest-store";
 import { findIssueNeighbors } from "@/lib/issue-neighbors";
@@ -29,6 +36,9 @@ export interface WeeklyReviewSignal {
   publishDate: string;
   sourceName: string;
   level: WeeklyReviewLevel;
+  /** English site only: `zh-CN` on a title / summary written in Chinese. */
+  titleLang?: string;
+  summaryLang?: string;
 }
 
 export interface WeeklyReviewGroup {
@@ -335,9 +345,62 @@ export function getWeeklyReviewNeighbors(
  */
 export function describeWeeklyReview(
   rangeLabel: string,
-  hasSummary: boolean
+  hasSummary: boolean,
+  locale: Locale = "zh"
 ): string {
-  return hasSummary
-    ? `${rangeLabel}（周一–周日）已发布的技术信号，按优先级汇总。信号列表由已发布信号自动派生，本周总结由编辑撰写。`
-    : `${rangeLabel}（周一–周日）已发布的技术信号，按优先级汇总。纯派生自已发布信号，无编辑撰写、无 AI。`;
+  return weeklyCopy[locale].pageDescription(rangeLabel, hasSummary);
+}
+
+/**
+ * A week as the English site shows it: the range in English, and each
+ * signal's title and summary in English where the source has them. The
+ * Chinese site gets the data back unchanged.
+ */
+export function localizeWeeklyReview(
+  data: WeeklyReviewData,
+  locale: Locale
+): WeeklyReviewData {
+  if (locale === "zh") {
+    return data;
+  }
+
+  const bySlug = new Map(getAllTechnologies().map((item) => [item.slug, item]));
+
+  return {
+    ...data,
+    rangeLabel: formatWeekRangeFromKey(data.weekKey, locale),
+    groups: data.groups.map((group) => ({
+      ...group,
+      signals: group.signals.map((signal) => {
+        const item = bySlug.get(signal.slug);
+
+        if (!item) {
+          return signal;
+        }
+
+        const title = getTechnologyTitleForLocale(item, locale);
+        const summary = getTechnologySummaryForLocale(item, locale);
+
+        return {
+          ...signal,
+          title: title.text,
+          summary: summary.text,
+          titleLang: contentLangAttr(locale, title.language),
+          summaryLang: contentLangAttr(locale, summary.language)
+        };
+      })
+    }))
+  };
+}
+
+/** Week ranges (archive rows, pager targets) in the interface language. */
+export function localizeWeekRanges<
+  T extends { weekKey: string; rangeLabel: string }
+>(entries: T[], locale: Locale): T[] {
+  return locale === "zh"
+    ? entries
+    : entries.map((entry) => ({
+        ...entry,
+        rangeLabel: formatWeekRangeFromKey(entry.weekKey, locale)
+      }));
 }
