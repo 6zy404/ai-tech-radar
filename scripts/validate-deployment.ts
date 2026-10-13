@@ -28,6 +28,7 @@ import {
   isGeneratedMetadataRoute,
   mustDeclareRenderMode
 } from "../src/lib/metadata-route-render-mode";
+import { buildSignalPathMap } from "../src/lib/pwa-signal-paths";
 import { getPublicRadar } from "../src/lib/radar";
 import { createRadarWorkspaceRecord } from "../src/lib/radar-workflow";
 import {
@@ -388,6 +389,42 @@ function assertSignalVectorsCarryOnlyPublishedSignals() {
   assertNoInternalTerms(file, "/signal-vectors.json");
 }
 
+// /pwa/signal-paths.json lets the service worker find the pages saved for
+// 稍后读. It lists published signals only, keyed by hash: no raw id, and every
+// value is a public signal path.
+function assertSignalPathsCarryNoRawIds() {
+  const published = getAllTechnologies();
+  const paths = buildSignalPathMap([
+    ...published,
+    { id: "deployment-validation-draft", slug: "draft-only", status: "draft" }
+  ]);
+  const values = Object.values(paths);
+
+  assert.equal(
+    values.length,
+    published.length,
+    "/pwa/signal-paths.json must list published signals only."
+  );
+  assert.ok(
+    values.every((value) => /^\/technologies\/[^/]+$/.test(value)),
+    "/pwa/signal-paths.json values must be public signal paths."
+  );
+
+  const serialized = JSON.stringify(paths);
+
+  for (const technology of published.filter(
+    (item) => !item.slug.includes(item.id)
+  )) {
+    assert.equal(
+      serialized.includes(technology.id),
+      false,
+      "/pwa/signal-paths.json must not carry raw signal ids."
+    );
+  }
+
+  assertNoInternalTerms(paths, "/pwa/signal-paths.json");
+}
+
 // /radar renders only what toPublicRadarEntries picks: a workspace draft
 // never shows, and no entry carries workspace status, timestamps or raw ids.
 // Writes one draft into the validator's throwaway data copy.
@@ -562,6 +599,8 @@ function main() {
     "/api/workspace/radar",
     "/api/workspace/radar/radar-vllm/status",
     "/api/workspace/delivery/send",
+    // 推送新信号 (2026-10-13): the send button is workspace-only.
+    "/api/workspace/push",
     "/api/candidates/example/status",
     "/candidates/example",
     "/technologies/drafts/example"
@@ -584,7 +623,16 @@ function main() {
     "/radar",
     "/feed.xml",
     "/feed.json",
-    "/signal-vectors.json"
+    "/signal-vectors.json",
+    // PWA + reader push (2026-10-13): the installable shell and the reader's
+    // own subscribe calls must work without a workspace token.
+    "/offline",
+    "/sw.js",
+    "/manifest.webmanifest",
+    "/pwa/signal-paths.json",
+    "/api/push/config",
+    "/api/push/subscribe",
+    "/api/push/unsubscribe"
   ]) {
     assert.equal(
       isProtectedWorkspacePath(route),
@@ -626,6 +674,7 @@ function main() {
   assertPublicBuildExcludesEveryGuardedPrefix();
   assertRadarPublishesOnlyPublicFields();
   assertSignalVectorsCarryOnlyPublishedSignals();
+  assertSignalPathsCarryNoRawIds();
 
   console.log("Deployment readiness validation passed.");
 }

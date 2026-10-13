@@ -4,11 +4,12 @@ import { useEffect } from "react";
 
 import { followedTagsChangedEventName } from "@/lib/followed-tags";
 import { syncPushTopics } from "@/lib/push-client";
-import { pwaSavedIdsMessageType } from "@/lib/pwa-service-worker";
+import { pwaSavedKeysMessageType } from "@/lib/pwa-service-worker";
 import {
   readMarkedTechnologyIds,
   readingStateChangedEventName
 } from "@/lib/reading-state";
+import { toVisitKeys } from "@/lib/visit-state";
 
 const pushSyncedThisSessionKey = "ai-tech-radar:push-synced";
 const pushSyncDelayMs = 1500;
@@ -36,8 +37,8 @@ export function PwaRegistration() {
     const postSavedIds = () => {
       void navigator.serviceWorker.ready.then((registration) => {
         registration.active?.postMessage({
-          type: pwaSavedIdsMessageType,
-          ids: readMarkedTechnologyIds("saved")
+          type: pwaSavedKeysMessageType,
+          keys: toVisitKeys(readMarkedTechnologyIds("saved"))
         });
       });
     };
@@ -82,10 +83,18 @@ export function PwaRegistration() {
     window.addEventListener(readingStateChangedEventName, postSavedIds);
     window.addEventListener(followedTagsChangedEventName, schedulePushSync);
     window.addEventListener("storage", onStorage);
+    // After a deploy the new worker deletes the old build's caches when it
+    // takes over; the keys this page sent went to the old one, so send them
+    // again to refill the saved pages.
+    navigator.serviceWorker.addEventListener("controllerchange", postSavedIds);
 
     return () => {
       cancelled = true;
       window.clearTimeout(pushSyncTimer);
+      navigator.serviceWorker.removeEventListener(
+        "controllerchange",
+        postSavedIds
+      );
       window.removeEventListener(readingStateChangedEventName, postSavedIds);
       window.removeEventListener(
         followedTagsChangedEventName,
