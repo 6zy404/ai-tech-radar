@@ -12,6 +12,70 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Telegram and Discord channels, source health history, deleting a source
+
+- **2026-10-13. Two new delivery channels.** `telegram` posts a published
+  digest through the Bot API's `sendMessage`, configured with a bot token and
+  a chat id, as `parse_mode: "HTML"` using only `<b>` and `<a href>` with
+  every piece of text escaped (Telegram refuses the whole message on a stray
+  `<` or `&`). `discord` posts to a webhook URL of the form
+  `/api/webhooks/<id>/<token>` as one embed — title linking to the digest,
+  the summary and a 阅读全文 link as the description, one field each for 立即关注
+  and 值得跟踪 — with `allowed_mentions: { parse: [] }` so a title can never
+  ping anyone. Both carry exactly what the Feishu message carries: title,
+  date, summary, the first three items of each section and the public link
+  (`buildDigestChatMessage`). Limits are enforced by dropping whole blocks
+  and writing 「…」, never by cutting markup, and the digest link is always
+  kept: Telegram ≤ 4096; Discord title 256, description 4096, field 1024,
+  6000 in all — pinned by tests with 6,000-character inputs. `email` is the
+  only reserved type left.
+- **Not tried on the real platforms.** No Telegram bot or Discord server was
+  available, so the end-to-end tests run against a local HTTP server standing
+  in for both (the request path `/bot<token>/sendMessage`, the JSON body, a
+  204 from the webhook); `validate:delivery-channels` covers them on
+  `mock://` endpoints. Sending from this machine also needs the proxy: a send
+  that cannot connect fails after 15 seconds (`postAdapterPayload` now has a
+  timeout; it had none).
+- **The bot token stays in the workflow.** It is stored on the channel and
+  read only by `delivery-workflow.ts` and the adapter; every other read gets
+  `toClientDeliveryChannel` — the delivery page passes channels to a client
+  component, so a token there would reach the browser — with
+  `botTokenMasked` (`123456789:***`) instead. The form never prefills it;
+  blank keeps the stored one. Runs and channel writes re-read the stored
+  channel instead of spreading the caller's copy, which would have dropped the
+  token on the first send.
+- **A Feishu webhook address was displayed unmasked.** Its secret is the last
+  path segment (`…/bot/v2/hook/<token>`), and `maskEndpointUrl` only masked
+  query parameters, so the delivery list showed it in full. `maskSecretsInText`
+  (`src/lib/secret-masking.ts`) now masks the Feishu hook token, the Discord
+  webhook token, `bot<id>:<secret>` and a bare bot token in text, and runs in
+  the endpoint display, workflow-event snapshots, operations text, task-runner
+  messages and delivery errors. A workflow-event key like `botToken` used to
+  pass a non-URL value through unchanged; it is now `[redacted]`.
+  `validate:delivery-channels` was shown to fail with the Feishu mask removed.
+- **Each source keeps its last 30 imports.** Until now a source stored only
+  its latest attempt. `importHistory` holds time, status, created / skipped
+  counts and an error summary with every URL replaced by 「[链接]」, secrets
+  masked, at most 160 characters. `/workspace/sources/[id]` draws it as a
+  row of 30 cells (hand-written SVG, aria-hidden, success shorter than
+  failure so the two differ by shape too) over a folded table that is its
+  text version; the list shows 近 14 天成功 N%（a/b）. Existing sources were
+  backfilled on first read from the 20 batch runs still stored, skipping runs
+  older than the source; single-source imports before this date were never
+  recorded and are not in it. In the worktree's data, 量子位 came back with 20
+  entries, 10 of them in the last 14 days.
+- **A disabled source can be deleted.** 删除信源 sits under the detail page's
+  actions, disabled while the source is enabled; the API answers 409 then
+  (`DELETE /api/workspace/sources/[id]`). After a confirm that names what goes
+  and what stays, it removes the configuration and history only: candidates
+  keep their `sourceId` and source name, published signals keep theirs, and
+  batch runs keep their per-source lines. A `source.deleted` workflow event
+  records the configuration without the history.
+- Checked in the preview pane at 1440 and 375: the timeline, the folded table
+  (headers no longer break per character at 375; the table scrolls inside its
+  box, the page stays 375 wide), the list's rate, the 409, and the Telegram
+  form fields. Telegram and Discord were not sent to from the browser.
+
 ## 问雷达 follow-ups, and AI-drafted digest ledes and weekly summaries
 
 - **2026-10-13. 问雷达 takes follow-ups.** Once an answer is done, a 继续追问

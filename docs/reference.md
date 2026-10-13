@@ -27,7 +27,15 @@ The product is split into two subsystems:
   official-blog-style pages, with a local fallback layer, batch import,
   source/candidate quality signals, and a task-runner scheduled daily import
   (`config/scheduled-import.json`, managed from
-  `/workspace/delivery/schedules`).
+  `/workspace/delivery/schedules`). Each source keeps its last 30 import
+  attempts (time, status, created / skipped, a URL-free error summary;
+  `src/lib/source-health-history.ts`), drawn as a row of cells on
+  `/workspace/sources/[id]` with a table as the text version, and the list
+  shows each source's 14-day success rate; sources older than the field were
+  backfilled from the stored batch runs. A disabled source can be deleted
+  there (`DELETE /api/workspace/sources/[id]`, 409 while enabled): its
+  configuration and history go, its candidates and published signals stay
+  (2026-10-13).
 - **News fast lane (two-tier content model)** — the 全部快讯 view on
   `/technologies?view=news` publicly renders recently imported candidates
   (last 7 days, grouped by day) through a
@@ -653,7 +661,10 @@ The product is split into two subsystems:
   in that week's RSS item; drafts nowhere. Being editor-confirmed it carries
   no AI disclaimer; the page description then says the list is derived and
   the summary editor-written.
-- **Delivery** — workspace-only webhook and Feishu channels, manual and
+- **Delivery** — workspace-only generic webhook, Feishu, Telegram (Bot API
+  `sendMessage`, bot token + chat id, HTML subset, 4096) and Discord
+  (webhook, one embed) channels (Telegram and Discord 2026-10-13, tested
+  against a local stand-in server only), manual and
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
   [`docs/deployment.md`](deployment.md) for Windows Task Scheduler
@@ -1008,5 +1019,5 @@ production database integration and schema migrations; full admin platform;
 external monitoring and alert routing; push / email subscription products and
 production cron infrastructure; full-site i18n; semantic/AI duplicate detection
 beyond the current deterministic rules; distributed scheduling, retry backoff,
-and production secret storage; automatic translation APIs; and source deletion /
-scheduling / health history / auth.
+and production secret storage; automatic translation APIs; and per-source
+scheduling / auth.

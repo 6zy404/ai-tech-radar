@@ -195,7 +195,13 @@
   font-variant-numeric: tabular-nums;
 }
 
+.source-health-timeline__table th,
+.source-health-timeline__table td:not(:last-child) {
+  white-space: nowrap;
+}
+
 .source-health-timeline__table td:last-child {
+  min-width: 12em;
   overflow-wrap: anywhere;
 }
 

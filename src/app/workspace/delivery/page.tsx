@@ -154,8 +154,8 @@ export default function WorkspaceDeliveryPage() {
             <p className="section-eyebrow">投递渠道</p>
             <h2>已配置渠道</h2>
             <p>
-              通用 Webhook 与飞书机器人 Webhook 渠道仅限工作台使用。端点 URL
-              在这里做了脱敏，且永远不会出现在用户端页面。
+              通用 Webhook、飞书、Telegram 与 Discord 渠道仅限工作台使用。端点
+              URL 与 bot token 在这里做了脱敏，且永远不会出现在用户端页面。
             </p>
           </div>
           <Link className="action-link" href="/workspace/delivery/schedules">
@@ -172,8 +172,8 @@ export default function WorkspaceDeliveryPage() {
             <div>
               <h3>创建投递渠道</h3>
               <p>
-                添加通用 Webhook 或飞书机器人 Webhook。本地验证可使用
-                mock://success 或 mock://failed。
+                添加通用 Webhook、飞书机器人、Telegram 机器人或 Discord
+                Webhook。本地验证可使用 mock://success 或 mock://failed。
               </p>
             </div>
             <a className="action-link" href="#delivery-channels">

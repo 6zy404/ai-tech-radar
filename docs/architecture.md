@@ -67,7 +67,7 @@ The current lifecycle is:
 10. generate a Daily Digest draft from published technology items
 11. preview and publish the digest
 12. generate public RSS / JSON feed surfaces from published digests
-13. optionally send published digests manually to workspace-configured webhook or Feishu webhook channels
+13. optionally send published digests manually to workspace-configured webhook, Feishu, Telegram or Discord channels
 14. optionally run local scheduled delivery for published digests through enabled channels
 15. optionally execute due schedules through the local task runner
 16. enforce deployment route boundaries for workspace/API access
@@ -168,7 +168,7 @@ Operations data is workspace-only. User-facing pages and feeds must not render o
 
 ## Source Management v0
 
-External sources are stored in local JSON and can be created, edited, enabled, disabled, and manually imported from the Internal Workspace.
+External sources are stored in local JSON and can be created, edited, enabled, disabled, manually imported, and — once disabled — deleted from the Internal Workspace (2026-10-13). Deleting removes the configuration and its health history only; the candidates it imported and the signals published from them keep their source name (see `docs/data-model.md` → ExternalSource).
 
 Supported source types:
 
@@ -203,6 +203,7 @@ Source health is stored on each `ExternalSource`:
 - `consecutiveFailureCount`
 - `totalImportedCount`
 - `lastSuccessfulImportAt`
+- `importHistory` (2026-10-13): the last 30 attempts, each with time, status, created / skipped counts and a URL-free error summary; drawn as a timeline on `/workspace/sources/[id]` and read for the 14-day success rate on the list
 
 The latest batch import summary is stored in local JSON with per-source messages and created/skipped candidate counts. This is observability for the import workflow, not ranking or recommendation.
 
@@ -394,20 +395,24 @@ Active channel types:
 
 - `webhook`: generic HTTP POST adapter supporting JSON and text payloads
 - `feishu_webhook`: Feishu bot webhook adapter using Feishu text-message JSON
+- `telegram` (2026-10-13): Telegram Bot API `sendMessage`, configured with a bot token and a chat id
+- `discord` (2026-10-13): Discord webhook, one embed per digest
 
 Reserved channel types:
 
 - `email`
-- `telegram`
-- `discord`
 
-Reserved types are documented extension points only; no subscription, Telegram, Discord, email, cron, or account system is implemented.
+Reserved types are documented extension points only. The Telegram and Discord channels are operator-configured destinations like the webhook ones — a bot posting into a chat the operator chose — not a subscription system: no reader signs up through them.
 
 `DeliveryChannel` records live in local JSON and are managed at `/workspace/delivery`. Workspace pages may show masked endpoint URLs and send status. User-facing digest pages and feeds never render channel configuration, endpoint URLs, delivery logs, request payload previews, response bodies, or retry metadata.
 
 Delivery adapters live under `src/lib/delivery/adapters`. Each adapter owns `buildPayload`, `send`, and `validateChannelConfig`; the workflow layer owns channel persistence, published-only checks, retry linkage, and `DeliveryRun` logs.
 
-Generic webhook JSON payloads are built from published digest data and published `TechnologyItem` records. They include public digest URL, high-priority items, watch items, related skills, related knowledge, source names, generated time, and delivered time. Generic text payloads reuse the public share text. Feishu webhook payloads use `msg_type: "text"` and include digest title, date, top 3 immediate-attention items, top 3 watch items, and the public digest URL. No payload includes raw payloads, import status, normalized type, duplicate group fields, quality flags, ranking scores, editorial notes, endpoint URLs, or delivery internals.
+Generic webhook JSON payloads are built from published digest data and published `TechnologyItem` records. They include public digest URL, high-priority items, watch items, related skills, related knowledge, source names, generated time, and delivered time. Generic text payloads reuse the public share text. Feishu webhook payloads use `msg_type: "text"` and include digest title, date, top 3 immediate-attention items, top 3 watch items, and the public digest URL. Telegram (HTML subset, 4096) and Discord (one embed, 256 / 4096 / 1024 / 6000) carry the same content, built by `buildDigestChatMessage` and cut at whole blocks by `fitBlocks` so the digest link always survives. No payload includes raw payloads, import status, normalized type, duplicate group fields, quality flags, ranking scores, editorial notes, endpoint URLs, or delivery internals.
+
+The Telegram bot token is stored on the channel (`StoredDeliveryChannel`) and read only by the delivery workflow and the Telegram adapter; every other caller gets `toClientDeliveryChannel`, which replaces it with `botTokenMasked`. Secrets in URL paths — the Feishu hook token, the Discord webhook token, `bot<id>:<secret>` — are masked by `maskSecretsInText` (`src/lib/secret-masking.ts`), which the endpoint display, workflow-event snapshots, operations text and task-runner messages all run through.
+
+Sending reaches the platforms over the network from the server process; this machine reaches overseas services only through the proxy, so a send from a dev server started without the proxy settings times out after 15 seconds (`AbortSignal.timeout` in `postAdapterPayload`). Neither channel has been exercised against the real platforms yet: the end-to-end tests use a local HTTP server standing in for the Bot API and the Discord webhook.
 
 The current local JSON workflow is suitable for local development and controlled environments only. Production delivery should store webhook endpoint secrets outside JSON, in a dedicated secret store or environment-managed credential system.
 
@@ -775,7 +780,7 @@ Not implemented yet:
 - full-site i18n
 - production database-backed persistence beyond the current local SQLite driver
 - automated publishing workflows
-- source deletion, production credential storage, and long-term source health history
+- production credential storage and source health history beyond the last 30 attempts per source
 - advanced editorial approval flow beyond the current draft editor
 - AI/editorial quality scoring beyond deterministic publish checks
 - advanced ranking models beyond deterministic v0 rules

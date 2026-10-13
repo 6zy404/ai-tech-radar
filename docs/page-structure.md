@@ -190,6 +190,9 @@ affected.
   - latest import status
   - latest import count, failure count, and latest message
   - source quality level, success rate, duplicate rate, and conversion rate
+  - the 14-day import success rate (近 14 天成功 N%（a/b）, or 近 14 天无导入)
+    under 连续失败, read from the source's history; the list's client payload
+    carries the rate, not the history (2026-10-13)
   - enable / disable controls
   - manual source import controls
 - `/workspace/sources/new`
@@ -202,6 +205,17 @@ affected.
   - edit source fields
   - enable / disable source
   - run import for a single source
+  - 删除信源 under the hero's actions, after a dashed rule (2026-10-13):
+    disabled with 「只能删除已停用的信源，请先停用。」 while the source is
+    enabled; otherwise a confirm dialog names what goes (configuration, health
+    history) and what stays (the N candidates, the published signals), then
+    returns to the list
+  - 导入健康记录 between the hero and 编辑来源 (`SourceHealthTimeline`,
+    2026-10-13): a one-line summary (counts by result, 14-day success rate),
+    a hand-written SVG of 30 cells, oldest left — success green and shorter,
+    部分成功 amber, 失败 red, unused slots dashed — aria-hidden, a legend, and
+    a folded 逐次记录 table (time, result, 新增, 跳过, 错误摘要) as the text
+    version, scrolling inside its box at phone width
   - recent imported candidates generated from this source
 - `/workspace/candidates`
   - imported candidate review list
@@ -298,7 +312,7 @@ affected.
   - manual add, exclude, pin, and move up / move down controls
   - publish readiness checks for blocking errors and warnings
   - delivery status, public feed URLs after publication, and share text preview
-  - manual delivery to enabled webhook or Feishu webhook channels after publication
+  - manual delivery to enabled webhook, Feishu, Telegram or Discord channels after publication
   - recent delivery logs for the digest
   - ranking reasons for workspace reviewers
   - related skill / knowledge counts and source count
@@ -318,7 +332,7 @@ affected.
     404 on
 - `/workspace/delivery`
   - workspace-only delivery channel and delivery log console
-  - create and edit generic webhook and Feishu bot webhook delivery channels
+  - create and edit generic webhook, Feishu bot webhook, Telegram bot and Discord webhook delivery channels; the Telegram form asks for a bot token (never prefilled — blank keeps the stored one, the placeholder shows `<bot id>:***`) and a chat id, and the format select is disabled for the three fixed-format types (2026-10-13)
   - enable / disable channels
   - inspect masked endpoint URLs, last delivery status, and latest message
   - inspect delivery logs, HTTP response status, errors, and retry linkage
@@ -1277,7 +1291,7 @@ Forbidden on public pages:
 - `DailyDigestItemActions`
   - workspace-only digest item include / exclude / pin / ordering controls
 - `DeliveryChannelForm`
-  - workspace-only generic webhook and Feishu bot webhook channel create/edit form
+  - workspace-only channel create/edit form for generic webhook, Feishu, Telegram and Discord; shows only the fields the selected type uses
 - `DeliveryChannelActions`
   - workspace-only delivery channel enable/disable controls
 - `DigestDeliveryActions`
@@ -1298,7 +1312,11 @@ Forbidden on public pages:
 - `ExternalSourceForm`
   - workspace-only source create/edit form
 - `ExternalSourceActions`
-  - workspace-only enable/disable and import controls
+  - workspace-only enable/disable and import controls; with `deletable`
+    (detail page only) also 删除信源
+- `SourceHealthTimeline` (`source-health-timeline.tsx`)
+  - workspace-only server component: a source's last 30 import attempts as
+    an SVG row plus a table; styles in `12-workspace-sources.css`
 - `ExternalSourceBatchActions`
   - workspace-only import-all-enabled control and latest run summary
 - `TechnologyLanguageSwitch`
@@ -1332,7 +1350,7 @@ Forbidden on public pages:
 13. digest generation from published technology records
 14. digest editorial adjustments, readiness checks, preview, and publication
 15. delivery feed generation from published digests
-16. optional manual webhook / Feishu webhook delivery from published digests
+16. optional manual webhook / Feishu / Telegram / Discord delivery from published digests
 17. optional local scheduled delivery from published digests
 18. operations health and WorkflowEvent inspection for maintainers
 

@@ -28,10 +28,36 @@ Represents a configured external source or source type.
 - `createdAt`
 - `updatedAt`
 - `maxItems?`
+- `importHistory?`: `SourceImportHistoryEntry[]`, newest first, at most 30
+  (2026-10-13)
 
 Used by the source management UI and live importer layer. This is internal workflow structure, not user-facing content.
 
 The health fields describe the latest observable import state for that source. `partial` means the live import failed but a local fallback candidate was used, so the workflow remains inspectable without pretending the source is healthy.
+
+`SourceImportHistoryEntry` (`src/lib/source-health-history.ts`) is one
+import attempt — batch, single-source or scheduled — and holds only:
+
+- `at`
+- `status`: `success | failed | partial`
+- `candidatesCreated`, `candidatesSkipped`
+- `errorSummary?`: not for a success; the message with every URL replaced by
+  「[链接]」, secrets masked, cut to 160 characters
+
+A source stored before the field existed is backfilled once on read from the
+batch `ImportRun` records still in the store (the newest 20) that finished
+after the source was created, and the next write persists it. Single-source
+imports before 2026-10-13 were never recorded anywhere and cannot be
+backfilled. The list page reads a 14-day success rate from it
+(`getRecentImportSuccess`; `partial` counts as not successful).
+
+**Deleting a source** (2026-10-13, `deleteExternalSource`) needs it to be
+disabled first and removes the configuration and its `importHistory` only.
+Its imported candidates keep their `sourceId` / `sourceName`, published
+signals keep their `sourceName`, and `ImportRun` records keep their
+per-source lines (an audit of that run; the backfill ignores runs older than
+a source, so a source re-created under the same id does not inherit them). A
+`source.deleted` workflow event records the configuration without its history.
 
 ## SourceQualityMetrics
 
@@ -352,11 +378,14 @@ Represents a workspace-only destination for manually sending a published daily d
 
 - `id`
 - `name`
-- `type`: `webhook | feishu_webhook`; `email | telegram | discord` are reserved only
+- `type`: `webhook | feishu_webhook | telegram | discord`; `email` is reserved only
 - `enabled`
 - `endpointUrl`
 - `description?`
-- `format`: `json | text`
+- `format`: `json | text` (always `text` for Feishu, Telegram and Discord)
+- `chatId?`: Telegram only — the chat, group or channel the bot posts to
+- `botTokenMasked?`: Telegram only — `<bot id>:***`, the only form of the
+  token any caller outside the delivery workflow sees
 - `lastDeliveredAt?`
 - `lastDeliveryStatus?`: `pending | success | failed`
 - `lastDeliveryMessage?`
@@ -365,11 +394,34 @@ Represents a workspace-only destination for manually sending a published daily d
 
 This is not a user subscription record. It belongs only to the Internal Workspace and is stored in `config/delivery.json`. Endpoint URLs may be visible in edit controls for workspace users, but list displays should use masked URLs. The local JSON workflow is not a production secret store; real production webhook tokens should move to secure secret storage.
 
+The stored record is `StoredDeliveryChannel` = `DeliveryChannel` plus
+`DeliveryChannelSecrets` (`botToken?`, Telegram only, 2026-10-13). The token is
+read only by `delivery-workflow.ts` and the Telegram adapter:
+`getDeliveryChannels` / `getDeliveryChannelById` and the API answers return
+`toClientDeliveryChannel`, which drops it and sets `botTokenMasked`, because
+the delivery page hands channels to a client component and anything in them
+reaches the browser. Saving a Telegram channel with the token field blank keeps
+the stored token. The Telegram `endpointUrl` is the Bot API base (stored as
+`https://api.telegram.org` when left blank; a local fake server or a
+`mock://` address for testing); the request URL
+`<base>/bot<token>/sendMessage` is built inside the adapter and never stored.
+
 Channel type behavior:
 
 - `webhook`: generic HTTP POST adapter, supports `json` and `text`
 - `feishu_webhook`: Feishu bot webhook adapter, supports Feishu text messages
-- `email | telegram | discord`: reserved extension points, not implemented in v1
+- `telegram` (2026-10-13): Bot API `sendMessage` with `parse_mode: "HTML"`
+  (`<b>` and `<a href>` only, all text escaped), at most 4096 characters
+- `discord` (2026-10-13): webhook URL of the form
+  `/api/webhooks/<id>/<token>`; one embed (title 256, description 4096, two
+  fields of at most 1024, 6000 in all) and `allowed_mentions: { parse: [] }`
+- `email`: reserved extension point, not implemented
+
+Feishu, Telegram and Discord send the same content
+(`buildDigestChatMessage` in `src/lib/delivery/adapters/digest-message.ts`):
+the published digest's title, date, summary, the first three 立即关注 and
+值得跟踪 items, and the public digest link. Over a limit, whole blocks are
+dropped and replaced by 「…」 (`fitBlocks`); the digest link is never cut.
 
 ## DeliveryRun
 
@@ -399,8 +451,10 @@ Delivery rules:
 - delivery does not change digest content
 - failed sends record readable errors
 - retry creates a new `DeliveryRun` linked to the original failed run
-- webhook and Feishu payloads are derived from published digest and published `TechnologyItem` data only
-- logs do not store the complete `endpointUrl`
+- webhook, Feishu, Telegram and Discord payloads are derived from published digest and published `TechnologyItem` data only
+- logs do not store the complete `endpointUrl` or the bot token; error
+  messages and response previews pass through `maskSecretsInText`
+  (`src/lib/secret-masking.ts`) before they are stored
 
 ## ScheduledDelivery
 
@@ -1508,7 +1562,7 @@ The intended lifecycle is:
 9. publish
 10. generate Daily Digest draft from published technology items
 11. preview and publish digest
-12. optionally send published digest to workspace-configured webhook or Feishu webhook channels
+12. optionally send published digest to workspace-configured webhook, Feishu, Telegram or Discord channels
 13. optionally run local scheduled delivery for published digests
 14. user-facing display
 
