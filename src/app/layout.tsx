@@ -5,6 +5,8 @@ import { ErrorShellRepair } from "@/components/error-shell-repair";
 import { PwaRegistration } from "@/components/pwa-registration";
 import { SkipLink } from "@/components/skip-link";
 import { TopNav } from "@/components/top-nav";
+import { documentLangs } from "@/lib/i18n/locale";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
 import {
   buildFeedAlternateTypes,
   getSiteUrl,
@@ -54,10 +56,15 @@ const themeBootstrapScript = `(function(){try{var s=localStorage.getItem(${JSON.
   themeStorageKey
 )});var t=(s==="light"||s==="dark")?s:(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");var r=document.documentElement;r.setAttribute("data-theme",t);r.style.colorScheme=t;}catch(e){}})();`;
 
-// Also handed to ErrorShellRepair, which restores it on Next's error shell.
-const documentLang = "zh-CN";
+export default async function RootLayout({
+  children
+}: {
+  children: ReactNode;
+}) {
+  // `zh-CN`, or `en` under /en, from the header src/middleware.ts sets.
+  // Also handed to ErrorShellRepair, which restores it on Next's error shell.
+  const documentLang = documentLangs[await getRequestLocale()];
 
-export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     // `suppressHydrationWarning` is required here, not cosmetic: the script
     // below sets `data-theme` and `color-scheme` on this element before React

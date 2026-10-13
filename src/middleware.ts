@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { getPathLocale, localeRequestHeader } from "@/lib/i18n/locale";
 import {
   checkWorkspaceAccess,
   isProtectedWorkspacePath
@@ -27,17 +28,29 @@ function unauthorizedResponse(
   });
 }
 
+/**
+ * Passes the request on with the interface language in a request header, so
+ * the root layout can write `<html lang>`. The header is always overwritten:
+ * a value the client sent never reaches the page.
+ */
+function continueWithLocale(request: NextRequest) {
+  const headers = new Headers(request.headers);
+  headers.set(localeRequestHeader, getPathLocale(request.nextUrl.pathname));
+
+  return NextResponse.next({ request: { headers } });
+}
+
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (!isProtectedWorkspacePath(pathname)) {
-    return NextResponse.next();
+    return continueWithLocale(request);
   }
 
   const access = checkWorkspaceAccess(request.headers);
 
   if (access.authorized) {
-    return NextResponse.next();
+    return continueWithLocale(request);
   }
 
   if (access.enabled && !access.configured) {
@@ -55,12 +68,10 @@ export function middleware(request: NextRequest) {
   );
 }
 
+// Every path except Next's own static files: the workspace prefixes for the
+// access guard, everything else for the locale header. The guard decides on
+// `isProtectedWorkspacePath`, not on which matcher fired, so widening this
+// list cannot open a protected prefix.
 export const config = {
-  matcher: [
-    "/workspace/:path*",
-    "/api/workspace/:path*",
-    "/api/candidates/:path*",
-    "/candidates/:path*",
-    "/technologies/drafts/:path*"
-  ]
+  matcher: ["/((?!_next/static|_next/image).*)"]
 };
