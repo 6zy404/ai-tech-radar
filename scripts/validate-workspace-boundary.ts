@@ -46,7 +46,9 @@ function assertDoesNotContain(
 }
 
 function main() {
-  const topNav = read("src/components/top-nav.tsx");
+  // The nav labels live in the shell copy module since the English
+  // interface (2026-10-13); top-nav.tsx reads them from there.
+  const topNav = read("src/lib/i18n/copy/shell.ts");
   const workspaceShell = read("src/components/workspace-page-shell.tsx");
   const workspaceDashboard = read("src/app/workspace/page.tsx");
   const workspaceActionsDoc = read("docs/workspace-actions.md");
@@ -128,6 +130,10 @@ function main() {
   }
 
   const publicFiles = [
+    // Every public page body (moved out of the route files 2026-10-13) and
+    // every English route: the same rule as the Chinese pages.
+    ...listFilesRecursive("src/components/pages"),
+    ...listFilesRecursive("src/app/en"),
     ...listFilesRecursive("src/app/technologies"),
     ...listFilesRecursive("src/app/digest"),
     ...listFilesRecursive("src/app/skills"),
