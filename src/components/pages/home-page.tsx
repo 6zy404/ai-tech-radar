@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { HomeRecommendSection } from "@/components/home-recommend-section";
@@ -11,7 +12,7 @@ import {
   NewSignalStamp,
   VisitBaselineProvider
 } from "@/components/visit-baseline";
-import { difficultyLabels, skillTypeLabels } from "@/lib/content-labels";
+import { contentLabelsByLocale } from "@/lib/content-labels";
 import {
   getReadingDifficultyLabel,
   getTechnologyAudience,
@@ -27,11 +28,16 @@ import { compactText } from "@/lib/compact-text";
 import { getLatestPublishedDailyDigest } from "@/lib/digest-workflow";
 import { digestCardSummaryLength } from "@/lib/digest-card-summary";
 import { getDailyDigestRenderData } from "@/lib/digest-view";
+import { homeCopy } from "@/lib/i18n/copy/home";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import {
   getPublicDigestSummaryPlainText,
   getPublicDigestTitle
 } from "@/lib/public-copy";
-import { getLatestPublicNewsItems, newsDisclaimer } from "@/lib/news";
+import { getLatestPublicNewsItems } from "@/lib/news";
 import { buildWebSiteJsonLd } from "@/lib/structured-data";
 import { toVisitKeys } from "@/lib/visit-state";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
@@ -41,7 +47,8 @@ import {
 } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
-  getLocalizedTechnologyText
+  getTechnologyTextForMode,
+  type TechnologyTextForLocale
 } from "@/lib/technology-localization";
 import type {
   KnowledgeItem,
@@ -51,59 +58,93 @@ import type {
 } from "@/types/content";
 import { buildPageMetadata } from "@/lib/site-metadata";
 
-export const homePageMetadata = buildPageMetadata({ path: "/" });
+export function getHomePageMetadata(locale: Locale) {
+  return buildPageMetadata({ path: "/", locale });
+}
 
-function getPublicTechnologyTitle(technology: TechnologyItem): string {
-  const mode = getEffectiveTechnologyMode(technology, "zh", "preview");
+// The Chinese site shows a card's Chinese text when it has one; the English
+// site its English text when the source is English.
+function getHomeTechnologyText(
+  technology: TechnologyItem,
+  field: "title" | "summary",
+  locale: Locale
+): TechnologyTextForLocale {
+  const mode = getEffectiveTechnologyMode(
+    technology,
+    locale === "en" ? "original" : "zh",
+    "preview"
+  );
 
-  return getLocalizedTechnologyText(
-    technology.title,
+  return getTechnologyTextForMode(
+    technology[field],
     mode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
 }
 
-function getPublicTechnologySummary(technology: TechnologyItem): string {
-  const mode = getEffectiveTechnologyMode(technology, "zh", "preview");
-
-  return getLocalizedTechnologyText(
-    technology.summary,
-    mode,
-    technology.sourceLanguage
-  );
-}
-
-function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
+function HomeTechnologyCard({
+  technology,
+  tags,
+  locale
+}: {
+  technology: TechnologyItem;
+  tags: TopicTag[];
+  locale: Locale;
+}) {
   const ranking = evaluateTechnologyPriority(technology);
-  const summary = getPublicTechnologySummary(technology);
+  const title = getHomeTechnologyText(technology, "title", locale);
+  const summary = getHomeTechnologyText(technology, "summary", locale);
+  // The editors' note is Chinese; the fallback band sentence is interface
+  // text.
+  const noteLang = technology.whyItMatters?.trim()
+    ? contentLangAttr(locale)
+    : undefined;
   const whyItMatters =
     getTechnologyWhyItMatters(
       technology,
-      getPriorityUserSummary(ranking, "zh", technology.importanceLevel)
-    ) ?? summary;
+      getPriorityUserSummary(ranking, "zh", technology.importanceLevel, locale)
+    ) ?? summary.text;
   const audience = getTechnologyAudience(technology).slice(0, 3);
-  const difficulty = getReadingDifficultyLabel(technology.readingDifficulty);
-  const tags = technology.tags
-    .map((tagId) => getAllTags().find((tag) => tag.id === tagId))
+  const difficulty = getReadingDifficultyLabel(
+    technology.readingDifficulty,
+    locale
+  );
+  const cardTags = technology.tags
+    .map((tagId) => tags.find((tag) => tag.id === tagId))
     .filter((tag): tag is TopicTag => Boolean(tag));
 
   return (
     <HomeSignalCard
-      href={`/technologies/${technology.slug}`}
-      title={getPublicTechnologyTitle(technology)}
-      summary={summary}
-      priorityLabel={getPriorityLevelLabel(ranking.priorityLevel, "zh")}
+      href={localePath(locale, `/technologies/${technology.slug}`)}
+      title={title.text}
+      titleLang={contentLangAttr(locale, title.language)}
+      summary={summary.text}
+      summaryLang={contentLangAttr(locale, summary.language)}
+      priorityLabel={getPriorityLevelLabel(ranking.priorityLevel, "zh", locale)}
       publishDate={technology.publishDate}
-      noteLabel="为什么重要"
+      noteLabel={homeCopy[locale].priority.whyItMatters}
       note={whyItMatters}
+      noteLang={noteLang}
       footerItems={difficulty ? [...audience, difficulty] : audience}
-      tags={tags}
+      footerItemLangs={[
+        ...audience.map(() => contentLangAttr(locale)),
+        undefined
+      ]}
+      tags={cardTags}
       stamp={<NewSignalStamp technologyId={technology.id} />}
     />
   );
 }
 
-function SkillPathCard({ skill }: { skill: SkillItem }) {
+function SkillPathCard({
+  skill,
+  locale
+}: {
+  skill: SkillItem;
+  locale: Locale;
+}) {
+  const entryLang = contentLangAttr(locale);
   const relatedTechnologies = getAllTechnologies().filter((technology) =>
     skill.relatedTechnologyIds.includes(technology.id)
   );
@@ -111,18 +152,29 @@ function SkillPathCard({ skill }: { skill: SkillItem }) {
   return (
     <DossierCard className="foundation-card">
       <DossierStampTag className="dossier-stamp-tag--muted">
-        {skillTypeLabels[skill.skillType]}
+        {contentLabelsByLocale[locale].skillType[skill.skillType]}
       </DossierStampTag>
-      <h3>
-        <Link href={`/skills/${skill.slug}`}>{skill.title}</Link>
+      <h3 lang={entryLang}>
+        <Link href={localePath(locale, `/skills/${skill.slug}`)}>
+          {skill.title}
+        </Link>
       </h3>
-      <p>{skill.summary}</p>
-      <small>已关联 {relatedTechnologies.length} 条已发布技术信号。</small>
+      <p lang={entryLang}>{skill.summary}</p>
+      <small>
+        {homeCopy[locale].skills.linked(relatedTechnologies.length)}
+      </small>
     </DossierCard>
   );
 }
 
-function KnowledgePathCard({ item }: { item: KnowledgeItem }) {
+function KnowledgePathCard({
+  item,
+  locale
+}: {
+  item: KnowledgeItem;
+  locale: Locale;
+}) {
+  const entryLang = contentLangAttr(locale);
   const relatedTechnologies = getAllTechnologies().filter((technology) =>
     item.relatedTechnologyIds.includes(technology.id)
   );
@@ -130,18 +182,24 @@ function KnowledgePathCard({ item }: { item: KnowledgeItem }) {
   return (
     <DossierCard className="foundation-card">
       <DossierStampTag className="dossier-stamp-tag--muted">
-        {difficultyLabels[item.difficulty]}
+        {contentLabelsByLocale[locale].difficulty[item.difficulty]}
       </DossierStampTag>
-      <h3>
-        <Link href={`/knowledge/${item.slug}`}>{item.title}</Link>
+      <h3 lang={entryLang}>
+        <Link href={localePath(locale, `/knowledge/${item.slug}`)}>
+          {item.title}
+        </Link>
       </h3>
-      <p>{item.summary}</p>
-      <small>已解释 {relatedTechnologies.length} 条已发布技术信号。</small>
+      <p lang={entryLang}>{item.summary}</p>
+      <small>
+        {homeCopy[locale].knowledge.explains(relatedTechnologies.length)}
+      </small>
     </DossierCard>
   );
 }
 
-export function HomePage() {
+export function HomePage({ locale }: { locale: Locale }) {
+  const copy = homeCopy[locale];
+  const tags = localizeTags(getAllTags(), locale);
   const technologies = getAllTechnologies();
   const latestDigest = getLatestPublishedDailyDigest();
   const digestData = latestDigest
@@ -160,56 +218,73 @@ export function HomePage() {
   const skills = getAllSkills().slice(0, 3);
   const knowledge = getAllKnowledge().slice(0, 4);
   const latestNews = getLatestPublicNewsItems(4);
+  const digestTitle = latestDigest ? getPublicDigestTitle(latestDigest) : "";
+  const digestSummary = latestDigest
+    ? compactText(
+        getPublicDigestSummaryPlainText(latestDigest),
+        digestCardSummaryLength
+      )
+    : "";
 
   return (
     <>
       <UserPageShell
         title="AI Tech Radar"
-        description="发现、理解并持续跟踪值得优先关注的 AI 技术信号。"
-        sectionLabel="AI 技术发现"
+        description={copy.shellDescription}
+        sectionLabel={copy.sectionLabel}
         showHeader={false}
         className="dossier"
       >
         <section className="product-home-hero">
           <div className="product-home-hero__copy">
-            <p className="eyebrow user-eyebrow">AI 技术发现</p>
+            <p className="eyebrow user-eyebrow">{copy.hero.eyebrow}</p>
             <h1>
-              <UnbreakableTitle text="发现值得关注的 AI 技术" />
+              <UnbreakableTitle text={copy.hero.title} />
             </h1>
-            <p>一条清晰的阅读路径，帮你理解它为何重要、掌握所需背景。</p>
+            <p>{copy.hero.lede}</p>
             <div className="product-home-hero__actions">
               <Link
-                href="/digest/today"
+                href={localePath(locale, "/digest/today")}
                 className="action-button action-button--primary"
               >
-                阅读最新简报
+                {copy.hero.readDigest}
               </Link>
-              <Link href="/technologies" className="action-link">
-                浏览技术信号
+              <Link
+                href={localePath(locale, "/technologies")}
+                className="action-link"
+              >
+                {copy.hero.browse}
               </Link>
             </div>
             <p className="product-home-hero__stats">
               <span>
-                <strong>{technologies.length}</strong> 条已发布技术信号
+                <strong>{technologies.length}</strong> {copy.hero.statSignals}
               </span>
               <span>
-                <strong>{getAllSkills().length}</strong> 项理解与应用技能
+                <strong>{getAllSkills().length}</strong> {copy.hero.statSkills}
               </span>
               <span>
-                <strong>{getAllKnowledge().length}</strong> 个背景知识概念
+                <strong>{getAllKnowledge().length}</strong>{" "}
+                {copy.hero.statKnowledge}
               </span>
             </p>
+            <ChineseOnlyNote locale={locale}>
+              {copy.chineseOnly}
+            </ChineseOnlyNote>
           </div>
         </section>
 
         <section className="product-home-digest">
           <div className="section-heading">
             <div>
-              <p className="eyebrow user-eyebrow">从这里开始</p>
-              <h2>最新技术简报</h2>
+              <p className="eyebrow user-eyebrow">{copy.digest.eyebrow}</p>
+              <h2>{copy.digest.heading}</h2>
             </div>
-            <Link href="/digest/today" className="action-link">
-              打开简报
+            <Link
+              href={localePath(locale, "/digest/today")}
+              className="action-link"
+            >
+              {copy.digest.open}
             </Link>
           </div>
           {/* One column: the two counts used to sit in a fixed 150-220px right
@@ -218,32 +293,30 @@ export function HomePage() {
           {latestDigest && digestData ? (
             <DossierCard className="home-digest-card">
               <span>{latestDigest.date}</span>
-              <h3>
-                <Link href={`/digest/${latestDigest.date}`}>
-                  {getPublicDigestTitle(latestDigest)}
+              <h3 lang={nameLangAttr(locale, digestTitle)}>
+                <Link href={localePath(locale, `/digest/${latestDigest.date}`)}>
+                  {digestTitle}
                 </Link>
               </h3>
               <div className="home-digest-card__stats">
                 <span>
-                  {digestData.highPriorityTechnologies.length} 条立即关注
+                  {copy.digest.high(digestData.highPriorityTechnologies.length)}
                 </span>
-                <span>{digestData.watchTechnologies.length} 条值得跟踪</span>
+                <span>
+                  {copy.digest.watch(digestData.watchTechnologies.length)}
+                </span>
               </div>
-              <p>
-                {compactText(
-                  getPublicDigestSummaryPlainText(latestDigest),
-                  digestCardSummaryLength
-                )}
-              </p>
+              <p lang={nameLangAttr(locale, digestSummary)}>{digestSummary}</p>
             </DossierCard>
           ) : (
             <div className="empty-state empty-state--actionable">
-              <strong>还没有已发布简报。</strong>
-              <p>
-                你可以先浏览已发布技术信号，等新一期简报发布后这里会展示它。
-              </p>
-              <Link href="/technologies" className="action-link">
-                浏览技术信号
+              <strong>{copy.digest.emptyTitle}</strong>
+              <p>{copy.digest.emptyBody}</p>
+              <Link
+                href={localePath(locale, "/technologies")}
+                className="action-link"
+              >
+                {copy.digest.browse}
               </Link>
             </div>
           )}
@@ -252,11 +325,14 @@ export function HomePage() {
         <section className="section-block">
           <div className="section-heading">
             <div>
-              <p className="eyebrow user-eyebrow">优先技术信号</p>
-              <h2>现在最值得关注</h2>
+              <p className="eyebrow user-eyebrow">{copy.priority.eyebrow}</p>
+              <h2>{copy.priority.heading}</h2>
             </div>
-            <Link href="/technologies" className="action-link">
-              查看全部信号
+            <Link
+              href={localePath(locale, "/technologies")}
+              className="action-link"
+            >
+              {copy.priority.all}
             </Link>
           </div>
           {prioritySignals.length > 0 ? (
@@ -272,14 +348,16 @@ export function HomePage() {
                   <HomeTechnologyCard
                     key={technology.id}
                     technology={technology}
+                    tags={tags}
+                    locale={locale}
                   />
                 ))}
               </div>
             </VisitBaselineProvider>
           ) : (
             <div className="empty-state empty-state--actionable">
-              <strong>还没有已发布技术信号。</strong>
-              <p>发布正式技术记录后，这里会突出最值得先读的内容。</p>
+              <strong>{copy.priority.emptyTitle}</strong>
+              <p>{copy.priority.emptyBody}</p>
             </div>
           )}
         </section>
@@ -287,16 +365,19 @@ export function HomePage() {
         {/* Computed in the browser from the reader's local marks and the
             recommendation data file; renders nothing for a reader without
             marks, and the page carries no card data for it. */}
-        <HomeRecommendSection tags={getAllTags()} />
+        <HomeRecommendSection tags={tags} />
 
         <section className="section-block">
           <div className="section-heading">
             <div>
-              <p className="eyebrow user-eyebrow">今日快讯</p>
-              <h2>来源里正在发生什么</h2>
+              <p className="eyebrow user-eyebrow">{copy.news.eyebrow}</p>
+              <h2>{copy.news.heading}</h2>
             </div>
-            <Link href="/technologies?view=news" className="action-link">
-              查看全部快讯
+            <Link
+              href={localePath(locale, "/technologies?view=news")}
+              className="action-link"
+            >
+              {copy.news.all}
             </Link>
           </div>
           {latestNews.length > 0 ? (
@@ -304,7 +385,10 @@ export function HomePage() {
               {latestNews.map((item) => (
                 <article key={item.key} className="home-news-row">
                   <div className="home-news-row__meta">
-                    <span className="home-news-row__source">
+                    <span
+                      className="home-news-row__source"
+                      lang={nameLangAttr(locale, item.sourceName)}
+                    >
                       {item.sourceName}
                     </span>
                     <span>{item.publishDate}</span>
@@ -313,17 +397,18 @@ export function HomePage() {
                     href={item.sourceUrl}
                     target="_blank"
                     rel="noreferrer noopener"
+                    lang={nameLangAttr(locale, item.title)}
                   >
                     {item.title}
                   </a>
                 </article>
               ))}
-              <p className="home-news-list__note">{newsDisclaimer}</p>
+              <p className="home-news-list__note">
+                {signalsCopy[locale].news.disclaimer}
+              </p>
             </div>
           ) : (
-            <div className="empty-state">
-              最近还没有自动聚合的快讯。来源定时导入后，这里会展示最新资讯。
-            </div>
+            <div className="empty-state">{copy.news.empty}</div>
           )}
         </section>
 
@@ -331,16 +416,19 @@ export function HomePage() {
           <div className="home-discovery-panel">
             <div className="section-heading">
               <div>
-                <p className="eyebrow user-eyebrow">技能</p>
-                <h2>建立判断技术信号的能力</h2>
+                <p className="eyebrow user-eyebrow">{copy.skills.eyebrow}</p>
+                <h2>{copy.skills.heading}</h2>
               </div>
-              <Link href="/skills" className="action-link">
-                查看技能
+              <Link
+                href={localePath(locale, "/skills")}
+                className="action-link"
+              >
+                {copy.skills.all}
               </Link>
             </div>
             <div className="foundation-card-list">
               {skills.map((skill) => (
-                <SkillPathCard key={skill.id} skill={skill} />
+                <SkillPathCard key={skill.id} skill={skill} locale={locale} />
               ))}
             </div>
           </div>
@@ -348,22 +436,25 @@ export function HomePage() {
           <div className="home-discovery-panel">
             <div className="section-heading">
               <div>
-                <p className="eyebrow user-eyebrow">知识</p>
-                <h2>用稳定概念理解新变化</h2>
+                <p className="eyebrow user-eyebrow">{copy.knowledge.eyebrow}</p>
+                <h2>{copy.knowledge.heading}</h2>
               </div>
-              <Link href="/knowledge" className="action-link">
-                查看知识
+              <Link
+                href={localePath(locale, "/knowledge")}
+                className="action-link"
+              >
+                {copy.knowledge.all}
               </Link>
             </div>
             <div className="foundation-card-list">
               {knowledge.map((item) => (
-                <KnowledgePathCard key={item.id} item={item} />
+                <KnowledgePathCard key={item.id} item={item} locale={locale} />
               ))}
             </div>
           </div>
         </section>
       </UserPageShell>
-      <JsonLd data={buildWebSiteJsonLd()} />
+      <JsonLd data={buildWebSiteJsonLd(undefined, locale)} />
     </>
   );
 }

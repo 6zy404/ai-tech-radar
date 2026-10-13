@@ -1,7 +1,9 @@
-import { homePageMetadata, HomePage } from "@/components/pages/home-page";
+import { getHomePageMetadata, HomePage } from "@/components/pages/home-page";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = homePageMetadata;
+export const metadata = getHomePageMetadata("zh");
 
-export default HomePage;
+export default function Page() {
+  return <HomePage locale="zh" />;
+}

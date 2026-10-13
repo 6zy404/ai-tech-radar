@@ -83,7 +83,8 @@ const en: typeof zh = {
   uncited: (n) => `Retrieved but not cited (${n})`,
   copiedWhole: (n) =>
     `Copied: ${n} questions and answers, source links and the disclaimer.`,
-  copiedOne: "Copied: the question, the answer, source links and the disclaimer.",
+  copiedOne:
+    "Copied: the question, the answer, source links and the disclaimer.",
   copyBlocked:
     "The browser did not allow writing to the clipboard. The text is selected in the box below; press Ctrl+C (⌘C on a Mac) to copy it.",
   copyWhole: "Copy the conversation",
@@ -94,7 +95,8 @@ const en: typeof zh = {
   failed: "The answer could not be generated; try again later.",
   disconnected: "The connection dropped; try again later.",
   questionLabel: "Your question",
-  questionPlaceholder: "e.g. What should I watch out for when running a model locally?",
+  questionPlaceholder:
+    "e.g. What should I watch out for when running a model locally?",
   ask: "Ask",
   examplesHeading: "Try asking",
   startOver: "New conversation",

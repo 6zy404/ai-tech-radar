@@ -17,6 +17,8 @@ interface HomeSignalCardProps {
   noteLabel: string;
   note: string;
   footerItems?: string[];
+  /** `lang` per footer item, where it differs from the page. */
+  footerItemLangs?: (string | undefined)[];
   tags: TopicTag[];
   /** Out-of-flow stamp on the card's top edge (the 新 stamp). */
   stamp?: ReactNode;
@@ -40,6 +42,7 @@ export function HomeSignalCard({
   noteLabel,
   note,
   footerItems = [],
+  footerItemLangs = [],
   tags,
   stamp,
   titleLang,
@@ -61,8 +64,10 @@ export function HomeSignalCard({
         <LangSpan lang={noteLang}>{note}</LangSpan>
       </DossierCatalogNote>
       <div className="home-signal-card__footer">
-        {footerItems.map((item) => (
-          <span key={item}>{item}</span>
+        {footerItems.map((item, index) => (
+          <span key={item} lang={footerItemLangs[index]}>
+            {item}
+          </span>
         ))}
       </div>
       <TagList tags={tags} limit={2} />
