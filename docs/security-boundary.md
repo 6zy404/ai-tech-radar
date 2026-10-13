@@ -92,6 +92,22 @@ Public routes can be exposed:
   knowledge and topic routes (1200×630 share images painted from the same
   public fields the page renders; anything the page would 404 on gets the
   site card)
+- `/signal-vectors.json` (2026-10-13; the recommendation data file —
+  vectors + public card fields — for the browser-side 和你读过的相近). Each
+  entry is a published signal's hashed key (`toVisitKey(id)`, not the id),
+  slug, title, 80-character gist, date, band label and topic ids — fields
+  the list page already renders — plus its centered, quantized search
+  vector; nothing else. `buildSignalVectorFile` writes each entry field by
+  field and keeps a corpus document only when its id belongs to a published
+  signal; `validate:deployment` asserts the published-only rule, a fixed
+  key whitelist (`signalVectorEntryKeys`) and that no raw id appears, and
+  was shown to fail on an unpublished document and on an extra `id` key.
+  The request takes no parameters and no cookies and the response is the
+  same for everyone; the reader's 已读 / 稍后读 marks and followed topics
+  stay in localStorage and are matched in the browser. The browser asks for
+  the file only once the reader has at least one mark, so the request itself
+  says only that this browser has some reading history — never which. The
+  vectors are of already-public text, the same ones `/search` uses)
 - `GET /api/health` (liveness for an external monitor; reports the build id,
   uptime, published-signal count and search-model state — nothing a reader
   could not infer from the site, no paths or env)

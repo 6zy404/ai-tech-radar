@@ -1,0 +1,13 @@
+/* components/local-recommend: 和你读过的相近, the browser-computed block on
+   the home page and at the foot of the 稍后读 view (2026-10-13). Its cards
+   are the host page's own (.home-signal-card, .dossier-technology-card) and
+   its heading is the shared .section-heading, whose description line carries
+   the privacy note; only the 稍后读 block's separation from the list above is
+   styled here. A rule above it read as one more line of the graph paper,
+   so the heading alone marks the break. */
+
+.local-recommend--saved {
+  display: grid;
+  gap: 4px;
+  margin-top: 48px;
+}

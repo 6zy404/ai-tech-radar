@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { DossierCard } from "@/components/dossier-card";
-import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { HomeRecommendSection } from "@/components/home-recommend-section";
+import { HomeSignalCard } from "@/components/home-signal-card";
 import { JsonLd } from "@/components/json-ld";
-import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
@@ -90,29 +90,18 @@ function HomeTechnologyCard({ technology }: { technology: TechnologyItem }) {
     .filter((tag): tag is TopicTag => Boolean(tag));
 
   return (
-    <DossierCard className="home-signal-card">
-      <NewSignalStamp technologyId={technology.id} />
-      <div className="home-signal-card__meta">
-        <DossierStampTag>
-          {getPriorityLevelLabel(ranking.priorityLevel, "zh")}
-        </DossierStampTag>
-        <span>{technology.publishDate}</span>
-      </div>
-      <h3>
-        <Link href={`/technologies/${technology.slug}`}>
-          {getPublicTechnologyTitle(technology)}
-        </Link>
-      </h3>
-      <p>{summary}</p>
-      <DossierCatalogNote label="为什么重要">{whyItMatters}</DossierCatalogNote>
-      <div className="home-signal-card__footer">
-        {audience.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-        {difficulty ? <span>{difficulty}</span> : null}
-      </div>
-      <TagList tags={tags} limit={2} />
-    </DossierCard>
+    <HomeSignalCard
+      href={`/technologies/${technology.slug}`}
+      title={getPublicTechnologyTitle(technology)}
+      summary={summary}
+      priorityLabel={getPriorityLevelLabel(ranking.priorityLevel, "zh")}
+      publishDate={technology.publishDate}
+      noteLabel="为什么重要"
+      note={whyItMatters}
+      footerItems={difficulty ? [...audience, difficulty] : audience}
+      tags={tags}
+      stamp={<NewSignalStamp technologyId={technology.id} />}
+    />
   );
 }
 
@@ -296,6 +285,11 @@ export default function HomePage() {
             </div>
           )}
         </section>
+
+        {/* Computed in the browser from the reader's local marks and the
+            recommendation data file; renders nothing for a reader without
+            marks, and the page carries no card data for it. */}
+        <HomeRecommendSection tags={getAllTags()} />
 
         <section className="section-block">
           <div className="section-heading">

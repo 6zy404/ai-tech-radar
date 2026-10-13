@@ -252,6 +252,32 @@ The product is split into two subsystems:
   Omitted, with no placeholder, when the model or vectors are not ready
   within `SEARCH_SEMANTIC_TIMEOUT_MS`. Pure derived view, no LLM, no
   persisted data.
+- **和你读过的相近 (local recommendations, 2026-10-13)** — the home page
+  (after 现在最值得关注) and the foot of the 稍后读 view show published
+  signals close to the ones the reader marked 已读 or 稍后读, each with its
+  reason: 和你读过的《X》相近 / 和你存下的《X》相近, plus
+  「也属于你关注的「Y」」 when a followed topic lifted it. Computed **in the
+  browser**: the marks never leave localStorage. The server publishes one
+  recommendation data file (vectors + public card fields) that is the same
+  for everyone, `/signal-vectors.json`: per published signal its search
+  vector, centered on the pool mean and quantized to int8, and the card
+  fields the list page already shows — slug, title, an 80-character gist,
+  date, band label, topic ids — keyed by `toVisitKey(id)`, the 7-character
+  hash the 新 stamps use, so the long workspace ids never ship (format 2,
+  `Xenova/multilingual-e5-small`, 384 dimensions; 110 signals = 106 KB,
+  64 KB gzipped; `Cache-Control: public, max-age=600` + ETag; 503 when the
+  model is not ready). The browser fetches it only once the reader has a
+  mark, so the home page itself carries nothing for the block. Scoring is
+  内容相近的信号's: centered cosine to the nearest of the newest 30 marks,
+  kept only above mean + 2.5 standard deviations of all pairwise scores (the
+  file carries both), at most 2 per seed, 3 on the home page and 4 on
+  稍后读; a followed topic reorders what cleared the floor and never adds to
+  it. Measured 2026-10-13 on 110 signals: a reader with one mark gets
+  something for 80 of 110 signals, with three random marks 98%; decoding
+  takes 1.5–4 ms and scoring 0.2–1 ms in the browser. No mark, no file, or
+  nothing above the floor: the block is absent, with no placeholder
+  (`src/lib/local-recommend.ts`, `local-recommend-vectors.ts`,
+  `src/components/use-local-recommendations.ts`).
 - **Topic hub (`/topics/[tagId]`)** — a per-topic drill-down page merging what
   `/network`, the 按话题 view, and `/search` each show in fragments for one
   topic tag: the tag's published technology signals, tagged skills, tagged
@@ -669,6 +695,8 @@ Public, user-facing routes:
   `/technologies` view and linked from its header (RSS 订阅)
 - `/search`, `/ask`
 - `/feed.xml`, `/feed.json`
+- `/signal-vectors.json` — the recommendation data file (vectors + public
+  card fields) for the browser-side 和你读过的相近; no parameters
 - `/digest/weekly/feed.xml` — weekly-review RSS (published signals only)
 - `/news`, `/timeline` redirect to the matching `/technologies?view=` (`/radar`
   did too until 2026-10-13; it is now the technology radar)
