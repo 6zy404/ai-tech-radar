@@ -13,10 +13,7 @@ import path from "node:path";
 import { unstable_doesMiddlewareMatch } from "next/experimental/testing/server";
 import { NextRequest } from "next/server";
 
-import {
-  config as middlewareConfig,
-  middleware
-} from "../src/middleware";
+import { config as middlewareConfig, middleware } from "../src/middleware";
 import {
   renderDigestJsonFeed,
   renderDigestRssXml
