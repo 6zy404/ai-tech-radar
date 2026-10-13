@@ -12,6 +12,26 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## The Ai2 source stopped, and the dev nav fits again
+
+- **2026-10-13. Ai2 Blog is disabled.** allenai.org answers 403 to every
+  request a Node client sends — `fetch`, `node:https`, any user agent, any
+  header set, reordered ciphers, TLS 1.2 only — while `curl` with the same
+  headers gets 200. The block is on the client fingerprint, a day after the
+  trial import read the feed fine. Working around it would mean shelling out
+  to curl to get past a deliberate bot block, for a source the trial measured
+  at 2 useful items in six weeks whose large releases already arrive through
+  the Hugging Face blog. The reason is in the source's description. 16
+  sources enabled.
+- **The top nav no longer splits its labels between 901 and 980px when the
+  workspace entry is in it** (local dev, the editorial round's server). After
+  雷达 joined the bar, every label broke in two (「首 / 页」) from about 901 to
+  960px. Links are now `white-space: nowrap`, and in that band a bar that
+  carries the workspace entry (`:has(.top-nav__link--workspace)`) tightens
+  link padding to 6px and its gap to 12px. Measured from 901 to 986px: one
+  line, no broken label, at least 40px before the search and theme buttons.
+  The public build has no workspace entry, so only the `nowrap` reaches it.
+
 ## Editorial round 2026-10-13
 
 - **2026-10-13.** 34 undecided candidates, all dispositioned blind: 3 drafted

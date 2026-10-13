@@ -80,6 +80,25 @@
   font-size: 0.9rem;
 }
 
+/* A link never breaks inside its label. With the workspace entry (local dev,
+   the editorial round's server) the bar ran out of room just above the 900px
+   fold once 雷达 joined it, and every label split in two (「首 / 页」). The
+   public build has no workspace entry and fits, so only the bar that carries
+   it tightens the link padding in that band. */
+.top-nav__link {
+  white-space: nowrap;
+}
+
+@media (min-width: 901px) and (max-width: 980px) {
+  .top-nav__inner:has(.top-nav__link--workspace) {
+    gap: 12px;
+  }
+
+  .top-nav__inner:has(.top-nav__link--workspace) .top-nav__link {
+    padding-inline: 6px;
+  }
+}
+
 .top-nav__link--active {
   color: var(--accent);
   background: rgba(15, 118, 110, 0.08);
