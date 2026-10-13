@@ -1,6 +1,7 @@
 import { compactText } from "@/lib/compact-text";
 import { getAllTechnologies } from "@/lib/content";
-import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
+import type { Locale } from "@/lib/i18n/locale";
+import { getTechnologyTitleForLocale } from "@/lib/technology-localization";
 import type { TechnologyItem } from "@/types/content";
 
 /**
@@ -61,10 +62,13 @@ export function findSignalNeighbors<T extends { id: string; slug: string }>(
   };
 }
 
-export function getSignalNeighbors(technologyId: string): SignalNeighbors {
+export function getSignalNeighbors(
+  technologyId: string,
+  locale: Locale = "zh"
+): SignalNeighbors {
   return findSignalNeighbors(
     getAllTechnologies(),
     technologyId,
-    (signal: TechnologyItem) => getPreferredTechnologyTitle(signal)
+    (signal: TechnologyItem) => getTechnologyTitleForLocale(signal, locale).text
   );
 }

@@ -1,3 +1,4 @@
+import { formatWeekRange } from "@/lib/week-range";
 import { getAllTechnologies } from "@/lib/content";
 import { getTodayDateString } from "@/lib/digest-store";
 import { findIssueNeighbors } from "@/lib/issue-neighbors";
@@ -113,17 +114,7 @@ function addDays(dateStr: string, days: number): string {
 }
 
 function getWeekRangeLabel(weekStart: string, weekEnd: string): string {
-  const start = parseIsoDate(weekStart);
-  const end = parseIsoDate(weekEnd);
-
-  if (!start || !end) {
-    return `${weekStart} – ${weekEnd}`;
-  }
-
-  const startPart = `${start.getUTCMonth() + 1} 月 ${start.getUTCDate()} 日`;
-  const endPart = `${end.getUTCMonth() + 1} 月 ${end.getUTCDate()} 日`;
-
-  return `${startPart} – ${endPart}`;
+  return formatWeekRange(weekStart, weekEnd);
 }
 
 function getShownLevel(item: TechnologyItem): WeeklyReviewLevel | undefined {

@@ -52,7 +52,6 @@ interface TechnologyBrowserProps {
   initialQuery?: TechnologyBrowserQuery;
 }
 
-
 export function TechnologyBrowser({
   technologies,
   tags,

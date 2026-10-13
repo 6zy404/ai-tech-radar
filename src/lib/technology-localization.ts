@@ -652,3 +652,79 @@ export function getTechnologySummaryForLocale(
 ): TechnologyTextForLocale {
   return getTechnologyTextForLocale(item.summary, item.sourceLanguage, locale);
 }
+
+/**
+ * Below this many characters an English original body is the feed's excerpt
+ * ("See the release notes for the full change list."), not the article.
+ * Measured 2026-10-13: of 71 English-source signals, 20 carry a real English
+ * body (600+ characters) and the other 51 a line or two, while the Chinese
+ * write-up runs 800–1,600 characters.
+ */
+export const englishBodyMinLength = 400;
+
+export interface TechnologyBodyForLocale extends TechnologyTextForLocale {
+  /**
+   * English site only: the English body was too short to stand in for the
+   * article, so the Chinese write-up is shown instead.
+   */
+  isChineseWriteUp: boolean;
+}
+
+/**
+ * The signal page's body. The Chinese site follows the reading mode exactly
+ * as before. On the English site, 原文 shows the English body when it is a
+ * real article (`englishBodyMinLength`) and the editors' Chinese write-up
+ * otherwise; 中文 shows the Chinese write-up.
+ */
+export function getTechnologyBodyForLocale(
+  item: TechnologyItem,
+  mode: TechnologyContentMode,
+  locale: Locale
+): TechnologyBodyForLocale {
+  if (locale === "zh") {
+    return {
+      ...getTechnologyTextForMode(
+        item.content,
+        mode,
+        item.sourceLanguage,
+        locale
+      ),
+      text: getLocalizedTechnologyText(
+        item.content,
+        mode,
+        item.sourceLanguage
+      ).trim(),
+      isChineseWriteUp: false
+    };
+  }
+
+  const chinese = normalizeText(item.content.zh);
+
+  if (mode === "zh" && chinese) {
+    return { text: chinese, language: "zh", isChineseWriteUp: false };
+  }
+
+  const english =
+    normalizeText(item.content.en) ??
+    (item.sourceLanguage === "en"
+      ? normalizeText(item.content.original)
+      : undefined);
+
+  if (english && english.length >= englishBodyMinLength) {
+    return { text: english, language: "en", isChineseWriteUp: false };
+  }
+
+  if (chinese) {
+    return {
+      text: chinese,
+      language: "zh",
+      isChineseWriteUp: item.sourceLanguage === "en"
+    };
+  }
+
+  return {
+    text: (english ?? item.content.original).trim(),
+    language: item.sourceLanguage === "zh" ? "zh" : "en",
+    isChineseWriteUp: false
+  };
+}

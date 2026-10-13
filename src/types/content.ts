@@ -865,4 +865,7 @@ export interface RelationListItem {
   href: string;
   relationType: RelationType;
   note: string;
+  /** English site only: `zh-CN` on a title / note written in Chinese. */
+  titleLang?: string;
+  noteLang?: string;
 }

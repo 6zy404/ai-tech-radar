@@ -164,12 +164,12 @@ const zh = {
     emptyImport: "换了设备？把旧设备上导出的阅读码导入进来。",
     count: (n: number) => `已攒下 ${n} 条信号。`,
     allReadTitle: "攒下的信号你都读完了。",
-    allReadBody:
-      "关掉「隐藏已读」可以回看，或者取消「稍后读」把它们清出列表。",
+    allReadBody: "关掉「隐藏已读」可以回看，或者取消「稍后读」把它们清出列表。",
     importResult: {
       saved: (n: number) => `稍后读 ${n}`,
       read: (n: number) => `已读 ${n}`,
-      added: (n: number, kinds: string[]) => `导入 ${n} 条（${kinds.join(" · ")}）`,
+      added: (n: number, kinds: string[]) =>
+        `导入 ${n} 条（${kinds.join(" · ")}）`,
       nothingNew: "没有新的标记",
       alreadyPresent: (n: number) => `${n} 条本机已有`,
       ignored: (n: number) => `忽略 ${n} 条无法识别或已下线的信号`,
@@ -201,11 +201,7 @@ const zh = {
     heading: "和你读过的相近",
     privacyFirst: "按你在本机的阅读记录计算，",
     privacySecond: "记录不离开浏览器。",
-    reason: (
-      verb: "read" | "saved",
-      title: string,
-      topicNames: string[]
-    ) =>
+    reason: (verb: "read" | "saved", title: string, topicNames: string[]) =>
       `和你${verb === "read" ? "读过" : "存下"}的《${title}》相近` +
       (topicNames.length > 0
         ? `，也属于你关注的${topicNames.map((name) => `「${name}」`).join("")}`
@@ -289,7 +285,8 @@ const en: typeof zh = {
     title: "Keyboard shortcuts",
     note: "While you type in a box, or hold Ctrl, Alt or ⌘, these keys work as usual.",
     switchLabel: "Turn off single-key shortcuts",
-    switchHint: "j, k, Enter, o, s and x stop responding; ? still opens this list",
+    switchHint:
+      "j, k, Enter, o, s and x stop responding; ? still opens this list",
     close: "Close",
     hint: "Shortcuts",
     selectFirst: "Press j to pick a signal first.",
@@ -332,7 +329,8 @@ const en: typeof zh = {
       watch: "In the topics you follow, and worth keeping an eye on.",
       low_priority: "Background reading in the topics you follow."
     },
-    nothingToExport: "You do not follow any topic yet, so there is nothing to export.",
+    nothingToExport:
+      "You do not follow any topic yet, so there is nothing to export.",
     exported:
       "Follow code copied. On another device, choose “Import follows” and paste it.",
     copyPrompt: "Copy this follow code and import it on another device:",
@@ -385,8 +383,7 @@ const en: typeof zh = {
         `Imported ${n} ${n === 1 ? "mark" : "marks"} (${kinds.join(" · ")})`,
       nothingNew: "No new marks",
       alreadyPresent: (n) => `${n} already on this device`,
-      ignored: (n) =>
-        `${n} ignored as unrecognised or no longer published`,
+      ignored: (n) => `${n} ignored as unrecognised or no longer published`,
       join: (parts) => `${parts.join("; ")}.`
     }
   },
@@ -397,7 +394,8 @@ const en: typeof zh = {
     unsupported:
       "This browser does not support web notifications (on iPhone and iPad, add the site to your home screen first).",
     toggle: "Alert me to new signals",
-    onNote: "You get a browser notification when a followed topic has a new signal.",
+    onNote:
+      "You get a browser notification when a followed topic has a new signal.",
     offNote:
       "Once on, the server stores this browser's push address and the topics you follow. ",
     privacyLink: "What is stored, and how to delete it",
@@ -406,7 +404,8 @@ const en: typeof zh = {
       disabled: "New-signal alerts are not switched on for this site yet.",
       denied:
         "The browser did not allow notifications. You can change it back to “Allow” in the site settings at the left of the address bar.",
-      noResponse: "The browser's push service did not respond; try again later.",
+      noResponse:
+        "The browser's push service did not respond; try again later.",
       enableFailed: "Could not turn alerts on; try again later.",
       disableFailed: "Could not turn alerts off; try again later."
     }

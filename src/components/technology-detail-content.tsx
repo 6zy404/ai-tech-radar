@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { ChineseOnlyNote } from "@/components/chinese-only-note";
+import { LangScope } from "@/components/lang-scope";
 import { DossierRegisterRow } from "@/components/dossier-register-row";
 import { DossierRelatedItemsSection } from "@/components/dossier-related-items-section";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
@@ -39,15 +41,18 @@ import {
   selectPageTocEntries,
   technologyTocIds as tocIds
 } from "@/lib/page-toc";
+import { commonCopy } from "@/lib/i18n/copy/common";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import { localePath } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { formatWeekRangeFromKey } from "@/lib/week-range";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { estimateReadingMinutes, formatReadingTime } from "@/lib/reading-time";
 import { getSourceDirectoryHref } from "@/lib/source-directory";
 // Type-only: the module reads the digest store, which a client component
 // must not bundle. The data arrives as a prop from the server page.
-import type {
-  SignalIssueAppearances,
-  SignalIssueSection
-} from "@/lib/signal-digest-appearances";
+import type { SignalIssueAppearances } from "@/lib/signal-digest-appearances";
 // Type-only for the same reason: the module reads the published pool.
 import type { SignalNeighbors } from "@/lib/signal-neighbors";
 import type { SimilarSignalLink } from "@/lib/similar-signals";
@@ -59,10 +64,11 @@ import {
 } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
-  getLocalizedTechnologyText,
   getPublisherTypeLabel,
   getRelationTypeLabel,
+  getTechnologyBodyForLocale,
   getTechnologyDefaultMode,
+  getTechnologyTextForMode,
   getTechnologyDetailCopy,
   getTechnologyRelationNote,
   getTechnologyTypeLabel,
@@ -75,12 +81,6 @@ import type {
   TopicTag
 } from "@/types/content";
 
-// The section headings as the digest and weekly pages print them, minus 今日.
-const issueSectionLabels: Record<SignalIssueSection, string> = {
-  high_priority: "立即关注",
-  watch: "值得跟踪"
-};
-
 interface TechnologyDetailContentProps {
   technology: TechnologyItem;
   tags: TopicTag[];
@@ -90,13 +90,21 @@ interface TechnologyDetailContentProps {
   compareCandidates: { id: string; title: string; href: string }[];
   evolutionChain?: TechnologyEvolutionChain;
   /** Omitted by the workspace preview: drafts are not in the embedded pool. */
-  similarSignals?: SimilarSignalLink[];
+  similarSignals?: (SimilarSignalLink & {
+    titleLang?: string;
+    summaryLang?: string;
+  })[];
   /** Omitted by the workspace preview: a draft is in no published issue. */
   issueAppearances?: SignalIssueAppearances;
   /** Omitted by the workspace preview: a draft has no place in the list. */
   neighbors?: SignalNeighbors;
   /** Knowledge the body mentions; each links at its first mention. */
   knowledgeLinks?: KnowledgeLinkTarget[];
+  /**
+   * English site only: `lang` per signal slug for the titles the server put
+   * in the interface language where it could (release line, pager).
+   */
+  titleLangs?: Record<string, string>;
 }
 
 export function TechnologyDetailContent({
@@ -110,56 +118,84 @@ export function TechnologyDetailContent({
   similarSignals = [],
   issueAppearances,
   neighbors,
-  knowledgeLinks
+  knowledgeLinks,
+  titleLangs = {}
 }: TechnologyDetailContentProps) {
+  const locale = useLocale();
+  const pageCopy = technologyDetailCopy[locale];
+  const sectionCopy = pageCopy.sections;
+  // Every editor-written field (why it matters, context, audience, learning
+  // path, questions, relation notes) exists in Chinese only.
+  const zhLang = contentLangAttr(locale);
   const hasDetailChinese = hasTechnologyChineseContentForContext(
     technology,
     "detail"
   );
+  // The English site opens on the original text, the Chinese site on 中文
+  // when there is one.
   const [requestedMode, setRequestedMode] = useState<TechnologyContentMode>(
-    getTechnologyDefaultMode(technology, "detail")
+    locale === "en"
+      ? "original"
+      : getTechnologyDefaultMode(technology, "detail")
   );
   const mode = getEffectiveTechnologyMode(technology, requestedMode, "detail");
-  const copy = getTechnologyDetailCopy(mode);
+  const copy = getTechnologyDetailCopy(locale === "en" ? "original" : mode);
   const ranking = evaluateTechnologyPriority(technology);
   // The workspace preview renders drafts through this component: a draft has
   // no public address to copy, so it gets neither 复制链接 nor the 「#」s.
   const sharePath =
     technology.status === "published"
-      ? `/technologies/${technology.slug}`
+      ? localePath(locale, `/technologies/${technology.slug}`)
       : undefined;
   // The same rule for the publisher's /sources card: a draft's publisher may
   // have no published signal, and so no card to land on.
   const publisherHref =
     technology.status === "published" && technology.publisherName?.trim()
-      ? getSourceDirectoryHref(technology.publisherName)
+      ? getSourceDirectoryHref(technology.publisherName, locale)
       : undefined;
 
-  const title = getLocalizedTechnologyText(
+  const titleText = getTechnologyTextForMode(
     technology.title,
     mode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
-  const summary = getLocalizedTechnologyText(
+  const summaryText = getTechnologyTextForMode(
     technology.summary,
     mode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
-  const priorityLabel = getPriorityLevelLabel(ranking.priorityLevel, mode);
+  const title = titleText.text;
+  const summary = summaryText.text;
+  const priorityLabel = getPriorityLevelLabel(
+    ranking.priorityLevel,
+    mode,
+    locale
+  );
   const publisherTypeLabel = getPublisherTypeLabel(
     technology.publisherType,
-    mode
+    mode,
+    locale
   );
   const prioritySummary = getPriorityUserSummary(
     ranking,
     mode,
-    technology.importanceLevel
+    technology.importanceLevel,
+    locale
   );
-  const body = getLocalizedTechnologyText(
-    technology.content,
-    mode,
-    technology.sourceLanguage
-  ).trim();
+  const bodyText = getTechnologyBodyForLocale(technology, mode, locale);
+  const body = bodyText.text;
+  // One line, where the reading column starts, for whatever on the page is
+  // Chinese only.
+  const chineseNote =
+    locale !== "en"
+      ? ""
+      : technology.sourceLanguage === "zh"
+        ? sectionCopy.chineseNote.chineseSource
+        : bodyText.isChineseWriteUp
+          ? sectionCopy.chineseNote.writeUp
+          : sectionCopy.chineseNote.notesOnly;
   const whyItMatters = getTechnologyWhyItMatters(technology, prioritySummary);
   const technicalContext = technology.technicalContext?.trim();
   const audienceItems = getTechnologyAudience(technology);
@@ -170,68 +206,87 @@ export function TechnologyDetailContent({
   // editorial sections below it, each in the language it is shown in right
   // now. Chips, relation notes and the AI widgets (empty until a reader asks)
   // are not counted.
-  const readingTimeLabel = formatReadingTime(
-    estimateReadingMinutes(body, [
-      summary,
-      whyItMatters ?? "",
-      technicalContext ?? "",
-      ...learningPath,
-      ...followUpQuestions
-    ]),
-    mode
-  );
+  const readingMinutes = estimateReadingMinutes(body, [
+    summary,
+    whyItMatters ?? "",
+    technicalContext ?? "",
+    ...learningPath,
+    ...followUpQuestions
+  ]);
+  const readingTimeLabel =
+    locale === "zh"
+      ? formatReadingTime(readingMinutes, mode)
+      : commonCopy[locale].readingTime(readingMinutes);
   const readingDifficultyLabel = getReadingDifficultyLabel(
-    technology.readingDifficulty
+    technology.readingDifficulty,
+    locale
   );
-  const localizedRelatedSkills = relatedSkills.map((item, index) => ({
-    ...item,
-    note: getTechnologyRelationNote(
+  // The seed notes written in English stay English on the English site;
+  // every other note is Chinese. On the Chinese site nothing changes.
+  const noteMode: TechnologyContentMode = locale === "en" ? "original" : mode;
+  const noteLangOf = (note: string) =>
+    locale === "en" ? nameLangAttr(locale, note) : undefined;
+  const relationLabel = (relationType: RelationListItem["relationType"]) =>
+    getRelationTypeLabel(relationType, mode, locale);
+  const localizedRelatedSkills = relatedSkills.map((item, index) => {
+    const note = getTechnologyRelationNote(
       getTechnologySkillExplanation(
         technology,
         technology.relatedSkillIds[index] ?? "",
         item.note
       ),
-      mode
-    )
-  }));
-  const localizedRelatedKnowledge = relatedKnowledge.map((item, index) => ({
-    ...item,
-    note: getTechnologyRelationNote(
+      noteMode
+    );
+
+    return { ...item, note, noteLang: noteLangOf(note) };
+  });
+  const localizedRelatedKnowledge = relatedKnowledge.map((item, index) => {
+    const note = getTechnologyRelationNote(
       getTechnologyKnowledgeExplanation(
         technology,
         technology.relatedKnowledgeIds[index] ?? "",
         item.note
       ),
-      mode
-    )
+      noteMode
+    );
+
+    return { ...item, note, noteLang: noteLangOf(note) };
+  });
+  const localizedRelatedTechnologies = relatedTechnologies.map((item) => ({
+    ...item,
+    noteLang: item.noteLang ?? noteLangOf(item.note)
   }));
   const graphNodes: RelationshipGraphNode[] = [
-    ...relatedTechnologies.map((item) => ({
+    ...localizedRelatedTechnologies.map((item) => ({
       title: item.title,
       href: item.href,
       kind: "technology" as const,
-      relationLabel: getRelationTypeLabel(item.relationType, mode),
-      note: item.note
+      relationLabel: relationLabel(item.relationType),
+      note: item.note,
+      lang: item.titleLang
     })),
     ...localizedRelatedSkills.map((item) => ({
       title: item.title,
       href: item.href,
       kind: "skill" as const,
-      relationLabel: getRelationTypeLabel(item.relationType, mode),
-      note: item.note
+      relationLabel: relationLabel(item.relationType),
+      note: item.note,
+      lang: item.titleLang
     })),
     ...localizedRelatedKnowledge.map((item) => ({
       title: item.title,
       href: item.href,
       kind: "knowledge" as const,
-      relationLabel: getRelationTypeLabel(item.relationType, mode),
-      note: item.note
+      relationLabel: relationLabel(item.relationType),
+      note: item.note,
+      lang: item.titleLang
     }))
   ];
   // Same conditions the sections below render on, so the table lists exactly
   // what is on the page.
   const tocEntries = selectPageTocEntries(
     getTechnologyTocCandidates({
+      locale,
       hasEvolution: Boolean(evolutionChain),
       hasBody: Boolean(body),
       hasWhyItMatters: Boolean(whyItMatters),
@@ -256,8 +311,10 @@ export function TechnologyDetailContent({
           <div className="user-article-hero__copy technology-detail-hero__copy">
             <div className="technology-detail-hero__topline">
               <span className="dossier-technology-card__catalog">
-                {getTechnologyTypeLabel(technology.type, mode)} · 第{" "}
-                {technology.publishDate} 号
+                {pageCopy.hero.catalog(
+                  getTechnologyTypeLabel(technology.type, mode, locale),
+                  technology.publishDate
+                )}
               </span>
               <TechnologyLanguageSwitch
                 mode={mode}
@@ -266,13 +323,20 @@ export function TechnologyDetailContent({
               />
             </div>
 
-            <h1>
+            <h1 lang={contentLangAttr(locale, titleText.language)}>
               <UnbreakableTitle text={title} />
             </h1>
-            <p className="user-article-hero__summary">{summary}</p>
+            <p
+              className="user-article-hero__summary"
+              lang={contentLangAttr(locale, summaryText.language)}
+            >
+              {summary}
+            </p>
 
             <div className="technology-detail-hero__meta">
-              <span>{technology.sourceName}</span>
+              <span lang={nameLangAttr(locale, technology.sourceName)}>
+                {technology.sourceName}
+              </span>
               <span>{technology.publishDate}</span>
               <span>{readingTimeLabel}</span>
               <DossierStampTag>{priorityLabel}</DossierStampTag>
@@ -302,18 +366,21 @@ export function TechnologyDetailContent({
             publisherTypeLabel={publisherTypeLabel}
             publishDate={technology.publishDate}
             linkLabel={copy.sourceLinkLabel}
+            locale={locale}
           />
 
           {/* The hero already prints this label and sentence. */}
           <section className="user-reference-panel" data-print="hide">
-            <p className="eyebrow user-eyebrow">优先级</p>
+            <p className="eyebrow user-eyebrow">{pageCopy.aside.priority}</p>
             <h2>{priorityLabel}</h2>
             <p className="user-reference-panel__copy">{prioritySummary}</p>
           </section>
 
           {readingDifficultyLabel ? (
             <section className="user-reference-panel">
-              <p className="eyebrow user-eyebrow">阅读难度</p>
+              <p className="eyebrow user-eyebrow">
+                {pageCopy.aside.difficulty}
+              </p>
               <h2>{readingDifficultyLabel}</h2>
             </section>
           ) : null}
@@ -331,11 +398,16 @@ export function TechnologyDetailContent({
     >
       <PageToc entries={tocEntries} variant="disclosure" />
 
+      <ChineseOnlyNote locale={locale}>{chineseNote}</ChineseOnlyNote>
+
       {evolutionChain ? (
         <TechnologyEvolutionLine
           chain={evolutionChain}
           id={tocIds.evolution}
           sharePath={sharePath}
+          titleLangs={titleLangs}
+          noteLang={zhLang}
+          locale={locale}
         />
       ) : null}
 
@@ -344,11 +416,15 @@ export function TechnologyDetailContent({
           id={tocIds.body}
           className="user-article-section technology-detail-section"
         >
-          <p className="technology-detail-section__eyebrow">记录</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.bodyEyebrow}
+          </p>
           <SectionHeading sectionId={tocIds.body} sharePath={sharePath}>
-            信号正文
+            {sectionCopy.bodyHeading}
           </SectionHeading>
-          <ContentBody body={body} knowledgeLinks={knowledgeLinks} />
+          <LangScope lang={contentLangAttr(locale, bodyText.language)}>
+            <ContentBody body={body} knowledgeLinks={knowledgeLinks} />
+          </LangScope>
         </section>
       ) : null}
 
@@ -357,11 +433,18 @@ export function TechnologyDetailContent({
           id={tocIds.whyItMatters}
           className="user-article-section technology-detail-section"
         >
-          <p className="technology-detail-section__eyebrow">为什么是现在</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.whyEyebrow}
+          </p>
           <SectionHeading sectionId={tocIds.whyItMatters} sharePath={sharePath}>
-            为什么重要
+            {sectionCopy.whyHeading}
           </SectionHeading>
-          <p className="technology-detail-section__lede">{whyItMatters}</p>
+          <p
+            className="technology-detail-section__lede"
+            lang={technology.whyItMatters?.trim() ? zhLang : undefined}
+          >
+            {whyItMatters}
+          </p>
         </section>
       ) : null}
 
@@ -370,14 +453,18 @@ export function TechnologyDetailContent({
           id={tocIds.technicalContext}
           className="user-article-section technology-detail-section"
         >
-          <p className="technology-detail-section__eyebrow">背景</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.contextEyebrow}
+          </p>
           <SectionHeading
             sectionId={tocIds.technicalContext}
             sharePath={sharePath}
           >
-            技术背景
+            {sectionCopy.contextHeading}
           </SectionHeading>
-          <p className="technology-detail-section__lede">{technicalContext}</p>
+          <p className="technology-detail-section__lede" lang={zhLang}>
+            {technicalContext}
+          </p>
         </section>
       ) : null}
 
@@ -388,9 +475,11 @@ export function TechnologyDetailContent({
           id={tocIds.audience}
           className="user-article-section technology-detail-section"
         >
-          <p className="technology-detail-section__eyebrow">关注人群</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.audienceEyebrow}
+          </p>
           <SectionHeading sectionId={tocIds.audience} sharePath={sharePath}>
-            谁该关注
+            {sectionCopy.audienceHeading}
           </SectionHeading>
           {audienceItems.length > 0 ? (
             <div className="technology-detail-chip-row">
@@ -398,6 +487,7 @@ export function TechnologyDetailContent({
                 <DossierStampTag
                   key={item}
                   className="dossier-stamp-tag--muted"
+                  lang={zhLang}
                 >
                   {item}
                 </DossierStampTag>
@@ -406,12 +496,13 @@ export function TechnologyDetailContent({
           ) : null}
           {impactAreas.length > 0 ? (
             <div className="technology-detail-impact">
-              <span>可能影响的领域</span>
+              <span>{sectionCopy.impactAreas}</span>
               <div className="technology-detail-chip-row">
                 {impactAreas.map((item) => (
                   <DossierStampTag
                     key={item}
                     className="dossier-stamp-tag--muted"
+                    lang={zhLang}
                   >
                     {item}
                   </DossierStampTag>
@@ -427,11 +518,13 @@ export function TechnologyDetailContent({
           id={tocIds.learningPath}
           className="user-article-section technology-detail-section"
         >
-          <p className="technology-detail-section__eyebrow">下一步</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.learningEyebrow}
+          </p>
           <SectionHeading sectionId={tocIds.learningPath} sharePath={sharePath}>
-            学习路径
+            {sectionCopy.learningHeading}
           </SectionHeading>
-          <ol className="technology-detail-learning-list">
+          <ol className="technology-detail-learning-list" lang={zhLang}>
             {learningPath.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -446,37 +539,41 @@ export function TechnologyDetailContent({
         sharePath={sharePath}
         centerTitle={title}
         centerId={technology.status === "published" ? technology.id : undefined}
+        centerLang={contentLangAttr(locale, titleText.language)}
         nodes={graphNodes}
-        heading="在技术网络中的位置"
-        hint="当前技术与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
+        heading={sectionCopy.graphHeading}
+        hint={sectionCopy.graphHint}
+        locale={locale}
       />
 
       <DossierRelatedItemsSection
         id={tocIds.relatedTechnologies}
         sharePath={sharePath}
-        title="相关技术"
-        description="与该信号在工作流或主题上相邻的其他技术，可顺着这条线继续了解。"
-        items={relatedTechnologies}
-        linkLabel="查看技术"
-        formatRelationType={(relationType) =>
-          getRelationTypeLabel(relationType, mode)
-        }
+        title={sectionCopy.relatedTechnologies}
+        description={sectionCopy.relatedTechnologiesDescription}
+        items={localizedRelatedTechnologies}
+        linkLabel={sectionCopy.viewTechnology}
+        formatRelationType={relationLabel}
+        locale={locale}
       />
 
       <DossierRelatedItemsSection
         id={tocIds.similarSignals}
         sharePath={sharePath}
-        title="内容相近的信号"
-        description="按内容自动匹配，未经编辑挑选；已在相关技术和版本脉络里的不再重复。"
+        title={sectionCopy.similarHeading}
+        description={sectionCopy.similarDescription}
         items={similarSignals.map((item) => ({
           id: item.id,
           title: item.title,
           href: item.href,
           relationType: "related-to" as const,
-          note: item.summary ?? ""
+          note: item.summary ?? "",
+          titleLang: item.titleLang,
+          noteLang: item.summaryLang
         }))}
-        linkLabel="查看信号"
-        formatRelationType={() => "自动匹配"}
+        linkLabel={sectionCopy.viewSignal}
+        formatRelationType={() => sectionCopy.autoMatched}
+        locale={locale}
       />
 
       <TechnologyCompareWidget
@@ -490,10 +587,9 @@ export function TechnologyDetailContent({
         title={copy.relatedSkillsTitle}
         description={copy.relatedSkillsDescription}
         items={localizedRelatedSkills}
-        linkLabel="查看技能"
-        formatRelationType={(relationType) =>
-          getRelationTypeLabel(relationType, mode)
-        }
+        linkLabel={sectionCopy.viewSkill}
+        formatRelationType={relationLabel}
+        locale={locale}
       />
 
       <DossierRelatedItemsSection
@@ -502,10 +598,9 @@ export function TechnologyDetailContent({
         title={copy.relatedKnowledgeTitle}
         description={copy.relatedKnowledgeDescription}
         items={localizedRelatedKnowledge}
-        linkLabel="查看概念"
-        formatRelationType={(relationType) =>
-          getRelationTypeLabel(relationType, mode)
-        }
+        linkLabel={sectionCopy.viewConcept}
+        formatRelationType={relationLabel}
+        locale={locale}
       />
 
       {followUpQuestions.length > 0 ? (
@@ -513,14 +608,16 @@ export function TechnologyDetailContent({
           id={tocIds.followUpQuestions}
           className="user-article-section technology-detail-section"
         >
-          <p className="technology-detail-section__eyebrow">延伸思考</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.followUpEyebrow}
+          </p>
           <SectionHeading
             sectionId={tocIds.followUpQuestions}
             sharePath={sharePath}
           >
-            后续问题
+            {sectionCopy.followUpHeading}
           </SectionHeading>
-          <ul className="technology-detail-question-list">
+          <ul className="technology-detail-question-list" lang={zhLang}>
             {followUpQuestions.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -535,17 +632,17 @@ export function TechnologyDetailContent({
           id={tocIds.digestAppearances}
           className="user-article-section technology-detail-section signal-issue-appearances"
         >
-          <p className="technology-detail-section__eyebrow">发布记录</p>
+          <p className="technology-detail-section__eyebrow">
+            {sectionCopy.appearancesEyebrow}
+          </p>
           <SectionHeading
             sectionId={tocIds.digestAppearances}
             sharePath={sharePath}
           >
-            收录于
+            {sectionCopy.appearancesHeading}
           </SectionHeading>
           <p className="signal-issue-appearances__note">
-            收录这条信号的技术简报，新的在前
-            {issueAppearances.weekly ? "；最后一行是它那一周的周回顾" : ""}
-            。标签是它在那一期所在的栏目。
+            {sectionCopy.appearancesNote(Boolean(issueAppearances.weekly))}
           </p>
           <ol className="signal-issue-appearances__list">
             {issueAppearances.digests.map((digest) => (
@@ -557,18 +654,28 @@ export function TechnologyDetailContent({
                     digest.title.includes(digest.date) ? undefined : digest.date
                   }
                   title={digest.title}
-                  href={digest.href}
-                  tag={issueSectionLabels[digest.section]}
+                  href={localePath(locale, digest.href)}
+                  tag={sectionCopy.issueSections[digest.section]}
                   headingLevel={3}
+                  titleLang={nameLangAttr(locale, digest.title)}
                 />
               </li>
             ))}
             {issueAppearances.weekly ? (
               <li>
                 <DossierRegisterRow
-                  title={`周回顾 · ${issueAppearances.weekly.rangeLabel}`}
-                  href={issueAppearances.weekly.href}
-                  tag={issueSectionLabels[issueAppearances.weekly.section]}
+                  title={sectionCopy.weeklyRow(
+                    locale === "zh"
+                      ? issueAppearances.weekly.rangeLabel
+                      : formatWeekRangeFromKey(
+                          issueAppearances.weekly.weekKey,
+                          locale
+                        )
+                  )}
+                  href={localePath(locale, issueAppearances.weekly.href)}
+                  tag={
+                    sectionCopy.issueSections[issueAppearances.weekly.section]
+                  }
                   headingLevel={3}
                 />
               </li>
@@ -578,7 +685,7 @@ export function TechnologyDetailContent({
       ) : null}
 
       <SourceReference
-        title="来源参考"
+        title={sectionCopy.sourceFoot}
         sourceName={technology.sourceName}
         sourceUrl={technology.sourceUrl}
         publisherName={technology.publisherName}
@@ -587,6 +694,7 @@ export function TechnologyDetailContent({
         publishDate={technology.publishDate}
         linkLabel={copy.sourceLinkLabel}
         showUrl
+        locale={locale}
       />
 
       {/* Last, as on the digest page: the article ends with its source, and
@@ -596,22 +704,35 @@ export function TechnologyDetailContent({
       {neighbors ? (
         <IssuePager
           unit="条"
-          ariaLabel="信号翻页"
+          ariaLabel={sectionCopy.pagerLabel}
+          locale={locale}
           previous={
             neighbors.older
               ? {
-                  href: `/technologies/${neighbors.older.slug}`,
+                  href: localePath(
+                    locale,
+                    `/technologies/${neighbors.older.slug}`
+                  ),
                   label: neighbors.older.title
                 }
               : undefined
           }
+          previousLang={
+            neighbors.older ? titleLangs[neighbors.older.slug] : undefined
+          }
           next={
             neighbors.newer
               ? {
-                  href: `/technologies/${neighbors.newer.slug}`,
+                  href: localePath(
+                    locale,
+                    `/technologies/${neighbors.newer.slug}`
+                  ),
                   label: neighbors.newer.title
                 }
               : undefined
+          }
+          nextLang={
+            neighbors.newer ? titleLangs[neighbors.newer.slug] : undefined
           }
         />
       ) : null}

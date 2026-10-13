@@ -3,6 +3,10 @@
 import { useState, useTransition } from "react";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 import type {
   TechnologyComparisonFields,
   TechnologyItem
@@ -23,6 +27,12 @@ export function TechnologyCompareWidget({
   technology,
   candidates
 }: TechnologyCompareWidgetProps) {
+  const locale = useLocale();
+  const aiCopy = technologyDetailCopy[locale].ai;
+  const copy = aiCopy.compare;
+  const answerLang = contentLangAttr(locale);
+  const disclaimer =
+    locale === "zh" ? aiGeneratedDisclaimer : aiCopy.disclaimer;
   const [selectedId, setSelectedId] = useState(candidates[0]?.id ?? "");
   const [isPending, startTransition] = useTransition();
   const [fields, setFields] = useState<TechnologyComparisonFields | null>(null);
@@ -55,25 +65,25 @@ export function TechnologyCompareWidget({
 
         if (!response.ok || "error" in payload) {
           setError(
-            "error" in payload ? payload.error : "对比生成失败，请稍后再试。"
+            "error" in payload && locale === "zh"
+              ? payload.error
+              : aiCopy.failed.compare
           );
           return;
         }
 
         setFields(payload.fields);
       } catch {
-        setError("对比生成失败，请稍后再试。");
+        setError(aiCopy.failed.compare);
       }
     });
   }
 
   return (
     <section className="user-article-section technology-detail-section technology-compare-widget">
-      <p className="technology-detail-section__eyebrow">技术对比</p>
-      <h2>对比另一项技术</h2>
-      <p className="technology-detail-section__lede">
-        选择另一项已发布技术，让 AI 现场生成一份相似点、差异点和适用场景的对比。
-      </p>
+      <p className="technology-detail-section__eyebrow">{copy.eyebrow}</p>
+      <h2>{copy.heading}</h2>
+      <p className="technology-detail-section__lede">{copy.lede}</p>
 
       <div className="technology-compare-widget__controls">
         <select
@@ -83,7 +93,11 @@ export function TechnologyCompareWidget({
           disabled={isPending}
         >
           {candidates.map((candidate) => (
-            <option key={candidate.id} value={candidate.id}>
+            <option
+              key={candidate.id}
+              value={candidate.id}
+              lang={nameLangAttr(locale, candidate.title)}
+            >
               {candidate.title}
             </option>
           ))}
@@ -94,7 +108,7 @@ export function TechnologyCompareWidget({
           onClick={handleCompare}
           disabled={isPending || !selectedId}
         >
-          {isPending ? "生成中…" : "生成对比"}
+          {isPending ? aiCopy.pending : copy.submit}
         </button>
       </div>
 
@@ -104,14 +118,12 @@ export function TechnologyCompareWidget({
 
       {fields ? (
         <div className="technology-compare-widget__result">
-          <p className="technology-compare-widget__disclaimer">
-            {aiGeneratedDisclaimer}
-          </p>
+          <p className="technology-compare-widget__disclaimer">{disclaimer}</p>
 
           {fields.similarities.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>相似点</span>
-              <ul>
+              <span>{copy.similarities}</span>
+              <ul lang={answerLang}>
                 {fields.similarities.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -121,8 +133,8 @@ export function TechnologyCompareWidget({
 
           {fields.differences.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>差异点</span>
-              <ul>
+              <span>{copy.differences}</span>
+              <ul lang={answerLang}>
                 {fields.differences.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -131,16 +143,16 @@ export function TechnologyCompareWidget({
           ) : null}
 
           <div className="technology-compare-widget__block">
-            <span>各自适用场景</span>
-            <p>{fields.whenToPreferA}</p>
-            <p>{fields.whenToPreferB}</p>
+            <span>{copy.whenToPrefer}</span>
+            <p lang={answerLang}>{fields.whenToPreferA}</p>
+            <p lang={answerLang}>{fields.whenToPreferB}</p>
           </div>
 
           {fields.sharedConsiderations &&
           fields.sharedConsiderations.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>共同注意事项</span>
-              <ul>
+              <span>{copy.shared}</span>
+              <ul lang={answerLang}>
                 {fields.sharedConsiderations.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

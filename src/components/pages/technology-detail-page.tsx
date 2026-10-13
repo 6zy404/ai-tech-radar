@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { TechnologyDetailContent } from "@/components/technology-detail-content";
 import { UserPageShell } from "@/components/user-page-shell";
+import { compactText } from "@/lib/compact-text";
 import {
   buildRelationItems,
   getAllKnowledge,
@@ -10,6 +11,10 @@ import {
   getTagsByIds,
   getTechnologyBySlug
 } from "@/lib/content";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { localizeTags } from "@/lib/i18n/topic-names";
 import {
   buildKnowledgeLinkTargets,
   selectKnowledgeLinkTargets
@@ -19,41 +24,52 @@ import { getSignalNeighbors } from "@/lib/signal-neighbors";
 import { getSimilarSignals } from "@/lib/similar-signals";
 import { buildTechnologyJsonLd } from "@/lib/structured-data";
 import { getTechnologyEvolutionChain } from "@/lib/technology-evolution";
-import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
+import {
+  getTechnologySummaryForLocale,
+  getTechnologyTitleForLocale
+} from "@/lib/technology-localization";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/site-metadata";
-import { getPreferredTechnologySummary } from "@/lib/technology-localization";
+import type { RelationListItem, TechnologyItem } from "@/types/content";
 
-interface TechnologyDetailPageProps {
+export interface TechnologyDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateTechnologyDetailPageMetadata({
-  params
-}: TechnologyDetailPageProps): Promise<Metadata> {
+export async function generateTechnologyDetailPageMetadata(
+  locale: Locale,
+  { params }: TechnologyDetailPageProps
+): Promise<Metadata> {
   const { slug } = await params;
   const technology = getTechnologyBySlug(slug);
 
   if (!technology) {
     return buildPageMetadata({
-      title: "没有这一页",
+      title: technologyDetailCopy[locale].page.notFoundTitle,
       path: `/technologies/${slug}`,
-      noIndex: true
+      noIndex: true,
+      locale
     });
   }
 
   return buildPageMetadata({
-    title: getPreferredTechnologyTitle(technology),
-    description: getPreferredTechnologySummary(technology),
+    title: getTechnologyTitleForLocale(technology, locale).text,
+    description: getTechnologySummaryForLocale(technology, locale).text,
     path: `/technologies/${technology.slug}`,
     type: "article",
-    largeImage: true
+    largeImage: true,
+    locale
   });
 }
 
+// The similar-signal card's one-line gist, as similar-signals.ts cuts it.
+const similarSummaryLength = 80;
+
 export async function TechnologyDetailPage({
-  params
-}: TechnologyDetailPageProps) {
+  params,
+  locale
+}: TechnologyDetailPageProps & { locale: Locale }) {
+  const copy = technologyDetailCopy[locale].page;
   const { slug } = await params;
   const technology = getTechnologyBySlug(slug);
 
@@ -61,41 +77,118 @@ export async function TechnologyDetailPage({
     notFound();
   }
 
-  const relatedSkills = buildRelationItems({
-    fromId: technology.id,
-    fromType: "technology",
-    targetType: "skill",
-    targetIds: technology.relatedSkillIds,
-    defaultNote: "这项技能有助于评估技术信号或据此采取行动。"
-  });
-  const relatedKnowledge = buildRelationItems({
-    fromId: technology.id,
-    fromType: "technology",
-    targetType: "knowledge",
-    targetIds: technology.relatedKnowledgeIds,
-    defaultNote: "这条知识为理解该技术信号提供背景。"
-  });
-  const relatedTechnologies = buildRelationItems({
-    fromId: technology.id,
-    fromType: "technology",
-    targetType: "technology",
-    targetIds: technology.relatedTechnologyIds ?? [],
-    defaultNote: "与该信号相邻的技术，可顺着这条线继续了解。"
-  });
-  const evolutionChain = getTechnologyEvolutionChain(technology.id);
+  const technologies = getAllTechnologies();
+  const technologyById = new Map(technologies.map((item) => [item.id, item]));
+  const technologyBySlug = new Map(
+    technologies.map((item) => [item.slug, item])
+  );
+  // `lang` per slug for the signal titles below that stay Chinese on the
+  // English site; empty on the Chinese site.
+  const titleLangs: Record<string, string> = {};
+  const titleFor = (item: TechnologyItem) => {
+    const title = getTechnologyTitleForLocale(item, locale);
+    const lang = contentLangAttr(locale, title.language);
+
+    if (lang) {
+      titleLangs[item.slug] = lang;
+    }
+
+    return { text: title.text, lang };
+  };
+  // On the English site a related item links under /en, a signal is named in
+  // English where it can be, and a skill or knowledge title is marked as
+  // Chinese. On the Chinese site the items pass through unchanged.
+  const localizeItems = (items: RelationListItem[]): RelationListItem[] =>
+    locale === "zh"
+      ? items
+      : items.map((item) => {
+          const related = technologyById.get(item.id);
+          const title = related
+            ? titleFor(related)
+            : { text: item.title, lang: contentLangAttr(locale) };
+
+          return {
+            ...item,
+            title: title.text,
+            href: localePath(locale, item.href),
+            titleLang: title.lang
+          };
+        });
+
+  const relatedSkills = localizeItems(
+    buildRelationItems({
+      fromId: technology.id,
+      fromType: "technology",
+      targetType: "skill",
+      targetIds: technology.relatedSkillIds,
+      defaultNote: copy.defaultSkillNote
+    })
+  );
+  const relatedKnowledge = localizeItems(
+    buildRelationItems({
+      fromId: technology.id,
+      fromType: "technology",
+      targetType: "knowledge",
+      targetIds: technology.relatedKnowledgeIds,
+      defaultNote: copy.defaultKnowledgeNote
+    })
+  );
+  const relatedTechnologies = localizeItems(
+    buildRelationItems({
+      fromId: technology.id,
+      fromType: "technology",
+      targetType: "technology",
+      targetIds: technology.relatedTechnologyIds ?? [],
+      defaultNote: copy.defaultTechnologyNote
+    })
+  );
+  const sourceChain = getTechnologyEvolutionChain(technology.id);
+  const evolutionChain =
+    sourceChain && locale !== "zh"
+      ? {
+          ...sourceChain,
+          steps: sourceChain.steps.map((step) => {
+            const item = technologyById.get(step.id);
+
+            return item ? { ...step, title: titleFor(item).text } : step;
+          })
+        }
+      : sourceChain;
   // What the page already links to is not repeated as "similar".
-  const similarSignals = await getSimilarSignals(technology.id, [
+  const sourceSimilar = await getSimilarSignals(technology.id, [
     ...(technology.relatedTechnologyIds ?? []),
-    ...(evolutionChain?.steps.map((step) => step.id) ?? [])
+    ...(sourceChain?.steps.map((step) => step.id) ?? [])
   ]);
-  const compareCandidates = getAllTechnologies()
+  const similarSignals =
+    locale === "zh"
+      ? sourceSimilar
+      : sourceSimilar.map((link) => {
+          const item = technologyById.get(link.id);
+
+          if (!item) {
+            return { ...link, href: localePath(locale, link.href) };
+          }
+
+          const title = titleFor(item);
+          const summary = getTechnologySummaryForLocale(item, locale);
+
+          return {
+            ...link,
+            title: title.text,
+            href: localePath(locale, link.href),
+            summary: compactText(summary.text, similarSummaryLength),
+            titleLang: title.lang,
+            summaryLang: contentLangAttr(locale, summary.language)
+          };
+        });
+  const compareCandidates = technologies
     .filter((item) => item.id !== technology.id)
     .map((item) => ({
       id: item.id,
-      title: getPreferredTechnologyTitle(item),
-      href: `/technologies/${item.slug}`
+      title: getTechnologyTitleForLocale(item, locale).text,
+      href: localePath(locale, `/technologies/${item.slug}`)
     }));
-  const tags = getTagsByIds(technology.tags);
+  const tags = localizeTags(getTagsByIds(technology.tags), locale);
   // Only the knowledge this body mentions, in either language, goes to the
   // client; the matching itself runs there so the 中文 / 原文 switch re-links.
   const knowledgeLinks = selectKnowledgeLinkTargets(
@@ -105,17 +198,36 @@ export async function TechnologyDetailPage({
       technology.content.zh ?? "",
       technology.content.en ?? ""
     ]
+  ).map((target) =>
+    locale === "zh"
+      ? target
+      : { ...target, href: localePath(locale, target.href) }
   );
+  const neighbors = getSignalNeighbors(technology.id, locale);
+
+  for (const neighbor of [neighbors.older, neighbors.newer]) {
+    const item = neighbor ? technologyBySlug.get(neighbor.slug) : undefined;
+
+    if (item) {
+      titleFor(item);
+    }
+  }
+
   // Built here, not in TechnologyDetailContent: the workspace preview renders
   // drafts through that component and must not emit structured data.
-  const structuredData = buildTechnologyJsonLd(technology, tags);
+  const structuredData = buildTechnologyJsonLd(
+    technology,
+    tags,
+    undefined,
+    locale
+  );
 
   return (
     <>
       <UserPageShell
-        title="技术详情"
-        description="以阅读为先，呈现已发布信号、来源，以及帮助理解它的技能与知识。"
-        sectionLabel="已发布技术"
+        title={copy.shellTitle}
+        description={copy.shellDescription}
+        sectionLabel={copy.shellSectionLabel}
         showHeader={false}
         className="dossier"
       >
@@ -129,8 +241,9 @@ export async function TechnologyDetailPage({
           evolutionChain={evolutionChain}
           similarSignals={similarSignals}
           issueAppearances={getSignalIssueAppearances(technology)}
-          neighbors={getSignalNeighbors(technology.id)}
+          neighbors={neighbors}
           knowledgeLinks={knowledgeLinks}
+          titleLangs={titleLangs}
         />
       </UserPageShell>
       {structuredData ? <JsonLd data={structuredData} /> : null}
