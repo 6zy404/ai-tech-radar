@@ -5,6 +5,7 @@ import {
   cleanOverviewText,
   DIGEST_SUMMARY_PROMPT_VERSION,
   draftOverview,
+  OVERVIEW_HARD_LIMIT,
   OVERVIEW_LIMITS,
   validateOverviewOutput,
   WEEKLY_SUMMARY_PROMPT_VERSION,
@@ -82,15 +83,25 @@ describe("validateOverviewOutput", () => {
     expect(result).toEqual({ ok: true, text, warnings: [] });
   });
 
-  it("cuts an overlong overview at a sentence end and says so", () => {
+  it("keeps a long overview whole and asks the editor to shorten it", () => {
     const result = validateOverviewOutput(
       JSON.stringify({ editorialSummary: longText }),
       "digest"
     );
 
+    expect(result.ok && result.text).toBe(longText);
+    expect(result.ok && result.warnings[0]).toContain("保存前请删短");
+  });
+
+  it("cuts only past the hard limit, at a sentence end", () => {
+    const result = validateOverviewOutput(
+      JSON.stringify({ editorialSummary: longText.repeat(3) }),
+      "weekly"
+    );
+
     expect(result.ok).toBe(true);
     if (result.ok) {
-      expect(result.text.length).toBeLessThanOrEqual(OVERVIEW_LIMITS.digest.max);
+      expect(result.text.length).toBeLessThanOrEqual(OVERVIEW_HARD_LIMIT);
       expect(result.text.endsWith("。")).toBe(true);
       expect(result.warnings[0]).toContain("已在句末截断");
     }

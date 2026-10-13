@@ -47,10 +47,18 @@ export interface OverviewInput {
   signals: OverviewSignal[];
 }
 
+/**
+ * `target` is what the prompt asks for and `max` what the editor is warned
+ * past — measured 2026-10-13, deepseek-chat writes about 1.4× the length it
+ * is asked for. A long draft is kept whole (cutting it dropped the later
+ * signals), and only text past `OVERVIEW_HARD_LIMIT` is cut.
+ */
 export const OVERVIEW_LIMITS = {
-  digest: { min: 120, max: 420 },
-  weekly: { min: 160, max: 600 }
+  digest: { min: 120, target: 250, max: 400 },
+  weekly: { min: 160, target: 350, max: 600 }
 } as const;
+
+export const OVERVIEW_HARD_LIMIT = 1200;
 
 const SIGNAL_PROMPT_LIMIT = 24;
 const allowedFields = new Set(["editorialSummary", "limitations"]);
@@ -83,14 +91,14 @@ const rubrics: Record<OverviewKind, string> = {
 
 ## 长度
 
-- ${OVERVIEW_LIMITS.digest.min} 到 300 字，一到三段。
+- ${OVERVIEW_LIMITS.digest.min} 到 ${OVERVIEW_LIMITS.digest.target} 字，一到三段。宁可每条少写一个数字，也要把该提的信号都提到。
 
 ${sharedRules}`,
   weekly: `你是一个中文技术雷达站的编辑。站点每周有一页「本周回顾」，按优先级列出这一周（周一到周日）发布的所有技术信号。现在请你为这一周写一段「本周总结」，放在列表上面：读者只读这一段，就知道这一周发生了什么、几条信号之间有什么联系、哪些最该先看。
 
 ## 长度
 
-- ${OVERVIEW_LIMITS.weekly.min} 到 450 字，两到三段。信号多时不必每条都提，挑能说明问题的。
+- ${OVERVIEW_LIMITS.weekly.min} 到 ${OVERVIEW_LIMITS.weekly.target} 字，两到三段。信号多时不必每条都提，挑能说明问题的。
 
 ${sharedRules}`
 };
@@ -125,6 +133,8 @@ export function buildOverviewUserPrompt(
 
     lines.push("");
   });
+
+  lines.push(`导语控制在 ${OVERVIEW_LIMITS[kind].target} 字左右。`);
 
   return lines.join("\n").trimEnd();
 }
@@ -195,9 +205,13 @@ export function validateOverviewOutput(
 
   const { min, max } = OVERVIEW_LIMITS[kind];
 
-  if (text.length > max) {
-    text = cutAtSentence(text, max);
-    warnings.push(`导语超过 ${max} 字，已在句末截断。`);
+  if (text.length > OVERVIEW_HARD_LIMIT) {
+    text = cutAtSentence(text, OVERVIEW_HARD_LIMIT);
+    warnings.push(`导语超过 ${OVERVIEW_HARD_LIMIT} 字，已在句末截断。`);
+  } else if (text.length > max) {
+    warnings.push(
+      `导语 ${text.length} 字，比建议的 ${max} 字长，保存前请删短。`
+    );
   } else if (text.length < min) {
     warnings.push(`导语只有 ${text.length} 字，偏短。`);
   }

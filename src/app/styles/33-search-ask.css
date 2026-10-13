@@ -119,9 +119,8 @@
   gap: 4px 10px;
   margin: 0;
   color: var(--dossier-ink);
-  font-size: var(--fs-card-title);
+  /* Size comes from 28-typography's .user-shell h2 (!important). */
   font-weight: 600;
-  line-height: 1.45;
   letter-spacing: 0;
 }
 
@@ -220,6 +219,12 @@
 
 .ask-radar__block summary {
   cursor: pointer;
+}
+
+/* 28-typography sizes every .user-shell h3 with !important, which made this
+   small label a card title; it was an h2 at section size the same way. */
+.dossier .ask-radar__block h3 {
+  font-size: var(--fs-label) !important;
 }
 
 .ask-radar__sources {
