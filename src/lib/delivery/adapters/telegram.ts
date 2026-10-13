@@ -121,7 +121,9 @@ export const telegramAdapter: DeliveryAdapter = {
     if (!config.botToken?.trim()) {
       issues.push("Telegram 渠道需要 bot token。");
     } else if (!telegramTokenPattern.test(config.botToken.trim())) {
-      issues.push("bot token 的格式应为「数字 id:密钥」，可在 @BotFather 处获取。");
+      issues.push(
+        "bot token 的格式应为「数字 id:密钥」，可在 @BotFather 处获取。"
+      );
     }
 
     if (!config.chatId?.trim()) {

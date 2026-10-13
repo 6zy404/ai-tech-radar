@@ -26,7 +26,9 @@ describe("maskEndpointUrl", () => {
 
   it("masks a Telegram bot token in a path", () => {
     expect(
-      maskEndpointUrl(`https://api.telegram.org/bot${telegramToken}/sendMessage`)
+      maskEndpointUrl(
+        `https://api.telegram.org/bot${telegramToken}/sendMessage`
+      )
     ).toBe("https://api.telegram.org/bot123456789:***/sendMessage");
   });
 
@@ -100,9 +102,9 @@ describe("workflow event snapshots", () => {
 
       expect(serialized).not.toContain("AAH_test");
       expect(serialized).not.toContain("discord-secret");
-      expect(
-        (event.afterSnapshot as Record<string, unknown>).botToken
-      ).toBe("[redacted]");
+      expect((event.afterSnapshot as Record<string, unknown>).botToken).toBe(
+        "[redacted]"
+      );
     } finally {
       if (previous === undefined) {
         delete process.env.LOCAL_DATA_DIR;

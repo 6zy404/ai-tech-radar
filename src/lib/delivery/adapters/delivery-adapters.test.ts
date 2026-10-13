@@ -94,14 +94,14 @@ describe("truncatePlainText", () => {
 
 describe("telegram message", () => {
   it("escapes HTML in every piece of text", () => {
-    expect(escapeTelegramHtml("a < b & c > d")).toBe(
-      "a &lt; b &amp; c &gt; d"
-    );
+    expect(escapeTelegramHtml("a < b & c > d")).toBe("a &lt; b &amp; c &gt; d");
 
     const html = buildTelegramDigestHtml(
       makeMessage({
         title: "<script>&",
-        highPriorityItems: [makeItem(1, { title: "A<B", url: 'https://x.test/"q' })]
+        highPriorityItems: [
+          makeItem(1, { title: "A<B", url: 'https://x.test/"q' })
+        ]
       })
     );
 
@@ -144,12 +144,36 @@ describe("telegram message", () => {
   });
 
   it("requires a well-formed token and chat id", () => {
-    const base = { type: "telegram" as const, endpointUrl: "", format: "text" as const };
+    const base = {
+      type: "telegram" as const,
+      endpointUrl: "",
+      format: "text" as const
+    };
 
-    expect(telegramAdapter.validateChannelConfig({ ...base, botToken: token, chatId: "-1001234567890" })).toEqual([]);
-    expect(telegramAdapter.validateChannelConfig({ ...base, botToken: token, chatId: "@ai_radar" })).toEqual([]);
-    expect(telegramAdapter.validateChannelConfig({ ...base, chatId: "1" })).toHaveLength(1);
-    expect(telegramAdapter.validateChannelConfig({ ...base, botToken: "nope", chatId: "x y" })).toHaveLength(2);
+    expect(
+      telegramAdapter.validateChannelConfig({
+        ...base,
+        botToken: token,
+        chatId: "-1001234567890"
+      })
+    ).toEqual([]);
+    expect(
+      telegramAdapter.validateChannelConfig({
+        ...base,
+        botToken: token,
+        chatId: "@ai_radar"
+      })
+    ).toEqual([]);
+    expect(
+      telegramAdapter.validateChannelConfig({ ...base, chatId: "1" })
+    ).toHaveLength(1);
+    expect(
+      telegramAdapter.validateChannelConfig({
+        ...base,
+        botToken: "nope",
+        chatId: "x y"
+      })
+    ).toHaveLength(2);
   });
 });
 
@@ -276,7 +300,9 @@ describe("Telegram and Discord through the delivery workflow", () => {
         response.end();
       }
     });
-    await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+    await new Promise<void>((resolve) =>
+      server.listen(0, "127.0.0.1", resolve)
+    );
     baseUrl = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
   });
 
@@ -344,10 +370,16 @@ describe("Telegram and Discord through the delivery workflow", () => {
     const secret = token.split(":")[1];
 
     expect(JSON.stringify(workflow.getDeliveryRuns())).not.toContain(secret);
-    expect(JSON.stringify(workflow.getDeliveryChannels())).not.toContain(secret);
-    expect(readFileSync(path.join(dataDir, "workflow-events.json"), "utf8")).not.toContain(secret);
+    expect(JSON.stringify(workflow.getDeliveryChannels())).not.toContain(
+      secret
+    );
+    expect(
+      readFileSync(path.join(dataDir, "workflow-events.json"), "utf8")
+    ).not.toContain(secret);
     // The store itself holds it: that is where the adapter reads it from.
-    expect(readFileSync(path.join(dataDir, "delivery.json"), "utf8")).toContain(secret);
+    expect(readFileSync(path.join(dataDir, "delivery.json"), "utf8")).toContain(
+      secret
+    );
   });
 
   it("refuses a new Telegram channel without a token", async () => {

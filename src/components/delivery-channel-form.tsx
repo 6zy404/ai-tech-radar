@@ -141,7 +141,10 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
 
               setSelectedType(nextType);
 
-              if (fixedTextFormatTypes.includes(nextType) && formatRef.current) {
+              if (
+                fixedTextFormatTypes.includes(nextType) &&
+                formatRef.current
+              ) {
                 formatRef.current.value = "text";
               }
             }}
@@ -227,8 +230,9 @@ export function DeliveryChannelForm({ channel }: DeliveryChannelFormProps) {
 
       <p className="empty-state">
         通用 Webhook 支持 JSON 或文本载荷。飞书、Telegram 与 Discord
-        发送固定格式的消息：简报标题、日期、摘要、前 3 条立即关注与值得跟踪，以及公开链接。
-        Telegram 的 token 保存后只显示前半段；Webhook 地址里的密钥在列表里会被掩码。
+        发送固定格式的消息：简报标题、日期、摘要、前 3
+        条立即关注与值得跟踪，以及公开链接。 Telegram 的 token
+        保存后只显示前半段；Webhook 地址里的密钥在列表里会被掩码。
       </p>
 
       <div className="candidate-review-actions__buttons">

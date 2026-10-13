@@ -5,6 +5,11 @@ import {
 } from "@/lib/candidate-import-snapshot-store";
 import { normalizeCandidateId, normalizeCandidateTags } from "@/lib/importers";
 import {
+  appendImportHistory,
+  backfillImportHistory,
+  buildImportHistoryEntry
+} from "@/lib/source-health-history";
+import {
   getLocalStoreFilePath,
   readLocalJsonFile as readJsonFile,
   writeLocalJsonFile as writeJsonFile
@@ -85,6 +90,14 @@ export function coerceExternalSourceInput(
       value.defaultNormalizedType ?? "unknown"
     ) as CandidateNormalizedType
   };
+}
+
+/** Deleting is refused while the source is enabled (API answers 409). */
+export class ExternalSourceDeleteBlockedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ExternalSourceDeleteBlockedError";
+  }
 }
 
 export class ExternalSourceValidationError extends Error {
@@ -294,9 +307,19 @@ function sanitizeSource(source: ExternalSource): ExternalSource {
         : undefined,
     consecutiveFailureCount: source.consecutiveFailureCount ?? 0,
     totalImportedCount: source.totalImportedCount ?? 0,
+    importHistory: Array.isArray(source.importHistory)
+      ? source.importHistory
+      : undefined,
     createdAt: source.createdAt ?? nowIso(),
     updatedAt: source.updatedAt ?? nowIso()
   };
+}
+
+/** A source as it goes into a workflow-event snapshot: config, not history. */
+function toSourceSnapshot(source: ExternalSource) {
+  const { importHistory, ...rest } = source;
+
+  return { ...rest, importHistoryLength: importHistory?.length ?? 0 };
 }
 
 function readStore(): ExternalSourceStore {
@@ -305,11 +328,22 @@ function readStore(): ExternalSourceStore {
     sources: defaultExternalSources()
   });
 
+  const importRuns = store.importRuns ?? [];
+
   return {
     updatedAt: store.updatedAt ?? nowIso(),
-    sources: (store.sources ?? []).map(sanitizeSource),
+    // A source stored before the history existed gets what the batch runs
+    // still hold; the next write persists it, so this runs once per source.
+    sources: (store.sources ?? []).map(sanitizeSource).map((source) =>
+      source.importHistory
+        ? source
+        : {
+            ...source,
+            importHistory: backfillImportHistory(source, importRuns)
+          }
+    ),
     latestImportRun: store.latestImportRun,
-    importRuns: store.importRuns ?? []
+    importRuns
   };
 }
 
@@ -534,7 +568,8 @@ function updateSourceImportState(
   status: ExternalSourceImportStatus,
   message: string,
   importCount: number,
-  candidatesCreated: number
+  candidatesCreated: number,
+  candidatesSkipped = 0
 ): ExternalSource {
   const store = readStore();
   const source = store.sources.find((item) => item.id === sourceId);
@@ -543,9 +578,23 @@ function updateSourceImportState(
     throw new Error(`未找到外部来源 ${sourceId}。`);
   }
 
+  const fetchedAt = nowIso();
   const nextSource: ExternalSource = {
     ...source,
-    lastFetchedAt: nowIso(),
+    importHistory:
+      status === "never_run"
+        ? source.importHistory
+        : appendImportHistory(
+            source.importHistory,
+            buildImportHistoryEntry({
+              at: fetchedAt,
+              status,
+              candidatesCreated,
+              candidatesSkipped,
+              message
+            })
+          ),
+    lastFetchedAt: fetchedAt,
     lastImportStatus: status,
     lastImportMessage: message,
     lastImportCount: importCount,
@@ -576,13 +625,14 @@ function updateSourceImportState(
     entityId: sourceId,
     action: "source.imported",
     actorType: "workspace_user",
-    beforeSnapshot: source,
-    afterSnapshot: nextSource,
+    beforeSnapshot: toSourceSnapshot(source),
+    afterSnapshot: toSourceSnapshot(nextSource),
     metadata: {
       status,
       message,
       importCount,
-      candidatesCreated
+      candidatesCreated,
+      candidatesSkipped
     }
   });
 
@@ -684,6 +734,52 @@ export function setExternalSourceEnabled(
   return nextSource;
 }
 
+/**
+ * Deletes a disabled source's configuration and health history. Candidates
+ * it imported and signals published from them are left as they are: they
+ * carry the source name themselves, so the name keeps showing. Batch
+ * ImportRun records keep their per-source lines too — they are the audit of
+ * that run, and the backfill ignores runs older than a source.
+ */
+export function deleteExternalSource(sourceId: string): ExternalSource {
+  const store = readStore();
+  const source = store.sources.find((item) => item.id === sourceId);
+
+  if (!source) {
+    throw new Error(`未找到外部来源 ${sourceId}。`);
+  }
+
+  if (source.enabled) {
+    throw new ExternalSourceDeleteBlockedError(
+      "只能删除已停用的来源，请先停用。"
+    );
+  }
+
+  writeStore({
+    ...store,
+    updatedAt: nowIso(),
+    sources: store.sources.filter((item) => item.id !== sourceId)
+  });
+
+  const keptCandidateCount =
+    getImportedCandidatesForExternalSource(sourceId).length;
+
+  tryRecordWorkflowEvent({
+    entityType: "source",
+    entityId: sourceId,
+    action: "source.deleted",
+    actorType: "workspace_user",
+    beforeSnapshot: toSourceSnapshot(source),
+    metadata: {
+      name: source.name,
+      keptCandidateCount,
+      deletedHistoryEntries: source.importHistory?.length ?? 0
+    }
+  });
+
+  return source;
+}
+
 export function getImportedCandidatesForExternalSource(
   sourceId: string
 ): ImportedCandidate[] {
@@ -781,7 +877,8 @@ export async function runImportForSource(
       "success",
       `导入 ${candidatesCreated} 条新候选；跳过 ${candidatesSkipped} 条重复或已存在的候选。`,
       candidates.length,
-      candidatesCreated
+      candidatesCreated,
+      candidatesSkipped
     );
 
     return {
@@ -831,7 +928,8 @@ export async function runImportForSource(
         "partial",
         `实时导入失败；已使用本地回退。${message}`,
         fallbackCandidates.length,
-        candidatesCreated
+        candidatesCreated,
+        candidatesSkipped
       );
 
       return {

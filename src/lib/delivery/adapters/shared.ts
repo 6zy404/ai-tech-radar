@@ -51,7 +51,9 @@ export async function postAdapterPayload(
 }
 
 export function isMockEndpoint(value: string): boolean {
-  return value.startsWith("mock://success") || value.startsWith("mock://failed");
+  return (
+    value.startsWith("mock://success") || value.startsWith("mock://failed")
+  );
 }
 
 export function isHttpUrl(value: string): boolean {

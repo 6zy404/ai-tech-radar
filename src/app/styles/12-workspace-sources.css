@@ -93,3 +93,114 @@
 .source-row__status .status-badge {
   justify-self: start;
 }
+
+/* Source health timeline (/workspace/sources/[id], 2026-10-13). The
+   workspace stays light in both schemes, so these are fixed colours, the
+   status badge's own. Success cells are shorter than failures so the two
+   differ by shape as well as colour. */
+.source-health-timeline {
+  display: grid;
+  gap: 10px;
+}
+
+.source-health-timeline__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.source-health-timeline__chart {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+.source-health-timeline__cell--success,
+.source-health-timeline__swatch--success {
+  fill: #059669;
+  background: #059669;
+}
+
+.source-health-timeline__cell--partial,
+.source-health-timeline__swatch--partial {
+  fill: #d97706;
+  background: #d97706;
+}
+
+.source-health-timeline__cell--failed,
+.source-health-timeline__swatch--failed {
+  fill: #dc2626;
+  background: #dc2626;
+}
+
+.source-health-timeline__cell--empty {
+  fill: none;
+  stroke: var(--workspace-line);
+  stroke-dasharray: 2 2;
+}
+
+.source-health-timeline__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.source-health-timeline__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.source-health-timeline__swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.source-health-timeline__axis {
+  margin-left: auto;
+}
+
+.source-health-timeline__details {
+  overflow-x: auto;
+}
+
+.source-health-timeline__details summary {
+  cursor: pointer;
+  color: var(--workspace-accent);
+  font-size: 0.9rem;
+}
+
+.source-health-timeline__table {
+  width: 100%;
+  margin-top: 8px;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.source-health-timeline__table th,
+.source-health-timeline__table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--workspace-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.source-health-timeline__table td:nth-child(3),
+.source-health-timeline__table td:nth-child(4) {
+  font-variant-numeric: tabular-nums;
+}
+
+.source-health-timeline__table td:last-child {
+  overflow-wrap: anywhere;
+}
+
+.source-actions__delete {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--workspace-line);
+}

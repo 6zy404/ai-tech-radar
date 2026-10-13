@@ -701,7 +701,10 @@ export async function sendDailyDigestToChannel({
 
   try {
     const response = await adapter.send(channel, { body, contentType });
-    const responseText = truncate(maskSecretsInText(response.bodyPreview), 1000);
+    const responseText = truncate(
+      maskSecretsInText(response.bodyPreview),
+      1000
+    );
     const finishedAt = getTimestamp();
     const channelLabel = channelErrorLabels[channel.type] ?? "Webhook";
 

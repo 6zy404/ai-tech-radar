@@ -11,12 +11,15 @@ import path from "node:path";
 
 import {
   createExternalSource,
+  deleteExternalSource,
+  ExternalSourceDeleteBlockedError,
   ExternalSourceValidationError,
   getExternalSourceById,
   getImportedCandidatesForExternalSource,
   getLatestExternalSourceImportRun,
   runBatchImportForEnabledSources,
-  runImportForSource
+  runImportForSource,
+  setExternalSourceEnabled
 } from "../src/lib/source-workflow";
 import type { ExternalSourceInput } from "../src/lib/source-workflow";
 
@@ -278,6 +281,64 @@ async function main() {
       runAfterSingleImport?.id,
       runBeforeSingleImport?.id,
       "Expected the batch import run history to survive a single-source import."
+    );
+
+    // Health history (2026-10-13): every attempt is kept on the source, and
+    // what it keeps of an error carries no URL.
+    const failingHistory =
+      getExternalSourceById(failingSource.id)?.importHistory ?? [];
+
+    assert.ok(
+      failingHistory.length >= 3,
+      "Expected each import attempt to add a health-history entry."
+    );
+    assert.equal(
+      failingHistory[0].status,
+      "partial",
+      "Expected the newest history entry first."
+    );
+    assert.equal(
+      JSON.stringify(failingHistory).includes("127.0.0.1"),
+      false,
+      "Expected history error summaries to carry no URL."
+    );
+    assert.ok(
+      (getExternalSourceById(source.id)?.importHistory ?? []).some(
+        (entry) => entry.status !== "failed" && entry.candidatesCreated > 0
+      ),
+      "Expected the successful source's history to record created candidates."
+    );
+
+    // Deletion: refused while enabled; afterwards the candidates stay.
+    const candidatesBeforeDelete = getImportedCandidatesForExternalSource(
+      failingSource.id
+    );
+
+    assert.ok(candidatesBeforeDelete.length > 0);
+    assert.throws(
+      () => deleteExternalSource(failingSource.id),
+      ExternalSourceDeleteBlockedError,
+      "Expected an enabled source to be protected from deletion."
+    );
+
+    setExternalSourceEnabled(failingSource.id, false);
+    deleteExternalSource(failingSource.id);
+
+    assert.equal(getExternalSourceById(failingSource.id), undefined);
+    assert.equal(
+      getImportedCandidatesForExternalSource(failingSource.id).length,
+      candidatesBeforeDelete.length,
+      "Expected a deleted source's candidates to be kept."
+    );
+    assert.equal(
+      getImportedCandidatesForExternalSource(failingSource.id)[0].sourceName,
+      failingSource.name,
+      "Expected kept candidates to keep showing the source name."
+    );
+    assert.equal(
+      getLatestExternalSourceImportRun()?.id,
+      runAfterSingleImport?.id,
+      "Expected deleting a source to leave the batch run history alone."
     );
 
     console.log("Source workflow validation passed.");

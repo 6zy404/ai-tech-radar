@@ -79,7 +79,11 @@ export function buildDiscordDigestEmbed(
     ),
     color: embedColor,
     fields: [
-      buildField("今日立即关注", message.highPriorityItems, "暂无立即关注内容。"),
+      buildField(
+        "今日立即关注",
+        message.highPriorityItems,
+        "暂无立即关注内容。"
+      ),
       buildField("值得跟踪", message.watchItems, "暂无值得跟踪内容。")
     ],
     footer: { text: `技术简报 · ${message.date}` }
@@ -144,6 +148,8 @@ export const discordAdapter: DeliveryAdapter = {
 
     return webhookPathPattern.test(new URL(endpoint).pathname)
       ? []
-      : ["Discord webhook 地址应形如 https://discord.com/api/webhooks/<id>/<token>。"];
+      : [
+          "Discord webhook 地址应形如 https://discord.com/api/webhooks/<id>/<token>。"
+        ];
   }
 };

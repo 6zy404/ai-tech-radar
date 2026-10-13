@@ -4,6 +4,7 @@ import { DetailInfoCard } from "@/components/detail-info-card";
 import { ExternalSourceActions } from "@/components/external-source-actions";
 import { ExternalSourceForm } from "@/components/external-source-form";
 import { ExternalSourceStatusBadge } from "@/components/external-source-status-badge";
+import { SourceHealthTimeline } from "@/components/source-health-timeline";
 import { ImportedCandidateStatusBadge } from "@/components/imported-candidate-status-badge";
 import { getExternalSourceTypeLabel } from "@/lib/source-display";
 import {
@@ -61,7 +62,16 @@ export function ExternalSourceDetailContent({
           <ExternalSourceActions
             sourceId={source.id}
             enabled={source.enabled}
+            deletable={{
+              sourceName: source.name,
+              candidateCount: candidates.length
+            }}
           />
+        </section>
+
+        <section className="section-panel">
+          <h2>导入健康记录</h2>
+          <SourceHealthTimeline history={source.importHistory ?? []} />
         </section>
 
         <section className="section-panel">

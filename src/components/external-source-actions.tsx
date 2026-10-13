@@ -7,12 +7,15 @@ interface ExternalSourceActionsProps {
   sourceId: string;
   enabled: boolean;
   compact?: boolean;
+  /** Detail page only: offer 删除信源 (works once the source is disabled). */
+  deletable?: { sourceName: string; candidateCount: number };
 }
 
 export function ExternalSourceActions({
   sourceId,
   enabled,
-  compact = false
+  compact = false,
+  deletable
 }: ExternalSourceActionsProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -53,6 +56,48 @@ export function ExternalSourceActions({
         router.refresh();
       } catch (error) {
         setMessage(error instanceof Error ? error.message : "来源更新失败。");
+      }
+    });
+  }
+
+  function deleteSource() {
+    if (!deletable || enabled) {
+      return;
+    }
+
+    if (
+      !window.confirm(
+        `删除信源「${deletable.sourceName}」？
+
+会删除：这个信源的配置和最近的导入健康记录。
+会保留：它导入过的 ${deletable.candidateCount} 条候选，以及由它们发布的信号（来源名照旧显示）。
+
+删除后不能恢复。`
+      )
+    ) {
+      return;
+    }
+
+    startTransition(async () => {
+      setMessage("");
+
+      try {
+        const response = await fetch(`/api/workspace/sources/${sourceId}`, {
+          method: "DELETE"
+        });
+        const result = (await response.json()) as {
+          ok: boolean;
+          message?: string;
+        };
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.message ?? "删除信源失败。");
+        }
+
+        router.push("/workspace/sources");
+        router.refresh();
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "删除信源失败。");
       }
     });
   }
@@ -139,6 +184,27 @@ export function ExternalSourceActions({
         <p className="candidate-review-actions__hint">
           该来源已停用，批量导入会跳过它。
         </p>
+      ) : null}
+      {deletable && !compact ? (
+        <div className="source-actions__delete">
+          <button
+            type="button"
+            className="action-button action-button--subtle source-actions__toggle--risk"
+            onClick={deleteSource}
+            disabled={isPending || enabled}
+            aria-describedby={`source-delete-hint-${sourceId}`}
+          >
+            删除信源
+          </button>
+          <p
+            id={`source-delete-hint-${sourceId}`}
+            className="candidate-review-actions__hint"
+          >
+            {enabled
+              ? "只能删除已停用的信源，请先停用。"
+              : "只删配置和健康记录；导入过的候选与已发布信号都保留。"}
+          </p>
+        </div>
       ) : null}
       {message ? (
         <p className="candidate-review-actions__message">{message}</p>

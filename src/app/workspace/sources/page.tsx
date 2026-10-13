@@ -4,6 +4,7 @@ import { ExternalSourceBrowser } from "@/components/external-source-browser";
 import { WorkspacePageShell } from "@/components/workspace-page-shell";
 import { getCandidateWorkflowData } from "@/lib/candidate-workflow";
 import { evaluateSourcesQuality } from "@/lib/quality-signals";
+import { getRecentImportSuccess } from "@/lib/source-health-history";
 import {
   getExternalSourceImportRuns,
   getExternalSources,
@@ -21,6 +22,18 @@ export default function WorkspaceSourcesPage() {
     sources,
     candidates,
     importRuns
+  );
+  const now = new Date();
+  const recentSuccessById = Object.fromEntries(
+    sources.map((source) => [
+      source.id,
+      getRecentImportSuccess(source.importHistory, now)
+    ])
+  );
+  // The list needs the rate, not 30 history entries per source in its
+  // client payload.
+  const listSources = sources.map(
+    ({ importHistory: _history, ...source }) => source
   );
 
   return (
@@ -45,9 +58,10 @@ export default function WorkspaceSourcesPage() {
       }
     >
       <ExternalSourceBrowser
-        sources={sources}
+        sources={listSources}
         latestImportRun={latestImportRun}
         sourceQualityById={sourceQualityById}
+        recentSuccessById={recentSuccessById}
       />
     </WorkspacePageShell>
   );

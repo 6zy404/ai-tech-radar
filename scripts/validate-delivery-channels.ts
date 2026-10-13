@@ -13,6 +13,7 @@ import { getAllTechnologies } from "../src/lib/content";
 import {
   buildDeliveryRequestPayload,
   createDeliveryChannel,
+  getDeliveryChannels,
   getDeliveryRuns,
   maskEndpointUrl,
   retryDeliveryRun,
@@ -280,6 +281,93 @@ async function main() {
     );
 
     assert.equal(maskedEndpoint.includes("super-secret"), false);
+    assert.equal(
+      maskedEndpoint.includes("/hook/abc"),
+      false,
+      "Feishu hook token in the path must be masked."
+    );
+
+    // Telegram and Discord (2026-10-13), on mock endpoints: the real Bot API
+    // and Discord were never called from this script.
+    const telegramToken = "123456789:AAH_validation-token-0123456789abc";
+    const telegramChannel = createDeliveryChannel({
+      name: "Validation Telegram bot",
+      type: "telegram",
+      enabled: true,
+      endpointUrl: "mock://success",
+      format: "text",
+      botToken: telegramToken,
+      chatId: "-1001234567890"
+    });
+    const discordChannel = createDeliveryChannel({
+      name: "Validation Discord webhook",
+      type: "discord",
+      enabled: true,
+      endpointUrl: "mock://success",
+      format: "json"
+    });
+    const telegramRequest = buildDeliveryRequestPayload(
+      publishedDigest,
+      telegramChannel,
+      now
+    );
+    const telegramBody = JSON.parse(telegramRequest.body) as {
+      chat_id?: string;
+      text?: string;
+      parse_mode?: string;
+    };
+
+    assert.equal(telegramBody.chat_id, "-1001234567890");
+    assert.equal(telegramBody.parse_mode, "HTML");
+    assert.ok(telegramBody.text?.includes(`/digest/${publishedDigest.date}`));
+    assert.ok((telegramBody.text?.length ?? 0) <= 4096);
+    assertNoInternalFields(telegramRequest.body, "Telegram request body");
+
+    const discordRequest = buildDeliveryRequestPayload(
+      publishedDigest,
+      discordChannel,
+      now
+    );
+    const discordBody = JSON.parse(discordRequest.body) as {
+      embeds?: Array<{ url?: string; fields?: unknown[] }>;
+    };
+
+    assert.equal(discordChannel.format, "text");
+    assert.equal(discordBody.embeds?.length, 1);
+    assert.ok(
+      discordBody.embeds?.[0].url?.endsWith(`/digest/${publishedDigest.date}`)
+    );
+    assertNoInternalFields(discordRequest.body, "Discord request body");
+
+    const telegramRun = await sendDailyDigestToChannel({
+      digestDate: publishedDigest.date,
+      channelId: telegramChannel.id
+    });
+    const discordRun = await sendDailyDigestToChannel({
+      digestDate: publishedDigest.date,
+      channelId: discordChannel.id
+    });
+
+    assert.equal(telegramRun.status, "success");
+    assert.equal(discordRun.status, "success");
+
+    const telegramSecret = telegramToken.split(":")[1];
+
+    assert.equal(
+      JSON.stringify(getDeliveryRuns()).includes(telegramSecret),
+      false,
+      "DeliveryRun must not store the Telegram bot token."
+    );
+    assert.equal(
+      JSON.stringify(getDeliveryChannels()).includes(telegramSecret),
+      false,
+      "Channel reads outside the workflow must not carry the bot token."
+    );
+    assert.equal(
+      getDeliveryChannels().find((channel) => channel.id === telegramChannel.id)
+        ?.botTokenMasked,
+      "123456789:***"
+    );
 
     const publicFeed = getDigestDeliveryFeed(undefined, "https://example.test");
     const jsonFeed = renderDigestJsonFeed(publicFeed);

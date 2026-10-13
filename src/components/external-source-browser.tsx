@@ -15,6 +15,10 @@ import {
   getExternalSourceSearchText,
   getExternalSourceTypeLabel
 } from "@/lib/source-display";
+import {
+  recentSuccessWindowDays,
+  type RecentImportSuccess
+} from "@/lib/source-health-history";
 import type {
   ExternalSource,
   ImportRun,
@@ -25,6 +29,17 @@ interface ExternalSourceBrowserProps {
   sources: ExternalSource[];
   latestImportRun?: ImportRun;
   sourceQualityById?: Record<string, SourceQualityMetrics>;
+  recentSuccessById?: Record<string, RecentImportSuccess>;
+}
+
+function formatRecentSuccess(recent: RecentImportSuccess | undefined): string {
+  if (!recent || recent.total === 0) {
+    return `近 ${recentSuccessWindowDays} 天无导入`;
+  }
+
+  return `近 ${recentSuccessWindowDays} 天成功 ${Math.round(
+    (recent.rate ?? 0) * 100
+  )}%（${recent.successful}/${recent.total}）`;
 }
 
 function formatDateTime(value: string | undefined): string {
@@ -91,7 +106,8 @@ function sanitizeSourceMessage(value: string | undefined): string {
 export function ExternalSourceBrowser({
   sources,
   latestImportRun,
-  sourceQualityById = {}
+  sourceQualityById = {},
+  recentSuccessById = {}
 }: ExternalSourceBrowserProps) {
   const [searchText, setSearchText] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -317,6 +333,9 @@ export function ExternalSourceBrowser({
                       <strong>{formatDateTime(source.lastFetchedAt)}</strong>
                       <span className="source-console-muted">
                         连续失败：{source.consecutiveFailureCount ?? 0}
+                      </span>
+                      <span className="source-console-muted">
+                        {formatRecentSuccess(recentSuccessById[source.id])}
                       </span>
                     </div>
 
