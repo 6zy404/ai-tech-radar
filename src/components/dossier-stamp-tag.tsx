@@ -10,6 +10,8 @@ interface DossierStampTagProps {
   /** An interactive chip with nothing behind it: drawn, but not a control. */
   disabled?: boolean;
   className?: string;
+  /** `lang` of the label when it differs from the page's. */
+  lang?: string;
 }
 
 /**
@@ -24,7 +26,8 @@ export function DossierStampTag({
   onClick,
   href,
   disabled = false,
-  className = ""
+  className = "",
+  lang
 }: DossierStampTagProps) {
   // A disabled chip is still drawn as a control: it sits in a row of them.
   const interactive = Boolean(onClick || href || disabled);
@@ -40,7 +43,7 @@ export function DossierStampTag({
 
   if (disabled) {
     return (
-      <span className={classes} aria-disabled="true">
+      <span className={classes} aria-disabled="true" lang={lang}>
         {children}
       </span>
     );
@@ -52,6 +55,7 @@ export function DossierStampTag({
         href={href}
         className={classes}
         aria-current={active ? "page" : undefined}
+        lang={lang}
       >
         {children}
       </Link>
@@ -65,11 +69,16 @@ export function DossierStampTag({
         className={classes}
         aria-pressed={active}
         onClick={onClick}
+        lang={lang}
       >
         {children}
       </button>
     );
   }
 
-  return <span className={classes}>{children}</span>;
+  return (
+    <span className={classes} lang={lang}>
+      {children}
+    </span>
+  );
 }

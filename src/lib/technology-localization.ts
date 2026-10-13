@@ -603,6 +603,42 @@ export function getTechnologyTextForLocale(
   };
 }
 
+/**
+ * A field as a card in a given reading mode shows it. The Chinese site is
+ * `getLocalizedTechnologyText` unchanged. On the English site 中文 shows the
+ * Chinese text and 原文 (labelled Original) shows the English version where
+ * there is one — `getTechnologyTextForLocale`.
+ */
+export function getTechnologyTextForMode(
+  value: LocalizedText,
+  mode: TechnologyContentMode,
+  sourceLanguage: SourceLanguage,
+  locale: Locale
+): TechnologyTextForLocale {
+  if (locale === "zh") {
+    return {
+      text: getLocalizedTechnologyText(value, mode, sourceLanguage),
+      language:
+        mode === "zh" &&
+        (sourceLanguage === "zh" || hasLocalizedText(value, "zh"))
+          ? "zh"
+          : sourceLanguage === "zh"
+            ? "zh"
+            : "en"
+    };
+  }
+
+  if (mode === "zh") {
+    const chinese = normalizeText(value.zh);
+
+    return chinese
+      ? { text: chinese, language: "zh" }
+      : getTechnologyTextForLocale(value, sourceLanguage, locale);
+  }
+
+  return getTechnologyTextForLocale(value, sourceLanguage, locale);
+}
+
 export function getTechnologyTitleForLocale(
   item: TechnologyItem,
   locale: Locale

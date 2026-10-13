@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/i18n/locale";
 import type {
   ReadingDifficulty,
   TechnologyItem,
@@ -18,10 +19,23 @@ const readingDifficultyLabels: Record<ReadingDifficulty, string> = {
   advanced: "高级"
 };
 
+const englishReadingDifficultyLabels: Record<ReadingDifficulty, string> = {
+  beginner: "Beginner-friendly",
+  intermediate: "Intermediate",
+  advanced: "Advanced"
+};
+
 export function getReadingDifficultyLabel(
-  difficulty: ReadingDifficulty | undefined
+  difficulty: ReadingDifficulty | undefined,
+  locale: Locale = "zh"
 ): string | undefined {
-  return difficulty ? readingDifficultyLabels[difficulty] : undefined;
+  if (!difficulty) {
+    return undefined;
+  }
+
+  return (
+    locale === "en" ? englishReadingDifficultyLabels : readingDifficultyLabels
+  )[difficulty];
 }
 
 export function getTechnologyWhyItMatters(

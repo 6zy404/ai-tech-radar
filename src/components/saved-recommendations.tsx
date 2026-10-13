@@ -5,7 +5,9 @@ import { LocalRecommendHeading } from "@/components/local-recommend-heading";
 import { SignalReadingActions } from "@/components/signal-reading-actions";
 import { useLocalRecommendations } from "@/components/use-local-recommendations";
 import type { ReadingState } from "@/components/use-reading-state";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { describeRecommendationReason } from "@/lib/local-recommend";
+import { getTechnologyTitleForLocale } from "@/lib/technology-localization";
 import type { TechnologyItem, TopicTag } from "@/types/content";
 
 const savedRecommendLimit = 4;
@@ -25,6 +27,7 @@ export function SavedRecommendations({
   tags: TopicTag[];
   readingState: ReadingState;
 }) {
+  const locale = useLocale();
   const recommendations = useLocalRecommendations({
     readIds: readingState.readIds,
     savedIds: readingState.savedIds,
@@ -43,7 +46,7 @@ export function SavedRecommendations({
 
   return (
     <section className="local-recommend local-recommend--saved">
-      <LocalRecommendHeading />
+      <LocalRecommendHeading locale={locale} />
       <div className="dossier-technology-list">
         {recommendations.map((recommendation) => {
           const item = bySlug.get(recommendation.card.slug);
@@ -56,11 +59,24 @@ export function SavedRecommendations({
             <DossierTechnologyCard
               key={item.id}
               technology={item}
-              mode="zh"
+              mode={locale === "en" ? "original" : "zh"}
+              locale={locale}
               matchLine={
                 <p className="my-radar__match-line">
                   {describeRecommendationReason({
-                    seedTitle: recommendation.seed.title,
+                    // The file carries the Chinese title; the view holds the
+                    // full record, so the English site names it in English.
+                    seedTitle:
+                      locale === "zh"
+                        ? recommendation.seed.title
+                        : (() => {
+                            const seed = bySlug.get(recommendation.seed.slug);
+
+                            return seed
+                              ? getTechnologyTitleForLocale(seed, locale).text
+                              : recommendation.seed.title;
+                          })(),
+                    locale,
                     seedMark: recommendation.seedMark,
                     matchedTagNames: recommendation.matchedTagIds.flatMap(
                       (tagId) => tagById.get(tagId)?.name ?? []

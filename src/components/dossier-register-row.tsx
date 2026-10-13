@@ -15,6 +15,7 @@ interface DossierRegisterRowProps {
   /** `lang` of the title / the detail line when it differs from the page. */
   titleLang?: string;
   detailLang?: string;
+  tagLang?: string;
 }
 
 /**
@@ -31,7 +32,8 @@ export function DossierRegisterRow({
   headingLevel = 4,
   children,
   titleLang,
-  detailLang
+  detailLang,
+  tagLang
 }: DossierRegisterRowProps) {
   const titleNode = href ? <Link href={href}>{title}</Link> : title;
   const Heading = headingLevel === 3 ? "h3" : "h4";
@@ -42,7 +44,11 @@ export function DossierRegisterRow({
       <Heading className="dossier-register-row__title" lang={titleLang}>
         {titleNode}
       </Heading>
-      {tag ? <span className="dossier-register-row__tag">{tag}</span> : null}
+      {tag ? (
+        <span className="dossier-register-row__tag" lang={tagLang}>
+          {tag}
+        </span>
+      ) : null}
       {children ? (
         <div className="dossier-register-row__detail" lang={detailLang}>
           {children}

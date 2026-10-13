@@ -4,6 +4,9 @@ import {
 } from "@/lib/candidate-workflow";
 import { compactText } from "@/lib/compact-text";
 import { getAllTags, getAllTechnologies } from "@/lib/content";
+import type { Locale } from "@/lib/i18n/locale";
+import { localizeTags } from "@/lib/i18n/topic-names";
+import { getTechnologyTitleForLocale } from "@/lib/technology-localization";
 import { isDefacementTitle } from "@/lib/defacement-title";
 import { getTodayDateString } from "@/lib/digest-store";
 import { cleanFeedText, cleanUrl, htmlToPlainText } from "@/lib/text-sanitize";
@@ -106,8 +109,8 @@ function truncateSummary(value: string | undefined): string | undefined {
   return compactText(trimmed, maxSummaryLength);
 }
 
-function getPublicTagNames(tags: string[]): string[] {
-  const allTags = getAllTags();
+function getPublicTagNames(tags: string[], locale: Locale): string[] {
+  const allTags = localizeTags(getAllTags(), locale);
 
   return tags
     .filter((tag) => tag !== fallbackTag)
@@ -117,7 +120,8 @@ function getPublicTagNames(tags: string[]): string[] {
 
 function toPublicNewsItem(
   candidate: ImportedCandidate,
-  newsDate: string
+  newsDate: string,
+  locale: Locale
 ): PublicNewsItem {
   const publishedTechnology = candidate.convertedTechnologyId
     ? getAllTechnologies().find(
@@ -134,19 +138,30 @@ function toPublicNewsItem(
     sourceName: candidate.sourceName,
     sourceUrl,
     publishDate: newsDate,
-    tags: getPublicTagNames(candidate.tags),
+    tags: getPublicTagNames(candidate.tags, locale),
     publishedTechnology: publishedTechnology
       ? {
           slug: publishedTechnology.slug,
-          title: publishedTechnology.title.zh?.trim()
-            ? publishedTechnology.title.zh
-            : publishedTechnology.title.original
+          title:
+            locale === "zh"
+              ? publishedTechnology.title.zh?.trim()
+                ? publishedTechnology.title.zh
+                : publishedTechnology.title.original
+              : getTechnologyTitleForLocale(publishedTechnology, locale).text
         }
       : undefined
   };
 }
 
-export function getPublicNewsItems(now = new Date()): PublicNewsItem[] {
+/**
+ * `locale` changes only what the English site reads differently: topic tag
+ * names, and the title of the signal an item was published as. The item's
+ * own title and summary are the source's, in whatever language it wrote.
+ */
+export function getPublicNewsItems(
+  now = new Date(),
+  locale: Locale = "zh"
+): PublicNewsItem[] {
   const windowStart = getWindowStartDate(now);
   const today = getTodayDateString(now);
   const excludedDuplicateIds = buildDuplicateExclusionSet(getDuplicateGroups());
@@ -178,7 +193,7 @@ export function getPublicNewsItems(now = new Date()): PublicNewsItem[] {
     }
 
     items.push({
-      item: toPublicNewsItem(candidate, newsDate),
+      item: toPublicNewsItem(candidate, newsDate, locale),
       importedAt: candidate.importedAt ?? ""
     });
   }
@@ -194,10 +209,13 @@ export function getPublicNewsItems(now = new Date()): PublicNewsItem[] {
     .map((entry) => entry.item);
 }
 
-export function getPublicNewsDays(now = new Date()): PublicNewsDay[] {
+export function getPublicNewsDays(
+  now = new Date(),
+  locale: Locale = "zh"
+): PublicNewsDay[] {
   const days = new Map<string, PublicNewsItem[]>();
 
-  for (const item of getPublicNewsItems(now)) {
+  for (const item of getPublicNewsItems(now, locale)) {
     const dayItems = days.get(item.publishDate) ?? [];
 
     dayItems.push(item);

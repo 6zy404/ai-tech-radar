@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 import { HighlightedText } from "@/components/highlighted-text";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { nameLangAttr } from "@/lib/i18n/text-lang";
 import type { PublicNewsItem } from "@/lib/news";
 
 // The two pieces every news-shaped card repeats: the 全部快讯 card, and the
@@ -13,10 +16,12 @@ import type { PublicNewsItem } from "@/lib/news";
  */
 export function NewsCardTags({
   tags,
-  terms
+  terms,
+  locale = "zh"
 }: {
   tags: string[];
   terms?: string[];
+  locale?: Locale;
 }) {
   if (tags.length === 0) {
     return null;
@@ -25,7 +30,7 @@ export function NewsCardTags({
   return (
     <div className="news-card__tags">
       {tags.map((tag) => (
-        <span key={tag}>
+        <span key={tag} lang={nameLangAttr(locale, tag)}>
           {terms ? <HighlightedText text={tag} terms={terms} /> : tag}
         </span>
       ))}
@@ -34,9 +39,11 @@ export function NewsCardTags({
 }
 
 export function NewsCardSignalLink({
-  technology
+  technology,
+  locale = "zh"
 }: {
   technology: PublicNewsItem["publishedTechnology"];
+  locale?: Locale;
 }) {
   if (!technology) {
     return null;
@@ -45,9 +52,18 @@ export function NewsCardSignalLink({
   return (
     <Link
       className="news-card__signal"
-      href={`/technologies/${technology.slug}`}
+      href={localePath(locale, `/technologies/${technology.slug}`)}
     >
-      已收录为精选技术信号：{technology.title}
+      {locale === "zh" ? (
+        signalsCopy.zh.news.signalLink(technology.title)
+      ) : (
+        <>
+          {signalsCopy[locale].news.signalLink("")}
+          <span lang={nameLangAttr(locale, technology.title)}>
+            {technology.title}
+          </span>
+        </>
+      )}
     </Link>
   );
 }

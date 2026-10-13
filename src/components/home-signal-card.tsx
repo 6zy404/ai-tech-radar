@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { LangSpan } from "@/components/lang-scope";
 import { TagList } from "@/components/tag-list";
 import type { TopicTag } from "@/types/content";
 
@@ -19,6 +20,10 @@ interface HomeSignalCardProps {
   tags: TopicTag[];
   /** Out-of-flow stamp on the card's top edge (the 新 stamp). */
   stamp?: ReactNode;
+  /** `lang` of title / summary / note where it differs from the page. */
+  titleLang?: string;
+  summaryLang?: string;
+  noteLang?: string;
 }
 
 /**
@@ -36,7 +41,10 @@ export function HomeSignalCard({
   note,
   footerItems = [],
   tags,
-  stamp
+  stamp,
+  titleLang,
+  summaryLang,
+  noteLang
 }: HomeSignalCardProps) {
   return (
     <DossierCard className="home-signal-card">
@@ -45,11 +53,13 @@ export function HomeSignalCard({
         <DossierStampTag>{priorityLabel}</DossierStampTag>
         <span>{publishDate}</span>
       </div>
-      <h3>
+      <h3 lang={titleLang}>
         <Link href={href}>{title}</Link>
       </h3>
-      <p>{summary}</p>
-      <DossierCatalogNote label={noteLabel}>{note}</DossierCatalogNote>
+      <p lang={summaryLang}>{summary}</p>
+      <DossierCatalogNote label={noteLabel}>
+        <LangSpan lang={noteLang}>{note}</LangSpan>
+      </DossierCatalogNote>
       <div className="home-signal-card__footer">
         {footerItems.map((item) => (
           <span key={item}>{item}</span>

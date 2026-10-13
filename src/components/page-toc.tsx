@@ -25,7 +25,6 @@ interface PageTocProps {
   labelClassName?: string;
 }
 
-
 /**
  * Pixels below where an anchor jump lands a section (its scroll-margin-top)
  * at which it counts as the current one. A little slack, so the section just

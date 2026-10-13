@@ -18,6 +18,8 @@
 //
 // This module is pure — the component reads and writes the store.
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import type { Locale } from "@/lib/i18n/locale";
 import { toVisitKey } from "@/lib/visit-state";
 
 export interface ReadingMarks {
@@ -199,28 +201,32 @@ export function mergeReadingCode(
 }
 
 /** Pure core: the one-line result the reader sees after an import. */
-export function describeReadingImport(result: ReadingImportResult): string {
+export function describeReadingImport(
+  result: ReadingImportResult,
+  locale: Locale = "zh"
+): string {
+  const copy = signalsCopy[locale].saved.importResult;
   const added = result.addedSaved + result.addedRead;
   const parts: string[] = [];
 
   if (added > 0) {
     const kinds = [
-      result.addedSaved > 0 ? `稍后读 ${result.addedSaved}` : "",
-      result.addedRead > 0 ? `已读 ${result.addedRead}` : ""
+      result.addedSaved > 0 ? copy.saved(result.addedSaved) : "",
+      result.addedRead > 0 ? copy.read(result.addedRead) : ""
     ].filter(Boolean);
 
-    parts.push(`导入 ${added} 条（${kinds.join(" · ")}）`);
+    parts.push(copy.added(added, kinds));
   } else {
-    parts.push("没有新的标记");
+    parts.push(copy.nothingNew);
   }
 
   if (result.alreadyPresent > 0) {
-    parts.push(`${result.alreadyPresent} 条本机已有`);
+    parts.push(copy.alreadyPresent(result.alreadyPresent));
   }
 
   if (result.ignored > 0) {
-    parts.push(`忽略 ${result.ignored} 条无法识别或已下线的信号`);
+    parts.push(copy.ignored(result.ignored));
   }
 
-  return `${parts.join("，")}。`;
+  return copy.join(parts);
 }

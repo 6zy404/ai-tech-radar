@@ -485,7 +485,9 @@ export function ContentDetailPage<TItem extends DetailItem>({
             <UnbreakableTitle text={item.title} />
           </h1>
           <p lang={entryLang}>{item.summary}</p>
-          <ChineseOnlyNote locale={locale}>{kindCopy.chineseOnly}</ChineseOnlyNote>
+          <ChineseOnlyNote locale={locale}>
+            {kindCopy.chineseOnly}
+          </ChineseOnlyNote>
           <div className="skill-detail-hero__meta">
             <span>
               {commonCopy[locale].readingTime(
@@ -688,7 +690,10 @@ export function ContentDetailPage<TItem extends DetailItem>({
             ) : null}
           </main>
 
-          <aside className="skill-detail-aside" aria-label={kindCopy.asideLabel}>
+          <aside
+            className="skill-detail-aside"
+            aria-label={kindCopy.asideLabel}
+          >
             <section className="skill-detail-aside-card">
               <p className="skill-detail-kicker">{kindCopy.profileKicker}</p>
               <dl className="skill-detail-profile">

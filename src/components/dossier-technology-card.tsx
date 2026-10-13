@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { LangSpan } from "@/components/lang-scope";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { NewStamp } from "@/components/visit-baseline";
 import {
@@ -11,11 +12,14 @@ import {
   getTechnologyAudience,
   getTechnologyWhyItMatters
 } from "@/lib/content-intelligence";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import {
   getEffectiveTechnologyMode,
-  getLocalizedTechnologyText,
+  getTechnologyTextForMode,
   getTechnologyTypeLabel,
   type TechnologyContentContext,
   type TechnologyContentMode
@@ -52,6 +56,7 @@ interface DossierTechnologyCardProps {
    * sits.
    */
   matchLine?: ReactNode;
+  locale?: Locale;
 }
 
 /**
@@ -69,32 +74,44 @@ export function DossierTechnologyCard({
   isNew = false,
   isCurrent = false,
   readingActions,
-  matchLine
+  matchLine,
+  locale = "zh"
 }: DossierTechnologyCardProps) {
+  const copy = signalsCopy[locale].card;
   const effectiveMode = getEffectiveTechnologyMode(technology, mode, context);
-  const title = getLocalizedTechnologyText(
+  const titleText = getTechnologyTextForMode(
     technology.title,
     effectiveMode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
-  const summary = getLocalizedTechnologyText(
+  const summaryText = getTechnologyTextForMode(
     technology.summary,
     effectiveMode,
-    technology.sourceLanguage
+    technology.sourceLanguage,
+    locale
   );
+  const title = titleText.text;
+  const summary = summaryText.text;
+  const href = localePath(locale, `/technologies/${technology.slug}`);
   const ranking = evaluateTechnologyPriority(technology);
+  // The editors' note and audience lines are written in Chinese only.
+  const whyItMattersLang = technology.whyItMatters?.trim()
+    ? contentLangAttr(locale)
+    : contentLangAttr(locale, summaryText.language);
   const whyItMatters =
     getTechnologyWhyItMatters(technology, summary) ?? summary;
   const audience = getTechnologyAudience(technology).slice(0, 2);
   const difficultyLabel = getReadingDifficultyLabel(
-    technology.readingDifficulty
+    technology.readingDifficulty,
+    locale
   );
   const contextChips = [
-    ...audience,
-    difficultyLabel,
-    ...tags.map((tag) => tag.name)
+    ...audience.map((label) => ({ label, lang: contentLangAttr(locale) })),
+    ...(difficultyLabel ? [{ label: difficultyLabel, lang: undefined }] : []),
+    ...tags.map((tag) => ({ label: tag.name, lang: undefined }))
   ]
-    .filter((item): item is string => Boolean(item))
+    .filter((item) => Boolean(item.label))
     .slice(0, 4);
 
   return (
@@ -109,56 +126,67 @@ export function DossierTechnologyCard({
       {isNew && !isRead ? <NewStamp /> : null}
       <div className="dossier-technology-card__topline">
         <span className="dossier-technology-card__catalog">
-          {getTechnologyTypeLabel(technology.type, effectiveMode)} · 第{" "}
-          {technology.publishDate} 号
+          {copy.catalog(
+            getTechnologyTypeLabel(technology.type, effectiveMode, locale),
+            technology.publishDate
+          )}
         </span>
         {isRead ? (
           <DossierStampTag className="dossier-technology-card__read-stamp">
-            已读
+            {copy.read}
           </DossierStampTag>
         ) : null}
         <DossierStampTag>
-          {getPriorityLevelLabel(ranking.priorityLevel, effectiveMode)}
+          {getPriorityLevelLabel(ranking.priorityLevel, effectiveMode, locale)}
         </DossierStampTag>
       </div>
 
       {matchLine}
 
-      <h2 className="dossier-technology-card__title">
+      <h2
+        className="dossier-technology-card__title"
+        lang={contentLangAttr(locale, titleText.language)}
+      >
         {/* data-signal-id is what the list shortcuts focus (j / k). */}
-        <Link
-          href={`/technologies/${technology.slug}`}
-          data-signal-id={technology.id}
-        >
+        <Link href={href} data-signal-id={technology.id}>
           <UnbreakableTitle text={title} />
         </Link>
       </h2>
-      <p className="dossier-technology-card__summary">{summary}</p>
+      <p
+        className="dossier-technology-card__summary"
+        lang={contentLangAttr(locale, summaryText.language)}
+      >
+        {summary}
+      </p>
 
       {whyItMatters ? (
-        <DossierCatalogNote label="为什么重要">
-          {whyItMatters}
+        <DossierCatalogNote label={copy.whyItMatters}>
+          <LangSpan lang={whyItMattersLang}>{whyItMatters}</LangSpan>
         </DossierCatalogNote>
       ) : null}
 
       <div className="dossier-technology-card__footer">
-        <span className="dossier-technology-card__source">
+        <span
+          className="dossier-technology-card__source"
+          lang={nameLangAttr(locale, technology.sourceName)}
+        >
           {technology.sourceName}
         </span>
         {contextChips.length > 0 ? (
           <div className="dossier-technology-card__chips">
             {contextChips.map((item) => (
-              <DossierStampTag key={item} className="dossier-stamp-tag--muted">
-                {item}
+              <DossierStampTag
+                key={item.label}
+                className="dossier-stamp-tag--muted"
+                lang={item.lang}
+              >
+                {item.label}
               </DossierStampTag>
             ))}
           </div>
         ) : null}
-        <Link
-          href={`/technologies/${technology.slug}`}
-          className="dossier-technology-card__open"
-        >
-          查看信号 →
+        <Link href={href} className="dossier-technology-card__open">
+          {copy.open}
         </Link>
       </div>
 

@@ -94,9 +94,7 @@ export function FollowableTagList({ tags }: FollowableTagListProps) {
             </Link>
           </p>
         ) : (
-          <p className="followable-tag-list__hint">
-            {copy.hint}
-          </p>
+          <p className="followable-tag-list__hint">{copy.hint}</p>
         )
       ) : null}
     </div>

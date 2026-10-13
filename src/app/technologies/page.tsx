@@ -1,10 +1,15 @@
 import {
   generateTechnologiesPageMetadata,
-  TechnologiesPage
+  TechnologiesPage,
+  type TechnologiesPageProps
 } from "@/components/pages/technologies-page";
 
 export const dynamic = "force-dynamic";
 
-export const generateMetadata = generateTechnologiesPageMetadata;
+export function generateMetadata(props: TechnologiesPageProps) {
+  return generateTechnologiesPageMetadata("zh", props);
+}
 
-export default TechnologiesPage;
+export default function Page(props: TechnologiesPageProps) {
+  return <TechnologiesPage {...props} locale="zh" />;
+}

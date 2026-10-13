@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 
 import { useSignalShortcutPreference } from "@/components/use-signal-shortcut-preference";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 interface SignalShortcutHelpProps {
   open: boolean;
@@ -11,13 +13,15 @@ interface SignalShortcutHelpProps {
   announcement: string;
 }
 
-const shortcuts: { keys: string[]; label: string }[] = [
-  { keys: ["j", "k"], label: "下一条 / 上一条信号" },
-  { keys: ["Enter", "o"], label: "打开当前信号" },
-  { keys: ["s"], label: "加入或移出稍后读" },
-  { keys: ["x"], label: "标为已读或取消" },
-  { keys: ["?"], label: "打开这份说明" },
-  { keys: ["Esc"], label: "关闭说明" }
+type ShortcutKey = keyof (typeof signalsCopy)["zh"]["shortcuts"]["keys"];
+
+const shortcuts: { keys: string[]; labelKey: ShortcutKey }[] = [
+  { keys: ["j", "k"], labelKey: "move" },
+  { keys: ["Enter", "o"], labelKey: "open" },
+  { keys: ["s"], labelKey: "save" },
+  { keys: ["x"], labelKey: "read" },
+  { keys: ["?"], labelKey: "help" },
+  { keys: ["Esc"], labelKey: "close" }
 ];
 
 /**
@@ -30,6 +34,7 @@ export function SignalShortcutHelp({
   onClose,
   announcement
 }: SignalShortcutHelpProps) {
+  const copy = signalsCopy[useLocale()].shortcuts;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const [singleKeysEnabled, setSingleKeysEnabled] =
@@ -93,11 +98,11 @@ export function SignalShortcutHelp({
             id="signal-shortcut-help-title"
             className="signal-shortcut-help__title"
           >
-            键盘快捷键
+            {copy.title}
           </h2>
           <dl className="signal-shortcut-help__list">
             {shortcuts.map((item) => (
-              <div key={item.label} className="signal-shortcut-help__row">
+              <div key={item.labelKey} className="signal-shortcut-help__row">
                 <dt>
                   {item.keys.map((key, index) => (
                     <span key={key}>
@@ -108,13 +113,11 @@ export function SignalShortcutHelp({
                     </span>
                   ))}
                 </dt>
-                <dd>{item.label}</dd>
+                <dd>{copy.keys[item.labelKey]}</dd>
               </div>
             ))}
           </dl>
-          <p className="signal-shortcut-help__note">
-            在输入框里打字，或按着 Ctrl、Alt、⌘ 时，这些键照常使用。
-          </p>
+          <p className="signal-shortcut-help__note">{copy.note}</p>
           {/* WCAG 2.1.4: single-character shortcuts must be possible to turn
               off. ? stays on either way, so this switch is always reachable. */}
           <label className="signal-shortcut-help__switch">
@@ -126,9 +129,9 @@ export function SignalShortcutHelp({
               }
             />
             <span>
-              关闭单键快捷键
+              {copy.switchLabel}
               <span className="signal-shortcut-help__switch-hint">
-                j、k、Enter、o、s、x 不再响应，? 仍可打开这份说明
+                {copy.switchHint}
               </span>
             </span>
           </label>
@@ -141,7 +144,7 @@ export function SignalShortcutHelp({
               // Space on opening cannot turn the shortcuts off.
               autoFocus
             >
-              关闭
+              {copy.close}
             </button>
           </div>
         </div>
@@ -167,6 +170,8 @@ interface SignalShortcutHintProps {
  * Hidden on narrow screens, which are almost always touch.
  */
 export function SignalShortcutHint({ onOpen }: SignalShortcutHintProps) {
+  const label = signalsCopy[useLocale()].shortcuts.hint;
+
   return (
     <button
       type="button"
@@ -174,7 +179,7 @@ export function SignalShortcutHint({ onOpen }: SignalShortcutHintProps) {
       onClick={onOpen}
       aria-haspopup="dialog"
     >
-      快捷键 <kbd>?</kbd>
+      {label} <kbd>?</kbd>
     </button>
   );
 }

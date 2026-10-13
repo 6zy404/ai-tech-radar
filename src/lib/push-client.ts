@@ -8,6 +8,8 @@
 // list deletes the server record (the browser subscription stays, so
 // following a topic again recreates it without asking for permission again).
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import type { Locale } from "@/lib/i18n/locale";
 import { readFollowedTagIds } from "@/lib/followed-tags";
 
 export interface PushClientConfig {
@@ -114,8 +116,10 @@ export type EnablePushResult =
     };
 
 export async function enablePush(
-  topicIds: string[]
+  topicIds: string[],
+  locale: Locale = "zh"
 ): Promise<EnablePushResult> {
+  const errors = signalsCopy[locale].push.errors;
   const config = await fetchPushConfig();
   const registration = await getRegistration();
 
@@ -123,7 +127,7 @@ export async function enablePush(
     return {
       ok: false,
       reason: "unsupported",
-      message: "这个浏览器不支持网页提醒。"
+      message: errors.unsupported
     };
   }
 
@@ -131,7 +135,7 @@ export async function enablePush(
     return {
       ok: false,
       reason: "disabled",
-      message: "本站暂未开启新信号提醒。"
+      message: errors.disabled
     };
   }
 
@@ -141,7 +145,7 @@ export async function enablePush(
     return {
       ok: false,
       reason: "denied",
-      message: "浏览器没有允许通知。可以在地址栏左侧的网站设置里改回「允许」。"
+      message: errors.denied
     };
   }
 
@@ -158,7 +162,7 @@ export async function enablePush(
     return {
       ok: false,
       reason: "error",
-      message: "浏览器的推送服务没有响应，稍后再试。"
+      message: errors.noResponse
     };
   }
 
@@ -174,9 +178,12 @@ export async function enablePush(
     return {
       ok: false,
       reason: "error",
-      message: response
-        ? await readError(response, "开启失败，稍后再试。")
-        : "开启失败，稍后再试。"
+      // The server's own messages are Chinese; the English site keeps to
+      // its generic line.
+      message:
+        response && locale === "zh"
+          ? await readError(response, errors.enableFailed)
+          : errors.enableFailed
     };
   }
 
@@ -184,7 +191,7 @@ export async function enablePush(
 }
 
 /** Deletes the server record first, then the browser subscription. */
-export async function disablePush(): Promise<{
+export async function disablePush(locale: Locale = "zh"): Promise<{
   ok: boolean;
   message?: string;
 }> {
@@ -199,7 +206,10 @@ export async function disablePush(): Promise<{
   }).catch(() => undefined);
 
   if (!response?.ok) {
-    return { ok: false, message: "关闭失败，稍后再试。" };
+    return {
+      ok: false,
+      message: signalsCopy[locale].push.errors.disableFailed
+    };
   }
 
   await subscription.unsubscribe().catch(() => undefined);
