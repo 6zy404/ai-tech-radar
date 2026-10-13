@@ -1,20 +1,17 @@
 import type { DeliveryChannelType } from "@/types/content";
 import { getDeliveryChannelTypeLabel } from "@/lib/delivery-labels";
 
-import { discordAdapterPlaceholder } from "./discord";
+import { discordAdapter } from "./discord";
 import { feishuWebhookAdapter } from "./feishu";
-import { telegramAdapterPlaceholder } from "./telegram";
+import { telegramAdapter } from "./telegram";
 import type { DeliveryAdapter } from "./types";
 import { webhookAdapter } from "./webhook";
 
 const activeAdapters = {
   webhook: webhookAdapter,
-  feishu_webhook: feishuWebhookAdapter
-} satisfies Partial<Record<DeliveryChannelType, DeliveryAdapter>>;
-
-export const reservedDeliveryAdapters = {
-  telegram: telegramAdapterPlaceholder,
-  discord: discordAdapterPlaceholder
+  feishu_webhook: feishuWebhookAdapter,
+  telegram: telegramAdapter,
+  discord: discordAdapter
 } satisfies Partial<Record<DeliveryChannelType, DeliveryAdapter>>;
 
 export function getDeliveryAdapter(
@@ -28,7 +25,7 @@ export function getSupportedDeliveryChannelTypes(): DeliveryChannelType[] {
 }
 
 export function getReservedDeliveryChannelTypes(): DeliveryChannelType[] {
-  return ["telegram", "discord", "email"];
+  return ["email"];
 }
 
 export { getDeliveryChannelTypeLabel };

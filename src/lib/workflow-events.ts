@@ -5,6 +5,7 @@ import {
   readLocalJsonFile,
   writeLocalJsonFile
 } from "@/lib/repositories/local-json-store";
+import { maskSecretsInText } from "@/lib/secret-masking";
 import type {
   WorkflowEvent,
   WorkflowEventAction,
@@ -64,7 +65,15 @@ function maskSensitiveUrl(value: string): string {
   }
 }
 
+// Keys whose value is a secret outright rather than an address that might
+// hold one: no URL masking applies, the value is dropped.
+const secretValueKeyPattern = /token|secret|password|authorization/i;
+
 function sanitizeValue(value: unknown): unknown {
+  if (typeof value === "string") {
+    return maskSecretsInText(value);
+  }
+
   if (Array.isArray(value)) {
     return value.map((item) => sanitizeValue(item));
   }
@@ -73,10 +82,17 @@ function sanitizeValue(value: unknown): unknown {
     return Object.fromEntries(
       Object.entries(value as Record<string, unknown>).map(([key, item]) => {
         if (sensitiveKeyPattern.test(key)) {
-          return [
-            key,
-            typeof item === "string" ? maskSensitiveUrl(item) : "[redacted]"
-          ];
+          if (typeof item !== "string") {
+            return [key, item === undefined ? item : "[redacted]"];
+          }
+
+          // A bare token (`botToken: "123:abc"`) is not a URL, so the URL
+          // mask below would hand it back unchanged.
+          if (secretValueKeyPattern.test(key) && !/^[a-z]+:\/\//i.test(item)) {
+            return [key, "[redacted]"];
+          }
+
+          return [key, maskSecretsInText(maskSensitiveUrl(item))];
         }
 
         return [key, sanitizeValue(item)];

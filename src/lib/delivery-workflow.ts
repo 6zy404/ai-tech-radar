@@ -4,12 +4,18 @@ import {
   getDeliveryAdapter,
   getSupportedDeliveryChannelTypes
 } from "@/lib/delivery/adapters";
+import { defaultTelegramApiBase } from "@/lib/delivery/adapters/telegram";
 import { getDailyDigestByDate } from "@/lib/digest-workflow";
 import {
   getLocalStoreFilePath,
   readLocalJsonFile as readJsonFile,
   writeLocalJsonFile as writeJsonFile
 } from "@/lib/repositories/local-json-store";
+import {
+  maskEndpointUrl,
+  maskSecretsInText,
+  maskTelegramBotToken
+} from "@/lib/secret-masking";
 import { tryRecordWorkflowEvent } from "@/lib/workflow-events";
 import type {
   DailyDigest,
@@ -17,14 +23,16 @@ import type {
   DeliveryChannelType,
   DeliveryFormat,
   DeliveryRun,
-  DeliveryStatus
+  DeliveryStatus,
+  StoredDeliveryChannel
 } from "@/types/content";
 
 export { buildDailyDigestWebhookPayload } from "@/lib/delivery/digest-payload";
+export { maskEndpointUrl };
 
 interface DeliveryStore {
   updatedAt: string;
-  channels: DeliveryChannel[];
+  channels: StoredDeliveryChannel[];
   runs: DeliveryRun[];
 }
 
@@ -35,7 +43,18 @@ export interface DeliveryChannelInput {
   endpointUrl: string;
   description?: string;
   format: DeliveryFormat;
+  /** Telegram only. Blank on an update keeps the stored token. */
+  botToken?: string;
+  chatId?: string;
 }
+
+// Telegram and Discord send one fixed message shape, as Feishu does, so the
+// channel's format is always text for them.
+const fixedTextFormatTypes: DeliveryChannelType[] = [
+  "feishu_webhook",
+  "telegram",
+  "discord"
+];
 
 export class DeliveryChannelValidationError extends Error {
   issues: string[];
@@ -68,6 +87,12 @@ const allowedChannelTypes: DeliveryChannelType[] = [
   "discord"
 ];
 const allowedFormats: DeliveryFormat[] = ["json", "text"];
+const channelErrorLabels: Partial<Record<DeliveryChannelType, string>> = {
+  webhook: "Webhook",
+  feishu_webhook: "Feishu webhook",
+  telegram: "Telegram Bot API",
+  discord: "Discord webhook"
+};
 const previewLength = 1600;
 
 function getTimestamp(): string {
@@ -127,7 +152,7 @@ function normalizeDeliveryFormat(value: unknown): DeliveryFormat {
 
 function normalizeDeliveryChannel(
   record: Record<string, unknown>
-): DeliveryChannel {
+): StoredDeliveryChannel {
   const now = getTimestamp();
   const type = normalizeChannelType(record.type);
 
@@ -149,9 +174,17 @@ function normalizeDeliveryChannel(
         ? record.description.trim()
         : undefined,
     format:
-      record.format === undefined && type === "feishu_webhook"
+      record.format === undefined && fixedTextFormatTypes.includes(type)
         ? "text"
         : normalizeDeliveryFormat(record.format),
+    chatId:
+      typeof record.chatId === "string" && record.chatId.trim()
+        ? record.chatId.trim()
+        : undefined,
+    botToken:
+      typeof record.botToken === "string" && record.botToken.trim()
+        ? record.botToken.trim()
+        : undefined,
     lastDeliveredAt:
       typeof record.lastDeliveredAt === "string"
         ? record.lastDeliveredAt
@@ -251,7 +284,22 @@ function isValidEndpointUrl(value: string): boolean {
   }
 }
 
-function validateDeliveryChannelInput(input: DeliveryChannelInput) {
+/** The token the channel will send with: the input's, else the stored one. */
+function resolveBotToken(
+  input: DeliveryChannelInput,
+  existing?: StoredDeliveryChannel
+): string | undefined {
+  if (input.type !== "telegram") {
+    return undefined;
+  }
+
+  return input.botToken?.trim() || existing?.botToken;
+}
+
+function validateDeliveryChannelInput(
+  input: DeliveryChannelInput,
+  existing?: StoredDeliveryChannel
+) {
   const issues: string[] = [];
 
   if (!input.name.trim()) {
@@ -265,13 +313,19 @@ function validateDeliveryChannelInput(input: DeliveryChannelInput) {
   const adapter = getDeliveryAdapter(input.type);
 
   if (!supportedChannelTypes.includes(input.type) || !adapter) {
-    issues.push("当前版本只能发送通用 Webhook 和飞书 Webhook 渠道。");
+    issues.push(
+      "当前版本支持通用 Webhook、飞书 Webhook、Telegram 与 Discord 渠道。"
+    );
   }
 
-  if (!input.endpointUrl.trim()) {
-    issues.push("端点 URL 为必填项。");
-  } else if (!isValidEndpointUrl(input.endpointUrl)) {
-    issues.push("端点 URL 必须是 http(s) 或本地 mock 端点。");
+  // A Telegram channel's endpoint is the Bot API base and may be left blank
+  // for the official one; every other type needs its webhook address.
+  if (input.type !== "telegram") {
+    if (!input.endpointUrl.trim()) {
+      issues.push("端点 URL 为必填项。");
+    } else if (!isValidEndpointUrl(input.endpointUrl)) {
+      issues.push("端点 URL 必须是 http(s) 或本地 mock 端点。");
+    }
   }
 
   if (!allowedFormats.includes(input.format)) {
@@ -279,7 +333,15 @@ function validateDeliveryChannelInput(input: DeliveryChannelInput) {
   }
 
   if (adapter) {
-    issues.push(...adapter.validateChannelConfig(input));
+    issues.push(
+      ...adapter.validateChannelConfig({
+        type: input.type,
+        endpointUrl: input.endpointUrl,
+        format: input.format,
+        botToken: resolveBotToken(input, existing),
+        chatId: input.chatId
+      })
+    );
   }
 
   if (issues.length > 0) {
@@ -290,18 +352,54 @@ function validateDeliveryChannelInput(input: DeliveryChannelInput) {
 export function coerceDeliveryChannelInput(
   record: Record<string, unknown>
 ): DeliveryChannelInput {
+  const type = normalizeChannelType(record.type);
+
   return {
     name: String(record.name ?? "").trim(),
-    type: normalizeChannelType(record.type),
+    type,
     enabled: record.enabled === true || record.enabled === "on",
     endpointUrl: String(record.endpointUrl ?? "").trim(),
     description: String(record.description ?? "").trim() || undefined,
-    format: normalizeDeliveryFormat(record.format)
+    format: fixedTextFormatTypes.includes(type)
+      ? "text"
+      : normalizeDeliveryFormat(record.format),
+    botToken:
+      type === "telegram"
+        ? String(record.botToken ?? "").trim() || undefined
+        : undefined,
+    chatId:
+      type === "telegram"
+        ? String(record.chatId ?? "").trim() || undefined
+        : undefined
   };
 }
 
+/**
+ * The shape every caller outside this module sees: the bot token replaced by
+ * `botTokenMasked`. Pages pass channels to client components, so a token in
+ * this object would reach the browser in the RSC payload.
+ */
+export function toClientDeliveryChannel(
+  channel: StoredDeliveryChannel
+): DeliveryChannel {
+  const { botToken, ...rest } = channel;
+
+  return {
+    ...rest,
+    botTokenMasked: botToken ? maskTelegramBotToken(botToken) : undefined
+  };
+}
+
+function getStoredDeliveryChannelById(
+  channelId: string
+): StoredDeliveryChannel | undefined {
+  return readDeliveryStore().channels.find(
+    (channel) => channel.id === channelId
+  );
+}
+
 export function getDeliveryChannels(): DeliveryChannel[] {
-  return readDeliveryStore().channels;
+  return readDeliveryStore().channels.map(toClientDeliveryChannel);
 }
 
 export function getEnabledDeliveryChannels(): DeliveryChannel[] {
@@ -311,7 +409,9 @@ export function getEnabledDeliveryChannels(): DeliveryChannel[] {
 export function getDeliveryChannelById(
   channelId: string
 ): DeliveryChannel | undefined {
-  return getDeliveryChannels().find((channel) => channel.id === channelId);
+  const channel = getStoredDeliveryChannelById(channelId);
+
+  return channel ? toClientDeliveryChannel(channel) : undefined;
 }
 
 export function getDeliveryRuns(): DeliveryRun[] {
@@ -322,38 +422,28 @@ export function getDeliveryRunsForDigest(digestDate: string): DeliveryRun[] {
   return getDeliveryRuns().filter((run) => run.digestDate === digestDate);
 }
 
-export function maskEndpointUrl(endpointUrl: string): string {
-  if (endpointUrl.startsWith("mock://")) {
-    return endpointUrl.replace(
-      /(token|key|secret|signature|auth)=([^&\s]+)/gi,
-      "$1=***"
-    );
-  }
+function buildStoredChannel(
+  input: DeliveryChannelInput,
+  base: Pick<StoredDeliveryChannel, "id" | "createdAt"> &
+    Partial<StoredDeliveryChannel>,
+  existing?: StoredDeliveryChannel
+): StoredDeliveryChannel {
+  const isTelegram = input.type === "telegram";
 
-  try {
-    const url = new URL(endpointUrl);
-
-    if (url.username) {
-      url.username = "***";
-    }
-
-    if (url.password) {
-      url.password = "***";
-    }
-
-    for (const key of Array.from(url.searchParams.keys())) {
-      if (/token|key|secret|signature|auth/i.test(key)) {
-        url.searchParams.set(key, "***");
-      }
-    }
-
-    return url.toString();
-  } catch {
-    return endpointUrl.replace(
-      /(token|key|secret|signature|auth)=([^&\s]+)/gi,
-      "$1=***"
-    );
-  }
+  return {
+    ...base,
+    name: input.name.trim(),
+    type: input.type,
+    enabled: input.enabled,
+    // Stored explicitly so the channel list shows where it sends.
+    endpointUrl:
+      input.endpointUrl.trim() || (isTelegram ? defaultTelegramApiBase : ""),
+    description: input.description,
+    format: fixedTextFormatTypes.includes(input.type) ? "text" : input.format,
+    chatId: isTelegram ? input.chatId?.trim() : undefined,
+    botToken: isTelegram ? resolveBotToken(input, existing) : undefined,
+    updatedAt: getTimestamp()
+  };
 }
 
 export function createDeliveryChannel(
@@ -363,17 +453,10 @@ export function createDeliveryChannel(
 
   const store = readDeliveryStore();
   const now = getTimestamp();
-  const channel: DeliveryChannel = {
+  const channel = buildStoredChannel(input, {
     id: `delivery-channel-${randomUUID()}`,
-    name: input.name.trim(),
-    type: input.type,
-    enabled: input.enabled,
-    endpointUrl: input.endpointUrl.trim(),
-    description: input.description,
-    format: input.format,
-    createdAt: now,
-    updatedAt: now
-  };
+    createdAt: now
+  });
 
   writeDeliveryStore({
     updatedAt: now,
@@ -381,15 +464,13 @@ export function createDeliveryChannel(
     runs: store.runs
   });
 
-  return channel;
+  return toClientDeliveryChannel(channel);
 }
 
 export function updateDeliveryChannel(
   channelId: string,
   input: DeliveryChannelInput
 ): DeliveryChannel {
-  validateDeliveryChannelInput(input);
-
   const store = readDeliveryStore();
   const existingChannel = store.channels.find(
     (channel) => channel.id === channelId
@@ -399,16 +480,13 @@ export function updateDeliveryChannel(
     throw new Error(`未找到投递渠道 ${channelId}。`);
   }
 
-  const nextChannel: DeliveryChannel = {
-    ...existingChannel,
-    name: input.name.trim(),
-    type: input.type,
-    enabled: input.enabled,
-    endpointUrl: input.endpointUrl.trim(),
-    description: input.description,
-    format: input.format,
-    updatedAt: getTimestamp()
-  };
+  validateDeliveryChannelInput(input, existingChannel);
+
+  const nextChannel = buildStoredChannel(
+    input,
+    existingChannel,
+    existingChannel
+  );
 
   writeDeliveryStore({
     updatedAt: getTimestamp(),
@@ -419,7 +497,7 @@ export function updateDeliveryChannel(
     runs: store.runs
   });
 
-  return nextChannel;
+  return toClientDeliveryChannel(nextChannel);
 }
 
 export function setDeliveryChannelEnabled(
@@ -435,7 +513,7 @@ export function setDeliveryChannelEnabled(
     throw new Error(`未找到投递渠道 ${channelId}。`);
   }
 
-  const nextChannel: DeliveryChannel = {
+  const nextChannel: StoredDeliveryChannel = {
     ...existingChannel,
     enabled,
     updatedAt: getTimestamp()
@@ -450,7 +528,7 @@ export function setDeliveryChannelEnabled(
     runs: store.runs
   });
 
-  return nextChannel;
+  return toClientDeliveryChannel(nextChannel);
 }
 
 export function buildDeliveryRequestPayload(
@@ -475,11 +553,20 @@ export function buildDeliveryRequestPayload(
 
 function persistDeliveryRun(
   run: DeliveryRun,
-  channel: DeliveryChannel,
-  message: string
+  channelId: string,
+  rawMessage: string
 ): DeliveryRun {
   const store = readDeliveryStore();
-  const nextChannel: DeliveryChannel = {
+  // Re-read the stored channel rather than spreading the caller's copy, so
+  // the write keeps the token and any edit made while the request was out.
+  const channel = store.channels.find((item) => item.id === channelId);
+  const message = maskSecretsInText(rawMessage);
+
+  if (!channel) {
+    throw new Error(`未找到投递渠道 ${channelId}。`);
+  }
+
+  const nextChannel: StoredDeliveryChannel = {
     ...channel,
     lastDeliveredAt:
       run.status === "success" ? run.finishedAt : channel.lastDeliveredAt,
@@ -554,7 +641,7 @@ export async function sendDailyDigestToChannel({
   retryOfDeliveryRunId?: string;
 }): Promise<DeliveryRun> {
   const digest = getDailyDigestByDate(digestDate);
-  const channel = getDeliveryChannelById(channelId);
+  const channel = getStoredDeliveryChannelById(channelId);
 
   if (!digest) {
     throw new Error(`未找到 ${digestDate} 的简报。`);
@@ -596,7 +683,7 @@ export async function sendDailyDigestToChannel({
       errorMessage: "当前版本尚未实现该投递渠道类型。"
     };
 
-    persistDeliveryRun(run, channel, "当前版本尚未实现该投递渠道类型。");
+    persistDeliveryRun(run, channel.id, "当前版本尚未实现该投递渠道类型。");
 
     return run;
   }
@@ -614,10 +701,9 @@ export async function sendDailyDigestToChannel({
 
   try {
     const response = await adapter.send(channel, { body, contentType });
-    const responseText = truncate(response.bodyPreview, 1000);
+    const responseText = truncate(maskSecretsInText(response.bodyPreview), 1000);
     const finishedAt = getTimestamp();
-    const channelLabel =
-      channel.type === "feishu_webhook" ? "Feishu webhook" : "Webhook";
+    const channelLabel = channelErrorLabels[channel.type] ?? "Webhook";
 
     if (!response.ok) {
       const run: DeliveryRun = {
@@ -631,7 +717,7 @@ export async function sendDailyDigestToChannel({
         }.`
       };
 
-      persistDeliveryRun(run, channel, run.errorMessage ?? "投递失败。");
+      persistDeliveryRun(run, channel.id, run.errorMessage ?? "投递失败。");
 
       return run;
     }
@@ -644,11 +730,12 @@ export async function sendDailyDigestToChannel({
       responseBodyPreview: responseText
     };
 
-    return persistDeliveryRun(run, channel, "投递成功。");
+    return persistDeliveryRun(run, channel.id, "投递成功。");
   } catch (error) {
     const finishedAt = getTimestamp();
-    const errorMessage =
-      error instanceof Error ? error.message : "未知投递错误。";
+    const errorMessage = maskSecretsInText(
+      error instanceof Error ? error.message : "未知投递错误。"
+    );
     const run: DeliveryRun = {
       ...pendingRun,
       status: "failed",
@@ -656,7 +743,7 @@ export async function sendDailyDigestToChannel({
       errorMessage
     };
 
-    persistDeliveryRun(run, channel, errorMessage);
+    persistDeliveryRun(run, channel.id, errorMessage);
 
     return run;
   }

@@ -100,6 +100,7 @@ export type WorkflowEventAction =
   | "schedule.run_failed"
   | "task_runner.run"
   | "source.imported"
+  | "source.deleted"
   | "skill.created"
   | "skill.updated"
   | "skill.published"
@@ -507,6 +508,20 @@ export interface ExternalSource {
   createdAt: string;
   updatedAt: string;
   maxItems?: number;
+  /** Newest first, at most 30 (`sourceImportHistoryLimit`). */
+  importHistory?: SourceImportHistoryEntry[];
+}
+
+/**
+ * One import attempt of one source, kept on the source for its health
+ * timeline. Counts and a cut-down error only: no URL, no payload.
+ */
+export interface SourceImportHistoryEntry {
+  at: string;
+  status: Exclude<ExternalSourceImportStatus, "never_run">;
+  candidatesCreated: number;
+  candidatesSkipped: number;
+  errorSummary?: string;
 }
 
 export interface SourceQualityMetrics {
@@ -598,12 +613,26 @@ export interface DeliveryChannel {
   endpointUrl: string;
   description?: string;
   format: DeliveryFormat;
+  /** Telegram only: the chat, group or channel the bot posts to. */
+  chatId?: string;
+  /**
+   * Telegram only: the bot token as `<bot id>:***`. The token itself never
+   * leaves the delivery workflow — see `DeliveryChannelSecrets`.
+   */
+  botTokenMasked?: string;
   lastDeliveredAt?: string;
   lastDeliveryStatus?: DeliveryStatus;
   lastDeliveryMessage?: string;
   createdAt: string;
   updatedAt: string;
 }
+
+/** Stored with the channel, read only by the delivery workflow and adapters. */
+export interface DeliveryChannelSecrets {
+  botToken?: string;
+}
+
+export type StoredDeliveryChannel = DeliveryChannel & DeliveryChannelSecrets;
 
 export interface DeliveryRun {
   id: string;

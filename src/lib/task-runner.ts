@@ -23,6 +23,7 @@ import {
   readLocalJsonFile as readJsonFile,
   writeLocalJsonFile as writeJsonFile
 } from "@/lib/repositories/local-json-store";
+import { maskSecretsInText } from "@/lib/secret-masking";
 import { tryRecordWorkflowEvent } from "@/lib/workflow-events";
 import type {
   ScheduledDeliveryRun,
@@ -59,7 +60,7 @@ function getTimestamp(date = new Date()): string {
 }
 
 function sanitizeRunnerMessage(value: string): string {
-  return value
+  return maskSecretsInText(value)
     .replace(/https?:\/\/\S+/gi, "[url]")
     .replace(/(token|key|secret|signature|auth)=([^&\s]+)/gi, "$1=***")
     .replace(/(mock:\/\/(?:success|failed))\S*/gi, "$1");

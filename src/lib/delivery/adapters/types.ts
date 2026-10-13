@@ -1,14 +1,17 @@
 import type {
   DailyDigest,
-  DeliveryChannel,
   DeliveryChannelType,
-  DeliveryFormat
+  DeliveryFormat,
+  StoredDeliveryChannel
 } from "@/types/content";
 
 export interface DeliveryChannelConfig {
   type: DeliveryChannelType;
   endpointUrl: string;
   format: DeliveryFormat;
+  /** Telegram: the token to validate (the stored one when the form left it blank). */
+  botToken?: string;
+  chatId?: string;
 }
 
 export interface DeliveryAdapterPayload {
@@ -23,16 +26,18 @@ export interface DeliveryAdapterSendResult {
   bodyPreview: string;
 }
 
+// Adapters receive the stored channel, secrets included: they are the only
+// code besides the delivery workflow that may read `botToken`.
 export interface DeliveryAdapter {
   type: DeliveryChannelType;
   label: string;
   buildPayload: (
     digest: DailyDigest,
-    channel: DeliveryChannel,
+    channel: StoredDeliveryChannel,
     deliveredAt: string
   ) => DeliveryAdapterPayload;
   send: (
-    channel: DeliveryChannel,
+    channel: StoredDeliveryChannel,
     payload: DeliveryAdapterPayload
   ) => Promise<DeliveryAdapterSendResult>;
   validateChannelConfig: (config: DeliveryChannelConfig) => string[];

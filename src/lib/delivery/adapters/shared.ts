@@ -5,9 +5,18 @@ import type {
   DeliveryAdapterSendResult
 } from "./types";
 
+const sendTimeoutMs = 15_000;
+
+/**
+ * POSTs an adapter payload. `url` defaults to the channel's endpoint; the
+ * Telegram adapter passes the Bot API method URL it builds from the token,
+ * while the mock check still reads the configured endpoint, so a
+ * `mock://success` Telegram channel never builds a real request.
+ */
 export async function postAdapterPayload(
   channel: DeliveryChannel,
-  payload: DeliveryAdapterPayload
+  payload: DeliveryAdapterPayload,
+  url: string = channel.endpointUrl
 ): Promise<DeliveryAdapterSendResult> {
   if (channel.endpointUrl.startsWith("mock://success")) {
     return {
@@ -25,12 +34,13 @@ export async function postAdapterPayload(
     };
   }
 
-  const response = await fetch(channel.endpointUrl, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": payload.contentType
     },
-    body: payload.body
+    body: payload.body,
+    signal: AbortSignal.timeout(sendTimeoutMs)
   });
 
   return {
@@ -38,4 +48,18 @@ export async function postAdapterPayload(
     status: response.status,
     bodyPreview: await response.text()
   };
+}
+
+export function isMockEndpoint(value: string): boolean {
+  return value.startsWith("mock://success") || value.startsWith("mock://failed");
+}
+
+export function isHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
 }

@@ -19,6 +19,7 @@ import {
 } from "@/lib/source-workflow";
 import { getScheduledImportConfig } from "@/lib/scheduled-import";
 import { getLatestTaskRunnerRun, getTaskRunnerRuns } from "@/lib/task-runner";
+import { maskSecretsInText } from "@/lib/secret-masking";
 import { getWorkflowEvents } from "@/lib/workflow-events";
 import type {
   CandidateQualityFlag,
@@ -172,7 +173,7 @@ function sanitizeWorkflowEventForOperations(
 }
 
 export function sanitizeOperationsText(value: unknown): string {
-  return String(value ?? "")
+  return maskSecretsInText(String(value ?? ""))
     .replace(/https?:\/\/\S+/gi, "[url]")
     .replace(/mock:\/\/(?:success|failed)\S*/gi, (match) =>
       match.startsWith("mock://failed") ? "mock://failed" : "mock://success"
