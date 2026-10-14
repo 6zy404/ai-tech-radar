@@ -490,8 +490,8 @@ function prepareImportedCandidates(
   candidatesSkipped: number;
 } {
   const existingCandidates = getCandidateWorkflowData().snapshot.candidates;
-  const existingCurrentSourceKeys = new Set<string>();
-  const existingCurrentSourceIds = new Set<string>();
+  const existingCurrentSourceById = new Map<string, ImportedCandidate>();
+  const existingCurrentSourceByKey = new Map<string, ImportedCandidate>();
   const existingOtherSourceKeys = new Set<string>();
   const existingOtherSourceIds = new Set<string>();
 
@@ -499,8 +499,11 @@ function prepareImportedCandidates(
     const candidateSourceId = getImportedCandidateSourceId(candidate);
 
     if (candidateSourceId === source.id) {
-      existingCurrentSourceIds.add(candidate.id);
-      existingCurrentSourceKeys.add(getCandidateDedupKey(candidate));
+      existingCurrentSourceById.set(candidate.id, candidate);
+      existingCurrentSourceByKey.set(
+        getCandidateDedupKey(candidate),
+        candidate
+      );
       continue;
     }
 
@@ -521,41 +524,46 @@ function prepareImportedCandidates(
     const isDuplicateFromOtherSource =
       existingOtherSourceIds.has(candidate.id) ||
       existingOtherSourceKeys.has(dedupKey);
-    const isExistingCurrentSource =
-      existingCurrentSourceIds.has(candidate.id) ||
-      existingCurrentSourceKeys.has(dedupKey);
+    const previous =
+      existingCurrentSourceById.get(candidate.id) ??
+      existingCurrentSourceByKey.get(dedupKey);
 
     if (isDuplicateInRun || isDuplicateFromOtherSource) {
       candidatesSkipped += 1;
       continue;
     }
 
-    if (isExistingCurrentSource) {
+    if (previous) {
       candidatesSkipped += 1;
     } else {
       candidatesCreated += 1;
     }
+
+    // A candidate the source already returned keeps the time and run that
+    // first brought it in. Until 2026-10-14 every import restamped it, so the
+    // backlog alert's "oldest waiting" was always 0 days and the duplicate
+    // tie-break "first imported wins" compared fetch order within one day.
+    const firstSeen = previous?.importedAt
+      ? { importedAt: previous.importedAt, importRunId: previous.importRunId }
+      : { importedAt, importRunId };
 
     seenIdsInRun.add(candidate.id);
     seenKeysInRun.add(dedupKey);
     candidates.push({
       ...candidate,
       sourceId: source.id,
-      importedAt,
-      importRunId,
+      ...firstSeen,
       rawPayload:
         candidate.rawPayload && typeof candidate.rawPayload === "object"
           ? {
               ...(candidate.rawPayload as Record<string, unknown>),
               sourceId: source.id,
-              importedAt,
-              importRunId
+              ...firstSeen
             }
           : {
               rawPayload: candidate.rawPayload,
               sourceId: source.id,
-              importedAt,
-              importRunId
+              ...firstSeen
             }
     });
   }

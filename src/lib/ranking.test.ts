@@ -1,8 +1,18 @@
 import { describe, expect, it } from "vitest";
 
-import { evaluateTechnologyPriority } from "@/lib/ranking";
-import { makeTechnologyItem } from "@/lib/test-factories";
-import type { TechnologyPriorityRanking } from "@/types/content";
+import {
+  evaluateImportedCandidatePriority,
+  evaluateTechnologyPriority
+} from "@/lib/ranking";
+import {
+  makeImportedCandidate,
+  makeTechnologyItem
+} from "@/lib/test-factories";
+import type {
+  CandidateQualitySignals,
+  SourceQualityMetrics,
+  TechnologyPriorityRanking
+} from "@/types/content";
 
 // Fixed "now" so recency scoring (and therefore priority level) is deterministic.
 const NOW = new Date("2026-06-01T00:00:00.000Z");
@@ -109,5 +119,86 @@ describe("evaluateTechnologyPriority", () => {
     const second = evaluateTechnologyPriority(technology, { now: NOW });
 
     expect(first).toEqual(second);
+  });
+
+  it("caps a critical technology at watch while it carries a severe warning", () => {
+    const ranking = evaluateTechnologyPriority(
+      makeTechnologyItem({ importanceLevel: "critical", tags: [] }),
+      { now: NOW }
+    );
+
+    expect(ranking.priorityWarnings).toContain("缺少标签。");
+    expect(ranking.priorityScore).toBeGreaterThanOrEqual(75);
+    expect(ranking.priorityLevel).toBe("watch");
+  });
+});
+
+describe("evaluateImportedCandidatePriority: severe warnings", () => {
+  const goodSource: SourceQualityMetrics = {
+    successRate: 1,
+    totalImportRuns: 10,
+    successfulImportRuns: 10,
+    failedImportRuns: 0,
+    totalCandidatesImported: 20,
+    convertedCandidateCount: 5,
+    rejectedCandidateCount: 2,
+    duplicateCandidateCount: 0,
+    duplicateRate: 0,
+    conversionRate: 0.25,
+    rejectionRate: 0.1,
+    consecutiveFailureCount: 0,
+    qualityLevel: "good"
+  };
+  const quality = (isDuplicate: boolean): CandidateQualitySignals => ({
+    hasTitle: true,
+    hasSummary: true,
+    hasContent: true,
+    hasSourceUrl: true,
+    hasPublisher: true,
+    hasValidPublishDate: true,
+    hasTags: true,
+    isDuplicate,
+    isTooShort: false,
+    isPrerelease: false,
+    isAlreadyPublished: false,
+    isSimilarToPublished: false,
+    isDefacementTitle: false,
+    isConvertible: true,
+    flags: isDuplicate
+      ? ["possible_duplicate", "ready_for_review"]
+      : ["ready_for_review"]
+  });
+
+  it("keeps a high-scoring unreviewed duplicate out of 立即关注", () => {
+    const candidate = makeImportedCandidate();
+    const clean = evaluateImportedCandidatePriority(candidate, {
+      now: NOW,
+      sourceQuality: goodSource,
+      candidateQuality: quality(false)
+    });
+    const duplicate = evaluateImportedCandidatePriority(candidate, {
+      now: NOW,
+      sourceQuality: goodSource,
+      candidateQuality: quality(true)
+    });
+
+    expect(clean.priorityLevel).toBe("high_priority");
+    expect(duplicate.priorityWarnings).toContain("疑似重复仍需审核。");
+    expect(duplicate.priorityScore).toBeGreaterThanOrEqual(75);
+    expect(duplicate.priorityLevel).toBe("watch");
+  });
+
+  it("does not treat 尚未关联背景知识 as severe", () => {
+    const ranking = evaluateTechnologyPriority(
+      makeTechnologyItem({
+        importanceLevel: "critical",
+        relatedKnowledgeIds: [],
+        relatedSkillIds: []
+      }),
+      { now: NOW }
+    );
+
+    expect(ranking.priorityWarnings).toContain("尚未关联背景知识。");
+    expect(ranking.priorityLevel).toBe("high_priority");
   });
 });

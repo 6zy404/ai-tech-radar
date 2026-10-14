@@ -147,11 +147,16 @@ export function createDailyScheduleConfigStore<TRunStatus extends string>(
 
   // Records a finished run and moves nextRunAt to the next scheduled time,
   // which is also what keeps a schedule from running twice in one day.
+  // Re-reads the config instead of taking the one the run started from: the
+  // import awaits the network for about two minutes, and writing back that
+  // copy undid an enabled / scheduleTime change saved meanwhile from the
+  // workspace (another process).
   function recordRun(
-    config: Config,
     result: { status: Exclude<TRunStatus, "never_run">; message: string },
     now: Date
   ): Config {
+    const config = get();
+
     write({
       ...config,
       lastRunAt: now.toISOString(),

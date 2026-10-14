@@ -8,6 +8,7 @@ import {
   importCandidatesForExternalSource,
   isRetryableStatus,
   resolveImportFetchSettings,
+  toIsoDate,
   type ImportFetchSettings
 } from "./external-import";
 
@@ -20,6 +21,29 @@ const fastSettings: ImportFetchSettings = {
 function jsonResponse(status: number): Response {
   return new Response("{}", { status });
 }
+
+describe("toIsoDate", () => {
+  it("files a timestamp under its Asia/Shanghai day", () => {
+    // 22:26 GMT on the 13th is 06:26 on the 14th in Beijing.
+    expect(toIsoDate("Tue, 13 Oct 2026 22:26:45 GMT")).toBe("2026-10-14");
+    expect(toIsoDate("2026-10-13T22:03:22Z")).toBe("2026-10-14");
+    // 15:59 UTC is still 23:59 on the same Beijing day.
+    expect(toIsoDate("2026-10-13T15:59:00Z")).toBe("2026-10-13");
+    expect(toIsoDate("2026-10-13T16:00:00Z")).toBe("2026-10-14");
+  });
+
+  it("keeps a bare calendar date as written", () => {
+    expect(toIsoDate("2026-10-14")).toBe("2026-10-14");
+    expect(toIsoDate("Oct 14, 2026")).toBe("2026-10-14");
+    expect(toIsoDate("Published Mar 3, 2026 by the team")).toBe("2026-03-03");
+  });
+
+  it("uses today in Asia/Shanghai when the feed gives no date", () => {
+    expect(toIsoDate(undefined, new Date("2026-10-13T23:30:00Z"))).toBe(
+      "2026-10-14"
+    );
+  });
+});
 
 describe("isRetryableStatus", () => {
   it("retries the statuses that mean 'come back later'", () => {

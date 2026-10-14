@@ -91,11 +91,7 @@ describe("createDailyScheduleConfigStore", () => {
   it("records a run and is not due again until the next scheduled time", async () => {
     const { store, isDailyScheduleDue } = await makeStore();
     const now = new Date();
-    const after = store.recordRun(
-      store.get(),
-      { status: "success", message: "ok" },
-      now
-    );
+    const after = store.recordRun({ status: "success", message: "ok" }, now);
 
     expect(after).toMatchObject({
       lastRunStatus: "success",
@@ -109,5 +105,35 @@ describe("createDailyScheduleConfigStore", () => {
     expect(JSON.parse(readFileSync(storeFile(), "utf8")).lastRunStatus).toBe(
       "success"
     );
+  });
+
+  it("keeps a change saved while the run was in progress", async () => {
+    const { store } = await makeStore();
+
+    // The run starts from this config, then the workspace (another process)
+    // disables it and moves the time before the run records its result.
+    store.get();
+    writeFileSync(
+      storeFile(),
+      JSON.stringify({
+        ...store.get(),
+        enabled: false,
+        scheduleTime: "07:15"
+      })
+    );
+
+    const after = store.recordRun(
+      { status: "failed", message: "boom" },
+      new Date("2026-10-14T00:07:00.000Z")
+    );
+
+    expect(after).toMatchObject({
+      enabled: false,
+      scheduleTime: "07:15",
+      lastRunStatus: "failed",
+      lastRunMessage: "boom"
+    });
+    // The next run follows the new time: 07:15 Asia/Shanghai is 23:15 UTC.
+    expect(after.nextRunAt).toBe("2026-10-14T23:15:00.000Z");
   });
 });

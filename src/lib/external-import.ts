@@ -1,6 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
 
 import { normalizeCandidateId, normalizeCandidateTags } from "@/lib/importers";
+import { getNotificationDay } from "@/lib/pipeline-alert";
 import {
   cleanFeedText,
   cleanUrl,
@@ -143,30 +144,74 @@ function toSourceLanguage(value: string | undefined): SourceLanguage {
   return value.toLowerCase().includes("zh") ? "zh" : "en";
 }
 
-function toIsoDate(value: string | undefined): string {
+const monthAbbreviations = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec"
+];
+
+/** The day an instant falls on in Asia/Shanghai, the site's clock. */
+function toShanghaiDate(date: Date): string {
+  return getNotificationDay(date, "Asia/Shanghai");
+}
+
+/** A date written without a time of day — a day, not an instant. */
+function readCalendarDate(value: string): string | undefined {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return value;
+  }
+
+  const monthDateMatch = value.match(
+    /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}), (\d{4})\b/i
+  );
+
+  if (!monthDateMatch) {
+    return undefined;
+  }
+
+  const month = monthAbbreviations.indexOf(monthDateMatch[1].toLowerCase()) + 1;
+
+  return `${monthDateMatch[3]}-${String(month).padStart(2, "0")}-${monthDateMatch[2].padStart(2, "0")}`;
+}
+
+/**
+ * A feed's date as `YYYY-MM-DD`. A timestamp is read as the Asia/Shanghai
+ * day; until 2026-10-14 it took the UTC day, so everything published between
+ * 00:00 and 08:00 Beijing time was filed under the day before (73 of 166
+ * candidates that day). A bare calendar date is kept as written: parsing
+ * "Oct 14, 2026" gives local midnight, which the UTC conversion moved back a
+ * day on this machine.
+ */
+export function toIsoDate(value: string | undefined, now = new Date()): string {
   if (!value) {
-    return new Date().toISOString().slice(0, 10);
+    return toShanghaiDate(now);
   }
 
   const normalizedValue = value.trim();
   const directDate = new Date(normalizedValue);
+  const isValidDate = !Number.isNaN(directDate.valueOf());
 
-  if (!Number.isNaN(directDate.valueOf())) {
-    return directDate.toISOString().slice(0, 10);
+  if (isValidDate && /\d{1,2}:\d{2}/.test(normalizedValue)) {
+    return toShanghaiDate(directDate);
   }
 
-  const monthDateMatch = normalizedValue.match(
-    /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}), (\d{4})\b/i
-  );
+  const calendarDate = readCalendarDate(normalizedValue);
 
-  if (monthDateMatch) {
-    const parsedDate = new Date(
-      `${monthDateMatch[1]} ${monthDateMatch[2]}, ${monthDateMatch[3]}`
-    );
+  if (calendarDate) {
+    return calendarDate;
+  }
 
-    if (!Number.isNaN(parsedDate.valueOf())) {
-      return parsedDate.toISOString().slice(0, 10);
-    }
+  if (isValidDate) {
+    return toShanghaiDate(directDate);
   }
 
   return normalizedValue.slice(0, 10);

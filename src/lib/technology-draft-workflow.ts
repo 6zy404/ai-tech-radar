@@ -283,6 +283,28 @@ export function updateTechnologyWorkspaceRecord(
       "needs_enrichment",
     updatedAt: new Date().toISOString()
   };
+
+  // A published signal's slug is its public address. The publish gate checks
+  // it is unique, but an edit made after publishing skipped that check, and a
+  // collision hid the other signal (`getTechnologyBySlug` returns the first).
+  // Drafts still meet the check when they are published.
+  if (
+    existingRecord.status === "published" &&
+    nextRecordWithoutRanking.slug !== existingRecord.slug
+  ) {
+    const duplicateSlug = evaluateTechnologyPublishReadiness(
+      nextRecordWithoutRanking,
+      store.records,
+      technologyItems
+    ).blockingErrors.find((issue) => issue.code === "duplicate-slug");
+
+    if (duplicateSlug) {
+      throw new Error(
+        `${duplicateSlug.message}已发布的信号不能改用 slug「${nextRecordWithoutRanking.slug}」。`
+      );
+    }
+  }
+
   const nextRecord: TechnologyWorkspaceRecord = {
     ...nextRecordWithoutRanking,
     priority: evaluateTechnologyPriority(nextRecordWithoutRanking)

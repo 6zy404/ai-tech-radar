@@ -315,8 +315,13 @@ function determinePriorityLevel(
   warnings: string[],
   editorialBand?: EditorialBandInput
 ): PriorityLevel {
+  // The warnings were localized on 2026-07-11 while this test still looked for
+  // the English words, so until 2026-10-14 no warning counted as severe. The
+  // keywords map one to one: poor 较差, invalid 无效, missing 缺少,
+  // duplicate still 仍需审核, multiple quality 多项质量问题. 发布方不明确 and
+  // 尚未关联… were not severe in English either.
   const hasSevereWarning = warnings.some((warning) =>
-    /poor|invalid|missing|duplicate still|multiple quality/i.test(warning)
+    /较差|无效|缺少|仍需审核|多项质量问题/.test(warning)
   );
 
   if (score < 45) {

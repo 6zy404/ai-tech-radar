@@ -130,6 +130,28 @@ describe("getCandidateWorkflowData memoization", () => {
     expect(analyzeDuplicatesCalls.count).toBe(2);
   });
 
+  it("rebuilds after another process rewrites the duplicate groups", async () => {
+    const groupsPath = path.join(dataDir, "duplicate-groups.json");
+    writeFileSync(groupsPath, JSON.stringify({ groups: [] }));
+    const { workflow } = await loadWorkflow();
+
+    workflow.getCandidateWorkflowData();
+    expect(analyzeDuplicatesCalls.count).toBe(1);
+
+    // The editorial round resolves or ignores groups from its own `next dev`;
+    // only this file changes, and the live server must notice.
+    writeFileSync(
+      groupsPath,
+      JSON.stringify({
+        updatedAt: "2026-10-14T01:00:00.000Z",
+        groups: [{ id: "group-one", status: "ignored" }]
+      })
+    );
+
+    workflow.getCandidateWorkflowData();
+    expect(analyzeDuplicatesCalls.count).toBe(2);
+  });
+
   it("does not rebuild when nothing changed between two reads", async () => {
     const { workflow } = await loadWorkflow();
 

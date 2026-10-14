@@ -197,11 +197,17 @@ interface CandidateWorkflowData {
 /**
  * The stores this view is derived from. Their identity is what decides whether
  * a cached result is still good.
+ *
+ * `duplicate-groups.json` is read inside `analyzeDuplicates` (the persisted
+ * primary and status of each group). It was missing until 2026-10-14, so a
+ * group resolved or ignored from the editorial round's own `next dev` left the
+ * live server's news lane hiding by the old primary until the next import.
  */
 const candidateWorkflowSources = [
   "imported-candidates.live.json",
   "candidate-review-state.json",
   "technology-workspace.json",
+  "duplicate-groups.json",
   SEMANTIC_MATCH_STORE_FILE
 ];
 

@@ -58,7 +58,6 @@ export interface ScheduledDigestRunResult {
 export function runScheduledDigest({
   now = new Date()
 }: { now?: Date } = {}): ScheduledDigestRunResult {
-  const config = getScheduledDigestConfig();
   const date = getTodayDateString();
   let status: ScheduledDigestRunResult["status"];
   let message: string;
@@ -90,7 +89,6 @@ export function runScheduledDigest({
     status,
     message,
     config: store.recordRun(
-      config,
       { status: status === "failed" ? "failed" : "success", message },
       now
     )

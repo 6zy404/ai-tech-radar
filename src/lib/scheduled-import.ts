@@ -61,18 +61,17 @@ export async function runScheduledImport({
   run: ImportRun;
   config: ScheduledImportConfig;
 }> {
-  const config = getScheduledImportConfig();
-
   // 无人值守运行不生成回退占位候选：来源失败只记录健康状态，
   // 避免占位数据每日堆积在候选池里。
   const { run } = await runBatchImportForEnabledSources({
     useFallbackOnFailure: false
   });
 
+  // recordRun 写回前重新读取配置：导入要等约两分钟网络，期间在工作台改的
+  // 开关或时间不能被开始时读到的旧配置覆盖。
   return {
     run,
     config: store.recordRun(
-      config,
       { status: run.status, message: buildScheduledImportMessage(run) },
       now
     )
