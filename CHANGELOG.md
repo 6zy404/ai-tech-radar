@@ -29,8 +29,15 @@ For per-topic deep dives, see the `docs/` directory.
   optimizer RCE), plus ten high advisories. `npm audit fix` (no `--force`) also
   moved sharp, source-map-js, nanoid, js-yaml, brace-expansion and
   fast-xml-parser within their ranges. Production audit 7 (1 critical) → 2
-  (1 high: postcss 8.4.31, pinned by next, build-time only). **Not deployed
-  yet.** CI now runs on Node 24 (as production does) and fails on a critical
+  (1 high: postcss 8.4.31, pinned by next, build-time only). Deployed the
+  night of 2026-10-14 as build `q4NXxjyqHvsOalbH2bKYm`, together with the
+  English interface that main had gained meanwhile: the server was stopped,
+  `npm ci` run in the live checkout, then `npm run deploy` — about 1.5
+  minutes down, because the deploy script builds against whatever
+  `node_modules` the checkout has and a running server on Windows holds
+  native modules open. Checked through the public edge: new build id, no
+  `x-powered-by`, `/_next/image` 404, the four internal prefixes 404,
+  `/en` 200. CI now runs on Node 24 (as production does) and fails on a critical
   production advisory.
 - **Public surface.** `/_next/image` returns 404 (`images.unoptimized`; the
   site never used `next/image`, and the endpoint was being called by

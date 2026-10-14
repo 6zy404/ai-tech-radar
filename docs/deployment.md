@@ -259,6 +259,21 @@ arguments, and running it twice returns to where it started. A rollback target
 older than 2026-09-25 has no `/api/health`; the script then checks the home
 page instead and says so.
 
+**A dependency change needs a stop first.** The script builds against the
+`node_modules` the checkout already has and never installs anything, so after
+a merge that changes `package-lock.json`, `npm run deploy` alone would build
+and serve the old versions. On Windows the running server holds native
+modules open (onnxruntime, sharp), so `npm ci` cannot run under it either.
+The order that worked on 2026-10-14 (Next.js 15.5.15 → 15.5.27): stop the
+server (the script's own ownership check first: the port 3000 listener must
+run from this checkout's `node_modules`), `npm ci` in the live checkout —
+with `HTTPS_PROXY` cleared if the proxy is down; the cache from a worktree
+install made it 16 seconds — then `npm run deploy`. About 1.5 minutes down.
+`.next-old` is then a build of the old dependencies, so a rollback means
+restoring the lock file and running `npm ci` again before
+`deploy:rollback`. Worktrees whose `node_modules` is a junction into the live
+checkout see the new versions at once.
+
 **Log rotation happens inside the stop window**, because `config/server.log` is
 held open by the running task and cannot be renamed at any other time. A log
 over 1 MB (`-LogMaxKB`) becomes `.1`, older generations shift up, three are
