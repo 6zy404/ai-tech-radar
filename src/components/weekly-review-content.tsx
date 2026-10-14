@@ -6,6 +6,7 @@ import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
 import { ReadingProgress } from "@/components/reading-progress";
 import { weeklyReviewFeedPath } from "@/lib/feed-paths";
+import { importantFreshnessWindowDays } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import type {
   WeeklyReviewArchiveEntry,
@@ -33,7 +34,7 @@ function toPagerTarget(neighbor: WeeklyReviewNeighbor | undefined) {
 }
 
 const groupLede: Record<WeeklyReviewGroup["level"], string> = {
-  high_priority: "本周多项信号显示值得尽早评估的内容。",
+  high_priority: `本周编辑标为关键、或标为重要且发布不满 ${importantFreshnessWindowDays} 天的信号。`,
   watch: "本周值得持续留意、等待更多验证的变化。"
 };
 
@@ -66,7 +67,7 @@ export function WeeklyReviewContent({
         </div>
       </div>
 
-      {/* The same panel as a digest's 今日概览, so the two read alike. */}
+      {/* The same panel as a digest's 本期概览, so the two read alike. */}
       {summary ? (
         <section className="daily-digest-summary-panel weekly-review-summary">
           <h2 className="eyebrow user-eyebrow">本周总结</h2>

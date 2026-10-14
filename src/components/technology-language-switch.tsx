@@ -30,6 +30,7 @@ export function TechnologyLanguageSwitch({
           }`}
           onClick={() => onChange("zh")}
           disabled={!chineseEnabled}
+          aria-pressed={mode === "zh"}
         >
           中文
         </button>
@@ -41,6 +42,7 @@ export function TechnologyLanguageSwitch({
               : ""
           }`}
           onClick={() => onChange("original")}
+          aria-pressed={mode === "original"}
         >
           原文
         </button>

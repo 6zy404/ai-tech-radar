@@ -328,7 +328,14 @@ export function RadarView({
   // changes on this page (a link to another entry, an edited address).
   useEffect(() => {
     const openFromHash = () => {
-      const hash = decodeURIComponent(window.location.hash.slice(1));
+      // A malformed escape (#radar-%E0%A4) is no anchor, not an error page.
+      let hash: string;
+
+      try {
+        hash = decodeURIComponent(window.location.hash.slice(1));
+      } catch {
+        return;
+      }
 
       if (!hash.startsWith(anchorPrefix)) {
         return;
@@ -408,7 +415,13 @@ export function RadarView({
                           }
                         }}
                       >
-                        <summary>
+                        {/* Named explicitly: the row's open/closed mark is CSS
+                            generated text (+ / −), which a browser counts into
+                            the name, and <details> already says open or
+                            closed. */}
+                        <summary
+                          aria-label={`${entry.number} ${entry.name} · ${getRadarRingLabel(entry.ring)}${stamp ? ` ${stamp}` : ""}`}
+                        >
                           <span className="radar-entry__number">
                             {entry.number}
                           </span>

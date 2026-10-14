@@ -103,9 +103,11 @@ const relations: Array<{ type: RelationType; body: string }> = [
     body: "同一产品线的后一个版本。信号页的「版本脉络」只由它生成。"
   },
   { type: "supports", body: "为对方提供佐证。" },
+  // A dated measurement, not a live count: this page reads no runtime
+  // content (69 of 1137 edges, docs/reference.md).
   {
     type: "related-to",
-    body: "有关，但不属于以上任何一种。约占全部关系的 12%。"
+    body: "有关，但不属于以上任何一种。2026-10-12 实测约占全部关系的 6%。"
   }
 ];
 
@@ -362,7 +364,10 @@ export default function AboutPage() {
                 通知在服务器上加密后经推送服务送到你的浏览器，推送服务看不到内容，只知道有一条消息发给了这个浏览器。提醒只在编辑手动推送时发出，同一条信号只推一次。
               </p>
               <p>
-                怎么删：在「我关注的」里关掉提醒，或者取消关注全部话题，服务器上的记录立即删除；在浏览器设置里撤销本站的通知权限，下次推送时推送服务会告诉服务器这个地址已失效，记录随之删除。
+                怎么删：在「我关注的」里关掉提醒，或者取消关注全部话题，服务器上的记录立即删除；在浏览器设置里撤销本站的通知权限，下次推送时推送服务会告诉服务器这个地址已失效，记录随之删除。本机每天备份一次数据、保留最近
+                14
+                份，删除之前做的备份里还留着这条记录，随旧备份被替换而清除，一般约
+                14 天。
               </p>
             </DossierCatalogNote>
           </DossierCard>

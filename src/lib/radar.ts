@@ -141,19 +141,25 @@ export function toPublicRadarEntries(
       ringReason: entry.ringReason,
       change,
       ...(movedFrom ? { movedFrom } : {}),
-      evidence: entry.evidenceTechnologyIds.flatMap((id) => {
-        const item = technologies.get(id);
+      // Newest first, like every other dated list on the site and the ring
+      // history beside it; the editor's order is kept for a same-day tie.
+      evidence: entry.evidenceTechnologyIds
+        .flatMap((id) => {
+          const item = technologies.get(id);
 
-        return item
-          ? [
-              {
-                slug: item.slug,
-                title: getPreferredTechnologyTitle(item),
-                publishDate: item.publishDate
-              }
-            ]
-          : [];
-      }),
+          return item
+            ? [
+                {
+                  slug: item.slug,
+                  title: getPreferredTechnologyTitle(item),
+                  publishDate: item.publishDate
+                }
+              ]
+            : [];
+        })
+        .sort((left, right) =>
+          right.publishDate.localeCompare(left.publishDate)
+        ),
       knowledge: entry.relatedKnowledgeIds.flatMap((id) => {
         const item = knowledge.get(id);
 

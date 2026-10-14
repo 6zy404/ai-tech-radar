@@ -50,7 +50,8 @@ export function TopicFollowToggle({ tagId, tagName }: TopicFollowToggleProps) {
           setIsFollowed(setTagFollowed(tagId, !isFollowed).includes(tagId))
         }
       >
-        {isFollowed ? "✓ " : "+ "}关注此话题
+        <span aria-hidden="true">{isFollowed ? "✓ " : "+ "}</span>
+        关注此话题
       </button>
       <div className="topic-follow-toggle__hints">
         <div

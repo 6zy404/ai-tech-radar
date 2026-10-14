@@ -81,6 +81,7 @@ export function TechnologyCompareWidget({
           value={selectedId}
           onChange={(event) => setSelectedId(event.target.value)}
           disabled={isPending}
+          aria-label="选择要对比的技术"
         >
           {candidates.map((candidate) => (
             <option key={candidate.id} value={candidate.id}>
@@ -96,10 +97,17 @@ export function TechnologyCompareWidget({
         >
           {isPending ? "生成中…" : "生成对比"}
         </button>
+        {/* Heard, not seen: the result arrives seconds after the press,
+            below the button, and the button is disabled meanwhile. */}
+        <p className="signal-shortcut-help__live" role="status">
+          {isPending ? "正在生成对比…" : fields ? "对比已生成，见下方。" : ""}
+        </p>
       </div>
 
       {error ? (
-        <p className="technology-compare-widget__error">{error}</p>
+        <p className="technology-compare-widget__error" role="alert">
+          {error}
+        </p>
       ) : null}
 
       {fields ? (

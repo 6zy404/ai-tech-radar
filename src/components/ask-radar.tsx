@@ -462,6 +462,19 @@ export function AskRadar({
   const finished = Boolean(last?.done) && !running;
   const atLimit = completeTurns.length >= askMaxTurns;
   const canCopy = finished && last !== undefined && isComplete(last);
+  // One sentence per state change for a screen reader. The conversation
+  // itself is not a live region: the answer streams in as hundreds of small
+  // rewrites of one paragraph, each of which would be read out.
+  const announcement = running
+    ? "正在生成回答…"
+    : !last?.done
+      ? ""
+      : last.error
+        ? last.error
+        : `回答完成，引用 ${
+            last.sources.filter((source) => last.cited.includes(source.ref))
+              .length
+          } 条。`;
 
   return (
     <div className="ask-radar">
@@ -506,7 +519,7 @@ export function AskRadar({
       ) : null}
 
       {turns.length > 0 ? (
-        <section className="ask-radar__result" aria-live="polite">
+        <section className="ask-radar__result">
           <p className="ask-radar__disclaimer">{aiGeneratedDisclaimer}</p>
 
           {turns.map((turn, index) => (
@@ -560,6 +573,10 @@ export function AskRadar({
           />
         )
       ) : null}
+
+      <p className="signal-shortcut-help__live" role="status">
+        {announcement}
+      </p>
     </div>
   );
 }

@@ -20,7 +20,10 @@ import {
   toggleFollowedTagId,
   writeFollowedTagIds
 } from "@/lib/followed-tags";
-import { evaluateTechnologyPriority } from "@/lib/ranking";
+import {
+  evaluateTechnologyPriority,
+  importantFreshnessWindowDays
+} from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { isNewSinceLastVisit, toVisitKeys } from "@/lib/visit-state";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
@@ -35,7 +38,7 @@ const priorityGroups: { level: PriorityLevel; title: string; lede: string }[] =
     {
       level: "high_priority",
       title: getPriorityLevelLabel("high_priority", "zh"),
-      lede: "命中你关注话题、且多项信号显示值得尽早评估的内容。"
+      lede: `命中你关注话题，且编辑标为关键、或标为重要且发布不满 ${importantFreshnessWindowDays} 天的信号。`
     },
     {
       level: "watch",
@@ -188,7 +191,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
                 title={tag.description}
                 onClick={() => setFollowedTagIds(toggleFollowedTagId(tag.id))}
               >
-                {isFollowed ? "✓ " : "+ "}
+                <span aria-hidden="true">{isFollowed ? "✓ " : "+ "}</span>
                 {tag.name}
               </button>
             );

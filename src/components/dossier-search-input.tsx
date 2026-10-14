@@ -5,6 +5,11 @@ interface DossierSearchInputProps {
   className?: string;
   /** Set it when the box sits in a <form> that must submit without JS. */
   name?: string;
+  /**
+   * The box's accessible name. The placeholder is not one: it disappears as
+   * soon as the reader types. Leave it out only when a <label> wraps the box.
+   */
+  label?: string;
 }
 
 /**
@@ -18,7 +23,8 @@ export function DossierSearchInput({
   onChange,
   placeholder,
   className = "",
-  name
+  name,
+  label
 }: DossierSearchInputProps) {
   return (
     <div className={`dossier-search ${className}`.trim()}>
@@ -28,6 +34,7 @@ export function DossierSearchInput({
         name={name}
         value={value}
         placeholder={placeholder}
+        aria-label={label}
         onChange={(event) => onChange(event.target.value)}
       />
     </div>

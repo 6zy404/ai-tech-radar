@@ -251,8 +251,8 @@ describe("getDigestTocCandidates", () => {
 
   it("lists every section of a full issue in page order, by its h2", () => {
     expect(selectPageTocEntries(getDigestTocCandidates(fullDigest))).toEqual([
-      { id: "section-summary", label: "今日概览" },
-      { id: "section-high-priority", label: "今日立即关注" },
+      { id: "section-summary", label: "本期概览" },
+      { id: "section-high-priority", label: "本期立即关注" },
       { id: "section-watch", label: "值得跟踪" },
       { id: technologyTocIds.relatedSkills, label: "值得关注的技能" },
       { id: technologyTocIds.relatedKnowledge, label: "背景知识" },

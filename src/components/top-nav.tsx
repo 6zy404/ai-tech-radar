@@ -59,6 +59,7 @@ export function TopNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLElement>(null);
 
@@ -202,14 +203,20 @@ export function TopNav() {
                 // Collapsed, the box is 0px wide and clipped by its form, so
                 // it must not be a tab stop; the toggle focuses it on open.
                 tabIndex={searchOpen ? undefined : -1}
+                // Collapsing does not blur the box, so Esc hands focus back to
+                // the toggle — as the menu panel's Esc does — or the caret
+                // would sit in a box nobody can see.
                 onKeyDown={(event) => {
                   if (event.key === "Escape") {
+                    event.preventDefault();
                     setSearchOpen(false);
+                    searchToggleRef.current?.focus();
                   }
                 }}
               />
             </form>
             <button
+              ref={searchToggleRef}
               type="button"
               className="top-nav__search-toggle"
               aria-label={searchOpen ? "收起搜索" : "展开搜索"}

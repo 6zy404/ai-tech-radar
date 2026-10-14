@@ -37,6 +37,10 @@ interface PositionedNode extends ContentGraphNode {
 // settled layout. The layout maths itself lives in `@/lib/network-layout`.
 const UNFOLD_MS = 700;
 
+// A press that travels further than this before release is a drag, not a
+// click.
+const DRAG_THRESHOLD_PX = 4;
+
 const kindOrder: ContentGraphNode["kind"][] = [
   "technology",
   "skill",
@@ -83,6 +87,12 @@ export function ContentNetworkGraph({
     gridLayout(nodes)
   );
   const draggingIdRef = useRef<string | null>(null);
+  // Where the pointer went down, and whether it has since moved far enough to
+  // count as a drag. A drag ends with a click on the same button (the pointer
+  // is captured), and that click must not toggle the selection.
+  const dragStartRef = useRef<{ x: number; y: number; moved: boolean } | null>(
+    null
+  );
 
   const nodeKey = useMemo(
     () => nodes.map((node) => node.id).join("|"),
@@ -334,6 +344,11 @@ export function ContentNetworkGraph({
   ) => {
     event.currentTarget.setPointerCapture(event.pointerId);
     draggingIdRef.current = id;
+    dragStartRef.current = {
+      x: event.clientX,
+      y: event.clientY,
+      moved: false
+    };
   };
 
   const handlePointerMove = (event: PointerEvent<HTMLButtonElement>) => {
@@ -341,6 +356,17 @@ export function ContentNetworkGraph({
 
     if (!id) {
       return;
+    }
+
+    const start = dragStartRef.current;
+
+    if (
+      start &&
+      !start.moved &&
+      Math.hypot(event.clientX - start.x, event.clientY - start.y) >
+        DRAG_THRESHOLD_PX
+    ) {
+      start.moved = true;
     }
 
     const canvas = event.currentTarget.closest(".content-network__canvas");
@@ -364,8 +390,26 @@ export function ContentNetworkGraph({
     setPositions((prev) => ({ ...prev, [id]: { x, y } }));
   };
 
+  // Also on lostpointercapture, which follows every pointerup — so it must
+  // leave dragStartRef for the click that comes after it.
   const handlePointerUp = () => {
     draggingIdRef.current = null;
+  };
+
+  // A cancelled pointer is never followed by a click.
+  const handlePointerCancel = () => {
+    draggingIdRef.current = null;
+    dragStartRef.current = null;
+  };
+
+  const handleNodeButtonClick = (id: string) => {
+    const wasDrag = dragStartRef.current?.moved ?? false;
+
+    dragStartRef.current = null;
+
+    if (!wasDrag) {
+      handleNodeClick(id);
+    }
   };
 
   const matchedCount = nodes.filter(matchesFilter).length;
@@ -387,6 +431,7 @@ export function ContentNetworkGraph({
           value={searchText}
           onChange={setSearchText}
           placeholder="搜索节点标题"
+          label="搜索节点标题"
         />
         <DossierCategoryChips
           options={kindFilterOptions}
@@ -495,18 +540,28 @@ export function ContentNetworkGraph({
                 data-node-id={node.id}
                 className={className}
                 style={{ left: `${node.x}%`, top: `${node.y}%` }}
-                onClick={() => handleNodeClick(node.id)}
+                onClick={() => handleNodeButtonClick(node.id)}
                 onPointerDown={(event) => handlePointerDown(event, node.id)}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerCancel}
+                onLostPointerCapture={handlePointerUp}
                 onPointerEnter={() => setHoveredNodeId(node.id)}
                 onPointerLeave={() =>
                   setHoveredNodeId((current) =>
                     current === node.id ? null : current
                   )
                 }
+                // Keyboard focus shows the name as hovering does: a focused
+                // dot alone does not say which node it is.
+                onFocus={() => setHoveredNodeId(node.id)}
+                onBlur={() =>
+                  setHoveredNodeId((current) =>
+                    current === node.id ? null : current
+                  )
+                }
                 aria-pressed={isSelected}
-                aria-label={node.title}
+                aria-label={`${kindLabel[node.kind]}：${node.title}`}
                 title={node.title}
               >
                 <span
@@ -538,7 +593,10 @@ export function ContentNetworkGraph({
           ) : null}
         </div>
 
-        <aside className="content-network__panel" aria-live="polite">
+        {/* Not a live region: it is replaced whole on every selection, and a
+            well-connected node lists forty-odd rows. The status line at its
+            end says what changed. */}
+        <aside className="content-network__panel">
           {selectedNode ? (
             <>
               <p className="technology-detail-section__eyebrow">
@@ -588,7 +646,7 @@ export function ContentNetworkGraph({
           ) : (
             <>
               <p className="content-network__panel-hint">
-                节点默认只显示彩色圆点；悬停或搜索可以看到名称。点击任意节点查看它的直接连接，拖动节点可以重新摆放；再次点击节点可取消选中。
+                节点默认只显示彩色圆点；悬停、键盘聚焦或搜索可以看到名称。点击任意节点查看它的直接连接，拖动节点可以重新摆放；再次点击节点可取消选中。
               </p>
               <ul className="content-network__legend">
                 <li className="content-network__legend-item content-network__legend-item--technology">
@@ -620,6 +678,11 @@ export function ContentNetworkGraph({
               </p>
             </>
           )}
+          <p className="signal-shortcut-help__live" role="status">
+            {selectedNode
+              ? `已选中${kindLabel[selectedNode.kind]}「${selectedNode.title}」，${connections.length} 个连接`
+              : ""}
+          </p>
         </aside>
       </div>
     </div>

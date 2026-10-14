@@ -149,6 +149,35 @@ describe("toPublicRadarEntries", () => {
     expect(entries[1]).not.toHaveProperty("evidenceTechnologyIds");
   });
 
+  it("lists evidence newest first, whatever order the editor saved", () => {
+    const older = makeTechnologyItem({
+      id: "tech-old",
+      slug: "signal-old",
+      status: "published",
+      publishDate: "2026-07-15"
+    });
+    const newer = makeTechnologyItem({
+      id: "tech-new",
+      slug: "signal-new",
+      status: "published",
+      publishDate: "2026-10-10"
+    });
+    const [entry] = toPublicRadarEntries(
+      [
+        makeEntry({
+          evidenceTechnologyIds: ["tech-old", "tech-new", "tech-1"]
+        })
+      ],
+      { technologies: [published, older, newer], knowledge: [], skills: [] }
+    );
+
+    expect(entry.evidence.map((signal) => signal.slug)).toEqual([
+      "signal-new",
+      "signal-one",
+      "signal-old"
+    ]);
+  });
+
   it("keeps the seed's numbering stable: quadrant, then ring", () => {
     const entries = toPublicRadarEntries(radarEntries, {
       technologies: [],

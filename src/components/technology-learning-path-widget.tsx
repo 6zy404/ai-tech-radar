@@ -68,10 +68,21 @@ export function TechnologyLearningPathWidget({
         >
           {isPending ? "生成中…" : "生成学习路径"}
         </button>
+        {/* Heard, not seen: the result arrives seconds after the press,
+            below the button, and the button is disabled meanwhile. */}
+        <p className="signal-shortcut-help__live" role="status">
+          {isPending
+            ? "正在生成学习路径…"
+            : fields
+              ? "学习路径已生成，见下方。"
+              : ""}
+        </p>
       </div>
 
       {error ? (
-        <p className="technology-compare-widget__error">{error}</p>
+        <p className="technology-compare-widget__error" role="alert">
+          {error}
+        </p>
       ) : null}
 
       {fields ? (

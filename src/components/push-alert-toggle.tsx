@@ -95,7 +95,10 @@ export function PushAlertToggle({ followedTagIds }: PushAlertToggleProps) {
   };
 
   return (
-    <div className="push-alert-toggle" aria-live="polite">
+    // Not a live region as a whole: the button and its note arrive together
+    // once the state loads, and that arrival is not news. Only the result of
+    // a click is announced, through the status span in the note.
+    <div className="push-alert-toggle">
       {state === "loading" ? (
         <span className="push-alert-toggle__placeholder" aria-hidden="true" />
       ) : state === "unsupported" ? (
@@ -113,13 +116,16 @@ export function PushAlertToggle({ followedTagIds }: PushAlertToggleProps) {
             }
             onClick={handleClick}
           >
-            {isOn ? "✓ " : "+ "}有新信号时提醒我
+            <span aria-hidden="true">{isOn ? "✓ " : "+ "}</span>
+            有新信号时提醒我
           </button>
           <span className="push-alert-toggle__note">
-            {message ||
-              (isOn
+            <span role="status">{message}</span>
+            {message
+              ? null
+              : isOn
                 ? "关注的话题有新信号时会收到浏览器通知。"
-                : "开启后，服务器会存下这个浏览器的推送地址和你关注的话题，")}
+                : "开启后，服务器会存下这个浏览器的推送地址和你关注的话题，"}
             {!message && !isOn ? (
               <Link className="action-link" href="/about#privacy">
                 存什么、怎么删

@@ -217,8 +217,10 @@ export function getContentDetailTocCandidates(
  * and knowledge pages.
  */
 export const digestTocSections = {
-  summary: { id: "section-summary", label: "今日概览" },
-  highPriority: { id: "section-high-priority", label: "今日立即关注" },
+  // 本期, not 今日: digests are published a few times a month, and an old
+  // issue said 今日 to whoever opened it later.
+  summary: { id: "section-summary", label: "本期概览" },
+  highPriority: { id: "section-high-priority", label: "本期立即关注" },
   watch: { id: "section-watch", label: "值得跟踪" },
   skills: { id: technologyTocIds.relatedSkills, label: "值得关注的技能" },
   knowledge: { id: technologyTocIds.relatedKnowledge, label: "背景知识" },

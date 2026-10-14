@@ -23,10 +23,11 @@ export function ReadFilterToggle({
   return (
     <div className="read-filter-toggle">
       <span className="read-filter-toggle__count">已读 {readCount} 条</span>
+      {/* The label says what a press will do, so no aria-pressed: with it, a
+          screen reader read 「显示已读，已按下」 while read cards were hidden. */}
       <button
         type="button"
         onClick={onToggle}
-        aria-pressed={hideRead}
         className={`read-filter-toggle__button${
           hideRead ? " read-filter-toggle__button--active" : ""
         }`}

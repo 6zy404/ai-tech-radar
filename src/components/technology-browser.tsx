@@ -212,6 +212,7 @@ export function TechnologyBrowser({
           value={searchText}
           onChange={setSearchText}
           placeholder="搜索标题、摘要或来源"
+          label="搜索技术信号"
         />
 
         <div className="dossier-technology-browser__filters">
@@ -251,7 +252,11 @@ export function TechnologyBrowser({
             and nothing below it moves. */}
         <div className="dossier-technology-browser__toolbar">
           <div className="dossier-technology-browser__count">
-            <strong>{filteredTechnologies.length} 条技术信号</strong>
+            {/* A status, as on /skills and /knowledge: a screen reader hears
+                the new count after each keystroke or chip. */}
+            <strong role="status">
+              {filteredTechnologies.length} 条技术信号
+            </strong>
             {newCount > 0 ? (
               <span className="dossier-technology-browser__new-count">
                 上次来访后新增 {newCount} 条

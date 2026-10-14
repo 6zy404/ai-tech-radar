@@ -99,7 +99,9 @@ export default async function TechnologiesPage({
     <UserPageShell
       title="技术信号"
       description={viewDescriptions[view]}
-      sectionLabel="已发布信号"
+      // 全部快讯 is mostly candidates no editor has looked at yet, so it is not
+      // labelled as published.
+      sectionLabel={view === "news" ? "自动聚合快讯" : "已发布信号"}
       className="technology-list-page dossier"
       actions={
         <>
@@ -117,17 +119,15 @@ export default async function TechnologiesPage({
         </>
       }
     >
-      <div
-        className="technology-view-tabs"
-        role="tablist"
-        aria-label="技术信号视图切换"
-      >
+      {/* Links that load another view, not in-page tabs: a navigation with
+          the current view marked, so a screen reader does not promise arrow
+          keys and a panel that are not there. */}
+      <nav className="technology-view-tabs" aria-label="技术信号视图切换">
         {viewTabs.map((tab) => (
           <Link
             key={tab.value}
             href={tab.href}
-            role="tab"
-            aria-selected={view === tab.value}
+            aria-current={view === tab.value ? "page" : undefined}
             className={`technology-view-tab${
               view === tab.value ? " technology-view-tab--active" : ""
             }`}
@@ -135,7 +135,7 @@ export default async function TechnologiesPage({
             {tab.label}
           </Link>
         ))}
-      </div>
+      </nav>
 
       {view === "news" ? (
         <NewsFeedSection />

@@ -25,7 +25,10 @@ import {
   followedTagsChangedEventName,
   readFollowedTagIds
 } from "@/lib/followed-tags";
-import { evaluateTechnologyPriority } from "@/lib/ranking";
+import {
+  evaluateTechnologyPriority,
+  importantFreshnessWindowDays
+} from "@/lib/ranking";
 import {
   digestTocSections,
   getDigestTocCandidates,
@@ -77,8 +80,9 @@ interface DigestSourceReference extends TechnologySourceReference {
   id: string;
 }
 
+// The band's rule as /about states it; there is no multi-signal score.
 const priorityReasonCopy: Record<PriorityLevel, string> = {
-  high_priority: "多项信号同时出现，这项技术值得尽早评估。",
+  high_priority: `编辑标为关键，或标为重要且发布不满 ${importantFreshnessWindowDays} 天，值得尽早评估。`,
   watch: "这一变化值得跟进，但仍需更多背景或验证。",
   low_priority: "可作背景了解，但今天还不够紧迫到需要优先处理。"
 };
@@ -545,7 +549,8 @@ export function DailyDigestContent({
               aria-pressed={filterActive}
               onClick={() => setShowOnlyFollowed((value) => !value)}
             >
-              {filterActive ? "✓ 只看我关注的" : "只看我关注的"}
+              {filterActive ? <span aria-hidden="true">✓ </span> : null}
+              只看我关注的
             </button>
           </section>
         ) : (
@@ -607,7 +612,7 @@ export function DailyDigestContent({
             </SectionHeading>
             <p>值得跟进的信号，但在成为立即优先项之前仍需更多背景或验证。</p>
           </div>
-          {/* Same two-column grid as 今日立即关注 above. Until 2026-07-29 this
+          {/* Same two-column grid as 本期立即关注 above. Until 2026-07-29 this
               list was single-column, so identical cards rendered at two
               different widths on one page. */}
           {visibleWatchTechnologies.length > 0 ? (
@@ -664,7 +669,7 @@ export function DailyDigestContent({
       <DigestReferenceList
         id={digestTocSections.knowledge.id}
         title={digestTocSections.knowledge.label}
-        description="解释今天所选变化背后背景的概念。"
+        description="解释本期所选变化背后背景的概念。"
         emptyText="本期简报暂未选入相关背景概念。"
         items={knowledge}
         hrefPrefix="/knowledge"

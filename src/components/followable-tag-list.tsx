@@ -63,7 +63,7 @@ export function FollowableTagList({ tags }: FollowableTagListProps) {
                 title={tag.description}
                 onClick={() => setFollowedTagIds(toggleFollowedTagId(tag.id))}
               >
-                {isFollowed ? "✓ " : "+ "}
+                <span aria-hidden="true">{isFollowed ? "✓ " : "+ "}</span>
                 {tag.name}
               </button>
               <Link
