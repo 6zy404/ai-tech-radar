@@ -1,7 +1,10 @@
 import { randomUUID } from "node:crypto";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
-import { buildAiGenerationMetadata } from "@/lib/ai-generation-record";
+import {
+  buildAiGenerationMetadata,
+  isReusableCachedAiRecord
+} from "@/lib/ai-generation-record";
 import {
   getAllKnowledge,
   getAllSkills,
@@ -57,8 +60,11 @@ export async function generateOrGetTechnologyLearningPath(
   }
 
   const cached = getTechnologyLearningPathByTechnologyId(technologyId);
+  const config = getLlmProviderConfig();
+  const generationMode =
+    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
 
-  if (cached && cached.outputValidationStatus !== "failed") {
+  if (cached && isReusableCachedAiRecord(cached, generationMode)) {
     return { result: toPublicLearningPathResult(cached) };
   }
 
@@ -73,9 +79,6 @@ export async function generateOrGetTechnologyLearningPath(
     relatedSkillIds.has(item.id)
   );
 
-  const config = getLlmProviderConfig();
-  const generationMode =
-    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
   const { systemPrompt, userPrompt, promptVersion, promptVersionId } =
     buildTechnologyLearningPathPrompt({
       technology,

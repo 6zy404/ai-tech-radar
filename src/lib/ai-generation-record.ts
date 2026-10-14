@@ -52,6 +52,27 @@ export function normalizeAiGenerationMetadata(
   };
 }
 
+// Whether a cached record may be served instead of generating again. A failed
+// record never is. Nor is a mock record once a real model is configured: the
+// cache keeps a result forever, so a template answer written while no key was
+// set would otherwise reach readers indefinitely (four did, from July). The
+// reverse is deliberate: a mock provider — a dev server without a key — never
+// discards a real model's answer.
+export function isReusableCachedAiRecord(
+  cached:
+    | Pick<AiGenerationMetadata, "generationMode" | "outputValidationStatus">
+    | undefined,
+  currentMode: AiGenerationMetadata["generationMode"]
+): boolean {
+  if (!cached || cached.outputValidationStatus === "failed") {
+    return false;
+  }
+
+  return !(
+    cached.generationMode === "mock_llm" && currentMode === "llm_assisted"
+  );
+}
+
 export interface AiGenerationInput {
   generationMode: AiGenerationMetadata["generationMode"];
   providerName?: string;

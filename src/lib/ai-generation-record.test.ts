@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildAiGenerationMetadata,
+  isReusableCachedAiRecord,
   normalizeAiGenerationMetadata
 } from "@/lib/ai-generation-record";
 import { parseLlmJsonObject } from "@/lib/llm/output-sanitization";
@@ -75,6 +76,52 @@ describe("buildAiGenerationMetadata", () => {
 
     expect(metadata.createdAt).toBe("2026-01-01T00:00:00.000Z");
     expect(metadata.updatedAt > metadata.createdAt).toBe(true);
+  });
+});
+
+describe("isReusableCachedAiRecord", () => {
+  const mock = {
+    generationMode: "mock_llm",
+    outputValidationStatus: "valid"
+  } as const;
+  const real = {
+    generationMode: "llm_assisted",
+    outputValidationStatus: "valid"
+  } as const;
+
+  it("never reuses a missing or failed record", () => {
+    expect(isReusableCachedAiRecord(undefined, "mock_llm")).toBe(false);
+    expect(
+      isReusableCachedAiRecord(
+        { ...real, outputValidationStatus: "failed" },
+        "llm_assisted"
+      )
+    ).toBe(false);
+  });
+
+  it("drops a mock record once a real model is configured", () => {
+    expect(isReusableCachedAiRecord(mock, "llm_assisted")).toBe(false);
+    expect(
+      isReusableCachedAiRecord(
+        { ...mock, outputValidationStatus: "warning" },
+        "llm_assisted"
+      )
+    ).toBe(false);
+  });
+
+  it("keeps a mock record while the provider is still the mock", () => {
+    expect(isReusableCachedAiRecord(mock, "mock_llm")).toBe(true);
+  });
+
+  it("keeps a real record under either provider", () => {
+    expect(isReusableCachedAiRecord(real, "llm_assisted")).toBe(true);
+    expect(
+      isReusableCachedAiRecord(
+        { ...real, outputValidationStatus: "warning" },
+        "llm_assisted"
+      )
+    ).toBe(true);
+    expect(isReusableCachedAiRecord(real, "mock_llm")).toBe(true);
   });
 });
 

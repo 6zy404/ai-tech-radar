@@ -1,7 +1,10 @@
 import { randomUUID } from "node:crypto";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
-import { buildAiGenerationMetadata } from "@/lib/ai-generation-record";
+import {
+  buildAiGenerationMetadata,
+  isReusableCachedAiRecord
+} from "@/lib/ai-generation-record";
 import { findRelationBetween, getAllTechnologies } from "@/lib/content";
 import { getLlmProviderConfig } from "@/lib/llm/provider";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
@@ -72,8 +75,11 @@ export async function generateOrGetTechnologyComparison(
 
   const pairKey = getComparisonPairKey(technologyIdA, technologyIdB);
   const cached = getTechnologyComparisonByPairKey(pairKey);
+  const config = getLlmProviderConfig();
+  const generationMode =
+    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
 
-  if (cached && cached.outputValidationStatus !== "failed") {
+  if (cached && isReusableCachedAiRecord(cached, generationMode)) {
     return { result: toPublicComparisonResult(cached) };
   }
 
@@ -85,9 +91,6 @@ export async function generateOrGetTechnologyComparison(
     technologyIdB,
     "technology"
   );
-  const config = getLlmProviderConfig();
-  const generationMode =
-    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
   const { systemPrompt, userPrompt, promptVersion, promptVersionId } =
     buildTechnologyComparisonPrompt({
       technologyA,

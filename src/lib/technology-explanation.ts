@@ -1,7 +1,10 @@
 import { randomUUID } from "node:crypto";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
-import { buildAiGenerationMetadata } from "@/lib/ai-generation-record";
+import {
+  buildAiGenerationMetadata,
+  isReusableCachedAiRecord
+} from "@/lib/ai-generation-record";
 import { getAllTechnologies } from "@/lib/content";
 import { getLlmProviderConfig } from "@/lib/llm/provider";
 import { createConfiguredLlmProvider } from "@/lib/llm/providers";
@@ -80,16 +83,16 @@ export async function generateOrGetTechnologyExplanation(
 
   const cacheKey = getExplanationCacheKey(technologyId, audienceLevel);
   const cached = getTechnologyExplanationByCacheKey(cacheKey);
+  const config = getLlmProviderConfig();
+  const generationMode =
+    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
 
-  if (cached && cached.outputValidationStatus !== "failed") {
+  if (cached && isReusableCachedAiRecord(cached, generationMode)) {
     return { result: toPublicExplanationResult(cached) };
   }
 
   ensureDefaultPromptVersion("technology_explanation");
 
-  const config = getLlmProviderConfig();
-  const generationMode =
-    config.provider === "openai_compatible" ? "llm_assisted" : "mock_llm";
   const { systemPrompt, userPrompt, promptVersion, promptVersionId } =
     buildTechnologyExplanationPrompt({
       technology,
