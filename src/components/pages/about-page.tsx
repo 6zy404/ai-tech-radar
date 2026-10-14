@@ -15,6 +15,7 @@ import type { Locale } from "@/lib/i18n/locale";
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
 import { importantFreshnessWindowDays } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
+import { getFallbackRelationPercent } from "@/lib/fallback-relation-share";
 import { buildPageMetadata } from "@/lib/site-metadata";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
 import type { RelationType } from "@/types/content";
@@ -93,7 +94,10 @@ const bands = [
   }
 ] as const;
 
-const relations: Array<{ type: RelationType; body: string }> = [
+// The share of 关联 is counted from the graph on every request.
+const getRelations = (
+  fallbackPercent: number
+): Array<{ type: RelationType; body: string }> => [
   { type: "builds-on", body: "建立在对方之上，由它发展而来。" },
   { type: "uses", body: "用到了对方。" },
   { type: "explains", body: "解释对方是什么、为什么这样。" },
@@ -109,7 +113,7 @@ const relations: Array<{ type: RelationType; body: string }> = [
   { type: "supports", body: "为对方提供佐证。" },
   {
     type: "related-to",
-    body: "有关，但不属于以上任何一种。约占全部关系的 12%。"
+    body: `有关，但不属于以上任何一种。约占全部关系的 ${fallbackPercent}%。`
   }
 ];
 
@@ -301,7 +305,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
             </p>
           </div>
           <div className="skills-library-card-grid about-relation-grid">
-            {relations.map((relation) => (
+            {getRelations(getFallbackRelationPercent()).map((relation) => (
               <DossierCard className="skill-library-card" key={relation.type}>
                 <DossierStampTag>
                   {getRelationTypeLabel(relation.type, "zh")}

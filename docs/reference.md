@@ -336,7 +336,8 @@ The product is split into two subsystems:
   rate limiter's in-memory count, Cloudflare; since 2026-10-13 also what a
   new-signal alert subscription stores and how to delete it). Band names, relation labels, the
   AI disclaimer and the 30-day window are read from the code that renders
-  them. Reached from a 怎么挑信号 link in the `/technologies` header; not a
+  them; the share of 关联 is counted from the graph on each request
+  (`getFallbackRelationPercent`, 6% on 2026-10-14). Reached from a 怎么挑信号 link in the `/technologies` header; not a
   nav entry; in the sitemap. The signal page's band sentence
   (`getPriorityUserSummary`) names the same rules since that day.
 - **技术雷达 (`/radar`)** (2026-10-13) — one entry per technology

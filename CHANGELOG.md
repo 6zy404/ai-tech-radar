@@ -67,6 +67,12 @@ For per-topic deep dives, see the `docs/` directory.
   same renderer with English labels; titles are the page's own.
 - **/about in English is its own component** (`about-page-en.tsx`); the
   Chinese page's JSX was not touched. The two must be kept in step by hand.
+- **One intended change to the Chinese /about.** Its 八种关系 section said
+  关联 was 「约占全部关系的 12%」, written by hand before the fallback edges
+  were typed on 2026-10-12. Both versions now count it from the graph on
+  each request — the share of `related-to` edges in `getContentGraph()`,
+  rounded to a whole percent (`src/lib/fallback-relation-share.ts`, with a
+  test): 6% today.
 - **The 中 / EN switch.** The nav carries a link to the same page in the
   other language, keeping the query and the hash, labelled in that language
   (EN / 中文) with `hreflang` and `lang`. It is absent where there is no twin

@@ -5,6 +5,7 @@ import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { UserPageShell } from "@/components/user-page-shell";
+import { getFallbackRelationPercent } from "@/lib/fallback-relation-share";
 import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
 import { importantFreshnessWindowDays } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
@@ -85,7 +86,10 @@ const bands = [
   }
 ] as const;
 
-const relations: Array<{ type: RelationType; body: string }> = [
+// The share of “Related” is counted from the graph on every request.
+const getRelations = (
+  fallbackPercent: number
+): Array<{ type: RelationType; body: string }> => [
   { type: "builds-on", body: "Grew out of the other; built on top of it." },
   { type: "uses", body: "Makes use of the other." },
   {
@@ -104,7 +108,7 @@ const relations: Array<{ type: RelationType; body: string }> = [
   { type: "supports", body: "Gives evidence for the other." },
   {
     type: "related-to",
-    body: "Related, but none of the above. About 12% of all relations."
+    body: `Related, but none of the above. About ${fallbackPercent}% of all relations.`
   }
 ];
 
@@ -316,7 +320,7 @@ export function AboutPageEn() {
             </p>
           </div>
           <div className="skills-library-card-grid about-relation-grid">
-            {relations.map((relation) => (
+            {getRelations(getFallbackRelationPercent()).map((relation) => (
               <DossierCard className="skill-library-card" key={relation.type}>
                 <DossierStampTag>
                   {getRelationTypeLabel(relation.type, "zh", "en")}
