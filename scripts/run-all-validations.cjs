@@ -1,6 +1,8 @@
 // Runs every `validate:*` npm script in order and stops at the first failure.
 // Exists so CI can run the validators with one step, and so a local
-// pre-commit sweep does not have to remember all 22 names.
+// pre-commit sweep does not have to remember all 21 names. A script whose
+// command repeats an earlier one is skipped: `validate:publishing` is an alias
+// of `validate:candidates` and used to run the same file twice.
 const { spawnSync } = require("node:child_process");
 const fs = require("node:fs");
 const path = require("node:path");
@@ -8,9 +10,22 @@ const path = require("node:path");
 const packageJson = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8")
 );
-const names = Object.keys(packageJson.scripts).filter(
-  (name) => name.startsWith("validate:") && name !== "validate:all"
-);
+const seenCommands = new Set();
+const names = Object.keys(packageJson.scripts).filter((name) => {
+  if (!name.startsWith("validate:") || name === "validate:all") {
+    return false;
+  }
+
+  const command = packageJson.scripts[name];
+
+  if (seenCommands.has(command)) {
+    console.log(`- ${name} runs the same command as an earlier one, skipped.`);
+    return false;
+  }
+
+  seenCommands.add(command);
+  return true;
+});
 const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
 const startedAt = Date.now();
 

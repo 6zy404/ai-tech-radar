@@ -793,14 +793,31 @@ the middleware-location section above before going any further.
 
 - `DELIVERY_WEBHOOK_ENDPOINT`: optional operator reference for generic webhook setup.
 - `FEISHU_WEBHOOK_ENDPOINT`: optional operator reference for Feishu webhook setup.
-- `LLM_PROVIDER`: optional workspace editorial enrichment provider, `mock` or `openai_compatible`.
-- `LLM_API_KEY`: optional API key for the OpenAI-compatible enrichment provider.
+- `LLM_PROVIDER`: optional LLM provider, `mock` or `openai_compatible`. One
+  setting serves the workspace AI features and the four public AI routes —
+  see `docs/llm-provider.md` → "Who calls the provider".
+- `LLM_API_KEY`: optional API key for the OpenAI-compatible provider. Setting a
+  real key makes the public routes spend it per request, within the rate limit
+  below.
 - `LLM_BASE_URL`: optional OpenAI-compatible base URL.
 - `LLM_MODEL`: optional model name.
 - `LLM_TIMEOUT_MS`: optional provider request timeout.
+- `EMBEDDING_REMOTE_HOST`: where the search embedding model is downloaded
+  from on first use; defaults to `https://hf-mirror.com/`, because
+  huggingface.co is not reliably reachable from this machine.
 - `EMBEDDING_LOAD_TIMEOUT_MS`: how long one attempt to load the search
   embedding model may take before it is abandoned and logged; defaults to
   `120000`. The next search retries.
+- `SEARCH_SEMANTIC_TIMEOUT_MS`: how long a search waits for the semantic half
+  before answering from keywords alone; defaults to `3000`.
+- `SEMANTIC_DEDUP_TIMEOUT_MS`: deadline of the semantic duplicate pass after
+  each import; defaults to `60000`. Past it the stored matches are kept as
+  they were.
+- `PUSH_VAPID_PUBLIC_KEY` / `PUSH_VAPID_PRIVATE_KEY`: the key pair for reader
+  push (「有新信号时提醒我」); push is off unless both are set and match. See
+  "Reader push keys" below before generating them.
+- `PUSH_VAPID_SUBJECT`: optional contact sent to the push services,
+  `mailto:` or `https:`; anything else falls back to `NEXT_PUBLIC_SITE_URL`.
 - `PUBLIC_AI_RATE_LIMIT_PER_MINUTE`: optional per-client, per-route request
   budget for the four public AI routes; defaults to `10`.
 - `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: the same budget over an hour; defaults to
@@ -809,6 +826,26 @@ the middleware-location section above before going any further.
   provider, and keep a proxy/platform limit for anything abuse-shaped.
 
 Do not commit real webhook tokens or LLM API keys. Neither local JSON nor the local SQLite file should be treated as a production secret store.
+
+### Reader push keys
+
+The VAPID pair is generated **once** and then kept for the life of the site:
+
+```bash
+node scripts/generate-vapid-keys.mjs   # prints the two PUSH_VAPID_* lines
+```
+
+- Put both lines in the server's `.env.local` (and in the editorial-round
+  worktree's, since that server sends the pushes) and restart. Never commit
+  them.
+- **Do not replace the pair.** Every browser subscribed against the public
+  key; with a new pair the subscription records stay in
+  `config/push-subscriptions.json`, but the push services refuse every send,
+  and readers are not told.
+- **Back it up separately.** `npm run backup:data` copies `LOCAL_DATA_DIR`
+  only, not `.env.local`, so the keys need their own copy off this machine
+  (a password manager will do). A lost pair cannot be recovered; the only
+  way back is a new pair and every reader turning alerts on again.
 
 ## Task Runner
 
@@ -1033,7 +1070,12 @@ after the import, late enough to see both a stall and an overdue run. It shows
 a Windows toast when the dashboard's pipeline alerts fire (once per alert per
 day) and exits 1. It **must** be registered with "Run only when user is logged
 on": a task in session 0 has no desktop, so the toast would never appear. Try
-it with `npm run check:pipeline -- --test`.
+it with `npm run check:pipeline -- --test`. The task is
+`ai-tech-radar-pipeline-alert`, daily at 14:30, logon type Interactive, action
+`cmd.exe /c cd /d C:\Users\Administrator\ai-tech-radar && npm run check:pipeline >> config\pipeline-alert.log 2>&1`
+(the log is git-ignored). `scripts/register-windows-tasks.ps1` does not create
+it — that script registers S4U tasks, which run in session 0 — so on a new
+machine it is registered by hand.
 
 ### Proxy for every entry point
 

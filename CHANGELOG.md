@@ -12,6 +12,76 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## Whole-project review: Next.js security upgrade and 64 small fixes
+
+- **2026-10-14. A sixteen-lens review of the whole project** (product,
+  compliance, architecture, core and public correctness, testing and CI,
+  hosting, data, public and internal security, UI, live UI, content,
+  performance and cost, SEO, docs), read-only against the code, a snapshot of
+  the live data and the live site (GET only, no model calls). 203 findings,
+  160 after merging duplicates: 1 P0, 9 P1, 60 P2, 90 P3. Only the product
+  and compliance lenses were cross-checked by a second reviewer (20 confirmed,
+  1 refuted); every finding fixed below was re-read in the code before it was
+  changed. The full report is a published page, not a repo file.
+- **next 15.5.15 → 15.5.27.** 15.5.15 was inside GHSA-p293-qw3h-jr36
+  (unauthenticated remote code execution on Windows-hosted servers, App Router
+  without Cache Components — this site exactly) and GHSA-2xp9-vwfh-vxw4 (image
+  optimizer RCE), plus ten high advisories. `npm audit fix` (no `--force`) also
+  moved sharp, source-map-js, nanoid, js-yaml, brace-expansion and
+  fast-xml-parser within their ranges. Production audit 7 (1 critical) → 2
+  (1 high: postcss 8.4.31, pinned by next, build-time only). **Not deployed
+  yet.** CI now runs on Node 24 (as production does) and fails on a critical
+  production advisory.
+- **Public surface.** `/_next/image` returns 404 (`images.unoptimized`; the
+  site never used `next/image`, and the endpoint was being called by
+  crawlers); no `x-powered-by`. The four AI routes and the two push routes
+  check content type and origin before spending the visitor's rate-limit
+  budget, compare the content type as a media type, refuse `Origin: null`,
+  cap the body (16 KB, 64 KB for `/api/ask`, `413` past it), and count an
+  IPv6 client by its `/64`. `/ask?q=a&q=b` no longer answers 500.
+- **Workspace writes from another site are refused** even with the token
+  guard off, and a dev server answers only loopback host names (DNS
+  rebinding). Until now any page open in the editor's browser during an
+  editorial round could POST to the unguarded workspace writing the live data
+  (`checkWorkspaceRequestSource`; `docs/security-boundary.md`).
+- **Correctness.** Feed timestamps are dated in Asia/Shanghai (73 of 166
+  candidates were filed under the day before); a re-imported candidate keeps
+  its first `importedAt`, so the 7-day backlog alert can fire; the candidate
+  cache now also invalidates on `duplicate-groups.json`; a scheduled import no
+  longer writes back the config it read two minutes earlier; editing a
+  published signal checks its slug against the others; the "severe warning
+  caps at 值得跟踪" rule works again; cached AI answers written by the mock
+  provider in July are regenerated once a real model is configured;
+  `db:migrate-json` moves the four stores it skipped.
+- **Performance.** `/sitemap.xml` no longer builds the content graph once per
+  topic (about 1 s of blocked server per request); detail and topic pages
+  resolve related items from one read; relation notes are matched by id, not
+  array position; `/signal-vectors.json` honours Cloudflare's weak ETag; store
+  writes `fsync` before the rename (five power-loss restarts this month).
+- **Copy and accessibility.** The digest pages say 本期概览 / 本期立即关注,
+  not 今日; /about's fallback-relation share reads 2026-10-12 实测约 6% (it said
+  12%) and says backups keep a deleted push subscription for about 14 days;
+  the /technologies view switch is links with `aria-current`, not tabs;
+  unlabelled inputs, toggle states, live regions, decorative symbols and the
+  network graph's node names were fixed; a malformed `#radar-…` hash no longer
+  breaks /radar; dragging a network node no longer toggles its selection.
+- **Docs.** AGENTS.md, reference, project-spec, architecture and roadmap no
+  longer list push alerts, semantic dedup and local recommendations as not
+  built (only the facts changed, no rule); `.env.example` and deployment.md
+  cover the VAPID keys (generate once, never rotate, back up separately);
+  llm-provider.md says a key opens four public paid routes.
+- **Verified**: typecheck, vitest 1286/1286 (73 new), lint, format,
+  `validate:all` 21/21, `build:public` (54 routes, 0 workspace), and the
+  affected pages looked at in a dev server.
+- **Left for the owner** (decisions, not code): the host is shut down at
+  night, so the site was offline about a third of the time since 09-20 and
+  4.6 days over 10-03 → 10-07; 248 commits have not been pushed and CI has not
+  run since 09-28; the server and tunnel run as the built-in Administrator;
+  no ICP filing is visible for a .cn site served from a mainland host; three
+  「AI 起草」 signals reuse 30–48 % of their source articles verbatim; the
+  repo holds third-party full texts (50 versions) that must not go public with
+  it; the public AI routes have no site-wide daily budget.
+
 ## Telegram and Discord channels, source health history, deleting a source
 
 - **2026-10-13. Two new delivery channels.** `telegram` posts a published

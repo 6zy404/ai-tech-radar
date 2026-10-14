@@ -110,6 +110,8 @@ This object belongs to the Internal Workspace only.
 
 `sourceId`, `sourceName`, `sourceType`, `sourceUrl`, `importedAt`, and `importRunId` preserve traceability back to the configured `ExternalSource` and the batch import run when one exists.
 
+`importedAt` is when the candidate was **first** imported: since 2026-10-14 a later import that fetches the same item again keeps it, so the operations dashboard's "oldest undecided over 7 days" alert can fire (until then every import reset it to the day of the import). `publishDate` is the Asia/Shanghai day of the feed's timestamp (until 2026-10-14 the UTC day, which filed items published 00:00–08:00 Beijing time under the day before); a date written without a time of day is kept as written.
+
 `imported-candidates.live.json` is a **rolling window**, not an archive: a
 successful import replaces that source's entries with what the feed currently
 returns, so older items age out (40 candidates in the snapshot against 104

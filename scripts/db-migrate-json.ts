@@ -4,7 +4,8 @@ import {
 } from "../src/lib/repositories/local-json-store";
 import {
   getSqliteDatabasePath,
-  migrateJsonStoresToSqlite
+  migrateJsonStoresToSqlite,
+  runtimeConfigStoreFileNames
 } from "../src/lib/repositories/sqlite-store";
 import type {
   DailyDigest,
@@ -129,8 +130,14 @@ const summary = migrateJsonStoresToSqlite({
     updatedAt: now,
     relations: [] as LinkRelation[]
   }),
-  scheduledImport: readStore<unknown>("scheduled-import.json", undefined),
-  scheduledDigest: readStore<unknown>("scheduled-digest.json", undefined),
+  // Schedule configs, 本周总结, triage and semantic-match caches, reader push
+  // subscriptions: a file that does not exist is left out, not written empty.
+  runtimeConfigs: Object.fromEntries(
+    runtimeConfigStoreFileNames.map((fileName) => [
+      fileName,
+      readStore<unknown>(fileName, undefined)
+    ])
+  ),
   technologyComparisons: readStore("technology-comparisons.json", {
     updatedAt: now,
     comparisons: [] as TechnologyComparisonRecord[]

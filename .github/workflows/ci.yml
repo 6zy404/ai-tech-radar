@@ -12,14 +12,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # The live server and the development machine both run Node 24 (24.12),
+      # and the scheduled import relies on its NODE_USE_ENV_PROXY. package.json
+      # still allows >= 22.5; CI tests the version that is actually used.
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      # Production dependencies only, failing on critical. Not "high": after the
+      # next 15.5.27 upgrade one high advisory remains, in the postcss that next
+      # pins for itself, which no change in this repository can lift.
+      - name: Dependency audit (production, critical)
+        run: npm audit --omit=dev --audit-level=critical
 
       - name: Type check
         run: npm run typecheck
@@ -33,9 +42,9 @@ jobs:
       - name: Unit tests
         run: npm run test
 
-      # The validators are most of the project's regression coverage (about
-      # 7,800 lines against 4,800 of unit tests). They run against a throwaway
-      # copy of config/ made by scripts/run-ts-validation.cjs, so they never
-      # touch the checked-in data. validate:database needs node:sqlite (>= 22.5).
+      # The validators (about 8,300 lines, beside about 22,000 of unit tests)
+      # check the workflows end to end. They run against a throwaway copy of
+      # config/ made by scripts/run-ts-validation.cjs, so they never touch the
+      # checked-in data. validate:database needs node:sqlite (>= 22.5).
       - name: Workflow validators
         run: npm run validate:all

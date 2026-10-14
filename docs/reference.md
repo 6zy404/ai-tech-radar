@@ -230,7 +230,7 @@ The product is split into two subsystems:
   关系网络, the related signals and the other kind's entries), switching to
   the folded version at 980px, their own aside breakpoint (2026-09-30).
   The digest pages (`/digest/[date]`, `/digest/today`) have no aside, so
-  they mount the same `PageToc` folded between the hero and 今日概览 at
+  they mount the same `PageToc` folded between the hero and 本期概览 at
   every width, with entries from `getDigestTocCandidates`, counted after the
   只看我关注的 filter (2026-09-30).
 - **Publisher type on the signal page** — the technology detail page's source
@@ -657,7 +657,7 @@ The product is split into two subsystems:
   `/workspace/weekly-summaries` (nav 周总结), where 「AI 起草导语」 drafts it
   from the week's signals (prompt `weekly-summary-v1`), 保存草稿 saves and
   发布总结 publishes. Published text only shows on the week's page, in the
-  same panel as a digest's 今日概览 under the four numbers, and as 本周总结：…
+  same panel as a digest's 本期概览 under the four numbers, and as 本周总结：…
   in that week's RSS item; drafts nowhere. Being editor-confirmed it carries
   no AI disclaimer; the page description then says the list is derived and
   the summary editor-written.
@@ -1014,10 +1014,13 @@ used to live in `next-task` is archived in `history/next-task-log.md`.
 
 ## Intentionally not implemented yet
 
-AI black-box / personalized ranking and recommendation; login / accounts / RBAC;
-production database integration and schema migrations; full admin platform;
-external monitoring and alert routing; push / email subscription products and
+AI black-box / personalized ranking and recommendation beyond the deterministic
+followed-topic views and the browser-side 和你读过的相近; login / accounts /
+RBAC; production database integration and schema migrations; full admin
+platform; external monitoring and alert routing; email subscription products,
+push beyond the opt-in new-signal alert (sent by hand from the workspace), and
 production cron infrastructure; full-site i18n; semantic/AI duplicate detection
-beyond the current deterministic rules; distributed scheduling, retry backoff,
-and production secret storage; automatic translation APIs; and per-source
+beyond the deterministic rules and the advisory embedding-based grouping and
+hint (neither rejects a candidate); distributed scheduling, retry backoff, and
+production secret storage; automatic translation APIs; and per-source
 scheduling / auth.

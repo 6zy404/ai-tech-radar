@@ -29,6 +29,8 @@ config/task-runner-cron.log
 config/backup-cron.log
 config/server.log
 config/deploy.log
+# written by the ai-tech-radar-pipeline-alert scheduled task (check:pipeline)
+config/pipeline-alert.log
 # rotated generations written by scripts/deploy.ps1 (server.log.1, ...)
 config/*.log.*
 

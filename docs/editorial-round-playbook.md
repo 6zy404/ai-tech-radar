@@ -88,6 +88,16 @@ was reachable from the local network. `npm run dev` now passes
 `-H 127.0.0.1`; confirm it the way the round of 09-28 did — one listener on
 `127.0.0.1`, and a request to the machine's LAN address refused.
 
+"On localhost only" never stopped the editor's own browser: until 2026-10-14
+any page open in it could POST to the unguarded workspace. Since then the
+middleware refuses a workspace write that another site sent, and outside
+production answers only loopback host names (`docs/security-boundary.md` →
+"Minimal Access Protection"). Open the workspace as `http://127.0.0.1:<port>`
+or `http://localhost:<port>`; any other name needs `WORKSPACE_ALLOWED_HOSTS`.
+To confirm it at the start of a round, a POST with
+`-H "Origin: https://evil.example"` to any `/api/workspace/` route should
+answer `403`.
+
 **If the pool shows nothing to decide, check that the import is landing**
 before concluding there is nothing new. On 09-28 the pool read 0 undecided
 because four days of scheduled imports had been written into a throwaway copy

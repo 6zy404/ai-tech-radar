@@ -329,7 +329,7 @@ Publish Quality Gate warns when no suggestion exists or the latest suggestion is
 
 ## Daily Digest Editorial Workflow v1
 
-Daily Digest is a reading layer built on published `TechnologyItem` records and Ranking v0. It is not push delivery, email subscription, personalization, or AI-written editorial judgment.
+Daily Digest is a reading layer built on published `TechnologyItem` records and Ranking v0. It is not push delivery, email subscription, personalization, or AI-published editorial judgment (「AI 起草导语」 only drafts the overview into a box; the editor decides what is saved).
 
 Digest generation rules:
 
@@ -376,7 +376,7 @@ The feed payload contains public digest title, date, summary, selected high-prio
 
 `/workspace/digests/[date]` shows delivery status for editors. Published digests display the public digest URL, RSS feed URL, JSON feed URL, last updated time, and a read-only share text preview. Draft digests are clearly marked as not publicly delivered yet and do not show misleading public links.
 
-The surface-only stage intentionally does not send anything to external platforms. Email subscription, Telegram bots, push delivery, scheduling, and delivery analytics remain out of scope.
+The surface-only stage intentionally does not send anything to external platforms. Email subscription and delivery analytics remain out of scope; operator-configured channels (including Telegram and Discord) and scheduled delivery were added in later stages, below.
 
 ## Digest Delivery Integration v1 + Channel Expansion v1
 
@@ -660,7 +660,11 @@ SQLite schema v0 covers:
 - `skill_workspace_records`, `knowledge_workspace_records`,
   `link_relation_overrides` (added 2026-07-28 — the workspace content overlays
   had no SQLite adapter, so sqlite mode served the seed pools only)
-- `runtime_configs` (single-object schedule configs, keyed by JSON filename),
+- `runtime_configs` (single-object stores keyed by JSON filename: the two
+  schedule configs, weekly summaries, triage suggestions, semantic matches and
+  push subscriptions — `runtimeConfigStoreFileNames` in `sqlite-store.ts`,
+  the one list that read, write and `db:migrate-json` share; before
+  2026-10-14 the migration copied only the schedule configs),
   `technology_comparisons`, `technology_explanations`,
   `technology_learning_paths`
 
@@ -773,9 +777,9 @@ The internal workspace remains compatible with the same data shape but does not 
 Not implemented yet:
 
 - impact scoring
-- recommendation logic
+- server-side recommendation logic (和你读过的相近 is computed in the browser
+  from the reader's own marks, 2026-10-13)
 - personalized ranking
-- push notification
 - full admin platform
 - full-site i18n
 - production database-backed persistence beyond the current local SQLite driver
@@ -784,5 +788,5 @@ Not implemented yet:
 - advanced editorial approval flow beyond the current draft editor
 - AI/editorial quality scoring beyond deterministic publish checks
 - advanced ranking models beyond deterministic v0 rules
-- push notification, email subscription, production cron, AI digest writing, and personalized digest logic
-- semantic or AI duplicate detection beyond deterministic rules
+- email subscription, push beyond the opt-in new-signal alert (2026-10-13; sent by hand from the workspace), production cron, AI-published digest text (「AI 起草导语」 only fills a box the editor saves), and per-reader digests (只看我关注的 filters the same digest in the browser)
+- semantic or AI duplicate detection beyond the deterministic rules and the advisory embedding-based grouping and hint (2026-10-13), which never reject a candidate

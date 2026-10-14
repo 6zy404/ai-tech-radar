@@ -39,9 +39,9 @@ Until an editor has reviewed them, candidates appear in the news view labelled
 as unedited aggregation; curated signals and digests contain editor-published
 content only.
 
-As of 2026-09-28: 91 published technology signals, 16 skills, 19 knowledge
-entries, 31 published digests, and 13 active sources; the content graph has 126
-nodes and 890 typed edges. The eight demo seed signals from April 2026 were
+As of 2026-10-14: 110 published technology signals, 22 skills, 27 knowledge
+entries, 36 published digests, and 16 active sources; the content graph has 159
+nodes and 1,237 typed edges. The eight demo seed signals from April 2026 were
 archived on 2026-09-24 and no longer appear on any public page.
 
 ## Design notes
@@ -75,10 +75,11 @@ unreachable, which is why it was replaced.
 
 Every relation between technologies, skills, and knowledge carries one of eight
 types (builds-on, uses, explains, requires, extends, supersedes, supports,
-related-to) plus a note. Editorial changes are stored as copy-on-write
-overrides; the bundled seed data stays read-only. The generic `related-to`
-fallback accounts for 6.1% of edges (measured on 2026-10-12 after every
-fallback pair was read and typed; it was 18.1% before), and the publish
+related-to), and most also carry a note (1,016 of 1,237). Editorial changes
+are stored as copy-on-write overrides; the bundled seed data stays read-only.
+The generic `related-to` fallback accounts for 5.6% of edges (69 of 1,237,
+measured on 2026-10-14; it was 18.1% before every fallback pair was read and
+typed on 2026-10-12), and the publish
 check warns about a related item left without a type. The same graph drives the version
 line on signal pages, the topic pages, and the grounding for AI-generated
 learning paths.
@@ -116,7 +117,8 @@ npm run lint
 npm run build:public   # public build without internal routes, with an output check
 ```
 
-The 22 per-subsystem validators (`validate:*`) are listed in
+The 21 per-subsystem validators (`validate:*`; `validate:publishing` is an
+alias of `validate:candidates`) are listed in
 [`docs/reference.md`](docs/reference.md). Write-ups of performance
 investigations and how their fixes were verified are in
 [`docs/engineering-stories.md`](docs/engineering-stories.md) (Chinese).

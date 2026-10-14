@@ -4,6 +4,24 @@ LLM Provider Integration v0 adds optional provider-backed drafting to the existi
 
 It does not publish model output. It only creates `EditorialEnrichmentSuggestion` records. Editors must review and apply a suggestion before any generated fields are copied into `TechnologyWorkspaceRecord`; publication still requires the normal Publish Quality Gate.
 
+That was the only caller when this page was written (2026-06). It is no longer: the same provider configuration now serves the callers below.
+
+## Who calls the provider
+
+**Setting a real `LLM_API_KEY` also opens four public, unauthenticated routes that spend it per request.** Their only cost guards are the per-client rate limit (`PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR` in `.env.example`, defaults 10 and 40 per route) and, for three of them, a result cache. Review the limit before configuring a real key; the reasoning is in `docs/security-boundary.md` → "Public LLM Feature Boundary".
+
+Public:
+
+- `POST /api/technologies/compare`, `POST /api/technologies/explain`, `POST /api/technologies/learning-path` (`technology-comparison.ts`, `technology-explanation.ts`, `technology-learning-path.ts`): cached per technology pair / technology × level / technology, rate limited.
+- `POST /api/ask` (`ask-radar.ts`): no cache — every question calls the model — rate limited with a per-round token cap; streaming and tool calling go through `src/lib/llm/chat-stream.ts`.
+
+Workspace (behind the workspace guard, absent from `npm run build:public`):
+
+- Editorial Enrichment, this page (`editorial-enrichment.ts`, `/api/workspace/technologies/[id]/enrichment/generate`).
+- Triage suggestions (`candidate-llm-triage.ts`, `/api/workspace/triage-suggestions`).
+- 「AI 起草」 (`candidate-llm-draft-workflow.ts`, `/api/workspace/candidates/[id]/ai-draft`).
+- 「AI 起草导语」 for digests (`digest-ai-summary.ts`, `/api/workspace/digests/[date]/ai-summary`) and weekly summaries (`weekly-summary-workflow.ts`, `/api/workspace/weekly-summaries/[week]/ai-summary`).
+
 ## Providers
 
 Supported providers:
@@ -11,7 +29,9 @@ Supported providers:
 - `mock`: local deterministic mock provider for development and validation. It requires no API key.
 - `openai_compatible`: server-side chat-completions provider configured by environment variables.
 
-Reserved future providers include OpenAI first-party naming, Claude, Ollama, OpenRouter, DeepSeek, Telegram/Discord delivery-specific summarizers, and other adapters. They should be added behind the provider interface, not inside UI components or workflow code.
+DeepSeek is in use today through `openai_compatible` (`LLM_BASE_URL=https://api.deepseek.com`, `LLM_MODEL=deepseek-chat`; see `.env.example`).
+
+Reserved future providers include OpenAI first-party naming, Claude, Ollama, OpenRouter, delivery-specific summarizers, and other adapters. They should be added behind the provider interface, not inside UI components or workflow code.
 
 ## Environment
 
@@ -38,8 +58,11 @@ Provider files:
 - `src/lib/llm/providers/mock.ts`: local mock provider
 - `src/lib/llm/providers/openai.ts`: OpenAI-compatible chat-completions adapter
 - `src/lib/llm/providers.ts`: configured provider factory
+- `src/lib/llm/chat-stream.ts`: streaming chat with tool calling, for 问雷达
+- `src/lib/llm/chat-clients.ts`: the 问雷达 chat client factory, with a search-only mock when no key is set
 - `src/lib/llm/prompts/editorial-enrichment.ts`: centralized prompt template
 - `src/lib/llm/editorial-enrichment-output.ts`: output parser, validator, and sanitizer
+- `src/lib/llm/technology-comparison-output.ts`, `technology-explanation-output.ts`, `technology-learning-path-output.ts`: output parsers for the three public cached features
 
 The workspace UI only selects a generation mode and calls the internal API route. It never reads `LLM_API_KEY` and never constructs prompts.
 

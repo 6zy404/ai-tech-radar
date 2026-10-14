@@ -315,6 +315,13 @@ The middleware accepts Bearer token, Basic auth password, or `x-workspace-access
 
 This is intentionally small. It is not a replacement for production login, per-user roles, audit trails, or session management.
 
+**Where a workspace request came from is checked before the token, and even with the guard off** (2026-10-14, `checkWorkspaceRequestSource` in `src/lib/workspace-access.ts`). An editorial round runs the unguarded workspace on a local `next dev` pointed at the live data, and the routes read their body with `request.json()`, which ignores the content type — so until that date any page open in the editor's browser could send a `text/plain` POST (a "simple" request, no preflight) and create a source, publish, deliver or push. Now:
+
+- a write (anything but GET / HEAD / OPTIONS) is refused with `403` when `Sec-Fetch-Site` is `cross-site` or `same-site`, or when an `Origin` header — `null` included — does not name the request's own host. Scripts (`scripts/workspace-fetch.mjs`, curl) send neither header and pass;
+- outside production the `Host` must be a loopback name (`127.0.0.1`, `localhost`, `[::1]`, `*.localhost`) or one listed in `WORKSPACE_ALLOWED_HOSTS`, so a DNS-rebinding page cannot read the workspace as same-origin. Production is left alone: the public build has no workspace routes.
+
+The three workspace GET routes only read, which is why reads skip the first rule. `src/lib/workspace-access.test.ts` and `src/middleware.test.ts` pin both rules.
+
 ## Delivery Secrets
 
 Delivery channel endpoint URLs belong to the Internal Workspace only. The workspace list masks sensitive query parameters such as token, key, secret, signature, and auth. Delivery logs store payload previews and response previews, but not full endpoint URLs.
@@ -472,10 +479,14 @@ rather than gated behind `WORKSPACE_ACCESS_TOKEN`, because:
 Two cost controls apply, in this order:
 
 1. **Rate limit** (added 2026-07-27, `src/lib/rate-limit.ts` +
-   `src/lib/public-ai-rate-limit.ts`). Each of the three routes runs a
-   per-client sliding-window check as its **first** statement — before body
-   parsing, before the cache lookup, and therefore before any provider call —
-   and returns `429` with a `Retry-After` header once the budget is spent.
+   `src/lib/public-ai-rate-limit.ts`). Each route runs a per-client
+   sliding-window check before body parsing, before the cache lookup, and
+   therefore before any provider call, and returns `429` with a
+   `Retry-After` header once the budget is spent. Since 2026-10-14 the
+   header-only `Content-Type` / `Origin` check (below) runs first, so a
+   request it refuses does not use up the visitor's budget; then the body is
+   read with a cap — 16 KB, 64 KB for `/api/ask` — and anything larger gets
+   `413` (`readJsonBodyWithLimit`).
    Defaults: 10 requests per minute and 40 per hour, per client **per route**
    (buckets are keyed `routeId:clientKey`, so exhausting compare does not block
    explain). Override with `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` /
@@ -505,7 +516,10 @@ is why the server listens on `127.0.0.1` only since 2026-09-28
 address answered `200`, and with the loopback binding the same request is
 refused. What is left is a process on the machine itself, which can already
 read the store directly. `npm run deploy` re-checks the binding after every
-restart — see `docs/deployment.md` → "Keeping the site running".
+restart — see `docs/deployment.md` → "Keeping the site running". An IPv6
+address counts by its `/64` (`toRateLimitBucket`, 2026-10-14): one connection
+is usually handed a whole `/64`, so keying on the full address gave a fresh
+bucket per address.
 
 **A second guard stops other websites from spending the budget through their
 visitors.** A `text/plain` POST is a "simple" cross-origin request that
@@ -516,6 +530,11 @@ call into a preflighted one that fails for want of CORS headers, and reject
 `Sec-Fetch-Site: cross-site` or a foreign `Origin` with `403`
 (`checkPublicAiRequestOrigin` in `src/lib/public-ai-rate-limit.ts`). A script
 talking to the server directly is unaffected; that is the rate limit's job.
+Since 2026-10-14 the content type is compared as a media type (the part
+before `;`), so `text/plain; x=application/json` is a `415`, and an `Origin`
+that names no host — `null` from a sandboxed frame — is a `403`. The check
+runs before the rate limit, so a refused cross-site call costs the visitor
+nothing.
 
 ## 问雷达 (`POST /api/ask`)
 
@@ -584,11 +603,11 @@ opt-in, minimal and deletable:
   Without that list a forged subscription could make the server send
   requests to any address it reaches, including `127.0.0.1`. `redirect:
 "error"` keeps a push service from bouncing the request elsewhere.
-- **Cost guard**: both public routes run a per-client limiter (20/min,
-  120/h, buckets per route) and the same `Content-Type` / `Sec-Fetch-Site`
-  / `Origin` check as the AI routes before the body is read, so another
-  site cannot subscribe its visitors' browsers here; the store is capped at
-  10,000 records.
+- **Cost guard**: both public routes run the same `Content-Type` /
+  `Sec-Fetch-Site` / `Origin` check as the AI routes, then a per-client
+  limiter (20/min, 120/h, buckets per route), then read at most 16 KB of
+  body (`413` past it), so another site cannot subscribe its visitors'
+  browsers here; the store is capped at 10,000 records.
 - **Deletion**: turning alerts off, unfollowing every topic, or the push
   service answering 404 / 410 on the next send deletes the record. /about
   says so in the reader's terms.

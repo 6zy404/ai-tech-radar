@@ -610,7 +610,7 @@ Workspace deployment boundary:
     and 值得跟踪 (`watch`) — `low_priority` excluded, matching the digest — a
     guided empty state for a quiet week, and the past-week archive folded in
   - when an editor has published the week's 本周总结, it sits under the four
-    numbers in the same panel as a digest's 今日概览 (`daily-digest-summary-panel`,
+    numbers in the same panel as a digest's 本期概览 (`daily-digest-summary-panel`,
     eyebrow 本周总结, `ContentBody`), and the page description says the list
     is derived and the summary editor-written (2026-10-13); otherwise nothing
     is shown and the page is as before
@@ -646,15 +646,15 @@ Workspace deployment boundary:
     counts, and the preview notice. Until 2026-07-29 this page hand-rolled a
     two-column header whose 174px right column held only the counts — see
     `CHANGELOG.md` → "The daily digest page rejoins the house style"
-  - a folded 本页目录 `<details>` between the hero and `今日概览` at every
+  - a folded 本页目录 `<details>` between the hero and `本期概览` at every
     width (the page has no aside), listing only the sections with items and
     rebuilt when 只看我关注的 hides a section (2026-09-30)
-  - `今日概览` carries the digest's **editorial summary** and is omitted when
+  - `本期概览` (今日概览 until 2026-10-14) carries the digest's **editorial summary** and is omitted when
     there is none; before 2026-07-29 it rendered a sentence hardcoded in the
     component, identical on every digest, while the real summary sat in the
     hero
   - shows immediate-attention technologies, worth-tracking technologies, Content Intelligence why-watch snippets, related skills, related knowledge, and source names
-  - both signal sections (`今日立即关注` / `值得跟踪`) use the same two-column
+  - both signal sections (`本期立即关注` / `值得跟踪`) use the same two-column
     grid, and the P4 命中关注 line renders **inside** its card
   - links to public RSS and JSON feed surfaces without making feeds dominate the reading page
   - ends with 上一期 / 下一期 (`IssuePager`), between the source references

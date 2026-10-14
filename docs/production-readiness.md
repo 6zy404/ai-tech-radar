@@ -214,7 +214,9 @@ be editing through the UI — two concurrent writers to unlocked JSON.
   time. Every store write is now **temp-file-then-rename**
   (`writeFileAtomically` in `src/lib/repositories/local-json-store.ts`, with
   a short retry on the Windows `EPERM`/`EBUSY` a concurrent reader causes), so
-  a crash or a reader mid-write never sees a truncated file. And a store that
+  a crash or a reader mid-write never sees a truncated file; since
+  2026-10-14 the temp file is also `fsync`ed before the rename, so a power
+  loss cannot commit the rename ahead of the contents. And a store that
   exists but does not parse now **throws** (`LocalJsonStoreError`) instead of
   silently returning the fallback — because every store is read-modify-write
   of the whole file, the old rule turned one damaged read into a full

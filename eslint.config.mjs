@@ -11,8 +11,13 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
+    // Flat config does not read .gitignore, so the side directories a deploy
+    // or verification build leaves (.next-old, .next-new, .next-prod, ...) and
+    // build:public's stash are listed here too.
     ignores: [
       ".next/**",
+      ".next-*/**",
+      ".public-build-stash/**",
       "out/**",
       "node_modules/**",
       "next-env.d.ts",

@@ -140,6 +140,31 @@ const sqliteRequire = createRequire(__filename);
 
 export const sqliteStoreFileName = "ai-tech-radar.sqlite";
 
+/**
+ * Stores kept whole as one `runtime_configs` row each: single objects with no
+ * record list to split (the two schedule configs, the 本周总结 records, the
+ * triage and semantic-match caches, reader push subscriptions). The read and
+ * write routing and `migrateJsonStoresToSqlite` all go by this one list —
+ * until 2026-10-14 the migration had its own and missed the last four.
+ */
+export const runtimeConfigStoreFileNames = [
+  "scheduled-import.json",
+  "scheduled-digest.json",
+  "weekly-summaries.json",
+  "candidate-triage-suggestions.json",
+  "candidate-semantic-matches.json",
+  "push-subscriptions.json"
+] as const;
+
+export type RuntimeConfigStoreFileName =
+  (typeof runtimeConfigStoreFileNames)[number];
+
+function isRuntimeConfigStoreFileName(
+  fileName: string
+): fileName is RuntimeConfigStoreFileName {
+  return (runtimeConfigStoreFileNames as readonly string[]).includes(fileName);
+}
+
 const schemaTableNames = [
   "sources",
   "import_runs",
@@ -252,6 +277,10 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
   const database = openSqliteDatabase();
 
   try {
+    if (isRuntimeConfigStoreFileName(fileName)) {
+      return readRuntimeConfig<T>(database, fileName, fallbackValue);
+    }
+
     switch (fileName) {
       case "external-sources.json":
         return readExternalSourceStore(database) as T;
@@ -265,10 +294,6 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
         return readTechnologyWorkspaceStore(database) as T;
       case "daily-digests.json":
         return readDailyDigestStore(database) as T;
-      // One small object (the 本周总结 records), stored whole like the
-      // runtime configs below.
-      case "weekly-summaries.json":
-        return readRuntimeConfig<T>(database, fileName, fallbackValue);
       case "delivery.json":
         return readDeliveryStore(database) as T;
       case "scheduled-delivery.json":
@@ -298,12 +323,6 @@ export function readSqliteJsonStore<T>(fileName: string, fallbackValue: T): T {
         ) as T;
       case "link-relation-workspace.json":
         return readLinkRelationWorkspaceStore(database) as T;
-      case "scheduled-import.json":
-      case "scheduled-digest.json":
-      case "candidate-triage-suggestions.json":
-      case "candidate-semantic-matches.json":
-      case "push-subscriptions.json":
-        return readRuntimeConfig<T>(database, fileName, fallbackValue);
       case "technology-comparisons.json":
         return readTechnologyComparisonStore(database) as T;
       case "technology-explanations.json":
@@ -323,6 +342,11 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
 
   try {
     runSqliteTransaction(database, () => {
+      if (isRuntimeConfigStoreFileName(fileName)) {
+        writeRuntimeConfig(database, fileName, value);
+        return;
+      }
+
       switch (fileName) {
         case "external-sources.json":
           writeExternalSourceStore(database, value as ExternalSourceStore);
@@ -350,9 +374,6 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
           break;
         case "daily-digests.json":
           writeDailyDigestStore(database, value as DailyDigestStore);
-          break;
-        case "weekly-summaries.json":
-          writeRuntimeConfig(database, fileName, value);
           break;
         case "delivery.json":
           writeDeliveryStore(database, value as DeliveryStore);
@@ -405,13 +426,6 @@ export function writeSqliteJsonStore(fileName: string, value: unknown): void {
             value as LinkRelationWorkspaceStore
           );
           break;
-        case "scheduled-import.json":
-        case "scheduled-digest.json":
-        case "candidate-triage-suggestions.json":
-        case "candidate-semantic-matches.json":
-        case "push-subscriptions.json":
-          writeRuntimeConfig(database, fileName, value);
-          break;
         case "technology-comparisons.json":
           writeTechnologyComparisonStore(
             database,
@@ -458,6 +472,8 @@ export function migrateJsonStoresToSqlite(stores: {
   linkRelationWorkspace?: LinkRelationWorkspaceStore;
   scheduledImport?: unknown;
   scheduledDigest?: unknown;
+  /** Every `runtimeConfigStoreFileNames` store, by file name. */
+  runtimeConfigs?: Partial<Record<RuntimeConfigStoreFileName, unknown>>;
   technologyComparisons?: TechnologyComparisonStore;
   technologyExplanations?: TechnologyExplanationStore;
   technologyLearningPaths?: TechnologyLearningPathStore;
@@ -538,20 +554,20 @@ export function migrateJsonStoresToSqlite(stores: {
 
       // 单对象配置缺失时不写默认值：留空让读路径回落到调用方的默认配置，
       // 避免把一份「从未配置过」的定时任务固化成 sqlite 里的真实记录。
-      if (stores.scheduledImport) {
-        writeRuntimeConfig(
-          database,
-          "scheduled-import.json",
-          stores.scheduledImport
-        );
-      }
+      const legacyRuntimeConfigs: Partial<
+        Record<RuntimeConfigStoreFileName, unknown>
+      > = {
+        "scheduled-import.json": stores.scheduledImport,
+        "scheduled-digest.json": stores.scheduledDigest
+      };
 
-      if (stores.scheduledDigest) {
-        writeRuntimeConfig(
-          database,
-          "scheduled-digest.json",
-          stores.scheduledDigest
-        );
+      for (const fileName of runtimeConfigStoreFileNames) {
+        const value =
+          stores.runtimeConfigs?.[fileName] ?? legacyRuntimeConfigs[fileName];
+
+        if (value) {
+          writeRuntimeConfig(database, fileName, value);
+        }
       }
 
       writeTechnologyComparisonStore(
@@ -614,7 +630,10 @@ export function migrateJsonStoresToSqlite(stores: {
       getTableCount(database, "technology_learning_paths");
 
     return summary;
-  } catch {
+  } catch (error) {
+    // The transaction rolled back; say why, or the summary's error count is
+    // all the operator gets.
+    console.error("SQLite migration failed:", error);
     summary.errors += 1;
 
     return summary;

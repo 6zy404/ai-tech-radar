@@ -1,5 +1,11 @@
 # Roadmap
 
+> **Last brought up to date on 2026-09-28.** What shipped after that — the
+> technology radar at `/radar`, opt-in new-signal alerts, browser-side
+> 和你读过的相近, semantic duplicate grouping, 问雷达 follow-ups, among
+> others — is in `docs/reference.md` and `CHANGELOG.md`, which win wherever
+> this page disagrees.
+
 This is the durable, high-level plan for the project: what it is, what is built,
 and what comes next. It complements `docs/reference.md` (what exists today) and
 `docs/next-task.md` (current status and the open backlog). Keep it in the repo
@@ -80,7 +86,8 @@ and the **User-facing Product** (public reading/discovery).
 7. **Public discovery surfaces** — site-wide `/search`, the `/digest` archive,
    the `/digest/weekly` review, topic hubs at `/topics/[tagId]` with per-topic
    feeds, and the nav simplification that folded `/news`, `/timeline` and
-   `/radar` into `?view=` tabs on `/technologies`.
+   `/radar` into `?view=` tabs on `/technologies`. (That `/radar` was the
+   我关注的 view; since 2026-10-13 `/radar` is the technology radar.)
 8. **Editorial machinery** — the `/workspace/editorial-round` console, typed
    relation editing (LinkRelation v1), skill/knowledge workspace editing with
    copy-on-write over the seeds, technology↔technology relations and the
@@ -186,12 +193,14 @@ point.
 Followed topics → personalized digest = a personal tech radar.
 
 **v0 shipped** (see `CHANGELOG.md` → "Personalization"): readers follow topic
-tags on the public `/radar` page; follows live only in browser localStorage
+tags on the then-public `/radar` page (now the 我关注的 view,
+`/technologies?view=followed`); follows live only in browser localStorage
 (no accounts, no server profile), and the radar groups matching published
 signals with the existing deterministic Ranking v0 levels plus a per-item
-"命中关注：X" explanation line. Remaining P4 ideas (follow entry points on
-detail pages, a personalized digest view, follow-based highlights elsewhere)
-are future scope to be proposed per capability.
+"命中关注：X" explanation line. The follow entry points on detail pages
+(v0.1) and the personalized digest view (v0.2) shipped since, followed by
+v0.3 and v0.4 (see "What is built" above); further P4 ideas are new scope to
+be proposed per capability.
 
 ### Interleaved — code debt
 

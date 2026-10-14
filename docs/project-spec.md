@@ -80,7 +80,7 @@ Public pages:
 - `/digest/weekly/[week]` — a specific past/other natural week keyed by its
   canonical Monday date (`YYYY-MM-DD`); `notFound()` for a non-canonical key
   or a week with no shown signals
-- `/technologies` — four views via `?view=`:
+- `/technologies` — five views via `?view=`:
   - default (精选) — curated published technology list
   - `news` (全部快讯) — auto-aggregated news fast lane (sanitized imported
     candidates, last 7 days; see `docs/security-boundary.md` → "News Fast
@@ -91,6 +91,8 @@ Public pages:
   - `followed` (我关注的) — personal radar; follows are browser-local
     (localStorage), the view itself serves the same published content to
     everyone
+  - `saved` (稍后读) — the signals the reader marked 稍后读; marks are
+    browser-local (localStorage), the served page is the same for everyone
   - `/news` and `/timeline` redirect here to the matching view
 - `/radar` — technology radar: technologies by quadrant and ring, each with
   a ring reason, evidence signals and a ring history (2026-10-13; until then
@@ -461,10 +463,16 @@ deliberately minimal and keeps every existing boundary intact:
 
 - AI black-box ranking
 - personalized recommendation beyond the deterministic followed-topic radar
-- recommendation system
-- push notification
+  and the browser-side 和你读过的相近 (2026-10-13; computed locally from the
+  reader's marks, every item states its reason)
+- a server-side recommendation system or reader profile
+- push beyond the opt-in new-signal alert (2026-10-13; sent by hand from the
+  workspace, followed-topic matches only)
 - email subscription
-- personalized digest
+- a per-reader digest (the served digest is identical for everyone;
+  只看我关注的 filters it in the browser)
+- automatic rejection by semantic duplicate detection (the embedding-based
+  grouping and 「疑似已发布（语义）」 hint, 2026-10-13, only advise)
 - login
 - production cloud database integration
 - full admin platform
