@@ -34,13 +34,18 @@ history lives in `CHANGELOG.md`. Treat those two files as the source of truth fo
 
 These remain out of scope and should not be added without an explicit request:
 
-- AI black-box / personalized ranking and recommendation
+- AI black-box / personalized ranking and recommendation (the in-browser
+  「和你读过的相近」 since 2026-10-13 is explainable and never leaves the browser)
 - login / user accounts / RBAC
 - production database integration and schema migrations
 - full admin platform and external monitoring/alerting
-- push / email subscription products and production cron infrastructure
-- full-site i18n (bilingual support stays at the content level only)
-- semantic/AI duplicate detection beyond the current deterministic rules
+- email subscription products and production cron infrastructure (reader web
+  push for followed topics exists since 2026-10-13, editor-triggered)
+- machine translation of content, English feeds and English AI answers (the
+  interface has an English edition under `/en` since 2026-10-14; the content
+  does not)
+- LLM duplicate detection beyond the deterministic rules and the local
+  embedding match added 2026-10-13
 - production secret management and distributed scheduling
 
 The current SQLite driver is an optional local persistence option; JSON remains

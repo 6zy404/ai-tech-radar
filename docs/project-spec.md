@@ -416,7 +416,8 @@ The product now treats visual structure as part of the system boundary:
   pages so operators first see configured state, recent runs, and failures.
 
 This refactor does not add ranking, recommendation, subscription, login,
-database behavior, delivery channels, or full-site i18n.
+database behavior, delivery channels, or full-site i18n (an English interface
+under `/en` was added separately on 2026-10-14).
 
 ## Personal Radar (P4 v0)
 
@@ -462,12 +463,13 @@ deliberately minimal and keeps every existing boundary intact:
 - AI black-box ranking
 - personalized recommendation beyond the deterministic followed-topic radar
 - recommendation system
-- push notification
+- push notification beyond the opt-in, editor-triggered alert for followed
+  topics (2026-10-13)
 - email subscription
 - personalized digest
 - login
 - production cloud database integration
 - full admin platform
-- full-site i18n
+- machine translation of content (the `/en` interface translates the UI only)
 - AI-based quality scoring
 - automated translation
