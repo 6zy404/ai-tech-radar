@@ -61,6 +61,17 @@ const nextConfig: NextConfig = {
   // node_modules at runtime instead.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
 
+  // Every response carried `X-Powered-By: Next.js`, which only helps a
+  // scanner sort the site into a "Next.js, check for unpatched versions" list.
+  poweredByHeader: false,
+
+  // Nothing in src uses next/image, yet /_next/image answered for any local
+  // path — including the dynamic share-card routes — re-rendering and
+  // re-encoding on every new width × quality, with a disk cache allowed half
+  // the free space. Unoptimized, Next's server answers that endpoint with a
+  // 404 (handleNextImageRequest in next-server.js).
+  images: { unoptimized: true },
+
   // All CSS is the root layout's globals.css and its @imports, so every page
   // loads the same set. Next's CSS chunking packs modules into chunks of at
   // most 100KB, which turned the split stylesheet (2026-09-28) into three

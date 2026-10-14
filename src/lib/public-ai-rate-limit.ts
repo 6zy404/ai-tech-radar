@@ -70,9 +70,9 @@ export function checkPublicAiRateLimit(
   return getLimiter().check(`${routeId}:${clientKey}`);
 }
 
-// Request-shape guard, checked right after the rate limit and before the body
-// is read. Its job is to stop *other websites* from spending this site's LLM
-// budget through their visitors' browsers: a `text/plain` POST is a "simple"
+// Request-shape guard, checked before the rate limit and the body: it reads
+// headers only. Its job is to stop *other websites* from spending this site's
+// LLM budget through their visitors' browsers: a `text/plain` POST is a "simple"
 // cross-origin request that browsers send without a preflight, so any page
 // could `fetch()` these routes and every visitor would count as a fresh client.
 //
@@ -102,9 +102,14 @@ function hostOf(value: string | null | undefined): string | null {
 export function checkPublicAiRequestOrigin(
   request: Request
 ): PublicAiRequestDecision {
-  const contentType = request.headers.get("content-type")?.toLowerCase() ?? "";
+  // The media type alone, parameters dropped: `text/plain; a=application/json`
+  // is still text/plain, which a browser sends cross-origin without preflight.
+  const mediaType = (request.headers.get("content-type") ?? "")
+    .split(";")[0]
+    .trim()
+    .toLowerCase();
 
-  if (!contentType.includes("application/json")) {
+  if (mediaType !== "application/json") {
     return { ok: false, status: 415, message: publicAiContentTypeMessage };
   }
 
@@ -114,9 +119,13 @@ export function checkPublicAiRequestOrigin(
     return { ok: false, status: 403, message: publicAiCrossSiteMessage };
   }
 
-  const originHost = hostOf(request.headers.get("origin"));
+  // An Origin header that is present but names no host — a sandboxed iframe
+  // sends the literal `null` — is a browser hiding where it came from, so it
+  // counts as cross-site. No Origin at all (curl, scripts) is let through.
+  const rawOrigin = request.headers.get("origin");
 
-  if (originHost) {
+  if (rawOrigin !== null) {
+    const originHost = hostOf(rawOrigin);
     const allowedHosts = new Set<string>();
     const requestHost = request.headers.get("host")?.toLowerCase();
     const urlHost = hostOf(request.url);
@@ -128,7 +137,7 @@ export function checkPublicAiRequestOrigin(
       }
     }
 
-    if (!allowedHosts.has(originHost)) {
+    if (!originHost || !allowedHosts.has(originHost)) {
       return { ok: false, status: 403, message: publicAiCrossSiteMessage };
     }
   }
@@ -137,19 +146,103 @@ export function checkPublicAiRequestOrigin(
 }
 
 export const publicAiInvalidBodyMessage = "请求格式不正确。";
+export const publicAiBodyTooLargeMessage = "请求内容过大。";
+
+// Body caps. A real compare / explain / learning-path body is a couple of ids;
+// /api/ask carries a follow-up's history — up to four earlier questions of at
+// most 200 characters, the earlier answers (each one round of at most 700
+// tokens; the page sends them whole and the server cuts them to 600
+// characters, 2,400 in all) and the `{ ref, key }` pairs shown so far — which
+// 64KB covers with room to spare. Without a cap a route read any body into
+// memory before parsing it.
+export const publicAiMaxBodyBytes: Record<PublicAiRouteId, number> = {
+  compare: 16 * 1024,
+  explain: 16 * 1024,
+  "learning-path": 16 * 1024,
+  ask: 64 * 1024
+};
+
+export type JsonBodyOutcome =
+  | { ok: true; body: unknown }
+  | { ok: false; status: 400 | 413; message: string };
+
+// Reads a JSON body no larger than `maxBytes`: a declared Content-Length over
+// the cap is refused unread, and the stream is counted as it arrives, so a
+// body sent without a length (or with a false one) is cut off at the cap too.
+export async function readJsonBodyWithLimit(
+  request: Request,
+  maxBytes: number
+): Promise<JsonBodyOutcome> {
+  const tooLarge = {
+    ok: false,
+    status: 413,
+    message: publicAiBodyTooLargeMessage
+  } as const;
+  const declared = Number(request.headers.get("content-length"));
+
+  if (Number.isFinite(declared) && declared > maxBytes) {
+    return tooLarge;
+  }
+
+  const decoder = new TextDecoder();
+  let text = "";
+  let total = 0;
+
+  if (request.body) {
+    const reader = request.body.getReader();
+
+    for (;;) {
+      const { done, value } = await reader.read();
+
+      if (done) {
+        break;
+      }
+
+      total += value.byteLength;
+
+      if (total > maxBytes) {
+        await reader.cancel().catch(() => undefined);
+        return tooLarge;
+      }
+
+      text += decoder.decode(value, { stream: true });
+    }
+  }
+
+  try {
+    text += decoder.decode();
+
+    return { ok: true, body: JSON.parse(text) as unknown };
+  } catch {
+    return { ok: false, status: 400, message: publicAiInvalidBodyMessage };
+  }
+}
 
 export type PublicAiGuardOutcome =
   { ok: true; body: unknown } | { ok: false; response: NextResponse };
 
 // The opening every public AI route shares, in the order that matters: the
-// rate limit first (so a spent budget costs nothing, not even a body read),
-// then the request-shape guard, then the JSON body. Until 2026-09-28 each of
-// the four routes carried its own copy of these ~25 lines; one function means
-// a fifth route cannot get the order wrong or leave a step out.
+// request-shape guard first (headers only, so a refused cross-site request
+// does not spend the visitor's budget), then the rate limit (so a spent budget
+// costs nothing, not even a body read), then the size-capped JSON body. Until
+// 2026-09-28 each of the four routes carried its own copy of these lines; one
+// function means a fifth route cannot get the order wrong or leave a step out.
 export async function guardPublicAiRequest(
   request: Request,
   routeId: PublicAiRouteId
 ): Promise<PublicAiGuardOutcome> {
+  const origin = checkPublicAiRequestOrigin(request);
+
+  if (!origin.ok) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: origin.message },
+        { status: origin.status }
+      )
+    };
+  }
+
   const rateLimit = checkPublicAiRateLimit(request, routeId);
 
   if (!rateLimit.allowed) {
@@ -165,29 +258,20 @@ export async function guardPublicAiRequest(
     };
   }
 
-  const origin = checkPublicAiRequestOrigin(request);
+  const body = await readJsonBodyWithLimit(
+    request,
+    publicAiMaxBodyBytes[routeId]
+  );
 
-  if (!origin.ok) {
-    return {
-      ok: false,
-      response: NextResponse.json(
-        { error: origin.message },
-        { status: origin.status }
-      )
-    };
-  }
-
-  try {
-    return { ok: true, body: await request.json() };
-  } catch {
-    return {
-      ok: false,
-      response: NextResponse.json(
-        { error: publicAiInvalidBodyMessage },
-        { status: 400 }
-      )
-    };
-  }
+  return body.ok
+    ? body
+    : {
+        ok: false,
+        response: NextResponse.json(
+          { error: body.message },
+          { status: body.status }
+        )
+      };
 }
 
 // Test/ops helper: drops all tracked windows. Not called by any route.

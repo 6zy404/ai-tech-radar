@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { createRateLimiter, getRateLimitClientKey } from "@/lib/rate-limit";
+import {
+  createRateLimiter,
+  getRateLimitClientKey,
+  toRateLimitBucket
+} from "@/lib/rate-limit";
 
 const minuteRule = { limit: 3, windowMs: 60_000 };
 
@@ -155,5 +159,49 @@ describe("getRateLimitClientKey", () => {
       )
     ).toBe("203.0.113.9");
     expect(getRateLimitClientKey(new Headers())).toBe("unknown-client");
+  });
+
+  it("puts every address of one IPv6 /64 in one bucket, whichever header it came from", () => {
+    const key = (address: string) =>
+      getRateLimitClientKey(new Headers({ "cf-connecting-ip": address }));
+
+    expect(key("2001:db8:1:2::a")).toBe("2001:0db8:0001:0002::/64");
+    expect(key("2001:db8:1:2::a")).toBe(key("2001:DB8:1:2:ffff::1"));
+    expect(key("2001:db8:1:2::a")).not.toBe(key("2001:db8:1:3::1"));
+    expect(
+      getRateLimitClientKey(
+        new Headers({ "x-real-ip": "2001:db8:1:2:3:4:5:6" })
+      )
+    ).toBe("2001:0db8:0001:0002::/64");
+    expect(
+      getRateLimitClientKey(
+        new Headers({ "x-forwarded-for": "10.0.0.1, 2001:db8:1:2::9" })
+      )
+    ).toBe("2001:0db8:0001:0002::/64");
+  });
+});
+
+describe("toRateLimitBucket", () => {
+  it("keeps IPv4 and IPv4-mapped IPv6 as the full address", () => {
+    expect(toRateLimitBucket("203.0.113.7")).toBe("203.0.113.7");
+    expect(toRateLimitBucket("::ffff:203.0.113.7")).toBe("203.0.113.7");
+    expect(toRateLimitBucket("::ffff:cb00:7107")).toBe("::ffff:cb00:7107");
+    expect(toRateLimitBucket("unknown-client")).toBe("unknown-client");
+  });
+
+  it("expands '::' wherever it sits and drops a zone id", () => {
+    expect(toRateLimitBucket("::1")).toBe("0000:0000:0000:0000::/64");
+    expect(toRateLimitBucket("2001:db8::")).toBe("2001:0db8:0000:0000::/64");
+    expect(toRateLimitBucket("fe80::1%eth0")).toBe("fe80:0000:0000:0000::/64");
+  });
+
+  it("returns anything that is not a valid IPv6 address unchanged", () => {
+    for (const odd of [
+      "1:2:3:4:5:6:7:8::9",
+      "2001::db8::1",
+      "2001:db8:zz::1"
+    ]) {
+      expect(toRateLimitBucket(odd)).toBe(odd);
+    }
   });
 });

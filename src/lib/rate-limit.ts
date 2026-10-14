@@ -130,13 +130,13 @@ export function getRateLimitClientKey(headers: Headers): string {
   const cloudflareIp = headers.get("cf-connecting-ip")?.trim();
 
   if (cloudflareIp) {
-    return cloudflareIp;
+    return toRateLimitBucket(cloudflareIp);
   }
 
   const realIp = headers.get("x-real-ip")?.trim();
 
   if (realIp) {
-    return realIp;
+    return toRateLimitBucket(realIp);
   }
 
   const forwardedFor = headers.get("x-forwarded-for");
@@ -149,11 +149,62 @@ export function getRateLimitClientKey(headers: Headers): string {
     const lastHop = hops[hops.length - 1];
 
     if (lastHop) {
-      return lastHop;
+      return toRateLimitBucket(lastHop);
     }
   }
 
   // Local runs have no proxy headers at all, so every caller shares one bucket.
   // That is intentional: the limit still bounds total provider calls per window.
   return "unknown-client";
+}
+
+// One bucket per IPv6 /64. The site has AAAA records, and an ordinary IPv6
+// subscriber holds a whole /64 — 2^64 addresses, each a fresh bucket if the
+// key were the full address. IPv4, and IPv4 written as `::ffff:a.b.c.d`, keep
+// the full address. Anything that does not parse as IPv6 is returned as is.
+export function toRateLimitBucket(address: string): string {
+  const mapped = /^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i.exec(address);
+
+  if (mapped) {
+    return mapped[1];
+  }
+
+  if (!address.includes(":")) {
+    return address;
+  }
+
+  // Drop a zone id (fe80::1%eth0); expand "::" to the zeros it stands for.
+  const [head, tail, ...rest] = address.split("%")[0].split("::");
+
+  if (rest.length > 0) {
+    return address;
+  }
+
+  const left = head ? head.split(":") : [];
+  const right = tail ? tail.split(":") : [];
+  const zeros = 8 - left.length - right.length;
+  const groups =
+    tail === undefined
+      ? left
+      : [...left, ...Array(Math.max(zeros, 0)).fill("0"), ...right];
+
+  if (
+    (tail !== undefined && zeros < 1) ||
+    groups.length !== 8 ||
+    !groups.every((group) => /^[0-9a-f]{1,4}$/i.test(group))
+  ) {
+    return address;
+  }
+
+  const expanded = groups.map((group) => group.toLowerCase().padStart(4, "0"));
+
+  // IPv4-mapped written in hex (::ffff:c000:201): one IPv4 client, full key.
+  if (
+    expanded.slice(0, 5).every((group) => group === "0000") &&
+    expanded[5] === "ffff"
+  ) {
+    return address;
+  }
+
+  return `${expanded.slice(0, 4).join(":")}::/64`;
 }

@@ -59,6 +59,39 @@ describe("checkPublicAiRequestOrigin", () => {
     expect(checkPublicAiRequestOrigin(makeRequest({})).ok).toBe(false);
   });
 
+  it("judges the media type alone, so a parameter cannot smuggle application/json into text/plain", () => {
+    for (const contentType of [
+      "text/plain; a=application/json",
+      "text/plain;application/json",
+      "application/jsonx",
+      "application/json-patch+json"
+    ]) {
+      expect(
+        checkPublicAiRequestOrigin(makeRequest({ "content-type": contentType }))
+      ).toEqual({
+        ok: false,
+        status: 415,
+        message: publicAiContentTypeMessage
+      });
+    }
+
+    expect(
+      checkPublicAiRequestOrigin(
+        makeRequest({ "content-type": " Application/JSON ; charset=UTF-8" })
+      )
+    ).toEqual({ ok: true });
+  });
+
+  it("treats an Origin that names no host, such as a sandboxed iframe's 'null', as cross-site", () => {
+    for (const origin of ["null", "not a url"]) {
+      expect(
+        checkPublicAiRequestOrigin(
+          makeRequest({ "content-type": "application/json", origin })
+        )
+      ).toEqual({ ok: false, status: 403, message: publicAiCrossSiteMessage });
+    }
+  });
+
   it("rejects a cross-site request by Sec-Fetch-Site", () => {
     expect(
       checkPublicAiRequestOrigin(

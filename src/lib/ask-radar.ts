@@ -274,6 +274,13 @@ export async function* runAskRadar(
   };
 
   for (let round = 1; round <= askMaxRounds; round += 1) {
+    // Once the reader has gone (the route passes request.signal), start no
+    // further round or tool call. The OpenAI-compatible client would refuse
+    // an aborted fetch anyway; a client that ignores the signal would not.
+    if (deps.signal?.aborted) {
+      return;
+    }
+
     const finalRound = round === askMaxRounds;
     let text = "";
     let calls: ChatToolCall[] = [];
@@ -323,6 +330,10 @@ export async function* runAskRadar(
     messages.push({ role: "assistant", content: text, toolCalls: calls });
 
     for (const call of calls) {
+      if (deps.signal?.aborted) {
+        return;
+      }
+
       toolCallCount += 1;
       const args = parseArguments(call.arguments);
       let result: unknown;

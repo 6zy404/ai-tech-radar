@@ -12,8 +12,9 @@ import { guardPublicAiRequest } from "@/lib/public-ai-rate-limit";
 
 /**
  * POST /api/ask — 问雷达. Public and unauthenticated like the other AI
- * routes; rate limited first, before the body is even read, and per request,
- * so every follow-up counts as one. Streams newline-delimited JSON events
+ * routes; origin-checked and rate limited before the body is even read (the
+ * body itself is capped), and per request, so every follow-up counts as one.
+ * Streams newline-delimited JSON events
  * (see AskEvent). No event carries provider, model, prompt or token details.
  *
  * Stateless: a follow-up sends the earlier turns and the reference numbers

@@ -211,6 +211,47 @@ describe("runAskRadar", () => {
     expect(events.at(-1)?.type).toBe("done");
   });
 
+  it("starts no further round or tool call once the reader has gone", async () => {
+    // A client that ignores the signal, as the mock does: only the loop's own
+    // check keeps it from being called again.
+    const controller = new AbortController();
+    let calls = 0;
+    let searches = 0;
+    const client: ChatStreamClient = {
+      modelName: "ignores-signal",
+      async *stream(): AsyncGenerator<ChatStreamEvent> {
+        calls += 1;
+        controller.abort();
+        yield {
+          type: "done",
+          finishReason: "tool_calls",
+          toolCalls: [
+            { id: "a", name: "search_radar", arguments: '{"query":"x"}' }
+          ]
+        };
+      }
+    };
+    const countingTools: AskTools = {
+      ...tools,
+      async search(query) {
+        searches += 1;
+        return tools.search(query);
+      }
+    };
+
+    const events = await collect(
+      runAskRadar("x", {
+        client,
+        tools: countingTools,
+        signal: controller.signal
+      })
+    );
+
+    expect(calls).toBe(1);
+    expect(searches).toBe(0);
+    expect(events.some((event) => event.type === "done")).toBe(false);
+  });
+
   it("reports a refusal by its fixed opening", async () => {
     const { client } = scriptedClient([
       search("股票"),

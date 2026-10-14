@@ -22,14 +22,17 @@ export const metadata = buildPageMetadata({
 });
 
 interface AskPageProps {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string | string[] }>;
 }
 
 export default async function AskPage({ searchParams }: AskPageProps) {
   // Arriving from /search pre-fills the box but does not ask: a navigation
-  // should never spend a model call on its own.
+  // should never spend a model call on its own. A repeated `?q=` arrives as
+  // an array (it answered 500 until 2026-10-14); the first one is used.
   const { q } = await searchParams;
-  const initialQuestion = q?.trim().slice(0, 200) ?? "";
+  const rawQuestion = Array.isArray(q) ? q[0] : q;
+  const initialQuestion =
+    typeof rawQuestion === "string" ? rawQuestion.trim().slice(0, 200) : "";
   // Built by fixed rules from what is published now, so they change as the
   // site does and never name something it does not hold.
   const examples = buildAskExamples({

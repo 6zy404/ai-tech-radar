@@ -1,6 +1,8 @@
 // The opening of the two public push routes (POST /api/push/subscribe and
-// /api/push/unsubscribe), in the same order as the public AI routes: rate
-// limit first, then the request-shape guard, then the JSON body.
+// /api/push/unsubscribe), in the same order as the public AI routes: the
+// request-shape guard first (headers only, so a refused cross-site request
+// does not spend the visitor's budget), then the rate limit, then the
+// size-capped JSON body.
 //
 // These routes call no provider, so the budget is about the store, not a
 // bill: without a limit one client could fill the subscription file. The
@@ -12,7 +14,10 @@
 
 import { NextResponse } from "next/server";
 
-import { checkPublicAiRequestOrigin } from "@/lib/public-ai-rate-limit";
+import {
+  checkPublicAiRequestOrigin,
+  readJsonBodyWithLimit
+} from "@/lib/public-ai-rate-limit";
 import {
   createRateLimiter,
   getRateLimitClientKey,
@@ -20,6 +25,9 @@ import {
 } from "@/lib/rate-limit";
 
 export type PushRouteId = "push-subscribe" | "push-unsubscribe";
+
+// A subscription with its keys and every topic id is well under 2KB.
+export const pushMaxBodyBytes = 16 * 1024;
 
 let limiter: RateLimiter | undefined;
 
@@ -39,6 +47,18 @@ export async function guardPushRequest(
   request: Request,
   routeId: PushRouteId
 ): Promise<PushGuardOutcome> {
+  const origin = checkPublicAiRequestOrigin(request);
+
+  if (!origin.ok) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { error: origin.message },
+        { status: origin.status }
+      )
+    };
+  }
+
   const decision = getLimiter().check(
     `${routeId}:${getRateLimitClientKey(request.headers)}`
   );
@@ -56,29 +76,17 @@ export async function guardPushRequest(
     };
   }
 
-  const origin = checkPublicAiRequestOrigin(request);
+  const body = await readJsonBodyWithLimit(request, pushMaxBodyBytes);
 
-  if (!origin.ok) {
-    return {
-      ok: false,
-      response: NextResponse.json(
-        { error: origin.message },
-        { status: origin.status }
-      )
-    };
-  }
-
-  try {
-    return { ok: true, body: await request.json() };
-  } catch {
-    return {
-      ok: false,
-      response: NextResponse.json(
-        { error: "请求格式不正确。" },
-        { status: 400 }
-      )
-    };
-  }
+  return body.ok
+    ? body
+    : {
+        ok: false,
+        response: NextResponse.json(
+          { error: body.message },
+          { status: body.status }
+        )
+      };
 }
 
 export function resetPushRateLimit(): void {
