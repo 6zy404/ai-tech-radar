@@ -126,6 +126,12 @@
   font-size: var(--fs-label);
 }
 
+.radar-figure__key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .radar-key-dot {
   display: inline-block;
   width: 12px;
@@ -164,6 +170,13 @@
   font-family: ui-monospace, monospace;
   font-size: 12px;
   font-weight: 400;
+}
+
+/* 「10 entries」 is two words; at 390px it broke under a two-line quadrant
+   name. English only — 「10 项」 never wraps. */
+html[lang="en"] .radar-list__quadrant h2 span {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .radar-list__quadrant > ol {

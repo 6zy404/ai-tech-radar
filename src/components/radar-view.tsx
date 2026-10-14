@@ -429,10 +429,27 @@ export function RadarView({
           locale={locale}
         />
         <p className="radar-figure__key" aria-hidden="true">
-          <span className="radar-key-dot radar-key-dot--steady" />
-          {copy.keySteady}
-          <span className="radar-key-dot radar-key-dot--changed" />
-          {copy.keyChanged}
+          {locale === "en" ? (
+            // English labels are long enough to wrap at 390px; each marker is
+            // kept with its label. The Chinese key fits and keeps its markup.
+            <>
+              <span className="radar-figure__key-item">
+                <span className="radar-key-dot radar-key-dot--steady" />
+                {copy.keySteady}
+              </span>
+              <span className="radar-figure__key-item">
+                <span className="radar-key-dot radar-key-dot--changed" />
+                {copy.keyChanged}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="radar-key-dot radar-key-dot--steady" />
+              {copy.keySteady}
+              <span className="radar-key-dot radar-key-dot--changed" />
+              {copy.keyChanged}
+            </>
+          )}
         </p>
       </div>
 

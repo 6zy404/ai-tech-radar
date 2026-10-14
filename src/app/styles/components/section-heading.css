@@ -24,3 +24,11 @@
   font-size: 1.2rem;
   line-height: 1.25;
 }
+
+/* English link labels are two words ("View knowledge"), and beside a long
+   title in a half-width column the flex row squeezed them onto two lines.
+   Only on the English site, so the Chinese pages' styles are unchanged. */
+html[lang="en"] .section-heading > .action-link {
+  flex-shrink: 0;
+  white-space: nowrap;
+}

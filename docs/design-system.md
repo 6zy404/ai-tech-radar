@@ -1977,7 +1977,12 @@ renders exactly as before.
   room and broke the brand onto two lines. The existing 901–980px rule gained
   an `html[lang="en"]` step (gap 8, link padding 4, brand `nowrap`). The
   public build has no workspace entry and fits with room to spare. Measured
-  901 / 940 / 980px in both languages: one row, 60px.
+  901 / 940 / 980px in both languages: one row, 60px. The same applies to
+  the other places the English labels outgrew a Chinese-sized box: the home
+  page's section links and the radar's 「N entries」 count do not wrap, the
+  briefing's section-title column widens from 0.35fr to 0.55fr above 920px,
+  and a long topic chip in a detail page's aside takes its own line with the
+  「Topic page」 link below it. Every one is under `html[lang="en"]`.
 - **Radar ring names.** In Chinese they run down the upper vertical axis one
   character per line; English words cannot stack that way, so on the English
   page they are written horizontally across the axis, inside the viewBox.

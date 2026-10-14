@@ -81,6 +81,16 @@ For per-topic deep dives, see the `docs/` directory.
   two lines; the 901–980px band now tightens a little further for
   `html[lang="en"]` only (gap 8, link padding 4). Measured 901 / 940 / 980px
   in both languages: one row, 60px.
+- **Where the longer English labels broke the layout**, found by comparing
+  every heading's line count on 22 page pairs at 1440 and 390 and by looking:
+  the home page's 「View knowledge」 link, the briefing's section titles
+  (「Background knowledge」 in a 216px column), the long topic chips in the
+  skill and knowledge aside, and the radar's 「10 entries」 count and legend
+  at 390. Each fix applies to `html[lang="en"]` only (the briefing column
+  widens to 0.55fr above 920px; the rest keep a label on one line), and the
+  radar legend groups each marker with its label in the English markup
+  only, so the Chinese pages' HTML and computed styles stay as they were.
+  No English page scrolls sideways at 390 (24 pages measured).
 - **Search engines.** Every public page names both versions with hreflang
   (`zh-CN`, `en`, `x-default` = Chinese, `buildLanguageAlternates`); the
   English canonical is its `/en` address and `og:locale` is `en_US`. The
