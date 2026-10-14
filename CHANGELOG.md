@@ -240,6 +240,33 @@ For per-topic deep dives, see the `docs/` directory.
   file; a 404 inside a dynamic route is Next's empty error shell in both
   languages, as before.
 
+## Reading-mark buttons at one height on every signal card
+
+- **2026-10-14. The 稍后读 / 已读 buttons stretched with the card.** On
+  `/technologies` at 1440, the 220 reading-mark buttons measured 25 to 70px
+  tall (78 at 25px, the rest spread up to 70) and their rows 34 to 79px, so
+  on short cards they turned into tall rounded pills. The cause was the card,
+  not the buttons: `.dossier-technology-card` was `display: grid` with the
+  default `align-content`, and when a card stretches to its tallest
+  neighbour in `.dossier-technology-list` a grid shares the leftover height
+  out among all its auto rows. Every gap in a short card grew with it (the
+  screenshot showed summaries with blank space under them), and the last
+  row's flex container stretched its buttons into the extra height.
+- **The fix.** The card is a flex column with the same 10px gap, and
+  `.signal-reading-actions` takes `margin-top: auto`, so the leftover sits
+  above the reading row's dashed rule and the rows keep their own height;
+  the row also sets `align-items: center` so a stretched row could never
+  stretch the buttons again (`src/app/styles/39-dossier-v1-technologies.css`,
+  where both components' rules live — neither has a file under
+  `styles/components/` yet). The reading row now ends every card at the same
+  place, so the buttons line up across a row of cards.
+- **Measured after,** in the preview pane: every button 25px and every row
+  34px, each row 17px (padding + border) from its card's bottom edge, on 精选
+  (220 buttons), 我关注的 (204) and 稍后读 (68, recommendations included),
+  at 1440 light, 1440 dark in both 中文 and 原文 modes, and 390. The site has
+  no `/en` route — bilingual reading is the 中文 / 原文 switch, measured
+  instead. Screenshots looked at on all three views.
+
 ## Telegram and Discord channels, source health history, deleting a source
 
 - **2026-10-13. Two new delivery channels.** `telegram` posts a published

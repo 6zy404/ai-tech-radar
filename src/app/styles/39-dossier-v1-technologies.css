@@ -300,8 +300,15 @@
 }
 
 /* -- technology index card -- */
+/* A flex column, not a grid (2026-10-14). The card stretches to the height
+   of its tallest neighbour in .dossier-technology-list, and a grid card
+   shared that leftover height out among all its auto rows: every gap grew,
+   and the last row's 稍后读 / 已读 buttons stretched with it — 220 buttons
+   measured 25 to 70px tall at 1440. Now the rows keep their own height and
+   the reading row's margin-top: auto takes the leftover. */
 .dossier-technology-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -407,10 +414,15 @@
   border-style: dashed;
 }
 
+/* margin-top: auto pins the row to the card's bottom edge, so the buttons
+   line up across a row of cards; align-items keeps each button at its own
+   height even if the row is ever stretched again. */
 .signal-reading-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
+  margin-top: auto;
   padding-top: 8px;
   border-top: 1px dashed var(--dossier-line);
 }
