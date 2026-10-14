@@ -102,6 +102,114 @@ export function extractWorkspaceAccessToken(
   return undefined;
 }
 
+export type WorkspaceRequestSourceResult =
+  { ok: true } | { ok: false; reason: string };
+
+const sideEffectFreeMethods = new Set(["GET", "HEAD", "OPTIONS"]);
+const loopbackHostnames = new Set(["127.0.0.1", "localhost", "[::1]"]);
+
+// `name[:port]` or `[ipv6][:port]`, lower-cased, port dropped. Anything else
+// (userinfo, a path, spaces) is not a Host a browser sends and parses to
+// nothing, so it is refused rather than guessed at.
+function hostnameOfHostHeader(value: string): string | undefined {
+  return /^(\[[0-9a-f:.]+\]|[a-z0-9.-]+)(?::\d{1,5})?$/.exec(
+    value.trim().toLowerCase()
+  )?.[1];
+}
+
+function isAllowedDevHostname(
+  hostname: string,
+  env: WorkspaceAccessEnv
+): boolean {
+  if (loopbackHostnames.has(hostname) || hostname.endsWith(".localhost")) {
+    return true;
+  }
+
+  return (env.WORKSPACE_ALLOWED_HOSTS ?? "")
+    .split(",")
+    .some((entry) => hostnameOfHostHeader(entry) === hostname);
+}
+
+/**
+ * Where a workspace request came from — checked before the token, and even
+ * when the token guard is off.
+ *
+ * An editorial round runs the unguarded workspace on a local `next dev`
+ * pointed at the live data (`docs/editorial-round-playbook.md` Step 0), so
+ * without this any page open in the editor's browser could write to the site:
+ * a `text/plain` POST is a "simple" request that needs no preflight, and the
+ * routes read their body with `request.json()`, which ignores the content type.
+ * A browser that remembers Basic credentials would attach them too, so the
+ * token alone does not close it either.
+ *
+ * - Writes (anything but GET / HEAD / OPTIONS) are refused when the browser
+ *   says they come from another site (`Sec-Fetch-Site: cross-site` or
+ *   `same-site` — the live site on another localhost port is same-site), or
+ *   when an `Origin` header — `null` included — does not name this host.
+ *   Scripts (`scripts/workspace-fetch.mjs`, curl) send neither header and pass.
+ * - Outside production the Host must be a loopback name, or one listed in
+ *   `WORKSPACE_ALLOWED_HOSTS` (comma-separated), so a DNS-rebinding page cannot
+ *   read the workspace as same-origin. Production is left alone: there the
+ *   Host is the public name behind the tunnel, and the public build has no
+ *   workspace routes at all.
+ *
+ * The workspace GET routes only read, which is why reads skip the first rule.
+ */
+export function checkWorkspaceRequestSource(
+  headers: Headers,
+  method: string,
+  env: WorkspaceAccessEnv = process.env
+): WorkspaceRequestSourceResult {
+  const host = headers.get("host")?.trim().toLowerCase();
+
+  // A browser always sends Host, so a request without one is not a
+  // rebinding attempt.
+  if (env.NODE_ENV !== "production" && host !== undefined) {
+    const hostname = hostnameOfHostHeader(host);
+
+    if (!hostname || !isAllowedDevHostname(hostname, env)) {
+      return {
+        ok: false,
+        reason:
+          "The workspace dev server only answers loopback host names; add this one to WORKSPACE_ALLOWED_HOSTS if it is intended."
+      };
+    }
+  }
+
+  if (sideEffectFreeMethods.has(method.toUpperCase())) {
+    return { ok: true };
+  }
+
+  const crossSite = {
+    ok: false as const,
+    reason: "Workspace changes from another site are refused."
+  };
+  const fetchSite = headers.get("sec-fetch-site")?.trim().toLowerCase();
+
+  if (fetchSite === "cross-site" || fetchSite === "same-site") {
+    return crossSite;
+  }
+
+  const origin = headers.get("origin");
+
+  if (origin !== null) {
+    let originHost: string | undefined;
+
+    try {
+      // `Origin: null` does not parse, so it is refused here as well.
+      originHost = new URL(origin.trim()).host.toLowerCase();
+    } catch {
+      originHost = undefined;
+    }
+
+    if (!originHost || originHost !== host) {
+      return crossSite;
+    }
+  }
+
+  return { ok: true };
+}
+
 export function checkWorkspaceAccess(
   headers: Headers,
   env: WorkspaceAccessEnv = process.env

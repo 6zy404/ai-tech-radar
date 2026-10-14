@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import {
   checkWorkspaceAccess,
+  checkWorkspaceRequestSource,
   isProtectedWorkspacePath
 } from "@/lib/workspace-access";
 
@@ -32,6 +33,14 @@ export function middleware(request: NextRequest) {
 
   if (!isProtectedWorkspacePath(pathname)) {
     return NextResponse.next();
+  }
+
+  // Before the token: a cross-site write must fail even when the guard is off
+  // (an editorial round) or the browser would attach cached credentials.
+  const source = checkWorkspaceRequestSource(request.headers, request.method);
+
+  if (!source.ok) {
+    return unauthorizedResponse(pathname, 403, source.reason);
   }
 
   const access = checkWorkspaceAccess(request.headers);
