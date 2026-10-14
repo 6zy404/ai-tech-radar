@@ -5,8 +5,11 @@ import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { IssuePager } from "@/components/issue-pager";
 import { ReadingProgress } from "@/components/reading-progress";
+import { LangScope } from "@/components/lang-scope";
 import { weeklyReviewFeedPath } from "@/lib/feed-paths";
-import { importantFreshnessWindowDays } from "@/lib/ranking";
+import { weeklyCopy } from "@/lib/i18n/copy/weekly";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { nameLangAttr } from "@/lib/i18n/text-lang";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import type {
   WeeklyReviewArchiveEntry,
@@ -25,44 +28,52 @@ interface WeeklyReviewContentProps {
    * nothing. Editor-confirmed text, so it carries no AI disclaimer.
    */
   summary?: string;
+  locale?: Locale;
 }
 
-function toPagerTarget(neighbor: WeeklyReviewNeighbor | undefined) {
+function toPagerTarget(
+  neighbor: WeeklyReviewNeighbor | undefined,
+  locale: Locale
+) {
   return neighbor
-    ? { href: `/digest/weekly/${neighbor.weekKey}`, label: neighbor.rangeLabel }
+    ? {
+        href: localePath(locale, `/digest/weekly/${neighbor.weekKey}`),
+        label: neighbor.rangeLabel
+      }
     : undefined;
 }
-
-const groupLede: Record<WeeklyReviewGroup["level"], string> = {
-  high_priority: `本周编辑标为关键、或标为重要且发布不满 ${importantFreshnessWindowDays} 天的信号。`,
-  watch: "本周值得持续留意、等待更多验证的变化。"
-};
 
 export function WeeklyReviewContent({
   data,
   archive,
   neighbors,
-  summary
+  summary,
+  locale = "zh"
 }: WeeklyReviewContentProps) {
+  const copy = weeklyCopy[locale];
+  const groupLede: Record<WeeklyReviewGroup["level"], string> = copy.groupLedes;
+
   return (
     <div className="weekly-review">
       <div className="weekly-review__stats">
         <div className="weekly-review-stat">
-          <span className="weekly-review-stat__label">本周信号</span>
+          <span className="weekly-review-stat__label">
+            {copy.stats.signals}
+          </span>
           <span className="weekly-review-stat__value">{data.totalCount}</span>
         </div>
         <div className="weekly-review-stat">
-          <span className="weekly-review-stat__label">立即关注</span>
+          <span className="weekly-review-stat__label">{copy.stats.high}</span>
           <span className="weekly-review-stat__value">
             {data.highPriorityCount}
           </span>
         </div>
         <div className="weekly-review-stat">
-          <span className="weekly-review-stat__label">值得跟踪</span>
+          <span className="weekly-review-stat__label">{copy.stats.watch}</span>
           <span className="weekly-review-stat__value">{data.watchCount}</span>
         </div>
         <div className="weekly-review-stat">
-          <span className="weekly-review-stat__label">覆盖主题</span>
+          <span className="weekly-review-stat__label">{copy.stats.topics}</span>
           <span className="weekly-review-stat__value">{data.topicCount}</span>
         </div>
       </div>
@@ -70,8 +81,10 @@ export function WeeklyReviewContent({
       {/* The same panel as a digest's 本期概览, so the two read alike. */}
       {summary ? (
         <section className="daily-digest-summary-panel weekly-review-summary">
-          <h2 className="eyebrow user-eyebrow">本周总结</h2>
-          <ContentBody body={summary} />
+          <h2 className="eyebrow user-eyebrow">{copy.summaryHeading}</h2>
+          <LangScope lang={nameLangAttr(locale, summary)}>
+            <ContentBody body={summary} />
+          </LangScope>
         </section>
       ) : null}
 
@@ -79,8 +92,8 @@ export function WeeklyReviewContent({
         data.groups.map((group) => (
           <section key={group.level} className="weekly-review-group">
             <div className="weekly-review-group__heading">
-              <h2>{getPriorityLevelLabel(group.level, "zh")}</h2>
-              <span>{group.signals.length} 条</span>
+              <h2>{getPriorityLevelLabel(group.level, "zh", locale)}</h2>
+              <span>{copy.groupCount(group.signals.length)}</span>
             </div>
             <p className="weekly-review-group__lede">
               {groupLede[group.level]}
@@ -92,17 +105,22 @@ export function WeeklyReviewContent({
                     <span className="weekly-review-card__date">
                       {signal.publishDate}
                     </span>
-                    <span>· {signal.sourceName}</span>
+                    <span lang={nameLangAttr(locale, signal.sourceName)}>
+                      {copy.sourcePrefix}
+                      {signal.sourceName}
+                    </span>
                     <DossierStampTag>
-                      {getPriorityLevelLabel(signal.level, "zh")}
+                      {getPriorityLevelLabel(signal.level, "zh", locale)}
                     </DossierStampTag>
                   </div>
-                  <h3>
-                    <Link href={`/technologies/${signal.slug}`}>
+                  <h3 lang={signal.titleLang}>
+                    <Link
+                      href={localePath(locale, `/technologies/${signal.slug}`)}
+                    >
                       {signal.title}
                     </Link>
                   </h3>
-                  <p>{signal.summary}</p>
+                  <p lang={signal.summaryLang}>{signal.summary}</p>
                 </DossierCard>
               ))}
             </div>
@@ -110,42 +128,47 @@ export function WeeklyReviewContent({
         ))
       ) : (
         <div className="empty-state empty-state--actionable">
-          <strong>本周还没有已发布的技术信号。</strong>
-          <p>
-            这一周的信号发布后会在这里按优先级汇总。你可以先浏览全部技术信号或往期周回顾。
-          </p>
-          <Link href="/technologies" className="action-link">
-            浏览技术信号
+          <strong>{copy.emptyTitle}</strong>
+          <p>{copy.emptyBody}</p>
+          <Link
+            href={localePath(locale, "/technologies")}
+            className="action-link"
+          >
+            {copy.browse}
           </Link>
         </div>
       )}
 
       <IssuePager
         unit="周"
-        ariaLabel="周回顾翻页"
-        previous={toPagerTarget(neighbors.previous)}
-        next={toPagerTarget(neighbors.next)}
+        ariaLabel={copy.pagerLabel}
+        locale={locale}
+        previous={toPagerTarget(neighbors.previous, locale)}
+        next={toPagerTarget(neighbors.next, locale)}
       />
 
       {archive.length > 0 ? (
         <section className="weekly-review-archive">
           <div className="weekly-review-archive__heading">
-            <h2>往期周回顾</h2>
-            <span>{archive.length} 周</span>
+            <h2>{copy.archiveHeading}</h2>
+            <span>{copy.archiveCount(archive.length)}</span>
           </div>
           <div className="weekly-review-archive__list">
             {archive.map((entry) => (
               <Link
                 key={entry.weekKey}
-                href={`/digest/weekly/${entry.weekKey}`}
+                href={localePath(locale, `/digest/weekly/${entry.weekKey}`)}
                 className="weekly-review-archive__row"
               >
                 <span className="weekly-review-archive__range">
                   {entry.rangeLabel}
                 </span>
                 <span className="weekly-review-archive__counts">
-                  立即关注 {entry.highPriorityCount} · 值得跟踪{" "}
-                  {entry.watchCount} · {entry.totalCount} 条信号
+                  {copy.archiveCounts(
+                    entry.highPriorityCount,
+                    entry.watchCount,
+                    entry.totalCount
+                  )}
                 </span>
               </Link>
             ))}
@@ -155,14 +178,13 @@ export function WeeklyReviewContent({
 
       <section className="weekly-review-group">
         <div className="weekly-review-group__heading">
-          <h2>订阅</h2>
-          <span>每周一条</span>
+          <h2>{copy.subscribeHeading}</h2>
+          <span>{copy.subscribeCadence}</span>
         </div>
         <div className="digest-feed-links">
-          <Link href={weeklyReviewFeedPath}>订阅本周回顾（RSS）</Link>
+          <Link href={weeklyReviewFeedPath}>{copy.subscribeLink}</Link>
           <span className="weekly-review-group__lede">
-            把这个订阅源加进任何 RSS
-            阅读器，每个自然周的立即关注与值得跟踪信号会自动送达，无需账号。
+            {copy.subscribeHint}
           </span>
         </div>
       </section>

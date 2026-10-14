@@ -82,6 +82,107 @@ For per-topic deep dives, see the `docs/` directory.
   repo holds third-party full texts (50 versions) that must not go public with
   it; the public AI routes have no site-wide daily budget.
 
+## An English interface under /en
+
+- **2026-10-14. Every public page has an English twin at `/en` + its
+  address** (`/en`, `/en/technologies/<slug>`, `/en/digest/weekly/<week>` …,
+  31 route files in `src/app/en/`, 9 of them share images). The interface is
+  English; the content is in whatever language exists for it, and nothing is
+  machine-translated. A signal shows its `en` text when it has one, its
+  original when the source is English, and otherwise the Chinese, marked.
+  Skills, knowledge, editors' notes and digest ledes exist only in Chinese and
+  are shown in Chinese. Chinese addresses did not change. The feeds, the API
+  routes, `/offline` and the workspace have no English version.
+- **How a route knows its language.** Each page body moved, unchanged, from
+  `src/app/<route>/page.tsx` into `src/components/pages/` and takes a
+  `locale`; the Chinese route file and its `/en` twin are a few lines that
+  pass `"zh"` or `"en"` (Next forbids extra props on a page export, so the
+  route files wrap the component). Interface strings live in
+  `src/lib/i18n/copy/*.ts`, one module per area, as `{ zh, en }` with the
+  English typed `typeof zh` — a key missing in either fails the typecheck.
+  The Chinese strings were moved verbatim. Client components read the
+  language from the pathname (`useLocale`); labels that take one
+  (`getRelationTypeLabel`, the radar rings, priority bands, content
+  attributes, the 19 topic names in `src/lib/i18n/topic-names.ts`) default to
+  Chinese, so every existing caller is unchanged.
+- **`<html lang>` comes from a request header.** A root layout cannot see the
+  pathname, so `src/middleware.ts` now runs on every page request and sets
+  `x-site-locale` (always overwriting what the client sent); the layout reads
+  it. The matcher skips `_next/`, `api/`, `icons/` and static extensions, and
+  keeps every protected prefix: `validate:deployment` asserts, with
+  `unstable_doesMiddlewareMatch`, that each prefix in `protectedPathPrefixes`
+  still answers 401 / 503 with the guard on, and that none has an `/en` twin.
+  **Side effect, accepted:** the root layout is now async, so Next renders the
+  page metadata into `<head>` up front instead of streaming it after the body.
+  The Chinese HTML changes position, not content.
+- **Marking Chinese on an English page.** Chinese content on an English page
+  carries `lang="zh-CN"` (`contentLangAttr`, `nameLangAttr` for names whose
+  language is not recorded, `LangScope` / `LangSpan`), so a screen reader
+  switches voice. On the Chinese site those helpers return nothing and render
+  no wrapper. A page whose content is partly Chinese says so once, where that
+  content starts, in a low-key `ChineseOnlyNote` — never per card.
+- **Signal bodies: the English original only when it is an article.** 51 of
+  the 71 signals from English sources store an excerpt of the source as
+  their original body, a few hundred characters at most. The English page
+  shows the original body only when it is at least 400 characters
+  (`englishBodyMinLength`, `getTechnologyBodyForLocale`), and otherwise the
+  editors' Chinese write-up under a one-line note saying so.
+- **What stays Chinese, said on the page.** 问雷达 and the three AI widgets
+  answer in Chinese — the prompts and the cached results are Chinese, and a
+  second language would double the cache — and the English page says so
+  above the answer. The /en/ask example questions are built from
+  English-named signals. Feed titles on English pages read
+  「… (in Chinese)」.
+- **English share cards** (`opengraph-image` under each `/en` route): the
+  same renderer with English labels; titles are the page's own.
+- **/about in English is its own component** (`about-page-en.tsx`); the
+  Chinese page's JSX was not touched. The two must be kept in step by hand.
+- **One intended change to the Chinese /about.** Its 八种关系 section said
+  关联 was 「约占全部关系的 12%」, written by hand before the fallback edges
+  were typed on 2026-10-12. Both versions now count it from the graph on
+  each request — the share of `related-to` edges in `getContentGraph()`,
+  rounded to a whole percent (`src/lib/fallback-relation-share.ts`, with a
+  test): 6% today.
+- **The 中 / EN switch.** The nav carries a link to the same page in the
+  other language, keeping the query and the hash, labelled in that language
+  (EN / 中文) with `hreflang` and `lang`. It is absent where there is no twin
+  (`hasEnglishTwin` in `src/lib/i18n/locale.ts`). In the dev build, which
+  shows the workspace entry, the English bar at 901px broke the brand onto
+  two lines; the 901–980px band now tightens a little further for
+  `html[lang="en"]` only (gap 8, link padding 4). Measured 901 / 940 / 980px
+  in both languages: one row, 60px.
+- **Where the longer English labels broke the layout**, found by comparing
+  every heading's line count on 22 page pairs at 1440 and 390 and by looking:
+  the home page's 「View knowledge」 link, the briefing's section titles
+  (「Background knowledge」 in a 216px column), the long topic chips in the
+  skill and knowledge aside, and the radar's 「10 entries」 count and legend
+  at 390. Each fix applies to `html[lang="en"]` only (the briefing column
+  widens to 0.55fr above 920px; the rest keep a label on one line), and the
+  radar legend groups each marker with its label in the English markup
+  only, so the Chinese pages' HTML and computed styles stay as they were.
+  No English page scrolls sideways at 390 (24 pages measured).
+- **Search engines.** Every public page names both versions with hreflang
+  (`zh-CN`, `en`, `x-default` = Chinese, `buildLanguageAlternates`); the
+  English canonical is its `/en` address and `og:locale` is `en_US`. The
+  sitemap lists both versions with `xhtml:link` alternates (490 URLs, 245
+  under `/en`). JSON-LD takes the locale for its URLs and language.
+- **Checks.** `validate:deployment` asserts every public page route has an
+  `/en` twin (shown to fail with `/en/sources` removed);
+  `validate:workspace-boundary` also scans `src/components/pages` and
+  `src/app/en` for workspace imports (shown to fail on an injected import).
+  An in-browser check listed every remaining Chinese text node and attribute
+  outside `lang="zh-CN"` on the English pages: what is left is content (user
+  queries, Chinese titles in `<head>`, raw news tags, SVG tooltips).
+- **The Chinese site did not change** beyond the switch and the hreflang
+  links: the server HTML of 58 Chinese URLs was compared after every commit
+  against a baseline, with those two additions removed — identical, except
+  the 内容相近的信号 section, which depends on whether the embedding model had
+  finished loading.
+- **Known limits.** `/offline` has no English version; the home page's
+  和你读过的相近 cards show the Chinese title from the recommendation data
+  file; a 404 inside a dynamic route is Next's empty error shell in both
+  languages, as before.
+
 ## Telegram and Discord channels, source health history, deleting a source
 
 - **2026-10-13. Two new delivery channels.** `telegram` posts a published

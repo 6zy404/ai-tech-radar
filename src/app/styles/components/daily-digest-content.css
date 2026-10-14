@@ -120,6 +120,17 @@
   margin-bottom: 16px;
 }
 
+/* The English headings are longer (「Background knowledge」 runs 286px), and
+   in the Chinese column (0.35fr, 216px at 1440) they broke onto two lines.
+   A wider column on the English site only, still one width for every
+   section so the descriptions line up. Above 920px only: below it the
+   header is one column (the media rule further down). */
+@media (min-width: 921px) {
+  html[lang="en"] .daily-digest-section__header {
+    grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr);
+  }
+}
+
 .daily-digest-section__header--compact {
   align-items: center;
   margin-bottom: 12px;

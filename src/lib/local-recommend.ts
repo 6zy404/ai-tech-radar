@@ -1,3 +1,5 @@
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import type { Locale } from "@/lib/i18n/locale";
 import { compactText } from "@/lib/compact-text";
 
 /**
@@ -467,21 +469,17 @@ const maxSeedTitleLength = 28;
 export function describeRecommendationReason({
   seedTitle,
   seedMark,
-  matchedTagNames = []
+  matchedTagNames = [],
+  locale = "zh"
 }: {
   seedTitle: string;
   seedMark: SeedMark;
   matchedTagNames?: string[];
+  locale?: Locale;
 }): string {
-  const verb = seedMark === "read" ? "读过" : "存下";
-  const title = compactText(seedTitle, maxSeedTitleLength);
-  const topics =
-    matchedTagNames.length > 0
-      ? `，也属于你关注的${matchedTagNames
-          .slice(0, 2)
-          .map((name) => `「${name}」`)
-          .join("")}`
-      : "";
-
-  return `和你${verb}的《${title}》相近${topics}`;
+  return signalsCopy[locale].recommend.reason(
+    seedMark === "read" ? "read" : "saved",
+    compactText(seedTitle, maxSeedTitleLength),
+    matchedTagNames.slice(0, 2)
+  );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { useLocale } from "@/lib/i18n/use-locale";
 import type { TechnologyContentMode } from "@/lib/technology-localization";
 
 interface TechnologyLanguageSwitchProps {
@@ -13,6 +15,9 @@ export function TechnologyLanguageSwitch({
   onChange,
   chineseEnabled = true
 }: TechnologyLanguageSwitchProps) {
+  const locale = useLocale();
+  const copy = signalsCopy[locale].languageSwitch;
+
   return (
     <div className="technology-language-switch">
       {/* No visible label: the two buttons already read 中文 / 原文, so a
@@ -21,7 +26,7 @@ export function TechnologyLanguageSwitch({
       <div
         className="technology-language-switch__track"
         role="group"
-        aria-label="阅读语言"
+        aria-label={copy.label}
       >
         <button
           type="button"
@@ -31,8 +36,9 @@ export function TechnologyLanguageSwitch({
           onClick={() => onChange("zh")}
           disabled={!chineseEnabled}
           aria-pressed={mode === "zh"}
+          lang={locale === "en" ? "zh-CN" : undefined}
         >
-          中文
+          {copy.zh}
         </button>
         <button
           type="button"
@@ -44,7 +50,7 @@ export function TechnologyLanguageSwitch({
           onClick={() => onChange("original")}
           aria-pressed={mode === "original"}
         >
-          原文
+          {copy.original}
         </button>
       </div>
     </div>

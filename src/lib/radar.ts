@@ -5,7 +5,9 @@ import {
 } from "@/lib/content";
 import { radarQuadrants, radarRings } from "@/lib/radar-labels";
 import { getMergedPublicRadarEntries } from "@/lib/radar-workflow";
-import { getPreferredTechnologyTitle } from "@/lib/technology-localization";
+import type { Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { getTechnologyTitleForLocale } from "@/lib/technology-localization";
 import type { KnowledgeItem, SkillItem, TechnologyItem } from "@/types/content";
 import type {
   RadarChangeKind,
@@ -118,7 +120,8 @@ export interface RadarPublicPools {
  */
 export function toPublicRadarEntries(
   entries: RadarEntry[],
-  pools: RadarPublicPools
+  pools: RadarPublicPools,
+  locale: Locale = "zh"
 ): RadarPublicEntry[] {
   const technologies = new Map(
     pools.technologies
@@ -147,15 +150,21 @@ export function toPublicRadarEntries(
         .flatMap((id) => {
           const item = technologies.get(id);
 
-          return item
-            ? [
-                {
-                  slug: item.slug,
-                  title: getPreferredTechnologyTitle(item),
-                  publishDate: item.publishDate
-                }
-              ]
-            : [];
+          if (!item) {
+            return [];
+          }
+
+          const title = getTechnologyTitleForLocale(item, locale);
+          const titleLang = contentLangAttr(locale, title.language);
+
+          return [
+            {
+              slug: item.slug,
+              title: title.text,
+              publishDate: item.publishDate,
+              ...(titleLang ? { titleLang } : {})
+            }
+          ];
         })
         .sort((left, right) =>
           right.publishDate.localeCompare(left.publishDate)
@@ -190,13 +199,17 @@ export interface PublicRadar {
  * published signal is left off: the radar never states a placement it
  * cannot point to.
  */
-export function getPublicRadar(): PublicRadar {
+export function getPublicRadar(locale: Locale = "zh"): PublicRadar {
   const merged = getMergedPublicRadarEntries();
-  const entries = toPublicRadarEntries(merged, {
-    technologies: getAllTechnologies(),
-    knowledge: getAllKnowledge(),
-    skills: getAllSkills()
-  }).filter((entry) => entry.evidence.length > 0);
+  const entries = toPublicRadarEntries(
+    merged,
+    {
+      technologies: getAllTechnologies(),
+      knowledge: getAllKnowledge(),
+      skills: getAllSkills()
+    },
+    locale
+  ).filter((entry) => entry.evidence.length > 0);
   // Renumber after the filter so the numbers on the picture run 1…n.
   const numbered = entries.map((entry, index) => ({
     ...entry,

@@ -135,6 +135,7 @@
 @import "./styles/components/copy-link.css";
 @import "./styles/components/reading-progress.css";
 @import "./styles/components/local-recommend.css";
+@import "./styles/components/chinese-only-note.css";
 /* Print rules, all of them, inside one @media print — last, so they win
    without touching any screen rule. */
 @import "./styles/print.css";

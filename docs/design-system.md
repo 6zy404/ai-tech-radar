@@ -1948,3 +1948,43 @@ therefore a block flow in print, with its gap turned into the same top
 margin. And a bottom margin on the last aside panel spills onto a blank page
 of its own, so sections space themselves with top margins only. The digest's
 featured cards may break across pages; every other card stays whole.
+
+## The English interface (2026-10-14)
+
+The `/en` pages are the Chinese pages with English labels: the same page
+bodies (`src/components/pages/`), the same components and the same CSS. What
+differs visually is short, and each item is scoped so the Chinese site
+renders exactly as before.
+
+- **One note, not a badge per card.** Where an English page shows content that
+  exists only in Chinese, it says so once, at the point that content starts,
+  in `ChineseOnlyNote`: a caption-sized line with a small hairline 「中文」
+  chip drawn by `::before` (hidden from screen readers — the sentence already
+  says it). Marking every card was rejected for the same reason the content
+  spines were: a mark on nearly every card carries no information.
+- **`lang` marks the Chinese, not a different font.** Chinese text on an
+  English page sits in `lang="zh-CN"` (`LangScope` / `LangSpan`), which is
+  what lets a screen reader switch voice and the browser pick CJK line
+  breaking. The font stacks already cover both scripts, so nothing else
+  changes. The helpers return nothing on the Chinese site, so Chinese pages
+  gain no wrapper element.
+- **The language link is a quiet pill.** `.top-nav__locale` is the height of
+  the search and theme buttons beside it, with a short label in the target
+  language (EN / 中文), so the actions row keeps its width at every
+  breakpoint.
+- **Longer labels, one band.** English labels are wider than Chinese ones;
+  with the workspace entry (dev builds only) the bar at 901px ran out of
+  room and broke the brand onto two lines. The existing 901–980px rule gained
+  an `html[lang="en"]` step (gap 8, link padding 4, brand `nowrap`). The
+  public build has no workspace entry and fits with room to spare. Measured
+  901 / 940 / 980px in both languages: one row, 60px. The same applies to
+  the other places the English labels outgrew a Chinese-sized box: the home
+  page's section links and the radar's 「N entries」 count do not wrap, the
+  briefing's section-title column widens from 0.35fr to 0.55fr above 920px,
+  and a long topic chip in a detail page's aside takes its own line with the
+  「Topic page」 link below it. Every one is under `html[lang="en"]`.
+- **Radar ring names.** In Chinese they run down the upper vertical axis one
+  character per line; English words cannot stack that way, so on the English
+  page they are written horizontally across the axis, inside the viewBox.
+- **Typographic apostrophes** (’) in English JSX copy, both because ESLint
+  rejects a bare `'` in JSX text and because it is the right character.

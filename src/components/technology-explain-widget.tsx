@@ -4,6 +4,10 @@ import { useState, useTransition } from "react";
 
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 import type {
   TechnologyExplanationAudienceLevel,
   TechnologyExplanationFields,
@@ -14,19 +18,21 @@ interface TechnologyExplainWidgetProps {
   technology: Pick<TechnologyItem, "id">;
 }
 
-const audienceLevelOptions: {
-  value: TechnologyExplanationAudienceLevel;
-  label: string;
-  description: string;
-}[] = [
-  { value: "beginner", label: "入门", description: "刚接触 AI 工程" },
-  { value: "intermediate", label: "进阶", description: "熟悉常见概念" },
-  { value: "advanced", label: "资深", description: "想要技术要点" }
+const audienceLevels: TechnologyExplanationAudienceLevel[] = [
+  "beginner",
+  "intermediate",
+  "advanced"
 ];
 
 export function TechnologyExplainWidget({
   technology
 }: TechnologyExplainWidgetProps) {
+  const locale = useLocale();
+  const aiCopy = technologyDetailCopy[locale].ai;
+  const copy = aiCopy.explain;
+  const answerLang = contentLangAttr(locale);
+  const disclaimer =
+    locale === "zh" ? aiGeneratedDisclaimer : aiCopy.disclaimer;
   const [selectedLevel, setSelectedLevel] =
     useState<TechnologyExplanationAudienceLevel>("intermediate");
   const [isPending, startTransition] = useTransition();
@@ -54,27 +60,27 @@ export function TechnologyExplainWidget({
 
         if (!response.ok || "error" in payload) {
           setError(
-            "error" in payload ? payload.error : "解读生成失败，请稍后再试。"
+            "error" in payload && locale === "zh"
+              ? payload.error
+              : aiCopy.failed.explain
           );
           return;
         }
 
         setFields(payload.fields);
       } catch {
-        setError("解读生成失败，请稍后再试。");
+        setError(aiCopy.failed.explain);
       }
     });
   }
 
   return (
     <section className="user-article-section technology-detail-section technology-compare-widget technology-explain-widget">
-      <p className="technology-detail-section__eyebrow">按你的水平解读</p>
+      <p className="technology-detail-section__eyebrow">{copy.eyebrow}</p>
       <h2>
-        <UnbreakableTitle text="让 AI 按你的水平解读这个信号" />
+        <UnbreakableTitle text={copy.heading} />
       </h2>
-      <p className="technology-detail-section__lede">
-        选择你的经验水平，AI 会现场生成一份为这个水平定制的解读。
-      </p>
+      <p className="technology-detail-section__lede">{copy.lede}</p>
 
       <div className="technology-compare-widget__controls">
         <select
@@ -86,11 +92,11 @@ export function TechnologyExplainWidget({
             )
           }
           disabled={isPending}
-          aria-label="选择经验水平"
+          aria-label={copy.levelLabel}
         >
-          {audienceLevelOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label} · {option.description}
+          {audienceLevels.map((level) => (
+            <option key={level} value={level}>
+              {copy.levels[level].label} · {copy.levels[level].description}
             </option>
           ))}
         </select>
@@ -100,12 +106,20 @@ export function TechnologyExplainWidget({
           onClick={handleExplain}
           disabled={isPending}
         >
-          {isPending ? "生成中…" : "生成解读"}
+          {isPending ? aiCopy.pending : copy.submit}
         </button>
         {/* Heard, not seen: the result arrives seconds after the press,
             below the button, and the button is disabled meanwhile. */}
         <p className="signal-shortcut-help__live" role="status">
-          {isPending ? "正在生成解读…" : fields ? "解读已生成，见下方。" : ""}
+          {isPending
+            ? locale === "en"
+              ? "Writing the explanation…"
+              : "正在生成解读…"
+            : fields
+              ? locale === "en"
+                ? "The explanation is ready below."
+                : "解读已生成，见下方。"
+              : ""}
         </p>
       </div>
 
@@ -117,26 +131,24 @@ export function TechnologyExplainWidget({
 
       {fields ? (
         <div className="technology-compare-widget__result">
-          <p className="technology-compare-widget__disclaimer">
-            {aiGeneratedDisclaimer}
-          </p>
+          <p className="technology-compare-widget__disclaimer">{disclaimer}</p>
 
           <div className="technology-compare-widget__block">
-            <span>解读</span>
-            <p>{fields.explanation}</p>
+            <span>{copy.explanation}</span>
+            <p lang={answerLang}>{fields.explanation}</p>
           </div>
 
           {fields.analogy ? (
             <div className="technology-compare-widget__block">
-              <span>打个比方</span>
-              <p>{fields.analogy}</p>
+              <span>{copy.analogy}</span>
+              <p lang={answerLang}>{fields.analogy}</p>
             </div>
           ) : null}
 
           {fields.keyPoints.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>关键要点</span>
-              <ul>
+              <span>{copy.keyPoints}</span>
+              <ul lang={answerLang}>
                 {fields.keyPoints.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -146,8 +158,8 @@ export function TechnologyExplainWidget({
 
           {fields.nextSteps && fields.nextSteps.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>下一步建议</span>
-              <ul>
+              <span>{copy.nextSteps}</span>
+              <ul lang={answerLang}>
                 {fields.nextSteps.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

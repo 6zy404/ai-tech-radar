@@ -2,17 +2,14 @@ import type { TopicHubData } from "@/lib/topic-hub";
 import type { WeeklyReviewData } from "@/lib/weekly-review";
 import type { KnowledgeItem, SkillItem, TechnologyItem } from "@/types/content";
 
-import {
-  difficultyLabels,
-  heatLabels,
-  knowledgeCategoryLabels,
-  learningCostLabels,
-  skillTypeLabels
-} from "@/lib/content-labels";
-import { siteDescription, siteName } from "@/lib/site-metadata";
+import { contentLabelsByLocale } from "@/lib/content-labels";
+import type { Locale } from "@/lib/i18n/locale";
+import { siteDescriptions, siteName } from "@/lib/site-metadata";
+import { formatWeekRangeFromKey } from "@/lib/week-range";
 import {
   getPreferredTechnologyTitle,
   getPublisherTypeLabel,
+  getTechnologyTitleForLocale,
   getTechnologyTypeLabel
 } from "@/lib/technology-localization";
 
@@ -396,13 +393,16 @@ function fitByline(text: string, hasDate: boolean): string {
  * unknown slug, an unpublished record, a topic with nothing published. A
  * share image must never name something the page itself would not show.
  */
-export function buildSiteShareCard(): ShareCard {
+export function buildSiteShareCard(locale: Locale = "zh"): ShareCard {
   return {
     kind: "site",
     siteName,
-    stamp: "技术雷达",
-    title: layoutShareCardTitle(siteDescription),
-    byline: "技术信号 · 技能 · 背景知识"
+    stamp: locale === "en" ? "Technology radar" : "技术雷达",
+    title: layoutShareCardTitle(siteDescriptions[locale]),
+    byline:
+      locale === "en"
+        ? "Signals · Skills · Background knowledge"
+        : "技术信号 · 技能 · 背景知识"
   };
 }
 
@@ -413,22 +413,37 @@ export function buildSiteShareCard(): ShareCard {
  * changes as a signal ages, and a platform caches a share image for weeks.
  */
 export function buildShareCard(
-  technology: TechnologyItem | undefined
+  technology: TechnologyItem | undefined,
+  locale: Locale = "zh"
 ): ShareCard {
   if (!technology) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
   }
 
-  const typeLabel = getTechnologyTypeLabel(technology.type, "zh");
-  const publisherLabel = getPublisherTypeLabel(technology.publisherType, "zh");
+  const typeLabel = getTechnologyTypeLabel(technology.type, "zh", locale);
+  const publisherLabel = getPublisherTypeLabel(
+    technology.publisherType,
+    "zh",
+    locale
+  );
   const source = technology.sourceName.trim() || technology.publisherName;
 
   return {
     kind: "signal",
     siteName,
-    stamp: `技术信号 · ${typeLabel}`,
-    title: layoutShareCardTitle(getPreferredTechnologyTitle(technology)),
-    byline: fitByline(`来源 ${source} · ${publisherLabel}`, true),
+    stamp:
+      locale === "en" ? `Signal · ${typeLabel}` : `技术信号 · ${typeLabel}`,
+    title: layoutShareCardTitle(
+      locale === "zh"
+        ? getPreferredTechnologyTitle(technology)
+        : getTechnologyTitleForLocale(technology, locale).text
+    ),
+    byline: fitByline(
+      locale === "en"
+        ? `Source ${source} · ${publisherLabel}`
+        : `来源 ${source} · ${publisherLabel}`,
+      true
+    ),
     date: technology.publishDate
   };
 }
@@ -486,10 +501,13 @@ export interface DigestShareCardInput {
  */
 export function buildDigestShareCard(
   digest: DigestShareCardInput | undefined,
-  { canDraw = () => true }: { canDraw?: (text: string) => boolean } = {}
+  {
+    canDraw = () => true,
+    locale = "zh"
+  }: { canDraw?: (text: string) => boolean; locale?: Locale } = {}
 ): ShareCard {
   if (!digest) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
   }
 
   const sentence = digest.lede ? firstSentence(digest.lede) : "";
@@ -498,10 +516,12 @@ export function buildDigestShareCard(
   return {
     kind: "digest",
     siteName,
-    stamp: "技术简报",
+    stamp: locale === "en" ? "Briefing" : "技术简报",
     title: layoutShareCardTitle(lede || digest.title),
     byline: fitByline(
-      `${digest.highPriorityCount} 条立即关注 · ${digest.watchCount} 条值得跟踪`,
+      locale === "en"
+        ? `${digest.highPriorityCount} immediate · ${digest.watchCount} worth tracking`
+        : `${digest.highPriorityCount} 条立即关注 · ${digest.watchCount} 条值得跟踪`,
       true
     ),
     date: digest.date
@@ -514,10 +534,25 @@ export function buildDigestShareCard(
  * carries no year, so the year sits where the other cards put their date.
  */
 export function buildWeeklyShareCard(
-  week: WeeklyReviewData | undefined
+  week: WeeklyReviewData | undefined,
+  locale: Locale = "zh"
 ): ShareCard {
   if (!week || week.totalCount === 0) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
+  }
+
+  if (locale === "en") {
+    return {
+      kind: "weekly",
+      siteName,
+      stamp: "Weekly review",
+      title: layoutShareCardTitle(formatWeekRangeFromKey(week.weekKey, locale)),
+      byline: fitByline(
+        `${week.totalCount} signals · ${week.highPriorityCount} immediate · ${week.watchCount} worth tracking · ${week.topicCount} topics`,
+        true
+      ),
+      date: week.weekStart.slice(0, 4)
+    };
   }
 
   return {
@@ -537,18 +572,23 @@ export function buildWeeklyShareCard(
  * A published skill: its type in the stamp, and heat and learning cost —
  * the two chips on the skill page's hero — as the byline.
  */
-export function buildSkillShareCard(skill: SkillItem | undefined): ShareCard {
+export function buildSkillShareCard(
+  skill: SkillItem | undefined,
+  locale: Locale = "zh"
+): ShareCard {
   if (!skill) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
   }
+
+  const labels = contentLabelsByLocale[locale];
 
   return {
     kind: "skill",
     siteName,
-    stamp: `技能 · ${skillTypeLabels[skill.skillType]}`,
+    stamp: `${locale === "en" ? "Skill" : "技能"} · ${labels.skillType[skill.skillType]}`,
     title: layoutShareCardTitle(skill.title),
     byline: fitByline(
-      `${heatLabels[skill.heatLevel]} · ${learningCostLabels[skill.learningCost]}`,
+      `${labels.heat[skill.heatLevel]} · ${labels.learningCost[skill.learningCost]}`,
       false
     )
   };
@@ -556,18 +596,26 @@ export function buildSkillShareCard(skill: SkillItem | undefined): ShareCard {
 
 /** A published knowledge item: category in the stamp, difficulty below. */
 export function buildKnowledgeShareCard(
-  knowledge: KnowledgeItem | undefined
+  knowledge: KnowledgeItem | undefined,
+  locale: Locale = "zh"
 ): ShareCard {
   if (!knowledge) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
   }
+
+  const labels = contentLabelsByLocale[locale];
 
   return {
     kind: "knowledge",
     siteName,
-    stamp: `知识 · ${knowledgeCategoryLabels[knowledge.category]}`,
+    stamp: `${locale === "en" ? "Knowledge" : "知识"} · ${labels.knowledgeCategory[knowledge.category]}`,
     title: layoutShareCardTitle(knowledge.title),
-    byline: fitByline(`难度 ${difficultyLabels[knowledge.difficulty]}`, false)
+    byline: fitByline(
+      locale === "en"
+        ? `Difficulty ${labels.difficulty[knowledge.difficulty]}`
+        : `难度 ${labels.difficulty[knowledge.difficulty]}`,
+      false
+    )
   };
 }
 
@@ -575,18 +623,23 @@ export function buildKnowledgeShareCard(
  * A topic hub, with the same three counts the /topics index prints for it.
  * `getTopicHub` already returns nothing for an unknown or empty topic.
  */
-export function buildTopicShareCard(hub: TopicHubData | undefined): ShareCard {
+export function buildTopicShareCard(
+  hub: TopicHubData | undefined,
+  locale: Locale = "zh"
+): ShareCard {
   if (!hub) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
   }
 
   return {
     kind: "topic",
     siteName,
-    stamp: "话题",
+    stamp: locale === "en" ? "Topic" : "话题",
     title: layoutShareCardTitle(hub.tag.name),
     byline: fitByline(
-      `收录 ${hub.technologies.length} 信号 · ${hub.skills.length} 技能 · ${hub.knowledge.length} 知识`,
+      locale === "en"
+        ? `${hub.technologies.length} signals · ${hub.skills.length} skills · ${hub.knowledge.length} knowledge`
+        : `收录 ${hub.technologies.length} 信号 · ${hub.skills.length} 技能 · ${hub.knowledge.length} 知识`,
       false
     )
   };
@@ -605,12 +658,31 @@ export interface RadarShareCardInput {
  * of its newest change. An empty radar gets the site card, as the page
  * itself shows nothing to point at.
  */
-export function buildRadarShareCard(input: RadarShareCardInput): ShareCard {
+export function buildRadarShareCard(
+  input: RadarShareCardInput,
+  locale: Locale = "zh"
+): ShareCard {
   if (input.entryCount === 0) {
-    return buildSiteShareCard();
+    return buildSiteShareCard(locale);
   }
 
   const [adopt = 0, trial = 0, assess = 0, hold = 0] = input.ringCounts;
+
+  if (locale === "en") {
+    return {
+      kind: "radar",
+      siteName,
+      stamp: "Technology radar",
+      title: layoutShareCardTitle(
+        `Technology radar: where ${input.entryCount} technologies sit`
+      ),
+      byline: fitByline(
+        `Adopt ${adopt} · Trial ${trial} · Assess ${assess} · Hold ${hold}`,
+        true
+      ),
+      date: input.latestDate
+    };
+  }
 
   return {
     kind: "radar",

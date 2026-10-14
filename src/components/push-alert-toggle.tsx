@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 import {
   disablePush,
   enablePush,
@@ -23,6 +27,8 @@ interface PushAlertToggleProps {
 // the follows at the moment of switching on; later changes are synced by
 // PwaRegistration on every page.
 export function PushAlertToggle({ followedTagIds }: PushAlertToggleProps) {
+  const locale = useLocale();
+  const copy = signalsCopy[locale].push;
   const [state, setState] = useState<ToggleState>("loading");
   const [message, setMessage] = useState("");
 
@@ -71,23 +77,17 @@ export function PushAlertToggle({ followedTagIds }: PushAlertToggleProps) {
     setMessage("");
 
     if (isOn) {
-      const result = await disablePush();
+      const result = await disablePush(locale);
       setState(result.ok ? "off" : "on");
-      setMessage(
-        result.ok
-          ? "已关闭提醒，服务器上的记录已删除。"
-          : (result.message ?? "")
-      );
+      setMessage(result.ok ? copy.turnedOff : (result.message ?? ""));
       return;
     }
 
-    const result = await enablePush(followedTagIds);
+    const result = await enablePush(followedTagIds, locale);
 
     if (result.ok) {
       setState("on");
-      setMessage(
-        `已开启：${followedTagIds.length} 个关注话题有新信号时，这个浏览器会收到一条通知。`
-      );
+      setMessage(copy.turnedOn(followedTagIds.length));
     } else {
       setState(result.reason === "unsupported" ? "unsupported" : "off");
       setMessage(result.message);
@@ -102,9 +102,7 @@ export function PushAlertToggle({ followedTagIds }: PushAlertToggleProps) {
       {state === "loading" ? (
         <span className="push-alert-toggle__placeholder" aria-hidden="true" />
       ) : state === "unsupported" ? (
-        <p className="push-alert-toggle__note">
-          这个浏览器不支持网页提醒（iPhone 和 iPad 需要先「添加到主屏幕」）。
-        </p>
+        <p className="push-alert-toggle__note">{copy.unsupported}</p>
       ) : (
         <>
           <button
@@ -117,18 +115,17 @@ export function PushAlertToggle({ followedTagIds }: PushAlertToggleProps) {
             onClick={handleClick}
           >
             <span aria-hidden="true">{isOn ? "✓ " : "+ "}</span>
-            有新信号时提醒我
+            {copy.toggle}
           </button>
           <span className="push-alert-toggle__note">
             <span role="status">{message}</span>
-            {message
-              ? null
-              : isOn
-                ? "关注的话题有新信号时会收到浏览器通知。"
-                : "开启后，服务器会存下这个浏览器的推送地址和你关注的话题，"}
+            {message ? null : isOn ? copy.onNote : copy.offNote}
             {!message && !isOn ? (
-              <Link className="action-link" href="/about#privacy">
-                存什么、怎么删
+              <Link
+                className="action-link"
+                href={localePath(locale, "/about#privacy")}
+              >
+                {copy.privacyLink}
               </Link>
             ) : null}
           </span>

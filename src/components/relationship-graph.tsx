@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { SectionHeading } from "@/components/section-link";
+import { commonCopy } from "@/lib/i18n/copy/common";
+import { localePath, type Locale } from "@/lib/i18n/locale";
 import { buildNetworkFocusHref } from "@/lib/network-focus";
 
 export interface RelationshipGraphNode {
@@ -11,6 +13,8 @@ export interface RelationshipGraphNode {
   relationLabel?: string;
   /** Short Chinese explanation of why the two items are connected. */
   note?: string;
+  /** `lang` of the title when it differs from the page's (English site). */
+  lang?: string;
 }
 
 interface RelationshipGraphProps {
@@ -30,6 +34,9 @@ interface RelationshipGraphProps {
   sharePath?: string;
   heading?: string;
   hint?: string;
+  /** `lang` of the centre title when it differs from the page's. */
+  centerLang?: string;
+  locale?: Locale;
 }
 
 // Neighbours are grouped by kind rather than placed on a ring. The ring put
@@ -46,12 +53,6 @@ interface RelationshipGraphProps {
 // in the markup left to disagree about.
 const kindOrder = ["technology", "skill", "knowledge"] as const;
 
-const kindLabel: Record<RelationshipGraphNode["kind"], string> = {
-  technology: "技术",
-  skill: "技能",
-  knowledge: "知识"
-};
-
 export function RelationshipGraph({
   centerTitle,
   centerId,
@@ -59,34 +60,41 @@ export function RelationshipGraph({
   sectionClassName = "user-article-section",
   id,
   sharePath,
-  heading = "在关系网络中的位置",
-  hint = "当前条目与相邻技术、技能和背景知识的连接，点击节点可继续探索。"
+  heading,
+  hint,
+  centerLang,
+  locale = "zh"
 }: RelationshipGraphProps) {
   if (nodes.length === 0) {
     return null;
   }
 
+  const copy = commonCopy[locale].relationshipGraph;
+
   const groups = kindOrder
     .map((kind) => ({
       kind,
-      label: kindLabel[kind],
+      label: copy.kinds[kind],
       items: nodes.filter((node) => node.kind === kind)
     }))
     .filter((group) => group.items.length > 0);
 
   return (
     <section id={id} className={`tech-graph ${sectionClassName}`.trim()}>
-      <p className="technology-detail-section__eyebrow">关系网络</p>
+      <p className="technology-detail-section__eyebrow">{copy.eyebrow}</p>
       <SectionHeading sectionId={id} sharePath={sharePath}>
-        {heading}
+        {heading ?? copy.heading}
       </SectionHeading>
-      <p className="tech-graph__hint">{hint}</p>
+      <p className="tech-graph__hint">{hint ?? copy.hint}</p>
       <div className="tech-graph__map">
         {/* A <div>, not a <p>: every host section styles its own paragraphs
             with a `container p` rule that outranks a lone class (see the
             __hint comment below), and here that would repaint the centre
             banner's text on top of its accent fill. */}
-        <div className="tech-graph__node tech-graph__node--center">
+        <div
+          className="tech-graph__node tech-graph__node--center"
+          lang={centerLang}
+        >
           {centerTitle}
         </div>
         {groups.map((group) => (
@@ -109,10 +117,11 @@ export function RelationshipGraph({
                     title={
                       node.relationLabel
                         ? node.note
-                          ? `${node.relationLabel}：${node.note}`
+                          ? copy.relationTitle(node.relationLabel, node.note)
                           : node.relationLabel
                         : undefined
                     }
+                    lang={node.lang}
                   >
                     {node.title}
                   </Link>
@@ -124,8 +133,11 @@ export function RelationshipGraph({
       </div>
       {centerId ? (
         <div className="tech-graph__more">
-          <Link className="action-link" href={buildNetworkFocusHref(centerId)}>
-            在关系网络中查看 →
+          <Link
+            className="action-link"
+            href={localePath(locale, buildNetworkFocusHref(centerId))}
+          >
+            {copy.viewInNetwork}
           </Link>
         </div>
       ) : null}

@@ -10,6 +10,8 @@ import {
   themeStorageKey,
   writeTheme
 } from "@/lib/theme";
+import { shellCopy } from "@/lib/i18n/copy/shell";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 /**
  * The colour-scheme control in the top nav.
@@ -25,6 +27,8 @@ import {
  * naming the current state — a label that changes would have to come from state.
  */
 export function ThemeToggle() {
+  const label = shellCopy[useLocale()].themeToggle;
+
   useEffect(() => {
     // Another tab changed the choice.
     const onStorage = (event: StorageEvent) => {
@@ -60,8 +64,8 @@ export function ThemeToggle() {
     <button
       type="button"
       className="top-nav__search-toggle top-nav__theme-toggle"
-      aria-label="切换深浅色主题"
-      title="切换深浅色主题"
+      aria-label={label}
+      title={label}
       onClick={() => {
         writeTheme(readAppliedTheme() === "dark" ? "light" : "dark");
       }}

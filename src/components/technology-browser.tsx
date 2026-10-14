@@ -15,6 +15,9 @@ import { TechnologyLanguageSwitch } from "@/components/technology-language-switc
 import { useReadingState } from "@/components/use-reading-state";
 import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
 import { useVisitBaseline } from "@/components/visit-baseline";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { applyReadFilter, countReadTechnologies } from "@/lib/reading-state";
@@ -49,19 +52,23 @@ interface TechnologyBrowserProps {
   initialQuery?: TechnologyBrowserQuery;
 }
 
-// The labels say what the order is built from: the publish date, or the
-// fixed Ranking v0 bands every reader sees. Neither is a recommendation.
-const sortOptions: { value: TechnologyBrowserSort; label: string }[] = [
-  { value: "latest", label: "最新发布" },
-  { value: "priority", label: "按优先级档位" }
-];
-
 export function TechnologyBrowser({
   technologies,
   tags,
   initialQuery = defaultTechnologyBrowserQuery
 }: TechnologyBrowserProps) {
-  const [mode, setMode] = useState<TechnologyContentMode>("zh");
+  const locale = useLocale();
+  const copy = signalsCopy[locale].browser;
+  // The labels say what the order is built from: the publish date, or the
+  // fixed Ranking v0 bands every reader sees. Neither is a recommendation.
+  const sortOptions: { value: TechnologyBrowserSort; label: string }[] = [
+    { value: "latest", label: copy.sortLatest },
+    { value: "priority", label: copy.sortPriority }
+  ];
+  // The English site starts on the original text, the Chinese site on 中文.
+  const [mode, setMode] = useState<TechnologyContentMode>(
+    locale === "en" ? "original" : "zh"
+  );
   const [searchText, setSearchText] = useState(initialQuery.q);
   const [typeFilter, setTypeFilter] = useState(initialQuery.type);
   const [tagFilter, setTagFilter] = useState(initialQuery.tag);
@@ -149,7 +156,7 @@ export function TechnologyBrowser({
   const shortcuts = useSignalShortcuts({
     signals: filteredTechnologies.map((item) => ({
       id: item.id,
-      href: `/technologies/${item.slug}`
+      href: localePath(locale, `/technologies/${item.slug}`)
     })),
     isRead,
     isSaved,
@@ -158,25 +165,25 @@ export function TechnologyBrowser({
   });
 
   const typeOptions = [
-    { value: "", label: "全部类型" },
+    { value: "", label: copy.allTypes },
     ...Array.from(new Set(technologies.map((item) => item.type))).map(
       (type) => ({
         value: type,
-        label: getTechnologyTypeLabel(type, "zh")
+        label: getTechnologyTypeLabel(type, "zh", locale)
       })
     )
   ];
 
   const tagOptions = [
-    { value: "", label: "全部标签" },
+    { value: "", label: copy.allTags },
     ...tags.map((tag) => ({ value: tag.id, label: tag.name }))
   ];
 
   const priorityOptions = [
-    { value: "", label: "全部优先级" },
+    { value: "", label: copy.allPriorities },
     ...priorityLevelOrder.map((level) => ({
       value: level,
-      label: getPriorityLevelLabel(level, "zh")
+      label: getPriorityLevelLabel(level, "zh", locale)
     }))
   ];
 
@@ -193,7 +200,7 @@ export function TechnologyBrowser({
     : undefined;
   const publisherOptions = linkedPublisher
     ? [
-        { value: "", label: "全部发布方" },
+        { value: "", label: copy.allPublishers },
         {
           value: initialQuery.publisher,
           label: getSignalPublisherName(linkedPublisher)
@@ -211,8 +218,8 @@ export function TechnologyBrowser({
         <DossierSearchInput
           value={searchText}
           onChange={setSearchText}
-          placeholder="搜索标题、摘要或来源"
-          label="搜索技术信号"
+          placeholder={copy.searchPlaceholder}
+          label={copy.searchLabel}
         />
 
         <div className="dossier-technology-browser__filters">
@@ -255,11 +262,11 @@ export function TechnologyBrowser({
             {/* A status, as on /skills and /knowledge: a screen reader hears
                 the new count after each keystroke or chip. */}
             <strong role="status">
-              {filteredTechnologies.length} 条技术信号
+              {copy.count(filteredTechnologies.length)}
             </strong>
             {newCount > 0 ? (
               <span className="dossier-technology-browser__new-count">
-                上次来访后新增 {newCount} 条
+                {copy.newSinceVisit(newCount)}
               </span>
             ) : null}
           </div>
@@ -273,7 +280,7 @@ export function TechnologyBrowser({
                 id="technology-browser-sort-label"
                 className="dossier-technology-browser__sort-label"
               >
-                排序
+                {copy.sortLabel}
               </span>
               <DossierCategoryChips
                 options={sortOptions}
@@ -303,6 +310,7 @@ export function TechnologyBrowser({
             isRead={isRead(item.id)}
             isNew={isNewSinceLastVisit(visitBaselineKeys, item.id, readIds)}
             isCurrent={shortcuts.currentId === item.id}
+            locale={locale}
             readingActions={
               <SignalReadingActions
                 isRead={isRead(item.id)}
@@ -322,13 +330,13 @@ export function TechnologyBrowser({
         <div className="dossier-empty-state">
           {hideRead && matchedTechnologies.length > 0 ? (
             <>
-              <strong>这一批信号你都读过了。</strong>
-              <p>关掉「隐藏已读」可以重新看到它们。</p>
+              <strong>{copy.allReadTitle}</strong>
+              <p>{copy.allReadBody}</p>
             </>
           ) : (
             <>
-              <strong>暂无技术信号。</strong>
-              <p>试着清除筛选条件，查看已发布的信号。</p>
+              <strong>{copy.emptyTitle}</strong>
+              <p>{copy.emptyBody}</p>
             </>
           )}
         </div>

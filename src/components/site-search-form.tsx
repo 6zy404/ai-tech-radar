@@ -1,4 +1,6 @@
 import { SearchGlyph } from "@/components/search-glyph";
+import { shellCopy } from "@/lib/i18n/copy/shell";
+import { localePath, type Locale } from "@/lib/i18n/locale";
 
 /**
  * The site-search box: a plain GET form to `/search`, so it works without
@@ -6,24 +8,32 @@ import { SearchGlyph } from "@/components/search-glyph";
  * as the way to find whatever the dead link pointed at.
  */
 export function SiteSearchForm({
-  defaultValue = ""
+  defaultValue = "",
+  locale = "zh"
 }: {
   defaultValue?: string;
+  locale?: Locale;
 }) {
+  const copy = shellCopy[locale].searchForm;
+
   return (
-    <form className="search-form" action="/search" method="get">
+    <form
+      className="search-form"
+      action={localePath(locale, "/search")}
+      method="get"
+    >
       <div className="dossier-search">
         <SearchGlyph />
         <input
           type="search"
           name="q"
           defaultValue={defaultValue}
-          placeholder="输入关键词，如：推理、Agent、上下文"
-          aria-label="搜索关键词"
+          placeholder={copy.placeholder}
+          aria-label={copy.inputLabel}
         />
       </div>
       <button type="submit" className="action-button action-button--primary">
-        搜索
+        {copy.submit}
       </button>
     </form>
   );

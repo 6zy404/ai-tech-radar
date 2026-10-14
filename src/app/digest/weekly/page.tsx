@@ -1,66 +1,12 @@
-import Link from "next/link";
-
-import { WeeklyReviewContent } from "@/components/weekly-review-content";
-import { UserPageShell } from "@/components/user-page-shell";
 import {
-  describeWeeklyReview,
-  getWeeklyReview,
-  getWeeklyReviewArchive,
-  getWeeklyReviewNeighbors
-} from "@/lib/weekly-review";
-import { getPublishedWeeklySummaryText } from "@/lib/weekly-summary";
-import { buildPageMetadata, weeklyReviewFeed } from "@/lib/site-metadata";
+  getWeeklyReviewPageMetadata,
+  WeeklyReviewPage
+} from "@/components/pages/weekly-review-page";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = buildPageMetadata({
-  title: "本周回顾",
-  description: "按自然周汇总的已发布技术信号。",
-  path: "/digest/weekly",
-  feeds: [weeklyReviewFeed],
-  largeImage: true
-});
+export const metadata = getWeeklyReviewPageMetadata("zh");
 
-export default function WeeklyReviewPage() {
-  const data = getWeeklyReview();
-
-  if (!data) {
-    return (
-      <UserPageShell
-        title="本周回顾"
-        description="按自然周汇总的已发布技术信号。"
-        sectionLabel="周回顾"
-        className="weekly-review-page dossier"
-      >
-        <div className="empty-state">
-          <strong>暂时无法生成本周回顾。</strong>
-          <p>技术信号发布后会在这里按周汇总。</p>
-        </div>
-      </UserPageShell>
-    );
-  }
-
-  const archive = getWeeklyReviewArchive({ excludeWeekKey: data.weekKey });
-  const summary = getPublishedWeeklySummaryText(data.weekKey);
-
-  return (
-    <UserPageShell
-      title="本周回顾"
-      description={describeWeeklyReview(data.rangeLabel, Boolean(summary))}
-      sectionLabel="周回顾"
-      className="weekly-review-page dossier"
-      actions={
-        <Link href="/digest/today" className="action-link">
-          阅读技术简报
-        </Link>
-      }
-    >
-      <WeeklyReviewContent
-        data={data}
-        archive={archive}
-        neighbors={getWeeklyReviewNeighbors(data.weekKey)}
-        summary={summary}
-      />
-    </UserPageShell>
-  );
+export default function Page() {
+  return <WeeklyReviewPage locale="zh" />;
 }

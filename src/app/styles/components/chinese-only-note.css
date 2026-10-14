@@ -1,0 +1,25 @@
+/* components/chinese-only-note: the English interface's one-line notice
+   that what follows is in Chinese (2026-10-13). Quiet on purpose: it sits
+   in the caption register, not as a banner. Never rendered on the Chinese
+   site, so these rules match nothing there. */
+.chinese-only-note {
+  margin: 0 0 14px;
+  color: var(--dossier-muted, var(--muted));
+  font-family: system-ui, "PingFang SC", sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.chinese-only-note::before {
+  content: "中文";
+  /* The sentence already says it; the chip is for the eye only. */
+  content: "中文" / "";
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0 6px;
+  border: 1px solid var(--dossier-line, currentColor);
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+  vertical-align: 1px;
+}

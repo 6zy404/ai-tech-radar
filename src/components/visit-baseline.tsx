@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
 import { useReadingState } from "@/components/use-reading-state";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { isNewSinceLastVisit, recordVisit } from "@/lib/visit-state";
 
 /**
@@ -66,6 +68,8 @@ export function NewSignalStamp({ technologyId }: { technologyId: string }) {
 
 export function NewStamp() {
   return (
-    <DossierStampTag className="dossier-stamp-tag--new">新</DossierStampTag>
+    <DossierStampTag className="dossier-stamp-tag--new">
+      {signalsCopy[useLocale()].newStamp}
+    </DossierStampTag>
   );
 }

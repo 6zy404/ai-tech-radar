@@ -1,5 +1,8 @@
 "use client";
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 interface SignalReadingActionsProps {
   isRead: boolean;
   isSaved: boolean;
@@ -18,6 +21,8 @@ export function SignalReadingActions({
   onToggleRead,
   onToggleSaved
 }: SignalReadingActionsProps) {
+  const copy = signalsCopy[useLocale()].readingActions;
+
   return (
     <div className="signal-reading-actions">
       <button
@@ -28,7 +33,7 @@ export function SignalReadingActions({
           isSaved ? " signal-reading-actions__button--active" : ""
         }`}
       >
-        {isSaved ? "已加入稍后读" : "稍后读"}
+        {isSaved ? copy.saved : copy.save}
       </button>
       <button
         type="button"
@@ -38,7 +43,7 @@ export function SignalReadingActions({
           isRead ? " signal-reading-actions__button--active" : ""
         }`}
       >
-        {isRead ? "已读" : "标为已读"}
+        {isRead ? copy.read : copy.markRead}
       </button>
     </div>
   );

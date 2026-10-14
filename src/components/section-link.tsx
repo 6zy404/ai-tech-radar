@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 
+import { commonCopy } from "@/lib/i18n/copy/common";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { buildPageLinkUrl, getSectionLinkLabel } from "@/lib/page-link";
 import { getSiteUrl } from "@/lib/site-metadata";
 
@@ -26,6 +28,8 @@ export function SectionLink({
   sharePath,
   heading
 }: SectionLinkProps) {
+  const locale = useLocale();
+  const copy = commonCopy[locale].sectionLink;
   const [feedback, setFeedback] = useState<"" | "copied" | "address-bar">("");
   const timerRef = useRef<number | undefined>(undefined);
 
@@ -57,16 +61,16 @@ export function SectionLink({
       <a
         className="section-link"
         href={`#${sectionId}`}
-        aria-label={getSectionLinkLabel(heading)}
+        aria-label={getSectionLinkLabel(heading, locale)}
         onClick={(event) => void handleClick(event)}
       >
         #
       </a>
       <span className="section-link__status" role="status">
         {feedback === "copied"
-          ? "已复制"
+          ? copy.copied
           : feedback === "address-bar"
-            ? "已放进地址栏"
+            ? copy.addressBar
             : ""}
       </span>
     </>

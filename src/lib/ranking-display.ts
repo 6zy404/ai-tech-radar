@@ -5,13 +5,15 @@ import type {
   TechnologyPriorityRanking
 } from "@/types/content";
 import { importantFreshnessWindowDays } from "@/lib/ranking";
+import type { Locale } from "@/lib/i18n/locale";
 import type { TechnologyContentMode } from "@/lib/technology-localization";
 
 export function getPriorityLevelLabel(
   level: PriorityLevel,
-  mode: TechnologyContentMode = "original"
+  mode: TechnologyContentMode = "original",
+  locale: Locale = "zh"
 ): string {
-  if (mode === "zh") {
+  if (mode === "zh" && locale === "zh") {
     const labels: Record<PriorityLevel, string> = {
       high_priority: "立即关注",
       watch: "值得跟踪",
@@ -57,12 +59,13 @@ export function getRankingSourceLabel(source: RankingSource): string {
 export function getPriorityUserSummary(
   ranking: TechnologyPriorityRanking,
   mode: TechnologyContentMode,
-  importanceLevel?: ImportanceLevel
+  importanceLevel?: ImportanceLevel,
+  locale: Locale = "zh"
 ): string {
   const days = importantFreshnessWindowDays;
   const level = ranking.priorityLevel;
 
-  if (mode === "zh") {
+  if (mode === "zh" && locale === "zh") {
     if (level === "low_priority") {
       return "记录缺摘要、缺正文，或来源链接、日期无效，先作为背景参考。";
     }

@@ -7,7 +7,7 @@ published items from external sources; after editorial review they are published
 as **technology signals**, each carrying an explanation of why it matters, who
 should care, and what background it assumes, and each linked through typed
 relations to **skill** and **background-knowledge** entries. The site UI is in
-Chinese.
+Chinese, with an English interface under `/en` (the content is not translated).
 
 ![Public home page: today's digest, priority signals, and entry points into skills and knowledge](docs/images/home.png)
 

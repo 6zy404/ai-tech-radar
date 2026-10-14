@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 import { SectionHeading } from "@/components/section-link";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import { localePath, type Locale } from "@/lib/i18n/locale";
 import type { TechnologyEvolutionChain } from "@/lib/technology-evolution";
 
 interface TechnologyEvolutionLineProps {
@@ -12,13 +14,22 @@ interface TechnologyEvolutionLineProps {
    * that copies the section's address; omitted, the heading is a bare h2.
    */
   sharePath?: string;
+  /** `lang` per step slug whose title is not in the page's language. */
+  titleLangs?: Record<string, string>;
+  /** `lang` of the succession note (always Chinese) on the English site. */
+  noteLang?: string;
+  locale?: Locale;
 }
 
 export function TechnologyEvolutionLine({
   chain,
   id,
-  sharePath
+  sharePath,
+  titleLangs = {},
+  noteLang,
+  locale = "zh"
 }: TechnologyEvolutionLineProps) {
+  const copy = technologyDetailCopy[locale].evolution;
   const { steps, currentIndex, laterCount } = chain;
   const latest = steps[steps.length - 1];
   const hasLater = laterCount > 0;
@@ -29,14 +40,12 @@ export function TechnologyEvolutionLine({
       id={id}
       className="user-article-section technology-detail-section technology-evolution"
     >
-      <p className="technology-detail-section__eyebrow">版本脉络</p>
+      <p className="technology-detail-section__eyebrow">{copy.eyebrow}</p>
       <SectionHeading sectionId={id} sharePath={sharePath}>
-        {hasLater ? "这条信号已有后续" : "这条信号的版本脉络"}
+        {hasLater ? copy.headingLater : copy.heading}
       </SectionHeading>
       <p className="technology-detail-section__lede">
-        {hasLater
-          ? `你正在读的是这条线上较早的一条，之后还有 ${laterCount} 条，最新的是「${latest.title}」。`
-          : "这是这条线上最新的一条，下面是它承接的早前信号。"}
+        {hasLater ? copy.leadLater(laterCount, latest.title) : copy.lead}
       </p>
 
       <ol className="technology-evolution__list">
@@ -53,22 +62,30 @@ export function TechnologyEvolutionLine({
               {step.publishDate}
             </span>
             {step.isCurrent ? (
-              <span className="technology-evolution__title">{step.title}</span>
+              <span
+                className="technology-evolution__title"
+                lang={titleLangs[step.slug]}
+              >
+                {step.title}
+              </span>
             ) : (
               <Link
                 className="technology-evolution__title"
-                href={`/technologies/${step.slug}`}
+                href={localePath(locale, `/technologies/${step.slug}`)}
+                lang={titleLangs[step.slug]}
               >
                 {step.title}
               </Link>
             )}
             <span className="technology-evolution__marks">
               {step.isCurrent ? (
-                <span className="technology-evolution__mark">当前</span>
+                <span className="technology-evolution__mark">
+                  {copy.current}
+                </span>
               ) : null}
               {step.id === latest.id && steps.length > 1 ? (
                 <span className="technology-evolution__mark technology-evolution__mark--latest">
-                  最新
+                  {copy.latest}
                 </span>
               ) : null}
             </span>
@@ -77,7 +94,9 @@ export function TechnologyEvolutionLine({
       </ol>
 
       {currentStep.note ? (
-        <p className="technology-evolution__note">{currentStep.note}</p>
+        <p className="technology-evolution__note" lang={noteLang}>
+          {currentStep.note}
+        </p>
       ) : null}
     </section>
   );

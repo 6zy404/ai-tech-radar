@@ -21,6 +21,14 @@
   gap: 4px;
 }
 
+/* English topic names are longer (「Agent runtimes & protocols」). Sharing a
+   row with the topic-page link, a chip in the 246px aside broke onto two
+   lines; on the English site the link drops below the chip instead. A name
+   too long for the aside still wraps inside it rather than overflowing. */
+html[lang="en"] .followable-tag-list__item {
+  flex-wrap: wrap;
+}
+
 .followable-tag-list__topic-link {
   font-size: 12px;
   color: var(--muted);

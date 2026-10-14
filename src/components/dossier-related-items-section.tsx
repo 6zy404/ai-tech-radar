@@ -3,7 +3,10 @@ import Link from "next/link";
 import { DossierCard } from "@/components/dossier-card";
 import { DossierCatalogNote } from "@/components/dossier-catalog-note";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
+import { LangSpan } from "@/components/lang-scope";
 import { SectionHeading } from "@/components/section-link";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import type { Locale } from "@/lib/i18n/locale";
 import type { RelationListItem } from "@/types/content";
 
 interface DossierRelatedItemsSectionProps {
@@ -21,6 +24,7 @@ interface DossierRelatedItemsSectionProps {
   formatRelationType?: (
     relationType: RelationListItem["relationType"]
   ) => string;
+  locale?: Locale;
 }
 
 /**
@@ -39,8 +43,9 @@ export function DossierRelatedItemsSection({
   title,
   description,
   items,
-  linkLabel = "查看相关信号",
-  formatRelationType
+  linkLabel,
+  formatRelationType,
+  locale = "zh"
 }: DossierRelatedItemsSectionProps) {
   if (items.length === 0) {
     return null;
@@ -62,7 +67,7 @@ export function DossierRelatedItemsSection({
             className="dossier-related-section__item"
           >
             <div className="dossier-related-section__topline">
-              <h3>
+              <h3 lang={item.titleLang}>
                 <Link href={item.href}>{item.title}</Link>
               </h3>
               <DossierStampTag>
@@ -72,10 +77,12 @@ export function DossierRelatedItemsSection({
               </DossierStampTag>
             </div>
             {item.note ? (
-              <DossierCatalogNote>{item.note}</DossierCatalogNote>
+              <DossierCatalogNote locale={locale}>
+                <LangSpan lang={item.noteLang}>{item.note}</LangSpan>
+              </DossierCatalogNote>
             ) : null}
             <Link className="dossier-related-section__link" href={item.href}>
-              {linkLabel} →
+              {linkLabel ?? technologyDetailCopy[locale].related.linkLabel} →
             </Link>
           </DossierCard>
         ))}

@@ -19,6 +19,8 @@ import {
   settleForceLayout,
   VIEW_SIZE
 } from "@/lib/network-layout";
+import { networkCopy } from "@/lib/i18n/copy/network";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { getRelationTypeLabel } from "@/lib/technology-localization";
 
 interface ContentNetworkGraphProps {
@@ -26,6 +28,8 @@ interface ContentNetworkGraphProps {
   edges: ContentGraphEdge[];
   /** From `?focus=`, already checked against `nodes` by the page. */
   initialFocusId?: string | null;
+  /** `lang` per node id whose title is not in the page's language. */
+  nodeLangs?: Record<string, string>;
 }
 
 interface PositionedNode extends ContentGraphNode {
@@ -47,17 +51,6 @@ const kindOrder: ContentGraphNode["kind"][] = [
   "knowledge"
 ];
 
-const kindLabel: Record<ContentGraphNode["kind"], string> = {
-  technology: "技术",
-  skill: "技能",
-  knowledge: "知识"
-};
-
-const kindFilterOptions = [
-  { value: "", label: "全部类型" },
-  ...kindOrder.map((kind) => ({ value: kind, label: kindLabel[kind] }))
-];
-
 // A node/edge is dimmed only if it fails every currently-active highlight
 // criterion (search, category filter, selection). With two independent
 // lenses active at once, this is a union: something visible under either
@@ -71,8 +64,18 @@ function isDimmedByActiveChecks(checks: boolean[]): boolean {
 export function ContentNetworkGraph({
   nodes,
   edges,
-  initialFocusId = null
+  initialFocusId = null,
+  nodeLangs = {}
 }: ContentNetworkGraphProps) {
+  const locale = useLocale();
+  const copy = networkCopy[locale];
+  const kindLabel = copy.kinds;
+  const kindFilterOptions = [
+    { value: "", label: copy.allKinds },
+    ...kindOrder.map((kind) => ({ value: kind, label: kindLabel[kind] }))
+  ];
+  const relationLabel = (type: ContentGraphEdge["relationType"]) =>
+    getRelationTypeLabel(type, "zh", locale);
   // Selection is by id and independent of positions, so a focused node is
   // selected in the server-rendered markup and stays selected through the
   // glide into the settled layout.
@@ -416,12 +419,12 @@ export function ContentNetworkGraph({
   const relationTypes = useMemo(
     () =>
       Array.from(new Set(edges.map((edge) => edge.relationType))).sort((a, b) =>
-        getRelationTypeLabel(a, "zh").localeCompare(
-          getRelationTypeLabel(b, "zh"),
-          "zh"
+        getRelationTypeLabel(a, "zh", locale).localeCompare(
+          getRelationTypeLabel(b, "zh", locale),
+          locale
         )
       ),
-    [edges]
+    [edges, locale]
   );
 
   return (
@@ -430,8 +433,8 @@ export function ContentNetworkGraph({
         <DossierSearchInput
           value={searchText}
           onChange={setSearchText}
-          placeholder="搜索节点标题"
-          label="搜索节点标题"
+          placeholder={copy.searchPlaceholder}
+          label={copy.searchPlaceholder}
         />
         <DossierCategoryChips
           options={kindFilterOptions}
@@ -563,6 +566,7 @@ export function ContentNetworkGraph({
                 aria-pressed={isSelected}
                 aria-label={`${kindLabel[node.kind]}：${node.title}`}
                 title={node.title}
+                lang={nodeLangs[node.id]}
               >
                 <span
                   className="content-network__node-dot"
@@ -588,7 +592,7 @@ export function ContentNetworkGraph({
                 top: `${hoveredEdge.y}%`
               }}
             >
-              {getRelationTypeLabel(hoveredEdge.relationType, "zh")}
+              {relationLabel(hoveredEdge.relationType)}
             </div>
           ) : null}
         </div>
@@ -602,9 +606,9 @@ export function ContentNetworkGraph({
               <p className="technology-detail-section__eyebrow">
                 {kindLabel[selectedNode.kind]}
               </p>
-              <h3>{selectedNode.title}</h3>
+              <h3 lang={nodeLangs[selectedNode.id]}>{selectedNode.title}</h3>
               <Link className="action-link" href={selectedNode.href}>
-                查看详情
+                {copy.openDetail}
               </Link>
               {connectionGroups.length > 0 ? (
                 connectionGroups.map((group) => (
@@ -624,12 +628,12 @@ export function ContentNetworkGraph({
                       {group.items.map((connection) => (
                         <li key={connection.id}>
                           <DossierStampTag>
-                            {getRelationTypeLabel(
-                              connection.relationType,
-                              "zh"
-                            )}
+                            {relationLabel(connection.relationType)}
                           </DossierStampTag>
-                          <Link href={connection.node.href}>
+                          <Link
+                            href={connection.node.href}
+                            lang={nodeLangs[connection.node.id]}
+                          >
                             {connection.node.title}
                           </Link>
                         </li>
@@ -639,33 +643,33 @@ export function ContentNetworkGraph({
                 ))
               ) : (
                 <p className="content-network__panel-empty">
-                  暂无已记录的连接。
+                  {copy.noConnections}
                 </p>
               )}
             </>
           ) : (
             <>
-              <p className="content-network__panel-hint">
-                节点默认只显示彩色圆点；悬停、键盘聚焦或搜索可以看到名称。点击任意节点查看它的直接连接，拖动节点可以重新摆放；再次点击节点可取消选中。
-              </p>
+              <p className="content-network__panel-hint">{copy.hint}</p>
               <ul className="content-network__legend">
                 <li className="content-network__legend-item content-network__legend-item--technology">
-                  技术
+                  {kindLabel.technology}
                 </li>
                 <li className="content-network__legend-item content-network__legend-item--skill">
-                  技能
+                  {kindLabel.skill}
                 </li>
                 <li className="content-network__legend-item content-network__legend-item--knowledge">
-                  知识
+                  {kindLabel.knowledge}
                 </li>
               </ul>
               {relationTypes.length > 0 ? (
                 <>
-                  <p className="content-network__legend-heading">关系类型</p>
+                  <p className="content-network__legend-heading">
+                    {copy.relationTypes}
+                  </p>
                   <div className="content-network__relation-legend">
                     {relationTypes.map((relationType) => (
                       <DossierStampTag key={relationType}>
-                        {getRelationTypeLabel(relationType, "zh")}
+                        {relationLabel(relationType)}
                       </DossierStampTag>
                     ))}
                   </div>
@@ -673,14 +677,16 @@ export function ContentNetworkGraph({
               ) : null}
               <p className="content-network__panel-count">
                 {isFilterActive
-                  ? `匹配 ${matchedCount} / ${nodes.length} 个节点`
-                  : `${nodes.length} 个节点 · ${edges.length} 条连接`}
+                  ? copy.matched(matchedCount, nodes.length)
+                  : copy.counts(nodes.length, edges.length)}
               </p>
             </>
           )}
           <p className="signal-shortcut-help__live" role="status">
             {selectedNode
-              ? `已选中${kindLabel[selectedNode.kind]}「${selectedNode.title}」，${connections.length} 个连接`
+              ? locale === "en"
+                ? `Selected ${kindLabel[selectedNode.kind]}: ${selectedNode.title}, ${connections.length} connection${connections.length === 1 ? "" : "s"}`
+                : `已选中${kindLabel[selectedNode.kind]}「${selectedNode.title}」，${connections.length} 个连接`
               : ""}
           </p>
         </aside>

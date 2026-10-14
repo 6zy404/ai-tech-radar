@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 import { UserPageShell } from "@/components/user-page-shell";
+import { shellCopy } from "@/lib/i18n/copy/shell";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 // Route-level error boundary. It must be a client component (Next requires
 // it), it never shows the error text to the reader — that could carry a file
@@ -16,26 +19,29 @@ export default function RouteError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const locale = useLocale();
+  const copy = shellCopy[locale].error;
+
   useEffect(() => {
     console.error("[route error]", error.digest ?? error.message);
   }, [error]);
 
   return (
     <UserPageShell
-      title="这一页暂时打不开"
-      description="服务端处理这个请求时出了问题，已经记录下来。可以重试一次，或者回到首页。"
-      sectionLabel="出错了"
+      title={copy.title}
+      description={copy.description}
+      sectionLabel={copy.sectionLabel}
       className="dossier"
     >
       <section className="empty-state empty-state--actionable">
-        <strong>请再试一次。</strong>
+        <strong>{copy.lead}</strong>
         <p>
           <button className="action-link" type="button" onClick={reset}>
-            重新加载这一页
+            {copy.retry}
           </button>
           {" · "}
-          <Link className="action-link" href="/">
-            回到首页
+          <Link className="action-link" href={localePath(locale, "/")}>
+            {copy.home}
           </Link>
         </p>
       </section>

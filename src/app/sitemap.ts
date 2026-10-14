@@ -7,7 +7,8 @@ import {
   getAllTechnologies
 } from "@/lib/content";
 import { getDailyDigests } from "@/lib/digest-workflow";
-import { getSiteUrl } from "@/lib/site-metadata";
+import { localePath, stripLocalePrefix, type Locale } from "@/lib/i18n/locale";
+import { buildLanguageAlternates, getSiteUrl } from "@/lib/site-metadata";
 import { getTopicIndex } from "@/lib/topic-hub";
 import { getWeeklyReviewArchive } from "@/lib/weekly-review";
 
@@ -104,7 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [
+  const chinese = [
     ...fixed,
     ...technologies,
     ...skills,
@@ -113,4 +114,47 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...topics,
     ...weeks
   ];
+
+  // Every page above has an English twin under /en. Both entries carry the
+  // same pair of alternates, so a crawler finds each version from the other.
+  return [
+    ...chinese,
+    ...chinese.map((entry) => toLocaleEntry(entry, "en"))
+  ].map((entry) => withLanguageAlternates(entry, siteUrl));
+}
+
+function toPath(url: string, siteUrl: string): string {
+  return url.slice(siteUrl.length) || "/";
+}
+
+function toLocaleEntry(
+  entry: MetadataRoute.Sitemap[number],
+  locale: Locale
+): MetadataRoute.Sitemap[number] {
+  const siteUrl = getSiteUrl();
+
+  return {
+    ...entry,
+    url: `${siteUrl}${localePath(locale, toPath(entry.url, siteUrl))}`
+  };
+}
+
+function withLanguageAlternates(
+  entry: MetadataRoute.Sitemap[number],
+  siteUrl: string
+): MetadataRoute.Sitemap[number] {
+  const path = stripLocalePrefix(toPath(entry.url, siteUrl).split("?")[0]);
+  const query = entry.url.includes("?")
+    ? entry.url.slice(entry.url.indexOf("?"))
+    : "";
+  const languages = Object.fromEntries(
+    Object.entries(buildLanguageAlternates(`${path}${query}`))
+      .filter(([hreflang]) => hreflang !== "x-default")
+      .map(([hreflang, alternatePath]) => [
+        hreflang,
+        `${siteUrl}${alternatePath}`
+      ])
+  );
+
+  return { ...entry, alternates: { languages } };
 }

@@ -2,9 +2,12 @@ import Link from "next/link";
 
 import { DossierCategoryChips } from "@/components/dossier-category-chips";
 import { DossierRegisterRow } from "@/components/dossier-register-row";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr, nameLangAttr } from "@/lib/i18n/text-lang";
 import {
-  getPreferredTechnologySummary,
-  getPreferredTechnologyTitle
+  getTechnologySummaryForLocale,
+  getTechnologyTitleForLocale
 } from "@/lib/technology-localization";
 import type { TechnologyItem, TopicTag } from "@/types/content";
 
@@ -25,6 +28,8 @@ interface TimelineEntry {
   summary: string;
   publishDate: string;
   sourceName: string;
+  titleLang?: string;
+  summaryLang?: string;
 }
 
 interface TimelineTopic {
@@ -36,7 +41,8 @@ interface TimelineTopic {
 
 function getTimelineTopics(
   technologies: TechnologyItem[],
-  tags: TopicTag[]
+  tags: TopicTag[],
+  locale: Locale
 ): TimelineTopic[] {
   const topics: TimelineTopic[] = [];
 
@@ -44,13 +50,20 @@ function getTimelineTopics(
     const entries = technologies
       .filter((technology) => technology.tags.includes(tag.id))
       .sort((left, right) => right.publishDate.localeCompare(left.publishDate))
-      .map((technology) => ({
-        slug: technology.slug,
-        title: getPreferredTechnologyTitle(technology),
-        summary: getPreferredTechnologySummary(technology),
-        publishDate: technology.publishDate,
-        sourceName: technology.sourceName
-      }));
+      .map((technology) => {
+        const title = getTechnologyTitleForLocale(technology, locale);
+        const summary = getTechnologySummaryForLocale(technology, locale);
+
+        return {
+          slug: technology.slug,
+          title: title.text,
+          summary: summary.text,
+          publishDate: technology.publishDate,
+          sourceName: technology.sourceName,
+          titleLang: contentLangAttr(locale, title.language),
+          summaryLang: contentLangAttr(locale, summary.language)
+        };
+      });
 
     if (entries.length > 0) {
       topics.push({
@@ -65,35 +78,41 @@ function getTimelineTopics(
   return topics.sort(
     (left, right) =>
       right.entries.length - left.entries.length ||
-      left.tagName.localeCompare(right.tagName, "zh-CN")
+      left.tagName.localeCompare(
+        right.tagName,
+        locale === "en" ? "en" : "zh-CN"
+      )
   );
 }
 
 interface TopicTimelineSectionProps {
   technologies: TechnologyItem[];
   tags: TopicTag[];
+  locale?: Locale;
 }
 
 export function TopicTimelineSection({
   technologies,
-  tags
+  tags,
+  locale = "zh"
 }: TopicTimelineSectionProps) {
-  const topics = getTimelineTopics(technologies, tags);
+  const copy = signalsCopy[locale].timeline;
+  const topics = getTimelineTopics(technologies, tags, locale);
 
   return (
     <div className="topic-timeline-section">
       {topics.length > 0 ? (
         <>
           <p className="topic-timeline-section__index">
-            <Link href="/topics" className="action-link">
-              查看全部话题
+            <Link href={localePath(locale, "/topics")} className="action-link">
+              {copy.allTopics}
             </Link>
           </p>
           {/* Jump links, not a filter, as on /sources: every topic stays
               on the page. */}
           <DossierCategoryChips
             className="topic-timeline-jump"
-            ariaLabel="跳到话题"
+            ariaLabel={copy.jumpLabel}
             active=""
             options={topics.map((topic) => ({
               value: topic.tagId,
@@ -114,8 +133,8 @@ export function TopicTimelineSection({
                 <div className="timeline-topic__heading">
                   <h2 id={topicAnchorId(topic.tagId)}>{topic.tagName}</h2>
                   <span>
-                    {total} 条信号
-                    {isCut ? ` · 最近 ${TIMELINE_TOPIC_LIMIT} 条` : ""}
+                    {copy.count(total)}
+                    {isCut ? copy.recent(TIMELINE_TOPIC_LIMIT) : ""}
                   </span>
                 </div>
                 <p className="timeline-topic__description">
@@ -128,18 +147,26 @@ export function TopicTimelineSection({
                         headingLevel={3}
                         title={entry.title}
                         date={entry.publishDate}
-                        href={`/technologies/${entry.slug}`}
+                        href={localePath(locale, `/technologies/${entry.slug}`)}
                         tag={entry.sourceName}
+                        titleLang={entry.titleLang}
+                        tagLang={nameLangAttr(locale, entry.sourceName)}
                       />
-                      <p className="dossier-timeline-node__summary">
+                      <p
+                        className="dossier-timeline-node__summary"
+                        lang={entry.summaryLang}
+                      >
                         {entry.summary}
                       </p>
                     </li>
                   ))}
                 </ol>
                 <p className="timeline-topic__more">
-                  <Link href={`/topics/${topic.tagId}`} className="action-link">
-                    {isCut ? `查看专题 · 共 ${total} 条 →` : "查看专题 →"}
+                  <Link
+                    href={localePath(locale, `/topics/${topic.tagId}`)}
+                    className="action-link"
+                  >
+                    {isCut ? copy.viewTopicAll(total) : copy.viewTopic}
                   </Link>
                 </p>
               </section>
@@ -148,8 +175,8 @@ export function TopicTimelineSection({
         </>
       ) : (
         <div className="empty-state">
-          <strong>还没有可以展示的信号时间线。</strong>
-          <p>技术信号发布后会按话题在这里聚合。</p>
+          <strong>{copy.emptyTitle}</strong>
+          <p>{copy.emptyBody}</p>
         </div>
       )}
     </div>

@@ -3,6 +3,10 @@
 import { useState, useTransition } from "react";
 
 import { aiGeneratedDisclaimer } from "@/lib/ai-disclaimer";
+import { technologyDetailCopy } from "@/lib/i18n/copy/technology-detail";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 import type {
   TechnologyItem,
   TechnologyLearningPathFields
@@ -15,6 +19,12 @@ interface TechnologyLearningPathWidgetProps {
 export function TechnologyLearningPathWidget({
   technology
 }: TechnologyLearningPathWidgetProps) {
+  const locale = useLocale();
+  const aiCopy = technologyDetailCopy[locale].ai;
+  const copy = aiCopy.learningPath;
+  const answerLang = contentLangAttr(locale);
+  const disclaimer =
+    locale === "zh" ? aiGeneratedDisclaimer : aiCopy.disclaimer;
   const [isPending, startTransition] = useTransition();
   const [fields, setFields] = useState<TechnologyLearningPathFields | null>(
     null
@@ -37,27 +47,25 @@ export function TechnologyLearningPathWidget({
 
         if (!response.ok || "error" in payload) {
           setError(
-            "error" in payload
+            "error" in payload && locale === "zh"
               ? payload.error
-              : "学习路径生成失败，请稍后再试。"
+              : aiCopy.failed.learningPath
           );
           return;
         }
 
         setFields(payload.fields);
       } catch {
-        setError("学习路径生成失败，请稍后再试。");
+        setError(aiCopy.failed.learningPath);
       }
     });
   }
 
   return (
     <section className="user-article-section technology-detail-section technology-compare-widget technology-learning-path-widget">
-      <p className="technology-detail-section__eyebrow">怎么学起</p>
-      <h2>让 AI 生成一条学习路径</h2>
-      <p className="technology-detail-section__lede">
-        基于本页的相关知识和相关技能，AI 会现场生成一条从基础到应用的学习路径。
-      </p>
+      <p className="technology-detail-section__eyebrow">{copy.eyebrow}</p>
+      <h2>{copy.heading}</h2>
+      <p className="technology-detail-section__lede">{copy.lede}</p>
 
       <div className="technology-compare-widget__controls">
         <button
@@ -66,15 +74,19 @@ export function TechnologyLearningPathWidget({
           onClick={handleGenerate}
           disabled={isPending}
         >
-          {isPending ? "生成中…" : "生成学习路径"}
+          {isPending ? aiCopy.pending : copy.submit}
         </button>
         {/* Heard, not seen: the result arrives seconds after the press,
             below the button, and the button is disabled meanwhile. */}
         <p className="signal-shortcut-help__live" role="status">
           {isPending
-            ? "正在生成学习路径…"
+            ? locale === "en"
+              ? "Writing the learning path…"
+              : "正在生成学习路径…"
             : fields
-              ? "学习路径已生成，见下方。"
+              ? locale === "en"
+                ? "The learning path is ready below."
+                : "学习路径已生成，见下方。"
               : ""}
         </p>
       </div>
@@ -87,19 +99,17 @@ export function TechnologyLearningPathWidget({
 
       {fields ? (
         <div className="technology-compare-widget__result">
-          <p className="technology-compare-widget__disclaimer">
-            {aiGeneratedDisclaimer}
-          </p>
+          <p className="technology-compare-widget__disclaimer">{disclaimer}</p>
 
           <div className="technology-compare-widget__block">
-            <span>路径总览</span>
-            <p>{fields.overview}</p>
+            <span>{copy.overview}</span>
+            <p lang={answerLang}>{fields.overview}</p>
           </div>
 
           {fields.steps.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>学习步骤</span>
-              <ol className="technology-detail-learning-list">
+              <span>{copy.steps}</span>
+              <ol className="technology-detail-learning-list" lang={answerLang}>
                 {fields.steps.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -109,8 +119,8 @@ export function TechnologyLearningPathWidget({
 
           {fields.checkpoints && fields.checkpoints.length > 0 ? (
             <div className="technology-compare-widget__block">
-              <span>自测点</span>
-              <ul>
+              <span>{copy.checkpoints}</span>
+              <ul lang={answerLang}>
                 {fields.checkpoints.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

@@ -1,5 +1,8 @@
 "use client";
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 interface ReadFilterToggleProps {
   readCount: number;
   hideRead: boolean;
@@ -16,13 +19,15 @@ export function ReadFilterToggle({
   hideRead,
   onToggle
 }: ReadFilterToggleProps) {
+  const copy = signalsCopy[useLocale()].readFilter;
+
   if (readCount === 0) {
     return null;
   }
 
   return (
     <div className="read-filter-toggle">
-      <span className="read-filter-toggle__count">已读 {readCount} 条</span>
+      <span className="read-filter-toggle__count">{copy.count(readCount)}</span>
       {/* The label says what a press will do, so no aria-pressed: with it, a
           screen reader read 「显示已读，已按下」 while read cards were hidden. */}
       <button
@@ -32,7 +37,7 @@ export function ReadFilterToggle({
           hideRead ? " read-filter-toggle__button--active" : ""
         }`}
       >
-        {hideRead ? "显示已读" : "隐藏已读"}
+        {hideRead ? copy.show : copy.hide}
       </button>
     </div>
   );

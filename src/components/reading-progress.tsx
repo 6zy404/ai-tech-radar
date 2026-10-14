@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { commonCopy } from "@/lib/i18n/copy/common";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { getReadingRatio, shouldShowBackToTop } from "@/lib/reading-progress";
 import { mainContentId } from "@/lib/skip-link-targets";
 
@@ -31,6 +33,7 @@ export function ReadingProgress({
   regionSelector: string;
 }) {
   const pathname = usePathname();
+  const backToTop = commonCopy[useLocale()].backToTop;
   const inWorkspace = pathname?.startsWith("/workspace") ?? false;
   const barRef = useRef<HTMLDivElement>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -109,8 +112,8 @@ export function ReadingProgress({
       <button
         type="button"
         className={`reading-progress-top${showBackToTop ? " reading-progress-top--shown" : ""}`}
-        aria-label="返回顶部"
-        title="返回顶部"
+        aria-label={backToTop}
+        title={backToTop}
         onClick={handleBackToTop}
       >
         <span aria-hidden="true">↑</span>

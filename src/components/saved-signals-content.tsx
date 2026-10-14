@@ -26,6 +26,9 @@ import {
   encodeReadingCode,
   mergeReadingCode
 } from "@/lib/reading-transfer";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 import type { TechnologyItem, TopicTag } from "@/types/content";
 
 interface SavedSignalsContentProps {
@@ -42,6 +45,8 @@ export function SavedSignalsContent({
   technologies,
   tags
 }: SavedSignalsContentProps) {
+  const locale = useLocale();
+  const copy = signalsCopy[locale].saved;
   const [hideRead, setHideRead] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
   const readingState = useReadingState();
@@ -65,7 +70,7 @@ export function SavedSignalsContent({
   const shortcuts = useSignalShortcuts({
     signals: shownTechnologies.map((item) => ({
       id: item.id,
-      href: `/technologies/${item.slug}`
+      href: localePath(locale, `/technologies/${item.slug}`)
     })),
     isRead,
     isSaved,
@@ -87,17 +92,15 @@ export function SavedSignalsContent({
 
     try {
       await navigator.clipboard.writeText(code);
-      setTransferMessage(
-        "阅读码已复制，在另一台设备的「稍后读」里点「导入阅读码」粘贴即可。"
-      );
+      setTransferMessage(copy.exported);
     } catch {
-      window.prompt("复制这段阅读码，在另一台设备上导入：", code);
+      window.prompt(copy.copyPrompt, code);
       setTransferMessage("");
     }
   };
 
   const handleImport = () => {
-    const raw = window.prompt("粘贴另一台设备导出的阅读码：");
+    const raw = window.prompt(copy.pastePrompt);
 
     if (raw === null) {
       return;
@@ -106,9 +109,7 @@ export function SavedSignalsContent({
     const decoded = decodeReadingCode(raw);
 
     if (!decoded) {
-      setTransferMessage(
-        "阅读码无效：应以 rm1: 开头。话题的关注码请到「我关注的」导入。"
-      );
+      setTransferMessage(copy.invalidCode);
       return;
     }
 
@@ -119,18 +120,22 @@ export function SavedSignalsContent({
 
     writeMarkedTechnologyIds("saved", result.next.savedIds);
     writeMarkedTechnologyIds("read", result.next.readIds);
-    setTransferMessage(describeReadingImport(result));
+    setTransferMessage(describeReadingImport(result, locale));
   };
 
   const transferControls = (
-    <div className="reading-transfer" role="group" aria-label="换设备">
+    <div
+      className="reading-transfer"
+      role="group"
+      aria-label={copy.transferLabel}
+    >
       {canExport ? (
         <button type="button" className="quiet-button" onClick={handleExport}>
-          导出阅读码
+          {copy.export}
         </button>
       ) : null}
       <button type="button" className="quiet-button" onClick={handleImport}>
-        导入阅读码
+        {copy.import}
       </button>
     </div>
   );
@@ -152,7 +157,7 @@ export function SavedSignalsContent({
   if (!isLoaded) {
     return (
       <div className="saved-signals">
-        <p className="saved-signals__lede">正在读取本地的稍后读列表…</p>
+        <p className="saved-signals__lede">{copy.loading}</p>
       </div>
     );
   }
@@ -161,14 +166,17 @@ export function SavedSignalsContent({
     return (
       <div className="saved-signals">
         <div className="dossier-empty-state">
-          <strong>你的稍后读还是空的。</strong>
+          <strong>{copy.emptyTitle}</strong>
           {/* The two sentences are one line on purpose: JSX joins wrapped text
               lines with a space, which lands inside Chinese prose. */}
           <p>
-            在<Link href="/technologies">「精选」</Link>
-            里看到想回头细读的信号，点一下「稍后读」，它就会攒到这里。标记只保存在这台设备的浏览器里。
+            {copy.emptyBefore}
+            <Link href={localePath(locale, "/technologies")}>
+              {copy.emptyLink}
+            </Link>
+            {copy.emptyAfter}
           </p>
-          <p>换了设备？把旧设备上导出的阅读码导入进来。</p>
+          <p>{copy.emptyImport}</p>
           {transferControls}
           {transferStatus}
         </div>
@@ -186,7 +194,7 @@ export function SavedSignalsContent({
         <p className="saved-signals__lede">
           {/* The ordering is already stated by the page description above;
               this row exists for the count and to host the read filter. */}
-          已攒下 {savedTechnologies.length} 条信号。
+          {copy.count(savedTechnologies.length)}
         </p>
 
         <div className="saved-signals__toolbar-controls">
@@ -207,7 +215,8 @@ export function SavedSignalsContent({
           <DossierTechnologyCard
             key={item.id}
             technology={item}
-            mode="zh"
+            mode={locale === "en" ? "original" : "zh"}
+            locale={locale}
             isRead={isRead(item.id)}
             isCurrent={shortcuts.currentId === item.id}
             readingActions={
@@ -227,8 +236,8 @@ export function SavedSignalsContent({
 
       {shownTechnologies.length === 0 ? (
         <div className="dossier-empty-state">
-          <strong>攒下的信号你都读完了。</strong>
-          <p>关掉「隐藏已读」可以回看，或者取消「稍后读」把它们清出列表。</p>
+          <strong>{copy.allReadTitle}</strong>
+          <p>{copy.allReadBody}</p>
         </div>
       ) : null}
 

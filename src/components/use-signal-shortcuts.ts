@@ -3,6 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { useLocale } from "@/lib/i18n/use-locale";
+
 import { useSignalShortcutPreference } from "@/components/use-signal-shortcut-preference";
 import {
   reconcileCurrentSignalId,
@@ -81,6 +84,7 @@ export function useSignalShortcuts({
 
   // Keep the latest values reachable from the one keydown listener without
   // re-binding it on every render.
+  const copy = signalsCopy[useLocale()].shortcuts;
   const latestRef = useRef({
     signals,
     currentId,
@@ -89,7 +93,8 @@ export function useSignalShortcuts({
     isRead,
     isSaved,
     toggleRead,
-    toggleSaved
+    toggleSaved,
+    copy
   });
   latestRef.current = {
     signals,
@@ -99,7 +104,8 @@ export function useSignalShortcuts({
     isRead,
     isSaved,
     toggleRead,
-    toggleSaved
+    toggleSaved,
+    copy
   };
 
   const moveTo = useCallback((id: string | null) => {
@@ -255,7 +261,7 @@ export function useSignalShortcuts({
 
       if (current === null) {
         if (ids.length > 0 && action !== "open") {
-          setAnnouncement("先按 j 选中一条信号。");
+          setAnnouncement(latest.copy.selectFirst);
         }
 
         return;
@@ -277,14 +283,14 @@ export function useSignalShortcuts({
         const wasSaved = latest.isSaved(current);
 
         latest.toggleSaved(current);
-        setAnnouncement(wasSaved ? "已移出稍后读。" : "已加入稍后读。");
+        setAnnouncement(wasSaved ? latest.copy.unsaved : latest.copy.saved);
         return;
       }
 
       const wasRead = latest.isRead(current);
 
       latest.toggleRead(current);
-      setAnnouncement(wasRead ? "已取消已读。" : "已标为已读。");
+      setAnnouncement(wasRead ? latest.copy.unread : latest.copy.read);
     };
 
     window.addEventListener("keydown", handleKeyDown);

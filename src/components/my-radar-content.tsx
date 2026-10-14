@@ -14,16 +14,16 @@ import { useReadingState } from "@/components/use-reading-state";
 import { useSignalShortcuts } from "@/components/use-signal-shortcuts";
 import { useVisitBaseline } from "@/components/visit-baseline";
 import { topicFeedPath } from "@/lib/feed-paths";
+import { signalsCopy } from "@/lib/i18n/copy/signals";
+import { localePath } from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 import {
   followedTagsChangedEventName,
   readFollowedTagIds,
   toggleFollowedTagId,
   writeFollowedTagIds
 } from "@/lib/followed-tags";
-import {
-  evaluateTechnologyPriority,
-  importantFreshnessWindowDays
-} from "@/lib/ranking";
+import { evaluateTechnologyPriority } from "@/lib/ranking";
 import { getPriorityLevelLabel } from "@/lib/ranking-display";
 import { isNewSinceLastVisit, toVisitKeys } from "@/lib/visit-state";
 import type { PriorityLevel, TechnologyItem, TopicTag } from "@/types/content";
@@ -33,26 +33,20 @@ interface MyRadarContentProps {
   tags: TopicTag[];
 }
 
-const priorityGroups: { level: PriorityLevel; title: string; lede: string }[] =
-  [
-    {
-      level: "high_priority",
-      title: getPriorityLevelLabel("high_priority", "zh"),
-      lede: `命中你关注话题，且编辑标为关键、或标为重要且发布不满 ${importantFreshnessWindowDays} 天的信号。`
-    },
-    {
-      level: "watch",
-      title: getPriorityLevelLabel("watch", "zh"),
-      lede: "命中你关注话题、值得持续留意的变化。"
-    },
-    {
-      level: "low_priority",
-      title: getPriorityLevelLabel("low_priority", "zh"),
-      lede: "命中你关注话题的背景型内容，空闲时浏览。"
-    }
-  ];
+const priorityGroupLevels: PriorityLevel[] = [
+  "high_priority",
+  "watch",
+  "low_priority"
+];
 
 export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
+  const locale = useLocale();
+  const copy = signalsCopy[locale].myRadar;
+  const priorityGroups = priorityGroupLevels.map((level) => ({
+    level,
+    title: getPriorityLevelLabel(level, "zh", locale),
+    lede: copy.groupLedes[level]
+  }));
   const [followedTagIds, setFollowedTagIds] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
@@ -67,23 +61,21 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
     const code = followedTagIds.join(",");
 
     if (!code) {
-      setTransferMessage("还没有关注任何话题，无可导出。");
+      setTransferMessage(copy.nothingToExport);
       return;
     }
 
     try {
       await navigator.clipboard.writeText(code);
-      setTransferMessage(
-        "关注码已复制，在另一台设备上点「导入关注」粘贴即可。"
-      );
+      setTransferMessage(copy.exported);
     } catch {
-      window.prompt("复制这段关注码，在另一台设备上导入：", code);
+      window.prompt(copy.copyPrompt, code);
       setTransferMessage("");
     }
   };
 
   const handleImportFollows = () => {
-    const raw = window.prompt("粘贴另一台设备导出的关注码：");
+    const raw = window.prompt(copy.pastePrompt);
 
     if (raw === null) {
       return;
@@ -96,7 +88,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
       .filter((item) => knownTagIds.has(item));
 
     if (importedIds.length === 0) {
-      setTransferMessage("关注码无效：没有识别出任何话题。");
+      setTransferMessage(copy.invalidCode);
       return;
     }
 
@@ -104,7 +96,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
 
     writeFollowedTagIds(merged);
     setFollowedTagIds(merged);
-    setTransferMessage(`已导入 ${importedIds.length} 个话题的关注。`);
+    setTransferMessage(copy.imported(importedIds.length));
   };
 
   useEffect(() => {
@@ -152,7 +144,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
     signals: groupedTechnologies.flatMap((group) =>
       group.items.map(({ technology }) => ({
         id: technology.id,
-        href: `/technologies/${technology.slug}`
+        href: localePath(locale, `/technologies/${technology.slug}`)
       }))
     ),
     isRead: readingState.isRead,
@@ -165,17 +157,17 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
     <div className="my-radar">
       <section className="my-radar__manager">
         <div className="my-radar__manager-copy">
-          <p className="eyebrow user-eyebrow">关注话题</p>
-          <h2>选择你想跟踪的话题</h2>
+          <p className="eyebrow user-eyebrow">{copy.eyebrow}</p>
+          <h2>{copy.heading}</h2>
           {/* The page description already says follows live only in this
               browser; repeating it here said the same thing twice, in two
               different wordings, a few hundred pixels apart. */}
-          <p>点击话题即可关注或取消，不需要账号。</p>
+          <p>{copy.lede}</p>
         </div>
         <div
           className="my-radar__tag-list"
           role="group"
-          aria-label="关注话题开关"
+          aria-label={copy.toggleGroupLabel}
         >
           {tags.map((tag) => {
             const isFollowed = followedTagSet.has(tag.id);
@@ -199,10 +191,10 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
         </div>
         <div className="my-radar__transfer">
           <button type="button" onClick={handleExportFollows}>
-            导出关注
+            {copy.export}
           </button>
           <button type="button" onClick={handleImportFollows}>
-            导入关注
+            {copy.import}
           </button>
           {transferMessage ? <span>{transferMessage}</span> : null}
         </div>
@@ -210,10 +202,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
 
       {isLoaded && followedTagIds.length > 0 ? (
         <section className="my-radar__feeds">
-          <p className="my-radar__feeds-lede">
-            话题订阅源：把链接加进任何 RSS
-            阅读器，新发布的信号会自动送达，换设备也不丢。
-          </p>
+          <p className="my-radar__feeds-lede">{copy.feedsLede}</p>
           <div className="digest-feed-links">
             {tags
               .filter(
@@ -225,7 +214,7 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
               )
               .map((tag) => (
                 <Link key={tag.id} href={topicFeedPath(tag.id)}>
-                  {tag.name} RSS
+                  {copy.feedLink(tag.name)}
                 </Link>
               ))}
           </div>
@@ -235,10 +224,8 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
 
       {isLoaded && followedTagIds.length === 0 ? (
         <section className="empty-state empty-state--actionable">
-          <strong>还没有关注任何话题。</strong>
-          <p>
-            在上方选择几个感兴趣的话题，你的雷达就会按优先级聚合命中这些话题的已发布技术信号。
-          </p>
+          <strong>{copy.noFollowsTitle}</strong>
+          <p>{copy.noFollowsBody}</p>
         </section>
       ) : null}
 
@@ -246,13 +233,16 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
       followedTagIds.length > 0 &&
       matchedTechnologies.length === 0 ? (
         <section className="empty-state empty-state--actionable">
-          <strong>你关注的话题暂时没有命中的已发布信号。</strong>
+          <strong>{copy.noMatchesTitle}</strong>
           <p>
-            可以再关注几个相邻话题，或先到
-            <Link className="action-link" href="/technologies">
-              技术信号流
+            {copy.noMatchesBefore}
+            <Link
+              className="action-link"
+              href={localePath(locale, "/technologies")}
+            >
+              {copy.noMatchesLink}
             </Link>
-            看看全部已发布内容。
+            {copy.noMatchesAfter}
           </p>
         </section>
       ) : null}
@@ -278,11 +268,11 @@ export function MyRadarContent({ technologies, tags }: MyRadarContentProps) {
               <div key={technology.id} className="my-radar__item">
                 <DossierTechnologyCard
                   technology={technology}
-                  mode="zh"
+                  mode={locale === "en" ? "original" : "zh"}
+                  locale={locale}
                   matchLine={
                     <p className="my-radar__match-line">
-                      命中关注：
-                      {matchedTags.map((tag) => tag.name).join("、")}
+                      {copy.matchLine(matchedTags.map((tag) => tag.name))}
                     </p>
                   }
                   isRead={readingState.isRead(technology.id)}

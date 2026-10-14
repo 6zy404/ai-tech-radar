@@ -8,6 +8,7 @@ import type {
   TechnologyStatus,
   TechnologyType
 } from "@/types/content";
+import type { Locale } from "@/lib/i18n/locale";
 
 export type TechnologyContentMode = "zh" | "original";
 export type TechnologyContentContext = "preview" | "detail";
@@ -140,10 +141,30 @@ export function getTechnologyTranslationCoverage(
   return "none";
 }
 
+const englishTechnologyTypeLabels: Record<TechnologyType, string> = {
+  platform: "Platform",
+  tool: "Tool",
+  model: "Model",
+  protocol: "Protocol",
+  workflow: "Workflow"
+};
+
+/*
+ * The label functions below take the reading mode (中文 / 原文) and, since
+ * the English interface, the interface locale. On the Chinese site they
+ * behave exactly as before — 原文 mode prints the raw value — and on the
+ * English site they always print the English label, whichever reading mode
+ * the content is in.
+ */
 export function getTechnologyTypeLabel(
   type: TechnologyType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    return englishTechnologyTypeLabels[type];
+  }
+
   if (mode === "original") {
     return type;
   }
@@ -159,10 +180,23 @@ export function getTechnologyTypeLabel(
   return labels[type];
 }
 
+const englishPublisherTypeLabels: Record<PublisherType, string> = {
+  "big-tech": "Big tech",
+  startup: "Startup",
+  "research-lab": "Research lab",
+  "open-source-community": "Open-source community",
+  media: "Media"
+};
+
 export function getPublisherTypeLabel(
   publisherType: PublisherType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    return englishPublisherTypeLabels[publisherType];
+  }
+
   if (mode === "original") {
     return publisherType;
   }
@@ -180,8 +214,19 @@ export function getPublisherTypeLabel(
 
 export function getImportanceLevelLabel(
   importanceLevel: ImportanceLevel,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    const englishLabels: Record<ImportanceLevel, string> = {
+      signal: "Signal",
+      important: "Important",
+      critical: "Critical"
+    };
+
+    return englishLabels[importanceLevel];
+  }
+
   if (mode === "original") {
     return importanceLevel;
   }
@@ -197,7 +242,8 @@ export function getImportanceLevelLabel(
 
 export function getTechnologySignalLabel(
   importanceLevel: ImportanceLevel,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
   const originalLabels: Record<ImportanceLevel, string> = {
     signal: "Early signal",
@@ -205,7 +251,7 @@ export function getTechnologySignalLabel(
     critical: "Critical signal"
   };
 
-  if (mode === "original") {
+  if (mode === "original" || locale === "en") {
     return originalLabels[importanceLevel];
   }
 
@@ -220,7 +266,8 @@ export function getTechnologySignalLabel(
 
 export function getTechnologyAudienceLabel(
   type: TechnologyType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
   const originalLabels: Record<TechnologyType, string> = {
     platform: "For platform, product, and technical strategy teams",
@@ -230,7 +277,7 @@ export function getTechnologyAudienceLabel(
     workflow: "For automation, operations, and product teams"
   };
 
-  if (mode === "original") {
+  if (mode === "original" || locale === "en") {
     return originalLabels[type];
   }
 
@@ -262,10 +309,26 @@ export function getTechnologyStatusLabel(
   return labels[status];
 }
 
+const englishRelationTypeLabels: Record<RelationType, string> = {
+  "builds-on": "Builds on",
+  uses: "Uses",
+  explains: "Explains",
+  requires: "Prerequisite",
+  extends: "Extends",
+  supersedes: "Successor",
+  supports: "Supports",
+  "related-to": "Related"
+};
+
 export function getRelationTypeLabel(
   relationType: RelationType,
-  mode: TechnologyContentMode
+  mode: TechnologyContentMode,
+  locale: Locale = "zh"
 ): string {
+  if (locale === "en") {
+    return englishRelationTypeLabels[relationType];
+  }
+
   if (mode === "original") {
     return relationType;
   }
@@ -489,4 +552,179 @@ export function getTechnologyTranslationMessage(
   return mode === "original"
     ? "Original text is shown. Switch back to Chinese at any time for easier reading."
     : "当前显示中文内容，便于快速阅读；需要核对时请参考原始来源。";
+}
+
+/** Which language a piece of text shown to the reader is in. */
+export type TextLanguage = "zh" | "en";
+
+export interface TechnologyTextForLocale {
+  text: string;
+  language: TextLanguage;
+}
+
+/**
+ * A title, summary or body for the interface language. The Chinese site
+ * keeps `getPreferredTechnologyText` exactly. The English site shows the
+ * English version when there is one — the `en` field, else the original of
+ * an English-language source — and otherwise the Chinese text, reported as
+ * Chinese so the page can mark it (`lang="zh-CN"`). Nothing is translated.
+ */
+export function getTechnologyTextForLocale(
+  value: LocalizedText,
+  sourceLanguage: SourceLanguage,
+  locale: Locale
+): TechnologyTextForLocale {
+  if (locale === "zh") {
+    const text = getPreferredTechnologyText(value, sourceLanguage);
+
+    return {
+      text,
+      language:
+        sourceLanguage === "zh" || hasLocalizedText(value, "zh") ? "zh" : "en"
+    };
+  }
+
+  const english = normalizeText(value.en);
+
+  if (english) {
+    return { text: english, language: "en" };
+  }
+
+  const original = normalizeText(value.original);
+
+  if (sourceLanguage === "en" && original) {
+    return { text: original, language: "en" };
+  }
+
+  return {
+    text: normalizeText(value.zh) ?? value.original,
+    language:
+      sourceLanguage === "en" && !hasLocalizedText(value, "zh") ? "en" : "zh"
+  };
+}
+
+/**
+ * A field as a card in a given reading mode shows it. The Chinese site is
+ * `getLocalizedTechnologyText` unchanged. On the English site 中文 shows the
+ * Chinese text and 原文 (labelled Original) shows the English version where
+ * there is one — `getTechnologyTextForLocale`.
+ */
+export function getTechnologyTextForMode(
+  value: LocalizedText,
+  mode: TechnologyContentMode,
+  sourceLanguage: SourceLanguage,
+  locale: Locale
+): TechnologyTextForLocale {
+  if (locale === "zh") {
+    return {
+      text: getLocalizedTechnologyText(value, mode, sourceLanguage),
+      language:
+        mode === "zh" &&
+        (sourceLanguage === "zh" || hasLocalizedText(value, "zh"))
+          ? "zh"
+          : sourceLanguage === "zh"
+            ? "zh"
+            : "en"
+    };
+  }
+
+  if (mode === "zh") {
+    const chinese = normalizeText(value.zh);
+
+    return chinese
+      ? { text: chinese, language: "zh" }
+      : getTechnologyTextForLocale(value, sourceLanguage, locale);
+  }
+
+  return getTechnologyTextForLocale(value, sourceLanguage, locale);
+}
+
+export function getTechnologyTitleForLocale(
+  item: TechnologyItem,
+  locale: Locale
+): TechnologyTextForLocale {
+  return getTechnologyTextForLocale(item.title, item.sourceLanguage, locale);
+}
+
+export function getTechnologySummaryForLocale(
+  item: TechnologyItem,
+  locale: Locale
+): TechnologyTextForLocale {
+  return getTechnologyTextForLocale(item.summary, item.sourceLanguage, locale);
+}
+
+/**
+ * Below this many characters an English original body is the feed's excerpt
+ * ("See the release notes for the full change list."), not the article.
+ * Measured 2026-10-13: of 71 English-source signals, 20 carry a real English
+ * body (600+ characters) and the other 51 a line or two, while the Chinese
+ * write-up runs 800–1,600 characters.
+ */
+export const englishBodyMinLength = 400;
+
+export interface TechnologyBodyForLocale extends TechnologyTextForLocale {
+  /**
+   * English site only: the English body was too short to stand in for the
+   * article, so the Chinese write-up is shown instead.
+   */
+  isChineseWriteUp: boolean;
+}
+
+/**
+ * The signal page's body. The Chinese site follows the reading mode exactly
+ * as before. On the English site, 原文 shows the English body when it is a
+ * real article (`englishBodyMinLength`) and the editors' Chinese write-up
+ * otherwise; 中文 shows the Chinese write-up.
+ */
+export function getTechnologyBodyForLocale(
+  item: TechnologyItem,
+  mode: TechnologyContentMode,
+  locale: Locale
+): TechnologyBodyForLocale {
+  if (locale === "zh") {
+    return {
+      ...getTechnologyTextForMode(
+        item.content,
+        mode,
+        item.sourceLanguage,
+        locale
+      ),
+      text: getLocalizedTechnologyText(
+        item.content,
+        mode,
+        item.sourceLanguage
+      ).trim(),
+      isChineseWriteUp: false
+    };
+  }
+
+  const chinese = normalizeText(item.content.zh);
+
+  if (mode === "zh" && chinese) {
+    return { text: chinese, language: "zh", isChineseWriteUp: false };
+  }
+
+  const english =
+    normalizeText(item.content.en) ??
+    (item.sourceLanguage === "en"
+      ? normalizeText(item.content.original)
+      : undefined);
+
+  if (english && english.length >= englishBodyMinLength) {
+    return { text: english, language: "en", isChineseWriteUp: false };
+  }
+
+  if (chinese) {
+    return {
+      text: chinese,
+      language: "zh",
+      isChineseWriteUp: item.sourceLanguage === "en"
+    };
+  }
+
+  return {
+    text: (english ?? item.content.original).trim(),
+    language: item.sourceLanguage === "zh" ? "zh" : "en",
+    isChineseWriteUp: false
+  };
 }

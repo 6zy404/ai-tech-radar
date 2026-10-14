@@ -5,11 +5,16 @@ import {
   getAllTechnologies
 } from "@/lib/content";
 import { compactText } from "@/lib/compact-text";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { localizeTag } from "@/lib/i18n/topic-names";
 import { getPublicNewsItems, type PublicNewsItem } from "@/lib/news";
 import { searchSummaryMaxLength } from "@/lib/search-card-text";
 import {
   getPreferredTechnologySummary,
-  getPreferredTechnologyTitle
+  getPreferredTechnologyTitle,
+  getTechnologySummaryForLocale,
+  getTechnologyTitleForLocale
 } from "@/lib/technology-localization";
 
 /**
@@ -314,5 +319,74 @@ export function searchPublicContent(
       grouped.skills.length +
       grouped.knowledge.length +
       news.length
+  };
+}
+
+export interface LocalizedSearchFields {
+  /** English site only: `zh-CN` on a title / summary written in Chinese. */
+  titleLang?: string;
+  summaryLang?: string;
+}
+
+/**
+ * A result as the English site shows it. The index is the same for both
+ * sites — it matches either language — so only the card changes: signals
+ * are named in English where the source is, with the Chinese title as the
+ * other-language line; links go under /en; topic names are English. Skill
+ * and knowledge results stay Chinese and are marked. The Chinese site gets
+ * the link back unchanged.
+ */
+export function localizeSearchLink<T extends SearchResultLink>(
+  link: T,
+  group: SearchGroup,
+  locale: Locale
+): T & LocalizedSearchFields {
+  if (locale === "zh") {
+    return link;
+  }
+
+  const englishTagNames = new Map(
+    getAllTags().map((tag) => [tag.name, localizeTag(tag, locale).name])
+  );
+  const base = {
+    ...link,
+    href: localePath(locale, link.href),
+    tags: link.tags.map((name) => englishTagNames.get(name) ?? name)
+  };
+
+  if (group !== "technologies") {
+    return {
+      ...base,
+      titleLang: contentLangAttr(locale),
+      summaryLang: contentLangAttr(locale)
+    };
+  }
+
+  const technology = getAllTechnologies().find((item) => item.id === link.key);
+
+  if (!technology) {
+    return base;
+  }
+
+  const title = getTechnologyTitleForLocale(technology, locale);
+  const summary = getTechnologySummaryForLocale(technology, locale);
+  const otherTitle =
+    title.language === "en"
+      ? (technology.title.zh ?? "")
+      : technology.title.original;
+  const otherSummary =
+    summary.language === "en"
+      ? (technology.summary.zh ?? "")
+      : technology.summary.original;
+
+  return {
+    ...base,
+    title: title.text,
+    summary: truncateSummary(summary.text),
+    fullSummary: fullSummaryIfCut(summary.text),
+    originalTitle: differentText(otherTitle, title.text),
+    originalSummary: differentText(otherSummary, summary.text),
+    titleLang: contentLangAttr(locale, title.language),
+    summaryLang: contentLangAttr(locale, summary.language)
   };
 }

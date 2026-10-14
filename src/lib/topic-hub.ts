@@ -5,9 +5,13 @@ import {
   getAllTechnologies,
   getContentGraph
 } from "@/lib/content";
+import { localizeContentGraph } from "@/lib/i18n/graph-nodes";
+import { localePath, type Locale } from "@/lib/i18n/locale";
+import { contentLangAttr } from "@/lib/i18n/text-lang";
+import { localizeTag } from "@/lib/i18n/topic-names";
 import {
-  getPreferredTechnologySummary,
-  getPreferredTechnologyTitle
+  getTechnologySummaryForLocale,
+  getTechnologyTitleForLocale
 } from "@/lib/technology-localization";
 import { buildTopicGraph, type TopicGraphData } from "@/lib/topic-graph";
 import type {
@@ -31,6 +35,9 @@ export interface TopicHubTechnologyEntry {
   summary: string;
   publishDate: string;
   sourceName: string;
+  /** `lang` of title / summary on the English site when they are Chinese. */
+  titleLang?: string;
+  summaryLang?: string;
 }
 
 export interface TopicHubRelatedNode {
@@ -50,14 +57,21 @@ export interface TopicHubData {
   relatedNodes: TopicHubRelatedNode[];
   /** 话题图谱：有上限的小图，见 `buildTopicGraph`。 */
   graph: TopicGraphData;
+  /** `lang` per graph node id whose title is not in the page's language. */
+  nodeLangs?: Record<string, string>;
 }
 
-export function getTopicHub(tagId: string): TopicHubData | undefined {
-  const tag = getAllTags().find((item) => item.id === tagId);
+export function getTopicHub(
+  tagId: string,
+  locale: Locale = "zh"
+): TopicHubData | undefined {
+  const sourceTag = getAllTags().find((item) => item.id === tagId);
 
-  if (!tag) {
+  if (!sourceTag) {
     return undefined;
   }
+
+  const tag = localizeTag(sourceTag, locale);
 
   const technologies = getAllTechnologies()
     .filter((item) => item.tags.includes(tagId))
@@ -81,7 +95,7 @@ export function getTopicHub(tagId: string): TopicHubData | undefined {
     ...knowledge.map((item) => item.id)
   ]);
 
-  const graph = getContentGraph();
+  const graph = localizeContentGraph(getContentGraph(), locale);
   const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
   const relatedNodes: TopicHubRelatedNode[] = [];
   const seenNeighborIds = new Set<string>();
@@ -119,17 +133,25 @@ export function getTopicHub(tagId: string): TopicHubData | undefined {
 
   return {
     tag,
-    technologies: technologies.map((item) => ({
-      slug: item.slug,
-      title: getPreferredTechnologyTitle(item),
-      summary: getPreferredTechnologySummary(item),
-      publishDate: item.publishDate,
-      sourceName: item.sourceName
-    })),
+    technologies: technologies.map((item) => {
+      const title = getTechnologyTitleForLocale(item, locale);
+      const summary = getTechnologySummaryForLocale(item, locale);
+
+      return {
+        slug: item.slug,
+        title: title.text,
+        summary: summary.text,
+        publishDate: item.publishDate,
+        sourceName: item.sourceName,
+        titleLang: contentLangAttr(locale, title.language),
+        summaryLang: contentLangAttr(locale, summary.language)
+      };
+    }),
     skills,
     knowledge,
     relatedNodes,
-    graph: buildTopicGraph(topicNodeIds, graph)
+    graph: buildTopicGraph(topicNodeIds, graph),
+    nodeLangs: graph.nodeLangs
   };
 }
 
@@ -216,11 +238,34 @@ export function buildTopicIndex(
   };
 }
 
-export function getTopicIndex(): TopicIndexData {
-  return buildTopicIndex(
+export function getTopicIndex(locale: Locale = "zh"): TopicIndexData {
+  const index = buildTopicIndex(
     getAllTags(),
     getAllTechnologies(),
     getAllSkills(),
     getAllKnowledge()
   );
+
+  if (locale === "zh") {
+    return index;
+  }
+
+  // Same order as the Chinese index, so the two lists line up; only the
+  // names and descriptions change.
+  return {
+    ...index,
+    topics: index.topics.map((topic) => {
+      const english = localizeTag(
+        { id: topic.id, name: topic.name, description: topic.description },
+        locale
+      );
+
+      return { ...topic, name: english.name, description: english.description };
+    })
+  };
+}
+
+/** A topic hub's address in the interface language. */
+export function getTopicHubPath(tagId: string, locale: Locale = "zh"): string {
+  return localePath(locale, `/topics/${tagId}`);
 }

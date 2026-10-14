@@ -6,19 +6,32 @@ import { useEffect, useRef, useState } from "react";
 
 import { SearchGlyph } from "@/components/search-glyph";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { shellCopy } from "@/lib/i18n/copy/shell";
+import {
+  documentLangs,
+  hasEnglishTwin,
+  hreflangs,
+  localePath,
+  stripLocalePrefix
+} from "@/lib/i18n/locale";
+import { useLocale } from "@/lib/i18n/use-locale";
 
-const primaryNavItems = [
-  { href: "/", label: "首页" },
-  { href: "/digest/today", label: "技术简报" },
-  { href: "/technologies", label: "技术信号" },
-  { href: "/radar", label: "雷达" },
-  { href: "/skills", label: "技能" },
-  { href: "/knowledge", label: "知识" },
-  { href: "/network", label: "关系网络" },
-  { href: "/ask", label: "问雷达" }
+type NavLabelKey = keyof (typeof shellCopy)["zh"]["nav"];
+
+// Chinese-site paths; the English nav prefixes them with /en.
+const primaryNavItems: { href: string; labelKey: NavLabelKey }[] = [
+  { href: "/", labelKey: "home" },
+  { href: "/digest/today", labelKey: "digest" },
+  { href: "/technologies", labelKey: "technologies" },
+  { href: "/radar", labelKey: "radar" },
+  { href: "/skills", labelKey: "skills" },
+  { href: "/knowledge", labelKey: "knowledge" },
+  { href: "/network", labelKey: "network" },
+  { href: "/ask", labelKey: "ask" }
 ];
 
-const workspaceNavItem = { href: "/workspace", label: "内部工作台" };
+// The workspace has no English version, so this link never takes /en.
+const workspaceNavItem = { href: "/workspace", labelKey: "workspace" as const };
 
 // `scripts/build-public.mjs` removes every workspace route from the build, so
 // the nav entry has to go with them — otherwise the public site ships a link to
@@ -54,8 +67,48 @@ function navLinkClassName(
     .join(" ");
 }
 
+/**
+ * The same page in the other language. A plain document navigation, not a
+ * client-side one: the root layout (and with it `<html lang>`) is shared by
+ * both sites and is only rendered again on a full load. Without JS the link
+ * still works, minus the query string.
+ */
+function LanguageSwitch({
+  path,
+  target
+}: {
+  path: string;
+  target: "zh" | "en";
+}) {
+  const href = localePath(target, path);
+  // The label is in the language it switches to.
+  const copy = shellCopy[target === "en" ? "zh" : "en"].languageSwitch;
+
+  return (
+    <a
+      className="top-nav__locale"
+      href={href}
+      hrefLang={hreflangs[target]}
+      lang={documentLangs[target]}
+      aria-label={copy.label}
+      title={copy.label}
+      onClick={(event) => {
+        event.preventDefault();
+        window.location.assign(
+          `${href}${window.location.search}${window.location.hash}`
+        );
+      }}
+    >
+      {copy.text}
+    </a>
+  );
+}
+
 export function TopNav() {
-  const pathname = usePathname();
+  const locale = useLocale();
+  const copy = shellCopy[locale].nav;
+  // Matched against the Chinese-site paths above, on either site.
+  const pathname = stripLocalePrefix(usePathname() ?? "/");
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -126,14 +179,14 @@ export function TopNav() {
       {primaryNavItems.map((item) => (
         <li key={item.href}>
           <Link
-            href={item.href}
+            href={localePath(locale, item.href)}
             className={navLinkClassName(pathname, item.href)}
             aria-current={
               isActiveNavItem(pathname, item.href) ? "page" : undefined
             }
             onClick={closeMenu}
           >
-            {item.label}
+            {copy[item.labelKey]}
           </Link>
         </li>
       ))}
@@ -155,7 +208,7 @@ export function TopNav() {
               }
               onClick={closeMenu}
             >
-              {workspaceNavItem.label}
+              {copy[workspaceNavItem.labelKey]}
             </Link>
           </li>
         </>
@@ -176,11 +229,15 @@ export function TopNav() {
       <div
         className={`top-nav__inner${searchOpen ? " top-nav__inner--searching" : ""}`}
       >
-        <Link href="/" className="brand" onClick={closeMenu}>
+        <Link
+          href={localePath(locale, "/")}
+          className="brand"
+          onClick={closeMenu}
+        >
           AI Tech Radar
         </Link>
 
-        <nav className="top-nav__menu" aria-label="主导航">
+        <nav className="top-nav__menu" aria-label={copy.mainNavLabel}>
           {navList}
         </nav>
 
@@ -189,7 +246,7 @@ export function TopNav() {
             className={`top-nav__search${searchOpen ? " top-nav__search--open" : ""}`}
           >
             <form
-              action="/search"
+              action={localePath(locale, "/search")}
               method="get"
               role="search"
               onSubmit={() => setSearchOpen(false)}
@@ -198,8 +255,8 @@ export function TopNav() {
                 ref={searchInputRef}
                 type="search"
                 name="q"
-                placeholder="搜索"
-                aria-label="搜索关键词"
+                placeholder={copy.searchPlaceholder}
+                aria-label={copy.searchInputLabel}
                 // Collapsed, the box is 0px wide and clipped by its form, so
                 // it must not be a tab stop; the toggle focuses it on open.
                 tabIndex={searchOpen ? undefined : -1}
@@ -219,7 +276,7 @@ export function TopNav() {
               ref={searchToggleRef}
               type="button"
               className="top-nav__search-toggle"
-              aria-label={searchOpen ? "收起搜索" : "展开搜索"}
+              aria-label={searchOpen ? copy.collapseSearch : copy.expandSearch}
               aria-expanded={searchOpen}
               onClick={() => setSearchOpen((open) => !open)}
             >
@@ -227,13 +284,20 @@ export function TopNav() {
             </button>
           </div>
 
+          {hasEnglishTwin(pathname) ? (
+            <LanguageSwitch
+              path={pathname}
+              target={locale === "zh" ? "en" : "zh"}
+            />
+          ) : null}
+
           <ThemeToggle />
 
           <button
             ref={menuToggleRef}
             type="button"
             className="top-nav__toggle"
-            aria-label={menuOpen ? "收起菜单" : "展开菜单"}
+            aria-label={menuOpen ? copy.collapseMenu : copy.expandMenu}
             aria-expanded={menuOpen}
             aria-controls="top-nav-menu"
             onClick={() => setMenuOpen((open) => !open)}
@@ -246,7 +310,7 @@ export function TopNav() {
           ref={menuPanelRef}
           id="top-nav-menu"
           className={`top-nav__menu top-nav__menu--panel${menuOpen ? " top-nav__menu--open" : ""}`}
-          aria-label="主导航"
+          aria-label={copy.mainNavLabel}
         >
           {navList}
         </nav>

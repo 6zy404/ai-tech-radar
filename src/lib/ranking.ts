@@ -1,3 +1,4 @@
+import { importantFreshnessWindowDays } from "@/lib/priority-window";
 import { evaluateCandidateQuality } from "@/lib/quality-signals";
 import type {
   CandidateQualitySignals,
@@ -42,7 +43,7 @@ interface EditorialBandInput {
 }
 
 /** An `important` signal older than this drops from 立即关注 to 值得跟踪. */
-export const importantFreshnessWindowDays = 30;
+export { importantFreshnessWindowDays };
 
 const blockingQualityFlags = new Set([
   "missing_summary",

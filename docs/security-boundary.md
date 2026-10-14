@@ -128,6 +128,10 @@ Public routes can be exposed:
 - `GET /api/push/config`, `POST /api/push/subscribe`,
   `POST /api/push/unsubscribe` (a reader's own alert subscription — see
   "Reader Push Boundary" below)
+- `/en` and `/en/...` (2026-10-14): the English twin of every public page
+  above except the feeds, the API routes, the PWA files and `/offline`; same
+  getters and mappings as the Chinese page — see "English Interface
+  Boundary" below
 
 They must not render:
 
@@ -287,8 +291,11 @@ Two invariants keep this from rotting:
    if a workspace route appears, so the claim rests on the build output rather
    than on the script's own bookkeeping.
 
-The middleware is still in the public build (5 matchers), deliberately: it costs
-nothing and it still guards if a route is ever added back.
+The middleware is still in the public build, deliberately: it costs nothing and
+it still guards if a route is ever added back. Since 2026-10-14 it also runs on
+every page request to set the interface-language header (see "English
+Interface Boundary" below), so it carries six matchers: the five guarded
+prefixes and one for pages.
 
 **Two side effects of `next build` are captured and restored** (`tsconfig.json`
 and `next-env.d.ts`). Next appends `<distDir>/types/**/*.ts` to the tsconfig
@@ -321,6 +328,37 @@ This is intentionally small. It is not a replacement for production login, per-u
 - outside production the `Host` must be a loopback name (`127.0.0.1`, `localhost`, `[::1]`, `*.localhost`) or one listed in `WORKSPACE_ALLOWED_HOSTS`, so a DNS-rebinding page cannot read the workspace as same-origin. Production is left alone: the public build has no workspace routes.
 
 The three workspace GET routes only read, which is why reads skip the first rule. `src/lib/workspace-access.test.ts` and `src/middleware.test.ts` pin both rules.
+
+## English Interface Boundary (`/en`, 2026-10-14)
+
+Every public page has an English twin under `/en`. The twin reads the same
+public getters through the same public mappings as the Chinese page — only the
+interface strings and the choice between already-public language fields
+(`title.en` / `original` / `zh`) differ — so it adds no new field to any
+public surface and no new route that reads internal data.
+
+- **No English twin for anything guarded.** `/workspace`, `/api/*`,
+  `/candidates` and `/technologies/drafts` have no `/en` address, and
+  `src/app/en/` holds no route under them. `validate:deployment` asserts
+  both: no protected prefix has an `/en` twin, and every public page route
+  has one (shown to fail with `/en/sources` removed).
+  `validate:workspace-boundary` also scans `src/components/pages/` and
+  `src/app/en/` for workspace imports (shown to fail on an injected one).
+  `build:public` needed no change: the excluded directories are the same and
+  the English routes are public.
+- **The middleware now runs on page requests** to set `x-site-locale`, which
+  the root layout reads for `<html lang>`. It always overwrites a value the
+  client sent, and it only ever selects between two interface languages, so a
+  forged header changes the `lang` attribute of that one response and
+  nothing else. The page matcher skips `_next/`, `api/`, `icons/` and
+  static file extensions. Every guarded prefix keeps its own matcher, and
+  `validate:deployment` checks with `unstable_doesMiddlewareMatch` that each
+  prefix in `protectedPathPrefixes` is still matched and still answers 401 /
+  503 with the guard on — a page matcher that swallowed them would otherwise
+  be invisible.
+- **Nothing new leaves the server.** The English AI widgets and 问雷达 call
+  the same routes with the same bodies, and answer in Chinese; feeds have no
+  English version (their titles say 「in Chinese」 on English pages).
 
 ## Delivery Secrets
 
