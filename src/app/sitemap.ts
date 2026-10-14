@@ -8,7 +8,7 @@ import {
 } from "@/lib/content";
 import { getDailyDigests } from "@/lib/digest-workflow";
 import { getSiteUrl } from "@/lib/site-metadata";
-import { getTopicHub } from "@/lib/topic-hub";
+import { getTopicIndex } from "@/lib/topic-hub";
 import { getWeeklyReviewArchive } from "@/lib/weekly-review";
 
 // Reads runtime content, so it must be served per request like the pages.
@@ -83,8 +83,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6
     }));
 
+  // `getTopicIndex` lists exactly the topics whose hub exists (the same rule
+  // as `getTopicHub`'s notFound) without building each hub: calling
+  // `getTopicHub` per tag built the whole content graph 19 times, about 1s of
+  // blocking work per request. The tag order is kept.
+  const topicIds = new Set(getTopicIndex().topics.map((topic) => topic.id));
   const topics: MetadataRoute.Sitemap = getAllTags()
-    .filter((tag) => getTopicHub(tag.id) !== undefined)
+    .filter((tag) => topicIds.has(tag.id))
     .map((tag) => ({
       url: absolute(`/topics/${tag.id}`),
       changeFrequency: "weekly",

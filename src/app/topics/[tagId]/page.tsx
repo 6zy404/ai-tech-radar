@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { cache } from "react";
 
 import { DossierCard } from "@/components/dossier-card";
 import { DossierStampTag } from "@/components/dossier-stamp-tag";
@@ -20,11 +21,15 @@ interface TopicHubPageProps {
 
 export const dynamic = "force-dynamic";
 
+// generateMetadata and the page each need the hub; `cache` builds it once per
+// request instead of twice.
+const getRequestTopicHub = cache(getTopicHub);
+
 export async function generateMetadata({
   params
 }: TopicHubPageProps): Promise<Metadata> {
   const { tagId } = await params;
-  const hub = getTopicHub(tagId);
+  const hub = getRequestTopicHub(tagId);
 
   if (!hub) {
     return buildPageMetadata({
@@ -61,7 +66,7 @@ const kindLabels: Record<ContentKind, string> = {
 
 export default async function TopicHubPage({ params }: TopicHubPageProps) {
   const { tagId } = await params;
-  const hub = getTopicHub(tagId);
+  const hub = getRequestTopicHub(tagId);
 
   if (!hub) {
     notFound();

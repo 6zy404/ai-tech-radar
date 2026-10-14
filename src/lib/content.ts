@@ -34,6 +34,7 @@ import type {
   ContentKind,
   ImportedCandidate,
   KnowledgeItem,
+  LinkRelation,
   RelationListItem,
   RelationType,
   SkillItem,
@@ -264,6 +265,43 @@ function resolveSlug(kind: ContentKind, id: string): string | undefined {
   return getAllKnowledge().find((item) => item.id === id)?.slug;
 }
 
+type TargetLookup = Map<string, { title: string; slug: string }>;
+
+/**
+ * Title and slug by id for one pool, so a per-item loop resolves each target
+ * with a map lookup instead of `resolveTitle`/`resolveSlug`, which rebuild
+ * (and for technologies re-sort) the whole pool on every call. Measured
+ * 2026-10-14: `getContentGraph` spent 46ms of its time there, and the sitemap
+ * ran it once per topic.
+ */
+function indexTargets<TItem extends { id: string; slug: string }>(
+  items: TItem[],
+  getTitle: (item: TItem) => string
+): TargetLookup {
+  const lookup: TargetLookup = new Map();
+
+  for (const item of items) {
+    // First entry wins, matching the `.find()` it replaces.
+    if (!lookup.has(item.id)) {
+      lookup.set(item.id, { title: getTitle(item), slug: item.slug });
+    }
+  }
+
+  return lookup;
+}
+
+function loadTargetLookup(kind: ContentKind): TargetLookup {
+  if (kind === "technology") {
+    return indexTargets(getAllTechnologies(), getPreferredTechnologyTitle);
+  }
+
+  if (kind === "skill") {
+    return indexTargets(getAllSkills(), (item) => item.title);
+  }
+
+  return indexTargets(getAllKnowledge(), (item) => item.title);
+}
+
 interface BuildRelationItemsOptions {
   fromId?: string;
   fromType?: ContentKind;
@@ -271,6 +309,11 @@ interface BuildRelationItemsOptions {
   targetIds: string[];
   defaultRelationType?: RelationType;
   defaultNote?: string;
+  /**
+   * The merged relation list to look pairs up in. Read once per call when
+   * absent; a page building several lists can pass one read to all of them.
+   */
+  relations?: LinkRelation[];
 }
 
 export function buildRelationItems({
@@ -279,21 +322,34 @@ export function buildRelationItems({
   targetType,
   targetIds,
   defaultRelationType = "related-to",
-  defaultNote = "Linked in the content relationship model."
+  defaultNote = "Linked in the content relationship model.",
+  relations
 }: BuildRelationItemsOptions): RelationListItem[] {
+  if (targetIds.length === 0) {
+    return [];
+  }
+
+  // Read once for the whole list: this used to call `getAllLinkRelations()`
+  // (a parse of the 442 KB override store) and two pool rebuilds per target,
+  // about 100ms on a signal page with 27 related items.
+  const targets = loadTargetLookup(targetType);
+  const relationList =
+    fromId && fromType ? (relations ?? getAllLinkRelations()) : undefined;
+
   return targetIds
-    .map((targetId) => {
-      const title = resolveTitle(targetType, targetId);
-      const slug = resolveSlug(targetType, targetId);
+    .map((targetId): RelationListItem | undefined => {
+      const target = targets.get(targetId);
+      const title = target?.title;
+      const slug = target?.slug;
 
       if (!title || !slug) {
         return undefined;
       }
 
       const relation =
-        fromId && fromType
+        relationList && fromId && fromType
           ? findRelationIn(
-              getAllLinkRelations(),
+              relationList,
               fromId,
               fromType,
               targetId,
@@ -304,6 +360,7 @@ export function buildRelationItems({
 
       return {
         id: `${fromId ?? "direct"}-${targetId}`,
+        targetId,
         title,
         href: `${contentPathMap[targetType]}/${slug}`,
         relationType: relation?.relationType ?? defaultRelationType,
@@ -397,13 +454,19 @@ export function getContentGraph(): ContentGraphData {
   const technologies = getAllTechnologies();
   const skills = getAllSkills();
   const knowledge = getAllKnowledge();
+  const lookups: Record<ContentKind, TargetLookup> = {
+    technology: indexTargets(technologies, getPreferredTechnologyTitle),
+    skill: indexTargets(skills, (item) => item.title),
+    knowledge: indexTargets(knowledge, (item) => item.title)
+  };
 
   const buildNode = (
     kind: ContentKind,
     id: string
   ): ContentGraphNode | undefined => {
-    const title = resolveTitle(kind, id);
-    const slug = resolveSlug(kind, id);
+    const target = lookups[kind].get(id);
+    const title = target?.title;
+    const slug = target?.slug;
 
     if (!title || !slug) {
       return undefined;

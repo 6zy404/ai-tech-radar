@@ -861,6 +861,12 @@ export interface LinkRelation {
 
 export interface RelationListItem {
   id: string;
+  /**
+   * The related item's id. Per-target data (e.g. a signal's
+   * `relatedSkillExplanations`) is looked up by this, never by position:
+   * the list skips targets that no longer resolve, so positions shift.
+   */
+  targetId?: string;
   title: string;
   href: string;
   relationType: RelationType;

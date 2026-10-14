@@ -18,16 +18,35 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  * 2. A store file that exists but does not parse throws instead of returning
  *    the fallback — because every store is read-modify-write of the whole
  *    file, the old behaviour turned one damaged read into a full overwrite.
+ *
+ * And one added 2026-10-14: the temp file is flushed to disk before the
+ * rename, so a power loss cannot commit the rename ahead of the contents.
  */
 
 const renameFailures = { remaining: 0, code: "EPERM" };
+const fsyncFailures = { remaining: 0 };
+const fsCalls: string[] = [];
 
 vi.mock("node:fs", async (importOriginal) => {
   const actual = await importOriginal<typeof import("node:fs")>();
 
   return {
     ...actual,
+    fsyncSync: (fd: number) => {
+      fsCalls.push("fsync");
+
+      if (fsyncFailures.remaining > 0) {
+        fsyncFailures.remaining -= 1;
+        const error = new Error("simulated EIO") as Error & { code: string };
+        error.code = "EIO";
+        throw error;
+      }
+
+      return actual.fsyncSync(fd);
+    },
     renameSync: (from: string, to: string) => {
+      fsCalls.push("rename");
+
       if (renameFailures.remaining > 0) {
         renameFailures.remaining -= 1;
         const error = new Error(`simulated ${renameFailures.code}`) as Error & {
@@ -53,6 +72,8 @@ beforeEach(() => {
   process.env.LOCAL_DATA_DIR = dataDir;
   process.env.PERSISTENCE_DRIVER = "json";
   renameFailures.remaining = 0;
+  fsyncFailures.remaining = 0;
+  fsCalls.length = 0;
   vi.resetModules();
 });
 
@@ -125,6 +146,33 @@ describe("writeLocalJsonFile", () => {
 
     expect(JSON.parse(readFileSync(filePath, "utf8"))).toEqual({ version: 1 });
     expect(readdirSync(dataDir)).toEqual(["locked.json"]);
+  });
+
+  it("flushes the temp file to disk before renaming it over the target", async () => {
+    const store = await loadStore();
+    const filePath = store.getLocalStoreFilePath("durable.json");
+
+    store.writeLocalJsonFile(filePath, { flushed: "是" });
+
+    expect(fsCalls).toEqual(["fsync", "rename"]);
+    expect(JSON.parse(readFileSync(filePath, "utf8"))).toEqual({
+      flushed: "是"
+    });
+  });
+
+  it("removes the temp file and leaves the target untouched when the flush fails", async () => {
+    const store = await loadStore();
+    const filePath = store.getLocalStoreFilePath("flush-failed.json");
+    writeFileSync(filePath, '{"version":1}\n', "utf8");
+    fsyncFailures.remaining = 1;
+
+    expect(() =>
+      store.writeFileAtomically(filePath, '{"version":2}\n')
+    ).toThrow(/EIO/);
+
+    expect(fsCalls).toEqual(["fsync"]);
+    expect(JSON.parse(readFileSync(filePath, "utf8"))).toEqual({ version: 1 });
+    expect(readdirSync(dataDir)).toEqual(["flush-failed.json"]);
   });
 
   it("does not retry errors that are not a transient lock", async () => {

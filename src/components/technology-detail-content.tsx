@@ -183,23 +183,19 @@ export function TechnologyDetailContent({
   const readingDifficultyLabel = getReadingDifficultyLabel(
     technology.readingDifficulty
   );
-  const localizedRelatedSkills = relatedSkills.map((item, index) => ({
+  const localizedRelatedSkills = relatedSkills.map((item) => ({
     ...item,
     note: getTechnologyRelationNote(
-      getTechnologySkillExplanation(
-        technology,
-        technology.relatedSkillIds[index] ?? "",
-        item.note
-      ),
+      getTechnologySkillExplanation(technology, item.targetId ?? "", item.note),
       mode
     )
   }));
-  const localizedRelatedKnowledge = relatedKnowledge.map((item, index) => ({
+  const localizedRelatedKnowledge = relatedKnowledge.map((item) => ({
     ...item,
     note: getTechnologyRelationNote(
       getTechnologyKnowledgeExplanation(
         technology,
-        technology.relatedKnowledgeIds[index] ?? "",
+        item.targetId ?? "",
         item.note
       ),
       mode

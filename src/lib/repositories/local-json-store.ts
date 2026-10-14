@@ -1,6 +1,9 @@
 import {
+  closeSync,
   existsSync,
+  fsyncSync,
   mkdirSync,
+  openSync,
   readFileSync,
   renameSync,
   rmSync,
@@ -113,6 +116,13 @@ function sleepSync(ms: number): void {
  * The temp file lives next to the target (same volume, so the rename is a
  * metadata operation) and carries the pid so two processes cannot share one.
  *
+ * The temp file is flushed to disk (`fsync`, FlushFileBuffers on Windows)
+ * before the rename. NTFS journals metadata, not data, so without the flush a
+ * power loss can commit the rename while the contents are still in the cache
+ * and leave an empty or zero-filled store — this host logged five power-loss
+ * restarts (Kernel-Power 41) in the month to 2026-10-14. A process crash alone
+ * never needed it.
+ *
  * On Windows a rename over a file another process has open fails with
  * `EPERM`/`EBUSY` for a moment; the task runner, the server and an editing
  * dev server all read these files, so the rename is retried briefly before
@@ -130,7 +140,20 @@ export function writeFileAtomically(
     .slice(2, 8)}`;
 
   mkdirSync(path.dirname(filePath), { recursive: true });
-  writeFileSync(tempPath, contents, "utf8");
+
+  try {
+    const fd = openSync(tempPath, "w");
+
+    try {
+      writeFileSync(fd, contents, "utf8");
+      fsyncSync(fd);
+    } finally {
+      closeSync(fd);
+    }
+  } catch (error) {
+    rmSync(tempPath, { force: true });
+    throw error;
+  }
 
   for (let attempt = 1; ; attempt += 1) {
     try {

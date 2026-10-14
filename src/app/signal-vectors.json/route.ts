@@ -1,4 +1,7 @@
-import { getSignalVectorResponse } from "@/lib/local-recommend-vectors";
+import {
+  etagMatches,
+  getSignalVectorResponse
+} from "@/lib/local-recommend-vectors";
 
 // Built from the live corpus on request, so a newly published signal appears
 // without a rebuild. The same file for every reader: it takes no parameters
@@ -29,7 +32,7 @@ export async function GET(request: Request) {
     ETag: response.etag
   };
 
-  if (request.headers.get("if-none-match") === response.etag) {
+  if (etagMatches(request.headers.get("if-none-match"), response.etag)) {
     return new Response(null, { status: 304, headers });
   }
 

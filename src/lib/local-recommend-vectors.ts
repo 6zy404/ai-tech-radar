@@ -143,6 +143,26 @@ export interface SignalVectorResponse {
   etag: string;
 }
 
+/**
+ * Whether an `If-None-Match` header matches the file's ETag, by the weak
+ * comparison RFC 9110 prescribes for it: a `W/` prefix on either side is
+ * ignored, the header may list several tags, and `*` matches any. Cloudflare
+ * turns the strong tag into `W/"…"` when it recompresses the response, so the
+ * browser only ever sends the weak form back — a strict `===` never got a 304.
+ */
+export function etagMatches(header: string | null, etag: string): boolean {
+  if (!header) {
+    return false;
+  }
+
+  const opaque = (tag: string) => tag.trim().replace(/^W\//, "");
+  const target = opaque(etag);
+
+  return header
+    .split(",")
+    .some((tag) => tag.trim() === "*" || opaque(tag) === target);
+}
+
 // Keyed on the corpus and the card fields both: a band label can change with
 // time alone (an 重要 signal drops to 值得跟踪 after 30 days) while the
 // embedded text, and so the corpus, stays the same.

@@ -14,6 +14,7 @@ import {
   buildKnowledgeLinkTargets,
   selectKnowledgeLinkTargets
 } from "@/lib/knowledge-autolink";
+import { getAllLinkRelations } from "@/lib/link-relation-workflow";
 import { getSignalIssueAppearances } from "@/lib/signal-digest-appearances";
 import { getSignalNeighbors } from "@/lib/signal-neighbors";
 import { getSimilarSignals } from "@/lib/similar-signals";
@@ -63,11 +64,14 @@ export default async function TechnologyDetailPage({
     notFound();
   }
 
+  // One read of the merged relations shared by the three lists below.
+  const relations = getAllLinkRelations();
   const relatedSkills = buildRelationItems({
     fromId: technology.id,
     fromType: "technology",
     targetType: "skill",
     targetIds: technology.relatedSkillIds,
+    relations,
     defaultNote: "这项技能有助于评估技术信号或据此采取行动。"
   });
   const relatedKnowledge = buildRelationItems({
@@ -75,6 +79,7 @@ export default async function TechnologyDetailPage({
     fromType: "technology",
     targetType: "knowledge",
     targetIds: technology.relatedKnowledgeIds,
+    relations,
     defaultNote: "这条知识为理解该技术信号提供背景。"
   });
   const relatedTechnologies = buildRelationItems({
@@ -82,6 +87,7 @@ export default async function TechnologyDetailPage({
     fromType: "technology",
     targetType: "technology",
     targetIds: technology.relatedTechnologyIds ?? [],
+    relations,
     defaultNote: "与该信号相邻的技术，可顺着这条线继续了解。"
   });
   const evolutionChain = getTechnologyEvolutionChain(technology.id);

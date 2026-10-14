@@ -20,7 +20,6 @@ import { TagList } from "@/components/tag-list";
 import { UnbreakableTitle } from "@/components/unbreakable-title";
 import { UserPageShell } from "@/components/user-page-shell";
 import {
-  findRelationBetween,
   getAllKnowledge,
   getAllSkills,
   getAllTechnologies,
@@ -35,6 +34,10 @@ import {
   skillTypeLabels
 } from "@/lib/content-labels";
 import { buildKnowledgeLinkTargets } from "@/lib/knowledge-autolink";
+import {
+  findRelationIn,
+  getAllLinkRelations
+} from "@/lib/link-relation-workflow";
 import {
   getKnowledgeMentions,
   type KnowledgeMentionRow
@@ -436,11 +439,14 @@ export function ContentDetailPage<TItem extends DetailItem>({
         : toKnowledgeEntry(step.item)
   }));
   const prerequisiteIds = new Set(prerequisites.map(({ step }) => step.id));
+  // One read of the merged relations for every lookup below; reading it per
+  // related item cost about 3ms each, 126ms on a skill with 44 relations.
+  const relations = getAllLinkRelations();
   const technologyRelations = relatedTechnologies.map((technology) =>
-    findRelationBetween(item.id, kind.kind, technology.id, "technology")
+    findRelationIn(relations, item.id, kind.kind, technology.id, "technology")
   );
   const allEntryRelations = allRelatedEntries.map((entry) =>
-    findRelationBetween(item.id, kind.kind, entry.id, entry.kind)
+    findRelationIn(relations, item.id, kind.kind, entry.id, entry.kind)
   );
   const relatedEntries = allRelatedEntries.filter(
     (entry) => !prerequisiteIds.has(entry.id)
