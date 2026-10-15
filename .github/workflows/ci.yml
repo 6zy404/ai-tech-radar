@@ -23,6 +23,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        env:
+          # onnxruntime-node's postinstall fetches CUDA 12 provider binaries from
+          # NuGet on linux/x64. Search runs on CPU and the validators never load
+          # the model, so skip it (install.js exits early on "skip").
+          ONNXRUNTIME_NODE_INSTALL: skip
 
       # Production dependencies only, failing on critical. Not "high": after the
       # next 15.5.27 upgrade one high advisory remains, in the postcss that next
