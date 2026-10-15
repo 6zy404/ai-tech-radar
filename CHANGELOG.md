@@ -19,7 +19,7 @@ For per-topic deep dives, see the `docs/` directory.
   unnoticed because nothing had been pushed since 09-28 and job logs need
   admin rights. The install step now also writes the head of npm's error to
   an annotation, which the public checks API shows: `Missing:
-  @emnapi/runtime@1.11.3, @emnapi/core@1.11.3 from lock file`. They are
+@emnapi/runtime@1.11.3, @emnapi/core@1.11.3 from lock file`. They are
   optional dependencies of the wasm32 fallbacks that npm 11.6 on Windows left
   out of the lock and the runner's npm 11.21 requires; the lock was
   regenerated with npm 11.21 (`--package-lock-only`, package.json unchanged).
