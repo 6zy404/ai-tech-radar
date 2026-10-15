@@ -12,7 +12,7 @@
 ## 当前状态（2026-10-15）
 
 - **线上**：`https://aizyradar.cn`，Cloudflare Tunnel 接本机 `next start`（公开构建 `npm run build:public`，工作台路由物理不存在），
-  服务只监听 `127.0.0.1`。现跑构建 `q4NXxjyq…`（2026-10-14 夜，Next.js 15.5.27）。每次部署后核对：公开路由 200（含 /radar、/signal-vectors.json、/sw.js、/manifest.webmanifest、/api/push/config）、五个内部前缀 404（含 /workspace/radar、/workspace/weekly-summaries）。
+  服务只监听 `127.0.0.1`。现跑构建 `sbax8NSt…`（2026-10-15，Next.js 15.5.27，含英文界面与全站页脚）。每次部署后核对：公开路由 200（含 /radar、/signal-vectors.json、/sw.js、/manifest.webmanifest、/api/push/config）、五个内部前缀 404（含 /workspace/radar、/workspace/weekly-summaries）。
 - **2026-09-29 至 10-09 的十四次部署**（分享卡、本页目录、搜索筛选与片段、阅读码、精选筛选写进网址、收录于、上一条 / 下一条、复制链接、
   阅读进度、/sources、`?publisher=`、话题图谱、篡改标题自动拒、窄屏内边距等）：内容与线上核对逐条在 CHANGELOG，这里不再列。
 - **2026-10-12 部署**（构建 `wgKWaBhH…`，停机约 3.4 秒，`main` `ba4465d`）：话题从 10 个细分到 19 个（旧 id 全保留），公开说明页 `/about`「本站怎么挑信号」
@@ -51,7 +51,7 @@
 - **2026-10-14 全面审查 + 安全升级**（`main` `5500608`，构建 `q4NXxjyq…`，停机约 1.5 分钟）：16 个视角审查出 160 个问题（报告：https://claude.ai/artifact/AR8mMHHnHWd9RtqdjHWLsm ，私有），
   修了其中 48 个。最要紧的是 Next.js 15.5.15 → 15.5.27（Windows 主机未授权远程执行代码漏洞）和依赖漏洞；另有 `/_next/image` 关闭、不发 `x-powered-by`、
   公开接口请求体上限与 IPv6 /64 限流、编辑轮本机工作台拒绝跨站写入。线上核对：新构建号、公开页 200、四个内部前缀 404、`/_next/image` 404。
-- **2026-10-15 全站页脚**（`main` `a39794e`，**待部署**，无依赖变化）：本站怎么挑信号、隐私说明、信源一览、RSS、在 GitHub 提 issue，中英文；工作台不显示。
+- **2026-10-15 全站页脚**（构建 `sbax8NSt…` 已上线，停机约 2.6 秒）：本站怎么挑信号、隐私说明、信源一览、RSS、在 GitHub 提 issue，中英文；工作台不显示。
 - **2026-10-02 停机约 20 分钟**（04:12–04:32）：无头 Chrome 每个进程以 Administrator 失败登录一次，10 分钟 10 次即锁账户
   10 分钟，服务的计划任务（S4U）随之起不来，回滚也救不了。截图优先用预览窗格。2026-10-08 起 `npm run deploy` / `deploy:rollback` 自己先查 10 分钟内的 4625 事件，有就拒绝并说明几点可再跑。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
