@@ -1085,6 +1085,11 @@ The evaluation set (`eval/triage/dataset.jsonl`) is **derived data**, not a
 store: rebuilt from the git history of `imported-candidates.live.json` joined
 to `candidate-review-state.json` at `HEAD`, because the review state keeps only
 each decision and never the candidate text. See `eval/triage/README.md`.
+Since 2026-10-15 the snapshot, this dataset and `eval/dedup/labels.jsonl` are
+local files, not in git: they hold third-party article text and the
+repository is public. The snapshot is runtime data like `workflow-events.json`
+(written by every import, kept by `backup:data`), and the history the dataset
+is rebuilt from lives in a private full-history bundle on the owner's machine.
 
 ## TechnologyWorkspaceRecord
 

@@ -15,6 +15,10 @@
  * publish / review / reject, with a time-based split (see SPLIT_DATE) — and
  * eval/triage/fewshot.json, the examples the model is shown. Read-only against
  * the stores; it only writes those two files.
+ *
+ * Since 2026-10-15 the snapshot is not in the public history (it held
+ * third-party article text, removed from every commit), so this needs a clone
+ * of the private full-history bundle — see eval/triage/README.md.
  */
 
 import { execFileSync } from "node:child_process";
@@ -114,6 +118,14 @@ function main() {
     .trim()
     .split("\n")
     .filter(Boolean);
+
+  if (shas.length === 0) {
+    console.error(
+      `No commit in this repository holds ${SNAPSHOT}. It left the public history on 2026-10-15; run this in a clone of the full-history bundle (eval/triage/README.md).`
+    );
+    process.exit(1);
+  }
+
   const newestCopy = new Map();
 
   for (const sha of shas) {

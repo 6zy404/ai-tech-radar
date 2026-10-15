@@ -12,8 +12,12 @@ its thresholds rest on.
 
 | File               | What it is                                                          | Tracked |
 | ------------------ | ------------------------------------------------------------------- | ------- |
-| `labels.jsonl`     | 3,285 hand-labelled pairs: `{kind, a, b, label}`                    | yes     |
+| `labels.jsonl`     | 3,285 hand-labelled pairs: `{kind, a, b, label}`                    | no¹     |
 | `unlabelled.jsonl` | pairs some grid threshold flags that have no label (`--unlabelled`) | no      |
+
+¹ Local only since 2026-10-15: each pair carries two candidates' titles and
+summaries, third-party text the public repository should not carry. It was
+removed from every commit and is git-ignored; the owner's machine keeps it.
 
 ```bash
 node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts               # the tables below

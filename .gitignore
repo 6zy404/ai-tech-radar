@@ -46,6 +46,13 @@ config/technology-comparisons.json
 config/technology-explanations.json
 config/technology-learning-paths.json
 
+# Third-party article text: the candidate snapshot (raw feed payloads) and the
+# two evaluation sets built from it. Local only since 2026-10-15, when they
+# were removed from the public history; backup:data keeps the snapshot.
+config/imported-candidates.live.json
+eval/triage/dataset.jsonl
+eval/dedup/labels.jsonl
+
 # OS files
 .DS_Store
 

@@ -8,12 +8,21 @@ against the project's own recorded editorial decisions.
 
 | File             | What it is                                                                | Tracked          |
 | ---------------- | ------------------------------------------------------------------------- | ---------------- |
-| `dataset.jsonl`  | one decided candidate per line: text, label, decision time, split         | yes              |
+| `dataset.jsonl`  | one decided candidate per line: text, label, decision time, split         | no, local only   |
 | `fewshot.json`   | the 9 examples shown to the model (3 per label, one per source per label) | yes              |
 | `results/*.json` | one report per prompt version × model, with every prediction              | yes, real runs   |
 | `cache/*.jsonl`  | successful answers, so a run resumes and a re-run costs nothing           | no (git-ignored) |
 
 ## Where the labels come from
+
+**Since 2026-10-15 neither the dataset nor the snapshot it is built from is in
+the repository.** Both hold the text of third-party articles, and the
+repository is public, so they were removed from every commit of the history
+and are git-ignored. They stay on the owner's machine, and the history they
+came from is kept in a private bundle there
+(`Desktop/ai-tech-radar-full-history-2026-10-15.bundle`). To rebuild the
+dataset, clone that bundle and run `npm run build:triage-dataset` in the clone;
+in this repository the script stops and says so.
 
 `config/candidate-review-state.json` records each decision (`converted` →
 publish, `reviewed` → review, `rejected` → reject) but **not the candidate
