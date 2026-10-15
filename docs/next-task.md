@@ -51,6 +51,7 @@
 - **2026-10-14 全面审查 + 安全升级**（`main` `5500608`，构建 `q4NXxjyq…`，停机约 1.5 分钟）：16 个视角审查出 160 个问题（报告：https://claude.ai/artifact/AR8mMHHnHWd9RtqdjHWLsm ，私有），
   修了其中 48 个。最要紧的是 Next.js 15.5.15 → 15.5.27（Windows 主机未授权远程执行代码漏洞）和依赖漏洞；另有 `/_next/image` 关闭、不发 `x-powered-by`、
   公开接口请求体上限与 IPv6 /64 限流、编辑轮本机工作台拒绝跨站写入。线上核对：新构建号、公开页 200、四个内部前缀 404、`/_next/image` 404。
+- **2026-10-15 全站页脚**（`main` `a39794e`，**待部署**，无依赖变化）：本站怎么挑信号、隐私说明、信源一览、RSS、在 GitHub 提 issue，中英文；工作台不显示。
 - **2026-10-02 停机约 20 分钟**（04:12–04:32）：无头 Chrome 每个进程以 Administrator 失败登录一次，10 分钟 10 次即锁账户
   10 分钟，服务的计划任务（S4U）随之起不来，回滚也救不了。截图优先用预览窗格。2026-10-08 起 `npm run deploy` / `deploy:rollback` 自己先查 10 分钟内的 4625 事件，有就拒绝并说明几点可再跑。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，
@@ -75,7 +76,7 @@
 - **内容**（2026-10-14 实测）：已发布信号 110、技能 22、知识 27、技术简报 36 期、在用信源 16；兜底「关联」约 5.6%（69/1237）。
   技能/知识池零占位。
 - **闸门**：typecheck / vitest（124 个测试文件）/ lint / format / `validate:all` 21 个 / `build:public` 全绿（2026-10-14 合并后）。
-  CI 只在推到 GitHub 时跑，而 main 自 09-28 起没推过（见「卡在 owner 的事」）。类型检查自 09-28 起覆盖测试文件
+  CI 在推到 GitHub 时跑（Node 24，生产依赖有严重漏洞即失败）；2026-10-15 起 main 已推送，与 GitHub 一致。类型检查自 09-28 起覆盖测试文件
   （33 个）。
 - **重活一次只跑一个**（CLAUDE.md →「Parallel windows」）：一次 `css:diff`
   约 6 分钟，采集必须串行。
@@ -173,15 +174,17 @@ on …」和空 release 的「No content.」2026-09-30 起导入时也会剥掉�
 
 - 新信号提醒上线后用真机走一遍（桌面 Chrome 或 Android）：开提醒 → 编辑轮推送 → 收到通知 → 关提醒后服务器记录消失。预览窗格不给通知权限，做不了。
 - 用真实的 Telegram bot 和 Discord webhook 各发一次已发布简报，核对排版和截断；服务器要通过代理启动（同推送，手册 Step 7b）。
-- 把 main 推到 GitHub（09-28 起 250 多个提交只在本机一块盘上，CI 也因此没跑），推之前确认仓库保持私有。
-- 仓库改 Public 之前：把 `config/imported-candidates.live.json` 和评测集里的第三方全文（含 50 个历史版本）移出 git，用干净历史公开，
-  补 LICENSE / SECURITY.md；之后再改可见性、更新描述。
+- GitHub 仓库**本来就是公开的**（状态板曾误记为待办）。2026-10-15 已把候选快照、两个评测集、旧审计日志和内部截图从全部历史中删除并强推，
+  完整历史在桌面 `ai-tech-radar-full-history-2026-10-15.bundle`（私有，勿上传）。还剩 owner 网页操作：删除 GitHub 上的旧分支
+  `claude/globals-css-split-design-diff-1f7d77`（已并入 main，仍带旧历史）；可选请 GitHub 客服清除旧提交缓存；补 LICENSE / SECURITY.md。
+  本机其他窗口的分支仍在旧历史上，未合并的工作要摘到新 main（`git cherry-pick`）。
 - 线上服务和隧道以内置 Administrator 运行：建一个低权限本地账户跑服务（顺带避开账户锁定）。
 - 合规（需专业人士确认）：备案状态；问雷达等公开生成式 AI 功能的登记与标识；页脚放运营者联系方式；隐私说明补 Cloudflare。
 - 外部拨测：每 5 分钟打 `/api/health`，连续两次失败再告警（账号是 owner 的，
   配置写在 `docs/deployment.md`）。
-- 主机夜里实际是关机（快速启动）而不是睡眠，`WakeToRun` 从没唤醒过：09-20 起约三分之一时间离线，10-03 至 10-07 停站 4.6 天。
-  要决定：不关机 / 换常开主机 / 至少配 Cloudflare 离线页；外部拨测尽快配上。
+- 主机夜里实际是关机（快速启动）而不是睡眠，`WakeToRun` 从没唤醒过（09-20 起约三分之一时间离线）。2026-10-15 决定：上线期间不关机；
+  Cloudflare 离线页（`ops/cloudflare/offline-worker.js`）与外部拨测按 `docs/deployment.md` 在 owner 账号里配置，尚未配。
+- 低权限运行账户：按 `docs/service-account.md` 执行 `scripts/setup-service-account.ps1`（默认只打印计划，加 -Apply 才改），尚未执行。
 - 第二块盘（见异盘备份）。
 - Cloudflare 往页面里注入 Web Analytics 信标（`static.cloudflareinsights.com/beacon.min.js`），被站点的
   CSP 拦下，每页控制台一条报错（2026-09-30 发现）。在 Cloudflare 面板关掉 Web Analytics 自动注入，

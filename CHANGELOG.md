@@ -12,6 +12,44 @@ For per-topic deep dives, see the `docs/` directory.
 > log so that the README can stay focused on the current state. Earlier entries
 > were reconstructed from that log and may not carry exact dates.
 
+## A site footer, ops guides, and third-party text out of the public history
+
+- **2026-10-15. The repository was already public.** `docs/next-task.md` listed
+  making it public as an owner task, but `github.com/6zy404/ai-tech-radar` had
+  been public all along (0 stars, 0 forks, last push 2026-09-28). Its history
+  carried the candidate snapshot's raw feed payloads — full article HTML from
+  GitHub Blog, release notes, Simon Willison, InfoQ and others, 50 versions —
+  and two evaluation sets built from them. Those three files, the old
+  `config/workflow-events.json` and `visual-qa-screenshots/` (workspace
+  screenshots) were removed from every commit (`git filter-branch
+--index-filter` in a separate clone, about 5.5 minutes for 690 commits), the
+  final tree checked identical to the one before, and `main` force-pushed.
+  The three data files stay on disk, git-ignored. The full history is kept in
+  a private bundle on the owner's desktop, which `build:triage-dataset` now
+  points to. Every commit id changed; ids quoted in older entries refer to the
+  old history. The stale remote branch
+  `claude/globals-css-split-design-diff-1f7d77` still carries the old history
+  and has to be deleted on GitHub by the owner.
+- **The live checkout was moved without touching its data.** A plain merge of
+  the commit that untracks the snapshot would have deleted
+  `config/imported-candidates.live.json` from the live data directory (git
+  refused only because the morning import had modified it). Instead `main`
+  was moved with `update-ref`, the index reset with `reset --mixed`, and the
+  17 changed source and doc paths checked out by name; the data files kept
+  their size and timestamp.
+- **A site-wide footer** (`SiteFooter`, zh and en): how signals are picked,
+  privacy, sources, the briefing feed and an issue link on GitHub as the
+  contact, plus the labelling sentence /about already uses. Hidden on
+  workspace pages by CSS, clear of the back-to-top button, not printed.
+  Checked at 1440 and 375 (dark). Not deployed yet.
+- **Ops guides**, written but not executed: the host was shutting down at
+  night (fast startup), not sleeping, so `WakeToRun` never woke it; the
+  decision is to keep it on. A Cloudflare Worker offline page
+  (`ops/cloudflare/offline-worker.js`), external uptime checks, and moving the
+  server and tunnel off the built-in Administrator
+  (`docs/service-account.md`, `scripts/setup-service-account.ps1`, a dry run
+  unless `-Apply`). The tunnel no longer reads as a way around ICP filing.
+
 ## Whole-project review: Next.js security upgrade and 64 small fixes
 
 - **2026-10-14. A sixteen-lens review of the whole project** (product,
