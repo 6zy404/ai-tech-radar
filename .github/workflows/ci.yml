@@ -21,13 +21,13 @@ jobs:
           node-version: 24
           cache: npm
 
-      # On failure the tail of npm's output also becomes one error annotation,
+      # On failure the head of npm's output also becomes one error annotation,
       # which the checks API shows without the admin rights job logs need.
       - name: Install dependencies
         run: |
           npm ci > npm-ci.log 2>&1 || {
-            tail -n 40 npm-ci.log
-            msg=$(tail -n 40 npm-ci.log | tr -d '\015' | sed 's/%/%25/g' | awk 'BEGIN { ORS = "%0A" } { print }')
+            cat npm-ci.log
+            msg=$({ head -n 12 npm-ci.log; grep -E 'Missing|Invalid|lock file|ERESOLVE|EBADENGINE|EBADPLATFORM' npm-ci.log | head -n 25; } | tr -d '\015' | sed 's/%/%25/g' | awk 'BEGIN { ORS = "%0A" } { print }')
             echo "::error title=npm ci failed::${msg}"
             exit 1
           }
