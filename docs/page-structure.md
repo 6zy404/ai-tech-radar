@@ -1101,6 +1101,28 @@ Forbidden on public pages:
     from `src/lib/i18n/copy/shell.ts`. In the dev build with the workspace
     entry, the English bar tightens further at 901–980px (gap 8, link
     padding 4) so the brand stays on one line
+- `SiteFooter` (`site-footer.tsx`, 2026-10-15)
+  - the footer under every public page, rendered once by `layout.tsx`
+    after `<main>` (so it is the page's contentinfo landmark): a
+    `<nav aria-label="关于本站">` with 本站怎么挑信号 (`/about`), 隐私说明
+    (`/about#privacy`), 信源一览 (`/sources`), RSS 订阅（技术简报）
+    (`/feed.xml`) and 反馈与联系：在 GitHub 提 issue (the repository's
+    issues, a new tab, `rel="noreferrer noopener"`; no e-mail address), then
+    one sentence restating the two labels /about describes (AI features
+    「未经审核」, the news lane 「未经编辑精选」)
+  - a server component; copy in `src/lib/i18n/copy/footer.ts` (its own
+    module, so the top nav's client bundle does not carry it); the locale
+    comes from the layout, like `<html lang>`. On `/en` the pages take
+    `/en`, the feed keeps `/feed.xml` and says it is in Chinese
+    (`getSiteFooterLinks`, `hasEnglishTwin`)
+  - 13px on the page ground under a hairline, the paper frame's width
+    (1060px), its own three colour tokens per scheme (the dossier's muted,
+    accent and line values; it sits outside `.dossier`, like the top nav)
+  - hidden on workspace pages by CSS, whenever `<main>` holds the
+    `.workspace-shell` (decided in the browser, because the root layout does
+    not re-render on client navigation); leaves 76px under its text where
+    `<main>` holds the 返回顶部 button, so the button never sits on the last
+    line; hidden in print
 - `ThemeToggle`
   - user-facing light/dark switch in the top nav. The choice lives only in
     this browser's localStorage (`src/lib/theme.ts`), same boundary as

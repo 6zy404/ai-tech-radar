@@ -136,6 +136,8 @@
 @import "./styles/components/reading-progress.css";
 @import "./styles/components/local-recommend.css";
 @import "./styles/components/chinese-only-note.css";
+/* No other file targets .site-footer, so its place in the order is free. */
+@import "./styles/components/site-footer.css";
 /* Print rules, all of them, inside one @media print — last, so they win
    without touching any screen rule. */
 @import "./styles/print.css";

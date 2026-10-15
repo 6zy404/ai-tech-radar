@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { ErrorShellRepair } from "@/components/error-shell-repair";
 import { PwaRegistration } from "@/components/pwa-registration";
+import { SiteFooter } from "@/components/site-footer";
 import { SkipLink } from "@/components/skip-link";
 import { TopNav } from "@/components/top-nav";
 import { documentLangs, openGraphLocales } from "@/lib/i18n/locale";
@@ -66,9 +67,11 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  // `zh-CN`, or `en` under /en, from the header src/middleware.ts sets.
-  // Also handed to ErrorShellRepair, which restores it on Next's error shell.
-  const documentLang = documentLangs[await getRequestLocale()];
+  // `zh`, or `en` under /en, from the header src/middleware.ts sets. Its
+  // `lang` value is also handed to ErrorShellRepair, which restores it on
+  // Next's error shell; the footer takes the locale itself.
+  const locale = await getRequestLocale();
+  const documentLang = documentLangs[locale];
 
   return (
     // `suppressHydrationWarning` is required here, not cosmetic: the script
@@ -90,6 +93,9 @@ export default async function RootLayout({
         <main id={mainContentId} className="main-content" tabIndex={-1}>
           {children}
         </main>
+        {/* Outside <main>, so it is the page's contentinfo landmark. Hidden
+            on workspace pages by CSS (site-footer.css). */}
+        <SiteFooter locale={locale} />
       </body>
     </html>
   );

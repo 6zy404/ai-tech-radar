@@ -1,0 +1,79 @@
+/* components/site-footer: the footer under every public page (site-footer.tsx,
+   2026-10-15). Small type on the page ground, under a hairline: page chrome,
+   like the top nav, not a panel.
+
+   It sits outside .dossier, so the --dossier-* tokens do not reach it; like
+   the top nav it carries its own dark variant keyed off the root attribute.
+   Its three colours are the dossier's own values, declared once per scheme
+   as tokens. Measured against the body ground at the foot of the page
+   (#f0ebe2 light, #1c1b17 dark): text 5.35:1 / 6.54:1, links 7.21:1 /
+   5.83:1. The focus ring is the global --focus-ring, which already follows
+   the scheme at the root. */
+
+.site-footer {
+  --site-footer-text: #62604f; /* --dossier-muted */
+  --site-footer-link: #34524a; /* --dossier-accent */
+  --site-footer-line: #c9c5b2; /* --dossier-line */
+  /* The width of the page's paper frame (.user-shell), so the hairline
+     ends where the frame above it does. */
+  width: min(1060px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 14px 0 28px;
+  border-top: 1px solid var(--site-footer-line);
+  color: var(--site-footer-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  line-height: var(--lh-base);
+}
+
+:root[data-theme="dark"] .site-footer {
+  --site-footer-text: #a3a08c;
+  --site-footer-link: #6fa090;
+  --site-footer-line: #46473a;
+}
+
+/* One row that wraps between items, never inside a short label. */
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Page chrome: no underline at rest, underline on hover (design-system.md →
+   "Links in page chrome carry no underline at rest"). The vertical padding
+   makes each link a 27px-tall target without spacing the text out. */
+.site-footer__links a {
+  display: inline-block;
+  padding: 4px 0;
+  color: var(--site-footer-link);
+  text-underline-offset: 0.2em;
+}
+
+.site-footer__links a:hover {
+  text-decoration: underline;
+}
+
+.site-footer__note {
+  margin: 4px 0 0;
+  line-height: var(--lh-base);
+}
+
+/* Workspace pages share the root layout. The footer is for readers, so it
+   is hidden wherever <main> holds the workspace shell — decided in the
+   browser, because the root layout does not re-render on client
+   navigation. */
+.main-content:has(.workspace-shell) + .site-footer {
+  display: none;
+}
+
+/* The reading pages carry the fixed 返回顶部 button bottom right (44px, 20px
+   in; 14px below 640px). Scrolled to the end, it would sit on the footer's
+   last line wherever that line reaches the right edge — at phone width it
+   always does — so the footer leaves room under its text for it. */
+.main-content:has(.reading-progress-top) + .site-footer {
+  padding-bottom: 76px;
+}
