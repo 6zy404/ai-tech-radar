@@ -93,13 +93,21 @@ for the specifics.
 
 ### Exposure: outbound tunnel (chosen 2026-08-13)
 
-The machine sits behind a residential-style connection, so the three things
-that would otherwise sink a domain purchase are: ICP filing for anything
-resolving to a mainland-hosted service, inbound 80/443 commonly blocked, and a
-dynamic IP. An outbound tunnel (Cloudflare Tunnel, frp, …) sidesteps all three
-— the machine dials out, nothing listens inbound, and the address does not
-have to be stable. Buy the domain at a registrar that suits the tunnel provider;
-`.dev` and `.app` are worth considering because browsers force HTTPS on them.
+The machine sits behind a residential-style connection: inbound 80/443 is
+commonly blocked, and the IP address is dynamic. An outbound tunnel
+(Cloudflare Tunnel, frp, …) solves those two network problems — the machine
+dials out, nothing listens inbound, and the address does not have to be
+stable.
+
+That is all it solves. A tunnel changes the network path, not where the site
+is run or who runs it, so it has no bearing on whether legal obligations such
+as ICP filing (备案) apply. This document draws no conclusion on that; it is
+an open owner item that needs professional advice (`docs/next-task.md` →
+「卡在 owner 的事」→ 合规). (Corrected 2026-10-14: this paragraph used to say
+the tunnel "sidesteps" filing along with the two network problems.)
+
+Buy the domain at a registrar that suits the tunnel provider; `.dev` and
+`.app` are worth considering because browsers force HTTPS on them.
 
 **Honest caveat:** tunnel edges vary in how well they serve mainland visitors.
 Measure it before assuming it is fine.
@@ -160,6 +168,19 @@ Four settings are doing real work here:
 - **`-RestartCount 3`** — bring it back if the process dies.
 - **`-StartWhenAvailable`** — start it after a missed trigger rather than
   waiting for the next boot.
+
+**These tasks run as the built-in Administrator; a low-privilege account is
+prepared, not yet applied (2026-10-15).** The account is RID 500 and
+`FilterAdministratorToken` is unset, so UAC gives it no filtered token and
+`-RunLevel Limited` filters nothing: the public server and the tunnel run
+with full administrator rights (Task Manager → Details → the 提升 / Elevated
+column on the `node.exe` that holds port 3000 shows it). It also ties the site
+to that one account: on 2026-10-02 an Administrator lockout stopped the server
+task from starting for 20 minutes (see "Deploy with one command" below).
+[`docs/service-account.md`](service-account.md) and
+`scripts/setup-service-account.ps1` move the server, import, backup and tunnel
+tasks to two standard local accounts; the owner runs them, and the document
+lists what `scripts/deploy.ps1` should change afterwards.
 
 **The server listens on loopback only (2026-09-28).** `npm run start` is
 `next start -H 127.0.0.1`. The tunnel connects to `localhost:3000` from the
@@ -591,7 +612,12 @@ direction here.
 **Files that now hold secrets on this machine**, none of them in the repo:
 `.env.local` (workspace token) and
 `C:\Users\Administrator\.cloudflared\` (`cert.pem` plus the tunnel credentials
-JSON — anyone holding that file can serve traffic for this hostname).
+JSON — anyone holding that file can serve traffic for this hostname). Once
+[`docs/service-account.md`](service-account.md) is applied, the tunnel runs
+from a copy of `config.yml` and the credentials in
+`C:\ProgramData\ai-tech-radar\cloudflared\`; ingress edits go there, and the
+originals stay where they are (`cert.pem` is still what the management
+commands use).
 
 ## Go-live runbook (single operator, one server)
 
@@ -947,14 +973,14 @@ Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Settings $s
 - `ExecutionTimeLimit` and `MultipleInstances` are only repeated because
   `New-ScheduledTaskSettingsSet` builds a **complete** settings object: any
   value left out is reset to its default, not preserved.
-- `WakeToRun` was deliberately **off** until 2026-09-24, as a machine-behavior
-  decision for the operator. **It is on now**, on this task and on the backup
-  task, owner-decided after the site went public: the host is a desktop with
-  automatic sleep disabled, so every sleep since go-live was manual, and on
-  2026-09-23 it slept from 03:01 to 13:59 — the site was down, and neither
-  07:45 nor 08:05 ran (waking was a fresh logon, which the unlock trigger does
-  not match). With `WakeToRun` the machine wakes for the 07:45 backup and stays
-  up, so the site is back from then on. Applied with
+- `WakeToRun` was turned **on** on 2026-09-24, on this task and on the backup
+  task, after the site went public, on the reasoning that the host slept at
+  night and would now wake for the 07:45 backup. **It has never woken the
+  machine, because the machine was not asleep** (corrected 2026-10-14; see
+  "Keeping the host on" below). The 2026-09-23 outage that prompted it, from
+  03:01 to 13:59, was a shutdown with fast startup — Kernel-Power 42 records
+  `TargetState=6` — and a wake timer does nothing for a machine that is off.
+  The setting is harmless and still on. It was applied with
   `$t = Get-ScheduledTask "ai-tech-radar-tasks"; $s = $t.Settings; $s.WakeToRun = $true; Set-ScheduledTask "ai-tech-radar-tasks" -Settings $s`
   (same for `ai-tech-radar-backup`); roll back with `$s.WakeToRun = $false`.
 
@@ -969,6 +995,18 @@ day, and a missed day's digest draft is never backfilled — the scheduled
 digest always generates _today's_ draft.
 
 #### `StartWhenAvailable` did not survive contact with sleep (2026-08-04)
+
+> **Correction (2026-10-14 review): those mornings were shutdowns, not
+> sleep.** Re-read on 2026-10-15, every Kernel-Power 42 entry in the System
+> log back to 2025-07-23 — 193 of them — has `EffectiveState=5`, and 192 have
+> `TargetState=6`: a shutdown with fast startup. That includes 07-31 04:44 and
+> 08-04 01:20; the "user-mode `SetSuspendState` at 01:20" below is that
+> shutdown. The conclusion about the task stands — no trigger can fire while
+> the machine is off — but "asleep" does not, and nor does the premise of
+> `WakeToRun`. One more consequence: after a shutdown the morning starts with
+> a **new logon**, not an unlock, so the unlock trigger added below does not
+> fire then; the backup task's at-logon trigger (see "Daily backup") is the
+> shape that matches. Neither task was changed by this correction.
 
 The settings above were applied on 2026-07-28 and are still in place, and the
 task still skipped three of the next seven days: **07-31, 08-02 and 08-04**.
@@ -1021,8 +1059,9 @@ Roll back with
 
 #### Not every missed run was sleep — 17% were killed by Ctrl+C (2026-08-09)
 
-**The sleep explanation above is correct for 07-31, 08-02 and 08-04 and was
-then over-applied.** 08-08 was written up as another sleep day without being
+**The explanation above — the machine was not running at 08:05, which the
+2026-10-14 correction shows meant shut down rather than asleep — is correct
+for 07-31, 08-02 and 08-04 and was then over-applied.** 08-08 was written up as another sleep day without being
 checked. It was not. The Task Scheduler history enabled on 08-04 finally had
 something to say, and it says the opposite:
 
@@ -1185,8 +1224,9 @@ What it does, and why each part is there:
   from today already has a manifest, the run logs it and exits 0.
   `BACKUP_FORCE=1` takes another one anyway. This exists because the task now
   also fires **3 minutes after logon** (`New-ScheduledTaskTrigger -AtLogOn`,
-  `Delay = PT3M`, added 2026-09-24 alongside `WakeToRun`) — the machine slept
-  through 07:45 on 09-23 and woke into a fresh logon — and without the guard
+  `Delay = PT3M`, added 2026-09-24 alongside `WakeToRun`) — the machine was
+  off at 07:45 on 09-23 (a fast-startup shutdown, at the time misread as
+  sleep) and started into a fresh logon — and without the guard
   every logon would add a snapshot and push a real day out of the 14-slot
   window. Roll the trigger back with
   `Set-ScheduledTask "ai-tech-radar-backup" -Trigger (New-ScheduledTaskTrigger -Daily -At 07:45)`;
@@ -1218,11 +1258,113 @@ the same physical disk, so a disk failure loses both. It covers the failure
 mode this project actually hits — a store written wrong, truncated, or deleted.
 Copying `BACKUP_DIR` off the machine periodically is still worth doing.
 
+## Keeping the host on (2026-10-14)
+
+**Decision (owner, 2026-10-14): while the site is public, this machine is not
+shut down.** Lock the screen (Win+L) instead. A restart — Windows Update, a
+driver — is fine: the server and tunnel tasks start at boot without anyone
+logging on (the proxy does not; see "Proxy for every entry point"). A shutdown
+takes the site down until someone presses the power button.
+
+### What the power log says
+
+Until the 2026-10-14 review this document said the host _slept_ at night and
+that `WakeToRun` would bring it back for the 07:45 backup. Both were wrong.
+Re-measured on 2026-10-15:
+
+| Event                                                | Since go-live (09-20)                        | Meaning                                                                 |
+| ---------------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------- |
+| Kernel-Power 42, `TargetState=6`, `EffectiveState=5` | 11 of 11                                     | shutdown with fast startup                                              |
+| Kernel-Power 42, `TargetState=4`                     | 0                                            | it never went to sleep                                                  |
+| User32 1074 (who asked for it)                       | 4, all `RuntimeBroker.exe` for Administrator | the Start menu's power button; the other 7 shutdowns have no 1074 entry |
+| Kernel-Power 41, `BugcheckCode=0`                    | 5 (09-21, 09-25, 09-29, 10-01, 10-13)        | power lost, or a reset, without a crash or a clean shutdown             |
+
+Across the whole System log, back to 2025-07-23, 192 of 193 sleep-or-shutdown
+entries are the same fast-startup shutdown. A wake timer cannot start a
+machine that is off, so `WakeToRun` has never done anything. The review
+measured the cost: since 09-20 the site was offline about a third of the time,
+and from 10-03 to 10-07 for 4.6 days in one stretch. Who started the 7
+shutdowns without a 1074 entry is not known.
+
+`TargetState` and `EffectiveState` use Windows' power-state numbers: `4` sleep
+(S3), `5` hibernate, `6` shutdown. A `6` entered as `5` is fast startup, which
+writes the kernel to the hibernation file on the way down.
+
+### What to set (the owner's choice)
+
+1. **Do not shut down** while the site is public. If the machine has to go
+   off, expect the site to be offline until it is back, and the external check
+   below to say so.
+2. **No sleep or hibernation on AC power.** On 2026-10-15 both timeouts were
+   already 0 (never) on the active plan, so this is about keeping it that way.
+3. **Watch the power plan.** The active plan on 2026-10-15 was "Razer Cortex
+   Power Plan". Razer Cortex and similar game boosters switch plans when they
+   start and stop, and a timeout set on one plan does not carry over to
+   another — set it on every plan (below), or check again after Cortex has run.
+4. **Power loss has no software fix.** A UPS is the hardware answer. Many
+   desktop firmwares also offer "Restore on AC power loss → Power On", which
+   brings the machine back by itself when the power returns; the boot tasks
+   then bring the site back without a logon.
+
+Fast startup itself is not the cause and does not need to be turned off: a
+shutdown is an outage either way.
+
+**Checking — read-only, safe to run at any time:**
+
+```powershell
+powercfg /a                 # sleep states this machine supports; lists fast startup when it is on
+powercfg /getactivescheme   # the plan in force right now
+powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE    # AC index 0x00000000 = never sleep
+powercfg /query SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE  # AC index 0x00000000 = never hibernate
+powercfg /lastwake          # what woke it last
+
+# shutdowns and sleeps of the last 30 days, with the state Windows entered
+Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-Power'; Id = 42; StartTime = (Get-Date).AddDays(-30) } |
+  ForEach-Object {
+    $d = ([xml]$_.ToXml()).Event.EventData.Data
+    [pscustomobject]@{
+      Time      = $_.TimeCreated
+      Target    = ($d | Where-Object Name -eq 'TargetState').'#text'
+      Effective = ($d | Where-Object Name -eq 'EffectiveState').'#text'
+    }
+  }
+
+# power lost, or a reset, without a clean shutdown
+Get-WinEvent -FilterHashtable @{ LogName = 'System'; ProviderName = 'Microsoft-Windows-Kernel-Power'; Id = 41; StartTime = (Get-Date).AddDays(-30) } |
+  Select-Object TimeCreated
+
+# which process asked for a shutdown or restart
+Get-WinEvent -FilterHashtable @{ LogName = 'System'; Id = 1074; StartTime = (Get-Date).AddDays(-30) } |
+  Select-Object TimeCreated, Message
+```
+
+On a Chinese-language Windows the `powercfg /query` line reads
+`当前交流电源设置索引`. When nothing matches, `Get-WinEvent` prints an error
+rather than an empty list — for event 41 that is the good outcome.
+
+**Changing it — these change system power settings; nothing in this
+repository runs them, and whether to is the owner's decision:**
+
+```powershell
+# never sleep or hibernate on AC power, active plan only
+powercfg /change standby-timeout-ac 0
+powercfg /change hibernate-timeout-ac 0
+
+# the same on every plan, so a plan switch cannot undo it
+powercfg /list | Select-String '([0-9a-fA-F-]{36})' | ForEach-Object {
+  $guid = $_.Matches[0].Groups[1].Value
+  powercfg /setacvalueindex $guid SUB_SLEEP STANDBYIDLE 0
+  powercfg /setacvalueindex $guid SUB_SLEEP HIBERNATEIDLE 0
+}
+powercfg /setactive SCHEME_CURRENT   # re-apply the active plan so the change takes effect now
+```
+
 ## Health endpoint and uptime alerts (2026-09-25)
 
-The site was down for about 28 of its first 90 hours (the host asleep) and
-nobody knew until logs were read days later; a stalled model download logged
-nothing at all. Two pieces close that:
+The site was down for about 28 of its first 90 hours (the host shut down
+overnight — see "Keeping the host on") and nobody knew until logs were read
+days later; a stalled model download logged nothing at all. Two pieces close
+that:
 
 **`GET /api/health`** (public, no token, `Cache-Control: no-store`) answers
 `200` with `{ status: "ok" }` when the JSON store reads, `503` with
@@ -1243,17 +1385,173 @@ instead of waiting on a hung download forever. Proven with a 1ms timeout
 second). A late failure of an abandoned load never surfaces as an unhandled
 rejection.
 
-**External check.** Point an uptime monitor at
-`https://aizyradar.cn/api/health`, expecting HTTP `200` and the string
-`"status":"ok"`, every 5 minutes, alerting after two consecutive failures.
-Any free tier does (UptimeRobot, Better Stack, Cronitor); the choice and the
-account are the operator's. Two consecutive failures is deliberate: a single
-miss during the ten-second rebuild swap is not an outage.
+### External check (in the owner's account)
 
-**What this still does not cover**: a wrong `200` (the page renders but its
-data is stale or wrong), and the tunnel being up while the machine is
-asleep — in that state the tunnel answers `502`/`530` at the edge, which the
-monitor does see, so the sleep outages of 09-21 to 09-23 would have alerted.
+**Recommended: a hosted monitor.** UptimeRobot, or any service with a free
+tier (Better Stack, Cronitor, …):
+
+| Setting  | Value                                                                                             |
+| -------- | ------------------------------------------------------------------------------------------------- |
+| Type     | HTTP(s) with a keyword check (UptimeRobot calls it "Keyword")                                     |
+| URL      | `https://aizyradar.cn/api/health`                                                                 |
+| Keyword  | `"status":"ok"` — alert when it is **missing**                                                    |
+| Interval | 5 minutes                                                                                         |
+| Alert    | after 2 consecutive failures; where a service expresses this as a delay instead, about 10 minutes |
+| Contact  | the owner's email or app                                                                          |
+
+This is configured in the owner's account; nothing in this repository creates
+or changes it, and the setting names differ between services. When it is set
+up, record the date and the service here.
+
+Two consecutive failures is deliberate: the few seconds of a deploy swap are
+not an outage. `/api/health` is excluded from the offline Worker (next
+section), so the monitor always sees the edge's real `530` or `502`, never the
+offline page.
+
+**Without a third-party account: a GitHub Actions schedule.** The workflow
+below is an example only. It is **not** committed under `.github/workflows/`,
+because a workflow there starts running as soon as it is pushed; copy it to
+`.github/workflows/uptime.yml` when you decide to use it.
+
+```yaml
+name: uptime
+on:
+  schedule:
+    - cron: "*/5 * * * *" # private repository: "*/30 * * * *", see below
+  workflow_dispatch:
+permissions: {}
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: /api/health answers ok (two tries, a minute apart)
+        run: |
+          for attempt in 1 2; do
+            if curl -fsS --max-time 30 https://aizyradar.cn/api/health | grep -q '"status":"ok"'; then
+              echo "ok on attempt $attempt"
+              exit 0
+            fi
+            if [ "$attempt" = 1 ]; then sleep 60; fi
+          done
+          echo "::error::https://aizyradar.cn/api/health failed twice, a minute apart"
+          exit 1
+```
+
+What to know before choosing it:
+
+- **Who gets the email.** GitHub sends a scheduled workflow's failures to the
+  user who created the workflow file or last changed its `cron` line — in this
+  one-person repository, the owner — according to that user's Actions
+  notification setting (Settings → Notifications → Actions; check that failed
+  runs send email). Every failed run is one email, so a long outage sends one
+  every five minutes.
+- **It is best-effort.** Scheduled runs start late when GitHub is busy — often
+  by minutes, sometimes by much more — and some can be dropped. Treat it as a
+  coarse check, not a five-minute guarantee.
+- **Public repository: 60 days.** GitHub disables scheduled workflows in a
+  public repository after 60 days without repository activity; re-enable it
+  from the Actions tab.
+- **Private repository: minutes.** Each run is billed as at least one minute,
+  so every 5 minutes comes to about 8,640 minutes a month against the 2,000
+  included in GitHub Free. Run it every 30 minutes (about 1,440) while the
+  repository is private; standard runners for a public repository are free.
+  As of 2026-10-15 the repository is not on GitHub yet (`docs/next-task.md` →
+  「卡在 owner 的事」).
+- Like most hosted monitors, it checks from outside mainland China: it answers
+  "is the site up", not "is it fast for readers here".
+
+**What this still does not cover**: a wrong `200` — the page renders but its
+data is stale or wrong. When the machine is off, the tunnel has no connector
+and the edge answers `530` (Cloudflare error 1033); when the machine is up but
+the server is not, `cloudflared` answers `502`. The monitor sees both, so the
+outages of 09-21 to 09-23 would have alerted.
+
+## What readers see when the site is offline (2026-10-14)
+
+Without anything in front of the tunnel, a reader who arrives while this
+machine is off gets Cloudflare's own error page — `530`, error 1033, in
+English, about Cloudflare Tunnel — and one who arrives while the server is
+down behind a running tunnel gets a bare `502`.
+`ops/cloudflare/offline-worker.js` is a Cloudflare Worker that replaces those
+with a short page in the site's own voice: Chinese first, one line of English,
+saying the site is temporarily offline and that feed readers will retry by
+themselves.
+
+What it does — about 90 lines, no dependencies, no bindings:
+
+- forwards every request to the origin unchanged and returns its answer;
+- for a `GET` outside `/api/` whose answer is `502`, `503`, `504` or
+  `520`–`530`, or that could not be fetched at all, returns the offline page
+  instead: status `503`, `Retry-After: 300`, `Cache-Control: no-store`,
+  `X-Robots-Tag: noindex` and `X-Site-Offline: 1`;
+- never replaces anything on `/api/*` or a non-`GET` request — those get the
+  origin's own error, so `/api/health` stays an honest signal for the external
+  check;
+- calls `passThroughOnException()`, so a bug in the script sends traffic
+  straight to the origin instead of breaking the site.
+
+Everything else passes through untouched, including the tunnel's `404` for the
+five denied prefixes. Checked on 2026-10-15 against a stubbed `fetch` in Node:
+14 cases — `200`, `404`, `500` and `531` passed through, `502` / `520` / `530`
+and a failed fetch replaced, `/api/health`, `/api`, `POST` and `HEAD` never
+replaced. It has not run on Cloudflare yet.
+
+### Setting it up (Cloudflare dashboard, free plan)
+
+1. **Workers & Pages → Create → Worker**, start from "Hello World", name it
+   (for example `radar-offline`) and deploy. Then **Edit code**, replace
+   everything with the contents of `ops/cloudflare/offline-worker.js`, and
+   deploy again.
+2. In the Worker's **Settings → Domains & Routes**, turn off its
+   `*.workers.dev` address; it has no use here.
+3. Zone `aizyradar.cn` → **Workers Routes → Add route** (or the Worker's
+   Domains & Routes → Add → Route): route `aizyradar.cn/*`, Worker
+   `radar-offline`. If it asks what to do once the request limit is reached,
+   choose **fail open**, so that past the daily quota requests skip the Worker
+   and reach the origin exactly as they do today.
+4. **Add a second route, `aizyradar.cn/api/*`, with the Worker set to None.**
+   Cloudflare uses the most specific matching route, so no `/api/*` request
+   runs the Worker at all: the health check, the four AI routes and their
+   per-client rate limit, and the push subscription routes keep exactly the
+   path they use today. The script's own `/api/` check is the second lock.
+5. Optional, to save quota: a third route, `aizyradar.cn/_next/static/*`, with
+   the Worker set to None. Those files are fingerprinted and mostly served
+   from Cloudflare's cache anyway.
+
+**Quota.** Workers Free allows 100,000 requests a day (reset at 00:00 UTC) and
+10 ms of CPU per request. Waiting for the origin is not CPU time, and this
+script uses a fraction of a millisecond. Every request on the `aizyradar.cn/*`
+route counts — pages, feeds, static files — and requests on the None routes do
+not. The Worker's **Metrics** tab shows the daily count.
+
+**Verify** after adding the routes, with the site up:
+
+```bash
+curl -sI https://aizyradar.cn/            # 200, and no x-site-offline header
+curl -sI https://aizyradar.cn/workspace   # 404: the tunnel's deny rule, passed through
+curl -s  https://aizyradar.cn/api/health  # contains "status":"ok"
+```
+
+The offline page itself only appears while the origin is unreachable, so the
+next planned outage — a restart for Windows Update, say — is the time to look:
+`curl -sI https://aizyradar.cn/` should then show `503` with
+`x-site-offline: 1`, and `curl -sI https://aizyradar.cn/api/health` the raw
+`530` or `502`.
+
+**Remove it** by deleting the routes (Workers Routes, or the Worker's Domains
+& Routes); within seconds every request goes straight to the origin again.
+Then delete the Worker if it is no longer wanted. Nothing on this machine or in
+the app depends on it.
+
+**Saved pages in the installed app are not served during an outage**, with or
+without this Worker. The service worker's `networkFirstPage`
+(`src/lib/pwa-service-worker.ts`) falls back to its saved copies only when a
+request fails outright, and an outage of this site is an answered request —
+`530` without the Worker, this page's `503` with it. The copies work when the
+reader's own device is offline. Using them during a site outage as well would
+be a change to that function (treat `502`–`504` / `520`–`530`, or
+`X-Site-Offline: 1`, as a failure) and is not part of this setup.
 
 ## Local JSON Limits
 
