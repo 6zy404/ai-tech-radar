@@ -14,6 +14,18 @@ For per-topic deep dives, see the `docs/` directory.
 
 ## A site footer, ops guides, and third-party text out of the public history
 
+- **2026-10-15. CI passes for the first time.** All 27 runs since the
+  workflow was added on 2026-09-08 had failed in `npm ci` within two seconds,
+  unnoticed because nothing had been pushed since 09-28 and job logs need
+  admin rights. The install step now also writes the head of npm's error to
+  an annotation, which the public checks API shows: `Missing:
+  @emnapi/runtime@1.11.3, @emnapi/core@1.11.3 from lock file`. They are
+  optional dependencies of the wasm32 fallbacks that npm 11.6 on Windows left
+  out of the lock and the runner's npm 11.21 requires; the lock was
+  regenerated with npm 11.21 (`--package-lock-only`, package.json unchanged).
+  CI also skips onnxruntime-node's CUDA download. Run 38674032943 is green:
+  install, audit, typecheck, lint, format, tests and the 21 validators.
+
 - **2026-10-15. The repository was already public.** `docs/next-task.md` listed
   making it public as an owner task, but `github.com/6zy404/ai-tech-radar` had
   been public all along (0 stars, 0 forks, last push 2026-09-28). Its history
