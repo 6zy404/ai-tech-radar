@@ -14,10 +14,13 @@ the only alert in the system was a desktop toast.
 
 Each run:
 
-  1. GET http://127.0.0.1:3000/api/health   (direct, never through a proxy)
-  2. GET https://aizyradar.cn/api/health     (through HTTPS_PROXY / HTTP_PROXY
-     when that proxy answers a TCP connect, direct otherwise; both reach the
-     Cloudflare edge from this machine, measured 2026-10-20)
+  1. GET http://127.0.0.1:3000/api/health   (direct, never through a proxy;
+     its `build` field goes into every alert)
+  2. GET https://aizyradar.cn/api/health     (through the proxy or direct —
+     decided by scripts/with-proxy-env.mjs, which reads HTTP(S)_PROXY from
+     the environment, else from .env.local, and uses the proxy only when it
+     answers a TCP connect; both ways reach the Cloudflare edge from this
+     machine, measured 2026-10-20)
   3. read the last 20 lines of tunnel.log for an ERR that dials a private
      address (10/8, 172.16/12, 192.168/16) on port 7844
 
@@ -35,14 +38,16 @@ cloudflared running (measured 2026-10-20), so the task cannot be restarted
 without killing the child by hand.
 
 A local check that is not 200 is NOT a tunnel problem. The script then only
-sends one alert (on the second consecutive failure) and does nothing else.
+sends one alert (on the second consecutive failure; `localAlerted` in the
+state file, cleared when the local check recovers) and does nothing else.
 
-What this script never does — asserted at runtime, not only promised here:
+What this script never does — asserted at runtime, not only promised here,
+and printed under -DryRun:
   - it never stops a process that is not named cloudflared;
   - it never stops a process that owns a listener on port 3000;
   - it never calls Stop-ScheduledTask / Start-ScheduledTask with any task but
     the tunnel task, and refuses to run if that name is ai-tech-radar-server;
-  - it never reads or writes anything under .next.
+  - it writes only the state file and the log, neither of them under .next.
 
 Exit code: 0 healthy (or healthy again after a restart), 1 a problem was seen
 and is still there, 3 the script itself failed.
@@ -50,7 +55,8 @@ and is still there, 3 the script itself failed.
 .EXAMPLE
   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1 -DryRun
   # run the three checks against the real endpoints and print what a real run
-  # would do; writes nothing, stops nothing, sends nothing
+  # would do, with the safety assertions; writes nothing, stops nothing, sends
+  # nothing
 
 .EXAMPLE
   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1
@@ -90,6 +96,8 @@ $ServerPort = 3000
 $TunnelProcessName = "cloudflared"
 $PrivateDialPattern = 'ERR .*dial (?:tcp|udp) (?<ip>(?:10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3})):7844'
 
+# The repository root is where this script lives, never a fixed path, so the
+# task keeps working after the checkout moves (docs/service-account.md).
 if (-not $RepoRoot) {
     $RepoRoot = Split-Path -Parent $PSScriptRoot
 }
@@ -101,6 +109,10 @@ if (-not $StateFile) {
 if (-not $LogFile) {
     $LogFile = Join-Path $RepoRoot "config\tunnel-watchdog.log"
 }
+
+# Absolute, so the .next assertion below sees the whole path.
+$StateFile = [System.IO.Path]::GetFullPath($StateFile)
+$LogFile = [System.IO.Path]::GetFullPath($LogFile)
 
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
@@ -156,94 +168,92 @@ function Assert-TaskNameIsTunnel {
     }
 }
 
-# Every process handed to Stop-Process goes through here first.
+# The state file and the log are the only two paths this script writes.
+function Assert-WritePathsOutsideBuild {
+    foreach ($path in @($StateFile, $LogFile)) {
+        if ($path -match '[\\/]\.next([\\/]|$)') {
+            throw "拒绝：写入路径 $path 在 .next 下。"
+        }
+    }
+}
+
+function Get-ServerPortOwners {
+    $listeners = @(Get-NetTCPConnection -LocalPort $ServerPort -State Listen -ErrorAction SilentlyContinue)
+
+    return @($listeners | ForEach-Object { $_.OwningProcess } | Sort-Object -Unique)
+}
+
+# Every process handed to Stop-Process goes through here first. Returns the
+# port owners it checked against, for the log line.
 function Assert-SafeToStop {
     param([object[]]$Processes)
+
+    $owners = @(Get-ServerPortOwners)
 
     foreach ($process in $Processes) {
         if ($process.ProcessName -ne $TunnelProcessName) {
             throw "拒绝：准备停止的进程 $($process.ProcessName) (PID $($process.Id)) 不是 $TunnelProcessName。"
         }
-    }
 
-    $listeners = @(Get-NetTCPConnection -LocalPort $ServerPort -State Listen -ErrorAction SilentlyContinue)
-    $owners = @($listeners | ForEach-Object { $_.OwningProcess })
-
-    foreach ($process in $Processes) {
         if ($owners -contains $process.Id) {
             throw "拒绝：PID $($process.Id) 持有 $ServerPort 端口，本脚本绝不停止它。"
         }
     }
+
+    return $owners
 }
 
-Assert-TaskNameIsTunnel -Name $TunnelTask
+# What the assertions checked, in one line: printed on every -DryRun and
+# before every real restart, so the log shows the guards were exercised.
+function Write-SafetyAssertions {
+    param([object[]]$Processes)
+
+    Assert-TaskNameIsTunnel -Name $TunnelTask
+    Assert-WritePathsOutsideBuild
+    $owners = @(Assert-SafeToStop -Processes $Processes)
+
+    $pids = ($Processes | ForEach-Object { $_.Id }) -join ", "
+    $ownerText = if ($owners.Count -gt 0) { $owners -join ", " } else { "无" }
+
+    Write-Log "断言通过：只停止进程名为 $TunnelProcessName 的进程（PID $(if ($pids) { $pids } else { '无' })），$ServerPort 端口由 PID $ownerText 持有、不在停止之列；只操作任务 $TunnelTask，不碰 $ServerTask；只写 $StateFile 与 $LogFile，不碰 .next。"
+}
 
 # ---------------------------------------------------------------- probes
 
-function Get-EnvFileValue {
-    param([string]$Key)
+# Which way out is decided by the project's own launcher, so the proxy rule
+# has one definition and this script needs no .env.local parser:
+# scripts/with-proxy-env.mjs reads HTTP(S)_PROXY from the environment, else
+# from .env.local, probes the proxy (1.5 s TCP connect) and leaves
+# NODE_USE_ENV_PROXY=1 only when it answers. Nothing is redirected here: a
+# redirected stderr turns a native command's output into errors under 5.1.
+function Get-ProxyDecision {
+    $expression = "process.env.NODE_USE_ENV_PROXY === '1' ? ([process.env.HTTPS_PROXY, process.env.https_proxy, process.env.HTTP_PROXY, process.env.http_proxy].find(Boolean) ?? '') : ''"
 
-    $envFile = Join-Path $RepoRoot ".env.local"
-
-    if (-not (Test-Path -LiteralPath $envFile)) {
-        return $null
-    }
-
-    foreach ($line in Get-Content -LiteralPath $envFile) {
-        $trimmed = $line.Trim()
-
-        if ($trimmed.StartsWith("$Key=")) {
-            $value = $trimmed.Substring($Key.Length + 1).Trim().Trim('"').Trim("'")
-
-            if ($value) {
-                return $value
-            }
-        }
-    }
-
-    return $null
-}
-
-# The proxy of with-proxy-env.mjs: the environment first, then .env.local.
-function Get-ConfiguredProxyUrl {
-    foreach ($name in @("HTTPS_PROXY", "https_proxy", "HTTP_PROXY", "http_proxy")) {
-        $value = [Environment]::GetEnvironmentVariable($name)
-
-        if ($value -and $value.Trim()) {
-            return $value.Trim()
-        }
-    }
-
-    foreach ($name in @("HTTPS_PROXY", "HTTP_PROXY")) {
-        $value = Get-EnvFileValue -Key $name
-
-        if ($value) {
-            return $value
-        }
-    }
-
-    return $null
-}
-
-# A dead proxy must mean "go direct", as it does for the Node launcher: the
-# proxy only runs inside a logged-on session, and this task runs at any hour.
-function Test-ProxyReachable {
-    param([string]$ProxyUrl)
+    Push-Location $RepoRoot
 
     try {
-        $uri = [System.Uri]$ProxyUrl
-        $client = New-Object System.Net.Sockets.TcpClient
-        $connect = $client.BeginConnect($uri.Host, $uri.Port, $null, $null)
-        $reachable = $connect.AsyncWaitHandle.WaitOne(1500) -and $client.Connected
-        $client.Close()
+        $env:PROXY_ENV_QUIET = "1"
+        $output = & node "scripts\with-proxy-env.mjs" node -p $expression
 
-        return [bool]$reachable
+        if ($LASTEXITCODE -ne 0) {
+            return @{ Url = $null; Note = "代理判断失败（with-proxy-env.mjs 退出码 $LASTEXITCODE），直连" }
+        }
+
+        $url = ("$output").Trim()
+
+        if ($url) {
+            return @{ Url = $url; Note = "经代理 $url" }
+        }
+
+        return @{ Url = $null; Note = "直连（无代理或代理不可达）" }
     } catch {
-        return $false
+        return @{ Url = $null; Note = "代理判断失败（$($_.Exception.Message)），直连" }
+    } finally {
+        Pop-Location
     }
 }
 
-# Returns @{ Status; Error }. Status 0 means no HTTP answer at all. Never
+# Returns @{ Status; Body; Error }. Status 0 means no HTTP answer at all. Never
 # throws on 4xx/5xx; Cloudflare's 530 is a normal answer here.
 function Invoke-HttpProbe {
     param(
@@ -279,17 +289,42 @@ function Invoke-HttpProbe {
         }
 
         if (-not $webException -or -not $webException.Response) {
-            return @{ Status = 0; Error = $_.Exception.Message }
+            return @{ Status = 0; Body = ""; Error = $_.Exception.Message }
         }
 
         $response = $webException.Response
     }
 
     try {
-        return @{ Status = [int]$response.StatusCode; Error = $null }
+        $reader = New-Object System.IO.StreamReader($response.GetResponseStream(), [System.Text.Encoding]::UTF8)
+        $body = $reader.ReadToEnd()
+        $reader.Dispose()
+
+        return @{ Status = [int]$response.StatusCode; Body = $body; Error = $null }
     } finally {
         $response.Close()
     }
+}
+
+# The `build` field of /api/health, so an alert says which build was running.
+function Get-BuildId {
+    param([string]$Body)
+
+    if (-not $Body) {
+        return ""
+    }
+
+    try {
+        $parsed = $Body | ConvertFrom-Json
+
+        if ($parsed.PSObject.Properties["build"]) {
+            return "$($parsed.build)"
+        }
+    } catch {
+        return ""
+    }
+
+    return ""
 }
 
 function Get-PrivateDialLines {
@@ -320,6 +355,7 @@ function New-DefaultState {
     return [pscustomobject]@{
         publicFailures       = 0
         localFailures        = 0
+        localAlerted         = $false
         episodeStartedAt     = $null
         lastRestartAt        = $null
         lastAlertAt          = $null
@@ -360,6 +396,8 @@ function Write-State {
         return
     }
 
+    Assert-WritePathsOutsideBuild
+
     $directory = Split-Path -Parent $StateFile
 
     if (-not (Test-Path -LiteralPath $directory)) {
@@ -391,14 +429,12 @@ function Get-TunnelProcesses {
 }
 
 function Restart-Tunnel {
-    Assert-TaskNameIsTunnel -Name $TunnelTask
-
     $processes = @(Get-TunnelProcesses)
-    Assert-SafeToStop -Processes $processes
+    Write-SafetyAssertions -Processes $processes
 
     if ($DryRun) {
         $pids = ($processes | ForEach-Object { $_.Id }) -join ", "
-        Write-Log "[DryRun] 会执行：Stop-ScheduledTask $TunnelTask；Stop-Process cloudflared（PID $pids）；Start-ScheduledTask $TunnelTask；等 $RecheckSeconds 秒复查公网。"
+        Write-Log "[DryRun] 会执行：Stop-ScheduledTask $TunnelTask；Stop-Process cloudflared（PID $(if ($pids) { $pids } else { '无' })）；Start-ScheduledTask $TunnelTask；等 $RecheckSeconds 秒复查公网。"
         return $null
     }
 
@@ -407,7 +443,7 @@ function Restart-Tunnel {
     Stop-ScheduledTask -TaskName $TunnelTask -ErrorAction SilentlyContinue
 
     foreach ($process in $processes) {
-        Assert-SafeToStop -Processes @($process)
+        Assert-SafeToStop -Processes @($process) | Out-Null
         Write-Log "停止 cloudflared PID $($process.Id)（启动于 $($process.StartTime.ToString('yyyy-MM-dd HH:mm:ss'))）。"
         Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
     }
@@ -440,7 +476,8 @@ function Restart-Tunnel {
 }
 
 # The alert text travels as a UTF-8 JSON file, never as a shell argument:
-# Chinese through the console code page is what garbles it.
+# Chinese through the console code page is what garbles it. The node command
+# runs under cmd so its two streams arrive as one; see Get-ProxyDecision.
 function Send-Alert {
     param(
         [string]$Title,
@@ -470,7 +507,7 @@ function Send-Alert {
         Push-Location $RepoRoot
 
         try {
-            $output = & node "scripts\with-proxy-env.mjs" node "scripts\run-ts.cjs" "scripts\send-ops-alert.ts" --json $temp 2>&1 | Out-String
+            $output = & cmd /c "node scripts\with-proxy-env.mjs node scripts\run-ts.cjs scripts\send-ops-alert.ts --json ""$temp"" 2>&1" | Out-String
             $code = $LASTEXITCODE
         } finally {
             Pop-Location
@@ -503,41 +540,41 @@ function Format-Status {
 # ---------------------------------------------------------------- main
 
 try {
+    Assert-TaskNameIsTunnel -Name $TunnelTask
+    Assert-WritePathsOutsideBuild
     Rotate-LogIfLarge
 
     $state = Read-State
     $now = Get-Date
 
-    $script:ProxyUrl = Get-ConfiguredProxyUrl
-    $proxyNote = "直连"
-
-    if ($script:ProxyUrl) {
-        if (Test-ProxyReachable -ProxyUrl $script:ProxyUrl) {
-            $proxyNote = "经代理 $($script:ProxyUrl)"
-        } else {
-            $proxyNote = "代理 $($script:ProxyUrl) 不可达，直连"
-            $script:ProxyUrl = $null
-        }
-    }
+    $proxy = Get-ProxyDecision
+    $script:ProxyUrl = $proxy.Url
+    $proxyNote = $proxy.Note
 
     $local = Invoke-HttpProbe -Url $LocalUrl -ProxyUrl $null -Timeout $TimeoutSeconds
     $public = Invoke-HttpProbe -Url $PublicUrl -ProxyUrl $script:ProxyUrl -Timeout $TimeoutSeconds
     $privateDials = @(Get-PrivateDialLines)
+    $buildId = Get-BuildId -Body $local.Body
+    $buildText = if ($buildId) { $buildId } else { "未知" }
     $tunnelPids = (@(Get-TunnelProcesses) | ForEach-Object { $_.Id }) -join ","
 
-    $summary = "本机 $(Format-Status $local)；公网 $(Format-Status $public)（$proxyNote）；tunnel.log 私网拨号 $($privateDials.Count) 行；cloudflared PID $(if ($tunnelPids) { $tunnelPids } else { '无' })"
+    $summary = "本机 $(Format-Status $local)（构建 $buildText）；公网 $(Format-Status $public)（$proxyNote）；tunnel.log 私网拨号 $($privateDials.Count) 行；cloudflared PID $(if ($tunnelPids) { $tunnelPids } else { '无' })"
 
     if ($DryRun) {
         Write-Log "[DryRun] $summary"
+        Write-SafetyAssertions -Processes @(Get-TunnelProcesses)
     }
 
     $state.lastRun = [pscustomobject]@{
         at           = $now.ToString("o")
         local        = $local.Status
+        build        = $buildId
         public       = $public.Status
         privateDials = $privateDials.Count
         proxy        = $proxyNote
     }
+
+    $buildLine = "本机构建：$buildText（$LocalUrl）。"
 
     # --- the server itself is unhealthy: not the tunnel's fault, never restart anything ---
     if ($local.Status -ne 200) {
@@ -545,12 +582,14 @@ try {
         $state.publicFailures = 0
         Write-Log "$summary — 本机不健康（连续 $($state.localFailures) 次），看门狗不动作。"
 
-        if ([int]$state.localFailures -eq $FailuresBeforeRestart) {
+        if ([int]$state.localFailures -ge $FailuresBeforeRestart -and -not $state.localAlerted) {
             Send-Alert -Title "【AI Tech Radar】本机 $ServerPort 服务不健康" -Body (@(
                 "本机 $LocalUrl 连续 $($state.localFailures) 次不是 200：$(Format-Status $local)。",
-                "公网 $PublicUrl：$(Format-Status $public)。",
-                "看门狗只管隧道，没有重启任何东西。查 config\server.log，必要时 Restart-ScheduledTask ai-tech-radar-server（先看 docs/deployment.md →「Deploy with one command」里关于端口与进程的说明）。"
+                $buildLine,
+                "公网 $PublicUrl：$(Format-Status $public)（$proxyNote）。",
+                "看门狗只管隧道，没有重启任何东西。查 config\server.log，必要时按 docs/deployment.md →「Deploy with one command」里关于端口与进程的说明重启 $ServerTask。恢复前不再重复提醒。"
             ) -join "`n")
+            $state.localAlerted = $true
             $state.lastAlertAt = $now.ToString("o")
         }
 
@@ -558,10 +597,12 @@ try {
         exit 1
     }
 
-    if ([int]$state.localFailures -gt 0) {
+    if ([int]$state.localFailures -gt 0 -or $state.localAlerted) {
         Write-Log "本机恢复 200（此前连续 $($state.localFailures) 次不健康）。"
-        $state.localFailures = 0
     }
+
+    $state.localFailures = 0
+    $state.localAlerted = $false
 
     # --- tunnel healthy ---
     $broken = ($public.Status -ne 200) -or ($privateDials.Count -gt 0)
@@ -576,6 +617,7 @@ try {
         if ($state.pendingRecoveryAlert) {
             Send-Alert -Title "【AI Tech Radar】公网已恢复" -Body (@(
                 "公网 $PublicUrl 重新返回 200（$proxyNote）；本机 200。",
+                $buildLine,
                 "故障开始于 $($state.episodeStartedAt)，最近一次重启隧道在 $($state.lastRestartAt)。"
             ) -join "`n")
             $state.lastAlertAt = $now.ToString("o")
@@ -641,6 +683,7 @@ try {
     $logErrors = @(Get-TunnelLogErrors -Count 3)
     $body = @(
         "触发：$reason（连续 $($state.publicFailures) 次）；本机 $LocalUrl 为 200。",
+        $buildLine,
         "处理：Stop-ScheduledTask $TunnelTask → Stop-Process cloudflared → Start-ScheduledTask $TunnelTask。",
         "$RecheckSeconds 秒后复查公网：$(Format-Status $recheck)（$proxyNote）。",
         "故障开始于 $($state.episodeStartedAt)。"

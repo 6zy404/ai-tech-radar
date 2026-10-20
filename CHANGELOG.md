@@ -149,15 +149,19 @@ auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Fou
   task: run `cloudflared` with `--logfile` instead of through `cmd`, so the
   task's process is `cloudflared` itself.
 - **`scripts/tunnel-watchdog.ps1`**: every 5 minutes it checks
-  `127.0.0.1:3000/api/health` (direct), `aizyradar.cn/api/health` (through
-  the proxy when it answers, else direct) and the last 20 lines of
+  `127.0.0.1:3000/api/health` (direct; its `build` id goes into every
+  alert), `aizyradar.cn/api/health` (through the proxy when it answers, else
+  direct — asked of `with-proxy-env.mjs`, so the proxy rule has one
+  definition) and the last 20 lines of
   `tunnel.log` for a dial to a private address on 7844. Local 200 and public
   not 200 (or the private dial) twice in a row → stop every `cloudflared`,
   start the tunnel task, re-check after 30 s, log and alert. One restart per
   15 minutes, one alert an hour while it stays down and one more on
-  recovery; a local failure gets one alert and no action. Runtime assertions
-  refuse to stop anything but `cloudflared`, anything holding port 3000, or
-  any task but the tunnel's. State in `config/tunnel-watchdog-state.json`,
+  recovery; a local failure gets one alert per outage (`localAlerted` in
+  the state) and no action. Runtime assertions refuse to stop anything but
+  `cloudflared`, anything holding port 3000, or any task but the tunnel's,
+  and refuse a write path under `.next`; `-DryRun` prints them with the
+  PIDs they were checked against. State in `config/tunnel-watchdog-state.json`,
   one log line per run in `config/tunnel-watchdog.log`, both git-ignored.
   `-DryRun` runs the checks and prints the decision.
   `scripts/setup-tunnel-watchdog.ps1` registers the task
@@ -173,8 +177,10 @@ auto`, and all 220 buttons on `/technologies` measure 25px at 1440 and 1024. Fou
   through the delivery channel `OPS_ALERT_CHANNEL_ID` names — webhook (JSON
   or text), Feishu, Telegram (HTML, cut as plain text before escaping so a
   broken entity cannot get the message rejected) or Discord (one embed, no
-  mentions). Unset, one log line and nothing sent. Text in and out goes
-  through `maskSecretsInText`. `check:pipeline` sends it beside the toast
+  mentions). Unset, one log line and nothing sent; the id is read from the
+  environment, else from `.env.local` under the project root with Node's
+  own dotenv parser (`util.parseEnv`). Text in and out goes through
+  `maskSecretsInText`. `check:pipeline` sends it beside the toast
   (and a test one on `--test`) and is now launched through
   `with-proxy-env.mjs`; the watchdog calls the script with a UTF-8 JSON file
   so Chinese survives PowerShell. Seven tests against a local fake HTTP

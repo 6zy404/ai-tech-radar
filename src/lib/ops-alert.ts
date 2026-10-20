@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
+import { parseEnv } from "node:util";
 
 import { getDeliveryAdapter } from "@/lib/delivery/adapters";
 import { truncatePlainText } from "@/lib/delivery/adapters/digest-message";
@@ -77,9 +78,12 @@ export interface OpsAlertText {
 
 /**
  * Reads `OPS_ALERT_CHANNEL_ID` from the environment, else from `.env.local`
- * in the project root. The scripts that send alerts run under plain Node,
+ * under the project root (the current directory, as for every script here —
+ * never a fixed path). The scripts that send alerts run under plain Node,
  * which never loads `.env.local`; the owner keeps the channel id there with
- * the other machine-specific settings. Only this one key is read.
+ * the other machine-specific settings. The file is read with Node's own
+ * dotenv parser — the one `process.loadEnvFile` uses in the eval scripts —
+ * into a local object rather than `process.env`, and only this key is taken.
  */
 export function getOpsAlertChannelId(
   env: OpsAlertEnv = process.env,
@@ -97,23 +101,11 @@ export function getOpsAlertChannelId(
     return undefined;
   }
 
-  for (const line of readFileSync(envFile, "utf8").split(/\r?\n/)) {
-    const trimmed = line.trim();
+  const fromFile = parseEnv(readFileSync(envFile, "utf8"))[
+    opsAlertChannelEnvName
+  ]?.trim();
 
-    if (!trimmed.startsWith(`${opsAlertChannelEnvName}=`)) {
-      continue;
-    }
-
-    const value = trimmed
-      .slice(opsAlertChannelEnvName.length + 1)
-      .trim()
-      .replace(/^["'](.*)["']$/, "$1")
-      .trim();
-
-    return value || undefined;
-  }
-
-  return undefined;
+  return fromFile || undefined;
 }
 
 export function formatOpsAlertTime(

@@ -874,7 +874,9 @@ the middleware-location section above before going any further.
   `check:pipeline` and the tunnel watchdog send their alerts to
   (`src/lib/ops-alert.ts`; webhook, Feishu, Telegram or Discord). Unset,
   they log one line and send nothing. The scripts run under plain Node, so
-  the value is read from the environment, else from `.env.local`.
+  the value is read from the environment, else from `.env.local` under the
+  project root (never a fixed path) with Node's own dotenv parser,
+  `util.parseEnv` — the one `process.loadEnvFile` uses in the eval scripts.
 
 Do not commit real webhook tokens or LLM API keys. Neither local JSON nor the local SQLite file should be treated as a production secret store.
 
@@ -1171,10 +1173,14 @@ Two more things measured while fixing it by hand:
 `ai-tech-radar-tunnel-watchdog`:
 
 1. `GET http://127.0.0.1:3000/api/health` — direct, never through a proxy.
-2. `GET https://aizyradar.cn/api/health` — through `HTTPS_PROXY` /
-   `HTTP_PROXY` (the environment, else `.env.local`) when a TCP connect to
-   the proxy succeeds within 1.5 s, direct otherwise — the rule
-   `with-proxy-env.mjs` applies.
+   Its `build` field goes into every alert and every log line, so a message
+   says which build was running.
+2. `GET https://aizyradar.cn/api/health` — through the proxy or direct,
+   decided by `scripts/with-proxy-env.mjs` itself (the watchdog asks it:
+   `HTTPS_PROXY` / `HTTP_PROXY` from the environment, else from
+   `.env.local`, used only when the proxy answers a TCP connect within
+   1.5 s), so the proxy rule has one definition and the watchdog carries no
+   `.env.local` parser of its own.
 3. The last 20 lines of `tunnel.log`, for an `ERR` line that dials a private
    address (`10/8`, `172.16/12`, `192.168/16`) on port 7844 — the 10-17
    signature.
@@ -1188,27 +1194,31 @@ off-site alert (`docs/operations.md` → "Off-site alerts") saying whether it
 recovered. Afterwards: no second restart within 15 minutes; while it stays
 down, one alert an hour at most, and one more when the domain comes back. A
 local check that is not `200` is not the tunnel's problem: the script then
-sends one alert on the second consecutive failure and does nothing else.
+sends one alert on the second consecutive failure (`localAlerted` in the
+state file, cleared when the local check recovers, so the next outage alerts
+again) and does nothing else.
 
-State (`publicFailures`, `localFailures`, `lastRestartAt`, `lastAlertAt`, the
-last run's numbers) is `config/tunnel-watchdog-state.json`; every run appends
+State (`publicFailures`, `localFailures`, `localAlerted`, `lastRestartAt`,
+`lastAlertAt`, the last run's numbers) is `config/tunnel-watchdog-state.json`; every run appends
 one line to `config/tunnel-watchdog.log` (rotated to `.1` past 1 MB). Both
 are git-ignored and sit beside the other tasks' logs.
 
 **What it never does**, asserted at runtime before any `Stop-Process`: stop a
 process not named `cloudflared`; stop a process that owns a listener on port
 3000; call a task cmdlet with any name but the tunnel task's (it refuses
-`ai-tech-radar-server` outright); touch `.next`. `-DryRun` runs the three
-checks against the real endpoints and prints the decision — writing,
-stopping and sending nothing — and is the first thing to run after any edit:
+`ai-tech-radar-server` outright); write anywhere but the state file and the
+log, neither under `.next`. `-DryRun` runs the three checks against the
+real endpoints, prints these assertions with the PIDs they were checked
+against, and prints the decision — writing, stopping and sending nothing —
+and is the first thing to run after any edit:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\tunnel-watchdog.ps1 -DryRun
 ```
 
 Measured 2026-10-20 (dry runs, nothing touched, `cloudflared` kept its PID):
-a healthy pass reads `本机 200；公网 200（经代理 …）；私网拨号 0 行` and exits
-0; with the public URL pointed at a 404 and the incident's log lines as
+a healthy pass reads `本机 200（构建 …）；公网 200（经代理 …）；私网拨号 0 行`
+and the assertion line, and exits 0; with the public URL pointed at a 404 and the incident's log lines as
 `-TunnelLog`, the run named both reasons, quoted the three `ERR` lines and
 printed the restart it would do; with the local URL pointed at a 404 it
 reported 本机不健康 and planned nothing.
