@@ -31,6 +31,9 @@ config/server.log
 config/deploy.log
 # written by the ai-tech-radar-pipeline-alert scheduled task (check:pipeline)
 config/pipeline-alert.log
+# written by the ai-tech-radar-tunnel-watchdog scheduled task (scripts/tunnel-watchdog.ps1)
+config/tunnel-watchdog.log
+config/tunnel-watchdog-state.json
 # rotated generations written by scripts/deploy.ps1 (server.log.1, ...)
 config/*.log.*
 
