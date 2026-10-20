@@ -15,11 +15,11 @@
  */
 
 import { spawn } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { loadEnvFileKeys } from "./env-file.mjs";
 import {
   applyProxyEnvDefaults,
   getConfiguredProxyUrl,
@@ -32,67 +32,36 @@ const repoRoot = path.resolve(
   ".."
 );
 
-/** Variables worth reading out of `.env.local` before the child starts. */
-const PROXY_KEYS = [
+/**
+ * Variables worth reading out of this checkout's `.env.local` before the
+ * child starts (`env-file.mjs` has the parser and the reason Next's own
+ * loading is too late):
+ *
+ * - the proxy settings. Reading them here makes the configuration work
+ *   regardless of who launches the server: a terminal that exports the
+ *   variables, a service manager that does not, or an IDE preview pane that
+ *   starts with a bare environment (measured 2026-08-10 — the preview pane
+ *   reported "未检测到代理配置" while the same command from a shell did not);
+ * - the site address. The task runner sends scheduled digests and builds
+ *   their links from `NEXT_PUBLIC_SITE_URL`, and until 2026-10-21 a run
+ *   from Task Scheduler had no such variable at all, so every link would
+ *   have read `http://localhost:3000` (the send paths now also refuse a
+ *   local address, `src/lib/site-url.ts`).
+ *
+ * `LOCAL_DATA_DIR` is deliberately not read here: a worktree's
+ * `tasks:run-once` writes the worktree's own copy, and `run-ts.cjs` prints
+ * which directory a run used.
+ */
+const ENV_FILE_KEYS = [
   "HTTP_PROXY",
   "HTTPS_PROXY",
   "http_proxy",
   "https_proxy",
   "NO_PROXY",
   "no_proxy",
-  "NODE_USE_ENV_PROXY"
+  "NODE_USE_ENV_PROXY",
+  "NEXT_PUBLIC_SITE_URL"
 ];
-
-/**
- * Next loads `.env.local` itself, but only *after* bootstrap — too late for
- * `NODE_USE_ENV_PROXY`. Reading the proxy keys here makes the configuration
- * work regardless of who launches the server: a terminal that exports the
- * variables, a service manager that does not, or an IDE preview pane that
- * starts with a bare environment (measured 2026-08-10 — the preview pane
- * reported "未检测到代理配置" while the same command from a shell did not).
- *
- * Deliberately minimal: `KEY=VALUE`, `#` comments, optional surrounding
- * quotes. It is not a general dotenv implementation and only ever fills keys
- * the real environment has left unset, so an exported value always wins.
- */
-function loadProxyKeysFromEnvFile(env) {
-  const envFile = path.join(repoRoot, ".env.local");
-
-  if (!existsSync(envFile)) {
-    return [];
-  }
-
-  const loaded = [];
-
-  for (const line of readFileSync(envFile, "utf8").split(/\r?\n/)) {
-    const trimmed = line.trim();
-
-    if (trimmed.length === 0 || trimmed.startsWith("#")) {
-      continue;
-    }
-
-    const separatorIndex = trimmed.indexOf("=");
-
-    if (separatorIndex <= 0) {
-      continue;
-    }
-
-    const key = trimmed.slice(0, separatorIndex).trim();
-    const rawValue = trimmed.slice(separatorIndex + 1).trim();
-    const value = rawValue.replace(/^["'](.*)["']$/, "$1");
-
-    if (!PROXY_KEYS.includes(key) || value.length === 0) {
-      continue;
-    }
-
-    if ((env[key] ?? "").trim().length === 0) {
-      env[key] = value;
-      loaded.push(key);
-    }
-  }
-
-  return loaded;
-}
 
 /**
  * Resolves the target to something Node can execute directly.
@@ -127,7 +96,11 @@ if (!command) {
 }
 
 const env = { ...process.env };
-const loadedFromEnvFile = loadProxyKeysFromEnvFile(env);
+const loadedFromEnvFile = loadEnvFileKeys(
+  path.join(repoRoot, ".env.local"),
+  ENV_FILE_KEYS,
+  env
+);
 
 // Probe the proxy before deciding. The live server's proxy runs only inside a
 // logged-on session while the server task starts at boot, so a fresh reboot

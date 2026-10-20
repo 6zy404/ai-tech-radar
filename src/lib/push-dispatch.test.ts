@@ -23,6 +23,7 @@ import {
 import {
   buildPushNotificationPayload,
   planPushMessages,
+  PushSubjectError,
   runPushForDate,
   type PushSignal
 } from "@/lib/push-dispatch";
@@ -263,6 +264,32 @@ describe("runPushForDate", () => {
     await expect(
       runPushForDate(date, { signals, vapid: null })
     ).rejects.toThrow(/推送未配置/);
+  });
+
+  it("refuses to send when the VAPID subject is the localhost fallback", async () => {
+    writePushSubscriptionStore({
+      ...createEmptyPushSubscriptionStore(),
+      subscriptions: [record("x", ["agents"])]
+    });
+
+    const sent: string[] = [];
+    const vapid = {
+      keys: generateVapidKeyPair(),
+      subject: "http://localhost:3000"
+    };
+    const send = async (target: PushSubscriptionRecord) => {
+      sent.push(target.id);
+      return { ok: true, status: 201, expired: false };
+    };
+
+    await expect(
+      runPushForDate(date, { signals, vapid, send })
+    ).rejects.toThrow(PushSubjectError);
+    await expect(
+      runPushForDate(date, { signals, vapid, send })
+    ).rejects.toThrow(/PUSH_VAPID_SUBJECT/);
+    expect(sent).toEqual([]);
+    expect(readPushSubscriptionStore().pushedTechnologyIds).toEqual([]);
   });
 });
 

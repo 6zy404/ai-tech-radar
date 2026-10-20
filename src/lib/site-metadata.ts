@@ -33,12 +33,9 @@ export const siteDescriptions: Record<Locale, string> = {
   en: "Tracks the AI technology signals worth attention first, and uses skills and background knowledge to explain why each matters and who should care."
 };
 
-export function getSiteUrl(): string {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
-    /\/+$/,
-    ""
-  );
-}
+// The site address lives in `src/lib/site-url.ts` since 2026-10-21 (it was
+// defined here and again in digest-delivery.ts); re-exported for the pages.
+export { getSiteUrl } from "@/lib/site-url";
 
 const descriptionMaxLength = 160;
 

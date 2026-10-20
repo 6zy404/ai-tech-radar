@@ -752,6 +752,13 @@ the middleware-location section above before going any further.
 ## Environment Variables
 
 - `NEXT_PUBLIC_SITE_URL`: public base URL used for digest links and feeds.
+  Next reads it from `.env.local`; the plain-Node entry points — the task
+  runner that sends scheduled digests — get it through the launcher, which
+  reads it from the same file since 2026-10-21 (`scripts/with-proxy-env.mjs`,
+  alongside the proxy keys). A digest delivery to a real channel, and a push,
+  are refused while it is unset or points at this machine, with the variable
+  named in the delivery log or the panel (`src/lib/site-url.ts`); until then
+  such a send would have carried `http://localhost:3000` links.
 - `WORKSPACE_ACCESS_ENABLED`: enables minimal workspace/API token protection.
 - `WORKSPACE_ACCESS_TOKEN`: shared token for protected internal routes.
 - `LOCAL_DATA_DIR`: local JSON workflow directory; defaults to `./config`.
@@ -862,7 +869,9 @@ the middleware-location section above before going any further.
   push (「有新信号时提醒我」); push is off unless both are set and match. See
   "Reader push keys" below before generating them.
 - `PUSH_VAPID_SUBJECT`: optional contact sent to the push services,
-  `mailto:` or `https:`; anything else falls back to `NEXT_PUBLIC_SITE_URL`.
+  `mailto:` or `https:`; anything else falls back to `NEXT_PUBLIC_SITE_URL`,
+  which must then itself be `https:` — a push is refused before any send
+  otherwise (2026-10-21, `PushSubjectError`).
 - `PUBLIC_AI_RATE_LIMIT_PER_MINUTE`: optional per-client, per-route request
   budget for the four public AI routes; defaults to `10`.
 - `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: the same budget over an hour; defaults to
@@ -892,6 +901,9 @@ node scripts/generate-vapid-keys.mjs   # prints the two PUSH_VAPID_* lines
 - Put both lines in the server's `.env.local` (and in the editorial-round
   worktree's, since that server sends the pushes) and restart. Never commit
   them.
+- Put `PUSH_VAPID_SUBJECT` beside them (a `mailto:` is the usual choice), or
+  make sure the same file carries the `https:` `NEXT_PUBLIC_SITE_URL`: the
+  push is signed with one or the other, and a sender with neither is refused.
 - **Do not replace the pair.** Every browser subscribed against the public
   key; with a new pair the subscription records stay in
   `config/push-subscriptions.json`, but the push services refuse every send,

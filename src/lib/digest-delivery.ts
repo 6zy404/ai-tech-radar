@@ -12,6 +12,7 @@ import {
   getPublicDigestTitle
 } from "@/lib/public-copy";
 import { jsonFeedPath, rssFeedPath } from "@/lib/feed-paths";
+import { getSiteUrl } from "@/lib/site-url";
 import type { DailyDigest, TechnologyItem } from "@/types/content";
 
 export { jsonFeedPath, rssFeedPath };
@@ -48,12 +49,11 @@ export interface DigestDeliveryFeed {
   items: DigestDeliveryItem[];
 }
 
-export function getSiteBaseUrl(): string {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
-    /\/+$/,
-    ""
-  );
-}
+/**
+ * The site address — `getSiteUrl` from `src/lib/site-url.ts`, kept under this
+ * name for the feed modules that import it from here.
+ */
+export const getSiteBaseUrl = getSiteUrl;
 
 export function getDigestPublicPath(date: string): string {
   return `/digest/${date}`;

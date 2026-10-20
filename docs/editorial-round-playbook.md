@@ -79,8 +79,9 @@ the worktree's git-ignored `.env.local`:
 LOCAL_DATA_DIR=C:/Users/Administrator/ai-tech-radar/config
 ```
 
-Nothing else goes there (except, for a round that pushes new signals, the
-lines in Step 7b): the workspace guard stays off because the dev server
+Nothing else goes there (except, for a round that sends a digest to a
+channel or pushes new signals, the lines in Step 7b): the workspace guard
+stays off because the dev server
 is on localhost only, and the LLM key is not copied. **That sentence was not
 true until 2026-09-28**: `next dev` listens on every interface by default, so
 for the length of a round the unguarded workspace, writing to the live data,
@@ -337,7 +338,7 @@ Optional but recommended for the day's clear headline item:
 `/workspace/delivery` → 新信号提醒 → pick the publish date → 推送新信号. It
 counts first and asks before sending; a signal is pushed once, ever.
 
-**Check two things in the round's `.env.local` before pressing it**, because
+**Check three things in the round's `.env.local` before pressing it**, because
 the round's dev server is the only server that can send (the live server has
 no workspace):
 
@@ -352,6 +353,15 @@ no workspace):
    `.env.local`, and the preview pane starts with neither, so a worktree
    holding only `LOCAL_DATA_DIR` sends directly and fails. Its startup log
    says which: `[proxy] 已启用代理` or `未检测到代理配置`.
+3. **The site address** — `NEXT_PUBLIC_SITE_URL=https://aizyradar.cn`, and
+   `PUSH_VAPID_SUBJECT` (a `mailto:` or `https:` address) when the main
+   checkout's `.env.local` has one. A push signs itself with the subject,
+   which falls back to the site address; with neither line that is
+   `http://localhost:3000`, which RFC 8292 does not allow, so since
+   2026-10-21 the panel refuses to send (推送未配置：推送身份…) rather than
+   letting the push services refuse in silence. The same line is what a
+   digest delivery from this server builds its links from, and a delivery to
+   a real channel is refused without it (`src/lib/site-url.ts`).
 
 If every send fails with `UND_ERR_CONNECT_TIMEOUT` the panel says so; nothing
 is marked pushed, so fix the `.env.local`, restart the dev server and press

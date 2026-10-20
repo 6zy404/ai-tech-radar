@@ -11,7 +11,11 @@
 
 import { getAllTechnologies } from "@/lib/content";
 import { getTodayDateString } from "@/lib/digest-store";
-import { readPushVapidConfig, type PushVapidConfig } from "@/lib/push-config";
+import {
+  isValidVapidSubject,
+  readPushVapidConfig,
+  type PushVapidConfig
+} from "@/lib/push-config";
 import { sendWebPush, type WebPushResult } from "@/lib/push-send";
 import {
   markTechnologiesPushed,
@@ -202,6 +206,23 @@ export class PushNotConfiguredError extends Error {
   }
 }
 
+/**
+ * The VAPID subject tells a push service who is sending — RFC 8292 §2.1, a
+ * `mailto:` or `https:` URI. It defaults to the site address, so a server
+ * without `NEXT_PUBLIC_SITE_URL` would sign every push as
+ * `http://localhost:3000`, which a push service may refuse with nothing on
+ * the panel to say why. Refused here instead, before any send, with the fix
+ * in the message. A `PushNotConfiguredError`, so the route answers 503 as
+ * for missing keys.
+ */
+export class PushSubjectError extends PushNotConfiguredError {
+  constructor(subject: string) {
+    super();
+    this.message = `推送未配置：推送身份（VAPID subject）是 ${subject}，不是 mailto: 或 https: 地址，推送服务会拒收。在 .env.local 设置 PUSH_VAPID_SUBJECT（如 mailto:you@example.com）或正式的 NEXT_PUBLIC_SITE_URL，重启后再试。`;
+    this.name = "PushSubjectError";
+  }
+}
+
 export async function runPushForDate(
   date: string = getTodayDateString(),
   options: RunPushOptions = {}
@@ -240,6 +261,10 @@ export async function runPushForDate(
 
   if (!vapid) {
     throw new PushNotConfiguredError();
+  }
+
+  if (!isValidVapidSubject(vapid.subject)) {
+    throw new PushSubjectError(vapid.subject);
   }
 
   const send =

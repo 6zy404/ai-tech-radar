@@ -16,6 +16,7 @@ import {
   maskSecretsInText,
   maskTelegramBotToken
 } from "@/lib/secret-masking";
+import { getPublicSiteUrlProblem, isLoopbackUrl } from "@/lib/site-url";
 import { tryRecordWorkflowEvent } from "@/lib/workflow-events";
 import type {
   DailyDigest,
@@ -637,6 +638,15 @@ export function getDeliveryPreview(digestDate: string, channelId: string) {
   };
 }
 
+/**
+ * A local stand-in (the `mock://` endpoints, a server on this machine) is
+ * not a real send: the links in the payload are not the point there, and the
+ * tests and validators use nothing else.
+ */
+function isExternalDeliveryEndpoint(endpointUrl: string): boolean {
+  return !endpointUrl.startsWith("mock://") && !isLoopbackUrl(endpointUrl);
+}
+
 export async function sendDailyDigestToChannel({
   digestDate,
   channelId,
@@ -690,6 +700,29 @@ export async function sendDailyDigestToChannel({
     };
 
     persistDeliveryRun(run, channel.id, "当前版本尚未实现该投递渠道类型。");
+
+    return run;
+  }
+
+  // Every message carries links built from the site address. With
+  // `NEXT_PUBLIC_SITE_URL` unset or pointing at this machine those links open
+  // for nobody, so a send to a real service is refused and the run says why.
+  // Until 2026-10-21 the scheduled task runner, which never saw the
+  // variable, would have delivered `http://localhost:3000` links.
+  const siteUrlProblem = isExternalDeliveryEndpoint(channel.endpointUrl)
+    ? getPublicSiteUrlProblem()
+    : undefined;
+
+  if (siteUrlProblem) {
+    const errorMessage = `${siteUrlProblem}已拒绝发送；在 .env.local 设置正式地址并重启后重试。`;
+    const run: DeliveryRun = {
+      ...baseRun,
+      status: "failed",
+      finishedAt: getTimestamp(),
+      errorMessage
+    };
+
+    persistDeliveryRun(run, channel.id, errorMessage);
 
     return run;
   }
