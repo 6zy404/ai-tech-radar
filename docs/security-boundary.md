@@ -116,7 +116,9 @@ Public routes can be exposed:
   says only that this browser has some reading history — never which. The
   vectors are of already-public text, the same ones `/search` uses)
 - `GET /api/health` (liveness for an external monitor; reports the build id,
-  uptime, published-signal count and search-model state — nothing a reader
+  uptime, the counts of the five stores the home page reads (signals, news
+  lane, latest digest, skills, knowledge; 2026-10-21) and search-model state;
+  a failed read is named by store, never by path — nothing a reader
   could not infer from the site, no paths or env)
 - `POST /api/technologies/compare`
 - `POST /api/technologies/explain`

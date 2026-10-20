@@ -798,11 +798,13 @@ in any public response.
 
 Deployment configuration is not persisted as content. It is read from environment variables at runtime.
 
-- `NEXT_PUBLIC_SITE_URL`: public base URL used by digest pages and feed links.
+- `NEXT_PUBLIC_SITE_URL`: public base URL used by digest pages and feed links. Since 2026-10-21 it has one definition (`src/lib/site-url.ts`) and the launcher also reads it from `.env.local` for the task runner and the push sender, which refuse to send to a real channel while it is unset or loopback.
 - `WORKSPACE_ACCESS_ENABLED`: enables the minimal workspace/API protection middleware.
 - `WORKSPACE_ACCESS_TOKEN`: shared token accepted by Bearer, Basic auth password, or `x-workspace-access-token`.
 - `LOCAL_DATA_DIR`: local JSON workflow directory; defaults to `./config`.
 - `TASK_RUNNER_INTERVAL_SECONDS`: default interval for `npm run tasks:watch`.
+- `BACKUP_DIR` / `BACKUP_KEEP` / `BACKUP_FORCE` (2026-10-21): the snapshot directory, how many of the newest days with a verified snapshot to keep (days, not snapshots), and a manual extra copy.
+- `LOG_TIMESTAMPS=1` (2026-10-21): the launcher prefixes every line the child process writes with an ISO-8601 UTC time; off unless a scheduled task's command line sets it.
 - `DELIVERY_WEBHOOK_ENDPOINT` and `FEISHU_WEBHOOK_ENDPOINT`: optional operator references only; real channel endpoints are managed in the Internal Workspace.
 - `PUBLIC_AI_RATE_LIMIT_PER_MINUTE` / `PUBLIC_AI_RATE_LIMIT_PER_HOUR`: optional per-client, per-route request budgets for the four public AI routes (defaults 10 / 40). Not persisted state; the limiter's windows live in process memory only.
 - `PUBLIC_AI_DAILY_LIMIT` (2026-10-20): the site-wide total of model calls the four public AI routes may make together per Asia/Shanghai day (default 500, `PUBLIC_AI_DAILY_LIMIT_DEFAULT` in `src/lib/public-ai-daily-cap.ts`; unset or invalid means the default). Cache hits do not count. Unlike the per-client windows, the count is persisted — `config/public-ai-usage.json` — so a restart keeps the day's total.

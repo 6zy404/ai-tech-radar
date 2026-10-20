@@ -17,6 +17,7 @@
 - **2026-10-20 编辑轮**（盲评，起草提示词 v2「用自己的话」）：71 条，发 7 条（Gemini 4 Argon 全面开放置顶、Muse Spark Open、Beam、DeepSeek V4.1 Flash 1017、Agent Lightning、vLLM v0.32.0、Harness²），标已看 42、拒 22，出 10-20 简报。同日：10-13 三条 AI 起草正文改写完（逐字取自原文 41–58% → 4–12%）；8 条新知识的 113 处关系补附注；25 条原文链接 hf-mirror.com → huggingface.co；雷达 6 条补依据；稍后读 / 已读按钮修复上线；公开 AI 接口每日总额度上线（默认 500 次 / 天）。模型调用偶发 `fetch failed`（代理到 api.deepseek.com 的 TLS 被重置），重试即可，原因进服务器日志。
 - **2026-10-21 审查批次 B 已结**（性能与崩溃）：perf-1 / perf-8 / dev-public-6 / dev-public-7 在 10-14 已修、复测不复现；perf-4 补了关系覆盖层解析缓存（页面关系查询再降约 60–65%，vitest 1357 用例全过）；dev-public-2 的清理脚本 `purge-mock-ai-cache.ts` 10-21 对线上跑过，删掉 7 月 mock 模型写进三个 AI 缓存的 9 条模板答案（7 条解读、1 条对比、1 条学习路径），三个缓存现在是空的。perf-4 的代码等批次 A / C 一起部署。
 - **2026-10-21 审查批次 A 已结**（公开页读屏与键盘，10 条）：8 条已被 10-14 晚的 93127f5 修过（当时没记 CHANGELOG）；本轮补全站 scroll-padding（落点不变）、雷达 +/− 不进读屏名、筛选无结果链接下划线、当前视图加强调条、对比下拉框英文名，主控在窗格里复核过视图条、雷达、技能筛选三页。Shift+Tab 落到顶栏后面只在 Firefox / Safari 发生，没真机验证；关系网络 166 个节点的 Tab 顺序仍按数组（审查没给修法）。代码待部署。
+- **2026-10-21 审查批次 C 已结**（运维与数据安全，7 条）：ops-host-3 10-14 已有 fsync（补量：7.3 MB 写入中位 7.3 ms，无刷盘 3.6）；dev-arch-1 站点地址只定义一处，任务运行器从 .env.local 读 NEXT_PUBLIC_SITE_URL，地址是 localhost 时拒绝向真实渠道投递 / 推送；dev-arch-13 补齐 .env.example 与部署文档的变量；sec-internal-3 加 Dependabot（每周一，next 一组）；ops-data-7 check:pipeline 打印运行时间、启动器可选 LOG_TIMESTAMPS=1、隧道日志轮转写进文档；ops-data-8 /api/health 读首页全部五个数据文件，坏一个 503 并点名；ops-data-9 BACKUP_KEEP 改为天数（现值 14 即 14 天）。主控在开发服务器上核对过 /api/health。代码待部署。
 - **2026-10-02 停机约 20 分钟**：无头 Chrome 每个进程以 Administrator 失败登录一次，10 分钟 10 次即锁账户，服务的计划任务（S4U）随之起不来。截图用预览窗格；`npm run deploy` / `deploy:rollback` 先查 10 分钟内的 4625 事件，有就拒绝。
 - **部署方式**：`npm run deploy`（旁路构建 → 换目录 → 重启 → 健康检查，不健康自动回滚）；`deploy:rollback` 回上一版；`.next-old` 始终是上一版。二十余次实跑停机 1.7–3.4 秒。**依赖变了时 deploy 不重装**：先停服务、主检出 `npm ci`、再 deploy（10-14 实测停机约 1.5 分钟）。说明在 `docs/deployment.md` →「Deploy with one command」。
 - **本机探测用 `127.0.0.1`，别用 `localhost`**（IPv6 先试被拒，首次约 2 秒）。2026-09-28 演练脚本误停过线上 78 秒，已加防护。
@@ -44,7 +45,7 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 | -------- | ------------------------------------------------- | ------------------ | ------------------------------------- |
 | 异盘备份 | 快照与源同盘（`npm run backup:data`，每天 07:45） | 盘坏不至于两份全丢 | **需要 owner 提供第二块盘或网络位置** |
 
-- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已并入 main，待部署）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已并入 main，待部署）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9），做完由主控 cherry-pick 并部署。下一批候选：SEO、文档过期、内容与文案小错。
+- 审查报告 10-21 按源数据重算：137 条未修（P1 4、P2 50、P3 83，其中 27 条「需要你决定」），清单在仓库外 `C:/Users/Administrator/ai-tech-radar-hub/pending/pending-findings.md`。第一批三个窗口 10-21 开工：A 公开页读屏与键盘（ui-static-1/2/4/6/7/8/9/10/14/15；10-21 已并入 main，待部署）、B 性能与崩溃（perf-1/4/8、dev-public-2/6/7；10-21 已并入 main，待部署）、C 运维与数据安全（ops-host-3、dev-arch-1/13、sec-internal-3、ops-data-7/8/9；10-21 已并入 main，待部署）。三组合并后整批跑 validate:all + build:public 再部署。下一批候选：SEO、文档过期、内容与文案小错。
 
 - 部署脚本的自动回滚只在替身服务上演练过，真环境里还没触发过。
 
@@ -71,7 +72,9 @@ AI 起草的标题 7 条全超长（41–60 字），要手改并量换行；`V4
 
 ### 5. 卡在 owner 的事
 
-- 真实告警渠道：10-21 选定飞书 webhook（国内直连，代理掉线时也能收到；Telegram / Discord 都得走代理）。owner 在飞书群建自定义机器人，把 webhook 地址贴进工作台 /workspace/delivery 的新建渠道表单（主控不碰密钥），主控再把渠道 id 写进主检出 .env.local 的 `OPS_ALERT_CHANNEL_ID` 并跑 `npm run check:pipeline -- --test`；线上现在只有 local-mock-webhook。顺带确认公开 AI 日总额度 500 次 / 天合不合适（约 2M tokens / 天封顶）。
+- 真实告警渠道：10-21 选定飞书 webhook（国内直连，代理掉线时也能收到；Telegram / Discord 都得走代理）。owner 在飞书群建自定义机器人，把 webhook 地址贴进工作台 /workspace/delivery 的新建渠道表单（主控不碰密钥），主控再把渠道 id 写进主检出 .env.local 的 `OPS_ALERT_CHANNEL_ID` 并跑 `npm run check:pipeline -- --test`；线上现在只有 local-mock-webhook。
+- 计划任务命令要改（C 组 10-21 提议，命令在 docs/deployment.md →「Timestamps in the service logs」与「Tunnel watchdog」）：ai-tech-radar-server / -tasks 加 `set LOG_TIMESTAMPS=1 &&`（可选，下次重启生效）；ai-tech-radar-tunnel 改成 cloudflared 直跑 + `--log-directory C:UsersAdministrator.cloudflaredlogs`（1 MB 轮转留 5 份，现日志 6.8 MB；会重启隧道），随之看门狗任务加 `-TunnelLog …logscloudflared.log`，setup-service-account.ps1 的日志重定向也要跟。
+- 主检出 .env.local 加 `PUSH_VAPID_SUBJECT=mailto:<你的邮箱>`（推送的 VAPID subject 10-21 起不再回落到站点地址，没有就拒发）；Dependabot 从下周一起每周最多开 5 个 PR，要人合并。顺带确认公开 AI 日总额度 500 次 / 天合不合适（约 2M tokens / 天封顶）。
 - 新信号提醒上线后用真机走一遍（桌面 Chrome 或 Android）：开提醒 → 编辑轮推送 → 收到通知 → 关提醒后服务器记录消失。预览窗格不给通知权限，做不了。
 - 用真实的 Telegram bot 和 Discord webhook 各发一次已发布简报，核对排版和截断；服务器要通过代理启动（同推送，手册 Step 7b）。
 - GitHub 仓库**本来就是公开的**（状态板曾误记为待办）。2026-10-15 已把候选快照、两个评测集、旧审计日志和内部截图从全部历史中删除并强推，

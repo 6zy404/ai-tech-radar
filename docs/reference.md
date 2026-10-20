@@ -670,7 +670,10 @@ The product is split into two subsystems:
   scheduled sending of published digests, and a local cron/task runner that
   also runs the scheduled daily source import (see
   [`docs/deployment.md`](deployment.md) for Windows Task Scheduler
-  setup).
+  setup). Since 2026-10-21 a send to a real channel and a push run are
+  refused while `NEXT_PUBLIC_SITE_URL` is unset or loopback
+  (`src/lib/site-url.ts` is the one definition of the site address, and the
+  launcher reads the variable from `.env.local` for the task runner).
 - **Editorial round console (`/workspace/editorial-round`)** — a workspace-only
   orchestration page that collapses the recurring editorial-round loop (see
   [`docs/editorial-round-playbook.md`](editorial-round-playbook.md)) onto
@@ -829,7 +832,7 @@ Public, user-facing routes:
 - `/news`, `/timeline` redirect to the matching `/technologies?view=` (`/radar`
   did too until 2026-10-13; it is now the technology radar)
 - `GET /api/health` — public liveness check for an external uptime monitor:
-  `200 { status: "ok" }` while the store reads, `503` when it does not, plus
+  `200 { status: "ok" }` while every store the home page reads parses (signals, news lane, latest digest, skills, knowledge — their counts are answered; 2026-10-21), `503` naming the failed read when one does not, plus
   the build id, uptime, published-signal count and the semantic search
   model/corpus state (see `docs/deployment.md` → "Health endpoint and uptime
   alerts")
@@ -917,7 +920,7 @@ npm run sync:candidates  # refresh imported candidates from live sources
 npm run gen:favicon      # rebuild src/app/favicon.ico from its generator
 node scripts/generate-pwa-icons.mjs  # rebuild the PWA icons under public/
 node scripts/generate-vapid-keys.mjs # print a VAPID pair for reader push (.env.local only, never committed)
-npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR
+npm run backup:data      # verified timestamped snapshot of LOCAL_DATA_DIR (keeps the newest BACKUP_KEEP days, 2026-10-21)
 npm run measure:news-lane # who the public 全部快讯 view is currently showing
 node scripts/run-ts.cjs scripts/measure-semantic-dedup.ts [--unlabelled] [--batch <name> --new-since <date>] # semantic dedup precision/recall per threshold against eval/dedup/labels.jsonl; held-out mode scores one labelling batch alone
 node scripts/run-ts.cjs scripts/refresh-semantic-dedup.ts # run the post-import semantic dedup once and list what it found (writes candidate-semantic-matches.json)
