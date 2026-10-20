@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T00:06:05.766Z",
+  "updatedAt": "2026-10-20T17:38:48.574Z",
   "sources": [
     {
       "id": "source-ollama-releases",
@@ -2451,7 +2451,7 @@
       "name": "Mistral AI News",
       "type": "rss",
       "url": "https://mistral.ai/rss.xml",
-      "enabled": true,
+      "enabled": false,
       "description": "Mistral 官方新闻。站内此前没有 Mistral 的信号（2026-10-12 信源试跑后加入）。",
       "language": "en",
       "publisherName": "Mistral AI",
@@ -2466,7 +2466,7 @@
       "consecutiveFailureCount": 7,
       "totalImportedCount": 0,
       "createdAt": "2026-10-12T03:10:35.312Z",
-      "updatedAt": "2026-10-20T00:05:49.713Z",
+      "updatedAt": "2026-10-20T17:38:48.574Z",
       "maxItems": 12,
       "lastErrorMessage": "请求失败（重试 3 次后仍失败）：fetch failed ← Connect Timeout Error (attempted address: mistral.ai:443, timeout: 10000ms) (UND_ERR_CONNECT_TIMEOUT)",
       "lastFetchedAt": "2026-10-20T00:05:49.713Z",
