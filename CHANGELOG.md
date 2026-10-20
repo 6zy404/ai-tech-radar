@@ -59,6 +59,75 @@ For per-topic deep dives, see the `docs/` directory.
   ops-data-7/8/9). The full list lives outside the repository, in
   `ai-tech-radar-hub/pending/pending-findings.md`.
 
+## Review batch B: performance and crashes — four no longer reproduce, two finished
+
+- **2026-10-21. The 2026-10-14 review's "performance and crashes" batch
+  (perf-1, perf-4, perf-8, dev-public-2, dev-public-6, dev-public-7), each
+  re-checked in the code before anything was changed.** Four had been fixed
+  on 2026-10-14 by the review's own fix commits and no longer reproduce; the
+  numbers below are the evidence. The other two had their code half done on
+  10-14 and get the remaining half here. Measurements are in-process on a
+  copy of the live data (117 signals, 22 skills, 27 knowledge, 19 topics,
+  1,264 merged relations), median of 10–20 runs; the dev-server timings are
+  warm and only say "no longer seconds", since `next dev` is not production.
+- **perf-1, the sitemap — 已不复现.** `/sitemap.xml` has read the topic list
+  through `getTopicIndex` since 7bfa510c (10-14), and `topic-hub.test.ts`
+  pins that its id set equals the tags whose hub exists. `sitemap()` is
+  3.9 ms (the review measured 958 ms); on the dev server `/sitemap.xml`
+  answers in 22 ms (192 KB) and `/api/health` in 18 ms.
+- **perf-4, per-item store reads — the remaining half.** The three changes
+  the review asked for (one relation read per list, map lookups in
+  `getContentGraph`, one read on the skill and knowledge pages) are in
+  7bfa510c: the 44-relation skill page's lookups take 2.5 ms (115 ms in the
+  pre-10-14 shape; the review measured 140), `getContentGraph` 5.3 ms (53),
+  `getTopicHub` 5.8 ms (45). What was left: `getAllLinkRelations()` parsed
+  and normalized `link-relation-workspace.json` (487 KB, 1,195 overrides) on
+  every call, 2.3 ms, and a skill page called it twice, a topic page three
+  times. The parse is now memoized per store revision — `memoizeStoreRead`
+  in `src/lib/store-read-memo.ts`, the helper `content.ts` kept privately
+  since 2026-08-18, with the same two-part key (in-process write counter plus
+  file mtime and size), so the task runner's writes invalidate it too; the
+  merged list is still built fresh per call, per the rule in
+  `docs/architecture.md`. `link-relation-store-cache.test.ts` holds both
+  write paths, and removing the fingerprint half was shown to fail exactly
+  the two other-process tests (this one and the content pools') and nothing
+  else. After: `getAllLinkRelations` 0.53 ms; the skill page's lookups
+  0.86 ms and its prerequisite chain 2.70 → 1.19 ms; the signal page's three
+  related lists 8.1 → 2.9 ms; `getContentGraph` 3.7 ms; `getTopicHub`
+  4.9 ms. Every relation-derived view — the graph, all 19 topic hubs in both
+  languages, every signal's three lists and evolution chain, every skill's
+  and knowledge item's lookups and prerequisite chain — was serialized with
+  the old and the new code and is byte-identical (3,048,760 bytes, the same
+  sha256). `getRelationItemsFor`, `resolveTitle` and `resolveSlug` (per-item
+  pool rebuilds, no callers left) are removed.
+- **perf-8, the recommendation file's ETag — 已不复现.** `etagMatches`
+  (weak comparison, lists, `*`) is in 7bfa510c with unit tests. On the dev
+  server `/signal-vectors.json` (112,495 bytes for 117 signals) answers 304
+  with 0 bytes to the strong tag, to the `W/"…"` form Cloudflare hands back,
+  and to a list containing it.
+- **dev-public-2, mock answers in the AI caches — the data half.** The
+  guard — a `mock_llm` record is not a cache hit once a real model is
+  configured (`isReusableCachedAiRecord`, 458b0784, 10-14, with
+  `technology-ai-cache.test.ts`) — already gives readers a fresh answer; but
+  a cache entry is only replaced when its exact key is asked for again, so
+  the July templates stay in the live files. `scripts/purge-mock-ai-cache.ts`
+  (dry run by default, `--apply` writes) lists each mock record with its key,
+  the published slugs it is about, provider, prompt version and date, writes
+  only the files that lose a record and kept records byte for byte, and
+  reports nothing to do on a second run; a record without a `generationMode`
+  reads as mock, as the guard reads it, and failed records stay. The rule is
+  `planMockAiCachePurge` in `src/lib/ai-cache-purge.ts`; the script is
+  tested end to end through `run-ts.cjs` on a temp data directory. This
+  worktree holds no copy of the three caches (git-ignored), so the owner
+  runs it on the live directory: `node scripts/run-ts.cjs
+scripts/purge-mock-ai-cache.ts`, read the list, then `--apply`.
+- **dev-public-6, `/ask?q=a&q=b` — 已不复现.** Fixed in 78a86a2d (10-14):
+  `/ask?q=a&q=b` and `/en/ask?q=a&q=b` answer 200 on the dev server, and
+  `?q=mcp&q=lora` pre-fills the box with `mcp`.
+- **dev-public-7, the radar hash — 已不复现.** Fixed in 93127f5b (10-14):
+  `/radar#radar-%E0%A4` renders the radar with no error page and no console
+  error.
+
 ## Three evaluations re-measured on data they were not tuned on
 
 - **2026-10-20. Triage prompts v2 and v3, scored on the two blind rounds
