@@ -128,6 +128,77 @@ scripts/purge-mock-ai-cache.ts`, read the list, then `--apply`.
   `/radar#radar-%E0%A4` renders the radar with no error page and no console
   error.
 
+## Audit batch A: screen-reader and keyboard fixes on the public pages
+
+- **2026-10-21. Ten items from the 2026-10-14 accessibility audit, each
+  checked against the current code before anything was changed.** Eight
+  had been fixed, in whole or in part, by the evening commit of that same
+  day (93127f5, which left no entry here), so those parts are recorded as
+  已不复现 and were verified in the preview rather than redone: ui-static-1
+  (Esc in the nav search hands focus back to the toggle —
+  `document.activeElement` is the toggle after Esc); ui-static-4 (a network
+  node shows its name on keyboard focus and is named 技术：… / 技能：… /
+  知识：…; verified with a dispatched focus event, because a scripted
+  `focus()` in a window without system focus moves `activeElement` without
+  firing `focus`, and a first check read that as a miss); ui-static-6's
+  inputs (搜索技术信号, 搜索节点标题, the compare select named);
+  ui-static-7 (each AI widget has a `role="status"` line for 生成中 /
+  已生成 and `role="alert"` on its error, and the 精选 count is a status);
+  ui-static-8 (no `aria-live` left on /ask, the network aside or the alert
+  switch — one status line each); ui-static-9 (中文 / 原文 carry
+  `aria-pressed`; 隐藏已读 has none and says what a press does);
+  ui-static-10's semantics (a `<nav>` of links with `aria-current="page"`,
+  no `tablist`); and ui-static-15's buttons (the ✓ / + prefixes are
+  `aria-hidden`, 4 of 4 on a signal page). The two items that were wholly
+  open and the three halves that commit had left are below. Not changed:
+  the network's Tab order through its 166 nodes is still array order,
+  which the audit noted without proposing a fix.
+- **ui-static-2 — `html { scroll-padding-top: 72px }`.** The top nav is
+  sticky and 61px tall (65px at 390, where the brand wraps) and the
+  scroller did not know it, so any scroll to a target without its own
+  scroll-margin — an anchor jump, a `scrollIntoView`, an edge-aligned
+  focus scroll — put it under the bar. The margins add to the padding, so
+  each target keeps only what it had above the bar: 86px → 14px (本页目录
+  sections, the jump-chip headings on /about, /sources and 按话题, radar
+  entries), 96px → 24px (j/k signal cards; a network node keeps 96px
+  below). The TOC's activation line reads the padding plus the margin, so
+  it is still 86px plus its 16px of slack. Measured after the change:
+  section anchor jump 86.5px, j/k card from below 96.5px, network node
+  from below 96.0px, nav bottom 61px, and the TOC entry of the section
+  jumped to becomes the current one (through the component's own recount;
+  the observer does not fire while the pane is hidden). Chromium centres
+  a newly focused element that was out of view — the audit's Shift+Tab
+  case landed at 408px of 768, not under the bar — so that case is
+  Firefox's and Safari's edge-aligned focus scroll, which scroll-padding
+  is the standard answer to and could not be exercised here.
+- **ui-static-15, the CSS half.** The radar list's open/closed mark is CSS
+  generated content, which Chromium reads into the `<summary>`'s name, so
+  each entry was 「1 vLLM · 采用 加号」 on top of the open/closed state the
+  element already reports. Both `content` declarations carry an empty
+  alternative text (`"+" / ""`, `"−" / ""`); the computed content is the
+  two-part value in both states and the mark still renders.
+- **ui-static-14.** The 全站搜索 link in the /skills and /knowledge no-match
+  line differed from its sentence by colour alone — accent on muted is
+  1.35:1 (1.12:1 dark). It takes the content-body rule for a link inside a
+  sentence: a 1px underline at half the text colour, 0.2em down, full
+  colour on hover.
+- **ui-static-10, the visual half.** What marked the current view all sat
+  under 3:1 — surface on ground 1.15:1, border 1.39:1, ink against the
+  muted tabs 2.27:1 (dark 1.16 / 1.76 / 2.13) — so the active tab now also
+  carries a 2px accent rail along its top edge (6.9:1 on the ground, 5.6:1
+  dark; an inset box-shadow, so nothing moves) and weight 600. Looked at
+  in both schemes at 1024 and at 375, where the five tabs wrap and each
+  row keeps its own rail.
+- **ui-static-6, the rest.** The compare `<select>`'s 2026-10-14 label was
+  a literal Chinese string, so /en named it in Chinese while its sibling
+  took the locale's copy; `selectLabel` joins the compare copy in both
+  languages (选择要对比的技术 / Technology to compare with).
+- Gates: `npm run typecheck`, `vitest run src/lib/page-toc.test.ts
+src/lib/i18n` (37 tests), prettier and eslint on every changed file. No
+  build and no headless Chrome: every number is from the app's preview
+  pane against this worktree's copy of the data. Five fix commits, one per
+  item, plus this entry.
+
 ## Three evaluations re-measured on data they were not tuned on
 
 - **2026-10-20. Triage prompts v2 and v3, scored on the two blind rounds
