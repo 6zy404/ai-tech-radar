@@ -390,7 +390,13 @@ export function toClientDeliveryChannel(
   };
 }
 
-function getStoredDeliveryChannelById(
+/**
+ * The channel with its secrets. Besides this workflow, only
+ * `src/lib/ops-alert.ts` calls it — to hand the channel straight to an
+ * adapter's `send`. Never return the result from a page or an API route;
+ * those get `getDeliveryChannelById`.
+ */
+export function getStoredDeliveryChannelById(
   channelId: string
 ): StoredDeliveryChannel | undefined {
   return readDeliveryStore().channels.find(

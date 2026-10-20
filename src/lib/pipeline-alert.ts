@@ -73,6 +73,24 @@ export function buildPipelineToast(
   return { title, body: `${body} ${footer}` };
 }
 
+/**
+ * The same alerts for the off-site channel (`src/lib/ops-alert.ts`), which
+ * has room for every description where the toast has 240 characters.
+ */
+export function buildPipelineOpsAlert(
+  alerts: readonly OperationsAttentionItem[]
+): { title: string; body: string } {
+  return {
+    title: `AI Tech Radar：${alerts.map((alert) => alert.title).join("；")}`,
+    body: [
+      ...alerts.map(
+        (alert) => `[${alert.severity}] ${alert.title}：${alert.description}`
+      ),
+      "打开工作台 → 运维查看；第一件事看任务运行器日志首行写的数据目录。"
+    ].join("\n")
+  };
+}
+
 export function readPipelineAlertState(
   statePath = getPipelineAlertStatePath()
 ): PipelineAlertState {
