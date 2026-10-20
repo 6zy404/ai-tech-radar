@@ -1518,10 +1518,18 @@ days later; a stalled model download logged nothing at all. Two pieces close
 that:
 
 **`GET /api/health`** (public, no token, `Cache-Control: no-store`) answers
-`200` with `{ status: "ok" }` when the JSON store reads, `503` with
-`"degraded"` when it does not — the one state in which the site serves
-nothing useful. The body also carries the running `build` id, `uptimeSeconds`,
-the published-signal count, and the semantic search state:
+`200` with `{ status: "ok" }` when every store the home page reads does
+read, `503` with `"degraded"` when one does not — the state in which the
+site serves errors. Since 2026-10-21 `checks.store` covers the published
+signals, the news lane (the candidate snapshot: the largest store, and the
+one every import rewrites), the latest published digest, and the skill and
+knowledge pools — `{ ok, publishedSignals, newsItems, latestDigest, skills,
+knowledge }`, or `{ ok: false, failed: ["news"] }` naming the read that
+threw, never a path. Until then it read the signals alone, so a damaged
+candidate or digest file would have 500ed the home page while the check
+stayed green. The reads are the pages' own memoized ones, so the check costs
+nothing extra. The body also carries the running `build` id, `uptimeSeconds`
+and the semantic search state:
 `search.model` is `idle` / `loading` / `ready` / `failed` from the load gate
 in `src/lib/model-load-gate.ts`, `search.corpus` whether the passage vectors
 for the current documents exist. A `failed` model does **not** flip the
