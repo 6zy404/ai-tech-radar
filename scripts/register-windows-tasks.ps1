@@ -24,6 +24,10 @@ Four settings are load-bearing on both tasks:
                        Its absence cost the import task 9 missed days.
   battery settings     do not skip or stop on battery.
   ExecutionTimeLimit   server only: unlimited, or Windows stops it after 3 days.
+  LOG_TIMESTAMPS=1     server only (2026-10-21): the launcher writes an ISO
+                       time in front of every line of config\server.log,
+                       which had none (docs/deployment.md → "Timestamps in
+                       the service logs").
 
 .EXAMPLE
   powershell -ExecutionPolicy Bypass -File scripts\register-windows-tasks.ps1
@@ -92,7 +96,7 @@ Register-ProjectTask `
 if ($IncludeServer) {
     Register-ProjectTask `
         -Name "ai-tech-radar-server" `
-        -Argument "/c cd /d $repoRoot && npm run start >> config\server.log 2>&1" `
+        -Argument "/c cd /d $repoRoot && set LOG_TIMESTAMPS=1 && npm run start >> config\server.log 2>&1" `
         -Trigger (New-ScheduledTaskTrigger -AtStartup) `
         -Settings (New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1) -ExecutionTimeLimit ([TimeSpan]::Zero)) `
         -Description "Production Next server for the public site."

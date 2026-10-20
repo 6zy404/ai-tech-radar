@@ -18,7 +18,7 @@
 // the proxy.
 import type { OperationsAttentionItem } from "../src/lib/operations-metrics";
 import { getPipelineAlerts } from "../src/lib/operations-metrics";
-import { sendOpsAlert } from "../src/lib/ops-alert";
+import { formatOpsAlertTime, sendOpsAlert } from "../src/lib/ops-alert";
 import {
   buildPipelineOpsAlert,
   buildPipelineToast,
@@ -33,6 +33,13 @@ const args = new Set(process.argv.slice(3));
 const dryRun = args.has("--dry-run");
 
 async function main(): Promise<number> {
+  const now = new Date();
+
+  // The task appends this script's output to config/pipeline-alert.log, and
+  // until 2026-10-21 nothing in it said when a line was written, so a
+  // 「定时导入逾期未运行」 could not be dated without counting entries back.
+  console.log(`运行时间：${formatOpsAlertTime(now)}`);
+
   if (args.has("--test")) {
     const shown = showWindowsToast({
       title: "AI Tech Radar：通知测试",
@@ -51,7 +58,6 @@ async function main(): Promise<number> {
     return shown.ok ? 0 : 2;
   }
 
-  const now = new Date();
   const { importStall, candidateBacklog } = getPipelineAlerts({ now });
   const alerts: OperationsAttentionItem[] = [
     ...importStall,

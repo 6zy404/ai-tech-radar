@@ -765,6 +765,11 @@ the middleware-location section above before going any further.
 - `PERSISTENCE_DRIVER`: `json` by default; set to `sqlite` after running database initialization and migration.
 - `SQLITE_DATABASE_PATH`: optional SQLite database path; defaults to `./config/ai-tech-radar.sqlite`.
 - `TASK_RUNNER_INTERVAL_SECONDS`: watch-loop interval for `npm run tasks:watch`.
+- `LOG_TIMESTAMPS`: `1` makes the launcher (`scripts/with-proxy-env.mjs`, so
+  `dev`, `start`, `tasks:*`, `check:pipeline`, `ops:alert`) write an
+  ISO-8601 UTC time in front of every line the command prints — for the
+  scheduled tasks' logs, which had none (2026-10-21, "Timestamps in the
+  service logs" below). Off unless set.
 - `IMPORT_FETCH_ATTEMPTS`: source-fetch attempts before a source is marked
   failed (default `3`, capped at `5`). Retries cover transport failures,
   timeouts, `429`, and `5xx`; a `4xx` is treated as a configuration problem
@@ -1255,21 +1260,31 @@ alerts to go anywhere.
 
 **Suggested, not done: let `cloudflared` write its own log.** The tunnel
 task's action runs through `cmd /c … >> tunnel.log`, which is the only reason
-`Stop-ScheduledTask` cannot stop it. `cloudflared` has `--logfile`:
+`Stop-ScheduledTask` cannot stop it — and the reason that log never rotates:
+a file another process holds open cannot be renamed, so nothing can touch it
+while the tunnel runs. `cloudflared` has two options, read from its source
+on 2026-10-21 (`logger/configuration.go`, `logger/create.go`; 2026.9.1 is
+installed): `--logfile <file>` opens the file in append mode and **never
+rotates** it, so it would only move the problem; `--log-directory <dir>`
+writes `<dir>\cloudflared.log` through lumberjack, rotating at **1 MB** and
+keeping **5** old files (never by age). The rotating one is the one to use:
 
 ```powershell
 $a = New-ScheduledTaskAction -Execute "C:\Program Files (x86)\cloudflared\cloudflared.exe" `
-  -Argument '--config C:\Users\Administrator\.cloudflared\config.yml --logfile C:\Users\Administrator\.cloudflared\tunnel.log tunnel run ai-tech-radar'
+  -Argument '--config C:\Users\Administrator\.cloudflared\config.yml --log-directory C:\Users\Administrator\.cloudflared\logs tunnel run ai-tech-radar'
 Set-ScheduledTask -TaskName "ai-tech-radar-tunnel" -Action $a
 ```
 
 With that, the task's process is `cloudflared.exe` itself,
 `Stop-ScheduledTask` stops it, and the watchdog's `Stop-Process` becomes a
-fallback rather than the mechanism. Not applied here: changing the action
-takes effect on the next start, which means restarting the tunnel, and that
-is the owner's call (`CLAUDE.md` → "Parallel windows"). Check first whether
-`--logfile` appends or truncates on start; the watchdog works with either
-shape of the task.
+fallback rather than the mechanism. Two things move with the log: the
+watchdog reads its tail by path (`-TunnelLog`, default
+`~\.cloudflared\tunnel.log`), so the watchdog task's argument needs
+`-TunnelLog C:\Users\Administrator\.cloudflared\logs\cloudflared.log`; and
+`scripts/setup-service-account.ps1` still rewrites the action as a
+`>> logs\tunnel.log` redirect, which would have to follow. Not applied here:
+changing the action takes effect on the next start, which means restarting
+the tunnel, and that is the owner's call (`CLAUDE.md` → "Parallel windows").
 
 **It restarted a healthy tunnel three times on its first evening** (2026-10-20
 20:38–21:33). The proxy on 127.0.0.1:7890 stopped answering for an hour, every
@@ -1288,6 +1303,39 @@ then 120 minutes, `restartsInEpisode` in the state file), reset when the
 domain answers 200 again. Both rules were dry-run against a closed port (both
 routes silent → no restart planned) and against a local 404 (an answer → the
 restart is planned).
+
+### Timestamps in the service logs (2026-10-21)
+
+`config/server.log` had no dates: 655 lines by 2026-10-14 — a `/ask`
+TypeError and two missing Server Actions among them — and no way to put any
+of them next to a deploy, an import or a visitor. `next start` prints no
+time of its own and a `>>` redirect cannot add one; the launcher can. With
+`LOG_TIMESTAMPS=1` in the environment, `with-proxy-env.mjs` pipes the
+child's stdout and stderr instead of inheriting them and writes every line
+with an ISO-8601 UTC time in front (`scripts/log-lines.mjs`; blank lines
+stay blank, a trailing partial line is flushed, the exit code is the
+child's). It is opt-in because piping is a change to how the live server is
+started: nothing changes until a task's command line says so. Tested by
+spawning the launcher both ways (`scripts/log-lines.test.mjs`).
+
+To turn it on for the server and the task runner — the owner's call; each
+takes effect at the task's next start, the server's on the next deploy or
+reboot. The actions below are the ones registered on 2026-10-21 plus the one
+variable:
+
+```powershell
+$a = New-ScheduledTaskAction -Execute "cmd" -Argument '/c cd /d C:\Users\Administrator\ai-tech-radar && set LOG_TIMESTAMPS=1 && npm run start >> config\server.log 2>&1'
+Set-ScheduledTask -TaskName "ai-tech-radar-server" -Action $a
+$a = New-ScheduledTaskAction -Execute "cmd" -Argument '/c cd /d C:\Users\Administrator\ai-tech-radar && set NODE_USE_ENV_PROXY=1 && set NO_PROXY=localhost,127.0.0.1,::1,.local,hf-mirror.com && set LOG_TIMESTAMPS=1 && npm run tasks:run-once >> config\task-runner-cron.log 2>&1'
+Set-ScheduledTask -TaskName "ai-tech-radar-tasks" -Action $a
+```
+
+`scripts/register-windows-tasks.ps1` registers the server task with the
+variable from now on. `check:pipeline` needs none: since the same day its
+first line is 运行时间 (Asia/Shanghai, the format of the alerts it sends), so
+`pipeline-alert.log` — git-ignored since 2026-10-20 — reads by date. The
+tunnel log is the one log nothing rotates; the fix is in "Tunnel watchdog"
+above (`--log-directory`).
 
 ### Proxy for every entry point
 

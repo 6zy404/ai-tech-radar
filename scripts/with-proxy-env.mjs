@@ -20,6 +20,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadEnvFileKeys } from "./env-file.mjs";
+import { formatLogTimestamp, pipeWithTimestamps } from "./log-lines.mjs";
 import {
   applyProxyEnvDefaults,
   getConfiguredProxyUrl,
@@ -95,6 +96,16 @@ if (!command) {
   process.exit(2);
 }
 
+// `LOG_TIMESTAMPS=1` puts an ISO time in front of every line the child
+// writes, and this launcher's own line, for a log that is only ever read
+// after the fact — `config/server.log` from the server task had none
+// (`log-lines.mjs`). Opt-in: it pipes the child's output instead of
+// inheriting it, so the task's command line decides (docs/deployment.md →
+// "Timestamps in the service logs").
+const stampLogLines = process.env.LOG_TIMESTAMPS === "1";
+const stamp = (line) =>
+  stampLogLines ? `${formatLogTimestamp(new Date())} ${line}` : line;
+
 const env = { ...process.env };
 const loadedFromEnvFile = loadEnvFileKeys(
   path.join(repoRoot, ".env.local"),
@@ -133,27 +144,34 @@ if (process.env.PROXY_ENV_QUIET !== "1") {
       ? `（来自 .env.local：${loadedFromEnvFile.join(", ")}）`
       : "";
 
-  console.log(`[proxy] ${outcome.reason}${excluded}${source}`);
+  console.log(stamp(`[proxy] ${outcome.reason}${excluded}${source}`));
 }
 
 const target = resolveTarget(command, args);
 
 const child = spawn(target.file, target.args, {
-  stdio: "inherit",
+  stdio: stampLogLines ? ["inherit", "pipe", "pipe"] : "inherit",
   env,
   shell: target.shell
 });
 
+if (stampLogLines) {
+  pipeWithTimestamps(child.stdout, process.stdout);
+  pipeWithTimestamps(child.stderr, process.stderr);
+}
+
 child.on("error", (error) => {
-  console.error(`无法启动命令 ${command}：${error.message}`);
+  console.error(stamp(`无法启动命令 ${command}：${error.message}`));
   process.exit(1);
 });
 
 // Mirror the child's fate exactly, so a signal-killed child is not reported as
-// a clean exit — the failure mode that hid five Ctrl+C-killed task runs.
-child.on("exit", (code, signal) => {
+// a clean exit — the failure mode that hid five Ctrl+C-killed task runs. With
+// piped output, wait for `close` (both streams ended and flushed) rather than
+// `exit`, or the last lines could be lost.
+child.on(stampLogLines ? "close" : "exit", (code, signal) => {
   if (signal) {
-    console.error(`命令被信号终止：${signal}`);
+    console.error(stamp(`命令被信号终止：${signal}`));
     process.exit(1);
   }
 
